@@ -23,7 +23,7 @@
 }
 
 .breadcrumb { 
-  top: 10px;
+  top: 7px;
   padding-right: 0;
   background: none;
   position: relative;
@@ -3083,15 +3083,16 @@
 /*Blog Post Author
 ------------------------------------*/
 .blog-author {
-  padding: 20px;
+  padding: 0px;
   background: #fff;
 }
 
 .blog-author img {
   float: left;
-  width: 80px;
+  width: 135px;
   height: auto;
   margin-right: 20px;
+  
 }
 
 .blog-author .blog-author-desc {
@@ -3335,13 +3336,13 @@
 
 .news-v3 p {
   color: #555;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 /*News Info*/
 .news-v3 .posted-info li {
   color: #555;
-  font-style: italic;
+
 }
 
 .news-v3 .news-v3-in-sm .posted-info li {

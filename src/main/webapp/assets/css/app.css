@@ -869,6 +869,7 @@ h3.heading-xs {
 
 .sidebar-nav-v1 li a {
   display: block;
+  color: #1a1a1a;
 }
 
 .sidebar-nav-v1 li a:hover {
@@ -1042,7 +1043,7 @@ a.btn-u-xs {
 .btn-u:active, 
 .btn-u.active, 
 .open .dropdown-toggle.btn-u {
-   background: #5fb611;
+   background: #398439;
 }
 .btn-u-split.dropdown-toggle {
    border-left: solid 1px #5fb611;
@@ -1631,7 +1632,7 @@ span.badge-dark,
    list-style: none;
    margin-right: 3px;
    margin-bottom: 5px;
-   text-indent: -9999px;
+   
    display: inline-block;
 }
 
@@ -1670,9 +1671,11 @@ span.badge-dark,
 .social_dropbox {background: url(../img/icons/social/dropbox.png) no-repeat;}
 .social_evernote {background: url(../img/icons/social/evernote.png) no-repeat;}
 .social_facebook {background: url(../img/icons/social/facebook.png) no-repeat;}
+.social_facebook:hover {background: url(../img/icons/social/facebook.png) no-repeat; background-position: 0px -38px;}
 .social_forrst {background: url(../img/icons/social/forrst.png) no-repeat;}
 .social_github {background: url(../img/icons/social/github.png) no-repeat;}
 .social_googleplus {background: url(../img/icons/social/googleplus.png) no-repeat;}
+.social_googleplus:hover {background: url(../img/icons/social/googleplus.png)  no-repeat; background-position: 0px -38px;}
 .social_jolicloud {background: url(../img/icons/social/jolicloud.png) no-repeat;}
 .social_last-fm {background: url(../img/icons/social/last-fm.png) no-repeat;}
 .social_linkedin {background: url(../img/icons/social/linkedin.png) no-repeat;}

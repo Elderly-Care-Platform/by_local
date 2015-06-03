@@ -1,6 +1,6 @@
 /* Add here all your css styles (customizations) */
 .breadcrumb-divider{
-	height: 2px;
+	height: 1px;
 	background-color: green;
 	margin: 0;
 	position: relative;
@@ -29,11 +29,12 @@
 	float:right;
 	margin-top:10px;
 	font-family: Open Sans;
-	color:  #848484;
+	color:  #5fb611;
 	font-size: 14px; /* Approximation due to font substitution */
 	font-weight: 400;
 	line-height: 17px; /* Approximation due to font substitution */
-	text-align: left;
+	  cursor: pointer;
+
 }
 .left-container-img-wrapper .col-md-5{
 	padding:0;
@@ -92,7 +93,7 @@
 .also-by-wrapper .also-by-content:last-child{
 	border-width:0px;
 }
-.ask-question,.share-tips,.submit-article,.give-feedback,.send-message{
+.ask-question,.share-tips,.submit-article,.give-feedback,.send-message, .rate-review{
 	display: block;
 	background: #fff;
 	margin: 0 0 10px 0;
@@ -115,9 +116,10 @@
 .article-info{
 	font-size: 13.963px; /* Approximation due to font substitution */
 	font-weight: 400;
+	margin-top: 10px;
 }
 .article-info a{
-	font-style:italic;
+	
 }
 .article{
 	font-family: Open Sans;
@@ -235,9 +237,9 @@
 	#sidebar-nav-1 li{
 		font-family: Open Sans;
 		color:  #8b8b8b;
-		font-size: 12px; /* Approximation due to font substitution */
+		font-size: 14px; /* Approximation due to font substitution */
 		font-weight: 400;
-		line-height: 24px; /* Approximation due to font substitution */
+		line-height: 18px; /* Approximation due to font substitution */
 		text-align: left;
 	}
 	.discussion-page .send-message{
@@ -252,7 +254,7 @@
 	.discussion-page .send-message::-moz-placeholder { text-transform: uppercase; }
 	.discussion-page .send-message::-webkit-input-placeholder { text-transform: uppercase; }
 	.list-group-item.active, .list-group-item.active a{
-		background-color:#00AF50 !important;
+		background-color:#008a4b !important;
 		color: #fff !important;
 	}
 	.list-group-item
@@ -260,7 +262,7 @@
 		text-transform: uppercase;
 	}
 	.list-group-item:hover, .list-group-item:hover a{
-		background-color:#00AF50 !important;
+		background-color:#008a4b !important;
 		color: #fff !important;
 	}
 	.register-page .list-group-item:hover{
@@ -272,6 +274,13 @@
 		background-repeat: no-repeat;
 		background-position:5px;
 	}
+	.rate-review {
+  background-image: url("../img/review-rate.png");
+  background-repeat: no-repeat;
+  background-position: 5px;
+}
+	
+	
 	.share-tips{
 		background-image:url("../img/Share-aa.png");
 		background-repeat: no-repeat;
@@ -287,7 +296,7 @@
 		background-repeat: no-repeat;
 		background-position:5px;
 	}
-	.ask-question-textarea,.share-tip-textarea,.submit-article-textarea,.give-feedback-textarea,.send-message-textarea{
+	.ask-question-textarea,.share-tip-textarea,.submit-article-textarea,.give-feedback-textarea,.send-message-textarea, .rate-review-textarea{
 		position:fixed;
 		z-index:99;
 		height: 0px;
@@ -325,14 +334,15 @@
 		background-color:#f7f7f7;
 	}
 	.discussion-page .posted-info{
-		color:  #878787;
-		font-size: 11.963px; /* Approximation due to font substitution */
+		color:  #2a2a2a;;
+		font-size: 13px; /* Approximation due to font substitution */
 		font-weight: 400;
-		line-height: 24px;
+		line-height: 8px;
+		margin-bottom: 12px !important;
 	}
 	.discussion-page .article-heading{
 		font-family: Open Sans;
-		color:  #626262;
+		color:  #2a2a2a;
 		font-size: 16.181px; /* Approximation due to font substitution */
 		font-weight: 600;
 		line-height: 25.901px;
@@ -365,7 +375,8 @@
 		float:left;
 	}
 	.discussion-page .article-heading{
-		clear:both;
+		/* clear:both; */
+		  margin-top: 2px;
 	}
 	.discussion-page .news-v3 .post-shares{
 		margin-top:13px;
@@ -486,12 +497,14 @@
 		z-index:1;
 	}
 	.breadcrumb{
-		padding: 5px 15px 0px 15px;
-		font-size:12px;
+		padding: 0px 15px 0px 15px;
+		font-size:14px;
 		text-transform: uppercase;
 	}
 	.blog-author-desc .article-content p{
 		font-size:14px;
+		padding-right: 19px;
+		text-align: justify;
 	}
 	.inner-enter-comment-wrap{
 		margin-top:10px;
@@ -502,8 +515,8 @@
 		margin-left: 11px;
 	}
 	.posted-info li{
-		font-style:italic;
-		font-size:13px;
+		font-style:normal;
+		font-size:14px;
 	}
 	.posted-info li:first-child:before{
 		content:'' !important;
@@ -524,14 +537,31 @@
 		font-weight:bold;
 		font-size:20px;
 	}
+	
+	.discussion-page .question-first-letter:first-letter{
+		color:#ff0000;
+		font-size:20px;
+	}
+	.discussion-page .article-first-letter:first-letter{
+		color:#00d16f;
+		font-size:20px;
+	}
+	
+	.discussion-page .qa-first-letter:first-letter{
+		
+		
+		font-size:20px;
+		color:#f58220;
+	}
+	
+	
 	.discussion-page .answer-first-letter:first-letter{
 		color:#03D764;
-		font-weight:bold;
 		font-size:20px;
 	}
 	.discussion-page .post-first-letter:first-letter{
-		color:#00af50;
-		font-weight:bold;
+		color:#FF0000;
+	
 		font-size:20px;
 	}
 	.discussion-page .post-first-letter,.discussion-page .question-first-letter{
@@ -563,6 +593,8 @@
 .discussion-page .blog-author{
 	width:100%;
 	border-width:1px;
+	min-height: 151px;
+	max-height:auto;
 	box-shadow: 10px 10px 6px -6px #f3f3f3;
 	-webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
 }
@@ -791,4 +823,153 @@ margin-top:10px;
 .submit-article-textarea #mceu_73
 {
 	height: 144px;
+}
+
+/* new left column - ask- rate- share */
+
+.ask-article-feedback-all-img {
+  background-image: url(../img/ask-tip-share.png);
+  height:35px;
+  margin-left: -1px;
+    
+  background-repeat: no-repeat;
+  width: 100%;
+  position: relative;
+
+}
+
+.ask-question-pos{
+background-position: 0px 0px;
+
+}
+.ask-question-pos:hover, .ask-question-pos:active{
+	 background-position: 0px -196px;
+}
+
+.share-tips-pos{
+background-position: 0px -43px;
+
+}
+.share-tips-pos:hover, .share-tips-pos:active{
+	 background-position: 0px -239px;
+}
+
+
+.submit-article-pos {	
+	background-position: 0px -85px;
+}
+.submit-article-pos:hover, .submit-article-pos:active  {	
+	background-position: 0px -281px;
+}
+
+.give-feedback-pos {	
+background-position: 0px -143px;
+}
+.give-feedback-pos:hover {	
+background-position: 0px -339px;
+}
+
+.ask-question-lc, .share-tips-lc, .submit-article-lc, .give-feedback-lc, .send-message-lc, .rate-review-lc {
+  display: block;
+  background: #FAFAFA;
+  margin: 0 0 8px 0;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d2d2d2;
+  /* border-left-width: 3px; */
+  border-left-color: #00af50;
+  border-radius: 0;
+  padding: 0px;
+  height: 36px;
+  width: 100%;
+  margin-top: 0px;
+  cursor: pointer;
+}
+
+
+.top-8{
+  top: 8px;
+  position: relative;
+}
+
+.top-5 {
+  top: 5px;
+  position: relative;
+}
+
+.share-tips-lc:hover, .ask-question-lc:hover,  .submit-article-lc:hover, .give-feedback-lc:hover{
+ background-color: #E5E5E5; !important;
+}
+
+.list-head {
+  font-size: 18px;
+  height: 30px;
+
+}
+
+.bg-green-h2 {
+  height: 2px;
+  background-color: #008044;
+  position: absolute;
+  top: -1px;
+  z-index: 1;
+}
+
+.bg-gray-h1 {
+  height: 1px;
+  border-bottom:1px solid #c5c5c5;
+}
+.border-bottom-2 {
+  border-bottom: 2px solid #c5c5c5;
+}
+
+.border-bottom-1 {
+  border-bottom: 1px solid #c5c5c5;
+}
+
+.article-author img {
+  float: left;
+  width: 80px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.blog-author-img {
+  float: left;
+  width: 120px;
+  height: 135px;
+  margin-right: 20px;
+  position: relative;
+}
+
+.ask-qa-img {
+   float: left;
+  /* width: 121px; */
+  height: 100%;
+  margin-right: 20px;
+}
+.article-info.dp-inline-block p {
+  margin: 0px !important;
+}
+
+.articles-story{
+	font-family: Open Sans;
+	color: #2A2A2A;
+	font-size: 13.955px;
+	font-weight: 400;
+	line-height: 24px;
+	padding: 6px 15px 8px 15px;
+	text-align: justify;
+}
+
+ul.list-inline.posted-info li:before {
+  margin-right: 12px;
+}
+
+.social-icons span {
+  position: absolute;
+  top: 10px;
+  left: 51px;
+  color:#fff;
+  font-size:13px;
 }

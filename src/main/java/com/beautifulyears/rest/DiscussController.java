@@ -41,26 +41,21 @@ public class DiscussController {
 		this.discussRepository = discussRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
-	
-	
-	
-	
-	
 
 	@RequestMapping(consumes = { "application/json" })
 	@ResponseBody
 	public ResponseEntity<Void> submitDiscuss(@RequestBody Discuss discuss) {
 		if (discuss == null || discuss.getId() == null
 				|| discuss.getId().equals("")) {
-			System.out.println("NEW DISCUSS555");
+			System.out.println("NEW DISCUSS");
 			Discuss discussWithExtractedInformation = this
 					.setDiscussBean(discuss);
-			System.out.println("ok1");
+			
 			discussRepository.save(discussWithExtractedInformation);
-			System.out.println("ok2");
+			
 			ResponseEntity responseEntity = new ResponseEntity(
 					HttpStatus.CREATED);
-			System.out.println("ok1");
+			
 			System.out.println("responseEntity = " + (Object) responseEntity);
 			return responseEntity;
 		}
@@ -116,12 +111,11 @@ public class DiscussController {
 	public List<Discuss> allDiscussDiscussTypeAndTopic(
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId) {
-		
+
 		try {
 			System.out.println("show discuss of topic id = " + topicId
 					+ " :: discuss type = " + discussType);
-			
-			
+
 			Query q = new Query();
 			if (!discussType.equalsIgnoreCase("All")) {
 				q.addCriteria(Criteria.where((String) "topicId")
@@ -133,7 +127,7 @@ public class DiscussController {
 			}
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
-			
+
 			System.out.println("list size = " + list.size());
 			return list;
 		} catch (Exception e) {
@@ -283,36 +277,27 @@ public class DiscussController {
 
 	private Discuss setDiscussBean(Discuss discuss) {
 		try {
-			System.out.println("ok1");
+			
 			String userId = discuss.getUserId();
-			System.out.println("ok2");
 			String username = discuss.getUsername();
-			System.out.println("ok3");
 			String discussType = discuss.getDiscussType();
-			System.out.println("ok4");
 			String title = "";
-			System.out.println("discussType = " + discussType);
+			System.out.println("discussType = " + discussType + " :: photofilename = " + discuss.getArticlePhotoFilename());
 			if (discussType.equalsIgnoreCase("A")) {
 				title = discuss.getTitle();
 			}
-			System.out.println("ok5");
 			String text = discuss.getText();
-			System.out.println("ok6");
 			String discussStatus = discuss.getStatus();
-			System.out.println("ok7");
 			String topicId = discuss.getTopicId();
-			System.out.println("ok8");
 			String subTopicId = discuss.getSubTopicId();
-			System.out.println("ok9");
 			String tags = discuss.getTags() == null ? String.valueOf(topicId)
 					+ "," + subTopicId : String.valueOf(discuss.getTags())
 					+ "," + topicId + "," + subTopicId;
-			System.out.println("ok10");
 			int aggrReplyCount = 0;
 			int aggrLikeCount = 0;
 			return new Discuss(userId, username, discussType, topicId,
 					subTopicId, title, text, discussStatus, tags,
-					aggrReplyCount, aggrLikeCount);
+					aggrReplyCount, aggrLikeCount, discuss.getDiscussType().equals("A") ? discuss.getArticlePhotoFilename() : "");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

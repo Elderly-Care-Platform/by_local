@@ -13,6 +13,8 @@ public class Discuss {
 	private String id;
 
 	private String title;
+	
+	private String articlePhotoFilename;
 
 	public String getUsername() {
 		return username;
@@ -47,6 +49,16 @@ public class Discuss {
 	public Discuss() {
 
 	}
+	
+	
+
+	public String getArticlePhotoFilename() {
+		return articlePhotoFilename;
+	}
+
+	public void setArticlePhotoFilename(String articlePhotoFilename) {
+		this.articlePhotoFilename = articlePhotoFilename;
+	}
 
 	public String getTopicId() {
 		return topicId;
@@ -66,7 +78,7 @@ public class Discuss {
 
 	public Discuss(String userId, String username, String discussType, String topicId, String subTopicId, String title,
 			String text, String status, String tags, int aggrReplyCount,
-			int aggrLikeCount) {
+			int aggrLikeCount, String articlePhotoFilename) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -79,6 +91,7 @@ public class Discuss {
 		this.tags = tags;
 		this.aggrReplyCount = aggrReplyCount;
 		this.aggrLikeCount = aggrLikeCount;
+		this.articlePhotoFilename = articlePhotoFilename;
 	}
 
 	public String getTitle() {

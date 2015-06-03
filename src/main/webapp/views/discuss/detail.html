@@ -1,28 +1,17 @@
-
-		<div ng-controller="LoadCustomJSController"> </div>
-        <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
         <div class="breadcrumbs">
             <div class="container">
-                 <ul class="pull-right breadcrumb">
-					<li class="active"><a href="#/discuss//list/all">Discuss</a></li>
-					<li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all" ng-click="showme=false">{{bc_topic}}</a></li>
+                <ul class="pull-right breadcrumb">
+                    <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
+					<li class="active"><a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/all" ng-click="showme=false">{{discuss.topicId}}</a></li>
 					<li>{{discuss.subTopicId}}</li>
-			   	</ul>
+                </ul>
             </div>
         </div><!--/breadcrumbs-->
-
         <!--=== End Breadcrumbs ===-->
+        <br>
         <hr class="breadcrumb-divider" />
-        <!-- PATCH -->
-		    <br><p>
-
-
-
-
-
-
-
         <!--=== Content Part ===-->
         <div class="container content breadCrumbMargin">
             <div class="send-message-textarea textarea-label borderShadow">
@@ -30,45 +19,48 @@
                 <button class="btn-u btn message-submit disabled">SUBMIT</button>
             </div>
             <div class="row">
-                <div class="col-md-3 md-margin-bottom-40 left-container">
+                <div class="col-md-3 md-margin-bottom-40">
                     <div class="col-md-12 left-container-img-wrapper no-padding">
-                        <div class="col-md-5">
+                        <div class="col-md-12">
+                            <div class="row"><a href="#" class="font15">{{!discuss.username && discuss.userId || discuss.username}}</a></div>
+                        </div>
+                        <div class="col-xs-5">
                             <img class="img-responsive profile-img margin-bottom-20" src="assets/img/img1-md.jpg" alt="">
                         </div>
-                        <div class="col-md-7">
-                            <div class="row"><a href="" class="text-success"><h5 class="text-success">{{!discuss.username && discuss.userId || discuss.username}}</h5></a></div>
+                        <div class="col-xs-7">
                             <div class="row">
-                                Some blurb about user here
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci ligula, tincidunt in mattis ac, sagittis eu orci
                             </div>
                             <div class="row more-link">
-                                <a class="linked color-green" href="">More..</a>
+                                <a class="linked color-green" href="#">More..</a>
                             </div><div style="clear:both;"></div>
-                        </div>
+                        </div><div style="clear:both;"></div>
                     </div>
-                    <div class="also-by-wrapper col-md-12 no-padding">
+                    <div class="also-by-wrapper left-container-img-wrapper col-md-12 no-padding">
                         <div class="also-by-head col-md-12">ALSO BY <span class="uname">{{!discuss.username  && discuss.userId || discuss.username}}</span></div>
-                        <div class="also-by-content-wrapper col-md-offset-1 col-md-11 no-padding"  ng-repeat="discuss2 in discuss2">
+                        <div class="also-by-content-wrapper col-md-offset-1 col-md-11 no-padding" ng-repeat="discuss2 in discuss2">
                             <div class="col-md-12 also-by-content">
                                 <a href="#/discuss/{{discuss2.id}}"><div>{{discuss2.title}}</div></a>
                                 <div class="sec-line">In {{discuss2.subTopicId}} | {{discuss2.createdAt | date:'medium'}}</div>
                             </div>
+
                         </div>
                         <div class="col-md-7 col-md-offset-5">
                             <div class="row more-link">
-                                <a class="linked color-green" href="">More..</a>
+                                <a class="linked color-green" href="#">More..</a>
                             </div><div style="clear:both;"></div>
                         </div>
                     </div>
                     <div class="col-md-11 no-padding">
-                        <div class="send-message">SEND MESSAGE </div>
+                        <div class="send-message">SEND MESSAGE TO THE AUTHOR </div>
                     </div>
                 </div>
-                <div class="col-md-9 col-md-offset-3 md-margin-bottom-40 article-outer-wrapper articles-page">
+                <div class="col-md-9  md-margin-bottom-40 article-outer-wrapper articles-page">
                     <div class="padding20 whiteBg">
                         <div class="article">
-                            <div class="article-info"><nobr>
+                            <div class="article-info">
                                <ul class="list-inline posted-info">
-                                <li> <a href="">By {{!discuss.username && discuss.userId || discuss.username}}</a></li>
+                                <li> <a href="#">By {{!discuss.username && discuss.userId || discuss.username}}</a></li>
                                 <li> <a href="#/discuss/{{discuss.discussType}}/{{discuss.topicId}}/all" ng-click="showme=false">{{discuss.topicId}}</a></li>
                                 <li> {{discuss.createdAt | date:'medium'}}</li>
                             </ul>
@@ -76,13 +68,11 @@
                         <div class="article-heading">
                             {{discuss.title}}
                         </div>
-                        <div style="word-break: break-word;white-space: normal;width: 100%;">
-                         <!-- <img class="img-responsive profile-img margin-bottom-20" src="assets/img/img1-md.jpg" alt="" > -->
-                          <p class="lead">
+                        <div class="article-content">
+                         <img class="img-responsive profile-img margin-bottom-20" src="http://{{discuss.articlePhotoFilename}}" alt="" >
+                         <p class="articles-first-letter">
                          	<span ng-bind-html-unsafe="discuss.text"></span>
                          </p>
-
-                         <!-- <p>Donec vel consectetur ante, quis auctor augue. Donec enim sem, blandit in nisi ac, commodo blandit nisl. Praesent aliquam augue in mi egestas, sit amet placerat augue accumsan. Cras efficitur ipsum a mollis accumsan. Integer velit purus, iaculis vitae faucibus nec, facilisis eu dolor. Nam fermentum hendrerit erat, non sagittis ipsum imperdiet sit amet. Suspendisse bibendum ante lacus, quis lobortis velit finibus vitae.Vestibulum eget turpis at eros eleifend imperdiet. Aenean ac molestie urna, ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis.</p> -->
                      </div>
                  </div>
                  <div class="article-share-links news-v3">
@@ -91,15 +81,32 @@
                             <a>
                                 <i class="rounded-x icon-speech"></i>
                                 <span>{{discuss.aggrReplyCount}}</span>
-                                <div class="post-text">Comment</div>
+                                <div class="post-text post_text-comment">Comment</div>
                             </a>
                         </li>
-                        <li>
+                        <li class="shareClick">
                             <a>
                                 <i class="rounded-x icon-share"></i>
                                 <span>0</span>
                                 <div class="post-text">Share</div>
                             </a>
+                            <div class="shareClickWrapper">
+                                <div class="shareClickWrapperClose">
+                                    <img src="assets/img/Close-Normal.png" width="19" height="19" alt="" />
+                                </div><div class="clearfix"></div>
+                                <a href="" data-ajax="false">
+                                    <img src="assets/img/fb-share.png" alt="" />
+                                </a>
+                                <a href="" data-ajax="false">
+                                    <img src="assets/img/google-share.png" alt="" />
+                                </a>
+                                <a href="" data-ajax="false">
+                                    <img src="assets/img/Mail.png" alt="" />
+                                </a>
+                                <a href="" data-ajax="false">
+                                    <img src="assets/img/twitter-share.png" alt="" />
+                                </a>
+                            </div>
                         </li>
                         <li>
                             <a>
@@ -114,7 +121,7 @@
             </div>
             <div class="article-comments-wrapper">
                 <h2 class="text-success text-underlined">COMMENTS</h2>
-                <div class="col-md-12">
+                <div class="col-md-12 no-padding">
                     <div class="comment-wrapper">
                         <div class="blog-author margin-bottom-15 main-comment">
                             <img src="assets/img/img1-md.jpg" alt="">
@@ -231,82 +238,3 @@
     <!-- we are hiring -->
     <!-- end we are hiring -->
     <!-- End Content Part -->
-
-    <!--=== Footer Version 1 ===-->
-<div class="footer-v1">
-    <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">                     
-                    <p>
-                       2015  © BeautifulYears Ltd. 
-                        <a target="_blank" href="#">Privacy Policy </a> <a>|</a> <a href="#">Terms of Service</a><a>|</a> <a href="#">Contact Us</a>
-                    </p>
-                </div>
-                <!-- Social Links -->
-              <div class="col-md-2 pull-right">  
-                <ul class="social-icons pull-right">
-                <li><span>Like us on</span></li>
-                 <li><a href="#" data-original-title="Facebook" class="social_facebook"></a></li>
-                 <li><a href="#" data-original-title="Goole Plus" class="social_googleplus"></a></li>
-
-             </ul>
-         </div>
-         <!-- End Social Links -->
-     </div>
- </div> 
-</div>
-<!--/copyright-->
-    </div>
-<!--=== End Footer Version 1 ===-->
-<div class="blog-author margin-bottom-15 main-comment hidden-article-comment">
-    <img src="assets/img/img1-md.jpg" alt="">
-    <div class="blog-author-desc news-v3">
-        <div class="overflow-h">
-            <div class="comment-name-time"><span class="comment-name">Vivek Oberoi</span> | <span class="comment-time">5 hours ago</span></div>
-        </div>
-
-        <ul class="post-shares post-shares-lg">
-            <li class="add-comment">
-                <a>
-                    <i class="rounded-x icon-speech"></i>
-                    <span>28</span>
-                    <div class="post-text">Comment</div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="rounded-x icon-heart"></i>
-                    <span>107</span>
-                    <div class="post-text">Like</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="blog-author margin-bottom-15 main-comment hidden-comment-sample ">
-        <img src="assets/img/img1-md.jpg" alt="">
-        <div class="blog-author-desc news-v3">
-            <div class="overflow-h">
-                <div class="comment-name-time"><span class="comment-name">Vivek Oberoi</span> | <span class="comment-time">5 hours ago</span></div>
-            </div>
-            <ul class="post-shares post-shares-lg">
-                <li class="add-comment">
-                    <a>
-                        <i class="rounded-x fa fa-reply"></i>
-                        <span>28</span>
-                        <div class="post-text">Reply</div>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="rounded-x icon-heart"></i>
-                        <span>107</span>
-                        <div class="post-text">Like</div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div><!--/wrapper-->
-</div>

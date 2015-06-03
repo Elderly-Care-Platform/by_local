@@ -15,11 +15,13 @@
                        <option>Oldest</option>
                    </select>
                </div>
+
                <ul class="pull-right breadcrumb">
                  <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
-				 <li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all" ng-click="showme=false">{{bc_topic}}</a></li>
-				 <li>{{bc_subTopic}}</li>
-            </ul>
+				 <li class="active"><a href="#/discuss/{{discuss.discussType}}/{{discuss.topicId}}/all" ng-click="showme=false">{{discuss.topicId}}</a></li>
+				 <li>{{discuss.subTopicId}}</li>
+               </ul>
+
         </div>
     </div><!--/breadcrumbs-->
     <!--=== End Breadcrumbs ===-->
@@ -128,7 +130,7 @@
                             <div class="article-info">
                                <ul class="list-inline posted-info">
                                 <li><p class="{{discuss.discussType == 'P' && 'post-first-letter' || discuss.discussType == 'Q' && 'question-first-letter' || ''}}">{{discuss.discussType == 'A' && 'Article' || discuss.discussType == 'P' && 'Post' || 'Question'}} By <a href="#">{{discuss.username}}</a></p></li>
-                                <li>In <a href="#">{{discuss.subTopicId}}</a></li>
+                                <li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{discuss.subTopicId}}</a></li>
                                 <li>{{discuss.createdAt | date:'medium'}}</li>
                             </ul>
                         </div>
@@ -191,7 +193,7 @@
 								<div class="article-info">
 									<ul class="list-inline posted-info">
 										<li><p class="answer-first-letter">{{(comment.id == comment.parentId && discuss.discussType == 'Q') && 'Answer' || 'Comment'}} By <a href="#">{{localStorage.getItem('USER_NAME')}}</a></p></li>
-										<li>In <a href="#">{{comment.subTopicId}}</a></li>
+										<li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{comment.subTopicId}}</a></li>
 										<li>{{comment.createdAt | date:'medium'}}</li>
 									</ul>
 								</div>
@@ -220,13 +222,13 @@
 										<li class="add-comment">
 											<a href="#/comment/{{discuss.id}}" ng-click="createNewComment('C', '', comment.id)">
 												<i class="rounded-x icon-speech"></i>
-												<span>28</span>
+												<span>0</span>
 											</a>
 										</li>
 										<li>
 											<a href="#">
 												<i class="rounded-x icon-heart"></i>
-												<span>107</span>
+												<span>0</span>
 											</a>
 										</li>
 									</ul>

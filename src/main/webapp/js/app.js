@@ -1409,23 +1409,23 @@ byControllers.controller('LoadCustomJSController', ['$scope',
                 });
 
 
-                $(".discussion-page #sidebar-nav-1 li").click(function () {
-                    if ($(this).hasClass("selected")) {
-                        return false;
-                    }
-                    $(".discussion-page #sidebar-nav-1 .active").removeClass("active");
-                    $(".discussion-page #sidebar-nav-1 .selected").removeClass("selected");
-                    $(this).addClass("selected");
-                    $(this).addClass("active");
-                    var className = $(this).data("index");
-                    $(".blog-author.main-article[data-index=" + className + "]").css("display", "block");
-                    $(".blog-author.main-article[data-index!=" + className + "]").css("display", "none");
-                    if ($(window).width() < 992) {
-                        var obj = {"scrollTop": $(".article-outer-wrapper").offset().top};
-                        $("html,body").animate(obj, 300);
-                    }
-                    setHeight();
-                });
+//                $(".discussion-page #sidebar-nav-1 li").click(function () {
+//                    if ($(this).hasClass("selected")) {
+//                        return false;
+//                    }
+//                    $(".discussion-page #sidebar-nav-1 .active").removeClass("active");
+//                    $(".discussion-page #sidebar-nav-1 .selected").removeClass("selected");
+//                    $(this).addClass("selected");
+//                    $(this).addClass("active");
+//                    var className = $(this).data("index");
+//                    $(".blog-author.main-article[data-index=" + className + "]").css("display", "block");
+//                    $(".blog-author.main-article[data-index!=" + className + "]").css("display", "none");
+//                    if ($(window).width() < 992) {
+//                        var obj = {"scrollTop": $(".article-outer-wrapper").offset().top};
+//                        $("html,body").animate(obj, 300);
+//                    }
+//                    setHeight();
+//                });
 
                 if ($(".discussion-page").length) {
                     $(".blog-author[data-index=discussion-QA][data-answers=0] > .blog-author-desc").append("<button class='first-to-answer btn btn-xs btn-warning'>BE THE FIRST TO ANSWER</button>");

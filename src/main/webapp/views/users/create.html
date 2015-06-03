@@ -1,0 +1,139 @@
+<div ng-controller="LoadCustomJSController"> </div>
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+
+        <div class="breadcrumbs">
+            <div class="container">
+                <ul class="pull-right breadcrumb">
+                    <li class="active"><a href="#/userprofile">Profile</a></li>
+                    <li>Basic Info</li>
+                </ul>
+            </div>
+        </div><!--/breadcrumbs-->
+        <!--=== End Breadcrumbs ===-->
+
+
+		<br><br>
+
+
+        <hr class="breadcrumb-divider" />
+        <!--=== Content Part ===-->
+        <div class="container content breadCrumbMargin register-page">
+            <div class="row  both-container">
+                <div class="col-md-3 md-margin-bottom-40">
+                    <div class="col-md-12 left-container-img-wrapper no-padding">
+                    	<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+                        	<li class="list-group-item active selected">
+                            	<a href="#/users/new" data-ajax="false">SIGNUP INFO</a>
+                        	</li>
+                        	<li class="list-group-item">
+                           		<a href="#/userprofile" data-ajax="false">I AM..</a>
+                       		</li>
+                   		</ul>
+                    </div>
+                </div>
+                <div class="col-md-9 md-margin-bottom-40  margin-top-20 article-outer-wrapper">
+                    <div class="first-register-page">
+                        <div class="col-md-6 signup-form  whiteBg padding20">
+                            <div class="row margin-bottom-20">
+                                Already Signed Up? Click <a href="#/users/login" >Log In</a> to login to your account
+                            </div>
+
+
+
+                            <div ng-show="error"><font color="red">{{error}}</font></div>
+							<div ng-show="message"><font color="green">{{message}}</font></div>
+
+                            <div class="row border-full-width grayBg margin-top-20 margin-bottom-20"></div>
+
+
+                            <!-- FORM -->
+                            <form name="userForm" ng-submit="!loggedIn && register(userForm.$valid) || edituser(userForm.$valid)" novalidate>
+                            <div class="row">
+                                <div class="row margin-bottom-20" ng-class="{ 'has-error' : userForm.userName.$invalid && !userForm.userName.$pristine }">
+                                    <div class="col-md-5">
+                                        <label class="fontWeightNormal">My username is</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" class="username-textbox textbox " name="username" ng-model="user.userName" ng-maxlength="31"/>
+                                    </div>
+                                    <span>
+										<p ng-show="userForm.userName.$invalid && userForm.userName.$pristine" class="help-block">Screen Name is required.</p>
+										<!--
+										<p ng-show="userForm.userName.$error.minlength" class="help-block">Screen Name is too short.</p>
+										<p ng-show="userForm.userName.$error.maxlength" class="help-block">Screen Name is too long.</p>
+										-->
+									</span>
+                                </div>
+                                <div class="row margin-bottom-20" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                                    <div class="col-md-5">
+                                        <label class="fontWeightNormal">My email is</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="email" class="email-textbox textbox " name="email" id="email" ng-model="user.email"/>
+                                    </div>
+                                    <span>
+										<p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                                    </span>
+                                </div>
+                                <div class="row margin-bottom-20" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                                    <div class="col-md-5">
+                                        <label class="fontWeightNormal">My password is</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="password" class="password-textbox textbox " name="password" ng-model="user.password"/>
+                                    </div>
+                                    <span>
+										<p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">Password is required.</p>
+				    				</span>
+                                </div>
+                                <div class="row border-full-width grayBg margin-top-20 margin-bottom-20"></div>
+                                <div class="row margin-bottom-20 paddingLeft15">
+                                    Alternatively, you could use your Social login to sign up. No information that you enter with BeautifulYears will be shared with other social sites.
+                                </div>
+                                <div class="row margin-bottom-20 paddingLeft15">
+                                    <ul class="social-icons">
+                                        <li><a class="rounded-x social_facebook" data-original-title="Facebook" href="#"></a></li>
+                                        <li><a class="rounded-x social_googleplus" data-original-title="Google Plus" href="#"></a></li>
+                                    </ul>
+                                </div>
+                                <div class="row margin-bottom-20 paddingLeft15">
+                                   <button class="btn btn-sm btn-default pull-right margin-right-20 grayBg" type="submit" ng-disabled="!userForm.$valid">SUBMIT</button>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 signup-info ">
+
+                                <div class="row margin-bottom-20">
+                                    <div class="borderRadiouRightIcon">
+                                        <img src="assets/img/infoIcon.png" alt="" />
+                                    </div>
+                                    <div class="borderRadiouRight">
+                                        <img src="assets/img/LikeRegister.png" alt="" />
+                                        <p>Thank you for registering an account with us!<br/> This would allow you to:</p>
+                                        <ul>
+                                            <li>“Like” articles, posts, and comments</li>
+                                            <li>Answer questions</li>
+                                            <li>Get personalized information, and much more in future!</li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix margin-bottom-40"></div>
+
+                                    <div class="borderRadiouRightIcon">
+                                        <img src="assets/img/infoIcon.png" alt="" />
+                                    </div>
+                                    <div class="borderRadiouRight margin-bottom-40">
+                                        <img src="assets/img/registerNext.png" alt="" />
+                                        <p>Could you please press <span class="text-green">“NEXT PAGE”</span> and  tell us more about yourself? This would allow us to serve you better, providing you with more relevant information. Press NEXT PAGE to proceed.</p>
+                                        <p>You can  come back later to update your profile (by clicking on your Profile icon on top of the  screen)
+                                            Thank you for your time! </p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/container-->
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<!-- Web Fonts -->
+<link rel='stylesheet' type='text/css'
+	href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+<script src="../js/angular.js"></script>
+<script src="../js/angular-resource.js"></script>
+<script src="ServiceController.js"></script>
+<script src="ramesh-app.js"></script>
+<style>
+ul li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+</style>
+
+
+<title>Insert title here</title>
+</head>
+<body data-ng-app="rameshApp">
+	<ul>
+		<li><a href="#/topic">Topic</a></li>
+		<li><a data-ng-href="#/user">User</a>
+		<li><a data-ng-href="#/discuss">Discuss</a>
+	</ul>
+	<br />
+	<div data-ng-view></div>
+</body>
+</html>

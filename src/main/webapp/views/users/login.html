@@ -1,0 +1,133 @@
+<!-- <div ng-controller="LoadCustomJSController"> </div> -->
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+
+     <!-- bread crumbs -->
+     <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Login</h1>
+            <ul class="pull-right breadcrumb">
+                <li class="active"><a href="#/users/home">Home</a></li>
+                <li >Login</li>
+            </ul>
+             <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- ends breadcumbs -->
+
+
+
+     <div class="clearfix margin-top-40 "></div>
+       <!--=== Content Part ===-->
+       <div class="container content">
+           <div class="row margin-top-58 margin-bottom-40">
+            <div class="col-md-4 col-sm-6 centerOfThePage">
+
+                <div ng-show="error"><font color="red">{{error}}</font></div>
+				<div ng-show="message"><font color="green">{{message}}</font></div>
+                <form class="reg-page borderShadow" name="loginForm" ng-submit="loginUser(user)" novalidate>
+                    <div class="reg-header">
+                        <h2>Login to your account</h2>
+                    </div>
+
+                    <div class="col-md-12 no-padding margin-bottom-10">
+                        <a>
+                            <img src="assets/img/Login_FB.jpg" width="100%" alt="" >
+                        </a>
+                    </div>
+                    <p class="text-center margin-bottom-10">or</p>
+
+                    <div class="col-md-12 no-padding margin-bottom-10">
+                        <a>
+                            <img src="assets/img/Login_Google.jpg" width="100%" alt="" >
+                        </a>
+                    </div>
+                    <p class="text-center margin-bottom-10">or</p>
+                    <div class="input-group margin-bottom-20">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <input type="text" placeholder="Username" ng-model="user.email" class="form-control">
+                    </div>
+                    <span>
+						<p ng-show="loginForm.email.$invalid && loginForm.email.$pristine" class="help-block">Email is required.</p>
+                    </span>
+
+                    <div class="input-group margin-bottom-20">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input type="password" placeholder="Password" ng-model="user.password" class="form-control">
+                    </div>
+                    <span>
+						<p ng-show="loginForm.password.$invalid && loginForm.password.$pristine" class="help-block">Password is required.</p>
+                    </span>
+
+                    <div class="row">
+                        <div class="col-md-6 checkbox">
+                            <label><input type="checkbox" checked>Remember me</label>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn-u pull-right" type="submit" ng-disabled="!loginForm.$valid">Login</button>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h4>Forgot your Password?</h4>
+                    <p>no worries, <a class="color-green" href="#">click here</a> to reset your password.</p>
+                </form>
+            </div>
+        </div><!--/row-->
+    </div><!--/container-->
+    <!--=== End Content Part ===-->
+
+
+<!--=== Footer Version 1 ===-->
+<div class="footer-v1">
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">                     
+                    <p>
+                       2015  © BeautifulYears Ltd. 
+                        <a target="_blank" href="#">Privacy Policy </a> <a>|</a> <a href="#">Terms of Service</a><a>|</a> <a href="#">Contact Us</a>
+                    </p>
+                </div>
+                <!-- Social Links -->
+              <div class="col-md-2 pull-right">  
+                <ul class="social-icons pull-right">
+                <li><span>Like us on</span></li>
+                 <li><a href="#" data-original-title="Facebook" class="social_facebook"></a></li>
+                 <li><a href="#" data-original-title="Goole Plus" class="social_googleplus"></a></li>
+
+             </ul>
+         </div>
+         <!-- End Social Links -->
+     </div>
+ </div> 
+</div>
+<!--/copyright-->
+</div><!--/wrapper-->
+
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+<script type="text/javascript" src="assets/plugins/smoothScroll.js"></script>
+<!-- JS Customization -->
+<script type="text/javascript" src="assets/js/custom.js"></script>
+<!-- JS Page Level -->
+<script type="text/javascript" src="assets/js/app.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        App.init();
+        $(".content").css("min-height",$(window).height() - $(".content").offset().top - $(".footer-v1").height() + "px");
+    });
+</script>
+<!--[if lt IE 9]>
+    <script src="assets/plugins/respond.js"></script>
+    <script src="assets/plugins/html5shiv.js"></script>
+    <script src="assets/plugins/placeholder-IE-fixes.js"></script>
+    <![endif]-->
+<script type="text/javascript" src="assets/js/psc.js"></script>
+
+</body>
+</html>

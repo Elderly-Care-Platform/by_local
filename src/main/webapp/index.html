@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Beautiful Years | Register</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"> -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Web Fonts -->
+    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'> -->
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- CSS Header and Footer -->
+    <link rel="stylesheet" href="assets/css/headers/header-default.css">
+    <link rel="stylesheet" href="assets/css/footers/footer-v1.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="assets/plugins/animate.css">
+    <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="assets/plugins/parallax-slider/css/parallax-slider.css">
+
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="assets/css/psc.css">
+
+    <link rel="stylesheet" href="assets/js/tagmanager-master/tagmanager.css">
+
+
+</head>
+
+<body ng-app="byApp">
+
+<!--
+<div class="preloader">
+    <div class="preloaderImage"></div>
+</div>
+-->
+
+<div class="tnymcePopUpwrapper">
+    <div class="tnymcePopUpwrapperInside">
+        <div class="imagebgNew">
+            <div class="tnymcePopUpwrapperInsideTitle divLeft">
+                Insert Image
+            </div>
+            <div class="tnymcePopUpwrapperInsideClose tnymceCloseImage divRight">
+                X
+            </div> <div class="clearfix"></div>
+        </div>
+
+        <div class="tnymcePopUpwrapperInsideLabel divLeft">Image URL</div>
+        <div class="tnymcePopUpwrapperInsideUrl divRight">
+            <input type="file" />
+        </div>
+        <div class="clearfix"></div>
+        <div>
+            <button  type="button"  class="tnymceCloseImageAdd">Ok</button>
+            <button  type="button"  class="tnymceCloseImage tnymceCloseImageButton">Cancel</button>
+        </div> <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="topScroll"></div>
+
+    <div class="wrapper">
+    <!--=== Header ===-->    
+        <div class="header">
+            <div class="container">
+                <!-- Logo -->
+                <a class="logo" href="home.html">
+                    <img src="assets/img/Logo-new-client.png" alt="Logo">
+                </a>
+                <!-- End Logo -->
+                
+                <!-- Topbar -->
+                <div class="topbar">
+                    <ul class="loginbar pull-right">
+                       
+                        <li><a href="login.html">About Us</a></li>     
+                        <li class="topbar-devider"></li>   
+                        <li><a href="login.html">JOIN US</a></li>   
+                    </ul>
+                </div>
+                <!-- End Topbar -->
+
+                <!-- Toggle get grouped for better mobile display -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="fa fa-bars"></span>
+                </button>
+                <!-- End Toggle -->
+
+
+                <!-- Search Block -->
+                <div class="searchClearboth"></div>
+                
+                <!-- end Search Block -->
+
+                
+            </div><!--/end container-->
+
+            <div class="searchWrapper">
+               <div class="searchLeft">
+                   <input type="text" placeholder="Search" />
+               </div>  
+               <div class="searchRight">
+                   <i class="fa fa-search"></i>
+               </div>
+               <div class="clearfix"></div>
+           </div> 
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                       
+                        <!-- HOME -->                        
+                        <li>
+                            <a href="">
+                                HOME
+                            </a>
+                        </li>
+                        <!-- End HOME -->
+
+                        <!-- DISCUSS  -->
+                        <li>
+                            <a href="">
+                                DISCUSS 
+                            </a>
+                        </li>
+                        <!-- End DISCUSS  -->
+
+                        <!-- find -->
+                        <li>
+                            <a href="">
+                                find
+                            </a>
+                        </li>
+                        <!-- End find -->
+                        <!-- DO -->
+                        <li>
+                            <a href="">
+                               DO
+                            </a>
+                        </li>                  
+                        <!-- End DO -->
+						
+						 <!-- Shop -->
+                        <li>
+                            <a href="">
+                              Shop
+                            </a>
+                        </li>                  
+                        <!-- Shop -->
+                    </ul>
+                </div><!--/end container-->
+            </div><!--/navbar-collapse-->
+        </div>
+        <!--=== End Header ===-->
+
+
+<ng-view/>
+
+
+
+            <!-- we are hiring -->
+            <!-- end we are hiring -->
+            <!-- End Content Part -->
+
+            <!--=== Footer Version 1 ===-->
+<div class="footer-v1">
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">                     
+                    <p>
+                       2015  © BeautifulYears Ltd. 
+                        <a target="_blank" href="#">Privacy Policy </a> <a>|</a> <a href="#">Terms of Service</a><a>|</a> <a href="#">Contact Us</a>
+                    </p>
+                </div>
+                <!-- Social Links -->
+              <div class="col-md-2 pull-right">  
+                <ul class="social-icons pull-right">
+                <li><span>Like us on</span></li>
+                 <li><a href="#" data-original-title="Facebook" class="social_facebook"></a></li>
+                 <li><a href="#" data-original-title="Goole Plus" class="social_googleplus"></a></li>
+
+             </ul>
+         </div>
+         <!-- End Social Links -->
+     </div>
+ </div> 
+</div>
+<!--/copyright-->
+    </div>
+    </div> <!--/wrapper-->
+
+
+
+
+        <!-- JS Global Compulsory -->
+        <script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/jquery/jquery-migrate.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <!-- JS Implementing Plugins -->
+        <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+        <script type="text/javascript" src="assets/plugins/smoothScroll.js"></script>
+        <script type="text/javascript" src="assets/plugins/jquery.mixitup.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/parallax-slider/js/modernizr.js"></script>
+        <script type="text/javascript" src="assets/plugins/parallax-slider/js/jquery.cslider.js"></script>
+        <!-- JS Customization -->
+        <!-- <script type="text/javascript" src="assets/js/custom.js"></script> -->
+        <!-- JS Page Level -->
+        <script type="text/javascript" src="assets/js/app.js"></script>
+        <script type="text/javascript" src="assets/js/pages/page_portfolio.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/parallax-slider.js"></script>
+		<script type="text/javascript" src="assets/js/tinymce/tinymce.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/tagmanager-master/tagmanager.js"></script>
+
+<!--[if lt IE 9]>
+    <script src="assets/plugins/respond.js"></script>
+    <script src="assets/plugins/html5shiv.js"></script>
+    <script src="assets/plugins/placeholder-IE-fixes.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="assets/js/psc.js"></script>
+<script type="text/javascript" src="assets/js/chosen.jquery.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- jumpstart assets -->
+	<script src="js/angular.js"></script>
+	<script src="js/angular-resource.js"></script>
+	<script src="js/app.js"></script>
+
+
+	<script language="JavaScript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js">
+
+
+	<!-- datepicker-->
+	<!--
+	<link rel="stylesheet" href="css/pikaday.css">
+    <link rel="stylesheet" href="css/site.css">
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.js"></script>
+	-->
+	<!-- jumpstart assets -->
+
+ <!-- <script type="text/javascript">
+
+     $(document).ready(function () {
+     	var sess = localStorage.getItem("SessionId");
+     	if(sess != '')
+     	{
+     		var element = document.getElementById("login_placeholder");
+			element.innerHTML = "Logout";
+            element.href = "#/users/logout/" + sess;
+     	}
+     	else
+     	{
+     		var element = document.getElementById("login_placeholder");
+			element.innerHTML = "Login";
+            element.href = "#/users/login";
+     	}
+     });
+	</script>
+	-->
+
+	<script type="text/javascript">
+	            jQuery(document).ready(function() {
+	                App.init();
+	                PortfolioPage.init();
+	                ParallaxSlider.initParallaxSlider();
+	                $(".content").css("min-height",$(window).height() - $(".content").offset().top - $(".footer-v1").height() - $(".footer-v1").height() + "px");
+	            });
+
+	</script>
+
+
+		<script type="text/javascript">
+		var sess = localStorage.getItem("SessionId");
+				//alert(sess);
+				if(sess != '')
+				{
+					var log = document.getElementById('login_placeholder');
+					log.innerHTML = "Logout";
+					log.href = "#/users/logout/" + sess;
+
+					var pro = document.getElementById('profile_placeholder');
+					pro.innerHTML = "Profile";
+					pro.href = "#/userprofile";
+
+
+					if(window.location.href.endsWith("#/users/login"))
+					{
+						window.location = "#/users/home";
+					}
+				}
+				else
+				{
+					var element = document.getElementById("login_placeholder");
+					element.innerHTML = "Login";
+					element.href = "#/users/login";
+
+					var pro = document.getElementById('profile_placeholder');
+					pro.innerHTML = "Signup";
+					pro.href = "#/users/new";
+
+					window.location = "#/users/login";
+			}
+		</script>
+</body>
+</html>
+

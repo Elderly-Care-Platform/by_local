@@ -3248,6 +3248,46 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 
     }]);
 
+byControllers.controller('DiscussCreateFeedbackController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList',
+ function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList) {
+	$scope.feedbackText = "";
+    	$scope.discuss = new Discuss();
+	var segment = $location.path().substring(1);
+	segment = segment.substring(segment.indexOf("/")+1);
+	segment = segment.substring(segment.indexOf("/")+1);
+	$scope.discuss.topicId = segment.substring(0,segment.indexOf("/"));
+	$scope.discuss.subTopicId = $location.path().substring($location.path().lastIndexOf("/")+1);
+
+	$scope.register = function (discussType) {
+		var element_id = discussType;
+		var topicId = "HEALTH CONDITIONS";
+		var subTopicId = "Mental disorders";
+		var htmlval = $scope.feedbackText;
+		$scope.discuss.discussType = discussType;
+		$scope.discuss.text=htmlval;
+
+		//putting the userId to discuss being created
+		$scope.discuss.userId = localStorage.getItem("USER_ID");
+		$scope.discuss.username = localStorage.getItem("USER_NAME");
+
+
+		//save the discuss
+		$scope.discuss.$save(function (discuss, headers) {
+			var location = $scope.discuss.discussType;
+			var mode = "Q";
+
+			$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
+			//document.getElementById(element_id).style.display = 'none';
+
+			$route.reload();
+			$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
+
+		});
+
+	};
+
+ }]);
+
 
 byControllers.controller('DiscussEditController', ['$scope', '$routeParams', '$location', 'DiscussShow',
     function ($scope, $routeParams, $location, DiscussShow) {
@@ -3745,6 +3785,20 @@ byControllers.controller('SufferingFromController', function ($scope) {
 
 var app_directives = angular.module('app.directives', []);
 
+app_directives.directive('discuss', function() {
+    var directive = {};
+
+    directive.restrict = 'E'; /* restrict this directive to elements */
+
+    directive.template = "<div>THSIS IS SUPPOSE TO BE A DISCUSS CONTENT {{content.firstName}}</div>";
+    
+    directive.scope = {
+            content : "=user"
+        }
+
+    return directive;
+});
+
 app_directives.directive('dropdownMultiselectLanguages', function () {
 
     return {
@@ -4158,7 +4212,7 @@ app_directives.directive('dropdownMultiselectSuffers', function () {
 
 //service
 var discussService = byServices.factory('discussService', function ($resource) {
-    var discussUrl = '/api/v1/discuss';
+    var discussUrl = 'api/v1/discuss';
     var discussService = {}
 
     var myDiscussResource = $resource(discussUrl, {}, {
@@ -4187,7 +4241,7 @@ var discussService = byServices.factory('discussService', function ($resource) {
     }
 
     // / Discuss Comment
-    var discussCommentUrl = '/api/v1/comment';
+    var discussCommentUrl = 'api/v1/comment';
     var myDiscussCommentResource = $resource(discussCommentUrl, {}, {
         getDiscussCommentList: {
             method: 'GET',

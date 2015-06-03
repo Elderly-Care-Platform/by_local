@@ -4,6 +4,7 @@
 	background-color: green;
 	margin: 0;
 	position: relative;
+	top: -10px;
 }
 .news-v3 .posted-info li:before, .news-v3 .news-v3-in-sm .posted-info li:before {
 	font-style: normal;
@@ -495,6 +496,7 @@
 		padding:0;
 		position:fixed;
 		z-index:1;
+		height: 35px;
 	}
 	.breadcrumb{
 		padding: 0px 15px 0px 15px;
@@ -721,9 +723,11 @@ width:100%;
 }
 .discussion-wrapper .article-outer-wrapper{
 	margin-right:27%;
+	  margin-left: 300px;
 }
 .discussion-wrapper .content{
 	padding-top:0;
+	  margin-top: 36px;
 }
 .discussion-wrapper .news-v3 .post-shares li i {
 	width: 25px;

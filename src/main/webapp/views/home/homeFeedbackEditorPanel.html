@@ -1,4 +1,3 @@
-<div ng-controller="DiscussCreateFeedbackController">
 <div class="col-md-12 no-padding margin-bottom-35">
 
     <div class="col-md-12 no-padding  list-head dp-block">SUBMIT YOUR FEEDBACK
@@ -15,18 +14,17 @@
 </div>
 
 <div class="col-md-12 no-padding margin-bottom-35 register-page">
-    <input type="text" class="username-textbox textbox" name="feedbackSubject" ng-model="feedbackSubject">
+    <input type="text" class="username-textbox textbox" name="feedbackSubject" ng-model="editor.feedbackSubject">
 </div>
 
 
 <div class="col-md-12 no-padding margin-bottom-35">
-    <textarea class="textbox about-dependent" rows="3" placeholder="Please enter your text here." ng-model="feedbackText"></textarea>
+    <textarea class="textbox about-dependent" rows="3" placeholder="Please enter your text here." ng-model="editor.feedbackText"></textarea>
 </div>
 
 
 <div class="col-md-12 no-padding margin-bottom-35">
     <button class="btn btn-big btn-default pull-right  grayBg" ng-click="register('F')">submit feedback</button>
-</div>
 </div>
 
 

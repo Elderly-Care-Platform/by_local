@@ -808,8 +808,11 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
 
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','$timeout','HomeFeaturedContent',
-    function ($scope, $rootScope, $routeParams,$timeout, HomeFeaturedContent) {
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','$timeout','HomeFeaturedContent','Discuss',
+    function ($scope, $rootScope, $routeParams,$timeout, HomeFeaturedContent,Discuss) {
+	$scope.editor = {};
+	$scope.editor.feedbackText = "";
+	$scope.editor.feedbackSubject = "";
 	$scope.currentAcceleratorSelected = "home_featured_articles";
 	$scope.$watch("articles",function(value){
     $timeout(
@@ -823,14 +826,37 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	$scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
 	
 	
+	
+	
 	$scope.add = function(type){
 		$scope.currentView = "editor";
 		console.log(type);
 		$scope.homeViews.contentPanel = "views/home/home"+type+"EditorPanel.html";
 	}
 	
+	$scope.register = function (discussType) {
+		$scope.discuss = new Discuss();
+		var htmlval = $scope.editor.feedbackText;
+		$scope.discuss.discussType = discussType;
+		$scope.discuss.text=htmlval;
+        $scope.discuss.title=$scope.editor.feedbackSubject;
+
+		//putting the userId to discuss being created
+		$scope.discuss.userId = localStorage.getItem("USER_ID");
+		$scope.discuss.username = localStorage.getItem("USER_NAME");
+
+
+		//save the discuss
+		$scope.discuss.$save(function (discuss, headers) {
+			$scope.editor.feedbackText = "";
+			$scope.editor.feedbackSubject = "";
+			$scope.switchToContentView();
+		});
+
+	};
+	
 	$scope.switchToContentView = function(scrollTo){
-		$scope.currentAcceleratorSelected = scrollTo;
+		$scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
 		if($scope.currentView != "content"){
 			$scope.currentView = "content";
 			$scope.homeViews.contentPanel = "views/home/homeContentPanel.html";

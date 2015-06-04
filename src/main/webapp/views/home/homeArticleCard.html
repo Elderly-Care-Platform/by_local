@@ -1,5 +1,5 @@
 <div ng-repeat="article in articles" class="blog-author margin-bottom-35 main-article" data-index="discussion-articles" data-link="articles.html">
-    <img src="assets/img/article-profile-h1.jpg" alt="">
+    <img src="assets/img/wide1.jpg" alt="">
 
     <div class="article-info dp-inline-block">
         <ul class="list-inline posted-info">
@@ -7,7 +7,7 @@
             <li>
                 <p class="article-first-letter">Article by <a href="#">{{article.userId}}</a></p></li>
             <li>In <a href="#">{{article.topicId}}</a></li>
-            <li>{{article.createdAt}}</li>
+            <li>{{article.createdAt | date : 'MMM d, yyyy'}}</li>
         </ul>
     </div>
     <div class="article">
@@ -18,6 +18,6 @@
         <div class="article-share-links news-v3"></div>
     </div>
 
-    <div class="articles-story" ng-bind-html-unsafe="article.text">
+    <div class="articles-story" ng-bind-html-unsafe="article.text | cut:true:500:' ...'">
     </div>
 </div>

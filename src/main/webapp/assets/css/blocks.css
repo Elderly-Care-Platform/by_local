@@ -3089,8 +3089,8 @@
 
 .blog-author img {
   float: left;
-  width: 135px;
-  height: auto;
+  max-width: 135px;
+  max-height: 140px;
   margin-right: 20px;
   
 }

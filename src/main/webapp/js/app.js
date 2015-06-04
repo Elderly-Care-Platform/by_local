@@ -808,8 +808,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
 
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','DiscussList',
-    function ($scope, $rootScope, $routeParams, DiscussList) {
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','HomeFeaturedContent',
+    function ($scope, $rootScope, $routeParams, HomeFeaturedContent) {
         $scope.articles = HomeFeaturedContent.query({discussType:'A'});
         console.log($scope.articles);
     }]);

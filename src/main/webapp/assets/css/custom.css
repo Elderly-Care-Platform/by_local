@@ -595,7 +595,7 @@
 .discussion-page .blog-author{
 	width:100%;
 	border-width:1px;
-	min-height: 151px;
+	/*min-height: 151px;*/
 	max-height:auto;
 	box-shadow: 10px 10px 6px -6px #f3f3f3;
 	-webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;

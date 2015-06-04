@@ -811,7 +811,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','HomeFeaturedContent',
     function ($scope, $rootScope, $routeParams, HomeFeaturedContent) {
         $scope.articles = HomeFeaturedContent.query({discussType:'A'});
-        console.log($scope.articles);
+        $scope.questions = HomeFeaturedContent.query({discussType:'Q'});
+        $scope.posts = HomeFeaturedContent.query({discussType:'P'});
     }]);
 
 

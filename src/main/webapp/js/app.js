@@ -810,9 +810,40 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 //home
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','HomeFeaturedContent',
     function ($scope, $rootScope, $routeParams, HomeFeaturedContent) {
-        $scope.articles = HomeFeaturedContent.query({discussType:'A'});
-        $scope.questions = HomeFeaturedContent.query({discussType:'Q'});
-        $scope.posts = HomeFeaturedContent.query({discussType:'P'});
+	
+	
+	$scope.homeViews = {};
+	$scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
+	
+	
+	$scope.add = function(type){
+		$scope.currentView = "editor";
+		console.log(type);
+		$scope.homeViews.contentPanel = "views/home/homeEditorPanel.html";
+	}
+	
+	$scope.switchToContentView = function(scrollTo){
+		if($scope.currentView != "content"){
+			$scope.currentView = "content";
+			$scope.homeViews.contentPanel = "views/home/homeContentPanel.html";
+			 $scope.articles = HomeFeaturedContent.query({discussType:'A'});
+	        $scope.questions = HomeFeaturedContent.query({discussType:'Q'});
+	        $scope.posts = HomeFeaturedContent.query({discussType:'P'});
+	        
+		}else{
+			$scope.scrollToId(scrollTo);
+		}
+		
+	
+	}
+	
+	$scope.switchToContentView();
+	
+	$scope.scrollToId = function(id) {
+        var tag = $("#" + id);
+        $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+    }
+       
     }]);
 
 

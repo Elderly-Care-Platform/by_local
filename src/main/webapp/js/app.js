@@ -819,7 +819,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	$scope.add = function(type){
 		$scope.currentView = "editor";
 		console.log(type);
-		$scope.homeViews.contentPanel = "views/home/homeEditorPanel.html";
+		$scope.homeViews.contentPanel = "views/home/home"+type+"EditorPanel.html";
 	}
 	
 	$scope.switchToContentView = function(scrollTo){
@@ -3296,6 +3296,7 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 byControllers.controller('DiscussCreateFeedbackController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList',
  function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList) {
 	$scope.feedbackText = "";
+     $scope.feedbackSubject = "";
     	$scope.discuss = new Discuss();
 	var segment = $location.path().substring(1);
 	segment = segment.substring(segment.indexOf("/")+1);
@@ -3310,6 +3311,7 @@ byControllers.controller('DiscussCreateFeedbackController', ['$scope', '$route',
 		var htmlval = $scope.feedbackText;
 		$scope.discuss.discussType = discussType;
 		$scope.discuss.text=htmlval;
+        $scope.discuss.title=$scope.feedbackSubject;
 
 		//putting the userId to discuss being created
 		$scope.discuss.userId = localStorage.getItem("USER_ID");
@@ -3318,14 +3320,14 @@ byControllers.controller('DiscussCreateFeedbackController', ['$scope', '$route',
 
 		//save the discuss
 		$scope.discuss.$save(function (discuss, headers) {
-			var location = $scope.discuss.discussType;
-			var mode = "Q";
-
-			$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
-			//document.getElementById(element_id).style.display = 'none';
-
-			$route.reload();
-			$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
+			//var location = $scope.discuss.discussType;
+			//var mode = "Q";
+            //
+			//$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
+			////document.getElementById(element_id).style.display = 'none';
+            //
+			//$route.reload();
+			//$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
 
 		});
 

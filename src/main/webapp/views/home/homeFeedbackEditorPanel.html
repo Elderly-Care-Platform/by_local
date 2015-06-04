@@ -1,0 +1,42 @@
+<div ng-controller="DiscussCreateFeedbackController">
+<div class="col-md-12 no-padding margin-bottom-35">
+
+    <div class="col-md-12 no-padding  list-head dp-block">SUBMIT YOUR FEEDBACK
+    </div>
+
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 216px;"></div>
+    </div>
+</div>
+
+
+<div class="col-md-12 no-padding form-header-content margin-bottom-15">
+    Please enter a subject
+</div>
+
+<div class="col-md-12 no-padding margin-bottom-35 register-page">
+    <input type="text" class="username-textbox textbox" name="feedbackSubject" ng-model="feedbackSubject">
+</div>
+
+
+<div class="col-md-12 no-padding margin-bottom-35">
+    <textarea class="textbox about-dependent" rows="3" placeholder="Please enter your text here." ng-model="feedbackText"></textarea>
+</div>
+
+
+<div class="col-md-12 no-padding margin-bottom-35">
+    <button class="btn btn-big btn-default pull-right  grayBg" ng-click="register('F')">submit feedback</button>
+</div>
+</div>
+
+
+<!--<div class="ng-scope"-->
+<!--style="position: absolute; top: 200px; left: 300px;">-->
+<!--<div>Submit your valuable feedback</div>-->
+<!--<form novalidate ng-submit="register('F')" ng-controller="DiscussCreateFeedbackController">-->
+<!--<textarea id="give-feedback" rows="3"-->
+<!--placeholder="Please enter your feedback" class="feedback-text" ng-model="feedbackText"></textarea>-->
+<!--<button class="btn btn-u question-submit" onclick="register('F');">SUBMIT</button>-->
+<!--</form>-->
+
+<!--</div>-->

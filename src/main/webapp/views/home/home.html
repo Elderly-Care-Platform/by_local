@@ -1,11 +1,11 @@
 <script>
-function scrollToId(id){
-    var tag = $("#"+ id);
-    $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height() },'slow');
-}
+    function scrollToId(id) {
+        var tag = $("#" + id);
+        $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+    }
 </script>
 
-<div ng-controller="LoadCustomJSController"> </div>
+<div ng-controller="LoadCustomJSController"></div>
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 <div class="breadcrumbs">
     <div class="container">
@@ -120,104 +120,75 @@ function scrollToId(id){
                 </div>
 
                 <div class="col-md-12 no-padding bg-gray-h1">
-                    <div class="bg-green-h2" style="
-    width: 216px;
-"></div>
+                    <div class="bg-green-h2" style="width: 216px;"></div>
                 </div>
             </div>
+            <div by-home-card></div>
+            <!--<div ng-repeat="article in articles">{{article.title}}</div>-->
 
 
-            <div class="blog-author margin-bottom-35 main-article" data-index="discussion-articles"
-                 data-link="articles.html">
-                <img src="assets/img/article-profile-h1.jpg" alt="">
+            <!--<div class="blog-author margin-bottom-35 main-article" data-index="discussion-articles"-->
+                 <!--data-link="articles.html">-->
+                <!--<img src="assets/img/article-profile-02.jpg" alt="">-->
 
-                <div class="article-info dp-inline-block">
-                    <ul class="list-inline posted-info">
+                <!--<div class="article-info dp-inline-block">-->
+                    <!--<ul class="list-inline posted-info">-->
 
-                        <li>
-                            <p class="article-first-letter">Article by <a href="#">Rahul Thomas</a></p></li>
-                        <li>In <a href="#">Elder's Routine</a></li>
-                        <li>2 hours ago</li>
-                    </ul>
-                </div>
-                <div class="article">
+                        <!--<li>-->
+                            <!--<p class="article-first-letter">Article by <a href="#">Rahul Thomas</a></p></li>-->
+                        <!--<li>In<a href="#"> Elder's Routine</a></li>-->
+                        <!--<li>1 Day ago</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="article">-->
 
-                    <div class="article-heading">MY AUNT SUSHMA
-                    </div>
+                    <!--<div class="article-heading">MY AUNT SUSHMA-->
+                    <!--</div>-->
 
-                    <div class="article-share-links news-v3"></div>
-                </div>
+                    <!--<div class="article-share-links news-v3"></div>-->
+                <!--</div>-->
 
-                <div class="articles-story">Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et
-                    ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.
-                    Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in
-                    ullamcorper turpis. Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et
-                    ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.
-                    Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in
-                    ullamcorper turpis.
-                </div>
-            </div>
-            <div class="blog-author margin-bottom-35 main-article" data-index="discussion-articles"
-                 data-link="articles.html">
-                <img src="assets/img/article-profile-02.jpg" alt="">
+                <!--<div class="articles-story">Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et-->
+                    <!--ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.-->
+                    <!--Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in-->
+                    <!--ullamcorper turpis. Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et-->
+                    <!--ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.-->
+                    <!--Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in-->
+                    <!--ullamcorper turpis.-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="blog-author margin-bottom-35 main-article" data-index="discussion-articles"-->
+                 <!--data-link="articles.html">-->
+                <!--<img src="assets/img/article-profile-03.jpg" alt="">-->
 
-                <div class="article-info dp-inline-block">
-                    <ul class="list-inline posted-info">
+                <!--<div class="article-info dp-inline-block">-->
+                    <!--<ul class="list-inline posted-info">-->
 
-                        <li>
-                            <p class="article-first-letter">Article by <a href="#">Rahul Thomas</a></p></li>
-                        <li>In<a href="#"> Elder's Routine</a></li>
-                        <li>1 Day ago</li>
-                    </ul>
-                </div>
-                <div class="article">
+                        <!--<li>-->
+                            <!--<p class="article-first-letter">Article by <a href="#">Rahul Thomas</a></p></li>-->
+                        <!--<li>In <a href="#">Elder's Routine</a></li>-->
+                        <!--<li>2nd April</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="article">-->
 
-                    <div class="article-heading">MY AUNT SUSHMA
-                    </div>
+                    <!--<div class="article-heading">MY AUNT SUSHMA-->
+                    <!--</div>-->
 
-                    <div class="article-share-links news-v3"></div>
-                </div>
+                    <!--<div class="article-share-links news-v3"></div>-->
+                <!--</div>-->
 
-                <div class="articles-story">Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et
-                    ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.
-                    Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in
-                    ullamcorper turpis. Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et
-                    ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.
-                    Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in
-                    ullamcorper turpis.
-                </div>
-            </div>
-            <div class="blog-author margin-bottom-35 main-article" data-index="discussion-articles"
-                 data-link="articles.html">
-                <img src="assets/img/article-profile-03.jpg" alt="">
-
-                <div class="article-info dp-inline-block">
-                    <ul class="list-inline posted-info">
-
-                        <li>
-                            <p class="article-first-letter">Article by <a href="#">Rahul Thomas</a></p></li>
-                        <li>In <a href="#">Elder's Routine</a></li>
-                        <li>2nd April</li>
-                    </ul>
-                </div>
-                <div class="article">
-
-                    <div class="article-heading">MY AUNT SUSHMA
-                    </div>
-
-                    <div class="article-share-links news-v3"></div>
-                </div>
-
-                <div class="articles-story">Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et
-                    ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.
-                    Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in
-                    ullamcorper turpis. Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et
-                    ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.
-                    Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in
-                    ullamcorper turpis.
-                </div>
-            </div>
-            <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"><a href="#">More...</a>
+                <!--<div class="articles-story">Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et-->
+                    <!--ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.-->
+                    <!--Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in-->
+                    <!--ullamcorper turpis. Ut bibendum sapien. Donec est metus, sodales non eleifend non, auctor et-->
+                    <!--ipsum. Proin finibus ullamcorper massa, in ullamcorper turpis. ut bibendum ut bibendum sapien.-->
+                    <!--Donec est metus, sodales non eleifend non, auctor et ipsum. Proin finibus ullamcorper massa, in-->
+                    <!--ullamcorper turpis.-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"><a
+                    href="#">More...</a>
             </div>
 
             <div class="col-md-12 no-padding margin-bottom-35">
@@ -316,7 +287,8 @@ function scrollToId(id){
             </div>
 
 
-            <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"><a href="#">More...</a>
+            <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"><a
+                    href="#">More...</a>
             </div>
 
             <div class="col-md-12 no-padding margin-bottom-35">
@@ -389,7 +361,8 @@ function scrollToId(id){
             </div>
 
 
-            <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"><a href="#">More...</a>
+            <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"><a
+                    href="#">More...</a>
             </div>
 
 

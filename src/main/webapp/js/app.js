@@ -233,6 +233,17 @@ var discussShow = byServices.factory('DiscussShow', function ($resource) {
 
 
 
+
+var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function($resource) {
+	return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3',{}, {
+		get: {method: 'GET', params: {discussType: '@discussType'}}
+	})
+});
+
+
+
+
+
 var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
@@ -797,10 +808,12 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
 
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams',
-    function ($scope, $rootScope, $routeParams) {
-        //alert("by");
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','DiscussList',
+    function ($scope, $rootScope, $routeParams, DiscussList) {
+        $scope.articles = HomeFeaturedContent.query({discussType:'A'});
+        console.log($scope.articles);
     }]);
+
 
 
 //DISCUSS
@@ -3784,6 +3797,13 @@ byControllers.controller('SufferingFromController', function ($scope) {
 
 
 var app_directives = angular.module('app.directives', []);
+
+app_directives.directive('byHomeCard', function() {
+    return {
+        restrict:'A',
+        templateUrl: 'views/home/homeArticleCard.html'
+    };
+});
 
 app_directives.directive('discuss', function() {
     var directive = {};

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.Discuss;
@@ -50,12 +51,12 @@ public class DiscussController {
 			System.out.println("NEW DISCUSS");
 			Discuss discussWithExtractedInformation = this
 					.setDiscussBean(discuss);
-			
+
 			discussRepository.save(discussWithExtractedInformation);
-			
+
 			ResponseEntity responseEntity = new ResponseEntity(
 					HttpStatus.CREATED);
-			
+
 			System.out.println("responseEntity = " + (Object) responseEntity);
 			return responseEntity;
 		}
@@ -88,17 +89,19 @@ public class DiscussController {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/all/{discussType}" }, produces = { "application/json" })
 	@ResponseBody
 	public List<Discuss> showDiscussByDiscussType(
-			@PathVariable(value = "discussType") String discussType) {
+			@PathVariable(value = "discussType") String discussType,
+			@RequestParam(value = "featured", required = false) Boolean isFeatured,
+			@RequestParam(value = "count", required = false, defaultValue = "0") int count) {
 		try {
 			System.out.println("show ALL discuss of discuss type = "
-					+ discussType);
+					+ discussType + "with isFeatured = " + isFeatured + "count = " + count);
 			Query q = new Query();
 			if (!discussType.equalsIgnoreCase("All")) {
 				q.addCriteria(Criteria.where((String) "discussType").is(
 						(String) discussType));
 			}
-			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
-			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
+			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" })).limit(count);
+			List<Discuss> list = this.mongoTemplate.find(q, (Class) Discuss.class);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -277,12 +280,14 @@ public class DiscussController {
 
 	private Discuss setDiscussBean(Discuss discuss) {
 		try {
-			
+
 			String userId = discuss.getUserId();
 			String username = discuss.getUsername();
 			String discussType = discuss.getDiscussType();
 			String title = "";
-			System.out.println("discussType = " + discussType + " :: photofilename = " + discuss.getArticlePhotoFilename());
+			System.out.println("discussType = " + discussType
+					+ " :: photofilename = "
+					+ discuss.getArticlePhotoFilename());
 			if (discussType.equalsIgnoreCase("A")) {
 				title = discuss.getTitle();
 			}
@@ -297,7 +302,9 @@ public class DiscussController {
 			int aggrLikeCount = 0;
 			return new Discuss(userId, username, discussType, topicId,
 					subTopicId, title, text, discussStatus, tags,
-					aggrReplyCount, aggrLikeCount, discuss.getDiscussType().equals("A") ? discuss.getArticlePhotoFilename() : "");
+					aggrReplyCount, aggrLikeCount, discuss.getDiscussType()
+							.equals("A") ? discuss.getArticlePhotoFilename()
+							: "");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

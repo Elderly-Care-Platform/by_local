@@ -808,11 +808,18 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
 
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','HomeFeaturedContent',
-    function ($scope, $rootScope, $routeParams, HomeFeaturedContent) {
-	
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','$timeout','HomeFeaturedContent',
+    function ($scope, $rootScope, $routeParams,$timeout, HomeFeaturedContent) {
+	$scope.currentAcceleratorSelected = "home_featured_articles";
+	$scope.$watch("articles",function(value){
+    $timeout(
+    		function(){
+    			$scope.scrollToId($scope.currentAcceleratorSelected)
+    			},100);	
+    });
 	
 	$scope.homeViews = {};
+	
 	$scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
 	
 	
@@ -823,12 +830,15 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	}
 	
 	$scope.switchToContentView = function(scrollTo){
+		$scope.currentAcceleratorSelected = scrollTo;
 		if($scope.currentView != "content"){
 			$scope.currentView = "content";
 			$scope.homeViews.contentPanel = "views/home/homeContentPanel.html";
 			 $scope.articles = HomeFeaturedContent.query({discussType:'A'});
 	        $scope.questions = HomeFeaturedContent.query({discussType:'Q'});
 	        $scope.posts = HomeFeaturedContent.query({discussType:'P'});
+	        
+	        
 	        
 		}else{
 			$scope.scrollToId(scrollTo);

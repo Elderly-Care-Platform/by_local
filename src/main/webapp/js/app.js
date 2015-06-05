@@ -953,15 +953,6 @@ byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$rou
   function($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType) {
      $scope.discuss = DiscussList.query();
      
-     $scope.users = []
-     $scope.users[0] = {};
-     $scope.users[0].firstName = "Nitin";
-     $scope.users[0].lastName  = "Jain";
-     
-     $scope.users[1] = {};
-     $scope.users[1].firstName = "Sanjukta";
-     $scope.users[1].lastName  = "Sukul";
-
         var discussType = $routeParams.discussType;
 
         if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {
@@ -1490,23 +1481,23 @@ byControllers.controller('LoadCustomJSController', ['$scope',
                 });
 
 
-//                $(".discussion-page #sidebar-nav-1 li").click(function () {
-//                    if ($(this).hasClass("selected")) {
-//                        return false;
-//                    }
-//                    $(".discussion-page #sidebar-nav-1 .active").removeClass("active");
-//                    $(".discussion-page #sidebar-nav-1 .selected").removeClass("selected");
-//                    $(this).addClass("selected");
-//                    $(this).addClass("active");
-//                    var className = $(this).data("index");
-//                    $(".blog-author.main-article[data-index=" + className + "]").css("display", "block");
-//                    $(".blog-author.main-article[data-index!=" + className + "]").css("display", "none");
-//                    if ($(window).width() < 992) {
-//                        var obj = {"scrollTop": $(".article-outer-wrapper").offset().top};
-//                        $("html,body").animate(obj, 300);
-//                    }
-//                    setHeight();
-//                });
+                $(".discussion-page #sidebar-nav-1 li").click(function () {
+                    if ($(this).hasClass("selected")) {
+                        return false;
+                    }
+                    $(".discussion-page #sidebar-nav-1 .active").removeClass("active");
+                    $(".discussion-page #sidebar-nav-1 .selected").removeClass("selected");
+                    $(this).addClass("selected");
+                    $(this).addClass("active");
+                    var className = $(this).data("index");
+                    $(".blog-author.main-article[data-index=" + className + "]").css("display", "block");
+                    $(".blog-author.main-article[data-index!=" + className + "]").css("display", "none");
+                    if ($(window).width() < 992) {
+                        var obj = {"scrollTop": $(".article-outer-wrapper").offset().top};
+                        $("html,body").animate(obj, 300);
+                    }
+                    setHeight();
+                });
 
                 if ($(".discussion-page").length) {
                     $(".blog-author[data-index=discussion-QA][data-answers=0] > .blog-author-desc").append("<button class='first-to-answer btn btn-xs btn-warning'>BE THE FIRST TO ANSWER</button>");

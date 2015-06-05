@@ -81,6 +81,7 @@ public class DiscussController {
 	public List<Discuss> allDiscuss() {
 		System.out.println("show ALL discuss of ALL discuss types");
 		Query q = new Query();
+		q.addCriteria(Criteria.where((String) "discussType").in(new Object[]{ "A", "Q","P" }));
 		q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 		List list = this.mongoTemplate.find(q, (Class) Discuss.class);
 		return list;
@@ -99,6 +100,8 @@ public class DiscussController {
 			if (!discussType.equalsIgnoreCase("All")) {
 				q.addCriteria(Criteria.where((String) "discussType").is(
 						(String) discussType));
+			}else{
+				q.addCriteria(Criteria.where((String) "discussType").in(new Object[]{ "A", "Q","P" }));
 			}
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" })).limit(count);
 			List<Discuss> list = this.mongoTemplate.find(q, (Class) Discuss.class);

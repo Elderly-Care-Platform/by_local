@@ -33,139 +33,125 @@ var discuss = byServices.factory('SessionIdService', function ($rootScope) {
 });
 
 
-
-
 //User
-var user = byServices.factory('User', function($resource) {
-	return $resource('api/v1/users/:userId',{}, {
-		remove:{method: 'DELETE', params: {userId: '@id'}},
-		update:{method: 'PUT', params: {userId: '@id'}},
-		get: {method: 'GET', params: {userId: '@id'}}
-	})
+var user = byServices.factory('User', function ($resource) {
+    return $resource('api/v1/users/:userId', {}, {
+        remove: {method: 'DELETE', params: {userId: '@id'}},
+        update: {method: 'PUT', params: {userId: '@id'}},
+        get: {method: 'GET', params: {userId: '@id'}}
+    })
 });
 
 //UserProfile
-var userProfile = byServices.factory('UserProfile', function($resource) {
-	return $resource('api/v1/userprofile/:userId',{}, {
-		remove:{method: 'DELETE', params: {userId: '@userId'}},
-		update:{method: 'PUT', params: {userId: '@userId'}},
-		get: {method: 'GET', params: {userId: '@userId'}}
-	})
+var userProfile = byServices.factory('UserProfile', function ($resource) {
+    return $resource('api/v1/userprofile/:userId', {}, {
+        remove: {method: 'DELETE', params: {userId: '@userId'}},
+        update: {method: 'PUT', params: {userId: '@userId'}},
+        get: {method: 'GET', params: {userId: '@userId'}}
+    })
 });
 
 
 /*//List depedents of an user
-var depList= byServices.factory('DependentList', function($resource) {
-	return $resource('api/v1/dependent/list/:userId',{}, {
-		//get: {method: 'GET', params: {userId: '@userId'}},
-		query: { method: "GET", isArray: false }
+ var depList= byServices.factory('DependentList', function($resource) {
+ return $resource('api/v1/dependent/list/:userId',{}, {
+ //get: {method: 'GET', params: {userId: '@userId'}},
+ query: { method: "GET", isArray: false }
 
-	})
-});
-*/
+ })
+ });
+ */
 
-var depList = byServices.factory('DependentList', function($resource) {
-	return $resource('api/v1/dependent/list/:userId',{}, {
-		//remove:{method: 'DELETE', params: {userId: '@userId'}},
-		//update:{method: 'PUT', params: {userId: '@userId'}},
-		//query: { method: "GET", isArray: true },
-		get: {method: 'GET', params: {userId: '@userId'}}
-	})
+var depList = byServices.factory('DependentList', function ($resource) {
+    return $resource('api/v1/dependent/list/:userId', {}, {
+        //remove:{method: 'DELETE', params: {userId: '@userId'}},
+        //update:{method: 'PUT', params: {userId: '@userId'}},
+        //query: { method: "GET", isArray: true },
+        get: {method: 'GET', params: {userId: '@userId'}}
+    })
 });
 
 
 //Show dependent details for edit
-var userDependent = byServices.factory('ShowDependent', function($resource) {
-	return $resource('api/v1/dependent/:userId/:id',{}, {
-		show: {method: 'GET', params: {userId: '@userId', id: '@id'}},
-		get: {method: 'GET', params: {userId: '@userId', id: '@id'}},
-		update:{method: 'PUT', params: {userId: '@userId', id: '@id'}},
-		query: { method: "GET", isArray: true }
-	})
+var userDependent = byServices.factory('ShowDependent', function ($resource) {
+    return $resource('api/v1/dependent/:userId/:id', {}, {
+        show: {method: 'GET', params: {userId: '@userId', id: '@id'}},
+        get: {method: 'GET', params: {userId: '@userId', id: '@id'}},
+        update: {method: 'PUT', params: {userId: '@userId', id: '@id'}},
+        query: {method: "GET", isArray: true}
+    })
 });
 
 
 //UserProfile - step 3
-var userProfile3 = byServices.factory('UserDependent', function($resource) {
-	return $resource('api/v1/dependent/:userId',{}, {
-		remove:{method: 'DELETE', params: {userId: '@userId'}},
-		update:{method: 'PUT', params: {userId: '@userId'}},
-		get: {method: 'GET', params: {userId: '@userId'}}
-	})
+var userProfile3 = byServices.factory('UserDependent', function ($resource) {
+    return $resource('api/v1/dependent/:userId', {}, {
+        remove: {method: 'DELETE', params: {userId: '@userId'}},
+        update: {method: 'PUT', params: {userId: '@userId'}},
+        get: {method: 'GET', params: {userId: '@userId'}}
+    })
 });
 
 
-
-
-
-
-var userShow = byServices.factory('UserShow', function($resource) {
-	return $resource('api/v1/users/show/:userId',{}, {
-		show: {method: 'GET', params: {userId: '@id'}},
-		get: {method: 'GET', params: {userId: '@id'}}
-	})
+var userShow = byServices.factory('UserShow', function ($resource) {
+    return $resource('api/v1/users/show/:userId', {}, {
+        show: {method: 'GET', params: {userId: '@id'}},
+        get: {method: 'GET', params: {userId: '@id'}}
+    })
 });
 
-var userEdit = byServices.factory('UserEdit', function($resource) {
-	return $resource('api/v1/users/edit/:userId',{}, {
-		get: {method: 'GET', params: {userId: '@id'}}
-	})
+var userEdit = byServices.factory('UserEdit', function ($resource) {
+    return $resource('api/v1/users/edit/:userId', {}, {
+        get: {method: 'GET', params: {userId: '@id'}}
+    })
 });
 
-var userByFilter = byServices.factory('UserList', function($resource) {
-	return $resource('api/v1/users/list/all',{}, {
-
-	})
+var userByFilter = byServices.factory('UserList', function ($resource) {
+    return $resource('api/v1/users/list/all', {}, {})
 });
 
 
 //Discuss -
-var discuss = byServices.factory('Discuss', function($resource) {
-	return $resource('api/v1/discuss/:discussId',{}, {
-		remove:{method: 'DELETE', params: {discussId: '@id'}},
-		update:{method: 'PUT', params: {discussId: '@id'}},
-		get: {method: 'GET', params: {discussId: '@id'}}
-	})
+var discuss = byServices.factory('Discuss', function ($resource) {
+    return $resource('api/v1/discuss/:discussId', {}, {
+        remove: {method: 'DELETE', params: {discussId: '@id'}},
+        update: {method: 'PUT', params: {discussId: '@id'}},
+        get: {method: 'GET', params: {discussId: '@id'}}
+    })
 });
 
-var discussComment = byServices.factory('DiscussComment', function($resource) {
-	return $resource('api/v1/comment/:commentId',{}, {
-		remove:{method: 'DELETE', params: {commentId: '@id'}},
-		update:{method: 'PUT', params: {commentId: '@id'}},
-		get: {method: 'GET', isArray : true, params: {commentId: '@id'}}
-	})
-});
-
-
-
-var discuss = byServices.factory('DiscussCreate', function($resource) {
-	return $resource('api/v1/discuss',{}, {
-	})
+var discussComment = byServices.factory('DiscussComment', function ($resource) {
+    return $resource('api/v1/comment/:commentId', {}, {
+        remove: {method: 'DELETE', params: {commentId: '@id'}},
+        update: {method: 'PUT', params: {commentId: '@id'}},
+        get: {method: 'GET', isArray: true, params: {commentId: '@id'}}
+    })
 });
 
 
-var discussByFilterPost = byServices.factory('PostDiscuss', function($resource) {
-	return $resource('api/v1/discuss/list/P/:bc_topic/:bc_subTopic',{}, {
-		get: {method: 'GET', params: {bc_topic: '@bc_topic'}}
-	})
+var discuss = byServices.factory('DiscussCreate', function ($resource) {
+    return $resource('api/v1/discuss', {}, {})
 });
 
 
-var discussByFilterQuestion = byServices.factory('QuestionDiscuss', function($resource) {
-	return $resource('api/v1/discuss/list/Q/:bc_topic/:bc_subTopic',{}, {
-	})
-});
-
-var discussByFilterArticle = byServices.factory('ArticleDiscuss', function($resource) {
-	return $resource('api/v1/discuss/list/A/:bc_topic/:bc_subTopic',{}, {
-	})
+var discussByFilterPost = byServices.factory('PostDiscuss', function ($resource) {
+    return $resource('api/v1/discuss/list/P/:bc_topic/:bc_subTopic', {}, {
+        get: {method: 'GET', params: {bc_topic: '@bc_topic'}}
+    })
 });
 
 
-var discussByFilter = byServices.factory('DiscussList', function($resource) {
-	return $resource('api/v1/discuss/list/all',{}, {
+var discussByFilterQuestion = byServices.factory('QuestionDiscuss', function ($resource) {
+    return $resource('api/v1/discuss/list/Q/:bc_topic/:bc_subTopic', {}, {})
+});
 
-	})
+var discussByFilterArticle = byServices.factory('ArticleDiscuss', function ($resource) {
+    return $resource('api/v1/discuss/list/A/:bc_topic/:bc_subTopic', {}, {})
+});
+
+
+var discussByFilter = byServices.factory('DiscussList', function ($resource) {
+    return $resource('api/v1/discuss/list/all', {}, {})
 });
 
 var discussByUserFilter = byServices.factory('UserDiscussList', function ($resource) {
@@ -180,47 +166,47 @@ var discussByUserFilter = byServices.factory('UserDiscussList', function ($resou
     })
 });
 
-var discussSearch = byServices.factory('DiscussSearch', function($resource) {
+var discussSearch = byServices.factory('DiscussSearch', function ($resource) {
 
-	///start here
-	return $resource('api/v1/search/:term',{}, {
-		//get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
+    ///start here
+    return $resource('api/v1/search/:term', {}, {
+        //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
 
-	})
+    })
 });
 
 
-var allDiscussByTypeFilter = byServices.factory('DiscussAllForDiscussType', function($resource) {
-	return $resource('api/v1/discuss/list/all/:discussType',{}, {
-		get: {method: 'GET', params: {discussType: '@discussType'}}
-	})
+var allDiscussByTypeFilter = byServices.factory('DiscussAllForDiscussType', function ($resource) {
+    return $resource('api/v1/discuss/list/all/:discussType', {}, {
+        get: {method: 'GET', params: {discussType: '@discussType'}}
+    })
 });
 
 
-var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', function($resource) {
-	return $resource('api/v1/search/:term/:discussType',{}, {
-		get: {method: 'GET', params: {term: '@term', discussType: '@discussType'}}
-	})
+var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', function ($resource) {
+    return $resource('api/v1/search/:term/:discussType', {}, {
+        get: {method: 'GET', params: {term: '@term', discussType: '@discussType'}}
+    })
 });
 
 
-var discussByOTASTFilter = byServices.factory('DiscussOneTopicAllSubTopicList', function($resource) {
-	return $resource('api/v1/discuss/list/:topicId/all',{}, {
-		get: {method: 'GET', params: {topicId: '@topicId'}}
-	})
+var discussByOTASTFilter = byServices.factory('DiscussOneTopicAllSubTopicList', function ($resource) {
+    return $resource('api/v1/discuss/list/:topicId/all', {}, {
+        get: {method: 'GET', params: {topicId: '@topicId'}}
+    })
 });
 
-var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', function($resource) {
-	return $resource('api/v1/discuss/list/:discussType/:topicId/:subTopicId',{}, {
-		//get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}}
-	})
+var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', function ($resource) {
+    return $resource('api/v1/discuss/list/:discussType/:topicId/:subTopicId', {}, {
+        //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}}
+    })
 });
 
 
-var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($resource) {
-	return $resource('api/v1/discuss/count/:discussType/:topicId/:subTopicId',{}, {
-		//get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}}
-	})
+var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function ($resource) {
+    return $resource('api/v1/discuss/count/:discussType/:topicId/:subTopicId', {}, {
+        //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}}
+    })
 });
 
 
@@ -232,30 +218,24 @@ var discussShow = byServices.factory('DiscussShow', function ($resource) {
 });
 
 
-
-
-var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function($resource) {
-	return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3',{}, {
-		get: {method: 'GET', params: {discussType: '@discussType'}}
-	})
+var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
+    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3', {}, {
+        get: {method: 'GET', params: {discussType: '@discussType'}}
+    })
 });
 
 
-
-
-
 var byApp = angular.module('byApp', [
- 	"byControllers",
- 	"byServices",
- 	"app.directives"
- ]);
+    "byControllers",
+    "byServices",
+    "app.directives"
+]);
 
 
+byApp.directive('bindHtmlUnsafe', function ($compile) {
+    return function ($scope, $element, $attrs) {
 
-byApp.directive('bindHtmlUnsafe', function( $compile ) {
-    return function( $scope, $element, $attrs ) {
-
-        var compile = function( newHTML ) { // Create re-useable compile function
+        var compile = function (newHTML) { // Create re-useable compile function
             newHTML = $compile(newHTML)($scope); // Compile html
             $element.html('').append(newHTML); // Clear and append it
         };
@@ -263,9 +243,9 @@ byApp.directive('bindHtmlUnsafe', function( $compile ) {
         var htmlName = $attrs.bindHtmlUnsafe; // Get the name of the variable
                                               // Where the HTML is stored
 
-        $scope.$watch(htmlName, function( newHTML ) { // Watch for changes to
-                                                      // the HTML
-            if(!newHTML) return;
+        $scope.$watch(htmlName, function (newHTML) { // Watch for changes to
+            // the HTML
+            if (!newHTML) return;
             compile(newHTML);   // Compile it
         });
 
@@ -274,8 +254,8 @@ byApp.directive('bindHtmlUnsafe', function( $compile ) {
 
 
 byApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider
+    function ($routeProvider) {
+        $routeProvider
             .when('/users/home', {templateUrl: 'views/home/home.html', controller: 'BYHomeController'})
             .when('/users/new', {templateUrl: 'views/users/create.html', controller: 'UserCreateController'})
 
@@ -308,7 +288,10 @@ byApp.config(['$routeProvider',
                 templateUrl: 'views/discuss/discussion.html',
                 controller: 'DiscussOneTopicOneSubTopicListController'
             })
-    .when('/discuss/new/:discussType', {templateUrl: 'views/discuss/add.html', controller: 'DiscussCreateFeedbackController'})
+            .when('/discuss/new/:discussType', {
+                templateUrl: 'views/discuss/add.html',
+                controller: 'DiscussCreateFeedbackController'
+            })
 //	.when('/discuss/new/Q', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
 //	.when('/discuss/new/A', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
             .when('/discuss/showedit/:discussId', {
@@ -692,25 +675,24 @@ byControllers.controller('LogoutController', ['$scope', '$location', '$rootScope
 ]);
 
 
-
 byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$rootScope',
-   function ($scope, $rootScope, $http, $location, $rootScope) {
-       $scope.user = {};
-       $scope.user.email = '';
-       $scope.user.password = '';
-       $scope.loginUser = function(user) {
-           $scope.resetError();
-           $http.post('api/v1/users/login', user).success(function(login) {
-			if(login.sessionId===null) {
-			       $scope.setError(login.status);
-   					return;
-               }
-               $scope.user.email = '';
-               $scope.user.password = '';
-   				$rootScope.sessionId=login.sessionId;
-   				$rootScope.bc_discussType = 'A';
-   				$rootScope.bc_username = login.userName;
-   				$rootScope.bc_userId = login.id;
+    function ($scope, $rootScope, $http, $location, $rootScope) {
+        $scope.user = {};
+        $scope.user.email = '';
+        $scope.user.password = '';
+        $scope.loginUser = function (user) {
+            $scope.resetError();
+            $http.post('api/v1/users/login', user).success(function (login) {
+                if (login.sessionId === null) {
+                    $scope.setError(login.status);
+                    return;
+                }
+                $scope.user.email = '';
+                $scope.user.password = '';
+                $rootScope.sessionId = login.sessionId;
+                $rootScope.bc_discussType = 'A';
+                $rootScope.bc_username = login.userName;
+                $rootScope.bc_userId = login.id;
 
 
                 if ("localStorage" in window) {
@@ -760,7 +742,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
  }
  $scope.logoutUser = function(sessionId) {
  $scope.resetError();
-           $http.get('api/v1/users/logout/:sessionId', sessionId).success(function() {
+ $http.get('api/v1/users/logout/:sessionId', sessionId).success(function() {
  $rootScope.sessionId='';
  $rootScope.bc_discussType = '';
  $rootScope.bc_username = '';
@@ -808,80 +790,76 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
 
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams','$timeout','HomeFeaturedContent','Discuss',
-    function ($scope, $rootScope, $routeParams,$timeout, HomeFeaturedContent,Discuss) {
-	$scope.editor = {};
-	$scope.editor.feedbackText = "";
-	$scope.editor.feedbackSubject = "";
-	$scope.currentAcceleratorSelected = "home_featured_articles";
-	$scope.$watch("articles",function(value){
-    $timeout(
-    		function(){
-    			$scope.scrollToId($scope.currentAcceleratorSelected)
-    			},100);	
-    });
-	
-	$scope.homeViews = {};
-	
-	$scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
-	
-	
-	
-	
-	$scope.add = function(type){
-		$scope.currentView = "editor";
-		console.log(type);
-		$scope.homeViews.contentPanel = "views/home/home"+type+"EditorPanel.html";
-	}
-	
-	$scope.register = function (discussType) {
-		$scope.discuss = new Discuss();
-		var htmlval = $scope.editor.feedbackText;
-		$scope.discuss.discussType = discussType;
-		$scope.discuss.text=htmlval;
-        $scope.discuss.title=$scope.editor.feedbackSubject;
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', 'HomeFeaturedContent', 'Discuss',
+    function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss) {
+        $scope.editor = {};
+        $scope.editor.feedbackText = "";
+        $scope.editor.feedbackSubject = "";
+        $scope.currentAcceleratorSelected = "home_featured_articles";
+        $scope.$watch("articles", function (value) {
+            $timeout(
+                function () {
+                    $scope.scrollToId($scope.currentAcceleratorSelected)
+                }, 100);
+        });
 
-		//putting the userId to discuss being created
-		$scope.discuss.userId = localStorage.getItem("USER_ID");
-		$scope.discuss.username = localStorage.getItem("USER_NAME");
+        $scope.homeViews = {};
+
+        $scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
 
 
-		//save the discuss
-		$scope.discuss.$save(function (discuss, headers) {
-			$scope.editor.feedbackText = "";
-			$scope.editor.feedbackSubject = "";
-			$scope.switchToContentView();
-		});
+        $scope.add = function (type) {
+            $scope.currentView = "editor";
+            console.log(type);
+            $scope.homeViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
+        }
 
-	};
-	
-	$scope.switchToContentView = function(scrollTo){
-		$scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
-		if($scope.currentView != "content"){
-			$scope.currentView = "content";
-			$scope.homeViews.contentPanel = "views/home/homeContentPanel.html";
-			 $scope.articles = HomeFeaturedContent.query({discussType:'A'});
-	        $scope.questions = HomeFeaturedContent.query({discussType:'Q'});
-	        $scope.posts = HomeFeaturedContent.query({discussType:'P'});
-	        
-	        
-	        
-		}else{
-			$scope.scrollToId(scrollTo);
-		}
-		
-	
-	}
-	
-	$scope.switchToContentView();
-	
-	$scope.scrollToId = function(id) {
-        var tag = $("#" + id);
-        $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
-    }
-       
+        $scope.register = function (discussType) {
+            $scope.discuss = new Discuss();
+            var htmlval = $scope.editor.feedbackText;
+            $scope.discuss.discussType = discussType;
+            $scope.discuss.text = htmlval;
+            $scope.discuss.title = $scope.editor.feedbackSubject;
+
+            //putting the userId to discuss being created
+            $scope.discuss.userId = localStorage.getItem("USER_ID");
+            $scope.discuss.username = localStorage.getItem("USER_NAME");
+
+
+            //save the discuss
+            $scope.discuss.$save(function (discuss, headers) {
+                $scope.editor.feedbackText = "";
+                $scope.editor.feedbackSubject = "";
+                $scope.switchToContentView();
+            });
+
+        };
+
+        $scope.switchToContentView = function (scrollTo) {
+            $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
+            if ($scope.currentView != "content") {
+                $scope.currentView = "content";
+                $scope.homeViews.contentPanel = "views/home/homeContentPanel.html";
+                $scope.articles = HomeFeaturedContent.query({discussType: 'A'});
+                $scope.questions = HomeFeaturedContent.query({discussType: 'Q'});
+                $scope.posts = HomeFeaturedContent.query({discussType: 'P'});
+
+console.log($scope.posts);
+            } else {
+                $scope.scrollToId(scrollTo);
+            }
+
+
+        }
+
+        $scope.switchToContentView();
+
+        $scope.scrollToId = function (id) {
+            var tag = $("#" + id);
+            $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+        }
+
     }]);
-
 
 
 //DISCUSS
@@ -948,19 +926,18 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
     }]);
 
 
-
 byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType',
-  function($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType) {
-     $scope.discuss = DiscussList.query();
-     
-     $scope.users = []
-     $scope.users[0] = {};
-     $scope.users[0].firstName = "Nitin";
-     $scope.users[0].lastName  = "Jain";
-     
-     $scope.users[1] = {};
-     $scope.users[1].firstName = "Sanjukta";
-     $scope.users[1].lastName  = "Sukul";
+    function ($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType) {
+        $scope.discuss = DiscussList.query();
+
+        $scope.users = []
+        $scope.users[0] = {};
+        $scope.users[0].firstName = "Nitin";
+        $scope.users[0].lastName = "Jain";
+
+        $scope.users[1] = {};
+        $scope.users[1].firstName = "Sanjukta";
+        $scope.users[1].lastName = "Sukul";
 
         var discussType = $routeParams.discussType;
 
@@ -3330,46 +3307,46 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
     }]);
 
 byControllers.controller('DiscussCreateFeedbackController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList',
- function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList) {
-	$scope.feedbackText = "";
-     $scope.feedbackSubject = "";
-    	$scope.discuss = new Discuss();
-	var segment = $location.path().substring(1);
-	segment = segment.substring(segment.indexOf("/")+1);
-	segment = segment.substring(segment.indexOf("/")+1);
-	$scope.discuss.topicId = segment.substring(0,segment.indexOf("/"));
-	$scope.discuss.subTopicId = $location.path().substring($location.path().lastIndexOf("/")+1);
+    function ($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList) {
+        $scope.feedbackText = "";
+        $scope.feedbackSubject = "";
+        $scope.discuss = new Discuss();
+        var segment = $location.path().substring(1);
+        segment = segment.substring(segment.indexOf("/") + 1);
+        segment = segment.substring(segment.indexOf("/") + 1);
+        $scope.discuss.topicId = segment.substring(0, segment.indexOf("/"));
+        $scope.discuss.subTopicId = $location.path().substring($location.path().lastIndexOf("/") + 1);
 
-	$scope.register = function (discussType) {
-		var element_id = discussType;
-		var topicId = "HEALTH CONDITIONS";
-		var subTopicId = "Mental disorders";
-		var htmlval = $scope.feedbackText;
-		$scope.discuss.discussType = discussType;
-		$scope.discuss.text=htmlval;
-        $scope.discuss.title=$scope.feedbackSubject;
+        $scope.register = function (discussType) {
+            var element_id = discussType;
+            var topicId = "HEALTH CONDITIONS";
+            var subTopicId = "Mental disorders";
+            var htmlval = $scope.feedbackText;
+            $scope.discuss.discussType = discussType;
+            $scope.discuss.text = htmlval;
+            $scope.discuss.title = $scope.feedbackSubject;
 
-		//putting the userId to discuss being created
-		$scope.discuss.userId = localStorage.getItem("USER_ID");
-		$scope.discuss.username = localStorage.getItem("USER_NAME");
+            //putting the userId to discuss being created
+            $scope.discuss.userId = localStorage.getItem("USER_ID");
+            $scope.discuss.username = localStorage.getItem("USER_NAME");
 
 
-		//save the discuss
-		$scope.discuss.$save(function (discuss, headers) {
-			//var location = $scope.discuss.discussType;
-			//var mode = "Q";
-            //
-			//$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
-			////document.getElementById(element_id).style.display = 'none';
-            //
-			//$route.reload();
-			//$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
+            //save the discuss
+            $scope.discuss.$save(function (discuss, headers) {
+                //var location = $scope.discuss.discussType;
+                //var mode = "Q";
+                //
+                //$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
+                ////document.getElementById(element_id).style.display = 'none';
+                //
+                //$route.reload();
+                //$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
 
-		});
+            });
 
-	};
+        };
 
- }]);
+    }]);
 
 
 byControllers.controller('DiscussEditController', ['$scope', '$routeParams', '$location', 'DiscussShow',
@@ -3868,23 +3845,39 @@ byControllers.controller('SufferingFromController', function ($scope) {
 
 var app_directives = angular.module('app.directives', []);
 
-app_directives.directive('byHomeCard', function() {
+app_directives.directive('byHomeArticleCard', function () {
     return {
-        restrict:'A',
+        restrict: 'A',
         templateUrl: 'views/home/homeArticleCard.html'
     };
 });
 
-app_directives.directive('discuss', function() {
+app_directives.directive('byHomeQuestionsCard', function () {
+    return {
+        restrict: 'A',
+        templateUrl: 'views/home/homeQuestionCard.html'
+    };
+});
+
+
+app_directives.directive('byHomePostsCard', function () {
+    return {
+        restrict: 'A',
+        templateUrl: 'views/home/homePostsCard.html'
+    };
+});
+
+app_directives.directive('discuss', function () {
     var directive = {};
 
-    directive.restrict = 'E'; /* restrict this directive to elements */
+    directive.restrict = 'E';
+    /* restrict this directive to elements */
 
     directive.template = "<div>THSIS IS SUPPOSE TO BE A DISCUSS CONTENT {{content.firstName}}</div>";
-    
+
     directive.scope = {
-            content : "=user"
-        }
+        content: "=user"
+    }
 
     return directive;
 });

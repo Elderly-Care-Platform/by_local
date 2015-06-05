@@ -927,24 +927,9 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 
 
 byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType',
-<<<<<<< HEAD
-    function ($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType) {
-        $scope.discuss = DiscussList.query();
 
-        $scope.users = []
-        $scope.users[0] = {};
-        $scope.users[0].firstName = "Nitin";
-        $scope.users[0].lastName = "Jain";
-
-        $scope.users[1] = {};
-        $scope.users[1].firstName = "Sanjukta";
-        $scope.users[1].lastName = "Sukul";
-
-=======
   function($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType) {
      $scope.discuss = DiscussList.query();
-     
->>>>>>> ffb6cfb8c94cdc7022053e6c95c55ffdd4b2432c
         var discussType = $routeParams.discussType;
 
         if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {

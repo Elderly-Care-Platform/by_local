@@ -3088,12 +3088,10 @@
 }
 
 .blog-author img {
-  position: relative;
-  display: block;
   float: left;
   width: 135px;
   height:auto;
-  max-height:151px;
+  max-height:149px;
   margin-right: 20px;
   
 }

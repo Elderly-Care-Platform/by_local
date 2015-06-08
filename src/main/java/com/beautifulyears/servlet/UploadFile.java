@@ -59,8 +59,8 @@ public class UploadFile extends HttpServlet {
 						item.write(new File(uploadDir + File.separator + fname
 								+ "." + extension));
 						// out.println("Hello!!");
-						//out.println("localhost:8080/uploaded_files/" + fname + "." + extension);
-						out.println("52.74.82.29/uploaded_files/" + fname + "." + extension);
+						out.println("localhost:8080/uploaded_files/" + fname + "." + extension);
+						//?????out.println("52.74.82.29/uploaded_files/" + fname + "." + extension);
 					}
 				}
 			} catch (Exception e) {

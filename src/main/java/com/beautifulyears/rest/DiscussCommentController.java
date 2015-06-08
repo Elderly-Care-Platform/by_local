@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussComment;
+import com.beautifulyears.domain.User;
 import com.beautifulyears.repository.DiscussCommentRepository;
+import com.beautifulyears.repository.DiscussRepository;
 
 /**
  * The REST based service for managing "comment"
@@ -41,13 +43,15 @@ public class DiscussCommentController {
 			.getLogger(DiscussCommentController.class);
 
 	private DiscussCommentRepository discussCommentRepository;
+	private DiscussRepository discussRepository;
 	private MongoTemplate mongoTemplate;
 
 	@Autowired
 	public DiscussCommentController(
 			DiscussCommentRepository discussCommentRepository,
-			MongoTemplate mongoTemplate) {
+			DiscussRepository discussRepository, MongoTemplate mongoTemplate) {
 		this.discussCommentRepository = discussCommentRepository;
+		this.discussRepository = discussRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
 
@@ -112,25 +116,27 @@ public class DiscussCommentController {
 		Map<String, DiscussComment> nodesMap = new HashMap<String, DiscussComment>(
 				25);
 		List<DiscussComment> tree = new ArrayList<DiscussComment>();
-		int startOffset = result.get(0).getAncestorOffset();
-		DiscussComment curDiscussComment = null;
-		DiscussComment curParentDiscussComment = null;
-		Iterator<DiscussComment> it = result.iterator();
-		while (it.hasNext()) {
-			curDiscussComment = it.next();
-			nodesMap.put(curDiscussComment.getId(), curDiscussComment);
-			if (curDiscussComment.getAncestorOffset() == startOffset) {
-				tree.add(curDiscussComment);
+		if (result != null && !result.isEmpty()) {
+			int startOffset = result.get(0).getAncestorOffset();
+			DiscussComment curDiscussComment = null;
+			DiscussComment curParentDiscussComment = null;
+			Iterator<DiscussComment> it = result.iterator();
+			while (it.hasNext()) {
+				curDiscussComment = it.next();
 				nodesMap.put(curDiscussComment.getId(), curDiscussComment);
-			} else {
-				curParentDiscussComment = nodesMap.get(curDiscussComment
-						.getParentId());
-				if (curParentDiscussComment != null) {
-					curParentDiscussComment.getChildren()
-							.add(curDiscussComment);
+				if (curDiscussComment.getAncestorOffset() == startOffset) {
+					tree.add(curDiscussComment);
+					nodesMap.put(curDiscussComment.getId(), curDiscussComment);
+				} else {
+					curParentDiscussComment = nodesMap.get(curDiscussComment
+							.getParentId());
+					if (curParentDiscussComment != null) {
+						curParentDiscussComment.getChildren().add(
+								curDiscussComment);
+					}
 				}
-			}
 
+			}
 		}
 
 		return tree;
@@ -140,31 +146,51 @@ public class DiscussCommentController {
 	@ResponseBody
 	public DiscussComment submitDiscussComment(
 			@RequestBody DiscussComment discussComment) {
-		System.out.println("Dicuss comment :: "
-				+ discussComment.getDiscussCommenContent());
+		logger.info("Discuss comment :: " + discussComment);
+		DiscussComment discussCommentToReturn = null;
+		boolean proceed = true;
 		// JR TBD
 		// set the userId from session .. not checked later
-
-		// This is either a dicussComment on a discuss or a comment on a
-		// dicussComment
-
-		System.out.println("parent id = " + discussComment.getParentId());
-		System.out.println("discuss id = " + discussComment.getParentId());
-		DiscussComment discussCommentToReturn = null;
-		if (!Util.isEmpty(discussComment.getParentId())) { // comment on comment
-			System.out.println("*** about to create comment on comment....");
-			discussCommentToReturn = saveDiscussCommentOnComment(discussComment);
-		} else if (!Util.isEmpty(discussComment.getDiscussId())) {// comment on
-			System.out.println("*** about to create comment on discuss....");
-			discussCommentToReturn = saveDiscussCommentOnDiscuss(discussComment);
-		} else { // No idea what you are trying
-
+		User user = mongoTemplate.findOne(
+				new Query().addCriteria(Criteria.where("id").is(
+						discussComment.getUserId())), User.class);
+		if (user == null) {
+			proceed = false;
+		} else {
+			discussComment.setUserId(user.getUserName());
 		}
+
+		if (proceed) {
+			// This is either a dicussComment on a discuss or a comment on a
+			// dicussComment
+
+			if (!Util.isEmpty(discussComment.getParentId())) {
+				// comment on comment
+				discussCommentToReturn = saveDiscussCommentOnComment(discussComment);
+			} else if (!Util.isEmpty(discussComment.getDiscussId())) {
+				// comment on discuss
+				discussCommentToReturn = saveDiscussCommentOnDiscuss(discussComment);
+			} else { // No idea what you are trying
+
+			}
+		}
+
+		// Increment aggrReplyCount of the underlying discuss for which the
+		// comment is being submitted
+		Discuss discuss = discussRepository.findOne(discussCommentToReturn
+				.getDiscussId());
+		if (discuss != null) {
+			int replyCount = discuss.getAggrReplyCount() + 1;
+			discuss.setAggrReplyCount(replyCount);
+			discussRepository.save(discuss);
+		}
+
 		return discussCommentToReturn;
 	}
 
 	public DiscussComment saveDiscussCommentOnComment(
 			DiscussComment discussComment) {
+		logger.info("*** about to create comment on comment....");
 		DiscussComment preparedDiscussComment = null;
 		DiscussComment discussCommentBeingCommentedOn = mongoTemplate.findOne(
 				new Query().addCriteria(Criteria.where("id").is(
@@ -200,6 +226,8 @@ public class DiscussCommentController {
 			preparedDiscussComment.setTopicId(discussCommentBeingCommentedOn
 					.getTopicId());
 			preparedDiscussComment.setUserId(discussComment.getUserId());
+			preparedDiscussComment.setUserName(discussComment.getUserName());
+
 			try {
 				mongoTemplate.save(preparedDiscussComment);
 				if (preparedDiscussComment.getId() != null) {// saved
@@ -216,6 +244,7 @@ public class DiscussCommentController {
 
 	public DiscussComment saveDiscussCommentOnDiscuss(
 			DiscussComment discussComment) {
+		logger.info("*** about to create comment on discuss....");
 		DiscussComment preparedDiscussComment = null;
 		Discuss discussBeingCommented = mongoTemplate.findOne(
 				new Query().addCriteria(Criteria.where("id").is(
@@ -240,6 +269,7 @@ public class DiscussCommentController {
 			preparedDiscussComment.setTopicId(discussBeingCommented
 					.getTopicId());
 			preparedDiscussComment.setUserId(discussComment.getUserId());
+			preparedDiscussComment.setUserName(discussComment.getUserName());
 			try {
 				mongoTemplate.save(preparedDiscussComment);
 				if (preparedDiscussComment.getId() != null) {// saved

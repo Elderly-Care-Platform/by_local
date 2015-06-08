@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,6 +23,7 @@ public class DiscussComment {
 	private String ancestorId;
 	private String discussCommentTitle;
 	private String discussCommenContent;
+	private String userName;
 
 	// the following cannot be SET by CLIENT JR TBD - Update @JsonIgnore
 	private Date createdAt = new Date();
@@ -187,6 +190,14 @@ public class DiscussComment {
 
 	public void setChildren(List<DiscussComment> children) {
 		this.children = children;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

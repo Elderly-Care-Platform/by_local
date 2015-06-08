@@ -47,6 +47,7 @@
     <link rel="stylesheet" href="assets/js/tagmanager-master/tagmanager.css">
 
 
+
 </head>
 
 <body ng-app="byApp">
@@ -68,15 +69,22 @@
             </div> <div class="clearfix"></div>
         </div>
 
+		<!-- insert image in tinymce -->
+		<form id="UploadImage" action="/UploadFile" method="post" enctype="multipart/form-data">
+		<!-- insert image in tinymce -->
+
         <div class="tnymcePopUpwrapperInsideLabel divLeft">Image URL</div>
         <div class="tnymcePopUpwrapperInsideUrl divRight">
-            <input type="file" />
+             <input type="file" name="sp" id="sp" size="100">
         </div>
         <div class="clearfix"></div>
         <div>
-            <button  type="button"  class="tnymceCloseImageAdd">Ok</button>
+            <button  type="submit"  class="tnymceCloseImageAdd">Ok</button>
             <button  type="button"  class="tnymceCloseImage tnymceCloseImageButton">Cancel</button>
         </div> <div class="clearfix"></div>
+        </form>
+
+
     </div>
 </div>
 
@@ -87,7 +95,7 @@
      <div class="header">
             <div class="container">
                 <!-- Logo -->
-                <a class="logo" href="#/users/home">
+                <a class="logo" di-href="#/users/home">
                     <img src="assets/img/Logo-new-client.png" alt="Logo">
                 </a>
                 <!-- End Logo -->
@@ -124,19 +132,31 @@
 
                 <!-- Search Block -->
                 <div class="searchClearboth"></div>
-                
+
                 <!-- end Search Block -->
 
-                
+
             </div><!--/end container-->
 
-            <div class="searchWrapper">
+           <!--<div class="searchWrapper">
                <div class="searchLeft">
                    <input type="text" placeholder="Search" />
-               </div>  
+               </div>
                <div class="searchRight">
                    <i class="fa fa-search"></i>
                </div>
+               <div class="clearfix"></div>
+           </div>
+			-->
+
+           <div class="searchWrapper">
+			   <div class="searchLeft">
+				   <input type="text" placeholder="Search" ng-model="term" onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
+				   <a href="#/search/{{term}}/All" id="search_link"></a>
+			   </div>
+			   <div class="searchRight">
+			   	<i class="fa fa-search"></i>
+			   </div>
                <div class="clearfix"></div>
             </div>
 
@@ -146,7 +166,7 @@
                     <ul class="nav navbar-nav">
                     	<!-- Start Home -->
                         <li>
-                            <a href="#/users/home">
+                            <a di-href="#/users/home">
                                 Home
                             </a>
                         </li>
@@ -282,7 +302,7 @@
             <div class="row">
                 <div class="col-md-6">                     
                     <p>
-                       2015  Â© BeautifulYears Ltd. 
+                       2015  © BeautifulYears Ltd. 
                         <a target="_blank" href="#">Privacy Policy </a> <a>|</a> <a href="#">Terms of Service</a><a>|</a> <a href="#">Contact Us</a>
                     </p>
                 </div>
@@ -386,13 +406,13 @@
      	{
      		var element = document.getElementById("login_placeholder");
 			element.innerHTML = "Logout";
-            element.href = "#/users/logout/" + sess;
+            element.href = "/#/users/logout/" + sess;
      	}
      	else
      	{
      		var element = document.getElementById("login_placeholder");
 			element.innerHTML = "Login";
-            element.href = "#/users/login";
+            element.href = "/#/users/login";
      	}
      });
 	</script>
@@ -416,11 +436,11 @@
 				{
 					var log = document.getElementById('login_placeholder');
 					log.innerHTML = "Logout";
-					log.href = "#/users/logout/" + sess;
+					log.href = "/#/users/logout/" + sess;
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "Profile";
-					pro.href = "#/userprofile";
+					pro.href = "/#/userprofile";
 
 
 					if(window.location.href.endsWith("#/users/login"))
@@ -432,15 +452,69 @@
 				{
 					var element = document.getElementById("login_placeholder");
 					element.innerHTML = "Login";
-					element.href = "#/users/login";
+					element.href = "/#/users/login";
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "Signup";
-					pro.href = "#/users/new";
+					pro.href = "/#/users/new";
 
 					window.location = "#/users/login";
 			}
 		</script>
+
+
+		<!-- script for inserting images into tinymce -->
+		<script type="text/javascript">
+
+		$(document).ready(function() {
+
+		$(".tnymceCloseImageAdd").on('click', function()
+		{
+			$("#UploadImage").submit();
+
+		});
+
+			var options1 = {
+		        beforeSend : function() {
+		                //$("#progressbox").show();
+		                // clear everything
+		                //$("#progressbar").width('0%');
+		                //$("#message").empty();
+		                //$("#percent").html("0%");
+		        },
+		        uploadProgress : function(event, position, total, percentComplete) {
+		                //$("#progressbar").width(percentComplete + '%');
+		                //$("#percent").html(percentComplete + '%');
+
+		                // change message text to red after 50%
+		                //if (percentComplete > 50) {
+		                //$("#message").html("<font color='red'>File Upload is in progress</font>");
+		               // }
+		        },
+		        success : function() {
+		               // $("#progressbar").width('100%');
+		               // $("#percent").html('100%');
+		        },
+		        complete : function(response) {
+					//tinyMCE.activeEditor.focus();
+					//tinyMCE.get('submit-article').getBody().focus();
+
+					//?????var img = "<img style = 'height:80px;width:80px' src = 'http://" + response.responseText + "' />";
+					//alert("img path = " + response.responseText.substring(response.responseText.lastIndexOf('/')+1));
+					var img = "<img src = 'uploaded_files/" +  response.responseText.substring(response.responseText.lastIndexOf('/')+1) + "' />";
+					tinyMCE.activeEditor.execCommand("mceInsertContent", true, img);
+					//$("#articlePhotoFilename").val(response.responseText);
+		        },
+		        error : function() {
+		        $("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
+		        }
+			};
+
+			$("#UploadImage").ajaxForm(options1);
+
+		});
+		</script>
+		<!-- script for inserting images into tinymce -->
 
 			<!-- <script type="text/javascript" src="js/jquery.ajaxfileupload.js"></script> -->
 </body>

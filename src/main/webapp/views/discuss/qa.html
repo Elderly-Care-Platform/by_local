@@ -105,7 +105,8 @@
                         </li>
                     </ul>
                 </div>
-                -->
+
+
                 <div class="col-md-11 no-padding">
                     <div class="ask-question"></div>
                 </div>
@@ -114,11 +115,13 @@
                 </div>
                 <div class="col-md-11 no-padding">
                     <div class="submit-article"></div>
-                    <!-- <input id="fileopen" type="file" style="display: none"> -->
+
                 </div>
                 <div class="col-md-11 no-padding">
-                    <a class="give-feedback" href="#/discuss/new/feedback"></a>
+                    <div class="give-feedback"></div>
                 </div>
+                -->
+
             </div>
 
             <!-- THE DISCUSS in limelight - either an Article or a Post or a Question -->
@@ -161,11 +164,11 @@
                                     </li>
 
                                     <li>
-                                        <a>
-                                            <i class="rounded-x icon-heart"></i>
-                                            <span>{{discuss.aggrReplyCount}}</span>
-                                            <div class="post-text">Like</div>
-                                        </a>
+                                        <a href="" ng-click="UserLike(discuss.userId,discuss.id)">
+											<i class="rounded-x icon-heart"></i>
+											<span id="like_count_message"></span>
+											<span id="like_count"> {{discuss.aggrLikeCount}}</span>
+										</a>
                                     </li>
 
                                     <li ng-show="{{discuss.discussType == 'A'}}">
@@ -192,7 +195,7 @@
 							 <div class="article {{comment.id}}">
 								<div class="article-info">
 									<ul class="list-inline posted-info">
-										<li><p class="answer-first-letter">{{(comment.id == comment.parentId && discuss.discussType == 'Q') && 'Answer' || 'Comment'}} By <a href="#">{{localStorage.getItem('USER_NAME')}}</a></p></li>
+										<li><p class="answer-first-letter">{{(comment.id == comment.parentId && discuss.discussType == 'Q') && 'Answer' || 'Comment'}} By <a href="#">{{comment.userName}}</a></p></li>
 										<li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{comment.subTopicId}}</a></li>
 										<li>{{comment.createdAt | date:'medium'}}</li>
 									</ul>
@@ -222,13 +225,13 @@
 										<li class="add-comment">
 											<a href="#/comment/{{discuss.id}}" ng-click="createNewComment('C', '', comment.id)">
 												<i class="rounded-x icon-speech"></i>
-												<span>0</span>
+												<span>{{comment.discussCommentCommentCount}}</span>
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="" ng-click="UserCommentLike(discuss.userId,comment.id)">
 												<i class="rounded-x icon-heart"></i>
-												<span>0</span>
+												<span>comment.discussCommentLikeCount</span>
 											</a>
 										</li>
 									</ul>

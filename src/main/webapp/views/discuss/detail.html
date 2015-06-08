@@ -1,240 +1,194 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
-        <div class="breadcrumbs">
-            <div class="container">
-                <ul class="pull-right breadcrumb">
-                    <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
-					<li class="active"><a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/all" ng-click="showme=false">{{discuss.topicId}}</a></li>
-					<li>{{discuss.subTopicId}}</li>
-                </ul>
-            </div>
-        </div><!--/breadcrumbs-->
-        <!--=== End Breadcrumbs ===-->
-        <br>
-        <hr class="breadcrumb-divider" />
-        <!--=== Content Part ===-->
-        <div class="container content breadCrumbMargin">
-            <div class="send-message-textarea textarea-label borderShadow">
-                <textarea rows="3" id="message-text" placeholder="Send your message" class="message-text"></textarea>
-                <button class="btn-u btn message-submit disabled">SUBMIT</button>
-            </div>
-            <div class="row">
-                <div class="col-md-3 md-margin-bottom-40">
-                    <div class="col-md-12 left-container-img-wrapper no-padding">
-                        <div class="col-md-12">
-                            <div class="row"><a href="#" class="font15">{{!discuss.username && discuss.userId || discuss.username}}</a></div>
-                        </div>
-                        <div class="col-xs-5">
-                            <img class="img-responsive profile-img margin-bottom-20" src="assets/img/img1-md.jpg" alt="">
-                        </div>
-                        <div class="col-xs-7">
-                            <div class="row">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci ligula, tincidunt in mattis ac, sagittis eu orci
-                            </div>
-                            <div class="row more-link">
-                                <a class="linked color-green" href="#">More..</a>
-                            </div><div style="clear:both;"></div>
-                        </div><div style="clear:both;"></div>
-                    </div>
-                    <div class="also-by-wrapper left-container-img-wrapper col-md-12 no-padding">
-                        <div class="also-by-head col-md-12">ALSO BY <span class="uname">{{!discuss.username  && discuss.userId || discuss.username}}</span></div>
-                        <div class="also-by-content-wrapper col-md-offset-1 col-md-11 no-padding" ng-repeat="discuss2 in discuss2">
-                            <div class="col-md-12 also-by-content">
-                                <a href="#/discuss/{{discuss2.id}}"><div>{{discuss2.title}}</div></a>
-                                <div class="sec-line">In {{discuss2.subTopicId}} | {{discuss2.createdAt | date:'medium'}}</div>
-                            </div>
+<!--=== Start Breadcrumbs ===-->
 
-                        </div>
-                        <div class="col-md-7 col-md-offset-5">
-                            <div class="row more-link">
-                                <a class="linked color-green" href="#">More..</a>
-                            </div><div style="clear:both;"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-11 no-padding">
-                        <div class="send-message">SEND MESSAGE TO THE AUTHOR </div>
-                    </div>
-                </div>
-                <div class="col-md-9  md-margin-bottom-40 article-outer-wrapper articles-page">
-                    <div class="padding20 whiteBg">
-                        <div class="article">
-                            <div class="article-info">
-                               <ul class="list-inline posted-info">
-                                <li> <a href="#">By {{!discuss.username && discuss.userId || discuss.username}}</a></li>
-                                <li> <a href="#/discuss/{{discuss.discussType}}/{{discuss.topicId}}/all" ng-click="showme=false">{{discuss.topicId}}</a></li>
-                                <li> {{discuss.createdAt | date:'medium'}}</li>
-                            </ul>
-                        </div>
-                        <div class="article-heading">
-                            {{discuss.title}}
-                        </div>
-                        <div class="article-content">
-                         <img class="img-responsive profile-img margin-bottom-20" src="http://{{discuss.articlePhotoFilename}}" alt="" >
-                         <p class="articles-first-letter">
-                         	<span ng-bind-html-unsafe="discuss.text"></span>
-                         </p>
-                     </div>
-                 </div>
-                 <div class="article-share-links news-v3">
-                    <ul class="post-shares post-shares-lg">
-                        <li class="add-comment">
-                            <a>
-                                <i class="rounded-x icon-speech"></i>
-                                <span>{{discuss.aggrReplyCount}}</span>
-                                <div class="post-text post_text-comment">Comment</div>
-                            </a>
-                        </li>
-                        <li class="shareClick">
-                            <a>
-                                <i class="rounded-x icon-share"></i>
-                                <span>0</span>
-                                <div class="post-text">Share</div>
-                            </a>
-                            <div class="shareClickWrapper">
-                                <div class="shareClickWrapperClose">
-                                    <img src="assets/img/Close-Normal.png" width="19" height="19" alt="" />
-                                </div><div class="clearfix"></div>
-                                <a href="" data-ajax="false">
-                                    <img src="assets/img/fb-share.png" alt="" />
-                                </a>
-                                <a href="" data-ajax="false">
-                                    <img src="assets/img/google-share.png" alt="" />
-                                </a>
-                                <a href="" data-ajax="false">
-                                    <img src="assets/img/Mail.png" alt="" />
-                                </a>
-                                <a href="" data-ajax="false">
-                                    <img src="assets/img/twitter-share.png" alt="" />
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <a>
-                                <i class="rounded-x icon-heart"></i>
-                                <span>{{discuss.aggrLikeCount}}</span>
-                                <div class="post-text">Like</div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<div class="breadcrumbs">
+	<div class="container">
+		<ul class="pull-right breadcrumb">
+			<li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
+			<li class="active"><a
+				href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/all"
+				ng-click="showme=false">{{discuss.topicId}}</a></li>
+			<li>{{discuss.subTopicId}}</li>
+		</ul>
+	</div>
+</div>
 
-            </div>
-            <div class="article-comments-wrapper">
-                <h2 class="text-success text-underlined">COMMENTS</h2>
-                <div class="col-md-12 no-padding">
-                    <div class="comment-wrapper">
-                        <div class="blog-author margin-bottom-15 main-comment">
-                            <img src="assets/img/img1-md.jpg" alt="">
-                            <div class="blog-author-desc news-v3">
-                                <div class="overflow-h">
-                                    <div class="comment-name-time"><span class="comment-name">Vivek Oberoi</span> | <span class="comment-time">5 hours ago</span></div>
-                                </div>
-                                <p>In auctor fringilla turpis eu rhoncus. Vivamus quis nisi vel dui ultrices lacinia ac eu massa. Quis que vitae consequat sapien. Vivamus sit amet tincidunt ipsum, nec blandit ipsum. Lorem ipsu m dolor sit amet, consectetur adipiscing elit...</p>
-                                <ul class="post-shares post-shares-lg">
-                                    <li class="add-comment">
-                                        <a>
-                                            <i class="rounded-x icon-speech"></i>
-                                            <span>28</span>
-                                            <div class="post-text">Comment</div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <i class="rounded-x icon-heart"></i>
-                                            <span>107</span>
-                                            <div class="post-text">Like</div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                                    <!--<div class="col-md-offset-1 col-md-10 blog-author margin-bottom-15 inner-comment">
-                                        <img src="assets/img/img1-md.jpg" alt="">
-                                        <div class="blog-author-desc news-v3">
-                                            <div class="overflow-h">
-                                                <div class="comment-name-time"><span class="comment-name">Vivek Oberoi</span> | <span class="comment-time">5 hours ago</span></div>
-                                            </div>
-                                            <p>In auctor fringilla turpis eu rhoncus. Vivamus quis nisi vel dui ultrices lacinia ac eu massa. Quis que vitae consequat sapien. Vivamus sit amet tincidunt ipsum, nec blandit ipsum. Lorem ipsu m dolor sit amet, consectetur adipiscing elit...</p>
-                                            <ul class="post-shares post-shares-lg">
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="rounded-x icon-speech"></i>
-                                                        <span>28</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="rounded-x icon-heart"></i>
-                                                        <span>107</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>-->
-                                </div>
-                                <div class="blog-author margin-bottom-15 main-comment">
-                                    <img src="assets/img/img1-md.jpg" alt="">
-                                    <div class="blog-author-desc news-v3">
-                                        <div class="overflow-h">
-                                            <div class="comment-name-time"><span class="comment-name">Vivek Oberoi</span> | <span class="comment-time">5 hours ago</span></div>
-                                        </div>
-                                        <p>In auctor fringilla turpis eu rhoncus. Vivamus quis nisi vel dui ultrices lacinia ac eu massa. Quis que vitae consequat sapien. Vivamus sit amet tincidunt ipsum, nec blandit ipsum. Lorem ipsu m dolor sit amet, consectetur adipiscing elit...</p>
-                                        <ul class="post-shares post-shares-lg">
-                                            <li class="add-comment">
-                                                <a>
-                                                    <i class="rounded-x icon-speech"></i>
-                                                    <span>28</span>
-                                                    <div class="post-text">Comment</div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a>
-                                                    <i class="rounded-x icon-heart"></i>
-                                                    <span>107</span>
-                                                    <div class="post-text">Like</div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="blog-author margin-bottom-15 main-comment">
-                                    <img src="assets/img/img1-md.jpg" alt="">
-                                    <div class="blog-author-desc news-v3">
-                                        <div class="overflow-h">
-                                            <div class="comment-name-time"><span class="comment-name">Vivek Oberoi</span> | <span class="comment-time">5 hours ago</span></div>
-                                        </div>
-                                        <p>In auctor fringilla turpis eu rhoncus. Vivamus quis nisi vel dui ultrices lacinia ac eu massa. Quis que vitae consequat sapien. Vivamus sit amet tincidunt ipsum, nec blandit ipsum. Lorem ipsu m dolor sit amet, consectetur adipiscing elit...</p>
-                                        <ul class="post-shares post-shares-lg">
-                                            <li class="add-comment">
-                                                <a>
-                                                    <i class="rounded-x icon-speech"></i>
-                                                    <span>28</span>
-                                                    <div class="post-text">Comment</div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a>
-                                                    <i class="rounded-x icon-heart"></i>
-                                                    <span>107</span>
-                                                    <div class="post-text">Like</div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="enter-comment-wrap whiteBg padding20SM borderShadow">
-                                    <textarea rows="3" id="main-commentbox" placeholder="Enter your comment here"></textarea>
-                                    <div class="clearfix"></div>
-                                    <button class="btn btn-sm btn-success comment-submit disabled">Submit</button>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!--/container-->
+<!--=== End Breadcrumbs ===-->
+<br>
+<hr class="breadcrumb-divider" />
 
-    <!-- we are hiring -->
-    <!-- end we are hiring -->
-    <!-- End Content Part -->
+<!--=== Start  Content Part ===-->
+<div class="container content breadCrumbMargin">
+	<!--  Start Why is this here ? -->
+	<div class="send-message-textarea textarea-label borderShadow">
+		<textarea rows="3" id="message-text" placeholder="Send your message"
+			class="message-text"></textarea>
+		<button class="btn-u btn message-submit disabled">SUBMIT</button>
+	</div>
+	<!--  End Start Why is this here ? -->
+	<div class="row">
+		<!--  Start Left Column  -->
+		<div class="col-md-3 md-margin-bottom-40">
+			<div class="col-md-12 left-container-img-wrapper no-padding">
+				<div class="col-md-12">
+					<div class="row">
+						<a href="#" class="font15">{{!discuss.username &&
+							discuss.userId || discuss.username}}</a>
+					</div>
+				</div>
+				<div class="col-xs-5">
+					<img class="img-responsive profile-img margin-bottom-20"
+						src="assets/img/img1-md.jpg" alt="">
+				</div>
+				<div class="col-xs-7">
+					<div class="row">Lorem ipsum dolor sit amet, consectetur
+						adipiscing elit. Aenean orci ligula, tincidunt in mattis ac,
+						sagittis eu orci</div>
+					<div class="row more-link">
+						<a class="linked color-green" href="#">More..</a>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			<div
+				class="also-by-wrapper left-container-img-wrapper col-md-12 no-padding">
+				<div class="also-by-head col-md-12">
+					ALSO BY <span class="uname">{{!discuss.username &&
+						discuss.userId || discuss.username}}</span>
+				</div>
+				<div
+					class="also-by-content-wrapper col-md-offset-1 col-md-11 no-padding"
+					ng-repeat="discuss2 in discuss2">
+					<div class="col-md-12 also-by-content">
+						<a href="#/discuss/{{discuss2.id}}"><div>{{discuss2.title}}</div></a>
+						<div class="sec-line">In {{discuss2.subTopicId}} |
+							{{discuss2.createdAt | date:'medium'}}</div>
+					</div>
+
+				</div>
+				<div class="col-md-7 col-md-offset-5">
+					<div class="row more-link">
+						<a class="linked color-green" href="#">More..</a>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+			<div class="col-md-11 no-padding">
+				<div class="send-message">SEND MESSAGE TO THE AUTHOR</div>
+			</div>
+		</div>
+		<!-- End  Left Column  -->
+		<!--  Start Right Column  -->
+		<div
+			class="col-md-9  md-margin-bottom-40 article-outer-wrapper articles-page">
+			<!--  Main Discuss Item  -->
+			<div class="padding20 whiteBg">
+				<div class="article">
+					<div class="article-info">
+						<ul class="list-inline posted-info">
+							<li><a href="#">By {{!discuss.username && discuss.userId
+									|| discuss.username}}</a></li>
+							<li><a
+								href="#/discuss/{{discuss.discussType}}/{{discuss.topicId}}/all"
+								ng-click="showme=false">{{discuss.topicId}}</a></li>
+							<li>{{discuss.createdAt | date:'medium'}}</li>
+						</ul>
+					</div>
+					<div class="article-heading">{{discuss.title}}</div>
+					<div class="article-content">
+						<img class="img-responsive profile-img margin-bottom-20"
+							src="uploaded_files/{{discuss.articlePhotoFilename}}" alt="">
+						<p class="articles-first-letter">
+							<span ng-bind-html-unsafe="discuss.text"></span>
+						</p>
+					</div>
+				</div>
+				<div class="article-share-links news-v3">
+					<ul class="post-shares post-shares-lg">
+						<li class="add-comment"><a> <i
+								class="rounded-x icon-speech"></i> <span>{{discuss.aggrReplyCount}}</span>
+								<div class="post-text post_text-comment">Comment</div>
+						</a></li>
+						<li class="shareClick"><a> <i
+								class="rounded-x icon-share"></i> <span>0</span>
+								<div class="post-text">Share</div>
+						</a>
+							<div class="shareClickWrapper">
+								<div class="shareClickWrapperClose">
+									<img src="assets/img/Close-Normal.png" width="19" height="19"
+										alt="" />
+								</div>
+								<div class="clearfix"></div>
+								<a href="" data-ajax="false"> <img
+									src="assets/img/fb-share.png" alt="" />
+								</a> <a href="" data-ajax="false"> <img
+									src="assets/img/google-share.png" alt="" />
+								</a> <a href="" data-ajax="false"> <img
+									src="assets/img/Mail.png" alt="" />
+								</a> <a href="" data-ajax="false"> <img
+									src="assets/img/twitter-share.png" alt="" />
+								</a>
+							</div></li>
+						<li><a> <i class="rounded-x icon-heart"></i> <span>{{discuss.aggrLikeCount}}</span>
+								<div class="post-text">Like</div>
+						</a></li>
+					</ul>
+				</div>
+
+			</div>
+
+			<!--  Discuss Comments  -->
+			<div class="article-comments-wrapper">
+				<h2 class="text-success text-underlined">COMMENTS</h2>
+				<div class="col-md-12 no-padding">
+					<div ng-repeat="comment in comments"
+						ng-include="'detail_item_renderer.html'"></div>
+				</div>
+			</div>
+		</div>
+		<!--  End  Right Column  -->
+	</div>
+</div>
+<!--=== End  Content Part ===-->
+
+<!--  Comment Template -->
+<script type="text/ng-template" id="detail_item_renderer.html">
+<div class="comment-wrapper">
+	<div class="blog-author margin-bottom-15 main-comment">
+		<img src="assets/img/img1-md.jpg" alt="">
+		<div class="blog-author-desc news-v3">
+			<div class="overflow-h">
+				<div class="comment-name-time">
+					<span class="comment-name">{{comment.userName}} </span> | <span
+						class="comment-time">{{comment.createdAt | date:'medium'}} ... {{(date - comment.createdAt)/(1000*60*60) | number:0}} hours ago </span>
+				</div>
+			</div>
+			<p ng-bind-html-unsafe="comment.discussCommenContent | cut:true:500:' ...'"></p>
+			<ul class="post-shares post-shares-lg">
+				<li class="add-comment"><a> <i
+						class="rounded-x icon-speech" href="#/comment/{{discuss.id}}" ng-click="createNewComment('A', '', comment.id)"></i> <span>{{comment.discussCommentCommentCount}}</span>
+						<div class="post-text">Comment</div>
+				</a></li>
+				<li><a href='' ng-click="UserCommentLike(discuss.userId,comment.id)"> <i class="rounded-x icon-heart"></i> <span>comment.discussCommentLikeCount</span>
+						<div class="post-text">Like</div>
+				</a></li>
+			</ul>
+		</div>
+		<!--  Insertion point for enter Comment  -->
+	</div>
+</div>
+	
+</script>
+
+
+
+<!--  Enter comment template  -->
+<div class="enter-comment-wrap whiteBg padding20SM borderShadow">
+	<textarea rows="3" id="main-commentbox"
+		placeholder="Enter your comment here"></textarea>
+	<div class="clearfix"></div>
+	<button class="btn btn-sm btn-success comment-submit disabled">Submit</button>
+	<div class="clearfix"></div>
+</div>

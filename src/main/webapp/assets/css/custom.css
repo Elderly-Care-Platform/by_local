@@ -123,6 +123,7 @@ ng-view{
 	font-size: 13.963px; /* Approximation due to font substitution */
 	font-weight: 400;
 	margin-top: 10px;
+	display: inline-block;
 }
 .article-info a{
 	
@@ -747,6 +748,11 @@ width:100%;
 	text-decoration: none;
 }
 .discussion-wrapper .article-outer-wrapper{
+	/*margin-right:27%;*/
+	/*margin-left: 300px;*/
+}
+
+.discussion-wrapper .home-content-wrapper{
 	margin-right:27%;
 	margin-left: 300px;
 }

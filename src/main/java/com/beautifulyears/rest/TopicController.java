@@ -53,7 +53,7 @@ public class TopicController {
 		return res.getResponse();
 	}
 
-	@RequestMapping(method = { RequestMethod.POST }, value = "/list/insert", consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST }, value = "/insert", consumes = { "application/json" })
 	@ResponseBody
 	public ResponseEntity<Void> insert(@RequestBody Topic topic) {
 		this.mongoTemplate.save(topic);
@@ -63,7 +63,7 @@ public class TopicController {
 		return responseEntity;
 	}
 
-	@RequestMapping(method = { RequestMethod.POST }, value = "/list/insertAll", consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST }, value = "/insertAll", consumes = { "application/json" })
 	@ResponseBody
 	public ResponseEntity<Void> insert(@RequestBody List<Topic> topicArray) {
 		for (Iterator<Topic> iterator = topicArray.iterator(); iterator
@@ -77,7 +77,7 @@ public class TopicController {
 		return responseEntity;
 	}
 
-	@RequestMapping(method = { RequestMethod.POST }, value = "/list/linkAll", consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST }, value = "/linkAll", consumes = { "application/json" })
 	@ResponseBody
 	public ResponseEntity<Void> link(@RequestBody List<String> linksArray) {
 		for (Iterator<String> iterator = linksArray.iterator(); iterator

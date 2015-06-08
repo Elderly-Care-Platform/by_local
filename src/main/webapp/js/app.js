@@ -3938,7 +3938,7 @@ app_directives.directive('diHref', ['$location', '$route',
 					element.attr('href', attrs.diHref);
 					element.bind('click', function (event) {
 						scope.$apply(function () {
-							if ($location.path() == attrs.diHref || "#" + $location.path() == attrs.diHref) $route.reload();
+							if ($location.url() == attrs.diHref || "#" + $location.url() == attrs.diHref) $route.reload();
 						});
 					});
 				}

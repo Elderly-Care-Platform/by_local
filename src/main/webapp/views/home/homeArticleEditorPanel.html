@@ -25,8 +25,8 @@
 </div>
 
 
-<div class="col-md-12 no-padding margin-bottom-35">
-    <textarea class="textbox about-dependent" rows="3" placeholder="Please enter your text here. "></textarea>
+<div class="col-md-12 no-padding margin-bottom-35 byEditor">
+    <textarea id="article_textArea" class="textbox about-dependent" rows="3" placeholder="Please enter your text here. "></textarea>
 </div>
 
 <div class="col-md-12 no-padding form-header-content margin-bottom-15">
@@ -61,13 +61,6 @@
 
 
 
-<!--<div class="ng-scope"-->
-<!--style="position: absolute; top: 200px; left: 300px;">-->
-<!--<div>Submit your valuable feedback</div>-->
-<!--<form novalidate ng-submit="register('F')" ng-controller="DiscussCreateFeedbackController">-->
-<!--<textarea id="give-feedback" rows="3"-->
-<!--placeholder="Please enter your feedback" class="feedback-text" ng-model="feedbackText"></textarea>-->
-<!--<button class="btn btn-u question-submit" onclick="register('F');">SUBMIT</button>-->
-<!--</form>-->
-
-<!--</div>-->
+<script type="text/javascript">
+    var tinyEditor = BY.initEditor({"editorTextArea":"article_textArea"});
+</script>

@@ -1,0 +1,336 @@
+.aboutUsOne
+{
+	background: url('../img/aboutUs/AboutOne.png');
+	padding: 80px 15px 80px 15px;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 20px;
+	margin-top: -21px;
+}
+.aboutUsOneFirst, .aboutUsOneSecond
+{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.aboutUsOneFirst
+{
+	color:  #ffffff;
+	font-size: 60px; 
+	font-weight: 400;
+	line-height: 62px;
+	padding-bottom: 30px;
+}
+.aboutUsOneSecond
+{
+	color:  #ffffff;
+	font-size: 36px; 
+	font-weight: 400;
+	line-height: 62px;
+	padding-bottom: 10px;
+}
+.aboutUsTwo
+{
+	background: url('../img/aboutUs/aboutTwo.png');
+	margin-top: 0px;
+}
+.aboutUsOneThree
+{
+	color:  #ffffff;
+	font-size: 48px; 
+	margin-top: 20px;
+	font-weight: 700;
+	line-height: 62px;
+}
+.aboutDiscussWrapper
+{	
+	border:1px solid #ccc;
+	padding: 15px;
+	background: #fafafa;
+	border-radius: 15px !important;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	font-family: 'Open Sans', sans-serif;
+}
+.aboutDiscussHead
+{
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid #ccc;
+}
+.aboutDiscussHeadBorder
+{
+	width: auto;
+	color:  #1c1c1c;
+	font-size: 22px; 
+	font-weight: 600;
+	text-align: left;
+	border-bottom: 1px solid #007033;
+	width: 100px;
+}
+.aboutDiscussColor
+{
+	color: #007033;
+}
+.aboutDiscussText
+{
+	color:  #000000;
+	font-size: 16px; 
+	padding-top:15px;
+	padding-bottom: 5px;
+	font-weight: 400;
+	line-height: 27px; 
+	text-align: justify;
+}
+.aboutDiscussText a
+{
+	text-decoration: underline;
+	font-style: italic;
+}
+.aboutDiscussText ul
+{
+	width: 100%;
+	padding: 0px;
+	margin: 5px 0px 0px 0px;
+	height: auto;
+}
+.aboutDiscussText ul li
+{
+	list-style-image: url('../img/aboutUs/aboutArrow.png');
+	margin-left: 22px;
+}
+.blackColorMore
+{
+	color: #000;
+	font-style: normal !important;
+	text-decoration: none !important;
+}
+.aboutFindColor
+{
+	color: #0070d0;
+}
+.aboutShopColor
+{
+	color: #c00000;
+}
+.aboutUsThree
+{
+	background: url('../img/aboutUs/aboutTwo.png');
+	padding: 30px 15px 30px 15px;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 20px;
+	margin-top: 15px;
+}
+.aboutUsThreeText
+{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color:  #ffffff;
+	font-size: 24px; 
+	font-weight: 400;
+	line-height: 50px;
+}
+.aboutProductsThumbWrap
+{
+	padding: 15px;
+	border:1px solid #ccc;
+	background: #f9f9f9;
+	margin-bottom: 20px;
+}
+.aboutProductsThumbWrap:nth-child(even)
+{
+	width: 48%;
+	margin-left: 2%;
+}
+.aboutProductsThumbHead
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.aboutFour
+{
+	background: url('../img/aboutUs/weAreHiringAbout.png') bottom;
+	padding: 30px 15px 30px 15px;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 20px;
+	margin-top: 15px;
+}
+.breadcrumbs
+{
+	border-bottom: 0px;
+}
+.aboutFourText
+{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color:  #000000;
+	font-size: 22px; 
+	font-weight: 400;
+	line-height: 40px;
+}
+.aboutLogoWrapper
+{
+	margin-top:40px;
+	margin-bottom: 75px;
+}
+.meetOurTeamAboutWrapper
+{
+	background: url('../img/aboutUs/aboutMeetOurTeam.png') bottom;
+	padding: 20px 15px 20px 15px;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 20px;
+	color:  #ffffff;
+	font-size: 26px; 
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+}
+.meetOurTeamAboutWrapper a
+{
+	color: #fff;
+	text-decoration: none;
+}
+.teamWrapper
+{
+
+}
+.teamWrapperHead
+{
+	text-align: right;
+	color:  #343232;
+	font-size: 26px; 
+	font-weight: 400;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+	font-family: 'Open Sans', sans-serif;
+}
+.teamWrapperBelowThumb
+{
+	color:  #292929;
+	font-size: 26px; 
+	font-weight: 400;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	margin-bottom: 20px;
+}
+.teamWrapperBelowTwo
+{
+	position: relative;
+	height: 266px;
+}
+.teamWrapperBelowLeft
+{
+	position: absolute;
+	z-index: 9;
+	left: 0px;
+	top: -20px;
+	width: 339px;
+}
+.clearfix
+{
+	clear: both;
+}
+.teamWrapperBelowRight
+{
+	width: 90%;
+	float: right;
+	background: #fff;
+	border:1px solid #ccc;
+	border-radius: 15px !important;
+	color:  #000000;
+	font-size: 14px; 
+	font-weight: 400;
+	line-height: 24px;
+	padding: 30px 15px 30px 20%;
+}
+.teamWrapperBelowRightText
+{
+	margin-bottom: 10px;
+	color:  #5a5a5a;
+	font-size: 12px; 
+	font-weight: 400;
+}
+.teamWrapperBelowRightText strong
+{
+	font-size: 22px;
+	font-weight: 400;
+}
+@media screen and (max-width: 990px){
+	.aboutProductsThumbWrap:nth-child(even)
+	{
+		width: 100%;
+		margin-left: 0px;
+	}
+	.teamWrapperBelowThumb img
+	{
+		width: 300px;
+	}
+}
+@media screen and (max-width: 680px){
+	.teamWrapperBelowRight
+	{
+		width: 80%;
+		float: right;
+		background: #fff;
+		border:1px solid #ccc;
+		border-radius: 15px !important;
+		color:  #000000;
+		font-size: 14px; 
+		font-weight: 400;
+		line-height: 24px;
+		padding: 30px 15px 30px 25%;
+	}
+}
+@media screen and (max-width: 425px){
+	.teamWrapperBelowRight
+	{
+		width: 80%;
+		float: right;
+		background: #fff;
+		border:1px solid #ccc;
+		border-radius: 15px !important;
+		color:  #000000;
+		font-size: 14px; 
+		font-weight: 400;
+		line-height: 24px;
+		padding: 30px 15px 30px 45%;
+	}
+}
+@media screen and (max-width: 760px){
+	.aboutFourText
+	{
+		line-height: 32px;
+	}
+	.aboutUsOneFirst, .aboutUsOneSecond
+	{
+		width: 90%;
+	}
+	.aboutUsOneThree
+	{
+		font-size: 30px;
+		line-height: 40px;
+	}
+	.aboutUsOneFirst
+	{
+		font-size: 45px; 
+		line-height: 48px;
+		padding-bottom: 20px;
+	}
+	.aboutUsOneSecond
+	{
+		font-size: 26px; 
+		line-height: 42px;
+		padding-bottom: 10px;
+	}
+	.aboutUsOne
+	{	
+		padding: 60px 15px 60px 15px;
+	}
+}

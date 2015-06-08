@@ -47,6 +47,9 @@
     <link rel="stylesheet" href="assets/js/tagmanager-master/tagmanager.css">
 
 
+    <link rel="stylesheet" href="assets/css/home.css">
+
+    <link rel="stylesheet" href="assets/css/aboutUs.css">
 
 </head>
 
@@ -95,7 +98,7 @@
      <div class="header">
             <div class="container">
                 <!-- Logo -->
-                <a class="logo" di-href="#/users/home">
+                <a class="logo" di-href="#/users/home?type=home">
                     <img src="assets/img/Logo-new-client.png" alt="Logo">
                 </a>
                 <!-- End Logo -->
@@ -103,19 +106,20 @@
                 <!-- Topbar -->
                 <div class="topbar">
                     <ul class="loginbar pull-right">
-                        <li class="hoverSelector">
-                            <i class="fa fa-globe"></i>
-                            <a>Languages</a>
-                            <ul class="languages hoverSelectorBlock">
-                                <li class="active">
-                                    <a href="#">English <input type="checkbox" /></a>
-                                </li>
-                                <li><a href="#">Hindi <input type="checkbox" /></a></li>
-                                <li><a href="#">Other <input type="checkbox" /></a></li>
-                            </ul>
-                        </li>
+                        <!--<li class="hoverSelector">-->
+                            <!--<i class="fa fa-globe"></i>-->
+                            <!--<a>Languages</a>-->
+                            <!--<ul class="languages hoverSelectorBlock">-->
+                                <!--<li class="active">-->
+                                    <!--<a href="#">English <input type="checkbox" /></a>-->
+                                <!--</li>-->
+                                <!--<li><a href="#">Hindi <input type="checkbox" /></a></li>-->
+                                <!--<li><a href="#">Other <input type="checkbox" /></a></li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                        <li><a di-href="#/users/home?type=aboutUs" id="aboutUs_placeholder">ABOUT US</a></li>
                         <li class="topbar-devider"></li>
-                        <li><a href="" id="profile_placeholder">ABOUT US</a></li>
+                        <li><a href="" id="profile_placeholder">PROFILE</a></li>
                         <li class="topbar-devider"></li>
                         <li><a href="#/users/login" id="login_placeholder">JOIN US</a></li>
                     </ul>
@@ -166,7 +170,7 @@
                     <ul class="nav navbar-nav">
                     	<!-- Start Home -->
                         <li>
-                            <a di-href="#/users/home">
+                            <a di-href="#/users/home?type=home">
                                 Home
                             </a>
                         </li>
@@ -381,10 +385,10 @@
 
 
 <!-- jumpstart assets -->
-	<script src="js/angular.js"></script>
-	<script src="js/angular-resource.js"></script>
-	<script src="js/app.js"></script>
-
+	<script type="text/javascript"  src="js/angular.js"></script>
+	<script type="text/javascript"  src="js/angular-resource.js"></script>
+	<script type="text/javascript"  src="js/app.js"></script>
+    <script type="text/javascript" src="js/util/byEditor.js"></script>
 
 	<script language="JavaScript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js">
 

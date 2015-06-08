@@ -823,6 +823,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 //home
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', 'HomeFeaturedContent', 'Discuss',
     function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss) {
+		console.log($routeParams);
         $scope.editor = {};
         $scope.editor.feedbackText = "";
         $scope.editor.feedbackSubject = "";
@@ -838,12 +839,21 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         $scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
 
+		if($routeParams.type === "aboutUs") {
+			$scope.currentView = "aboutUs";
+			$scope.homeViews.contentPanel = "views/home/aboutUs.html";
+		} else	{
+			$scope.homeViews.contentPanel = "views/home/homeContentPanel.html";
+			$scope.articles = HomeFeaturedContent.query({discussType: 'A'});
+			$scope.questions = HomeFeaturedContent.query({discussType: 'Q'});
+			$scope.posts = HomeFeaturedContent.query({discussType: 'P'});
 
-        $scope.add = function (type) {
-            $scope.currentView = "editor";
-            console.log(type);
-            $scope.homeViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
-        }
+		}
+
+		$scope.add = function (type) {
+			$scope.currentView = "editor";
+			$scope.homeViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
+		}
 
         $scope.register = function (discussType) {
             $scope.discuss = new Discuss();
@@ -874,16 +884,12 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 $scope.articles = HomeFeaturedContent.query({discussType: 'A'});
                 $scope.questions = HomeFeaturedContent.query({discussType: 'Q'});
                 $scope.posts = HomeFeaturedContent.query({discussType: 'P'});
-
-console.log($scope.posts);
             } else {
-                $scope.scrollToId(scrollTo);
-            }
-
-
+				$scope.scrollToId(scrollTo);
+			}
         }
 
-        $scope.switchToContentView();
+        //$scope.switchToContentView();
 
         $scope.scrollToId = function (id) {
             var tag = $("#" + id);
@@ -3925,20 +3931,20 @@ app_directives.directive('byHomePostsCard', function () {
 });
 
 app_directives.directive('diHref', ['$location', '$route',
-                                                       function($location, $route) {
-                                                   return function(scope, element, attrs) {
-                                                       scope.$watch('diHref', function() {
-                                                           if(attrs.diHref) {
-                                                               element.attr('href', attrs.diHref);
-                                                               element.bind('click', function(event) {
-                                                                   scope.$apply(function(){
-                                                                       if($location.path() == attrs.diHref || "#"+$location.path() == attrs.diHref) $route.reload();
-                                                                   });
-                                                               });
-                                                           }
-                                                       });
-                                                   }
-                                               }]);
+	function ($location, $route) {
+		return function (scope, element, attrs) {
+			scope.$watch('diHref', function () {
+				if (attrs.diHref) {
+					element.attr('href', attrs.diHref);
+					element.bind('click', function (event) {
+						scope.$apply(function () {
+							if ($location.path() == attrs.diHref || "#" + $location.path() == attrs.diHref) $route.reload();
+						});
+					});
+				}
+			});
+		}
+	}]);
 
 app_directives.directive('discuss', function () {
     var directive = {};

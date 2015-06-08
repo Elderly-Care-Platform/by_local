@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.beautifulyears.domain.DiscussComment;
-import com.beautifulyears.domain.SubTopic;
 import com.beautifulyears.domain.Topic;
 import com.beautifulyears.repository.DiscussRepository;
 import com.mongodb.Mongo;
@@ -38,9 +37,9 @@ public class ApplicationConfig {
 		if (!mongoTemplate.collectionExists(Topic.class)) {
 			mongoTemplate.createCollection(Topic.class);
 		}
-		if (!mongoTemplate.collectionExists(SubTopic.class)) {
-			mongoTemplate.createCollection(SubTopic.class);
-		}
+//		if (!mongoTemplate.collectionExists(SubTopic.class)) {
+//			mongoTemplate.createCollection(SubTopic.class);
+//		}
 
 		return mongoTemplate;
 	}

@@ -302,7 +302,7 @@
             <div class="row">
                 <div class="col-md-6">                     
                     <p>
-                       2015  © BeautifulYears Ltd. 
+                       2015  Â© BeautifulYears Ltd. 
                         <a target="_blank" href="#">Privacy Policy </a> <a>|</a> <a href="#">Terms of Service</a><a>|</a> <a href="#">Contact Us</a>
                     </p>
                 </div>
@@ -436,27 +436,27 @@
 				{
 					var log = document.getElementById('login_placeholder');
 					log.innerHTML = "Logout";
-					log.href = "/#/users/logout/" + sess;
+					log.href = apiPrefix+"#/users/logout/" + sess;
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "Profile";
-					pro.href = "/#/userprofile";
+					pro.href = apiPrefix+"#/userprofile";
 
 
 					if(window.location.href.endsWith("#/users/login"))
 					{
-						window.location = "#/users/home";
+						window.location = apiPrefix+"#/users/home";
 					}
 				}
 				else
 				{
 					var element = document.getElementById("login_placeholder");
 					element.innerHTML = "Login";
-					element.href = "/#/users/login";
+					element.href = apiPrefix+"#/users/login";
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "Signup";
-					pro.href = "/#/users/new";
+					pro.href = apiPrefix+"#/users/new";
 
 					window.location = "#/users/login";
 			}

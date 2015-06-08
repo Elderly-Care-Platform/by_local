@@ -1,5 +1,8 @@
 package com.beautifulyears.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,52 +12,56 @@ public class Topic {
 
 	@Id
 	private String id;
-	private String topicId;
-	private String topicTitle;
-	private String topicNotes;
-	private String topicTags;
-	private String topicPosition;
-	private String topicFlag;
+	private String topicName;
+	private String topicDesc;
+	private String slug;
+	private List<String> ancestors;
+	private String parentId;
+	private List<String> children = new ArrayList<String>();
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getTopicId() {
-		return topicId;
+	public String getTopicName() {
+		return topicName;
 	}
-	public void setTopicId(String topicId) {
-		this.topicId = topicId;
+	public void setTopicName(String topicName) {
+		this.topicName = topicName;
 	}
-	public String getTopicTitle() {
-		return topicTitle;
+	public String getTopicDesc() {
+		return topicDesc;
 	}
-	public void setTopicTitle(String topicTitle) {
-		this.topicTitle = topicTitle;
+	public void setTopicDesc(String topicDesc) {
+		this.topicDesc = topicDesc;
 	}
-	public String getTopicNotes() {
-		return topicNotes;
+	public String getSlug() {
+		return slug;
 	}
-	public void setTopicNotes(String topicNotes) {
-		this.topicNotes = topicNotes;
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
-	public String getTopicTags() {
-		return topicTags;
+	public List<String> getAncestors() {
+		return ancestors;
 	}
-	public void setTopicTags(String topicTags) {
-		this.topicTags = topicTags;
+	public void setAncestors(List<String> ancestors) {
+		this.ancestors = ancestors;
 	}
-	public String getTopicPosition() {
-		return topicPosition;
+	public String getParentId() {
+		return parentId;
 	}
-	public void setTopicPosition(String topicPosition) {
-		this.topicPosition = topicPosition;
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
-	public String getTopicFlag() {
-		return topicFlag;
+	public List<String> getChildren() {
+		return children;
 	}
-	public void setTopicFlag(String topicFlag) {
-		this.topicFlag = topicFlag;
+	public void setChildren(List<String> children) {
+		this.children = children;
 	}
+	
+	
+	
+	
 }

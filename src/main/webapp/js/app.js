@@ -892,8 +892,10 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         //$scope.switchToContentView();
 
         $scope.scrollToId = function (id) {
-            var tag = $("#" + id);
-            $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+        	var tag = $("#" + id + ":visible");
+            if(tag.length > 0){
+         	   $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+            }
         }
 
     }]);

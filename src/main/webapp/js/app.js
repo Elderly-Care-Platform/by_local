@@ -689,11 +689,11 @@ function ($scope,$location, $rootScope) {
 
 	var element = document.getElementById("login_placeholder");
 	element.innerHTML = "Login";
-	element.href = "/#/users/login";
+	element.href = apiPrefix+"#/users/login";
 
 	var pro = document.getElementById('profile_placeholder');
 	pro.innerHTML = "Signup";
-	pro.href = "/#/users/new";
+	pro.href = apiPrefix+"#/users/new";
 
 
 	$location.path("/users/login");
@@ -731,11 +731,11 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 					$location.path("/users/home");
 					var element = document.getElementById("login_placeholder");
 					element.innerHTML = "Logout";
-					element.href = "/#/users/logout/"+login.sessionId;
+					element.href = apiPrefix+"#/users/logout/"+login.sessionId;
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "Profile";
-					pro.href = "/#/userprofile";
+					pro.href = apiPrefix+"#/userprofile";
 
 				}
 				else
@@ -825,8 +825,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
     function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss) {
 		console.log($routeParams);
         $scope.editor = {};
-        $scope.editor.feedbackText = "";
-        $scope.editor.feedbackSubject = "";
+        $scope.editor.subject = "";
         $scope.currentAcceleratorSelected = "home_featured_articles";
         $scope.$watch("articles", function (value) {
             $timeout(
@@ -857,20 +856,18 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         $scope.register = function (discussType) {
             $scope.discuss = new Discuss();
-            var htmlval = $scope.editor.feedbackText;
             $scope.discuss.discussType = discussType;
-            $scope.discuss.text = htmlval;
-            $scope.discuss.title = $scope.editor.feedbackSubject;
+            $scope.discuss.text = tinyMCE.activeEditor.getContent();
+            $scope.discuss.title = $scope.editor.subject;
 
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
-            $scope.discuss.username = localStorage.getItem("USER_NAME");
+			$scope.discuss.username = localStorage.getItem("USER_NAME");
 
 
             //save the discuss
             $scope.discuss.$save(function (discuss, headers) {
-                $scope.editor.feedbackText = "";
-                $scope.editor.feedbackSubject = "";
+                $scope.editor.subject = "";
                 $scope.switchToContentView();
             });
 

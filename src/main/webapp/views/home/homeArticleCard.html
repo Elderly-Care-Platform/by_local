@@ -16,13 +16,15 @@
     <div class="article-info dp-inline-block">
         <ul class="list-inline posted-info">
             <li>
-                <p class="article-first-letter">Article by <a href="#">{{article.userId}}</a></p></li>
-            <li>In <a href="#">{{article.topicId}}</a></li>
+                <p class="article-first-letter">Article by <a href="">{{article.userId}}</a></p></li>
+            <li>In <a href="">{{article.topicId}}</a></li>
             <li>{{article.createdAt | date : 'MMM d, yyyy'}}</li>
         </ul>
     </div>
     <div class="article">
-        <div class="article-heading">{{article.title}}
+
+        <div class="article-heading">
+            <a href="#/discuss/{{article.id}}">{{!article.title && article.id || article.title}}</a>
         </div>
 
         <div class="article-share-links news-v3"></div>
@@ -32,6 +34,6 @@
     </div>
 </div>
 
-<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"><a
-        href="#">More...</a>
+<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html">
+    <a href="#discuss/A/list/all">More...</a>
 </div>

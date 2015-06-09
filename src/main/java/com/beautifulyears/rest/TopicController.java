@@ -90,13 +90,13 @@ public class TopicController {
 				Query parentQuery = new Query();
 				parentQuery.addCriteria(Criteria.where("topicName").is(
 						(String) parent));
-				Topic parentTopic = this.mongoTemplate.findOne(parentQuery,
+				Topic parentTopic = (Topic)this.mongoTemplate.findOne(parentQuery,
 						(Class) Topic.class);
 
 				Query childQuery = new Query();
 				childQuery.addCriteria(Criteria.where("topicName").is(
 						(String) child));
-				Topic childTopic = this.mongoTemplate.findOne(childQuery,
+				Topic childTopic = (Topic)this.mongoTemplate.findOne(childQuery,
 						(Class) Topic.class);
 				if (null != parentTopic && null != childTopic) {
 					parentTopic.getChildren().add(childTopic.getId());

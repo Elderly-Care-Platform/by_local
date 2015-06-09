@@ -59,3 +59,8 @@
 .byEditor {
     border: 1px solid #ccc;
 }
+
+.home-content-wrapper .blog-author p img{
+	max-width: 20px;
+	float:none;
+}

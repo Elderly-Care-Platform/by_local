@@ -28,7 +28,7 @@
     content: url("../img/icons/ask_share_submit/question.png");
 }
 
-.icon_question:hover {
+.by_leftPanel_icons:hover .icon_question {
     content: url("../img/icons/ask_share_submit/question_mo.png");
 }
 
@@ -36,12 +36,24 @@
     content: url("../img/icons/ask_share_submit/feedback.png");
 }
 
+.by_leftPanel_icons:hover .icon_feedback {
+    content: url("../img/icons/ask_share_submit/feedback_mo.png");
+}
+
 .icon_tips:before {
     content: url("../img/icons/ask_share_submit/tips.png");
 }
 
+.by_leftPanel_icons:hover .icon_tips {
+    content: url("../img/icons/ask_share_submit/tips_mo.png");
+}
+
 .icon_story:before {
     content: url("../img/icons/ask_share_submit/story.png");
+}
+
+.by_leftPanel_icons:hover .icon_story {
+    content: url("../img/icons/ask_share_submit/story_mo.png");
 }
 
 .byEditor {

@@ -850,6 +850,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 		}
 
 		$scope.add = function (type) {
+			window.scrollTo(0, 0);
 			$scope.currentView = "editor";
 			$scope.homeViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
 		}

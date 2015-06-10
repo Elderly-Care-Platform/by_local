@@ -1,0 +1,13 @@
+.byEditor {
+    border: 1px solid #ccc;
+}
+
+.editor_categories{
+    display:inline !important;
+    background-color: #f5f5f5 !important;
+    padding: 0px !important;
+}
+
+.by_accordian input{
+    margin-left: 10px;
+}

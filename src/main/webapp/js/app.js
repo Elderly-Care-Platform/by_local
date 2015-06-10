@@ -832,10 +832,9 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 //home
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', 'HomeFeaturedContent', 'Discuss',
     function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss) {
-		console.log($routeParams);
         $scope.editor = {};
         $scope.editor.subject = "";
-        $scope.currentAcceleratorSelected = "home_featured_articles";
+        $scope.currentAcceleratorSelected = "";
         $scope.$watch("articles", function (value) {
             $timeout(
                 function () {
@@ -846,17 +845,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.homeViews = {};
 
         $scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
-
-		if($routeParams.type === "aboutUs") {
-			$scope.currentView = "aboutUs";
-			$scope.homeViews.contentPanel = "views/home/aboutUs.html";
-		} else	{
-			$scope.homeViews.contentPanel = "views/home/homeContentPanel.html";
-			$scope.articles = HomeFeaturedContent.query({discussType: 'A'});
-			$scope.questions = HomeFeaturedContent.query({discussType: 'Q'});
-			$scope.posts = HomeFeaturedContent.query({discussType: 'P'});
-
-		}
 
 		$scope.add = function (type) {
 			$scope.currentView = "editor";
@@ -904,6 +892,15 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
          	   $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
             }
         }
+        
+        if($routeParams.type === "aboutUs") {
+			$scope.currentView = "aboutUs";
+			$scope.homeViews.contentPanel = "views/home/aboutUs.html";
+		} else	{
+			$scope.currentView = "";
+			$scope.switchToContentView();
+
+		}
 
     }]);
 

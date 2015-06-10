@@ -1,36 +1,29 @@
-
 <div class="col-md-12 no-padding margin-bottom-35">
-
-    <div id="home_featured_articles" class="col-md-12 no-padding  list-head dp-block">FEATURED ARTICLES
+    <div id="home_featured_articles" class="col-md-12 no-padding  list-head dp-block">
+        FEATURED ARTICLES
     </div>
 
     <div class="col-md-12 no-padding bg-gray-h1">
         <div class="bg-green-h2" style="width: 216px;"></div>
     </div>
 </div>
-<div ng-repeat="article in articles" class="blog-author margin-bottom-35 main-article" data-index="discussion-articles" data-link="articles.html">
-    <div style="clear: both">
-        <img src="assets/img/mock/wide1.jpg" alt="image">
-    </div>
+<div ng-repeat="article in articles" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles" data-link="articles.html">
+    <img class="img-responsive" src="assets/img/mock/wide1.jpg" alt="image">
 
-    <div class="article-info dp-inline-block">
+    <div class="by_card_info">
         <ul class="list-inline posted-info">
             <li>
-                <p class="article-first-letter">Article by <a href="">{{article.username}}</a></p></li>
-            <li>In <a href="">{{article.topicId}}</a></li>
+                <p class="by_captilize_first_letter">Article by <a class="by_captilize_first_letter" href="">{{article.username}}</a></p></li>
+            <li ng-show="article.topicId">In <a href="" class="by_captilize_first_letter">{{article.topicId}}</a></li>
             <li>{{article.createdAt | date : 'MMM d, yyyy'}}</li>
         </ul>
-    </div>
-    <div class="article">
-
-        <div class="article-heading">
-            <a href="#/discuss/{{article.id}}">{{!article.title && article.id || article.title}}</a>
+        <div class="by_card_heading">
+            <a href="#/discuss/{{article.id}}">{{article.title}}</a>
         </div>
-
-        <div class="article-share-links news-v3"></div>
     </div>
 
-    <div class="articles-story" ng-bind-html-unsafe="article.text | cut:true:500:' ...'">
+    <div class="by_card_content" ng-bind-html-unsafe="article.text | cut:true:500:' ...'">
+
     </div>
 </div>
 

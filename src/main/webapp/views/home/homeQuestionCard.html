@@ -4,26 +4,27 @@
     </div>
 
     <div class="col-md-12 no-padding bg-gray-h1">
-    	<div class="bg-green-h2" style="width: 216px;">
-    	</div>
+    	<div class="bg-green-h2" style="width: 216px;"></div>
     </div>
 </div>
 
-<div ng-repeat="question in questions" class="blog-author margin-bottom-35 main-article" data-index="discussion-articles" data-link="articles.html">
-    <img src="assets/img/by.png" alt="assets/img/by.png">
+<div ng-repeat="question in questions" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles" data-link="articles.html">
+    <img class="img-responsive" src="assets/img/mock/wide1.jpg" alt="image">
 
-    <div class="article-info dp-inline-block">
+    <div class="by_card_info">
         <ul class="list-inline posted-info">
             <li>
-                <p class="qa-first-letter">Question by {{question.username}}</p></li>
-            <li>In <a href="">{{question.topicId}}</a></li>
+                <p class="by_captilize_first_letter">Question by <a class="by_captilize_first_letter" href="">{{question.username}}</a></p></li>
+            <li ng-show="question.topicId">In <a href="" class="by_captilize_first_letter">{{question.topicId}}</a></li>
             <li>{{question.createdAt | date : 'MMM d, yyyy'}}</li>
-            </li>
-
         </ul>
+        <div class="by_card_heading">
+            <a href="#/discuss/{{question.id}}">{{question.title}}</a>
+        </div>
     </div>
 
-    <div class="articles-story" ng-bind-html-unsafe="question.text | cut:true:500:' ...'">
+    <div class="by_card_content" ng-bind-html-unsafe="question.text | cut:true:500:' ...'">
+
     </div>
 </div>
 

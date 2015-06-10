@@ -264,6 +264,13 @@ var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($r
     })
 });
 
+var discussCategoryList = byServices.factory('discussCategoryList', function ($resource) {
+	return $resource('api/v1/topic/list/all', {}, {
+		get: {method: 'GET', params: {}}
+	})
+});
+
+
 var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
@@ -327,7 +334,7 @@ byApp.config(['$routeProvider',
 
 
 //Routing and Session Check for Login
-byApp.run(function($rootScope, $location, SessionIdService) {
+byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList) {
 
     // register listener to watch route changes
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
@@ -351,6 +358,8 @@ byApp.run(function($rootScope, $location, SessionIdService) {
             }
         }
     });
+
+	$rootScope.discussCategoryList = discussCategoryList.query();
 });
 
 

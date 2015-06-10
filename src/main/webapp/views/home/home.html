@@ -1,74 +1,17 @@
 <div ng-controller="LoadCustomJSController"></div>
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 <div class="breadcrumbs">
-    <div class="container">
+    <div class="container by_breadcrumbs_container">
         <ul class="pull-right breadcrumb">
             <li class="active"><a href="index.html">HOME</a></li>
         </ul>
     </div>
     <hr class="breadcrumb-divider"/>
 </div>
-<div class="container content discussion-page breadCrumbMargin">
-    <div class="ask-question-textarea textarea-label borderShadow">
-            <textarea id="ask-question" rows="3" placeholder="Please enter your question"
-                      class="question-text"></textarea>
-        <button class="btn btn-u question-submit disabled">SUBMIT</button>
-    </div>
-    <div class="share-tip-textarea textarea-label borderShadow">
-            <textarea id="share-tip" rows="3" placeholder="Share your tips and experience"
-                      class="share-tips-text"></textarea>
-        <button class="btn btn-u share-tips-submit disabled">SUBMIT</button>
-    </div>
-    <div class="submit-article-textarea textarea-label borderShadow">
-        <div class="col-md-12">
-            <div class="col-md-12 alert zindexhigh whiteBg borderShadow rounded-r">
-                <p>You can send us your article as a Word document with embedded images to <a
-                        href="mailto:content@beautifulyears.com">content@beautifulyears.com</a> But it would help us
-                    a lot if you enter it here.</p>
-
-                <p>Please not that before posting on our site, your article could be edited.</p>
-            </div>
-        </div>
-        <div class="col-md-12 zindexhigh">
-            <div class="col-md-7 no-padding">
-                <input type="text" class="form-control borderShadow col-md-12"
-                       placeholder="Please enter the headline here. (Upto 80 characters)"/>
-            </div>
-        </div>
-        <div class="col-md-12 zindexhigh">
-            <div class="col-md-3 no-padding">
-                <button class="btn btn-xs btn-success submitTextFileButton col-md-12">PLEASE UPLOAD A COVER PHOTO
-                </button>
-                <input type="file" id="submitTextFile"/>
-            </div>
-        </div>
-        <div class="col-md-12 zindexhigh">
-                <textarea id="submit-article" rows="3" placeholder="Please enter the  text of your article here."
-                          class="submit-article-text margin-top-10"></textarea>
-        </div>
-
-
-        <div class="col-md-12 zindexhigh margintop30 tminputWrapper">
-            <div class="col-md-12 no-padding">
-                <input class="col-md-12 tm-input" name="tags" placeholder="Tag your keywords here"/>
-            </div>
-
-            <button class="btn btn-u submit-article-submit disabled">SUBMIT</button>
-            <div class="previewButton">
-                <img src="assets/img/Preview_Icon.png" width="100%" title="Preview" alt="Preview"/>
-            </div>
-        </div>
-
-
-    </div>
-    <div class="give-feedback-textarea textarea-label borderShadow">
-            <textarea id="give-feedback" rows="3" placeholder="Please give your feedback"
-                      class="give-feedback-text"></textarea>
-        <button class="btn btn-u give-feedback-submit disabled">SUBMIT</button>
-    </div>
-    <div class="row both-container">
-        <div class="col-md-3 md-margin-bottom-40 left-container" ng-include="homeViews.leftPanel"></div>
-        <div class="col-md-9  home-content-wrapper no-padding-right" ng-include="homeViews.contentPanel"></div>
+<div class="container by_home_content">
+    <div class="row">
+        <div class="col-md-3  by_left_panel" ng-include="homeViews.leftPanel"></div>
+        <div class="col-md-9  by_right_panel" ng-include="homeViews.contentPanel"></div>
 
     </div>
 </div>

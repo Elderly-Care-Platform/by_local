@@ -13,7 +13,7 @@
   overflow: hidden;
   padding: 10px 0 6px;
   border-bottom: solid 1px #eee;
-  background: url(../img/breadcrumbs.png) repeat;
+  background: url(../img/patterns/breadcrumbs.png) repeat;
 }
 
 .breadcrumbs h1 {
@@ -23,16 +23,18 @@
 }
 
 .breadcrumb { 
-  top: 7px;
+  top: 10px;
   padding-right: 0;
   background: none;
   position: relative;
 }
 .breadcrumb a {
-  
+  color: #777;
 }
 .breadcrumb li.active,
 .breadcrumb li a:hover {
+  color: #72c02c;
+  text-decoration: none;
 }
 
 @media (max-width: 550px) {
@@ -47,8 +49,8 @@
   }
 
   .breadcrumbs .breadcrumb {
-    top: 15px;
-  margin-bottom: 18px;
+    top: 0;
+    margin-bottom: 10px;
   }
 }
 
@@ -3083,17 +3085,15 @@
 /*Blog Post Author
 ------------------------------------*/
 .blog-author {
-  padding: 0px;
+  padding: 20px;
   background: #fff;
 }
 
 .blog-author img {
   float: left;
-  width: 135px;
-  height:auto;
-  max-height:149px;
+  width: 80px;
+  height: auto;
   margin-right: 20px;
-  
 }
 
 .blog-author .blog-author-desc {
@@ -3337,13 +3337,13 @@
 
 .news-v3 p {
   color: #555;
-  margin-bottom: 0px;
+  margin-bottom: 20px;
 }
 
 /*News Info*/
 .news-v3 .posted-info li {
   color: #555;
-
+  font-style: italic;
 }
 
 .news-v3 .news-v3-in-sm .posted-info li {
@@ -3376,23 +3376,20 @@
 }
 
 .news-v3 .posted-info li a {
-  
+  color: #555;
 }
 
 .news-v3 .posted-info li a:hover {
-  
+  color: #72c02c;
 }
 
 /*News Shares*/
 .news-v3 .post-shares {
   padding-left: 0;
   list-style: none;
-  margin: 11px 0 0 -5px;
+  margin: 40px 0 0 -5px;
 }
-.article-share-links .news-v3 ul
-{
-  margin-top: -30px;
-}
+
 .news-v3 .news-v3-in-sm .post-shares {
   margin: 20px 0 0 -5px;  
 }
@@ -3401,14 +3398,13 @@
   position: relative;
   padding: 0 10px 0 5px;
   display: inline-block;
-  margin-top: -15px;
 }
 
 .news-v3 .post-shares li i {
   color: #555;
-  width: 25px;
-  height: 25px;
-  padding: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 13px;
   font-size: 16px;
   background: #eee;
   text-align: center;
@@ -3436,11 +3432,11 @@
 }
 
 .news-v3 .post-shares-lg li span {
-  top: -14px;
+  top: -10px;
   right: 0px;
-  width: 23px;
-  height: 23px;
-  padding: 2px;
-  font-size: 9px;
+  width: 29px;
+  height: 29px;
+  padding: 4px;
+  font-size: 10px;
   line-height: 16px;
 }

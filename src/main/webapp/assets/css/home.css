@@ -1,3 +1,33 @@
+.by_home_content{
+    margin-top: 38px;
+}
+.by_breadcrumbs_container{
+    height:36px;
+    overflow: hidden;
+
+}
+
+.by_left_panel{
+    padding-right: 0px; !important;
+    border-style: solid;
+    border-width: 0px;
+    border-color: #cfcfcf;
+    border-right-width: 1px;
+
+}
+
+.by_left_top_panel li{
+     font-family: Open Sans;
+     color: #8b8b8b;
+     font-size: 14px;
+     font-weight: 400;
+     line-height: 18px;
+     text-align: left;
+
+     display: block;
+     padding: 8px 30px 8px 10px;
+}
+
 .by_left_bottom_panel a:hover{
     text-decoration: none;
 }
@@ -56,6 +86,85 @@
     content: url("../img/icons/ask_share_submit/story_mo.png");
 }
 
-.byEditor {
-    border: 1px solid #ccc;
+
+
+.by_right_panel > div {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+
+.by_card{
+    width:100%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d5d5d5;
+    -webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
+    padding: 0px;
+    background: #fff;
+    /*max-height: 168px;*/
+}
+
+.by_card[data-index="discussion-articles"]{
+    cursor:pointer;
+}
+
+
+.by_card img {
+    float: left;
+    width: 135px;
+    height:auto;
+    max-height:168px;
+    margin-right: 20px;
+}
+
+.by_card_info{
+    display:inline-block;
+    padding: 5px 15px 0px 0px;
+    margin-left: 10px;
+}
+.by_card_info ul{
+    margin-bottom: 10px;
+    margin-top: -15px;
+    margin-left: 0px !important;
+}
+
+.by_card_info li{
+    margin: 0 5px 3px 0;
+    padding: 0px !important;
+}
+
+.by_captilize_first_letter:first-letter{
+    color:#00d16f;
+    font-size:20px;
+}
+
+.by_card_info a {
+    color: #00A24A;
+}
+
+.by_card_heading{
+    font-size: 22.806px;
+    font-weight: 600;
+    line-height: 25.901px;
+    margin-top: -20px;
+}
+.by_card_heading a{
+    font-family: Open Sans;
+    font-size: 16.181px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2a2a2a;
+}
+
+
+.by_card_content {
+    font-family: Open Sans;
+    color: #2A2A2A;
+    font-size: 13.955px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-left: 10px;
+    padding: 5px 15px 0px 0px;
+    text-align: justify;
 }

@@ -82,3 +82,17 @@ BY.initEditor = function initEditor(param){
         }
     });
 }
+
+BY.selectCategory = function(selectedInput){
+    var $body = angular.element(document.body);   // 1
+    var $rootScope = $body.scope().$root;
+    var categorySelected = selectedInput.value;
+    for(var i=0; i<$rootScope.discussCategoryList.length; i++) {
+        if($rootScope.discussCategoryList[i].id == categorySelected){
+            var childElements = document.getElementById(categorySelected).children;
+            for(var j=0; j<childElements.length; j++) {
+                childElements[j].children[0].checked = selectedInput.checked;
+            }
+        }
+    }
+}

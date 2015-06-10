@@ -9,7 +9,7 @@ ng-view{
 	background-color: green;
 	margin: 0;
 	position: relative;
-	top: -10px;
+	/*top: -10px;*/
 }
 .news-v3 .posted-info li:before, .news-v3 .news-v3-in-sm .posted-info li:before {
 	font-style: normal;
@@ -522,7 +522,7 @@ button.register-btn {
 		padding:0;
 		position:fixed;
 		z-index:1;
-		height: 35px;
+		/*height: 35px;*/
 	}
 	.breadcrumb{
 		padding: 0px 15px 0px 15px;

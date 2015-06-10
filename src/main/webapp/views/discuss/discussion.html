@@ -199,7 +199,7 @@ $(document).ready(function() {
                             </div>
                             <div class="article-content">
                                  <p class="lead">
-									<span ng-bind-html-unsafe="discuss.text | cut:true:500:' ...'"></span>
+									<span ng-bind-html="discuss.text | cut:true:500:' ...'"></span>
 								</p>
 
                             </div>
@@ -251,7 +251,7 @@ $(document).ready(function() {
                         </div>
                         <div class="article-content">
                             <p class="lead">
-								<span ng-bind-html-unsafe="discuss.text"></span>
+								<span ng-bind-html="discuss.text"></span>
 							</p>
                             </div>
                             <div class="article-share-links news-v3">
@@ -290,7 +290,7 @@ $(document).ready(function() {
                     </div>
                     <div class="article-content">
                         <p class="lead">
-							<span ng-bind-html-unsafe="discuss.text"></span>
+							<span ng-bind-html="discuss.text"></span>
 						</p>
                     </div>
                     <div class="article-share-links news-v3">

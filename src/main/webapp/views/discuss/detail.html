@@ -101,7 +101,7 @@
 						<img class="img-responsive profile-img margin-bottom-20"
 							src="uploaded_files/{{discuss.articlePhotoFilename}}" alt="">
 						<p class="articles-first-letter">
-							<span ng-bind-html-unsafe="discuss.text"></span>
+							<span ng-bind-html="discuss.text"></span>
 						</p>
 					</div>
 				</div>
@@ -165,7 +165,7 @@
 						class="comment-time">{{comment.createdAt | date:'medium'}} ... {{(date - comment.createdAt)/(1000*60*60) | number:0}} hours ago </span>
 				</div>
 			</div>
-			<p ng-bind-html-unsafe="comment.discussCommenContent | cut:true:500:' ...'"></p>
+			<p ng-bind-html="comment.discussCommenContent"></p>
 			<ul class="post-shares post-shares-lg">
 				<li class="add-comment"><a> <i
 						class="rounded-x icon-speech" href="#/comment/{{discuss.id}}" ng-click="createNewComment('A', '', comment.id)"></i> <span>{{comment.discussCommentCommentCount}}</span>

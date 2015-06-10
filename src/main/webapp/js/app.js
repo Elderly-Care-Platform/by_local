@@ -265,8 +265,9 @@ var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($r
 });
 
 var discussCategoryList = byServices.factory('discussCategoryList', function ($resource) {
-	return $resource('api/v1/topic/list/all', {}, {
-		get: {method: 'GET', params: {}}
+	return $resource('api/v1/topic/list/all', 
+			{q: '*' }, 
+		      {'query': { method: 'GET' }
 	})
 });
 
@@ -274,7 +275,9 @@ var discussCategoryList = byServices.factory('discussCategoryList', function ($r
 var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
- 	"app.directives"
+ 	"app.directives",
+ 	"ngRoute",
+ 	'ngSanitize'
  ]);
 
 
@@ -492,6 +495,7 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
        var discussId = $routeParams.discussId;
 
       $scope.discuss = DiscussShow.get({discussId: discussId});
+     // $scope.discuss.text = $sce.trustAsHtml( $scope.discuss.text);
 
   		//these are coming null - 2nd June 2015
        var discussType = $rootScope.bc_discussType;
@@ -887,10 +891,15 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         //$scope.switchToContentView();
 
         $scope.scrollToId = function (id) {
-        	var tag = $("#" + id + ":visible");
-            if(tag.length > 0){
-         	   $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
-            }
+        	if(id){
+        		var tag = $("#" + id + ":visible");
+                if(tag.length > 0){
+             	   $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+                }
+        	}else{
+        		window.scrollTo(0, 0);
+        	}
+        	
         }
         
         if($routeParams.type === "aboutUs") {
@@ -3765,26 +3774,7 @@ function myCtrl($scope){
 }
 
 
-//cutting text that is to be displayed
-angular.module('ng').filter('cut', function () {
-    return function (value, wordwise, max, tail) {
-        if (!value) return '';
 
-        max = parseInt(max, 10);
-        if (!max) return value;
-        if (value.length <= max) return value;
-
-        value = value.substr(0, max);
-        if (wordwise) {
-            var lastspace = value.lastIndexOf(' ');
-            if (lastspace != -1) {
-                value = value.substr(0, lastspace);
-            }
-        }
-
-        return value + (tail || ' ');
-    };
-});
 
 
 //Angular Date Picker

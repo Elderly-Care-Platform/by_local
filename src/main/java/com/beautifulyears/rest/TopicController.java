@@ -2,6 +2,7 @@ package com.beautifulyears.rest;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -45,7 +46,7 @@ public class TopicController {
 	@RequestMapping(method = { RequestMethod.GET }, value = "/list/all", produces = { "application/json" })
 	@ResponseBody
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List findAll() {
+	public Map findAll() {
 		TopicResponse res = new TopicResponse();
 		Query q = new Query();
 		List<Topic> list = this.mongoTemplate.find(q, (Class) Topic.class);

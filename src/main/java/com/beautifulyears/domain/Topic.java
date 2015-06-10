@@ -18,6 +18,7 @@ public class Topic {
 	private List<String> ancestors;
 	private String parentId;
 	private List<String> children = new ArrayList<String>();
+	private int orderIdx;
 	public String getId() {
 		return id;
 	}
@@ -60,6 +61,13 @@ public class Topic {
 	public void setChildren(List<String> children) {
 		this.children = children;
 	}
+	public int getOrderIdx() {
+		return orderIdx;
+	}
+	public void setOrderIdx(int orderIdx) {
+		this.orderIdx = orderIdx;
+	}
+	
 	
 	
 	

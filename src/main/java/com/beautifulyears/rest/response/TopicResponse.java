@@ -12,22 +12,34 @@ public class TopicResponse implements IResponse {
 
 	private Map<String, TopicEntity> topicMap = new HashMap<String, TopicEntity>();
 
-	private List<TopicEntity> root;
+	private Map<Integer,TopicEntity> root;
 
 	private class TopicEntity {
 		private String id;
+		private int orderIdx;
 		private String name;
 		private String slug;
 		private String parentId;
 
-		private List<TopicEntity> children = new ArrayList<TopicResponse.TopicEntity>();
+		private Map<Integer,TopicEntity> children = new HashMap<Integer,TopicEntity>();
 
 		public TopicEntity(Topic topic) {
 			id = topic.getId();
 			name = topic.getTopicName();
 			slug = topic.getSlug();
 			parentId = topic.getParentId();
+			orderIdx = topic.getOrderIdx();
 		}
+
+		public int getOrderIdx() {
+			return orderIdx;
+		}
+
+		public void setOrderIdx(int orderIdx) {
+			this.orderIdx = orderIdx;
+		}
+
+
 
 		public String getParentId() {
 			return parentId;
@@ -61,27 +73,27 @@ public class TopicResponse implements IResponse {
 			this.slug = slug;
 		}
 
-		public List<TopicEntity> getChildren() {
+		public Map<Integer,TopicEntity> getChildren() {
 			return children;
 		}
 
-		public void setChildren(List<TopicEntity> children) {
+		public void setChildren(Map<Integer,TopicEntity> children) {
 			this.children = children;
 		}
 
 	}
 
 	@Override
-	public List<TopicResponse.TopicEntity> getResponse() {
-		root = new ArrayList<TopicResponse.TopicEntity>();
+	public Map<Integer,TopicEntity> getResponse() {
+		root = new HashMap<Integer,TopicEntity>();
 		Iterator it = topicMap.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry pair = (Map.Entry)it.next();
 	        TopicEntity topic = (TopicEntity) pair.getValue();
 	        if(null == topic.getParentId()){
-	        	root.add(topic);
+	        	root.put(topic.getOrderIdx(),topic);
 	        }else{
-	        	topicMap.get(topic.getParentId()).getChildren().add(topic);
+	        	topicMap.get(topic.getParentId()).getChildren().put(topic.getOrderIdx(),topic);
 	        }
 	    }		
 		return root;

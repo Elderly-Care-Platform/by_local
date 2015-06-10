@@ -1,51 +1,54 @@
 <!--All classes from Unify start-->
-<ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
-    <li class="list-group-item" data-index="discussion-QA">
-        <a ng-click="switchToContentView('home_featured_articles')">FEATURED articles</a>
-    </li>
-    <li class="list-group-item" data-index="discussion-posts">
-        <a ng-click="switchToContentView('home_featured_qa')">FEATURED Q&A</a>
-    </li>
-    <li class="list-group-item" data-index="discussion-articles">
-        <a ng-click="switchToContentView('home_featured_posts')">FEATURED POSTS </a>
-    </li>
-    <li class="list-group-item" data-index="discussion-articles">
-        <a>NEW COMMUNITY MEMBERS </a>
-    </li>
-</ul>
-<!--All classes from Unify end-->
+<div class="col-md-3 by_left_panel_fixed">
+    <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
+        <li class="list-group-item" data-index="discussion-QA">
+            <a ng-click="switchToContentView('home_featured_articles')">FEATURED articles</a>
+        </li>
+        <li class="list-group-item" data-index="discussion-posts">
+            <a ng-click="switchToContentView('home_featured_qa')">FEATURED Q&A</a>
+        </li>
+        <li class="list-group-item" data-index="discussion-articles">
+            <a ng-click="switchToContentView('home_featured_posts')">FEATURED POSTS </a>
+        </li>
+        <li class="list-group-item" data-index="discussion-articles">
+            <a>NEW COMMUNITY MEMBERS </a>
+        </li>
+    </ul>
+    <!--All classes from Unify end-->
 
-<div class="row content-boxes-v2 by_left_bottom_panel">
-    <div class="col-md-12 md-margin-bottom-30" ng-click="add('Question')">
-        <a>
-            <h3 class="heading-sm by_leftPanel_icons">
-                <i class="icon-custom icon-sm icon_question"></i>
-                <span>Ask a Question</span>
-            </h3>
-        </a>
+    <div class="row content-boxes-v2 by_left_bottom_panel">
+        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Question')">
+            <a>
+                <h3 class="heading-sm by_leftPanel_icons">
+                    <i class="icon-custom icon-sm icon_question"></i>
+                    <span>Ask a Question</span>
+                </h3>
+            </a>
+        </div>
+        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Tips')">
+            <a>
+                <h3 class="heading-sm by_leftPanel_icons">
+                    <i class="icon-custom icon-sm icon_tips"></i>
+                    <span>Share Tips &amp; Experiences</span>
+                </h3>
+            </a>
+        </div>
+        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Article')">
+            <a>
+                <h3 class="heading-sm by_leftPanel_icons">
+                    <i class="icon-custom icon-sm icon_story"></i>
+                    <span>Publish your Story</span>
+                </h3>
+            </a>
+        </div>
+        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Feedback')">
+            <a>
+                <h3 class="heading-sm by_leftPanel_icons">
+                    <i class="icon-custom icon-sm icon_feedback"></i>
+                    <span>Provide Feedback</span>
+                </h3>
+            </a>
+        </div>
     </div>
-    <div class="col-md-12 md-margin-bottom-30" ng-click="add('Tips')">
-        <a>
-            <h3 class="heading-sm by_leftPanel_icons">
-                <i class="icon-custom icon-sm icon_tips"></i>
-                <span>Share Tips &amp; Experiences</span>
-            </h3>
-        </a>
-    </div>
-    <div class="col-md-12 md-margin-bottom-30" ng-click="add('Article')">
-        <a>
-            <h3 class="heading-sm by_leftPanel_icons">
-                <i class="icon-custom icon-sm icon_story"></i>
-                <span>Publish your Story</span>
-            </h3>
-        </a>
-    </div>
-    <div class="col-md-12 md-margin-bottom-30" ng-click="add('Feedback')">
-        <a>
-            <h3 class="heading-sm by_leftPanel_icons">
-                <i class="icon-custom icon-sm icon_feedback"></i>
-                <span>Provide Feedback</span>
-            </h3>
-        </a>
-    </div>
+
 </div>

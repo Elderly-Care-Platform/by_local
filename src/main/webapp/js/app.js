@@ -856,6 +856,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', 'HomeFeaturedContent', 'Discuss',
     function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss) {
         $scope.editor = {};
+        $scope.error = "";
         $scope.editor.subject = "";
         $scope.currentAcceleratorSelected = "";
         $scope.$watch("articles", function (value) {
@@ -870,6 +871,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
 
 		$scope.add = function (type) {
+			$scope.error = "";
 			$scope.currentView = "editor";
 			$scope.homeViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
 			window.scrollTo(0, 0);

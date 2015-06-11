@@ -58,4 +58,10 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $scope.message = '';
             $rootScope.SessionId = '';
         }
-    }]);
+        $( "input" ).click(function() {
+            alert("hello");
+        });
+
+        console.log($( "input" ));
+        
+}]);

@@ -317,7 +317,7 @@ byApp.config(['$routeProvider',
     .when('/users/showedit/:userId', {templateUrl: 'views/users/edit.html', controller: 'UserEditController'})
     .when('/users/showedit/:userId', {templateUrl: 'views/users/edit.html', controller: 'UserCreateController'})
     .when('/users/delete/:userId', {templateUrl: 'views/users/list.html', controller: 'UserDeleteController'})
-    .when('/users/login', {templateUrl: 'views/users/login.html', controller: 'LoginController'})
+    .when('/users/login', {templateUrl: 'views/signup/signup.html', controller: 'LoginController'})
     .when('/users/logout/:sessionId', {templateUrl: 'views/users/home.html', controller: 'LogoutController'})
     //.when('/users/logout', {templateUrl: 'views/users/list.html', controller: 'LogoutController'})
     .when('/discuss/:discussType/list/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussListController'})

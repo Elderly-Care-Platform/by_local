@@ -1,0 +1,165 @@
+.orWrapper
+{
+	border-radius: 50% !important;
+	background: #e5e5e5;
+	text-align: center;
+	line-height: 40px;
+	color: #626262;
+	font-size: 14px;
+	font-weight: 700;
+	width: 40px;
+	height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.by_reg-page{
+	padding-top: 15px !important;
+	font-family: Open Sans;
+}
+
+.by_reg-page div {
+	width: 100%
+}
+
+.by_reg-page input{
+	width: 100%;
+	background-color: #ffffff;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #E5E5E5;
+	border-left-width: 2px;
+	border-left-color: #00af50;
+}
+
+.by_reg-header
+{
+	color:  #626262;
+	font-size: 14px; 
+	font-weight: 700;
+	line-height: 20px;
+	text-align: left !important;
+}
+.textItalic
+{
+	font-style: italic;
+}
+.loginForGotText
+{
+	color:  #626262;
+	font-size: 14px; 
+	font-weight: 400;
+	line-height: 18px;
+}
+.loginForGotText a
+{
+	text-decoration: none;
+	color: #5fb611;
+}
+.loginButtonRight
+{
+	width: auto;
+	text-transform: uppercase;
+	float: right;
+	background: #00b050;
+	border:none;
+	outline:none;
+	height: 30px;
+	width: 100px;
+	text-align: center;
+	color:  #ffffff;
+	font-size: 14px; 
+	font-weight: 700;
+}
+.borderTopZero
+{
+	border-top:0px;
+}
+.loginBottom
+{
+	color:  #626262;
+	font-size: 13px; 
+	font-weight: 400;
+	line-height: 22px;
+}
+.loginBottomRight
+{
+	text-align: right;
+}
+.loginBottomRight img
+{
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+.iconBg
+{
+	background: #f3eff7;
+	border:1px solid #ccc;
+	padding: 0px !important;
+}
+.iconBgLeft
+{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color:  #000000;
+	font-size: 14px; 
+	font-weight: 400;
+	line-height: 24px;
+	padding-left: 15px;
+}
+.iconBgRight
+{
+	text-align: center;
+	background: #eae2f0;
+	color:  rgba(97, 97, 97, 0.73);
+	font-size: 20px; 
+	font-weight: 700;
+	line-height: 20px;
+	font-style: italic;
+	height: 92px;
+	line-height: 92px;
+}
+.iconBgLeft a
+{
+	background-color: #f58220;
+	color: #fff;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+input[type=checkbox]
+{
+	width: 20px;
+	height: 20px;
+	background-color: #ccc;
+}
+.returnButton
+{
+	width: auto;
+	text-transform: uppercase;
+	float: right;
+	background: #E87441;
+	border:none;
+	outline:none;
+	height: 30px;
+	width: 100px;
+	text-align: center;
+	color:  #ffffff;
+	font-size: 14px; 
+	font-weight: 700;
+}
+.nextButton
+{
+	width: auto;
+	text-transform: uppercase;
+	float: right;
+	background: #00b050;
+	border:none;
+	outline:none;
+	height: 30px;
+	width: 100px;
+	text-align: center;
+	color:  #ffffff;
+	font-size: 14px; 
+	font-weight: 700;
+	margin-left: 10px;
+}

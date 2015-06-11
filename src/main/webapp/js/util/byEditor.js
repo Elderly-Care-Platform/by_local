@@ -96,3 +96,4 @@ BY.selectCategory = function(selectedInput){
         }
     }
 }
+

@@ -1,6 +1,5 @@
 package com.beautifulyears.rest.response;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +13,7 @@ public class TopicResponse implements IResponse {
 
 	private Map<Integer,TopicEntity> root;
 
-	private class TopicEntity {
+	public class TopicEntity {
 		private String id;
 		private int orderIdx;
 		private String name;

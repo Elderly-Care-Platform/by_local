@@ -39,7 +39,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <input type="checkbox" onchange="BY.selectCategory(this)" value={{category.id}}>
-                    <a class="accordion-toggle collapsed editor_categories" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}}>
+                    <a class="accordion-toggle collapsed editor_categories" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
                         {{category.name}}
                     </a>
                 </h4>

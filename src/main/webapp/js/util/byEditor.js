@@ -3,7 +3,6 @@ var BY = BY || {};
 
 BY.initEditor = function initEditor(param){
     //tinymce.remove();
-    console.log(document.getElementById("article_textArea"));
     var tinyEditor = tinymce.get(param.editorTextArea);
     if(tinyEditor){
         tinyEditor.remove();
@@ -83,17 +82,33 @@ BY.initEditor = function initEditor(param){
     });
 }
 
+BY.selectedCategoryList = {};
 BY.selectCategory = function(selectedInput){
     var $body = angular.element(document.body);   // 1
     var $rootScope = $body.scope().$root;
     var categorySelected = selectedInput.value;
-    for(var i=0; i<$rootScope.discussCategoryList.length; i++) {
-        if($rootScope.discussCategoryList[i].id == categorySelected){
+    
+    for(category in $rootScope.discussCategoryList) {
+        if($rootScope.discussCategoryList[category].id == categorySelected){
             var childElements = document.getElementById(categorySelected).children;
             for(var j=0; j<childElements.length; j++) {
                 childElements[j].children[0].checked = selectedInput.checked;
+                if(selectedInput.checked===true){
+                	BY.selectedCategoryList[childElements[j].children[0].value] = childElements[j].children[0].value;
+                }else{
+                	delete BY.selectedCategoryList[childElements[j].children[0].value];
+                }
             }
         }
+        
+        
     }
+    
+    if(selectedInput.checked===true){
+    	BY.selectedCategoryList[selectedInput.value] = selectedInput.value ;
+    }else{
+    	delete BY.selectedCategoryList[selectedInput.value];
+    }
+    
 }
 

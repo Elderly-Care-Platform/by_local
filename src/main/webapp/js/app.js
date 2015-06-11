@@ -362,7 +362,16 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
         }
     });
 
-	$rootScope.discussCategoryList = discussCategoryList.query();
+	var discussCategoryList = discussCategoryList.query();
+	$rootScope.discussCategoryList = discussCategoryList;
+//	$rootScope.discussCategoryListMap = {};
+//	for(category in $rootScope.discussCategoryList) {
+//		$rootScope.discussCategoryListMap[$rootScope.discussCategoryList[category].id] = $rootScope.discussCategoryList[category];
+//		for(subCategory in $rootScope.discussCategoryList[category].children){
+//			$rootScope.discussCategoryListMap[$rootScope.discussCategoryList[category][subCategory].id] = $rootScope.discussCategoryList[category][subCategory];
+//		}
+//	}
+	
 });
 
 
@@ -861,11 +870,12 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $scope.discuss.discussType = discussType;
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
-
+             $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
+                return [value];
+            });
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
 			$scope.discuss.username = localStorage.getItem("USER_NAME");
-
 
             //save the discuss
             $scope.discuss.$save(function (discuss, headers) {

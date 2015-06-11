@@ -267,7 +267,14 @@ var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($r
 var discussCategoryList = byServices.factory('discussCategoryList', function ($resource) {
 	return $resource('api/v1/topic/list/all', 
 			{q: '*' }, 
-		      {'query': { method: 'GET' }
+		      {'query': { method: 'GET' ,
+		    	  interceptor: {
+		              response: function(response) {  
+		                  return response.data;
+		                }
+		              }
+		    	  }
+				
 	})
 });
 
@@ -362,16 +369,18 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
         }
     });
 
-	var discussCategoryList = discussCategoryList.query();
-	$rootScope.discussCategoryList = discussCategoryList;
-//	$rootScope.discussCategoryListMap = {};
-//	for(category in $rootScope.discussCategoryList) {
-//		$rootScope.discussCategoryListMap[$rootScope.discussCategoryList[category].id] = $rootScope.discussCategoryList[category];
-//		for(subCategory in $rootScope.discussCategoryList[category].children){
-//			$rootScope.discussCategoryListMap[$rootScope.discussCategoryList[category][subCategory].id] = $rootScope.discussCategoryList[category][subCategory];
-//		}
-//	}
-	
+    discussCategoryList.query().$promise.then(
+    	    function(categories){
+    	    	$rootScope.discussCategoryListMap = {};
+    	        angular.forEach(categories, function(category, index){
+    	        	$rootScope.discussCategoryListMap[category.id] = category;
+    	        	angular.forEach(category.children, function(subCategory, index){
+	    				$rootScope.discussCategoryListMap[subCategory.id] = subCategory;
+	    			});
+    	        });
+    	    }
+    	);
+    
 });
 
 

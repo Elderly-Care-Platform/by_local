@@ -46,20 +46,25 @@
         </div>
     </div>
     <div class="col-md-5 orWrapperRight">
-        <form class="reg-page by_reg-page">
+        <form class="reg-page by_reg-page" name="userForm" ng-submit="createNewUser(userForm.$valid)" novalidate>
             <div class="reg-header by_reg-header">
                 Not registered yet? <br/>
                 No worries, it takes just a few seconds!
             </div>
-
-            <div class="input-group margin-bottom-20">
-                <input type="text" placeholder="Please enter your Email ID" class="form-control">
+ 			<div ng-show="createUserError"><font color="red">{{createUserError}}</font></div>
+			<div ng-show="createUserSuccess"><font color="green">{{createUserSuccess}}</font></div>
+			
+            <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+               <input type="text" placeholder="Please enter your Email ID" class="form-control" ng-model="newUser.email">
+               <span><p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p></span>
             </div>
-            <div class="input-group margin-bottom-20">
-                <input type="text" placeholder="Please select your User Name (optional)" class="form-control">
+            <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : userForm.userName.$invalid && !userForm.userName.$pristine }">
+                <input type="text" placeholder="Please select your User Name (optional)" class="form-control" ng-model="newUser.userName">
+                <span><p ng-show="userForm.userName.$invalid && userForm.userName.$pristine" class="help-block">Screen Name is required.</p></span>
             </div>
-            <div class="input-group margin-bottom-20">
-                <input type="password" placeholder="Please enter your password" class="form-control">
+            <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                <input type="password" placeholder="Please enter your password" class="form-control" ng-model="newUser.password">
+                <span><p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">Password is required.</p></span>
             </div>
             <div class="row">
                 <div class="col-md-12">

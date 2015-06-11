@@ -17,7 +17,7 @@
         <ul class="list-inline posted-info">
             <li>
                 <p class="by_captilize_first_letter">Shared by <a class="by_captilize_first_letter" href="">{{post.username}}</a></p></li>
-            <li ng-show="post.topicId">In <a href="" class="by_captilize_first_letter">{{post.topicId}}</a></li>
+            <li ng-show="post.topicId.length > 0">In <a href="" class="by_captilize_first_letter">{{$root.discussCategoryListMap[post.topicId[0]].name}}</a></li>
             <li>{{post.createdAt | date : 'MMM d, yyyy'}}</li>
         </ul>
         <div class="by_card_heading">

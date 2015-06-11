@@ -371,6 +371,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
 
     discussCategoryList.query().$promise.then(
     	    function(categories){
+    	    	$rootScope.discussCategoryList = categories;
     	    	$rootScope.discussCategoryListMap = {};
     	        angular.forEach(categories, function(category, index){
     	        	$rootScope.discussCategoryListMap[category.id] = category;
@@ -875,22 +876,30 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 		}
 
         $scope.register = function (discussType) {
+        	console.log(BY.selectedCategoryList);
             $scope.discuss = new Discuss();
             $scope.discuss.discussType = discussType;
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
-             $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
+            $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
                 return [value];
             });
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
 			$scope.discuss.username = localStorage.getItem("USER_NAME");
-
+			if($scope.discuss.topicId.length >0){
+				$scope.error = "";
+				$scope.discuss.$save(function (discuss, headers) {
+	                $scope.editor.subject = "";
+	                $scope.switchToContentView();
+	                BY.selectedCategoryList = {};
+	            });
+				
+			}else{
+				$scope.error = "Please select atleast 1 category";
+			}
             //save the discuss
-            $scope.discuss.$save(function (discuss, headers) {
-                $scope.editor.subject = "";
-                $scope.switchToContentView();
-            });
+            
 
         };
 

@@ -13,7 +13,30 @@
     <textarea id="question_textArea" class="textbox about-dependent" rows="3" placeholder="Please enter your text here. " ></textarea>
 </div>
 
+<div class="col-md-12 no-padding form-header-content margin-bottom-15">
+    Please select up to 4 categories,where your article appears.
+</div>
 
+<div class="col-md-12 no-padding margin-bottom-35">
+    <div class="panel-group acc-v1" id="accordion-1">
+        <div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryList">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{category.id}}>
+                    <a class="accordion-toggle collapsed editor_categories" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
+                        {{category.name}}
+                    </a>
+                </h4>
+            </div>
+            <div id={{category.id}} class="row panel-collapse collapse">
+                <div class="panel-body col-md-4" ng-repeat="subCategory in category.children">
+                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{subCategory.id}}> {{subCategory.name}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <div class="col-md-12 no-padding margin-bottom-35">
     <button class="btn btn-big btn-default pull-right  grayBg" ng-click="register('Q')">submit</button>

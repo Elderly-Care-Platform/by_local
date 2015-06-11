@@ -15,7 +15,7 @@
         <ul class="list-inline posted-info">
             <li>
                 <p class="by_captilize_first_letter">Question by <a class="by_captilize_first_letter" href="">{{question.username}}</a></p></li>
-            <li ng-show="question.topicId">In <a href="" class="by_captilize_first_letter">{{question.topicId}}</a></li>
+            <li ng-show="question.topicId.length > 0">In <a href="" class="by_captilize_first_letter">{{$root.discussCategoryListMap[question.topicId[0]].name}}</a></li>
             <li>{{question.createdAt | date : 'MMM d, yyyy'}}</li>
         </ul>
         <div class="by_card_heading">

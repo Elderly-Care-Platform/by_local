@@ -1,6 +1,7 @@
 package com.beautifulyears.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -42,10 +43,8 @@ public class Discuss {
 
 	private final Date createdAt = new Date();
 	
-	private String topicId;
+	private List<String> topicId;
 	
-	private String subTopicId;
-
 	public Discuss() {
 
 	}
@@ -60,23 +59,16 @@ public class Discuss {
 		this.articlePhotoFilename = articlePhotoFilename;
 	}
 
-	public String getTopicId() {
+	public List<String> getTopicId() {
 		return topicId;
 	}
 
-	public void setTopicId(String topicId) {
+	public void setTopicId(List<String> topicId) {
 		this.topicId = topicId;
 	}
 
-	public String getSubTopicId() {
-		return subTopicId;
-	}
 
-	public void setSubTopicId(String subTopicId) {
-		this.subTopicId = subTopicId;
-	}
-
-	public Discuss(String userId, String username, String discussType, String topicId, String subTopicId, String title,
+	public Discuss(String userId, String username, String discussType, List<String> topicId,  String title,
 			String text, String status, String tags, int aggrReplyCount,
 			int aggrLikeCount, String articlePhotoFilename) {
 		super();
@@ -85,7 +77,6 @@ public class Discuss {
 		this.discussType = discussType;
 		this.title = title;
 		this.topicId = topicId;
-		this.subTopicId = subTopicId;
 		this.text = text;
 		this.status = status;
 		this.tags = tags;

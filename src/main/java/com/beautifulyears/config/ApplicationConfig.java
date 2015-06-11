@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.beautifulyears.domain.DiscussComment;
 import com.beautifulyears.domain.Topic;
 import com.beautifulyears.repository.DiscussRepository;
 import com.mongodb.Mongo;
@@ -31,9 +30,9 @@ public class ApplicationConfig {
 		mongoTemplate.setWriteConcern(WriteConcern.SAFE);
 		System.out.println(mongoTemplate.collectionExists("discuss"));
 
-		if (!mongoTemplate.collectionExists(DiscussComment.class)) {
-			mongoTemplate.createCollection(DiscussComment.class);
-		}
+//		if (!mongoTemplate.collectionExists(DiscussComment.class)) {
+//			mongoTemplate.createCollection(DiscussComment.class);
+//		}
 		if (!mongoTemplate.collectionExists(Topic.class)) {
 			mongoTemplate.createCollection(Topic.class);
 		}

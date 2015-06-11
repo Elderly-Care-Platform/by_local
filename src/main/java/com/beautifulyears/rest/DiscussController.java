@@ -69,7 +69,7 @@ public class DiscussController {
 		newDiscuss.setText(discuss.getText());
 		newDiscuss.setUserId(discuss.getUserId());
 		newDiscuss.setTopicId(discuss.getTopicId());
-		newDiscuss.setSubTopicId(discuss.getSubTopicId());
+//		newDiscuss.setSubTopicId(discuss.getSubTopicId());
 		discussRepository.save(newDiscuss);
 		ResponseEntity responseEntity = new ResponseEntity(HttpStatus.CREATED);
 		System.out.println("responseEntity = " + (Object) responseEntity);
@@ -124,12 +124,11 @@ public class DiscussController {
 
 			Query q = new Query();
 			if (!discussType.equalsIgnoreCase("All")) {
-				q.addCriteria(Criteria.where((String) "topicId")
-						.is((Object) topicId).and("discussType")
+				q.addCriteria(Criteria.where("topicId")
+						.in(topicId).and("discussType")
 						.is((Object) discussType));
 			} else {
-				q.addCriteria(Criteria.where((String) "topicId").is(
-						(Object) topicId));
+				q.addCriteria(Criteria.where("topicId").in(topicId));
 			}
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
@@ -158,13 +157,13 @@ public class DiscussController {
 				q.addCriteria(Criteria.where((String) "userId")
 						.is((Object) userId).and("discussType")
 						.is((Object) discussType).and("topicId")
-						.is((Object) topicId).and("subTopicId")
-						.is((Object) subTopicId));
+						.in(topicId).and("subTopicId")
+						.in(subTopicId));
 			} else {
 				q.addCriteria(Criteria.where((String) "userId")
 						.is((Object) userId).and("topicId")
-						.is((Object) topicId).and("subTopicId")
-						.is((Object) subTopicId));
+						.in(topicId).and("subTopicId")
+						.in(subTopicId));
 			}
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
@@ -189,14 +188,14 @@ public class DiscussController {
 					+ " :: sub topic id = " + subTopicId);
 			Query q = new Query();
 			if (!discussType.equalsIgnoreCase("All")) {
-				q.addCriteria(Criteria.where((String) "topicId")
-						.is((Object) topicId).and("subTopicId")
-						.is((Object) subTopicId).and("discussType")
+				q.addCriteria(Criteria.where("topicId")
+						.in(topicId).and("subTopicId")
+						.in(subTopicId).and("discussType")
 						.is((Object) discussType));
 			} else {
-				q.addCriteria(Criteria.where((String) "topicId")
-						.is((Object) topicId).and("subTopicId")
-						.is((Object) subTopicId));
+				q.addCriteria(Criteria.where("topicId")
+						.in(topicId).and("subTopicId")
+						.in(subTopicId));
 			}
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
@@ -221,8 +220,8 @@ public class DiscussController {
 					+ " :: sub topic id = " + subTopicId);
 			Query q = new Query();
 			q.addCriteria(Criteria.where((String) "topicId")
-					.is((Object) topicId).and("subTopicId")
-					.is((Object) subTopicId).and("discussType")
+					.in( topicId).and("subTopicId")
+					.in( subTopicId).and("discussType")
 					.is((Object) discussType));
 			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
 			if (list != null) {
@@ -294,15 +293,16 @@ public class DiscussController {
 			}
 			String text = discuss.getText();
 			String discussStatus = discuss.getStatus();
-			String topicId = discuss.getTopicId();
-			String subTopicId = discuss.getSubTopicId();
-			String tags = discuss.getTags() == null ? String.valueOf(topicId)
-					+ "," + subTopicId : String.valueOf(discuss.getTags())
-					+ "," + topicId + "," + subTopicId;
+			List<String> topicId = discuss.getTopicId();
+			String tags = "";
+//			List<String> subTopicId = discuss.getSubTopicId();
+//			String tags = discuss.getTags() == null ? String.valueOf(topicId)
+//					+ "," + subTopicId : String.valueOf(discuss.getTags())
+//					+ "," + topicId + "," + subTopicId;
 			int aggrReplyCount = 0;
 			int aggrLikeCount = 0;
 			return new Discuss(userId, username, discussType, topicId,
-					subTopicId, title, text, discussStatus, tags,
+					 title, text, discussStatus, tags,
 					aggrReplyCount, aggrLikeCount, discuss.getDiscussType().equals("A") ? discuss.getArticlePhotoFilename() : "");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="by_card_content" ng-bind-html="article.text | limitTo:500">
+    <div class="by_card_content" ng-bind-html="trustForcefully(article.text) | limitTo:500">
 
     </div>
 </div>

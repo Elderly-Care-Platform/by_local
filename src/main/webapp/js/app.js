@@ -853,8 +853,8 @@ function ($scope,$location, $rootScope) {
 
 
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', 'HomeFeaturedContent', 'Discuss',
-    function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss) {
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', 'HomeFeaturedContent', 'Discuss','$sce',
+    function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss,$sce) {
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";
@@ -931,6 +931,9 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         	}
         	
         }
+        $scope.trustForcefully = function(html) {
+            return $sce.trustAsHtml(html);
+          };
         
         if($routeParams.type === "aboutUs") {
 			$scope.currentView = "aboutUs";

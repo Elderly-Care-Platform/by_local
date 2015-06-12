@@ -129,7 +129,7 @@ public class UserController {
 	// create user - registration
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> submitUser(@RequestBody User user)
+	public User submitUser(@RequestBody User user)
 			throws Exception {
 		if (user == null || user.getId() == null || user.getId().equals("")) {
 			System.out.println("NEW USER");
@@ -144,10 +144,10 @@ public class UserController {
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userRepository.save(userWithExtractedInformation);
-				ResponseEntity<String> responseEntity = new ResponseEntity<String>(
-						"User created successully", HttpStatus.CREATED);
+				ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(
+						new Object(), HttpStatus.CREATED);
 				System.out.println("responseEntity = " + responseEntity);
-				return responseEntity;
+				return userWithExtractedInformation;
 			} catch (Exception e) {
 				e.printStackTrace();
 				ResponseEntity<String> responseEntity = new ResponseEntity<String>(
@@ -169,10 +169,10 @@ public class UserController {
 			editedUser.setUserRoleId(user.getUserRoleId());
 			editedUser.setActive(user.isActive());
 			userRepository.save(editedUser);
-			ResponseEntity<String> responseEntity = new ResponseEntity<>(
+			ResponseEntity<Object> responseEntity = new ResponseEntity<>(
 					HttpStatus.CREATED);
 			System.out.println("responseEntity = " + responseEntity);
-			return responseEntity;
+			return editedUser;
 		}
 
 	}

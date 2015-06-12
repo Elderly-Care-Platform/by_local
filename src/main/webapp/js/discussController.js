@@ -117,7 +117,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         }
 
         //code to prevent users from creating posts and questions when sub topic = all
-        if ($location.path().endsWith('/all')) {
+        if ($location.path().endsWith('/all') && subTopicId=== "all") {
             $scope.showme = false;
         }
 

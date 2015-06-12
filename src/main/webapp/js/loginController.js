@@ -25,10 +25,10 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $scope.user.email = '';
                 $scope.user.password = '';
                 $rootScope.sessionId = login.sessionId;
-                $rootScope.bc_discussType = 'ALL';
+                $rootScope.bc_discussType = 'All';
                 $rootScope.bc_username = login.userName;
                 $rootScope.bc_userId = login.id;
-
+//                $scope.setUserCredential();
 
                 if ("localStorage" in window) {
                     localStorage.setItem("SessionId", login.sessionId);
@@ -67,6 +67,27 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $rootScope.SessionId = '';
         }
 
+        $scope.setUserCredential = function(userData){
+        	 if ("localStorage" in window) {
+                 localStorage.setItem("SessionId", login.sessionId);
+                 localStorage.setItem("USER_ID", login.id);
+                 localStorage.setItem("USER_NAME", login.userName);
+                 $location.path("/users/home");
+                 var element = document.getElementById("login_placeholder");
+                 element.innerHTML = "Logout";
+                 element.href = apiPrefix + "#/users/logout/" + login.sessionId;
+
+                 var pro = document.getElementById('profile_placeholder');
+                 pro.innerHTML = "Profile";
+                 pro.href = apiPrefix + "#/userprofile";
+
+             }
+             else {
+                 $scope.setError('Browser does not support cookies');
+                 $location.path("/users/login");
+             }
+        }
+        
 //     ************************   create new user start
         $scope.newUser = new User();
         $scope.createNewUser = function(newUser) {

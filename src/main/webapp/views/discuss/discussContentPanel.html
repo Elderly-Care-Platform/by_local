@@ -9,7 +9,7 @@
                 <div class="article-info">
                     <ul class="list-inline posted-info">
                         <li><a href="">By {{discuss.username}}</a></li>
-                        <li><a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">In
+                        <li><a href="#/discuss/{{bc_discussType}}/{{$root.discussCategoryListMap[discuss.topicId[0]].name}}/all">In
                             {{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
                         <li>{{discuss.createdAt | date:'medium'}}</li>
                     </ul>
@@ -68,7 +68,7 @@
                 <div class="article-info">
                     <ul class="list-inline posted-info">
                         <li><p class="question-first-letter">Question By <a href="">{{discuss.username}}</a></p></li>
-                        <li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
+                        <li>In <a href="#/discuss/{{bc_discussType}}/{{$root.discussCategoryListMap[discuss.topicId[0]].name}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
                         </li>
                         <li>{{discuss.createdAt | date:'medium'}}</li>
                     </ul>
@@ -110,7 +110,7 @@
                 <div class="article-info">
                     <ul class="list-inline posted-info">
                         <li><p class="post-first-letter">Post By <a href="">{{discuss.username}}</a></p></li>
-                        <li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
+                        <li>In <a href="#/discuss/{{bc_discussType}}/{{$root.discussCategoryListMap[discuss.topicId[0]].name}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
                         </li>
                         <li>{{discuss.createdAt | date:'medium'}}</li>
                     </ul>

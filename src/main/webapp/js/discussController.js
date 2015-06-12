@@ -97,6 +97,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "views/discuss/discussLeftPanel.html";
         $scope.discussionViews.contentPanel = "views/discuss/discussContentPanel.html";
+        $scope.editor.articlePhotoFilename = "";
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";
@@ -171,6 +172,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             $scope.discuss.discussType = discussType;
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
+            $scope.discuss.articlePhotoFilename = $scope.editor.articlePhotoFilename;
             $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
                 return [value];
             });

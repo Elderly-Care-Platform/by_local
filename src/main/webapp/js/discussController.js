@@ -107,8 +107,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         var topicId = $routeParams.topicId;
         var subTopicId = $routeParams.subTopicId;
         
-        var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId];
-        var subTopicQueryId = (subTopicId=== "all") ? "all" : $rootScope.discussCategoryNameIdMap[subTopicId];
+        var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
+        var subTopicQueryId = (subTopicId=== "all") ? "all" : $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()];
         
         console.log(topicQueryId);
 
@@ -194,6 +194,23 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
 
         };
+        
+        $scope.go = function($event, type, id){
+			$event.stopPropagation();
+			if(type === "id"){
+				$location.path('/discuss/'+id);
+			} else if(type === "name"){
+				var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
+					parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
+					
+				if(parentCategoryName){
+					$location.path('/discuss/All/'+ parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
+				}else{
+					$location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
+				}
+			}
+			
+		}
 
     }]);
 

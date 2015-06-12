@@ -11,8 +11,8 @@
 			<li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
 			<li class="active"><a
 				href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/all"
-				ng-click="showme=false">{{discuss.topicId}}</a></li>
-			<li>{{discuss.subTopicId}}</li>
+				ng-click="showme=false">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
+			<li>{{$root.discussCategoryListMap[discuss.subTopicId[0]].name}}</li>
 		</ul>
 	</div>
 </div>

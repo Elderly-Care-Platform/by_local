@@ -391,10 +391,10 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
     	    	$rootScope.discussCategoryNameIdMap = {};
     	        angular.forEach(categories, function(category, index){
     	        	$rootScope.discussCategoryListMap[category.id] = category;
-    	        	$rootScope.discussCategoryNameIdMap[category.name] = category.id;
+    	        	$rootScope.discussCategoryNameIdMap[category.name.toLowerCase()] = category.id;
     	        	angular.forEach(category.children, function(subCategory, index){
 	    				$rootScope.discussCategoryListMap[subCategory.id] = subCategory;
-	    				$rootScope.discussCategoryNameIdMap[subCategory.name] = subCategory.id;
+	    				$rootScope.discussCategoryNameIdMap[subCategory.name.toLowerCase()] = subCategory.id;
 	    			});
     	        });
     	    }

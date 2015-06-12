@@ -97,8 +97,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "views/discuss/discussLeftPanel.html";
         $scope.discussionViews.contentPanel = "views/discuss/discussContentPanel.html";
-        $scope.editor.articlePhotoFilename = "";
         $scope.editor = {};
+        $scope.editor.articlePhotoFilename = "";
         $scope.error = "";
         $scope.editor.subject = "";
         var discussType = $routeParams.discussType;

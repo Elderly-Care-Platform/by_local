@@ -368,7 +368,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
 
        	var session = SessionIdService.getSessionId();
        	if (session == '' || session == null) {
-
+       		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
             // no logged user, we should be going to #login
             //Code to allow non-logged in users to visit read only pages
             if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/users/create.html' /*|| next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html'*/) {

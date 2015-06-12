@@ -1027,12 +1027,15 @@ label.myLabel input[type="file"] {
   margin: 2px;
   background: #ececec;
   display: inline-block;
+    background-size: 100%;
+  background-repeat: round;
 }
 .myLabel:hover {
-    background: #CCC;
+    /*background: #CCC;*/
+    color:white;
 }
 .myLabel:active {
-    background: #CCF;
+    /*background: #CCF;*/
 }
 .myLabel :invalid + span {
     color: #2a2a2a;

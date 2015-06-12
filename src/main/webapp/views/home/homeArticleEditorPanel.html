@@ -18,10 +18,15 @@
 </div>
 
 
-<div class=" col-md-12 no-padding margin-bottom-35 register-page"><label class="myLabel">
-    <input type="file" required/>
+<div class=" col-md-12 no-padding margin-bottom-35 register-page">
+<form id="UploadImage12" action="UploadFile" method="post" enctype="multipart/form-data">
+<label class="myLabel">
+    <input  name="sp" id="sp"  type="file" required onchange="javascript:uploadImage(this)"/>
     <span>Please upload<br> your main <br>photo (optional)</span>
 </label>
+</form>
+<input type="text" id="articleTitleImage" ng-model="editor.articlePhotoFilename" value="" style="display:none"/>
+
 </div>
 
 
@@ -65,4 +70,44 @@
 
 <script type="text/javascript">
     var tinyEditor = BY.initEditor({"editorTextArea":"article_textArea"});
+    
+    function uploadImage(input){
+    	if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            $("#UploadImage12").bind('submit', function(e) {
+            	var postData = new FormData(jQuery('#UploadImage12')[0]);
+            	$.ajax(
+            		    {
+            		        url : 'UploadFile',
+            		        type: "POST",
+            		        enctype:"multipart/form-data",
+            		        data : postData,
+            		      //  contentType: "application/json",
+            		        cache: false,
+						    contentType: false,
+						    processData: false,
+            		        success:function(data, textStatus, jqXHR) 
+            		        {
+            		            $("#articleTitleImage").val(data);
+            		            $("#articleTitleImage").trigger('input');
+            		        },
+            		        error: function(jqXHR, textStatus, errorThrown) 
+            		        {
+            		        	alert("Image upload failed");
+            		        }
+            		    });
+                e.preventDefault();
+          });
+            reader.onload = function (e) {
+            	$('.myLabel').css('background-image', 'url(' + e.target.result + ')')
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+            $('#UploadImage12').submit();
+            
+            //input.form.submit();
+        }
+    }
+    
+    
 </script>

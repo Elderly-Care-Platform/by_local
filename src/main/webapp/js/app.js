@@ -742,6 +742,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";
+        $scope.editor.articlePhotoFilename = "";
         $scope.currentAcceleratorSelected = "";
         $scope.$watch("articles", function (value) {
             $timeout(
@@ -767,6 +768,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $scope.discuss.discussType = discussType;
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
+            $scope.discuss.articlePhotoFilename = $scope.editor.articlePhotoFilename;
             $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
                 return [value];
             });

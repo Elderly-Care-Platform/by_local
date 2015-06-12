@@ -36,13 +36,12 @@ public class UploadFile extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside do post of file upload servlet");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-
 		// process only if its multipart content
 		if (isMultipart) {
 			System.out.println("Inside isMultipart");
 			// Create a factory for disk-based file items
 			FileItemFactory factory = new DiskFileItemFactory();
-
+			response.setStatus(200);
 			// Create a new file upload handler
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			try {

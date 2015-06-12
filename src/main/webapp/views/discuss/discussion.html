@@ -44,7 +44,13 @@ $(document).ready(function() {
 		//$("#UploadForm").ajaxSubmit(options);
 		//$("#UploadForm").ajaxForm(options);
 	});*/
+	try
+	{
 	$("#UploadForm").ajaxForm(options);
+	}
+	catch(e)
+	{
+	}
 });
 </script>
 
@@ -148,20 +154,20 @@ $(document).ready(function() {
                 <div class="col-md-12 left-container-img-wrapper no-padding">
                     <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                         <li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA">
-							<a href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A (<span>{{discuss_questions.length}}</span>)</a>
+							<a href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A (<span>{{discuss_counts.q}}</span>)</a>
 
 						</li>
 						<li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts">
-							<a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_posts.length}}</span>)</a>
+							<a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_counts.p}}</span>)</a>
 						</li>
 						<li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles">
-							<a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">ARTICLES (<span>{{discuss_articles.length}}</span>)</a>
+							<a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">ARTICLES (<span>{{discuss_counts.a}}</span>)</a>
 						</li>
 
 
 
 						<li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">
-							<a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_articles.length + discuss_questions.length + discuss_posts.length}}</span>)</a>
+							<a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_counts.z}}</span>)</a>
                         </li>
                     </ul>
                 </div>
@@ -206,7 +212,7 @@ $(document).ready(function() {
                             <div class="article-share-links news-v3">
 								<ul class="post-shares post-shares-lg">
 									<li class="add-comment">
-										<a href="#/comment/{{discuss.id}}">
+										<a href="#/discuss/{{discuss.id}}">
 											<i class="rounded-x icon-speech"></i>
 											<span>{{discuss.aggrReplyCount}}</span>
 										</a>
@@ -220,14 +226,14 @@ $(document).ready(function() {
 									<li class="add-comment" ng-show="discuss.discussType == 'Q'" ng-hide="discuss.discussType == 'A' || discuss.discussType == 'P'">
 										<a href="">
 											<i class="rounded-x fa fa-retweet"></i>
-											<span>01</span>
+											<span>0</span>
 										</a>
 									</li>
 									<li>
-										<a href="" ng-click="UserLike(discuss.userId,discuss.id)">
+										<a href="" ng-click="UserLike(bc_userId,discuss.id,$index)">
 											<i class="rounded-x icon-heart"></i>
 											<span id="like_count_message"></span>
-											<span id="like_count"> {{discuss.aggrLikeCount}}</span>
+											<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
 										</a>
 									</li>
 								</ul>
@@ -263,10 +269,10 @@ $(document).ready(function() {
 										</a>
 									</li>
 									<li>
-										<a href="" ng-click="UserLike(discuss.userId,discuss.id)">
+										<a href="" ng-click="UserLike(bc_userId,discuss.id, $index)">
 											<i class="rounded-x icon-heart"></i>
 											<span id="like_count_message"></span>
-											<span id="like_count"> {{discuss.aggrLikeCount}}</span>
+											<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
 										</a>
 									</li>
                                 </ul>
@@ -276,7 +282,7 @@ $(document).ready(function() {
                 </div>
 
 
-			<!-- Posts Sectionn -->
+			<!-- Posts Section -->
             <div class="blog-author margin-bottom-15 main-article" data-index="discussion-posts" data-link="discussion_qa.html" ng-show="discuss.discussType == 'P'">
                 <img src="assets/img/img1-md.jpg" alt="">
                 <div class="blog-author-desc news-v3">
@@ -302,10 +308,10 @@ $(document).ready(function() {
 								</a>
 							</li>
 							<li>
-								<a href="" ng-click="UserLike(discuss.userId,discuss.id)">
+								<a href="" ng-click="UserLike(bc_userId,discuss.id,$index)">
 									<i class="rounded-x icon-heart"></i>
 									<span id="like_count_message"></span>
-									<span id="like_count"> {{discuss.aggrLikeCount}}</span>
+									<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
 								</a>
 							</li>
                         </ul>

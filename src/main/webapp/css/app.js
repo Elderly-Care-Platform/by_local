@@ -102,15 +102,6 @@ var byAdminApp = angular.module('byAdminApp', [
  	"adminServices"
  ]);
 
-myapp.directive('div', function() {
-    var directive = {};
-
-    directive.restrict = 'E'; /* restrict this directive to elements */
-
-    directive.template = "My first directive: HEHEHHEHE";
-
-    return directive;
-});
 
 
 

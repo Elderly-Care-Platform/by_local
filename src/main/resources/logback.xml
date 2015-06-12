@@ -6,11 +6,9 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-  	<logger name="org.springframework" level="trace" />
-	<logger name="com.beautifulyears" level="trace" />
+  	<logger name="org.springframework" level="error" />
+	<logger name="com.beautifulyears" level="debug" />
   
-    <logger name="com.example" level="TRACE"/>
-
     <root level="TRACE">
         <appender-ref ref="STDOUT" />
     </root>

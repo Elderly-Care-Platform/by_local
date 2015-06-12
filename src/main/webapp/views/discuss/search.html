@@ -13,8 +13,8 @@
                        <option>Oldest</option>
                    </select>
                </div>
-               
-               <!-- 
+
+               <!--
                 <ul class="pull-right breadcrumb">
                 <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
 				<li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all" ng-click="showme=false">{{bc_topic}}</a></li>
@@ -167,9 +167,10 @@
 										</a>
 									</li>
 									<li>
-										<a href="">
+										<a href="" ng-click="UserLike(bc_userId,discuss.id)">
 											<i class="rounded-x icon-heart"></i>
-											<span>{{discuss.aggrLikeCount}}</span>
+											<span id="like_count_message"></span>
+											<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
 										</a>
 									</li>
 								</ul>
@@ -205,9 +206,10 @@
 										</a>
 									</li>
 									<li>
-										<a href="">
+										<a href="" ng-click="UserLike(bc_userId,discuss.id)">
 											<i class="rounded-x icon-heart"></i>
-											<span>{{discuss.aggrLikeCount}}</span>
+											<span id="like_count_message"></span>
+											<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
 										</a>
 									</li>
                                 </ul>
@@ -243,9 +245,10 @@
 								</a>
 							</li>
 							<li>
-								<a href="">
+								<a href="" ng-click="UserLike(bc_userId,discuss.id, $index)">
 									<i class="rounded-x icon-heart"></i>
-									<span>{{discuss.aggrLikeCount}}</span>
+									<span id="like_count_message"></span>
+									<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
 								</a>
 							</li>
                         </ul>

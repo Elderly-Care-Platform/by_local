@@ -25,7 +25,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $scope.user.email = '';
                 $scope.user.password = '';
                 $rootScope.sessionId = login.sessionId;
-                $rootScope.bc_discussType = 'A';
+                $rootScope.bc_discussType = 'ALL';
                 $rootScope.bc_username = login.userName;
                 $rootScope.bc_userId = login.id;
 

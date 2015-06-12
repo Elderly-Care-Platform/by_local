@@ -10,15 +10,15 @@
 
 <div ng-repeat="question in questions" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"
      data-link="articles.html">
-    <div ng-click="go('id', question.id)" class="col-md-12 by_card">
-        <img class="img-responsive" src="assets/img/by.png" alt="image">
+    <div ng-click="go($event, 'id', question.id)" class="col-md-12 by_card">
+        <img class="img-responsive" src={{question.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">
 
         <div class="by_card_info">
             <ul class="list-inline posted-info">
                 <li>
                     <p class="by_captilize_first_letter">Question by <a class="by_captilize_first_letter" href="">{{question.username}}</a>
                     </p></li>
-                <li ng-show="question.topicId.length > 0">In <a ng-click="go('name', question.topicId[0])" class="by_captilize_first_letter">{{$root.discussCategoryListMap[question.topicId[0]].name}}</a>
+                <li ng-show="question.topicId.length > 0">In <a ng-click="go($event, 'name', question.topicId[0])" class="by_captilize_first_letter">{{$root.discussCategoryListMap[question.topicId[0]].name}}</a>
                 </li>
                 <li>{{question.createdAt | date : 'MMM d, yyyy'}}</li>
             </ul>

@@ -95,14 +95,14 @@
 									|| discuss.username}}</a></li>
 							<li><a
 								href="#/discuss/{{discuss.discussType}}/{{discuss.topicId}}/all"
-								ng-click="showme=false">{{discuss.topicId}}</a></li>
+								ng-click="showme=false">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
 							<li>{{discuss.createdAt | date:'medium'}}</li>
 						</ul>
 					</div>
 					<div class="article-heading">{{discuss.title}}</div>
 					<div class="article-content ">
 						<img class="img-responsive profile-img margin-bottom-20"
-							src="uploaded_files/{{discuss.articlePhotoFilename}}" alt="">
+							src="{{discuss.articlePhotoFilename}}" alt="" fallback-src="assets/img/by.png">
 						<p class="articles-first-letter">
 							<span ng-bind-html="discuss.text"></span>
 						</p>

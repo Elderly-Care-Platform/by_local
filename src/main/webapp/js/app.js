@@ -384,10 +384,13 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
     	    function(categories){
     	    	$rootScope.discussCategoryList = categories;
     	    	$rootScope.discussCategoryListMap = {};
+    	    	$rootScope.discussCategoryNameIdMap = {};
     	        angular.forEach(categories, function(category, index){
     	        	$rootScope.discussCategoryListMap[category.id] = category;
+    	        	$rootScope.discussCategoryNameIdMap[category.name] = category.id;
     	        	angular.forEach(category.children, function(subCategory, index){
 	    				$rootScope.discussCategoryListMap[subCategory.id] = subCategory;
+	    				$rootScope.discussCategoryNameIdMap[subCategory.name] = subCategory.id;
 	    			});
     	        });
     	    }
@@ -831,7 +834,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
 		}
 
-		$scope.go = function(type, id){
+		$scope.go = function($event, type, id){
+			$event.stopPropagation();
 			if(type === "id"){
 				$location.path('/discuss/'+id);
 			} else if(type === "name"){
@@ -3630,3 +3634,15 @@ app_directives.directive('diHref', ['$location', '$route',
 			});
 		}
 	}]);
+
+
+app_directives.directive('fallbackSrc', function () {
+	  var fallbackSrc = {
+	    link: function postLink(scope, iElement, iAttrs) {
+	      iElement.bind('error', function() {
+	        angular.element(this).attr("src", iAttrs.fallbackSrc);
+	      });
+	    }
+	   }
+	   return fallbackSrc;
+	});

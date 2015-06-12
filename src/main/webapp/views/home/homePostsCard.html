@@ -1,32 +1,37 @@
 <div class="col-md-12 no-padding margin-bottom-35">
     <div id="home_featured_posts" class="col-md-12 no-padding  list-head dp-block">
-    	FEATURED POST
+        FEATURED POST
     </div>
 
     <div class="col-md-12 no-padding bg-gray-h1">
-    	<div class="bg-green-h2" style="width: 216px;">
-    	</div>
+        <div class="bg-green-h2" style="width: 216px;">
+        </div>
     </div>
 </div>
 
 
-<div ng-repeat="post in posts" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles" data-link="articles.html">
-    <img class="img-responsive" src="assets/img/mock/wide1.jpg" alt="image">
+<div ng-repeat="post in posts" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"
+     data-link="articles.html">
+    <div ng-click="go('id', post.id)" class="col-md-12 by_card">
+        <img class="img-responsive" src="assets/img/mock/wide1.jpg" alt="image">
 
-    <div class="by_card_info">
-        <ul class="list-inline posted-info">
-            <li>
-                <p class="by_captilize_first_letter">Shared by <a class="by_captilize_first_letter" href="">{{post.username}}</a></p></li>
-            <li ng-show="post.topicId.length > 0">In <a href="" class="by_captilize_first_letter">{{$root.discussCategoryListMap[post.topicId[0]].name}}</a></li>
-            <li>{{post.createdAt | date : 'MMM d, yyyy'}}</li>
-        </ul>
-        <div class="by_card_heading">
-            <a href="#/discuss/{{post.id}}">{{post.title}}</a>
+        <div class="by_card_info">
+            <ul class="list-inline posted-info">
+                <li>
+                    <p class="by_captilize_first_letter">Shared by <a class="by_captilize_first_letter" href="">{{post.username}}</a>
+                    </p></li>
+                <li ng-show="post.topicId.length > 0">In <a ng-click="go('name', post.topicId[0])" class="by_captilize_first_letter">{{$root.discussCategoryListMap[post.topicId[0]].name}}</a>
+                </li>
+                <li>{{post.createdAt | date : 'MMM d, yyyy'}}</li>
+            </ul>
+            <div class="by_card_heading">
+                <a href="#/discuss/{{post.id}}">{{post.title}}</a>
+            </div>
         </div>
-    </div>
 
-    <div class="by_card_content" ng-bind-html="trustForcefully(post.text)">
+        <div class="by_card_content" ng-bind-html="trustForcefully(post.text)">
 
+        </div>
     </div>
 </div>
 

@@ -7,25 +7,36 @@
         <div class="bg-green-h2" style="width: 216px;"></div>
     </div>
 </div>
-<div ng-repeat="article in articles" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles" data-link="articles.html">
-    <img class="img-responsive" src="assets/img/mock/tall2.jpg" alt="image">
 
-    <div class="by_card_info">
-        <ul class="list-inline posted-info">
-            <li>
-                <p class="by_captilize_first_letter">Article by <a class="by_captilize_first_letter" href="">{{article.username}}</a></p></li>
-            <li ng-show="article.topicId.length > 0">In <a href="" class="by_captilize_first_letter">{{$root.discussCategoryListMap[article.topicId[0]].name}}</a></li>
-            <li>{{article.createdAt | date : 'MMM d, yyyy'}}</li>
-        </ul>
-        <div class="by_card_heading">
-            <a href="#/discuss/{{article.id}}">{{article.title}}</a>
+<div ng-repeat="article in articles" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"
+     data-link="articles.html">
+    <div ng-click="go('id', article.id)" class="col-md-12 by_card">
+        <img class="img-responsive" src="assets/img/mock/tall2.jpg" alt="image">
+
+        <div class="by_card_info">
+            <ul class="list-inline posted-info">
+                <li>
+                    <p class="by_captilize_first_letter">Article by <a class="by_captilize_first_letter" href="">{{article.username}}</a>
+                    </p>
+                </li>
+                <li ng-show="article.topicId.length > 0">In
+                    <a ng-click="go('name', article.topicId[0])" class="by_captilize_first_letter">
+                        {{$root.discussCategoryListMap[article.topicId[0]].name}}
+                    </a>
+                </li>
+                <li>{{article.createdAt | date : 'MMM d, yyyy'}}</li>
+            </ul>
+            <div class="by_card_heading">
+                <a href="#/discuss/{{article.id}}">{{article.title}}</a>
+            </div>
+        </div>
+
+        <div class="by_card_content" ng-bind-html="trustForcefully(article.text) | limitTo:500">
+
         </div>
     </div>
-
-    <div class="by_card_content" ng-bind-html="trustForcefully(article.text) | limitTo:500">
-
-    </div>
 </div>
+
 
 <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html">
     <a href="#discuss/A/list/all">More...</a>

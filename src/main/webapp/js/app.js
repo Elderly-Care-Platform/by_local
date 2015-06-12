@@ -292,7 +292,6 @@ var discussCategoryList = byServices.factory('discussCategoryList', function ($r
 	})
 });
 
-
 var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
@@ -338,9 +337,9 @@ byApp.config(['$routeProvider',
     .when('/users/delete/:userId', {templateUrl: 'views/users/list.html', controller: 'UserDeleteController'})
     .when('/users/login', {templateUrl: 'views/signup/signup.html', controller: 'LoginController'})
     .when('/users/logout/:sessionId', {templateUrl: 'views/users/home.html', controller: 'LogoutController'})
-    .when('/discuss/:discussType/list/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussListController'})
-    .when('/discuss/:topicId/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussOneTopicAllSubTopicListController'})
-    .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussOneTopicOneSubTopicListController'})
+    .when('/discuss/:discussType/list/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussAllController'})
+    .when('/discuss/:topicId/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussCategoryController'})
+    .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussSubCategoryController'})
     .when('/discuss/new/P', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
 	.when('/discuss/new/Q', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
 	.when('/discuss/new/A', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
@@ -738,8 +737,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
 
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', 'HomeFeaturedContent', 'Discuss','$sce',
-    function ($scope, $rootScope, $routeParams, $timeout, HomeFeaturedContent, Discuss,$sce) {
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'HomeFeaturedContent', 'Discuss','$sce',
+    function ($scope, $rootScope, $routeParams, $timeout, $location, HomeFeaturedContent, Discuss,$sce) {
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";
@@ -798,6 +797,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 $scope.articles = HomeFeaturedContent.query({discussType: 'A'});
                 $scope.questions = HomeFeaturedContent.query({discussType: 'Q'});
                 $scope.posts = HomeFeaturedContent.query({discussType: 'P'});
+				console.log($scope.articles);
             } else {
 				$scope.scrollToId(scrollTo);
 			}
@@ -827,6 +827,24 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 			$scope.currentView = "";
 			$scope.switchToContentView();
 
+		}
+
+		$scope.go = function(type, id){
+			if(type === "id"){
+				$location.path('/discuss/'+id);
+			} else if(type === "name"){
+				var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
+					parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
+					
+				if(parentCategoryName){
+					$location.path('/discuss/All/'+ parentCategoryId + '/' + id);
+				}else{
+//					parentCategory = $rootScope.discussCategoryListMap[id].parentId
+					
+					$location.path('/discuss/All/'+ id + '/all');
+				}
+			}
+			
 		}
 
     }]);
@@ -914,45 +932,7 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 
 
 
-//DIscuss All
-byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType','DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes',
-  function($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes) {
-     $scope.discuss = DiscussList.query();
 
-     var discussType = $routeParams.discussType;
-
-     if(discussType == '' || discussType == 'undefined' || !discussType || discussType == null)
-     {
-		 discussType = 'All';
-	 }
-
-	 //query to get the numbers
-	 //???????$scope.discuss_counts = DiscussOneTopicOneSubTopicListCount.query({discussType: "All", topicId: "list", subTopicId: "all"});
-	 DiscussOneTopicOneSubTopicListCount.get({discussType: "All", topicId: "list", subTopicId:"all"}).then(function(counts) {
-	 		 $scope.discuss_counts = counts;
-	 });
-
-	 //alert("discuss all :: " + $scope.discuss_counts);
-
-	 $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType});
-
-	 $rootScope.bc_topic = 'list';
-	 $rootScope.bc_subTopic = 'all';
-	 $rootScope.bc_discussType = discussType;
-
-	  //User Discuss Like method
-	 	 $scope.UserLike = function(userId, discussId, index) {
-
-			/*
-			if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-			{
-				$location.path('/users/login');
-			}
-			*/
-	 		//Create the new discuss user like
-	 		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-	}
-  }]);
 
 
 byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList',
@@ -971,104 +951,6 @@ byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '
      $scope.discuss2 = UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId});
   }]);
 
-
-byControllers.controller('DiscussOneTopicAllSubTopicListController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicAllSubTopicList', 'DiscussOneTopicAllSubTopicListCount',  'DiscussUserLikes',
-   function($scope, $rootScope, $location, $routeParams, DiscussOneTopicAllSubTopicList, DiscussOneTopicAllSubTopicListCount, DiscussUserLikes) {
-		//alert("Discuss ALl = " + $location.path());
-	  $scope.showme = false;
-
-	  var topicId = $routeParams.topicId;
-	  var discussType = $routeParams.discussType;
-
-	  if(discussType == '' || discussType == 'undefined' || !discussType || discussType == null)
-	  {
-	  	discussType = 'All';
-	  }
-
-	  //Query to get te counts
-	  //?????$scope.discuss_counts = DiscussOneTopicAllSubTopicListCount.query({discussType: "All", topicId: topicId});
-	  DiscussOneTopicOneSubTopicListCount.get({discussType: "All", topicId: topicId}).then(function(counts) {
-	  	$scope.discuss_counts = counts;
-	  });
-
-      $scope.discuss = DiscussOneTopicAllSubTopicList.query({topicId: topicId});
-      $rootScope.bc_topic = topicId;
-      $rootScope.bc_subTopic = null;
-
-      $rootScope.bc_discussType = discussType;
-
-	  //User Discuss Like method
-	 $scope.UserLike = function(userId, discussId, index) {
-
-		/*
-		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-		{
-			$location.path('/users/login');
-		}
-		*/
-		//Create the new discuss user like
-		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-
-	}
-      //??????????????????????$location.path('/discuss/' + discussType + '/' + topicId + '/all');
-   }]);
-
-
-
-byControllers.controller('DiscussOneTopicOneSubTopicListController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicOneSubTopicList', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes', 'Discuss',
-  function($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss) {
-
-	  $scope.showme = true;
-
-	 var discussType = $routeParams.discussType;
- 	 var topicId = $routeParams.topicId;
-	 var subTopicId = $routeParams.subTopicId;
-
-	 if(discussType == '' || discussType == 'undefined' || !discussType || discussType == null)
-	 {
-	 	discussType = 'All';
-	 }
-
-	 //code to prevent users from creating posts and questions when sub topic = all
-	 if($location.path().endsWith('/all'))
-	 {
-	 	$scope.showme = false;
-	 }
-
-	 $rootScope.bc_topic = topicId;
-     $rootScope.bc_subTopic = subTopicId;
-     $rootScope.bc_discussType = discussType === '' ? 'A' : discussType;
-
-     //query to get the numbers
-	 //???????$scope.discuss_counts = DiscussOneTopicOneSubTopicListCount.query({discussType: "All", topicId: topicId, subTopicId:subTopicId});
-
-	 DiscussOneTopicOneSubTopicListCount.get({discussType: "All", topicId: topicId, subTopicId:subTopicId}).then(function(counts) {
-		 $scope.discuss_counts = counts;
-	 });
-
-
-	 ///alert("one topic one sub topic :: " + $scope.discuss_counts);
-
-
-	 $scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
-
-
-
-	 //User Discuss Like method
-	 $scope.UserLike = function(userId, discussId, index) {
-
-		/*
-		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-		{
-			$location.path('/users/login');
-		}
-		*/
-
-		//Create the new discuss user like
-		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-	}
-
-  }]);
 
 
 

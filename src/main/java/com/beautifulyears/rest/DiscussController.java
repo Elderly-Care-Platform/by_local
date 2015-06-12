@@ -189,13 +189,11 @@ public class DiscussController {
 			Query q = new Query();
 			if (!discussType.equalsIgnoreCase("All")) {
 				q.addCriteria(Criteria.where("topicId")
-						.in(topicId).and("subTopicId")
-						.in(subTopicId).and("discussType")
+						.in(new Object[] {subTopicId}).and("discussType")
 						.is((Object) discussType));
 			} else {
 				q.addCriteria(Criteria.where("topicId")
-						.in(topicId).and("subTopicId")
-						.in(subTopicId));
+						.in(new Object[] {subTopicId}));
 			}
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
@@ -272,8 +270,8 @@ public class DiscussController {
 					&& !topicId.equalsIgnoreCase("list")) {
 				// A
 				Query q = new Query();
-				q.addCriteria(Criteria.where((String) "topicId")
-						.is((Object) topicId).and("discussType")
+				q.addCriteria(Criteria.where("topicId")
+						.in(new Object[] {topicId}).and("discussType")
 						.is((Object) "A"));
 				List listA = this.mongoTemplate.find(q, (Class) Discuss.class);
 				if (listA != null) {
@@ -282,8 +280,8 @@ public class DiscussController {
 
 				// P
 				q = new Query();
-				q.addCriteria(Criteria.where((String) "topicId")
-						.is((Object) topicId).and("discussType")
+				q.addCriteria(Criteria.where("topicId")
+						.is(new Object[] {topicId}).and("discussType")
 						.is((Object) "P"));
 				List listP = this.mongoTemplate.find(q, (Class) Discuss.class);
 				if (listP != null) {
@@ -292,8 +290,8 @@ public class DiscussController {
 
 				// Q
 				q = new Query();
-				q.addCriteria(Criteria.where((String) "topicId")
-						.is((Object) topicId).and("discussType")
+				q.addCriteria(Criteria.where("topicId")
+						.is(new Object[] {topicId}).and("discussType")
 						.is((Object) "Q"));
 				List listQ = this.mongoTemplate.find(q, (Class) Discuss.class);
 				if (listQ != null) {
@@ -328,8 +326,7 @@ public class DiscussController {
 							+ topicId + " :: sub topic id = " + subTopicId);
 					Query q = new Query();
 					q.addCriteria(Criteria.where((String) "topicId")
-							.is((Object) topicId).and("subTopicId")
-							.is((Object) subTopicId).and("discussType")
+							.is(new Object[] {subTopicId}).and("discussType")
 							.is((Object) discussType));
 					List list = this.mongoTemplate.find(q,
 							(Class) Discuss.class);
@@ -344,9 +341,8 @@ public class DiscussController {
 
 					// A
 					Query q = new Query();
-					q.addCriteria(Criteria.where((String) "topicId")
-							.is((Object) topicId).and("subTopicId")
-							.is((Object) subTopicId).and("discussType")
+					q.addCriteria(Criteria.where("topicId")
+							.in(new Object[] {subTopicId}).and("discussType")
 							.is((Object) "A"));
 					List listA = this.mongoTemplate.find(q,
 							(Class) Discuss.class);
@@ -356,9 +352,8 @@ public class DiscussController {
 
 					// P
 					q = new Query();
-					q.addCriteria(Criteria.where((String) "topicId")
-							.is((Object) topicId).and("subTopicId")
-							.is((Object) subTopicId).and("discussType")
+					q.addCriteria(Criteria.where("topicId")
+							.in(new Object[] {subTopicId}).and("discussType")
 							.is((Object) "P"));
 					List listP = this.mongoTemplate.find(q,
 							(Class) Discuss.class);
@@ -368,10 +363,9 @@ public class DiscussController {
 
 					// Q
 					q = new Query();
-					q.addCriteria(Criteria.where((String) "topicId")
-							.is((Object) topicId).and("subTopicId")
-							.is((Object) subTopicId).and("discussType")
-							.is((Object) "Q"));
+					q.addCriteria((Criteria.where("topicId")
+							.in(new Object[] {subTopicId}).and("discussType")
+							.is((Object) "Q")));
 					List listQ = this.mongoTemplate.find(q,
 							(Class) Discuss.class);
 					if (listQ != null) {

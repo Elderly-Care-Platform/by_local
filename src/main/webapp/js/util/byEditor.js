@@ -17,7 +17,7 @@ BY.initEditor = function initEditor(param){
         plugins: [
             "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            " emoticons textcolor paste "
+            " emoticons textcolor paste autoresize"
         ],
         toolbar: "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink emoticons image media   ",
         setup : function(ed) {

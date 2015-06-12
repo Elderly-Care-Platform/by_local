@@ -28,5 +28,11 @@ var options = {
         $("#message").html("<font color='red'> ERROR: unable to upload files</font>");
         }
 };
+try
+{
 $("#UploadForm").ajaxForm(options);
+}
+catch(e)
+{
+}
 });

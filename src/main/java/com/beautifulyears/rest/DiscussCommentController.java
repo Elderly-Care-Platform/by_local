@@ -177,12 +177,15 @@ public class DiscussCommentController {
 
 		// Increment aggrReplyCount of the underlying discuss for which the
 		// comment is being submitted
-		Discuss discuss = discussRepository.findOne(discussCommentToReturn
-				.getDiscussId());
-		if (discuss != null) {
-			int replyCount = discuss.getAggrReplyCount() + 1;
-			discuss.setAggrReplyCount(replyCount);
-			discussRepository.save(discuss);
+		if (discussCommentToReturn != null) {
+			Discuss discuss = discussRepository.findOne(discussCommentToReturn
+					.getDiscussId());
+			if (discuss != null) {
+				int replyCount = discuss.getAggrReplyCount() + 1;
+				discuss.setAggrReplyCount(replyCount);
+				discussRepository.save(discuss);
+			}
+
 		}
 
 		return discussCommentToReturn;
@@ -190,7 +193,8 @@ public class DiscussCommentController {
 
 	public DiscussComment saveDiscussCommentOnComment(
 			DiscussComment discussComment) {
-		logger.info("*** about to create comment on comment....");
+		//logger.info("*** about to create comment on comment....");
+		System.out.println("*** about to create comment on comment....");
 		DiscussComment preparedDiscussComment = null;
 		DiscussComment discussCommentBeingCommentedOn = mongoTemplate.findOne(
 				new Query().addCriteria(Criteria.where("id").is(

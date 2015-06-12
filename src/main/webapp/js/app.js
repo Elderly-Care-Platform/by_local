@@ -4,17 +4,15 @@ var apiPrefix = "";
 var byServices = angular.module("byServices", ["ngResource"]);
 var byControllers = angular.module("byControllers", []);
 
-
-
-
-
-
-var discuss = byServices.factory('SessionIdService', function($rootScope) {
+var discuss = byServices.factory('SessionIdService', function($rootScope, $location) {
     var sessionID = '';
     return {
         getSessionId: function() {
-            if(sessionID=='' || sessionID==null)
+
+
+            if((sessionID=='' || sessionID==null))
             {
+
 				if ("localStorage" in window)
 				{
                		sessionID = localStorage.getItem("SessionId");
@@ -41,8 +39,6 @@ var discuss = byServices.factory('SessionIdService', function($rootScope) {
 });
 
 
-
-
 //User
 var user = byServices.factory('User', function($resource) {
 	return $resource(apiPrefix+'api/v1/users/:userId',{}, {
@@ -61,16 +57,6 @@ var userProfile = byServices.factory('UserProfile', function($resource) {
 	})
 });
 
-
-/*//List depedents of an user
-var depList= byServices.factory('DependentList', function($resource) {
-	return $resource(apiPrefix+'api/v1/dependent/list/:userId',{}, {
-		//get: {method: 'GET', params: {userId: '@userId'}},
-		query: { method: "GET", isArray: false }
-
-	})
-});
-*/
 
 var depList = byServices.factory('DependentList', function($resource) {
 	return $resource(apiPrefix+'api/v1/dependent/list/:userId',{}, {
@@ -101,9 +87,6 @@ var userProfile3 = byServices.factory('UserDependent', function($resource) {
 		get: {method: 'GET', params: {userId: '@userId'}}
 	})
 });
-
-
-
 
 
 
@@ -243,12 +226,44 @@ var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', 
 });
 
 
+/*
 var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($resource) {
 	return $resource(apiPrefix+'api/v1/discuss/count/:discussType/:topicId/:subTopicId',{}, {
 		//get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}}
 	})
 });
+*/
 
+var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($http, $timeout, $q) {
+
+  var counts = [];
+
+  return {
+      // Get all projects
+      get: function(queryStr) {
+
+
+        var deferred = $q.defer();
+
+        // Don't do call if we already have projects
+        //alert(counts);
+        if (counts.length === 0) {
+
+          // Using a timeout to simulate a server call
+          //$timeout(function() {
+              $http.get(apiPrefix+'api/v1/discuss/count/' + queryStr.discussType + '/' + queryStr.topicId + '/' + queryStr.subTopicId).success(function(data) {
+
+                deferred.resolve(data);
+              });
+            //}, 200);
+        }
+
+        // Return the projects either way
+        return deferred.promise;
+
+      }
+  }
+});
 
 var discussShow = byServices.factory('DiscussShow', function($resource) {
 	return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {
@@ -256,7 +271,6 @@ var discussShow = byServices.factory('DiscussShow', function($resource) {
 		get: {method: 'GET', params: {discussId: '@id'}}
 	})
 });
-
 
 var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
     return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3', {}, {
@@ -315,18 +329,15 @@ byApp.config(['$routeProvider',
     $routeProvider
     .when('/users/home', {templateUrl: 'views/home/home.html', controller: 'BYHomeController'})
     .when('/users/new', {templateUrl: 'views/users/create.html', controller: 'UserCreateController'})
-
     .when('/userprofile', {templateUrl: 'views/users/create2.html', controller: 'UserCreate2Controller'})
     .when('/dependent', {templateUrl: 'views/users/create3.html', controller: 'UserCreate3Controller'})
     .when('/dependent/list/:userId', {templateUrl: 'views/users/dependents.html', controller: 'DependentListController'})
     .when('/dependent/:userId/:id', {templateUrl: 'views/users/create3.html', controller: 'DependentShowEditController'})
-
     .when('/users/showedit/:userId', {templateUrl: 'views/users/edit.html', controller: 'UserEditController'})
     .when('/users/showedit/:userId', {templateUrl: 'views/users/edit.html', controller: 'UserCreateController'})
     .when('/users/delete/:userId', {templateUrl: 'views/users/list.html', controller: 'UserDeleteController'})
     .when('/users/login', {templateUrl: 'views/signup/signup.html', controller: 'LoginController'})
     .when('/users/logout/:sessionId', {templateUrl: 'views/users/home.html', controller: 'LogoutController'})
-    //.when('/users/logout', {templateUrl: 'views/users/list.html', controller: 'LogoutController'})
     .when('/discuss/:discussType/list/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussListController'})
     .when('/discuss/:topicId/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussOneTopicAllSubTopicListController'})
     .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussOneTopicOneSubTopicListController'})
@@ -360,7 +371,8 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
        	if (session == '' || session == null) {
 
             // no logged user, we should be going to #login
-            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/users/create.html') {
+            //Code to allow non-logged in users to visit read only pages
+            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/users/create.html' /*|| next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html'*/) {
             // already going to #login, no redirect needed
             } else {
                 // not going to #login, we should redirect now
@@ -475,13 +487,6 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
 
 				$scope.createprofile = function () {
 					$scope.userProfile.userId = localStorage.getItem('USER_ID');
-					//alert($scope.userProfile.userId  );
-					/*if($scope.userProfile.userId == '' || $scope.userProfile.userId == null)
-					{
-						$location.path('/users/login');
-						return;
-					}
-					*/
 					$scope.userProfile.$save(function (userProfile, headers)
 					{
 						$scope.message = "User profile inserted successfully";
@@ -489,8 +494,6 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
 						$location.path('/userprofile');
 					}, function (error) {
 							// failure
-							//alert('new user profile save failed!');
-							//console.log("$save failed " + JSON.stringify(error));
 							$scope.error = 'Error in saving user profile';
 							$scope.message = '';
 
@@ -514,15 +517,12 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
        var discussId = $routeParams.discussId;
 
       $scope.discuss = DiscussShow.get({discussId: discussId});
-     // $scope.discuss.text = $sce.trustAsHtml( $scope.discuss.text);
 
-  		//these are coming null - 2nd June 2015
-       var discussType = $rootScope.bc_discussType;
+  	   var discussType = $rootScope.bc_discussType;
        var topicId = $scope.discuss.topicId;
        var subTopicId = $scope.discuss.subTopicId;
        var userId = $scope.discuss.userId;
 
-       //alert("discuss type = " + discussType + " :: topic id = " + topicId + " :: sub topic id = " + subTopicId + " :: user id = " + userId );
 
        $scope.discuss2 = UserDiscussList.get({discussType:discussType, topicId: topicId, subTopicId: subTopicId, userId: $scope.discuss.userId});
        $scope.comments  = DiscussComment.get({parentId:discussId,ancestorId:discussId});
@@ -552,25 +552,6 @@ byControllers.controller('DependentShowEditController', ['$scope', '$rootScope',
 				return;
 			}
 
-			//speaks language drop down
-			var lang = $rootScope.lang_selection_names;
-			var str1 = JSON.stringify(lang);
-			$scope.userDependent.speaksLang = str1;
-
-
-			//InterestedIn drop down
-			var interested_in = $rootScope.interest_selection_names;
-			var str2 = JSON.stringify(interested_in);
-			$scope.userDependent.interestedIn = str2;
-
-
-			//LikesDoing drop down
-			/*var likes_doing_in = $rootScope.likes_doing_selection_names;
-			var arr3 = JSON.stringify(likes_doing_in);
-			$scope.userDependent.likesDoing = arr3;
-			$rootScope.likes_doing_selection = '';
-			$rootScope.likes_doing_selection_names = '';
-			*/
 
 			$scope.userDependent.$save(function (userDependent, headers)
 			{
@@ -624,25 +605,6 @@ byControllers.controller('UserCreate3Controller', ['$scope', '$rootScope', '$rou
 				return;
 			}
 
-			//speaks language drop down
-			var lang = $rootScope.lang_selection_names;
-			var str1 = JSON.stringify(lang);
-			$scope.userDependent.speaksLang = str1;
-
-
-			//InterestedIn drop down
-			var interested_in = $rootScope.interest_selection_names;
-			var str2 = JSON.stringify(interested_in);
-			$scope.userDependent.interestedIn = str2;
-
-
-			//LikesDoing drop down
-			/*var likes_doing_in = $rootScope.likes_doing_selection_names;
-			var arr3 = JSON.stringify(likes_doing_in);
-			$scope.userDependent.likesDoing = arr3;
-			$rootScope.likes_doing_selection = '';
-			$rootScope.likes_doing_selection_names = '';
-			*/
 
 			$scope.userDependent.$save(function (userDependent, headers)
 			{
@@ -677,24 +639,6 @@ byControllers.controller('UserEditController', ['$scope', '$routeParams', '$loca
   }]);
 
 
-
-//User Delete
-byControllers.controller('UserDeleteController', ['$scope', '$routeParams', '$location', 'User',
-  function($scope, $routeParams, $location, User) {
-    var userId = $routeParams.userId;
-	$scope.user = User.remove({userId: userId});
-	$scope.users = User.query();
-	$location.path('/users/all');
-  }]);
-
-
-//User Listing
-byControllers.controller('UserListController', ['$scope', 'UserList',
-	function($scope, UserList) {
-	   $scope.users = UserList.query();
-	}]);
-
-
 // Logout Controller
 byControllers.controller('LogoutController', ['$scope', '$location', '$rootScope' ,
 function ($scope,$location, $rootScope) {
@@ -715,17 +659,13 @@ function ($scope,$location, $rootScope) {
 	localStorage.removeItem(1);
 	localStorage.removeItem(2);
 
-
-	//$localStorage.$reset();
-	//???window.location.reload();
-
 	var element = document.getElementById("login_placeholder");
 	element.innerHTML = "Login";
-	element.href = apiPrefix+"#/users/login";
+	element.href = "/#/users/login";
 
 	var pro = document.getElementById('profile_placeholder');
 	pro.innerHTML = "Signup";
-	pro.href = apiPrefix+"#/users/new";
+	pro.href = "/#/users/new";
 
 
 	$location.path("/users/login");
@@ -735,120 +675,65 @@ function ($scope,$location, $rootScope) {
 
 
 
-//byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$rootScope',
-//   function ($scope, $rootScope, $http, $location, $rootScope) {
-//       $scope.user = {};
-//       $scope.user.email = '';
-//       $scope.user.password = '';
-//       $scope.loginUser = function(user) {
-//           $scope.resetError();
-//           $http.post(apiPrefix+'api/v1/users/login', user).success(function(login) {
-//			if(login.sessionId===null) {
-//			       $scope.setError(login.status);
-//   					return;
-//               }
-//               $scope.user.email = '';
-//               $scope.user.password = '';
-//   				$rootScope.sessionId=login.sessionId;
-//   				$rootScope.bc_discussType = 'A';
-//   				$rootScope.bc_username = login.userName;
-//   				$rootScope.bc_userId = login.id;
-//
-//
-//				if ("localStorage" in window)
-//				{
-//					localStorage.setItem("SessionId", login.sessionId);
-//					localStorage.setItem("USER_ID", login.id);
-//					localStorage.setItem("USER_NAME", login.userName);
-//					$location.path("/users/home");
-//					var element = document.getElementById("login_placeholder");
-//					element.innerHTML = "Logout";
-//					element.href = apiPrefix+"#/users/logout/"+login.sessionId;
-//
-//					var pro = document.getElementById('profile_placeholder');
-//					pro.innerHTML = "Profile";
-//					pro.href = apiPrefix+"#/userprofile";
-//
-//				}
-//				else
-//				{
-//					$scope.setError('Browser does not support cookies');
-//					$location.path("/users/login");
-//				}
-//
-//
-//           }).error(function() {
-//               $scope.error = 'Invalid user/password combination';
-//				$scope.message = '';
-//           });
-//       }
-//
-//       $scope.resetError = function() {
-//           $scope.error = '';
-//           $scope.message = '';
-//       }
-//
-//       $scope.setError = function(message) {
-//           $scope.error = message;
-//           $scope.message = '';
-//           $rootScope.SessionId='';
-//       }
-//   }]);
-
-
-
-// Logout Controller
-/*byControllers.controller('LogoutController', ['$scope', '$route', '$rootScope', '$http', '$location', '$rootScope',
-   function ($scope, $route, $rootScope, $http, $location, $rootScope) {
-	   if($rootScope.sessionId != '') {
-		   $location.path("/users/login");
-	   }
-       $scope.logoutUser = function(sessionId) {
+byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$rootScope',
+   function ($scope, $rootScope, $http, $location, $rootScope) {
+       $scope.user = {};
+       $scope.user.email = '';
+       $scope.user.password = '';
+       $scope.loginUser = function(user) {
            $scope.resetError();
-           $http.get(apiPrefix+'api/v1/users/logout/:sessionId', sessionId).success(function() {
-			   $rootScope.sessionId='';
-   				$rootScope.bc_discussType = '';
-   				$rootScope.bc_username = '';
-   				$rootScope.bc_userId = '';
+           $http.post('/api/v1/users/login', user).success(function(login) {
+			if(login.sessionId===null) {
+			       $scope.setError(login.status);
+   					return;
+               }
+               $scope.user.email = '';
+               $scope.user.password = '';
+   				$rootScope.sessionId=login.sessionId;
+   				$rootScope.bc_discussType = 'A';
+   				$rootScope.bc_username = login.userName;
+   				$rootScope.bc_userId = login.id;
 
 
-   			//if ("localStorage" in window)
-   			{
-				alert("about to delete local storage");
-				localStorage.setItem("SessionId", "");
-				localStorage.setItem("USER_ID", "");
-				localStorage.setItem("USER_NAME", "");
+				if ("localStorage" in window)
+				{
+					localStorage.setItem("SessionId", login.sessionId);
+					localStorage.setItem("USER_ID", login.id);
+					localStorage.setItem("USER_NAME", login.userName);
+					$location.path("/users/home");
+					var element = document.getElementById("login_placeholder");
+					element.innerHTML = "Logout";
+					element.href = "/#/users/logout/"+login.sessionId;
 
-				localStorage.removeItem(0);
-				localStorage.removeItem(1);
-				localStorage.removeItem(2);
-               	$location.path("/users/login");
-   			}
-   			//else
-   			//{
-			//	$scope.setError('Browser does not support cookies');
-   			//	$location.path("/users/login");
-   			//}
+					var pro = document.getElementById('profile_placeholder');
+					pro.innerHTML = "Profile";
+					pro.href = "/#/userprofile";
+
+				}
+				else
+				{
+					$scope.setError('Browser does not support cookies');
+					$location.path("/users/login");
+				}
 
 
            }).error(function() {
-               $scope.setError('could not logout');
+               $scope.error = 'Invalid user/password combination';
+				$scope.message = '';
            });
-           $route.reload();
        }
 
        $scope.resetError = function() {
-           $scope.error = false;
-           $scope.errorMessage = '';
+           $scope.error = '';
+           $scope.message = '';
        }
 
        $scope.setError = function(message) {
-           $scope.error = true;
-           $scope.errorMessage = message;
+           $scope.error = message;
+           $scope.message = '';
            $rootScope.SessionId='';
        }
    }]);
-*/
 
 
 
@@ -946,11 +831,10 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
     }]);
 
-
 //DISCUSS
 
-byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch',
-  function($scope, $rootScope, $routeParams, DiscussSearchForDiscussType, DiscussSearch) {
+byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$route', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'DiscussUserLikes',
+  function($scope, $rootScope, $route, $routeParams, DiscussSearchForDiscussType, DiscussSearch, DiscussUserLikes) {
      $rootScope.term = $routeParams.term;
 
 	 //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -1013,13 +897,26 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 	 $rootScope.bc_subTopic = 'all';
 	 $rootScope.bc_discussType = disType;
 
+	  //User Discuss Like method
+	 	 $scope.UserLike = function(userId, discussId, index) {
+			/*
+			if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+			{
+				$location.path('/users/login');
+			}
+			*/
+
+	 		//Create the new discuss user like
+	 		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+
+		}
   }]);
 
 
 
-
-byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType',
-  function($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType) {
+//DIscuss All
+byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType','DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes',
+  function($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes) {
      $scope.discuss = DiscussList.query();
 
      var discussType = $routeParams.discussType;
@@ -1029,12 +926,13 @@ byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$rou
 		 discussType = 'All';
 	 }
 
-	 //queries to get the numbers
-	 $scope.discuss_questions = DiscussAllForDiscussType.query({discussType: "Q"});
+	 //query to get the numbers
+	 //???????$scope.discuss_counts = DiscussOneTopicOneSubTopicListCount.query({discussType: "All", topicId: "list", subTopicId: "all"});
+	 DiscussOneTopicOneSubTopicListCount.get({discussType: "All", topicId: "list", subTopicId:"all"}).then(function(counts) {
+	 		 $scope.discuss_counts = counts;
+	 });
 
-	 $scope.discuss_posts = DiscussAllForDiscussType.query({discussType: "P"});
-
-	 $scope.discuss_articles = DiscussAllForDiscussType.query({discussType: "A"});
+	 //alert("discuss all :: " + $scope.discuss_counts);
 
 	 $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType});
 
@@ -1042,12 +940,23 @@ byControllers.controller('DiscussListController', ['$scope', '$rootScope', '$rou
 	 $rootScope.bc_subTopic = 'all';
 	 $rootScope.bc_discussType = discussType;
 
+	  //User Discuss Like method
+	 	 $scope.UserLike = function(userId, discussId, index) {
+
+			/*
+			if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+			{
+				$location.path('/users/login');
+			}
+			*/
+	 		//Create the new discuss user like
+	 		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+	}
   }]);
 
 
 byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList',
   function($scope,$rootScope, $routeParams, UserDiscussList) {
-	  //???var userId = 'aditya';
 	  var userId = $rootScope.bc_userId;
 	  var userName = $rootScope.bc_username;
 	  var discussType = $rootScope.bc_discussType;
@@ -1063,8 +972,8 @@ byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '
   }]);
 
 
-byControllers.controller('DiscussOneTopicAllSubTopicListController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicAllSubTopicList',
-   function($scope, $rootScope, $location, $routeParams, DiscussOneTopicAllSubTopicList) {
+byControllers.controller('DiscussOneTopicAllSubTopicListController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicAllSubTopicList', 'DiscussOneTopicAllSubTopicListCount',  'DiscussUserLikes',
+   function($scope, $rootScope, $location, $routeParams, DiscussOneTopicAllSubTopicList, DiscussOneTopicAllSubTopicListCount, DiscussUserLikes) {
 		//alert("Discuss ALl = " + $location.path());
 	  $scope.showme = false;
 
@@ -1076,13 +985,32 @@ byControllers.controller('DiscussOneTopicAllSubTopicListController', ['$scope', 
 	  	discussType = 'All';
 	  }
 
+	  //Query to get te counts
+	  //?????$scope.discuss_counts = DiscussOneTopicAllSubTopicListCount.query({discussType: "All", topicId: topicId});
+	  DiscussOneTopicOneSubTopicListCount.get({discussType: "All", topicId: topicId}).then(function(counts) {
+	  	$scope.discuss_counts = counts;
+	  });
+
       $scope.discuss = DiscussOneTopicAllSubTopicList.query({topicId: topicId});
       $rootScope.bc_topic = topicId;
       $rootScope.bc_subTopic = null;
 
       $rootScope.bc_discussType = discussType;
 
-      $location.path('/discuss/' + discussType + '/' + topicId + '/all');
+	  //User Discuss Like method
+	 $scope.UserLike = function(userId, discussId, index) {
+
+		/*
+		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+		{
+			$location.path('/users/login');
+		}
+		*/
+		//Create the new discuss user like
+		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+
+	}
+      //??????????????????????$location.path('/discuss/' + discussType + '/' + topicId + '/all');
    }]);
 
 
@@ -1111,46 +1039,476 @@ byControllers.controller('DiscussOneTopicOneSubTopicListController', ['$scope', 
      $rootScope.bc_subTopic = subTopicId;
      $rootScope.bc_discussType = discussType === '' ? 'A' : discussType;
 
-     //queries to get the numbers
-     $scope.discuss_questions = DiscussOneTopicOneSubTopicList.query({discussType: "Q", topicId: topicId, subTopicId:subTopicId});
+     //query to get the numbers
+	 //???????$scope.discuss_counts = DiscussOneTopicOneSubTopicListCount.query({discussType: "All", topicId: topicId, subTopicId:subTopicId});
 
-	 $scope.discuss_posts = DiscussOneTopicOneSubTopicList.query({discussType: "P", topicId: topicId, subTopicId:subTopicId});
+	 DiscussOneTopicOneSubTopicListCount.get({discussType: "All", topicId: topicId, subTopicId:subTopicId}).then(function(counts) {
+		 $scope.discuss_counts = counts;
+	 });
 
-     $scope.discuss_articles = DiscussOneTopicOneSubTopicList.query({discussType: "A", topicId: topicId, subTopicId:subTopicId});
+
+	 ///alert("one topic one sub topic :: " + $scope.discuss_counts);
+
 
 	 $scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
 
 
 
 	 //User Discuss Like method
-	 $scope.UserLike = function(userId, discussId) {
+	 $scope.UserLike = function(userId, discussId, index) {
+
+		/*
+		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+		{
+			$location.path('/users/login');
+		}
+		*/
 
 		//Create the new discuss user like
-		$scope.discussuserlikes = DiscussUserLikes.get({userId:userId, discussId: discussId});
-
-		$scope.discuss = Discuss.query({discussId:discussId});
-		$route.reload();
-
-		document.getElementById('like_count').innerHTML = $scope.discuss.aggrReplyCount;
-
+		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
 	}
-
-
-
-	//???$location.path('/discuss/' + discussType + '/' + topicId + '/' + subTopicId);
-
-
 
   }]);
 
 
 
 
+///Load JS Controller refactored outside in a separate js file////
 
 
 
 
-   //load JS file
+
+
+byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList',
+  function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList) {
+     	$scope.discuss = new Discuss();
+		var segment = $location.path().substring(1);
+		segment = segment.substring(segment.indexOf("/")+1);
+		segment = segment.substring(segment.indexOf("/")+1);
+		$scope.discuss.topicId = segment.substring(0,segment.indexOf("/"));
+		$scope.discuss.subTopicId = $location.path().substring($location.path().lastIndexOf("/")+1);
+
+
+		$scope.register = function (discussType) {
+
+			/*
+			if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+			{
+				$location.path('/users/login');
+			}
+			*/
+			//alert();
+			$scope.discuss.articlePhotoFilename = document.getElementById('articlePhotoFilename').value;
+			var element_id = discussType;
+			var topicId = $scope.discuss.topicId;
+			var subTopicId = $scope.discuss.subTopicId;
+			var htmlval = tinyMCE.activeEditor.getContent();
+			$scope.discuss.discussType = discussType;
+			$scope.discuss.text=htmlval;
+
+			//putting the userId to discuss being created
+			$scope.discuss.userId = localStorage.getItem("USER_ID");
+			$scope.discuss.username = localStorage.getItem("USER_NAME");
+
+
+			//save the discuss
+			$scope.discuss.$save(function (discuss, headers) {
+
+				var location = $scope.discuss.discussType;
+				var mode = discussType;
+
+				$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
+				document.getElementById(element_id).style.display = 'none';
+
+				$route.reload();
+				//??????$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
+
+			});
+
+		};
+
+  }]);
+
+
+
+
+//The controller used for making comments and answers to all discuss types - namely Q,P and A
+byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$route', '$location', 'DiscussShow', 'DiscussComment', 'DiscussUserLikes', 'Discuss',
+  function($scope, $rootScope, $routeParams, $route, $location, DiscussShow, DiscussComment, DiscussUserLikes, Discuss) {
+
+	/*if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+				{
+					$location.path('/users/login');
+			}
+			*/
+
+	var discussId = $routeParams.discussId;
+	var type = $location.path().endsWith("/A");
+
+	//when the page loads up make sure that there are no blocks visible
+	document.getElementById('comment_block').style.display = 'none';
+	if(document.getElementById('answer_block')) document.getElementById('answer_block').style.display = 'none';
+
+    $scope.discuss = DiscussShow.get({discussId: discussId});
+    $scope.comments = DiscussComment.get({parentId:discussId,ancestorId:discussId}); //DiscussComment.get({discussId: discussId});
+
+	//Is this required Ramesh?
+	/*
+    $scope.getCommentTree = function(parentId, ancestorId){
+		$scope.comments = DiscussComment.get({parentId:parentId,ancestorId:ancestorId});
+	}
+	$scope.getDiscussTree = function(discussId){
+		$scope.comments = DiscussComment.get({parentId:discussId,ancestorId:discussId});
+	}
+	*/
+
+    //$scope.comments = DiscussComment.get({ancestorId: discussId, parentId:$scope.comment.parentId });
+
+    $rootScope.bc_topic = $scope.discuss.topicId;
+    $rootScope.bc_subTopic = $scope.discuss.subTopicId;
+
+    $scope.current_comment = '';
+
+	//these are coming null
+	var discussType = $rootScope.bc_discussType;
+	var topicId = $scope.discuss.topicId;
+	var subTopicId = $scope.discuss.subTopicId;
+	var userId = $scope.discuss.userId;
+	$scope.type = '';
+
+	 //User Discuss Like method
+		 $scope.UserLike = function(userId, discussId, index) {
+
+			/*if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+			{
+				$location.path('/users/login');
+			}
+			*/
+
+			//Create the new discuss user like
+			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+
+	}
+
+	//User Comments Like method - NOT YET IMPLEMENTED - 10th June 2015
+		 $scope.UserCommentLike = function(userId, commentId) {
+
+			/*
+			//Create the new discuss user like
+			$scope.commentuserlikes = AnswerCommentUserLikes.get({userId:userId, commentId: commentId});
+
+			$scope.comment = Discuss.query({commentId:commentId});
+			$route.reload();
+
+			document.getElementById('like_count').innerHTML = $scope.discuss.aggrReplyCount;
+			*/
+	}
+
+
+
+
+
+    $scope.createNewComment = function(typeId, disId, parId, disType)
+    {
+		/*
+		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+		{
+			$location.path('/users/login');
+		}
+		*/
+
+		$rootScope.parId = parId;
+		$scope.type = typeId;
+		$scope.disType = disType;
+
+
+		if(typeId == 'A'){
+
+			if(document.getElementById('answer_block')) document.getElementById('answer_block').style.display = 'block';
+
+		    $('.' +disId).append($('#answer_block'));
+		    $('#answer_block').show = 'clip';
+
+			var id = 'main-commentbox_answer';
+
+
+			tinyMCE.init({
+			   selector: "#" + id,
+			   theme: "modern",
+			   skin: 'light',
+			   statusbar : false,
+			   menubar:false,
+			   plugins: [
+			   "image link",
+			   "searchreplace visualblocks",
+			   "insertdatetime media paste emoticons"
+			   ],
+			   toolbar: "bold italic | bullist numlist | link unlink emoticons image media",
+			   setup : function(ed) {
+				   var placeholder = $('#' + ed.id).attr('placeholder');
+				   if (typeof placeholder !== 'undefined' && placeholder !== false) {
+					 var is_default = false;
+					 ed.on('init', function() {
+					   // get the current content
+					   var cont = ed.getContent();
+
+					   // If its empty and we have a placeholder set the value
+					   if (cont.length === 0) {
+						 ed.setContent(placeholder);
+						 // Get updated content
+						 cont = placeholder;
+					 }
+					   // convert to plain text and compare strings
+					   is_default = (cont == placeholder);
+
+					   // nothing to do
+					   if (!is_default) {
+						 return;
+					 }
+				 }).on('keydown', function() {
+						   // replace the default content on focus if the same as original placeholder
+						  if (is_default) {
+							ed.setContent('');
+							is_default = false;
+						 }
+
+					 }).on('blur', function() {
+					   if (ed.getContent().length === 0) {
+						 ed.setContent(placeholder);
+					 }
+				 });
+				 }
+				 ed.on('init', function (evt) {
+				   var toolbar = $(evt.target.editorContainer)
+				   .find('>.mce-container-body >.mce-toolbar-grp');
+				   var editor = $(evt.target.editorContainer)
+				   .find('>.mce-container-body >.mce-edit-area');
+
+					   // switch the order of the elements
+					   toolbar.detach().insertAfter(editor);
+				   });
+				 ed.on("keyup", function() {
+				   var id = ed.id;
+				   if($.trim(ed.getContent({format: 'text'})).length){
+					   $("#" + id).parents(".textarea-label").find(".btn").removeClass("disabled");
+				   } else {
+					   $("#" + id).parents(".textarea-label").find(".btn").addClass("disabled");
+				   }
+			   });
+			 }
+			});
+
+
+			tinyMCE.execCommand('mceAddControl', false, id);
+			tinyMCE.execCommand('mceFocus', false, id);
+
+
+		}else if(typeId == 'C'){
+			document.getElementById('comment_block').style.display = 'block';
+
+			$('.' + parId).append($('#comment_block'));
+			$('#comment_block').show = 'clip';
+			var id = 'main-commentbox_comment';
+
+
+  			tinyMCE.init({
+			   selector: "#" + id,
+			   theme: "modern",
+			   skin: 'light',
+			   statusbar : false,
+			   menubar:false,
+			   plugins: [
+			   "image link",
+			   "searchreplace visualblocks",
+			   "insertdatetime media paste emoticons"
+			   ],
+			   toolbar: "bold italic | bullist numlist | link unlink emoticons image media",
+			   setup : function(ed) {
+				   var placeholder = $('#' + ed.id).attr('placeholder');
+				   if (typeof placeholder !== 'undefined' && placeholder !== false) {
+					 var is_default = false;
+					 ed.on('init', function() {
+					   // get the current content
+					   var cont = ed.getContent();
+
+					   // If its empty and we have a placeholder set the value
+					   if (cont.length === 0) {
+						 ed.setContent(placeholder);
+						 // Get updated content
+						 cont = placeholder;
+					 }
+					   // convert to plain text and compare strings
+					   is_default = (cont == placeholder);
+
+					   // nothing to do
+					   if (!is_default) {
+						 return;
+					 }
+				 }).on('keydown', function() {
+						   // replace the default content on focus if the same as original placeholder
+						  if (is_default) {
+							 ed.setContent('');
+							 is_default = false;
+						 	}
+
+
+					 }).on('blur', function() {
+					   if (ed.getContent().length === 0) {
+						 ed.setContent(placeholder);
+					 }
+				 });
+				 }
+				 ed.on('init', function (evt) {
+				   var toolbar = $(evt.target.editorContainer)
+				   .find('>.mce-container-body >.mce-toolbar-grp');
+				   var editor = $(evt.target.editorContainer)
+				   .find('>.mce-container-body >.mce-edit-area');
+
+					   // switch the order of the elements
+					   toolbar.detach().insertAfter(editor);
+				   });
+				 ed.on("keyup", function() {
+				   var id = ed.id;
+				   if($.trim(ed.getContent({format: 'text'})).length){
+					   $("#" + id).parents(".textarea-label").find(".btn").removeClass("disabled");
+				   } else {
+					   $("#" + id).parents(".textarea-label").find(".btn").addClass("disabled");
+				   }
+			   });
+			 }
+			});
+
+			tinyMCE.execCommand('mceAddControl', false, id);
+			tinyMCE.execCommand('mceFocus', false, id);
+
+
+		}else	{
+			//wrong place
+		}
+	}
+
+	//dispose off the tinymce box
+	$scope.dispose  = function(typeId){
+			if(typeId == 'A')
+			{
+				document.getElementById('answer_block').style.display = 'none';
+				tinyMCE.activeEditor.remove();
+			}
+			else if(typeId == 'C')
+			{
+				document.getElementById('comment_block').style.display = 'none';
+				tinyMCE.activeEditor.remove();
+			}
+			else
+			{
+				//wrong place
+			}
+	}
+
+	$scope.saveComment  = function(type, disType){
+
+		/*
+		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+		{
+			$location.path('/users/login');
+		}
+		*/
+		$scope.comment = new DiscussComment();
+
+		//putting the userId to discuss being created
+		$scope.comment.userId = localStorage.getItem("USER_ID");
+
+		var htmlval = tinyMCE.activeEditor.getContent();
+		$scope.comment.discussCommenContent = htmlval;
+
+		if(type == 'A')
+		{
+			$scope.comment.discussId = $scope.discuss.id;
+			$scope.comment.parentId = null;
+		}
+		else if(type == 'C')
+		{
+			$scope.comment.discussId = null;
+			$scope.comment.parentId = $rootScope.parId;
+		}
+		else
+		{
+			//wrong place
+		}
+
+		$scope.comment.$save(function (comment, headers) {
+			$scope.discuss = DiscussShow.get({discussId: discussId});
+			$scope.comments = DiscussComment.get({ancestorId: discussId, parentId:$scope.comment.parentId });
+
+			if(type == 'A')
+			{
+				document.getElementById('answer_block').style.display = 'none';
+			}
+			else if(type == 'C')
+			{
+				document.getElementById('comment_block').style.display = 'none';
+
+			}
+			else
+			{
+				//wrong place
+			}
+			$scope.discuss = DiscussShow.get({discussId: discussId});
+    		$scope.comments = DiscussComment.get({discussId: discussId});
+
+			//important to call this to re-establish the state
+    		$route.reload();
+
+			$rootScope.bc_topic = $scope.discuss.topicId;
+			$rootScope.bc_subTopic = $scope.discuss.subTopicId;
+
+
+			//if disscussTYpe == articles, then redirect to detail.html, else to qa.html
+			if(disType == 'A')
+			{
+				$location.path('/discuss/' + discussId);
+			}
+			else
+			{
+				$location.path('/comment/' + discussId);
+			}
+
+		}, function (error) {
+			// failure
+			console.log("$comment creation failed " + JSON.stringify(error));
+			//$scope.error = 'Failed to edit user details';
+			//$scope.message = '';
+
+		});
+		tinyMCE.activeEditor.remove();
+
+		//newComment= false;
+	}
+
+  }]);
+
+var UserRoleController = function($scope) {
+    $scope.userRoleIds =
+    [
+        "SUPER_USER",
+        "WRITER",
+        "EDITOR",
+        "USER"
+    ];
+};
+
+
+
+
+
+
+/****************  LOAD JS Controller = required for pages that require the custom.js functionality ********************/
+/***************** Can be later refactored to a separate app.js file ***************************************************/
+
+
+
+//load JS file
 byControllers.controller('LoadCustomJSController', ['$scope',
 	function($scope) {
 
@@ -1491,7 +1849,10 @@ if($(".articles-page").length || $(".profile-page").length ){
 		e.preventDefault();
 		var obj = { "scrollTop" : $(".enter-comment-wrap").offset().top};
 		$("body").animate(obj,300);
-		tinyMCE.get('main-commentbox').getBody().focus();
+
+		//if check added for detail.html
+		if(tinyMCE.get('main-commentbox_answer')) tinyMCE.get('main-commentbox_answer').getBody().focus();
+		if(tinyMCE.get('main-commentbox_comment')) tinyMCE.get('main-commentbox_comment').getBody().focus();
 		return false;
 	});
 	$("body").click(function(e){
@@ -3343,596 +3704,7 @@ if($(".third-register-page").length){
 
 
 
-byControllers.controller('ListQuestionController', ['$scope', '$location', 'QuestionDiscuss',
-function($scope, $location, QuestionDiscuss) {
-	$scope.discuss = QuestionDiscuss.query();
-	$scope.discuss.discussType = "Q";
-	$location.path('/discuss/Q');
-}]);
-
-byControllers.controller('ListPostController', ['$scope', '$location', 'PostDiscuss',
-function($scope, $location, PostDiscuss) {
-	$scope.discuss = PostDiscuss.query();
-	$scope.discuss.discussType = "P";
-	$location.path('/discuss/P');
-}]);
-
-byControllers.controller('ListArticleController', ['$scope', '$location', 'ArticleDiscuss',
-function($scope, $location, ArticleDiscuss) {
-	$scope.discuss = ArticleDiscuss.query();
-	$scope.discuss.discussType = "A";
-	$location.path('/discuss/A');
-}]);
-
-
-
-byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList',
-  function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList) {
-     	$scope.discuss = new Discuss();
-		var segment = $location.path().substring(1);
-		segment = segment.substring(segment.indexOf("/")+1);
-		segment = segment.substring(segment.indexOf("/")+1);
-		$scope.discuss.topicId = segment.substring(0,segment.indexOf("/"));
-		$scope.discuss.subTopicId = $location.path().substring($location.path().lastIndexOf("/")+1);
-
-
-		$scope.register = function (discussType) {
-			//alert();
-			$scope.discuss.articlePhotoFilename = document.getElementById('articlePhotoFilename').value;
-			var element_id = discussType;
-			var topicId = $scope.discuss.topicId;
-			var subTopicId = $scope.discuss.subTopicId;
-			var htmlval = tinyMCE.activeEditor.getContent();
-			$scope.discuss.discussType = discussType;
-			$scope.discuss.text=htmlval;
-
-			//putting the userId to discuss being created
-			$scope.discuss.userId = localStorage.getItem("USER_ID");
-			$scope.discuss.username = localStorage.getItem("USER_NAME");
-
-
-			//save the discuss
-			$scope.discuss.$save(function (discuss, headers) {
-				var location = $scope.discuss.discussType;
-				var mode = discussType;
-
-				$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
-				document.getElementById(element_id).style.display = 'none';
-
-				$route.reload();
-				$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
-
-			});
-
-		};
-
-  }]);
-
-
-
-
-
-
-byControllers.controller('DiscussEditController', ['$scope', '$routeParams', '$location', 'DiscussShow',
-  function($scope, $routeParams, $location, DiscussShow) {
-	var discussId = $routeParams.discussId;
-	$scope.discuss = DiscussShow.show({discussId: discussId});
-    //??????tinyMCE.setContent($scope.discuss.text);
-
-	tinyMCE.activeEditor.setContent($scope.discuss.text, {format : 'raw'});
-
-  }]);
-
-byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$route', '$location', 'DiscussShow', 'DiscussComment', 'DiscussUserLikes', 'Discuss',
-  function($scope, $rootScope, $routeParams, $route, $location, DiscussShow, DiscussComment, DiscussUserLikes, Discuss) {
-
-	var discussId = $routeParams.discussId;
-	var type = $location.path().endsWith("/A");
-
-	//when the page loads up make sure that there are no blocks visible
-	document.getElementById('comment_block').style.display = 'none';
-	document.getElementById('answer_block').style.display = 'none';
-
-    $scope.discuss = DiscussShow.get({discussId: discussId});
-    $scope.comments = DiscussComment.get({parentId:discussId,ancestorId:discussId}); //DiscussComment.get({discussId: discussId});
-
-    $scope.getCommentTree = function(parentId, ancestorId){
-		$scope.comments = DiscussComment.get({parentId:parentId,ancestorId:ancestorId});
-	}
-	$scope.getDiscussTree = function(discussId){
-		$scope.comments = DiscussComment.get({parentId:discussId,ancestorId:discussId});
-	}
-
-    //$scope.comments = DiscussComment.get({ancestorId: discussId, parentId:$scope.comment.parentId });
-
-    $rootScope.bc_topic = $scope.discuss.topicId;
-    $rootScope.bc_subTopic = $scope.discuss.subTopicId;
-
-    $scope.current_comment = '';
-
-	//these are coming null
-	var discussType = $rootScope.bc_discussType;
-	var topicId = $scope.discuss.topicId;
-	var subTopicId = $scope.discuss.subTopicId;
-	var userId = $scope.discuss.userId;
-	$scope.type = '';
-
-	//User Discuss Like method
-	 $scope.UserLike = function(userId, discussId) {
-
-		//Create the new discuss user like
-		$scope.discussuserlikes = DiscussUserLikes.get({userId:userId, discussId: discussId});
-
-		$scope.discuss = Discuss.query({discussId:discussId});
-		$route.reload();
-
-		document.getElementById('like_count').innerHTML = $scope.discuss.aggrReplyCount;
-
-	}
-
-
-	//User Comments Like method
-		 $scope.UserCommentLike = function(userId, commentId) {
-
-			/*
-			//Create the new discuss user like
-			$scope.commentuserlikes = AnswerCommentUserLikes.get({userId:userId, commentId: commentId});
-
-			$scope.comment = Discuss.query({commentId:commentId});
-			$route.reload();
-
-			document.getElementById('like_count').innerHTML = $scope.discuss.aggrReplyCount;
-			*/
-	}
-
-
-
-
-
-    $scope.createNewComment = function(typeId, disId, parId)
-    {
-		$scope.current_comment_id = parId;
-		$scope.type = typeId;
-
-
-		if(typeId == 'A'){
-
-			document.getElementById('answer_block').style.display = 'block';
-
-		    $('.' +disId).append($('#answer_block'));
-		    $('#answer_block').show = 'clip';
-
-			var id = 'main-commentbox_answer';
-
-
-			tinyMCE.init({
-			   selector: "#" + id,
-			   theme: "modern",
-			   skin: 'light',
-			   statusbar : false,
-			   menubar:false,
-			   plugins: [
-			   "image link",
-			   "searchreplace visualblocks",
-			   "insertdatetime media paste emoticons"
-			   ],
-			   toolbar: "bold italic | bullist numlist | link unlink emoticons image media",
-			   setup : function(ed) {
-				   var placeholder = $('#' + ed.id).attr('placeholder');
-				   if (typeof placeholder !== 'undefined' && placeholder !== false) {
-					 var is_default = false;
-					 ed.on('init', function() {
-					   // get the current content
-					   var cont = ed.getContent();
-
-					   // If its empty and we have a placeholder set the value
-					   if (cont.length === 0) {
-						 ed.setContent(placeholder);
-						 // Get updated content
-						 cont = placeholder;
-					 }
-					   // convert to plain text and compare strings
-					   is_default = (cont == placeholder);
-
-					   // nothing to do
-					   if (!is_default) {
-						 return;
-					 }
-				 }).on('keydown', function() {
-						   // replace the default content on focus if the same as original placeholder
-						  if (is_default) {
-							ed.setContent('');
-							is_default = false;
-						 }
-
-					 }).on('blur', function() {
-					   if (ed.getContent().length === 0) {
-						 ed.setContent(placeholder);
-					 }
-				 });
-				 }
-				 ed.on('init', function (evt) {
-				   var toolbar = $(evt.target.editorContainer)
-				   .find('>.mce-container-body >.mce-toolbar-grp');
-				   var editor = $(evt.target.editorContainer)
-				   .find('>.mce-container-body >.mce-edit-area');
-
-					   // switch the order of the elements
-					   toolbar.detach().insertAfter(editor);
-				   });
-				 ed.on("keyup", function() {
-				   var id = ed.id;
-				   if($.trim(ed.getContent({format: 'text'})).length){
-					   $("#" + id).parents(".textarea-label").find(".btn").removeClass("disabled");
-				   } else {
-					   $("#" + id).parents(".textarea-label").find(".btn").addClass("disabled");
-				   }
-			   });
-			 }
-			});
-
-
-			tinyMCE.execCommand('mceAddControl', false, id);
-			tinyMCE.execCommand('mceFocus', false, id);
-
-		}else if(typeId == 'C'){
-
-			document.getElementById('comment_block').style.display = 'block';
-			$('.' + parId).append($('#comment_block'));
-
-			var id = 'main-commentbox_comment';
-
-
-  			tinyMCE.init({
-			   selector: "#" + id,
-			   theme: "modern",
-			   skin: 'light',
-			   statusbar : false,
-			   menubar:false,
-			   plugins: [
-			   "image link",
-			   "searchreplace visualblocks",
-			   "insertdatetime media paste emoticons"
-			   ],
-			   toolbar: "bold italic | bullist numlist | link unlink emoticons image media",
-			   setup : function(ed) {
-				   var placeholder = $('#' + ed.id).attr('placeholder');
-				   if (typeof placeholder !== 'undefined' && placeholder !== false) {
-					 var is_default = false;
-					 ed.on('init', function() {
-					   // get the current content
-					   var cont = ed.getContent();
-
-					   // If its empty and we have a placeholder set the value
-					   if (cont.length === 0) {
-						 ed.setContent(placeholder);
-						 // Get updated content
-						 cont = placeholder;
-					 }
-					   // convert to plain text and compare strings
-					   is_default = (cont == placeholder);
-
-					   // nothing to do
-					   if (!is_default) {
-						 return;
-					 }
-				 }).on('keydown', function() {
-						   // replace the default content on focus if the same as original placeholder
-						  if (is_default) {
-							 ed.setContent('');
-							 is_default = false;
-						 	}
-
-
-					 }).on('blur', function() {
-					   if (ed.getContent().length === 0) {
-						 ed.setContent(placeholder);
-					 }
-				 });
-				 }
-				 ed.on('init', function (evt) {
-				   var toolbar = $(evt.target.editorContainer)
-				   .find('>.mce-container-body >.mce-toolbar-grp');
-				   var editor = $(evt.target.editorContainer)
-				   .find('>.mce-container-body >.mce-edit-area');
-
-					   // switch the order of the elements
-					   toolbar.detach().insertAfter(editor);
-				   });
-				 ed.on("keyup", function() {
-				   var id = ed.id;
-				   if($.trim(ed.getContent({format: 'text'})).length){
-					   $("#" + id).parents(".textarea-label").find(".btn").removeClass("disabled");
-				   } else {
-					   $("#" + id).parents(".textarea-label").find(".btn").addClass("disabled");
-				   }
-			   });
-			 }
-			});
-
-			tinyMCE.execCommand('mceAddControl', false, id);
-			tinyMCE.execCommand('mceFocus', false, id);
-		}else	{
-			//wrong place
-		}
-	}
-
-	//dispose off the tinymce box
-	$scope.dispose  = function(typeId){
-			if(typeId == 'A')
-				document.getElementById('answer_block').style.display = 'none';
-			else if(typeId == 'C')
-				document.getElementById('comment_block').style.display = 'none';
-			else
-			{
-				//wrong place
-			}
-	}
-
-	$scope.saveComment  = function(){
-
-		$scope.comment = new DiscussComment();
-		$scope.comment.discussType = $scope.type;
-
-		//putting the userId to discuss being created
-		$scope.comment.userId = localStorage.getItem("USER_ID");
-
-		var htmlval = tinyMCE.activeEditor.getContent();
-		$scope.comment.discussCommenContent = htmlval;
-
-		if($scope.type == 'A')
-		{
-			$scope.comment.discussId = $scope.discuss.id;
-			$scope.comment.parentId = null;
-		}
-		else if($scope.type == 'C')
-		{
-			$scope.comment.discussId = null;
-			$scope.comment.parentId = $scope.current_comment_id;
-		}
-		else
-		{
-			//wrong place
-		}
-
-		$scope.comment.$save(function (comment, headers) {
-			$scope.discuss = DiscussShow.get({discussId: discussId});
-			$scope.comments = DiscussComment.get({ancestorId: discussId, parentId:$scope.comment.parentId });
-
-			if($scope.type == 'A')
-			{
-				document.getElementById('answer_block').style.display = 'none';
-			}
-			else if($scope.type == 'C')
-			{
-				document.getElementById('comment_block').style.display = 'none';
-
-			}
-			else
-			{
-				//wrong place
-			}
-			$scope.discuss = DiscussShow.get({discussId: discussId});
-    		$scope.comments = DiscussComment.get({discussId: discussId});
-
-			//important to call this re-establish the state
-    		$route.reload();
-
-			$rootScope.bc_topic = $scope.discuss.topicId;
-			$rootScope.bc_subTopic = $scope.discuss.subTopicId;
-
-
-			$location.path('/comment/' + discussId);
-
-		}, function (error) {
-			// failure
-			console.log("$comment creation failed " + JSON.stringify(error));
-			//$scope.error = 'Failed to edit user details';
-			//$scope.message = '';
-
-		});
-
-		newComment= false;
-	}
-
-
-     //??$scope.discuss2 = UserDiscussList.get({discussType:discussType, topicId: 'BEAUTIFUL LIVES', subTopicId: 'Stars forever', userId: userId});
-  }]);
-
-
-byControllers.controller('DiscussDeleteController', ['$scope', '$routeParams', '$location', 'Discuss',
-  function($scope, $routeParams, $location, Discuss) {
-     var discussId = $routeParams.discussId;
-     $scope.discuss = Discuss.get({discussId:discussId});
-
-	//this is comign as undefined
-	var loc = $scope.discuss.discussType;
-
-	$scope.discuss = Discuss.remove({discussId: discussId});
-
-	$scope.discuss = Discuss.query();
-	//TODO - thsi is not working - not redirecting after a delete - so hard-codng t to Show Articles NOW
-	$location.path('/discuss/' + 'A');
-  }]);
-
-
-
-var UserRoleController = function($scope) {
-    $scope.userRoleIds =
-    [
-        "SUPER_USER",
-        "WRITER",
-        "EDITOR",
-        "USER"
-    ];
-};
-
-
-
-//Topic/Sub Topic drop down in DISCUSS Create
-var option1Options =	[
-		"BEAUTIFUL LIVES",
-		"ELDER'S ROUTINE",
-		"HEALTH CONDITIONS",
-		"CAREGIVER'S CORNER",
-		"FAMILY & RELATIONSHIP",
-		"SERVICES",
-		"PRODUCTS"
-	];
-
-var option2Options = [
-		["Stars forever","Personal stories"],
-		["Chores","Medications", "Personal hygiene", "Food and Nutrition", "Mobility", "Activities"],
-		["Alzheimer's and dementia","Parkinson's", "Mental disorders", "Broken hip", "Stroke", "Vision and Hearing loss", "Arthritis", "Diabetes", "Incontinence", "Heart", "Cancer", "Respiratory", "Kidney", "Digestive system", "Sleep disorders", "Osteoporosis", "Other"],
-		["Caregiving guides","Stress and burnout", "Personal stories"],
-		["FR1","FR2"],
-		["SRV1","SRV2"],
-		["PRO1","PRO2"]
-	];
-
-
-
-function myCtrl($scope){
-    $scope.options1 = option1Options;
-    $scope.options2 = []; // we'll get these later
-    $scope.getOptions2 = function(){
-        // just some silly stuff to get the key of what was selected since we are using simple arrays.
-        var key = $scope.options1.indexOf($scope.discuss.topicId);
-        // Here you could actually go out and fetch the options for a server.
-        var myNewOptions = option2Options[key];
-        // Now set the options.
-        // If you got the results from a server, this would go in the callback
-        $scope.options2 = myNewOptions;
-    };
-}
-
-
-
-
-
-//Angular Date Picker
-var date_app = angular.module('dateApp', ['pickadate']);
-//angular.module('dateApp', ['pickadate']);
-
-	      function DateController($scope, dateFilter) {
-	        $scope.date = dateFilter(new Date(), 'yyyy-MM-dd');
-	        $scope.minDate = '2013-10-06';
-	        $scope.maxDate = '2014-10-06';
-	      }
-
-
-//var app = angular.module('byApp', ['app.directives']);
-
-byControllers.controller('LanguagesController', function($scope){
-    $scope.languages = [
-          {"id": 1, "name": "English", "assignable": true},
-          {"id": 2, "name": "Hindi", "assignable": true},
-          {"id": 3, "name": "Gujarati", "assignable": true},
-		  {"id": 4, "name": "Bengali", "assignable": true},
-		  {"id": 5, "name": "Tamil", "assignable": true},
-		  {"id": 6, "name": "Telugu", "assignable": true},
-		  {"id": 7, "name": "Punjabi", "assignable": true},
-		  {"id": 8, "name": "Malayalam", "assignable": true},
-		  {"id": 9, "name": "Marathi", "assignable": true},
-		  {"id": 10, "name": "Oriya", "assignable": true},
-		  {"id": 11, "name": "Assamese", "assignable": true},
-		  {"id": 12, "name": "Kannada", "assignable": true},
-		  {"id": 12, "name": "Other", "assignable": true}
-
-    ];
-
-    $scope.member = {languages: []};
-    $scope.selected_items = [];
-    $scope.selected_item_names = [];
-});
-
-
-byControllers.controller('InterestedInController', function($scope){
-    $scope.interests = [
-          {"id": 1, "name": "Arts &amp; Culture", "assignable": true},
-          {"id": 2, "name": "Movies &amp; Songs (Hindi, etc.)", "assignable": true},
-          {"id": 3, "name": "Literature modern &amp; classical", "assignable": true},
-          {"id": 4, "name": "Visual Arts - sculpture painting ceramics toys etc.", "assignable": true},
-          {"id": 5, "name": "Classical Music &amp; Dance", "assignable": true},
-          {"id": 6, "name": "Science &amp; Technology", "assignable": true},
-          {"id": 7, "name": "Spirituality &amp; Religions", "assignable": true},
-          {"id": 8, "name": "Dance &amp; Performance art (incl. local forms as Kathakali, etc.)", "assignable": true},
-          {"id": 9, "name": "Traditions &amp; Cultures", "assignable": true},
-          {"id": 10, "name": "Environmental issues", "assignable": true},
-          {"id": 11, "name": "Women issues", "assignable": true},
-          {"id": 12, "name": "Poverty &amp; social issues", "assignable": true},
-          {"id": 13, "name": "Politics world and local", "assignable": true},
-          {"id": 14, "name": "Health &amp; Medicine", "assignable": true},
-          {"id": 15, "name": "Money &amp; Finance", "assignable": true},
-          {"id": 16, "name": "Fashion", "assignable": true},
-          {"id": 17, "name": "Pets", "assignable": true},
-          {"id": 18, "name": "Home (maintenance, interior design, etc.)", "assignable": true},
-          {"id": 19, "name": "Jokes &amp; Humor", "assignable": true}
-    ];
-
-    $scope.member = {interests: []};
-    $scope.selected_items = [];
-    $scope.selected_item_names = [];
-});
-
-
-
-byControllers.controller('LikesDoingController', function($scope){
-    $scope.likes = [
-          {"id": 1, "name": "Games (chess, cards, etc)", "assignable": true},
-          {"id": 2, "name": "Creative writing", "assignable": true},
-          {"id": 3, "name": "Photography", "assignable": true},
-          {"id": 4, "name": "Cooking &amp; Recipes", "assignable": true},
-          {"id": 5, "name": "Food &amp; drinks exploration", "assignable": true},
-          {"id": 6, "name": "Handcrafting", "assignable": true},
-          {"id": 7, "name": "Yoga &amp; Mediation", "assignable": true},
-          {"id": 8, "name": "Tourism &amp; Travelling", "assignable": true},
-          {"id": 9, "name": "Walking &amp; Hiking", "assignable": true},
-          {"id": 10, "name": "Sports &amp; Fitness", "assignable": true},
-          {"id": 11, "name": "Singing &amp; Dancing", "assignable": true},
-          {"id": 12, "name": "Pets", "assignable": true},
-          {"id": 13, "name": "Religions &amp; Traditions", "assignable": true},
-          {"id": 14, "name": "Languages", "assignable": true},
-          {"id": 15, "name": "Other", "assignable": true}
-    ];
-
-    $scope.member = {likes: []};
-    $scope.selected_items = [];
-    $scope.selected_item_names = [];
-});
-
-
-//Suffering From Conrroller
-
-byControllers.controller('SufferingFromController', function($scope){
-    $scope.suffers = [
-          {"id": 1, "name": option2Options[2][0], "assignable": true},
-          {"id": 2, "name": option2Options[2][1], "assignable": true},
-          {"id": 3, "name": option2Options[2][2], "assignable": true},
-          {"id": 4, "name": option2Options[2][3], "assignable": true},
-          {"id": 5, "name": option2Options[2][4], "assignable": true},
-          {"id": 6, "name": option2Options[2][5], "assignable": true},
-          {"id": 7, "name": option2Options[2][6], "assignable": true},
-          {"id": 8, "name": option2Options[2][7], "assignable": true},
-          {"id": 9, "name": option2Options[2][8], "assignable": true},
-          {"id": 10, "name": option2Options[2][9], "assignable": true},
-          {"id": 11, "name": option2Options[2][10], "assignable": true},
-          {"id": 12, "name": option2Options[2][11], "assignable": true},
-          {"id": 13, "name": option2Options[2][12], "assignable": true},
-          {"id": 14, "name": option2Options[2][13], "assignable": true},
-          {"id": 15, "name": option2Options[2][14], "assignable": true},
-          {"id": 16, "name": option2Options[2][15], "assignable": true},
-          {"id": 17, "name": option2Options[2][16], "assignable": true},
-          {"id": 18, "name": option2Options[2][17], "assignable": true},
-          {"id": 19, "name": option2Options[2][18], "assignable": true}
-    ];
-
-    $scope.member = {suffers: []};
-    $scope.selected_items = [];
-    $scope.selected_item_names = [];
-});
-
-
+/***************** END LOAD JS CONTROLLER ******************************************************************************/
 
 
 var app_directives = angular.module('app.directives', []);
@@ -3974,643 +3746,3 @@ app_directives.directive('diHref', ['$location', '$route',
 			});
 		}
 	}]);
-
-app_directives.directive('discuss', function () {
-    var directive = {};
-
-    directive.restrict = 'E';
-    /* restrict this directive to elements */
-
-    directive.template = "<div>THSIS IS SUPPOSE TO BE A DISCUSS CONTENT {{content.firstName}}</div>";
-
-    directive.scope = {
-        content: "=user"
-    }
-
-    return directive;
-});
-
-app_directives.directive('dropdownMultiselectLanguages', function(){
-
-   return {
-       restrict: 'E',
-       scope:{
-
-            model: '=',
-            names: '=',
-            options: '=',
-            pre_selected: '=preSelected'
-       },
-       template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-        "<button class='btn btn-small' data-ng-click='open=!open;openDropdown()'>---- Select languages spoken ----</button>"+
-                "<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
-                "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" +
-                    "<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
-                    "<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
-                    "<li class='divider'></li>" +
-                    "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></a></li>" +
-                "</ul>" +
-            "</div>" ,
-       controller: function($scope, $rootScope){
-
-           $scope.openDropdown = function(){
-
-			   		if($scope.model && $scope.model != 'undefined' && $scope.model != '' && $scope.model != null)
-			   		{
-			   		var from_db = $scope.model;
-
-
-			   		if(from_db.indexOf('\"') != -1)
-			   			from_db = from_db.slice(1, from_db.length -1);
-
-			   		var arr;
-			   		if(from_db.indexOf(',') != -1)
-			   			arr = from_db.split(',');
-			   		else arr = from_db;
-
-					var db_select = '[';
-			   		for(var i = 0; i < arr.length; i++)
-			   		{
-						//alert(arr[i]);
-						db_select = db_select + '{\"id\":' + arr[i] + '},';
-					}
-					db_select = db_select.slice(0,db_select.length -1) + ']';
-					$scope.selected_items = db_select;
-					$rootScope.lang_selection = $scope.model;
-					//alert($scope.selected_items);
-
-					}
-					else
-					{
-
-                    $scope.selected_items = [];
-                    $scope.selected_item_names = [];
-
-                    for(var i=0; i<$scope.pre_selected.length; i++){
-						$scope.selected_items.push($scope.pre_selected[i].id);
-						$scope.selected_item_names.push($scope.pre_selected[i].name);
-                    }
-
-					$rootScope.lang_selection = $scope.model;
-					$rootScope.lang_selection_names = $scope.names;
-
-					if(document.getElementById('lang_dd').style.display === 'block')
-					{
-
-						//document.getElementById('lang_dd').style.display = 'none';
-						//document.getElementById('lang_display').disabled = true;
-						//????????document.getElementById('lang_display').style.display = 'block';
-					}
-					else
-					{
-
-						//?????document.getElementById('lang_display').style.display = 'none';
-						//document.getElementById('lang_dd').style.display = 'block';
-						//document.getElementById('lang_display').disabled = false;
-					}
-					}
-			};
-
-            $scope.selectAll = function () {
-                $scope.model = _.pluck($scope.options, 'id');
-                $scope.names = _.pluck($scope.options, 'name');
-
-                $rootScope.lang_selection_names = $scope.names;
-                $rootScope.lang_selection = $scope.model;
-				//??????????????document.getElementById('langs').value = $rootScope.lang_selection_names;
-
-                console.log($scope.model);
-            };
-            $scope.deselectAll = function() {
-                $scope.model=[];
-                $scope.names=[];
-                console.log($scope.model);
-                $rootScope.lang_selection_names = '';
-                $rootScope.lang_selection = '';
-                //????????????document.getElementById('langs').value = $rootScope.lang_selection_names;
-            };
-            $scope.setSelectedItem = function(){
-
-                var id = this.option.id;
-
-                var aname = this.option.name;
-                if (_.contains($scope.model, id)) {
-
-                    $scope.model = _.without($scope.model, id);
-                    $scope.names = _.without($scope.names, aname);
-                } else {
-					if(!$scope.model || $scope.model == 'undefined' || $scope.model == '' || $scope.model == null)
-					{
-						$scope.model = [];
-					}
-                    $scope.model.push(id);
-                    $scope.names.push(aname);
-                }
-                console.log($scope.model);
-                $rootScope.lang_selection_names = $scope.names;
-                $rootScope.lang_selection = $scope.model;
-				//????????document.getElementById('langs').value = $rootScope.lang_selection_names;
-                return false;
-            };
-            $scope.isChecked = function (id) {
-
-                if (_.contains($scope.model, id)) {
-                    return 'icon-ok pull-right';
-                }
-                return false;
-            };
-       }
-   }
-});
-
-
-
-
-app_directives.directive('dropdownMultiselectInterests', function(){
-
-   return {
-       restrict: 'E',
-       scope:{
-
-            model: '=',
-            names: '=',
-            options: '=',
-            pre_selected: '=preSelected'
-       },
-       template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-        "<button class='btn btn-small' data-ng-click='open=!open;openDropdown()'>---- Select interests pursued ----</button>"+
-                "<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
-                "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" +
-                    "<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
-                    "<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
-                    "<li class='divider'></li>" +
-                    "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></a></li>" +
-                "</ul>" +
-            "</div>" ,
-       controller: function($scope, $rootScope){
-
-           $scope.openDropdown = function(){
-                    $scope.selected_items = [];
-                    $scope.selected_item_names = [];
-
-                    for(var i=0; i<$scope.pre_selected.length; i++){
-						$scope.selected_items.push($scope.pre_selected[i].id);
-						$scope.selected_item_names.push($scope.pre_selected[i].name);
-                    }
-
-					$rootScope.interest_selection = $scope.model;
-					$rootScope.interest_selection_names = $scope.names;
-
-					if(document.getElementById('int_dd').style.display === 'block')
-					{
-
-						document.getElementById('int_dd').style.display = 'none';
-						//document.getElementById('lang_display').disabled = true;
-						document.getElementById('int_display').style.display = 'block';
-					}
-					else
-					{
-
-						document.getElementById('int_display').style.display = 'none';
-						document.getElementById('int_dd').style.display = 'block';
-						//document.getElementById('lang_display').disabled = false;
-					}
-
-            };
-
-            $scope.selectAll = function () {
-                $scope.model = _.pluck($scope.options, 'id');
-                $scope.names = _.pluck($scope.options, 'name');
-
-                $rootScope.interest_selection_names = $scope.names;
-				document.getElementById('interests').value = $rootScope.interest_selection_names;
-
-                console.log($scope.model);
-            };
-            $scope.deselectAll = function() {
-                $scope.model=[];
-                $scope.names=[];
-
-                $rootScope.interest_selection_names = '';
-				document.getElementById('interests').value = $rootScope.interest_selection_names;
-                console.log($scope.model);
-            };
-            $scope.setSelectedItem = function(){
-                var id = this.option.id;
-                var aname = this.option.name;
-                if (_.contains($scope.model, id)) {
-                    $scope.model = _.without($scope.model, id);
-                    $scope.names = _.without($scope.names, aname);
-                } else {
-                    $scope.model.push(id);
-                    $scope.names.push(aname);
-                }
-
-                $rootScope.interest_selection_names = $scope.names;
-				document.getElementById('interests').value = $rootScope.interest_selection_names;
-
-                console.log($scope.model);
-                return false;
-            };
-            $scope.isChecked = function (id) {
-                if (_.contains($scope.model, id)) {
-                    return 'icon-ok pull-right';
-                }
-                return false;
-            };
-       }
-   }
-});
-
-
-
-
-
-
-//Likes Doing Directive
-
-
-app_directives.directive('dropdownMultiselectLikes', function(){
-
-   return {
-       restrict: 'E',
-       scope:{
-
-            model: '=',
-            names: '=',
-            options: '=',
-            pre_selected: '=preSelected'
-       },
-       template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-        "<button class='btn btn-small' data-ng-click='open=!open;openDropdown()'>---- Select what you like doing ----</button>"+
-                "<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
-                "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" +
-                    "<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
-                    "<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
-                    "<li class='divider'></li>" +
-                    "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></a></li>" +
-                "</ul>" +
-            "</div>" ,
-       controller: function($scope, $rootScope){
-
-           $scope.openDropdown = function(){
-                    $scope.selected_items = [];
-                    $scope.selected_item_names = [];
-
-                    for(var i=0; i<$scope.pre_selected.length; i++){
-						$scope.selected_items.push($scope.pre_selected[i].id);
-						$scope.selected_item_names.push($scope.pre_selected[i].name);
-                    }
-
-					$rootScope.like_selection = $scope.model;
-					$rootScope.like_selection_names = $scope.names;
-
-					if(document.getElementById('like_dd').style.display === 'block')
-					{
-
-						document.getElementById('like_dd').style.display = 'none';
-						//document.getElementById('lang_display').disabled = true;
-						document.getElementById('like_display').style.display = 'block';
-					}
-					else
-					{
-
-						document.getElementById('like_display').style.display = 'none';
-						document.getElementById('like_dd').style.display = 'block';
-						//document.getElementById('lang_display').disabled = false;
-					}
-			};
-
-            $scope.selectAll = function () {
-                $scope.model = _.pluck($scope.options, 'id');
-                $scope.names = _.pluck($scope.options, 'name');
-
-                $rootScope.like_selection_names = $scope.names;
-				document.getElementById('likes').value = $rootScope.like_selection_names;
-
-                console.log($scope.model);
-            };
-            $scope.deselectAll = function() {
-                $scope.model=[];
-                $scope.names=[];
-                console.log($scope.model);
-                $rootScope.like_selection_names = '';
-                document.getElementById('likes').value = $rootScope.like_selection_names;
-            };
-            $scope.setSelectedItem = function(){
-                var id = this.option.id;
-                var aname = this.option.name;
-                if (_.contains($scope.model, id)) {
-                    $scope.model = _.without($scope.model, id);
-                    $scope.names = _.without($scope.names, aname);
-                } else {
-                    $scope.model.push(id);
-                    $scope.names.push(aname);
-                }
-                console.log($scope.model);
-                $rootScope.like_selection_names = $scope.names;
-				document.getElementById('likes').value = $rootScope.like_selection_names;
-                return false;
-            };
-            $scope.isChecked = function (id) {
-                if (_.contains($scope.model, id)) {
-                    return 'icon-ok pull-right';
-                }
-                return false;
-            };
-       }
-   }
-});
-
-
-
-app_directives.directive('dropdownMultiselectSuffers', function(){
-
-   return {
-       restrict: 'E',
-       scope:{
-
-            model: '=',
-            names: '=',
-            options: '=',
-            pre_selected: '=preSelected'
-       },
-       template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-        "<button class='btn btn-small' data-ng-click='open=!open;openDropdown()'>---- What are you suffering from ----</button>"+
-                "<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
-                "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" +
-                    "<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
-                    "<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
-                    "<li class='divider'></li>" +
-                    "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></a></li>" +
-                "</ul>" +
-            "</div>" ,
-       controller: function($scope, $rootScope){
-
-           $scope.openDropdown = function(){
-                    $scope.selected_items = [];
-                    $scope.selected_item_names = [];
-
-                    for(var i=0; i<$scope.pre_selected.length; i++){
-						$scope.selected_items.push($scope.pre_selected[i].id);
-						$scope.selected_item_names.push($scope.pre_selected[i].name);
-                    }
-
-					$rootScope.suffer_selection = $scope.model;
-					$rootScope.suffer_selection_names = $scope.names;
-
-					if(document.getElementById('suffer_dd').style.display === 'block')
-					{
-
-						document.getElementById('suffer_dd').style.display = 'none';
-						//document.getElementById('lang_display').disabled = true;
-						document.getElementById('suffer_display').style.display = 'block';
-					}
-					else
-					{
-
-						document.getElementById('suffer_display').style.display = 'none';
-						document.getElementById('suffer_dd').style.display = 'block';
-						//document.getElementById('lang_display').disabled = false;
-					}
-			};
-
-            $scope.selectAll = function () {
-                $scope.model = _.pluck($scope.options, 'id');
-                $scope.names = _.pluck($scope.options, 'name');
-
-                $rootScope.suffer_selection_names = $scope.names;
-				document.getElementById('suffers').value = $rootScope.suffer_selection_names;
-
-                console.log($scope.model);
-            };
-            $scope.deselectAll = function() {
-                $scope.model=[];
-                $scope.names=[];
-                console.log($scope.model);
-                $rootScope.suffer_selection_names = '';
-                document.getElementById('suffers').value = $rootScope.suffer_selection_names;
-            };
-            $scope.setSelectedItem = function(){
-                var id = this.option.id;
-                var aname = this.option.name;
-                if (_.contains($scope.model, id)) {
-                    $scope.model = _.without($scope.model, id);
-                    $scope.names = _.without($scope.names, aname);
-                } else {
-                    $scope.model.push(id);
-                    $scope.names.push(aname);
-                }
-                console.log($scope.model);
-                $rootScope.suffer_selection_names = $scope.names;
-				document.getElementById('suffers').value = $rootScope.suffer_selection_names;
-                return false;
-            };
-            $scope.isChecked = function (id) {
-                if (_.contains($scope.model, id)) {
-                    return 'icon-ok pull-right';
-                }
-                return false;
-            };
-       }
-   }
-});
-
-
-
-
-
-
-
-
-
-
-////////////////// discuss comments //////////////////////////////
-
-
-
-//service
-var discussService = byServices.factory('discussService', function(
-		$resource) {
-	var discussUrl = apiPrefix+'api/v1/discuss';
-	var discussService = {}
-
-	var myDiscussResource = $resource(discussUrl, {}, {
-		getDiscussList : {
-			method : 'GET',
-			isArray : true,
-		},
-		getDiscussListOfType : {
-			method : 'GET',
-			isArray : true,
-			params : {
-				addln : '@type'
-			}
-		},
-		update : {
-			method : 'PUT'
-		},
-
-	})
-	discussService.getDiscussList = function(query) {
-		return myDiscussResource.getDiscussList(query);
-	}
-
-	discussService.saveDiscuss = function(discuss, callback) {
-		return myDiscussResource.update(discuss, callback);
-	}
-
-	// / Discuss Comment
-	var discussCommentUrl = apiPrefix+'api/v1/comment';
-	var myDiscussCommentResource = $resource(discussCommentUrl, {}, {
-		getDiscussCommentList : {
-			method : 'GET',
-			isArray : true
-		},
-		update : {
-			method : 'PUT'
-		}
-
-	})
-
-	discussService.getDiscussCommentList = function(query) {
-		return myDiscussCommentResource.getDiscussCommentList(query);
-	}
-
-	discussService.save = function(query, callback) {
-
-		return myDiscussCommentResource.update(query, callback);
-	}
-
-	return discussService;
-});
-
-
-
-
-byControllers.controller('DiscussCommentController', ['$scope', '$rootScope', '$route', '$routeParams', '$location', 'DiscussComment', 'Discuss',
-  function($scope, $route, $rootScope, $routeParams, $location, DiscussComment, Discuss) {
-
-	  	$scope.comment = new DiscussComment();
-		$scope.newComment = $rootScope.newComment;
-
-		$scope.saveComment  = function(){
-
-			var htmlval = tinyMCE.activeEditor.getContent();
-		    newComment.discussCommenContent = htmlval;
-		    newComment= false;
-	}
-
-	}]);
-
-
-//controller
-var commentController = function($scope, $rootScope, $routeParams, DiscussShow, DiscussComment, discussService) {
-	var commentController = {};
-	$scope.discussType = '';
-	//???$scope.appState = stateService.appState;
-	$scope.newEditDiscuss = false;
-	$scope.discussList = false;
-
-	var discussId = $routeParams.discussId;
-
-    $scope.discuss = DiscussShow.get({discussId: discussId});
-
-	// Discuss Comment
-	$scope.newDiscussComment = false;
-
-	$scope.createCommentOnDiscuss = function(discussId, discussType) {
-		//???var curDiscuss = $scope.discussList[index];
-		
-		var curDiscuss = DiscussShow.get({discussId: discussId});
-		$scope.newDiscussComment = {
-			userId : $rootScope.bc_userId,
-			discussId : curDiscuss.id,
-			parentId : '',
-			discussCommentTitle : 'Please make your comment ',
-			discussCommentType : discussType == 'Q' ? 'A' : 'C'
-		}
-	}
-
-	$scope.resetNewDiscussComment = function() {
-		$scope.newDiscussComment = false;
-	}
-
-	$scope.saveDiscussComment = function(discussId, discussType) {
-		
-
-		var htmlval = tinyMCE.activeEditor.getContent();
-		$scope.newDiscussComment = new DiscussComment();
-
-			$scope.newDiscussComment.userId = $rootScope.bc_userId,
-			$scope.newDiscussComment.discussId = discussId;
-			$scope.newDiscussComment.parentId = '';
-			$scope.newDiscussComment.discussCommentTitle = '';
-			$scope.newDiscussComment.discussCommentType = discussType == 'Q' ? 'A' : 'C';
-
-			$scope.newDiscussComment.discussType = discussType;
-			$scope.newDiscussComment.discussCommenContent=htmlval;
-
-			
-
-			discussService.save($scope.newDiscussComment, function() {
-				$scope.newDiscussComment = false;
-				var query = {
-					parentId : $scope.newDiscussComment.parentId,
-					ancestorId : $scope.newDiscussComment.ancestorId
-				}
-			//?????????$scope.commentList = discussService.getDiscussCommentList(query);
-		})
-	}
-
-
-	/*
-	$scope.getComments = function(index) {
-		var query = {
-			discussId : $scope.discussList[index].id,
-		}
-		$scope.commentList = discussService.getDiscussCommentList(query);
-	}
-
-	$scope.getCommentsTree = function(index) {
-		var query = {
-			ancestorId : $scope.discussList[index].id,
-		}
-		$scope.commentList = discussService.getDiscussCommentList(query);
-	}
-
-	$scope.createCommentOnComment = function(index) {
-		var curComment = $scope.commentList[index];
-		$scope.newDiscussComment = {
-			userId : $scope.appState.loggedInUser.id,
-			discussId : curComment.discussId,
-			parentId : curComment.id,
-			discussCommentTitle : 'Please make your comment ',
-			discussCommentType : 'C'
-		}
-	}
-
-	$scope.getCommentsOnComment = function(index) {
-		var curComment = $scope.commentList[index];
-		var query = {
-			parentId : curComment.id,
-		}
-		$scope.commentList = discussService.getDiscussCommentList(query);
-	}
-	$scope.getCommentsOnCommentTree = function(index) {
-		var curComment = $scope.commentList[index];
-		var query = {
-			parentId : curComment.id,
-			ancestorId : curComment.ancestorId
-		}
-		$scope.commentList = discussService.getDiscussCommentList(query);
-	}
-	*/
-	return commentController;
-};
-
-byControllers.controller('CommentController', commentController);
-
-
-
-

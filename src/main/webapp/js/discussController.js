@@ -101,8 +101,15 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         $scope.error = "";
         $scope.editor.subject = "";
         var discussType = $routeParams.discussType;
+        
+        
         var topicId = $routeParams.topicId;
         var subTopicId = $routeParams.subTopicId;
+        
+        var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId];
+        var subTopicQueryId = (subTopicId=== "all") ? "all" : $rootScope.discussCategoryNameIdMap[subTopicId];
+        
+        console.log(topicQueryId);
 
         if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {
             discussType = 'All';
@@ -119,11 +126,11 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         //query to get the numbers
         //???????$scope.discuss_counts = DiscussOneTopicOneSubTopicListCount.query({discussType: "All", topicId: topicId, subTopicId:subTopicId});
-
+        
         DiscussOneTopicOneSubTopicListCount.get({
             discussType: "All",
-            topicId: topicId,
-            subTopicId: subTopicId
+            topicId: topicQueryId,
+            subTopicId: subTopicQueryId
         }).then(function (counts) {
             $scope.discuss_counts = counts;
         });
@@ -134,8 +141,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         $scope.discuss = DiscussOneTopicOneSubTopicList.query({
             discussType: discussType,
-            topicId: topicId,
-            subTopicId: subTopicId
+            topicId: topicQueryId,
+            subTopicId: subTopicQueryId
         });
 
 

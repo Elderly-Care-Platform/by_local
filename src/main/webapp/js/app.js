@@ -843,11 +843,11 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 					parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
 					
 				if(parentCategoryName){
-					$location.path('/discuss/All/'+ parentCategoryId + '/' + id);
+					$location.path('/discuss/All/'+ parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
 				}else{
 //					parentCategory = $rootScope.discussCategoryListMap[id].parentId
 					
-					$location.path('/discuss/All/'+ id + '/all');
+					$location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
 				}
 			}
 			

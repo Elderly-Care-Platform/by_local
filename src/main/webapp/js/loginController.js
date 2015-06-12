@@ -74,13 +74,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $scope.newUser.$save(function (user, headers) {
                 $scope.createUserSuccess = "User registered successfully";
                 $scope.createUserError = '';
+//                $scope.setView(1);
                 $location.path('/users/new');
             }, function (error) {
                 // failure
                 console.log("$save failed " + JSON.stringify(error));
                 $scope.createUserError = 'Email already exists. ';
                 $scope.createUserSuccess = '';
-                $scope.setView(1);
+                
             });
         }
 

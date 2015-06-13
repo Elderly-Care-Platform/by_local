@@ -55,6 +55,11 @@
         width: 21%;
         left:50px;
     }
+    
+    .by_left_panel_fixed .scrollableLeftPanelDiv{
+		  height: calc(100vh - 140px);
+		  overflow-x: hidden;
+    }
 }
 
 @media (min-width: 1100px){

@@ -51,12 +51,12 @@ public class DiscussController {
 			System.out.println("NEW DISCUSS");
 			Discuss discussWithExtractedInformation = this
 					.setDiscussBean(discuss);
-			
+
 			discussRepository.save(discussWithExtractedInformation);
-			
+
 			ResponseEntity responseEntity = new ResponseEntity(
 					HttpStatus.CREATED);
-			
+
 			System.out.println("responseEntity = " + (Object) responseEntity);
 			return responseEntity;
 		}
@@ -69,7 +69,7 @@ public class DiscussController {
 		newDiscuss.setText(discuss.getText());
 		newDiscuss.setUserId(discuss.getUserId());
 		newDiscuss.setTopicId(discuss.getTopicId());
-//		newDiscuss.setSubTopicId(discuss.getSubTopicId());
+		// newDiscuss.setSubTopicId(discuss.getSubTopicId());
 		discussRepository.save(newDiscuss);
 		ResponseEntity responseEntity = new ResponseEntity(HttpStatus.CREATED);
 		System.out.println("responseEntity = " + (Object) responseEntity);
@@ -79,12 +79,7 @@ public class DiscussController {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/all" }, produces = { "application/json" })
 	@ResponseBody
 	public List<Discuss> allDiscuss() {
-		List list = queryDiscuss(null,null,null,null);
-//		System.out.println("show ALL discuss of ALL discuss types");
-//		Query q = new Query();
-//		q.addCriteria(Criteria.where((String) "discussType").in(new Object[]{ "A", "Q","P" }));
-//		q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
-//		List list = this.mongoTemplate.find(q, (Class) Discuss.class);
+		List list = queryDiscuss(null, null, null, null);
 		return list;
 	}
 
@@ -94,27 +89,9 @@ public class DiscussController {
 			@PathVariable(value = "discussType") String discussType,
 			@RequestParam(value = "featured", required = false) Boolean isFeatured,
 			@RequestParam(value = "count", required = false, defaultValue = "0") int count) {
-//		try {
-//			System.out.println("show ALL discuss of discuss type = "
-//					+ discussType + "with isFeatured = " + isFeatured + "count = " + count);
-//			Query q = new Query();
-//			if (!discussType.equalsIgnoreCase("All")) {
-//				q.addCriteria(Criteria.where((String) "discussType").is(
-//						(String) discussType));
-//			}else{
-//				q.addCriteria(Criteria.where((String) "discussType").in(new Object[]{ "A", "Q","P" }));
-//			}
-//			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" })).limit(count);
-//			List<Discuss> list = this.mongoTemplate.find(q, (Class) Discuss.class);
-//			return list;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ArrayList<Discuss>();
-//		}
-		
-		List list = queryDiscuss(discussType, null, null,null);
+		List list = queryDiscuss(discussType, null, null, null);
 		return list;
-		
+
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/all" }, produces = { "application/json" })
@@ -123,28 +100,7 @@ public class DiscussController {
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId) {
 
-//		try {
-//			System.out.println("show discuss of topic id = " + topicId
-//					+ " :: discuss type = " + discussType);
-//
-//			Query q = new Query();
-//			if (!discussType.equalsIgnoreCase("All")) {
-//				q.addCriteria(Criteria.where("topicId")
-//						.in(topicId).and("discussType")
-//						.is((Object) discussType));
-//			} else {
-//				q.addCriteria(Criteria.where("topicId").in(topicId));
-//			}
-//			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
-//			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
-//
-//			System.out.println("list size = " + list.size());
-//			return list;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ArrayList<Discuss>();
-//		}
-		List list = queryDiscuss(discussType, topicId, null,null);
+		List list = queryDiscuss(discussType, topicId, null, null);
 		return list;
 	}
 
@@ -155,36 +111,9 @@ public class DiscussController {
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId,
 			@PathVariable(value = "userId") String userId) {
-//		try {
-//			System.out.println("show discuss of user id = " + userId
-//					+ " :: discuss type = " + discussType + " :: topicId = "
-//					+ topicId + " :: sub topic id = " + subTopicId);
-//			Query q = new Query();
-//			if (!discussType.equalsIgnoreCase("All")) {
-//				q.addCriteria(Criteria.where((String) "userId")
-//						.is((Object) userId).and("discussType")
-//						.is((Object) discussType).and("topicId")
-//						.in(topicId).and("subTopicId")
-//						.in(subTopicId));
-//			} else {
-//				q.addCriteria(Criteria.where((String) "userId")
-//						.is((Object) userId).and("topicId")
-//						.in(topicId).and("subTopicId")
-//						.in(subTopicId));
-//			}
-//			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
-//			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
-//			if (list != null) {
-//				System.out.println("size = " + list.size());
-//			}
-//			return list;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ArrayList<Discuss>();
-//		}
-		List list = queryDiscuss(discussType, topicId, subTopicId,userId);
+		List list = queryDiscuss(discussType, topicId, subTopicId, userId);
 		return list;
-		
+
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/{subTopicId}" }, produces = { "application/json" })
@@ -193,55 +122,71 @@ public class DiscussController {
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId) {
-//		try {
-//			System.out.println("show discuss of topic id = " + topicId
-//					+ " :: sub topic id = " + subTopicId);
-//			Query q = new Query();
-//			if (!discussType.equalsIgnoreCase("All")) {
-//				q.addCriteria(Criteria.where("topicId")
-//						.in(new Object[] {subTopicId}).and("discussType")
-//						.is((Object) discussType));
-//			} else {
-//				q.addCriteria(Criteria.where("topicId")
-//						.in(new Object[] {subTopicId}));
-//			}
-//			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
-//			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
-//			if (list != null) {
-//				System.out.println("size = " + list.size());
-//			}
-//			return list;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ArrayList<Discuss>();
-//		}
-		List list = queryDiscuss(discussType, topicId, subTopicId,null);
+		List list = queryDiscuss(discussType, topicId, subTopicId, null);
 		return list;
 	}
-	
-	private List<Discuss>queryDiscuss(String discussType,String topicId,String subTopicId, String userId){
+
+	private List<Discuss> queryDiscuss(String discussType, String topicId,
+			String subTopicId, String userId) {
 		try {
-			Query q = new Query();
-			if(null != discussType && !discussType.equalsIgnoreCase("All")){
-				q.addCriteria(Criteria.where("discussType").is((Object) discussType));
-			}else{
-				q.addCriteria(Criteria.where((String) "discussType").in(new Object[]{ "A", "Q","P" }));
-			}
-			if(null != subTopicId && !subTopicId.equalsIgnoreCase("All")){
-				q.addCriteria(Criteria.where("topicId").in(new Object[] {subTopicId}));
-			}else if(null != topicId && !topicId.equalsIgnoreCase("All")){
-				q.addCriteria(Criteria.where("topicId").in(new Object[] {topicId}));
-			}
-			if(null != userId){
-				q.addCriteria(Criteria.where((String) "userId").is((Object) userId));
-			}
+			Query q = getQuery(discussType, topicId, subTopicId, userId);
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 			List list = this.mongoTemplate.find(q, (Class) Discuss.class);
 			return list;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<Discuss>();
 		}
+	}
+
+	private String querySize(String discussType, String topicId,
+			String subTopicId, String userId) {
+		JSONObject obj = new JSONObject();
+		try {
+			Long articlesCount = this.mongoTemplate.count(
+					getQuery("A", topicId, subTopicId, userId), Discuss.class);
+			Long questionsCount = this.mongoTemplate.count(
+					getQuery("Q", topicId, subTopicId, userId), Discuss.class);
+			Long postsCount = this.mongoTemplate.count(
+					getQuery("P", topicId, subTopicId, userId), Discuss.class);
+			obj.put("a", articlesCount);
+			obj.put("q", questionsCount);
+			obj.put("p", postsCount);
+			obj.put("z", articlesCount + questionsCount + postsCount);
+
+		} catch (Exception e) {
+			obj.put("a", 0);
+			obj.put("p", 0);
+			obj.put("q", 0);
+			obj.put("z", 0);
+		}
+		return obj.toString();
+	}
+
+	private Query getQuery(String discussType, String topicId,
+			String subTopicId, String userId) {
+		Query q = new Query();
+		if (null != discussType && !discussType.equalsIgnoreCase("All")
+				&& !discussType.equalsIgnoreCase("list")) {
+			q.addCriteria(Criteria.where("discussType")
+					.is((Object) discussType));
+		} else {
+			q.addCriteria(Criteria.where((String) "discussType").in(
+					new Object[] { "A", "Q", "P" }));
+		}
+		if (null != subTopicId && !subTopicId.equalsIgnoreCase("All")
+				&& !subTopicId.equalsIgnoreCase("list")) {
+			q.addCriteria(Criteria.where("topicId").in(
+					new Object[] { subTopicId }));
+		} else if (null != topicId && !topicId.equalsIgnoreCase("All")
+				&& !topicId.equalsIgnoreCase("list")) {
+			q.addCriteria(Criteria.where("topicId")
+					.in(new Object[] { topicId }));
+		}
+		if (null != userId) {
+			q.addCriteria(Criteria.where((String) "userId").is((Object) userId));
+		}
+		return q;
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/count/{discussType}/{topicId}/{subTopicId}" }, produces = { "plain/text" })
@@ -250,202 +195,194 @@ public class DiscussController {
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId) {
-		try {
-
-			// Discuss All
-			if (topicId.equalsIgnoreCase("list")) {
-				System.out.println("Discuss All Counts");
-				// A
-				Query q = new Query();
-				q.addCriteria(Criteria.where((String) "discussType").is(
-						(Object) "A"));
-				List listA = this.mongoTemplate.find(q, (Class) Discuss.class);
-				if (listA != null) {
-					System.out.println("size A = " + listA.size());
-				}
-
-				// P
-				q = new Query();
-				q.addCriteria(Criteria.where((String) "discussType").is(
-						(Object) "P"));
-				List listP = this.mongoTemplate.find(q, (Class) Discuss.class);
-				if (listP != null) {
-					System.out.println("size P = " + listP.size());
-				}
-
-				// Q
-				q = new Query();
-				q.addCriteria(Criteria.where((String) "discussType").is(
-						(Object) "Q"));
-				List listQ = this.mongoTemplate.find(q, (Class) Discuss.class);
-				if (listQ != null) {
-					System.out.println("size Q = " + listQ.size());
-				}
-
-				int total = listA.size() + listP.size() + listQ.size();
-
-				/*
-				return listA != null && listP != null && listQ != null ? listA
-						.size()
-						+ ","
-						+ listP.size()
-						+ ","
-						+ listQ.size()
-						+ ","
-						+ total + "" : "0,0,0,0";
-						*/
-				JSONObject obj = new JSONObject();
-
-			      obj.put("a", new Integer(listA.size()));
-			      obj.put("p", new Integer(listP.size()));
-			      obj.put("q", new Integer(listQ.size()));
-			      obj.put("z", new Integer(total));
-			     return obj.toString();
-			}
-			// All sub topics of a given topic
-			else if (subTopicId.equalsIgnoreCase("all")
-					&& !topicId.equalsIgnoreCase("list")) {
-				// A
-				Query q = new Query();
-				q.addCriteria(Criteria.where("topicId")
-						.in(new Object[] {topicId}).and("discussType")
-						.is((Object) "A"));
-				List listA = this.mongoTemplate.find(q, (Class) Discuss.class);
-				if (listA != null) {
-					System.out.println("size A = " + listA.size());
-				}
-
-				// P
-				q = new Query();
-				q.addCriteria(Criteria.where("topicId")
-						.is(new Object[] {topicId}).and("discussType")
-						.is((Object) "P"));
-				List listP = this.mongoTemplate.find(q, (Class) Discuss.class);
-				if (listP != null) {
-					System.out.println("size P = " + listP.size());
-				}
-
-				// Q
-				q = new Query();
-				q.addCriteria(Criteria.where("topicId")
-						.is(new Object[] {topicId}).and("discussType")
-						.is((Object) "Q"));
-				List listQ = this.mongoTemplate.find(q, (Class) Discuss.class);
-				if (listQ != null) {
-					System.out.println("size Q = " + listQ.size());
-				}
-
-				int total = listA.size() + listP.size() + listQ.size();
-
-				/*
-				return listA != null && listP != null && listQ != null ? listA
-						.size()
-						+ ","
-						+ listP.size()
-						+ ","
-						+ listQ.size()
-						+ ","
-						+ total + "" : "0,0,0,0";
-				*/
-				JSONObject obj = new JSONObject();
-
-			      obj.put("a", new Integer(listA.size()));
-			      obj.put("p", new Integer(listP.size()));
-			      obj.put("q", new Integer(listQ.size()));
-			      obj.put("z", new Integer(total));
-			     return obj.toString();
-			     
-			} else if (!topicId.equalsIgnoreCase("list")
-					&& !subTopicId.equalsIgnoreCase("all")) {
-
-				if (!discussType.equalsIgnoreCase("All")) {
-					System.out.println("show discuss count of topic id = "
-							+ topicId + " :: sub topic id = " + subTopicId);
-					Query q = new Query();
-					q.addCriteria(Criteria.where((String) "topicId")
-							.is(new Object[] {subTopicId}).and("discussType")
-							.is((Object) discussType));
-					List list = this.mongoTemplate.find(q,
-							(Class) Discuss.class);
-					if (list != null) {
-						System.out.println("size = " + list.size());
-					}
-					Integer rr = list != null ? new Integer(list.size())
-							: new Integer(0);
-					return list != null ? list.size() + "" : "0";
-				} else {
-					System.out.println("show discuss count of all the types");
-
-					// A
-					Query q = new Query();
-					q.addCriteria(Criteria.where("topicId")
-							.in(new Object[] {subTopicId}).and("discussType")
-							.is((Object) "A"));
-					List listA = this.mongoTemplate.find(q,
-							(Class) Discuss.class);
-					if (listA != null) {
-						System.out.println("size A = " + listA.size());
-					}
-
-					// P
-					q = new Query();
-					q.addCriteria(Criteria.where("topicId")
-							.in(new Object[] {subTopicId}).and("discussType")
-							.is((Object) "P"));
-					List listP = this.mongoTemplate.find(q,
-							(Class) Discuss.class);
-					if (listP != null) {
-						System.out.println("size P = " + listP.size());
-					}
-
-					// Q
-					q = new Query();
-					q.addCriteria((Criteria.where("topicId")
-							.in(new Object[] {subTopicId}).and("discussType")
-							.is((Object) "Q")));
-					List listQ = this.mongoTemplate.find(q,
-							(Class) Discuss.class);
-					if (listQ != null) {
-						System.out.println("size Q = " + listQ.size());
-					}
-
-					int total = listA.size() + listP.size() + listQ.size();
-
-					/*
-					 * return listA != null && listP != null && listQ != null ?
-					 * listA .size() + "," + listP.size() + "," + listQ.size() +
-					 * "," + total + "" : "0,0,0,0";
-					 */
-					
-					JSONObject obj = new JSONObject();
-
-				      obj.put("a", new Integer(listA.size()));
-				      obj.put("p", new Integer(listP.size()));
-				      obj.put("q", new Integer(listQ.size()));
-				      obj.put("z", new Integer(total));
-				     return obj.toString();
-				}
-			} else {
-				JSONObject obj = new JSONObject();
-
-			      obj.put("a", new Integer(0));
-			      obj.put("p", new Integer(0));
-			      obj.put("q", new Integer(0));
-			      obj.put("z", new Integer(0));
-			     return obj.toString();
-			}
-			// return new JSONObject().put("size", (Object)
-			// rr.toString()).toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			JSONObject obj = new JSONObject();
-
-		      obj.put("a", new Integer(0));
-		      obj.put("p", new Integer(0));
-		      obj.put("q", new Integer(0));
-		      obj.put("z", new Integer(0));
-		     return obj.toString();
-		}
+		return querySize(discussType, topicId, subTopicId, null);
+		
+//		try {
+//
+//			// Discuss All
+//			if (topicId.equalsIgnoreCase("list")) {
+//				System.out.println("Discuss All Counts");
+//				// A
+//				Query q = new Query();
+//				q.addCriteria(Criteria.where((String) "discussType").is(
+//						(Object) "A"));
+//				List listA = this.mongoTemplate.find(q, (Class) Discuss.class);
+//				if (listA != null) {
+//					System.out.println("size A = " + listA.size());
+//				}
+//
+//				// P
+//				q = new Query();
+//				q.addCriteria(Criteria.where((String) "discussType").is(
+//						(Object) "P"));
+//				List listP = this.mongoTemplate.find(q, (Class) Discuss.class);
+//				if (listP != null) {
+//					System.out.println("size P = " + listP.size());
+//				}
+//
+//				// Q
+//				q = new Query();
+//				q.addCriteria(Criteria.where((String) "discussType").is(
+//						(Object) "Q"));
+//				List listQ = this.mongoTemplate.find(q, (Class) Discuss.class);
+//				if (listQ != null) {
+//					System.out.println("size Q = " + listQ.size());
+//				}
+//
+//				int total = listA.size() + listP.size() + listQ.size();
+//
+//				/*
+//				 * return listA != null && listP != null && listQ != null ?
+//				 * listA .size() + "," + listP.size() + "," + listQ.size() + ","
+//				 * + total + "" : "0,0,0,0";
+//				 */
+//				JSONObject obj = new JSONObject();
+//
+//				obj.put("a", new Integer(listA.size()));
+//				obj.put("p", new Integer(listP.size()));
+//				obj.put("q", new Integer(listQ.size()));
+//				obj.put("z", new Integer(total));
+//				return obj.toString();
+//			}
+//			// All sub topics of a given topic
+//			else if (subTopicId.equalsIgnoreCase("all")
+//					&& !topicId.equalsIgnoreCase("list")) {
+//				// A
+//				Query q = new Query();
+//				q.addCriteria(Criteria.where("topicId")
+//						.in(new Object[] { topicId }).and("discussType")
+//						.is((Object) "A"));
+//				List listA = this.mongoTemplate.find(q, (Class) Discuss.class);
+//				if (listA != null) {
+//					System.out.println("size A = " + listA.size());
+//				}
+//
+//				// P
+//				q = new Query();
+//				q.addCriteria(Criteria.where("topicId")
+//						.is(new Object[] { topicId }).and("discussType")
+//						.is((Object) "P"));
+//				List listP = this.mongoTemplate.find(q, (Class) Discuss.class);
+//				if (listP != null) {
+//					System.out.println("size P = " + listP.size());
+//				}
+//
+//				// Q
+//				q = new Query();
+//				q.addCriteria(Criteria.where("topicId")
+//						.is(new Object[] { topicId }).and("discussType")
+//						.is((Object) "Q"));
+//				List listQ = this.mongoTemplate.find(q, (Class) Discuss.class);
+//				if (listQ != null) {
+//					System.out.println("size Q = " + listQ.size());
+//				}
+//
+//				int total = listA.size() + listP.size() + listQ.size();
+//
+//				/*
+//				 * return listA != null && listP != null && listQ != null ?
+//				 * listA .size() + "," + listP.size() + "," + listQ.size() + ","
+//				 * + total + "" : "0,0,0,0";
+//				 */
+//				JSONObject obj = new JSONObject();
+//
+//				obj.put("a", new Integer(listA.size()));
+//				obj.put("p", new Integer(listP.size()));
+//				obj.put("q", new Integer(listQ.size()));
+//				obj.put("z", new Integer(total));
+//				return obj.toString();
+//
+//			} else if (!topicId.equalsIgnoreCase("list")
+//					&& !subTopicId.equalsIgnoreCase("all")) {
+//
+//				if (!discussType.equalsIgnoreCase("All")) {
+//					System.out.println("show discuss count of topic id = "
+//							+ topicId + " :: sub topic id = " + subTopicId);
+//					Query q = new Query();
+//					q.addCriteria(Criteria.where((String) "topicId")
+//							.is(new Object[] { subTopicId }).and("discussType")
+//							.is((Object) discussType));
+//					List list = this.mongoTemplate.find(q,
+//							(Class) Discuss.class);
+//					if (list != null) {
+//						System.out.println("size = " + list.size());
+//					}
+//					Integer rr = list != null ? new Integer(list.size())
+//							: new Integer(0);
+//					return list != null ? list.size() + "" : "0";
+//				} else {
+//					System.out.println("show discuss count of all the types");
+//
+//					// A
+//					Query q = new Query();
+//					q.addCriteria(Criteria.where("topicId")
+//							.in(new Object[] { subTopicId }).and("discussType")
+//							.is((Object) "A"));
+//					List listA = this.mongoTemplate.find(q,
+//							(Class) Discuss.class);
+//					if (listA != null) {
+//						System.out.println("size A = " + listA.size());
+//					}
+//
+//					// P
+//					q = new Query();
+//					q.addCriteria(Criteria.where("topicId")
+//							.in(new Object[] { subTopicId }).and("discussType")
+//							.is((Object) "P"));
+//					List listP = this.mongoTemplate.find(q,
+//							(Class) Discuss.class);
+//					if (listP != null) {
+//						System.out.println("size P = " + listP.size());
+//					}
+//
+//					// Q
+//					q = new Query();
+//					q.addCriteria((Criteria.where("topicId")
+//							.in(new Object[] { subTopicId }).and("discussType")
+//							.is((Object) "Q")));
+//					List listQ = this.mongoTemplate.find(q,
+//							(Class) Discuss.class);
+//					if (listQ != null) {
+//						System.out.println("size Q = " + listQ.size());
+//					}
+//
+//					int total = listA.size() + listP.size() + listQ.size();
+//
+//					/*
+//					 * return listA != null && listP != null && listQ != null ?
+//					 * listA .size() + "," + listP.size() + "," + listQ.size() +
+//					 * "," + total + "" : "0,0,0,0";
+//					 */
+//
+//					JSONObject obj = new JSONObject();
+//
+//					obj.put("a", new Integer(listA.size()));
+//					obj.put("p", new Integer(listP.size()));
+//					obj.put("q", new Integer(listQ.size()));
+//					obj.put("z", new Integer(total));
+//					return obj.toString();
+//				}
+//			} else {
+//				JSONObject obj = new JSONObject();
+//
+//				obj.put("a", new Integer(0));
+//				obj.put("p", new Integer(0));
+//				obj.put("q", new Integer(0));
+//				obj.put("z", new Integer(0));
+//				return obj.toString();
+//			}
+//			// return new JSONObject().put("size", (Object)
+//			// rr.toString()).toString();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			JSONObject obj = new JSONObject();
+//
+//			obj.put("a", new Integer(0));
+//			obj.put("p", new Integer(0));
+//			obj.put("q", new Integer(0));
+//			obj.put("z", new Integer(0));
+//			return obj.toString();
+//		}
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/show/{discussId}" }, produces = { "application/json" })
@@ -494,7 +431,7 @@ public class DiscussController {
 
 	private Discuss setDiscussBean(Discuss discuss) {
 		try {
-			
+
 			String userId = discuss.getUserId();
 			String username = discuss.getUsername();
 			String discussType = discuss.getDiscussType();
@@ -509,15 +446,16 @@ public class DiscussController {
 			String discussStatus = discuss.getStatus();
 			List<String> topicId = discuss.getTopicId();
 			String tags = "";
-//			List<String> subTopicId = discuss.getSubTopicId();
-//			String tags = discuss.getTags() == null ? String.valueOf(topicId)
-//					+ "," + subTopicId : String.valueOf(discuss.getTags())
-//					+ "," + topicId + "," + subTopicId;
+			// List<String> subTopicId = discuss.getSubTopicId();
+			// String tags = discuss.getTags() == null ? String.valueOf(topicId)
+			// + "," + subTopicId : String.valueOf(discuss.getTags())
+			// + "," + topicId + "," + subTopicId;
 			int aggrReplyCount = 0;
 			int aggrLikeCount = 0;
-			return new Discuss(userId, username, discussType, topicId,
-					 title, text, discussStatus, tags,
-					aggrReplyCount, aggrLikeCount, discuss.getDiscussType().equals("A") ? discuss.getArticlePhotoFilename() : "");
+			return new Discuss(userId, username, discussType, topicId, title,
+					text, discussStatus, tags, aggrReplyCount, aggrLikeCount,
+					discuss.getDiscussType().equals("A") ? discuss
+							.getArticlePhotoFilename() : "");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

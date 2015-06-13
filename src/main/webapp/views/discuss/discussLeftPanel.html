@@ -1,91 +1,102 @@
 <!--<div class="col-md-3 md-margin-bottom-40 left-container">-->
-    <!--<div class="col-md-12 left-container-img-wrapper no-padding">-->
-        <!--<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">-->
-            <!--<li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA">-->
-                <!--<a href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A (<span>{{discuss_counts.q}}</span>)</a>-->
+<!--<div class="col-md-12 left-container-img-wrapper no-padding">-->
+<!--<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">-->
+<!--<li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA">-->
+<!--<a href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A (<span>{{discuss_counts.q}}</span>)</a>-->
 
-            <!--</li>-->
-            <!--<li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts">-->
-                <!--<a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_counts.p}}</span>)</a>-->
-            <!--</li>-->
-            <!--<li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles">-->
-                <!--<a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">ARTICLES (<span>{{discuss_counts.a}}</span>)</a>-->
-            <!--</li>-->
+<!--</li>-->
+<!--<li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts">-->
+<!--<a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_counts.p}}</span>)</a>-->
+<!--</li>-->
+<!--<li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles">-->
+<!--<a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">ARTICLES (<span>{{discuss_counts.a}}</span>)</a>-->
+<!--</li>-->
 
 
 
-            <!--<li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">-->
-                <!--<a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_counts.z}}</span>)</a>-->
-            <!--</li>-->
-        <!--</ul>-->
-    <!--</div>-->
-    <!--<div class="col-md-11 no-padding" ng-show="showme">-->
-        <!--<div class="ask-question"></div>-->
-    <!--</div>-->
-    <!--<div class="col-md-11 no-padding" ng-show="showme">-->
-        <!--<div class="share-tips"></div>-->
-    <!--</div>-->
-    <!--<div class="col-md-11 no-padding" ng-show="showme">-->
-        <!--<div class="submit-article"></div>-->
-        <!--&lt;!&ndash; <input id="fileopen" type="file" style="display: none"> &ndash;&gt;-->
-    <!--</div>-->
-    <!--<div class="col-md-11 no-padding" ng-show="showme">-->
-        <!--<div class="give-feedback"></div>-->
-    <!--</div>-->
+<!--<li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">-->
+<!--<a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_counts.z}}</span>)</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="col-md-11 no-padding" ng-show="showme">-->
+<!--<div class="ask-question"></div>-->
+<!--</div>-->
+<!--<div class="col-md-11 no-padding" ng-show="showme">-->
+<!--<div class="share-tips"></div>-->
+<!--</div>-->
+<!--<div class="col-md-11 no-padding" ng-show="showme">-->
+<!--<div class="submit-article"></div>-->
+<!--&lt;!&ndash; <input id="fileopen" type="file" style="display: none"> &ndash;&gt;-->
+<!--</div>-->
+<!--<div class="col-md-11 no-padding" ng-show="showme">-->
+<!--<div class="give-feedback"></div>-->
+<!--</div>-->
 <!--</div>-->
 
 
 <!--All classes from Unify start-->
 <div class="col-md-3 by_left_panel_fixed">
-    <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
-        <li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA">
-            <a href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A (<span>{{discuss_counts.q}}</span>)</a>
+	<div class="scrollableLeftPanelDiv">
+		<ul class="list-group sidebar-nav-v1 margin-bottom-40 "
+			id="sidebar-nav">
+			<li
+				class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}"
+				data-index="discussion-QA"><a
+				href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A (<span>{{discuss_counts.q}}</span>)
+			</a></li>
+			<li
+				class="list-group-item {{bc_discussType == 'P' && 'selected active'}}"
+				data-index="discussion-posts"><a
+				href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_counts.p}}</span>)
+			</a></li>
+			<li
+				class="list-group-item {{bc_discussType == 'A' && 'selected active'}}"
+				data-index="discussion-articles"><a
+				href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">ARTICLES (<span>{{discuss_counts.a}}</span>)
+			</a></li>
+			<li
+				class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}"
+				data-index="discussion-articles"><a
+				href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_counts.z}}</span>)
+			</a></li>
+		</ul>
+		<!--All classes from Unify end-->
 
-        </li>
-        <li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts">
-            <a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_counts.p}}</span>)</a>
-        </li>
-        <li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles">
-            <a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">ARTICLES (<span>{{discuss_counts.a}}</span>)</a>
-        </li>
-        <li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">
-            <a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_counts.z}}</span>)</a>
-        </li>
-    </ul>
-    <!--All classes from Unify end-->
-
-    <div class="row content-boxes-v2 by_left_bottom_panel" ng-show="showme">
-        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Question')">
-            <a>
-                <h3 class="heading-sm by_leftPanel_icons">
-                    <i class="icon-custom icon-sm icon_question"></i>
-                    <span>Ask a Question</span>
-                </h3>
-            </a>
-        </div>
-        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Tips')">
-            <a>
-                <h3 class="heading-sm by_leftPanel_icons">
-                    <i class="icon-custom icon-sm icon_tips"></i>
-                    <span>Share Tips &amp; Experiences</span>
-                </h3>
-            </a>
-        </div>
-        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Article')">
-            <a>
-                <h3 class="heading-sm by_leftPanel_icons">
-                    <i class="icon-custom icon-sm icon_story"></i>
-                    <span>Publish your Story</span>
-                </h3>
-            </a>
-        </div>
-        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Feedback')">
-            <a>
-                <h3 class="heading-sm by_leftPanel_icons">
-                    <i class="icon-custom icon-sm icon_feedback"></i>
-                    <span>Provide Feedback</span>
-                </h3>
-            </a>
-        </div>
-    </div>
+		<div class="row content-boxes-v2 by_left_bottom_panel"
+			ng-show="showme">
+			<div class="col-md-12 md-margin-bottom-30" ng-click="add('Question')">
+				<a>
+					<h3 class="heading-sm by_leftPanel_icons">
+						<i class="icon-custom icon-sm icon_question"></i> <span>Ask
+							a Question</span>
+					</h3>
+				</a>
+			</div>
+			<div class="col-md-12 md-margin-bottom-30" ng-click="add('Tips')">
+				<a>
+					<h3 class="heading-sm by_leftPanel_icons">
+						<i class="icon-custom icon-sm icon_tips"></i> <span>Share
+							Tips &amp; Experiences</span>
+					</h3>
+				</a>
+			</div>
+			<div class="col-md-12 md-margin-bottom-30" ng-click="add('Article')">
+				<a>
+					<h3 class="heading-sm by_leftPanel_icons">
+						<i class="icon-custom icon-sm icon_story"></i> <span>Publish
+							your Story</span>
+					</h3>
+				</a>
+			</div>
+			<div class="col-md-12 md-margin-bottom-30" ng-click="add('Feedback')">
+				<a>
+					<h3 class="heading-sm by_leftPanel_icons">
+						<i class="icon-custom icon-sm icon_feedback"></i> <span>Provide
+							Feedback</span>
+					</h3>
+				</a>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,5 +1,6 @@
 byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User',
     function ($scope, $rootScope, $http, $location, $routeParams, User) {
+		window.scrollTo(0, 0);
         $scope.signupViews = {};
         $scope.signupViews.leftPanel = "views/signup/signUpLeftPanel.html";
         $scope.signupViews.contentPanel = "views/signup/login.html";
@@ -34,7 +35,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                     localStorage.setItem("SessionId", login.sessionId);
                     localStorage.setItem("USER_ID", login.id);
                     localStorage.setItem("USER_NAME", login.userName);
-                    $location.path("/users/home");
+                    if($rootScope.nextLocation)
+					{
+						$location.path($rootScope.nextLocation);
+					}
+					else
+					{
+						$location.path("/users/home");
+					}
                     var element = document.getElementById("login_placeholder");
                     element.innerHTML = "Logout";
                     element.href = apiPrefix + "#/users/logout/" + login.sessionId;
@@ -64,7 +72,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.setError = function (message) {
             $scope.error = message;
             $scope.message = '';
-            $rootScope.SessionId = '';
+            $rootScope.SessionId = undefined;
         }
 
         $scope.setUserCredential = function(userData){

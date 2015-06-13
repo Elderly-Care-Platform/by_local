@@ -332,9 +332,6 @@ byApp.config(['$routeProvider',
     .when('/dependent', {templateUrl: 'views/users/create3.html', controller: 'UserCreate3Controller'})
     .when('/dependent/list/:userId', {templateUrl: 'views/users/dependents.html', controller: 'DependentListController'})
     .when('/dependent/:userId/:id', {templateUrl: 'views/users/create3.html', controller: 'DependentShowEditController'})
-    .when('/users/showedit/:userId', {templateUrl: 'views/users/edit.html', controller: 'UserEditController'})
-    .when('/users/showedit/:userId', {templateUrl: 'views/users/edit.html', controller: 'UserCreateController'})
-    .when('/users/delete/:userId', {templateUrl: 'views/users/list.html', controller: 'UserDeleteController'})
     .when('/users/login', {templateUrl: 'views/signup/signup.html', controller: 'LoginController'})
     .when('/users/logout/:sessionId', {templateUrl: 'views/users/home.html', controller: 'LogoutController'})
     .when('/discuss/:discussType/list/all', {templateUrl: 'views/discuss/discussion.html', controller: 'DiscussAllController'})
@@ -368,10 +365,11 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
 
        	var session = SessionIdService.getSessionId();
        	if (session == '' || session == null) {
+       		console.log(next.templateUrl);
        		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
             // no logged user, we should be going to #login
             //Code to allow non-logged in users to visit read only pages
-            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/users/create.html' /*|| next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html'*/) {
+            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/home/home.html' || next.templateUrl == 'views/users/create.html' || next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html') {
             // already going to #login, no redirect needed
             	
             } else {
@@ -546,7 +544,7 @@ byControllers.controller('DependentShowEditController', ['$scope', '$rootScope',
 	   $scope.userDependent = ShowDependent.get({userId:$rootScope.bc_userId, id:dependentId});
 
 	   //languages
-	   var langs = $scope.userDependent.speaksLang;
+	   //?????var langs = $scope.userDependent.speaksLang;
 	   $scope.managedependent = function () {
 
 
@@ -637,14 +635,6 @@ byControllers.controller('UserCreate3Controller', ['$scope', '$rootScope', '$rou
 
 
 
-//User Edit
-byControllers.controller('UserEditController', ['$scope', '$routeParams', '$location', 'UserShow',
-  function($scope, $routeParams, $location, UserShow) {
-	var userId = $routeParams.userId;
-    $scope.user = UserShow.get({userId: userId});
-  }]);
-
-
 // Logout Controller
 byControllers.controller('LogoutController', ['$scope', '$location', '$rootScope' ,
 function ($scope,$location, $rootScope) {
@@ -652,7 +642,7 @@ function ($scope,$location, $rootScope) {
 	if($rootScope.sessionId != '') {
 			   $location.path("/users/login");
 	}
-	$rootScope.sessionId='';
+	$rootScope.sessionId = undefined;
 	$rootScope.bc_discussType = '';
 	$rootScope.bc_username = '';
 	$rootScope.bc_userId = '';
@@ -763,10 +753,19 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
 
 		$scope.add = function (type) {
-			$scope.error = "";
-			$scope.currentView = "editor";
-			$scope.homeViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
-			window.scrollTo(0, 0);
+			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+			{
+				$rootScope.nextLocation = $location.path();
+				$location.path('/users/login');
+			}
+			else
+			{
+				$scope.error = "";
+				$scope.currentView = "editor";
+				$scope.homeViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
+				window.scrollTo(0, 0);
+			}
+			
 		}
 
         $scope.register = function (discussType) {
@@ -927,15 +926,17 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 
 	  //User Discuss Like method
 	 	 $scope.UserLike = function(userId, discussId, index) {
-			/*
-			if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+			//only read-only allowed without login
+			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 			{
+				$rootScope.nextLocation = $location.path();
 				$location.path('/users/login');
 			}
-			*/
-
-	 		//Create the new discuss user like
-	 		$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+			else
+			{
+	 			//Create the new discuss user like
+	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+			}
 
 		}
   }]);
@@ -1029,12 +1030,6 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$route', '$location', 'DiscussShow', 'DiscussComment', 'DiscussUserLikes', 'Discuss',
   function($scope, $rootScope, $routeParams, $route, $location, DiscussShow, DiscussComment, DiscussUserLikes, Discuss) {
 
-	/*if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-				{
-					$location.path('/users/login');
-			}
-			*/
-
 	var discussId = $routeParams.discussId;
 	var type = $location.path().endsWith("/A");
 
@@ -1072,14 +1067,17 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 	 //User Discuss Like method
 		 $scope.UserLike = function(userId, discussId, index) {
 
-			/*if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-			{
-				$location.path('/users/login');
-			}
-			*/
-
+		//only read-only allowed without login
+		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+		{
+			$rootScope.nextLocation = $location.path();
+			$location.path('/users/login');
+		}
+		else
+		{
 			//Create the new discuss user like
 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+		}
 
 	}
 
@@ -1103,16 +1101,20 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
     $scope.createNewComment = function(typeId, disId, parId, disType)
     {
-		/*
-		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-		{
-			$location.path('/users/login');
-		}
-		*/
 
-		$rootScope.parId = parId;
-		$scope.type = typeId;
-		$scope.disType = disType;
+		//only read-only allowed without login
+		/*if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+		{
+			$rootScope.nextLocation = $location.path();
+			$location.path('/users/login');
+
+		}
+		else
+		*/
+		{
+			$rootScope.parId = parId;
+			$scope.type = typeId;
+			$scope.disType = disType;
 
 
 		if(typeId == 'A'){
@@ -1275,8 +1277,9 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 			tinyMCE.execCommand('mceFocus', false, id);
 
 
-		}else	{
-			//wrong place
+			}else	{
+				//wrong place
+			}
 		}
 	}
 
@@ -1300,13 +1303,15 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
 	$scope.saveComment  = function(type, disType){
 
-		/*
-		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+		//only read-only allowed without login
+		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 		{
+			$rootScope.nextLocation = $location.path();
 			$location.path('/users/login');
 		}
-		*/
-		$scope.comment = new DiscussComment();
+		else
+		{
+			$scope.comment = new DiscussComment();
 
 		//putting the userId to discuss being created
 		$scope.comment.userId = localStorage.getItem("USER_ID");
@@ -1333,13 +1338,13 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 			$scope.discuss = DiscussShow.get({discussId: discussId});
 			$scope.comments = DiscussComment.get({ancestorId: discussId, parentId:$scope.comment.parentId });
 
-			if(type == 'A')
-			{
-				document.getElementById('answer_block').style.display = 'none';
-			}
-			else if(type == 'C')
-			{
-				document.getElementById('comment_block').style.display = 'none';
+				if(type == 'A')
+				{
+					if(document.getElementById('answer_block')) document.getElementById('answer_block').style.display = 'none';
+				}
+				else if(type == 'C')
+				{
+					if(document.getElementById('comment_block')) document.getElementById('comment_block').style.display = 'none';
 
 			}
 			else
@@ -1372,8 +1377,9 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 			//$scope.error = 'Failed to edit user details';
 			//$scope.message = '';
 
-		});
-		tinyMCE.activeEditor.remove();
+			});
+			tinyMCE.activeEditor.remove();
+		}
 
 		//newComment= false;
 	}

@@ -1,6 +1,6 @@
 //DIscuss All
-byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes',
-    function ($scope, $rootScope, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes) {
+byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes',
+    function ($scope, $rootScope, $location , $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes) {
         $scope.discuss = DiscussList.query();
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "views/discuss/discussLeftPanel.html";
@@ -13,7 +13,6 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$rout
         }
 
         //query to get the numbers
-        //???????$scope.discuss_counts = DiscussOneTopicOneSubTopicListCount.query({discussType: "All", topicId: "list", subTopicId: "all"});
         DiscussOneTopicOneSubTopicListCount.get({
             discussType: "All",
             topicId: "list",
@@ -22,7 +21,6 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$rout
             $scope.discuss_counts = counts;
         });
 
-        //alert("discuss all :: " + $scope.discuss_counts);
 
         $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType});
 
@@ -31,18 +29,21 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$rout
         $rootScope.bc_discussType = discussType;
 
         //User Discuss Like method
-        $scope.UserLike = function (userId, discussId, index) {
+        $scope.UserLike = function(userId, discussId, index) {
 
-            /*
-             if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-             {
-             $location.path('/users/login');
-             }
-             */
-            //Create the new discuss user like
-            $scope.discuss[index] = DiscussUserLikes.get({userId: userId, discussId: discussId});
-        }
-    }]);
+			//only read-only allowed without login
+			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+			{
+				$rootScope.nextLocation = $location.path();
+				$location.path('/users/login');
+			}
+			else
+			{
+	 			//Create the new discuss user like
+	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+			}
+		}
+ 	}]);
 
 
 byControllers.controller('DiscussCategoryController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicAllSubTopicList', 'DiscussOneTopicAllSubTopicListCount', 'DiscussUserLikes',
@@ -75,17 +76,18 @@ byControllers.controller('DiscussCategoryController', ['$scope', '$rootScope', '
         //User Discuss Like method
         $scope.UserLike = function (userId, discussId, index) {
 
-            /*
-             if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-             {
-             $location.path('/users/login');
-             }
-             */
-            //Create the new discuss user like
-            $scope.discuss[index] = DiscussUserLikes.get({userId: userId, discussId: discussId});
-
+        	//only read-only allowed without login
+    		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+    		{
+    			$rootScope.nextLocation = $location.path();
+    			$location.path('/users/login');
+    		}
+    		else
+    		{
+    			//Create the new discuss user like
+    			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+    		}
         }
-        //??????????????????????$location.path('/discuss/' + discussType + '/' + topicId + '/all');
     }]);
 
 
@@ -126,7 +128,6 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         $rootScope.bc_discussType = discussType === '' ? 'A' : discussType;
 
         //query to get the numbers
-        //???????$scope.discuss_counts = DiscussOneTopicOneSubTopicListCount.query({discussType: "All", topicId: topicId, subTopicId:subTopicId});
         
         DiscussOneTopicOneSubTopicListCount.get({
             discussType: "All",
@@ -150,21 +151,32 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         //User Discuss Like method
         $scope.UserLike = function (userId, discussId, index) {
 
-            /*
-             if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-             {
-             $location.path('/users/login');
-             }
-             */
-
-            //Create the new discuss user like
-            $scope.discuss[index] = DiscussUserLikes.get({userId: userId, discussId: discussId});
+        	//only read-only allowed without login
+    		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+    		{
+    			$rootScope.nextLocation = $location.path();
+    			$location.path('/users/login');
+    		}
+    		else
+    		{
+    			//Create the new discuss user like
+    			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+    		}
         }
 
         $scope.add = function (type) {
-            $scope.error = "";
-            $scope.discussionViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
-            window.scrollTo(0, 0);
+        	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+			{
+				$rootScope.nextLocation = $location.path();
+				$location.path('/users/login');
+			}
+			else
+			{
+				$scope.error = "";
+	            $scope.discussionViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
+	            window.scrollTo(0, 0);
+			}
+            
         }
 
         $scope.register = function (discussType) {

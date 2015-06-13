@@ -157,7 +157,7 @@ public class DiscussCommentController {
 		if (user == null) {
 			proceed = false;
 		} else {
-			discussComment.setUserId(user.getUserName());
+			discussComment.setUserName(user.getUserName());
 		}
 
 		if (proceed) {

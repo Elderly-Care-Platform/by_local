@@ -72,7 +72,7 @@ public class DiscussController {
 			logger.info("new discuss entity created with ID: "+discuss.getId()+" by User "+(null != Util.getSessionUser(request)   ? Util.getSessionUser(request).getId() : null));
 			return responseEntity;
 		}else{
-			Discuss newDiscuss = this.getDiscuss(discuss.getId());
+			Discuss newDiscuss = (Discuss) discussRepository.findOne(discuss.getId());
 			newDiscuss.setDiscussType(discuss.getDiscussType());
 			newDiscuss.setTitle(discuss.getTitle());
 			newDiscuss.setStatus(discuss.getStatus());
@@ -230,13 +230,14 @@ public class DiscussController {
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{discussId}" }, produces = { "application/json" })
 	@ResponseBody
-	public Discuss getDiscuss(
-			@PathVariable(value = "discussId") String discussId) {
+	public DiscussEntity getDiscuss(
+			@PathVariable(value = "discussId") String discussId,HttpServletRequest req) {
+		DiscussResponse res = new DiscussResponse();
 		Discuss discuss = (Discuss) discussRepository.findOne(discussId);
 		if (discuss == null) {
 			throw new DiscussNotFoundException(discussId);
 		}
-		return discuss;
+		return res.getDiscussEntity(discuss, Util.getSessionUser(req));
 	}
 
 	@RequestMapping(method = { RequestMethod.PUT }, value = { "/{discussId}" }, produces = { "application/json" })

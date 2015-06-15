@@ -30,7 +30,7 @@ public class DiscussComment {
 	private int ancestorOffset;
 	private int descendentCount;
 	private int siblingPosition;
-	private int discussCommentLikeCount;
+	private int discussCommentLikeCount = 0;
 	private int discussCommentCommentCount;
 
 	@Transient

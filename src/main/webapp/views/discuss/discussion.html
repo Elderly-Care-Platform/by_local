@@ -49,7 +49,7 @@
     <div class="container by_breadcrumbs_container">
         <ul class="pull-right breadcrumb">
             <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
-            <li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all" ng-click="showme=false">{{{true: $root.discussCategoryListMap[bc_topic].name, false: bc_topic}[$root.discussCategoryListMap[bc_topic]!==undefined]}}</a>
+            <li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all">{{{true: $root.discussCategoryListMap[bc_topic].name, false: bc_topic}[$root.discussCategoryListMap[bc_topic]!==undefined]}}</a>
             </li>
             <li>{{bc_subTopic}}</li>
         </ul>

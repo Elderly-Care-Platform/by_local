@@ -9,8 +9,7 @@
 		<ul class="pull-right breadcrumb">
 			<li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
 			<li class="active"><a
-				href="#/discuss/{{bc_discussType}}/{{$root.discussCategoryListMap[discuss.topicId[0]].name}}/all"
-				ng-click="showme=false">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
+				href="#/discuss/{{bc_discussType}}/{{$root.discussCategoryListMap[discuss.topicId[0]].name}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
 			<li>{{$root.discussCategoryListMap[discuss.subTopicId[0]].name}}</li>
 		</ul>
 	</div>
@@ -94,8 +93,7 @@
 							<li><a href="#">By {{!discuss.username && discuss.userId
 									|| discuss.username}}</a></li>
 							<li><a
-								href="#/discuss/{{discuss.discussType}}/{{discuss.topicId[0]}}/all"
-								ng-click="showme=false">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
+								href="#/discuss/{{discuss.discussType}}/{{discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
 							<li>{{discuss.createdAt | date:'medium'}}</li>
 						</ul>
 					</div>

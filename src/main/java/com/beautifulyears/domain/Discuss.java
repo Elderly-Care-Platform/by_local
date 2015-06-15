@@ -1,5 +1,6 @@
 package com.beautifulyears.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class Discuss {
 	private String id;
 
 	private String title;
-	
+
 	private String articlePhotoFilename;
 
 	public String getUsername() {
@@ -26,7 +27,7 @@ public class Discuss {
 	}
 
 	private String userId;
-	
+
 	private String username;
 
 	private String discussType; // Q, P and A (Question, Post and Article)
@@ -39,17 +40,23 @@ public class Discuss {
 
 	private int aggrReplyCount;
 
-	private int aggrLikeCount;
-
 	private final Date createdAt = new Date();
-	
+
 	private List<String> topicId;
-	
+
+	private List<String> likedBy = new ArrayList<String>();
+
 	public Discuss() {
 
 	}
-	
-	
+
+	public List<String> getLikedBy() {
+		return likedBy;
+	}
+
+	public void setLikedBy(List<String> likedBy) {
+		this.likedBy = likedBy;
+	}
 
 	public String getArticlePhotoFilename() {
 		return articlePhotoFilename;
@@ -67,10 +74,10 @@ public class Discuss {
 		this.topicId = topicId;
 	}
 
-
-	public Discuss(String userId, String username, String discussType, List<String> topicId,  String title,
-			String text, String status, String tags, int aggrReplyCount,
-			int aggrLikeCount, String articlePhotoFilename) {
+	public Discuss(String userId, String username, String discussType,
+			List<String> topicId, String title, String text, String status,
+			String tags, int aggrReplyCount,
+			String articlePhotoFilename) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -81,7 +88,6 @@ public class Discuss {
 		this.status = status;
 		this.tags = tags;
 		this.aggrReplyCount = aggrReplyCount;
-		this.aggrLikeCount = aggrLikeCount;
 		this.articlePhotoFilename = articlePhotoFilename;
 	}
 
@@ -147,14 +153,6 @@ public class Discuss {
 
 	public void setAggrReplyCount(int aggrReplyCount) {
 		this.aggrReplyCount = aggrReplyCount;
-	}
-
-	public int getAggrLikeCount() {
-		return aggrLikeCount;
-	}
-
-	public void setAggrLikeCount(int aggrLikeCount) {
-		this.aggrLikeCount = aggrLikeCount;
 	}
 
 	public Date getCreatedAt() {

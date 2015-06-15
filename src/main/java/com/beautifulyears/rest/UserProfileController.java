@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.repository.custom.UserProfileRepositoryCustom;
+import com.beautifulyears.rest.UserProfileNotFoundException;
 
 /**
  * /** The REST based service for managing "users"

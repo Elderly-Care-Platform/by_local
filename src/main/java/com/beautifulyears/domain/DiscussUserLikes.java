@@ -11,7 +11,8 @@ public class DiscussUserLikes {
 	String id;
 	String userId;
 	String discussId;
-	String isLike; // "0" or "1": 0 -> does not like, 1 -> likes
+	String likedContentId; // can be a commentId or answerId
+	String likedContentType;
 	Date createdAt = new Date();
 
 	public String getId() {
@@ -46,24 +47,28 @@ public class DiscussUserLikes {
 		this.createdAt = createdAt;
 	}
 
-	public DiscussUserLikes() {
-
+	public String getLikedContentId() {
+		return likedContentId;
 	}
 
-	public DiscussUserLikes(String userId, String discussId, String isLike) {
+	public void setLikedContentId(String likedContentId) {
+		this.likedContentId = likedContentId;
+	}
+
+	public String getLikedContentType() {
+		return likedContentType;
+	}
+
+	public void setLikedContentType(String likedContentType) {
+		this.likedContentType = likedContentType;
+	}
+
+	public DiscussUserLikes(String userId, String discussId, String likedContentId, String likedContentType) {
 		super();
 		this.userId = userId;
 		this.discussId = discussId;
-		this.isLike = isLike;
-
-	}
-
-	public String getIsLike() {
-		return isLike;
-	}
-
-	public void setIsLike(String isLike) {
-		this.isLike = isLike;
+		this.likedContentId = likedContentId;
+		this.likedContentType = likedContentType;
 	}
 
 }

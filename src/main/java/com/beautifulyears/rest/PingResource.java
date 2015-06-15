@@ -11,8 +11,7 @@ public class PingResource {
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String ping() {
-    	System.out.println("PING**");
-        return "{'ping':'pong'}";
+    public void ping() {
+    	System.out.println("DummyClass as root of the rest package");
     }
 }

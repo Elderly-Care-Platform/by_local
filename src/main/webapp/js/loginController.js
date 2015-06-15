@@ -100,11 +100,35 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.newUser = new User();
         $scope.createNewUser = function(newUser) {
            
-            $scope.newUser.$save(function (user, headers) {
+            $scope.newUser.$save(function (login) {
                 $scope.createUserSuccess = "User registered successfully";
                 $scope.createUserError = '';
 //                $scope.setView(1);
-                $location.path('/users/new');
+                if ("localStorage" in window) {
+                    localStorage.setItem("SessionId", login.sessionId);
+                    localStorage.setItem("USER_ID", login.id);
+                    localStorage.setItem("USER_NAME", login.userName);
+                    if($rootScope.nextLocation)
+					{
+						$location.path($rootScope.nextLocation);
+					}
+					else
+					{
+						$location.path("/users/home");
+					}
+                    var element = document.getElementById("login_placeholder");
+                    element.innerHTML = "Logout";
+                    element.href = apiPrefix + "#/users/logout/" + login.sessionId;
+
+                    var pro = document.getElementById('profile_placeholder');
+                    pro.innerHTML = "Profile";
+                    pro.href = apiPrefix + "#/userprofile";
+
+                }
+                else {
+                    $scope.setError('Browser does not support cookies');
+                    $location.path("/users/login");
+                }
             }, function (error) {
                 // failure
                 console.log("$save failed " + JSON.stringify(error));

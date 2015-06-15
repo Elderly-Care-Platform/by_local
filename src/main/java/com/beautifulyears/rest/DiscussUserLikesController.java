@@ -1,5 +1,7 @@
 package com.beautifulyears.rest;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
@@ -8,12 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussUserLikes;
+import com.beautifulyears.domain.User;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.repository.DiscussUserLikesRepository;
 import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 import com.beautifulyears.repository.custom.DiscussUserLikesRepositoryCustom;
+import com.beautifulyears.rest.response.DiscussResponse;
+import com.beautifulyears.rest.response.DiscussResponse.DiscussEntity;
 
 //import com.beautifulyears.domain.UserProfile;
 
@@ -47,49 +53,39 @@ public class DiscussUserLikesController {
 	// create user - registration
 	@RequestMapping(method = RequestMethod.GET, value = "/create/{userId}/{discussId}", produces = { "application/json" })
 	@ResponseBody
-	public Discuss createNewDiscussUserLike(
+	public DiscussEntity createNewDiscussUserLike(
 			@PathVariable("userId") String userId,
-			@PathVariable("discussId") String discussId) throws Exception {
+			@PathVariable("discussId") String discussId,HttpServletRequest req) throws Exception {
 		System.out.println("NEW DISCUSS USER LIKES");
-		int newCount = 0;
 		Discuss discuss = null;
 		try {
 
 			discuss = (Discuss) discussRepository.findOne(discussId);
-
+			DiscussResponse discussResponse = new DiscussResponse();
 			if (discuss != null) {
 
-				DiscussUserLikes discussUserLikes = discussUserLikesRepository
-						.getByUserIdAndDiscussId(userId, discussId);
 				DiscussUserLikes newDiscussUserLike = null;
 
 				// User has already liked this - so ignore
-				if (discussUserLikes != null
-						&& discussUserLikes.getIsLike().equals("1")) {
+				if (discuss.getLikedBy().contains(userId)) {
 
 					System.out.println("user " + userId
 							+ " has already liked Discuss = " + discussId);
 
 				} else {
+					
 					System.out
 							.println("About to create new discuss user like...");
 					// create a new user discuss like
 					newDiscussUserLike = new DiscussUserLikes(userId,
-							discussId, "1");
+							discussId,discussId,"D");
 					discussUserLikesRepository.save(newDiscussUserLike);
-
-					// Now increment the discuss collection aggrLikeCount
-
-					int aggrLikeCount = discuss.getAggrLikeCount();
-					newCount = aggrLikeCount + 1;
-					//System.out.println("## new count ## " + newCount);
-					discuss.setAggrLikeCount(newCount);
+					discuss.getLikedBy().add(userId);
 					discussRepository.save(discuss);
 
 				}
 			}
-			System.out.println("Discuss after call to User Like = " + discuss.getAggrLikeCount());
-			return discuss;
+			return discussResponse.getDiscussEntity(discuss, Util.getSessionUser(req));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

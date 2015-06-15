@@ -17,6 +17,7 @@ public class GetByWebApplicationInitializer implements
 	public void onStartup(ServletContext servletContext)
 			throws ServletException {
 		System.out.println("***Starting by application ***");
+		System.setProperty("rootPath", servletContext.getRealPath("/"));
 		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
 		webApplicationContext.register(ApplicationConfig.class,
 				WebMvcConfig.class);

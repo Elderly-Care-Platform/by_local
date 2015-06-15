@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -40,6 +43,7 @@ public class UserController {
 
 	private UserRepository userRepository;
 	private MongoTemplate mongoTemplate;
+	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	public UserController(UserRepository userRepository,
@@ -51,21 +55,16 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody LoginResponse login(
-			@RequestBody LoginRequest loginRequest) {
-		// System.out.println("Inside LoginController login");
-		// System.out.println("loginRequest = " + loginRequest);
-		System.out.println("login request email = " + loginRequest.getEmail());
-		System.out.println("login request password = "
-				+ loginRequest.getPassword());
+			@RequestBody LoginRequest loginRequest,HttpServletRequest req) {
 
 		Query q = new Query();
-		// ??????q.addCriteria(Criteria.where("email").is(loginRequest.getEmail()).and("password").is(loginRequest.getPassword()).and("isActive").is("Active"));
 		q.addCriteria(Criteria.where("email").is(loginRequest.getEmail())
 				.and("password").is(loginRequest.getPassword()));
 
 		// admin login
 		if (loginRequest.getEmail().equals("admin")
 				&& loginRequest.getPassword().equals("password")) {
+			logger.debug("admin user logged in into the system");
 			LoginResponse response = new LoginResponse();
 			response.setSessionId(UUID.randomUUID().toString());
 			response.setStatus("OK admin");
@@ -75,10 +74,10 @@ public class UserController {
 		}
 		// normal user login
 		else {
-			System.out.println("Trying to login normal user...");
-			boolean exists = mongoTemplate.exists(q, User.class);
-			if (!exists) {
-				System.out.println("No such user exist");
+			User user = mongoTemplate.findOne(q, User.class);
+			if (null == user) {
+				logger.debug("log in failed with userId = "+ loginRequest.getEmail());
+				req.getSession().setAttribute("user", null);
 				LoginResponse response = new LoginResponse();
 				response.setSessionId(null);
 				response.setStatus("Login failed. Please check your credentials.");
@@ -86,9 +85,8 @@ public class UserController {
 				response.setUserName("");
 				return response;
 			} else {
-				User user = mongoTemplate.findOne(q, User.class);
-				System.out.println("User exists :: userid = " + user.getId()
-						+ " :: username = " + user.getUserName());
+				logger.debug("user logged in into the system with userId = "+ user.getId() + " and email  as  "+user.getEmail());
+				req.getSession().setAttribute("user", user);
 				LoginResponse response = new LoginResponse();
 				response.setSessionId(UUID.randomUUID().toString());
 				response.setStatus("OK other user");
@@ -101,10 +99,10 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/logout/{sessionId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody LoginResponse logout(
-			@PathVariable("sessionId") String sessionId) {
+			@PathVariable("sessionId") String sessionId,HttpServletRequest req) {
 		try {
-			System.out.println("Inside LoginController logout, session id = "
-					+ sessionId);
+			req.getSession().invalidate();
+			logger.debug("user logged out successfully with sessionId = "+ sessionId);
 			LoginResponse response = new LoginResponse();
 			response.setSessionId(null);
 			response.setStatus("");
@@ -129,31 +127,32 @@ public class UserController {
 	// create user - registration
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public User submitUser(@RequestBody User user)
+	public LoginResponse submitUser(@RequestBody User user)
 			throws Exception {
+		LoginResponse response = new LoginResponse();
+		
 		if (user == null || user.getId() == null || user.getId().equals("")) {
-			System.out.println("NEW USER");
 			try {
 				Query q = new Query();
 				q.addCriteria(Criteria.where("email").is(user.getEmail()));
 				if (userRepository.exists(q.toString())) {
 					ResponseEntity<String> responseEntity = new ResponseEntity<String>(
 							"Email already exists!", HttpStatus.CREATED);
-					System.out.println("responseEntity = " + responseEntity);
+					logger.debug("user with the same emailId already exist = "+user.getEmail());
 					throw new Exception("Email already exists!");
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userRepository.save(userWithExtractedInformation);
-				ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(
-						new Object(), HttpStatus.CREATED);
-				System.out.println("responseEntity = " + responseEntity);
-				return userWithExtractedInformation;
+				response.setSessionId(UUID.randomUUID().toString());
+				response.setStatus("New user created");
+				response.setId(userWithExtractedInformation.getId());
+				response.setUserName(userWithExtractedInformation.getUserName());
+				return response;
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error(e.getStackTrace());
 				ResponseEntity<String> responseEntity = new ResponseEntity<String>(
 						"Error while registering user!", HttpStatus.CREATED);
-				System.out.println("responseEntity = " + responseEntity);
-				// return responseEntity;
+				logger.error("error occured while creating the user");
 				throw e;
 			}
 
@@ -169,10 +168,11 @@ public class UserController {
 			editedUser.setUserRoleId(user.getUserRoleId());
 			editedUser.setActive(user.isActive());
 			userRepository.save(editedUser);
-			ResponseEntity<Object> responseEntity = new ResponseEntity<>(
-					HttpStatus.CREATED);
-			System.out.println("responseEntity = " + responseEntity);
-			return editedUser;
+			response.setSessionId(UUID.randomUUID().toString());
+			response.setStatus("New user created");
+			response.setId(editedUser.getId());
+			response.setUserName(editedUser.getUserName());
+			return response;
 		}
 
 	}
@@ -212,11 +212,10 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Void> deleteUser(@PathVariable("userId") String userId) {
-		System.out.println("Inside DELETE user");
 		userRepository.delete(userId);
 		ResponseEntity<Void> responseEntity = new ResponseEntity<>(
 				HttpStatus.CREATED);
-		System.out.println("responseEntity = " + responseEntity);
+		logger.info("user deleted with userId = "+userId);
 		return responseEntity;
 	}
 

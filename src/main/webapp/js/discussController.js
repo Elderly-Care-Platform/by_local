@@ -102,7 +102,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 byControllers.controller('DiscussCategoryController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicAllSubTopicList', 'DiscussOneTopicAllSubTopicListCount', 'DiscussUserLikes',
     function ($scope, $rootScope, $location, $routeParams, DiscussOneTopicAllSubTopicList, DiscussOneTopicAllSubTopicListCount, DiscussUserLikes, Discuss) {
         //alert("Discuss ALl = " + $location.path());
-        $scope.showme = true;
+		$scope.showme = true;
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "views/discuss/discussLeftPanel.html";
         $scope.discussionViews.contentPanel = "views/discuss/discussContentPanel.html";

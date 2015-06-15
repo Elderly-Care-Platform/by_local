@@ -1102,15 +1102,12 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
     $scope.createNewComment = function(typeId, disId, parId, disType)
     {
 
-		//only read-only allowed without login
-		/*if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+    	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 		{
 			$rootScope.nextLocation = $location.path();
 			$location.path('/users/login');
-
 		}
 		else
-		*/
 		{
 			$rootScope.parId = parId;
 			$scope.type = typeId;

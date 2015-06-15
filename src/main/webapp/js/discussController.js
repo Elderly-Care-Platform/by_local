@@ -1,12 +1,21 @@
 //DIscuss All
-byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes',
-    function ($scope, $rootScope, $location , $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes) {
+byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','Discuss',
+    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss) {
+		$scope.showme = true;
         $scope.discuss = DiscussList.query();
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "views/discuss/discussLeftPanel.html";
         $scope.discussionViews.contentPanel = "views/discuss/discussContentPanel.html";
 
+        $scope.editor = {};
+        $scope.editor.articlePhotoFilename = "";
+        $scope.error = "";
+        $scope.editor.subject = "";
         var discussType = $routeParams.discussType;
+        
+        
+        var topicId = $routeParams.topicId;
+        var subTopicId = $routeParams.subTopicId;
 
         if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {
             discussType = 'All';
@@ -43,13 +52,56 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
 			}
 		}
+        
+        $scope.add = function (type) {
+        	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+			{
+				$rootScope.nextLocation = $location.path();
+				$location.path('/users/login');
+			}
+			else
+			{
+				$scope.error = "";
+	            $scope.discussionViews.contentPanel = "views/home/home" + type + "EditorPanel.html";
+	            window.scrollTo(0, 0);
+			}
+            
+        }
+        
+        $scope.register = function (discussType) {
+            $scope.discuss = new Discuss();
+            $scope.discuss.discussType = discussType;
+            $scope.discuss.text = tinyMCE.activeEditor.getContent();
+            $scope.discuss.title = $scope.editor.subject;
+            $scope.discuss.articlePhotoFilename = $scope.editor.articlePhotoFilename;
+            $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
+                return [value];
+            });
+            //putting the userId to discuss being created
+            $scope.discuss.userId = localStorage.getItem("USER_ID");
+            $scope.discuss.username = localStorage.getItem("USER_NAME");
+            if($scope.discuss.topicId.length >0){
+                $scope.error = "";
+                $scope.discuss.$save(function (discuss, headers) {
+
+                    BY.selectedCategoryList = {};
+                    $route.reload();
+                });
+
+            }else{
+                $scope.error = "Please select atleast 1 category";
+            }
+            //save the discuss
+
+
+        };
  	}]);
 
 
 byControllers.controller('DiscussCategoryController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicAllSubTopicList', 'DiscussOneTopicAllSubTopicListCount', 'DiscussUserLikes',
-    function ($scope, $rootScope, $location, $routeParams, DiscussOneTopicAllSubTopicList, DiscussOneTopicAllSubTopicListCount, DiscussUserLikes) {
+    function ($scope, $rootScope, $location, $routeParams, DiscussOneTopicAllSubTopicList, DiscussOneTopicAllSubTopicListCount, DiscussUserLikes, Discuss) {
         //alert("Discuss ALl = " + $location.path());
-        $scope.showme = false;
+        $scope.showme = true;
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "views/discuss/discussLeftPanel.html";
         $scope.discussionViews.contentPanel = "views/discuss/discussContentPanel.html";
@@ -120,7 +172,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         //code to prevent users from creating posts and questions when sub topic = all
         if ($location.path().endsWith('/all') && subTopicId=== "all") {
-            $scope.showme = false;
+            $scope.showme = true;
         }
 
         $rootScope.bc_topic = topicId;

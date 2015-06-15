@@ -781,7 +781,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
 			$scope.discuss.username = localStorage.getItem("USER_NAME");
-			if($scope.discuss.topicId.length >0){
+			if(Object.keys(BY.selectedCategoryList).length >0){
 				$scope.error = "";
 				$scope.discuss.$save(function (discuss, headers) {
 	                $scope.editor.subject = "";

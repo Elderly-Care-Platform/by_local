@@ -1,6 +1,7 @@
 //DIscuss All
 byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','Discuss',
     function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss) {
+		$scope.preSelected = {};
 		$scope.showme = true;
         $scope.discuss = DiscussList.query();
         $scope.discussionViews = {};
@@ -146,6 +147,7 @@ byControllers.controller('DiscussCategoryController', ['$scope', '$rootScope', '
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicOneSubTopicList',
     'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes', 'Discuss',
     function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss) {
+		$scope.preSelected = {};
 
         $scope.showme = true;
         $scope.discussionViews = {};
@@ -160,6 +162,14 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         
         var topicId = $routeParams.topicId;
         var subTopicId = $routeParams.subTopicId;
+        if($rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()]){
+        	$scope.preSelected[$rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()]] = true;
+        	BY.selectedCategoryList[$rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()]] = $rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()] ;
+        }
+        if($rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]){
+        	$scope.preSelected[$rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]] = true;
+        	BY.selectedCategoryList[$rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]] = $rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()] ;
+        }
         
         var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
         var subTopicQueryId = (subTopicId=== "all") ? "all" : $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()];
@@ -177,6 +187,9 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         $rootScope.bc_topic = topicId;
         $rootScope.bc_subTopic = subTopicId;
+        
+        
+        
         $rootScope.bc_discussType = discussType === '' ? 'A' : discussType;
 
         //query to get the numbers

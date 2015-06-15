@@ -22,7 +22,7 @@
         <div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryList">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{category.id}}>
+                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{category.id}} ng-model="preSelected[category.id]">
                     <a class="accordion-toggle collapsed editor_categories" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
                         {{category.name}}
                     </a>
@@ -30,7 +30,7 @@
             </div>
             <div id={{category.id}} class="row panel-collapse collapse">
                 <div class="panel-body col-md-4" ng-repeat="subCategory in category.children">
-                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{subCategory.id}}> {{subCategory.name}}
+                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{subCategory.id}} ng-model="preSelected[subCategory.id]"> {{subCategory.name}}
                 </div>
             </div>
 

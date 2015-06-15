@@ -656,12 +656,12 @@ function ($scope,$location, $rootScope) {
 	localStorage.removeItem(2);
 
 	var element = document.getElementById("login_placeholder");
-	element.innerHTML = "Login";
-	element.href = "/#/users/login";
+	element.innerHTML = "";
+	element.href = "";
 
 	var pro = document.getElementById('profile_placeholder');
-	pro.innerHTML = "Signup";
-	pro.href = "/#/users/new";
+	pro.innerHTML = "JOIN US";
+	pro.href = "/#/users/login";
 
 
 	$location.path("/users/login");

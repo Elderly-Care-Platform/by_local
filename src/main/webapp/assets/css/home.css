@@ -1,5 +1,5 @@
 .by_home_content {
-    margin-top: 38px;
+    margin-top: 37px;
 }
 
 .by_breadcrumbs_container {
@@ -14,8 +14,10 @@
     border-width: 0px;
     border-color: #cfcfcf;
     border-right-width: 1px;
+    font-size: 14px !important;
 
 }
+
 
 .by_left_panel_fixed {
     position: fixed;
@@ -26,8 +28,12 @@
     border-color: #cfcfcf;
     border-right-width: 1px;
     padding-right: 0px; !important;
+
 }
 
+.by_left_panel_fixed a {
+    color: #001f0e !important;
+}
 /*@media (min-width: 850px){*/
     /*.by_left_panel_fixed{*/
         /*position:static;*/
@@ -66,7 +72,7 @@
     .by_left_panel_fixed{
         position: fixed;
         width: 21%;
-        /*left: 95px;*/
+        left: 95px;
     }
 }
 /*@media (max-width: 1000px){*/
@@ -99,8 +105,8 @@
 
 .by_leftPanel_icons span {
     font-family: Open Sans;
-    color: #8b8b8b;
-    font-size: 14px; /* Approximation due to font substitution */
+    color: #001f0e;
+    font-size: 16px; /* Approximation due to font substitution */
     font-weight: 400;
     line-height: 18px; /* Approximation due to font substitution */
 }
@@ -254,7 +260,7 @@
 }
 
 .by_discuss_card_info li {
-    margin: 10px 5px 3px 0;
+    margin:  5px 3px 0;
     padding: 0px !important;
 }
 

@@ -45,7 +45,7 @@
 .header .topbar ul.loginbar > li > a, 
 .header .topbar ul.loginbar > li > a:hover {
 	color: #7c8082;
-	font-size: 11px;
+	font-size: 13px;
 	text-transform: uppercase;
 }
 
@@ -513,7 +513,7 @@
 .header .dropdown-submenu > a:after {
     top: 8px;
     right: 9px;
-    font-size: 11px;
+    font-size: 13px;
     content: "\f105";
     position: absolute;
     font-weight: normal;
@@ -819,7 +819,7 @@
     .header .mega-menu .mega-menu-content li a:after {
         top: 7px;
         left: 15px;
-        font-size: 11px;
+        font-size: 13px;
         content: "\f105";
         position: absolute;
         font-weight: normal;

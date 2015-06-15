@@ -10,7 +10,7 @@
 
 <div ng-repeat="article in articles" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"
      data-link="articles.html">
-    <div ng-click="go($event, 'id', article.id, article.discussType)" class="col-md-12 by_card">
+    <div ng-click="go($event, 'id', article.id, article.discussType)" class="col-md-12" style="padding-left: 0px;">
         <img class="img-responsive" src={{article.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">
 
         <div class="by_card_info">
@@ -19,7 +19,7 @@
                     <p class="by_captilize_first_letter">Article by <a class="by_captilize_first_letter" href="">{{article.username}}</a>
                     </p>
                 </li>
-                <li ng-show="article.topicId.length > 0">In
+                <li ng-if="article.topicId && article.topicId.length > 0">In
                     <a ng-click="go($event,'name', article.topicId[0])" class="by_captilize_first_letter">
                         {{$root.discussCategoryListMap[article.topicId[0]].name}}
                     </a>

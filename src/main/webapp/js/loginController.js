@@ -43,6 +43,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 					{
 						$location.path("/users/home");
 					}
+                    document.getElementById("login_placeHolder_li").style.opacity = "1";
                     var element = document.getElementById("login_placeholder");
                     element.innerHTML = "Logout";
                     element.href = apiPrefix + "#/users/logout/" + login.sessionId;
@@ -81,6 +82,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                  localStorage.setItem("USER_ID", login.id);
                  localStorage.setItem("USER_NAME", login.userName);
                  $location.path("/users/home");
+                 document.getElementById("login_placeHolder_li").style.opacity = "1";
                  var element = document.getElementById("login_placeholder");
                  element.innerHTML = "Logout";
                  element.href = apiPrefix + "#/users/logout/" + login.sessionId;
@@ -116,6 +118,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 					{
 						$location.path("/users/home");
 					}
+                    document.getElementById("login_placeHolder_li").style.opacity = "1";
                     var element = document.getElementById("login_placeholder");
                     element.innerHTML = "Logout";
                     element.href = apiPrefix + "#/users/logout/" + login.sessionId;

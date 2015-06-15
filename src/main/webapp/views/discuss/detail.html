@@ -108,12 +108,11 @@
 				</div>
                 <div class="article-share-links news-v3">
                     <ul class="post-shares post-shares-lg">
-                        <li class="add-comment"><i
-                                class="rounded-x icon-speech"></i> <span>{{discuss.aggrReplyCount}}</span>
-                            <a>
-                                <div class="post-text post_text-comment"
-                                     ng-click="createNewComment('A', discuss.id,'', 'A')"
-                                     ng-controller="DiscussDetailController">Comment
+                        <li class="add-comment">
+                            <a ng-click="createNewComment('A', discuss.id,'', 'A')"
+                                     ng-controller="DiscussDetailController">
+                                     <i class="rounded-x icon-speech"></i> <span>{{discuss.aggrReplyCount}}</span>
+                                <div class="post-text post_text-comment">Comment
                                 </div>
                             </a>
                         </li>
@@ -179,11 +178,11 @@
 			</div>
 			<p ng-bind-html="comment.discussCommenContent"></p>
 			<ul class="post-shares post-shares-lg">
-				<li class="add-comment"><a> <i
-						class="rounded-x icon-speech" ng-click="createNewComment('C', '', comment.id, 'A')" ng-controller="DiscussDetailController"></i> <span>{{comment.discussCommentCommentCount}}</span>
+				<li class="add-comment"><a ng-click="createNewComment('C', '', comment.id, 'A')" ng-controller="DiscussDetailController"> <i
+						class="rounded-x icon-speech" ></i> <span>{{comment.discussCommentCommentCount}}</span>
 						<div class="post-text">Comment</div>
 				</a></li>
-				<li><a href='' ng-click="UserCommentLike(discuss.userId,comment.id)"> <i class="rounded-x icon-heart"></i> <span>comment.discussCommentLikeCount</span>
+				<li><a href='' ng-click="UserCommentLike(discuss.userId,comment.id)"> <i class="rounded-x icon-heart"></i> <span>{{comment.discussCommentLikeCount}}</span>
 						<div class="post-text">Like</div>
 				</a></li>
 			</ul>

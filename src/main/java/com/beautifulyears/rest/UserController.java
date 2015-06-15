@@ -135,7 +135,7 @@ public class UserController {
 			try {
 				Query q = new Query();
 				q.addCriteria(Criteria.where("email").is(user.getEmail()));
-				if (userRepository.exists(q.toString())) {
+				if (mongoTemplate.count(q, User.class) > 0) {
 					ResponseEntity<String> responseEntity = new ResponseEntity<String>(
 							"Email already exists!", HttpStatus.CREATED);
 					logger.debug("user with the same emailId already exist = "+user.getEmail());

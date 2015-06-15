@@ -81,7 +81,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
-            if($scope.discuss.topicId.length >0){
+            if($scope.discuss.topicId.length >0 && $scope.discuss.text.trim().length > 0){
                 $scope.error = "";
                 $scope.discuss.$save(function (discuss, headers) {
 
@@ -90,7 +90,11 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                 });
 
             }else{
-                $scope.error = "Please select atleast 1 category";
+            	if($scope.discuss.text.trim().length <= 0){
+					$scope.error = "Please add details";
+				}else{
+					$scope.error = "Please select atleast 1 category";
+				}
             }
             //save the discuss
 
@@ -119,6 +123,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                 }else{
                     $location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
                 }
+            }else if(type = "accordian"){
+                $($event.target).find('a').click();
             }
 
         }
@@ -316,6 +322,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
                 }else{
                     $location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
                 }
+            }else if(type = "accordian"){
+                $($event.target).find('a').click();
             }
 
         }

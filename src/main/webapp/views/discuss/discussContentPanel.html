@@ -36,7 +36,7 @@
                     <span>{{discuss.aggrReplyCount}}</span>
 
                     <i ng-if="discuss.discussType == 'Q'" class="rounded-x fa fa-pencil-square-o"></i>
-                    <span>0</span>
+                    <span>{{discuss.aggrReplyCount}}</span>
                 </li>
                 <li ng-if="discuss.discussType == 'A'">
                     <i class="rounded-x icon-share"></i>
@@ -53,7 +53,7 @@
 
 
             <div class="by_card_heading">
-                <a href="#/discuss/{{article.id}}">{{discuss.title}}</a>
+                <a href="#/discuss/{{discuss.id}}">{{discuss.title}}</a>
             </div>
         </div>
 

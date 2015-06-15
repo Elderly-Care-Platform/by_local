@@ -781,7 +781,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
 			$scope.discuss.username = localStorage.getItem("USER_NAME");
-			if(Object.keys(BY.selectedCategoryList).length >0){
+			if(Object.keys(BY.selectedCategoryList).length > 0 && $scope.discuss.text.trim().length > 0){
 				$scope.error = "";
 				$scope.discuss.$save(function (discuss, headers) {
 	                $scope.editor.subject = "";
@@ -790,7 +790,12 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	            });
 				
 			}else{
-				$scope.error = "Please select atleast 1 category";
+				if($scope.discuss.text.trim().length <= 0){
+					$scope.error = "Please add details";
+				}else{
+					$scope.error = "Please select atleast 1 category";
+				}
+
 			}
             //save the discuss
             
@@ -856,6 +861,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 					
 					$location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
 				}
+			}else if(type = "accordian"){
+				$($event.target).find('a').click();
 			}
 			
 		}

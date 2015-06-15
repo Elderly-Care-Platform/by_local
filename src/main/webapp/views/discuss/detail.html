@@ -172,7 +172,7 @@
 			<p ng-bind-html="comment.discussCommenContent"></p>
 			<ul class="post-shares post-shares-lg">
 				<li class="add-comment"><a> <i
-						class="rounded-x icon-speech" href="#/comment/{{discuss.id}}" ng-click="createNewComment('C', '', comment.id, 'A')" ng-controller="DiscussDetailController"></i> <span>{{comment.discussCommentCommentCount}}</span>
+						class="rounded-x icon-speech" ng-click="createNewComment('C', '', comment.id, 'A')" ng-controller="DiscussDetailController"></i> <span>{{comment.discussCommentCommentCount}}</span>
 						<div class="post-text">Comment</div>
 				</a></li>
 				<li><a href='' ng-click="UserCommentLike(discuss.userId,comment.id)"> <i class="rounded-x icon-heart"></i> <span>comment.discussCommentLikeCount</span>

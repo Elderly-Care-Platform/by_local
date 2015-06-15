@@ -658,6 +658,7 @@ function ($scope,$location, $rootScope) {
 	var element = document.getElementById("login_placeholder");
 	element.innerHTML = "";
 	element.href = "";
+	document.getElementById("login_placeHolder_li").style.opacity = "0";
 
 	var pro = document.getElementById('profile_placeholder');
 	pro.innerHTML = "JOIN US";
@@ -697,6 +698,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 					localStorage.setItem("USER_ID", login.id);
 					localStorage.setItem("USER_NAME", login.userName);
 					$location.path("/users/home");
+					document.getElementById("login_placeHolder_li").style.opacity = "1";
 					var element = document.getElementById("login_placeholder");
 					element.innerHTML = "Logout";
 					element.href = "/#/users/logout/"+login.sessionId;

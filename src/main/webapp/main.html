@@ -120,9 +120,9 @@
                         <!--</li>-->
                         <li><a di-href="#/users/home?type=aboutUs" id="aboutUs_placeholder">ABOUT US</a></li>
                         <li class="topbar-devider"></li>
-                        <li><a href="" id="profile_placeholder">PROFILE</a></li>
-                        <li class="topbar-devider"></li>
-                        <li><a href="#/users/login" id="login_placeholder">JOIN US</a></li>
+                        <li id="profile_placeHolder_li"><a href="" id="profile_placeholder">PROFILE</a></li>
+                        <li id="login_placeHolder_li" class="topbar-devider"></li>
+                        <li ><a href="#/users/login" id="login_placeholder">JOIN US</a></li>
                     </ul>
                 </div>
                 <!-- End Topbar -->
@@ -433,6 +433,7 @@
 					var log = document.getElementById('login_placeholder');
 					log.innerHTML = "Logout";
 					log.href = apiPrefix+"#/users/logout/" + sess;
+					document.getElementById("login_placeHolder_li").style.opacity = "1";
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "Profile";
@@ -449,6 +450,7 @@
 					var element = document.getElementById("login_placeholder");
 					element.innerHTML = "";
 					element.href = "";
+					document.getElementById("login_placeHolder_li").style.opacity = "0";
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "JOIN US";

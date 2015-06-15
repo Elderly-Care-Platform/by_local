@@ -46,13 +46,7 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <div class="breadcrumbs">
-    <div class="container">
-        <div class="pull-left sort-wrapper breadcrumb">SORT BY:
-            <select>
-                <option>Newest</option>
-                <option>Oldest</option>
-            </select>
-        </div>
+    <div class="container by_breadcrumbs_container">
         <ul class="pull-right breadcrumb">
             <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
             <li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all" ng-click="showme=false">{{{true: $root.discussCategoryListMap[bc_topic].name, false: bc_topic}[$root.discussCategoryListMap[bc_topic]!==undefined]}}</a>
@@ -60,13 +54,11 @@
             <li>{{bc_subTopic}}</li>
         </ul>
     </div>
-</div><!--/breadcrumbs-->
-<!--=== End Breadcrumbs ===-->
-<br><p><p>
-<hr class="breadcrumb-divider"/>
+    <hr class="breadcrumb-divider"/>
+</div>
 <!--=== Content Part ===-->
-<div class="container content discussion-page">
-    <div class="row both-container">
+<div class="container by_home_content">
+    <div class="row">
         <div class="col-md-3  by_left_panel" ng-include="discussionViews.leftPanel"></div>
         <div class="col-md-9  by_right_panel" ng-include="discussionViews.contentPanel"></div>
     </div>

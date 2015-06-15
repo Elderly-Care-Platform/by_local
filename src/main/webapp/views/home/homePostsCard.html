@@ -12,7 +12,7 @@
 
 <div ng-repeat="post in posts" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"
      data-link="articles.html">
-    <div ng-click="go($event, 'id', post.id)" class="col-md-12 by_card">
+    <div ng-click="go($event, 'id', post.id, post.discussType)" class="col-md-12 by_card">
         <img class="img-responsive" src={{post.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">
 
         <div class="by_card_info">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="by_card_content" ng-bind-html="trustForcefully(post.text)">
+        <div class="by_card_content" ng-bind-html="trustForcefully(post.text) | limitTo:400">
 
         </div>
     </div>

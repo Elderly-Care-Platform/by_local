@@ -66,7 +66,7 @@
     .by_left_panel_fixed{
         position: fixed;
         width: 21%;
-        left: 95px;
+        /*left: 95px;*/
     }
 }
 /*@media (max-width: 1000px){*/
@@ -159,7 +159,8 @@
     -webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
     padding: 0px;
     background: #fff;
-    /*max-height: 168px;*/
+    max-height: 168px;
+    overflow-y: hidden;
 }
 
 .by_card[data-index="discussion-articles"] {
@@ -231,4 +232,32 @@
     max-width: 150px;
     height: auto;
     width: auto;
+}
+
+.by_card_comment_icons{
+    position: relative;
+    display: inline-block;
+    bottom: 45px;
+    right: -60%;
+    text-align: right;
+}
+
+.by_discuss_card_info {
+    display: inline-block;
+    /*padding: 5px 15px 0px 0px;*/
+    margin-left: 10px;
+}
+
+.by_discuss_card_info ul {
+    margin-bottom: 10px;
+    margin : 0px 0px 0px 0px !important;
+}
+
+.by_discuss_card_info li {
+    margin: 10px 5px 3px 0;
+    padding: 0px !important;
+}
+
+.by_discuss_card_info a {
+    color: #00A24A;
 }

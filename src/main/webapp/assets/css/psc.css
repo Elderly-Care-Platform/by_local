@@ -1417,6 +1417,9 @@
 	display: none;
 }
 @media screen and (max-width: 990px){
+	.header{
+		position: relative;
+	}
 	.article-outer-wrapper, .left-container
 	{
 		margin-left: 0px !important;
@@ -1438,8 +1441,11 @@
 		margin-right: -37px;
 	}
 	.searchWrapper{
+		position: absolute;
+		z-index: 999;
 		width: 196px;
-		margin-top: 0px;
+		margin-top: -76px;
+		right: 16px;
 	}
 	.searchLeft
 	{

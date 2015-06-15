@@ -46,7 +46,8 @@
 				<div class="col-xs-7">
 					<div class="row">Lorem ipsum dolor sit amet, consectetur
 						adipiscing elit. Aenean orci ligula, tincidunt in mattis ac,
-						sagittis eu orci</div>
+                        sagittis eu orci
+                    </div>
 					<div class="row more-link">
 						<a class="linked color-green" href="#">More..</a>
 					</div>
@@ -107,20 +108,25 @@
 						</p>
 					</div>
 				</div>
-				<div class="article-share-links news-v3">
-					<ul class="post-shares post-shares-lg">
-						<li class="add-comment"><a> <i
-								class="rounded-x icon-speech"></i> <span>{{discuss.aggrReplyCount}}</span>
-								<div class="post-text post_text-comment"
-									ng-click="createNewComment('A', discuss.id,'', 'A')"
-									ng-controller="DiscussDetailController">Comment</div>
-						</a></li>
-						<li class="shareClick"><a> <i
-								class="rounded-x icon-share"></i> <span>0</span>
-								<div class="post-text">Share</div>
-						</a>
-							<div class="shareClickWrapper">
-								<div class="shareClickWrapperClose">
+                <div class="article-share-links news-v3">
+                    <ul class="post-shares post-shares-lg">
+                        <li class="add-comment"><i
+                                class="rounded-x icon-speech"></i> <span>{{discuss.aggrReplyCount}}</span>
+                            <a>
+                                <div class="post-text post_text-comment"
+                                     ng-click="createNewComment('A', discuss.id,'', 'A')"
+                                     ng-controller="DiscussDetailController">Comment
+                                </div>
+                            </a>
+                        </li>
+                        <li class="shareClick">
+                            <i class="rounded-x icon-share"></i> <span>0</span>
+                            <a>
+                                <div class="post-text">Share</div>
+                            </a>
+
+                            <div class="shareClickWrapper">
+                                <div class="shareClickWrapperClose">
 									<img src="assets/img/Close-Normal.png" width="19" height="19"
 										alt="" />
 								</div>
@@ -132,14 +138,18 @@
 								</a> <a href="" data-ajax="false"> <img
 									src="assets/img/Mail.png" alt="" />
 								</a> <a href="" data-ajax="false"> <img
-									src="assets/img/twitter-share.png" alt="" />
-								</a>
-							</div></li>
-						<li><a> <i class="rounded-x icon-heart" ng-click="UserLike(bc_userId,discuss.id, $index)" ng-controller="DiscussDetailController"></i> <span id="like_count">{{discuss.aggrLikeCount}}</span>
-								<div class="post-text" ng-click="UserLike(bc_userId,discuss.id, $index)" ng-controller="DiscussDetailController">Like</div>
-						</a></li>
-					</ul>
-				</div>
+                                    src="assets/img/twitter-share.png" alt=""/>
+                            </a>
+                            </div>
+                        </li>
+                        <li> <i class="rounded-x icon-heart" ></i> <span id="like_count">{{discuss.aggrLikeCount}}</span>
+
+                            <a> <div class="post-text" ng-click="UserLike(bc_userId,discuss.id, $index)"
+                                 ng-controller="DiscussDetailController">Like
+                            </div>
+                        </a></li>
+                    </ul>
+                </div>
 
 			</div>
 

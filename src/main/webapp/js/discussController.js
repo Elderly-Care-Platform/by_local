@@ -1,6 +1,6 @@
 //DIscuss All
-byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','Discuss',
-    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss) {
+byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','Discuss','$sce',
+    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss,$sce) {
 		$scope.preSelected = {};
 		$scope.showme = true;
         $scope.discuss = DiscussList.query();
@@ -96,6 +96,33 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
 
         };
+
+        $scope.trustForcefully = function(html) {
+            return $sce.trustAsHtml(html);
+        };
+
+        $scope.go = function($event, type, id, discussType){
+            $event.stopPropagation();
+            if(type === "id"){
+                if(discussType === "A"){
+                    $location.path('/discuss/'+id);
+                }else{
+                    $location.path('/comment/'+id);
+                }
+
+            } else if(type === "name"){
+                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
+                parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
+
+                if(parentCategoryName){
+                    $location.path('/discuss/All/'+ parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
+                }else{
+                    $location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
+                }
+            }
+
+        }
+	
  	}]);
 
 
@@ -271,23 +298,31 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
 
         };
-        
-        $scope.go = function($event, type, id){
-			$event.stopPropagation();
-			if(type === "id"){
-				$location.path('/discuss/'+id);
-			} else if(type === "name"){
-				var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
-					parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
-					
-				if(parentCategoryName){
-					$location.path('/discuss/All/'+ parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
-				}else{
-					$location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
-				}
-			}
-			
-		}
+
+        $scope.go = function($event, type, id, discussType){
+            $event.stopPropagation();
+            if(type === "id"){
+                if(discussType === "A"){
+                    $location.path('/discuss/'+id);
+                }else{
+                    $location.path('/comment/'+id);
+                }
+            } else if(type === "name"){
+                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
+                parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
+
+                if(parentCategoryName){
+                    $location.path('/discuss/All/'+ parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
+                }else{
+                    $location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
+                }
+            }
+
+        }
+
+        $scope.trustForcefully = function(html) {
+            return $sce.trustAsHtml(html);
+        };
 
     }]);
 

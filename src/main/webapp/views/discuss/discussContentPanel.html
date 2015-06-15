@@ -1,143 +1,152 @@
-<div class="col-md-9 col-md-offset-3 md-margin-bottom-40 article-outer-wrapper" ng-repeat="discuss in discuss">
-    <!-- Article Section -->
-    <div class="blog-author margin-bottom-15 main-article" data-index="discussion-articles"
-         ng-show="discuss.discussType == 'A'" data-link="articles.html">
-        <img src={{discuss.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">
+<div ng-repeat="discuss in discuss" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"
+     data-link="articles.html">
 
-        <div class="blog-author-desc news-v3">
-            <div class="article">
-                <div class="article-info">
-                    <ul class="list-inline posted-info">
-                        <li><a href="">By {{discuss.username}}</a></li>
-                        <li><a ng-click="go($event,'name', discuss.topicId[0])">In
-                            {{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
-                        <li>{{discuss.createdAt | date:'medium'}}</li>
-                    </ul>
-                </div>
-                <div class="article-heading" ng-show="discuss.discussType == 'A'">
-                    <a href="#/discuss/{{discuss.id}}">{{!discuss.title && discuss.id || discuss.title}}</a>
-                </div>
-                <div class="article-content">
-                    <p class="lead">
-                        <span ng-bind-html="discuss.text"></span>
+    <!-- show if discuss is of type Article -->
+    <div ng-click="go($event, 'id', discuss.id, discuss.discussType)" class="col-md-12 by_card">
+        <img class="img-responsive" src={{discuss.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">
+
+        <div class="by_discuss_card_info news-v3">
+            <ul class="list-inline posted-info post-shares post-shares-lg">
+                <li>
+                    <p class="by_captilize_first_letter" ng-if="discuss.discussType == 'A'">Article by <a
+                            class="by_captilize_first_letter" href="">{{discuss.username}}</a>
                     </p>
 
-                </div>
-                <div class="article-share-links news-v3">
-                    <ul class="post-shares post-shares-lg">
-                        <li class="add-comment">
-                            <a href="#/discuss/{{discuss.id}}">
-                                <i class="rounded-x icon-speech"></i>
-                                <span>{{discuss.aggrReplyCount}}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="rounded-x icon-share"></i>
-                                <span>0</span>
-                            </a>
-                        </li>
-                        <li class="add-comment" ng-show="discuss.discussType == 'Q'"
-                            ng-hide="discuss.discussType == 'A' || discuss.discussType == 'P'">
-                            <a href="">
-                                <i class="rounded-x fa fa-retweet"></i>
-                                <span>0</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="UserLike(bc_userId,discuss.id,$index)">
-                                <i class="rounded-x icon-heart"></i>
-                                <span id="like_count_message"></span>
-                                <span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Question Section -->
-    <div class="blog-author margin-bottom-15 main-article" data-index="discussion-QA" data-answers="0" data-question="1"
-         data-link="discussion_QA.html" ng-show="discuss.discussType == 'Q'">
-        <img src={{discuss.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">
-
-        <div class="blog-author-desc news-v3">
-            <div class="article">
-                <div class="article-info">
-                    <ul class="list-inline posted-info">
-                        <li><p class="question-first-letter">Question By <a href="">{{discuss.username}}</a></p></li>
-                        <li>In <a ng-click="go($event,'name', discuss.topicId[0])">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
-                        </li>
-                        <li>{{discuss.createdAt | date:'medium'}}</li>
-                    </ul>
-                </div>
-                <div class="article-content">
-                    <p class="lead">
-                        <span ng-bind-html="discuss.text"></span>
+                    <p class="by_captilize_first_letter" ng-if="discuss.discussType == 'Q'">Question by <a
+                            class="by_captilize_first_letter" href="">{{discuss.username}}</a>
                     </p>
-                </div>
-                <div class="article-share-links news-v3">
-                    <ul class="post-shares post-shares-lg">
-                        <li class="add-comment">
-                            <a href="#/comment/{{discuss.id}}">
-                                <i class="rounded-x fa fa-pencil-square-o"></i>
-                                <span>{{discuss.aggrReplyCount}}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="UserLike(bc_userId,discuss.id, $index)">
-                                <i class="rounded-x icon-heart"></i>
-                                <span id="like_count_message"></span>
-                                <span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
-
-    <!-- Posts Section -->
-    <div class="blog-author margin-bottom-15 main-article" data-index="discussion-posts" data-link="discussion_qa.html"
-         ng-show="discuss.discussType == 'P'">
-        <img src={{discuss.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">
-
-        <div class="blog-author-desc news-v3">
-            <div class="article">
-                <div class="article-info">
-                    <ul class="list-inline posted-info">
-                        <li><p class="post-first-letter">Post By <a href="">{{discuss.username}}</a></p></li>
-                        <li>In <a ng-click="go($event,'name', discuss.topicId[0])">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
-                        </li>
-                        <li>{{discuss.createdAt | date:'medium'}}</li>
-                    </ul>
-                </div>
-                <div class="article-content">
-                    <p class="lead">
-                        <span ng-bind-html="discuss.text"></span>
+                    <p class="by_captilize_first_letter" ng-if="discuss.discussType == 'P'">Post by <a
+                            class="by_captilize_first_letter" href="">{{discuss.username}}</a>
                     </p>
-                </div>
-                <div class="article-share-links news-v3">
-                    <ul class="post-shares post-shares-lg">
-                        <li class="add-comment">
-                            <a href="#/comment/{{discuss.id}}">
-                                <i class="rounded-x icon-speech"></i>
-                                <span>{{discuss.aggrReplyCount}}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="UserLike(bc_userId,discuss.id,$index)">
-                                <i class="rounded-x icon-heart"></i>
-                                <span id="like_count_message"></span>
-                                <span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                </li>
+                <li ng-if="discuss.topicId.length > 0"> In
+                    <a ng-click="go($event,'name', discuss.topicId[0])" class="by_captilize_first_letter">
+                        {{$root.discussCategoryListMap[discuss.topicId[0]].name}}
+                    </a>
+                </li>
+                <li>{{discuss.createdAt | date : 'MMM d, yyyy'}}</li>
+
+                <!--//icons section-->
+                <li class="add-comment">
+                    <i class="rounded-x icon-speech" ng-if="discuss.discussType == 'A'"></i>
+                    <span>{{discuss.aggrReplyCount}}</span>
+
+                    <i class="rounded-x icon-speech" ng-if="discuss.discussType == 'P'"></i>
+                    <span>{{discuss.aggrReplyCount}}</span>
+
+                    <i ng-if="discuss.discussType == 'Q'" class="rounded-x fa fa-pencil-square-o"></i>
+                    <span>0</span>
+                </li>
+                <li ng-if="discuss.discussType == 'A'">
+                    <i class="rounded-x icon-share"></i>
+                    <span>0</span>
+                </li>
+                <li>
+                    <i class="rounded-x icon-heart"></i>
+                    <span id="like_count_message"></span>
+                    <span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
+                </li>
+
+                <!--//icons section-->
+            </ul>
+
+
+            <div class="by_card_heading">
+                <a href="#/discuss/{{article.id}}">{{discuss.title}}</a>
             </div>
         </div>
+
+        <div class="by_card_content" ng-bind-html="discuss.text"></div>
+        <!--<div class="by_card_comment_icons news-v3">-->
+            <!--<ul class="post-shares post-shares-lg by_card_comment_icons">-->
+
+            <!--</ul>-->
+        <!--</div>-->
+
     </div>
 </div>
+
+
+<!--Question Section-->
+<!--<div class="blog-author margin-bottom-15 main-article" data-index="discussion-QA" data-answers="0" data-question="1"-->
+<!--data-link="discussion_QA.html" ng-show="discuss.discussType == 'Q'">-->
+<!--<img src={{discuss.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">-->
+
+<!--<div class="blog-author-desc news-v3">-->
+<!--<div class="article">-->
+<!--<div class="article-info">-->
+<!--<ul class="list-inline posted-info">-->
+<!--<li><p class="question-first-letter">Question By <a href="">{{discuss.username}}</a></p></li>-->
+<!--<li>In <a ng-click="go($event,'name', discuss.topicId[0])">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>-->
+<!--</li>-->
+<!--<li>{{discuss.createdAt | date:'medium'}}</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="article-content">-->
+<!--<p class="lead">-->
+<!--<span ng-bind-html="discuss.text"></span>-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="article-share-links news-v3">-->
+<!--<ul class="post-shares post-shares-lg">-->
+<!--<li class="add-comment">-->
+<!--<a href="#/comment/{{discuss.id}}">-->
+<!--<i class="rounded-x fa fa-pencil-square-o"></i>-->
+<!--<span>{{discuss.aggrReplyCount}}</span>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li>-->
+<!--<a href="" ng-click="UserLike(bc_userId,discuss.id, $index)">-->
+<!--<i class="rounded-x icon-heart"></i>-->
+<!--<span id="like_count_message"></span>-->
+<!--<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>-->
+<!--</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash; Posts Section &ndash;&gt;-->
+<!--<div class="blog-author margin-bottom-15 main-article" data-index="discussion-posts" data-link="discussion_qa.html"-->
+<!--ng-show="discuss.discussType == 'P'">-->
+<!--<img src={{discuss.articlePhotoFilename}} alt="image" fallback-src="assets/img/by.png">-->
+
+<!--<div class="blog-author-desc news-v3">-->
+<!--<div class="article">-->
+<!--<div class="article-info">-->
+<!--<ul class="list-inline posted-info">-->
+<!--<li><p class="post-first-letter">Post By <a href="">{{discuss.username}}</a></p></li>-->
+<!--<li>In <a ng-click="go($event,'name', discuss.topicId[0])">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>-->
+<!--</li>-->
+<!--<li>{{discuss.createdAt | date:'medium'}}</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="article-content">-->
+<!--<p class="lead">-->
+<!--<span ng-bind-html="discuss.text"></span>-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="article-share-links news-v3">-->
+<!--<ul class="post-shares post-shares-lg">-->
+<!--<li class="add-comment">-->
+<!--<a href="#/comment/{{discuss.id}}">-->
+<!--<i class="rounded-x icon-speech"></i>-->
+<!--<span>{{discuss.aggrReplyCount}}</span>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li>-->
+<!--<a href="" ng-click="UserLike(bc_userId,discuss.id,$index)">-->
+<!--<i class="rounded-x icon-heart"></i>-->
+<!--<span id="like_count_message"></span>-->
+<!--<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>-->
+<!--</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

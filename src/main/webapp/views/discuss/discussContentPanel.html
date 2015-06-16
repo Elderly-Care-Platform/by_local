@@ -8,22 +8,22 @@
         <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">
         <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
-                <li class="add-comment">
+                <li class="add-comment" >
                     <a href="#">
                         <i class="rounded-x icon-speech"></i>
-                        <span>{{discuss.aggrReplyCount}}</span>
-                    </a>
-                </li>
-                <li ng-if="discuss.discussType == 'A'">
-                    <a href="#">
-                        <i class="rounded-x icon-share"></i>
-                        <span></span>
+                        <span ng-if="discuss.aggrReplyCount > 0">{{discuss.aggrReplyCount}}</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
+                        <i class="rounded-x icon-share"></i>
+                        <!--<span>0</span>-->
+                    </a>
+                </li>
+                <li >
+                    <a href="#">
                         <i class="rounded-x icon-heart"></i>
-                        <span>{{discuss.aggrLikeCount}}</span>
+                        <span ng-if="discuss.aggrLikeCount > 0">{{discuss.aggrLikeCount}}</span>
                     </a>
                 </li>
             </ul>
@@ -35,20 +35,20 @@
                     <p class="article-first-letter" ng-if="discuss.discussType == 'Q'">Question by <a href="#">{{discuss.username}}</a></p>
                     <p class="article-first-letter" ng-if="discuss.discussType == 'P'">Post by <a href="#">{{discuss.username}}</a></p>
                 </li>
-                <li ng-if="discuss.topicId.length > 0">In <a href="#">
+                <li ng-if="discuss.topicId.length > 0">In <a ng-click="go($event,'name', discuss.topicId[0])">
                     {{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
                 <li>{{discuss.createdAt | date : 'MMM d, yyyy'}}</li>
             </ul>
         </div>
 
-        <div class="article">
+        <div class="article" ng-if="discuss.discussType == 'A'">
             <div class="article-heading"><p style="text-transform: capitalize">{{discuss.title}}</p>
             </div>
-            <div class="article-share-links news-v3"></div>
         </div>
 
         <div class="articles-story" ng-bind-html="discuss.text">
         </div>
+        <div style="clear: both"></div>
     </div>
 </div>
 

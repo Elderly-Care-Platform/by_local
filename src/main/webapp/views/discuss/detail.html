@@ -139,10 +139,10 @@
                             </a>
                             </div>
                         </li>
-                        <li> <i class="rounded-x icon-heart" ></i> <span id="like_count">{{discuss.aggrLikeCount}}</span>
+                        <li ng-controller="DiscussDetailController"><i class="rounded-x icon-heart" ng:class="{true:'isLiked', false:''}[discuss.likedByUser===true]"></i> <span id="like_count">{{discuss.aggrLikeCount}}</span>
 
                             <a> <div class="post-text" ng-click="UserLike(bc_userId,discuss.id, $index)"
-                                 ng-controller="DiscussDetailController">Like
+                                 >Like
                             </div>
                         </a></li>
                     </ul>

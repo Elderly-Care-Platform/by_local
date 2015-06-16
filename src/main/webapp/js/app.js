@@ -944,6 +944,7 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 	  //User Discuss Like method
 	 	 $scope.UserLike = function(userId, discussId, index) {
 			//only read-only allowed without login
+	 		 
 			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 			{
 				$rootScope.nextLocation = $location.path();
@@ -952,7 +953,7 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 			else
 			{
 	 			//Create the new discuss user like
-	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+	 			$scope.discuss = DiscussUserLikes.get({userId:userId, discussId: discussId});
 			}
 
 		}
@@ -1083,7 +1084,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
 	 //User Discuss Like method
 		 $scope.UserLike = function(userId, discussId, index) {
-
+			 if(!$scope.discuss.likedByUser){
 		//only read-only allowed without login
 		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 		{
@@ -1100,6 +1101,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 			}
 			
 		}
+			 }
 
 	}
 

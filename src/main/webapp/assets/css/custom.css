@@ -4,6 +4,10 @@ ng-view{
 	min-height:100vh;
 }
 
+.isLiked{
+	background-color: rgb(239, 196, 108)!important;
+}
+
 .breadcrumb-divider{
 	height: 1px;
 	background-color: green;

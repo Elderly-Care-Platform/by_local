@@ -1093,7 +1093,12 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 		else
 		{
 			//Create the new discuss user like
-			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+			if(index != undefined){
+				$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+			}else{
+				$scope.discuss = DiscussUserLikes.get({userId:userId, discussId: discussId});
+			}
+			
 		}
 
 	}
@@ -1734,14 +1739,14 @@ $(function(){
 	});
 	// If likes exist
 
-	$(".icon-heart").each(function(){
-		$(this).parents("li").addClass("add-like");
-	});
-	$(".add-like a").click(function(e){
-		var l = parseInt($(this).parents("li").find("span").text());
-		l++;
-		$(this).parents("li").find("span").text(l.toString());
-	});
+//	$(".icon-heart").each(function(){
+//		$(this).parents("li").addClass("add-like");
+//	});
+//	$(".add-like a").click(function(e){
+//		var l = parseInt($(this).parents("li").find("span").text());
+//		l++;
+//		$(this).parents("li").find("span").text(l.toString());
+//	});
 	//
 	/*if($(".left-container").length){
 		$(document).on("mousewheel",".left-container",function(e){

@@ -20,6 +20,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $scope.resetError();
             $http.post(apiPrefix + 'api/v1/users/login', user).success(function (login) {
                 if (login.sessionId === null) {
+                	$http.defaults.headers.common.sess = "";
                     $scope.setError(login.status);
                     return;
                 }
@@ -33,6 +34,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                 if ("localStorage" in window) {
                     localStorage.setItem("SessionId", login.sessionId);
+                    $http.defaults.headers.common.sess = login.sessionId;
                     localStorage.setItem("USER_ID", login.id);
                     localStorage.setItem("USER_NAME", login.userName);
                     if($rootScope.nextLocation)
@@ -74,6 +76,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $scope.error = message;
             $scope.message = '';
             $rootScope.SessionId = undefined;
+            $http.defaults.headers.common.sess = "";
         }
 
         $scope.setUserCredential = function(userData){
@@ -108,6 +111,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 //                $scope.setView(1);
                 if ("localStorage" in window) {
                     localStorage.setItem("SessionId", login.sessionId);
+                    $http.defaults.headers.common.sess = login.sessionId;
                     localStorage.setItem("USER_ID", login.id);
                     localStorage.setItem("USER_NAME", login.userName);
                     if($rootScope.nextLocation)

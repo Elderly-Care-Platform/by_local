@@ -637,8 +637,8 @@ byControllers.controller('UserCreate3Controller', ['$scope', '$rootScope', '$rou
 
 
 // Logout Controller
-byControllers.controller('LogoutController', ['$scope', '$location', '$rootScope' ,
-function ($scope,$location, $rootScope) {
+byControllers.controller('LogoutController', ['$scope', '$location', '$rootScope' ,'$http',
+function ($scope,$location, $rootScope, $http) {
 
 	if($rootScope.sessionId != '') {
 			   $location.path("/users/login");
@@ -651,6 +651,7 @@ function ($scope,$location, $rootScope) {
 	localStorage.setItem("SessionId", "");
 	localStorage.setItem("USER_ID", "");
 	localStorage.setItem("USER_NAME", "");
+	$http.defaults.headers.common.sess = "";
 
 	localStorage.removeItem(0);
 	localStorage.removeItem(1);

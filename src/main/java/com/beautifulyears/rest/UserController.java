@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.LoginRequest;
 import com.beautifulyears.domain.LoginResponse;
+import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRolePermissions;
@@ -54,8 +56,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody LoginResponse login(
-			@RequestBody LoginRequest loginRequest,HttpServletRequest req) {
+	public @ResponseBody Session login(
+			@RequestBody LoginRequest loginRequest,HttpServletRequest req,HttpServletResponse res) {
 
 		Query q = new Query();
 		q.addCriteria(Criteria.where("email").is(loginRequest.getEmail())
@@ -65,56 +67,33 @@ public class UserController {
 		if (loginRequest.getEmail().equals("admin")
 				&& loginRequest.getPassword().equals("password")) {
 			logger.debug("admin user logged in into the system");
-			LoginResponse response = new LoginResponse();
-			response.setSessionId(UUID.randomUUID().toString());
-			response.setStatus("OK admin");
-			response.setId("admin");
-			response.setUserName("admin");
-			return response;
+			User user = new User("admin",null,null, null, null, null, null, null, null, null, null);
+			Session session = createSession(req, res,user);
+			return session;
 		}
 		// normal user login
 		else {
 			User user = mongoTemplate.findOne(q, User.class);
 			if (null == user) {
 				logger.debug("log in failed with userId = "+ loginRequest.getEmail());
-				LoginResponse response = new LoginResponse();
-				response.setSessionId(null);
-				req.getSession().setAttribute("user", null);
-				response.setStatus("Login failed. Please check your credentials.");
-				response.setId("");
-				response.setUserName("");
-				return response;
+				Session session = killSession(req, res);
+				return session;
 			} else {
 				logger.debug("user logged in into the system with userId = "+ user.getId() + " and email  as  "+user.getEmail());
-				LoginResponse response = new LoginResponse();
-				response.setSessionId(UUID.randomUUID().toString());
-				req.getSession().setAttribute("user", user);
-				response.setStatus("OK other user");
-				response.setId(user.getId());
-				response.setUserName(user.getUserName());
-				return response;
+				Session session = createSession(req, res,user);
+				return session;
 			}
 		}
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/logout/{sessionId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody LoginResponse logout(
-			@PathVariable("sessionId") String sessionId,HttpServletRequest req) {
+	public @ResponseBody Session logout(
+			@PathVariable("sessionId") String sessionId,HttpServletRequest req,HttpServletResponse res) {
 		try {
-			req.getSession().invalidate();
 			logger.debug("user logged out successfully with sessionId = "+ sessionId);
-			LoginResponse response = new LoginResponse();
-			response.setSessionId(null);
-			req.getSession().setAttribute("user", null);
-			response.setStatus("");
-			return response;
+			return killSession(req, res);
 		} catch (Exception e) {
-			e.printStackTrace();
-			LoginResponse response = new LoginResponse();
-			response.setSessionId(null);
-			req.getSession().setAttribute("user", null);
-			response.setStatus("");
-			return response;
+			return killSession(req, res);
 		}
 	}
 
@@ -129,9 +108,9 @@ public class UserController {
 	// create user - registration
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public LoginResponse submitUser(@RequestBody User user,HttpServletRequest req)
+	public Session submitUser(@RequestBody User user,HttpServletRequest req,HttpServletResponse res)
 			throws Exception {
-		LoginResponse response = new LoginResponse();
+		Session session = null;
 		
 		if (user == null || user.getId() == null || user.getId().equals("")) {
 			try {
@@ -146,11 +125,8 @@ public class UserController {
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userRepository.save(userWithExtractedInformation);
 				req.getSession().setAttribute("user", userWithExtractedInformation);
-				response.setSessionId(UUID.randomUUID().toString());
-				response.setStatus("New user created");
-				response.setId(userWithExtractedInformation.getId());
-				response.setUserName(userWithExtractedInformation.getUserName());
-				return response;
+				session = createSession(req, res, userWithExtractedInformation);
+				return session;
 			} catch (Exception e) {
 				logger.error(e.getStackTrace());
 				ResponseEntity<String> responseEntity = new ResponseEntity<String>(
@@ -171,12 +147,8 @@ public class UserController {
 			editedUser.setUserRoleId(user.getUserRoleId());
 			editedUser.setActive(user.isActive());
 			userRepository.save(editedUser);
-			response.setSessionId(UUID.randomUUID().toString());
-			req.getSession().setAttribute("user", editedUser);
-			response.setStatus("New user created");
-			response.setId(editedUser.getId());
-			response.setUserName(editedUser.getUserName());
-			return response;
+			session = createSession(req, res, editedUser);
+			return session;
 		}
 
 	}
@@ -268,5 +240,21 @@ public class UserController {
 
 		}
 		return user;
+	}
+	
+	private Session createSession(HttpServletRequest req, HttpServletResponse res, User user){
+		
+		Session session = new Session(user);
+		this.mongoTemplate.save(session);
+		req.getSession().setAttribute("session", session);
+		req.getSession().setAttribute("user", user);
+		return session;
+	}
+	
+	private Session killSession(HttpServletRequest req, HttpServletResponse res){
+		Session session = (Session) req.getSession().getAttribute("session");
+		req.getSession().invalidate();
+//		session.setSessionId("");
+		return null;
 	}
 }

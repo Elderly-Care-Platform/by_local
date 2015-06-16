@@ -13,6 +13,11 @@
 	margin-right: auto;
 }
 
+.headerInfoDiv{
+	margin-top: 20px;
+  	margin-left: 10px;
+}
+
 .by_reg-page{
 	padding-top: 15px !important;
 	font-family: Open Sans;

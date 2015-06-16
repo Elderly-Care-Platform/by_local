@@ -1,6 +1,7 @@
 package com.beautifulyears.config;
 
 import interceptors.LoggerInterceptor;
+import interceptors.SessionInterceptor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,6 +28,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoggerInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
 		;
 	}
 }

@@ -453,7 +453,7 @@
 		min-width: 200px;
 		border-radius: 0; 
 		z-index: 9999 !important;
-		border: 2px solid #5fb611; 
+		border: 1px solid #545454;
 		box-shadow: 1px 5px 5px 5px #c5c3c3;
 		-webkit-box-shadow: 1px 5px 5px 5px #c5c3c3;
 		-ms-box-shadow: 1px 5px 5px 5px #c5c3c3;

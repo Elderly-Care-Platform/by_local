@@ -77,18 +77,18 @@ public class UserController {
 			User user = mongoTemplate.findOne(q, User.class);
 			if (null == user) {
 				logger.debug("log in failed with userId = "+ loginRequest.getEmail());
-				req.getSession().setAttribute("user", null);
 				LoginResponse response = new LoginResponse();
 				response.setSessionId(null);
+				req.getSession().setAttribute("user", null);
 				response.setStatus("Login failed. Please check your credentials.");
 				response.setId("");
 				response.setUserName("");
 				return response;
 			} else {
 				logger.debug("user logged in into the system with userId = "+ user.getId() + " and email  as  "+user.getEmail());
-				req.getSession().setAttribute("user", user);
 				LoginResponse response = new LoginResponse();
 				response.setSessionId(UUID.randomUUID().toString());
+				req.getSession().setAttribute("user", user);
 				response.setStatus("OK other user");
 				response.setId(user.getId());
 				response.setUserName(user.getUserName());
@@ -105,12 +105,14 @@ public class UserController {
 			logger.debug("user logged out successfully with sessionId = "+ sessionId);
 			LoginResponse response = new LoginResponse();
 			response.setSessionId(null);
+			req.getSession().setAttribute("user", null);
 			response.setStatus("");
 			return response;
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoginResponse response = new LoginResponse();
 			response.setSessionId(null);
+			req.getSession().setAttribute("user", null);
 			response.setStatus("");
 			return response;
 		}
@@ -127,7 +129,7 @@ public class UserController {
 	// create user - registration
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public LoginResponse submitUser(@RequestBody User user)
+	public LoginResponse submitUser(@RequestBody User user,HttpServletRequest req)
 			throws Exception {
 		LoginResponse response = new LoginResponse();
 		
@@ -143,6 +145,7 @@ public class UserController {
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userRepository.save(userWithExtractedInformation);
+				req.getSession().setAttribute("user", userWithExtractedInformation);
 				response.setSessionId(UUID.randomUUID().toString());
 				response.setStatus("New user created");
 				response.setId(userWithExtractedInformation.getId());
@@ -169,6 +172,7 @@ public class UserController {
 			editedUser.setActive(user.isActive());
 			userRepository.save(editedUser);
 			response.setSessionId(UUID.randomUUID().toString());
+			req.getSession().setAttribute("user", editedUser);
 			response.setStatus("New user created");
 			response.setId(editedUser.getId());
 			response.setUserName(editedUser.getUserName());

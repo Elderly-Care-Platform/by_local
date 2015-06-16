@@ -292,6 +292,9 @@
     padding: 0px !important;
     font-family: century_gothic !important;
     color: #121212 !important;
+
+    max-height: 212px !important;
+    overflow-y: hidden;
 }
 
 .by_blog_author .article-heading{

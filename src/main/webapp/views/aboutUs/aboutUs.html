@@ -1,0 +1,72 @@
+<div ng-controller="LoadCustomJSController"></div>
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<div class="breadcrumbs">
+    <div class="container by_breadcrumbs_container">
+        <ul class="pull-right breadcrumb">
+            <li class="active"><a>HOME</a></li>
+        </ul>
+    </div>
+    <hr class="breadcrumb-divider"/>
+</div>
+<div class="container by_home_content">
+    <div class="row">
+        <div class="col-md-3  by_left_panel">
+            <!--All classes from Unify start-->
+            <div class="col-md-3 by_left_panel_fixed">
+                <div class="scrollableLeftPanelDiv">
+                    <ul class="list-group sidebar-nav-v1 margin-bottom-40 "
+                        id="sidebar-nav">
+                        <li class="list-group-item" data-index="who-we-are"><a
+                                ng-click="accelerate('who_we_are')">WHO WE ARE</a></li>
+                        <li class="list-group-item" data-index="our_services"><a
+                                ng-click="accelerate('our_services')">OUR SERVICES</a>
+                        </li>
+                        <li class="list-group-item" data-index="help_us"><a
+                                ng-click="accelerate('help_us')">WE NEED YOUR HELP </a></li>
+                        <li class="list-group-item" data-index="our_team" ng-click="accelerate('our_team')"><a>OUR
+                            TEAM </a></li>
+                    </ul>
+                    <!--All classes from Unify end-->
+
+                    <div class="row content-boxes-v2 by_left_bottom_panel">
+                        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Question')">
+                            <a>
+                                <h3 class="heading-sm by_leftPanel_icons">
+                                    <i class="icon-custom icon-sm icon_question"></i> <span>Ask
+							a Question</span>
+                                </h3>
+                            </a>
+                        </div>
+                        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Tips')">
+                            <a>
+                                <h3 class="heading-sm by_leftPanel_icons">
+                                    <i class="icon-custom icon-sm icon_tips"></i> <span>Share
+							Tips &amp; Experiences</span>
+                                </h3>
+                            </a>
+                        </div>
+                        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Article')">
+                            <a>
+                                <h3 class="heading-sm by_leftPanel_icons">
+                                    <i class="icon-custom icon-sm icon_story"></i> <span>Publish
+							your Story</span>
+                                </h3>
+                            </a>
+                        </div>
+                        <div class="col-md-12 md-margin-bottom-30" ng-click="add('Feedback')">
+                            <a>
+                                <h3 class="heading-sm by_leftPanel_icons">
+                                    <i class="icon-custom icon-sm icon_feedback"></i> <span>Provide
+							Feedback</span>
+                                </h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9  by_right_panel" ng-include="aboutUsViews.contentPanel"></div>
+    </div>
+</div>
+

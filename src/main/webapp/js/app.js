@@ -327,6 +327,7 @@ byApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
     .when('/users/home', {templateUrl: 'views/home/home.html', controller: 'BYHomeController'})
+    .when('/users/aboutUs', {templateUrl: 'views/aboutUs/aboutUs.html', controller: 'BYAboutUsController'})
     .when('/users/new', {templateUrl: 'views/users/create.html', controller: 'UserCreateController'})
     .when('/userprofile', {templateUrl: 'views/users/create2.html', controller: 'UserCreate2Controller'})
     .when('/dependent', {templateUrl: 'views/users/create3.html', controller: 'UserCreate3Controller'})
@@ -752,7 +753,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         $scope.homeViews = {};
 
-        $scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
+        
 
 		$scope.add = function (type) {
 			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
@@ -808,6 +809,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
             if ($scope.currentView != "content") {
                 $scope.currentView = "content";
+                $scope.homeViews.leftPanel = "views/home/homeLeftPanel.html";
                 $scope.homeViews.contentPanel = "views/home/homeContentPanel.html";
                 $scope.articles = HomeFeaturedContent.query({discussType: 'A'});
                 $scope.questions = HomeFeaturedContent.query({discussType: 'Q'});
@@ -838,6 +840,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         if($routeParams.type === "aboutUs") {
 			$scope.currentView = "aboutUs";
 			$scope.homeViews.contentPanel = "views/home/aboutUs.html";
+			$scope.homeViews.leftPanel = "views/home/aboutUsContentPanel.html";
 		} else	{
 			$scope.currentView = "";
 			$scope.switchToContentView();

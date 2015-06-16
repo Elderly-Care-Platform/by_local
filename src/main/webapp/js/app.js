@@ -370,7 +370,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
        		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
             // no logged user, we should be going to #login
             //Code to allow non-logged in users to visit read only pages
-            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/home/home.html' || next.templateUrl == 'views/users/create.html' || next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html') {
+            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/aboutUs/aboutUs.html' || next.templateUrl == 'views/home/home.html' || next.templateUrl == 'views/users/create.html' || next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html') {
             // already going to #login, no redirect needed
             	
             } else {

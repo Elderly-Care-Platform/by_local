@@ -281,34 +281,35 @@
 }
 /*new css************************************************/
 
-.blog-author img{
+.by_blog_author img{
     width: 135px !important;
     max-height: 168px !important;
     margin-top: 9px !important;
     margin-left: 9px !important;
 }
 
-.blog-author {
+.by_blog_author {
     padding: 0px !important;
     font-family: century_gothic !important;
     color: #121212 !important;
 }
 
-.discussion-page .article-heading{
+.by_blog_author .article-heading{
     font-family: century_gothic !important;
     color: #121212 !important;
 }
 
-.articles-story p{
+.by_blog_author .articles-story p{
     color: #121212 !important;
     font-size: 15px !important;
 }
 
-.news-v3 .post-shares li{
+.by_blog_author .news-v3 .post-shares li{
      margin-left: 0px !important;
 }
 
-.blog-author p, li, li a, label{
+.by_blog_author  p,
+.by_blog_author  li, .by_blog_author   a, .by_blog_author  label{
     color: #121212 !important;
     font-family: century_gothic !important;
 }

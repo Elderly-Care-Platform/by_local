@@ -6,25 +6,24 @@
          data-index="discussion-articles"
          data-link="articles.html">
         <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">
-        <div class="article-share-links news-v3" style="  position: relative;
-        top: -10px;">
+        <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment">
                     <a href="#">
                         <i class="rounded-x icon-speech"></i>
-                        <span>28</span>
+                        <span>{{discuss.aggrReplyCount}}</span>
                     </a>
                 </li>
-                <li>
+                <li ng-if="discuss.discussType == 'A'">
                     <a href="#">
                         <i class="rounded-x icon-share"></i>
-                        <span>355</span>
+                        <span></span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="rounded-x icon-heart"></i>
-                        <span>107</span>
+                        <span>{{discuss.aggrLikeCount}}</span>
                     </a>
                 </li>
             </ul>
@@ -32,98 +31,25 @@
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
-                    <p class="article-first-letter">Story by <a href="#">{{discuss.username}}</a></p></li>
-                <li>In <a href="#">
+                    <p class="article-first-letter" ng-if="discuss.discussType == 'A'">Story by <a href="#">{{discuss.username}}</a></p>
+                    <p class="article-first-letter" ng-if="discuss.discussType == 'Q'">Question by <a href="#">{{discuss.username}}</a></p>
+                    <p class="article-first-letter" ng-if="discuss.discussType == 'P'">Post by <a href="#">{{discuss.username}}</a></p>
+                </li>
+                <li ng-if="discuss.topicId.length > 0">In <a href="#">
                     {{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a></li>
                 <li>{{discuss.createdAt | date : 'MMM d, yyyy'}}</li>
             </ul>
         </div>
 
         <div class="article">
-
             <div class="article-heading"><p style="text-transform: capitalize">{{discuss.title}}</p>
             </div>
-
             <div class="article-share-links news-v3"></div>
         </div>
 
         <div class="articles-story" ng-bind-html="discuss.text">
         </div>
     </div>
-    <!--<div class="row">-->
-    <!--<div class="col-md-2">-->
-    <!--<img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">-->
-    <!--</div>-->
-    <!--<div class="col-md-10" style="max-height: 170px;">-->
-    <!--<div class="article-share-links news-v3" style="  position: relative;-->
-    <!--top: -35px;">-->
-    <!--<ul class="post-shares post-shares-lg">-->
-    <!--<li class="add-comment">-->
-    <!--<a href="#">-->
-    <!--<i class="rounded-x icon-speech"></i>-->
-    <!--<span>28</span>-->
-    <!--</a>-->
-    <!--</li>-->
-    <!--<li>-->
-    <!--<a href="#">-->
-    <!--<i class="rounded-x icon-share"></i>-->
-    <!--<span>355</span>-->
-    <!--</a>-->
-    <!--</li>-->
-    <!--<li>-->
-    <!--<a href="#">-->
-    <!--<i class="rounded-x icon-heart"></i>-->
-    <!--<span>107</span>-->
-    <!--</a>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--<div class="by_discuss_card_info news-v3" style="  position: relative;-->
-    <!--top: -84px; padding-left: 30px;">-->
-    <!--<ul class="list-inline posted-info post-shares post-shares-lg">-->
-    <!--<li>-->
-    <!--<p class="by_captilize_first_letter" ng-if="discuss.discussType == 'A'">Story by <a-->
-    <!--class="by_captilize_first_letter" href="">{{discuss.username}}</a>-->
-    <!--</p>-->
-
-    <!--<p class="by_captilize_first_letter" ng-if="discuss.discussType == 'Q'">Question by <a-->
-    <!--class="by_captilize_first_letter" href="">{{discuss.username}}</a>-->
-    <!--</p>-->
-
-    <!--<p class="by_captilize_first_letter" ng-if="discuss.discussType == 'P'">Post by <a-->
-    <!--class="by_captilize_first_letter" href="">{{discuss.username}}</a>-->
-    <!--</p>-->
-    <!--</li>-->
-    <!--<li ng-if="discuss.topicId.length > 0"> In-->
-    <!--<a ng-click="go($event,'name', discuss.topicId[0])" class="by_captilize_first_letter">-->
-    <!--{{$root.discussCategoryListMap[discuss.topicId[0]].name}}-->
-    <!--</a>-->
-    <!--</li>-->
-    <!--<li>{{discuss.createdAt | date : 'MMM d, yyyy'}}</li>-->
-    <!--</ul>-->
-
-
-    <!--<div class="by_card_heading">-->
-    <!--<a href="#/discuss/{{discuss.id}}">{{discuss.title}}</a>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="by_card_content" ng-bind-html="discuss.text" style="position: relative;-->
-    <!--top: -83px;-->
-    <!--max-height: 111px;-->
-    <!--overflow-y: hidden; padding-left: 30px;"></div>-->
-
-
-    <!--</div>-->
-    <!--</div>-->
-
-
-    <!--<div class="by_card_comment_icons news-v3">-->
-    <!--<ul class="post-shares post-shares-lg by_card_comment_icons">-->
-
-    <!--</ul>-->
-    <!--</div>-->
-
 </div>
 
 

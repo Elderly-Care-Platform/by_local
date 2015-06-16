@@ -307,3 +307,8 @@
 .news-v3 .post-shares li{
      margin-left: 0px !important;
 }
+
+.blog-author p, li, li a, label{
+    color: #121212 !important;
+    font-family: century_gothic !important;
+}

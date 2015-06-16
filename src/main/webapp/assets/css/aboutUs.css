@@ -1,11 +1,23 @@
+@font-face {
+	font-family: 'century_gothic';
+	src: url('../font/century_gothic/gothic.eot');
+	src: url('../font/century_gothic/gothic.eot?#iefix') format('embedded-opentype'),
+	url('../font/century_gothic/gothic.woff') format('woff'),
+	url('../font/century_gothic/gothic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+.aboutUsParent{
+	font-family: century_gothic !important;
+}
 .aboutUsOne
 {
 	background: url('../img/aboutUs/AboutOne.png');
 	padding: 80px 15px 80px 15px;
 	text-align: center;
-	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 20px;
-
 	padding-left: 0px !important;
 	/*margin-left: -22px !important;*/
 	margin-top: 0px !important;
@@ -54,7 +66,6 @@
 	border-radius: 15px !important;
 	margin-top: 15px;
 	margin-bottom: 5px;
-	font-family: 'Open Sans', sans-serif;
 }
 .aboutDiscussHead
 {
@@ -122,7 +133,6 @@
 	background: url('../img/aboutUs/aboutTwo.png');
 	padding: 30px 15px 30px 15px;
 	text-align: center;
-	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 20px;
 	margin-top: 15px;
 }
@@ -159,7 +169,6 @@
 	background: url('../img/aboutUs/weAreHiringAbout.png') bottom;
 	padding: 30px 15px 30px 15px;
 	text-align: center;
-	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 20px;
 	margin-top: 15px;
 }
@@ -188,7 +197,6 @@
 	background: url('../img/aboutUs/aboutMeetOurTeam.png') bottom;
 	padding: 20px 15px 20px 15px;
 	text-align: center;
-	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 20px;
 	color:  #ffffff;
 	font-size: 26px; 
@@ -213,7 +221,6 @@
 	font-weight: 400;
 	text-transform: uppercase;
 	margin-bottom: 20px;
-	font-family: 'Open Sans', sans-serif;
 }
 .teamWrapperBelowThumb
 {
@@ -221,7 +228,6 @@
 	font-size: 26px; 
 	font-weight: 400;
 	text-align: center;
-	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 20px;
 }
 .teamWrapperBelowTwo

@@ -719,14 +719,16 @@
   border-color: #E5E5E5;
   border-left-width: 2px;
   border-left-color: #00af50;
-  font-size: 12px;
+  font-size: 13px;
   border-radius: 0;
 }
+
 .searchWrapperLeft
 {
 	float: left;
 	width: 15%;
 }
+
 .search-open
 {
 	width: 85%;
@@ -1640,3 +1642,6 @@
 	}
 }
 
+.padding-zero-only{
+padding: 0px;
+}

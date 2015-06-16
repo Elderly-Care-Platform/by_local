@@ -1,91 +1,138 @@
-<div class="col-md-12 iconBg">
-    <div class="col-md-11 iconBgLeft">
-        <b>To publish your stories or articles, to comment, to &#34like&#34, to answer questions, and to get relevant personalized information, we would kindly ask you to join us.</b>
-    </div>
-    <div class="col-md-1 iconBgRight">i</div>
+<div class="   i-login-img col-md-12 padding-zero-only">
+	<div class="i-login col-md-11">To publish your stories or
+		articles, to comment, to &#34like&#34, to answer questions, and to get
+		relevant personalized information, we would kindly ask you to join us</div>
+	<div class="col-md-1 i-icon">
+		<img src="assets/img/icons/i-icon.png" width="18" height="34">
+	</div>
 </div>
-<div class="col-md-12 whiteBg padding20 borderShadow ">
-    <div class="col-md-5">
-        <form class="reg-page by_reg-page" name="loginForm" ng-submit="loginUser(user)" novalidate>
-            <div class="reg-header by_reg-header">
-                Please log in if you have already registered with us:
-            </div>
-            <div ng-show="error"><font color="red">{{error}}</font></div>
-            <div ng-show="message"><font color="green">{{message}}</font></div>
-
-            <div class="input-group margin-bottom-20">
-                <input type="text" placeholder="Please enter your Email ID" ng-model="user.email" class="form-control">
-            </div>
-            <span>
-				<p ng-show="loginForm.email.$invalid && loginForm.email.$pristine" class="help-block">Email is required.</p>
-            </span>
-            <div class="input-group margin-bottom-20">
-                <input type="password" placeholder="Please enter your password" ng-model="user.password" class="form-control">
-            </div>
-             <span>
-				<p ng-show="loginForm.password.$invalid && loginForm.password.$pristine" class="help-block">Password is required.</p>
-             </span>
-            <h4>Forget your Password ?</h4>
-
-            <p><a class="color-green" href="#">click here</a> to get a reminder over email.</p>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn-u pull-right loginButtonRight" type="submit" ng-disabled="!loginForm.$valid">Login</button>
-                </div>
-            </div>
-            <hr>
+<div class="col-md-12 no-padding margin-top-10 whitebg-graybdr signup">
 
 
-        </form>
-    </div>
-    <div class="col-md-2">
-        <div class="orWrapper">
-            OR
-        </div>
-    </div>
-    <div class="col-md-5 orWrapperRight">
-        <form class="reg-page by_reg-page" name="userForm" ng-submit="createNewUser(userForm.$valid)" novalidate>
-            <div class="reg-header by_reg-header">
-                Not registered yet? <br/>
-                No worries, it takes just a few seconds!
-            </div>
- 			<div ng-show="createUserError"><font color="red">{{createUserError}}</font></div>
-			<div ng-show="createUserSuccess"><font color="green">{{createUserSuccess}}</font></div>
-			
-            <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-               <input type="text" placeholder="Please enter your Email ID" class="form-control" ng-model="newUser.email">
-               <span><p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p></span>
-            </div>
-            <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : userForm.userName.$invalid && !userForm.userName.$pristine }">
-                <input type="text" placeholder="Please select your User Name (optional)" class="form-control" ng-model="newUser.userName">
-                <span><p ng-show="userForm.userName.$invalid && userForm.userName.$pristine" class="help-block">Screen Name is required.</p></span>
-            </div>
-            <div class="input-group margin-bottom-20" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
-                <input type="password" placeholder="Please enter your password" class="form-control" ng-model="newUser.password">
-                <span><p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">Password is required.</p></span>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn-u pull-right loginButtonRight" type="submit">Register</button>
-                </div>
-            </div>
-            <hr>
-        </form>
-    </div>
+	<div class="col-md-5 margin-left-20  login">
+		<form class="" name="loginForm" ng-submit="loginUser(user)" novalidate>
+			<div
+				class="col-md-12 no-padding form-header-content margin-bottom-35 margin-top-20 font-bold grayBgWhite">Please
+				log in if you have already registered with us:</div>
+			<div ng-show="error">
+				<font color="red">{{error}}</font>
+			</div>
+			<div ng-show="message">
+				<font color="green">{{message}}</font>
+			</div>
+
+			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+				<input type="text" class="username-textbox textbox"
+					placeholder="Please enter your Email ID  "
+					ng-model="user.email">
+			</div>
+
+			<span>
+				<p ng-show="loginForm.email.$invalid && loginForm.email.$pristine"
+					class="help-block">Email is required.</p>
+			</span>
+
+			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+				<input type="password" class="username-textbox textbox"
+					placeholder="Please enter your password"
+					ng-bind="user.password">
+			</div>
+			<span>
+				<p
+					ng-show="loginForm.password.$invalid && loginForm.password.$pristine"
+					class="help-block">Password is required.</p>
+			</span>
+			<div
+				class="col-md-12 no-padding form-header-content margin-bottom-25">
+				Forgot your password? <br> <a href="">Click here</a> to get a
+				reminder over email.
+
+
+			</div>
+
+
+			<div
+				class="col-md-12 no-padding form-header-content margin-bottom-25">
+
+				<button class="btn btn-success pull-right login-btn"
+					ng-disabled="!loginForm.$valid" type="submit">LOGIN</button>
+
+
+			</div>
+		</form>
+	</div>
+	<div class=" col-md-1 margin-top-20 divider-login-new-register">
+
+		<div class="or-divider">
+			<img src="assets/img/icons/or.png" width="42">
+		</div>
+
+	</div>
+	<div class="col-md-5 new-register">
+		<form class="" name="userForm"
+			ng-submit="createNewUser(userForm.$valid)" novalidate>
+			<div
+				class="col-md-12 no-padding form-header-content margin-bottom-35 margin-top-20 font-bold grayBgWhite">
+				Not registered yet? <br /> No worries, it takes just a few seconds!
+
+
+			</div>
+
+			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+				<input type="text" class="username-textbox textbox"
+					placeholder="Please enter your Email ID"
+					 ng-model="newUser.email">
+			</div>
+			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+				<input type="text" class="username-textbox textbox"
+					placeholder="Please select your User Name (optional) "
+					 ng-model="newUser.userName">
+			</div>
+			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+				<input type="password" class="username-textbox textbox"
+					placeholder="Please select your password"
+					 ng-model="newUser.password">
+			</div>
+
+			<div
+				class="col-md-12 no-padding form-header-content margin-bottom-25 margin-top-20">
+
+				<button class="btn btn-success pull-right register-btn">REGISTER</button>
+
+
+			</div>
+		</form>
+	</div>
+
+
+
+
+
+
+
 </div>
-<div class="col-md-12 whiteBg padding20 borderShadow" style="margin-top: 0px;
-  margin-bottom: 20px;">
-    <div class="col-md-6 loginBottom ">
-        <strong class="loginHead">You could also use your Social login to sign up.</strong><br/><i
-            class="fa fa-lock"></i> Be assured, BeautifulYears do not share your information
-    </div>
-    <div class="col-md-6 loginBottomRight margin-top-20">
-        <a href=""><img src="assets/img/icons/login/FBLogin.png" alt=""/></a>
-        <a href=""><img src="assets/img/icons/login/GoogleLogin.png" alt=""/></a>
-    </div>
-</div>
 
-<script type="text/javascript">
-//    BY.addPlaceHolderEvent();
-</script>
+
+<div class="col-md-12 no-padding signup-social whitebg-graybdr">
+
+	<div class="col-md-8 form-header-content margin-top-20  ">
+		<ul class="social-ul">
+			<li>You could also use your Social login to sign up.</li>
+			<li><span class="lock-icon"><img
+					src="assets/img/icons/lock.png" width="8" height="11"></span>Be
+				assured, BeautifulYears do not share your information</li>
+		</ul>
+	</div>
+	<div class="col-md-4  margin-top-20">
+		<div class="dp-inline-block">
+			<img src="assets/img/icons/fb-login.png" width="97" height="23">
+		</div>
+		<div class="dp-inline-block padding-left-5">
+			<img src="assets/img/icons/googleplus-login.png" width="82"
+				height="23">
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		//    BY.addPlaceHolderEvent();
+	</script>

@@ -466,7 +466,16 @@ button.register-btn {
 		border-left-width: 2px;
 		border-left-color: #00af50;
 		border-radius:0;
+		font-size:14px;
+		font-size: 13px;
+		color:black;
 	}
+	
+	.register-page .textbox::-webkit-input-placeholder{
+		font-style: italic;
+	}
+	
+	
 	.margin-left-20{
 		margin-left: 20px;
 	}
@@ -1074,5 +1083,55 @@ textarea.textbox.about-dependent {
 	background: #fff;
 	border: 1px solid #E5E5E5;
 
+}
+ul.social-ul {
+  list-style: none;
+  padding-left: 18px;
+}
+.lock-icon img {
+  vertical-align: baseline;
+  margin-right: 5px;
+}
+.margin-top-40{
+margin-top:40px;
+}
+
+.i-login-img{
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #f3eff7;
+  border: 1px solid #dfcce4;
+  border-radius: 6px !important;
+
+}
+
+.i-icon-arrow {
+  background-image: url(../img/icons/i-box-arrow.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 37px;
+  height: 51px;
+  position: absolute;
+  bottom: -20px;
+  z-index: 0;
+  left: -1px;
+}
+.i-icon {
+	background-color:#eae2f0;
+	padding: 15px;
+  }
+
+.i-login {
+
+  text-align: justify;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.textItalic {
+  font-style: italic;
+  font-size: 13px !important;
+  color: #444 !important;
 }
 

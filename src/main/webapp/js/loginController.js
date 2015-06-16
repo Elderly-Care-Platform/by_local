@@ -29,13 +29,13 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $rootScope.sessionId = login.sessionId;
                 $rootScope.bc_discussType = 'All';
                 $rootScope.bc_username = login.userName;
-                $rootScope.bc_userId = login.id;
+                $rootScope.bc_userId = login.userId;
 //                $scope.setUserCredential();
 
                 if ("localStorage" in window) {
                     localStorage.setItem("SessionId", login.sessionId);
                     $http.defaults.headers.common.sess = login.sessionId;
-                    localStorage.setItem("USER_ID", login.id);
+                    localStorage.setItem("USER_ID", login.userId);
                     localStorage.setItem("USER_NAME", login.userName);
                     if($rootScope.nextLocation)
 					{
@@ -82,7 +82,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.setUserCredential = function(userData){
         	 if ("localStorage" in window) {
                  localStorage.setItem("SessionId", login.sessionId);
-                 localStorage.setItem("USER_ID", login.id);
+                 localStorage.setItem("USER_ID", login.userId);
                  localStorage.setItem("USER_NAME", login.userName);
                  $location.path("/users/home");
                  document.getElementById("login_placeHolder_li").style.opacity = "1";
@@ -112,7 +112,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 if ("localStorage" in window) {
                     localStorage.setItem("SessionId", login.sessionId);
                     $http.defaults.headers.common.sess = login.sessionId;
-                    localStorage.setItem("USER_ID", login.id);
+                    localStorage.setItem("USER_ID", login.userId);
                     localStorage.setItem("USER_NAME", login.userName);
                     if($rootScope.nextLocation)
 					{

@@ -571,7 +571,7 @@ button.register-btn {
 		font-size:20px;
 	}
 	.discussion-page .article-first-letter:first-letter{
-		color:#00d16f;
+		/*color:#00d16f;*/
 		font-size:20px;
 	}
 	
@@ -750,8 +750,8 @@ width:100%;
 	text-decoration: none;
 }
 .discussion-wrapper .article-outer-wrapper{
-	/*margin-right:27%;*/
-	/*margin-left: 300px;*/
+	margin-right:27% !important;
+	margin-left: 300px !important;
 }
 
 .discussion-wrapper .home-content-wrapper{

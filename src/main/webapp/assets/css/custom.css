@@ -664,11 +664,9 @@ button.register-btn {
 	width:auto;
 	margin-right:0;
 	float:none;
-	max-width: 600px;
+	max-width: 100%;
 }
-.article-content .articleTitleImage{
-	max-width: 444px;
-}
+
 .QA-wrapper .inner-enter-comment-wrap{
 	clear:both;
 }
@@ -808,6 +806,13 @@ a{
 .hidden-article-comment{
 	display:none;
 }
+
+@media (min-width: 500px){
+    .article-content .articleTitleImage{
+		max-width: 444px;
+	}
+}
+
 @media screen and (max-width:992px){
 	.QA-wrapper .sidebar-nav-v1{
 		margin:0;
@@ -840,6 +845,7 @@ a{
 	.discussion-wrapper .article-outer-wrapper{
 		margin:auto;
 	}
+	
 }
 
 .alert{

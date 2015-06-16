@@ -664,6 +664,10 @@ button.register-btn {
 	width:auto;
 	margin-right:0;
 	float:none;
+	max-width: 600px;
+}
+.article-content .articleTitleImage{
+	max-width: 444px;
 }
 .QA-wrapper .inner-enter-comment-wrap{
 	clear:both;

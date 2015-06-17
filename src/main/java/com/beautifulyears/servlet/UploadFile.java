@@ -15,10 +15,14 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
+
+import com.beautifulyears.rest.UserController;
 
 public class UploadFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String uploadDir = "";
+	private static final Logger logger = Logger.getLogger(UploadFile.class);
 
 	public void init() {
 		System.out.println("Inside INIT of File Upload Servlet");
@@ -27,17 +31,18 @@ public class UploadFile extends HttpServlet {
 		// : getServletContext().getInitParameter("file-upload");
 		System.out.println("CONTEXT PATH ===== "
 				+ getServletContext().getContextPath());
-		uploadDir = getServletContext().getInitParameter("file-upload") == null ? getServletContext().getRealPath("/") + "uploaded_files/"
-				: getServletContext().getInitParameter("file-upload");
+		uploadDir = "/home/ubuntu/uploads";
 
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside do post of file upload servlet");
+		logger.debug("request to upload the file arrived");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		// process only if its multipart content
 		if (isMultipart) {
+			logger.debug("request to upload the file arrived ---- multipart is true");
 			System.out.println("Inside isMultipart");
 			// Create a factory for disk-based file items
 			FileItemFactory factory = new DiskFileItemFactory();
@@ -58,12 +63,14 @@ public class UploadFile extends HttpServlet {
 						item.write(new File(uploadDir + File.separator + fname
 								+ "." + extension));
 						// out.println("Hello!!");
-						out.println("uploaded_files/" + fname + "." + extension);
+						logger.debug("upload finishedvwith file name ---- "+"/uploaded_files/" + fname + "." + extension);
+						out.println("/uploaded_files/" + fname + "." + extension);
 						//?????out.println("52.74.82.29/uploaded_files/" + fname + "." + extension);
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				logger.error("upload upload failes");
 				System.out.println("File upload failed");
 			}
 		}

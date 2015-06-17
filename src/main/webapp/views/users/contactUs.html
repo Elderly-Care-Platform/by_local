@@ -1,0 +1,60 @@
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+
+<div class="breadcrumbs">
+    <div class="container">
+
+        <ul class="pull-right breadcrumb">
+            <li class="active"><a href="index.html">CONTACT US</a></li>
+        </ul>
+    </div>
+    <hr class="breadcrumb-divider"/>
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<div class="container content discussion-page breadCrumbMargin">
+
+    <div class="row both-container" style="margin-top: 50px;">
+        <div class="col-md-12 no-padding margin-bottom-35">
+
+            <div class="col-md-6 no-padding  list-head dp-block">CONTACT US
+            </div>
+
+            <div class="col-md-12 no-padding bg-gray-h1">
+                <div class="bg-green-h2" style="width: 216px;"></div>
+            </div>
+        </div>
+
+        <div class=" col-md-6 no-padding margin-bottom-35 register-page">
+            <input type="text" class="username-textbox textbox " name="username" ng-model="editor.username"
+                   placeholder="name">
+        </div>
+        <div class=" col-md-6 no-padding margin-bottom-35 register-page">
+            <input type="text" class="username-textbox textbox " name="email" ng-model="editor.userId"
+                   placeholder="email">
+        </div>
+
+        <div class="col-md-12 no-padding form-header-content margin-bottom-15">
+
+            <select ng-model="editor.subject">
+                <option value="" disabled selected default>Please select your subject here</option>
+                <option ng-repeat="subject in editor.subjectOptions" value="{{subject}}">{{subject}}</option>
+            </select>
+
+        </div>
+
+
+        <div class="col-md-12 no-padding margin-bottom-35 byEditor">
+            <textarea id="feedback_textArea" class="textbox about-dependent" rows="3"
+                      placeholder="Please enter your text here." ng-model="editor.text"></textarea>
+        </div>
+
+
+        <div class="col-md-12 no-padding margin-bottom-35">
+            <button class="btn btn-big btn-default pull-right  grayBg" ng-click="register('F')">submit</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var tinyEditor = BY.addEditor();
+</script>

@@ -346,7 +346,11 @@ byApp.config(['$routeProvider',
 	.when('/discuss/delete/:discussId', {templateUrl: 'views/discuss/list.html', controller: 'DiscussDeleteController'})
 	.when('/search/:term/:disType', {templateUrl: 'views/discuss/search.html', controller: 'DiscussSearchController'})
 	.when('/comment/:discussId', {templateUrl: 'views/discuss/qa.html', controller: 'DiscussDetailController'})
-    .when('/discuss/:discussId', {templateUrl: 'views/discuss/detail.html', controller: 'DiscussPreviewController'});
+    .when('/discuss/:discussId', {templateUrl: 'views/discuss/detail.html', controller: 'DiscussPreviewController'})
+    
+    .when('/users/privacyPolicy', {templateUrl: 'views/users/privacyPolicy.html', controller: 'privacyController'})
+    .when('/users/termsCondition', {templateUrl: 'views/users/termsConditions.html', controller: 'termsController'})
+    .when('/users/contactUs', {templateUrl: 'views/users/contactUs.html', controller: 'contactUsController'});
       //????????$routeProvider.otherwise({redirectTo: '/users/login'});
   }]);
 
@@ -402,6 +406,53 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
 });
 
 
+byControllers.controller('privacyController', ['$scope', '$routeParams', '$location', 
+                                                  function($scope, $routeParams, $location) {
+	window.scrollTo(0, 0);
+}]);
+
+byControllers.controller('termsController', ['$scope', '$routeParams', '$location', 
+                                               function($scope, $routeParams, $location, $route) {
+	window.scrollTo(0, 0);
+}]);
+
+
+byControllers.controller('contactUsController', ['$scope', '$routeParams', '$location', 'Discuss','$route',
+                                             function($scope, $routeParams, $location, Discuss, $route) {
+	window.scrollTo(0, 0);
+	$scope.editor = {};
+    $scope.editor.articlePhotoFilename = "";
+    $scope.error = "";
+    $scope.editor.subject = ""
+    $scope.editor.userId = "";
+    $scope.editor.username = localStorage.getItem("USER_NAME");
+    
+    $scope.editor.subjectOptions = ["FEEDBACK", "SUGGESTION", "READY TO HELP ", "DOING BUSINESS TOGETHER", "WOULD LIKE TO INFORM YOU"];
+    console.log($routeParams);
+    console.log($route);
+	$scope.register = function (discussType) {
+        $scope.discuss = new Discuss();
+        
+        $scope.discuss.discussType = discussType;
+        $scope.discuss.text = tinyMCE.activeEditor.getContent();
+        $scope.discuss.title = $scope.editor.subject;
+        
+        
+        //putting the userId to discuss being created
+        $scope.discuss.userId = localStorage.getItem("USER_ID");
+        $scope.discuss.username = $scope.editor.username;
+        
+        if($scope.discuss.userId.length > 0 && $scope.discuss.text.length > 0){
+            $scope.error = "";
+            $scope.discuss.$save(function (discuss, headers) {
+            	$location.path("/users/home");
+            });
+
+        }else{
+            $scope.error = "Please fill all details";
+        }
+    };
+}]);
 
 
 byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$location', 'User',

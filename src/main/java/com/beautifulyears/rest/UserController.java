@@ -56,41 +56,54 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody Session login(
-			@RequestBody LoginRequest loginRequest,HttpServletRequest req,HttpServletResponse res) {
+	public @ResponseBody Session login(@RequestBody LoginRequest loginRequest,
+			HttpServletRequest req, HttpServletResponse res) {
 
 		Query q = new Query();
 		q.addCriteria(Criteria.where("email").is(loginRequest.getEmail())
 				.and("password").is(loginRequest.getPassword()));
-
-		// admin login
-		if (loginRequest.getEmail().equals("admin")
-				&& loginRequest.getPassword().equals("password")) {
-			logger.debug("admin user logged in into the system");
-			User user = new User("admin",null,null, null, null, null, null, null, null, null, null);
-			Session session = createSession(req, res,user);
-			return session;
-		}
-		// normal user login
-		else {
-			User user = mongoTemplate.findOne(q, User.class);
-			if (null == user) {
-				logger.debug("log in failed with userId = "+ loginRequest.getEmail());
-				Session session = killSession(req, res);
-				return session;
-			} else {
-				logger.debug("user logged in into the system with userId = "+ user.getId() + " and email  as  "+user.getEmail());
-				Session session = createSession(req, res,user);
-				return session;
+		try {
+			if (loginRequest.getEmail().equals("admin")
+					&& loginRequest.getPassword().equals("password")) {
+				logger.debug("admin user logged in into the system");
+				User user = new User("admin", null, null, null, null, null,
+						null, null, null, null, null);
+				Session session = createSession(req, res, user);
+				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			}
+			// normal user login
+			else {
+				User user = mongoTemplate.findOne(q, User.class);
+				if (null == user) {
+					logger.debug("log in failed with userId = "
+							+ loginRequest.getEmail());
+					Session session = killSession(req, res);
+					res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+					throw new Exception("username and password not found.");
+				} else {
+					logger.debug("user logged in into the system with userId = "
+							+ user.getId()
+							+ " and email  as  "
+							+ user.getEmail());
+					Session session = createSession(req, res, user);
+					return session;
+				}
+			}
+		} catch (Exception e) {
+			return null;
 		}
+		// admin login
+		return null;
+
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/logout/{sessionId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Session logout(
-			@PathVariable("sessionId") String sessionId,HttpServletRequest req,HttpServletResponse res) {
+			@PathVariable("sessionId") String sessionId,
+			HttpServletRequest req, HttpServletResponse res) {
 		try {
-			logger.debug("user logged out successfully with sessionId = "+ sessionId);
+			logger.debug("user logged out successfully with sessionId = "
+					+ sessionId);
 			return killSession(req, res);
 		} catch (Exception e) {
 			return killSession(req, res);
@@ -108,10 +121,10 @@ public class UserController {
 	// create user - registration
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Session submitUser(@RequestBody User user,HttpServletRequest req,HttpServletResponse res)
-			throws Exception {
+	public Session submitUser(@RequestBody User user, HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
 		Session session = null;
-		
+
 		if (user == null || user.getId() == null || user.getId().equals("")) {
 			try {
 				Query q = new Query();
@@ -119,12 +132,14 @@ public class UserController {
 				if (mongoTemplate.count(q, User.class) > 0) {
 					ResponseEntity<String> responseEntity = new ResponseEntity<String>(
 							"Email already exists!", HttpStatus.CREATED);
-					logger.debug("user with the same emailId already exist = "+user.getEmail());
+					logger.debug("user with the same emailId already exist = "
+							+ user.getEmail());
 					throw new Exception("Email already exists!");
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userRepository.save(userWithExtractedInformation);
-				req.getSession().setAttribute("user", userWithExtractedInformation);
+				req.getSession().setAttribute("user",
+						userWithExtractedInformation);
 				session = createSession(req, res, userWithExtractedInformation);
 				return session;
 			} catch (Exception e) {
@@ -191,7 +206,7 @@ public class UserController {
 		userRepository.delete(userId);
 		ResponseEntity<Void> responseEntity = new ResponseEntity<>(
 				HttpStatus.CREATED);
-		logger.info("user deleted with userId = "+userId);
+		logger.info("user deleted with userId = " + userId);
 		return responseEntity;
 	}
 
@@ -241,20 +256,21 @@ public class UserController {
 		}
 		return user;
 	}
-	
-	private Session createSession(HttpServletRequest req, HttpServletResponse res, User user){
-		
+
+	private Session createSession(HttpServletRequest req,
+			HttpServletResponse res, User user) {
+
 		Session session = new Session(user);
 		this.mongoTemplate.save(session);
 		req.getSession().setAttribute("session", session);
 		req.getSession().setAttribute("user", user);
 		return session;
 	}
-	
-	private Session killSession(HttpServletRequest req, HttpServletResponse res){
+
+	private Session killSession(HttpServletRequest req, HttpServletResponse res) {
 		Session session = (Session) req.getSession().getAttribute("session");
 		req.getSession().invalidate();
-//		session.setSessionId("");
+		// session.setSessionId("");
 		return null;
 	}
 }

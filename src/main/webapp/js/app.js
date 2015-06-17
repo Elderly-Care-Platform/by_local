@@ -358,7 +358,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
 
         console.log("Routechanged... ");
-
+        BY.removeEditor();
 		//For any location other than search, wipe out the search term
 		if($location.path().indexOf('/search/') == -1)
         	$rootScope.term = '';
@@ -3677,3 +3677,16 @@ app_directives.directive('fallbackSrc', function () {
 	   }
 	   return fallbackSrc;
 	});
+
+app_directives.directive('onFinishRender', function ($timeout) {
+	return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    scope.$emit('ngRepeatFinished');
+                }, 100);
+            }
+        }
+    }
+});

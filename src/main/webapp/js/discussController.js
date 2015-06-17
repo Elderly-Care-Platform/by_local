@@ -1,8 +1,11 @@
 //DIscuss All
-byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList', 'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','Discuss','$sce',
-    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss,$sce) {
+byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList',
+    'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','Discuss','$sce','$timeout',
+    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType,
+              DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss,$sce, $timeout) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
+        $scope.article_story = "";
 		$scope.showme = true;
         $scope.discuss = DiscussList.query();
         $scope.discussionViews = {};
@@ -129,7 +132,17 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             }
 
         }
-	
+
+        //$scope.$watch("discuss", function (value) {
+        //    $timeout(
+        //        function () {
+        //
+        //        }, 100);
+        //});
+
+        $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            $('.by_story').dotdotdot();
+        });
  	}]);
 
 

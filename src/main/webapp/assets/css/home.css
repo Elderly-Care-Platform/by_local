@@ -293,7 +293,7 @@
     font-family: century_gothic !important;
     color: #121212 !important;
 
-    max-height: 212px !important;
+    max-height: 225px !important;
     overflow-y: hidden;
 }
 
@@ -312,7 +312,18 @@
 }
 
 .by_blog_author  p,
-.by_blog_author  li, .by_blog_author   a, .by_blog_author  label{
+.by_blog_author  li,  .by_blog_author  label{
     color: #121212 !important;
     font-family: century_gothic !important;
 }
+
+.by_blog_author   a{
+    color: #00A24A !important;
+}
+
+.by_story {
+    height: 135px;
+    margin-top: -6px;
+    margin-bottom: 14px;
+}
+

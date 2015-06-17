@@ -47,7 +47,7 @@
 		style="height: 158px; top: 315px; left: 109px;">
 		<form novalidate class="form-horizontal" ng-submit="register('P')"
 			ng-controller="DiscussCreateController">
-			<textarea id="share-tip" ng-model="discuss.text" rows="3"
+			<textarea id="share-tip" ng-model="trustForcefully(discuss.text)" rows="3"
 				placeholder="Share your tips and experience" class="share-tips-text"></textarea>
 			<button class="btn btn-u share-tips-submit disabled">SUBMIT</button>
 		</form>
@@ -86,7 +86,7 @@
 				</div>
 			</div>
 			<div class="col-md-12 zindexhigh">
-				<textarea id="submit-article" ng-model="discuss.text" rows="3"
+				<textarea id="submit-article" ng-model="trustForcefully(discuss.text)" rows="3"
 					placeholder="Please enter the  text of your article here."
 					class="submit-article-text margin-top-10"></textarea>
 			</div>
@@ -175,7 +175,7 @@
 						</div>
 						<div class="article-content {{discuss.id}}">
 							<p class="lead">
-								<span ng-bind-html="discuss.text"></span>
+								<span ng-bind-html="trustForcefully(discuss.text)"></span>
 							</p>
 						</div>
 						<div class="article-share-links news-v3">

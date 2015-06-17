@@ -520,6 +520,10 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
   byControllers.controller('DiscussPreviewController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussShow', 'UserDiscussList','DiscussComment',
     function($scope, $rootScope, $routeParams, $location, DiscussShow, UserDiscussList , DiscussComment) {
        var discussId = $routeParams.discussId;
+       
+       $scope.trustForcefully = function(html) {
+           return $sce.trustAsHtml(html);
+         };
 
       $scope.discuss = DiscussShow.get({discussId: discussId});
 
@@ -1045,8 +1049,8 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 
 
 //The controller used for making comments and answers to all discuss types - namely Q,P and A
-byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$route', '$location', 'DiscussShow', 'DiscussComment', 'DiscussUserLikes', 'Discuss',
-  function($scope, $rootScope, $routeParams, $route, $location, DiscussShow, DiscussComment, DiscussUserLikes, Discuss) {
+byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$route', '$location', 'DiscussShow', 'DiscussComment', 'DiscussUserLikes', 'Discuss','$sce',
+  function($scope, $rootScope, $routeParams, $route, $location, DiscussShow, DiscussComment, DiscussUserLikes, Discuss,$sce) {
 
 	var discussId = $routeParams.discussId;
 	var type = $location.path().endsWith("/A");
@@ -1054,6 +1058,10 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 	//when the page loads up make sure that there are no blocks visible
 	document.getElementById('comment_block').style.display = 'none';
 	if(document.getElementById('answer_block')) document.getElementById('answer_block').style.display = 'none';
+	
+	 $scope.trustForcefully = function(html) {
+         return $sce.trustAsHtml(html);
+       };
 
     $scope.discuss = DiscussShow.get({discussId: discussId});
     $scope.comments = DiscussComment.get({parentId:discussId,ancestorId:discussId}); //DiscussComment.get({discussId: discussId});

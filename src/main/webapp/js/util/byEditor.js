@@ -15,7 +15,7 @@ BY.initEditor = function initEditor(param){
         statusbar: false,
         menubar: false,
         plugins: [
-            "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
             " emoticons textcolor paste autoresize "
         ],

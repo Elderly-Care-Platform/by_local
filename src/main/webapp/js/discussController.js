@@ -133,13 +133,6 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
         }
 
-        //$scope.$watch("discuss", function (value) {
-        //    $timeout(
-        //        function () {
-        //
-        //        }, 100);
-        //});
-
         $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
             $('.by_story').dotdotdot();
         });
@@ -192,8 +185,8 @@ byControllers.controller('DiscussCategoryController', ['$scope', '$rootScope', '
 
 
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicOneSubTopicList',
-    'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes', 'Discuss',
-    function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss) {
+    'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes', 'Discuss','$sce',
+    function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss, $sce) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
 
@@ -346,6 +339,10 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         $scope.trustForcefully = function(html) {
             return $sce.trustAsHtml(html);
         };
+
+        $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            $('.by_story').dotdotdot();
+        });
 
     }]);
 

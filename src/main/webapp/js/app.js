@@ -517,8 +517,8 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
 
 
 	//detail.html
-  byControllers.controller('DiscussPreviewController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussShow', 'UserDiscussList','DiscussComment',
-    function($scope, $rootScope, $routeParams, $location, DiscussShow, UserDiscussList , DiscussComment) {
+  byControllers.controller('DiscussPreviewController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussShow', 'UserDiscussList','DiscussComment','$sce',
+    function($scope, $rootScope, $routeParams, $location, DiscussShow, UserDiscussList , DiscussComment, $sce) {
        var discussId = $routeParams.discussId;
        
        $scope.trustForcefully = function(html) {
@@ -876,6 +876,10 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 			}
 			
 		}
+		
+		$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            $('.by_story').dotdotdot();
+        });
 
     }]);
 

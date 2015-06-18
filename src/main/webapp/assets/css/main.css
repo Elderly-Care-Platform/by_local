@@ -1,0 +1,41 @@
+body
+{
+    padding: 0px;
+    margin: 0px;
+    /*background-color:#f7f7f7;*/
+    font-family: century_gothic !important;
+}
+
+
+
+body#tinymce{
+    font-size:14px;
+}
+
+@font-face {
+    font-family: 'nuance_eagle_regularregular';
+    src: url('../font/nuanceeagleregular-webfont.eot');
+    src: url('../font/nuanceeagleregular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../font/nuanceeagleregular-webfont.woff') format('woff'),
+    url('../font/nuanceeagleregular-webfont.ttf') format('truetype'),
+    url('../font/nuanceeagleregular-webfont.svg#nuance_eagle_regularregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'century_gothic';
+    src: url('../font/century_gothic/gothic.eot');
+    src: url('../font/century_gothic/gothic.eot?#iefix') format('embedded-opentype'),
+    url('../font/century_gothic/gothic.woff') format('woff'),
+    url('../font/century_gothic/gothic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body a, body p, body span, body div
+{
+    font-family: century_gothic !important;
+}

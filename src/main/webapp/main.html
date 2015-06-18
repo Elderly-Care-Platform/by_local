@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css">
 
     <!-- CSS Customization -->
-    <link rel="stylesheet" href="assets/css/landing.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/custom.css">
 
     <link rel="stylesheet" href="assets/css/psc.css">
@@ -482,7 +482,7 @@
 
 
 		<script type="text/javascript">
-		var sess = localStorage.getItem("SessionId");
+		    var sess = localStorage.getItem("SessionId");
 				//alert(sess);
 				if(sess != '' && sess != null)
 				{
@@ -493,7 +493,7 @@
 
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "Profile";
-					pro.href = apiPrefix+"#/userprofile";
+					pro.href = "javascript:void(0);";
 
 
 					if(window.location.href.endsWith("#/users/login") || window.location.href.endsWith("main.html"))
@@ -511,7 +511,6 @@
 					var pro = document.getElementById('profile_placeholder');
 					pro.innerHTML = "JOIN US";
 					pro.href = apiPrefix+"#/users/login";
-
 					window.location = "#/users/aboutUs";
 			}
 		</script>

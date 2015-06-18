@@ -374,7 +374,12 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
        		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
             // no logged user, we should be going to #login
             //Code to allow non-logged in users to visit read only pages
-            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/aboutUs/aboutUs.html' || next.templateUrl == 'views/home/home.html' || next.templateUrl == 'views/users/create.html' || next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html') {
+            if (next.templateUrl == "views/users/login.html" || next.templateUrl == 'views/aboutUs/aboutUs.html' || 
+            		next.templateUrl == 'views/home/home.html' || next.templateUrl == 'views/users/create.html' || 
+            		next.templateUrl == 'views/discuss/search.html' || next.templateUrl == 'views/discuss/discussion.html' || 
+            		next.templateUrl == 'views/discuss/qa.html' || next.templateUrl == 'views/discuss/detail.html' ||
+            		next.templateUrl == 'views/users/privacyPolicy.html' || next.templateUrl == 'views/users/termsConditions.html' ||
+            		next.templateUrl == 'views/users/contactUs.html') {
             // already going to #login, no redirect needed
             	
             } else {
@@ -424,7 +429,7 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
     $scope.editor.articlePhotoFilename = "";
     $scope.error = "";
     $scope.editor.subject = ""
-    $scope.editor.userId = "";
+    $scope.editor.userId = localStorage.getItem("USER_ID");
     $scope.editor.username = localStorage.getItem("USER_NAME");
     
     $scope.editor.subjectOptions = ["FEEDBACK", "SUGGESTION", "READY TO HELP ", "DOING BUSINESS TOGETHER", "WOULD LIKE TO INFORM YOU"];
@@ -439,7 +444,7 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
         
         
         //putting the userId to discuss being created
-        $scope.discuss.userId = localStorage.getItem("USER_ID");
+        $scope.discuss.userId = $scope.editor.userId;
         $scope.discuss.username = $scope.editor.username;
         
         if($scope.discuss.userId.length > 0 && $scope.discuss.text.length > 0){
@@ -719,7 +724,7 @@ function ($scope,$location, $rootScope, $http) {
 
 	var pro = document.getElementById('profile_placeholder');
 	pro.innerHTML = "JOIN US";
-	pro.href = apiPrefix+"/#/users/login";
+	pro.href = apiPrefix+"#/users/login";
 
 
 	$location.path("/users/login");

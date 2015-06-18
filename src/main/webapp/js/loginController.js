@@ -52,7 +52,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                     var pro = document.getElementById('profile_placeholder');
                     pro.innerHTML = "Profile";
-                    pro.href = apiPrefix + "#/userprofile";
+                    pro.href = "javascript:void(0);";
 
                 }
                 else {
@@ -92,7 +92,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                  var pro = document.getElementById('profile_placeholder');
                  pro.innerHTML = "Profile";
-                 pro.href = apiPrefix + "#/userprofile";
+                 pro.href = "javascript:void(0);";
 
              }
              else {
@@ -129,7 +129,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                     var pro = document.getElementById('profile_placeholder');
                     pro.innerHTML = "Profile";
-                    pro.href = apiPrefix + "#/userprofile";
+                    pro.href = "javascript:void(0);";
 
                 }
                 else {

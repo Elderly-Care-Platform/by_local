@@ -28,7 +28,7 @@
             <input type="text" class="username-textbox textbox " name="username" ng-model="editor.username"
                    placeholder="name">
         </div>
-        <div class=" col-md-6 no-padding margin-bottom-35 register-page">
+        <div class=" col-md-6 no-padding margin-bottom-35 register-page" ng-if="!editor.userId || editor.userId==''">
             <input type="text" class="username-textbox textbox " name="email" ng-model="editor.userId"
                    placeholder="email">
         </div>

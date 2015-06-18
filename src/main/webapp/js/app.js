@@ -592,6 +592,10 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
        $scope.discuss2 = UserDiscussList.get({discussType:discussType, topicId: topicId, subTopicId: subTopicId, userId: $scope.discuss.userId});
        $scope.comments  = DiscussComment.get({parentId:discussId,ancestorId:discussId});
        $scope.date = new Date();
+       
+       $scope.trustForcefully = function(html) {
+           return $sce.trustAsHtml(html);
+         };
   }]);
 
 
@@ -1210,11 +1214,17 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
 			if(document.getElementById('answer_block')) document.getElementById('answer_block').style.display = 'block';
 
-		    $('.' +disId).append($('#answer_block'));
-		    $('#answer_block').show = 'clip';
-
+			var tag = $("#answer_block");
+            if(tag.length > 0){
+         	   $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+            }
+            
 			var id = 'main-commentbox_answer';
-
+			if(disType==="P" || disType==="A"){
+				$('#main-commentbox_answer').attr('placeholder', "Enter your comment here");
+			}else{
+				$('#main-commentbox_answer').attr('placeholder', "Enter your answer here");
+			}
 
 			tinyMCE.init({
 			   selector: "#" + id,
@@ -1248,20 +1258,23 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 					   // nothing to do
 					   if (!is_default) {
 						 return;
-					 }
-				 }).on('keydown', function() {
-						   // replace the default content on focus if the same as original placeholder
-						  if (is_default) {
-							ed.setContent('');
-							is_default = false;
 						 }
-
+					 }).on('keydown', function() {
+							   // replace the default content on focus if the same as original placeholder
+							  if (is_default) {
+								ed.setContent('');
+								is_default = false;
+							 }
 					 }).on('blur', function() {
-					   if (ed.getContent().length === 0) {
-						 ed.setContent(placeholder);
-					 }
-				 });
-				 }
+						   if (ed.getContent().length === 0) {
+							 ed.setContent(placeholder);
+						 }
+					 }).on('click', function () {
+						 if (!ed.isDirty()) {
+							ed.setContent('');
+						 }		
+			         });
+				   }
 				 ed.on('init', function (evt) {
 				   var toolbar = $(evt.target.editorContainer)
 				   .find('>.mce-container-body >.mce-toolbar-grp');
@@ -1292,8 +1305,14 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
 			$('.' + parId).append($('#comment_block'));
 			$('#comment_block').show = 'clip';
+			
+			var tag = $("#comment_block");
+            if(tag.length > 0){
+         	   $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+            }
+            
 			var id = 'main-commentbox_comment';
-
+			
 
   			tinyMCE.init({
 			   selector: "#" + id,
@@ -1340,7 +1359,11 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 					   if (ed.getContent().length === 0) {
 						 ed.setContent(placeholder);
 					 }
-				 });
+				 }).on('click', function () {
+		                if (!ed.isDirty()) {
+		                    ed.setContent('');
+		                }
+		            });
 				 }
 				 ed.on('init', function (evt) {
 				   var toolbar = $(evt.target.editorContainer)
@@ -1444,7 +1467,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
     		$scope.comments = DiscussComment.get({discussId: discussId});
 
 			//important to call this to re-establish the state
-    		$route.reload();
+    		$route.reload('scrollTo:true');
 
 			$rootScope.bc_topic = $scope.discuss.topicId;
 			$rootScope.bc_subTopic = $scope.discuss.subTopicId;
@@ -1551,7 +1574,11 @@ byControllers.controller('LoadCustomJSController', ['$scope',
 									   if (ed.getContent().length === 0) {
 										 ed.setContent(placeholder);
 									 }
-								 });
+								 }).on('click', function () {
+						                if (!ed.isDirty()) {
+						                    ed.setContent('');
+						                }
+						            });
 								 }
 								 ed.on('init', function (evt) {
 								   var toolbar = $(evt.target.editorContainer)
@@ -1620,7 +1647,11 @@ byControllers.controller('LoadCustomJSController', ['$scope',
 										   if (ed.getContent().length === 0) {
 											 ed.setContent(placeholder);
 										 }
-									 });
+									 }).on('click', function () {
+							                if (!ed.isDirty()) {
+							                    ed.setContent('');
+							                }
+							            });
 									 }
 									 ed.on('init', function (evt) {
 									   var toolbar = $(evt.target.editorContainer)
@@ -2780,7 +2811,11 @@ if($(".third-register-page").length){
 						   if (ed.getContent().length === 0) {
 							 ed.setContent(placeholder);
 						 }
-					 });
+					 }).on('click', function () {
+			                if (!ed.isDirty()) {
+			                    ed.setContent('');
+			                }
+			            });
 					 }
 					 ed.on('init', function (evt) {
 					   var toolbar = $(evt.target.editorContainer)
@@ -2849,7 +2884,11 @@ if($(".third-register-page").length){
 							   if (ed.getContent().length === 0) {
 								 ed.setContent(placeholder);
 							 }
-						 });
+						 }).on('click', function () {
+				                if (!ed.isDirty()) {
+				                    ed.setContent('');
+				                }
+				            });
 						 }
 						 ed.on('init', function (evt) {
 						   var toolbar = $(evt.target.editorContainer)

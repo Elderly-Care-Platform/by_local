@@ -14,7 +14,7 @@
 </div>
 
 <div class="col-md-12 no-padding form-header-content margin-bottom-15">
-    Please select up to 4 categories,where your tips appears.
+    Please select at least 1 categories,where your tips appears.
 </div>
 
 <div class="col-md-12 no-padding margin-bottom-35">
@@ -22,7 +22,9 @@
         <div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryList">
             <div class="panel-heading">
                 <h4 class="panel-title by_editor_ParentCategories">
-                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{category.id}} ng-model="preSelected[category.id]">
+                    <!--<input type="checkbox" onchange="BY.selectCategory(this)" value={{category.id}} ng-model="preSelected[category.id]">-->
+                    <div class="triangle-down" ng-if="category.children[0].id"></div>
+                    <div style="display: inline-block; margin-left: 8px;" ng-if="!category.children[0].id"></div>
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
                         {{category.name}}
                     </a>

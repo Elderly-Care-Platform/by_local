@@ -77,6 +77,10 @@ tinymce.init({
                 if (ed.getContent().length === 0) {
                     ed.setContent(placeholder);
                 }
+            }).on('click', function () {
+                if (!ed.isDirty()) {
+                    ed.setContent('');
+                }
             });
         }
         ed.on('init', function (evt) {

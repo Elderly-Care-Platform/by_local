@@ -10,7 +10,7 @@
                 <a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_counts.p}}</span>)</a>
             </li>
             <li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles">
-                <a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">ARTICLES (<span>{{discuss_counts.a}}</span>)</a>
+                <a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">STORIES (<span>{{discuss_counts.a}}</span>)</a>
             </li>
             <li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">
                 <a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_counts.z}}</span>)</a>
@@ -18,19 +18,22 @@
         </ul>
         <!--All classes from Unify end-->
 
-        <div class="col-md-11 no-padding" data-link="articles.html" ng-click="add('Question')">
-            <div class="ask-question-lc"><div class="ask-question-pos ask-article-feedback-all-img  pull-left"></div>
-            </div>
+        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
+            <i class="icon-custom icon-sm icon_question"></i>
+            <span>Ask a Question</span>
         </div>
-        <div class="col-md-11 no-padding" data-link="articles.html" ng-click="add('Tips')">
-            <div class="share-tips-lc"><div class="share-tips-pos ask-article-feedback-all-img pull-left"></div>
-            </div>
+        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Tips')">
+            <i class="icon-custom icon-sm icon_tips"></i> <span>Share
+							Tips &amp; Experiences</span>
+            </a>
         </div>
-        <div class="col-md-11 no-padding" data-link="articles.html" ng-click="add('Article')">
-            <div class="submit-article-lc"><div class="submit-article-pos ask-article-feedback-all-img  pull-left"></div></div>
+        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
+            <i class="icon-custom icon-sm icon_story"></i> <span>Publish
+							your Story</span>
         </div>
-        <div class="col-md-11 no-padding" data-link="articles.html" ng-click="add('Feedback')">
-            <div class="give-feedback-lc"><div class="give-feedback-pos ask-article-feedback-all-img"></div></div>
+        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Feedback')">
+            <i class="icon-custom icon-sm icon_feedback"></i> <span>Provide
+							Feedback</span>
         </div>
     </div>
 </div>

@@ -1,10 +1,4 @@
-
-
-
 <div id="customjs" ng-controller="LoadCustomJSController"></div>
-
-
-
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <div class="breadcrumbs">
@@ -104,6 +98,7 @@
 						alt="Preview" />
 				</div>
 			</div>
+		</form>
 	</div>
 	<div class="give-feedback-textarea textarea-label borderShadow">
 		<textarea id="give-feedback" rows="3"
@@ -163,8 +158,9 @@
 										discuss.discussType == 'P' && 'Post' || 'Question'}} By <a
 											href="#">{{discuss.username}}</a>
 									</p></li>
-								<li>In <a
-									href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{discuss.subTopicId}}</a></li>
+								<li> In <a
+										href="#/discuss/{{discuss.discussType}}/{{discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
+								</li>
 								<li>{{discuss.createdAt | date:'medium'}}</li>
 							</ul>
 						</div>
@@ -190,7 +186,7 @@
 								-->
 								<li class="answer-focus"><a
 									id="ca"
-									ng-click="createNewComment('A', discuss.id, '', 'P')"> <i
+									ng-click="createNewComment('A', discuss.id, '', discuss.discussType)"> <i
 										class="rounded-x fa fa-pencil-square-o"></i> <span>{{discuss.aggrReplyCount}}</span>
 										<div class="post-text">{{discuss.discussType == 'P' &&
 											'Comment' || discuss.discussType == 'Q' && 'Answer' ||
@@ -213,6 +209,20 @@
 					</div>
 				</div>
 
+				<div class="enter-comment-wrap whiteBg padding20SM borderShadow"
+					 id="answer_block" style="margin-bottom:10px">
+					<form novalidate class="form-horizontal">
+						<textarea rows="3" id="main-commentbox_answer"
+								  placeholder="Enter your answer here"></textarea>
+						<button class="btn btn-sm btn-success comment-submit"
+								type="submit" ng-click="saveComment('A')">SUBMIT</button>
+						</span>
+						<button class="btn btn-sm btn-success comment-submit by_btn_cancel"
+								ng-click="dispose('A')">CANCEL</button>
+					</form>
+					<div class="clearfix"></div>
+				</div>
+
 				<div ng-repeat="comment in comments"
 					ng-include="'tree_item_renderer.html'"></div>
 
@@ -225,8 +235,9 @@
 							 <div class="article {{comment.id}}">
 								<div class="article-info">
 									<ul class="list-inline posted-info">
-										<li><p class="answer-first-letter">{{(comment.id == comment.parentId && discuss.discussType == 'Q') && 'Answer' || 'Comment'}} By <a href="#">{{comment.userName}}</a></p></li>
-										<li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{comment.subTopicId}}</a></li>
+										<li><p class="answer-first-letter">{{(comment.id == comment.parentId && discuss.discussType == 'Q') && 'Answer' || 'Comment'}}
+											By <a href="#">{{comment.userName}}</a></p></li>
+
 										<li>{{comment.createdAt | date:'medium'}}</li>
 									</ul>
 								</div>
@@ -275,30 +286,18 @@
 
 				</script>
 
-				<div class="enter-comment-wrap whiteBg padding20SM borderShadow"
-					id="answer_block">
-					<form novalidate class="form-horizontal">
-						<textarea rows="3" id="main-commentbox_answer"
-							placeholder="Enter your answer here"></textarea>
-						<button class="btn btn-sm btn-success comment-submit"
-							type="submit" ng-click="saveComment('A')">SUBMIT</button>
-						</span>
-						<button class="btn btn-sm btn-success comment-submit"
-							ng-click="dispose('A')">CANCEL</button>
-					</form>
-					<div class="clearfix"></div>
-				</div>
+
 
 
 				<div class="enter-comment-wrap whiteBg padding20SM borderShadow"
-					id="comment_block">
+					id="comment_block" style="margin-bottom: 10px">
 					<form novalidate class="form-horizontal">
 						<textarea rows="3" id="main-commentbox_comment"
 							placeholder="Enter your comment here"></textarea>
 						<button class="btn btn-sm btn-success comment-submit"
 							type="submit" ng-click="saveComment('C')">SUBMIT</button>
 						<span />
-						<button class="btn btn-sm btn-success comment-submit"
+						<button class="btn btn-sm btn-success comment-submit by_btn_cancel"
 							ng-click="dispose('C')">CANCEL</button>
 					</form>
 					<div class="clearfix"></div>

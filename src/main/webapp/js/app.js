@@ -719,7 +719,7 @@ function ($scope,$location, $rootScope, $http) {
 
 	var pro = document.getElementById('profile_placeholder');
 	pro.innerHTML = "JOIN US";
-	pro.href = "/#/users/login";
+	pro.href = apiPrefix+"/#/users/login";
 
 
 	$location.path("/users/login");

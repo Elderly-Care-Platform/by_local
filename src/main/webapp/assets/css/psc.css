@@ -242,7 +242,6 @@
 }
 .personalStory
 {
-	font-family: Open Sans;
 	color: #8c8c8c;
 	font-size: 14px;
 	font-weight: 400;
@@ -271,7 +270,6 @@
 	width: 100%;
 	min-height: 60px;
 	padding-bottom: 6px;
-	font-family: Open Sans;
 	color:  #626262;
 	font-size: 29.91px; 
 	font-weight: 600;
@@ -288,7 +286,6 @@
 	background:#e0e0e0;
 	padding: 9px 20px 6px 20px;
 	width: 100%;	
-	font-family: Open Sans;
 	color:  #000;
 	font-size: 14px; 
 	line-height: 22px;
@@ -300,7 +297,6 @@
 	padding: 9px 20px 6px 20px;
 	margin-bottom: 1px;
 	width: 210px; 
-	font-family: Open Sans;
 	color:  #000;
 	font-size: 15px; 
 	text-align: left;
@@ -319,7 +315,6 @@
 {
 	float: left;
 	margin-right: 20px;
-	font-family: Open Sans;
 	color:  #000;
 	font-size: 15px; 
 	margin-bottom: 10px;
@@ -1054,7 +1049,6 @@
 		padding: 0px;
 	}
 	.headline{
-		font-family: "Open Sans", Arial, sans-serif;
 		font-size: 16px;
 		color: #fff;
 		text-transform: uppercase;

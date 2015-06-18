@@ -2,7 +2,16 @@ body
 {
   padding: 0px;
   margin: 0px;
+  /*background-color:#f7f7f7;*/
+  font-family: century_gothic !important;
 }
+
+
+
+body#tinymce{
+  font-size:14px;
+}
+
 @font-face {
   font-family: 'nuance_eagle_regularregular';
   src: url('../font/nuanceeagleregular-webfont.eot');
@@ -14,68 +23,19 @@ body
   font-style: normal;
 
 }
-.wrapper
-{
-  width: 96%;
-  padding: 2%;
-  height: 96%;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  background: url('../img/lndingBg.png');
-  overflow-y:auto;
+
+@font-face {
+  font-family: 'century_gothic';
+  src: url('../font/century_gothic/gothic.eot');
+  src: url('../font/century_gothic/gothic.eot?#iefix') format('embedded-opentype'),
+  url('../font/century_gothic/gothic.woff') format('woff'),
+  url('../font/century_gothic/gothic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
 }
 
-.wrapper>#launchLink{
-	color:red;
-}
-
-.logo
+body a, body p, body span, body div
 {
-  margin-bottom: 3%;
-}
-.text
-{
-  margin-bottom: 3%;
-  color:  #ffffff;
-  font-size: 25px; 
-  font-weight: 400;
-  line-height: 32px;
-  font-family: 'nuance_eagle_regularregular';
-  text-align: center;
-}
-.text a
-{
-  text-decoration: none;
-  color: #fff;
-}
-.team
-{
-  color:  #ffffff;
-  font-size: 25px; 
-  font-weight: 400;
-  line-height: 32px;
-  font-family: 'nuance_eagle_regularregular';
-  text-align: right;
-}
-@media screen and (max-width: 960px){
-  .text, .team
-  {
-    font-size: 20px;
-    line-height: 25px;
-  }
-}
-@media screen and (max-width: 760px){
-  .text, .team
-  {
-    font-size: 15px;
-    line-height: 20px;
-  }
-}
-@media screen and (max-width: 500px){
-  .text, .team
-  {
-    font-size: 13px;
-    line-height: 18px;
-  }
+  font-family: century_gothic !important;
 }

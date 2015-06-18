@@ -20,6 +20,10 @@
 
 }
 
+.by_left_panel a{
+    font-family: century_gothic !important;
+}
+
 
 .by_left_panel_fixed {
     position: fixed;
@@ -86,7 +90,6 @@
 /*}*/
 
 .by_left_top_panel li {
-    font-family: Open Sans;
     color: #8b8b8b;
     font-size: 14px;
     font-weight: 400;
@@ -107,7 +110,6 @@
 }
 
 .by_leftPanel_icons span {
-    font-family: Open Sans;
     color: #001f0e;
     font-size: 16px; /* Approximation due to font substitution */
     font-weight: 400;

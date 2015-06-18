@@ -19,7 +19,6 @@ ng-view{
 	font-style: normal;
 }
 .left-container-img-wrapper .row{
-	font-family: Open Sans;
 	color: #848484;
 	font-size: 15px;
 	font-weight: 400;
@@ -27,7 +26,6 @@ ng-view{
 	text-align: left;
 }
 .left-container-img-wrapper h5{
-	font-family: Open Sans;
 	color:  #6d6d6d;
 	font-size: 17px; /* Approximation due to font substitution */
 	font-weight: 400;
@@ -38,7 +36,6 @@ ng-view{
 	text-align:right;
 	float:right;
 	margin-top:10px;
-	font-family: Open Sans;
 	color:  #5fb611;
 	font-size: 14px; /* Approximation due to font substitution */
 	font-weight: 400;
@@ -54,7 +51,6 @@ ng-view{
 	padding:0;
 }
 .also-by-wrapper{
-	font-family: Open Sans;
 	font-size: 13px; /* Approximation due to font substitution */
 	font-weight: 400;
 	text-align: left;
@@ -87,7 +83,6 @@ ng-view{
 	background-color: #DAD9D9;
 }
 .also-by-wrapper .also-by-content{
-	font-family: Open Sans;
 	color:  #848484;
 	font-size: 14px; /* Approximation due to font substitution */
 	font-weight: 400;
@@ -133,7 +128,6 @@ ng-view{
 	
 }
 .article{
-	font-family: Open Sans;
 	color:  #000;
 	text-align: left;
 }
@@ -238,7 +232,6 @@ ng-view{
 
 	/* DISCUSSION PAGE CSS */
 	.sort-wrapper{
-		font-family: Open Sans;
 		color:  #999ea0;
 		font-size: 12px; /* Approximation due to font substitution */
 		font-weight: 400;
@@ -246,7 +239,6 @@ ng-view{
 		text-align: left;
 	}
 	#sidebar-nav-1 li{
-		font-family: Open Sans;
 		color:  #8b8b8b;
 		font-size: 14px; /* Approximation due to font substitution */
 		font-weight: 400;
@@ -255,7 +247,6 @@ ng-view{
 	}
 	.discussion-page .send-message{
 		margin-top:10px;
-		font-family: Open Sans;
 		color:  #c6c6c6;
 		font-size: 13px; /* Approximation due to font substitution */
 		font-weight: 400;
@@ -341,9 +332,7 @@ ng-view{
 		border-radius:2px !important;
 		margin-top:8px;
 	}
-	body{
-		background-color:#f7f7f7;
-	}
+
 	.discussion-page .posted-info{
 		color:  #2a2a2a;;
 		font-size: 13px; /* Approximation due to font substitution */
@@ -352,21 +341,18 @@ ng-view{
 		margin-bottom: 12px !important;
 	}
 	.discussion-page .article-heading{
-		font-family: Open Sans;
 		color:  #2a2a2a;
 		font-size: 16.181px; /* Approximation due to font substitution */
 		font-weight: 600;
 		line-height: 25.901px;
 	}
 	.discussion-page .article-content{
-		font-family: Open Sans;
 		color:  #8c8c8c;
 		font-size: 13.955px; /* Approximation due to font substitution */
 		font-weight: 400;
 		line-height: 24px
 	}
 	.discussion-page .article-content p:first-letter{
-		font-family: Open Sans;
 		color:  #8c8c8c;
 		font-size: 14px; /* Approximation due to font substitution */
 		font-weight: 400;
@@ -446,7 +432,6 @@ button.register-btn {
 	}
 	.register-page{
 		padding-top:0;
-		font-family: Open Sans;
 		color:  #858585;
 		font-size: 12.955px; /* Approximation due to font substitution */
 		font-weight: 400;
@@ -617,6 +602,11 @@ button.register-btn {
 		-webkit-box-shadow: 1px 1px 10px 5px #fff;
 		-ms-box-shadow: 1px 1px 10px 5px #fff;*/
 	}
+
+	.discussion-page div, .discussion-page p, .discussion-page a{
+		color: #121212;
+		font-family: century_gothic !important;
+	}
 /*
 .zindex-10{
 	z-index:10;
@@ -714,9 +704,7 @@ button.register-btn {
 }
 /* TA Customization */
 
-body#tinymce{
-	font-size:14px;
-}
+
 .mce-btn button{
 	line-height:12px !important;
 }
@@ -885,63 +873,72 @@ margin-top:10px;
 
 /* new left column - ask- rate- share */
 
+
 .ask-article-feedback-all-img {
-  background-image: url(../img/ask-tip-share.png);
-  height:35px;
-  margin-left: -1px;
-    
-  background-repeat: no-repeat;
-  width: 100%;
-  position: relative;
+	background-image: url(../img/ask-tip-share.png);
+	height:35px;
+	margin-left: -1px;
+
+	background-repeat: no-repeat;
+	width: 100%;
+	position: relative;
 
 }
 
 .ask-question-pos{
-background-position: 0px 0px;
+	background-position: 0px 0px;
 
 }
 .ask-question-pos:hover, .ask-question-pos:active{
-	 background-position: 0px -196px;
+	background-position: 0px -196px;
 }
 
 .share-tips-pos{
-background-position: 0px -43px;
+	background-position: 0px -43px;
 
 }
 .share-tips-pos:hover, .share-tips-pos:active{
-	 background-position: 0px -239px;
+	background-position: 0px -239px;
 }
 
 
-.submit-article-pos {	
+.submit-article-pos {
 	background-position: 0px -85px;
 }
-.submit-article-pos:hover, .submit-article-pos:active  {	
+.submit-article-pos:hover, .submit-article-pos:active  {
 	background-position: 0px -281px;
 }
 
-.give-feedback-pos {	
-background-position: 0px -143px;
+.give-feedback-pos {
+	background-position: 0px -143px;
 }
-.give-feedback-pos:hover {	
-background-position: 0px -339px;
+.give-feedback-pos:hover {
+	background-position: 0px -339px;
 }
 
-.ask-question-lc, .share-tips-lc, .submit-article-lc, .give-feedback-lc, .send-message-lc, .rate-review-lc {
-  display: block;
-  background: #FAFAFA;
-  margin: 0 0 8px 0;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #d2d2d2;
-  /* border-left-width: 3px; */
-  border-left-color: #00af50;
-  border-radius: 0;
-  padding: 0px;
-  height: 36px;
-  width: 100%;
-  margin-top: 0px;
-  cursor: pointer;
+.shop-faq-pos {
+	background-position: 0px -398px;
+}
+.shop-faq-pos:hover {
+	background-position: 0px -439px;
+}
+
+
+.ask-question-lc, .share-tips-lc, .submit-article-lc, .give-feedback-lc, .send-message-lc, .shop-faq-lc, .rate-review-lc {
+	display: block;
+	/* background: #FAFAFA; */
+	margin: 0 0 8px 0;
+	/* border-style: solid; */
+	/* border-width: 1px; */
+	/* border-color: #d2d2d2; */
+	/* border-left-width: 3px; */
+	border-left-color: #00af50;
+	border-radius: 0;
+	padding: 0px;
+	height: 36px;
+	width: 100%;
+	margin-top: 0px;
+	cursor: pointer;
 }
 
 
@@ -955,8 +952,8 @@ background-position: 0px -339px;
   position: relative;
 }
 
-.share-tips-lc:hover, .ask-question-lc:hover,  .submit-article-lc:hover, .give-feedback-lc:hover{
- background-color: #E5E5E5; !important;
+.share-tips-lc:hover, .ask-question-lc:hover,  .submit-article-lc:hover, .give-feedback-lc:hover, .shop-faq-lc:hover{
+	background-color: #E5E5E5; !important;
 }
 
 .list-head {
@@ -1011,7 +1008,6 @@ background-position: 0px -339px;
 }
 
 .articles-story{
-	font-family: Open Sans;
 	color: #2A2A2A;
 	font-size: 13.955px;
 	font-weight: 400;

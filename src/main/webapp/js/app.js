@@ -363,6 +363,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
 
         console.log("Routechanged... ");
         BY.removeEditor();
+        BY.editorCategoryList.resetCategoryList();
 		//For any location other than search, wipe out the search term
 		if($location.path().indexOf('/search/') == -1)
         	$rootScope.term = '';

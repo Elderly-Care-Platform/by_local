@@ -121,6 +121,9 @@ BY.editorCategoryList = (function(){
                 selectedCategoryList[selectedInput.value] = selectedInput.value ;
             }else{
                 delete selectedCategoryList[selectedInput.value];
+                if($rootScope.discussCategoryListMap[selectedInput.value] && $rootScope.discussCategoryListMap[selectedInput.value].parentId){
+                    delete selectedCategoryList[$rootScope.discussCategoryListMap[selectedInput.value].parentId];
+                }
             }
         },
 

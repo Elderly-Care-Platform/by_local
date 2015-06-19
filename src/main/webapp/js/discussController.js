@@ -202,18 +202,26 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         
         var topicId = $routeParams.topicId;
         var subTopicId = $routeParams.subTopicId;
-        if($rootScope.discussCategoryNameIdMap[topicId.toLowerCase()]){
-            if($rootScope.discussCategoryNameIdMap[topicId.toLowerCase()].childCount <= 0) {
-                $scope.preSelected[$rootScope.discussCategoryNameIdMap[topicId.toLowerCase()]] = true;
-                BY.editorCategoryList.addCategory($rootScope.discussCategoryNameIdMap[topicId.toLowerCase()]);
+
+        var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
+        var subTopicQueryId = $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()] ? $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()] : "all";
+
+        if(topicQueryId){
+            var parentCategory = $rootScope.discussCategoryListMap[topicQueryId];
+            if(parentCategory.childCount <= 0) {
+                $scope.preSelected[topicQueryId] = true;
+                BY.editorCategoryList.addCategory(topicQueryId);
             }
         }
+
         if($rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]){
-        	$scope.preSelected[$rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]] = true;
+            var subTopicCategory = $rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()];
+        	$scope.preSelected[subTopicCategory] = true;
+            BY.editorCategoryList.addCategory(subTopicCategory);
         }
         
-        var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
-        var subTopicQueryId = (subTopicId=== "all") ? "all" : $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()];
+
+
         
         if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {
             discussType = 'All';

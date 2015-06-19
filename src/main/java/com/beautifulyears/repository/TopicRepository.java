@@ -16,6 +16,6 @@ public interface TopicRepository extends PagingAndSortingRepository<Topic, Strin
 	
 	public Topic findByTopicName(String topicName);
 	
-	
+	public List<Topic> findByIsActive(Boolean isActive);
 
 }

@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.beautifulyears.domain.Topic;
+import com.beautifulyears.rest.response.TopicResponse.TopicEntity;
 
 public class TopicResponse implements IResponse {
 
 	private Map<String, TopicEntity> topicMap = new HashMap<String, TopicEntity>();
 
-	private Map<Integer,TopicEntity> root;
+	private Map<Integer, TopicEntity> root;
 
 	public class TopicEntity {
 		private String id;
@@ -19,8 +20,9 @@ public class TopicResponse implements IResponse {
 		private String name;
 		private String slug;
 		private String parentId;
+		private int childCount;
 
-		private Map<Integer,TopicEntity> children = new HashMap<Integer,TopicEntity>();
+		private Map<Integer, TopicEntity> children = new HashMap<Integer, TopicEntity>();
 
 		public TopicEntity(Topic topic) {
 			id = topic.getId();
@@ -37,8 +39,6 @@ public class TopicResponse implements IResponse {
 		public void setOrderIdx(int orderIdx) {
 			this.orderIdx = orderIdx;
 		}
-
-
 
 		public String getParentId() {
 			return parentId;
@@ -72,29 +72,41 @@ public class TopicResponse implements IResponse {
 			this.slug = slug;
 		}
 
-		public Map<Integer,TopicEntity> getChildren() {
+		public Map<Integer, TopicEntity> getChildren() {
 			return children;
 		}
 
-		public void setChildren(Map<Integer,TopicEntity> children) {
+		public void setChildren(Map<Integer, TopicEntity> children) {
 			this.children = children;
+		}
+
+		public int getChildCount() {
+			return childCount;
+		}
+
+		public void setChildCount(int childCount) {
+			this.childCount = childCount;
 		}
 
 	}
 
 	@Override
-	public Map<Integer,TopicEntity> getResponse() {
-		root = new HashMap<Integer,TopicEntity>();
+	public Map<Integer, TopicEntity> getResponse() {
+		root = new HashMap<Integer, TopicEntity>();
 		Iterator it = topicMap.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pair = (Map.Entry)it.next();
-	        TopicEntity topic = (TopicEntity) pair.getValue();
-	        if(null == topic.getParentId()){
-	        	root.put(topic.getOrderIdx(),topic);
-	        }else{
-	        	topicMap.get(topic.getParentId()).getChildren().put(topic.getOrderIdx(),topic);
-	        }
-	    }		
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			TopicEntity topic = (TopicEntity) pair.getValue();
+			Map<Integer, TopicEntity> childMap = root;
+			if (null != topic.getParentId()) {
+				TopicEntity parentTopic = topicMap.get(topic.getParentId());
+
+				childMap = parentTopic.getChildren();
+				parentTopic.setChildCount(parentTopic.getChildCount() + 1);
+
+			}
+			childMap.put(topic.getOrderIdx(), topic);
+		}
 		return root;
 	}
 

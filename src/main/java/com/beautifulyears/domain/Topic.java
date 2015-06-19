@@ -19,6 +19,9 @@ public class Topic {
 	private String parentId;
 	private List<String> children = new ArrayList<String>();
 	private int orderIdx;
+	private Boolean isActive;
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -66,6 +69,12 @@ public class Topic {
 	}
 	public void setOrderIdx(int orderIdx) {
 		this.orderIdx = orderIdx;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 	
 	

@@ -43,7 +43,7 @@ public class TopicController {
 	@ResponseBody
 	public Map<Integer, TopicResponse.TopicEntity> findAll() {
 		TopicResponse res = new TopicResponse();
-		List<Topic> list = this.topicRepository.findAll();
+		List<Topic> list = this.topicRepository.findByIsActive(new Boolean(true));
 		res.addTopics(list);
 		return res.getResponse();
 	}

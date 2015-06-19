@@ -35,7 +35,7 @@
 </div>
 
 <div class="col-md-12 no-padding form-header-content margin-bottom-15">
-    Please select at least 1 categories,where your article appears.
+    Please select at least 1 category, where your article appears.
 </div>
 
 <div class="col-md-12 no-padding margin-bottom-35">
@@ -43,16 +43,18 @@
         <div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryList">
             <div class="panel-heading">
                 <h4 class="panel-title by_editor_ParentCategories">
-                    <input type="checkbox" onchange="BY.selectCategory(this)" value="{{category.id}}" ng-if="category.childCount <= 0" ng-model="preSelected[category.id]">
-                    <div class="triangle-down" ng-if="category.childCount > 0"></div>
+
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
                         {{category.name}}
                     </a>
+
+                    <input type="checkbox" onchange="BY.editorCategoryList.selectCategory(this)" value="{{category.id}}" ng-if="category.childCount <= 0" ng-model="preSelected[category.id]">
+                    <div class="triangle-down" ng-if="category.childCount > 0"></div>
                 </h4>
             </div>
             <div id={{category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel-collapse collapse">
                 <div class="panel-body col-md-4" ng-repeat="subCategory in category.children">
-                    <input type="checkbox" onchange="BY.selectCategory(this)" value={{subCategory.id}} ng-model="preSelected[subCategory.id]"> <span>{{subCategory.name}}</span>
+                    <input type="checkbox" onchange="BY.editorCategoryList.selectCategory(this)" value={{subCategory.id}} ng-model="preSelected[subCategory.id]"> <span>{{subCategory.name}}</span>
                 </div>
             </div> <div style="clear:both"></div>
 

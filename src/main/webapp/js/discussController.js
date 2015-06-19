@@ -79,17 +79,16 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
             $scope.discuss.articlePhotoFilename = $scope.editor.articlePhotoFilename;
-            $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
-                return [value];
-            });
+            $scope.discuss.topicId = BY.editorCategoryList.getCategoryList();
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
+
             if($scope.discuss.topicId.length >0 && $scope.discuss.text.trim().length > 0){
                 $scope.error = "";
                 $scope.discuss.$save(function (discuss, headers) {
 
-                    BY.selectedCategoryList = {};
+                    BY.editorCategoryList.resetCategoryList();
                     $route.reload();
                 });
 
@@ -203,20 +202,19 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         
         var topicId = $routeParams.topicId;
         var subTopicId = $routeParams.subTopicId;
-        if($rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()]){
-        	$scope.preSelected[$rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()]] = true;
-        	BY.selectedCategoryList[$rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()]] = $rootScope.discussCategoryNameIdMap[$routeParams.topicId.toLowerCase()] ;
+        if($rootScope.discussCategoryNameIdMap[topicId.toLowerCase()]){
+            if($rootScope.discussCategoryNameIdMap[topicId.toLowerCase()].childCount <= 0) {
+                $scope.preSelected[$rootScope.discussCategoryNameIdMap[topicId.toLowerCase()]] = true;
+                BY.editorCategoryList.addCategory($rootScope.discussCategoryNameIdMap[topicId.toLowerCase()]);
+            }
         }
         if($rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]){
         	$scope.preSelected[$rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]] = true;
-        	BY.selectedCategoryList[$rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]] = $rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()] ;
         }
         
         var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
         var subTopicQueryId = (subTopicId=== "all") ? "all" : $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()];
         
-        console.log(topicQueryId);
-
         if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {
             discussType = 'All';
         }
@@ -291,17 +289,16 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
             $scope.discuss.articlePhotoFilename = $scope.editor.articlePhotoFilename;
-            $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
-                return [value];
-            });
+            $scope.discuss.topicId = BY.editorCategoryList.getCategoryList();
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
-            if($scope.discuss.topicId.length >0){
+
+            if($scope.discuss.topicId.length > 0){
                 $scope.error = "";
                 $scope.discuss.$save(function (discuss, headers) {
 
-                    BY.selectedCategoryList = {};
+                    BY.editorCategoryList.resetCategoryList();
                     $route.reload();
                 });
 

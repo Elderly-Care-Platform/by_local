@@ -38,17 +38,16 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
             $scope.discuss.articlePhotoFilename = $scope.editor.articlePhotoFilename;
-            $scope.discuss.topicId = $.map(BY.selectedCategoryList, function(value, index) {
-                return [value];
-            });
+            $scope.discuss.topicId = BY.editorCategoryList.getCategoryList();
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
-            if(Object.keys(BY.selectedCategoryList).length > 0 && $scope.discuss.text.trim().length > 0){
+
+            if(Object.keys($scope.discuss.topicId).length > 0 && $scope.discuss.text.trim().length > 0){
                 $scope.error = "";
                 $scope.discuss.$save(function (discuss, headers) {
                     $scope.editor.subject = "";
-                    BY.selectedCategoryList = {};
+                    BY.editorCategoryList.resetCategoryList();
                     $scope.aboutUsViews.contentPanel = "views/aboutUs/aboutUsContentPanel.html";
                 });
 

@@ -111,39 +111,81 @@ tinymce.init({
     }
 });
 
+BY.editorCategoryList = (function(){
+    var selectedCategoryList = {};
 
-BY.selectedCategoryList = {};
-BY.selectCategory = function(selectedInput){
-    var $body = angular.element(document.body);   // 1
-    var $rootScope = $body.scope().$root;
-    var categorySelected = selectedInput.value;
-    
-//    for(category in $rootScope.discussCategoryList) {
-//        if($rootScope.discussCategoryList[category].id == categorySelected){
-//            var childElements = document.getElementById(categorySelected).children;
-//            for(var j=0; j<childElements.length; j++) {
-//                childElements[j].children[0].checked = selectedInput.checked;
-//                if(selectedInput.checked===true){
-//                	BY.selectedCategoryList[childElements[j].children[0].value] = childElements[j].children[0].value;
-//                }else{
-//                	delete BY.selectedCategoryList[childElements[j].children[0].value];
-//                }
-//            }
-//        }
-//        
-//        
+
+    return {
+        selectCategory:function(selectedInput){
+            if(selectedInput.checked===true){
+                selectedCategoryList[selectedInput.value] = selectedInput.value ;
+            }else{
+                delete selectedCategoryList[selectedInput.value];
+            }
+        },
+
+        addCategory:function(selectedCategory){
+            selectedCategoryList[selectedCategory] = selectedCategory;
+        },
+
+        getCategoryList:function(){
+            var $body = angular.element(document.body);   // 1
+            var $rootScope = $body.scope().$root;
+            for(key in selectedCategoryList){
+                if($rootScope.discussCategoryListMap[key] && $rootScope.discussCategoryListMap[key].parentId){
+                    selectedCategoryList[$rootScope.discussCategoryListMap[key].parentId] = $rootScope.discussCategoryListMap[key].parentId;
+                }
+
+            }
+
+            var categoryMap = $.map(selectedCategoryList, function(value, index) {
+                return [value];
+            });
+            return categoryMap;
+        },
+        resetCategoryList:function(){
+            selectedCategoryList = {};
+        }
+
+    }
+})();
+
+
+//BY.selectedCategoryList = {};
+//BY.selectCategory = function(selectedInput){
+//    //var $body = angular.element(document.body);   // 1
+//    //var $rootScope = $body.scope().$root;
+//    //var categorySelected = selectedInput.value;
+//
+////    for(category in $rootScope.discussCategoryList) {
+////        if($rootScope.discussCategoryList[category].id == categorySelected){
+////            var childElements = document.getElementById(categorySelected).children;
+////            for(var j=0; j<childElements.length; j++) {
+////                childElements[j].children[0].checked = selectedInput.checked;
+////                if(selectedInput.checked===true){
+////                	BY.selectedCategoryList[childElements[j].children[0].value] = childElements[j].children[0].value;
+////                }else{
+////                	delete BY.selectedCategoryList[childElements[j].children[0].value];
+////                }
+////            }
+////        }
+////
+////
+////    }
+//
+//    //if(selectedInput.checked===true && $rootScope.discussCategoryListMap[categorySelected] && $rootScope.discussCategoryListMap[categorySelected].parentId){
+//    //	//$('input[value="'+$rootScope.discussCategoryListMap[categorySelected].parentId+'"]').attr("checked",true);
+//    //    if()
+//    //	BY.selectedCategoryList[$rootScope.discussCategoryListMap[categorySelected].parentId] = $rootScope.discussCategoryListMap[categorySelected].parentId;
+//    //}
+//
+//    if(selectedInput.checked===true){
+//    	BY.selectedCategoryList[selectedInput.value] = selectedInput.value ;
+//    }else{
+//    	delete BY.selectedCategoryList[selectedInput.value];
 //    }
-    
-    if(selectedInput.checked===true && $rootScope.discussCategoryListMap[categorySelected] && $rootScope.discussCategoryListMap[categorySelected].parentId){
-    	$('input[value="'+$rootScope.discussCategoryListMap[categorySelected].parentId+'"]').attr("checked",true);
-    	BY.selectedCategoryList[$rootScope.discussCategoryListMap[categorySelected].parentId] = $rootScope.discussCategoryListMap[categorySelected].parentId;
-    }
-    
-    if(selectedInput.checked===true){
-    	BY.selectedCategoryList[selectedInput.value] = selectedInput.value ;
-    }else{
-    	delete BY.selectedCategoryList[selectedInput.value];
-    }
-    
-}
+//
+//}
+//
+//BY.getCategoryList
 

@@ -49,11 +49,13 @@ body a, body p, body span, body div
 }
 
 .triangle-down {
-    margin-left: 8px;
+    margin-top: 12px;
+    margin-right: 9px;
     display: inline-block;
     width: 0;
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-top: 10px solid #282828;
+    float: right;
 }

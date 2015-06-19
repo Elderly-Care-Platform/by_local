@@ -582,7 +582,7 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
            return $sce.trustAsHtml(html);
          };
 
-      $scope.discuss = DiscussShow.get({discussId: discussId});
+       $scope.discuss = DiscussShow.get({discussId: discussId});
 
   	   var discussType = $rootScope.bc_discussType;
        var topicId = $scope.discuss.topicId;
@@ -1059,8 +1059,8 @@ byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '
 
 
 
-byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList',
-  function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList) {
+byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList','$sce',
+  function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList, $sce) {
      	$scope.discuss = new Discuss();
 		var segment = $location.path().substring(1);
 		segment = segment.substring(segment.indexOf("/")+1);
@@ -1106,6 +1106,11 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 			});
 
 		};
+		
+		$scope.trustForcefully = function(html) {
+			return $sce.trustAsHtml(html);
+		};
+
 
   }]);
 
@@ -1144,7 +1149,6 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
     $rootScope.bc_topic = $scope.discuss.topicId;
     $rootScope.bc_subTopic = $scope.discuss.subTopicId;
-
     $scope.current_comment = '';
 
 	//these are coming null

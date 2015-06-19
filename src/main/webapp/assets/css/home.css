@@ -15,8 +15,8 @@
     border-color: #cfcfcf;
     border-right-width: 1px;
     font-size: 14px !important;
-
     line-height: 1.1 !important;
+    z-index: 99;
 
 }
 
@@ -331,3 +331,6 @@
     margin-bottom: 14px;
 }
 
+.by_blog_author .news-v3 .post-shares li i:hover{
+    background:none !important;
+}

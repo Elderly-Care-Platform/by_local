@@ -49,7 +49,7 @@
                     </a>
 
                     <input type="checkbox" onchange="BY.editorCategoryList.selectCategory(this)" value="{{category.id}}" ng-if="category.childCount <= 0" ng-model="preSelected[category.id]">
-                    <div class="triangle-down" ng-if="category.childCount > 0"></div>
+                    <a class="triangle-down accordion-toggle collapsed" ng-if="category.childCount > 0" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;"></a>
                 </h4>
             </div>
             <div id={{category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel-collapse collapse">

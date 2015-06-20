@@ -84,25 +84,52 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
 
-            if($scope.discuss.topicId.length >0 && $scope.discuss.text.trim().length > 0){
-                $scope.error = "";
-                $scope.discuss.$save(function (discuss, headers) {
+            if($scope.discuss.discussType==="F"){
+                if($scope.discuss.title.trim().length > 0){
+                    $scope.submitContent();
+                }else {
+                    $scope.error = "Please select title";
+                }
 
-                    BY.editorCategoryList.resetCategoryList();
-                    $route.reload();
-                });
 
-            }else{
-            	if($scope.discuss.text.trim().length <= 0){
-					$scope.error = "Please add details";
-				}else{
-					$scope.error = "Please select atleast 1 category";
-				}
+            } else if($scope.discuss.discussType==="A"){
+                if($scope.discuss.topicId.length > 0 && $scope.discuss.title.trim().length > 0){
+                    $scope.submitContent();
+                }else{
+                    if($scope.discuss.title.trim().length <= 0){
+                        $scope.error = "Please select title";
+                    }else if($scope.discuss.topicId.length <= 0){
+                        $scope.error = "Please select atleast 1 category";
+                    }
+                }
+
+            } else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
+                if($scope.discuss.topicId.length > 0 && $scope.discuss.text.trim().length > 0){
+                    $scope.submitContent();
+                }else{
+                    if($scope.discuss.text.trim().length <= 0){
+                        $scope.error = "Please add more details";
+                    }else if($scope.discuss.topicId.length <= 0){
+                        $scope.error = "Please select atleast 1 category";
+                    }
+                }
+            } else {
+                //no more type
             }
             //save the discuss
 
 
         };
+
+        $scope.submitContent = function(){
+            $scope.error = "";
+            $scope.discuss.$save(function (discuss, headers) {
+                $scope.editor.subject = "";
+                BY.editorCategoryList.resetCategoryList();
+                $route.reload();
+            });
+        };
+
 
         $scope.trustForcefully = function(html) {
             return $sce.trustAsHtml(html);
@@ -306,20 +333,47 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
 
-            if($scope.discuss.topicId.length > 0){
-                $scope.error = "";
-                $scope.discuss.$save(function (discuss, headers) {
+            if($scope.discuss.discussType==="F"){
+                if($scope.discuss.title.trim().length > 0){
+                    $scope.submitContent();
+                }else {
+                    $scope.error = "Please select title";
+                }
 
-                    BY.editorCategoryList.resetCategoryList();
-                    $route.reload();
-                });
 
-            }else{
-                $scope.error = "Please select atleast 1 category";
+            } else if($scope.discuss.discussType==="A"){
+                if($scope.discuss.topicId.length > 0 && $scope.discuss.title.trim().length > 0){
+                    $scope.submitContent();
+                }else{
+                    if($scope.discuss.title.trim().length <= 0){
+                        $scope.error = "Please select title";
+                    }else if($scope.discuss.topicId.length <= 0){
+                        $scope.error = "Please select atleast 1 category";
+                    }
+                }
+
+            } else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
+                if($scope.discuss.topicId.length > 0 && $scope.discuss.text.trim().length > 0){
+                    $scope.submitContent();
+                }else{
+                    if($scope.discuss.text.trim().length <= 0){
+                        $scope.error = "Please add more details";
+                    }else if($scope.discuss.topicId.length <= 0){
+                        $scope.error = "Please select atleast 1 category";
+                    }
+                }
+            } else {
+                //no more type
             }
-            //save the discuss
+        };
 
-
+        $scope.submitContent = function(){
+            $scope.error = "";
+            $scope.discuss.$save(function (discuss, headers) {
+                $scope.editor.subject = "";
+                BY.editorCategoryList.resetCategoryList();
+                $route.reload();
+            });
         };
 
         $scope.go = function($event, type, id, discussType){

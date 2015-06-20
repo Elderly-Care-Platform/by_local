@@ -284,12 +284,11 @@
 }
 /*new css************************************************/
 
-.by_blog_author img{
+.by_blog_author > img{
     width: 135px !important;
     max-height: 168px !important;
-    /*margin-top: 9px !important;*/
-    /*margin-left: 9px !important;*/
-    margin-right: 0px !important;
+    margin-top: 9px !important;
+    margin-left: 9px !important;
 }
 
 .by_blog_author {
@@ -330,6 +329,11 @@
     max-height: 135px;
     margin-top: -6px;
     margin-bottom: 14px;
+}
+
+.by_story img{
+    width: auto !important;
+      max-width: 100px;
 }
 
 .by_blog_author .news-v3 .post-shares li i:hover{

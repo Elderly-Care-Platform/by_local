@@ -34,7 +34,7 @@
             <div class="col-md-12 left-container-img-wrapper no-padding">
                 <div class="col-md-12">
                     <div class="row">
-                        <a href="#" class="font15">{{!discuss.username &&
+                        <a href="#" class="font15">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
                             discuss.userId || discuss.username}}</a>
                     </div>
                 </div>
@@ -56,8 +56,7 @@
             </div>
             <div class="also-by-wrapper left-container-img-wrapper col-md-12 no-padding">
                 <div class="also-by-head col-md-12">
-                    ALSO BY <span class="uname">{{!discuss.username &&
-						discuss.userId || discuss.username}}</span>
+                    ALSO BY <span class="uname">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</span>
                 </div>
                 <div class="also-by-content-wrapper col-md-offset-1 col-md-11 no-padding" ng-repeat="discuss2 in discuss2">
                     <div class="col-md-12 also-by-content">
@@ -90,8 +89,7 @@
                 <div class="article {{discuss.id}}">
                     <div class="article-info">
                         <ul class="list-inline posted-info">
-                            <li><a href="#">By {{!discuss.username && discuss.userId
-                                || discuss.username}}</a></li>
+                            <li><a href="#">By {{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a></li>
                             <li> In <a
                                     href="#/discuss/{{discuss.discussType}}/{{discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
                             </li>
@@ -202,7 +200,7 @@
             <div class="blog-author-desc news-v3">
                 <div class="overflow-h">
                     <div class="comment-name-time">
-                        <span class="comment-name">{{comment.userName}} </span> | <span
+                        <span class="comment-name">{{comment.username !== "null"  ? comment.username : "Anonymous"}} </span> | <span
                             class="comment-time">{{comment.createdAt | date:'medium'}} ... {{(date - comment.createdAt)/(1000*60*60) | number:0}} hours ago </span>
                     </div>
                 </div>

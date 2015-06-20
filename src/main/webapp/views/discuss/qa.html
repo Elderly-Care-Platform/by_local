@@ -156,7 +156,7 @@
 										class="{{discuss.discussType == 'P' && 'post-first-letter' || discuss.discussType == 'Q' && 'question-first-letter' || ''}}">
 										{{discuss.discussType == 'A' && 'Article' ||
 										discuss.discussType == 'P' && 'Post' || 'Question'}} By <a
-											href="#">{{discuss.username}}</a>
+											href="#">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
 									</p></li>
 								<li> In <a
 										href="#/discuss/{{discuss.discussType}}/{{discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
@@ -236,7 +236,7 @@
 								<div class="article-info">
 									<ul class="list-inline posted-info">
 										<li><p class="answer-first-letter">{{(comment.id == comment.parentId && discuss.discussType == 'Q') && 'Answer' || 'Comment'}}
-											By <a href="#">{{comment.userName}}</a></p></li>
+											By <a href="#">{{comment.username !== "null"  ? comment.username : "Anonymous"}}</a></p></li>
 
 										<li>{{comment.createdAt | date:'medium'}}</li>
 									</ul>

@@ -132,7 +132,7 @@
                         <div class="article">
                             <div class="article-info">
                                 <ul class="list-inline posted-info">
-                                    <li><a href="">By {{discuss.username}}</a></li>
+                                    <li><a href="">By {{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a></li>
 									<li><a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">In {{discuss.subTopicId}}</a></li>
                                     <li>{{discuss.createdAt | date:'medium'}}</li>
                                 </ul>
@@ -226,7 +226,7 @@
                     <div class="article">
                         <div class="article-info">
                            <ul class="list-inline posted-info">
-                            <li><p class="post-first-letter">Post By <a href="">{{discuss.username}}</a></p></li>
+                            <li><p class="post-first-letter">Post By <a href="">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a></p></li>
 							<li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{discuss.subTopicId}}</a></li>
                             <li>{{discuss.createdAt | date:'medium'}}</li>
                         </ul>

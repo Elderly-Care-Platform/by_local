@@ -3,7 +3,7 @@
 }
 
 .by_breadcrumbs_container {
-    height: 36px;
+    height: 35px;
     overflow: hidden;
 
 }
@@ -326,11 +326,15 @@
 }
 
 .by_story {
-    height: 135px;
+    max-height: 135px;
     margin-top: -6px;
     margin-bottom: 14px;
 }
 
 .by_blog_author .news-v3 .post-shares li i:hover{
     background:none !important;
+}
+
+.by_blog_author .news-v3 .post-shares li i{
+    color:#D8D5D5 !important;
 }

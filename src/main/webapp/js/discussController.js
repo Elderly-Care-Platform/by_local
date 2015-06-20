@@ -133,6 +133,10 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         }
 
         $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            $('p').each(function() {
+                var $this = $(this);
+                if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
+                    $this.remove(); });
             $('.by_story').dotdotdot();
         });
  	}]);
@@ -346,6 +350,10 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         };
 
         $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+            $('p').each(function() {
+                var $this = $(this);
+                if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
+                    $this.remove(); });
             $('.by_story').dotdotdot();
         });
 

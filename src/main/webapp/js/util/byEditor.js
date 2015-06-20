@@ -38,6 +38,7 @@ BY.addEditor = function(param){
         skin: 'light',
         statusbar: false,
         menubar: false,
+        content_css : "css/tinyMce_custom.css",
         plugins: [
             "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",

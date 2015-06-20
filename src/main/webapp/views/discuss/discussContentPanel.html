@@ -8,24 +8,24 @@
         <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">
         <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
-                <li class="add-comment" >
+                <li class="add-comment" ng-if="discuss.aggrReplyCount > 0">
                     <a href="#">
-                        <i ng-if="discuss.discussType == 'A' || discuss.discussType == 'P'" class="rounded-x icon-speech ng-scope"></i>
-                        <i ng-if="discuss.discussType == 'Q'" class="rounded-x fa fa-pencil-square-o ng-scope"></i>
+                        <i ng-if="discuss.discussType == 'A' || discuss.discussType == 'P'" class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                        <i ng-if="discuss.discussType == 'Q'" class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"></i>
                         <span ng-if="discuss.aggrReplyCount > 0">{{discuss.aggrReplyCount}}</span>
                     </a>
                 </li>
 
 
-                <li>
+                <!--<li>-->
+                    <!--<a href="#">-->
+                        <!--<i class="rounded-x icon-share"></i>-->
+                        <!--&lt;!&ndash;<span>0</span>&ndash;&gt;-->
+                    <!--</a>-->
+                <!--</li>-->
+                <li ng-if="discuss.aggrLikeCount > 0">
                     <a href="#">
-                        <i class="rounded-x icon-share"></i>
-                        <!--<span>0</span>-->
-                    </a>
-                </li>
-                <li >
-                    <a href="#">
-                        <i class="rounded-x icon-heart"></i>
+                        <i class="rounded-x icon-heart" title="Likes"></i>
                         <span ng-if="discuss.aggrLikeCount > 0">{{discuss.aggrLikeCount}}</span>
                     </a>
                 </li>

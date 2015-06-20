@@ -3,16 +3,16 @@
     <div class="scrollableLeftPanelDiv">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 "
             id="sidebar-nav">
-            <li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA">
+            <li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA" ng-if="discuss_counts.q > 0">
                 <a href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A (<span>{{discuss_counts.q}}</span>)</a>
             </li>
-            <li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts">
+            <li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts" ng-if="discuss_counts.p > 0">
                 <a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS (<span>{{discuss_counts.p}}</span>)</a>
             </li>
-            <li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles">
+            <li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.a > 0">
                 <a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">STORIES (<span>{{discuss_counts.a}}</span>)</a>
             </li>
-            <li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">
+            <li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.z > 0">
                 <a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL (<span>{{discuss_counts.z}}</span>)</a>
             </li>
         </ul>
@@ -23,17 +23,17 @@
             <span>Ask a Question</span>
         </div>
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Tips')">
-            <i class="icon-custom icon-sm icon_tips"></i> <span>Share
-							Tips &amp; Experiences</span>
+            <i class="icon-custom icon-sm icon_tips"></i>
+            <span>Share Experiences</span>
             </a>
         </div>
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
-            <i class="icon-custom icon-sm icon_story"></i> <span>Publish
-							your Story</span>
+            <i class="icon-custom icon-sm icon_story"></i>
+            <span>Publish Your Story</span>
         </div>
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Feedback')">
-            <i class="icon-custom icon-sm icon_feedback"></i> <span>Provide
-							Feedback</span>
+            <i class="icon-custom icon-sm icon_feedback"></i>
+            <span>Feedback</span>
         </div>
     </div>
 </div>

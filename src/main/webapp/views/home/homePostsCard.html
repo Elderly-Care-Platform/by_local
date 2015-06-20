@@ -14,7 +14,7 @@
 
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', post.id, post.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
-        <img src="{{post.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">
+        <img src="{{post.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
@@ -39,31 +39,6 @@
     </div>
 </div>
 
-<!--<div ng-repeat="post in posts" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"-->
-     <!--data-link="articles.html">-->
-    <!--<div ng-click="go($event, 'id', post.id, post.discussType)" class="col-md-12 " style="padding-left: 0px;">-->
-        <!--<img class="img-responsive" src="{{post.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">-->
-
-        <!--<div class="by_card_info">-->
-            <!--<ul class="list-inline posted-info">-->
-                <!--<li>-->
-                    <!--<p class="by_captilize_first_letter">Shared by <a class="by_captilize_first_letter" href="">{{post.username}}</a>-->
-                    <!--</p></li>-->
-                <!--<li ng-if="post.topicId && post.topicId.length > 0">In <a-->
-                        <!--ng-click="go($event, 'name', post.topicId[0])" class="by_captilize_first_letter">{{$root.discussCategoryListMap[post.topicId[0]].name}}</a>-->
-                <!--</li>-->
-                <!--<li>{{post.createdAt | date : 'MMM d, yyyy'}}</li>-->
-            <!--</ul>-->
-            <!--<div class="by_card_heading">-->
-                <!--<a href="#/discuss/{{post.id}}">{{post.title}}</a>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="by_card_content" ng-bind-html="trustForcefully(post.text) | limitTo:400">-->
-
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 
 <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html">
     <a href="#discuss/P/list/all">More...</a>

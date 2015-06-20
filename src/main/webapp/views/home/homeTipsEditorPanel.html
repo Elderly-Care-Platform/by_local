@@ -21,17 +21,21 @@
     <div class="panel-group acc-v1" id="accordion-1">
         <div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryList">
             <div class="panel-heading">
-                <h4 class="panel-title by_editor_ParentCategories">
+                <h4 class="panel-title by_editor_ParentCategories" ng-if="category.childCount <= 0">
+                    <label>
+                        {{category.name}}
 
+                        <input type="checkbox" onchange="BY.editorCategoryList.selectCategory(this)" value="{{category.id}}"  ng-model="preSelected[category.id]">
+                    </label>
+                </h4>
+                <h4 class="panel-title by_editor_ParentCategories" ng-if="category.childCount > 0">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
                         {{category.name}}
                     </a>
-
-                    <input type="checkbox" onchange="BY.editorCategoryList.selectCategory(this)" value="{{category.id}}" ng-if="category.childCount <= 0" ng-model="preSelected[category.id]">
-                    <a class="triangle-down accordion-toggle collapsed" ng-if="category.childCount > 0" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;"></a>
+                    <a class="triangle-down accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;"></a>
                 </h4>
             </div>
-            <div id={{category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel- collapse collapse">
+            <div id={{category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel-collapse collapse">
                 <div class="panel-body col-md-4" ng-repeat="subCategory in category.children">
                     <input type="checkbox" onchange="BY.editorCategoryList.selectCategory(this)" value={{subCategory.id}} ng-model="preSelected[subCategory.id]"> <span>{{subCategory.name}}</span>
                 </div>

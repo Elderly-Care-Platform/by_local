@@ -13,7 +13,7 @@
 
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
-        <img src="{{article.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">
+        <img src="{{article.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
@@ -37,35 +37,6 @@
         <div style="clear: both"></div>
     </div>
 </div>
-
-<!--<div ng-repeat="article in articles" class="col-md-12 margin-bottom-35 by_card" data-index="discussion-articles"-->
-     <!--data-link="articles.html">-->
-    <!--<div ng-click="go($event, 'id', article.id, article.discussType)" class="col-md-12" style="padding-left: 0px;">-->
-        <!--<img class="img-responsive" src="{{article.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.png">-->
-
-        <!--<div class="by_card_info">-->
-            <!--<ul class="list-inline posted-info">-->
-                <!--<li>-->
-                    <!--<p class="by_captilize_first_letter">Article by <a class="by_captilize_first_letter" href="">{{article.username}}</a>-->
-                    <!--</p>-->
-                <!--</li>-->
-                <!--<li ng-if="article.topicId && article.topicId.length > 0">In-->
-                    <!--<a ng-click="go($event,'name', article.topicId[0])" class="by_captilize_first_letter">-->
-                        <!--{{$root.discussCategoryListMap[article.topicId[0]].name}}-->
-                    <!--</a>-->
-                <!--</li>-->
-                <!--<li>{{article.createdAt | date : 'MMM d, yyyy'}}</li>-->
-            <!--</ul>-->
-            <!--<div class="by_card_heading">-->
-                <!--<a href="#/discuss/{{article.id}}">{{article.title}}</a>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="by_card_content" ng-bind-html="trustForcefully(article.text) | limitTo:400">-->
-
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 
 
 <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html">

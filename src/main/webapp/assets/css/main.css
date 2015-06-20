@@ -50,7 +50,7 @@ body a, body p, body span, body div
 
 .triangle-down {
     margin-top: 12px;
-    margin-right: 9px;
+    margin-right: 30px;
     display: inline-block !important;
     width: 0;
     height: 0;
@@ -58,7 +58,6 @@ body a, body p, body span, body div
     border-right: 5px solid transparent;
     border-top: 10px solid #282828;
     float: right;
-
-     padding: 0px !important;
-     background: none;
+    padding: 0px !important;
+    background: none !important;
 }

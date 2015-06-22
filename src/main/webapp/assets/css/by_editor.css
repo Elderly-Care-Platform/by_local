@@ -39,6 +39,7 @@ a.accordion-toggle.ng-binding {
     font-family: century_gothic !important;
     font-weight:normal !important;
     padding: 5px 15px;
+    cursor: pointer;
 }
 
 .by_editor_SubCategories {

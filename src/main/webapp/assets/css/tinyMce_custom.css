@@ -1,9 +1,9 @@
 @font-face {
     font-family: 'century_gothic';
-    src: url('../assets/font/century_gothic/gothic.eot');
-    src: url('../assets/font/century_gothic/gothic.eot?#iefix') format('embedded-opentype'),
-    url('../assets/font/century_gothic/gothic.woff') format('woff'),
-    url('../assets/font/century_gothic/gothic.ttf') format('truetype');
+    src: url('../font/century_gothic/gothic.eot');
+    src: url('../font/century_gothic/gothic.eot?#iefix') format('embedded-opentype'),
+    url('../font/century_gothic/gothic.woff') format('woff'),
+    url('../font/century_gothic/gothic.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 

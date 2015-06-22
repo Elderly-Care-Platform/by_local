@@ -79,3 +79,16 @@ body
     line-height: 18px;
   }
 }
+
+
+.username-textbox{
+	border-style: solid;
+	border-width: 1px;
+	border-color:#E5E5E5;
+	border-left-width: 2px;
+	border-left-color: #00af50;
+	border-radius:0;
+	font-size:14px;
+	font-size: 13px;
+	color:black;
+}

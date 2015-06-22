@@ -9,7 +9,7 @@
 <link rel="icon" type="image/x-icon" href="">
 <meta property="description" content=" " />
 <meta name="keywords" content="" />
-
+<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300'
 	rel='stylesheet' type='text/css' />
@@ -25,7 +25,8 @@
 		</div>
 		<div class="text">
 			Thank you for visiting us! <br />
-			<br />If you have already received an invitation for a trial, please enter your passcode here: <input type="text" class="username-textbox textbox textItalic" value="" onclick="if(this.value=='passcode'){this.value=''}" onblur="if(this.value==''){this.value='passcode'}"> 
+			<br />If you have already received an invitation for a trial, please enter your passcode here: <input id="key" type="password" 
+			class="username-textbox textbox textItalic" value="" onchange="check(this.value)"> 
  <br />
 			<br />Otherwise please bear with us for some time, we are still working on improving our Web site. 
  <br />
@@ -42,35 +43,19 @@
 	<script type="text/javascript">
 		var isLinkAdded = false;
 		var str = '';
-		document.onkeydown = function(e) {
-			switch (e.which) {
-			case 27:
-				str = '';
-				break;
-			default:
-				str += e.which;
-				if (!'7765717367'.includes(str)) {
-					str = "";
-				}
-			}
-			if (str === '7765717367') {
-				location.href = "main.html";
-				localStorage.setItem("LANDING_DONE", "DONE");
-			}
-
-		}
-
-		function check(val) {
+		
+		$("#key").on('change keyup paste', function() {
 			var str = "";
+			var val = this.value;
 			for (var i = 0; i < val.length; i++) {
 				str += val.charCodeAt(i);
 			}
+			console.log(str);
 			if (str === '1099710310599') {
 				location.href = "main.html";
 				localStorage.setItem("LANDING_DONE", "DONE");
 			}
-
-		}
+		});
 		
 		if ("localStorage" in window && localStorage.getItem("LANDING_DONE"))
 		{

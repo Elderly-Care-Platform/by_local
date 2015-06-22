@@ -6,7 +6,16 @@ public class LoginResponse {
 	private String email;
 	private String id;
 	private String userName;
+	private String userRoleId;
+
 	
+	public String getUserRoleId() {
+		return userRoleId;
+	}
+
+	public void setUserRoleId(String userRoleId) {
+		this.userRoleId = userRoleId;
+	}
 
 	public String getUserName() {
 		return userName;

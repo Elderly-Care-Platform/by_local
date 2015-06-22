@@ -3,14 +3,15 @@
 }
 .aboutUsOne
 {
-	background: url('../img/aboutUs/AboutOne.png');
-	padding: 80px 15px 80px 15px;
-	text-align: center;
-	margin-bottom: 20px;
-	padding-left: 0px !important;
-	/*margin-left: -22px !important;*/
-	margin-top: 0px !important;
-	/*margin-top: -21px;*/
+  background: url('../img/aboutUs/AboutOne.png');
+  background-position: 0px -18px;
+  padding: 71px 15px 325px 67px;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-left: 0px !important;
+  /* margin-left: -22px !important; */
+  margin-top: 0px !important;
+  /* margin-top: -21px; */
 }
 .aboutUsOneFirst, .aboutUsOneSecond
 {
@@ -20,15 +21,16 @@
 }
 .aboutUsOneFirst
 {
-	color:  #ffffff;
-	font-size: 60px; 
-	font-weight: 400;
-	line-height: 62px;
-	padding-bottom: 30px;
+  color: #333333;
+
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 62px;
+  padding-bottom: 5px;
 }
 .aboutUsOneSecond
 {
-	color:  #ffffff;
+	color:  #333333;
 	font-size: 36px; 
 	font-weight: 400;
 	line-height: 62px;
@@ -38,10 +40,12 @@
 {
 	background: url('../img/aboutUs/aboutTwo.png');
 	margin-top: 0px;
+	background-position: 0px -55px;
+	padding: 71px 15px 133px 67px !important;
 }
 .aboutUsOneThree
 {
-	color:  #ffffff;
+	color:  #333333;
 	font-size: 48px; 
 	margin-top: 20px;
 	font-weight: 700;
@@ -56,11 +60,42 @@
 	margin-top: 15px;
 	margin-bottom: 5px;
 }
+
+.one_leaf_image {
+  position: absolute;
+  top: 10px;
+  left: 53%;
+}
+.one_leaf_image_shop {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+}
+.one_leaf_image_do {
+  position: absolute;
+  top: 10px;
+  left: 47%;
+}
+
+.one_leaf_image_find {
+  position: absolute;
+  top: 10px;
+  left: 49%;
+}
+
+
 .aboutDiscussHead
 {
 	width: 100%;
 	height: auto;
-	border-bottom: 1px solid #ccc;
+
+}
+
+.margin-bottom-15 {
+  margin-bottom: 15px;
+}
+.margin-bottom-10{
+	margin-bottom:10px;
 }
 .aboutDiscussHeadBorder
 {
@@ -69,7 +104,8 @@
 	font-size: 22px; 
 	font-weight: 600;
 	text-align: left;
-	border-bottom: 2px solid #007033;
+	margin-left: auto;
+  	margin-right: auto;
 	width: 100px;
 }
 .aboutDiscussColor
@@ -79,16 +115,14 @@
 .aboutDiscussText
 {
 	color:  #000000;
-	font-size: 16px; 
-	padding-top:15px;
+	font-size: 17px; 
 	padding-bottom: 5px;
 	font-weight: 400;
-	line-height: 27px; 
+	line-height: 28px; 
 }
 .aboutDiscussText a
 {
 	text-decoration: underline;
-	font-style: italic;
 	color: #00A24A;
 }
 .aboutDiscussText ul
@@ -119,8 +153,8 @@
 }
 .aboutUsThree
 {
-	background: url('../img/aboutUs/aboutTwo.png');
-	padding: 30px 15px 30px 15px;
+	background: url('../img/aboutUs/aboutThree.png');
+	  padding: 19px 15px 0px 15px;
 	text-align: center;
 	margin-bottom: 20px;
 	margin-top: 15px;
@@ -131,7 +165,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	color:  #ffffff;
+	color:  #000;
 	font-size: 24px; 
 	font-weight: 400;
 	line-height: 50px;
@@ -155,8 +189,8 @@
 }
 .aboutFour
 {
-	background: url('../img/aboutUs/weAreHiringAbout.png') bottom;
-	padding: 30px 15px 30px 15px;
+	background: url('../img/aboutUs/budha_bg.png') bottom;
+	padding: 74px 25px 279px 15px;
 	text-align: center;
 	margin-bottom: 20px;
 	margin-top: 15px;

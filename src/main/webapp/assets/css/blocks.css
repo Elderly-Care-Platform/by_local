@@ -3085,7 +3085,7 @@
 /*Blog Post Author
 ------------------------------------*/
 .blog-author {
-  padding: 20px;
+   padding: 8px 8px 4px 8px;
   background: #fff;
 }
 
@@ -3109,7 +3109,7 @@
 
 .blog-author .blog-author-desc ul {
   float: right;
-  margin-top: 6px;
+  margin-top: 0px;
 }
 
 .blog-author .blog-author-desc p {
@@ -3337,7 +3337,7 @@
 
 .news-v3 p {
   color: #555;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 /*News Info*/

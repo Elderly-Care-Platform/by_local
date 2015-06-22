@@ -2592,7 +2592,6 @@ blockquote.hero.hero-default small {
 ------------------------------------*/
 .tag-box  {
   padding: 20px;
-  background: #fff;
   margin-bottom: 30px;
 }
 
@@ -2611,8 +2610,44 @@ blockquote.hero.hero-default small {
 
 /*Tag Boxes v1*/
 .tag-box-v1 {
-  border: solid 1px #eee;
-  border-top: solid 2px #72c02c;
+  border: solid 1px #fff;
+  border-top: solid 2px #007a3c;
+  background-color:#f5faf2;
+}
+.bg-light-green{
+	background-color:#f5faf2;
+}
+
+.tag-box-v1-blue {
+  border: solid 1px #fff;
+  border-top: solid 2px #0070d0;
+  background-color:#edf7ff;
+}
+.color-blue{
+	color:#edf7ff;
+}
+
+.bg-light-blue{
+	background-color:#edf7ff;
+}
+.tag-box-v1-orange {
+  border: solid 1px #fff;
+  border-top: solid 2px #f58220;
+  background-color:#fff9ec;
+}
+.color-orange{
+	color:#f58220;
+}
+.bg-light-orange{
+	background-color:#fff9ec;
+}
+.tag-box-v1-gray {
+  border: solid 1px #fff;
+  border-top: solid 2px #838383;
+  background-color:#f7f7f7;
+}
+.color-gray{
+	color:#838383;
 }
 
 /*Tag Boxes v2*/

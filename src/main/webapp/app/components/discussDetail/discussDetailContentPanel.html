@@ -1,0 +1,75 @@
+<div class="padding20 whiteBg by_discuss_detail">
+    <div class="article">
+        <div class="article-info">
+            <ul class="list-inline posted-info">
+                <li><a href="#">By {{discuss.username !== "null" ? discuss.username : "Anonymous"}}</a></li>
+                <li> In
+                    <a href="#/discuss/{{discuss.discussType}}/{{discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
+                </li>
+                <li>{{discuss.createdAt | date:'medium'}}</li>
+            </ul>
+        </div>
+        <div class="article-heading">{{discuss.title}}</div>
+        <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
+
+        <div class="article-content" ng-bind-html="trustForcefully(discuss.text)">
+        </div>
+    </div>
+    <div class="article-share-links news-v3" ng-controller="DiscussReplyController">
+        <ul class="post-shares post-shares-lg">
+            <li class="add-comment">
+                <a ng-click="createNewComment()">
+                    <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                    <span ng-if="discuss.aggrReplyCount > 0">{{discuss.aggrReplyCount}}</span>
+                </a>
+
+                <div class="post-text post_text-comment"
+                     ng-click="createNewComment()">Comment
+                </div>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="rounded-x icon-share"></i>
+                </a>
+
+                <div class="post-text post_text-comment">Share
+                </div>
+            </li>
+
+            <li>
+                <a ng-click="UserLike()">
+                    <i class="rounded-x icon-heart" title="Likes"></i>
+                    <span>{{discuss.aggrLikeCount}}</span>
+                </a>
+                <a ng-click="UserLike()">
+                    <div class="post-text">
+                        Like
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="article-comments-wrapper" id="article-comments-wrapper">
+    <h2 class="text-success text-underlined">COMMENTS</h2>
+
+    <!--Comment Editor for main article-->
+    <div class="col-md-12 no-padding" id="replyEditor" style="display: none" ng-controller="DiscussReplyController">
+        <div class="whiteBg enter-comment-wrap padding20SM borderShadow" style="margin-bottom: 20px;" id="answer_block">
+            <div class="padding20SM">
+                <textarea rows="3" id="main-commentbox_answer" placeholder="Enter your comment  here"></textarea>
+                <div class="clearfix"></div>
+                <button class="btn btn-sm btn-success comment-submit" type="submit"
+                        ng-click="postReply(discuss.id)">SUBMIT
+                </button>
+                <span/>
+                <button class="btn btn-sm btn-success comment-submit by_btn_cancel"
+                        ng-click="dispose()">CANCEL
+                </button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

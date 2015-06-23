@@ -111,6 +111,16 @@ var userByFilter = byServices.factory('UserList', function($resource) {
 
 
 //Discuss -
+
+var discussDetail = byServices.factory('DiscussDetail', function($resource) {
+	return $resource(apiPrefix+'api/v1/discussDetail',{}, {
+		remove:{method: 'DELETE', params: {discussId: '@id'}},
+		update:{method: 'PUT', params: {discussId: '@id'}},
+		get: {method: 'GET', params: {discussId: '@id'}},
+		postReply: {method:'POST', params:{type:1}}
+	})
+});
+
 var discuss = byServices.factory('Discuss', function($resource) {
 	return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {
 		remove:{method: 'DELETE', params: {discussId: '@id'}},
@@ -340,8 +350,8 @@ byApp.config(['$routeProvider',
     .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussSubCategoryController'})
 
 	.when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html', controller: 'DiscussSearchController'})
-	.when('/comment/:discussId', {templateUrl: 'app/components/detail/qa.html', controller: 'DiscussDetailController'})
-    .when('/discuss/:discussId', {templateUrl: 'app/components/detail/detail.html', controller: 'DiscussPreviewController'})
+	.when('/comment/:discussId', {templateUrl: 'app/components/discussDetail/qa.html', controller: 'DiscussDetailController_old'})
+    .when('/discuss/:discussId', {templateUrl: 'app/components/discussDetail/discussDetail.html', controller: 'DiscussDetailController'})
     
     .when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html', controller: 'privacyController'})
     .when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html', controller: 'termsController'})
@@ -380,7 +390,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList)
             if (next.templateUrl == "app/components/login/login.html" || next.templateUrl == 'app/components/aboutUs/aboutUs.html' ||
             		next.templateUrl == 'app/components/home/home.html' || next.templateUrl == 'app/components/users/create.html' ||
             		next.templateUrl == 'app/components/search/search.html' || next.templateUrl == 'app/components/discuss/discussion.html' ||
-            		next.templateUrl == 'app/components/detail/qa.html' || next.templateUrl == 'app/components/detail/detail.html' ||
+            		next.templateUrl == 'app/components/discussDetail/qa.html' || next.templateUrl == 'app/components/discussDetail/detail.html' ||
             		next.templateUrl == 'app/shared/footer/privacyPolicy.html' || next.templateUrl == 'app/shared/footer/termsConditions.html' ||
             		next.templateUrl == 'app/shared/footer/contactUs.html') {
             // already going to #login, no redirect needed
@@ -573,33 +583,6 @@ byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$l
 		}
   }]);
 
-
-
-	//detail.html
-  byControllers.controller('DiscussPreviewController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussShow', 'UserDiscussList','DiscussComment','$sce',
-    function($scope, $rootScope, $routeParams, $location, DiscussShow, UserDiscussList , DiscussComment, $sce) {
-       var discussId = $routeParams.discussId;
-       
-       $scope.trustForcefully = function(html) {
-           return $sce.trustAsHtml(html);
-         };
-
-       $scope.discuss = DiscussShow.get({discussId: discussId});
-
-  	   var discussType = $rootScope.bc_discussType;
-       var topicId = $scope.discuss.topicId;
-       var subTopicId = $scope.discuss.subTopicId;
-       var userId = $scope.discuss.userId;
-
-
-       $scope.discuss2 = UserDiscussList.get({discussType:discussType, topicId: topicId, subTopicId: subTopicId, userId: $scope.discuss.userId});
-       $scope.comments  = DiscussComment.get({parentId:discussId,ancestorId:discussId});
-       $scope.date = new Date();
-       
-       $scope.trustForcefully = function(html) {
-           return $sce.trustAsHtml(html);
-         };
-  }]);
 
 
 
@@ -1150,7 +1133,7 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 
 
 //The controller used for making comments and answers to all discuss types - namely Q,P and A
-byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$route', '$location', 'DiscussShow', 'DiscussComment', 'DiscussUserLikes', 'Discuss','$sce',
+byControllers.controller('DiscussDetailController_old', ['$scope', '$rootScope', '$routeParams', '$route', '$location', 'DiscussShow', 'DiscussComment', 'DiscussUserLikes', 'Discuss','$sce',
   function($scope, $rootScope, $routeParams, $route, $location, DiscussShow, DiscussComment, DiscussUserLikes, Discuss,$sce) {
 
 	var discussId = $routeParams.discussId;

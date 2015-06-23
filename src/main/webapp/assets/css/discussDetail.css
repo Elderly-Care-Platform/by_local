@@ -1,0 +1,13 @@
+.by_discuss_detail{
+
+}
+
+.by_discuss_detail .news-v3 .post-shares{
+    margin-top: 0px !important;
+    left: 15px;
+    top: -24px;
+}
+
+.commentEditor{
+    display: none;
+}

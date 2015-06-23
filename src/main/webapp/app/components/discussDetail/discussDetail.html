@@ -1,0 +1,121 @@
+<div ng-controller="LoadCustomJSController"></div>
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<div class="breadcrumbs">
+    <div class="container by_breadcrumbs_container">
+        <ul class="pull-right breadcrumb">
+            <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
+            <li class="active"><a
+                    href="#/discuss/{{bc_discussType}}/{{$root.discussCategoryListMap[discuss.topicId[0]].name}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
+            </li>
+            <li>{{$root.discussCategoryListMap[discuss.subTopicId[0]].name}}</li>
+        </ul>
+    </div>
+    <hr class="breadcrumb-divider"/>
+</div>
+<div class="container by_home_content">
+    <div class="row">
+        <div class="col-md-3  by_left_panel" ng-include="discussDetailViews.leftPanel"></div>
+        <div class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right" ng-include="discussDetailViews.contentPanel"></div>
+    </div>
+</div>
+
+
+<!--&lt;!&ndash;=== Start  Content Part ===&ndash;&gt;-->
+<!--<div class="container content breadCrumbMargin">-->
+    <!--&lt;!&ndash;  Start Why is this here ? &ndash;&gt;-->
+    <!--<div class="send-message-textarea textarea-label borderShadow">-->
+		<!--<textarea rows="3" id="message-text" placeholder="Send your message"-->
+                  <!--class="message-text"></textarea>-->
+        <!--<button class="btn-u btn message-submit disabled">SUBMIT</button>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;  End Start Why is this here ? &ndash;&gt;-->
+    <!--<div class="row">-->
+        <!--&lt;!&ndash;  Start Left Column  &ndash;&gt;-->
+        <!--<div class="col-md-3 md-margin-bottom-40">-->
+
+        <!--</div>-->
+        <!--&lt;!&ndash; End  Left Column  &ndash;&gt;-->
+        <!--&lt;!&ndash;  Start Right Column  &ndash;&gt;-->
+        <!--<div class="col-md-9  md-margin-bottom-40 article-outer-wrapper articles-page">-->
+            <!--&lt;!&ndash;  Main Discuss Item  &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--&lt;!&ndash;  End  Right Column  &ndash;&gt;-->
+    <!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;=== End  Content Part ===&ndash;&gt;-->
+
+<!--&lt;!&ndash;  Comment Template &ndash;&gt;-->
+<!--<script type="text/ng-template" id="detail_item_renderer.html">-->
+    <!--<div class="comment-wrapper {{comment.id}}">-->
+        <!--<div class="blog-author margin-bottom-15 main-comment">-->
+            <!--<img src="assets/img/img1-md.jpg" alt="">-->
+
+            <!--<div class="blog-author-desc news-v3">-->
+                <!--<div class="overflow-h">-->
+                    <!--<div class="comment-name-time">-->
+                        <!--<span class="comment-name">{{comment.username !== "null"  ? comment.username : "Anonymous"}} </span> | <span-->
+                            <!--class="comment-time">{{comment.createdAt | date:'medium'}} ... {{(date - comment.createdAt)/(1000*60*60) | number:0}} hours ago </span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<p ng-bind-html="comment.discussCommenContent"></p>-->
+                <!--<ul class="post-shares post-shares-lg">-->
+                    <!--<li class="add-comment"><a ng-click="createNewComment('C', '', comment.id, 'A')"-->
+                                               <!--ng-controller="DiscussDetailController"> <i-->
+                            <!--class="rounded-x icon-speech"></i> <span>{{comment.discussCommentCommentCount}}</span>-->
+
+                        <!--<div class="post-text">Comment</div>-->
+                    <!--</a></li>-->
+                    <!--<li><a href='' ng-click="UserCommentLike(discuss.userId,comment.id)"> <i-->
+                            <!--class="rounded-x icon-heart"></i> <span>{{comment.discussCommentLikeCount}}</span>-->
+
+                        <!--<div class="post-text">Like</div>-->
+                    <!--</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;  Insertion point for enter Comment  &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--<div class="blog-author" ng-repeat="comment in comment.children" ng-include="'detail_item_renderer.html'"> FROM-->
+            <!--ITERATION ....-->
+        <!--</div>-->
+    <!--</div>-->
+
+<!--</script>-->
+
+
+<!--&lt;!&ndash;  Enter comment template  &ndash;&gt;-->
+<!--<div class="enter-comment-wrap whiteBg padding20SM borderShadow"-->
+     <!--id="comment_block" ng-controller="DiscussDetailController" style="margin-bottom:10px">-->
+	<!--<textarea rows="3" id="main-commentbox_comment"-->
+              <!--placeholder="Enter your comment here"></textarea>-->
+
+    <!--<div class="clearfix"></div>-->
+    <!--<button class="btn btn-sm btn-success comment-submit" type="submit"-->
+            <!--ng-click="saveComment('C', 'A')">SUBMIT-->
+    <!--</button>-->
+    <!--</span>-->
+    <!--<button class="btn btn-sm btn-success comment-submit by_btn_cancel"-->
+            <!--ng-click="dispose('C')">CANCEL-->
+    <!--</button>-->
+    <!--<div class="clearfix"></div>-->
+<!--</div>-->
+
+
+<!--<div class="enter-comment-wrap col-md-11 pull-right whiteBg padding20SM borderShadow" id="answer_block"-->
+     <!--ng-controller="DiscussDetailController">-->
+    <!--<textarea rows="3" id="main-commentbox_answer" placeholder="Enter your comment  here"></textarea>-->
+
+    <!--<div class="clearfix"></div>-->
+    <!--<button class="btn btn-sm btn-success comment-submit" type="submit"-->
+            <!--ng-click="saveComment('A', 'A')">SUBMIT-->
+    <!--</button>-->
+    <!--<span/>-->
+    <!--<button class="btn btn-sm btn-success comment-submit"-->
+            <!--ng-click="dispose('A')">CANCEL-->
+    <!--</button>-->
+    <!--<div class="clearfix"></div>-->
+<!--</div>-->
+
+
+

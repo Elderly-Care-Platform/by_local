@@ -41,13 +41,33 @@ public class Discuss {
 	private int aggrReplyCount;
 
 	private final Date createdAt = new Date();
+	
+	private Date lastModifiedAt;
 
 	private List<String> topicId;
 
 	private List<String> likedBy = new ArrayList<String>();
+	
+	private boolean isFeatured;
 
 	public Discuss() {
 
+	}
+
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
+	public boolean isFeatured() {
+		return isFeatured;
+	}
+
+	public void setFeatured(boolean isFeatured) {
+		this.isFeatured = isFeatured;
 	}
 
 	public List<String> getLikedBy() {
@@ -77,7 +97,7 @@ public class Discuss {
 	public Discuss(String userId, String username, String discussType,
 			List<String> topicId, String title, String text, String status,
 			String tags, int aggrReplyCount,
-			String articlePhotoFilename) {
+			String articlePhotoFilename, Boolean isFeatured) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -89,6 +109,7 @@ public class Discuss {
 		this.tags = tags;
 		this.aggrReplyCount = aggrReplyCount;
 		this.articlePhotoFilename = articlePhotoFilename;
+		this.isFeatured = isFeatured;
 	}
 
 	public String getTitle() {

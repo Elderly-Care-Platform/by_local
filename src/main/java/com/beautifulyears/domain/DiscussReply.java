@@ -3,29 +3,44 @@ package com.beautifulyears.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 //The discuss_comment collection represents comments
 @Document(collection = "discuss_replies")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class DiscussReply {
+	
+	public static final int REPLY_TYPE_ANSWER=1;
+	public static final int REPLY_TYPE_COMMENT=0;
+	
 	@Id
 	private String id;
 	private String discussId;
+
 	private String userId;
+
 	private String parentReplyId;
+
 	private List<String> ancestorsId;
+
 	private String replyContent;
+
 	private String userName;
+
 	private int replyType;
 
 	private Date createdAt = new Date();
-	private int childrenCount;
-	private int directChildrenCount;
-	private List<String> likedBy;
 
+	private int childrenCount;
+
+	private int directChildrenCount;
+
+	private List<String> likedBy;
+	
+	
+	
 	public int getReplyType() {
 		return replyType;
 	}

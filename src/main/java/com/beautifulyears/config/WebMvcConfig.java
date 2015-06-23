@@ -1,7 +1,5 @@
 package com.beautifulyears.config;
 
-import interceptors.LoggerInterceptor;
-import interceptors.SessionInterceptor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,6 +9,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
+import com.beautifulyears.interceptors.LoggerInterceptor;
+import com.beautifulyears.interceptors.SessionInterceptor;
 import com.beautifulyears.rest.PingResource;
 
 @EnableWebMvc

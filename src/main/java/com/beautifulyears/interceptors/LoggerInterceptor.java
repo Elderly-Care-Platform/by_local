@@ -1,4 +1,4 @@
-package interceptors;
+package com.beautifulyears.interceptors;
 
 import java.util.Enumeration;
 

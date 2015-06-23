@@ -18,14 +18,6 @@ public class Discuss {
 
 	private String articlePhotoFilename;
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	private String userId;
 
 	private String username;
@@ -41,17 +33,25 @@ public class Discuss {
 	private int aggrReplyCount;
 
 	private final Date createdAt = new Date();
-	
+
 	private Date lastModifiedAt;
 
 	private List<String> topicId;
 
 	private List<String> likedBy = new ArrayList<String>();
-	
+
 	private boolean isFeatured;
 
 	public Discuss() {
 
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Date getLastModifiedAt() {
@@ -96,8 +96,8 @@ public class Discuss {
 
 	public Discuss(String userId, String username, String discussType,
 			List<String> topicId, String title, String text, String status,
-			String tags, int aggrReplyCount,
-			String articlePhotoFilename, Boolean isFeatured) {
+			String tags, int aggrReplyCount, String articlePhotoFilename,
+			Boolean isFeatured) {
 		super();
 		this.userId = userId;
 		this.username = username;

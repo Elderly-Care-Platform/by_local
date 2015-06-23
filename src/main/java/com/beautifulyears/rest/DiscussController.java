@@ -1,12 +1,9 @@
 package com.beautifulyears.rest;
 
-import interceptors.LoggerInterceptor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -15,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
-import com.beautifulyears.domain.User;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 import com.beautifulyears.rest.response.DiscussResponse;

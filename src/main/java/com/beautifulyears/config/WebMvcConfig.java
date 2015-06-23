@@ -1,6 +1,7 @@
 package com.beautifulyears.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,12 @@ import com.beautifulyears.rest.PingResource;
 @ComponentScan(basePackageClasses = PingResource.class)
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+	
+	@Autowired
+    private LoggerInterceptor loggerInterceptor;
+	@Autowired
+    private SessionInterceptor sessionInterceptor;
+	
 
 	@Bean
 	public MappingJacksonJsonView jsonView() {
@@ -27,8 +34,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoggerInterceptor()).addPathPatterns("/**");
-		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(loggerInterceptor).addPathPatterns("/**");
+		registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
 		;
 	}
 }

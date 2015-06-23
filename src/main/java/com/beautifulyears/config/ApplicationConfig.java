@@ -14,7 +14,7 @@ import com.mongodb.Mongo;
 import com.mongodb.WriteConcern;
 
 @Configuration
-@ComponentScan
+@ComponentScan("com.beautifulyears")
 @EnableMongoRepositories(basePackageClasses = { DiscussRepository.class })
 public class ApplicationConfig {
 

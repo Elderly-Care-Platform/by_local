@@ -70,7 +70,7 @@ public class DiscussDetailController {
 		List<DiscussReply> ancestors =null;
 		if (null != discuss) {
 			comment.setDiscussId(discuss.getId());
-			comment.setReplyType(DiscussReply.REPLY_TYPE_ANSWER);
+			comment.setReplyType(DiscussReply.REPLY_TYPE_COMMENT);
 			User user = Util.getSessionUser(req);
 			if (null != user) {
 				comment.setUserId(user.getId());
@@ -89,12 +89,13 @@ public class DiscussDetailController {
 				Query query = new Query();
 				query.addCriteria(Criteria.where("id")
 						.in(new Object[] { comment.getAncestorsId() }));
+				ancestors = this.mongoTemplate.find(query,DiscussReply.class);
+				for (DiscussReply ancestor : ancestors) {
+					ancestor.setChildrenCount(ancestor.getChildrenCount() + 1);	
+					mongoTemplate.save(ancestor);
+				}
+				
 			}
-			
-			
-			
-			
-			
 			discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 			mongoTemplate.save(discuss);
 			mongoTemplate.save(comment);

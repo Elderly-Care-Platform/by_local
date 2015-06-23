@@ -368,11 +368,15 @@ byApp.config(['$routeProvider',
 
 
 //Routing and Session Check for Login
-byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList) {
+byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,$http) {
+	
+	if(window.localStorage){
+		$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
+	}
 
     // register listener to watch route changes
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
-
+    	
         console.log("Routechanged... ");
         BY.removeEditor();
         BY.editorCategoryList.resetCategoryList();

@@ -4,11 +4,14 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.BindingType;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Service
 public class LoggerInterceptor extends HandlerInterceptorAdapter{
 	private static final Logger logger = Logger.getLogger(LoggerInterceptor.class);
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,

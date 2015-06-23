@@ -39,8 +39,20 @@ public class DiscussReply {
 
 	private List<String> likedBy;
 	
+	private String text;
 	
 	
+	
+	
+	
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public int getReplyType() {
 		return replyType;
 	}

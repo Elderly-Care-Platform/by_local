@@ -12,5 +12,6 @@ public interface DiscussReplyRepository extends
 		MongoRepository<DiscussReply, String> {
 
 	public List<DiscussReply> findAll();
+	public List<DiscussReply> findByDiscussId(String discussId);
 
 }

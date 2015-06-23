@@ -55,6 +55,9 @@ public class DiscussDetailController {
 		if (null != discuss) {
 			response = new DiscussDetailResponse();
 			response.addDiscuss(discuss, Util.getSessionUser(req));
+			
+			List<DiscussReply> replies = discussReplyRepository.findByDiscussId(discussId);
+			response.addReplies(replies);
 		}
 
 		return response.getResponse();

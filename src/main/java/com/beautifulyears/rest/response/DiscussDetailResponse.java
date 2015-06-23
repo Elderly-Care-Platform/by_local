@@ -167,4 +167,8 @@ public class DiscussDetailResponse implements IResponse {
 		}
 	}
 
+	public void addReplies(List<DiscussReply> replies) {
+		setReplies(replies);
+	}
+
 }

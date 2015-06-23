@@ -31,7 +31,7 @@ public class DiscussDetailController {
 		this.mongoTemplate = mongoTemplate;
 	}
 
-	@RequestMapping(method = { RequestMethod.GET }, value = { "/get" }, produces = { "application/json" })
+	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public DiscussDetailResponse getDiscussDetail(HttpServletRequest req,
 			HttpServletResponse res,

@@ -61,3 +61,51 @@ body a, body p, body span, body div
     padding: 0px !important;
     background: none !important;
 }
+
+.replyCard {
+    height:auto !important;
+    min-height: 1px !important;
+    padding: 0px !important;
+    font-family: century_gothic !important;
+    color: #0A0A0A !important;
+}
+
+.replyCardImg{
+    width: 135px !important;
+    max-height: 168px !important;
+    margin-top: 9px !important;
+    margin-left: 9px !important;
+}
+
+.replyCard .article-heading{
+    font-family: century_gothic !important;
+    color: #0A0A0A !important;
+}
+
+.replyCard .articles-story p{
+    color: #000  !important;
+    font-size: 15px !important;
+    line-height: 25px;
+}
+
+.replyCard .news-v3 .post-shares li{
+    margin-left: 0px !important;
+}
+
+.replyCard  p,
+.replyCard  li,  .replyCard  label{
+    color: #0A0A0A  !important;
+    font-family: century_gothic !important;
+}
+
+.replyCard   a{
+    color: #00A24A !important;
+}
+
+.replyCard .news-v3 .post-shares li i:hover{
+    background:none !important;
+}
+
+.replyCard .news-v3 .post-shares li i{
+    color:#D8D5D5 !important;
+}

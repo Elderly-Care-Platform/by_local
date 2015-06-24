@@ -117,7 +117,8 @@ var discussDetail = byServices.factory('DiscussDetail', function($resource) {
 		remove:{method: 'DELETE', params: {discussId: '@id'}},
 		update:{method: 'PUT', params: {discussId: '@id'}},
 		get: {method: 'GET', params: {discussId: '@id'}},
-		postReply: {method:'POST', params:{type:1}}
+		postReply: {method:'POST', params:{type:1}},
+		postComment: {method:'POST', params:{type:0}}
 	})
 });
 
@@ -305,10 +306,11 @@ var discussCategoryList = byServices.factory('discussCategoryList', function ($r
 var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
- 	"app.directives",
  	"ngRoute",
  	'ngSanitize'
  ]);
+
+
 
 
 
@@ -3466,16 +3468,15 @@ if($(".third-register-page").length){
 /***************** END LOAD JS CONTROLLER ******************************************************************************/
 
 
-var app_directives = angular.module('app.directives', []);
 
-app_directives.directive('byHomeArticleCard', function () {
+byApp.directive('byHomeArticleCard', function () {
     return {
         restrict: 'A',
         templateUrl: 'app/components/home/homeArticleCard.html'
     };
 });
 
-app_directives.directive('byHomeQuestionsCard', function () {
+byApp.directive('byHomeQuestionsCard', function () {
     return {
         restrict: 'A',
         templateUrl: 'app/components/home/homeQuestionCard.html'
@@ -3483,14 +3484,14 @@ app_directives.directive('byHomeQuestionsCard', function () {
 });
 
 
-app_directives.directive('byHomePostsCard', function () {
+byApp.directive('byHomePostsCard', function () {
     return {
         restrict: 'A',
         templateUrl: 'app/components/home/homePostsCard.html'
     };
 });
 
-app_directives.directive('diHref', ['$location', '$route',
+byApp.directive('diHref', ['$location', '$route',
 	function ($location, $route) {
 		return function (scope, element, attrs) {
 			scope.$watch('diHref', function () {
@@ -3507,7 +3508,7 @@ app_directives.directive('diHref', ['$location', '$route',
 	}]);
 
 
-app_directives.directive('fallbackSrc', function () {
+byApp.directive('fallbackSrc', function () {
 	  var fallbackSrc = {
 	    link: function postLink(scope, iElement, iAttrs) {
 	      iElement.bind('error', function() {
@@ -3518,7 +3519,7 @@ app_directives.directive('fallbackSrc', function () {
 	   return fallbackSrc;
 	});
 
-app_directives.directive('onFinishRender', function ($timeout) {
+byApp.directive('onFinishRender', function ($timeout) {
 	return {
         restrict: 'A',
         link: function (scope, element, attr) {
@@ -3529,4 +3530,11 @@ app_directives.directive('onFinishRender', function ($timeout) {
             }
         }
     }
+});
+
+byApp.directive('byReplyCard', function () {
+    return {
+        restrict: 'A',
+        templateUrl: 'app/shared/common/template/replyCard.html'
+    };
 });

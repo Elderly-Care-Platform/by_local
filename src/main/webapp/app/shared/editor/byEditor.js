@@ -21,17 +21,22 @@ BY.removeEditor = function(){
 BY.addEditor = function(param){
     var textAreas = $("textarea");
     BY.removeEditor();
-    //for (var i = 0; i < textAreas.length; i++) {
-    //    //Check if element already has editor enabled
-    //    if (tinymce.get(textAreas[i].id)) {
-    //        //Remove existing editor
-    //        tinyMCE.execCommand("mceRemoveEditor", false, textAreas[i].id);
-    //    }
-    //
-    //    //Add editor
-    //    tinyMCE.execCommand("mceAddEditor", false, textAreas[i].id);
-    //}
-
+    var isCommentEditor = param.commentEditor ? param.commentEditor : false, toolbar, plugins;
+    if(isCommentEditor){
+        toolbar = "bold italic | emoticons";
+        plugins = [
+            "image link",
+            "searchreplace visualblocks",
+            "insertdatetime media paste emoticons"
+        ];
+    }else{
+        toolbar =  "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink emoticons image media  preview ";
+        plugins = [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            " emoticons textcolor paste autoresize "
+        ];
+    }
     tinymce.init({
         selector: "#"+param.editorTextArea,
         theme: "modern",
@@ -39,12 +44,8 @@ BY.addEditor = function(param){
         statusbar: false,
         menubar: false,
         content_css : "assets/css/tinyMce_custom.css",
-        plugins: [
-            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            " emoticons textcolor paste autoresize "
-        ],
-        toolbar: "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink emoticons image media  preview ",
+        plugins: plugins,
+        toolbar: toolbar,
         setup : function(ed) {
             var placeholder = $('#' + ed.id).attr('placeholder');
             if (typeof placeholder !== 'undefined' && placeholder !== false) {

@@ -8,7 +8,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html";
 
         $scope.discuss = DiscussDetail.get({discussId: discussId});
-
+        $scope.discussReplies = $scope.discuss.replies;
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
@@ -19,22 +19,24 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
 byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce',
     function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce) {
-
+        $scope.showEditor = false;
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
-        $scope.createNewComment = function(discussType, discussId){
-            document.getElementById("replyEditor").style.display = "block";
-        }
+
 
         $scope.createNewReply = function(){
             document.getElementById("replyEditor").style.display = "block";
+            tinyMCE.execCommand('mceFocus', false, "replyEditor_textArea");
 
         }
 
-        $scope.dispose  = function(typeId){
+        $scope.disposeReply  = function(typeId){
             document.getElementById("replyEditor").style.display = "none";
+            if(tinyMCE.activeEditor){
+                tinyMCE.activeEditor.remove();
+            }
 
         }
 
@@ -42,10 +44,37 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
         $scope.postReply = function(discussId){
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.discussId = discussId;
-            $scope.discussReply.text = "njnkjnkjn";
+            $scope.discussReply.text = tinyMCE.activeEditor.getContent();
             $scope.discussReply.$postReply(function (discussReply, headers) {
-                console.log("success")
+                $scope.$parent.discuss = DiscussDetail.get({discussId: discussId});
+                $scope.disposeReply();
             });
+        }
+
+        $scope.disposeComment  = function(typeId){
+            $scope.showEditor = false;
+            if(tinyMCE.activeEditor){
+                tinyMCE.activeEditor.remove();
+            }
+
+        }
+
+        $scope.createNewComment = function(commentId){
+            $scope.showEditor = true;
+            console.log(document.getElementById(commentId));
+            BY.addEditor({"editorTextArea":commentId, "commentEditor" : true});
+        }
+
+        $scope.postComment = function(parentReplyId, discussId){
+            $scope.discussReply = new DiscussDetail();
+            $scope.discussReply.parentReplyId = parentReplyId;
+            $scope.discussReply.discussId = discussId;
+            $scope.discussReply.text = tinyMCE.activeEditor.getContent();
+            $scope.discussReply.$postComment(function (discussReply, headers) {
+                $scope.$parent.discuss = DiscussDetail.get({discussId: discussId});
+                $scope.disposeComment();
+            });
+
         }
 
 

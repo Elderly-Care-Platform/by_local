@@ -1,0 +1,61 @@
+<!-- show if discuss is of type Article -->
+<div class="blog-author margin-bottom-35 main-article replyCard" data-index="discussion-articles"
+     data-link="articles.html">
+    <img src="assets/img/by.jpg" alt="image" class="replyCardImg">
+
+    <div class="article-info dp-inline-block">
+        <ul class="list-inline posted-info">
+            <li> {{reply.userName}}</li>
+            <li>{{reply.createdAt | date:'medium'}}</li>
+        </ul>
+    </div>
+
+    <div class="articles-story" ng-bind-html="trustForcefully(reply.text)"></div>
+    <div class="article-share-links news-v3" style="height: 40px">
+        <ul class="post-shares post-shares-lg">
+            <li class="add-comment">
+                <a ng-click="createNewComment(reply.id)">
+                    <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                    <span ng-if="reply.childrenCount > 0">{{reply.childrenCount}}</span>
+                </a>
+
+                <div class="post-text post_text-comment"
+                     ng-click="createNewComment(reply.id)">Comment
+                </div>
+            </li>
+            <li>
+                <a ng-click="UserLike()">
+                    <i class="rounded-x icon-heart" title="Likes"></i>
+                    <span>{{reply.childrenCount}}</span>
+                </a>
+                <a ng-click="UserLike()">
+                    <div class="post-text">
+                        Like
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="inner-enter-comment-wrap" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
+
+        <textarea rows="3" id={{reply.id}}></textarea>
+
+        <div class="clearfix"></div>
+        <button class="inner-comment-submit btn btn-sm btn-success" type="submit"
+                ng-click="postComment(reply.id, discuss.id)">SUBMIT
+        </button>
+        <span/>
+        <button class="inner-comment-submit btn btn-sm btn-success by_btn_cancel"
+                ng-click="disposeComment()">CANCEL
+        </button>
+        <div class="clearfix"></div>
+    </div>
+    <div style="clear: both"></div>
+    <div ng-if="reply.replies && reply.replies.length > 0">
+        <div  ng-repeat="reply in reply.replies" data-index="discussion-articles"
+              data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
+    </div>
+</div>
+
+
+

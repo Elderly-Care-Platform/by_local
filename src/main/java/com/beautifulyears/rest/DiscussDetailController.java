@@ -93,7 +93,7 @@ public class DiscussDetailController {
 				if(null != parentComment){
 					parentComment.setDirectChildrenCount(parentComment.getDirectChildrenCount() + 1);	
 					comment.getAncestorsId().addAll(parentComment.getAncestorsId());
-					comment.getAncestorsId().add(parentComment.getId());
+					comment.setParentReplyId(parentComment.getId());
 				}
 				Query query = new Query();
 				query.addCriteria(Criteria.where("id")

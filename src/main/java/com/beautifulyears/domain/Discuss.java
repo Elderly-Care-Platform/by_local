@@ -34,7 +34,7 @@ public class Discuss {
 
 	private final Date createdAt = new Date();
 
-	private Date lastModifiedAt;
+	private Date lastModifiedAt = new Date();
 
 	private List<String> topicId;
 

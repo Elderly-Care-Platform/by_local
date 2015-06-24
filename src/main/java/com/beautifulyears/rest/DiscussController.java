@@ -1,7 +1,9 @@
 package com.beautifulyears.rest;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -97,7 +99,13 @@ public class DiscussController {
 			@RequestParam(value = "featured", required = false) Boolean isFeatured,
 			@RequestParam(value = "count", required = false, defaultValue = "0") int count,
 			HttpServletRequest request) {
-		List<DiscussEntity> list = queryDiscuss(discussType, null, null, null,request);
+		Map<String, Object> filters = null;
+		if(null != isFeatured){
+			filters = new HashMap<String, Object>();
+			filters.put("isFeatured", isFeatured);
+		}
+		
+		List<DiscussEntity> list = queryDiscuss(discussType, null, null, filters,request);
 		return list;
 
 	}
@@ -121,7 +129,12 @@ public class DiscussController {
 			@PathVariable(value = "subTopicId") String subTopicId,
 			@PathVariable(value = "userId") String userId,
 			HttpServletRequest request) {
-		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, userId,request);
+		Map<String, Object> filters = null;
+		if(null != userId){
+			filters = new HashMap<String, Object>();
+			filters.put("userId", userId);
+		}
+		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, filters,request);
 		return list;
 
 	}
@@ -138,11 +151,11 @@ public class DiscussController {
 	}
 
 	private List<DiscussEntity> queryDiscuss(String discussType, String topicId,
-			String subTopicId, String userId,
+			String subTopicId, Map<String, Object> filters,
 			HttpServletRequest request) {
 		DiscussResponse discussResponse = new DiscussResponse(); 
 		try {
-			Query q = getQuery(discussType, topicId, subTopicId, userId);
+			Query q = getQuery(discussType, topicId, subTopicId, filters);
 			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
 			List<Discuss> list = (List<Discuss>)this.mongoTemplate.find(q,Discuss.class);
 			discussResponse.add(list,Util.getSessionUser(request));
@@ -153,15 +166,15 @@ public class DiscussController {
 	}
 
 	private String querySize(String discussType, String topicId,
-			String subTopicId, String userId) {
+			String subTopicId, Map<String, Object> filters) {
 		JSONObject obj = new JSONObject();
 		try {
 			Long articlesCount = this.mongoTemplate.count(
-					getQuery("A", topicId, subTopicId, userId), Discuss.class);
+					getQuery("A", topicId, subTopicId, filters), Discuss.class);
 			Long questionsCount = this.mongoTemplate.count(
-					getQuery("Q", topicId, subTopicId, userId), Discuss.class);
+					getQuery("Q", topicId, subTopicId, filters), Discuss.class);
 			Long postsCount = this.mongoTemplate.count(
-					getQuery("P", topicId, subTopicId, userId), Discuss.class);
+					getQuery("P", topicId, subTopicId, filters), Discuss.class);
 			obj.put("a", articlesCount);
 			obj.put("q", questionsCount);
 			obj.put("p", postsCount);
@@ -177,7 +190,7 @@ public class DiscussController {
 	}
 
 	private Query getQuery(String discussType, String topicId,
-			String subTopicId, String userId) {
+			String subTopicId, Map<String, Object> filters) {
 		Query q = new Query();
 		if (null != discussType && !discussType.equalsIgnoreCase("All")
 				&& !discussType.equalsIgnoreCase("list")) {
@@ -196,9 +209,13 @@ public class DiscussController {
 			q.addCriteria(Criteria.where("topicId")
 					.in(new Object[] { topicId }));
 		}
-		if (null != userId) {
-			q.addCriteria(Criteria.where((String) "userId").is((Object) userId));
+		if(null != filters){
+			for (Map.Entry<String, Object> filter : filters.entrySet())
+			{
+				q.addCriteria(Criteria.where(filter.getKey()).is(filter.getValue()));
+			}
 		}
+		
 		return q;
 	}
 

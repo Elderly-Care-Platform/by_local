@@ -7,16 +7,17 @@ package com.beautifulyears.rest.response;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnore;
-
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.rest.DiscussDetailController;
 
 public class DiscussDetailResponse implements IResponse {
 
@@ -168,7 +169,22 @@ public class DiscussDetailResponse implements IResponse {
 	}
 
 	public void addReplies(List<DiscussReply> replies) {
-		setReplies(replies);
+		Map<String,DiscussReply> tempMap = new HashMap<String, DiscussReply>();
+		List<DiscussReply> repliesList = new ArrayList<DiscussReply>();
+		for (DiscussReply discussReply : replies) {
+			tempMap.put(discussReply.getId(), discussReply);
+			if(null == discussReply.getParentReplyId()){
+				repliesList.add(0, discussReply);
+			}else if(null != discussReply.getAncestorsId() && discussReply.getAncestorsId().size() > 0){
+				DiscussReply parentReply = tempMap.get(discussReply.getAncestorsId().get(discussReply.getAncestorsId().size() - 1));
+				if(null != parentReply){
+					parentReply.getReplies().add(discussReply);
+				}
+			}else{
+				Logger.getLogger(DiscussDetailResponse.class).debug("improper heirarchy value for reply, hence ignoriing!!");
+			}
+		}
+		setReplies(repliesList);
 	}
 
 }

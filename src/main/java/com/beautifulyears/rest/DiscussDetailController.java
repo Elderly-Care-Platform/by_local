@@ -2,13 +2,13 @@ package com.beautifulyears.rest;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -56,7 +56,12 @@ public class DiscussDetailController {
 			response = new DiscussDetailResponse();
 			response.addDiscuss(discuss, Util.getSessionUser(req));
 			
-			List<DiscussReply> replies = discussReplyRepository.findByDiscussId(discussId);
+			Query query = new Query();
+			query.addCriteria(Criteria.where("discussId")
+					.is(discussId));
+			query.with(new Sort(Sort.Direction.ASC, new String[] { "createdAt" }));
+			List<DiscussReply> replies = this.mongoTemplate.find(query,DiscussReply.class);
+			
 			response.addReplies(replies);
 		}
 
@@ -66,10 +71,11 @@ public class DiscussDetailController {
 
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=0", consumes = { "application/json" })
 	@ResponseBody
-	public void submitComment(@RequestBody DiscussReply comment,
+	public DiscussDetailResponse submitComment(@RequestBody DiscussReply comment,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
 		logger.debug("request for posting reply of type comment");
-		Discuss discuss = discussRepository.findOne(comment.getDiscussId());
+		String discussId = comment.getDiscussId();
+		Discuss discuss = discussRepository.findOne(discussId);
 		List<DiscussReply> ancestors =null;
 		if (null != discuss) {
 			comment.setDiscussId(discuss.getId());
@@ -105,15 +111,16 @@ public class DiscussDetailController {
 		} else {
 			res.sendError(HttpServletResponse.SC_NO_CONTENT);
 		}
-		res.setStatus(200);
+		return getDiscussDetail(req, res, discussId);
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=1", consumes = { "application/json" })
 	@ResponseBody
-	public void submitAnswer(@RequestBody DiscussReply answer,
+	public DiscussDetailResponse submitAnswer(@RequestBody DiscussReply answer,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
 		logger.debug("request for posting reply of type comment");
-		Discuss discuss = discussRepository.findOne(answer.getDiscussId());
+		String discussId = answer.getDiscussId();
+		Discuss discuss = discussRepository.findOne(discussId);
 		if (null != discuss) {
 			answer.setDiscussId(discuss.getId());
 			answer.setReplyType(DiscussReply.REPLY_TYPE_ANSWER);
@@ -130,7 +137,7 @@ public class DiscussDetailController {
 		} else {
 			res.sendError(HttpServletResponse.SC_NO_CONTENT);
 		}
-		res.setStatus(200);
+		return getDiscussDetail(req, res, discussId);
 	}
 
 }

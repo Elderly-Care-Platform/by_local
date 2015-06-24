@@ -41,10 +41,17 @@ public class DiscussReply {
 	
 	private String text;
 	
+	private Date lastModifiedAt;
 	
 	
-	
-	
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
 	public String getText() {
 		return text;
 	}

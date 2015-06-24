@@ -212,6 +212,7 @@ ng-view{
 	width:100%;
 	font-size:13px;
 	resize:none;
+	border-width:0px !important;
 }
 .inner-enter-comment-wrap textarea::-moz-placeholder { font-style: italic; }
 .inner-enter-comment-wrap textarea::-webkit-input-placeholder { font-style: italic; }
@@ -535,6 +536,11 @@ button.register-btn {
 	.inner-enter-comment-wrap{
 		margin-top:10px;
 		width: 95%;
+		border-style:solid;
+		border-color:#cfcfcf;
+		border-width:0px;
+		border-width:1px;
+		margin: 10px;
 	}
 	.news-v3 .post-shares li{
 		padding:0;

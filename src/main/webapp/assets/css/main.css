@@ -109,3 +109,16 @@ body a, body p, body span, body div
 .replyCard .news-v3 .post-shares li i{
     color:#D8D5D5 !important;
 }
+
+.noTopBorder{
+    margin-left: 20px !important;
+}
+
+.noTopBorder hr{
+    margin: 0px !important;
+
+}
+.noTopBorder .blog-author{
+    border-top-width: 0px !important;
+
+}

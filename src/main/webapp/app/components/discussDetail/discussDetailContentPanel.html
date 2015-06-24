@@ -12,7 +12,7 @@
         <div class="article-heading">{{discuss.title}}</div>
         <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
 
-        <div class="article-content" ng-bind-html="trustForcefully(discuss.text)">
+        <div class="articles-story" ng-bind-html="trustForcefully(discuss.text)" style="word-wrap: break-word;">
         </div>
     </div>
     <div class="article-share-links news-v3">

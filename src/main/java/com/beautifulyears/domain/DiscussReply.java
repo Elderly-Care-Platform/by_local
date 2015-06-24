@@ -19,6 +19,9 @@ public class DiscussReply {
 	public static final int REPLY_TYPE_ANSWER=1;
 	public static final int REPLY_TYPE_COMMENT=0;
 	
+	public static final int REPLY_STATUS_ACTIVE=0;
+	public static final int REPLY_STATUS_INACTIVE=1;
+	
 	@Id
 	private String id;
 	private String discussId;
@@ -44,6 +47,18 @@ public class DiscussReply {
 	private String text;
 	
 	private Date lastModifiedAt;
+	
+	private int status;
+	
+	
+	@JsonProperty
+	public int getStatus() {
+		return status;
+	}
+	@JsonProperty
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	
 	@Transient
 	private List<DiscussReply> replies = new ArrayList<DiscussReply>();

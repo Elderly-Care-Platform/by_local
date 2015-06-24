@@ -58,7 +58,8 @@ public class DiscussDetailController {
 			
 			Query query = new Query();
 			query.addCriteria(Criteria.where("discussId")
-					.is(discussId));
+					.is(discussId)).addCriteria(Criteria.where("status")
+					.is(DiscussReply.REPLY_STATUS_ACTIVE));
 			query.with(new Sort(Sort.Direction.ASC, new String[] { "createdAt" }));
 			List<DiscussReply> replies = this.mongoTemplate.find(query,DiscussReply.class);
 			
@@ -87,17 +88,19 @@ public class DiscussDetailController {
 			} else {
 				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			}
-			if(null != comment.getParentReplyId()){
+			if(!Util.isEmpty(comment.getParentReplyId())){
 				//if nested comment
 				DiscussReply parentComment = discussReplyRepository.findOne(comment.getParentReplyId());
 				if(null != parentComment){
 					parentComment.setDirectChildrenCount(parentComment.getDirectChildrenCount() + 1);	
 					comment.getAncestorsId().addAll(parentComment.getAncestorsId());
+					comment.getAncestorsId().add(parentComment.getId());
 					comment.setParentReplyId(parentComment.getId());
+					mongoTemplate.save(parentComment);
 				}
 				Query query = new Query();
 				query.addCriteria(Criteria.where("id")
-						.in(new Object[] { comment.getAncestorsId() }));
+						.in(comment.getAncestorsId()));
 				ancestors = this.mongoTemplate.find(query,DiscussReply.class);
 				for (DiscussReply ancestor : ancestors) {
 					ancestor.setChildrenCount(ancestor.getChildrenCount() + 1);	

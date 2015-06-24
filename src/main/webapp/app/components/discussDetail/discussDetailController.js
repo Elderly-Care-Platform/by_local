@@ -1,5 +1,5 @@
-byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce',
-    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce) {
+byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce','broadCastData',
+    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData) {
 
         var discussId = $routeParams.discussId;	//discuss Id from url
         $scope.discussDetailViews = {};
@@ -13,79 +13,47 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
             return $sce.trustAsHtml(html);
         };
 
+        $scope.$on('handleBroadcast', function() {
+            if(discussId === broadCastData.newData.id){
+                $scope.discuss = broadCastData.newData;
+            }
+
+        });
 
     }]);
 
 
-byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce',
-    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce) {
+byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce','broadCastData',
+    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData) {
         $scope.showEditor = false;
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
-
-
-        $scope.createNewReply = function(){
-            document.getElementById("replyEditor").style.display = "block";
-            tinyMCE.execCommand('mceFocus', false, "replyEditor_textArea");
-
-        }
-
-        $scope.disposeReply  = function(typeId){
-            document.getElementById("replyEditor").style.display = "none";
-            if(tinyMCE.activeEditor){
-                tinyMCE.activeEditor.remove();
-            }
-
-        }
-
-
-        $scope.postReply = function(discussId){
-            $scope.discussReply = new DiscussDetail();
-            $scope.discussReply.discussId = discussId;
-            $scope.discussReply.text = tinyMCE.activeEditor.getContent();
-            $scope.discussReply.$postReply(function (discussReply, headers) {
-                $scope.$parent.discuss = DiscussDetail.get({discussId: discussId});
-                $scope.disposeReply();
-            });
-        }
+        $scope.createNewComment = function(commentId){
+            $scope.showEditor = true;
+            console.log(document.getElementById(commentId));
+            BY.addEditor({"editorTextArea":commentId, "commentEditor" : true});
+            tinyMCE.execCommand('mceFocus', false, commentId);
+        };
 
         $scope.disposeComment  = function(typeId){
             $scope.showEditor = false;
             if(tinyMCE.activeEditor){
                 tinyMCE.activeEditor.remove();
             }
+        };
 
-        }
-
-        $scope.createNewComment = function(commentId){
-            $scope.showEditor = true;
-            console.log(document.getElementById(commentId));
-            BY.addEditor({"editorTextArea":commentId, "commentEditor" : true});
-        }
-
-        $scope.postComment = function(parentReplyId, discussId){
+        $scope.postComment = function(discussId, parentReplyId){
             $scope.discussReply = new DiscussDetail();
-            $scope.discussReply.parentReplyId = parentReplyId;
+            $scope.discussReply.parentReplyId = parentReplyId ?  parentReplyId : "";
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinyMCE.activeEditor.getContent();
             $scope.discussReply.$postComment(function (discussReply, headers) {
-                $scope.$parent.discuss = DiscussDetail.get({discussId: discussId});
+                broadCastData.update(discussReply);
                 $scope.disposeComment();
             });
-
-        }
-
+        };
 
     }]);
-//var discussType = $rootScope.bc_discussType;
-//var topicId = $scope.discuss.topicId;
-//var subTopicId = $scope.discuss.subTopicId;
-//var userId = $scope.discuss.userId;
-//
-//
-//$scope.discuss2 = UserDiscussList.get({discussType:discussType, topicId: topicId, subTopicId: subTopicId, userId: $scope.discuss.userId});
-//$scope.comments  = DiscussComment.get({parentId:discussId,ancestorId:discussId});
-//$scope.date = new Date();
 

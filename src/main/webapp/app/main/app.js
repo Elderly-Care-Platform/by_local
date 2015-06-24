@@ -38,6 +38,22 @@ var discuss = byServices.factory('SessionIdService', function($rootScope, $locat
     }
 });
 
+var broadCastData = byServices.factory('broadCastData', function($rootScope){
+	var data = {};
+	data.newData = null;
+	
+	data.update = function(item){
+		data.newData = item;
+		this.broadcastNewData();
+	};
+	
+	data.broadcastNewData = function(){
+		$rootScope.$broadcast('handleBroadcast');
+	}
+	
+	return data;
+});
+
 
 //User
 var user = byServices.factory('User', function($resource) {
@@ -3468,29 +3484,6 @@ if($(".third-register-page").length){
 /***************** END LOAD JS CONTROLLER ******************************************************************************/
 
 
-
-byApp.directive('byHomeArticleCard', function () {
-    return {
-        restrict: 'A',
-        templateUrl: 'app/components/home/homeArticleCard.html'
-    };
-});
-
-byApp.directive('byHomeQuestionsCard', function () {
-    return {
-        restrict: 'A',
-        templateUrl: 'app/components/home/homeQuestionCard.html'
-    };
-});
-
-
-byApp.directive('byHomePostsCard', function () {
-    return {
-        restrict: 'A',
-        templateUrl: 'app/components/home/homePostsCard.html'
-    };
-});
-
 byApp.directive('diHref', ['$location', '$route',
 	function ($location, $route) {
 		return function (scope, element, attrs) {
@@ -3532,9 +3525,4 @@ byApp.directive('onFinishRender', function ($timeout) {
     }
 });
 
-byApp.directive('byReplyCard', function () {
-    return {
-        restrict: 'A',
-        templateUrl: 'app/shared/common/template/replyCard.html'
-    };
-});
+

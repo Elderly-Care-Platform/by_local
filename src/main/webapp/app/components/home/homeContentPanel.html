@@ -1,5 +1,5 @@
-<div by-home-article-card ng-show="articles.length > 0"></div>
-<div by-home-questions-card ng-show="questions.length > 0"></div>
-<div by-home-posts-card ng-show="posts.length > 0"></div>
+<div ng-show="articles.length > 0" ng-include="'app/components/home/homeArticleCard.html'"></div>
+<div ng-show="questions.length > 0" ng-include="'app/components/home/homeQuestionCard.html'"></div>
+<div ng-show="posts.length > 0" ng-include="'app/components/home/homePostsCard.html'"></div>
 
 

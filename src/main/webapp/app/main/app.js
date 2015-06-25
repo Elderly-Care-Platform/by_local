@@ -56,7 +56,7 @@ var broadCastData = byServices.factory('broadCastData', function($rootScope){
 
 //home featured content API
 var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
-    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3', {}, {
+    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {
         get: {method: 'GET', params: {discussType: '@discussType'}}
     })
 });

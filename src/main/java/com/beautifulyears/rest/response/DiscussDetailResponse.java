@@ -172,7 +172,7 @@ public class DiscussDetailResponse implements IResponse {
 		for (DiscussReply discussReply : replies) {
 			discussReply.setLikeCount(discussReply.getLikedBy().size());
 			if (null != user && discussReply.getLikedBy().contains(user.getId())) {
-				this.setLikedByUser(true);
+				discussReply.setLikedByUser(true);
 			}
 			tempMap.put(discussReply.getId(), discussReply);
 			if(!Util.isEmpty(discussReply.getParentReplyId()) && null != tempMap.get(discussReply.getParentReplyId())){
@@ -184,5 +184,4 @@ public class DiscussDetailResponse implements IResponse {
 		}
 		setReplies(repliesList);
 	}
-
 }

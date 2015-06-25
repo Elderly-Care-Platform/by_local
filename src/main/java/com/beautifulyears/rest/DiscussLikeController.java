@@ -42,7 +42,7 @@ public class DiscussLikeController {
 		this.discussReplyRepository = discussReplyRepository;
 	}
 
-	@RequestMapping(method = { RequestMethod.POST }, params = "type=0", consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST }, params = "type=0")
 	@ResponseBody
 	public DiscussResponse.DiscussEntity submitDiscussLike(
 			@RequestParam(value = "discussId", required = true) String discussId,
@@ -84,7 +84,7 @@ public class DiscussLikeController {
 		return discussResponse.getDiscussEntity(null, null);
 	}
 
-	@RequestMapping(method = { RequestMethod.POST }, params = "type=1", consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST }, params = "type=1")
 	@ResponseBody
 	public DiscussReply submitCommentLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
@@ -95,7 +95,7 @@ public class DiscussLikeController {
 
 	}
 
-	@RequestMapping(method = { RequestMethod.POST }, params = "type=2", consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST }, params = "type=2")
 	@ResponseBody
 	public DiscussReply submitAnswerLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
@@ -121,7 +121,6 @@ public class DiscussLikeController {
 						.findOne(contentId);
 				if (reply != null && reply.getReplyType() == replyType) {
 					DiscussLike discussLike = null;
-
 					if (reply.getLikedBy().contains(user.getId())) {
 						logger.error("user has already liked this content");
 					} else {
@@ -137,7 +136,10 @@ public class DiscussLikeController {
 				e.printStackTrace();
 				res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
-			
+		}
+		reply.setLikeCount(reply.getLikedBy().size());
+		if (null != user && reply.getLikedBy().contains(user.getId())) {
+			reply.setLikedByUser(true);
 		}
 		return reply;
 	}

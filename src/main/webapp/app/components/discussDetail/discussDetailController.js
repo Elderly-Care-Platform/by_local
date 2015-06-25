@@ -19,7 +19,6 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
             }
 
         });
-
     }]);
 
 
@@ -32,27 +31,36 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
         $scope.createNewComment = function(commentId){
             $scope.showEditor = true;
-            console.log(document.getElementById(commentId));
-            BY.addEditor({"editorTextArea":commentId, "commentEditor" : true});
+            BY.addEditor({"editorTextArea":commentId, "commentEditor" : true, "autoFocus":true});
             tinyMCE.execCommand('mceFocus', false, commentId);
         };
 
         $scope.disposeComment  = function(typeId){
             $scope.showEditor = false;
+            tinyMCE.activeEditor.setContent('');
             if(tinyMCE.activeEditor){
                 tinyMCE.activeEditor.remove();
             }
         };
 
-        $scope.postComment = function(discussId, parentReplyId){
+        $scope.postComment = function(discussId, discussType, parentReplyId){
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.parentReplyId = parentReplyId ?  parentReplyId : "";
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinyMCE.activeEditor.getContent();
-            $scope.discussReply.$postComment(function (discussReply, headers) {
-                broadCastData.update(discussReply);
-                $scope.disposeComment();
-            });
+
+            if(discussType==="Q"){
+                $scope.discussReply.$postAnswer(function (discussReply, headers) {
+                    broadCastData.update(discussReply);
+                    $scope.disposeComment();
+                });
+            }else{
+                $scope.discussReply.$postComment(function (discussReply, headers) {
+                    broadCastData.update(discussReply);
+                    $scope.disposeComment();
+                });
+            }
+
         };
 
     }]);

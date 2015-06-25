@@ -87,6 +87,9 @@ BY.addEditor = function(param){
 
                 // switch the order of the elements
                 toolbar.detach().insertAfter(editor);
+                if(param.autoFocus){
+                    ed.focus();
+                }
             });
             ed.on("keyup", function () {
                 var id = ed.id;
@@ -106,6 +109,7 @@ BY.addEditor = function(param){
             });
         }
     });
+
 }
 
 

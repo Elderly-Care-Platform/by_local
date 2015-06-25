@@ -305,11 +305,11 @@
     color: #0A0A0A !important;
 }
 
-.by_blog_author .articles-story p{
-    color: #000  !important;
-    font-size: 15px !important;
-    line-height: 25px;
-}
+/*.by_blog_author .articles-story p{*/
+    /*color: #000  !important;*/
+    /*font-size: 15px !important;*/
+    /*line-height: 25px;*/
+/*}*/
 
 .by_blog_author .news-v3 .post-shares li{
      margin-left: 0px !important;
@@ -329,11 +329,6 @@
     max-height: 135px;
     margin-top: -6px;
     margin-bottom: 14px;
-}
-
-.by_story img{
-    width: auto !important;
-      max-width: 100px;
 }
 
 .by_blog_author .news-v3 .post-shares li i:hover{

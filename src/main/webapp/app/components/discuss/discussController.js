@@ -138,11 +138,12 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         $scope.go = function($event, type, id, discussType){
             $event.stopPropagation();
             if(type === "id"){
-                if(discussType === "A"){
-                    $location.path('/discuss/'+id);
-                }else{
-                    $location.path('/comment/'+id);
-                }
+                $location.path('/discuss/'+id);
+                //if(discussType === "A"){
+                //
+                //}else{
+                //    $location.path('/comment/'+id);
+                //}
 
             } else if(type === "name"){
                 var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
@@ -169,49 +170,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
  	}]);
 
 
-byControllers.controller('DiscussCategoryController', ['$scope', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicAllSubTopicList', 'DiscussOneTopicAllSubTopicListCount', 'DiscussUserLikes',
-    function ($scope, $rootScope, $location, $routeParams, DiscussOneTopicAllSubTopicList, DiscussOneTopicAllSubTopicListCount, DiscussUserLikes, Discuss) {
-        //alert("Discuss ALl = " + $location.path());
-		$scope.showme = true;
-        $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html";
-        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html";
 
-        var topicId = $routeParams.topicId;
-        var discussType = $routeParams.discussType;
-
-        if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {
-            discussType = 'All';
-        }
-
-        //Query to get te counts
-        //?????$scope.discuss_counts = DiscussOneTopicAllSubTopicListCount.query({discussType: "All", topicId: topicId});
-        DiscussOneTopicOneSubTopicListCount.get({discussType: "All", topicId: topicId}).then(function (counts) {
-            $scope.discuss_counts = counts;
-        });
-
-        $scope.discuss = DiscussOneTopicAllSubTopicList.query({topicId: topicId});
-        $rootScope.bc_topic = topicId;
-        $rootScope.bc_subTopic = null;
-
-        $rootScope.bc_discussType = discussType;
-
-        //User Discuss Like method
-        $scope.UserLike = function (userId, discussId, index) {
-
-        	//only read-only allowed without login
-    		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-    		{
-    			$rootScope.nextLocation = $location.path();
-    			$location.path('/users/login');
-    		}
-    		else
-    		{
-    			//Create the new discuss user like
-    			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-    		}
-        }
-    }]);
 
 
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicOneSubTopicList',
@@ -379,11 +338,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         $scope.go = function($event, type, id, discussType){
             $event.stopPropagation();
             if(type === "id"){
-                if(discussType === "A"){
-                    $location.path('/discuss/'+id);
-                }else{
-                    $location.path('/comment/'+id);
-                }
+                $location.path('/discuss/'+id);
             } else if(type === "name"){
                 var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
                 parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;

@@ -133,7 +133,7 @@ var discussDetail = byServices.factory('DiscussDetail', function($resource) {
 		remove:{method: 'DELETE', params: {discussId: '@id'}},
 		update:{method: 'PUT', params: {discussId: '@id'}},
 		get: {method: 'GET', params: {discussId: '@id'}},
-		postReply: {method:'POST', params:{type:1}},
+		postAnswer: {method:'POST', params:{type:1}},
 		postComment: {method:'POST', params:{type:0}}
 	})
 });
@@ -368,11 +368,11 @@ byApp.config(['$routeProvider',
     .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussSubCategoryController'})
 
 	.when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html', controller: 'DiscussSearchController'})
-	.when('/comment/:discussId', {templateUrl: 'app/components/discussDetail/qa.html', controller: 'DiscussDetailController_old'})
+//	.when('/comment/:discussId', {templateUrl: 'app/components/discussDetail/qa.html', controller: 'DiscussDetailController_old'})
     .when('/discuss/:discussId', {templateUrl: 'app/components/discussDetail/discussDetail.html', controller: 'DiscussDetailController'})
     
-    .when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html', controller: 'privacyController'})
-    .when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html', controller: 'termsController'})
+    .when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html', controller: ''})
+    .when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html', controller: ''})
     .when('/users/contactUs', {templateUrl: 'app/shared/footer/contactUs.html', controller: 'contactUsController'});
 
 	//.when('/discuss/new/P', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
@@ -395,7 +395,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
     // register listener to watch route changes
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
     	
-        console.log("Routechanged... ");
+    	window.scrollTo(0, 0);
         BY.removeEditor();
         BY.editorCategoryList.resetCategoryList();
 		//For any location other than search, wipe out the search term
@@ -446,20 +446,8 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 });
 
 
-byControllers.controller('privacyController', ['$scope', '$routeParams', '$location', 
-                                                  function($scope, $routeParams, $location) {
-	window.scrollTo(0, 0);
-}]);
-
-byControllers.controller('termsController', ['$scope', '$routeParams', '$location', 
-                                               function($scope, $routeParams, $location, $route) {
-	window.scrollTo(0, 0);
-}]);
-
-
 byControllers.controller('contactUsController', ['$scope', '$routeParams', '$location', 'Discuss','$route',
                                              function($scope, $routeParams, $location, Discuss, $route) {
-	window.scrollTo(0, 0);
 	$scope.editor = {};
     $scope.editor.articlePhotoFilename = "";
     $scope.error = "";

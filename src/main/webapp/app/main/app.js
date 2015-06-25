@@ -268,7 +268,7 @@ var discussByOTASTFilter = byServices.factory('DiscussOneTopicAllSubTopicList', 
 
 var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', function($resource) {
 	return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId',{}, {
-		//get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}}
+		get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: true}
 	})
 });
 

@@ -1,37 +1,20 @@
 <div class="col-md-3 by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv">
-
+        <div class="col-md-12 left-container-img-wrapper no-padding" style="width: 271px;margin-top: 10px">
+            <img src="assets/img/by.jpg" alt="image" fallback-src="assets/img/by.jpg">
+            <div style="display: inline-block; font-size: 15px; padding-left: 10px;">{{discuss.username}}</div>
+        </div>
+        <div ng-if="articlesByUser.length > 0" class="also-by-wrapper left-container-img-wrapper col-md-12 no-padding" style="width: 271px;">
+            <div class="also-by-head col-md-12">{{header1}}<span class="also-by-head">{{header2}}</span></div>
+            <div class="also-by-content-wrapper no-padding">
+                <div class="col-md-12 also-by-content" ng-repeat="article in articlesByUser">
+                    <a href="#/discuss/{{article.id}}">
+                        <div ng-if="article.title && article.title.length > 0">{{article.title}}</div>
+                        <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 500))"></div>
+                    </a>
+                    <div class="sec-line">in {{$root.discussCategoryListMap[article.topicId[0]].name}} | {{article.createdAt | date:'medium'}}</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<!--<div class="col-md-12 left-container-img-wrapper no-padding">-->
-
-    <!--</div>-->
-    <!--<div style="clear: both;"></div>-->
-<!--</div>-->
-<!--<div class="also-by-wrapper left-container-img-wrapper col-md-12 no-padding">-->
-    <!--<div class="also-by-head col-md-12">-->
-        <!--ALSO BY <span class="uname">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</span>-->
-    <!--</div>-->
-    <!--<div class="also-by-content-wrapper col-md-offset-1 col-md-11 no-padding" ng-repeat="discuss2 in discuss2">-->
-        <!--<div class="col-md-12 also-by-content">-->
-            <!--<a href="#/discuss/{{discuss2.id}}">-->
-                <!--<div>{{discuss2.title}}</div>-->
-            <!--</a>-->
-
-            <!--<div class="sec-line">In {{discuss2.subTopicId}} |-->
-                <!--{{discuss2.createdAt | date:'medium'}}-->
-            <!--</div>-->
-        <!--</div>-->
-
-    <!--</div>-->
-    <!--<div class="col-md-7 col-md-offset-5">-->
-        <!--<div class="row more-link">-->
-            <!--<a class="linked color-green" href="#">More..</a>-->
-        <!--</div>-->
-        <!--<div style="clear: both;"></div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div class="col-md-11 no-padding">-->
-    <!--<div class="send-message">SEND MESSAGE TO THE AUTHOR</div>-->
-<!--</div>-->

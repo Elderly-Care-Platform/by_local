@@ -1,8 +1,8 @@
 /**
  * Created by sanjukta on 25-06-2015.
  */
-byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList','broadCastData','DiscussOneTopicOneSubTopicList',
-    function ($scope, $rootScope, $routeParams, UserDiscussList, broadCastData, DiscussOneTopicOneSubTopicList) {
+byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList','broadCastData','DiscussOneTopicOneSubTopicList','$sce',
+    function ($scope, $rootScope, $routeParams, UserDiscussList, broadCastData, DiscussOneTopicOneSubTopicList, $sce) {
         var discussId = $routeParams.discussId;
 
         $scope.$on('handleBroadcast', function() {
@@ -10,15 +10,37 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
                 $scope.discuss = broadCastData.newData;
                 $scope.articlesByUser = UserDiscussList.get({'discussType':"all", 'topicId':"all", 'subTopicId': "all",
                     'userId':$scope.discuss.userId}, function(userArticles, header){
-
-                    if(userArticles.length < 2){
-                        var subTopicId = $scope.discuss.topicId[0];
-
-                        //$scope.relatedArticles = DiscussOneTopicOneSubTopicList.get({})
+                    if($scope.articlesByUser.length<=0){
+                        $scope.getRelatedArticle();
+                    } else {
+                        $scope.articlesByUser = userArticles.splice(0,5);
+                        if($scope.articlesByUser.length === 1 && $scope.articlesByUser[0].id===$scope.discuss.id){
+                            $scope.getRelatedArticle();
+                        }
                     }
+                    $scope.header1 = "Also by";
+                    $scope.header2 = $scope.discuss.username;
+
 
                 });
             }
 
         });
+
+        $scope.getRelatedArticle = function(){
+            var subTopicId = $scope.discuss.topicId[0];
+            $scope.articlesByUser = DiscussOneTopicOneSubTopicList.get({
+                discussType: "All",
+                topicId: subTopicId,
+                subTopicId:"all"
+            }, function(topicRelatedArticle, header){
+                $scope.articlesByUser = topicRelatedArticle.splice(0,5);
+                $scope.header1 = "Also in";
+                $scope.header2 = $rootScope.discussCategoryListMap[subTopicId].name;
+            });
+        }
+
+        $scope.trustForcefully = function(html) {
+            return $sce.trustAsHtml(html);
+        };
     }]);

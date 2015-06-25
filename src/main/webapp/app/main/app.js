@@ -61,7 +61,7 @@ var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($r
     })
 });
 
-//discuss detail page api
+//discuss detail page API
 var discussDetail = byServices.factory('DiscussDetail', function($resource) {
 	return $resource(apiPrefix+'api/v1/discussDetail',{}, {
 		remove:{method: 'DELETE', params: {discussId: '@id'}},

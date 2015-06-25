@@ -14,7 +14,7 @@
 </div>
 <div class="container by_home_content">
     <div class="row">
-        <div class="col-md-3  by_left_panel" ng-include="discussDetailViews.leftPanel"></div>
+        <div class="col-md-3  by_left_panel" ng-include="discussDetailViews.leftPanel" ng-controller="discussDetailLeftController"></div>
         <div class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right" ng-include="discussDetailViews.contentPanel" ng-controller="DiscussReplyController"></div>
     </div>
 </div>

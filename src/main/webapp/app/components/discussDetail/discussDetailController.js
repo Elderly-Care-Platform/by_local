@@ -7,16 +7,20 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html";
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html";
 
-        $scope.res = DiscussDetail.get({discussId: discussId});
+        $scope.detailResponse = DiscussDetail.get({discussId: discussId}, function(discussDetail, header){
+            //broadcast data to left panel, to avoid another query from left panel of detail page
+            broadCastData.update(discussDetail.discuss);
+        });
+
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
+        //update data in view after comments/answers are posted from child controller
         $scope.$on('handleBroadcast', function() {
-            if(discussId === broadCastData.newData.id){
-                $scope.discuss = broadCastData.newData;
+            if(broadCastData.newData.discuss && discussId === broadCastData.newData.discuss.id){
+                $scope.detailResponse = broadCastData.newData;
             }
-
         });
     }]);
 
@@ -42,6 +46,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             }
         };
 
+        //Post method called from comments or answers of main detail discuss
         $scope.postComment = function(discussId, parentReplyId){
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.parentReplyId = parentReplyId ?  parentReplyId : "";
@@ -49,11 +54,13 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             $scope.discussReply.text = tinyMCE.activeEditor.getContent();
 
             $scope.discussReply.$postComment(function (discussReply, headers) {
-                broadCastData.update(discussReply);
-                $scope.disposeComment();
+                broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
+                $scope.disposeComment();           //dispose comment editor and remove tinymce after successful post of comment/answer
             });
         };
 
+
+        //Post method called from main detail discuss
         $scope.postReply = function(discussId, discussType){
             if(discussType==="Q"){
                 $scope.discussReply = new DiscussDetail();
@@ -61,8 +68,8 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                 $scope.discussReply.text = tinyMCE.activeEditor.getContent();
 
                 $scope.discussReply.$postAnswer(function (discussReply, headers) {
-                    broadCastData.update(discussReply);
-                    $scope.disposeComment();
+                    broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
+                    $scope.disposeComment();           //dispose comment editor and remove tinymce after successful post of comment/answer
                 });
             }else{
                 $scope.postComment(discussId);
@@ -91,16 +98,15 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
             if(replyType===6){
                 $scope.discussLike.$likeAnswer(function(likeReply, headers){
                     $scope.beforePost = false;
-                    $scope.aggrLikeCount = likeReply.aggrLikeCount;
+                    $scope.aggrLikeCount = likeReply.likeCount;
                 });
             }else{
                 $scope.discussLike.$likeComment(function(likeReply, headers){
                     $scope.beforePost = false;
-                    $scope.aggrLikeCount = likeReply.aggrLikeCount;
+                    $scope.aggrLikeCount = likeReply.likeCount;
                 });
             }
 
         }
-
 
     }]);

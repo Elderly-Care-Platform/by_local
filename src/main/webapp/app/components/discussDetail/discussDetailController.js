@@ -33,15 +33,22 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
         };
 
         $scope.createNewComment = function(commentId){
-            $scope.showEditor = true;
-            BY.addEditor({"editorTextArea":commentId, "commentEditor" : true, "autoFocus":true});
-            tinyMCE.execCommand('mceFocus', false, commentId);
+            if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+            {
+                $rootScope.nextLocation = $location.path();
+                $location.path('/users/login');
+            }else{
+                $scope.showEditor = true;
+                BY.addEditor({"editorTextArea":commentId, "commentEditor" : true, "autoFocus":true});
+                tinyMCE.execCommand('mceFocus', false, commentId);
+            }
+
         };
 
         $scope.disposeComment  = function(typeId){
             $scope.showEditor = false;
-            tinyMCE.activeEditor.setContent('');
             if(tinyMCE.activeEditor){
+                tinyMCE.activeEditor.setContent('');
                 tinyMCE.activeEditor.remove();
             }
         };
@@ -78,34 +85,48 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
     }]);
 
-byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','DiscussLike',
-    function ($scope, $rootScope, DiscussLike) {
+byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','DiscussLike','$location',
+    function ($scope, $rootScope, DiscussLike, $location) {
         $scope.beforePost = true;
 
         $scope.likeDiscuss = function(discussId){
-            $scope.discussLike = new DiscussLike();
-            $scope.discussLike.discussId = discussId;
-            $scope.discussLike.$likeDiscuss(function(likeReply, headers){
-                $scope.beforePost = false;
-                $scope.aggrLikeCount = likeReply.aggrLikeCount;
-            });
+            if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+            {
+                $rootScope.nextLocation = $location.path();
+                $location.path('/users/login');
+            }else{
+                $scope.discussLike = new DiscussLike();
+                $scope.discussLike.discussId = discussId;
+                $scope.discussLike.$likeDiscuss(function(likeReply, headers){
+                    $scope.beforePost = false;
+                    $scope.aggrLikeCount = likeReply.aggrLikeCount;
+                });
+            }
+
         }
 
         $scope.likeComment = function(commentId, replyType){
-            $scope.discussLike = new DiscussLike();
-            $scope.discussLike.replyId = commentId;
-
-            if(replyType===6){
-                $scope.discussLike.$likeAnswer(function(likeReply, headers){
-                    $scope.beforePost = false;
-                    $scope.aggrLikeCount = likeReply.likeCount;
-                });
+            if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+            {
+                $rootScope.nextLocation = $location.path();
+                $location.path('/users/login');
             }else{
-                $scope.discussLike.$likeComment(function(likeReply, headers){
-                    $scope.beforePost = false;
-                    $scope.aggrLikeCount = likeReply.likeCount;
-                });
+                $scope.discussLike = new DiscussLike();
+                $scope.discussLike.replyId = commentId;
+
+                if(replyType===6){
+                    $scope.discussLike.$likeAnswer(function(likeReply, headers){
+                        $scope.beforePost = false;
+                        $scope.aggrLikeCount = likeReply.likeCount;
+                    });
+                }else{
+                    $scope.discussLike.$likeComment(function(likeReply, headers){
+                        $scope.beforePost = false;
+                        $scope.aggrLikeCount = likeReply.likeCount;
+                    });
+                }
             }
+
 
         }
 

@@ -14,10 +14,11 @@
                      ng-click="createNewComment(reply.id)">Comment
                 </div>
             </li>
-            <li>
+            <li ng-controller="DiscussLikeController">
                 <a ng-click="likeComment(reply.id, reply.replyType)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span></span>
+                    <span ng-if="beforePost">{{reply.aggrLikeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost">{{aggrLikeCount}}</span>
                 </a>
                 <a ng-click="likeComment(reply.id, reply.replyType)">
                     <div class="post-text">

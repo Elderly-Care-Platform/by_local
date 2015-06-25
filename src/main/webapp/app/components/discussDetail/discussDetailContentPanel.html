@@ -53,7 +53,8 @@
             <li ng-controller="DiscussLikeController">
                 <a ng-click="likeDiscuss(discuss.id)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span>{{discuss.aggrLikeCount}}</span>
+                    <span ng-if="beforePost">{{discuss.aggrLikeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost">{{aggrLikeCount}}</span>
                 </a>
                 <a ng-click="likeDiscuss(discuss.id)">
                     <div class="post-text">

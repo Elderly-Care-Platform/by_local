@@ -74,12 +74,15 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
 byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','DiscussLike',
     function ($scope, $rootScope, DiscussLike) {
+        $scope.aggrLikeCount = $scope.$parent.discuss.aggrLikeCount;
+        $scope.beforePost = true;
 
         $scope.likeDiscuss = function(discussId){
             $scope.discussLike = new DiscussLike();
             $scope.discussLike.discussId = discussId;
             $scope.discussLike.$likeDiscuss(function(likeReply, headers){
-                alert("liked discuss");
+                $scope.beforePost = false;
+                $scope.aggrLikeCount = likeReply.aggrLikeCount;
             });
         }
 
@@ -89,11 +92,13 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
 
             if(replyType===6){
                 $scope.discussLike.$likeAnswer(function(likeReply, headers){
-                    alert("liked answer");
+                    $scope.beforePost = false;
+                    $scope.aggrLikeCount = likeReply.aggrLikeCount;
                 });
             }else{
                 $scope.discussLike.$likeComment(function(likeReply, headers){
-                    alert("liked comment");
+                    $scope.beforePost = false;
+                    $scope.aggrLikeCount = likeReply.aggrLikeCount;
                 });
             }
 

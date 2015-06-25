@@ -64,7 +64,7 @@ public class DiscussDetailController {
 			query.with(new Sort(Sort.Direction.ASC, new String[] { "createdAt" }));
 			List<DiscussReply> replies = this.mongoTemplate.find(query,DiscussReply.class);
 			
-			response.addReplies(replies);
+			response.addReplies(replies,Util.getSessionUser(req));
 		}
 
 		return response.getResponse();
@@ -128,6 +128,7 @@ public class DiscussDetailController {
 		if (null != discuss) {
 			answer.setDiscussId(discuss.getId());
 			answer.setReplyType(DiscussConstants.DISCUSS_TYPE_ANSWER);
+			answer.setParentReplyId(null);
 			User user = Util.getSessionUser(req);
 			if (null != user) {
 				answer.setUserId(user.getId());

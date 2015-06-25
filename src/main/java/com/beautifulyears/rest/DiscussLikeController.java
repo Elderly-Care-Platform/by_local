@@ -25,7 +25,7 @@ import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.DiscussResponse;
 
 @Controller
-@RequestMapping("/discusslike")
+@RequestMapping("/discussLike")
 public class DiscussLikeController {
 
 	private DiscussRepository discussRepository;

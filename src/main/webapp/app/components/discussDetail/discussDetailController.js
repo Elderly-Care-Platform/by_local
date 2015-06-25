@@ -43,25 +43,61 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             }
         };
 
-        $scope.postComment = function(discussId, discussType, parentReplyId){
+        $scope.postComment = function(discussId, parentReplyId){
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.parentReplyId = parentReplyId ?  parentReplyId : "";
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinyMCE.activeEditor.getContent();
 
+            $scope.discussReply.$postComment(function (discussReply, headers) {
+                broadCastData.update(discussReply);
+                $scope.disposeComment();
+            });
+        };
+
+        $scope.postReply = function(discussId, discussType){
             if(discussType==="Q"){
+                $scope.discussReply = new DiscussDetail();
+                $scope.discussReply.discussId = discussId;
+                $scope.discussReply.text = tinyMCE.activeEditor.getContent();
+
                 $scope.discussReply.$postAnswer(function (discussReply, headers) {
                     broadCastData.update(discussReply);
                     $scope.disposeComment();
                 });
             }else{
-                $scope.discussReply.$postComment(function (discussReply, headers) {
-                    broadCastData.update(discussReply);
-                    $scope.disposeComment();
-                });
+                $scope.postComment(discussId);
             }
-
         };
 
     }]);
 
+byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','DiscussLike',
+    function ($scope, $rootScope, DiscussLike) {
+
+        $scope.likeDiscuss = function(discussId){
+            $scope.discussLike = new DiscussLike();
+            $scope.discussLike.discussId = discussId;
+            $scope.discussLike.$likeDiscuss(function(likeReply, headers){
+                alert("liked discuss");
+            });
+        }
+
+        $scope.likeComment = function(commentId, replyType){
+            $scope.discussLike = new DiscussLike();
+            $scope.discussLike.replyId = commentId;
+
+            if(replyType===6){
+                $scope.discussLike.$likeAnswer(function(likeReply, headers){
+                    alert("liked answer");
+                });
+            }else{
+                $scope.discussLike.$likeComment(function(likeReply, headers){
+                    alert("liked comment");
+                });
+            }
+
+        }
+
+
+    }]);

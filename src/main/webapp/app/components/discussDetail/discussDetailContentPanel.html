@@ -50,12 +50,12 @@
                 </div>
             </li>
 
-            <li>
-                <a ng-click="UserLike()">
+            <li ng-controller="DiscussLikeController">
+                <a ng-click="likeDiscuss(discuss.id)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
                     <span>{{discuss.aggrLikeCount}}</span>
                 </a>
-                <a ng-click="UserLike()">
+                <a ng-click="likeDiscuss(discuss.id)">
                     <div class="post-text">
                         Like
                     </div>
@@ -74,7 +74,7 @@
             <textarea rows="3"  id={{discuss.id}}></textarea>
             <div class="clearfix"></div>
             <button class="btn btn-sm btn-success comment-submit" type="submit"
-                    ng-click="postComment(discuss.id, discuss.discussType)">SUBMIT
+                    ng-click="postReply(discuss.id, discuss.discussType)">SUBMIT
             </button>
             <span/>
             <button class="btn btn-sm btn-success comment-submit by_btn_cancel"

@@ -15,11 +15,11 @@
                 </div>
             </li>
             <li>
-                <a ng-click="UserLike()">
+                <a ng-click="likeComment(reply.id, reply.replyType)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span>{{reply.childrenCount}}</span>
+                    <span></span>
                 </a>
-                <a ng-click="UserLike()">
+                <a ng-click="likeComment(reply.id, reply.replyType)">
                     <div class="post-text">
                         Like
                     </div>
@@ -41,7 +41,7 @@
         <textarea rows="3" id={{reply.id}}></textarea>
 
         <button class="inner-comment-submit btn btn-sm btn-success" type="submit"
-                ng-click="postComment(discuss.id, discuss.discussType, reply.id)">SUBMIT
+                ng-click="postComment(discuss.id, reply.id)">SUBMIT
         </button>
         <span/>
         <button class="inner-comment-submit btn btn-sm btn-success by_btn_cancel"

@@ -172,7 +172,7 @@ public class DiscussDetailResponse implements IResponse {
 		List<DiscussReply> repliesList = new ArrayList<DiscussReply>();
 		for (DiscussReply discussReply : replies) {
 			tempMap.put(discussReply.getId(), discussReply);
-			if(!Util.isEmpty(discussReply.getParentReplyId())){
+			if(!Util.isEmpty(discussReply.getParentReplyId()) && null != tempMap.get(discussReply.getParentReplyId())){
 				tempMap.get(discussReply.getParentReplyId()).getReplies().add(discussReply);
 			}else {
 				repliesList.add(0, discussReply);

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.DiscussConstants;
 import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
@@ -59,7 +60,7 @@ public class DiscussDetailController {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("discussId")
 					.is(discussId)).addCriteria(Criteria.where("status")
-					.is(DiscussReply.REPLY_STATUS_ACTIVE));
+					.is(DiscussConstants.REPLY_STATUS_ACTIVE));
 			query.with(new Sort(Sort.Direction.ASC, new String[] { "createdAt" }));
 			List<DiscussReply> replies = this.mongoTemplate.find(query,DiscussReply.class);
 			
@@ -80,7 +81,7 @@ public class DiscussDetailController {
 		List<DiscussReply> ancestors =null;
 		if (null != discuss) {
 			comment.setDiscussId(discuss.getId());
-			comment.setReplyType(DiscussReply.REPLY_TYPE_COMMENT);
+			comment.setReplyType(DiscussConstants.DISCUSS_TYPE_COMMENT);
 			User user = Util.getSessionUser(req);
 			if (null != user) {
 				comment.setUserId(user.getId());
@@ -126,7 +127,7 @@ public class DiscussDetailController {
 		Discuss discuss = discussRepository.findOne(discussId);
 		if (null != discuss) {
 			answer.setDiscussId(discuss.getId());
-			answer.setReplyType(DiscussReply.REPLY_TYPE_ANSWER);
+			answer.setReplyType(DiscussConstants.DISCUSS_TYPE_ANSWER);
 			User user = Util.getSessionUser(req);
 			if (null != user) {
 				answer.setUserId(user.getId());

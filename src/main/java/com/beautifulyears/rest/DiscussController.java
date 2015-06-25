@@ -87,8 +87,9 @@ public class DiscussController {
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/all" }, produces = { "application/json" })
 	@ResponseBody
-	public List<DiscussEntity> allDiscuss(HttpServletRequest request) {
-		List<DiscussEntity> list = queryDiscuss(null, null, null, null,request);
+	public List<DiscussEntity> allDiscuss(@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
+			HttpServletRequest request) {
+		List<DiscussEntity> list = queryDiscuss(null, null, null, null,sort,request);
 		return list;
 	}
 
@@ -98,6 +99,7 @@ public class DiscussController {
 			@PathVariable(value = "discussType") String discussType,
 			@RequestParam(value = "featured", required = false) Boolean isFeatured,
 			@RequestParam(value = "count", required = false, defaultValue = "0") int count,
+			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 		Map<String, Object> filters = null;
 		if(null != isFeatured){
@@ -105,7 +107,7 @@ public class DiscussController {
 			filters.put("isFeatured", isFeatured);
 		}
 		
-		List<DiscussEntity> list = queryDiscuss(discussType, null, null, filters,request);
+		List<DiscussEntity> list = queryDiscuss(discussType, null, null, filters,sort,request);
 		return list;
 
 	}
@@ -115,9 +117,10 @@ public class DiscussController {
 	public List<DiscussEntity> allDiscussDiscussTypeAndTopic(
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
+			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 
-		List<DiscussEntity> list = queryDiscuss(discussType, topicId, null, null,request);
+		List<DiscussEntity> list = queryDiscuss(discussType, topicId, null, null,sort,request);
 		return list;
 	}
 
@@ -128,13 +131,14 @@ public class DiscussController {
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId,
 			@PathVariable(value = "userId") String userId,
+			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 		Map<String, Object> filters = null;
 		if(null != userId){
 			filters = new HashMap<String, Object>();
 			filters.put("userId", userId);
 		}
-		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, filters,request);
+		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, filters,sort,request);
 		return list;
 
 	}
@@ -145,18 +149,18 @@ public class DiscussController {
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId,
+			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
-		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, null,request);
+		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, null,sort,request);
 		return list;
 	}
 
 	private List<DiscussEntity> queryDiscuss(String discussType, String topicId,
-			String subTopicId, Map<String, Object> filters,
+			String subTopicId, Map<String, Object> filters, String sort,
 			HttpServletRequest request) {
 		DiscussResponse discussResponse = new DiscussResponse(); 
 		try {
-			Query q = getQuery(discussType, topicId, subTopicId, filters);
-			q.with(new Sort(Sort.Direction.DESC, new String[] { "createdAt" }));
+			Query q = getQuery(discussType, topicId, subTopicId, filters,sort);
 			List<Discuss> list = (List<Discuss>)this.mongoTemplate.find(q,Discuss.class);
 			discussResponse.add(list,Util.getSessionUser(request));
 		} catch (Exception e) {
@@ -170,11 +174,11 @@ public class DiscussController {
 		JSONObject obj = new JSONObject();
 		try {
 			Long articlesCount = this.mongoTemplate.count(
-					getQuery("A", topicId, subTopicId, filters), Discuss.class);
+					getQuery("A", topicId, subTopicId, filters,null), Discuss.class);
 			Long questionsCount = this.mongoTemplate.count(
-					getQuery("Q", topicId, subTopicId, filters), Discuss.class);
+					getQuery("Q", topicId, subTopicId, filters,null), Discuss.class);
 			Long postsCount = this.mongoTemplate.count(
-					getQuery("P", topicId, subTopicId, filters), Discuss.class);
+					getQuery("P", topicId, subTopicId, filters,null), Discuss.class);
 			obj.put("a", articlesCount);
 			obj.put("q", questionsCount);
 			obj.put("p", postsCount);
@@ -190,7 +194,7 @@ public class DiscussController {
 	}
 
 	private Query getQuery(String discussType, String topicId,
-			String subTopicId, Map<String, Object> filters) {
+			String subTopicId, Map<String, Object> filters, String sortBy) {
 		Query q = new Query();
 		if (null != discussType && !discussType.equalsIgnoreCase("All")
 				&& !discussType.equalsIgnoreCase("list")) {
@@ -214,6 +218,10 @@ public class DiscussController {
 			{
 				q.addCriteria(Criteria.where(filter.getKey()).is(filter.getValue()));
 			}
+		}
+		q.addCriteria(Criteria.where("status").in(new Object[] {0,null}));
+		if(!Util.isEmpty(sortBy)){
+			q.with(new Sort(Sort.Direction.DESC, new String[] { sortBy }));
 		}
 		
 		return q;
@@ -288,7 +296,7 @@ public class DiscussController {
 				title = discuss.getTitle();
 			}
 			String text = discuss.getText();
-			String discussStatus = discuss.getStatus();
+			int discussStatus = discuss.getStatus();
 			List<String> topicId = discuss.getTopicId();
 			String tags = "";
 			// List<String> subTopicId = discuss.getSubTopicId();

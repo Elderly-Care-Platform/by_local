@@ -108,7 +108,10 @@ public class DiscussDetailController {
 					mongoTemplate.save(ancestor);
 				}
 				
+			}else{
+				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 			}
+			
 			discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 			mongoTemplate.save(discuss);
 			mongoTemplate.save(comment);
@@ -137,6 +140,7 @@ public class DiscussDetailController {
 				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			}
 			discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
+			discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 			mongoTemplate.save(discuss);
 			mongoTemplate.save(answer);
 		} else {

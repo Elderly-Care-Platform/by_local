@@ -9,9 +9,8 @@ import com.beautifulyears.domain.User;
 
 public class DiscussResponse implements IResponse {
 
-	
 	private List<DiscussEntity> discussArray = new ArrayList<DiscussEntity>();
-	
+
 	@Override
 	public List<DiscussEntity> getResponse() {
 		// TODO Auto-generated method stub
@@ -27,6 +26,7 @@ public class DiscussResponse implements IResponse {
 		private String discussType; // Q, P and A (Question, Post and Article)
 		private String text;
 		private int aggrReplyCount;
+		private int directReplyCount;
 		private Date createdAt = new Date();
 		private List<String> topicId;
 		private boolean isLikedByUser = false;
@@ -41,12 +41,21 @@ public class DiscussResponse implements IResponse {
 			this.setDiscussType(discuss.getDiscussType());
 			this.setText(discuss.getText());
 			this.setAggrReplyCount(discuss.getAggrReplyCount());
+			this.setDirectReplyCount(discuss.getDirectReplyCount());
 			this.setCreatedAt(discuss.getCreatedAt());
 			this.setTopicId(discuss.getTopicId());
 			this.setAggrLikeCount(discuss.getLikedBy().size());
 			if (null != user && discuss.getLikedBy().contains(user.getId())) {
 				this.setLikedByUser(true);
 			}
+		}
+
+		public int getDirectReplyCount() {
+			return directReplyCount;
+		}
+
+		public void setDirectReplyCount(int directReplyCount) {
+			this.directReplyCount = directReplyCount;
 		}
 
 		public void setCreatedAt(Date createdAt) {
@@ -147,7 +156,6 @@ public class DiscussResponse implements IResponse {
 
 	}
 
-
 	public void add(List<Discuss> discussArray) {
 		for (Discuss discuss : discussArray) {
 			this.discussArray.add(new DiscussEntity(discuss, null));
@@ -157,18 +165,18 @@ public class DiscussResponse implements IResponse {
 	public void add(Discuss discuss) {
 		this.discussArray.add(new DiscussEntity(discuss, null));
 	}
-	
-	public void add(List<Discuss> discussArray,User user) {
+
+	public void add(List<Discuss> discussArray, User user) {
 		for (Discuss discuss : discussArray) {
 			this.discussArray.add(new DiscussEntity(discuss, user));
 		}
 	}
 
-	public void add(Discuss discuss,User user) {
+	public void add(Discuss discuss, User user) {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
-	
-	public DiscussEntity getDiscussEntity(Discuss discuss,User user){
+
+	public DiscussEntity getDiscussEntity(Discuss discuss, User user) {
 		return new DiscussEntity(discuss, user);
 	}
 

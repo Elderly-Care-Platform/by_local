@@ -5,10 +5,10 @@
                 <li ng-if="detailResponse.discuss.discussType == 'A'"><a href="#">Story by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
                 <li ng-if="detailResponse.discuss.discussType == 'P'"><a href="#">Post by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
                 <li ng-if="detailResponse.discuss.discussType == 'Q'"><a href="#">Question by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
-                <li> In
+                <li> | In
                     <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{detailResponse.discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
                 </li>
-                <li>{{detailResponse.discuss.createdAt | date:'medium'}}</li>
+                <li> | {{detailResponse.discuss.createdAt | date:'medium'}}</li>
             </ul>
         </div>
         <div class="article-heading">{{detailResponse.discuss.title}}</div>
@@ -33,7 +33,7 @@
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'Q'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x fa fa-pencil-square-o" title="Answers"></i>
-                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0">{{detailResponse.discuss.aggrReplyCount}}</span>
+                    <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
@@ -41,7 +41,7 @@
                 </div>
             </li>
 
-            <li>
+            <li ng-if="detailResponse.discuss.discussType == 'A'">
                 <a href="#">
                     <i class="rounded-x icon-share"></i>
                 </a>
@@ -67,7 +67,8 @@
 </div>
 
 <div class="article-comments-wrapper" id="article-comments-wrapper">
-    <h2 class="text-success text-underlined">COMMENTS</h2>
+    <h2 class="text-success text-underlined" ng-if="detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P'">COMMENTS</h2>
+    <h2 class="text-success text-underlined" ng-if="detailResponse.discuss.discussType == 'Q'">ANSWERS</h2>
 
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">

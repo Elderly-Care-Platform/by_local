@@ -22,9 +22,9 @@
                     <p class="article-first-letter" ng-if="post.discussType == 'Q'">Question by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a></p>
                     <p class="article-first-letter" ng-if="post.discussType == 'P'">Post by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a></p>
                 </li>
-                <li ng-if="post.topicId.length > 0">In <a ng-click="go($event,'name', post.topicId[0])">
+                <li ng-if="post.topicId.length > 0"> | In <a ng-click="go($event,'name', post.topicId[0])">
                     {{$root.discussCategoryListMap[post.topicId[0]].name}}</a></li>
-                <li>{{post.createdAt | date : 'MMM d, yyyy'}}</li>
+                <li> | {{post.createdAt | date : 'MMM d, yyyy'}}</li>
             </ul>
         </div>
 

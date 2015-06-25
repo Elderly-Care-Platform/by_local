@@ -81,6 +81,18 @@ var discussLike = byServices.factory('DiscussLike', function($resource){
 	})
 })
 
+//user articles list for detail left panel
+
+var discussByUserFilter = byServices.factory('UserDiscussList', function($resource) {
+	///start here
+	return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId/:userId',{}, {
+		get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: true}
+
+	})
+});
+
+
+
 //User
 var user = byServices.factory('User', function($resource) {
 	return $resource(apiPrefix+'api/v1/users/:userId',{}, {
@@ -223,14 +235,6 @@ var discussByFilter = byServices.factory('DiscussList', function($resource) {
 	})
 });
 
-var discussByUserFilter = byServices.factory('UserDiscussList', function($resource) {
-
-	///start here
-	return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId/:userId',{}, {
-		get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
-
-	})
-});
 
 var discussSearch = byServices.factory('DiscussSearch', function($resource) {
 
@@ -424,7 +428,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
             if (next.templateUrl == "app/components/login/login.html" || next.templateUrl == 'app/components/aboutUs/aboutUs.html' ||
             		next.templateUrl == 'app/components/home/home.html' || next.templateUrl == 'app/components/users/create.html' ||
             		next.templateUrl == 'app/components/search/search.html' || next.templateUrl == 'app/components/discuss/discussion.html' ||
-            		next.templateUrl == 'app/components/discussDetail/qa.html' || next.templateUrl == 'app/components/discussDetail/detail.html' ||
+            		next.templateUrl == 'app/components/discussDetail/discussDetail.html' ||
             		next.templateUrl == 'app/shared/footer/privacyPolicy.html' || next.templateUrl == 'app/shared/footer/termsConditions.html' ||
             		next.templateUrl == 'app/shared/footer/contactUs.html') {
             // already going to #login, no redirect needed
@@ -946,11 +950,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 		$scope.go = function($event, type, id, discussType){
 			$event.stopPropagation();
 			if(type === "id"){
-				if(discussType === "A"){
-					$location.path('/discuss/'+id);
-				}else{
-					$location.path('/comment/'+id);
-				}
+				$location.path('/discuss/'+id);
 			} else if(type === "name"){
 				var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
 					parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
@@ -958,8 +958,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 				if(parentCategoryName){
 					$location.path('/discuss/All/'+ parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
 				}else{
-//					parentCategory = $rootScope.discussCategoryListMap[id].parentId
-					
 					$location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
 				}
 			}else if(type = "accordian"){

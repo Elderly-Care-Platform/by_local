@@ -55,6 +55,7 @@ public class DiscussLikeController {
 		if (null == user) {
 			logger.error("Attempt made to like a content before logging in");
 			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return null;
 		} else {
 			try {
 
@@ -114,6 +115,7 @@ public class DiscussLikeController {
 		if (null == user) {
 			logger.error("Attempt made to like a content before logging in");
 			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return null;
 		} else {
 			try {
 

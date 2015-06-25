@@ -88,6 +88,7 @@ public class DiscussDetailController {
 				comment.setUserName(user.getUserName());
 			} else {
 				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+				return null;
 			}
 			if(!Util.isEmpty(comment.getParentReplyId())){
 				//if nested comment
@@ -138,6 +139,7 @@ public class DiscussDetailController {
 				answer.setUserName(user.getUserName());
 			} else {
 				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+				return null;
 			}
 			discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 			discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);

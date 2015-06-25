@@ -13,7 +13,7 @@
             </ul>
         </div>
         <div class="article-heading">{{detailResponse.discuss.title}}</div>
-        <img src="{{detailResponse.discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
+        <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
 
         <div class="articles-story" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="word-wrap: break-word;">
         </div>

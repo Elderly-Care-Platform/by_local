@@ -11,3 +11,14 @@
 .commentEditor{
     display: none;
 }
+
+@media (min-width: 500px){
+   .by_discuss_detail .articleTitleImage{
+		max-width: 444px;
+	}
+}
+
+
+.by_discuss_detail img{
+	max-width: 100%;
+}

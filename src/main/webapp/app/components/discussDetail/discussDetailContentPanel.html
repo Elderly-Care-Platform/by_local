@@ -2,42 +2,42 @@
     <div class="article">
         <div class="article-info">
             <ul class="list-inline posted-info">
-                <li ng-if="discuss.discussType == 'A'"><a href="#">Story by {{discuss.username !== "null" ? discuss.username : "Anonymous"}}</a></li>
-                <li ng-if="discuss.discussType == 'P'"><a href="#">Post by {{discuss.username !== "null" ? discuss.username : "Anonymous"}}</a></li>
-                <li ng-if="discuss.discussType == 'Q'"><a href="#">Question by {{discuss.username !== "null" ? discuss.username : "Anonymous"}}</a></li>
+                <li ng-if="res.discuss.discussType == 'A'"><a href="#">Story by {{res.discuss.username !== "null" ? res.discuss.username : "Anonymous"}}</a></li>
+                <li ng-if="res.discuss.discussType == 'P'"><a href="#">Post by {{res.discuss.username !== "null" ? res.discuss.username : "Anonymous"}}</a></li>
+                <li ng-if="res.discuss.discussType == 'Q'"><a href="#">Question by {{res.discuss.username !== "null" ? res.discuss.username : "Anonymous"}}</a></li>
                 <li> In
-                    <a href="#/discuss/{{discuss.discussType}}/{{discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[discuss.topicId[0]].name}}</a>
+                    <a href="#/discuss/{{res.discuss.discussType}}/{{res.discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[res.discuss.topicId[0]].name}}</a>
                 </li>
-                <li>{{discuss.createdAt | date:'medium'}}</li>
+                <li>{{res.discuss.createdAt | date:'medium'}}</li>
             </ul>
         </div>
-        <div class="article-heading">{{discuss.title}}</div>
-        <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
+        <div class="article-heading">{{res.discuss.title}}</div>
+        <img src="{{res.discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
 
-        <div class="articles-story" ng-bind-html="trustForcefully(discuss.text)" style="word-wrap: break-word;">
+        <div class="articles-story" ng-bind-html="trustForcefully(res.discuss.text)" style="word-wrap: break-word;">
         </div>
     </div>
     <div class="article-share-links news-v3">
         <ul class="post-shares post-shares-lg">
-            <li class="add-comment" ng-if="discuss.discussType == 'A' || discuss.discussType == 'P'">
-                <a ng-click="createNewComment(discuss.id)">
+            <li class="add-comment" ng-if="res.discuss.discussType == 'A' || res.discuss.discussType == 'P'">
+                <a ng-click="createNewComment(res.discuss.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span ng-if="discuss.aggrReplyCount > 0">{{discuss.aggrReplyCount}}</span>
+                    <span ng-if="res.discuss.aggrReplyCount > 0">{{res.discuss.aggrReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(discuss.id)">Comment
+                     ng-click="createNewComment(res.discuss.id)">Comment
                 </div>
             </li>
 
-            <li class="add-comment" ng-if="discuss.discussType == 'Q'">
-                <a ng-click="createNewComment(discuss.id)">
+            <li class="add-comment" ng-if="res.discuss.discussType == 'Q'">
+                <a ng-click="createNewComment(res.discuss.id)">
                     <i class="rounded-x fa fa-pencil-square-o" title="Answers"></i>
-                    <span ng-if="discuss.aggrReplyCount > 0">{{discuss.aggrReplyCount}}</span>
+                    <span ng-if="res.discuss.aggrReplyCount > 0">{{res.discuss.aggrReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(discuss.id)">Answers
+                     ng-click="createNewComment(res.discuss.id)">Answers
                 </div>
             </li>
 
@@ -51,12 +51,12 @@
             </li>
 
             <li ng-controller="DiscussLikeController">
-                <a ng-click="likeDiscuss(discuss.id)">
+                <a ng-click="likeDiscuss(res.discuss.id)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span ng-if="beforePost">{{discuss.aggrLikeCount}}</span>
+                    <span ng-if="beforePost">{{res.discuss.aggrLikeCount}}</span>
                     <span ng-model="aggrLikeCount" ng-if="!beforePost">{{aggrLikeCount}}</span>
                 </a>
-                <a ng-click="likeDiscuss(discuss.id)">
+                <a ng-click="likeDiscuss(res.discuss.id)">
                     <div class="post-text">
                         Like
                     </div>
@@ -72,10 +72,10 @@
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
         <div class="whiteBg enter-comment-wrap padding20SM borderShadow" id="answer_block">
-            <textarea rows="3"  id={{discuss.id}}></textarea>
+            <textarea rows="3"  id={{res.discuss.id}}></textarea>
             <div class="clearfix"></div>
             <button class="btn btn-sm btn-success comment-submit" type="submit"
-                    ng-click="postReply(discuss.id, discuss.discussType)">SUBMIT
+                    ng-click="postReply(res.discuss.id, res.discuss.discussType)">SUBMIT
             </button>
             <span/>
             <button class="btn btn-sm btn-success comment-submit by_btn_cancel"
@@ -86,8 +86,8 @@
     </div>
 </div>
 
-<div ng-if="discuss.replies && discuss.replies.length > 0" >
-    <div ng-repeat="reply in discuss.replies" data-index="discussion-articles"
+<div ng-if="res.replies && res.replies.length > 0" >
+    <div ng-repeat="reply in res.replies" data-index="discussion-articles"
           data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
 </div>
 

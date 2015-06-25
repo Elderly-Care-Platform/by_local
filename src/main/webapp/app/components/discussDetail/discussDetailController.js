@@ -7,8 +7,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html";
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html";
 
-        $scope.discuss = DiscussDetail.get({discussId: discussId});
-        $scope.discussReplies = $scope.discuss.replies;
+        $scope.res = DiscussDetail.get({discussId: discussId});
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
@@ -74,7 +73,6 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
 byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','DiscussLike',
     function ($scope, $rootScope, DiscussLike) {
-        $scope.aggrLikeCount = $scope.$parent.discuss.aggrLikeCount;
         $scope.beforePost = true;
 
         $scope.likeDiscuss = function(discussId){

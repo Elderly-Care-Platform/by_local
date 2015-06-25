@@ -6,7 +6,8 @@
                 <li ng-if="detailResponse.discuss.discussType == 'P'"><a href="#">Post by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
                 <li ng-if="detailResponse.discuss.discussType == 'Q'"><a href="#">Question by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
                 <li> | In
-                    <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{detailResponse.discuss.topicId[0]}}/all">{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
+                    <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
+                        {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
                 </li>
                 <li> | {{detailResponse.discuss.createdAt | date:'medium'}}</li>
             </ul>

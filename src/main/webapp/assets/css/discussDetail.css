@@ -29,17 +29,11 @@
     margin-top:20px;
 }
 
-.also-by-content a:hover{
-    color:#00af50 !important;
+.also-by-content > a div, .also-by-content > a  p{
+    color:#00af50;
 }
-
-.also-by-content p:hover{
-    color:#00af50 !important;
-}
-
-.also-by-content p{
-    color: #004620 !important;
-
+.also-by-content > a div:hover, .also-by-content > a  p:hover{
+    text-decoration: underline;
 }
 
 .also-by-info{

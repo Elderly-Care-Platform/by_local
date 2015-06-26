@@ -37,10 +37,20 @@
     color:#00af50 !important;
 }
 
+.also-by-content p{
+    color: #004620 !important;
+
+}
+
 .also-by-info{
     font-size:13px;
     margin-top:5px;
 }
+
+.also-by-content img{
+    display: none;
+}
+
 .also-by-head{
     color: #4C4C4C;
     font-size: 15px;

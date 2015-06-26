@@ -1,19 +1,15 @@
 <div class="col-md-3 by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv">
-        <div class="col-md-12 left-container-img-wrapper no-padding" style="width: 271px;margin-top: 10px">
-            <img src="assets/img/by.jpg" alt="image" fallback-src="assets/img/by.jpg">
-            <div style="display: inline-block; font-size: 15px; padding-left: 10px;">{{discuss.username}}</div>
-        </div>
-        <div ng-if="articlesByUser.length > 0" class="also-by-wrapper left-container-img-wrapper col-md-12 no-padding" style="width: 271px;">
+        <img src="assets/img/by.jpg" alt="image" fallback-src="assets/img/by.jpg">
+        <div style="display: inline-block; font-size: 15px; padding-left: 10px;">{{discuss.username}}</div>
+        <div ng-if="articlesByUser.length > 0" class="also-by-wrapper left-container-img-wrapper no-padding">
             <div class="also-by-head col-md-12">{{header1}}<span class="also-by-head">{{header2}}</span></div>
-            <div class="also-by-content-wrapper no-padding">
-                <div class="col-md-12 also-by-content" ng-repeat="article in articlesByUser">
-                    <a href="#/discuss/{{article.id}}">
-                        <div ng-if="article.title && article.title.length > 0">{{article.title}}</div>
-                        <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 500))"></div>
-                    </a>
-                    <div class="sec-line">in {{$root.discussCategoryListMap[article.topicId[0]].name}} | {{article.createdAt | date:'medium'}}</div>
-                </div>
+            <div class="also-by-content" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id">
+                <a href="#/discuss/{{article.id}}">
+                    <div ng-if="article.title && article.title.length > 0">{{article.title}}</div>
+                    <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 150))"></div>
+                </a>
+                <div class="also-by-info">in {{$root.discussCategoryListMap[article.topicId[0]].name}} | {{article.createdAt | date:'medium'}}</div>
             </div>
         </div>
     </div>

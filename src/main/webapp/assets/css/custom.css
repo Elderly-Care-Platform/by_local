@@ -765,7 +765,13 @@ a{
 	display:none;
 }
 
-@media (min-width: 500px){
+@media (max-width: 700px){
+   .posted-info li{
+		line-height: 15px;
+	}
+}
+
+@media  screen and (m-width: 500px){
     .article-content .articleTitleImage{
 		max-width: 444px;
 	}

@@ -22,3 +22,50 @@
 .by_discuss_detail img{
 	max-width: 100%;
 }
+
+.also-by-wrapper{
+    font-size: 15px; /* Approximation due to font substitution */
+    text-align: left;
+    margin-top:20px;
+}
+
+.also-by-content > a div, .also-by-content > a  p{
+    color:#00af50;
+}
+.also-by-content > a div:hover, .also-by-content > a  p:hover{
+    text-decoration: underline;
+}
+
+.also-by-info{
+    font-size:13px;
+    margin-top:5px;
+}
+
+.also-by-content img{
+    display: none;
+}
+
+.also-by-head{
+    color: #4C4C4C;
+    font-size: 15px;
+    line-height: 24px;
+    padding: 5px;
+    padding-left: 10px;
+    background-color: #DAD9D9;
+}
+.also-by-wrapper .also-by-content{
+    color:  #848484;
+    font-size: 14px; /* Approximation due to font substitution */
+    font-weight: 400;
+    line-height: 17px; /* Approximation due to font substitution */
+    text-align: left;
+    border-style:solid;
+    border-width:0px;
+    border-color:#cfcfcf;
+    border-bottom-width:1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.also-by-wrapper .also-by-content:last-child{
+    border-width:0px;
+}

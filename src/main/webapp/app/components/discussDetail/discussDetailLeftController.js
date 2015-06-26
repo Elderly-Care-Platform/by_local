@@ -13,7 +13,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
                     if($scope.articlesByUser.length<=0){
                         $scope.getRelatedArticle();
                     } else {
-                        $scope.articlesByUser = userArticles.splice(0,5);
+                        $scope.articlesByUser = userArticles.splice(0,6);
                         if($scope.articlesByUser.length === 1 && $scope.articlesByUser[0].id===$scope.discuss.id){
                             $scope.getRelatedArticle();
                         }
@@ -34,7 +34,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
                 topicId: subTopicId,
                 subTopicId:"all"
             }, function(topicRelatedArticle, header){
-                $scope.articlesByUser = topicRelatedArticle.splice(0,5);
+                $scope.articlesByUser = topicRelatedArticle.splice(0,6);
                 $scope.header1 = "Also in";
                 $scope.header2 = $rootScope.discussCategoryListMap[subTopicId].name;
             });

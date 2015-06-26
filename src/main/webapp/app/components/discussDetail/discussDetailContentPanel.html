@@ -2,9 +2,9 @@
     <div class="article">
         <div class="article-info">
             <ul class="list-inline posted-info">
-                <li ng-if="detailResponse.discuss.discussType == 'A'"><a href="#">Story by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
-                <li ng-if="detailResponse.discuss.discussType == 'P'"><a href="#">Post by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
-                <li ng-if="detailResponse.discuss.discussType == 'Q'"><a href="#">Question by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a></li>
+                <li ng-if="detailResponse.discuss.discussType == 'A'">Story by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</li>
+                <li ng-if="detailResponse.discuss.discussType == 'P'">Post by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</li>
+                <li ng-if="detailResponse.discuss.discussType == 'Q'">Question by {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</li>
                 <li> | In
                     <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
                         {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>

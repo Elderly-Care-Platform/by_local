@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
+import com.beautifulyears.domain.Topic;
 import com.beautifulyears.repository.DiscussRepository;
+import com.beautifulyears.repository.TopicRepository;
 import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.rest.response.DiscussResponse.DiscussEntity;
@@ -43,12 +45,15 @@ public class DiscussController {
 	private static final Logger logger = Logger.getLogger(DiscussController.class);
 	private DiscussRepository discussRepository;
 	private MongoTemplate mongoTemplate;
+	private TopicRepository topicRepository;
 
 	@Autowired
 	public DiscussController(DiscussRepository discussRepository,
 			DiscussRepositoryCustom discussRepositoryCustom,
+			TopicRepository topicRepository,
 			MongoTemplate mongoTemplate) {
 		this.discussRepository = discussRepository;
+		this.topicRepository = topicRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
 
@@ -73,7 +78,8 @@ public class DiscussController {
 			newDiscuss.setDiscussType(discuss.getDiscussType());
 			newDiscuss.setTitle(discuss.getTitle());
 			newDiscuss.setStatus(discuss.getStatus());
-			newDiscuss.setTags(discuss.getTags());
+			newDiscuss.setSystemTags(discuss.getSystemTags());
+			newDiscuss.setUserTags(discuss.getUserTags());
 			newDiscuss.setText(discuss.getText());
 			newDiscuss.setUserId(discuss.getUserId());
 			newDiscuss.setTopicId(discuss.getTopicId());
@@ -298,14 +304,20 @@ public class DiscussController {
 			String text = discuss.getText();
 			int discussStatus = discuss.getStatus();
 			List<String> topicId = discuss.getTopicId();
-			String tags = "";
+			Query q = new Query();
+			q.addCriteria(Criteria.where("id").in(topicId));
+			q.fields().include("topicName");
+			List<Topic> topics = mongoTemplate.find(q, Topic.class);
+			for (Topic topic : topics) {
+				discuss.getSystemTags().add(topic.getTopicName());
+			}
 			// List<String> subTopicId = discuss.getSubTopicId();
 			// String tags = discuss.getTags() == null ? String.valueOf(topicId)
 			// + "," + subTopicId : String.valueOf(discuss.getTags())
 			// + "," + topicId + "," + subTopicId;
 			int aggrReplyCount = 0;
 			return new Discuss(userId, username, discussType, topicId, title,
-					text, discussStatus, tags, aggrReplyCount,
+					text, discussStatus, aggrReplyCount,discuss.getSystemTags(),discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
 							.getArticlePhotoFilename() : "",false);
 		} catch (Exception e) {

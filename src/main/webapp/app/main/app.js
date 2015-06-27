@@ -876,7 +876,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             		 if($scope.discuss.title.trim().length <= 0){
             			 $scope.error = "Please select title";
             		 }else if($scope.discuss.topicId.length <= 0){
-            			 $scope.error = "Please select atleast 1 category";
+            			 $scope.error = "Please select at least one category where your story would appear";
             		 }
             	}
                 
@@ -887,8 +887,12 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             		if($scope.discuss.text.trim().length <= 0){
 	           			 $scope.error = "Please add more details";
 	           		 }else if($scope.discuss.topicId.length <= 0){
-	           			 $scope.error = "Please select atleast 1 category";
-	           		 }
+	           			if($scope.discuss.discussType==="Q")
+	           				 $scope.error = "Please select at least one category where your question would appear";
+	           			if($scope.discuss.discussType==="P")
+	           				 $scope.error = "Please select at least one category where your post would appear";
+	           			 
+	           		}
             	}
             } else {
                 //no more type
@@ -3523,5 +3527,51 @@ byApp.directive('onFinishRender', function ($timeout) {
         }
     }
 });
+
+
+byApp.directive('timeSince', function($filter){
+	var getTimeSince = {
+		link : function(scope, element, attr){
+			var seconds = Math.floor((new Date() - attr.timeSince) / 1000);
+		    var interval = Math.floor(seconds / 60);
+		    
+		    if (interval >= 1 && interval < 60) {
+		    	if(interval===1)
+		    		element.html(interval + " minute ago");
+		    	else
+		    		element.html(interval + " minutes ago");
+		        return;
+		    } else if(interval < 1){
+		    	element.html("just now");
+		        return;
+		    } else {
+		    	interval = Math.floor(seconds / 3600);
+			    if (interval >= 1 && interval < 24) {
+			    	if(interval===1)
+			    		element.html(interval + " hour ago");
+			    	else
+			    		element.html(interval + " hours ago");
+			        return;
+			    }
+			
+			    interval = Math.floor(seconds / 86400);
+			    if (interval >= 1 && interval < 30) {
+			    	if(interval===1)
+			    		element.html(interval + " day ago");
+			    	else
+			    		element.html(interval + " days ago");
+			    	return
+			    }
+			    
+			    var oldData = $filter('date')(attr.timeSince, 'MMM dd, yyyy');
+			    element.html(oldData);
+			    return;
+		    }
+		}
+	    
+	};
+	
+	return getTimeSince;
+})
 
 

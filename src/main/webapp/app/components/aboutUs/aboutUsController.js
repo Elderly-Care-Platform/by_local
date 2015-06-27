@@ -58,7 +58,7 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
                     if($scope.discuss.title.trim().length <= 0){
                         $scope.error = "Please select title";
                     }else if($scope.discuss.topicId.length <= 0){
-                        $scope.error = "Please select atleast 1 category";
+                        $scope.error = "Please select at least one category where your story would appear";
                     }
                 }
 
@@ -69,7 +69,10 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
                     if($scope.discuss.text.trim().length <= 0){
                         $scope.error = "Please add more details";
                     }else if($scope.discuss.topicId.length <= 0){
-                        $scope.error = "Please select atleast 1 category";
+                        if($scope.discuss.discussType==="Q")
+                            $scope.error = "Please select at least one category where your question would appear";
+                        if($scope.discuss.discussType==="P")
+                            $scope.error = "Please select at least one category where your post would appear";
                     }
                 }
             } else {

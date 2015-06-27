@@ -10,6 +10,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.detailResponse = DiscussDetail.get({discussId: discussId}, function(discussDetail, header){
             //broadcast data to left panel, to avoid another query from left panel of detail page
             broadCastData.update(discussDetail.discuss);
+            $scope.detailResponse.discuss.createdAt = discussDetail.discuss.createdAt;
         });
 
         $scope.trustForcefully = function (html) {

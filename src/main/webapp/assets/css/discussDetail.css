@@ -1,5 +1,5 @@
 .by_discuss_detail{
-
+    border:1px solid #d5d5d5;
 }
 
 .by_discuss_detail .news-v3 .post-shares{
@@ -8,6 +8,12 @@
     top: -24px;
 }
 
+
+.by_discuss_detail .articles-story{
+    padding-left: 0px;
+    word-wrap: break-word;
+    margin-bottom: 12px;
+}
 .commentEditor{
     display: none;
 }
@@ -39,6 +45,15 @@
 .also-by-info{
     font-size:13px;
     margin-top:5px;
+    list-style: none;
+    display: inline-block;
+}
+
+.also-by-profile{
+    display: inline-block;
+    font-size: 15px;
+    padding-left: 10px;
+    vertical-align: middle;
 }
 
 .also-by-content img{
@@ -52,6 +67,7 @@
     padding: 5px;
     padding-left: 10px;
     background-color: #DAD9D9;
+    margin-bottom: 10px;
 }
 .also-by-wrapper .also-by-content{
     color:  #848484;

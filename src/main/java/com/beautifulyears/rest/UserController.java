@@ -149,13 +149,10 @@ public class UserController {
 				req.getSession().setAttribute("user",
 						userWithExtractedInformation);
 				session = createSession(req, res, userWithExtractedInformation);
-				return session;
+				
 			} catch (Exception e) {
-				logger.error(e.getStackTrace());
-				ResponseEntity<String> responseEntity = new ResponseEntity<String>(
-						"Error while registering user!", HttpStatus.CREATED);
 				logger.error("error occured while creating the user");
-				throw e;
+				Util.handleException(e);
 			}
 
 		} else {
@@ -171,8 +168,9 @@ public class UserController {
 			editedUser.setActive(user.isActive());
 			userRepository.save(editedUser);
 			session = createSession(req, res, editedUser);
-			return session;
+			
 		}
+		return session;
 
 	}
 

@@ -20,7 +20,6 @@ BY.removeEditor = function(){
 
 BY.addEditor = function(param){
     var textAreas = $("textarea");
-    BY.removeEditor();
     var isCommentEditor = param.commentEditor ? param.commentEditor : false, toolbar, plugins;
     if(isCommentEditor){
         toolbar = "bold italic | emoticons";

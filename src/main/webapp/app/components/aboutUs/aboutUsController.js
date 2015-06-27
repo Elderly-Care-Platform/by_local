@@ -18,6 +18,7 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
 
 
         $scope.add = function (type) {
+            BY.removeEditor();
             if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
             {
                 $rootScope.nextLocation = $location.path();

@@ -833,6 +833,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         
 
 		$scope.add = function (type) {
+			BY.removeEditor();
 			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 			{
 				$rootScope.nextLocation = $location.path();

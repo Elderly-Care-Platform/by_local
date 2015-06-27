@@ -59,6 +59,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 		}
         
         $scope.add = function (type) {
+            BY.removeEditor();
         	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 			{
 				$rootScope.nextLocation = $location.path();
@@ -270,6 +271,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         }
 
         $scope.add = function (type) {
+            BY.removeEditor();
         	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 			{
 				$rootScope.nextLocation = $location.path();

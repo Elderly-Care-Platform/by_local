@@ -84,7 +84,7 @@
     </h2>
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
-        Be the first to comment {{createNewComment(detailResponse.discuss.id)}}
+        Be the first to comment {{createFirstComment(detailResponse.discuss.id)}}
     </h2>
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'Q')">
@@ -92,7 +92,7 @@
     </h2>
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'Q')">
-        Be the first to answer {{createNewComment(detailResponse.discuss.id)}}
+        Be the first to answer {{createFirstComment(detailResponse.discuss.id)}}
     </h2>
 
     <!--Comment Editor for main article-->
@@ -105,7 +105,23 @@
             </button>
             <span/>
             <button class="btn btn-sm btn-success comment-submit by_btn_cancel"
-                    ng-click="disposeComment()">CANCEL
+                    ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
+            </button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <!--Comment Editor for first comment of article-->
+    <div class="col-md-12 no-padding" style="margin-bottom: 20px" ng-show="showFirstCommentEditor">
+        <div class="enter-comment-wrap padding20SM borderShadow" id="answer_block">
+            <textarea rows="3"  id="firstCommentEditor"></textarea>
+            <div class="clearfix"></div>
+            <button class="btn btn-sm btn-success comment-submit" type="submit"
+                    ng-click="postFirstReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT
+            </button>
+            <span/>
+            <button class="btn btn-sm btn-success comment-submit by_btn_cancel"
+                    ng-click="disposeComment('firstCommentEditor')">CANCEL
             </button>
             <div class="clearfix"></div>
         </div>

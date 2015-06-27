@@ -8,11 +8,16 @@
         <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
         <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
-                <li class="add-comment" ng-if="discuss.aggrReplyCount > 0">
+                <li class="add-comment" ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'A' || discuss.discussType == 'P')">
                     <a href="#">
-                        <i ng-if="discuss.discussType == 'A' || discuss.discussType == 'P'" class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <i ng-if="discuss.discussType == 'Q'" class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"></i>
-                        <span ng-if="discuss.aggrReplyCount > 0">{{discuss.aggrReplyCount}}</span>
+                        <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                        <span>{{discuss.aggrReplyCount}}</span>
+                    </a>
+                </li>
+                <li class="add-comment" ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
+                    <a href="#">
+                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"></i>
+                        <span>{{discuss.directReplyCount}}</span>
                     </a>
                 </li>
 

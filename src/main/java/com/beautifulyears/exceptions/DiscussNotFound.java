@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.beautifulyears.util.LoggerUtil;
 
 @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No Discuss content found")
-public class DiscussNotFound extends RuntimeException{
+public class DiscussNotFound extends BYException{
 	
 	private static final Logger logger = Logger.getLogger(DiscussNotFound.class);
 	private static final long serialVersionUID = 1L;

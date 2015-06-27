@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.Topic;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.exceptions.DiscussNotFound;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
@@ -62,7 +63,7 @@ public class DiscussController {
 	@ResponseBody
 	public ResponseEntity<String> submitDiscuss(@RequestBody Discuss discuss,
 			HttpServletRequest request, HttpServletResponse res)
-			throws IOException {
+			throws Exception {
 		LoggerUtil.logEntry();
 		ResponseEntity<String> responseEntity = new ResponseEntity(
 				HttpStatus.CREATED);
@@ -250,7 +251,7 @@ public class DiscussController {
 		return res.getDiscussEntity(discuss, Util.getSessionUser(req));
 	}
 
-	private Discuss setDiscussBean(Discuss discuss) {
+	private Discuss setDiscussBean(Discuss discuss) throws Exception {
 		LoggerUtil.logEntry();
 		Discuss newDiscuss = null;
 		try {
@@ -278,8 +279,8 @@ public class DiscussController {
 					discuss.getSystemTags(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
 							.getArticlePhotoFilename() : "", false);
-		} catch (Exception e) {
-			Util.sendGenericError();
+		}catch (Exception e) {
+			Util.handleException(e);
 		}
 		return newDiscuss;
 	}

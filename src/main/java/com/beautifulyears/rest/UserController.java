@@ -28,6 +28,7 @@ import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRolePermissions;
+import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserRepository;
 import com.beautifulyears.repository.custom.UserRepositoryCustom;
 import com.beautifulyears.util.LoggerUtil;
@@ -101,7 +102,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "/logout/{sessionId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Session logout(
 			@PathVariable("sessionId") String sessionId,
-			HttpServletRequest req, HttpServletResponse res) {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Session session = null;
 		try {
@@ -109,7 +110,7 @@ public class UserController {
 					+ sessionId);
 			session = killSession(req, res);
 		} catch (Exception e) {
-			Util.sendGenericError();
+			Util.handleException(e);
 		}
 		return session;
 	}
@@ -260,7 +261,7 @@ public class UserController {
 	private Session createSession(HttpServletRequest req,
 			HttpServletResponse res, User user) {
 		LoggerUtil.logEntry();
-		Session session = new Session(user,req);
+		Session session = new Session(user, req);
 		this.mongoTemplate.save(session);
 		req.getSession().setAttribute("session", session);
 		req.getSession().setAttribute("user", user);

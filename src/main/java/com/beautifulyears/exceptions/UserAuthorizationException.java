@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.beautifulyears.util.LoggerUtil;
 
 @ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "User is not authorized to perform the specified operation.")
-public class UserAuthorizationException extends RuntimeException {
+public class UserAuthorizationException extends BYException {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger

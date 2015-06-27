@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.beautifulyears.util.LoggerUtil;
 
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Unknown internal error occured")
-public class BYInternalError extends RuntimeException {
+public class BYInternalError extends BYException {
 	
 
 	private static final long serialVersionUID = 1L;

@@ -18,6 +18,9 @@ import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussLike;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.exceptions.DiscussNotFound;
+import com.beautifulyears.exceptions.UserAuthorizationException;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
@@ -47,7 +50,7 @@ public class DiscussLikeController {
 	@ResponseBody
 	public DiscussResponse.DiscussEntity submitDiscussLike(
 			@RequestParam(value = "discussId", required = true) String discussId,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Discuss discuss = null;
 		User user = Util.getSessionUser(req);
@@ -55,14 +58,12 @@ public class DiscussLikeController {
 
 		if (null == user) {
 			logger.error("Attempt made to like a content before logging in");
-			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return null;
+			throw new UserAuthorizationException();
 		} else {
-			try {
 
-				discuss = (Discuss) discussRepository.findOne(discussId);
-				if (discuss != null) {
-
+			discuss = (Discuss) discussRepository.findOne(discussId);
+			if (discuss != null) {
+				try {
 					DiscussLike discussLike = null;
 
 					if (discuss.getLikedBy().contains(user.getId())) {
@@ -74,23 +75,23 @@ public class DiscussLikeController {
 						discuss.getLikedBy().add(user.getId());
 						discussLikeRepository.save(discussLike);
 						discussRepository.save(discuss);
-
 					}
+				}catch (Exception e) {
+					Util.handleException(e);
 				}
-				return discussResponse.getDiscussEntity(discuss, user);
-			} catch (Exception e) {
-				e.printStackTrace();
-				res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			} else {
+				throw new DiscussNotFound(discussId);
 			}
+
 		}
-		return discussResponse.getDiscussEntity(null, null);
+		return discussResponse.getDiscussEntity(discuss, user);
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=1")
 	@ResponseBody
 	public DiscussReply submitCommentLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.DISCUSS_TYPE_COMMENT;
 		return submitReplyLike(replyType, replyId, req, res);
@@ -101,7 +102,7 @@ public class DiscussLikeController {
 	@ResponseBody
 	public DiscussReply submitAnswerLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.DISCUSS_TYPE_ANSWER;
 		return submitReplyLike(replyType, replyId, req, res);
@@ -109,17 +110,15 @@ public class DiscussLikeController {
 	}
 
 	private DiscussReply submitReplyLike(int replyType, String contentId,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		DiscussReply reply = null;
 		User user = Util.getSessionUser(req);
-
-		if (null == user) {
-			logger.error("Attempt made to like a content before logging in");
-			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return null;
-		} else {
-			try {
+		try {
+			if (null == user) {
+				logger.error("Attempt made to like a content before logging in");
+				throw new UserAuthorizationException();
+			} else {
 
 				reply = (DiscussReply) discussReplyRepository
 						.findOne(contentId);
@@ -136,10 +135,10 @@ public class DiscussLikeController {
 						discussReplyRepository.save(reply);
 					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
 			}
+		} catch (Exception e) {
+			Util.handleException(e);
 		}
 		reply.setLikeCount(reply.getLikedBy().size());
 		if (null != user && reply.getLikedBy().contains(user.getId())) {

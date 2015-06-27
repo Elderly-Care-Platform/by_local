@@ -3,6 +3,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
         var discussId = $routeParams.discussId;	//discuss Id from url
         $scope.discussDetailViews = {};
+        $rootScope.nextLocation = $location.path();
 
         $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html";
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html";
@@ -36,7 +37,6 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
         $scope.createNewComment = function(commentId){
             if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
             {
-                $rootScope.nextLocation = $location.path();
                 $location.path('/users/login');
             }else{
                 $scope.showEditor = true;

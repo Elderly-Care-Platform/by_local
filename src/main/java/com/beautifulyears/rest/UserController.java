@@ -29,6 +29,7 @@ import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRolePermissions;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.exceptions.UserAuthorizationException;
 import com.beautifulyears.repository.UserRepository;
 import com.beautifulyears.repository.custom.UserRepositoryCustom;
 import com.beautifulyears.util.LoggerUtil;
@@ -59,8 +60,9 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody Session login(@RequestBody LoginRequest loginRequest,
-			HttpServletRequest req, HttpServletResponse res) {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
+		Session session = null;
 		Query q = new Query();
 		q.addCriteria(Criteria.where("email").is(loginRequest.getEmail())
 				.and("password").is(loginRequest.getPassword()));
@@ -70,7 +72,7 @@ public class UserController {
 				logger.debug("admin user logged in into the system");
 				User user = new User("admin", null, null, null, null, null,
 						null, null, null, null, null);
-				Session session = createSession(req, res, user);
+				session = createSession(req, res, user);
 				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 				return null;
 			}
@@ -80,22 +82,21 @@ public class UserController {
 				if (null == user) {
 					logger.debug("log in failed with userId = "
 							+ loginRequest.getEmail());
-					Session session = killSession(req, res);
-					res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-					throw new Exception("username and password not found.");
+					session = killSession(req, res);
+					throw new UserAuthorizationException();
 				} else {
 					logger.debug("user logged in into the system with userId = "
 							+ user.getId()
 							+ " and email  as  "
 							+ user.getEmail());
-					Session session = createSession(req, res, user);
-					return session;
+					session = createSession(req, res, user);
+					
 				}
 			}
 		} catch (Exception e) {
-			return null;
+			Util.handleException(e);
 		}
-		// admin login
+		return session;
 
 	}
 
@@ -271,9 +272,11 @@ public class UserController {
 	private Session killSession(HttpServletRequest req, HttpServletResponse res) {
 		LoggerUtil.logEntry();
 		Session session = (Session) req.getSession().getAttribute("session");
-		session.setStatus(DiscussConstants.SESSION_STATUS_INACTIVE);
-		this.mongoTemplate.save(session);
-		req.getSession().invalidate();
+		if(null != session){
+			session.setStatus(DiscussConstants.SESSION_STATUS_INACTIVE);
+			this.mongoTemplate.save(session);
+			req.getSession().invalidate();
+		}
 		return null;
 	}
 }

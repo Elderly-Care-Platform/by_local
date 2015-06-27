@@ -27,14 +27,11 @@ import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 @Controller
 @RequestMapping(value = { "/search" })
 public class SearchController {
-	private DiscussRepository discussRepository;
 	private MongoTemplate mongoTemplate;
 
 	@Autowired
-	public SearchController(DiscussRepository discussRepository,
-			DiscussRepositoryCustom discussRepositoryCustom,
+	public SearchController(
 			MongoTemplate mongoTemplate) {
-		this.discussRepository = discussRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
 

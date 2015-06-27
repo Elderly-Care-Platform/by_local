@@ -2,7 +2,6 @@ package com.beautifulyears.rest;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.DiscussConstants;
 import com.beautifulyears.domain.LoginRequest;
-import com.beautifulyears.domain.LoginResponse;
 import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
@@ -33,6 +31,7 @@ import com.beautifulyears.domain.UserRolePermissions;
 import com.beautifulyears.repository.UserRepository;
 import com.beautifulyears.repository.custom.UserRepositoryCustom;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.Util;
 
 /**
  * /** The REST based service for managing "users"
@@ -104,13 +103,15 @@ public class UserController {
 			@PathVariable("sessionId") String sessionId,
 			HttpServletRequest req, HttpServletResponse res) {
 		LoggerUtil.logEntry();
+		Session session = null;
 		try {
 			logger.debug("user logged out successfully with sessionId = "
 					+ sessionId);
-			return killSession(req, res);
+			session = killSession(req, res);
 		} catch (Exception e) {
-			return killSession(req, res);
+			Util.sendGenericError();
 		}
+		return session;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = { "/list/all",
@@ -222,9 +223,6 @@ public class UserController {
 	public User editUser(@PathVariable("userId") String userId) {
 		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
-		if (user == null) {
-			throw new UserNotFoundException(userId);
-		}
 		return user;
 	}
 
@@ -234,9 +232,6 @@ public class UserController {
 	public @ResponseBody User showUser(@PathVariable("userId") String userId) {
 		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
-		if (user == null) {
-			throw new UserNotFoundException(userId);
-		}
 		return user;
 	}
 
@@ -244,9 +239,6 @@ public class UserController {
 	public @ResponseBody User getUser(@PathVariable("userId") String userId) {
 		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
-		if (user == null) {
-			throw new UserNotFoundException(userId);
-		}
 		return user;
 	}
 
@@ -257,9 +249,6 @@ public class UserController {
 		User user = null;
 		try {
 			user = userRepository.getByVerificationCode(verificationCode);
-			if (user == null) {
-				throw new UserNotFoundException(verificationCode);
-			}
 			user.setActive("Active");
 			userRepository.save(user);
 		} catch (Exception e) {

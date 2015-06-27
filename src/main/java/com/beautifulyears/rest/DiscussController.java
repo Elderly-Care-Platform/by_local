@@ -1,7 +1,7 @@
 package com.beautifulyears.rest;
 
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.Topic;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.DiscussNotFound;
 import com.beautifulyears.repository.DiscussRepository;
-import com.beautifulyears.repository.TopicRepository;
 import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.rest.response.DiscussResponse.DiscussEntity;
@@ -46,60 +46,68 @@ import com.beautifulyears.util.Util;
 @Controller
 @RequestMapping(value = { "/discuss" })
 public class DiscussController {
-	private static final Logger logger = Logger.getLogger(DiscussController.class);
+	private static final Logger logger = Logger
+			.getLogger(DiscussController.class);
 	private DiscussRepository discussRepository;
 	private MongoTemplate mongoTemplate;
-	private TopicRepository topicRepository;
-	private ResponseEntity responseEntity;
 
 	@Autowired
 	public DiscussController(DiscussRepository discussRepository,
-			DiscussRepositoryCustom discussRepositoryCustom,
-			TopicRepository topicRepository,
 			MongoTemplate mongoTemplate) {
 		this.discussRepository = discussRepository;
-		this.topicRepository = topicRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
 
 	@RequestMapping(consumes = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<String> submitDiscuss(@RequestBody Discuss discuss,HttpServletRequest request,HttpServletResponse res) throws IOException {
+	public ResponseEntity<String> submitDiscuss(@RequestBody Discuss discuss,
+			HttpServletRequest request, HttpServletResponse res)
+			throws IOException {
 		LoggerUtil.logEntry();
 		ResponseEntity<String> responseEntity = new ResponseEntity(
 				HttpStatus.CREATED);
 		User currentUser = Util.getSessionUser(request);
-		if(null != currentUser){
+		if (null != currentUser) {
 			if (discuss == null || discuss.getId() == null
 					|| discuss.getId().equals("")) {
-				
+
 				discuss.setUserId(currentUser.getId());
 				discuss.setUsername(currentUser.getUserName());
 				Discuss discussWithExtractedInformation = this
 						.setDiscussBean(discuss);
-				discuss = discussRepository.save(discussWithExtractedInformation);
-				logger.info("new discuss entity created with ID: "+discuss.getId()+" by User "+(null != Util.getSessionUser(request)   ? Util.getSessionUser(request).getId() : null));
-				
-			}else{
+				discuss = discussRepository
+						.save(discussWithExtractedInformation);
+				logger.info("new discuss entity created with ID: "
+						+ discuss.getId()
+						+ " by User "
+						+ (null != Util.getSessionUser(request) ? Util
+								.getSessionUser(request).getId() : null));
+
+			} else {
 				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 				return null;
 			}
-		}else{
+		} else {
 			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return null;
 		}
 		return responseEntity;
-		
-		
+
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/all" }, produces = { "application/json" })
 	@ResponseBody
-	public List<DiscussEntity> allDiscuss(@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
+	public List<DiscussEntity> allDiscuss(
+			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 		LoggerUtil.logEntry();
-		List<DiscussEntity> list = queryDiscuss(null, null, null, null,sort,request);
-		return list;
+		DiscussResponse discussResponse = new DiscussResponse();
+		List<String> sortArray = new ArrayList<String>();
+		sortArray.add(sort);
+		List<Discuss> list = discussRepository
+				.findPublished(null, sortArray, 0);
+		discussResponse.add(list, Util.getSessionUser(request));
+		return discussResponse.getResponse();
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/all/{discussType}" }, produces = { "application/json" })
@@ -111,14 +119,16 @@ public class DiscussController {
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 		LoggerUtil.logEntry();
-		Map<String, Object> filters = null;
-		if(null != isFeatured){
-			filters = new HashMap<String, Object>();
-			filters.put("isFeatured", isFeatured);
-		}
-		
-		List<DiscussEntity> list = queryDiscuss(discussType, null, null, filters,sort,request);
-		return list;
+		DiscussResponse discussResponse = new DiscussResponse();
+		Map<String, Object> filters = new HashMap<String, Object>();
+		filters.put("isFeatured", isFeatured);
+		filters.put("discussType", discussType);
+		List<String> sortArray = new ArrayList<String>();
+		sortArray.add(sort);
+		List<Discuss> list = discussRepository.findPublished(filters,
+				sortArray, count);
+		discussResponse.add(list, Util.getSessionUser(request));
+		return discussResponse.getResponse();
 
 	}
 
@@ -130,8 +140,16 @@ public class DiscussController {
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 		LoggerUtil.logEntry();
-		List<DiscussEntity> list = queryDiscuss(discussType, topicId, null, null,sort,request);
-		return list;
+		DiscussResponse discussResponse = new DiscussResponse();
+		Map<String, Object> filters = new HashMap<String, Object>();
+		filters.put("discussType", discussType);
+		filters.put("topicId", topicId);
+		List<String> sortArray = new ArrayList<String>();
+		sortArray.add(sort);
+		List<Discuss> list = discussRepository.findPublished(filters,
+				sortArray, 0);
+		discussResponse.add(list, Util.getSessionUser(request));
+		return discussResponse.getResponse();
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/{subTopicId}/{userId}" }, produces = { "application/json" })
@@ -144,13 +162,18 @@ public class DiscussController {
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 		LoggerUtil.logEntry();
-		Map<String, Object> filters = null;
-		if(null != userId){
-			filters = new HashMap<String, Object>();
-			filters.put("userId", userId);
-		}
-		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, filters,sort,request);
-		return list;
+		DiscussResponse discussResponse = new DiscussResponse();
+		Map<String, Object> filters = new HashMap<String, Object>();
+		filters.put("discussType", discussType);
+		filters.put("topicId", topicId);
+		filters.put("subTopicId", subTopicId);
+		filters.put("userId", userId);
+		List<String> sortArray = new ArrayList<String>();
+		sortArray.add(sort);
+		List<Discuss> list = discussRepository.findPublished(filters,
+				sortArray, 0);
+		discussResponse.add(list, Util.getSessionUser(request));
+		return discussResponse.getResponse();
 
 	}
 
@@ -163,83 +186,17 @@ public class DiscussController {
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			HttpServletRequest request) {
 		LoggerUtil.logEntry();
-		List<DiscussEntity> list = queryDiscuss(discussType, topicId, subTopicId, null,sort,request);
-		return list;
-	}
-
-	private List<DiscussEntity> queryDiscuss(String discussType, String topicId,
-			String subTopicId, Map<String, Object> filters, String sort,
-			HttpServletRequest request) {
-		LoggerUtil.logEntry();
-		DiscussResponse discussResponse = new DiscussResponse(); 
-		try {
-			Query q = getQuery(discussType, topicId, subTopicId, filters,sort);
-			List<Discuss> list = (List<Discuss>)this.mongoTemplate.find(q,Discuss.class);
-			discussResponse.add(list,Util.getSessionUser(request));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		DiscussResponse discussResponse = new DiscussResponse();
+		Map<String, Object> filters = new HashMap<String, Object>();
+		filters.put("discussType", discussType);
+		filters.put("topicId", topicId);
+		filters.put("subTopicId", subTopicId);
+		List<String> sortArray = new ArrayList<String>();
+		sortArray.add(sort);
+		List<Discuss> list = discussRepository.findPublished(filters,
+				sortArray, 0);
+		discussResponse.add(list, Util.getSessionUser(request));
 		return discussResponse.getResponse();
-	}
-
-	private String querySize(String discussType, String topicId,
-			String subTopicId, Map<String, Object> filters) {
-		LoggerUtil.logEntry();
-		JSONObject obj = new JSONObject();
-		try {
-			Long articlesCount = this.mongoTemplate.count(
-					getQuery("A", topicId, subTopicId, filters,null), Discuss.class);
-			Long questionsCount = this.mongoTemplate.count(
-					getQuery("Q", topicId, subTopicId, filters,null), Discuss.class);
-			Long postsCount = this.mongoTemplate.count(
-					getQuery("P", topicId, subTopicId, filters,null), Discuss.class);
-			obj.put("a", articlesCount);
-			obj.put("q", questionsCount);
-			obj.put("p", postsCount);
-			obj.put("z", articlesCount + questionsCount + postsCount);
-
-		} catch (Exception e) {
-			obj.put("a", 0);
-			obj.put("p", 0);
-			obj.put("q", 0);
-			obj.put("z", 0);
-		}
-		return obj.toString();
-	}
-
-	private Query getQuery(String discussType, String topicId,
-			String subTopicId, Map<String, Object> filters, String sortBy) {
-		LoggerUtil.logEntry();
-		Query q = new Query();
-		if (null != discussType && !discussType.equalsIgnoreCase("All")
-				&& !discussType.equalsIgnoreCase("list")) {
-			q.addCriteria(Criteria.where("discussType")
-					.is((Object) discussType));
-		} else {
-			q.addCriteria(Criteria.where((String) "discussType").in(
-					new Object[] { "A", "Q", "P" }));
-		}
-		if (null != subTopicId && !subTopicId.equalsIgnoreCase("All")
-				&& !subTopicId.equalsIgnoreCase("list")) {
-			q.addCriteria(Criteria.where("topicId").in(
-					new Object[] { subTopicId }));
-		} else if (null != topicId && !topicId.equalsIgnoreCase("All")
-				&& !topicId.equalsIgnoreCase("list")) {
-			q.addCriteria(Criteria.where("topicId")
-					.in(new Object[] { topicId }));
-		}
-		if(null != filters){
-			for (Map.Entry<String, Object> filter : filters.entrySet())
-			{
-				q.addCriteria(Criteria.where(filter.getKey()).is(filter.getValue()));
-			}
-		}
-		q.addCriteria(Criteria.where("status").in(new Object[] {0,null}));
-		if(!Util.isEmpty(sortBy)){
-			q.with(new Sort(Sort.Direction.DESC, new String[] { sortBy }));
-		}
-		
-		return q;
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/count/{discussType}/{topicId}/{subTopicId}" }, produces = { "plain/text" })
@@ -249,8 +206,25 @@ public class DiscussController {
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId) {
 		LoggerUtil.logEntry();
-		return querySize(discussType, topicId, subTopicId, null);
-		
+		JSONObject obj = new JSONObject();
+		try {
+			Long articlesCount = discussRepository.getSize("A", topicId,
+					subTopicId);
+			Long questionsCount = discussRepository.getSize("Q", topicId,
+					subTopicId);
+			Long postsCount = discussRepository.getSize("P", topicId,
+					subTopicId);
+			obj.put("a", articlesCount);
+			obj.put("q", questionsCount);
+			obj.put("p", postsCount);
+			obj.put("z", articlesCount + questionsCount + postsCount);
+		} catch (Exception e) {
+			obj.put("a", 0);
+			obj.put("p", 0);
+			obj.put("q", 0);
+			obj.put("z", 0);
+		}
+		return obj.toString();
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/show/{discussId}" }, produces = { "application/json" })
@@ -259,60 +233,32 @@ public class DiscussController {
 			@PathVariable(value = "discussId") String discussId) {
 		LoggerUtil.logEntry();
 		Discuss discuss = (Discuss) discussRepository.findOne(discussId);
-		if (discuss == null) {
-			throw new DiscussNotFoundException(discussId);
-		}
 		return discuss;
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{discussId}" }, produces = { "application/json" })
 	@ResponseBody
 	public DiscussEntity getDiscuss(
-			@PathVariable(value = "discussId") String discussId,HttpServletRequest req) {
+			@PathVariable(value = "discussId") String discussId,
+			HttpServletRequest req) {
 		LoggerUtil.logEntry();
 		DiscussResponse res = new DiscussResponse();
 		Discuss discuss = (Discuss) discussRepository.findOne(discussId);
-		if (discuss == null) {
-			throw new DiscussNotFoundException(discussId);
+		if (null == discuss) {
+			throw new DiscussNotFound(discussId);
 		}
 		return res.getDiscussEntity(discuss, Util.getSessionUser(req));
 	}
 
-	@RequestMapping(method = { RequestMethod.PUT }, value = { "/{discussId}" }, produces = { "application/json" })
-	@ResponseBody
-	public Discuss editDiscuss(
-			@PathVariable(value = "discussId") String discussId) {
-		LoggerUtil.logEntry();
-		Discuss discuss = (Discuss) discussRepository.findOne(discussId);
-		if (discuss == null) {
-			throw new DiscussNotFoundException(discussId);
-		}
-		return discuss;
-	}
-
-	@RequestMapping(method = { RequestMethod.DELETE }, value = { "/{discussId}" }, produces = { "application/json" })
-	@ResponseBody
-	public ResponseEntity deletePost(
-			@PathVariable(value = "discussId") String discussId) {
-		LoggerUtil.logEntry();
-		System.out.println("Inside DELETE");
-		discussRepository.delete(discussId);
-		ResponseEntity responseEntity = new ResponseEntity(HttpStatus.CREATED);
-		System.out.println("responseEntity = " + (Object) responseEntity);
-		return responseEntity;
-	}
-
 	private Discuss setDiscussBean(Discuss discuss) {
 		LoggerUtil.logEntry();
+		Discuss newDiscuss = null;
 		try {
 
 			String userId = discuss.getUserId();
 			String username = discuss.getUsername();
 			String discussType = discuss.getDiscussType();
 			String title = "";
-			System.out.println("discussType = " + discussType
-					+ " :: photofilename = "
-					+ discuss.getArticlePhotoFilename());
 			if (discussType.equalsIgnoreCase("A")) {
 				title = discuss.getTitle();
 			}
@@ -327,13 +273,14 @@ public class DiscussController {
 				discuss.getSystemTags().add(topic.getTopicName());
 			}
 			int aggrReplyCount = 0;
-			return new Discuss(userId, username, discussType, topicId, title,
-					text, discussStatus, aggrReplyCount,discuss.getSystemTags(),discuss.getUserTags(),
+			newDiscuss = new Discuss(userId, username, discussType, topicId,
+					title, text, discussStatus, aggrReplyCount,
+					discuss.getSystemTags(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
-							.getArticlePhotoFilename() : "",false);
+							.getArticlePhotoFilename() : "", false);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			Util.sendGenericError();
 		}
+		return newDiscuss;
 	}
 }

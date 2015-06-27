@@ -3,6 +3,7 @@ package com.beautifulyears.util;
 import javax.servlet.http.HttpServletRequest;
 
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.BYInternalError;
 
 public class Util {
 
@@ -12,5 +13,9 @@ public class Util {
 	
 	public static User getSessionUser(HttpServletRequest req){
 		return (User) req.getSession().getAttribute("user");
+	}
+	
+	public static void sendGenericError() {
+		throw new BYInternalError();
 	}
 }

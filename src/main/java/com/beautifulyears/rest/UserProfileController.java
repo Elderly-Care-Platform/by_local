@@ -1,7 +1,5 @@
 package com.beautifulyears.rest;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.repository.custom.UserProfileRepositoryCustom;
-import com.beautifulyears.rest.UserProfileNotFoundException;
 
 /**
  * /** The REST based service for managing "users"
@@ -95,9 +92,6 @@ public class UserProfileController {
 		Query q = new Query();
 		q.addCriteria(Criteria.where("userId").is(userId));
 		UserProfile userProfile = mongoTemplate.findOne(q, UserProfile.class);
-		if (userProfile == null) {
-			throw new UserProfileNotFoundException(userId);
-		}
 		return userProfile;
 	}
 

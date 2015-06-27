@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.DiscussConstants;
 import com.beautifulyears.domain.LoginRequest;
 import com.beautifulyears.domain.LoginResponse;
 import com.beautifulyears.domain.Session;
@@ -31,6 +32,7 @@ import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserRolePermissions;
 import com.beautifulyears.repository.UserRepository;
 import com.beautifulyears.repository.custom.UserRepositoryCustom;
+import com.beautifulyears.util.LoggerUtil;
 
 /**
  * /** The REST based service for managing "users"
@@ -58,7 +60,7 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody Session login(@RequestBody LoginRequest loginRequest,
 			HttpServletRequest req, HttpServletResponse res) {
-
+		LoggerUtil.logEntry();
 		Query q = new Query();
 		q.addCriteria(Criteria.where("email").is(loginRequest.getEmail())
 				.and("password").is(loginRequest.getPassword()));
@@ -70,6 +72,7 @@ public class UserController {
 						null, null, null, null, null);
 				Session session = createSession(req, res, user);
 				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+				return null;
 			}
 			// normal user login
 			else {
@@ -93,7 +96,6 @@ public class UserController {
 			return null;
 		}
 		// admin login
-		return null;
 
 	}
 
@@ -101,6 +103,7 @@ public class UserController {
 	public @ResponseBody Session logout(
 			@PathVariable("sessionId") String sessionId,
 			HttpServletRequest req, HttpServletResponse res) {
+		LoggerUtil.logEntry();
 		try {
 			logger.debug("user logged out successfully with sessionId = "
 					+ sessionId);
@@ -114,6 +117,7 @@ public class UserController {
 			"/listAll" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<User> allUsers() {
+		LoggerUtil.logEntry();
 		return userRepository
 				.findAll(new Sort(Sort.Direction.DESC, "createdAt"));
 	}
@@ -123,6 +127,7 @@ public class UserController {
 	@ResponseBody
 	public Session submitUser(@RequestBody User user, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
+		LoggerUtil.logEntry();
 		Session session = null;
 
 		if (user == null || user.getId() == null || user.getId().equals("")) {
@@ -169,6 +174,7 @@ public class UserController {
 	}
 
 	private User decorateWithInformation(User user) {
+		LoggerUtil.logEntry();
 		String userName = user.getUserName();
 		String password = user.getPassword();
 		String email = user.getEmail();
@@ -203,6 +209,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Void> deleteUser(@PathVariable("userId") String userId) {
+		LoggerUtil.logEntry();
 		userRepository.delete(userId);
 		ResponseEntity<Void> responseEntity = new ResponseEntity<>(
 				HttpStatus.CREATED);
@@ -213,6 +220,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public User editUser(@PathVariable("userId") String userId) {
+		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
 		if (user == null) {
 			throw new UserNotFoundException(userId);
@@ -224,6 +232,7 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/show/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody User showUser(@PathVariable("userId") String userId) {
+		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
 		if (user == null) {
 			throw new UserNotFoundException(userId);
@@ -233,6 +242,7 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody User getUser(@PathVariable("userId") String userId) {
+		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
 		if (user == null) {
 			throw new UserNotFoundException(userId);
@@ -243,6 +253,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "/verify/{verificationCode}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody User verifyUser(
 			@PathVariable("verificationCode") String verificationCode) {
+		LoggerUtil.logEntry();
 		User user = null;
 		try {
 			user = userRepository.getByVerificationCode(verificationCode);
@@ -259,8 +270,8 @@ public class UserController {
 
 	private Session createSession(HttpServletRequest req,
 			HttpServletResponse res, User user) {
-
-		Session session = new Session(user);
+		LoggerUtil.logEntry();
+		Session session = new Session(user,req);
 		this.mongoTemplate.save(session);
 		req.getSession().setAttribute("session", session);
 		req.getSession().setAttribute("user", user);
@@ -268,9 +279,11 @@ public class UserController {
 	}
 
 	private Session killSession(HttpServletRequest req, HttpServletResponse res) {
+		LoggerUtil.logEntry();
 		Session session = (Session) req.getSession().getAttribute("session");
+		session.setStatus(DiscussConstants.SESSION_STATUS_INACTIVE);
+		this.mongoTemplate.save(session);
 		req.getSession().invalidate();
-		// session.setSessionId("");
 		return null;
 	}
 }

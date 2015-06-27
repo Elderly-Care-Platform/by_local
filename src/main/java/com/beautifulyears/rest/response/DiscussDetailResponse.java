@@ -6,17 +6,16 @@
 package com.beautifulyears.rest.response;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.util.Util;
 
 public class DiscussDetailResponse implements IResponse {
 

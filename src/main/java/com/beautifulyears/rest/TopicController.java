@@ -20,6 +20,7 @@ import com.beautifulyears.domain.Topic;
 import com.beautifulyears.repository.TopicRepository;
 import com.beautifulyears.repository.custom.TopicRepositoryCustom;
 import com.beautifulyears.rest.response.TopicResponse;
+import com.beautifulyears.util.LoggerUtil;
 
 /**
  * The REST based service for managing "discuss"
@@ -42,6 +43,7 @@ public class TopicController {
 	@RequestMapping(method = { RequestMethod.GET }, value = "/list/all", produces = { "application/json" })
 	@ResponseBody
 	public Map<Integer, TopicResponse.TopicEntity> findAll() {
+		LoggerUtil.logEntry();
 		TopicResponse res = new TopicResponse();
 		List<Topic> list = this.topicRepository.findByIsActive(new Boolean(true));
 		res.addTopics(list);
@@ -51,6 +53,7 @@ public class TopicController {
 	@RequestMapping(method = { RequestMethod.POST }, value = "/insertAll", consumes = { "application/json" })
 	@ResponseBody
 	public ResponseEntity<Void> insert(@RequestBody List<Topic> topicArray) {
+		LoggerUtil.logEntry();
 		topicRepository.save(topicArray);
 		ResponseEntity<Void> responseEntity = new ResponseEntity<Void>(
 				HttpStatus.CREATED);
@@ -60,6 +63,7 @@ public class TopicController {
 	@RequestMapping(method = { RequestMethod.POST }, value = "/linkAll", consumes = { "application/json" })
 	@ResponseBody
 	public ResponseEntity<Void> link(@RequestBody List<String> linksArray) {
+		LoggerUtil.logEntry();
 		for (Iterator<String> iterator = linksArray.iterator(); iterator
 				.hasNext();) {
 			String linkString = (String) iterator.next();

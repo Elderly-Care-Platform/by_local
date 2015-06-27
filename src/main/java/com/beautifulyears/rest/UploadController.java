@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.beautifulyears.util.LoggerUtil;
+
 @Controller
 @RequestMapping("/upload")
 public class UploadController {
@@ -21,6 +23,7 @@ public class UploadController {
     @ResponseBody
     public String handleFileUpload(MultipartHttpServletRequest request)
             throws Exception {
+		LoggerUtil.logEntry();
         Iterator<String> iterator = request.getFileNames();
         MultipartFile multiFile = request.getFile(iterator.next());
                 try {
@@ -50,6 +53,7 @@ public class UploadController {
     }
 
 	public String toJson(Object data) {
+		LoggerUtil.logEntry();
 		ObjectMapper mapper = new ObjectMapper();
 		StringBuilder builder = new StringBuilder();
 		try {

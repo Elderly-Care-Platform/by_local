@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.DiscussConstants;
-import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussLike;
 import com.beautifulyears.domain.DiscussReply;
@@ -23,6 +22,8 @@ import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.DiscussResponse;
+import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.Util;
 
 @Controller
 @RequestMapping("/discussLike")
@@ -47,7 +48,7 @@ public class DiscussLikeController {
 	public DiscussResponse.DiscussEntity submitDiscussLike(
 			@RequestParam(value = "discussId", required = true) String discussId,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
-
+		LoggerUtil.logEntry();
 		Discuss discuss = null;
 		User user = Util.getSessionUser(req);
 		DiscussResponse discussResponse = new DiscussResponse();
@@ -90,7 +91,7 @@ public class DiscussLikeController {
 	public DiscussReply submitCommentLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
-
+		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.DISCUSS_TYPE_COMMENT;
 		return submitReplyLike(replyType, replyId, req, res);
 
@@ -101,7 +102,7 @@ public class DiscussLikeController {
 	public DiscussReply submitAnswerLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
-
+		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.DISCUSS_TYPE_ANSWER;
 		return submitReplyLike(replyType, replyId, req, res);
 
@@ -109,6 +110,7 @@ public class DiscussLikeController {
 
 	private DiscussReply submitReplyLike(int replyType, String contentId,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
+		LoggerUtil.logEntry();
 		DiscussReply reply = null;
 		User user = Util.getSessionUser(req);
 

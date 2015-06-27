@@ -16,16 +16,16 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
 	private static final Logger logger = Logger.getLogger(LoggerInterceptor.class);
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
-		long startTime = System.currentTimeMillis();
-		request.setAttribute("startTime", startTime);
-		//logs exception
-		logger.debug("Request URL::" + request.getRequestURL().toString()
-                + ":: Start Time=" + System.currentTimeMillis());
+		StringBuffer requestLog = new StringBuffer();
+		requestLog.append("Request URL::");
+		requestLog.append(request.getRequestURL().toString());
+		requestLog.append(" params ");
 		Enumeration<String> params = request.getParameterNames(); 
         while(params.hasMoreElements()){
          String paramName = (String)params.nextElement();
-         logger.debug("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
+         requestLog.append(paramName+":"+request.getParameter(paramName)+",");
         }
+        logger.debug(requestLog);
        return true;
     }
 	
@@ -33,18 +33,11 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter{
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-		logger.debug("Request URL::" + request.getRequestURL().toString()
-                + " Sent to Handler :: Current Time=" + System.currentTimeMillis());
     }
  
     @Override
     public void afterCompletion(HttpServletRequest request,
             HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        long startTime = (Long) request.getAttribute("startTime");
-        logger.debug("Request URL::" + request.getRequestURL().toString()
-                + ":: End Time=" + System.currentTimeMillis() );
-        System.out.println("Request URL::" + request.getRequestURL().toString()
-                + ":: Time Taken=" + (System.currentTimeMillis() - startTime));
     }
 }

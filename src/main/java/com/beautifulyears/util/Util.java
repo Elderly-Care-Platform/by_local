@@ -1,4 +1,4 @@
-package com.beautifulyears;
+package com.beautifulyears.util;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -20,13 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.DiscussConstants;
-import com.beautifulyears.Util;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.DiscussDetailResponse;
+import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.Util;
 
 @Controller
 @RequestMapping("/discussDetail")
@@ -51,6 +52,7 @@ public class DiscussDetailController {
 	public DiscussDetailResponse getDiscussDetail(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam(value = "discussId", required = true) String discussId) {
+		LoggerUtil.logEntry();
 		Discuss discuss = discussRepository.findOne(discussId);
 		DiscussDetailResponse response = null;
 		if (null != discuss) {
@@ -75,6 +77,7 @@ public class DiscussDetailController {
 	@ResponseBody
 	public DiscussDetailResponse submitComment(@RequestBody DiscussReply comment,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
+		LoggerUtil.logEntry();
 		logger.debug("request for posting reply of type comment");
 		String discussId = comment.getDiscussId();
 		Discuss discuss = discussRepository.findOne(discussId);
@@ -126,6 +129,7 @@ public class DiscussDetailController {
 	@ResponseBody
 	public DiscussDetailResponse submitAnswer(@RequestBody DiscussReply answer,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
+		LoggerUtil.logEntry();
 		logger.debug("request for posting reply of type comment");
 		String discussId = answer.getDiscussId();
 		Discuss discuss = discussRepository.findOne(discussId);

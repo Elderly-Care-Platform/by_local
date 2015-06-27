@@ -1,8 +1,15 @@
-<div class="blog-author margin-bottom-35 main-article replyCard" data-index="discussion-articles"
-     data-link="articles.html">
+<div class="blog-author margin-bottom-35 main-article replyCard">
     <img src="assets/img/by.jpg" alt="image" class="replyCardImg">
 
-    <div class="article-share-links news-v3" style="position: relative;top: -10px;">
+    <div class="article-info dp-inline-block">
+        <ul class="list-inline posted-info">
+            <li> By {{reply.userName}} &nbsp; |  </li>
+            <li time-since="{{reply.createdAt}}"></li>
+        </ul>
+    </div>
+
+    <div class="articles-story" ng-bind-html="trustForcefully(reply.text)"></div>
+    <div class="article-share-links news-v3">
         <ul class="post-shares post-shares-lg">
             <li class="add-comment">
                 <a ng-click="createNewComment(reply.id)">
@@ -11,33 +18,26 @@
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(reply.id)">Comment
+                     ng-click="createNewComment(reply.id)"><a>Comment</a>
                 </div>
             </li>
             <li ng-controller="DiscussLikeController">
                 <a ng-click="likeComment(reply.id, reply.replyType)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span ng-if="beforePost">{{reply.likeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost">{{aggrLikeCount}}</span>
+                    <span ng-if="beforePost && reply.likeCount > 0">{{reply.likeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
                 </a>
-                <a ng-click="likeComment(reply.id, reply.replyType)">
-                    <div class="post-text">
+
+                <div class="post-text">
+                    <a ng-click="likeComment(reply.id, reply.replyType)">
                         Like
-                    </div>
-                </a>
+                    </a>
+                </div>
             </li>
         </ul>
     </div>
-    <div class="article-info dp-inline-block">
-        <ul class="list-inline posted-info">
-            <li> By {{reply.userName}}  | </li>
-            <li>{{reply.createdAt | date:'medium'}}</li>
-        </ul>
-    </div>
-
-    <div class="articles-story" ng-bind-html="trustForcefully(reply.text)"></div>
     <div style="clear: both"></div>
-    <div class="inner-enter-comment-wrap whiteBg padding20SM borderShadow" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
+    <div class="inner-enter-comment-wrap padding20SM borderShadow" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
 
         <textarea rows="3" id={{reply.id}}></textarea>
 

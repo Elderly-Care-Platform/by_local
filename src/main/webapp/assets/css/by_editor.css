@@ -66,3 +66,12 @@ a.accordion-toggle.ng-binding {
     vertical-align: middle;
 }
 
+.by-editor-submit-btn:hover{
+    background: #008a4b !important;
+    color:#ffffff;
+}
+
+.by-editor-submit-btn{
+    background: #cfcfcf;
+}
+

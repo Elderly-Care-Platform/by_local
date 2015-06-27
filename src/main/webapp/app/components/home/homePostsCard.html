@@ -18,13 +18,24 @@
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
-                    <p class="article-first-letter" ng-if="post.discussType == 'A'">Story by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a></p>
-                    <p class="article-first-letter" ng-if="post.discussType == 'Q'">Question by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a></p>
-                    <p class="article-first-letter" ng-if="post.discussType == 'P'">Post by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a></p>
+                    <p class="article-first-letter" ng-if="post.discussType == 'A'">
+                        Story by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a>
+                        |
+                    </p>
+                    <p class="article-first-letter" ng-if="post.discussType == 'Q'">
+                        Question by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a>
+                        |
+                    </p>
+                    <p class="article-first-letter" ng-if="post.discussType == 'P'">
+                        Post by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a>
+                        |
+                    </p>
                 </li>
-                <li ng-if="post.topicId.length > 0"> | In <a ng-click="go($event,'name', post.topicId[0])">
-                    {{$root.discussCategoryListMap[post.topicId[0]].name}}</a></li>
-                <li> | {{post.createdAt | date : 'MMM d, yyyy'}}</li>
+                <li ng-if="post.topicId.length > 0"> In <a ng-click="go($event,'name', post.topicId[0])">
+                    {{$root.discussCategoryListMap[post.topicId[0]].name}}</a>
+                    |
+                </li>
+                <li time-since="{{post.createdAt}}"></li>
             </ul>
         </div>
 

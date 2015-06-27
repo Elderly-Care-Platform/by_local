@@ -8,7 +8,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
         $scope.$on('handleBroadcast', function() {
             if(discussId === broadCastData.newData.id){
                 $scope.discuss = broadCastData.newData;
-                $scope.articlesByUser = UserDiscussList.get({'discussType':"all", 'topicId':"all", 'subTopicId': "all",
+                $scope.articlesByUser = UserDiscussList.get({'discussType':"A", 'topicId':"all", 'subTopicId': "all",
                     'userId':$scope.discuss.userId}, function(userArticles, header){
                     if($scope.articlesByUser.length<=0){
                         $scope.getRelatedArticle();
@@ -30,7 +30,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
         $scope.getRelatedArticle = function(){
             var subTopicId = $scope.discuss.topicId[0];
             $scope.articlesByUser = DiscussOneTopicOneSubTopicList.get({
-                discussType: "All",
+                discussType: "A",
                 topicId: subTopicId,
                 subTopicId:"all"
             }, function(topicRelatedArticle, header){

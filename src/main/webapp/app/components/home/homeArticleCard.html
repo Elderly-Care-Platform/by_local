@@ -17,13 +17,24 @@
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
-                    <p class="article-first-letter" ng-if="article.discussType == 'A'">Story by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a></p>
-                    <p class="article-first-letter" ng-if="article.discussType == 'Q'">Question by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a></p>
-                    <p class="article-first-letter" ng-if="article.discussType == 'P'">Post by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a></p>
+                    <p class="article-first-letter" ng-if="article.discussType == 'A'">
+                        Story by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a>
+                        |
+                    </p>
+                    <p class="article-first-letter" ng-if="article.discussType == 'Q'">
+                        Question by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a>
+                        |
+                    </p>
+                    <p class="article-first-letter" ng-if="article.discussType == 'P'">
+                        Post by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a>
+                        |
+                    </p>
                 </li>
-                <li ng-if="article.topicId.length > 0"> | In <a ng-click="go($event,'name', article.topicId[0])">
-                    {{$root.discussCategoryListMap[article.topicId[0]].name}}</a></li>
-                <li> | {{article.createdAt | date : 'MMM d, yyyy'}}</li>
+                <li ng-if="article.topicId.length > 0"> In <a ng-click="go($event,'name', article.topicId[0])">
+                    {{$root.discussCategoryListMap[article.topicId[0]].name}}</a>
+                    |
+                </li>
+                <li time-since="{{article.createdAt}}"></li>
             </ul>
         </div>
 

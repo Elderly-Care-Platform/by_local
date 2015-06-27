@@ -86,7 +86,6 @@ ng-view{
 	
 }
 .article{
-	color:  #000;
 	text-align: left;
 }
 .article-heading{
@@ -169,8 +168,8 @@ ng-view{
 .inner-enter-comment-wrap textarea{
 	width:100%;
 	font-size:13px;
-	resize:none;
-	border-width:0px !important;
+	/*resize:none;*/
+	/*border-width:0px !important;*/
 }
 .inner-enter-comment-wrap textarea::-moz-placeholder { font-style: italic; }
 .inner-enter-comment-wrap textarea::-webkit-input-placeholder { font-style: italic; }
@@ -293,26 +292,22 @@ ng-view{
 	}
 
 	.discussion-page .posted-info{
-		color:  #2a2a2a;;
 		font-size: 13px; /* Approximation due to font substitution */
 		font-weight: 400;
 		line-height: 8px;
 		margin-bottom: 12px !important;
 	}
 	.discussion-page .article-heading{
-		color:  #2a2a2a;
 		font-size: 16.181px; /* Approximation due to font substitution */
 		font-weight: 600;
 		line-height: 25.901px;
 	}
 	.discussion-page .article-content{
-		color:  #8c8c8c;
 		font-size: 13.955px; /* Approximation due to font substitution */
 		font-weight: 400;
 		line-height: 24px
 	}
 	.discussion-page .article-content p:first-letter{
-		color:  #8c8c8c;
 		font-size: 14px; /* Approximation due to font substitution */
 		font-weight: 400;
 		line-height: 24px;
@@ -494,10 +489,7 @@ button.register-btn {
 	.inner-enter-comment-wrap{
 		margin-top:10px;
 		width: 95%;
-		border-style:solid;
-		border-color:#cfcfcf;
-		border-width:0px;
-		border-width:1px;
+		background-color: #F2F2F2;
 		margin: 10px;
 	}
 	.news-v3 .post-shares li{
@@ -560,10 +552,7 @@ button.register-btn {
 		-ms-box-shadow: 1px 1px 10px 5px #fff;*/
 	}
 
-	.discussion-page div, .discussion-page p, .discussion-page a{
-		color: #0A0A0A;
-		font-family: century_gothic !important;
-	}
+
 /*
 .zindex-10{
 	z-index:10;

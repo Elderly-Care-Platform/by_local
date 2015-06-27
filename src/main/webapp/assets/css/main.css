@@ -2,7 +2,6 @@ body
 {
     padding: 0px;
     margin: 0px;
-    /*background-color:#f7f7f7;*/
     font-family: century_gothic !important;
 }
 
@@ -35,10 +34,28 @@ body#tinymce{
 
 }
 
-body a, body p, body span, body div
+body p, body span, body div
 {
     font-family: century_gothic !important;
+    color: #000000;
 }
+
+body a
+{
+    color: #00A24A;
+    font-family: century_gothic !important;
+}
+
+body a:hover
+{
+    color: #00af50;
+    text-decoration: underline;
+}
+
+.by-filter-links a{
+    color:#004620;
+}
+
 
 
 .by_btn_cancel{
@@ -67,7 +84,6 @@ body a, body p, body span, body div
     min-height: 1px !important;
     padding: 0px !important;
     font-family: century_gothic !important;
-    color: #0A0A0A !important;
 }
 
 .replyCardImg{
@@ -79,11 +95,9 @@ body a, body p, body span, body div
 
 .replyCard .article-heading{
     font-family: century_gothic !important;
-    color: #0A0A0A !important;
 }
 
 .replyCard .articles-story p{
-    color: #000  !important;
     font-size: 15px !important;
     line-height: 25px;
 }
@@ -92,23 +106,6 @@ body a, body p, body span, body div
     margin-left: 0px !important;
 }
 
-.replyCard  p,
-.replyCard  li,  .replyCard  label{
-    color: #0A0A0A  !important;
-    font-family: century_gothic !important;
-}
-
-.replyCard   a{
-    color: #00A24A !important;
-}
-
-.replyCard .news-v3 .post-shares li i:hover{
-    background:none !important;
-}
-
-.replyCard .news-v3 .post-shares li i{
-    color:#D8D5D5 !important;
-}
 
 .noTopBorder{
     margin-left: 20px !important;

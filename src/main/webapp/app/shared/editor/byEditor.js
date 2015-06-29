@@ -86,16 +86,22 @@ BY.addEditor = function(param){
 
                 // switch the order of the elements
                 toolbar.detach().insertAfter(editor);
-                if(param.autoFocus){
-                    ed.focus();
+                if ("sessionStorage" in window) {
+                    var oldData = sessionStorage.getItem("CommentData");
+                    if(oldData && oldData.length > 0){
+                        ed.setContent(oldData);
+                        sessionStorage.removeItem("CommentData");
+                        $("#" + ed.id).parents(".by_editor_wrap").find(".by_btn_submit").removeAttr('disabled');
+                    }
                 }
+
             });
             ed.on("keyup", function () {
                 var id = ed.id;
                 if ($.trim(ed.getContent({format: 'text'})).length) {
-                    $("#" + id).parents(".textarea-label").find(".btn").removeClass("disabled");
+                    $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").removeAttr('disabled');
                 } else {
-                    $("#" + id).parents(".textarea-label").find(".btn").addClass("disabled");
+                    $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").attr("disabled", true);
                 }
             });
 

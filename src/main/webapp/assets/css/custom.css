@@ -319,9 +319,7 @@ ng-view{
 	.discussion-page .news-v3 .post-shares:after{
 		clear:both;
 	}
-	.breadcrumbs .active a{
-		
-	}
+
 	.discussion-page .blog-author .blog-author-desc ul{
 		float:left;
 	}

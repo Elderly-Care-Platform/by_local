@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.Topic;
 import com.beautifulyears.repository.TopicRepository;
-import com.beautifulyears.repository.custom.TopicRepositoryCustom;
 import com.beautifulyears.rest.response.TopicResponse;
 import com.beautifulyears.util.LoggerUtil;
 
@@ -35,8 +31,7 @@ public class TopicController {
 	private TopicRepository topicRepository;
 
 	@Autowired
-	public TopicController(TopicRepository topicRepository,
-			TopicRepositoryCustom topicRepositoryCustom) {
+	public TopicController(TopicRepository topicRepository) {
 		this.topicRepository = topicRepository;
 	}
 

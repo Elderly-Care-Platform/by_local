@@ -32,6 +32,7 @@ import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.exceptions.DiscussNotFound;
 import com.beautifulyears.repository.DiscussRepository;
+import com.beautifulyears.repository.TopicRepository;
 import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.rest.response.DiscussResponse.DiscussEntity;
@@ -51,11 +52,14 @@ public class DiscussController {
 			.getLogger(DiscussController.class);
 	private DiscussRepository discussRepository;
 	private MongoTemplate mongoTemplate;
+	private TopicRepository topicRepository;
 
 	@Autowired
 	public DiscussController(DiscussRepository discussRepository,
+			TopicRepository topicRepository,
 			MongoTemplate mongoTemplate) {
 		this.discussRepository = discussRepository;
+		this.topicRepository = topicRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
 
@@ -256,8 +260,6 @@ public class DiscussController {
 		Discuss newDiscuss = null;
 		try {
 
-			String userId = discuss.getUserId();
-			String username = discuss.getUsername();
 			String discussType = discuss.getDiscussType();
 			String title = "";
 			if (discussType.equalsIgnoreCase("A")) {
@@ -266,17 +268,11 @@ public class DiscussController {
 			String text = discuss.getText();
 			int discussStatus = discuss.getStatus();
 			List<String> topicId = discuss.getTopicId();
-			Query q = new Query();
-			q.addCriteria(Criteria.where("id").in(topicId));
-			q.fields().include("topicName");
-			List<Topic> topics = mongoTemplate.find(q, Topic.class);
-			for (Topic topic : topics) {
-				discuss.getSystemTags().add(topic.getTopicName());
-			}
+			List<String> systemTags = topicRepository.getTopicNames(topicId);
 			int aggrReplyCount = 0;
-			newDiscuss = new Discuss(userId, username, discussType, topicId,
+			newDiscuss = new Discuss(discuss.getUserId(), discuss.getUsername(), discussType, topicId,
 					title, text, discussStatus, aggrReplyCount,
-					discuss.getSystemTags(), discuss.getUserTags(),
+					systemTags, discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
 							.getArticlePhotoFilename() : "", false);
 		}catch (Exception e) {

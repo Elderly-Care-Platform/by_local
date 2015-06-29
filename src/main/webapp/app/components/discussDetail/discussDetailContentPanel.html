@@ -27,6 +27,7 @@
 
         <div class="articles-story" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
+        {{testFunction()}}
     </div>
     <div class="article-share-links news-v3">
         <ul class="post-shares post-shares-lg">
@@ -97,10 +98,10 @@
 
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
-        <div class="enter-comment-wrap padding20SM borderShadow" id="answer_block">
+        <div class="enter-comment-wrap padding20SM borderShadow by_editor_wrap" id="answer_block">
             <textarea rows="3"  id={{detailResponse.discuss.id}}></textarea>
             <div class="clearfix"></div>
-            <button class="btn btn-sm btn-success comment-submit" type="submit"
+            <button class="btn btn-sm btn-success comment-submit by_btn_submit" type="submit"
                     ng-click="postReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT
             </button>
             <span/>
@@ -113,10 +114,10 @@
 
     <!--Comment Editor for first comment of article-->
     <div class="col-md-12 no-padding" style="margin-bottom: 20px" ng-show="showFirstCommentEditor">
-        <div class="enter-comment-wrap padding20SM borderShadow" id="answer_block">
+        <div class="enter-comment-wrap padding20SM borderShadow by_editor_wrap" id="answer_block">
             <textarea rows="3"  id="firstCommentEditor"></textarea>
             <div class="clearfix"></div>
-            <button class="btn btn-sm btn-success comment-submit" type="submit"
+            <button class="btn btn-sm btn-success comment-submit by_btn_submit" type="submit" disabled
                     ng-click="postFirstReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT
             </button>
             <span/>

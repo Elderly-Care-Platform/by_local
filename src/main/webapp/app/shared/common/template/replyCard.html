@@ -37,11 +37,11 @@
         </ul>
     </div>
     <div style="clear: both"></div>
-    <div class="inner-enter-comment-wrap padding20SM borderShadow" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
+    <div class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
 
         <textarea rows="3" id={{reply.id}}></textarea>
 
-        <button class="inner-comment-submit btn btn-sm btn-success" type="submit"
+        <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit" type="submit" disabled
                 ng-click="postComment(reply.discussId, reply.id)">SUBMIT
         </button>
         <span/>

@@ -46,17 +46,15 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                     tinyMCE.execCommand('mceFocus', false, commentId);
                 }
             }
-
         };
 
         $scope.createFirstComment = function(){
             $scope.showFirstCommentEditor = true;
-            BY.addEditor({"editorTextArea":"firstCommentEditor", "commentEditor" : true, "autoFocus":true});
+            BY.addEditor({"editorTextArea":"firstCommentEditor", "commentEditor" : true, "autoFocus":true, "submitButton":"firstCmtSubmit"});
             tinyMCE.execCommand('mceFocus', false, "firstCommentEditor");
         };
 
-
-
+        //dispose the tinymce editor after successful post or on pressing of cancel button from editor
         $scope.disposeComment  = function(editorId){
             $scope.showEditor = false;
             $scope.showFirstCommentEditor = false;
@@ -79,22 +77,23 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
         };
 
 
-
-
         //Post method called from main detail discuss
         $scope.postReply = function(discussId, discussType){
+            $scope.discussReply = new DiscussDetail();
+            $scope.discussReply.discussId = discussId;
+            $scope.discussReply.text = tinymce.get(discussId).getContent();
             if(discussType==="Q"){
-                $scope.discussReply = new DiscussDetail();
-                $scope.discussReply.discussId = discussId;
-                $scope.discussReply.text = tinymce.get(discussId).getContent();
-
                 $scope.discussReply.$postAnswer(function (discussReply, headers) {
                     broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
-                    $scope.disposeComment(discussId);           //dispose comment editor and remove tinymce after successful post of comment/answer
+                    $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
                 });
             }else{
-                $scope.postComment(discussId);
+                $scope.discussReply.$postComment(function (discussReply, headers) {
+                    broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
+                    $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
+                });
             }
+
         };
 
         //Post method called from comments or answers of main detail discuss

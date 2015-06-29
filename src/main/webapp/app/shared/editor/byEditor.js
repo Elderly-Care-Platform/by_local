@@ -93,9 +93,9 @@ BY.addEditor = function(param){
             ed.on("keyup", function () {
                 var id = ed.id;
                 if ($.trim(ed.getContent({format: 'text'})).length) {
-                    $("#" + id).parents(".textarea-label").find(".btn").removeClass("disabled");
+                    $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").removeAttr('disabled');
                 } else {
-                    $("#" + id).parents(".textarea-label").find(".btn").addClass("disabled");
+                    $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").attr("disabled", true);
                 }
             });
 

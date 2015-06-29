@@ -100,6 +100,9 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
         $scope.postFirstReply = function(discussId, discussType){
             if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
             {
+                if ("sessionStorage" in window) {
+                    sessionStorage.setItem("CommentData", tinymce.get("firstCommentEditor").getContent());
+                }
                 $location.path('/users/login');
             }else {
                 $scope.discussReply = new DiscussDetail();

@@ -30,34 +30,29 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce','broadCastData',
     function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData) {
         $scope.showEditor = false;
-        $scope.showFirstCommentEditor = false;
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
-        $scope.createNewComment = function(commentId){
+        $scope.createNewComment = function(editorId){
             if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
             {
                 $location.path('/users/login');
             }else{
-                if(!$scope.showFirstCommentEditor){
-                    $scope.showEditor = true;
-                    BY.addEditor({"editorTextArea":commentId, "commentEditor" : true, "autoFocus":true});
-                    tinyMCE.execCommand('mceFocus', false, commentId);
-                }
+                if(!$scope.showEditor)
+                    $scope.initCommentEditor(editorId);
             }
         };
 
-        $scope.createFirstComment = function(){
-            $scope.showFirstCommentEditor = true;
-            BY.addEditor({"editorTextArea":"firstCommentEditor", "commentEditor" : true, "autoFocus":true, "submitButton":"firstCmtSubmit"});
-            tinyMCE.execCommand('mceFocus', false, "firstCommentEditor");
+        $scope.initCommentEditor = function(editorId){
+            $scope.showEditor = true;
+            BY.addEditor({"editorTextArea":editorId, "commentEditor" : true, "autoFocus":true});
+            tinyMCE.execCommand('mceFocus', false, editorId);
         };
 
         //dispose the tinymce editor after successful post or on pressing of cancel button from editor
         $scope.disposeComment  = function(editorId){
             $scope.showEditor = false;
-            $scope.showFirstCommentEditor = false;
 
             if(tinymce.get(editorId))
                 tinyMCE.execCommand("mceRemoveEditor", false, editorId);
@@ -78,50 +73,30 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
 
         //Post method called from main detail discuss
-        $scope.postReply = function(discussId, discussType){
-            $scope.discussReply = new DiscussDetail();
-            $scope.discussReply.discussId = discussId;
-            $scope.discussReply.text = tinymce.get(discussId).getContent();
-            if(discussType==="Q"){
-                $scope.discussReply.$postAnswer(function (discussReply, headers) {
-                    broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
-                    $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
-                });
-            }else{
-                $scope.discussReply.$postComment(function (discussReply, headers) {
-                    broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
-                    $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
-                });
-            }
-
-        };
-
-        //Post method called from comments or answers of main detail discuss
-        $scope.postFirstReply = function(discussId, discussType){
+        $scope.postMainReply = function(discussId, discussType){
             if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
             {
                 if ("sessionStorage" in window) {
-                    sessionStorage.setItem("CommentData", tinymce.get("firstCommentEditor").getContent());
+                    sessionStorage.setItem("CommentData", tinymce.get(discussId).getContent());
                 }
                 $location.path('/users/login');
             }else {
                 $scope.discussReply = new DiscussDetail();
                 $scope.discussReply.discussId = discussId;
-                $scope.discussReply.text = tinymce.get("firstCommentEditor").getContent();
+                $scope.discussReply.text = tinymce.get(discussId).getContent();
                 if(discussType==="Q"){
                     $scope.discussReply.$postAnswer(function (discussReply, headers) {
                         broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
-                        $scope.disposeComment("firstCommentEditor");           //dispose comment editor and remove tinymce after successful post of comment/answer
+                        $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
                     });
                 }else{
                     $scope.discussReply.$postComment(function (discussReply, headers) {
                         broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
-                        $scope.disposeComment("firstCommentEditor");           //dispose comment editor and remove tinymce after successful post of comment/answer
+                        $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
                     });
                 }
             }
         };
-
     }]);
 
 byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','DiscussLike','$location',

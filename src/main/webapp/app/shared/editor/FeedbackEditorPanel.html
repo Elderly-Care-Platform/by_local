@@ -1,29 +1,32 @@
-<div class="col-md-12 no-padding margin-bottom-35">
+<div ng-controller="EditorController" class="by_editor_wrap">
+    <div class="col-md-12 no-padding margin-bottom-35">
 
-    <div class="col-md-12 no-padding  list-head dp-block">PROVIDE YOUR FEEDBACK
+        <div class="col-md-12 no-padding  list-head dp-block">PROVIDE YOUR FEEDBACK
+        </div>
+
+        <div class="col-md-12 no-padding bg-gray-h1">
+            <div class="bg-green-h2" style="width: 235px;"></div>
+        </div>
     </div>
 
-    <div class="col-md-12 no-padding bg-gray-h1">
-        <div class="bg-green-h2" style="width: 235px;"></div>
+    <div class="col-md-12 no-padding form-header-content margin-bottom-15">Subject/Title for your feedback
+    </div>
+
+    <div class=" col-md-12 no-padding margin-bottom-35 register-page">
+        <input type="text" class="username-textbox textbox "name="username" ng-model="editor.subject">
+    </div>
+
+    <div class="col-md-12 no-padding margin-bottom-35 byEditor">
+        <textarea id="feedback_textArea" class="textbox about-dependent" rows="3"  ng-model="editor.text"></textarea>
+    </div>
+
+    <div ng-show="errorMsg"><font color="red">{{errorMsg}}</font></div>
+
+    <div class="col-md-12 no-padding margin-bottom-35">
+        <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn" disabled ng-click="postContent('F')">submit</button>
     </div>
 </div>
 
-<div class="col-md-12 no-padding form-header-content margin-bottom-15">Subject/Title for your feedback
-</div>
-
-<div class=" col-md-12 no-padding margin-bottom-35 register-page">
-    <input type="text" class="username-textbox textbox "name="username" ng-model="editor.subject">
-</div>
-
-<div class="col-md-12 no-padding margin-bottom-35 byEditor">
-    <textarea id="feedback_textArea" class="textbox about-dependent" rows="3"  ng-model="editor.text"></textarea>
-</div>
-
-<div ng-show="error"><font color="red">{{error}}</font></div>
-
-<div class="col-md-12 no-padding margin-bottom-35">
-    <button class="btn btn-big btn-default pull-right by-editor-submit-btn" ng-click="register('F')">submit</button>
-</div>
 
 
 <script type="text/javascript">

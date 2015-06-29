@@ -472,30 +472,11 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
     $scope.editor.username = localStorage.getItem("USER_NAME");
     
     $scope.editor.subjectOptions = ["FEEDBACK", "SUGGESTION", "READY TO HELP ", "DOING BUSINESS TOGETHER", "WOULD LIKE TO INFORM YOU"];
-    console.log($routeParams);
-    console.log($route);
-	$scope.register = function (discussType) {
-        $scope.discuss = new Discuss();
-        
-        $scope.discuss.discussType = discussType;
-        $scope.discuss.text = tinyMCE.activeEditor.getContent();
-        $scope.discuss.title = $scope.editor.subject;
-        
-        
-        //putting the userId to discuss being created
-        $scope.discuss.userId = $scope.editor.userId;
-        $scope.discuss.username = $scope.editor.username;
-        
-        if($scope.discuss.userId.length > 0 && $scope.discuss.text.length > 0){
-            $scope.error = "";
-            $scope.discuss.$save(function (discuss, headers) {
-            	$location.path("/users/home");
-            });
-
-        }else{
-            $scope.error = "Please fill all details";
-        }
+    
+    $scope.postSuccess = function () {
+    	$location.path("/users/home");
     };
+	
 }]);
 
 
@@ -848,67 +829,11 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 			}
 			
 		}
-
-        $scope.register = function (discussType) {
-            $scope.discuss = new Discuss();
-            $scope.discuss.discussType = discussType;
-            $scope.discuss.text = tinyMCE.activeEditor.getContent();
-            $scope.discuss.title = $scope.editor.subject;
-            $scope.discuss.articlePhotoFilename = $scope.editor.articlePhotoFilename;
-            $scope.discuss.topicId = BY.editorCategoryList.getCategoryList();
-
-            //putting the userId to discuss being created
-            $scope.discuss.userId = localStorage.getItem("USER_ID");
-			$scope.discuss.username = localStorage.getItem("USER_NAME");
-			
-			
-			if($scope.discuss.discussType==="F"){
-				if($scope.discuss.title.trim().length > 0){
-					$scope.submitContent();
-				}else {
-	                $scope.error = "Please select title";
-				}
-               
-
-            } else if($scope.discuss.discussType==="A"){
-            	if($scope.discuss.topicId.length > 0 && $scope.discuss.title.trim().length > 0){
-            		$scope.submitContent();
-            	}else{
-            		 if($scope.discuss.title.trim().length <= 0){
-            			 $scope.error = "Please select title";
-            		 }else if($scope.discuss.topicId.length <= 0){
-            			 $scope.error = "Please select at least one category where your story would appear";
-            		 }
-            	}
-                
-            } else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
-            	if($scope.discuss.topicId.length > 0 && $scope.discuss.text.trim().length > 0){
-            		$scope.submitContent();
-            	}else{
-            		if($scope.discuss.text.trim().length <= 0){
-	           			 $scope.error = "Please add more details";
-	           		 }else if($scope.discuss.topicId.length <= 0){
-	           			if($scope.discuss.discussType==="Q")
-	           				 $scope.error = "Please select at least one category where your question would appear";
-	           			if($scope.discuss.discussType==="P")
-	           				 $scope.error = "Please select at least one category where your post would appear";
-	           			 
-	           		}
-            	}
-            } else {
-                //no more type
-            }
-            //save the discuss
+		
+		$scope.postSuccess = function () {
+			$scope.switchToContentView();
         };
-        
-        $scope.submitContent = function(){
-        	$scope.error = "";
-        	$scope.discuss.$save(function (discuss, headers) {
-                $scope.editor.subject = "";
-                $scope.switchToContentView();
-				BY.editorCategoryList.resetCategoryList();
-            });
-        }
+
 
         $scope.switchToContentView = function (scrollTo) {
             $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;

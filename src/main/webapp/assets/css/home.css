@@ -273,15 +273,12 @@
 .by_blog_author {
     padding: 0px !important;
     font-family: century_gothic !important;
-    color: #0A0A0A !important;
-
     max-height: 225px !important;
     overflow-y: hidden;
 }
 
 .by_blog_author .article-heading{
     font-family: century_gothic !important;
-    color: #0A0A0A !important;
 }
 
 /*.by_blog_author .articles-story p{*/
@@ -292,16 +289,6 @@
 
 .by_blog_author .news-v3 .post-shares li{
      margin-left: 0px !important;
-}
-
-.by_blog_author  p,
-.by_blog_author  li,  .by_blog_author  label{
-    color: #0A0A0A  !important;
-    font-family: century_gothic !important;
-}
-
-.by_blog_author   a{
-    color: #00A24A !important;
 }
 
 .by_story {

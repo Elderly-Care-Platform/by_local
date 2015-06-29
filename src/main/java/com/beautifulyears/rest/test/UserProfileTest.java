@@ -99,7 +99,7 @@ public class UserProfileTest {
 	}
 	
 /* This method allows the creation of a user profile */	
-	@RequestMapping(method = { RequestMethod.POST }, consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST }, value = { "" }, consumes = { "application/json" })
 	@ResponseBody
 	public UserProfile submitUserProfile(@RequestBody UserProfile userProfile,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {

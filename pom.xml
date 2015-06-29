@@ -75,6 +75,33 @@
 	<build>
 		<finalName>by</finalName>
 		<plugins>
+		<plugin>
+			<groupId>com.google.code.maven-replacer-plugin</groupId>
+			<artifactId>replacer</artifactId>
+			<version>1.5.2</version>
+			<executions>
+				<execution>
+					<id>replaceDynPartInResourcePath</id>
+					<phase>package</phase>
+					<goals>
+						<goal>replace</goal>
+					</goals>
+					<configuration>
+						<ignoreMissingFile>false</ignoreMissingFile>
+						<includes>
+				          <include>\target\by\**.html</include>
+				        </includes>
+						<regex>true</regex>
+						<replacements>
+							<replacement>
+								<token>%PROJECT_VERSION%</token>
+								<value>${maven.build.timestamp}</value>
+							</replacement>
+						</replacements>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
@@ -84,6 +111,7 @@
 					<warName>by</warName>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 </project>

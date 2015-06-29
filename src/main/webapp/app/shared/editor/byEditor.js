@@ -98,7 +98,15 @@ BY.addEditor = function(param){
             });
             ed.on("keyup", function () {
                 var id = ed.id;
-                if ($.trim(ed.getContent({format: 'text'})).length) {
+                if ($.trim(ed.getContent()).length) {
+                    $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").removeAttr('disabled');
+                } else {
+                    $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").attr("disabled", true);
+                }
+            });
+            ed.on("change", function () {
+                var id = ed.id;
+                if ($.trim(ed.getContent()).length) {
                     $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").removeAttr('disabled');
                 } else {
                     $("#" + id).parents(".by_editor_wrap").find(".by_btn_submit").attr("disabled", true);

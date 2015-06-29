@@ -85,7 +85,7 @@
     </h2>
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
-        Be the first to comment {{initCommentEditor(detailResponse.discuss.id)}}
+        Be the first to comment
     </h2>
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'Q')">
@@ -93,7 +93,7 @@
     </h2>
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'Q')">
-        Be the first to answer {{initCommentEditor(detailResponse.discuss.id)}}
+        Be the first to answer
     </h2>
 
     <!--Comment Editor for main article-->
@@ -101,7 +101,7 @@
         <div class="enter-comment-wrap padding20SM borderShadow by_editor_wrap" id="answer_block">
             <textarea rows="3"  id={{detailResponse.discuss.id}}></textarea>
             <div class="clearfix"></div>
-            <button class="btn btn-sm btn-success comment-submit by_btn_submit" type="submit" disabled
+            <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn" type="submit" disabled
                     ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT
             </button>
             <span/>
@@ -112,6 +112,9 @@
         </div>
     </div>
 </div>
+
+<div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"
+     ng-init="initCommentEditor(detailResponse.discuss.id)"></div>
 
 <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" >
     <div ng-repeat="reply in detailResponse.replies" data-index="discussion-articles"

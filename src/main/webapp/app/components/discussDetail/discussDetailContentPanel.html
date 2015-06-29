@@ -19,7 +19,7 @@
                         {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
                     &nbsp; |
                 </li>
-                <li time-since="{{detailResponse.discuss.createdAt}}"></li>
+                <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
             </ul>
         </div>
         <div class="article-heading">{{detailResponse.discuss.title}}</div>

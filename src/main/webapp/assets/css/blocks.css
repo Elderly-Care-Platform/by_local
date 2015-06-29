@@ -29,12 +29,12 @@
   position: relative;
 }
 .breadcrumb a {
-  color: #777;
+  /*color: #777;*/
 }
 .breadcrumb li.active,
 .breadcrumb li a:hover {
-  color: #72c02c;
-  text-decoration: none;
+  /*color: #72c02c;*/
+  /*text-decoration: none;*/
 }
 
 @media (max-width: 550px) {

@@ -4,11 +4,9 @@
     <div class="container by_breadcrumbs_container">
         <ul class="pull-right breadcrumb">
             <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
-            <li class="active"><a
-                    href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
-                    {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
+            <li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all">{{{true: $root.discussCategoryListMap[bc_topic].name, false: bc_topic}[$root.discussCategoryListMap[bc_topic]!==undefined]}}</a>
             </li>
-
+            <li>{{bc_subTopic}}</li>
         </ul>
     </div>
     <hr class="breadcrumb-divider"/>

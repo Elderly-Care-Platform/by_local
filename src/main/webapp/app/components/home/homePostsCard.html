@@ -44,7 +44,8 @@
             </div>
         </div>
 
-        <div class="articles-story by_story" ng-bind-html="trustForcefully(post.text)" id="{{post.id}}">
+        <div class="articles-story by_story" id="{{post.id}}">
+            {{post.text}}
         </div>
         <div style="clear: both"></div>
         <div ng-if="post.text && post.text.length > 0" on-finish-render="{{post.id}}"></div>

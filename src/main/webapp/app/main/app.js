@@ -3465,14 +3465,21 @@ byApp.directive('onFinishRender', function ($timeout) {
         restrict: 'A',
         link: function (scope, element, attr) {
         	var storyElem = $("#"+attr.onFinishRender);
-        	storyElem.html(storyElem.text());
-        	storyElem.dotdotdot({ellipsis	: '...', callback	: function( isTruncated, orgContent ) {
-        		if(isTruncated){
-        			element.css("padding-top", "20px");
-        		}else{
-        			element.css("padding-top", "5px");
-        		}
-        	}});
+        	var data = $("<div/>").html(storyElem.text()).text();
+        	storyElem.html(data);
+        	
+        	$timeout(
+                    function () {
+                    	storyElem.dotdotdot();
+                    }, 100);
+        	
+//        	storyElem.dotdotdot({ellipsis	: '...', callback	: function( isTruncated, orgContent ) {
+//        		if(isTruncated){
+//        			element.css("padding-top", "20px");
+//        		}else{
+//        			element.css("padding-top", "5px");
+//        		}
+//        	}});
         	
 //        	storyElem.find('p').each(function() {
 //                var $this = $(this);

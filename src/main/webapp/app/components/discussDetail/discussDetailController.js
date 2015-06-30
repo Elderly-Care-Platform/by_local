@@ -7,11 +7,12 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
         $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html";
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html";
-
+        $("#preloader").show();
         $scope.detailResponse = DiscussDetail.get({discussId: discussId}, function(discussDetail, header){
             //broadcast data to left panel, to avoid another query from left panel of detail page
             broadCastData.update(discussDetail.discuss);
             $scope.detailResponse.discuss.createdAt = discussDetail.discuss.createdAt;
+            $("#preloader").hide();
         });
 
         $scope.trustForcefully = function (html) {

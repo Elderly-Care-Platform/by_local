@@ -3,7 +3,7 @@
 }
 .aboutUsOne
 {
-  background: url('../img/aboutUs/AboutOne.png');
+  background: url('../img/aboutUs/AboutOne.png?versionTimeStamp=%PROJECT_VERSION%');
   
     background-size: 100%;
     
@@ -41,7 +41,7 @@
 }
 .aboutUsTwo
 {
-	background: url('../img/aboutUs/aboutTwo.png');
+	background: url('../img/aboutUs/aboutTwo.png?versionTimeStamp=%PROJECT_VERSION%');
 	  background-size: 100%;
     background-repeat: no-repeat;
 	margin-top: 0px;
@@ -151,7 +151,7 @@
 }
 .aboutDiscussText ul li
 {
-	list-style-image: url('../img/aboutUs/aboutArrow.png');
+	list-style-image: url('../img/aboutUs/aboutArrow.png?versionTimeStamp=%PROJECT_VERSION%');
 	margin-left: 22px;
 }
 .blackColorMore
@@ -169,7 +169,7 @@
 	color: #c00000;
 }
 .aboutUsThree{
-	background: url('../img/aboutUs/aboutThree.png');
+	background: url('../img/aboutUs/aboutThree.png?versionTimeStamp=%PROJECT_VERSION%');
 	    background-repeat: no-repeat;
 	  padding: 19px 15px 0px 15px;
 	text-align: center;
@@ -206,7 +206,7 @@
 }
 .aboutFour
 {
-	background: url('../img/aboutUs/budha_bg.jpg') bottom;
+	background: url('../img/aboutUs/budha_bg.jpg?versionTimeStamp=%PROJECT_VERSION%') bottom;
   background-size: 100%;
   background-repeat: no-repeat;
   padding: 111px 7px 322px 15px;
@@ -236,7 +236,7 @@
 }
 .meetOurTeamAboutWrapper
 {
-	background: url('../img/aboutUs/aboutMeetOurTeam.png') bottom;
+	background: url('../img/aboutUs/aboutMeetOurTeam.png?versionTimeStamp=%PROJECT_VERSION%') bottom;
 	padding: 20px 15px 20px 15px;
 	text-align: center;
 	margin-bottom: 20px;

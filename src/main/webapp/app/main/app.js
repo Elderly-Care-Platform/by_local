@@ -473,9 +473,28 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
     
     $scope.editor.subjectOptions = ["FEEDBACK", "SUGGESTION", "READY TO HELP ", "DOING BUSINESS TOGETHER", "WOULD LIKE TO INFORM YOU"];
     
-    $scope.postSuccess = function () {
-    	$location.path("/users/home");
-    };
+	$scope.postContent = function (discussType) {
+        $scope.discuss = new Discuss();
+        
+        $scope.discuss.discussType = discussType;
+        $scope.discuss.text = tinyMCE.activeEditor.getContent();
+        $scope.discuss.title = $scope.editor.subject;
+        
+        
+        //putting the userId to discuss being created
+        $scope.discuss.userId = $scope.editor.userId;
+        $scope.discuss.username = $scope.editor.username;
+        
+        if($scope.discuss.userId.length > 0 && $scope.discuss.text.length > 0){
+            $scope.error = "";
+            $scope.discuss.$save(function (discuss, headers) {
+            	$location.path("/users/home");
+            });
+
+        }else{
+            $scope.error = "Please fill all details";
+        }
+	}   
 	
 }]);
 

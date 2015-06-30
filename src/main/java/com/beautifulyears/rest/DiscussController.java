@@ -268,7 +268,11 @@ public class DiscussController {
 			String text = discuss.getText();
 			int discussStatus = discuss.getStatus();
 			List<String> topicId = discuss.getTopicId();
-			List<String> systemTags = topicRepository.getTopicNames(topicId);
+			List<String> systemTags = new ArrayList<String>();
+			if(null != topicId && topicId.size() > 0){
+				systemTags = topicRepository.getTopicNames(topicId);
+			}
+			
 			int aggrReplyCount = 0;
 			newDiscuss = new Discuss(discuss.getUserId(), discuss.getUsername(), discussType, topicId,
 					title, text, discussStatus, aggrReplyCount,

@@ -3445,11 +3445,13 @@ byApp.directive('onFinishRender', function ($timeout) {
 	return {
         restrict: 'A',
         link: function (scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function () {
-                    scope.$emit('ngRepeatFinished');
-                }, 100);
-            }
+        	var storyElem = $("#"+attr.onFinishRender);
+        	storyElem.dotdotdot({ellipsis	: '...'});
+        	storyElem.find('p').each(function() {
+                var $this = $(this);
+                if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
+                    $this.remove(); 
+            });
         }
     }
 });

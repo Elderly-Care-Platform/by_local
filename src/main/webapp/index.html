@@ -25,7 +25,7 @@
 		<div class="text">
 			Thank you for visiting us! <br />
 			<br />If you have already received an invitation for a trial, please enter your passcode here: <input id="key" type="password" 
-			class="username-textbox textbox textItalic" value="" onchange="check(this.value)"> 
+			class="username-textbox textbox textItalic" value="" onchange="check(this.value)" autofocus>
  <br />
 			<br />Otherwise please bear with us for some time, we are still working on improving our Web site. 
  <br />
@@ -41,14 +41,12 @@
 
 	<script type="text/javascript">
 		var str = '';
-		
 		$("#key").on('change keyup paste', function() {
 			var str = "";
 			var val = this.value;
 			for (var i = 0; i < val.length; i++) {
 				str += val.charCodeAt(i);
 			}
-			console.log(str);
 			if (str === '1099710310599') {
 				location.href = "main.html";
 				localStorage.setItem("LANDING_DONE", "DONE");

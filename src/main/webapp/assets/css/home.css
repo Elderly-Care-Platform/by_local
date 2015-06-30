@@ -297,6 +297,10 @@
     margin-bottom: 14px;
 }
 
+.by_story iframe{
+    display: none;
+}
+
 .by_blog_author .news-v3 .post-shares li i:hover{
     background:none !important;
 }

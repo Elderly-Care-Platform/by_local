@@ -35,8 +35,10 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             $scope.discuss_counts = counts;
         });
 
-
-        $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType});
+        $("#preloader").show();
+        $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType},function(){
+        	$("#preloader").hide();
+        });
 
         $rootScope.bc_topic = 'list';
         $rootScope.bc_subTopic = 'all';
@@ -189,12 +191,14 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         ///alert("one topic one sub topic :: " + $scope.discuss_counts);
 
-
+        $("#preloader").show();
         $scope.discuss = DiscussOneTopicOneSubTopicList.query({
             discussType: discussType,
             topicId: topicQueryId,
             subTopicId: subTopicQueryId
-        });
+        },function(){
+        	$("#preloader").hide();
+        })
 
 
         //User Discuss Like method

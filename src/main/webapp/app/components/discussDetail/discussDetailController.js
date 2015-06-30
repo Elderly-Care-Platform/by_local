@@ -5,8 +5,8 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews = {};
         $rootScope.nextLocation = $location.path();
 
-        $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html";
-        $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html";
+        $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $("#preloader").show();
         $scope.detailResponse = DiscussDetail.get({discussId: discussId}, function(discussDetail, header){
             //broadcast data to left panel, to avoid another query from left panel of detail page

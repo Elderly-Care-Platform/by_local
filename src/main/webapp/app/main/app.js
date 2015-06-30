@@ -824,7 +824,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 			{
 				$scope.error = "";
 				$scope.currentView = "editor";
-				$scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html";
+				$scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 				window.scrollTo(0, 0);
 			}
 			
@@ -839,8 +839,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
             if ($scope.currentView != "content") {
                 $scope.currentView = "content";
-                $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html";
-                $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html";
+                $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $scope.articles = HomeFeaturedContent.query({discussType: 'A'});
                 $scope.questions = HomeFeaturedContent.query({discussType: 'Q'});
                 $scope.posts = HomeFeaturedContent.query({discussType: 'P'});
@@ -869,8 +869,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         
         if($routeParams.type === "aboutUs") {
 			$scope.currentView = "aboutUs";
-			$scope.homeViews.contentPanel = "app/components/aboutUs/aboutUs.html";
-			$scope.homeViews.leftPanel = "app/components/aboutUs/aboutUsContentPanel.html";
+			//$scope.homeViews.contentPanel = "'app/components/aboutUs/aboutUs.html?nitin=jain'";
+			//$scope.homeViews.leftPanel = "'app/components/aboutUs/aboutUsContentPanel.html?nitin=jain'";
 		} else	{
 			$scope.currentView = "";
 			$scope.switchToContentView();

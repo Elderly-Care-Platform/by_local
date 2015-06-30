@@ -9,8 +9,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 		$scope.showme = true;
         $scope.discuss = DiscussList.query();
         $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html";
-        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html";
+        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
         $scope.editor = {};
         $scope.editor.articlePhotoFilename = "";
@@ -70,7 +70,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 			else
 			{
 				$scope.error = "";
-	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html";
+	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 	            window.scrollTo(0, 0);
 			}
             
@@ -130,8 +130,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         $scope.showme = true;
         $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html";
-        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html";
+        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.editor = {};
         $scope.editor.articlePhotoFilename = "";
         $scope.error = "";
@@ -227,7 +227,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 			else
 			{
 				$scope.error = "";
-	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html";
+	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 	            window.scrollTo(0, 0);
 			}
         };

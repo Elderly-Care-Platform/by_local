@@ -593,7 +593,7 @@
 	display: none;
 }
 .footer-v1 .copyright {
-	background: url(../img/Footer-BY.png);
+	background: url(../img/Footer-BY.jpg);
 	border-top: none;
 	padding-top: 4px;
 }
@@ -866,7 +866,7 @@
 }
 .fa-retweetPSC
 {
-	background: url(../img/Footer-BY.png);
+	background: url(../img/Footer-BY.jpg);
 }
 ::-webkit-scrollbar {
 	width: 8px;

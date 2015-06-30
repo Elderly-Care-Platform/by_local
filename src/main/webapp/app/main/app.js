@@ -3446,12 +3446,20 @@ byApp.directive('onFinishRender', function ($timeout) {
         restrict: 'A',
         link: function (scope, element, attr) {
         	var storyElem = $("#"+attr.onFinishRender);
-        	storyElem.dotdotdot({ellipsis	: '...'});
-        	storyElem.find('p').each(function() {
-                var $this = $(this);
-                if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
-                    $this.remove(); 
-            });
+        	storyElem.html(storyElem.text());
+        	storyElem.dotdotdot({ellipsis	: '...', callback	: function( isTruncated, orgContent ) {
+        		if(isTruncated){
+        			element.css("padding-top", "20px");
+        		}else{
+        			element.css("padding-top", "5px");
+        		}
+        	}});
+        	
+//        	storyElem.find('p').each(function() {
+//                var $this = $(this);
+//                if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
+//                    $this.remove(); 
+//            });
         }
     }
 });

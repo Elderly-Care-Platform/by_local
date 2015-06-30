@@ -4,7 +4,10 @@
 .aboutUsOne
 {
   background: url('../img/aboutUs/AboutOne.png');
-  background-position: 0px -18px;
+  
+    background-size: 100%;
+    
+    background-repeat: no-repeat;
   padding: 71px 15px 325px 67px;
   text-align: center;
   margin-bottom: 20px;
@@ -34,14 +37,16 @@
 	font-size: 36px; 
 	font-weight: 400;
 	line-height: 62px;
-	padding-bottom: 10px;
+	padding-bottom: 118px;
 }
 .aboutUsTwo
 {
 	background: url('../img/aboutUs/aboutTwo.png');
+	  background-size: 100%;
+    background-repeat: no-repeat;
 	margin-top: 0px;
 	background-position: 0px -55px;
-	padding: 71px 15px 133px 67px !important;
+	padding: 71px 15px 3px 67px !important;
 }
 .aboutUsOneThree
 {
@@ -108,6 +113,10 @@
   	margin-right: auto;
 	width: 100px;
 }
+.firstletter{
+	
+	font-size:23px;
+}
 .aboutDiscussColor
 {
 	color: #007033;
@@ -122,8 +131,16 @@
 }
 .aboutDiscussText a
 {
-	text-decoration: underline;
+	text-decoration: none	;
 	color: #00A24A;
+}
+.padding_lr-10{
+	
+	  padding-left: 10%;
+  padding-right: 10%
+}
+.normal-font{
+	font-size:14px;
 }
 .aboutDiscussText ul
 {
@@ -151,9 +168,9 @@
 {
 	color: #c00000;
 }
-.aboutUsThree
-{
+.aboutUsThree{
 	background: url('../img/aboutUs/aboutThree.png');
+	    background-repeat: no-repeat;
 	  padding: 19px 15px 0px 15px;
 	text-align: center;
 	margin-bottom: 20px;
@@ -189,11 +206,13 @@
 }
 .aboutFour
 {
-	background: url('../img/aboutUs/budha_bg.png') bottom;
-	padding: 74px 25px 279px 15px;
-	text-align: center;
-	margin-bottom: 20px;
-	margin-top: 15px;
+	background: url('../img/aboutUs/budha_bg.jpg') bottom;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding: 111px 7px 322px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
 }
 .breadcrumbs
 {
@@ -206,7 +225,7 @@
 	margin-right: auto;
 	text-align: center;
 	color:  #000000;
-	font-size: 22px; 
+	font-size: 27px; 
 	font-weight: 400;
 	line-height: 40px;
 }
@@ -364,7 +383,23 @@
 	}
 	.aboutUsOne
 	{	
-		padding: 60px 15px 60px 15px;
+		padding: 60px 15px 265px 15px;
+	}
+	
+	.aboutFour{
+	  padding: 45px 7px 220px 15px;
+	}
+	.teamWrapperBelowLeft
+	{
+	position: absolute;
+	  z-index: 9;
+	  left: 0px;
+	  buttom: -10px;
+	  width: 339px;
+	}
+	
+	.mita-padding-top{
+	margin-top:166px;
 	}
 }
 
@@ -374,4 +409,6 @@
 	display: table-cell;
 	float: none !important;
 }
+
+
 

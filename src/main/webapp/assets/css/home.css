@@ -273,7 +273,7 @@
 .by_blog_author {
     padding: 0px !important;
     font-family: century_gothic !important;
-    max-height: 225px !important;
+    max-height: 260px !important;
     overflow-y: hidden;
 }
 
@@ -292,7 +292,7 @@
 }
 
 .by_story {
-    max-height: 135px;
+    max-height: 150px;
     margin-top: -6px;
     margin-bottom: 14px;
 }

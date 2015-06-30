@@ -230,29 +230,29 @@ ng-view{
 		color: #fff !important;
 	}
 	.ask-question{
-		background-image:url("../img/Ask_Question.png");
+		background-image:url("../img/Ask_Question.png?versionTimeStamp=%PROJECT_VERSION%");
 		background-repeat: no-repeat;
 		background-position:5px;
 	}
 	.rate-review {
-  background-image: url("../img/review-rate.png");
+  background-image: url("../img/review-rate.png?versionTimeStamp=%PROJECT_VERSION%");
   background-repeat: no-repeat;
   background-position: 5px;
 }
 	
 	
 	.share-tips{
-		background-image:url("../img/Share-aa.png");
+		background-image:url("../img/Share-aa.png?versionTimeStamp=%PROJECT_VERSION%");
 		background-repeat: no-repeat;
 		background-position:5px;
 	}
 	.submit-article{
-		background-image:url("../img/Submit.png");
+		background-image:url("../img/Submit.png?versionTimeStamp=%PROJECT_VERSION%");
 		background-repeat: no-repeat;
 		background-position:5px;
 	}
 	.give-feedback{
-		background-image:url("../img/Feedback-aa.png");
+		background-image:url("../img/Feedback-aa.png?versionTimeStamp=%PROJECT_VERSION%");
 		background-repeat: no-repeat;
 		background-position:5px;
 	}

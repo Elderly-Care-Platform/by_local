@@ -1,6 +1,5 @@
 package com.beautifulyears.rest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,10 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,13 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.Discuss;
-import com.beautifulyears.domain.Topic;
 import com.beautifulyears.domain.User;
-import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.exceptions.DiscussNotFound;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.repository.TopicRepository;
-import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.rest.response.DiscussResponse.DiscussEntity;
 import com.beautifulyears.util.LoggerUtil;
@@ -51,16 +43,32 @@ public class DiscussController {
 	private static final Logger logger = Logger
 			.getLogger(DiscussController.class);
 	private DiscussRepository discussRepository;
-	private MongoTemplate mongoTemplate;
 	private TopicRepository topicRepository;
 
 	@Autowired
 	public DiscussController(DiscussRepository discussRepository,
-			TopicRepository topicRepository,
-			MongoTemplate mongoTemplate) {
+			TopicRepository topicRepository) {
 		this.discussRepository = discussRepository;
 		this.topicRepository = topicRepository;
-		this.mongoTemplate = mongoTemplate;
+	}
+
+	@RequestMapping(consumes = { "application/json" }, value = { "/contatcUs" })
+	@ResponseBody
+	public ResponseEntity<String> submitFeedback(@RequestBody Discuss discuss,
+			HttpServletRequest request, HttpServletResponse res)
+			throws Exception {
+		User currentUser = Util.getSessionUser(request);
+		if (null != currentUser) {
+			discuss.setUserId(currentUser.getId());
+			discuss.setUsername(currentUser.getUserName());
+		}
+		LoggerUtil.logEntry();
+		ResponseEntity<String> responseEntity = new ResponseEntity<String>(
+				HttpStatus.CREATED);
+		discuss.setDiscussType("F");
+		discuss = discussRepository.save(discuss);
+		logger.info("new feedback entity created with ID: " + discuss.getId());
+		return responseEntity;
 	}
 
 	@RequestMapping(consumes = { "application/json" })
@@ -69,7 +77,7 @@ public class DiscussController {
 			HttpServletRequest request, HttpServletResponse res)
 			throws Exception {
 		LoggerUtil.logEntry();
-		ResponseEntity<String> responseEntity = new ResponseEntity(
+		ResponseEntity<String> responseEntity = new ResponseEntity<String>(
 				HttpStatus.CREATED);
 		User currentUser = Util.getSessionUser(request);
 		if (null != currentUser) {
@@ -269,17 +277,18 @@ public class DiscussController {
 			int discussStatus = discuss.getStatus();
 			List<String> topicId = discuss.getTopicId();
 			List<String> systemTags = new ArrayList<String>();
-			if(null != topicId && topicId.size() > 0){
+			if (null != topicId && topicId.size() > 0) {
 				systemTags = topicRepository.getTopicNames(topicId);
 			}
-			
+
 			int aggrReplyCount = 0;
-			newDiscuss = new Discuss(discuss.getUserId(), discuss.getUsername(), discussType, topicId,
-					title, text, discussStatus, aggrReplyCount,
-					systemTags, discuss.getUserTags(),
+			newDiscuss = new Discuss(discuss.getUserId(),
+					discuss.getUsername(), discussType, topicId, title, text,
+					discussStatus, aggrReplyCount, systemTags,
+					discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
 							.getArticlePhotoFilename() : "", false);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Util.handleException(e);
 		}
 		return newDiscuss;

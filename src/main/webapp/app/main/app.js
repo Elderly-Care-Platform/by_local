@@ -92,6 +92,13 @@ var discussByUserFilter = byServices.factory('UserDiscussList', function($resour
 });
 
 
+//ContactUs -
+
+var contactUs = byServices.factory('ContactUs', function($resource) {
+	return $resource(apiPrefix+'api/v1/discuss/contactUs',{}, {
+	})
+});
+
 
 //User
 var user = byServices.factory('User', function($resource) {

@@ -1,40 +1,40 @@
 /**
  * Created by sanjukta on 01-07-2015.
  */
-byControllers.controller('contactUsController', ['$scope', '$routeParams', '$location', 'Discuss','$route',
-    function($scope, $routeParams, $location, Discuss, $route) {
-        $scope.editor = {};
-        $scope.editor.articlePhotoFilename = "";
-        $scope.error = "";
+byControllers.controller('contactUsController', ['$scope', '$routeParams', '$location', 'ContactUs','$route',
+    function($scope, $routeParams, $location, ContactUs, $route) {
+        $scope.isLoggedIn = false;
+        $scope.userEmail ='';
+        $scope.username = '';
+        $scope.errorMsg = "";
 
-        $scope.editor.userId = localStorage.getItem("USER_ID");
-        $scope.editor.username = localStorage.getItem("USER_NAME");
+        if(localStorage.getItem("USER_ID")){
+            $scope.isLoggedIn = true;
+            $scope.userEmail = localStorage.getItem("USER_ID");
+            $scope.username = localStorage.getItem("USER_NAME");
+        }
 
-
-
-        $scope.editor.subjectOptions = {'0':"FEEDBACK", '1':"SUGGESTION", '2':"READY TO HELP ", '3':"DOING BUSINESS TOGETHER", '4':"WOULD LIKE TO INFORM YOU"};
-        $scope.editor.subject = $routeParams.subject ? $scope.editor.subjectOptions[$routeParams.subject]:"";
+        $scope.subjectOptionsMap = {'0':"FEEDBACK", '1':"SUGGESTION", '2':"READY TO HELP ", '3':"DOING BUSINESS TOGETHER", '4':"WOULD LIKE TO INFORM YOU"};
+        $scope.subjectTitle = $routeParams.subject ? $scope.subjectOptionsMap[$routeParams.subject]:"";
 
         $scope.postContent = function (discussType) {
-            $scope.discuss = new Discuss();
+            $scope.contactUs = new ContactUs();
 
-            $scope.discuss.discussType = discussType;
-            $scope.discuss.text = tinyMCE.activeEditor.getContent();
-            $scope.discuss.title = $scope.editor.subject;
+            $scope.contactUs.discussType = discussType;
+            $scope.contactUs.text = tinyMCE.activeEditor.getContent();
+            $scope.contactUs.title = $scope.subjectTitle;
+            
+            $scope.contactUs.userId = $scope.userEmail;
+            $scope.contactUs.username = $scope.username;
 
-
-            //putting the userId to discuss being created
-            $scope.discuss.userId = $scope.editor.userId;
-            $scope.discuss.username = $scope.editor.username;
-
-            if($scope.discuss.userId.length > 0 && $scope.discuss.text.length > 0){
-                $scope.error = "";
-                $scope.discuss.$save(function (discuss, headers) {
+            if($scope.contactUs.userId.length > 0 && $scope.contactUs.text.length > 0 && $scope.contactUs.username.length > 0){
+                $scope.errorMsg = "";
+                $scope.contactUs.$save(function (contactUs, headers) {
                     $location.path("/users/home");
                 });
 
             }else{
-                $scope.error = "Please fill all details";
+                $scope.errorMsg = "Please fill all details";
             }
         }
 

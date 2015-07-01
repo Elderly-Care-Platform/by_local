@@ -52,7 +52,7 @@ public class DiscussController {
 		this.topicRepository = topicRepository;
 	}
 
-	@RequestMapping(consumes = { "application/json" }, value = { "/contatcUs" })
+	@RequestMapping(consumes = { "application/json" }, value = { "/contactUs" })
 	@ResponseBody
 	public ResponseEntity<String> submitFeedback(@RequestBody Discuss discuss,
 			HttpServletRequest request, HttpServletResponse res)

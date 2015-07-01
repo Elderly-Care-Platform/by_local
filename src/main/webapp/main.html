@@ -57,7 +57,7 @@
 </head>
 
 <body ng-app="byApp">
-<div class="preloader" id="preloader" style="display: none;">
+    <div class="preloader" id="preloader" style="display: none;">
         <div class="preloaderImage"></div>
     </div>
 <!--
@@ -110,17 +110,6 @@
                 <!-- Topbar -->
                 <div class="topbar">
                     <ul class="loginbar pull-right">
-                        <!--<li class="hoverSelector">-->
-                        <!--<i class="fa fa-globe"></i>-->
-                        <!--<a>Languages</a>-->
-                        <!--<ul class="languages hoverSelectorBlock">-->
-                        <!--<li class="active">-->
-                        <!--<a href="#">English <input type="checkbox" /></a>-->
-                        <!--</li>-->
-                        <!--<li><a href="#">Hindi <input type="checkbox" /></a></li>-->
-                        <!--<li><a href="#">Other <input type="checkbox" /></a></li>-->
-                        <!--</ul>-->
-                        <!--</li>-->
                         <li><a di-href="#/users/aboutUs" id="aboutUs_placeholder">ABOUT US</a></li>
                         <li class="topbar-devider"></li>
                         <li id="profile_placeHolder_li"><a href="" id="profile_placeholder">PROFILE</a></li>
@@ -136,28 +125,8 @@
                     <span class="sr-only">Toggle navigation</span>
                     <span class="fa fa-bars"></span>
                 </button>
-                <!-- End Toggle -->
-
-
-                <!-- Search Block -->
                 <div class="searchClearboth"></div>
-
-                <!-- end Search Block -->
-
-
             </div>
-            <!--/end container-->
-
-            <!--<div class="searchWrapper">
-                <div class="searchLeft">
-                    <input type="text" placeholder="Search" />
-                </div>
-                <div class="searchRight">
-                    <i class="fa fa-search"></i>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-             -->
 
             <div class="searchWrapper">
                 <div class="searchLeft">
@@ -187,243 +156,7 @@
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                 Discuss
                             </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="mega-menu-content disable-icons">
-                                        <div class="container">
-                                            <div class="row equal-height">
-                                                <div class="col-md-2 equal-height-in">
-                                                    <ul class="list-unstyled equal-height-list">
-                                                        <li><a di-href="#/discuss/All/list/all" ng-click="hideMenu()">
-                                                            <h3>DISCUSS ALL</h3></a></li>
-                                                        <li style="margin-bottom: 15px;"><a
-                                                                href="#/discuss/{{bc_discussType}}/BEAUTIFUL LIVES/all"
-                                                                style="padding-bottom: 0px;">
-                                                            <h3 style="margin-bottom: 0px; font-size: 14px">BEAUTIFUL
-                                                                LIVES</h3></a>
-                                                            <ul class="list-unstyled equal-height-list"
-                                                                style="margin-left: 10px;">
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/BEAUTIFUL LIVES/STARS FOREVER">Stars
-                                                                        forever</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/BEAUTIFUL LIVES/IT’S NEVER TOO LATE">It's
-                                                                        never too late</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/BEAUTIFUL LIVES/PERSONAL STORIES">Personal
-                                                                        stories</a></li>
-                                                            </ul>
-                                                        </li>
-
-
-                                                        <li>
-                                                            <a di-href="#/discuss/{{bc_discussType}}/AGEING RECONSIDERED/all"
-                                                               style="padding-bottom: 0px;">
-                                                                <h3 style="margin-bottom: 0px; font-size: 14px">AGEING
-                                                                    RECONSIDERED</h3></a>
-                                                            <ul class="list-unstyled equal-height-list"
-                                                                style="margin-left: 10px;">
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/AGEING RECONSIDERED/ISSUES OF AGEING">Issues
-                                                                        of ageing</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/AGEING RECONSIDERED/ANTI-AGEING NEWS">Anti-ageing
-                                                                        news</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/AGEING RECONSIDERED/AGEING AROUND THE GLOBE">Ageing
-                                                                        around the globe</a></li>
-                                                            </ul>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-3 equal-height-in" style="padding-top: 0px;">
-                                                    <ul class="list-unstyled equal-height-list">
-                                                        <li>
-                                                            <a di-href="#/discuss/{{bc_discussType}}/ABOUT SERVICES FOR SENIORS/all"
-                                                               style="padding-bottom: 0px;">
-                                                                <h3 style="margin-bottom: 0px; font-size: 14px">ABOUT
-                                                                    SERVICES FOR SENIORS</h3></a>
-                                                            <!--<ul class="list-unstyled equal-height-list" style="margin-left: 10px;">-->
-                                                            <!--<li><a di-href="#/discuss/{{bc_discussType}}/ABOUT/SERVICES" >Services </a></li>-->
-                                                            <!--<li><a di-href="#/discuss/{{bc_discussType}}/ABOUT/PRODUCTS" >Products </a></li>-->
-                                                            <!--<li><a di-href="#/discuss/{{bc_discussType}}/ABOUT/HOUSING FACILITIES" > Housing Facilities </a></li>-->
-                                                            <!--</ul>-->
-                                                        </li>
-                                                        <li>
-                                                            <a di-href="#/discuss/{{bc_discussType}}/ABOUT PRODUCTS FOR SENIORS/all"
-                                                               style="padding-bottom: 0px;">
-                                                                <h3 style="margin-bottom: 0px; font-size: 14px">ABOUT
-                                                                    PRODUCTS FOR SENIORS</h3></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a di-href="#/discuss/{{bc_discussType}}/ABOUT SENIOR LIVING/all"
-                                                               style="padding-bottom: 0px;">
-                                                                <h3 style="margin-bottom: 0px;font-size: 14px">ABOUT
-                                                                    SENIOR LIVING</h3></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a di-href="#/discuss/{{bc_discussType}}/DEATH AND BEYOND/all"
-                                                               style="padding-bottom: 0px;">
-                                                                <h3 style="margin-bottom: 0px; font-size: 14px">Death
-                                                                    &amp; Beyond</h3></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a di-href="#/discuss/{{bc_discussType}}/LEGAL & FINANCE/all"
-                                                               style="padding-bottom: 0px;">
-                                                                <h3 style="margin-bottom: 0px; font-size: 14px">Legal
-                                                                    &amp; Finance</h3></a>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-3 equal-height-in" style="padding-top: 0px;">
-                                                    <ul class="list-unstyled equal-height-list">
-                                                        <li style="margin-bottom: 15px;"><a
-                                                                href="#/discuss/{{bc_discussType}}/CAREGIVERS’ CORNER/all"
-                                                                style="padding-bottom: 0px;">
-                                                            <h3 style="margin-bottom: 0px; font-size: 14px">CAREGIVER'S
-                                                                CORNER</h3></a>
-                                                            <ul class="list-unstyled equal-height-list"
-                                                                style="margin-left: 10px;">
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/CAREGIVERS’ CORNER/Caregiving guides">Caregiving
-                                                                        guides </a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/CAREGIVERS’ CORNER/Stress & burnout">Stress
-                                                                        & burnout</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/CAREGIVERS’ CORNER/Elderly care stories">Elderly
-                                                                        care stories</a></li>
-                                                            </ul>
-                                                        </li>
-
-                                                        <li><a di-href="#/discuss/{{bc_discussType}}/DAILY ROUTINE/all"
-                                                               style="padding-bottom: 0px;">
-                                                            <h3 style="margin-bottom: 0px; font-size: 14px">DAILY
-                                                                ROUTINE</h3></a>
-                                                            <ul class="list-unstyled equal-height-list"
-                                                                style="margin-left: 10px;">
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/DAILY ROUTINE/Chores">Chores </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/DAILY ROUTINE/Medications">Medications </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/DAILY ROUTINE/Personal hygiene">
-                                                                        Personal hygiene </a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/DAILY ROUTINE/Food & Nutrition">Food
-                                                                        & Nutrition</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/DAILY ROUTINE/Mobility & Transportation">Mobility
-                                                                        & Transportation</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/DAILY ROUTINE/Activities">Activities</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-
-                                                        <!--<ul class="list-unstyled equal-height-list">-->
-                                                        <!--<li>-->
-                                                        <!--<a href="#/discuss/{{bc_discussType}}/DEATH AND BEYOND/all" ><h3>Death &amp; Beyond</h3></a>-->
-                                                        <!--</li>-->
-                                                        <!--</ul>-->
-                                                        <!--<ul class="list-unstyled equal-height-list">-->
-                                                        <!--<li>-->
-                                                        <!--<a href="#/discuss/{{bc_discussType}}/LEGAL & FINANCE/all" ><h3>Legal &amp; Finance</h3></a>-->
-                                                        <!--</li>-->
-                                                        <!--</ul>-->
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-4 equal-height-in no-padding-top">
-
-                                                    <!--<div class="row">-->
-                                                    <div class="col-md-12">
-                                                        <ul class="list-unstyled equal-height-list">
-                                                            <li class="text-center"><a
-                                                                    href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/all">
-                                                                <h3 style="font-size: 14px">HEALTH CONDITIONS</h3></a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="col-md-6 no-padding onphone-col-header">
-                                                            <ul class="list-unstyled equal-height-list">
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Alzheimer’s & dementia">
-                                                                        Alzheimer's and dementia</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Parkinson’s">Parkinson's</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Mental disorders">Mental
-                                                                        disorders </a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Broken hip">Broken
-                                                                        hip</a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Stroke">Stroke </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Vision & Hearing issues">Vision
-                                                                        &amp; Hearing issues</a></li>
-
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Arthritis">Arthritis </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Diabetes">Diabetes</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Incontinence">Incontinence</a>
-                                                                </li>
-                                                            </ul>
-
-                                                        </div>
-
-                                                        <div class="col-md-6 no-padding onphone-col-header">
-                                                            <ul class="list-unstyled equal-height-list">
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Heart">Heart</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Cancer">Cancer</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Respiratory">Respiratory</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Kidney">Kidney </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Digestive system">Digestive
-                                                                        system </a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Sleep disorders">Sleep
-                                                                        disorders </a></li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Osteoporosis">Osteoporosis </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a di-href="#/discuss/{{bc_discussType}}/HEALTH CONDITIONS/Other">Other</a>
-                                                                </li>
-                                                            </ul>
-
-                                                        </div>
-                                                        <!--</div>-->
-
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                            <ul class="dropdown-menu" ng-include="'app/shared/header/discussMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>
                         </li>
                         <!-- End Discuss -->
 
@@ -492,6 +225,7 @@
             </div>
         </div> <!--/wrapper-->
      <!--</div>-->
+    </div>
 
 
 

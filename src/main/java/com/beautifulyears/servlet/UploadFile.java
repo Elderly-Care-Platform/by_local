@@ -96,9 +96,6 @@ public class UploadFile extends HttpServlet {
 						
 						ImageIO.write(resizeImageJpg, "jpg", new File(uploadDir + File.separator
 								+ fname + "_"+THUMBNAIL_IMG_WIDTH+"_"+THUMBNAIL_IMG_HEIGHT+"." + extension));
-						out.println("/uploaded_files/" + fname + "."
-								+ extension);
-						
 						logger.debug("upload finishedvwith file name ---- "
 								+ "/uploaded_files/" + fname + "." + extension);
 						out.println("/uploaded_files/" + fname + "."

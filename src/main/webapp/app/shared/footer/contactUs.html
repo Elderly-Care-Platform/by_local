@@ -35,11 +35,20 @@
 
         <div class="col-md-12 no-padding form-header-content margin-bottom-15">
 
-            <select ng-model="editor.subject">
-                <option value="" disabled selected default>Please select your subject here</option>
-                <option ng-repeat="subject in editor.subjectOptions" value="{{subject}}">{{subject}}</option>
-            </select>
+            <!--<select ng-model="editor.subject">-->
+                <!--<option value="" disabled selected default>Please select your subject here</option>-->
+                <!--<option ng-repeat="subject in editor.subjectOptions" value="{{subject}}">{{subject}}</option>-->
+            <!--</select>-->
 
+            <!--<select ng-options="options.key for options in subjectOptions">-->
+
+            <!--</select>-->
+            <!--{{subjectOptions}}-->
+
+            <select data-ng-options="key as value for (key , value) in editor.subjectOptions" ng-required="true" >
+                <option value="">-- Choose a category --</option>
+                <!--<span ng-show="formName.top.$error.required">Required</span>-->
+            </select>
         </div>
 
 

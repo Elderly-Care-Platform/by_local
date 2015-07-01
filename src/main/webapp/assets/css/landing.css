@@ -24,6 +24,8 @@ body
   left: 0px;
   background: url('../img/lndingBg.jpg?versionTimeStamp=%PROJECT_VERSION%');
   overflow-y:auto;
+    background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .wrapper>#launchLink{

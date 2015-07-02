@@ -111,12 +111,11 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $scope.emailError = "Please enter valid Email Id";
             }else{
                 $scope.emailError = "";
-            }
-
-            if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
-                $scope.pwdError = "Password must be at least 6 character";
-            }else{
-                $scope.pwdError = "";
+                if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
+                    $scope.pwdError = "Password must be at least 6 character";
+                }else{
+                    $scope.pwdError = "";
+                }
             }
 
             if($scope.pwdError==="" && $scope.emailError===""){

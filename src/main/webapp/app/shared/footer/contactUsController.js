@@ -7,6 +7,7 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
         $scope.userEmail ='';
         $scope.username = '';
         $scope.errorMsg = "";
+        var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
         if(localStorage.getItem("USER_ID")){
             $scope.isLoggedIn = true;
@@ -23,18 +24,23 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
             $scope.contactUs.discussType = discussType;
             $scope.contactUs.text = tinyMCE.activeEditor.getContent();
             $scope.contactUs.title = $scope.subjectTitle;
-            
+
             $scope.contactUs.userId = $scope.userEmail;
             $scope.contactUs.username = $scope.username;
 
-            if($scope.contactUs.userId.length > 0 && $scope.contactUs.text.length > 0 && $scope.contactUs.username.length > 0){
+            if($scope.contactUs.userId.length > 0 && emailValidation.test($scope.contactUs.userId) && $scope.contactUs.text.length > 0 && $scope.contactUs.username.length > 0){
                 $scope.errorMsg = "";
                 $scope.contactUs.$save(function (contactUs, headers) {
                     $location.path("/users/home");
                 });
 
             }else{
-                $scope.errorMsg = "Please fill all details";
+                if(!emailValidation.test($scope.contactUs.userId)){
+                    $scope.errorMsg = "Please enter valid Email Id";
+                } else{
+                    $scope.errorMsg = "Please fill all details";
+                }
+
             }
         }
 

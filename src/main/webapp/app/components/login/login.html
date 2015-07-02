@@ -75,6 +75,7 @@
             </div>
 
             <div class=" col-md-12 no-padding margin-bottom-20 register-page">
+                <span ng-show="emailError">{{emailError}}</span><br>
                 <input type="text" class="username-textbox textbox"
                        placeholder="Please enter your Email ID"
                        ng-model="newUser.email">
@@ -85,6 +86,7 @@
                        ng-model="newUser.userName">
             </div>
             <div class=" col-md-12 no-padding margin-bottom-20 register-page">
+                <span ng-show="pwdError">{{pwdError}}</span><br>
                 <input type="password" class="username-textbox textbox"
                        placeholder="Please select your password"
                        ng-model="newUser.password">

@@ -33,15 +33,15 @@
             <ul class="list-inline posted-info">
                 <li>
                     <p class="article-first-letter" ng-if="discuss.discussType == 'A'">
-                        Story by <a href="#">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
+                        Story by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="discuss.discussType == 'Q'">
-                        Question by <a href="#">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
+                        Question by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="discuss.discussType == 'P'">
-                        Post by <a href="#">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
+                        Post by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
                 </li>

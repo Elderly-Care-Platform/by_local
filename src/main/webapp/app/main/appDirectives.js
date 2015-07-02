@@ -121,9 +121,9 @@ byApp.directive('timeSince', function($filter){
         }
 
     };
-
     return getTimeSince;
-})
+});
+
 
 byApp.directive('formValidation', function() {
     var EMAIL_REGEXP = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
@@ -138,6 +138,19 @@ byApp.directive('formValidation', function() {
                 ctrl.$validators.email = function(modelValue) {
                     return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
                 };
+            }
+        }
+    };
+});
+
+byApp.directive('validateUserName', function(){
+    return {
+        restrict: '',
+        link: function(scope, elm, attrs) {
+            if(!attrs.validateUserName || attrs.validateUserName.trim()==="" || attrs.validateUserName==="null"){
+                scope.username = "Anonymous";
+            }else{
+                scope.username = attrs.validateUserName;
             }
         }
     };

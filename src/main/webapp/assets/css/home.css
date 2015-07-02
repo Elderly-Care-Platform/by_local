@@ -126,35 +126,35 @@
 }
 
 .icon_question:before {
-    content: url("../img/icons/ask_share_submit/question.png");
+    content: url("../img/icons/ask_share_submit/question.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .by_leftPanel_icons:hover .icon_question {
-    content: url("../img/icons/ask_share_submit/question_mo.png");
+    content: url("../img/icons/ask_share_submit/question_mo.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .icon_feedback:before {
-    content: url("../img/icons/ask_share_submit/feedback.png");
+    content: url("../img/icons/ask_share_submit/feedback.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .by_leftPanel_icons:hover .icon_feedback {
-    content: url("../img/icons/ask_share_submit/feedback_mo.png");
+    content: url("../img/icons/ask_share_submit/feedback_mo.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .icon_tips:before {
-    content: url("../img/icons/ask_share_submit/tips.png");
+    content: url("../img/icons/ask_share_submit/tips.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .by_leftPanel_icons:hover .icon_tips {
-    content: url("../img/icons/ask_share_submit/tips_mo.png");
+    content: url("../img/icons/ask_share_submit/tips_mo.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .icon_story:before {
-    content: url("../img/icons/ask_share_submit/story.png");
+    content: url("../img/icons/ask_share_submit/story.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .by_leftPanel_icons:hover .icon_story {
-    content: url("../img/icons/ask_share_submit/story_mo.png");
+    content: url("../img/icons/ask_share_submit/story_mo.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .by_right_panel > div {
@@ -273,7 +273,7 @@
 .by_blog_author {
     padding: 0px !important;
     font-family: century_gothic !important;
-    max-height: 225px !important;
+    max-height: 260px !important;
     overflow-y: hidden;
 }
 
@@ -292,9 +292,13 @@
 }
 
 .by_story {
-    max-height: 135px;
+    max-height: 150px;
     margin-top: -6px;
     margin-bottom: 14px;
+}
+
+.by_story iframe{
+    display: none;
 }
 
 .by_blog_author .news-v3 .post-shares li i:hover{

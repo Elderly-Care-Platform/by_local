@@ -86,15 +86,7 @@ BY.addEditor = function(param){
 
                 // switch the order of the elements
                 toolbar.detach().insertAfter(editor);
-                if ("sessionStorage" in window) {
-                    var oldData = sessionStorage.getItem("CommentData");
-                    if(oldData && oldData.length > 0){
-                        ed.setContent(oldData);
-                        sessionStorage.removeItem("CommentData");
-                        $("#" + ed.id).parents(".by_editor_wrap").find(".by_btn_submit").removeAttr('disabled');
-                    }
-                }
-
+                ed.setContent('');
             });
             ed.on("keyup", function () {
                 var id = ed.id;
@@ -126,88 +118,8 @@ BY.addEditor = function(param){
 }
 
 
-
-//tinymce.init({
-//    mode: "textareas",
-//    theme: "modern",
-//    skin: 'light',
-//    statusbar: false,
-//    menubar: false,
-//    plugins: [
-//        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-//        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-//        " emoticons textcolor paste autoresize "
-//    ],
-//    toolbar: "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink emoticons image media  preview ",
-//    setup : function(ed) {
-//        var placeholder = $('#' + ed.id).attr('placeholder');
-//        if (typeof placeholder !== 'undefined' && placeholder !== false) {
-//            var is_default = false;
-//            ed.on('init', function () {
-//                // get the current content
-//                var cont = ed.getContent();
-//
-//                // If its empty and we have a placeholder set the value
-//                if (cont.length === 0) {
-//                    ed.setContent(placeholder);
-//                    // Get updated content
-//                    cont = placeholder;
-//                }
-//                // convert to plain text and compare strings
-//                is_default = (cont == placeholder);
-//
-//                // nothing to do
-//                if (!is_default) {
-//                    return;
-//                }
-//            }).on('keydown', function () {
-//                // replace the default content on focus if the same as original placeholder
-//                if (is_default) {
-//                    ed.setContent('');
-//                    is_default = false;
-//                }
-//            }).on('blur', function () {
-//                if (ed.getContent().length === 0) {
-//                    ed.setContent(placeholder);
-//                }
-//            }).on('click', function () {
-//                if (!ed.isDirty()) {
-//                    ed.setContent('');
-//                }
-//            });
-//        }
-//        ed.on('init', function (evt) {
-//            var toolbar = $(evt.target.editorContainer)
-//                .find('>.mce-container-body >.mce-toolbar-grp');
-//            var editor = $(evt.target.editorContainer)
-//                .find('>.mce-container-body >.mce-edit-area');
-//
-//            // switch the order of the elements
-//            toolbar.detach().insertAfter(editor);
-//        });
-//        ed.on("keyup", function () {
-//            var id = ed.id;
-//            if ($.trim(ed.getContent({format: 'text'})).length) {
-//                $("#" + id).parents(".textarea-label").find(".btn").removeClass("disabled");
-//            } else {
-//                $("#" + id).parents(".textarea-label").find(".btn").addClass("disabled");
-//            }
-//        });
-//
-//        ed.on('blur', function(e) {
-//            console.log('reset event', e);
-//        });
-//
-//        ed.on('remove', function(e) {
-//            console.log('remove event', e);
-//        });
-//    }
-//});
-
 BY.editorCategoryList = (function(){
     var selectedCategoryList = {};
-
-
     return {
         selectCategory:function(selectedInput){
             if(selectedInput.checked===true){

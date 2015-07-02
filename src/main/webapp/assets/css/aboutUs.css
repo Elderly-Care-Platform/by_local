@@ -3,8 +3,12 @@
 }
 .aboutUsOne
 {
-  background: url('../img/aboutUs/AboutOne.png');
-  background-position: 0px -18px;
+  background: url('../img/aboutUs/AboutOne.png?versionTimeStamp=%PROJECT_VERSION%');
+  
+    background-size: 100%;
+    background-position: 0px;
+    
+    background-repeat: no-repeat;
   padding: 71px 15px 325px 67px;
   text-align: center;
   margin-bottom: 20px;
@@ -34,14 +38,16 @@
 	font-size: 36px; 
 	font-weight: 400;
 	line-height: 62px;
-	padding-bottom: 10px;
+	padding-bottom: 118px;
 }
 .aboutUsTwo
 {
-	background: url('../img/aboutUs/aboutTwo.png');
+	background: url('../img/aboutUs/aboutTwo.png?versionTimeStamp=%PROJECT_VERSION%');
+	  background-size: 100%;
+    background-repeat: no-repeat;
 	margin-top: 0px;
-	background-position: 0px -55px;
-	padding: 71px 15px 133px 67px !important;
+	background-position: 0px -99px;
+  	padding: 73px 15px 3px 67px !important;
 }
 .aboutUsOneThree
 {
@@ -108,6 +114,10 @@
   	margin-right: auto;
 	width: 100px;
 }
+.firstletter{
+	
+	font-size:23px;
+}
 .aboutDiscussColor
 {
 	color: #007033;
@@ -120,10 +130,14 @@
 	font-weight: 400;
 	line-height: 28px; 
 }
-.aboutDiscussText a
-{
-	text-decoration: underline;
-	color: #00A24A;
+
+.padding_lr-10{
+	
+	  padding-left: 10%;
+  padding-right: 10%
+}
+.normal-font{
+	font-size:14px;
 }
 .aboutDiscussText ul
 {
@@ -134,7 +148,7 @@
 }
 .aboutDiscussText ul li
 {
-	list-style-image: url('../img/aboutUs/aboutArrow.png');
+	list-style-image: url('../img/aboutUs/aboutArrow.png?versionTimeStamp=%PROJECT_VERSION%');
 	margin-left: 22px;
 }
 .blackColorMore
@@ -151,9 +165,9 @@
 {
 	color: #c00000;
 }
-.aboutUsThree
-{
-	background: url('../img/aboutUs/aboutThree.png');
+.aboutUsThree{
+	background: url('../img/aboutUs/aboutThree.png?versionTimeStamp=%PROJECT_VERSION%');
+	    background-repeat: no-repeat;
 	  padding: 19px 15px 0px 15px;
 	text-align: center;
 	margin-bottom: 20px;
@@ -189,11 +203,13 @@
 }
 .aboutFour
 {
-	background: url('../img/aboutUs/budha_bg.png') bottom;
-	padding: 74px 25px 279px 15px;
-	text-align: center;
-	margin-bottom: 20px;
-	margin-top: 15px;
+	background: url('../img/aboutUs/budha_bg.jpg?versionTimeStamp=%PROJECT_VERSION%') bottom;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding: 18px 7px 272px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
 }
 .breadcrumbs
 {
@@ -206,7 +222,7 @@
 	margin-right: auto;
 	text-align: center;
 	color:  #000000;
-	font-size: 22px; 
+	font-size: 27px; 
 	font-weight: 400;
 	line-height: 40px;
 }
@@ -217,7 +233,7 @@
 }
 .meetOurTeamAboutWrapper
 {
-	background: url('../img/aboutUs/aboutMeetOurTeam.png') bottom;
+	background: url('../img/aboutUs/aboutMeetOurTeam.png?versionTimeStamp=%PROJECT_VERSION%') bottom;
 	padding: 20px 15px 20px 15px;
 	text-align: center;
 	margin-bottom: 20px;
@@ -295,6 +311,30 @@
 	font-size: 22px;
 	font-weight: 400;
 }
+
+@media screen and (max-width: 1191px){
+	.teamWrapperBelowLeft
+	{
+	position: absolute;
+	  z-index: 9;
+	  left: 9px;
+	  buttom: -10px;
+	  width: 230px;
+	}
+	.teamWrapperBelowRight {
+	  width: 90%;
+	  float: right;
+	  background: #fff;
+	  border: 1px solid #ccc;
+	  border-radius: 15px !important;
+	  color: #000000;
+	  font-size: 14px;
+	  font-weight: 400;
+	  line-height: 24px;
+	  padding: 30px 15px 30px 20%;
+	}
+}
+	
 @media screen and (max-width: 990px){
 	.aboutProductsThumbWrap:nth-child(even)
 	{
@@ -305,11 +345,39 @@
 	{
 		width: 300px;
 	}
+	.teamWrapperBelowLeft
+	{
+	position: absolute;
+	  z-index: 9;
+	  left: 9px;
+	  buttom: -10px;
+	  width: 230px;
+	}
+	.teamWrapperBelowRight {
+	  width: 90%;
+	  float: right;
+	  background: #fff;
+	  border: 1px solid #ccc;
+	  border-radius: 15px !important;
+	  color: #000000;
+	  font-size: 14px;
+	  font-weight: 400;
+	  line-height: 24px;
+	  padding: 30px 15px 30px 20%;
+	}
+	.mita-padding-top{
+	margin-top: 40px;
+	}
+	.aboutFour {
+ 
+  padding: 35px 7px 249px 15px;
+  
+}
 }
 @media screen and (max-width: 680px){
 	.teamWrapperBelowRight
 	{
-		width: 80%;
+		width: 99%;
 		float: right;
 		background: #fff;
 		border:1px solid #ccc;
@@ -318,7 +386,7 @@
 		font-size: 14px; 
 		font-weight: 400;
 		line-height: 24px;
-		padding: 30px 15px 30px 25%;
+		padding: 30px 15px 30px 36%;
 	}
 }
 @media screen and (max-width: 425px){
@@ -340,11 +408,16 @@
 	.aboutFourText
 	{
 		line-height: 32px;
+		font-size: 23px;
+  		
 	}
 	.aboutUsOneFirst, .aboutUsOneSecond
 	{
 		width: 90%;
 	}
+	.aboutUsTwo {
+  padding: 0px 7px 84px 15px !important;
+}
 	.aboutUsOneThree
 	{
 		font-size: 30px;
@@ -364,14 +437,31 @@
 	}
 	.aboutUsOne
 	{	
-		padding: 60px 15px 60px 15px;
+		  padding: 111px 7px 360px 15px;
+	}
+	
+	.aboutFour{
+	  padding: 24px 7px 195px 15px;
+	}
+	.teamWrapperBelowLeft
+	{
+	position: absolute;
+	  z-index: 9;
+	  left: 9px;
+	  buttom: -10px;
+	  width: 230px;
+	}
+	
+	.mita-padding-top{
+	margin-top:166px;
 	}
 }
-
 
 
 .col-xs-height {
 	display: table-cell;
 	float: none !important;
 }
+
+
 

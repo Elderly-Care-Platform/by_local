@@ -10,7 +10,7 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
                 }, 100);
         });
         $scope.aboutUsViews = {};
-        $scope.aboutUsViews.contentPanel = "app/components/aboutUs/aboutUsContentPanel.html";
+        $scope.aboutUsViews.contentPanel = "app/components/aboutUs/aboutUsContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
 
         $scope.add = function (type) {
@@ -22,21 +22,21 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
             else {
                 $scope.error = "";
                 $scope.currentView = "editor";
-                $scope.aboutUsViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html";
+                $scope.aboutUsViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 window.scrollTo(0, 0);
             }
         };
 
 
         $scope.postSuccess = function () {
-            $scope.aboutUsViews.contentPanel = "app/components/aboutUs/aboutUsContentPanel.html";
+            $scope.aboutUsViews.contentPanel = "app/components/aboutUs/aboutUsContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
 
         $scope.accelerate = function (id) {
             $scope.currentAcceleratorSelected = id;
             if ($scope.currentView === "editor") {
-                $scope.aboutUsViews.contentPanel = "app/components/aboutUs/aboutUsContentPanel.html";
+                $scope.aboutUsViews.contentPanel = "app/components/aboutUs/aboutUsContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $timeout(
                     function () {
                         $scope.scroll($scope.currentAcceleratorSelected);

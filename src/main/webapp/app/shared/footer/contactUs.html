@@ -13,7 +13,7 @@
 
 <div class="container content discussion-page breadCrumbMargin">
 
-    <div class="row both-container by_editor_wrap" style="margin-top: 50px;" ng-controller="EditorController">
+    <div class="row both-container by_editor_wrap" style="margin-top: 50px;">
         <div class="col-md-12 no-padding margin-bottom-35">
 
             <div class="col-md-6 no-padding  list-head dp-block">CONTACT US
@@ -24,22 +24,21 @@
             </div>
         </div>
 
-        <div class=" col-md-6 no-padding margin-bottom-35 register-page">
-            <input type="text" class="username-textbox textbox " name="username" ng-model="editor.username"
-                   placeholder="name">
+
+        <div class="col-md-6 no-padding margin-bottom-35 register-page">
+            <span ng-show="errorMsg && errorMsg.length>0" class="help-block">
+                    {{errorMsg}}
+                </span>
+            <input type="text" class="username-textbox textbox " name="username" ng-model="username" placeholder="name">
         </div>
-        <div class=" col-md-6 no-padding margin-bottom-35 register-page" ng-if="!editor.userId || editor.userId==''">
-            <input type="text" class="username-textbox textbox " name="email" ng-model="editor.userId"
-                   placeholder="email">
+        <div class="col-md-6 no-padding margin-bottom-35 register-page" ng-show="!isLoggedIn">
+            <input type="text" class="username-textbox textbox " name="userEmail" ng-model="userEmail" placeholder="email">
         </div>
 
         <div class="col-md-12 no-padding form-header-content margin-bottom-15">
-
-            <select ng-model="editor.subject">
-                <option value="" disabled selected default>Please select your subject here</option>
-                <option ng-repeat="subject in editor.subjectOptions" value="{{subject}}">{{subject}}</option>
+            <select ng-model="subjectTitle" ng-options="value for (key, value) in subjectOptionsMap">
+                <option value="">Please select your subject here</option>
             </select>
-
         </div>
 
 
@@ -49,11 +48,13 @@
 
 
         <div class="col-md-12 no-padding margin-bottom-35">
-            <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn" disabled ng-click="postContent('F')">submit</button>
+            <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn" disabled
+                    ng-click="postContent('F')">submit
+            </button>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    var tinyEditor = BY.addEditor({"editorTextArea":"feedback_textArea"});
+    var tinyEditor = BY.addEditor({"editorTextArea": "feedback_textArea"});
 </script>

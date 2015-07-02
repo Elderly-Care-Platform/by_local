@@ -9,8 +9,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 		$scope.showme = true;
         $scope.discuss = DiscussList.query();
         $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html";
-        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html";
+        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
         $scope.editor = {};
         $scope.editor.articlePhotoFilename = "";
@@ -35,8 +35,10 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             $scope.discuss_counts = counts;
         });
 
-
-        $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType});
+        $("#preloader").show();
+        $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType},function(){
+        	$("#preloader").hide();
+        });
 
         $rootScope.bc_topic = 'list';
         $rootScope.bc_subTopic = 'all';
@@ -68,7 +70,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 			else
 			{
 				$scope.error = "";
-	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html";
+	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 	            window.scrollTo(0, 0);
 			}
             
@@ -128,8 +130,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         $scope.showme = true;
         $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html";
-        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html";
+        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.editor = {};
         $scope.editor.articlePhotoFilename = "";
         $scope.error = "";
@@ -189,12 +191,14 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         ///alert("one topic one sub topic :: " + $scope.discuss_counts);
 
-
+        $("#preloader").show();
         $scope.discuss = DiscussOneTopicOneSubTopicList.query({
             discussType: discussType,
             topicId: topicQueryId,
             subTopicId: subTopicQueryId
-        });
+        },function(){
+        	$("#preloader").hide();
+        })
 
 
         //User Discuss Like method
@@ -223,7 +227,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 			else
 			{
 				$scope.error = "";
-	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html";
+	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 	            window.scrollTo(0, 0);
 			}
         };

@@ -103,46 +103,62 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         
 //     ************************   create new user start
         $scope.newUser = new User();
+        $scope.pwdError = "";
+        $scope.emailError = "";
         $scope.createNewUser = function(newUser) {
-           
-            $scope.newUser.$save(function (login) {
-                $scope.createUserSuccess = "User registered successfully";
-                $scope.createUserError = '';
+            var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if(!$scope.newUser.email || $scope.newUser.email==="" || !emailValidation.test($scope.newUser.email)){
+                $scope.emailError = "Please enter valid Email Id";
+            }else{
+                $scope.emailError = "";
+                if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
+                    $scope.pwdError = "Password must be at least 6 character";
+                }else{
+                    $scope.pwdError = "";
+                }
+            }
+
+            if($scope.pwdError==="" && $scope.emailError===""){
+                $scope.newUser.$save(function (login) {
+                    $scope.createUserSuccess = "User registered successfully";
+                    $scope.createUserError = '';
 //                $scope.setView(1);
-                if ("localStorage" in window) {
-                    localStorage.setItem("SessionId", login.sessionId);
-                    $http.defaults.headers.common.sess = login.sessionId;
-                    localStorage.setItem("USER_ID", login.userId);
-                    localStorage.setItem("USER_NAME", login.userName);
-                    if($rootScope.nextLocation)
-					{
-						$location.path($rootScope.nextLocation);
-					}
-					else
-					{
-						$location.path("/users/home");
-					}
-                    document.getElementById("login_placeHolder_li").style.opacity = "1";
-                    var element = document.getElementById("login_placeholder");
-                    element.innerHTML = "Logout";
-                    element.href = apiPrefix + "#/users/logout/" + login.sessionId;
+                    if ("localStorage" in window) {
+                        localStorage.setItem("SessionId", login.sessionId);
+                        $http.defaults.headers.common.sess = login.sessionId;
+                        localStorage.setItem("USER_ID", login.userId);
+                        localStorage.setItem("USER_NAME", login.userName);
+                        if($rootScope.nextLocation)
+                        {
+                            $location.path($rootScope.nextLocation);
+                        }
+                        else
+                        {
+                            $location.path("/users/home");
+                        }
+                        document.getElementById("login_placeHolder_li").style.opacity = "1";
+                        var element = document.getElementById("login_placeholder");
+                        element.innerHTML = "Logout";
+                        element.href = apiPrefix + "#/users/logout/" + login.sessionId;
 
-                    var pro = document.getElementById('profile_placeholder');
-                    pro.innerHTML = "Profile";
-                    pro.href = "javascript:void(0);";
+                        var pro = document.getElementById('profile_placeholder');
+                        pro.innerHTML = "Profile";
+                        pro.href = "javascript:void(0);";
 
-                }
-                else {
-                    $scope.setError('Browser does not support cookies');
-                    $location.path("/users/login");
-                }
-            }, function (error) {
-                // failure
-                console.log("$save failed " + JSON.stringify(error));
-                $scope.createUserError = 'Email already exists. ';
-                $scope.createUserSuccess = '';
-                
-            });
+                    }
+                    else {
+                        $scope.setError('Browser does not support cookies');
+                        $location.path("/users/login");
+                    }
+                }, function (error) {
+                    // failure
+                    console.log("$save failed " + JSON.stringify(error));
+                    $scope.createUserError = 'Email already exists. ';
+                    $scope.createUserSuccess = '';
+
+                });
+            }
+
         }
 
 //      ************************   create new user end

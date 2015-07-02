@@ -44,9 +44,11 @@
             </div>
         </div>
 
-        <div class="articles-story by_story" ng-bind-html="trustForcefully(question.text)">
+        <div class="articles-story by_story" id="{{question.id}}">
+            {{question.text}}
         </div>
         <div style="clear: both"></div>
+        <div ng-if="question.text && question.text.length > 0" on-finish-render="{{question.id}}"></div>
     </div>
 </div>
 

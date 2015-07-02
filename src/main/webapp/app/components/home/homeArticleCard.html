@@ -9,7 +9,7 @@
 </div>
 
 <div ng-repeat="article in articles" data-index="discussion-articles"
-     data-link="articles.html" on-finish-render="ngRepeatFinished">
+     data-link="articles.html">
 
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
@@ -43,9 +43,11 @@
             </div>
         </div>
 
-        <div class="articles-story by_story" ng-bind-html="trustForcefully(article.text)">
+        <div class="articles-story by_story"  id="{{article.id}}">
+            {{article.text}}
         </div>
         <div style="clear: both"></div>
+        <div ng-if="article.text && article.text.length > 0" on-finish-render="{{article.id}}"></div>
     </div>
 </div>
 

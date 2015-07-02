@@ -1,7 +1,6 @@
 package com.beautifulyears.rest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,7 @@ import com.beautifulyears.repository.DiscussRepository;
 @Controller
 @RequestMapping("/reply")
 public class DiscussReplyController {
-	private Logger logger = LoggerFactory
+	private Logger logger = Logger
 			.getLogger(DiscussReplyController.class);
 
 	private DiscussReplyRepository discussReplyRepository;

@@ -33,6 +33,8 @@ public class DiscussRepositoryImpl implements DiscussRepositoryCustom {
 	public Long getSize(String discussType, String topicId, String subTopicId) {
 		// TODO Auto-generated method stub
 		Query q = new Query();
+		q.addCriteria(Criteria.where("status").in(
+				new Object[] { DiscussConstants.DISCUSS_STATUS_ACTIVE, null }));
 		q = getQuery(q, discussType, topicId, subTopicId);
 		return this.mongoTemplate.count(q, Discuss.class);
 	}

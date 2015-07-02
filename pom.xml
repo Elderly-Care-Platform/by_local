@@ -110,7 +110,9 @@
 				</executions>
 				<configuration>
 					<includes>
-						<include>\target\by\**.html</include>
+						<include>\target\by\**\**.html</include>
+						<include>\target\by\**\**.js</include>
+						<include>\target\by\**\**.css</include>
 					</includes>
 					<replacements>
 						<replacement>

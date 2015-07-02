@@ -287,7 +287,7 @@ public class DiscussController {
 					discussStatus, aggrReplyCount, systemTags,
 					discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
-							.getArticlePhotoFilename() : "", false);
+							.getArticlePhotoFilename() : null, false);
 		} catch (Exception e) {
 			Util.handleException(e);
 		}

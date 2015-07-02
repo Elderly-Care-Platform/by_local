@@ -23,7 +23,7 @@
             </ul>
         </div>
         <div class="article-heading">{{detailResponse.discuss.title}}</div>
-        <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename}}" fallback-src="">
+        <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original||""}}","assets/img/by.jpg"]'>
 
         <div class="articles-story" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>

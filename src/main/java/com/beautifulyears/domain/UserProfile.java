@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.beautifulyears.domain.UserAddress;
+
 /** The UserProfile class specifies profile information of all types of users including 
 *  individual and institutions. 
 *  Documents corresponding to this class are stored in user_profile collection in MongodB.
@@ -33,7 +35,7 @@ public class UserProfile {
 	
 	private String profileImage;  //in case of individuals it is the profile or it is the company logo.
 	
-	private String primaryEmail;
+	private String primaryEmail; //the 
 	
 	private List<String> secondaryEmails = new ArrayList<String>();
 	
@@ -50,24 +52,50 @@ public class UserProfile {
 	private String tags;
 
 	private boolean isFeatured;
+	
+	private UserAddress userAddress;
+	
+	private List<String> systemTags = new ArrayList<String>();
 
-	public UserProfile() {
-
+	private List<String> userTags = new ArrayList<String>();
+	
+	private int status; //Unparroved, verified, etc. 
+	
+	public UserProfile()
+	{
+		
 	}
 
-	public UserProfile(String userId, String firstName,
-			List<Integer> userTypes, List<String> services, boolean homeVisits,
-			String profileImage) {
+	
+	public UserProfile(String id, String userId, String firstName,
+			String lastName, int sex, List<Integer> userTypes,
+			List<String> services, boolean homeVisits, String profileImage,
+			String primaryEmail, List<String> secondaryEmails,
+			String primaryPhoneNo, List<String> secondaryPhoneNos,
+			String website, String description, List<String> photoGalleryURLs,
+			String tags, boolean isFeatured, UserAddress userAddress) {
 		super();
+		this.id = id;
 		this.userId = userId;
 		this.firstName = firstName;
+		this.lastName = lastName;
+		this.sex = sex;
 		this.userTypes = userTypes;
 		this.services = services;
 		this.homeVisits = homeVisits;
 		this.profileImage = profileImage;
+		this.primaryEmail = primaryEmail;
+		this.secondaryEmails = secondaryEmails;
+		this.primaryPhoneNo = primaryPhoneNo;
+		this.secondaryPhoneNos = secondaryPhoneNos;
+		this.website = website;
+		this.description = description;
+		this.photoGalleryURLs = photoGalleryURLs;
+		this.tags = tags;
+		this.isFeatured = isFeatured;
+		this.userAddress = userAddress;
 	}
-	
-	
+
 	public String getId() {
 		return id;
 	}
@@ -212,6 +240,45 @@ public class UserProfile {
 		this.isFeatured = isFeatured;
 	}
 
+	public UserAddress getUserAddress() {
+		return userAddress;
+	}
+
+	public void setUserAddress(UserAddress userAddress) {
+		this.userAddress = userAddress;
+	}
+	
+	
+	public List<String> getSystemTags() {
+		return systemTags;
+	}
+
+
+	public void setSystemTags(List<String> systemTags) {
+		this.systemTags = systemTags;
+	}
+
+
+	public List<String> getUserTags() {
+		return userTags;
+	}
+
+
+	public void setUserTags(List<String> userTags) {
+		this.userTags = userTags;
+	}
+
+
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
 	@Override
 	public String toString() {
 		return "UserProfile [id=" + id + ", userId=" + userId + ", firstName="
@@ -223,7 +290,9 @@ public class UserProfile {
 				+ primaryPhoneNo + ", secondaryPhoneNos=" + secondaryPhoneNos
 				+ ", website=" + website + ", description=" + description
 				+ ", photoGalleryURLs=" + photoGalleryURLs + ", tags=" + tags
-				+ ", isFeatured=" + isFeatured + ", getId()=" + getId()
+				+ ", isFeatured=" + isFeatured + ", userAddress=" + userAddress
+				+ ", systemTags=" + systemTags + ", userTags=" + userTags
+				+ ", status=" + status + ", getId()=" + getId()
 				+ ", getUserId()=" + getUserId() + ", getFirstName()="
 				+ getFirstName() + ", getLastName()=" + getLastName()
 				+ ", getSex()=" + getSex() + ", getUserTypes()="
@@ -237,12 +306,15 @@ public class UserProfile {
 				+ ", getDescription()=" + getDescription()
 				+ ", getPhotoGalleryURLs()=" + getPhotoGalleryURLs()
 				+ ", getTags()=" + getTags() + ", isFeatured()=" + isFeatured()
+				+ ", getUserAddress()=" + getUserAddress()
+				+ ", getSystemTags()=" + getSystemTags() + ", getUserTags()="
+				+ getUserTags() + ", getStatus()=" + getStatus()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
 
-	
 
+	
 
 	
 

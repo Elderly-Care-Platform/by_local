@@ -2,6 +2,7 @@ package com.beautifulyears.rest.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.domain.BasicProfileInfo;
+import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
 import com.beautifulyears.domain.UserProfile;
@@ -61,11 +67,12 @@ public class UserProfileTest {
 		return this.userProfilePage;
 	}*/
 	
-	/* this method allows to get first page of userProfiles*/
+	/* this is a test method which allows to get first page of userProfiles*/
 	@RequestMapping(method = {RequestMethod.GET}, value = { "/list" }, produces = { "application/json" })
 	@ResponseBody
-	public List<UserProfile> getUserProfilebyPage(
+	public ResponseEntity<List<UserProfile>> getUserProfilebyPage(
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
+		HttpStatus httpStatus = HttpStatus.OK;
 		LoggerUtil.logEntry();
 		logger.debug("trying to test adding a user profile");
 		/* Need to check, how to get page parameters and return corresponding page */
@@ -75,65 +82,73 @@ public class UserProfileTest {
 		createUserProfile();
 		getUserProfilePage(0, 20);
 		
-		return this.userProfilePage.getContent();
+		return new ResponseEntity<List<UserProfile>>(this.userProfilePage.getContent(),null, httpStatus);
 	}
 	
-	/*@PathVariable(value = "discussType") String discussType*/
+	/*@PathVariable(value = "userProfileID") String userProfileID */
 	@RequestMapping(method = {RequestMethod.GET}, value = { "/{userProfileID}" }, produces = { "application/json" })
 	@ResponseBody
-	public UserProfile getUserProfilebyID(@PathVariable(value = "userProfileID") String userProfileID,
+	public ResponseEntity<UserProfile> getUserProfilebyID(@PathVariable(value = "userProfileID") String userProfileID,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
-		LoggerUtil.logEntry();
+		
 		this.userProfile = null;
+		HttpStatus httpStatus = HttpStatus.OK;
+		LoggerUtil.logEntry();
 		logger.debug("trying to get a user profile by ID");
 		if (userProfileID != null) {
 			
 			this.userProfile = this.userProfileRepository.findOne(userProfileID);
 			if (this.userProfile == null) {
-				logger.error("did not find any profile mathcing ID");
-				res.sendError(HttpServletResponse.SC_NOT_FOUND);
+				logger.error("did not find any profile matching ID");
+				httpStatus = HttpStatus.NOT_FOUND;
 			}
 		}
 		else {
 			logger.error("invalid parameter");
-			res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			httpStatus = HttpStatus.BAD_REQUEST;
 		}
 		
 		
-		return this.userProfile;
+		return new ResponseEntity<UserProfile>(this.userProfile, null, httpStatus);
 	}
 	
 	/* this method allows to get a page of userProfiles based on page number and size */
 	@RequestMapping(method = {RequestMethod.GET}, value = { "/list" }, params = { "page", "size" }, produces = { "application/json" })
 	@ResponseBody
-	public List<UserProfile> getUserProfilebyPageParams(@RequestParam( "page" ) int page, @RequestParam( "size" ) int size,
+	public ResponseEntity<List<UserProfile>> getUserProfilebyPageParams(@RequestParam( "page" ) int page, @RequestParam( "size" ) int size,
 		 HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
 		LoggerUtil.logEntry();
+		HttpStatus httpStatus = HttpStatus.OK;
 		logger.debug("trying to test adding a user profile");
 	
 		/* check the collection */
 		/* validate input Param*/
+		logger.debug("page" + page + ",size");
 		if (( page >= 0) && (size > 0))
 		{
 			/* check is at least one record exists.*/
 			getUserProfilePage(page, size);
 			if (this.userProfilePage.hasContent() == false) {
 				logger.debug("There is nothing to retrieve");
+				/* not sure whether I should be setting an error here */
 			}
 			
 		}
 		else
 		{
 			logger.error("getUserProfilebyPageParams - invalid arguments");
+			httpStatus = HttpStatus.BAD_REQUEST;
 		}
-		return this.userProfilePage.getContent();
+		return new ResponseEntity<List<UserProfile>>(this.userProfilePage.getContent(),null, httpStatus);
 	}
 
 	/* This method allows the creation of a user profile */
 	@RequestMapping(method = { RequestMethod.POST }, value = { "" }, consumes = { "application/json" })
 	@ResponseBody
-	public UserProfile submitUserProfile(@RequestBody UserProfile userProfile,
+	public ResponseEntity<UserProfile> submitUserProfile(@RequestBody UserProfile userProfile,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
+		HttpStatus httpStatus = HttpStatus.OK;
 		LoggerUtil.logEntry();
 		logger.debug("in submit User Profile");
 		if ((userProfile != null)) {
@@ -149,20 +164,20 @@ public class UserProfileTest {
 							+ this.userProfile.toString());
 				} else {
 					logger.error("Wrong user ID" + this.userProfile.getUserId());
-					res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+					httpStatus = HttpStatus.UNAUTHORIZED;
 				}
 			} else {
 				this.userProfile = null;
 				logger.error("No valid user session");
-				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+				httpStatus = HttpStatus.UNAUTHORIZED;;
 			}
 		} else {
 			this.userProfile = null;
 			logger.debug("In trouble Jharana");
-			res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			httpStatus = HttpStatus.BAD_REQUEST;
 
 		}
-		return this.userProfile;
+		return new ResponseEntity<UserProfile>(this.userProfile, null, httpStatus);
 	}
 	
 
@@ -170,43 +185,38 @@ public class UserProfileTest {
 	
 
 
-	private boolean prepareAndValidateUserProfile(UserProfile userProfile) {
-	// TODO Auto-generated method stub
-	boolean isValid = true;
 	
-	if ((userProfile.getFirstName() == null) || (userProfile.getPrimaryEmail() == null) 
-			|| (userProfile.getServices() == null) || (userProfile.getUserTypes() == null))
-	{
-		isValid = false;
-		
-	}
-	
-	return isValid;
-	
-	
-}
 	private void createUserProfile(){
+		BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
+		ServiceProviderInfo	serviceProviderInfo = new ServiceProviderInfo();
 		UserAddress userAddress = new UserAddress();
+		this.userProfile = new UserProfile();
 		
 		LoggerUtil.logEntry();
 		logger.debug("in testUserProfile.java");
 		List<Integer> userTypeList = new ArrayList<Integer>();
 		List<String> imageURLs = new ArrayList<String>();
+	
 		
 		userTypeList.add(UserTypes.INSTITUTION_SERVICES);
+		userProfile.setUserTypes(userTypeList);
 		
+		
+		
+		/* Set basic Profile Information */
+		basicProfileInfo.setFirstName("Nighhtingales");
+		basicProfileInfo.setProfileImage("xyz.url");
+	
+	
+		basicProfileInfo.setDescription("Beautiful home health care services");
+		basicProfileInfo.setPrimaryEmail("abc@nighitngales.com");
+		basicProfileInfo.setPrimaryPhoneNo("99723008321");
+		
+
 		imageURLs.add("image1.jpg");
 		imageURLs.add("image2.jpg");
-		userProfile = new UserProfile();
-		userProfile.setFirstName("Nighhtingales");
-		userProfile.setProfileImage("xyz.url");
-		userProfile.setHomeVisits(true);
-		userProfile.setUserTypes(userTypeList);
-		userProfile.setDescription("Beautiful home health care services");
-		userProfile.setPrimaryEmail("abc@nighitngales.com");
-		userProfile.setPrimaryPhoneNo("99723008321");
-		userProfile.setWebsite("www.google.com");
-		userProfile.setPhotoGalleryURLs(imageURLs);
+		
+		basicProfileInfo.setPhotoGalleryURLs(imageURLs);
 		
 		/* set address */
 		userAddress.setCountry("India");
@@ -214,8 +224,14 @@ public class UserProfileTest {
 		userAddress.setLocality("J P Nagar");
 		userAddress.setStreetAddress("BG campus");
 		userAddress.setZip("560078");
-		userProfile.setUserAddress(userAddress);
+		basicProfileInfo.setUserAddress(userAddress);
 		
+		serviceProviderInfo.setHomeVisits(true);
+		serviceProviderInfo.setWebsite("www.google.com");
+		serviceProviderInfo.setYearsExperience(5);
+		serviceProviderInfo.setIncorporationDate(new Date());
+		this.userProfile.setBasicProfileInfo(basicProfileInfo);
+		this.userProfile.setServiceProviderInfo(serviceProviderInfo);
 		
 		userProfileRepository.save(userProfile);
 		
@@ -231,6 +247,7 @@ public class UserProfileTest {
 		java.util.Iterator<UserProfile> upIterator = userProfiles.iterator();
 		this.userProfile = upIterator.next();
 		logger.debug(this.userProfile.toString());*/
+		this.userProfilePage = null;
 		this.userProfilePage = userProfileRepository.findAll(new PageRequest(page, size));	
 		
 	}

@@ -19,9 +19,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
                         }
                     }
                     $scope.header1 = "Also by";
-                    $scope.header2 = ($scope.discuss.username && $scope.discuss.username.trim()!=="" &&  $scope.discuss.username!=="null") ? $scope.discuss.username : "Anonymous";
-
-
+                    $scope.header2 = BY.validateUserName($scope.discuss.username);
                 });
             }
 

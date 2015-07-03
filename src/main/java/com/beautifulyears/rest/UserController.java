@@ -102,7 +102,6 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Session logout(
-			@PathVariable("sessionId") String sessionId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Session session = null;

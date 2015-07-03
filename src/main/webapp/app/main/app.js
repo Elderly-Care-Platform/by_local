@@ -293,6 +293,7 @@ function ($scope,$location, $rootScope, $http) {
 	if($rootScope.sessionId != '') {
 			   $location.path("/users/login");
 	}
+	$http.get(apiPrefix + "api/v1/users/logout");
 	$rootScope.sessionId = undefined;
 	$rootScope.bc_discussType = '';
 	$rootScope.bc_username = '';

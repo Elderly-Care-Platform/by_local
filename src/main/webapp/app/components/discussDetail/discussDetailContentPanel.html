@@ -3,15 +3,15 @@
         <div class="article-info">
             <ul class="list-inline posted-info">
                 <li ng-if="detailResponse.discuss.discussType == 'A'">
-                    Story by <a>{{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}} </a>
+                    Story by <a validate-user-name="{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
-                    Post by <a>{{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}}</a>
+                    Post by <a validate-user-name="{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
-                    Question by <a> {{detailResponse.discuss.username !== "null" ? detailResponse.discuss.username : "Anonymous"}} </a>
+                    Question by <a validate-user-name="{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.topicId.length > 0"> In
@@ -23,7 +23,7 @@
             </ul>
         </div>
         <div class="article-heading">{{detailResponse.discuss.title}}</div>
-        <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original||""}}","assets/img/by.jpg"]'>
+        <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]'>
 
         <div class="articles-story" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>

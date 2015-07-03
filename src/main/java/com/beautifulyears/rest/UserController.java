@@ -100,15 +100,13 @@ public class UserController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/logout/{sessionId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Session logout(
-			@PathVariable("sessionId") String sessionId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Session session = null;
 		try {
-			logger.debug("user logged out successfully with sessionId = "
-					+ sessionId);
+			logger.debug("logging out");
 			session = killSession(req, res);
 		} catch (Exception e) {
 			Util.handleException(e);

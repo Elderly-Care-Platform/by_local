@@ -18,15 +18,15 @@
             <ul class="list-inline posted-info">
                 <li>
                     <p class="article-first-letter" ng-if="article.discussType == 'A'">
-                        Story by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a>
+                        Story by <a validate-user-name="{{article.username}}">{{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="article.discussType == 'Q'">
-                        Question by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a>
+                        Question by <a validate-user-name="{{article.username}}">{{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="article.discussType == 'P'">
-                        Post by <a href="#">{{article.username !== "null"  ? article.username : "Anonymous"}}</a>
+                        Post by <a validate-user-name="{{article.username}}">{{username}}</a>
                         |
                     </p>
                 </li>

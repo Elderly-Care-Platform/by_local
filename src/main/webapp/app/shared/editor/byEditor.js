@@ -158,42 +158,10 @@ BY.editorCategoryList = (function(){
     }
 })();
 
-
-//BY.selectedCategoryList = {};
-//BY.selectCategory = function(selectedInput){
-//    //var $body = angular.element(document.body);   // 1
-//    //var $rootScope = $body.scope().$root;
-//    //var categorySelected = selectedInput.value;
-//
-////    for(category in $rootScope.discussCategoryList) {
-////        if($rootScope.discussCategoryList[category].id == categorySelected){
-////            var childElements = document.getElementById(categorySelected).children;
-////            for(var j=0; j<childElements.length; j++) {
-////                childElements[j].children[0].checked = selectedInput.checked;
-////                if(selectedInput.checked===true){
-////                	BY.selectedCategoryList[childElements[j].children[0].value] = childElements[j].children[0].value;
-////                }else{
-////                	delete BY.selectedCategoryList[childElements[j].children[0].value];
-////                }
-////            }
-////        }
-////
-////
-////    }
-//
-//    //if(selectedInput.checked===true && $rootScope.discussCategoryListMap[categorySelected] && $rootScope.discussCategoryListMap[categorySelected].parentId){
-//    //	//$('input[value="'+$rootScope.discussCategoryListMap[categorySelected].parentId+'"]').attr("checked",true);
-//    //    if()
-//    //	BY.selectedCategoryList[$rootScope.discussCategoryListMap[categorySelected].parentId] = $rootScope.discussCategoryListMap[categorySelected].parentId;
-//    //}
-//
-//    if(selectedInput.checked===true){
-//    	BY.selectedCategoryList[selectedInput.value] = selectedInput.value ;
-//    }else{
-//    	delete BY.selectedCategoryList[selectedInput.value];
-//    }
-//
-//}
-//
-//BY.getCategoryList
+BY.validateUserName = function(userName){
+    if(!userName || userName.trim()==="" ||  userName==="null"){
+        userName = "Anonymous";
+    }
+    return userName;
+}
 

@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.Discuss;
-import com.beautifulyears.repository.DiscussRepository;
-import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 
 /**
  * The REST based service for managing "search"

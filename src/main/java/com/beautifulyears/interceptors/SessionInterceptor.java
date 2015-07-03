@@ -1,8 +1,5 @@
 package com.beautifulyears.interceptors;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,10 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
-import com.beautifulyears.repository.DiscussRepository;
-import com.beautifulyears.repository.SessionRepository;
 import com.beautifulyears.repository.UserRepository;
-import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 @Service
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger logger = Logger
@@ -37,6 +31,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 				.isEmpty())
 				&& (null == request.getSession().getAttribute("session") || null == request
 						.getSession().getAttribute("user"))) {
+			logger.debug("Creating new session object");
 			Query q = new Query();
 			q.addCriteria(Criteria.where("sessionId").is(sessionId));
 			Session session = mongoTemplate.findOne(q, Session.class);

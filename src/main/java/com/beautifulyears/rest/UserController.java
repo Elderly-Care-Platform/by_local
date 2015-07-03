@@ -28,10 +28,8 @@ import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRolePermissions;
-import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.exceptions.UserAuthorizationException;
 import com.beautifulyears.repository.UserRepository;
-import com.beautifulyears.repository.custom.UserRepositoryCustom;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
@@ -52,7 +50,6 @@ public class UserController {
 
 	@Autowired
 	public UserController(UserRepository userRepository,
-			UserRepositoryCustom userRepositoryCustom,
 			MongoTemplate mongoTemplate) {
 		this.userRepository = userRepository;
 		this.mongoTemplate = mongoTemplate;
@@ -136,8 +133,6 @@ public class UserController {
 				Query q = new Query();
 				q.addCriteria(Criteria.where("email").is(user.getEmail()));
 				if (mongoTemplate.count(q, User.class) > 0) {
-					ResponseEntity<String> responseEntity = new ResponseEntity<String>(
-							"Email already exists!", HttpStatus.CREATED);
 					logger.debug("user with the same emailId already exist = "
 							+ user.getEmail());
 					throw new Exception("Email already exists!");
@@ -237,21 +232,6 @@ public class UserController {
 	public @ResponseBody User getUser(@PathVariable("userId") String userId) {
 		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
-		return user;
-	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/verify/{verificationCode}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody User verifyUser(
-			@PathVariable("verificationCode") String verificationCode) {
-		LoggerUtil.logEntry();
-		User user = null;
-		try {
-			user = userRepository.getByVerificationCode(verificationCode);
-			user.setActive("Active");
-			userRepository.save(user);
-		} catch (Exception e) {
-
-		}
 		return user;
 	}
 

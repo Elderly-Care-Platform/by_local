@@ -89,7 +89,7 @@ public class User {
 		this.passwordCodeExpiry = passwordCodeExpiry;
 		this.userRoleId = userRoleId;
 		this.isActive = isActive;
-		this.permissions = UserRolePermissions.getInstance().getUserPermsForRole(userRoleId);
+		this.permissions = UserRolePermissions.getUserPermsForRole(userRoleId);
 	}
 	
 	
@@ -142,6 +142,43 @@ public class User {
 	}
 	public void setSocialSignOnPlatform(String socialSignOnPlatform) {
 		this.socialSignOnPlatform = socialSignOnPlatform;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	public String getPasswordCode() {
 		return passwordCode;
@@ -160,7 +197,7 @@ public class User {
 	}
 	public void setUserRoleId(String userRoleId) {
 		this.userRoleId = userRoleId;
-		this.permissions = UserRolePermissions.getInstance().getUserPermsForRole(userRoleId);
+		this.permissions = UserRolePermissions.getUserPermsForRole(userRoleId);
 		
 	}
 }

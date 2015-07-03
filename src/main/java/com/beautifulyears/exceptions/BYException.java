@@ -7,6 +7,11 @@ package com.beautifulyears.exceptions;
 
 public class BYException extends RuntimeException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public BYException() {
 		// TODO Auto-generated constructor stub
 	}

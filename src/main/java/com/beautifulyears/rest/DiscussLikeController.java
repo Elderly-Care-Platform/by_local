@@ -1,7 +1,5 @@
 package com.beautifulyears.rest;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +16,6 @@ import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussLike;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
-import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.exceptions.DiscussNotFound;
 import com.beautifulyears.exceptions.UserAuthorizationException;
 import com.beautifulyears.repository.DiscussLikeRepository;

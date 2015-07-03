@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.beautifulyears.domain.Topic;
-import com.beautifulyears.rest.response.TopicResponse.TopicEntity;
 
 public class TopicResponse implements IResponse {
 
@@ -93,9 +92,9 @@ public class TopicResponse implements IResponse {
 	@Override
 	public Map<Integer, TopicEntity> getResponse() {
 		root = new HashMap<Integer, TopicEntity>();
-		Iterator it = topicMap.entrySet().iterator();
+		Iterator<?> it = topicMap.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
+			Map.Entry<?,?> pair = (Map.Entry<?,?>) it.next();
 			TopicEntity topic = (TopicEntity) pair.getValue();
 			Map<Integer, TopicEntity> childMap = root;
 			if (null != topic.getParentId()) {

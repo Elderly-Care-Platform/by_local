@@ -12,7 +12,7 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
         if(localStorage.getItem("USER_ID")){
             $scope.isLoggedIn = true;
             $scope.userEmail = localStorage.getItem("USER_ID");
-            $scope.username = localStorage.getItem("USER_NAME");
+            $scope.username = BY.validateUserName(localStorage.getItem("USER_NAME"));
         }
 
         $scope.subjectOptionsMap = {'0':"FEEDBACK", '1':"SUGGESTION", '2':"READY TO HELP ", '3':"DOING BUSINESS TOGETHER", '4':"WOULD LIKE TO INFORM YOU"};
@@ -20,7 +20,7 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
 
         $scope.postContent = function (discussType) {
             $scope.contactUs = new ContactUs();
-
+            $scope.errorMsg = "";
             $scope.contactUs.discussType = discussType;
             $scope.contactUs.text = tinyMCE.activeEditor.getContent();
             $scope.contactUs.title = $scope.subjectTitle;
@@ -28,19 +28,21 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
             $scope.contactUs.userId = $scope.userEmail;
             $scope.contactUs.username = $scope.username;
 
-            if($scope.contactUs.userId.length > 0 && emailValidation.test($scope.contactUs.userId) && $scope.contactUs.text.length > 0 && $scope.contactUs.username.length > 0){
+            if($scope.contactUs.username.trim().length <= 0){
+                $scope.errorMsg = "Please add your user name";
+            } else if($scope.contactUs.text.trim().length <= 0){
+                $scope.errorMsg = "Please add more details";
+            } else if(!$scope.isLoggedIn && !emailValidation.test($scope.contactUs.userId)){
+                $scope.errorMsg = "Please enter valid Email Id";
+            }else{
+                $scope.errorMsg = "";
+            }
+            
+            if($scope.errorMsg === ""){
                 $scope.errorMsg = "";
                 $scope.contactUs.$save(function (contactUs, headers) {
                     $location.path("/users/home");
                 });
-
-            }else{
-                if(!emailValidation.test($scope.contactUs.userId)){
-                    $scope.errorMsg = "Please enter valid Email Id";
-                } else{
-                    $scope.errorMsg = "Please fill all details";
-                }
-
             }
         }
 

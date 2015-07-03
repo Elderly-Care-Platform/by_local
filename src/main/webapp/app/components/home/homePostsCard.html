@@ -14,20 +14,20 @@
 
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', post.id, post.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
-        <img src="{{post.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
+        <img src="assets/img/by.jpg" alt="image" >
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
                     <p class="article-first-letter" ng-if="post.discussType == 'A'">
-                        Story by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a>
+                        Story by <a validate-user-name="{{post.username}}">{{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="post.discussType == 'Q'">
-                        Question by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a>
+                        Question by <a validate-user-name="{{post.username}}">{{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="post.discussType == 'P'">
-                        Post by <a href="#">{{post.username !== "null"  ? post.username : "Anonymous"}}</a>
+                        Post by <a validate-user-name="{{post.username}}">{{username}}</a>
                         |
                     </p>
                 </li>

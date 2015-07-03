@@ -1,3 +1,4 @@
+
 <div ng-controller="EditorController" class="by_editor_wrap">
     <div class="col-md-12 no-padding margin-bottom-35">
 
@@ -73,11 +74,7 @@
     <div class="col-md-12 no-padding margin-bottom-35">
         <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn" disabled ng-click="postContent('A')">submit</button>
     </div>
-</div>
-
-
-
-
+    
 <script type="text/javascript">
     var tinyEditor = BY.addEditor({"editorTextArea":"article_textArea"});
     
@@ -88,7 +85,7 @@
             	var postData = new FormData(jQuery('#UploadImage12')[0]);
             	$.ajax(
             		    {
-            		        url : 'UploadFile',
+            		        url : 'UploadFile?transcoding=true',
             		        type: "POST",
             		        enctype:"multipart/form-data",
             		        data : postData,
@@ -98,11 +95,12 @@
 						    processData: false,
             		        success:function(data, textStatus, jqXHR) 
             		        {
-            		            $("#articleTitleImage").val(data);
+            		            $("#articleTitleImage").val(JSON.stringify(data));
             		            $("#articleTitleImage").trigger('input');
             		        },
             		        error: function(jqXHR, textStatus, errorThrown) 
             		        {
+            		        	console.log(textStatus);
             		        	alert("Image upload failed");
             		        }
             		    });
@@ -121,3 +119,7 @@
     
     
 </script>
+</div>
+
+
+

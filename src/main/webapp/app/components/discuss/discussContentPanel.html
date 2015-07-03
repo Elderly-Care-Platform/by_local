@@ -5,7 +5,7 @@
     <div ng-click="go($event, 'id', discuss.id, discuss.discussType)" class="blog-author margin-bottom-35 main-article by_blog_author"
          data-index="discussion-articles"
          data-link="articles.html">
-        <img src="{{discuss.articlePhotoFilename}}" alt="image" fallback-src="assets/img/by.jpg">
+        <img src="{{discuss.articlePhotoFilename.thumbnailImage||''}}" alt="image" fallback-src='["{{discuss.articlePhotoFilename.original||""}}","assets/img/by.jpg"]'>
         <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment" ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'A' || discuss.discussType == 'P')">
@@ -33,15 +33,15 @@
             <ul class="list-inline posted-info">
                 <li>
                     <p class="article-first-letter" ng-if="discuss.discussType == 'A'">
-                        Story by <a href="#">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
+                        Story by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="discuss.discussType == 'Q'">
-                        Question by <a href="#">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
+                        Question by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="discuss.discussType == 'P'">
-                        Post by <a href="#">{{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a>
+                        Post by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
                 </li>

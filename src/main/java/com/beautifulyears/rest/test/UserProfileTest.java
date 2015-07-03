@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.BasicProfileInfo;
+import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
@@ -181,10 +182,72 @@ public class UserProfileTest {
 	}
 	
 
-	
-	
-
-
+	/*@PathVariable(value = "userProfileID") String userProfileID */
+	@RequestMapping(method = {RequestMethod.PUT}, value = { "/{userProfileID}" }, consumes = { "application/json" })
+	@ResponseBody
+	public ResponseEntity<UserProfile> updateUserProfile(@RequestBody UserProfile userProfile,
+			@PathVariable(value = "userProfileID") String userProfileID, HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		this.userProfile = null;
+		HttpStatus httpStatus = HttpStatus.OK;
+		LoggerUtil.logEntry();
+		logger.debug("trying to update a user Profile");
+		
+		if ((userProfile != null) && userProfileID != null) {
+			
+			/* first check if we have valid user session*/
+			User currentUser = Util.getSessionUser(req);
+			if (null != currentUser) {
+				logger.debug("current user details" + currentUser.getId());
+				logger.debug("userPRofile ID" + userProfile.getId());
+				
+				
+				if ( userProfile.getUserId().equals(currentUser.getId()) )
+				{
+					try {
+					this.userProfile = null;
+					this.userProfile = userProfileRepository.findOne(userProfileID);
+					logger.debug("userPRofile from repo" + this.userProfile.toString());
+					if (this.userProfile != null)  {
+					/* set required fields */
+					this.userProfile.setBasicProfileInfo(userProfile.getBasicProfileInfo());	
+					this.userProfile.setFeatured(userProfile.isFeatured());
+					this.userProfile.setIndividualInfo(userProfile.getIndividualInfo());
+					this.userProfile.setServiceProviderInfo(userProfile.getServiceProviderInfo());
+					this.userProfile.setStatus(userProfile.getStatus());
+					this.userProfile.setUserTypes(userProfile.getUserTypes());
+			
+					
+					userProfileRepository.save(this.userProfile);
+					logger.info("User Profile update with details: "
+							+ this.userProfile.toString());
+						}
+					} catch (Exception e)
+					 {
+						httpStatus = HttpStatus.NOT_FOUND;
+						logger.error("userID not found in repositry");
+						
+					}
+					
+				} else {
+					logger.error("Wrong user ID" + this.userProfile.getUserId());
+					httpStatus = HttpStatus.UNAUTHORIZED;
+				}
+			} else {
+				this.userProfile = null;
+				logger.error("No valid user session");
+				httpStatus = HttpStatus.UNAUTHORIZED;;
+			}
+		}
+			
+		else {
+			/* Bad request */
+			httpStatus = HttpStatus.BAD_REQUEST;
+		}
+		
+		
+		return new ResponseEntity<UserProfile>(this.userProfile, null, httpStatus);
+	}	
 	
 	private void createUserProfile(){
 		BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
@@ -251,5 +314,6 @@ public class UserProfileTest {
 		this.userProfilePage = userProfileRepository.findAll(new PageRequest(page, size));	
 		
 	}
-
+	
+	
 }

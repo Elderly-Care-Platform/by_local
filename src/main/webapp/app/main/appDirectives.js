@@ -42,7 +42,20 @@ byApp.directive('fallbackSrc', function () {
     var fallbackSrc = {
         link: function postLink(scope, iElement, iAttrs) {
             iElement.bind('error', function() {
-                angular.element(this).attr("src", iAttrs.fallbackSrc);
+            	try{
+            		var element = angular.element(this);
+                	var count = isNaN(parseInt(element.attr("fallbackCount"))) ?  0 : parseInt(element.attr("fallbackCount")) ;
+                	element.attr("fallbackCount", count+1);
+                	var fallbackSrs = JSON.parse(iAttrs.fallbackSrc);
+                	if(fallbackSrs && fallbackSrs.length > 0 && fallbackSrs.length > count){
+                		angular.element(this).attr("src", fallbackSrs[count]);
+                	}else{
+                		angular.element(this).removeAttr("fallback-src");
+                	}
+            	}catch(e){
+            		console.log("fallback error");
+            	}
+            	
             });
         }
     }

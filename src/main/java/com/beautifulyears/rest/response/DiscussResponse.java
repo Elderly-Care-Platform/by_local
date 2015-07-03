@@ -3,6 +3,7 @@ package com.beautifulyears.rest.response;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.User;
@@ -20,7 +21,7 @@ public class DiscussResponse implements IResponse {
 	public class DiscussEntity {
 		private String id;
 		private String title;
-		private String articlePhotoFilename;
+		private Map<String, String> articlePhotoFilename;
 		private String userId;
 		private String username;
 		private String discussType; // Q, P and A (Question, Post and Article)
@@ -78,11 +79,11 @@ public class DiscussResponse implements IResponse {
 			this.title = title;
 		}
 
-		public String getArticlePhotoFilename() {
+		public Map<String, String> getArticlePhotoFilename() {
 			return articlePhotoFilename;
 		}
 
-		public void setArticlePhotoFilename(String articlePhotoFilename) {
+		public void setArticlePhotoFilename(Map<String, String> articlePhotoFilename) {
 			this.articlePhotoFilename = articlePhotoFilename;
 		}
 

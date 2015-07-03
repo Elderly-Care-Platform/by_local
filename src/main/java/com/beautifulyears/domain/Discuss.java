@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 //The discuss collection represents Articles, Questions and Posts
 @Document(collection = "discuss")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Discuss {
 
 	@Id

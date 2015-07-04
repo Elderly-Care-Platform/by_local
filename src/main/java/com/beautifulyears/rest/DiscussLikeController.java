@@ -16,8 +16,6 @@ import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussLike;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
-import com.beautifulyears.exceptions.DiscussNotFound;
-import com.beautifulyears.exceptions.UserAuthorizationException;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
@@ -55,7 +53,7 @@ public class DiscussLikeController {
 
 		if (null == user) {
 			logger.error("Attempt made to like a content before logging in");
-			throw new UserAuthorizationException();
+//			throw new UserAuthorizationException();
 		} else {
 
 			discuss = (Discuss) discussRepository.findOne(discussId);
@@ -77,7 +75,7 @@ public class DiscussLikeController {
 					Util.handleException(e);
 				}
 			} else {
-				throw new DiscussNotFound(discussId);
+//				throw new DiscussNotFound(discussId);
 			}
 
 		}
@@ -114,7 +112,7 @@ public class DiscussLikeController {
 		try {
 			if (null == user) {
 				logger.error("Attempt made to like a content before logging in");
-				throw new UserAuthorizationException();
+//				throw new UserAuthorizationException();
 			} else {
 
 				reply = (DiscussReply) discussReplyRepository

@@ -23,8 +23,8 @@ import com.beautifulyears.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
-import com.beautifulyears.exceptions.DiscussNotFound;
-import com.beautifulyears.exceptions.UserAuthorizationException;
+import com.beautifulyears.exceptions.BYErrorCodes;
+import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.DiscussDetailResponse;
@@ -70,7 +70,7 @@ public class DiscussDetailController {
 			
 			response.addReplies(replies,Util.getSessionUser(req));
 		}else{
-			throw new DiscussNotFound(discussId);
+			throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 		}
 
 		return response.getResponse();
@@ -94,7 +94,7 @@ public class DiscussDetailController {
 				comment.setUserId(user.getId());
 				comment.setUserName(user.getUserName());
 			} else {
-				throw new UserAuthorizationException();
+//				throw new UserAuthorizationException();
 			}
 			if(!Util.isEmpty(comment.getParentReplyId())){
 				//if nested comment
@@ -123,7 +123,7 @@ public class DiscussDetailController {
 			mongoTemplate.save(discuss);
 			mongoTemplate.save(comment);
 		} else {
-			throw new DiscussNotFound(discussId);
+//			throw new DiscussNotFound(discussId);
 		}
 		return getDiscussDetail(req, res, discussId);
 	}
@@ -145,14 +145,14 @@ public class DiscussDetailController {
 				answer.setUserId(user.getId());
 				answer.setUserName(user.getUserName());
 			} else {
-				throw new UserAuthorizationException();
+//				throw new UserAuthorizationException();
 			}
 			discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 			discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 			mongoTemplate.save(discuss);
 			mongoTemplate.save(answer);
 		} else {
-			throw new DiscussNotFound(discussId);
+//			throw new DiscussNotFound(discussId);
 		}
 		return getDiscussDetail(req, res, discussId);
 	}

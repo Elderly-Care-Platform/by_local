@@ -80,7 +80,7 @@ public class User {
 		super();
 		this.userName = userName;
 		this.password = password;
-		this.email = email;
+		this.email = email.toLowerCase();
 		//this.verificationCode = verificationCode;
 		this.verificationCodeExpiry = verificationCodeExpiry;
 		this.socialSignOnId = socialSignOnId;
@@ -116,10 +116,10 @@ public class User {
 		this.password = password;
 	}
 	public String getEmail() {
-		return email;
+		return email.toLowerCase();
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 	public String getVerificationCode() {
 		return verificationCode;

@@ -5,36 +5,76 @@
  */
 package com.beautifulyears.exceptions;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.springframework.http.HttpStatus;
+
+@JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE, fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE, isGetterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class BYException extends RuntimeException {
 
-	/**
-	 * 
-	 */
+	@JsonProperty
+	private int errorCode;
+	@JsonProperty
+	private String errorMsg;
+	@JsonIgnore
+	private HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+	@JsonProperty
+	private Object errorData;
+
 	private static final long serialVersionUID = 1L;
 
-	public BYException() {
-		// TODO Auto-generated constructor stub
+	public BYException(BYErrorCodes byError) {
+		this.errorCode = byError.getId();
+		this.errorMsg = byError.getMsg();
 	}
 
-	public BYException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
+	public BYException(BYErrorCodes byError, HttpStatus httpStatus) {
+		this.errorCode = byError.getId();
+		this.errorMsg = byError.getMsg();
+		if (null != httpStatus) {
+			this.httpStatus = httpStatus;
+		}
 	}
 
-	public BYException(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
+	public BYException(BYErrorCodes byError, HttpStatus httpStatus,
+			Object errorData) {
+		this.errorCode = byError.getId();
+		this.errorMsg = byError.getMsg();
+		this.httpStatus = httpStatus;
+		this.errorData = errorData;
 	}
 
-	public BYException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
+	public Object getErrorData() {
+		return errorData;
 	}
 
-	public BYException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
+	public void setErrorData(Object errorData) {
+		this.errorData = errorData;
+	}
+
+	public int getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public HttpStatus getHttpStatus() {
+		return httpStatus;
+	}
+
+	public void setHttpStatus(HttpStatus httpStatus) {
+		this.httpStatus = httpStatus;
 	}
 
 }

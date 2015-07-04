@@ -32,7 +32,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 
        	var session = SessionIdService.getSessionId();
        	if (session == '' || session == null) {
-       		console.log(next.templateUrl);
+//       		console.log(next.templateUrl);
        		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
             // no logged user, we should be going to #login
             //Code to allow non-logged in users to visit read only pages
@@ -361,12 +361,26 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 			var location = $scope.discuss.discussType;
 			var mode = discussType;
 
-			$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
+			DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId}).$promise.then(
+		             //success
+		             function( value ){
+		            	 $scope.discuss = value.data;
+		             	},
+		             //error
+		             function( error ){
+		             		console.log("QUErY ERROR");
+		             		alert("error2");
+		             		}
+		           );
 			document.getElementById(element_id).style.display = 'none';
 
 			$route.reload();
 			//??????$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
 
+		},
+		function (error) {
+			console.log("Discuss");
+			alert("error");
 		});
 
 	};
@@ -457,7 +471,17 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 			else
 			{
 	 			//Create the new discuss user like
-	 			$scope.discuss = DiscussUserLikes.get({userId:userId, discussId: discussId});
+	 			DiscussUserLikes.get({userId:userId, discussId: discussId}).$promise.then(
+	 		             //success
+	 		             function( value ){
+	 		            	 $scope.discuss = value.data;
+	 		             	},
+	 		             //error
+	 		             function( error ){
+	 		             		console.log("QUErY ERROR");
+	 		             		alert("error2");
+	 		             		}
+	 		           );
 			}
 
 		}
@@ -481,7 +505,17 @@ byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '
 	  	discussType = 'All';
 	  }
 
-     $scope.discuss2 = UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId});
+     UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId}).$promise.then(
+             //success
+             function( value ){
+            	 $scope.discuss2 = value.data;
+             	},
+             //error
+             function( error ){
+             		console.log("QUErY ERROR");
+             		alert("error2");
+             		}
+           );
   }]);
 
 

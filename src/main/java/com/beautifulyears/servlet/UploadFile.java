@@ -72,17 +72,13 @@ public class UploadFile extends HttpServlet {
 							BufferedImage resizeImageJpg = resizeImage(newFile,
 									TITLE_IMG_WIDTH, TITLE_IMG_HEIGHT);
 							ImageIO.write(resizeImageJpg, "jpg", new File(
-									uploadDir + File.separator + fname + "_"
-											+ TITLE_IMG_WIDTH + "_"
-											+ TITLE_IMG_HEIGHT + "."
+									uploadDir + File.separator + fname + "_titleImage."
 											+ extension));
 							resizeImageJpg = resizeImage(newFile,
 									THUMBNAIL_IMG_WIDTH, THUMBNAIL_IMG_HEIGHT);
 
 							ImageIO.write(resizeImageJpg, "jpg", new File(
-									uploadDir + File.separator + fname + "_"
-											+ THUMBNAIL_IMG_WIDTH + "_"
-											+ THUMBNAIL_IMG_HEIGHT + "."
+									uploadDir + File.separator + fname + "_thumbnailImage."
 											+ extension));
 						}
 
@@ -101,13 +97,9 @@ public class UploadFile extends HttpServlet {
 									+ extension);
 							res.append("\",");
 							res.append("\"titleImage\":");
-							res.append("\"/uploaded_files/" + fname + "_"
-									+ TITLE_IMG_WIDTH + "_" + TITLE_IMG_HEIGHT
-									+ "." + extension + "\",");
+							res.append("\"/uploaded_files/" + fname + "_titleImage." + extension + "\",");
 							res.append("\"thumbnailImage\":");
-							res.append("\"/uploaded_files/" + fname + "_"
-									+ THUMBNAIL_IMG_WIDTH + "_"
-									+ THUMBNAIL_IMG_HEIGHT + "." + extension
+							res.append("\"/uploaded_files/" + fname + "_thumbnailImage." + extension
 									+ "\"");
 							res.append("}");
 						}

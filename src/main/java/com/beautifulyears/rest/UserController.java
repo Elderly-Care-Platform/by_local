@@ -28,7 +28,6 @@ import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRolePermissions;
-import com.beautifulyears.exceptions.UserAuthorizationException;
 import com.beautifulyears.repository.UserRepository;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
@@ -80,7 +79,7 @@ public class UserController {
 					logger.debug("log in failed with userId = "
 							+ loginRequest.getEmail());
 					session = killSession(req, res);
-					throw new UserAuthorizationException();
+//					throw new UserAuthorizationException();
 				} else {
 					logger.debug("user logged in into the system with userId = "
 							+ user.getId()

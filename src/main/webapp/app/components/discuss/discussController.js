@@ -1,13 +1,20 @@
 //DIscuss All
 byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList',
-    'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','Discuss','$sce','$timeout',
+    'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','$sce','$timeout',
     function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType,
-              DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss,$sce, $timeout) {
+              DiscussOneTopicOneSubTopicListCount, DiscussUserLikes,$sce, $timeout) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
         $scope.article_story = "";
 		$scope.showme = true;
-        $scope.discuss = DiscussList.query();
+        DiscussList.query(function( value ){
+						       	 $scope.discuss = value.data;
+					     	},
+						     //error
+						     function( error ){
+						     		console.log("QUErY ERROR");
+						     		alert("error2");
+					     	});
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -32,12 +39,21 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             topicId: "list",
             subTopicId: "all"
         }).then(function (counts) {
-            $scope.discuss_counts = counts;
+            $scope.discuss_counts = counts.data;
+        },
+        function(error){
+        	console.log("DiscussOneTopicOneSubTopicListCount");
+        	alert("error");
         });
 
         $("#preloader").show();
-        $scope.discuss = DiscussAllForDiscussType.query({discussType: discussType},function(){
+        DiscussAllForDiscussType.query({discussType: discussType},function(value){
+        	 $scope.discuss = value.data;
         	$("#preloader").hide();
+        },
+        function(error){
+        	console.log("DiscussAllForDiscussType");
+        	alert("error");
         });
 
         $rootScope.bc_topic = 'list';
@@ -123,8 +139,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
 
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicOneSubTopicList',
-    'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes', 'Discuss','$sce',
-    function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, Discuss, $sce) {
+    'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','$sce',
+    function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, $sce) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
 
@@ -185,19 +201,27 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             topicId: topicQueryId,
             subTopicId: subTopicQueryId
         }).then(function (counts) {
-            $scope.discuss_counts = counts;
+            $scope.discuss_counts = counts.data;
+        },
+        function (error) {
+        	console.log("DiscussOneTopicOneSubTopicListCount");
+            alert("error");
         });
 
 
         ///alert("one topic one sub topic :: " + $scope.discuss_counts);
 
         $("#preloader").show();
-        $scope.discuss = DiscussOneTopicOneSubTopicList.query({
+        DiscussOneTopicOneSubTopicList.query({
             discussType: discussType,
             topicId: topicQueryId,
             subTopicId: subTopicQueryId
-        },function(){
+        },function(value){
+        	$scope.discuss = value.data;
         	$("#preloader").hide();
+        },function(error){
+        	console.log("DiscussOneTopicOneSubTopicList");
+        	alert("error");
         })
 
 

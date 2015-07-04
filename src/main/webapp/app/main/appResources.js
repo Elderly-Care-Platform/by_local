@@ -54,8 +54,9 @@ var broadCastData = byServices.factory('broadCastData', function($rootScope){
 //home featured content API
 var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
     return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {
-        get: {method: 'GET', params: {discussType: '@discussType'}}
-    })
+        query: {method: 'GET', isArray: false}
+        
+    });
 });
 
 //discuss detail page API
@@ -66,7 +67,7 @@ var discussDetail = byServices.factory('DiscussDetail', function($resource) {
         get: {method: 'GET', params: {discussId: '@id'}},
         postAnswer: {method:'POST', params:{type:1}},
         postComment: {method:'POST', params:{type:0}}
-    })
+    });
 });
 
 //discuss Likes api
@@ -83,7 +84,7 @@ var discussLike = byServices.factory('DiscussLike', function($resource){
 var discussByUserFilter = byServices.factory('UserDiscussList', function($resource) {
     ///start here
     return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId/:userId',{}, {
-        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: true}
+        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false}
 
     })
 });
@@ -163,7 +164,7 @@ var userEdit = byServices.factory('UserEdit', function($resource) {
 
 var userByFilter = byServices.factory('UserList', function($resource) {
     return $resource(apiPrefix+'api/v1/users/list/all',{}, {
-
+    	query: {method: 'GET', isArray: false}
     })
 });
 
@@ -215,27 +216,27 @@ var discuss = byServices.factory('DiscussCreate', function($resource) {
 });
 
 
-var discussByFilterPost = byServices.factory('PostDiscuss', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/list/P/:bc_topic/:bc_subTopic',{}, {
-        get: {method: 'GET', params: {bc_topic: '@bc_topic'}}
-    })
-});
+//var discussByFilterPost = byServices.factory('PostDiscuss', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/list/P/:bc_topic/:bc_subTopic',{}, {
+//        get: {method: 'GET', params: {bc_topic: '@bc_topic'}}
+//    })
+//});
 
 
-var discussByFilterQuestion = byServices.factory('QuestionDiscuss', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/list/Q/:bc_topic/:bc_subTopic',{}, {
-    })
-});
+//var discussByFilterQuestion = byServices.factory('QuestionDiscuss', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/list/Q/:bc_topic/:bc_subTopic',{}, {
+//    })
+//});
 
-var discussByFilterArticle = byServices.factory('ArticleDiscuss', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/list/A/:bc_topic/:bc_subTopic',{}, {
-    })
-});
+//var discussByFilterArticle = byServices.factory('ArticleDiscuss', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/list/A/:bc_topic/:bc_subTopic',{}, {
+//    })
+//});
 
 
 var discussByFilter = byServices.factory('DiscussList', function($resource) {
     return $resource(apiPrefix+'api/v1/discuss/list/all',{}, {
-
+    	query: {method: 'GET', isArray: false}
     })
 });
 
@@ -252,7 +253,8 @@ var discussSearch = byServices.factory('DiscussSearch', function($resource) {
 
 var allDiscussByTypeFilter = byServices.factory('DiscussAllForDiscussType', function($resource) {
     return $resource(apiPrefix+'api/v1/discuss/list/all/:discussType',{}, {
-        get: {method: 'GET', params: {discussType: '@discussType'}}
+        get: {method: 'GET', params: {discussType: '@discussType'},isArray:false},
+        query: {method: 'GET', params: {discussType: '@discussType'},isArray:false}
     })
 });
 
@@ -264,15 +266,16 @@ var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', func
 });
 
 
-var discussByOTASTFilter = byServices.factory('DiscussOneTopicAllSubTopicList', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/list/:topicId/all',{}, {
-        get: {method: 'GET', params: {topicId: '@topicId'}}
-    })
-});
+//var discussByOTASTFilter = byServices.factory('DiscussOneTopicAllSubTopicList', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/list/:topicId/all',{}, {
+//        get: {method: 'GET', params: {topicId: '@topicId'}}
+//    })
+//});
 
 var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', function($resource) {
     return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId',{}, {
-        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: true}
+        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false},
+        query: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false}
     })
 });
 
@@ -316,13 +319,13 @@ var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicLi
     }
 });
 
-var discussShow = byServices.factory('DiscussShow', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {
-        show: {method: 'GET', params: {discussId: '@id'}},
-        get: {method: 'GET', params: {discussId: '@id'}}
-    })
-});
-
+//var discussShow = byServices.factory('DiscussShow', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {
+//        show: {method: 'GET', params: {discussId: '@id'}},
+//        get: {method: 'GET', params: {discussId: '@id'}}
+//    })
+//});
+//
 
 
 var discussCategoryList = byServices.factory('discussCategoryList', function ($resource) {

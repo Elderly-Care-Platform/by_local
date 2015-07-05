@@ -15,6 +15,7 @@ public enum BYErrorCodes {
 
 	// discuss related error
 	DISCUSS_NOT_FOUND(2001, "Discuss content with provided discussId doesn't exist"),
+	DISCUSS_ALREADY_LIKED_BY_USER(2002, "Discuss content already liked by the logged in user"),
 
 	// user error
 	USER_NOT_AUTHORIZED(3001, "User is not authorized to persform the selected operation"),

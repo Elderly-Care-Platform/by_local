@@ -1,6 +1,5 @@
 package com.beautifulyears.rest;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +31,13 @@ import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
+/**
+ * Controller to handle all the discuss detail related API 1. getting full
+ * discuss detail (discuss + replies) 2. Posting comment 3. Posting answer
+ * 
+ * @author Nitin
+ *
+ */
 @Controller
 @RequestMapping("/discussDetail")
 public class DiscussDetailController {
@@ -50,24 +56,42 @@ public class DiscussDetailController {
 		this.discussReplyRepository = discussReplyRepository;
 	}
 
+	/**
+	 * API to get the discuss detail for provided discussId
+	 * 
+	 * @param req
+	 * @param res
+	 * @param discussId
+	 * @return
+	 * @throws Exception 
+	 */
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getDiscussDetail(HttpServletRequest req,
 			HttpServletResponse res,
-			@RequestParam(value = "discussId", required = true) String discussId) {
+			@RequestParam(value = "discussId", required = true) String discussId) throws Exception {
 		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
 				discussId, req));
 
 	}
 
+	/**
+	 * API for posting a reply of type comment
+	 * 
+	 * @param comment
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=0", consumes = { "application/json" })
 	@ResponseBody
 	public Object submitComment(@RequestBody DiscussReply comment,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
+		String discussId = comment.getDiscussId();
 		try {
-			String discussId = comment.getDiscussId();
 			Discuss discuss = discussRepository.findOne(discussId);
 			List<DiscussReply> ancestors = null;
 			if (null != discuss) {
@@ -78,7 +102,7 @@ public class DiscussDetailController {
 					comment.setUserId(user.getId());
 					comment.setUserName(user.getUserName());
 				} else {
-					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 				}
 				if (!Util.isEmpty(comment.getParentReplyId())) {
 					// if nested comment
@@ -110,25 +134,35 @@ public class DiscussDetailController {
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(comment);
-				logger.debug("new answer posted successfully with replyId = "+comment.getId());
-				return BYGenericResponseHandler
-						.getResponse(getDiscussDetailById(discussId, req));
+				logger.debug("new answer posted successfully with replyId = "
+						+ comment.getId());
 			} else {
 				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
 		} catch (Exception e) {
-			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
+			Util.handleException(e);
 		}
+		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
+				discussId, req));
 
 	}
 
+	/**
+	 * API for posting a reply of type answer
+	 * 
+	 * @param answer
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=1", consumes = { "application/json" })
 	@ResponseBody
 	public Object submitAnswer(@RequestBody DiscussReply answer,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
+		String discussId = answer.getDiscussId();
 		try {
-			String discussId = answer.getDiscussId();
 			Discuss discuss = discussRepository.findOne(discussId);
 			if (null != discuss) {
 				answer.setDiscussId(discuss.getId());
@@ -139,31 +173,30 @@ public class DiscussDetailController {
 					answer.setUserId(user.getId());
 					answer.setUserName(user.getUserName());
 				} else {
-					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 				}
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
-				logger.debug("new answer posted successfully with replyId = "+answer.getId());
-				return BYGenericResponseHandler
-						.getResponse(getDiscussDetailById(discussId, req));
+				logger.debug("new answer posted successfully with replyId = "
+						+ answer.getId());
 			} else {
 				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
 		} catch (Exception e) {
-			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
+			Util.handleException(e);
 		}
-
+		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
+				discussId, req));
 	}
 
 	private DiscussDetailResponse getDiscussDetailById(String discussId,
-			HttpServletRequest req) {
+			HttpServletRequest req) throws Exception {
+		DiscussDetailResponse response = new DiscussDetailResponse();
 		try {
 			Discuss discuss = discussRepository.findOne(discussId);
-			DiscussDetailResponse response = null;
 			if (null != discuss) {
-				response = new DiscussDetailResponse();
 				response.addDiscuss(discuss, Util.getSessionUser(req));
 
 				Query query = new Query();
@@ -180,11 +213,10 @@ public class DiscussDetailController {
 			} else {
 				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
-			return response.getResponse();
 		} catch (Exception e) {
-			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
+			Util.handleException(e);
 		}
-
+		return response.getResponse();
 	}
 
 }

@@ -134,7 +134,6 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
                     $scope.aggrLikeCount = likeReply.aggrLikeCount;
                 });
             }
-
         }
 
         $scope.likeComment = function(commentId, replyType){
@@ -149,12 +148,21 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
                 if(replyType===6){
                     $scope.discussLike.$likeAnswer(function(likeReply, headers){
                         $scope.beforePost = false;
-                        $scope.aggrLikeCount = likeReply.likeCount;
-                    });
+                        $scope.aggrLikeCount = likeReply.data.likeCount;
+                    },
+                    function(error){
+                    	console.log("error");
+                    	alert("error");
+                    }
+                    );
                 }else{
                     $scope.discussLike.$likeComment(function(likeReply, headers){
                         $scope.beforePost = false;
-                        $scope.aggrLikeCount = likeReply.likeCount;
+                        $scope.aggrLikeCount = likeReply.data.likeCount;
+                    },
+                    function(error){
+                    	console.log("error");
+                    	alert("error");
                     });
                 }
             }

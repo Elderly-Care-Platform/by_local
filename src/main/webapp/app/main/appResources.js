@@ -62,11 +62,11 @@ var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($r
 //discuss detail page API
 var discussDetail = byServices.factory('DiscussDetail', function($resource) {
     return $resource(apiPrefix+'api/v1/discussDetail',{}, {
-        remove:{method: 'DELETE', params: {discussId: '@id'}},
-        update:{method: 'PUT', params: {discussId: '@id'}},
-        get: {method: 'GET', params: {discussId: '@id'}},
-        postAnswer: {method:'POST', params:{type:1}},
-        postComment: {method:'POST', params:{type:0}}
+        remove:{method: 'DELETE', params: {discussId: '@id'},isArray:false},
+        update:{method: 'PUT', params: {discussId: '@id'},isArray:false},
+        get: {method: 'GET', params: {discussId: '@id'},isArray:false},
+        postAnswer: {method:'POST', params:{type:1},isArray:false},
+        postComment: {method:'POST', params:{type:0},isArray:false}
     });
 });
 

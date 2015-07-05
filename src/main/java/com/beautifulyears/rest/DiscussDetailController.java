@@ -27,6 +27,7 @@ import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
+import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
@@ -51,110 +52,139 @@ public class DiscussDetailController {
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
-	public DiscussDetailResponse getDiscussDetail(HttpServletRequest req,
+	public Object getDiscussDetail(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam(value = "discussId", required = true) String discussId) {
 		LoggerUtil.logEntry();
-		Discuss discuss = discussRepository.findOne(discussId);
-		DiscussDetailResponse response = null;
-		if (null != discuss) {
-			response = new DiscussDetailResponse();
-			response.addDiscuss(discuss, Util.getSessionUser(req));
-			
-			Query query = new Query();
-			query.addCriteria(Criteria.where("discussId")
-					.is(discussId)).addCriteria(Criteria.where("status")
-					.is(DiscussConstants.REPLY_STATUS_ACTIVE));
-			query.with(new Sort(Sort.Direction.ASC, new String[] { "createdAt" }));
-			List<DiscussReply> replies = this.mongoTemplate.find(query,DiscussReply.class);
-			
-			response.addReplies(replies,Util.getSessionUser(req));
-		}else{
-			throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
-		}
-
-		return response.getResponse();
+		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
+				discussId, req));
 
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=0", consumes = { "application/json" })
 	@ResponseBody
-	public DiscussDetailResponse submitComment(@RequestBody DiscussReply comment,
+	public Object submitComment(@RequestBody DiscussReply comment,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
 		LoggerUtil.logEntry();
-		logger.debug("request for posting reply of type comment");
-		String discussId = comment.getDiscussId();
-		Discuss discuss = discussRepository.findOne(discussId);
-		List<DiscussReply> ancestors =null;
-		if (null != discuss) {
-			comment.setDiscussId(discuss.getId());
-			comment.setReplyType(DiscussConstants.DISCUSS_TYPE_COMMENT);
-			User user = Util.getSessionUser(req);
-			if (null != user) {
-				comment.setUserId(user.getId());
-				comment.setUserName(user.getUserName());
+		try {
+			String discussId = comment.getDiscussId();
+			Discuss discuss = discussRepository.findOne(discussId);
+			List<DiscussReply> ancestors = null;
+			if (null != discuss) {
+				comment.setDiscussId(discuss.getId());
+				comment.setReplyType(DiscussConstants.DISCUSS_TYPE_COMMENT);
+				User user = Util.getSessionUser(req);
+				if (null != user) {
+					comment.setUserId(user.getId());
+					comment.setUserName(user.getUserName());
+				} else {
+					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+				}
+				if (!Util.isEmpty(comment.getParentReplyId())) {
+					// if nested comment
+					DiscussReply parentComment = discussReplyRepository
+							.findOne(comment.getParentReplyId());
+					if (null != parentComment) {
+						parentComment.setDirectChildrenCount(parentComment
+								.getDirectChildrenCount() + 1);
+						comment.getAncestorsId().addAll(
+								parentComment.getAncestorsId());
+						comment.getAncestorsId().add(parentComment.getId());
+						comment.setParentReplyId(parentComment.getId());
+						mongoTemplate.save(parentComment);
+					}
+					Query query = new Query();
+					query.addCriteria(Criteria.where("id").in(
+							comment.getAncestorsId()));
+					ancestors = this.mongoTemplate.find(query,
+							DiscussReply.class);
+					for (DiscussReply ancestor : ancestors) {
+						ancestor.setChildrenCount(ancestor.getChildrenCount() + 1);
+						mongoTemplate.save(ancestor);
+					}
+
+				} else {
+					discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
+				}
+
+				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
+				mongoTemplate.save(discuss);
+				mongoTemplate.save(comment);
+				logger.debug("new answer posted successfully with replyId = "+comment.getId());
+				return BYGenericResponseHandler
+						.getResponse(getDiscussDetailById(discussId, req));
 			} else {
-//				throw new UserAuthorizationException();
+				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
-			if(!Util.isEmpty(comment.getParentReplyId())){
-				//if nested comment
-				DiscussReply parentComment = discussReplyRepository.findOne(comment.getParentReplyId());
-				if(null != parentComment){
-					parentComment.setDirectChildrenCount(parentComment.getDirectChildrenCount() + 1);	
-					comment.getAncestorsId().addAll(parentComment.getAncestorsId());
-					comment.getAncestorsId().add(parentComment.getId());
-					comment.setParentReplyId(parentComment.getId());
-					mongoTemplate.save(parentComment);
-				}
-				Query query = new Query();
-				query.addCriteria(Criteria.where("id")
-						.in(comment.getAncestorsId()));
-				ancestors = this.mongoTemplate.find(query,DiscussReply.class);
-				for (DiscussReply ancestor : ancestors) {
-					ancestor.setChildrenCount(ancestor.getChildrenCount() + 1);	
-					mongoTemplate.save(ancestor);
-				}
-				
-			}else{
-				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
-			}
-			
-			discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
-			mongoTemplate.save(discuss);
-			mongoTemplate.save(comment);
-		} else {
-//			throw new DiscussNotFound(discussId);
+		} catch (Exception e) {
+			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
 		}
-		return getDiscussDetail(req, res, discussId);
+
 	}
 
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=1", consumes = { "application/json" })
 	@ResponseBody
-	public DiscussDetailResponse submitAnswer(@RequestBody DiscussReply answer,
+	public Object submitAnswer(@RequestBody DiscussReply answer,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
 		LoggerUtil.logEntry();
-		logger.debug("request for posting reply of type comment");
-		String discussId = answer.getDiscussId();
-		Discuss discuss = discussRepository.findOne(discussId);
-		if (null != discuss) {
-			answer.setDiscussId(discuss.getId());
-			answer.setReplyType(DiscussConstants.DISCUSS_TYPE_ANSWER);
-			answer.setParentReplyId(null);
-			User user = Util.getSessionUser(req);
-			if (null != user) {
-				answer.setUserId(user.getId());
-				answer.setUserName(user.getUserName());
+		try {
+			String discussId = answer.getDiscussId();
+			Discuss discuss = discussRepository.findOne(discussId);
+			if (null != discuss) {
+				answer.setDiscussId(discuss.getId());
+				answer.setReplyType(DiscussConstants.DISCUSS_TYPE_ANSWER);
+				answer.setParentReplyId(null);
+				User user = Util.getSessionUser(req);
+				if (null != user) {
+					answer.setUserId(user.getId());
+					answer.setUserName(user.getUserName());
+				} else {
+					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+				}
+				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
+				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
+				mongoTemplate.save(discuss);
+				mongoTemplate.save(answer);
+				logger.debug("new answer posted successfully with replyId = "+answer.getId());
+				return BYGenericResponseHandler
+						.getResponse(getDiscussDetailById(discussId, req));
 			} else {
-//				throw new UserAuthorizationException();
+				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
-			discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
-			discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
-			mongoTemplate.save(discuss);
-			mongoTemplate.save(answer);
-		} else {
-//			throw new DiscussNotFound(discussId);
+		} catch (Exception e) {
+			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
 		}
-		return getDiscussDetail(req, res, discussId);
+
+	}
+
+	private DiscussDetailResponse getDiscussDetailById(String discussId,
+			HttpServletRequest req) {
+		try {
+			Discuss discuss = discussRepository.findOne(discussId);
+			DiscussDetailResponse response = null;
+			if (null != discuss) {
+				response = new DiscussDetailResponse();
+				response.addDiscuss(discuss, Util.getSessionUser(req));
+
+				Query query = new Query();
+				query.addCriteria(Criteria.where("discussId").is(discussId))
+						.addCriteria(
+								Criteria.where("status").is(
+										DiscussConstants.REPLY_STATUS_ACTIVE));
+				query.with(new Sort(Sort.Direction.ASC,
+						new String[] { "createdAt" }));
+				List<DiscussReply> replies = this.mongoTemplate.find(query,
+						DiscussReply.class);
+
+				response.addReplies(replies, Util.getSessionUser(req));
+			} else {
+				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
+			}
+			return response.getResponse();
+		} catch (Exception e) {
+			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 }

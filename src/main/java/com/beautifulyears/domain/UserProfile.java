@@ -24,11 +24,11 @@ public class UserProfile {
 	
 	private List<Integer> userTypes = new ArrayList<Integer>(); // @see @UserTypes.java
 	
-	private BasicProfileInfo basicProfileInfo; //contains all common user profile information.
+	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo(); //contains all common user profile information.
 
-	private IndividualProfileInfo individualInfo; //contains information applicable to an individual;
+	private IndividualProfileInfo individualInfo = new IndividualProfileInfo(); //contains information applicable to an individual;
 	
-	private ServiceProviderInfo serviceProviderInfo; //contains information about service providers
+	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo(); //contains information about service providers
 	
 	private String tags;
 

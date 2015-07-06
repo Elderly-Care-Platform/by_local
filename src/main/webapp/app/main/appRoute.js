@@ -8,7 +8,7 @@ byApp.config(['$routeProvider',
             .when('/dependent', {templateUrl: 'app/components/users/create3.html', controller: 'UserCreate3Controller'})
             .when('/dependent/list/:userId', {templateUrl: 'app/components/users/dependents.html', controller: 'DependentListController'})
             .when('/dependent/:userId/:id', {templateUrl: 'app/components/users/create3.html', controller: 'DependentShowEditController'})
-            .when('/users/login', {templateUrl: 'app/components/login/signup.html', controller: 'LoginController'})
+            .when('/users/login', {templateUrl: 'app/components/login/registration.html', controller: 'RegistrationController'})
             .when('/users/logout/:sessionId', {templateUrl: 'app/components/users/home.html', controller: 'LogoutController'})
             .when('/discuss/:discussType/list/all', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussAllController'})
             .when('/discuss/:topicId/all', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussCategoryController'})

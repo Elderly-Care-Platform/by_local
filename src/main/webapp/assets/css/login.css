@@ -150,8 +150,6 @@ input[type=checkbox]
 	width: 100px;
 	text-align: center;
 	color:  #ffffff;
-	font-size: 14px; 
-	font-weight: 700;
 }
 .nextButton
 {
@@ -165,7 +163,26 @@ input[type=checkbox]
 	width: 100px;
 	text-align: center;
 	color:  #ffffff;
-	font-size: 14px; 
-	font-weight: 700;
 	margin-left: 10px;
 }
+
+.by-reg-toggle{
+	padding:0px ;
+	padding-left: 5px;
+}
+.by-reg-toggle label{
+	padding:0px ;
+	padding-left: 13px;
+}
+
+
+
+.by-reg-triangle{
+	margin-top: 9px;
+	margin-right: 12px;
+}
+
+.by_reg_SubCategories .panel-body {
+	line-height: 0px;
+}
+

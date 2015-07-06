@@ -127,61 +127,61 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 
 
 //register_2.html
-byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$location', 'UserProfile',
-  function($scope, $routeParams, $location, UserProfile) {
-	  	$scope.message = ""
-	  	$scope.error = "";
-     	var userId = localStorage.getItem('USER_ID');
-
-
-     	if(userId != null && userId != 'undefined' && userId != '')
-	 	{
-	 		$scope.userProfile = UserProfile.get({userId: localStorage.getItem('USER_ID')});
-
-
-	 		if($scope.userProfile != '' && $scope.userProfile != 'undefined' && $scope.userProfile != null && $scope.userProfile.userId != 'undefined' && $scope.userProfile.userId != '')
-	 		{
-
-				$scope.editprofile = function () {
-					$scope.userProfile.$save(function (userProfile, headers) {
-						$scope.message = 'Successfully edited user profile';
-						$scope.error = '';
-						$location.path('/userprofile');
-					}, function (error) {
-							// failure
-							$scope.error = 'Error in editing user profile';
-							$scope.message = '';
-
-					});
-				};
-			}
-			else
-			{
-				$scope.userProfile = new UserProfile();
-
-				$scope.createprofile = function () {
-					$scope.userProfile.userId = localStorage.getItem('USER_ID');
-					$scope.userProfile.$save(function (userProfile, headers)
-					{
-						$scope.message = "User profile inserted successfully";
-						$scope.error = '';
-						$location.path('/userprofile');
-					}, function (error) {
-							// failure
-							$scope.error = 'Error in saving user profile';
-							$scope.message = '';
-
-					});
-
-				};
-			}
-	 	}
-	 	else
-	 	{
-
-
-		}
-  }]);
+//byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$location', 'UserProfile',
+//  function($scope, $routeParams, $location, UserProfile) {
+//	  	$scope.message = ""
+//	  	$scope.error = "";
+//     	var userId = localStorage.getItem('USER_ID');
+//
+//
+//     	if(userId != null && userId != 'undefined' && userId != '')
+//	 	{
+//	 		$scope.userProfile = UserProfile.get({userId: localStorage.getItem('USER_ID')});
+//
+//
+//	 		if($scope.userProfile != '' && $scope.userProfile != 'undefined' && $scope.userProfile != null && $scope.userProfile.userId != 'undefined' && $scope.userProfile.userId != '')
+//	 		{
+//
+//				$scope.editprofile = function () {
+//					$scope.userProfile.$save(function (userProfile, headers) {
+//						$scope.message = 'Successfully edited user profile';
+//						$scope.error = '';
+//						$location.path('/userprofile');
+//					}, function (error) {
+//							// failure
+//							$scope.error = 'Error in editing user profile';
+//							$scope.message = '';
+//
+//					});
+//				};
+//			}
+//			else
+//			{
+//				$scope.userProfile = new UserProfile();
+//
+//				$scope.createprofile = function () {
+//					$scope.userProfile.userId = localStorage.getItem('USER_ID');
+//					$scope.userProfile.$save(function (userProfile, headers)
+//					{
+//						$scope.message = "User profile inserted successfully";
+//						$scope.error = '';
+//						$location.path('/userprofile');
+//					}, function (error) {
+//							// failure
+//							$scope.error = 'Error in saving user profile';
+//							$scope.message = '';
+//
+//					});
+//
+//				};
+//			}
+//	 	}
+//	 	else
+//	 	{
+//
+//
+//		}
+//  }]);
 
 
 

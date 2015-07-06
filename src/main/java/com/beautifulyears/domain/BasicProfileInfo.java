@@ -28,7 +28,7 @@ public class BasicProfileInfo {
 	
 	private List<String> photoGalleryURLs = new ArrayList<String>();
 	
-	private UserAddress userAddress;
+	private UserAddress userAddress = new UserAddress();
 
 	
 	public BasicProfileInfo() {

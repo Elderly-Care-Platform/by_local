@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ServiceProviderInfo {
 	
-	private List<String> services = new ArrayList<String>(); 	//not applicable for individual user types.
+	private List<String> services = new ArrayList<String>(); 	//not applicable for individual user types who are not service providers.
 	
 	private boolean homeVisits = false;
 		

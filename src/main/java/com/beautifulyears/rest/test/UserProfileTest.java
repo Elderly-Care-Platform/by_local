@@ -144,6 +144,40 @@ public class UserProfileTest {
 		return new ResponseEntity<List<UserProfile>>(this.userProfilePage.getContent(),null, httpStatus);
 	}
 
+	/* this method is to get list of user profiles by city */
+	/* this method allows to get a page of userProfiles based on page number and size */
+	@RequestMapping(method = {RequestMethod.GET}, value = { "/list/{city}/{services}" }, params = { "page", "size" }, produces = { "application/json" })
+	@ResponseBody
+	public ResponseEntity<List<UserProfile>> getUserProfilebyCity(@PathVariable(value = "city") String city, 
+			@PathVariable(value = "services") String services, @RequestParam( "page" ) int page, @RequestParam( "size" ) int size,
+		 HttpServletRequest req, HttpServletResponse res) throws IOException {
+		List<UserProfile> userProfileList = null;
+		LoggerUtil.logEntry();
+		HttpStatus httpStatus = HttpStatus.OK;
+		logger.debug("trying to get a user profile by city and service types");
+		
+	
+		/* check the collection */
+		/* validate input Param*/
+		logger.debug("page" + page + ",size");
+		if (( page >= 0) && (size > 0) && (city != null) && (services != null))
+		{ 
+			
+			logger.debug("city" + city + "services" + services);
+			/*userProfileList = userProfileRepository.findByCustomQuery(city, services);*/
+			this.userProfilePage = null;
+			userProfileList = userProfileRepository.findByCustomQuery(city,services);
+			//this.userProfilePage = userProfileRepository.findByBasicProfileInfoUserAddressCity(city, new PageRequest(page, size));
+			//logger.debug(userProfilePage.toString());
+		}
+		else
+		{
+			logger.error("getUserProfilebyPageParams - invalid arguments");
+			httpStatus = HttpStatus.BAD_REQUEST;
+		}
+		return new ResponseEntity<List<UserProfile>>(userProfileList,null, httpStatus);
+	}
+	
 	/* This method allows the creation of a user profile */
 	@RequestMapping(method = { RequestMethod.POST }, value = { "" }, consumes = { "application/json" })
 	@ResponseBody

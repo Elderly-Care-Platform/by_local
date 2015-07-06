@@ -90,8 +90,8 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 	 				$location.path('/users/new');
 	 			}, function (error) {
 					// failure
-					console.log("$edit failed " + JSON.stringify(error));
-					$scope.error = 'Failed to edit user details';
+					console.log(error);
+					$scope.error = error.data.error.errorMsg;
 					$scope.message = '';
 
 				});
@@ -114,7 +114,7 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 				}, function (error) {
                     	// failure
                     	console.log("$save failed " + JSON.stringify(error));
-                    	$scope.error = 'Email already exists. ';
+                    	$scope.error = error.data.error.errorMsg;
                     	$scope.message = '';
 
                 });
@@ -124,166 +124,166 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 		}
   }]);
 
+//
+//
+////register_2.html
+//byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$location', 'UserProfile',
+//  function($scope, $routeParams, $location, UserProfile) {
+//	  	$scope.message = ""
+//	  	$scope.error = "";
+//     	var userId = localStorage.getItem('USER_ID');
+//
+//
+//     	if(userId != null && userId != 'undefined' && userId != '')
+//	 	{
+//	 		$scope.userProfile = UserProfile.get({userId: localStorage.getItem('USER_ID')});
+//
+//
+//	 		if($scope.userProfile != '' && $scope.userProfile != 'undefined' && $scope.userProfile != null && $scope.userProfile.userId != 'undefined' && $scope.userProfile.userId != '')
+//	 		{
+//
+//				$scope.editprofile = function () {
+//					$scope.userProfile.$save(function (userProfile, headers) {
+//						$scope.message = 'Successfully edited user profile';
+//						$scope.error = '';
+//						$location.path('/userprofile');
+//					}, function (error) {
+//							// failure
+//							$scope.error = 'Error in editing user profile';
+//							$scope.message = '';
+//
+//					});
+//				};
+//			}
+//			else
+//			{
+//				$scope.userProfile = new UserProfile();
+//
+//				$scope.createprofile = function () {
+//					$scope.userProfile.userId = localStorage.getItem('USER_ID');
+//					$scope.userProfile.$save(function (userProfile, headers)
+//					{
+//						$scope.message = "User profile inserted successfully";
+//						$scope.error = '';
+//						$location.path('/userprofile');
+//					}, function (error) {
+//							// failure
+//							$scope.error = 'Error in saving user profile';
+//							$scope.message = '';
+//
+//					});
+//
+//				};
+//			}
+//	 	}
+//	 	else
+//	 	{
+//
+//
+//		}
+//  }]);
+//
 
 
-//register_2.html
-byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$location', 'UserProfile',
-  function($scope, $routeParams, $location, UserProfile) {
-	  	$scope.message = ""
-	  	$scope.error = "";
-     	var userId = localStorage.getItem('USER_ID');
-
-
-     	if(userId != null && userId != 'undefined' && userId != '')
-	 	{
-	 		$scope.userProfile = UserProfile.get({userId: localStorage.getItem('USER_ID')});
-
-
-	 		if($scope.userProfile != '' && $scope.userProfile != 'undefined' && $scope.userProfile != null && $scope.userProfile.userId != 'undefined' && $scope.userProfile.userId != '')
-	 		{
-
-				$scope.editprofile = function () {
-					$scope.userProfile.$save(function (userProfile, headers) {
-						$scope.message = 'Successfully edited user profile';
-						$scope.error = '';
-						$location.path('/userprofile');
-					}, function (error) {
-							// failure
-							$scope.error = 'Error in editing user profile';
-							$scope.message = '';
-
-					});
-				};
-			}
-			else
-			{
-				$scope.userProfile = new UserProfile();
-
-				$scope.createprofile = function () {
-					$scope.userProfile.userId = localStorage.getItem('USER_ID');
-					$scope.userProfile.$save(function (userProfile, headers)
-					{
-						$scope.message = "User profile inserted successfully";
-						$scope.error = '';
-						$location.path('/userprofile');
-					}, function (error) {
-							// failure
-							$scope.error = 'Error in saving user profile';
-							$scope.message = '';
-
-					});
-
-				};
-			}
-	 	}
-	 	else
-	 	{
-
-
-		}
-  }]);
-
-
-
-
-//dependents.html - clicking on one dependent for editing
-//User Listing
-byControllers.controller('DependentShowEditController', ['$scope', '$rootScope', '$routeParams', '$location', 'ShowDependent', 'UserDependent',
-	function($scope, $rootScope, $routeParams, $location, ShowDependent, UserDependent) {
-	   var dependentId = $location.path().substring($location.path().lastIndexOf("/")+1);
-	   var userId = $rootScope.bc_userId;
-	   $scope.userDependent = ShowDependent.get({userId:$rootScope.bc_userId, id:dependentId});
-
-	   //languages
-	   //?????var langs = $scope.userDependent.speaksLang;
-	   $scope.managedependent = function () {
-
-
-			$scope.userDependent.userId = localStorage.getItem('USER_ID');
-
-			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
-			{
-				$location.path('/users/login');
-				return;
-			}
-
-
-			$scope.userDependent.$save(function (userDependent, headers)
-			{
-				$scope.message = "Dependent edited successfully";
-				$scope.error = '';
-
-				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
-			}, function (error) {
-					// failure
-					$scope.error = 'Error in editing dependent information';
-					$scope.message = '';
-
-			});
-
-		};
-
-
-}]);
-
-
-
-//dependents.html - showing the list of dependents for thsi user
-//User Listing
-byControllers.controller('DependentListController', ['$scope', '$rootScope', '$location', 'DependentList',
-	function($scope, $rootScope, $location, DependentList) {
-		$scope.dependents = DependentList.query({userId:$rootScope.bc_userId});//query nnot working!
-		if(!$scope.dependents)
-		{
-			$location.path('/dependent');
-		}
-}]);
-
-
-//register_3.html
-byControllers.controller('UserCreate3Controller', ['$scope', '$rootScope', '$routeParams', '$location', 'UserDependent',
-  function($scope, $rootScope, $routeParams, $location, UserDependent) {
-	  	$scope.message = ""
-	  	$scope.error = "";
-     	var userId = localStorage.getItem('USER_ID');
-
-
-		$scope.userDependent = new UserDependent();
-		$scope.managedependent = function () {
-
-
-			$scope.userDependent.userId = localStorage.getItem('USER_ID');
-
-			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
-			{
-				$location.path('/users/login');
-				return;
-			}
-
-
-			$scope.userDependent.$save(function (userDependent, headers)
-			{
-				$scope.message = "New Dependent added successfully";
-				$scope.error = '';
-				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
-			}, function (error) {
-					// failure
-					$scope.error = 'Error in saving dependent information';
-					$scope.message = '';
-
-			});
-
-		};
-
-
-		//On clicking add new deendent in dependent list page
-		$scope.newdependentform = function () {
-			$location.path('/dependent');
-		}
-  }]);
-
-
-
+//
+////dependents.html - clicking on one dependent for editing
+////User Listing
+//byControllers.controller('DependentShowEditController', ['$scope', '$rootScope', '$routeParams', '$location', 'ShowDependent', 'UserDependent',
+//	function($scope, $rootScope, $routeParams, $location, ShowDependent, UserDependent) {
+//	   var dependentId = $location.path().substring($location.path().lastIndexOf("/")+1);
+//	   var userId = $rootScope.bc_userId;
+//	   $scope.userDependent = ShowDependent.get({userId:$rootScope.bc_userId, id:dependentId});
+//
+//	   //languages
+//	   //?????var langs = $scope.userDependent.speaksLang;
+//	   $scope.managedependent = function () {
+//
+//
+//			$scope.userDependent.userId = localStorage.getItem('USER_ID');
+//
+//			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
+//			{
+//				$location.path('/users/login');
+//				return;
+//			}
+//
+//
+//			$scope.userDependent.$save(function (userDependent, headers)
+//			{
+//				$scope.message = "Dependent edited successfully";
+//				$scope.error = '';
+//
+//				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
+//			}, function (error) {
+//					// failure
+//					$scope.error = 'Error in editing dependent information';
+//					$scope.message = '';
+//
+//			});
+//
+//		};
+//
+//
+//}]);
+//
+//
+//
+////dependents.html - showing the list of dependents for thsi user
+////User Listing
+//byControllers.controller('DependentListController', ['$scope', '$rootScope', '$location', 'DependentList',
+//	function($scope, $rootScope, $location, DependentList) {
+//		$scope.dependents = DependentList.query({userId:$rootScope.bc_userId});//query nnot working!
+//		if(!$scope.dependents)
+//		{
+//			$location.path('/dependent');
+//		}
+//}]);
+//
+//
+////register_3.html
+//byControllers.controller('UserCreate3Controller', ['$scope', '$rootScope', '$routeParams', '$location', 'UserDependent',
+//  function($scope, $rootScope, $routeParams, $location, UserDependent) {
+//	  	$scope.message = ""
+//	  	$scope.error = "";
+//     	var userId = localStorage.getItem('USER_ID');
+//
+//
+//		$scope.userDependent = new UserDependent();
+//		$scope.managedependent = function () {
+//
+//
+//			$scope.userDependent.userId = localStorage.getItem('USER_ID');
+//
+//			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
+//			{
+//				$location.path('/users/login');
+//				return;
+//			}
+//
+//
+//			$scope.userDependent.$save(function (userDependent, headers)
+//			{
+//				$scope.message = "New Dependent added successfully";
+//				$scope.error = '';
+//				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
+//			}, function (error) {
+//					// failure
+//					$scope.error = 'Error in saving dependent information';
+//					$scope.message = '';
+//
+//			});
+//
+//		};
+//
+//
+//		//On clicking add new deendent in dependent list page
+//		$scope.newdependentform = function () {
+//			$location.path('/dependent');
+//		}
+//  }]);
+//
+//
+//
 
 
 // Logout Controller

@@ -107,14 +107,14 @@ var user = byServices.factory('User', function($resource) {
     })
 });
 
-//UserProfile
-var userProfile = byServices.factory('UserProfile', function($resource) {
-    return $resource(apiPrefix+'api/v1/userprofile/:userId',{}, {
-        remove:{method: 'DELETE', params: {userId: '@userId'}},
-        update:{method: 'PUT', params: {userId: '@userId'}},
-        get: {method: 'GET', params: {userId: '@userId'}}
-    })
-});
+////UserProfile
+//var userProfile = byServices.factory('UserProfile', function($resource) {
+//    return $resource(apiPrefix+'api/v1/userprofile/:userId',{}, {
+//        remove:{method: 'DELETE', params: {userId: '@userId'}},
+//        update:{method: 'PUT', params: {userId: '@userId'}},
+//        get: {method: 'GET', params: {userId: '@userId'}}
+//    })
+//});
 
 
 var depList = byServices.factory('DependentList', function($resource) {
@@ -148,25 +148,25 @@ var userProfile3 = byServices.factory('UserDependent', function($resource) {
 });
 
 
+//
+//var userShow = byServices.factory('UserShow', function($resource) {
+//    return $resource(apiPrefix+'api/v1/users/show/:userId',{}, {
+//        show: {method: 'GET', params: {userId: '@id'}},
+//        get: {method: 'GET', params: {userId: '@id'}}
+//    })
+//});
 
-var userShow = byServices.factory('UserShow', function($resource) {
-    return $resource(apiPrefix+'api/v1/users/show/:userId',{}, {
-        show: {method: 'GET', params: {userId: '@id'}},
-        get: {method: 'GET', params: {userId: '@id'}}
-    })
-});
+//var userEdit = byServices.factory('UserEdit', function($resource) {
+//    return $resource(apiPrefix+'api/v1/users/edit/:userId',{}, {
+//        get: {method: 'GET', params: {userId: '@id'}}
+//    })
+//});
 
-var userEdit = byServices.factory('UserEdit', function($resource) {
-    return $resource(apiPrefix+'api/v1/users/edit/:userId',{}, {
-        get: {method: 'GET', params: {userId: '@id'}}
-    })
-});
-
-var userByFilter = byServices.factory('UserList', function($resource) {
-    return $resource(apiPrefix+'api/v1/users/list/all',{}, {
-    	query: {method: 'GET', isArray: false}
-    })
-});
+//var userByFilter = byServices.factory('UserList', function($resource) {
+//    return $resource(apiPrefix+'api/v1/users/list/all',{}, {
+//    	query: {method: 'GET', isArray: false}
+//    })
+//});
 
 
 //Discuss -
@@ -233,12 +233,12 @@ var discuss = byServices.factory('DiscussCreate', function($resource) {
 //    })
 //});
 
-
-var discussByFilter = byServices.factory('DiscussList', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/list/all',{}, {
-    	query: {method: 'GET', isArray: false}
-    })
-});
+//
+//var discussByFilter = byServices.factory('DiscussList', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/list/all',{}, {
+//    	query: {method: 'GET', isArray: false}
+//    })
+//});
 
 
 var discussSearch = byServices.factory('DiscussSearch', function($resource) {

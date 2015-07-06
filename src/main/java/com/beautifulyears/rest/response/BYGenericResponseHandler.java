@@ -15,7 +15,7 @@ import com.beautifulyears.exceptions.BYException;
  * @author Nitin
  *
  */
-public class BYGenericResponseHandler<T> {
+public class BYGenericResponseHandler {
 	@SuppressWarnings("unused")
 	private static class ByGenericResponse{
 		private int statusCode;

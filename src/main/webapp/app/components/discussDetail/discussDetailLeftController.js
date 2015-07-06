@@ -13,6 +13,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
                         //success
                     		function(value){
                     			var userArticles = value.data;
+                    			$scope.articlesByUser = userArticles;
                                 if($scope.articlesByUser.length<=0){
                                     $scope.getRelatedArticle();
                                 } else {

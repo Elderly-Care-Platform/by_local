@@ -1,7 +1,7 @@
 //DIscuss All
-byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList',
+byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams',
     'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount','$sce','$timeout',
-    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType,
+    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussAllForDiscussType,
               DiscussOneTopicOneSubTopicListCount,$sce, $timeout) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};

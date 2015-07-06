@@ -50,7 +50,9 @@ byApp.directive('fallbackSrc', function () {
                 	if(fallbackSrs && fallbackSrs.length > 0 && fallbackSrs.length > count){
                 		angular.element(this).attr("src", fallbackSrs[count]);
                 	}else{
+                		console.log("removing fallback");
                 		angular.element(this).removeAttr("fallback-src");
+                		angular.element(this).hide();
                 	}
             	}catch(e){
             		console.log("fallback error");

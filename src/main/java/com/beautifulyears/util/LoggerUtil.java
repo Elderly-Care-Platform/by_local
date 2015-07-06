@@ -13,7 +13,7 @@ public class LoggerUtil {
 		try{
 			StackTraceElement currentStack = Thread.currentThread().getStackTrace()[2];
 			if(null != currentStack){
-				logger.debug("ENTERING "+currentStack.getClassName() + "::" + currentStack.getMethodName());
+				logger.trace("ENTERING "+currentStack.getClassName() + "::" + currentStack.getMethodName());
 			}
 		}catch(Exception e){
 			
@@ -24,7 +24,7 @@ public class LoggerUtil {
 		try{
 			StackTraceElement currentStack = Thread.currentThread().getStackTrace()[2];
 			if(null != currentStack){
-				logger.debug("ENTERING "+currentStack.getClassName() + "::" + currentStack.getMethodName());
+				logger.trace("ENTERING "+currentStack.getClassName() + "::" + currentStack.getMethodName());
 			}
 		}catch(Exception e){
 			

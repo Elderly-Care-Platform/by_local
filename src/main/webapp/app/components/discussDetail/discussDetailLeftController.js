@@ -42,10 +42,15 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
                 topicId: subTopicId,
                 subTopicId:"all"
             }, function(topicRelatedArticle, header){
-                $scope.articlesByUser = topicRelatedArticle.value.splice(0,6);
+                $scope.articlesByUser = topicRelatedArticle.data.splice(0,6);
                 $scope.header1 = "Also in";
                 $scope.header2 = $rootScope.discussCategoryListMap[subTopicId].name;
-            });
+            },
+            //error
+            function( error ){
+            	console.log("QUErY ERROR");
+            		alert("error2");
+            		});
         }
 
         $scope.trustForcefully = function(html) {

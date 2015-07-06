@@ -1,6 +1,6 @@
 <div class="padding20 whiteBg by_discuss_detail">
     <div class="article">
-        <div class="article-info">
+        <div class="article-info" ng-if="discuss" >
             <ul class="list-inline posted-info">
                 <li ng-if="detailResponse.discuss.discussType == 'A'">
                     Story by <a validate-user-name="{{detailResponse.discuss.username}}"> {{username}} </a>

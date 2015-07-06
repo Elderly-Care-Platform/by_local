@@ -131,7 +131,10 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
                 $scope.discussLike.discussId = discussId;
                 $scope.discussLike.$likeDiscuss(function(likeReply, headers){
                     $scope.beforePost = false;
-                    $scope.aggrLikeCount = likeReply.aggrLikeCount;
+                    $scope.aggrLikeCount = likeReply.data.aggrLikeCount;
+                },
+                function(error){
+                	console.log(error.data.error.errorMsg);
                 });
             }
         }
@@ -151,8 +154,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
                         $scope.aggrLikeCount = likeReply.data.likeCount;
                     },
                     function(error){
-                    	console.log("error");
-                    	alert("error");
+                    	console.log(error.data.error.errorMsg);
                     }
                     );
                 }else{
@@ -161,8 +163,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
                         $scope.aggrLikeCount = likeReply.data.likeCount;
                     },
                     function(error){
-                    	console.log("error");
-                    	alert("error");
+                    	console.log(error.data.error.errorMsg);
                     });
                 }
             }

@@ -1,20 +1,20 @@
 //DIscuss All
 byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams', 'DiscussList',
-    'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','$sce','$timeout',
+    'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount','$sce','$timeout',
     function ($scope, $rootScope, $location ,$route, $routeParams, DiscussList, DiscussAllForDiscussType,
-              DiscussOneTopicOneSubTopicListCount, DiscussUserLikes,$sce, $timeout) {
+              DiscussOneTopicOneSubTopicListCount,$sce, $timeout) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
         $scope.article_story = "";
 		$scope.showme = true;
-        DiscussList.query(function( value ){
-						       	 $scope.discuss = value.data;
-					     	},
-						     //error
-						     function( error ){
-						     		console.log("QUErY ERROR");
-						     		alert("error2");
-					     	});
+//        DiscussList.query(function( value ){
+//						       	 $scope.discuss = value.data;
+//					     	},
+//						     //error
+//						     function( error ){
+//						     		console.log("QUErY ERROR");
+//						     		alert("error2");
+//					     	});
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -60,21 +60,21 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         $rootScope.bc_subTopic = 'all';
         $rootScope.bc_discussType = discussType;
 
-        //User Discuss Like method
-        $scope.UserLike = function(userId, discussId, index) {
-
-			//only read-only allowed without login
-			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-			{
-				$rootScope.nextLocation = $location.path();
-				$location.path('/users/login');
-			}
-			else
-			{
-	 			//Create the new discuss user like
-	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-			}
-		}
+//        //User Discuss Like method
+//        $scope.UserLike = function(userId, discussId, index) {
+//
+//			//only read-only allowed without login
+//			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+//			{
+//				$rootScope.nextLocation = $location.path();
+//				$location.path('/users/login');
+//			}
+//			else
+//			{
+//	 			//Create the new discuss user like
+//	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+//			}
+//		}
         
         $scope.add = function (type) {
             BY.removeEditor();
@@ -139,8 +139,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
 
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicOneSubTopicList',
-    'DiscussOneTopicOneSubTopicListCount', 'DiscussUserLikes','$sce',
-    function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, DiscussUserLikes, $sce) {
+    'DiscussOneTopicOneSubTopicListCount','$sce',
+    function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, $sce) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
 
@@ -225,21 +225,21 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         })
 
 
-        //User Discuss Like method
-        $scope.UserLike = function (userId, discussId, index) {
-
-        	//only read-only allowed without login
-    		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-    		{
-    			$rootScope.nextLocation = $location.path();
-    			$location.path('/users/login');
-    		}
-    		else
-    		{
-    			//Create the new discuss user like
-    			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-    		}
-        }
+//        //User Discuss Like method
+//        $scope.UserLike = function (userId, discussId, index) {
+//
+//        	//only read-only allowed without login
+//    		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+//    		{
+//    			$rootScope.nextLocation = $location.path();
+//    			$location.path('/users/login');
+//    		}
+//    		else
+//    		{
+//    			//Create the new discuss user like
+//    			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
+//    		}
+//        }
 
         $scope.add = function (type) {
             BY.removeEditor();

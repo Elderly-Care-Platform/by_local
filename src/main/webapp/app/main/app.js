@@ -395,8 +395,8 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 
 //DISCUSS
 
-byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$route', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'DiscussUserLikes',
-  function($scope, $rootScope, $route, $routeParams, DiscussSearchForDiscussType, DiscussSearch, DiscussUserLikes) {
+byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$route', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch',
+  function($scope, $rootScope, $route, $routeParams, DiscussSearchForDiscussType, DiscussSearch) {
      $rootScope.term = $routeParams.term;
 
 	 //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -460,31 +460,31 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 	 $rootScope.bc_discussType = disType;
 
 	  //User Discuss Like method
-	 	 $scope.UserLike = function(userId, discussId, index) {
-			//only read-only allowed without login
-	 		 
-			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-			{
-				$rootScope.nextLocation = $location.path();
-				$location.path('/users/login');
-			}
-			else
-			{
-	 			//Create the new discuss user like
-	 			DiscussUserLikes.get({userId:userId, discussId: discussId}).$promise.then(
-	 		             //success
-	 		             function( value ){
-	 		            	 $scope.discuss = value.data;
-	 		             	},
-	 		             //error
-	 		             function( error ){
-	 		             		console.log("QUErY ERROR");
-	 		             		alert("error2");
-	 		             		}
-	 		           );
-			}
-
-		}
+//	 	 $scope.UserLike = function(userId, discussId, index) {
+//			//only read-only allowed without login
+//	 		 
+//			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+//			{
+//				$rootScope.nextLocation = $location.path();
+//				$location.path('/users/login');
+//			}
+//			else
+//			{
+//	 			//Create the new discuss user like
+//	 			DiscussUserLikes.get({userId:userId, discussId: discussId}).$promise.then(
+//	 		             //success
+//	 		             function( value ){
+//	 		            	 $scope.discuss = value.data;
+//	 		             	},
+//	 		             //error
+//	 		             function( error ){
+//	 		             		console.log("QUErY ERROR");
+//	 		             		alert("error2");
+//	 		             		}
+//	 		           );
+//			}
+//
+//		}
   }]);
 
 

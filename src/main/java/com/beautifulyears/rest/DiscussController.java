@@ -63,12 +63,10 @@ public class DiscussController {
 			discuss.setUserId(currentUser.getId());
 			discuss.setUsername(currentUser.getUserName());
 		}
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(
-				HttpStatus.CREATED);
 		discuss.setDiscussType("F");
 		discuss = discussRepository.save(discuss);
 		logger.info("new feedback entity created with ID: " + discuss.getId());
-		return BYGenericResponseHandler.getResponse(responseEntity);
+		return BYGenericResponseHandler.getResponse(discuss);
 	}
 
 	@RequestMapping(consumes = { "application/json" })
@@ -109,9 +107,11 @@ public class DiscussController {
 		LoggerUtil.logEntry();
 		DiscussResponse discussResponse = new DiscussResponse();
 		try {
+			Map<String, Object> filters = new HashMap<String, Object>();
+			filters.put("discussType", "all");
 			List<String> sortArray = new ArrayList<String>();
 			sortArray.add(sort);
-			List<Discuss> list = discussRepository.findPublished(null,
+			List<Discuss> list = discussRepository.findPublished(filters,
 					sortArray, 0);
 			discussResponse.add(list, Util.getSessionUser(request));
 		} catch (Exception e) {

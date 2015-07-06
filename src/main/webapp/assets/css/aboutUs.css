@@ -35,7 +35,8 @@
 .aboutUsOneSecond
 {
 	color:  #333333;
-	font-size: 36px; 
+	text-align: center;
+	font-size: 32px; 
 	font-weight: 400;
 	line-height: 62px;
 	padding-bottom: 118px;
@@ -70,23 +71,23 @@
 .one_leaf_image {
   position: absolute;
   top: 10px;
-  left: 53%;
+  left: 16%;
 }
 .one_leaf_image_shop {
   position: absolute;
   top: 10px;
-  left: 50%;
+  left: 20%;
 }
 .one_leaf_image_do {
   position: absolute;
   top: 10px;
-  left: 47%;
+  left: 11%;
 }
 
 .one_leaf_image_find {
   position: absolute;
   top: 10px;
-  left: 49%;
+  left: 18%;
 }
 
 
@@ -105,14 +106,25 @@
 }
 .aboutDiscussHeadBorder
 {
-	width: auto;
-	color:  #1c1c1c;
-	font-size: 22px; 
-	font-weight: 600;
-	text-align: left;
-	margin-left: auto;
-  	margin-right: auto;
-	width: 100px;
+	  width: auto;
+  color: #1c1c1c;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: left;
+  margin-left: 5%;
+  /* margin-right: auto; */
+  width: 100px;
+}
+.aboutFindHeadBorder
+{
+	  width: auto;
+  color: #1c1c1c;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: left;
+  margin-left: 10%;
+  /* margin-right: auto; */
+  width: 100px;
 }
 .firstletter{
 	
@@ -167,22 +179,79 @@
 }
 .aboutUsThree{
 	background: url('../img/aboutUs/aboutThree.png?versionTimeStamp=%PROJECT_VERSION%');
+	background-repeat: no-repeat;
+	padding: 19px 15px 0px 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-top: 15px;
+	background-size: 100%;
+}
+.aboutUsDiscuss{
+	background: url('../img/aboutUs/discuss.jpg?versionTimeStamp=%PROJECT_VERSION%');
+	background-repeat: no-repeat;
+	padding: 19px 15px 0px 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-top: 15px;
+	background-size: 100%;
+}
+.aboutUsFind{
+	background: url('../img/aboutUs/find.jpg?versionTimeStamp=%PROJECT_VERSION%');
 	    background-repeat: no-repeat;
 	  padding: 19px 15px 0px 15px;
 	text-align: center;
 	margin-bottom: 20px;
 	margin-top: 15px;
+	  background-size: 100%;
+}
+.aboutUsDo{
+	background: url('../img/aboutUs/do.jpg?versionTimeStamp=%PROJECT_VERSION%');
+	    background-repeat: no-repeat;
+	  padding: 19px 15px 0px 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-top: 15px;
+	  background-size: 100%;
+}
+.aboutUsShop{
+	background: url('../img/aboutUs/shop.jpg?versionTimeStamp=%PROJECT_VERSION%');
+	    background-repeat: no-repeat;
+	  padding: 19px 15px 0px 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-top: 15px;
+	  background-size: 100%;
 }
 .aboutUsThreeText
 {
 	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
-	text-align: center;
+	text-align: left;
 	color:  #000;
 	font-size: 24px; 
 	font-weight: 400;
 	line-height: 50px;
+}
+.aboutUsDiscussText {
+  width: 80%;
+  margin-left: 5%;
+  text-align: left;
+  color: #000;
+  padding: 0px 0px 49px 0px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 50px;
+}
+.aboutUsfindText {
+  width: 80%;
+  margin-left: 10%;
+  text-align: left;
+  color: #000;
+  padding: 0px 0px 49px 0px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 50px;
 }
 .aboutProductsThumbWrap
 {
@@ -206,7 +275,7 @@
 	background: url('../img/aboutUs/budha_bg.jpg?versionTimeStamp=%PROJECT_VERSION%') bottom;
   background-size: 100%;
   background-repeat: no-repeat;
-  padding: 18px 7px 272px 15px;
+  padding: 69px 7px 331px 15px;
   text-align: center;
   margin-bottom: 20px;
   margin-top: 15px;
@@ -260,6 +329,16 @@
 	font-weight: 400;
 	text-transform: uppercase;
 	margin-bottom: 20px;
+	text-decoration: underline;
+}
+.teamWrapperHeadleft {
+  text-align: left;
+  color: #343232;
+  font-size: 26px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-decoration: underline;
 }
 .teamWrapperBelowThumb
 {
@@ -294,9 +373,9 @@
 	border:1px solid #ccc;
 	border-radius: 15px !important;
 	color:  #000000;
-	font-size: 14px; 
-	font-weight: 400;
-	line-height: 24px;
+	font-size: 22px;
+  font-weight: 400;
+  line-height: 40px;
 	padding: 30px 15px 30px 20%;
 }
 .teamWrapperBelowRightText
@@ -463,5 +542,74 @@
 	float: none !important;
 }
 
+.margin--20{
+	
+	margin-top: -20px ! important;
+}
+
+.font-23{
+	font-size:23px ! important;
+}
+.helpjustifyText {
+	margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  color: #000;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 45px;
+}
+.helpleftText {
+	margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  color: #000;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 45px;
+}
+.helprightText {
+	margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  color: #000;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 45px;
+}
 
 
+.margin-top-40{
+  margin-top: 40px !Important;
+}
+.margin-top-50{
+	
+	margin-top:50px !Important;
+}
+.margin-top-60{
+	
+	margin-top:60px !Important;
+}
+.bold-green{
+	font-size:24px;
+	font-weight:bold;
+	color:#007a3c;
+}
+.teamall {
+  background: url('../img/aboutUs/team_all.png?versionTimeStamp=%PROJECT_VERSION%');
+  background-repeat: no-repeat;
+  padding: 19px 15px 0px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  background-size: 100%;
+}
+.aboutUsbudhha {
+   background: url('../img/aboutUs/aboutThree.png?versionTimeStamp=%PROJECT_VERSION%');
+  background-repeat: no-repeat;
+  padding: 44px 15px 39px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  background-size: 100%;
+}

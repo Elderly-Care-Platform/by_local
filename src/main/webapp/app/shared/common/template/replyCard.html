@@ -3,7 +3,7 @@
 
     <div class="article-info dp-inline-block">
         <ul class="list-inline posted-info">
-            <li> By <a validate-user-name="{{reply.userName}}"> {{username}} </a> &nbsp; |  </li>
+            <li ng-if="reply"> By <a validate-user-name="{{reply.userName}}"> {{username}} </a> &nbsp; |  </li>
             <li time-since="{{reply.createdAt}}"></li>
         </ul>
     </div>

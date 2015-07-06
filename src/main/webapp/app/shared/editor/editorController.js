@@ -10,7 +10,9 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
             $scope.discuss.discussType = discussType;
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
             $scope.discuss.title = $scope.editor.subject;
-            $scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
+            if($scope.editor.articlePhotoFilename){
+            	$scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
+            }
             $scope.discuss.topicId = BY.editorCategoryList.getCategoryList();
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");

@@ -57,9 +57,12 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
                 return parseInt(key);
             })
             $scope.userProfile.$post(function(profile, headers){
-                $scope.$parent.updateLevel(2, profile);
+                console.log("success");
+                $scope.$parent.updateRegistration();
+            }, function(error){
+                console.log("error");
+                $scope.$parent.exit();
             });
-
         }
 
         $scope.cancel = function(){

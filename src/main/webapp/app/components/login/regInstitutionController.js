@@ -1,17 +1,26 @@
 byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','UserProfile','ServiceTypeList',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
+        $scope.userId = localStorage.getItem("USER_ID");
+        $scope.selectedServices = {};
+        $scope.profileImage = null;
+        $scope.galleryImages = [];
         $scope.ServiceTypeList = ServiceTypeList.get({}, function(){
             console.log($scope.ServiceTypeList);
         })
 
-        $scope.profileOld = UserProfile.get({id:$scope.id}, function(profile){
-            $scope.profile = profile;
+        if($scope.$parent.profile){
+            $scope.profile = $scope.$parent.profile;
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.address = $scope.basicProfileInfo.userAddress;
-        });
+        }else{
+            $scope.profile = UserProfile.get({userId:$scope.userId}, function(profile){
+                $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
+                $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
+                $scope.address = $scope.basicProfileInfo.userAddress;
+            });
+        }
 
-        $scope.selectedServices = {};
 
         //$scope.newAddress = new addressFormat($scope.basicProfileInfo.userAddress.length);
         //$scope.basicProfileInfo.userAddress.push($scope.newAddress);
@@ -25,16 +34,16 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
         $scope.addPhoneNumber = function(){
-            var number = {value:""};
+            //var number = {value:""};
             if($scope.basicProfileInfo.secondaryPhoneNos.length < BY.regConfig.maxSecondaryPhoneNos){
-                $scope.basicProfileInfo.secondaryPhoneNos.push(number);
+                $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
         }
 
         $scope.addEmail = function(){
-            var email = {value:""};
+            //var email = {value:""};
             if( $scope.basicProfileInfo.secondaryEmails.length < BY.regConfig.maxSecondaryEmailId){
-                $scope.basicProfileInfo.secondaryEmails.push(email);
+                $scope.basicProfileInfo.secondaryEmails.push("");
             }
         }
 
@@ -60,15 +69,16 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
         $scope.uploadProfileImage = function(){
-            if($scope.basicProfileInfo.profileImage && $scope.basicProfileInfo.profileImage.file && $scope.basicProfileInfo.profileImage.file!==""){
+            if($scope.profileImage && $scope.profileImage.file && $scope.profileImage.file!==""){
                 var formData = new FormData();
-                formData.append('image', $scope.basicProfileInfo.profileImage.file, $scope.basicProfileInfo.profileImage.file.name);
+                formData.append('image', $scope.profileImage.file, $scope.profileImage.file.name);
 
                 $http.post('UploadFile?transcoding=true', formData, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                 }).success(function(result) {
-                    $scope.basicProfileInfo.profileImage = result.original;
+                    $scope.profileImage = "";
+                    $scope.basicProfileInfo.profileImage = result.thumbnailImage;
                     $scope.uploadGallery();
                 }).error(function(result) {
                     console.log("Upload profile image failed");
@@ -80,21 +90,22 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
         $scope.uploadGallery= function(){
-            if($scope.basicProfileInfo.photoGalleryURLs.length > 0){
+            if($scope.galleryImages.length > 0){
                 var formData = new FormData();
-                for(var i=0; i<$scope.basicProfileInfo.photoGalleryURLs.length; i++){
-                    formData.append('image', $scope.basicProfileInfo.photoGalleryURLs[i].file, $scope.basicProfileInfo.photoGalleryURLs[i].file.name);
+                for(var i=0; i < $scope.galleryImages.length; i++){
+                    formData.append('image', $scope.galleryImages[i].file, $scope.galleryImages[i].file.name);
                 }
 
                 $http.post('UploadFile?transcoding=true', formData, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                 }).success(function(result) {
-                    $scope.basicProfileInfo.photoGalleryURLs = [];
-                    $scope.basicProfileInfo.photoGalleryURLs.push(result.original);
+                    $scope.galleryImages = [];
+                    $scope.basicProfileInfo.photoGalleryURLs.push(result.thumbnailImage);
                     $scope.postUserProfile();
                 }).error(function(result) {
                     console.log("Upload gallery images failed");
+                    $scope.postUserProfile();
                 });
             } else{
                 $scope.postUserProfile();
@@ -116,27 +127,26 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
         $scope.postUserProfile = function(){
-            $scope.id = $scope.$parent.id;
             $scope.serviceProviderInfo.services = $scope.getServiceList();
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
-            $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key){
-                return value.value;
-            });
-
-            $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key){
-                return value.value;
-            });
+            //$scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key){
+            //    return value.value;
+            //});
+            //
+            //$scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key){
+            //    return value.value;
+            //});
 
             var userProfile = new UserProfile();
             angular.extend(userProfile,$scope.profile);
-            userProfile.$update({id:$scope.id}, function(profileOld){
+            userProfile.$update({userId:$scope.userId}, function(profileOld){
                 console.log("success");
-                $location.path("/users/home");
+                $scope.$parent.exit();
             }, function(err){
                 console.log(err);
+                $scope.$parent.exit();
             });
-
         }
 
 

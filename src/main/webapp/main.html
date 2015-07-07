@@ -114,7 +114,7 @@
                     <ul class="loginbar pull-right">
                         <li><a di-href="#/users/aboutUs" id="aboutUs_placeholder">ABOUT US</a></li>
                         <li class="topbar-devider"></li>
-                        <li id="profile_placeHolder_li"><a href="" id="profile_placeholder">PROFILE</a></li>
+                        <li id="profile_placeHolder_li"><a href="#/users/login" id="profile_placeholder">PROFILE</a></li>
                         <li id="login_placeHolder_li" class="topbar-devider"></li>
                         <li><a href="#/users/login" id="login_placeholder">JOIN US</a></li>
                     </ul>
@@ -302,8 +302,10 @@
 
     <script type="text/javascript"  src="app/shared/footer/contactUsController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
+    <script type="text/javascript"  src="app/components/login/registrationController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/login/regUserTypeController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/login/regInstitutionController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+
 
     <!-- custom js files end -->
 
@@ -331,7 +333,7 @@
 
                 var pro = document.getElementById('profile_placeholder');
                 pro.innerHTML = "Profile";
-                pro.href = "javascript:void(0);";
+                pro.href = apiPrefix + "#/users/login/";
 
 
                 if(window.location.href.endsWith("#/users/login") || window.location.href.endsWith("main.html"))

@@ -30,26 +30,34 @@
                     <div class="panel-group acc-v1" id="accordion-1">
                         <div class="panel panel-default" ng-repeat="category in ServiceTypeList">
                             <div class="panel-heading">
-                                <h4 class="panel-title by_editor_ParentCategories by-reg-toggle" ng-if="category.childCount <= 0">
+                                <h4 class="panel-title by_editor_ParentCategories by-reg-toggle"
+                                    ng-if="category.childCount <= 0">
                                     <label>
                                         {{category.name}}
 
-                                        <input type="checkbox" ng-change="selectServiceType(category)" ng-model="category.selected">
+                                        <input type="checkbox" ng-change="selectServiceType(category)"
+                                               ng-model="category.selected">
                                     </label>
                                 </h4>
                                 <h4 class="panel-title by_editor_ParentCategories" ng-if="category.childCount > 0">
-                                    <a class="accordion-toggle collapsed by-reg-toggle" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
+                                    <a class="accordion-toggle collapsed by-reg-toggle" data-toggle="collapse"
+                                       data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
                                         {{category.name}}
                                     </a>
-                                    <a class="triangle-down accordion-toggle collapsed by-reg-triangle" data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;"></a>
+                                    <a class="triangle-down accordion-toggle collapsed by-reg-triangle"
+                                       data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}}
+                                       onclick="return false;"></a>
                                 </h4>
                             </div>
-                            <div id={{category.id}} class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
+                            <div id={{category.id}}
+                                 class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
                                 <div class="panel-body col-md-6" ng-repeat="subCategory in category.children">
-                                    <input type="checkbox" ng-change="selectServiceType(subCategory)" ng-model="subCategory.selected">
-                                        <span>{{subCategory.name}}</span>
+                                    <input type="checkbox" ng-change="selectServiceType(subCategory)"
+                                           ng-model="subCategory.selected">
+                                    <span>{{subCategory.name}}</span>
                                 </div>
-                            </div> <div style="clear:both"></div>
+                            </div>
+                            <div style="clear:both"></div>
 
                         </div>
                     </div>
@@ -75,7 +83,7 @@
                     </div>
 
                     <!--<div ng-repeat="address in basicProfileInfo.secondaryUserAddress">-->
-                        <!--<div ng-include="'app/components/login/addressTemplate.html'"></div>-->
+                    <!--<div ng-include="'app/components/login/addressTemplate.html'"></div>-->
                     <!--</div>-->
 
                     <div class="col-md-12 no-padding-right margin-bottom-20">
@@ -85,9 +93,9 @@
                     </div>
 
                     <div class="col-md-12 no-padding-right margin-bottom-20"
-                         ng-repeat="number in basicProfileInfo.secondaryPhoneNos">
+                         ng-repeat="number in basicProfileInfo.secondaryPhoneNos track by $index">
                         <input type="text" class="username-textbox textbox textItalic"
-                               ng-model="number.value"
+                               ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
                                placeholder="Telephone number"/>
                     </div>
 
@@ -102,9 +110,9 @@
                                placeholder="Email"/>
                     </div>
                     <div class="col-md-12 no-padding-right margin-bottom-20"
-                         ng-repeat="email in basicProfileInfo.secondaryEmails">
+                         ng-repeat="email in basicProfileInfo.secondaryEmails track by $index">
                         <input type="text" class="username-textbox textbox textItalic"
-                               ng-model="email.value"
+                               ng-model="basicProfileInfo.secondaryEmails[$index]"
                                placeholder="Email"/>
                     </div>
                     <div class="row add-email-wrap margin-bottom-20" style="margin-top:-10px;">
@@ -120,33 +128,35 @@
                 </div>
             </div>
 
-            <div class="row margin-bottom-20">
-                <div class="col-md-12">
-                    <a ng-click="addNewAddress()">
-                        Add address in another city
-                    </a>
-                </div>
-            </div>
+            <!--<div class="row margin-bottom-20">-->
+                <!--<div class="col-md-12">-->
+                    <!--<a ng-click="addNewAddress()">-->
+                        <!--Add address in another city-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <div class="row margin-bottom-20">
-                <div class="col-md-12">
+                <div class="col-md-12 by-reg-gallery">
                     <div class="buttonCustom pleaseUploadYourLogoImageHide">
                         UPLOAD THE MAIN PHOTO
                     </div>
                     <input id="inputImage2"
                            type="file"
                            accept="image/*"
-                           image="basicProfileInfo.profileImage"
+                           image="profileImage"
                            resize-max-height="300"
                            resize-max-width="250"
-                           resize-quality="0.7" />
+                           resize-quality="0.7"/>
 
                     <!--<p>Original</p>-->
                     <!--<img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}"/>-->
                     <!--<p>Resized</p>-->
-                    <img ng-show="basicProfileInfo.profileImage" ng-src="{{basicProfileInfo.profileImage.resized.dataURL}}"/>
+                    <img ng-if="profileImage" ng-src="{{profileImage.resized.dataURL}}"/>
+                    <img ng-if="basicProfileInfo.profileImage && !profileImage"
+                         ng-src="{{basicProfileInfo.profileImage}}"/>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 by-reg-gallery">
                     <div class="buttonCustom pleaseUploadYourLogoImageHide">
                         UPLOAD OTHER PHOTOS (UP TO 8)
                     </div>
@@ -154,12 +164,13 @@
                            type="file"
                            accept="image/*"
                            multiple
-                           image="basicProfileInfo.photoGalleryURLs"
+                           image="galleryImages"
                            resize-max-height="300"
                            resize-max-width="250"
-                           resize-quality="0.7" />
+                           resize-quality="0.7"/>
 
-                    <img ng-repeat="img in basicProfileInfo.photoGalleryURLs" ng-src="{{img.resized.dataURL}}" />
+                    <img ng-repeat="img in basicProfileInfo.photoGalleryURLs" ng-src="{{img}}"/>
+                    <img ng-repeat="img in galleryImages" ng-src="{{img.resized.dataURL}}"/>
                 </div>
             </div>
 
@@ -182,7 +193,8 @@
 
             <div class="col-md-12 margin-bottom-10">
                 <div class="row">
-                    <textarea class="textbox home-address textItalic" rows="3" ng-model="basicProfileInfo.description"></textarea>
+                    <textarea class="textbox home-address textItalic" rows="3"
+                              ng-model="basicProfileInfo.description"></textarea>
                 </div>
             </div>
 
@@ -191,6 +203,7 @@
 
         <div class="col-md-12 margin-top-20 margin-bottom-20">
             <input type="button" value="Done" class="nextButton" ng-click="submitData()"/>
+
             <div class="clearfix"></div>
         </div>
 

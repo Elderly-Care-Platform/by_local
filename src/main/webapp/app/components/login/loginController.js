@@ -1,30 +1,3 @@
-byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams',
-    function ($scope, $rootScope, $http, $location, $routeParams) {
-        $scope.views = {};
-        $scope.id = "";
-        $scope.userId = localStorage.getItem("USER_ID");
-
-        $scope.regLevel = $routeParams.regLev ? $routeParams.regLev : 0;
-        $scope.views.leftPanel  = "app/components/login/registrationLeftPanel.html";
-
-        $scope.updateLevel = function(regLevel, profile){
-            $scope.regLevel = parseInt(regLevel);
-            if($scope.regLevel===0){
-                $scope.views.contentPanel  = "app/components/login/login.html";
-            }else if($scope.regLevel===1){
-                $scope.views.contentPanel  = "app/components/login/regUserType.html";
-            }else if($scope.regLevel===2){
-                $scope.id = profile.id;
-                $scope.views.contentPanel  = "app/components/login/regInstitution.html";
-            }else{
-                console.log("no reg page");
-            }
-        };
-
-        $scope.updateLevel($scope.regLevel);
-
-    }]);
-
 byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User',
     function ($scope, $rootScope, $http, $location, $routeParams, User) {
 		window.scrollTo(0, 0);
@@ -51,6 +24,15 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $scope.user.password = '';
                 $rootScope.bc_discussType = 'All'; //type for discuss list
                 $scope.setUserCredential(login);
+
+                if($rootScope.nextLocation)
+                {
+                    $location.path($rootScope.nextLocation);
+                }
+                else
+                {
+                    $location.path("/users/home");
+                }
             }).error(function () {
                 $scope.setError("Invalid user/password combination");
             });
@@ -63,11 +45,12 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $scope.emailError = "Please enter valid Email Id";
             }else{
                 $scope.emailError = "";
-                if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
-                    $scope.pwdError = "Password must be at least 6 character";
-                }else{
-                    $scope.pwdError = "";
-                }
+            }
+
+            if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
+                $scope.pwdError = "Password must be at least 6 character";
+            }else{
+                $scope.pwdError = "";
             }
 
             if($scope.pwdError==="" && $scope.emailError===""){
@@ -75,6 +58,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                     $scope.createUserSuccess = "User registered successfully";
                     $scope.createUserError = '';
                     $scope.setUserCredential(login, "reg2");
+                    $scope.$parent.updateRegistration();
                 }, function (error) {
                     // failure
                     console.log("$save failed " + JSON.stringify(error));
@@ -103,17 +87,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $http.defaults.headers.common.sess = login.sessionId;
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
-                if(nextLocation){
-                    $scope.$parent.updateLevel(1);
-                }
-                else if($rootScope.nextLocation)
-                {
-                    $location.path($rootScope.nextLocation);
-                }
-                else
-                {
-                    $location.path("/users/home");
-                }
+
                 document.getElementById("login_placeHolder_li").style.opacity = "1";
                 var element = document.getElementById("login_placeholder");
                 element.innerHTML = "Logout";
@@ -121,9 +95,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                 var pro = document.getElementById('profile_placeholder');
                 pro.innerHTML = "Profile";
-                //pro.href = "javascript:void(0);";
-
-                pro.href = apiPrefix + "#/users/login/?regLev=1"; //******************* to be removed*************//
+                pro.href = apiPrefix + "#/users/login/"; //******************* to be removed*************//
             }
             else {
                 $scope.setError('Browser does not support cookies');

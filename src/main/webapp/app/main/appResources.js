@@ -100,10 +100,10 @@ var contactUs = byServices.factory('ContactUs', function($resource) {
 
 //New user profile
 var userProfile = byServices.factory('UserProfile', function($resource) {
-    return $resource(apiPrefix +'api/v1/userProfile/:id',{}, {
-        get: {method: 'GET', params: {id: '@id'}},
+    return $resource(apiPrefix +'api/v1/userProfile/:userId',{}, {
+        get: {method: 'GET', params: {}},
         post:{method: 'POST', params: {}},
-        update:{method: 'PUT', params: {id: '@id'}}
+        update:{method: 'PUT', params: {}}
     })
 });
 

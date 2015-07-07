@@ -72,30 +72,33 @@
                 <font color="red">{{createUserError}}</font>
             </div>
 
-            <div ng-if="pwdError!==''">
-                <font color="red">{{pwdError}}</font>
-            </div>
+
 
             <div ng-if="emailError!==''">
                 <font color="red">{{emailError}}</font>
             </div>
-
             <div class=" col-md-12 no-padding margin-bottom-20 register-page">
                 <input type="text" class="username-textbox textbox"
                        placeholder="Please enter your Email ID"
                        ng-model="newUser.email">
             </div>
-            <div class=" col-md-12 no-padding margin-bottom-20 register-page">
 
+
+            <div class=" col-md-12 no-padding margin-bottom-20 register-page">
                 <input type="text" class="username-textbox textbox"
                        placeholder="Please select your User Name (optional)"
                        ng-model="newUser.userName">
+            </div>
+
+            <div ng-if="pwdError!==''">
+                <font color="red">{{pwdError}}</font>
             </div>
             <div class=" col-md-12 no-padding margin-bottom-20 register-page">
                 <input type="password" class="username-textbox textbox"
                        placeholder="Please select your password"
                        ng-model="newUser.password">
             </div>
+
 
             <div class="col-md-12 no-padding form-header-content margin-bottom-25 margin-top-20">
                 <button class="btn btn-success pull-right register-btn">REGISTER</button>

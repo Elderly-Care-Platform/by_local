@@ -101,7 +101,7 @@ public class UserProfileTest {
 			this.userProfile = this.userProfileRepository.findByUserId(userId);
 			if (this.userProfile == null) {
 				logger.error("did not find any profile matching ID");
-				httpStatus = HttpStatus.NOT_FOUND;
+				this.userProfile = new UserProfile();
 			}
 			else
 			{
@@ -233,18 +233,18 @@ public class UserProfileTest {
 
 	
 
-	/*@PathVariable(value = "userProfileID") String userProfileID */
-	@RequestMapping(method = {RequestMethod.PUT}, value = { "/{userProfileID}" }, consumes = { "application/json" })
+	/*@PathVariable(value = "userId") String userId */
+	@RequestMapping(method = {RequestMethod.PUT}, value = { "/{userId}" }, consumes = { "application/json" })
 	@ResponseBody
 	public ResponseEntity<UserProfile> updateUserProfile(@RequestBody UserProfile userProfile,
-			@PathVariable(value = "userProfileID") String userProfileID, HttpServletRequest req, HttpServletResponse res) throws IOException {
+			@PathVariable(value = "userId") String userId, HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
 		this.userProfile = null;
 		HttpStatus httpStatus = HttpStatus.OK;
 		LoggerUtil.logEntry();
 		logger.debug("trying to update a user Profile");
 		
-		if ((userProfile != null) && userProfileID != null) {
+		if ((userProfile != null) && (userId != null)) {
 			
 			/* first check if we have valid user session*/
 			User currentUser = Util.getSessionUser(req);
@@ -257,9 +257,10 @@ public class UserProfileTest {
 				{
 					try {
 					this.userProfile = null;
-					this.userProfile = userProfileRepository.findOne(userProfileID);
-					logger.debug("userPRofile from repo" + this.userProfile.toString());
+					this.userProfile = userProfileRepository.findByUserId(userId);
+					
 					if (this.userProfile != null)  {
+					logger.debug("userPRofile from repo" + this.userProfile.toString());	
 					/* set required fields */
 					this.userProfile.setBasicProfileInfo(userProfile.getBasicProfileInfo());	
 					this.userProfile.setFeatured(userProfile.isFeatured());

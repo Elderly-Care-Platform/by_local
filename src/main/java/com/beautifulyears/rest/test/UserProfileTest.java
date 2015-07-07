@@ -86,22 +86,26 @@ public class UserProfileTest {
 		return new ResponseEntity<List<UserProfile>>(this.userProfilePage.getContent(),null, httpStatus);
 	}
 	
-	/*@PathVariable(value = "userProfileID") String userProfileID */
-	@RequestMapping(method = {RequestMethod.GET}, value = { "/{userProfileID}" }, produces = { "application/json" })
+	/*@PathVariable(value = "userId") String userId */
+	@RequestMapping(method = {RequestMethod.GET}, value = { "/{userId}" }, produces = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<UserProfile> getUserProfilebyID(@PathVariable(value = "userProfileID") String userProfileID,
+	public ResponseEntity<UserProfile> getUserProfilebyID(@PathVariable(value = "userId") String userId,
 			HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
 		this.userProfile = null;
 		HttpStatus httpStatus = HttpStatus.OK;
 		LoggerUtil.logEntry();
-		logger.debug("trying to get a user profile by ID");
-		if (userProfileID != null) {
+		logger.debug("trying to get a user profile by user ID");
+		if (userId != null) {
 			
-			this.userProfile = this.userProfileRepository.findOne(userProfileID);
+			this.userProfile = this.userProfileRepository.findByUserId(userId);
 			if (this.userProfile == null) {
 				logger.error("did not find any profile matching ID");
 				httpStatus = HttpStatus.NOT_FOUND;
+			}
+			else
+			{
+				logger.debug(this.userProfile.toString());
 			}
 		}
 		else {
@@ -195,7 +199,7 @@ public class UserProfileTest {
 				this.userProfile = userProfile;
 				if (this.userProfile.getUserId().equals(currentUser.getId())) {
 					
-					/* need to add a check - if a userProfile by this userID already exists, do not allow */
+					/* check - if a userProfile by this userID already exists, do not allow */
 					if (this.userProfileRepository.findByUserId(this.userProfile.getUserId()) == null) {
 					userProfileRepository.save(this.userProfile);
 					logger.info("New User Profile created with details: "
@@ -227,38 +231,6 @@ public class UserProfileTest {
 	}
 	
 
-	/* this method allows to get a userProfile matching the user ID */
-	@RequestMapping(method = {RequestMethod.GET}, value = { "" }, params = { "userId" }, produces = { "application/json" })
-	@ResponseBody
-	public ResponseEntity<UserProfile> getUserProfilebyUserId(@RequestParam( "userId" ) String userId, 
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
-		
-		LoggerUtil.logEntry();
-		HttpStatus httpStatus = HttpStatus.OK;
-		logger.debug("trying to get a user profile matching a user ID");
-	
-		this.userProfile = null;
-		if (userId != null)
-		{
-			this.userProfile = this.userProfileRepository.findByUserId(userId);
-			if (this.userProfile != null) {
-			logger.debug(this.userProfile.toString());
-			}
-			else
-			{
-				httpStatus = HttpStatus.NOT_FOUND;
-				logger.debug("no matching record found");
-			}
-		}
-		else
-		{
-			httpStatus = HttpStatus.BAD_REQUEST;
-			logger.debug("null user ID");
-		}
-		/* check the collection */
-		/* validate input Param*/
-		return new ResponseEntity<UserProfile>(this.userProfile, null, httpStatus);
-	}
 	
 
 	/*@PathVariable(value = "userProfileID") String userProfileID */

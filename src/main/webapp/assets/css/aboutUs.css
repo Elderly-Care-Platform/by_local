@@ -1,6 +1,7 @@
 .aboutUsParent{
 	font-family: century_gothic !important;
 }
+
 .aboutUsOne
 {
   background: url('../img/aboutUs/AboutOne.png?versionTimeStamp=%PROJECT_VERSION%');
@@ -41,14 +42,13 @@
 	line-height: 62px;
 	padding-bottom: 118px;
 }
-.aboutUsTwo
-{
-	background: url('../img/aboutUs/aboutTwo.png?versionTimeStamp=%PROJECT_VERSION%');
+.aboutUsTwo {
+		background: url('../img/aboutUs/aboutTwo.png?versionTimeStamp=%PROJECT_VERSION%');
 	  background-size: 100%;
-    background-repeat: no-repeat;
-	margin-top: 0px;
-	background-position: 0px -99px;
-  	padding: 73px 15px 3px 67px !important;
+	  background-repeat: no-repeat;
+	  margin-top: 0px;
+	  background-position: 0px -99px;
+	  padding: 22px 15px 3px 67px !important;
 }
 .aboutUsOneThree
 {
@@ -162,6 +162,12 @@
 {
 	list-style-image: url('../img/aboutUs/aboutArrow.png?versionTimeStamp=%PROJECT_VERSION%');
 	margin-left: 22px;
+}
+.helprightText {
+  font-size: 22px;
+}
+.helpleftText {
+  font-size: 22px;
 }
 .blackColorMore
 {
@@ -412,7 +418,10 @@
 	  line-height: 24px;
 	  padding: 30px 15px 30px 20%;
 	}
-}
+	.aboutUsOne {
+		background-position: 0px 243px;
+		padding: 71px 15px 220px 67px;
+	}
 	
 @media screen and (max-width: 990px){
 	.aboutProductsThumbWrap:nth-child(even)
@@ -420,6 +429,10 @@
 		width: 100%;
 		margin-left: 0px;
 	}
+		.aboutUsOne {
+			  background-position: 0px 243px;
+			  padding: 1px 15px 220px 67px;
+			}
 	.teamWrapperBelowThumb img
 	{
 		width: 300px;
@@ -542,13 +555,8 @@
 	float: none !important;
 }
 
-.margin--20{
-	
-	margin-top: -20px ! important;
-}
-
 .font-23{
-	font-size:23px ! important;
+	font-size:23px !important;
 }
 .helpjustifyText {
 	margin-left: auto;

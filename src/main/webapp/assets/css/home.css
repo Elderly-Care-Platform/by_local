@@ -30,8 +30,23 @@
 .by_left_panel a{
     font-family: century_gothic !important;
 }
+.by_left_panel_fixed .scrollableLeftPanelDiv {
+  height: calc(100vh - 140px);
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.by_left_panel_fixed .scrollableLeftPanelDiv:hover {
+  overflow-y: auto;
+}
 
-
+.by_left_panel_fixed .scrollableLeftPanelDiv {
+  height: calc(100vh - 140px);
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.by_left_panel_fixed .scrollableLeftPanelDiv:hover {
+  overflow-y: auto;
+}
 .by_left_panel_fixed {
     position: fixed;
     width: 21%;

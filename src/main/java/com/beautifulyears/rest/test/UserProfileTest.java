@@ -195,12 +195,22 @@ public class UserProfileTest {
 				this.userProfile = userProfile;
 				if (this.userProfile.getUserId().equals(currentUser.getId())) {
 					
+					/* need to add a check - if a userProfile by this userID already exists, do not allow */
+					if (this.userProfileRepository.findByUserId(this.userProfile.getUserId()) == null) {
 					userProfileRepository.save(this.userProfile);
 					logger.info("New User Profile created with details: "
 							+ this.userProfile.toString());
+					}
+					else
+					{
+						httpStatus = HttpStatus.CONFLICT;
+						logger.debug("resource already exists");
+						this.userProfile = null;
+					}
 				} else {
 					logger.error("Wrong user ID" + this.userProfile.getUserId());
 					httpStatus = HttpStatus.UNAUTHORIZED;
+					this.userProfile = null;
 				}
 			} else {
 				this.userProfile = null;
@@ -213,6 +223,40 @@ public class UserProfileTest {
 			httpStatus = HttpStatus.BAD_REQUEST;
 
 		}
+		return new ResponseEntity<UserProfile>(this.userProfile, null, httpStatus);
+	}
+	
+
+	/* this method allows to get a userProfile matching the user ID */
+	@RequestMapping(method = {RequestMethod.GET}, value = { "" }, params = { "userId" }, produces = { "application/json" })
+	@ResponseBody
+	public ResponseEntity<UserProfile> getUserProfilebyUserId(@RequestParam( "userId" ) String userId, 
+			HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		LoggerUtil.logEntry();
+		HttpStatus httpStatus = HttpStatus.OK;
+		logger.debug("trying to get a user profile matching a user ID");
+	
+		this.userProfile = null;
+		if (userId != null)
+		{
+			this.userProfile = this.userProfileRepository.findByUserId(userId);
+			if (this.userProfile != null) {
+			logger.debug(this.userProfile.toString());
+			}
+			else
+			{
+				httpStatus = HttpStatus.NOT_FOUND;
+				logger.debug("no matching record found");
+			}
+		}
+		else
+		{
+			httpStatus = HttpStatus.BAD_REQUEST;
+			logger.debug("null user ID");
+		}
+		/* check the collection */
+		/* validate input Param*/
 		return new ResponseEntity<UserProfile>(this.userProfile, null, httpStatus);
 	}
 	

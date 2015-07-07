@@ -16,6 +16,7 @@ import com.beautifulyears.repository.custom.UserProfileRepositoryCustom;
 public interface UserProfileRepository extends PagingAndSortingRepository<UserProfile, String>,UserProfileRepositoryCustom{
 
 	Page<UserProfile> findByBasicProfileInfoUserAddressCity(String city, Pageable pageable);
+	UserProfile findByUserId(String UserId);
 	
 	
 	

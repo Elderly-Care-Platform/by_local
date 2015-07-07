@@ -97,23 +97,41 @@ var contactUs = byServices.factory('ContactUs', function($resource) {
 });
 
 
-//User
-var user = byServices.factory('User', function($resource) {
-    return $resource(apiPrefix+'api/v1/users/:userId',{}, {
-        remove:{method: 'DELETE', params: {userId: '@id'}},
-        update:{method: 'PUT', params: {userId: '@id'}},
-        get: {method: 'GET', params: {userId: '@id'}}
+
+//New user profile
+var userProfile = byServices.factory('UserProfile', function($resource) {
+    return $resource(apiPrefix +'api/v1/userProfile/:id',{}, {
+        get: {method: 'GET', params: {id: '@id'}},
+        post:{method: 'POST', params: {}},
+        update:{method: 'PUT', params: {id: '@id'}}
     })
 });
 
-//UserProfile
-var userProfile = byServices.factory('UserProfile', function($resource) {
-    return $resource(apiPrefix+'api/v1/userprofile/:userId',{}, {
-        remove:{method: 'DELETE', params: {userId: '@userId'}},
-        update:{method: 'PUT', params: {userId: '@userId'}},
-        get: {method: 'GET', params: {userId: '@userId'}}
+//FindService types
+var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) {
+    return $resource(apiPrefix +'api/v1/service_types/list/all',{}, {
+        get: {method: 'GET', params: {}},
     })
 });
+
+
+//User
+var user = byServices.factory('User', function($resource) {
+    return $resource(apiPrefix+'api/v1/users/:userId',{}, {
+        get: {method: 'GET', params: {userId: '@id'}},
+        post:{method: 'PUT', params: {userId: '@id'}},
+        put:{method: 'PUT', params: {userId: '@id'}}
+    })
+});
+
+////UserProfile old
+//var userProfile = byServices.factory('UserProfile', function($resource) {
+//    return $resource(apiPrefix+'api/v1/userprofile/:userId',{}, {
+//        remove:{method: 'DELETE', params: {userId: '@userId'}},
+//        update:{method: 'PUT', params: {userId: '@userId'}},
+//        get: {method: 'GET', params: {userId: '@userId'}}
+//    })
+//});
 
 
 var depList = byServices.factory('DependentList', function($resource) {

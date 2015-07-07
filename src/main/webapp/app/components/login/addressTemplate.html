@@ -1,0 +1,24 @@
+
+<div class="col-md-12 no-padding-right margin-bottom-20">
+    <div ng-if="$index > 0"> {{"Address " +(parseInt($index)+2)}}</div>
+    <input type="text" ng-model="address.city" class="name-textbox textbox "
+           placeholder="City"/>
+</div>
+<div class="col-md-12 no-padding-right margin-bottom-20" style="width:85px;">
+    <input type="text" ng-model="address.zip" class="name-textbox textbox "
+           placeholder="Zip"/>
+</div>
+<div class="col-md-12 no-padding-right margin-bottom-20">
+    <input type="text" ng-model="address.locality" class="name-textbox textbox "
+           placeholder="Locality"/>
+</div>
+
+<div class="col-md-12 no-padding-right margin-bottom-20">
+    <textarea rows="3" ng-model="address.streetAddress" class="name-textbox textbox "
+          placeholder="Address"></textarea>
+</div>
+
+<div class="col-md-12 no-padding-right margin-bottom-20">
+    <input type="text" ng-model="address.country" class="name-textbox textbox "
+           placeholder="Country"/>
+</div>

@@ -1,21 +1,44 @@
+byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams',
+    function ($scope, $rootScope, $http, $location, $routeParams) {
+        $scope.views = {};
+        $scope.id = "";
+        $scope.userId = localStorage.getItem("USER_ID");
+
+        $scope.regLevel = $routeParams.regLev ? $routeParams.regLev : 0;
+        $scope.views.leftPanel  = "app/components/login/registrationLeftPanel.html";
+
+        $scope.updateLevel = function(regLevel, profile){
+            $scope.regLevel = parseInt(regLevel);
+            if($scope.regLevel===0){
+                $scope.views.contentPanel  = "app/components/login/login.html";
+            }else if($scope.regLevel===1){
+                $scope.views.contentPanel  = "app/components/login/regUserType.html";
+            }else if($scope.regLevel===2){
+                $scope.id = profile.id;
+                $scope.views.contentPanel  = "app/components/login/regInstitution.html";
+            }else{
+                console.log("no reg page");
+            }
+        };
+
+        $scope.updateLevel($scope.regLevel);
+
+    }]);
+
 byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User',
     function ($scope, $rootScope, $http, $location, $routeParams, User) {
 		window.scrollTo(0, 0);
-        $scope.signupViews = {};
-        $scope.signupViews.leftPanel = "app/components/login/signUpLeftPanel.html";
-        $scope.signupViews.contentPanel = "app/components/login/login.html";
+        $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
 
         $scope.user = {};
         $scope.user.email = '';
         $scope.user.password = '';
-        $scope.regLevel = 0;
-        $scope.setView = function(level){
-        	if(level===1){
-        		$scope.signupViews.contentPanel = "app/components/login/user_i_am.html";
-        		$scope.regLevel = 1;
-        	}
-        }
-        
+
+        $scope.newUser = new User();
+        $scope.pwdError = "";
+        $scope.emailError = "";
+
+
         $scope.loginUser = function (user) {
             $scope.resetError();
             $http.post(apiPrefix + 'api/v1/users/login', user).success(function (login) {
@@ -26,85 +49,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 }
                 $scope.user.email = '';
                 $scope.user.password = '';
-                $rootScope.sessionId = login.sessionId;
-                $rootScope.bc_discussType = 'All';
-                $rootScope.bc_username = login.userName;
-                $rootScope.bc_userId = login.userId;
-//                $scope.setUserCredential();
-
-                if ("localStorage" in window) {
-                    localStorage.setItem("SessionId", login.sessionId);
-                    $http.defaults.headers.common.sess = login.sessionId;
-                    localStorage.setItem("USER_ID", login.userId);
-                    localStorage.setItem("USER_NAME", login.userName);
-                    if($rootScope.nextLocation)
-					{
-						$location.path($rootScope.nextLocation);
-					}
-					else
-					{
-						$location.path("/users/home");
-					}
-                    document.getElementById("login_placeHolder_li").style.opacity = "1";
-                    var element = document.getElementById("login_placeholder");
-                    element.innerHTML = "Logout";
-                    element.href = apiPrefix + "#/users/logout/" + login.sessionId;
-
-                    var pro = document.getElementById('profile_placeholder');
-                    pro.innerHTML = "Profile";
-                    pro.href = "javascript:void(0);";
-
-                }
-                else {
-                    $scope.setError('Browser does not support cookies');
-                    $location.path("/users/login");
-                }
-
-
+                $rootScope.bc_discussType = 'All'; //type for discuss list
+                $scope.setUserCredential(login);
             }).error(function () {
-                $scope.error = 'Invalid user/password combination';
-                $scope.message = '';
+                $scope.setError("Invalid user/password combination");
             });
         }
 
-        $scope.resetError = function () {
-            $scope.error = '';
-            $scope.message = '';
-        }
-
-        $scope.setError = function (message) {
-            $scope.error = message;
-            $scope.message = '';
-            $rootScope.SessionId = undefined;
-            $http.defaults.headers.common.sess = "";
-        }
-
-        $scope.setUserCredential = function(userData){
-        	 if ("localStorage" in window) {
-                 localStorage.setItem("SessionId", login.sessionId);
-                 localStorage.setItem("USER_ID", login.userId);
-                 localStorage.setItem("USER_NAME", login.userName);
-                 $location.path("/users/home");
-                 document.getElementById("login_placeHolder_li").style.opacity = "1";
-                 var element = document.getElementById("login_placeholder");
-                 element.innerHTML = "Logout";
-                 element.href = apiPrefix + "#/users/logout/" + login.sessionId;
-
-                 var pro = document.getElementById('profile_placeholder');
-                 pro.innerHTML = "Profile";
-                 pro.href = "javascript:void(0);";
-
-             }
-             else {
-                 $scope.setError('Browser does not support cookies');
-                 $location.path("/users/login");
-             }
-        }
-        
 //     ************************   create new user start
-        $scope.newUser = new User();
-        $scope.pwdError = "";
-        $scope.emailError = "";
         $scope.createNewUser = function(newUser) {
             var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             if(!$scope.newUser.email || $scope.newUser.email==="" || !emailValidation.test($scope.newUser.email)){
@@ -122,34 +74,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $scope.newUser.$save(function (login) {
                     $scope.createUserSuccess = "User registered successfully";
                     $scope.createUserError = '';
-//                $scope.setView(1);
-                    if ("localStorage" in window) {
-                        localStorage.setItem("SessionId", login.sessionId);
-                        $http.defaults.headers.common.sess = login.sessionId;
-                        localStorage.setItem("USER_ID", login.userId);
-                        localStorage.setItem("USER_NAME", login.userName);
-                        if($rootScope.nextLocation)
-                        {
-                            $location.path($rootScope.nextLocation);
-                        }
-                        else
-                        {
-                            $location.path("/users/home");
-                        }
-                        document.getElementById("login_placeHolder_li").style.opacity = "1";
-                        var element = document.getElementById("login_placeholder");
-                        element.innerHTML = "Logout";
-                        element.href = apiPrefix + "#/users/logout/" + login.sessionId;
-
-                        var pro = document.getElementById('profile_placeholder');
-                        pro.innerHTML = "Profile";
-                        pro.href = "javascript:void(0);";
-
-                    }
-                    else {
-                        $scope.setError('Browser does not support cookies');
-                        $location.path("/users/login");
-                    }
+                    $scope.setUserCredential(login, "reg2");
                 }, function (error) {
                     // failure
                     console.log("$save failed " + JSON.stringify(error));
@@ -158,9 +83,52 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                 });
             }
+        }
+//      ************************   create new user end
 
+        $scope.resetError = function () {
+            $scope.error = '';
+            $scope.message = '';
         }
 
-//      ************************   create new user end
+        $scope.setError = function (message) {
+            $scope.error = message;
+            $scope.message = '';
+            $http.defaults.headers.common.sess = "";
+        }
+
+        $scope.setUserCredential = function(login, nextLocation){
+            if ("localStorage" in window) {
+                localStorage.setItem("SessionId", login.sessionId);
+                $http.defaults.headers.common.sess = login.sessionId;
+                localStorage.setItem("USER_ID", login.userId);
+                localStorage.setItem("USER_NAME", login.userName);
+                if(nextLocation){
+                    $scope.$parent.updateLevel(1);
+                }
+                else if($rootScope.nextLocation)
+                {
+                    $location.path($rootScope.nextLocation);
+                }
+                else
+                {
+                    $location.path("/users/home");
+                }
+                document.getElementById("login_placeHolder_li").style.opacity = "1";
+                var element = document.getElementById("login_placeholder");
+                element.innerHTML = "Logout";
+                element.href = apiPrefix + "#/users/logout/" + login.sessionId;
+
+                var pro = document.getElementById('profile_placeholder');
+                pro.innerHTML = "Profile";
+                //pro.href = "javascript:void(0);";
+
+                pro.href = apiPrefix + "#/users/login/?regLev=1"; //******************* to be removed*************//
+            }
+            else {
+                $scope.setError('Browser does not support cookies');
+                $location.path("/users/login");
+            }
+        }
 
     }]);

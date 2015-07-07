@@ -194,6 +194,7 @@ public class UserProfileTest {
 				/* save the user profile */
 				this.userProfile = userProfile;
 				if (this.userProfile.getUserId().equals(currentUser.getId())) {
+					
 					userProfileRepository.save(this.userProfile);
 					logger.info("New User Profile created with details: "
 							+ this.userProfile.toString());

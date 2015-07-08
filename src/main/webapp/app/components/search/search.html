@@ -88,20 +88,20 @@
                 <div class="col-md-12 left-container-img-wrapper no-padding">
                     <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                         <li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA">
-							<a href="#/search/{{term}}/Q" ng-click="$rootScope.bc_discussType = 'Q'">Q &amp; A (<span>{{q.length}}</span>)</a>
+							<a href="#/search/{{term}}/Q" ng-click="$rootScope.bc_discussType = 'Q'">Q &amp; A ({{q.length}})</a>
 
 						</li>
 						<li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts">
-							<a href="#/search/{{term}}/P" ng-click="$rootScope.bc_discussType = 'P'">POSTS (<span>{{p.length}}</span>)</a>
+							<a href="#/search/{{term}}/P" ng-click="$rootScope.bc_discussType = 'P'">POSTS ({{p.length}})</a>
 						</li>
 						<li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles">
-							<a href="#/search/{{term}}/A" ng-click="$rootScope.bc_discussType = 'A'">ARTICLES (<span>{{a.length}}</span>)</a>
+							<a href="#/search/{{term}}/A" ng-click="$rootScope.bc_discussType = 'A'">ARTICLES ({{a.length}})</a>
 						</li>
 
 
 
 						<li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">
-							<a href="#/search/{{term}}/All" ng-click="$rootScope.bc_discussType = 'All'">ALL (<span>{{p.length + a.length + q.length}}</span>)</a>
+							<a href="#/search/{{term}}/All" ng-click="$rootScope.bc_discussType = 'All'">ALL ({{p.length + a.length + q.length}})</a>
                         </li>
                     </ul>
                 </div>

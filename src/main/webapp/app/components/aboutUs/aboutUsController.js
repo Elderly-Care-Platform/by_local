@@ -1,5 +1,5 @@
-byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'HomeFeaturedContent', 'Discuss', '$sce',
-    function ($scope, $rootScope, $routeParams, $timeout, $location, HomeFeaturedContent, Discuss, $sce) {
+byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', '$sce',
+    function ($scope, $rootScope, $routeParams, $timeout, $location, $sce) {
         $scope.currentAcceleratorSelected = "";
         $scope.currentView = "aboutUs";
 

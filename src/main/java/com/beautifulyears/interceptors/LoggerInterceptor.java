@@ -4,7 +4,6 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.BindingType;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;

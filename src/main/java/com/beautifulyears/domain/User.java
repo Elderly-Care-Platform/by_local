@@ -80,7 +80,7 @@ public class User {
 		super();
 		this.userName = userName;
 		this.password = password;
-		this.email = email;
+		this.email = email.toLowerCase();
 		//this.verificationCode = verificationCode;
 		this.verificationCodeExpiry = verificationCodeExpiry;
 		this.socialSignOnId = socialSignOnId;
@@ -89,7 +89,7 @@ public class User {
 		this.passwordCodeExpiry = passwordCodeExpiry;
 		this.userRoleId = userRoleId;
 		this.isActive = isActive;
-		this.permissions = UserRolePermissions.getInstance().getUserPermsForRole(userRoleId);
+		this.permissions = UserRolePermissions.getUserPermsForRole(userRoleId);
 	}
 	
 	
@@ -116,10 +116,10 @@ public class User {
 		this.password = password;
 	}
 	public String getEmail() {
-		return email;
+		return email.toLowerCase();
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 	public String getVerificationCode() {
 		return verificationCode;
@@ -142,6 +142,43 @@ public class User {
 	}
 	public void setSocialSignOnPlatform(String socialSignOnPlatform) {
 		this.socialSignOnPlatform = socialSignOnPlatform;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	public String getPasswordCode() {
 		return passwordCode;
@@ -160,7 +197,7 @@ public class User {
 	}
 	public void setUserRoleId(String userRoleId) {
 		this.userRoleId = userRoleId;
-		this.permissions = UserRolePermissions.getInstance().getUserPermsForRole(userRoleId);
+		this.permissions = UserRolePermissions.getUserPermsForRole(userRoleId);
 		
 	}
 }

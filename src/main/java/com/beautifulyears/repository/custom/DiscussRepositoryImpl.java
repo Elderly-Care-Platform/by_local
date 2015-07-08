@@ -23,13 +23,6 @@ public class DiscussRepositoryImpl implements DiscussRepositoryCustom {
 			Arrays.asList(new String[] { "discussType", "topicId", "subTopicId" }));
 
 	@Override
-	public List<Discuss> findByDiscussType(String discussType) {
-		Criteria criteria = Criteria.where("discussType").is(discussType);// .andOperator(Criteria.where("availability").is(1));
-		return null;// mongoTemplate.find(Query.query(criteria), Discuss.class);
-
-	}
-
-	@Override
 	public Long getSize(String discussType, String topicId, String subTopicId) {
 		// TODO Auto-generated method stub
 		Query q = new Query();

@@ -1,7 +1,5 @@
 package com.beautifulyears.rest;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,16 +16,22 @@ import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussLike;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
-import com.beautifulyears.exceptions.DiscussNotFound;
-import com.beautifulyears.exceptions.UserAuthorizationException;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
+import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
+/**
+ * Controller to handle all the like posting in discuss (for discuss
+ * contents/commets/answers)
+ * 
+ * @author Nitin
+ */
 @Controller
 @RequestMapping("/discussLike")
 public class DiscussLikeController {
@@ -46,78 +50,109 @@ public class DiscussLikeController {
 		this.discussReplyRepository = discussReplyRepository;
 	}
 
+	/**
+	 * API for liking a discuss content
+	 * 
+	 * @param discussId
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=0")
 	@ResponseBody
-	public DiscussResponse.DiscussEntity submitDiscussLike(
+	public Object submitDiscussLike(
 			@RequestParam(value = "discussId", required = true) String discussId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		Discuss discuss = null;
-		User user = Util.getSessionUser(req);
-		DiscussResponse discussResponse = new DiscussResponse();
+		Object response = null;
+		try {
+			DiscussResponse discussResponse = new DiscussResponse();
+			Discuss discuss = null;
+			User user = Util.getSessionUser(req);
 
-		if (null == user) {
-			logger.error("Attempt made to like a content before logging in");
-			throw new UserAuthorizationException();
-		} else {
+			if (null == user) {
+				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+			} else {
 
-			discuss = (Discuss) discussRepository.findOne(discussId);
-			if (discuss != null) {
-				try {
+				discuss = (Discuss) discussRepository.findOne(discussId);
+				if (discuss != null) {
 					DiscussLike discussLike = null;
 
 					if (discuss.getLikedBy().contains(user.getId())) {
-						logger.error("user has already liked this content");
+						throw new BYException(
+								BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
 					} else {
-						logger.debug("creating new like for discuss");
 						discussLike = new DiscussLike(user, discussId,
 								DiscussConstants.DISCUSS_TYPE_DISCUSS);
 						discuss.getLikedBy().add(user.getId());
 						discussLikeRepository.save(discussLike);
 						discussRepository.save(discuss);
+						logger.debug("discuss content liked successfully");
+						response =  BYGenericResponseHandler.getResponse(discussResponse
+								.getDiscussEntity(discuss, user));
 					}
-				}catch (Exception e) {
-					Util.handleException(e);
+				} else {
+					throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 				}
-			} else {
-				throw new DiscussNotFound(discussId);
-			}
 
+			}
+		} catch (Exception e) {
+			Util.handleException(e);
 		}
-		return discussResponse.getDiscussEntity(discuss, user);
+		return response;
 	}
 
+	/**
+	 * API for liking the reply of type comment i.e. type = 1
+	 * 
+	 * @param replyId
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=1")
 	@ResponseBody
-	public DiscussReply submitCommentLike(
+	public Object submitCommentLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.DISCUSS_TYPE_COMMENT;
-		return submitReplyLike(replyType, replyId, req, res);
+		return BYGenericResponseHandler.getResponse(submitReplyLike(replyType,
+				replyId, req, res));
 
 	}
 
+	/**
+	 * API for liking the reply of type answer i.e. type 2
+	 * 
+	 * @param replyId
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = { RequestMethod.POST }, params = "type=2")
 	@ResponseBody
-	public DiscussReply submitAnswerLike(
+	public Object submitAnswerLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.DISCUSS_TYPE_ANSWER;
-		return submitReplyLike(replyType, replyId, req, res);
+		return BYGenericResponseHandler.getResponse(submitReplyLike(replyType,
+				replyId, req, res));
 
 	}
 
-	private DiscussReply submitReplyLike(int replyType, String contentId,
+	private Object submitReplyLike(int replyType, String contentId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		DiscussReply reply = null;
-		User user = Util.getSessionUser(req);
 		try {
+			User user = Util.getSessionUser(req);
 			if (null == user) {
-				logger.error("Attempt made to like a content before logging in");
-				throw new UserAuthorizationException();
+				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 			} else {
 
 				reply = (DiscussReply) discussReplyRepository
@@ -125,7 +160,8 @@ public class DiscussLikeController {
 				if (reply != null && reply.getReplyType() == replyType) {
 					DiscussLike discussLike = null;
 					if (reply.getLikedBy().contains(user.getId())) {
-						logger.error("user has already liked this content");
+						throw new BYException(
+								BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
 					} else {
 						logger.debug("creating new like for discuss");
 						discussLike = new DiscussLike(user, contentId,
@@ -137,12 +173,12 @@ public class DiscussLikeController {
 				}
 
 			}
+			reply.setLikeCount(reply.getLikedBy().size());
+			if (null != user && reply.getLikedBy().contains(user.getId())) {
+				reply.setLikedByUser(true);
+			}
 		} catch (Exception e) {
 			Util.handleException(e);
-		}
-		reply.setLikeCount(reply.getLikedBy().size());
-		if (null != user && reply.getLikedBy().contains(user.getId())) {
-			reply.setLikedByUser(true);
 		}
 		return reply;
 	}

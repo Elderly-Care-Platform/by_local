@@ -54,15 +54,16 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             }
 
             if($scope.pwdError==="" && $scope.emailError===""){
-                $scope.newUser.$save(function (login) {
+                $scope.newUser.$save(function (response) {
+                	var login = response.data;
                     $scope.createUserSuccess = "User registered successfully";
                     $scope.createUserError = '';
                     $scope.setUserCredential(login, "reg2");
                     $scope.$parent.updateRegistration();
                 }, function (error) {
                     // failure
-                    console.log("$save failed " + JSON.stringify(error));
-                    $scope.createUserError = 'Email already exists. ';
+                    console.log(error);
+                    $scope.createUserError = error.data.error.errorMsg;
                     $scope.createUserSuccess = '';
 
                 });

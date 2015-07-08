@@ -3,8 +3,8 @@ package com.beautifulyears.util;
 import javax.servlet.http.HttpServletRequest;
 
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
-import com.beautifulyears.exceptions.BYInternalError;
 
 public class Util {
 
@@ -16,15 +16,11 @@ public class Util {
 		return (User) req.getSession().getAttribute("user");
 	}
 	
-	public static void sendGenericError() {
-		throw new BYInternalError();
-	}
-	
 	public static void handleException(Exception e) throws Exception{
 		if(e instanceof BYException){
 			throw e;
 		}else{
-			sendGenericError();
+			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

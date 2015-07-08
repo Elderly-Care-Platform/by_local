@@ -40,9 +40,15 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
             
             if($scope.errorMsg === ""){
                 $scope.errorMsg = "";
-                $scope.contactUs.$save(function (contactUs, headers) {
-                    $location.path("/users/home");
-                });
+                $scope.contactUs.$save( //success
+                		function (value) {
+                            $location.path("/users/home");
+                        },
+                        //error
+                        function( error ){
+                        	console.log("QUErY ERROR");
+                        	alert("error2");
+                		});
             }
         }
 

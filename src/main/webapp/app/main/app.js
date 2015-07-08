@@ -33,7 +33,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 
        	var session = SessionIdService.getSessionId();
        	if (session == '' || session == null) {
-       		console.log(next.templateUrl);
+//       		console.log(next.templateUrl);
        		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
             // no logged user, we should be going to #login
             //Code to allow non-logged in users to visit read only pages
@@ -91,8 +91,8 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 	 				$location.path('/users/new');
 	 			}, function (error) {
 					// failure
-					console.log("$edit failed " + JSON.stringify(error));
-					$scope.error = 'Failed to edit user details';
+					console.log(error);
+					$scope.error = error.data.error.errorMsg;
 					$scope.message = '';
 
 				});
@@ -115,7 +115,7 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 				}, function (error) {
                     	// failure
                     	console.log("$save failed " + JSON.stringify(error));
-                    	$scope.error = 'Email already exists. ';
+                    	$scope.error = error.data.error.errorMsg;
                     	$scope.message = '';
 
                 });
@@ -125,9 +125,9 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 		}
   }]);
 
-
-
-//register_2.html
+//
+//
+////register_2.html
 //byControllers.controller('UserCreate2Controller', ['$scope', '$routeParams', '$location', 'UserProfile',
 //  function($scope, $routeParams, $location, UserProfile) {
 //	  	$scope.message = ""
@@ -183,108 +183,108 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 //
 //		}
 //  }]);
+//
 
 
-
-
-//dependents.html - clicking on one dependent for editing
-//User Listing
-byControllers.controller('DependentShowEditController', ['$scope', '$rootScope', '$routeParams', '$location', 'ShowDependent', 'UserDependent',
-	function($scope, $rootScope, $routeParams, $location, ShowDependent, UserDependent) {
-	   var dependentId = $location.path().substring($location.path().lastIndexOf("/")+1);
-	   var userId = $rootScope.bc_userId;
-	   $scope.userDependent = ShowDependent.get({userId:$rootScope.bc_userId, id:dependentId});
-
-	   //languages
-	   //?????var langs = $scope.userDependent.speaksLang;
-	   $scope.managedependent = function () {
-
-
-			$scope.userDependent.userId = localStorage.getItem('USER_ID');
-
-			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
-			{
-				$location.path('/users/login');
-				return;
-			}
-
-
-			$scope.userDependent.$save(function (userDependent, headers)
-			{
-				$scope.message = "Dependent edited successfully";
-				$scope.error = '';
-
-				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
-			}, function (error) {
-					// failure
-					$scope.error = 'Error in editing dependent information';
-					$scope.message = '';
-
-			});
-
-		};
-
-
-}]);
-
-
-
-//dependents.html - showing the list of dependents for thsi user
-//User Listing
-byControllers.controller('DependentListController', ['$scope', '$rootScope', '$location', 'DependentList',
-	function($scope, $rootScope, $location, DependentList) {
-		$scope.dependents = DependentList.query({userId:$rootScope.bc_userId});//query nnot working!
-		if(!$scope.dependents)
-		{
-			$location.path('/dependent');
-		}
-}]);
-
-
-//register_3.html
-byControllers.controller('UserCreate3Controller', ['$scope', '$rootScope', '$routeParams', '$location', 'UserDependent',
-  function($scope, $rootScope, $routeParams, $location, UserDependent) {
-	  	$scope.message = ""
-	  	$scope.error = "";
-     	var userId = localStorage.getItem('USER_ID');
-
-
-		$scope.userDependent = new UserDependent();
-		$scope.managedependent = function () {
-
-
-			$scope.userDependent.userId = localStorage.getItem('USER_ID');
-
-			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
-			{
-				$location.path('/users/login');
-				return;
-			}
-
-
-			$scope.userDependent.$save(function (userDependent, headers)
-			{
-				$scope.message = "New Dependent added successfully";
-				$scope.error = '';
-				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
-			}, function (error) {
-					// failure
-					$scope.error = 'Error in saving dependent information';
-					$scope.message = '';
-
-			});
-
-		};
-
-
-		//On clicking add new deendent in dependent list page
-		$scope.newdependentform = function () {
-			$location.path('/dependent');
-		}
-  }]);
-
-
-
+//
+////dependents.html - clicking on one dependent for editing
+////User Listing
+//byControllers.controller('DependentShowEditController', ['$scope', '$rootScope', '$routeParams', '$location', 'ShowDependent', 'UserDependent',
+//	function($scope, $rootScope, $routeParams, $location, ShowDependent, UserDependent) {
+//	   var dependentId = $location.path().substring($location.path().lastIndexOf("/")+1);
+//	   var userId = $rootScope.bc_userId;
+//	   $scope.userDependent = ShowDependent.get({userId:$rootScope.bc_userId, id:dependentId});
+//
+//	   //languages
+//	   //?????var langs = $scope.userDependent.speaksLang;
+//	   $scope.managedependent = function () {
+//
+//
+//			$scope.userDependent.userId = localStorage.getItem('USER_ID');
+//
+//			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
+//			{
+//				$location.path('/users/login');
+//				return;
+//			}
+//
+//
+//			$scope.userDependent.$save(function (userDependent, headers)
+//			{
+//				$scope.message = "Dependent edited successfully";
+//				$scope.error = '';
+//
+//				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
+//			}, function (error) {
+//					// failure
+//					$scope.error = 'Error in editing dependent information';
+//					$scope.message = '';
+//
+//			});
+//
+//		};
+//
+//
+//}]);
+//
+//
+//
+////dependents.html - showing the list of dependents for thsi user
+////User Listing
+//byControllers.controller('DependentListController', ['$scope', '$rootScope', '$location', 'DependentList',
+//	function($scope, $rootScope, $location, DependentList) {
+//		$scope.dependents = DependentList.query({userId:$rootScope.bc_userId});//query nnot working!
+//		if(!$scope.dependents)
+//		{
+//			$location.path('/dependent');
+//		}
+//}]);
+//
+//
+////register_3.html
+//byControllers.controller('UserCreate3Controller', ['$scope', '$rootScope', '$routeParams', '$location', 'UserDependent',
+//  function($scope, $rootScope, $routeParams, $location, UserDependent) {
+//	  	$scope.message = ""
+//	  	$scope.error = "";
+//     	var userId = localStorage.getItem('USER_ID');
+//
+//
+//		$scope.userDependent = new UserDependent();
+//		$scope.managedependent = function () {
+//
+//
+//			$scope.userDependent.userId = localStorage.getItem('USER_ID');
+//
+//			if($scope.userDependent.userId == '' || $scope.userDependent.userId == null)
+//			{
+//				$location.path('/users/login');
+//				return;
+//			}
+//
+//
+//			$scope.userDependent.$save(function (userDependent, headers)
+//			{
+//				$scope.message = "New Dependent added successfully";
+//				$scope.error = '';
+//				$location.path('/dependent/list/'+ localStorage.getItem('USER_ID'));
+//			}, function (error) {
+//					// failure
+//					$scope.error = 'Error in saving dependent information';
+//					$scope.message = '';
+//
+//			});
+//
+//		};
+//
+//
+//		//On clicking add new deendent in dependent list page
+//		$scope.newdependentform = function () {
+//			$location.path('/dependent');
+//		}
+//  }]);
+//
+//
+//
 
 
 // Logout Controller
@@ -362,12 +362,26 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 			var location = $scope.discuss.discussType;
 			var mode = discussType;
 
-			$scope.discuss = DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId});
+			DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId}).$promise.then(
+		             //success
+		             function( value ){
+		            	 $scope.discuss = value.data;
+		             	},
+		             //error
+		             function( error ){
+		             		console.log("QUErY ERROR");
+		             		alert("error2");
+		             		}
+		           );
 			document.getElementById(element_id).style.display = 'none';
 
 			$route.reload();
 			//??????$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
 
+		},
+		function (error) {
+			console.log("Discuss");
+			alert("error");
 		});
 
 	};
@@ -382,8 +396,8 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 
 //DISCUSS
 
-byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$route', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'DiscussUserLikes',
-  function($scope, $rootScope, $route, $routeParams, DiscussSearchForDiscussType, DiscussSearch, DiscussUserLikes) {
+byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$route', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch',
+  function($scope, $rootScope, $route, $routeParams, DiscussSearchForDiscussType, DiscussSearch) {
      $rootScope.term = $routeParams.term;
 
 	 //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -447,21 +461,31 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 	 $rootScope.bc_discussType = disType;
 
 	  //User Discuss Like method
-	 	 $scope.UserLike = function(userId, discussId, index) {
-			//only read-only allowed without login
-	 		 
-			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-			{
-				$rootScope.nextLocation = $location.path();
-				$location.path('/users/login');
-			}
-			else
-			{
-	 			//Create the new discuss user like
-	 			$scope.discuss = DiscussUserLikes.get({userId:userId, discussId: discussId});
-			}
-
-		}
+//	 	 $scope.UserLike = function(userId, discussId, index) {
+//			//only read-only allowed without login
+//	 		 
+//			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
+//			{
+//				$rootScope.nextLocation = $location.path();
+//				$location.path('/users/login');
+//			}
+//			else
+//			{
+//	 			//Create the new discuss user like
+//	 			DiscussUserLikes.get({userId:userId, discussId: discussId}).$promise.then(
+//	 		             //success
+//	 		             function( value ){
+//	 		            	 $scope.discuss = value.data;
+//	 		             	},
+//	 		             //error
+//	 		             function( error ){
+//	 		             		console.log("QUErY ERROR");
+//	 		             		alert("error2");
+//	 		             		}
+//	 		           );
+//			}
+//
+//		}
   }]);
 
 
@@ -482,7 +506,17 @@ byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '
 	  	discussType = 'All';
 	  }
 
-     $scope.discuss2 = UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId});
+     UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId}).$promise.then(
+             //success
+             function( value ){
+            	 $scope.discuss2 = value.data;
+             	},
+             //error
+             function( error ){
+             		console.log("QUErY ERROR");
+             		alert("error2");
+             		}
+           );
   }]);
 
 

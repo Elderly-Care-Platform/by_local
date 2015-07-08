@@ -66,6 +66,10 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                 $scope.editor.subject = "";
                 BY.editorCategoryList.resetCategoryList();
                 $scope.$parent.postSuccess();
+            },
+            function (error) {
+            	console.log("Discuss");
+                alert("error");
             });
         };
 

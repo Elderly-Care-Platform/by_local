@@ -25,7 +25,7 @@ var options = {
         $("#message").html("<a href='" + response.responseText + "'" +  ">" + response.responseText + "</a>");
         },
         error : function() {
-        $("#message").html("<font color='red'> ERROR: unable to upload files</font>");
+        //$("#message").html("<font color='red'> ERROR: unable to upload files</font>");
         }
 };
 try

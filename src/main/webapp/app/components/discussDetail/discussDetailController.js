@@ -8,11 +8,16 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $("#preloader").show();
-        $scope.detailResponse = DiscussDetail.get({discussId: discussId}, function(discussDetail, header){
+        DiscussDetail.get({discussId: discussId}, function(discussDetail, header){
             //broadcast data to left panel, to avoid another query from left panel of detail page
-            broadCastData.update(discussDetail.discuss);
-            $scope.detailResponse.discuss.createdAt = discussDetail.discuss.createdAt;
+        	$scope.detailResponse = discussDetail.data;
+            broadCastData.update(discussDetail.data.discuss);
+            $scope.detailResponse.discuss.createdAt = discussDetail.data.discuss.createdAt;
             $("#preloader").hide();
+        },
+        function(error){
+        	console.log("error");
+        	alert("error");
         });
 
         $scope.trustForcefully = function (html) {
@@ -66,9 +71,13 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(parentReplyId).getContent();
 
-            $scope.discussReply.$postComment(function (discussReply, headers) {
-                broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
+            $scope.discussReply.$postComment(function (discussReply) {
+                broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
                 $scope.disposeComment(parentReplyId);           //dispose comment editor and remove tinymce after successful post of comment/answer
+            },
+            function(error){
+            	console.log("error");
+            	alert("error");
             });
         };
 
@@ -87,13 +96,21 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                 $scope.discussReply.text = tinymce.get(discussId).getContent();
                 if(discussType==="Q"){
                     $scope.discussReply.$postAnswer(function (discussReply, headers) {
-                        broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
+                        broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
                         $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
+                    },
+                    function(error){
+                    	console.log("error");
+                    	alert("error");
                     });
                 }else{
                     $scope.discussReply.$postComment(function (discussReply, headers) {
-                        broadCastData.update(discussReply); //broadcast data for parent controller to update the view with latest comment/answer
+                        broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
                         $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
+                    },
+                    function(error){
+                    	console.log("error");
+                    	alert("error");
                     });
                 }
             }
@@ -114,10 +131,12 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
                 $scope.discussLike.discussId = discussId;
                 $scope.discussLike.$likeDiscuss(function(likeReply, headers){
                     $scope.beforePost = false;
-                    $scope.aggrLikeCount = likeReply.aggrLikeCount;
+                    $scope.aggrLikeCount = likeReply.data.aggrLikeCount;
+                },
+                function(error){
+                	console.log(error.data.error.errorMsg);
                 });
             }
-
         }
 
         $scope.likeComment = function(commentId, replyType){
@@ -132,12 +151,19 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','Discu
                 if(replyType===6){
                     $scope.discussLike.$likeAnswer(function(likeReply, headers){
                         $scope.beforePost = false;
-                        $scope.aggrLikeCount = likeReply.likeCount;
-                    });
+                        $scope.aggrLikeCount = likeReply.data.likeCount;
+                    },
+                    function(error){
+                    	console.log(error.data.error.errorMsg);
+                    }
+                    );
                 }else{
                     $scope.discussLike.$likeComment(function(likeReply, headers){
                         $scope.beforePost = false;
-                        $scope.aggrLikeCount = likeReply.likeCount;
+                        $scope.aggrLikeCount = likeReply.data.likeCount;
+                    },
+                    function(error){
+                    	console.log(error.data.error.errorMsg);
                     });
                 }
             }

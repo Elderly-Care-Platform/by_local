@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.User;
-import com.beautifulyears.exceptions.DiscussNotFound;
+import com.beautifulyears.exceptions.BYErrorCodes;
+import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.repository.TopicRepository;
+import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
-import com.beautifulyears.rest.response.DiscussResponse.DiscussEntity;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
@@ -54,31 +52,27 @@ public class DiscussController {
 
 	@RequestMapping(consumes = { "application/json" }, value = { "/contactUs" })
 	@ResponseBody
-	public ResponseEntity<String> submitFeedback(@RequestBody Discuss discuss,
+	public Object submitFeedback(@RequestBody Discuss discuss,
 			HttpServletRequest request, HttpServletResponse res)
 			throws Exception {
+		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
 		if (null != currentUser) {
 			discuss.setUserId(currentUser.getId());
 			discuss.setUsername(currentUser.getUserName());
 		}
-		LoggerUtil.logEntry();
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(
-				HttpStatus.CREATED);
 		discuss.setDiscussType("F");
 		discuss = discussRepository.save(discuss);
 		logger.info("new feedback entity created with ID: " + discuss.getId());
-		return responseEntity;
+		return BYGenericResponseHandler.getResponse(discuss);
 	}
 
 	@RequestMapping(consumes = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<String> submitDiscuss(@RequestBody Discuss discuss,
+	public Object submitDiscuss(@RequestBody Discuss discuss,
 			HttpServletRequest request, HttpServletResponse res)
 			throws Exception {
 		LoggerUtil.logEntry();
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(
-				HttpStatus.CREATED);
 		User currentUser = Util.getSessionUser(request);
 		if (null != currentUser) {
 			if (discuss == null || discuss.getId() == null
@@ -91,176 +85,207 @@ public class DiscussController {
 				discuss = discussRepository
 						.save(discussWithExtractedInformation);
 				logger.info("new discuss entity created with ID: "
-						+ discuss.getId()
-						+ " by User "
-						+ (null != Util.getSessionUser(request) ? Util
-								.getSessionUser(request).getId() : null));
+						+ discuss.getId() + " by User " + discuss.getUserId());
 
 			} else {
-				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-				return null;
+				throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 			}
 		} else {
-			res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return null;
+			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 		}
-		return responseEntity;
+		return BYGenericResponseHandler.getResponse(discuss);
 
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/all" }, produces = { "application/json" })
 	@ResponseBody
-	public List<DiscussEntity> allDiscuss(
+	public Object allDiscuss(
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
 		DiscussResponse discussResponse = new DiscussResponse();
-		List<String> sortArray = new ArrayList<String>();
-		sortArray.add(sort);
-		List<Discuss> list = discussRepository
-				.findPublished(null, sortArray, 0);
-		discussResponse.add(list, Util.getSessionUser(request));
-		return discussResponse.getResponse();
+		try {
+			Map<String, Object> filters = new HashMap<String, Object>();
+			filters.put("discussType", "all");
+			List<String> sortArray = new ArrayList<String>();
+			sortArray.add(sort);
+			List<Discuss> list = discussRepository.findPublished(filters,
+					sortArray, 0);
+			discussResponse.add(list, Util.getSessionUser(request));
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(discussResponse
+				.getResponse());
+
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/all/{discussType}" }, produces = { "application/json" })
 	@ResponseBody
-	public List<DiscussEntity> showDiscussByDiscussType(
+	public Object showDiscussByDiscussType(
 			@PathVariable(value = "discussType") String discussType,
 			@RequestParam(value = "featured", required = false) Boolean isFeatured,
 			@RequestParam(value = "count", required = false, defaultValue = "0") int count,
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
 		DiscussResponse discussResponse = new DiscussResponse();
-		Map<String, Object> filters = new HashMap<String, Object>();
-		filters.put("isFeatured", isFeatured);
-		filters.put("discussType", discussType);
-		List<String> sortArray = new ArrayList<String>();
-		sortArray.add(sort);
-		List<Discuss> list = discussRepository.findPublished(filters,
-				sortArray, count);
-		discussResponse.add(list, Util.getSessionUser(request));
-		return discussResponse.getResponse();
-
+		try {
+			Map<String, Object> filters = new HashMap<String, Object>();
+			filters.put("isFeatured", isFeatured);
+			filters.put("discussType", discussType);
+			List<String> sortArray = new ArrayList<String>();
+			sortArray.add(sort);
+			List<Discuss> list = discussRepository.findPublished(filters,
+					sortArray, count);
+			discussResponse.add(list, Util.getSessionUser(request));
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(discussResponse
+				.getResponse());
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/all" }, produces = { "application/json" })
 	@ResponseBody
-	public List<DiscussEntity> allDiscussDiscussTypeAndTopic(
+	public Object allDiscussDiscussTypeAndTopic(
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
 		DiscussResponse discussResponse = new DiscussResponse();
-		Map<String, Object> filters = new HashMap<String, Object>();
-		filters.put("discussType", discussType);
-		filters.put("topicId", topicId);
-		List<String> sortArray = new ArrayList<String>();
-		sortArray.add(sort);
-		List<Discuss> list = discussRepository.findPublished(filters,
-				sortArray, 0);
-		discussResponse.add(list, Util.getSessionUser(request));
-		return discussResponse.getResponse();
+		try {
+			Map<String, Object> filters = new HashMap<String, Object>();
+			filters.put("discussType", discussType);
+			filters.put("topicId", topicId);
+			List<String> sortArray = new ArrayList<String>();
+			sortArray.add(sort);
+			List<Discuss> list = discussRepository.findPublished(filters,
+					sortArray, 0);
+			discussResponse.add(list, Util.getSessionUser(request));
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(discussResponse
+				.getResponse());
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/{subTopicId}/{userId}" }, produces = { "application/json" })
 	@ResponseBody
-	public List<DiscussEntity> allDiscussByUser(
+	public Object allDiscussByUser(
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId,
 			@PathVariable(value = "userId") String userId,
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
 		DiscussResponse discussResponse = new DiscussResponse();
-		Map<String, Object> filters = new HashMap<String, Object>();
-		filters.put("discussType", discussType);
-		filters.put("topicId", topicId);
-		filters.put("subTopicId", subTopicId);
-		filters.put("userId", userId);
-		List<String> sortArray = new ArrayList<String>();
-		sortArray.add(sort);
-		List<Discuss> list = discussRepository.findPublished(filters,
-				sortArray, 0);
-		discussResponse.add(list, Util.getSessionUser(request));
-		return discussResponse.getResponse();
+		try {
+			Map<String, Object> filters = new HashMap<String, Object>();
+			filters.put("discussType", discussType);
+			filters.put("topicId", topicId);
+			filters.put("subTopicId", subTopicId);
+			filters.put("userId", userId);
+			List<String> sortArray = new ArrayList<String>();
+			sortArray.add(sort);
+			List<Discuss> list = discussRepository.findPublished(filters,
+					sortArray, 0);
+			discussResponse.add(list, Util.getSessionUser(request));
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(discussResponse
+				.getResponse());
 
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/{subTopicId}" }, produces = { "application/json" })
 	@ResponseBody
-	public List<DiscussEntity> discussByDiscussTypeTopicAndSubTopic(
+	public Object discussByDiscussTypeTopicAndSubTopic(
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
 			@PathVariable(value = "subTopicId") String subTopicId,
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
 		DiscussResponse discussResponse = new DiscussResponse();
-		Map<String, Object> filters = new HashMap<String, Object>();
-		filters.put("discussType", discussType);
-		filters.put("topicId", topicId);
-		filters.put("subTopicId", subTopicId);
-		List<String> sortArray = new ArrayList<String>();
-		sortArray.add(sort);
-		List<Discuss> list = discussRepository.findPublished(filters,
-				sortArray, 0);
-		discussResponse.add(list, Util.getSessionUser(request));
-		return discussResponse.getResponse();
+		try {
+			Map<String, Object> filters = new HashMap<String, Object>();
+			filters.put("discussType", discussType);
+			filters.put("topicId", topicId);
+			filters.put("subTopicId", subTopicId);
+			List<String> sortArray = new ArrayList<String>();
+			sortArray.add(sort);
+			List<Discuss> list = discussRepository.findPublished(filters,
+					sortArray, 0);
+			discussResponse.add(list, Util.getSessionUser(request));
+
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(discussResponse
+				.getResponse());
 	}
 
-	@RequestMapping(method = { RequestMethod.GET }, value = { "/count/{discussType}/{topicId}/{subTopicId}" }, produces = { "plain/text" })
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/count/{discussType}/{topicId}/{subTopicId}" }, produces = { "application/json" })
 	@ResponseBody
-	public String discussByDiscussTypeTopicAndSubTopicCount(
+	public Object discussByDiscussTypeTopicAndSubTopicCount(
 			@PathVariable(value = "discussType") String discussType,
 			@PathVariable(value = "topicId") String topicId,
-			@PathVariable(value = "subTopicId") String subTopicId) {
+			@PathVariable(value = "subTopicId") String subTopicId)
+			throws Exception {
 		LoggerUtil.logEntry();
-		JSONObject obj = new JSONObject();
+		Map<String, Long> obj = new HashMap<String, Long>();
+
 		try {
+
 			Long articlesCount = discussRepository.getSize("A", topicId,
 					subTopicId);
 			Long questionsCount = discussRepository.getSize("Q", topicId,
 					subTopicId);
 			Long postsCount = discussRepository.getSize("P", topicId,
 					subTopicId);
-			obj.put("a", articlesCount);
-			obj.put("q", questionsCount);
-			obj.put("p", postsCount);
+			obj.put("a", new Long(articlesCount));
+			obj.put("q", new Long(questionsCount));
+			obj.put("p", new Long(postsCount));
 			obj.put("z", articlesCount + questionsCount + postsCount);
+
 		} catch (Exception e) {
-			obj.put("a", 0);
-			obj.put("p", 0);
-			obj.put("q", 0);
-			obj.put("z", 0);
+			Util.handleException(e);
 		}
-		return obj.toString();
+		return BYGenericResponseHandler.getResponse(obj);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/show/{discussId}" }, produces = { "application/json" })
 	@ResponseBody
-	public Discuss showDiscuss(
-			@PathVariable(value = "discussId") String discussId) {
+	public Object showDiscuss(
+			@PathVariable(value = "discussId") String discussId)
+			throws Exception {
 		LoggerUtil.logEntry();
-		Discuss discuss = (Discuss) discussRepository.findOne(discussId);
-		return discuss;
+		Discuss discuss = null;
+		try {
+			discuss = (Discuss) discussRepository.findOne(discussId);
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(discuss);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{discussId}" }, produces = { "application/json" })
 	@ResponseBody
-	public DiscussEntity getDiscuss(
+	public Object getDiscuss(
 			@PathVariable(value = "discussId") String discussId,
 			HttpServletRequest req) {
 		LoggerUtil.logEntry();
 		DiscussResponse res = new DiscussResponse();
 		Discuss discuss = (Discuss) discussRepository.findOne(discussId);
 		if (null == discuss) {
-			throw new DiscussNotFound(discussId);
+			throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 		}
-		return res.getDiscussEntity(discuss, Util.getSessionUser(req));
+		return BYGenericResponseHandler.getResponse(res.getDiscussEntity(
+				discuss, Util.getSessionUser(req)));
 	}
 
 	private Discuss setDiscussBean(Discuss discuss) throws Exception {

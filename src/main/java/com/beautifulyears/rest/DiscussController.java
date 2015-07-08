@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -147,22 +144,6 @@ public class DiscussController {
 		}
 		return BYGenericResponseHandler.getResponse(discussResponse
 				.getResponse());
-	}
-	
-	@RequestMapping(method = { RequestMethod.GET }, value = { "/page" }, produces = { "application/json" })
-	@ResponseBody
-	public Object getPage(
-			HttpServletRequest request) throws Exception {
-		LoggerUtil.logEntry();
-		DiscussResponse discussResponse = new DiscussResponse();
-		Page<Discuss> page = null;
-		try {
-			Pageable pageable = new PageRequest(1, 5);
-			page = discussRepository.findAll(pageable);
-		} catch (Exception e) {
-			Util.handleException(e);
-		}
-		return BYGenericResponseHandler.getResponse(page);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/all" }, produces = { "application/json" })

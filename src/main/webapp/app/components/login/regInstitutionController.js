@@ -139,6 +139,17 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             $scope.uploadProfileImage();
         }
 
+        $scope.deleteProfileImage = function(){
+            $scope.profileImage = null;
+        }
+
+        $scope.deleteGalleryImage = function(img){
+            var imgIndex = $scope.galleryImages.indexOf(img);
+            if (imgIndex > -1) {
+                $scope.galleryImages.splice(imgIndex, 1);
+            }
+        }
+
         $scope.uploadProfileImage = function(){
             if($scope.profileImage && $scope.profileImage.file && $scope.profileImage.file!==""){
                 var formData = new FormData();

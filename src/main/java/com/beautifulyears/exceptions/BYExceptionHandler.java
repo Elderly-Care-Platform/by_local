@@ -3,6 +3,7 @@
  */
 package com.beautifulyears.exceptions;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,12 @@ import com.beautifulyears.rest.response.BYGenericResponseHandler;
 @ControllerAdvice
 public class BYExceptionHandler extends ResponseEntityExceptionHandler{
 	
+	private Logger logger = Logger.getLogger(ResponseEntityExceptionHandler.class);
+	
 	@ExceptionHandler(BYException.class)
 	public ResponseEntity<Object> handleCustomException(BYException e, WebRequest request) {
  
-		System.out.println("Exception occured");
+		logger.error("exception ocurred "+e.getErrorCode() + " msg: "+e.getErrorMsg());
 		
 		HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -143,29 +143,31 @@ angular.module( "ngAutocomplete", [])
                     function detailsresult(detailsResult, placesServiceStatus) {
 
                       if (placesServiceStatus == google.maps.GeocoderStatus.OK) {
-                        scope.$apply(function() {
-
-                         // controller.$setViewValue(detailsResult.formatted_address);
-                          //element.val(detailsResult.formatted_address);
-
-                          scope.details = detailsResult;
-                          if(scope.callback){
+                    	  if(scope.callback){
                         	  scope.callback(detailsResult);
                           }
                           
-
-                          //on focusout the value reverts, need to set it again.
-	                         if(resetOnFocusOut){
-	                       	  var watchFocusOut = element.on('focusout', function(event) {
-	                                 element.val("");
-	                                 element.unbind('focusout')
-	                               })
-	                         }else{
-	                       	  element.unbind('focusout')
-	                         }
-                          
-
-                        });
+                    	  
+                   //    scope.$apply(function() {
+                   //
+                   //     // controller.$setViewValue(detailsResult.formatted_address);
+                   //      //element.val(detailsResult.formatted_address);
+                   //
+                   //      scope.details = detailsResult;
+                   //      
+                   //
+                   //      //on focusout the value reverts, need to set it again.
+	               //         if(resetOnFocusOut){
+	               //       	  var watchFocusOut = element.on('focusout', function(event) {
+	               //                 element.val("");
+	               //                 element.unbind('focusout')
+	               //               })
+	               //         }else{
+	               //       	  element.unbind('focusout')
+	               //         }
+                   //      
+                   //
+                   //    });
                       }
                     }
                   );

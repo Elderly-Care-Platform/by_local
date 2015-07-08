@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,7 +46,7 @@ public class UploadFile extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("request to upload the file arrived");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-
+		
 		response.setContentType("application/json");
 
 		if (isMultipart) {
@@ -55,7 +56,10 @@ public class UploadFile extends HttpServlet {
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			try {
 				List<FileItem> multiparts = upload.parseRequest(request);
+				List<String> resImageArray= new ArrayList<String>();
+				StringBuffer resImage = new StringBuffer("");
 				for (FileItem item : multiparts) {
+					resImage = new StringBuffer("");
 					if (!item.isFormField()) {
 						UUID fname = UUID.randomUUID();
 						String name = new File(item.getName()).getName();
@@ -86,36 +90,45 @@ public class UploadFile extends HttpServlet {
 											+ extension));
 						}
 
-						StringBuffer res = new StringBuffer("");
+						
 						if(null != request.getParameter("type")
 								&& "editor".equals(request.getParameter("type"))){
 //							res.append("\"original\":");
-							res.append("/uploaded_files/" + fname + "."
+							resImage.append("/uploaded_files/" + fname + "."
 									+ extension);
 						}else if (null != request.getParameter("transcoding")
 								&& true == Boolean.valueOf(request
 										.getParameter("transcoding"))) {
-							res.append("{");
-							res.append("\"original\":");
-							res.append("\"/uploaded_files/" + fname + "."
+							resImage.append("{");
+							resImage.append("\"original\":");
+							resImage.append("\"/uploaded_files/" + fname + "."
 									+ extension);
-							res.append("\",");
-							res.append("\"titleImage\":");
-							res.append("\"/uploaded_files/" + fname + "_"
+							resImage.append("\",");
+							resImage.append("\"titleImage\":");
+							resImage.append("\"/uploaded_files/" + fname + "_"
 									+ TITLE_IMG_WIDTH + "_" + TITLE_IMG_HEIGHT
 									+ "." + extension + "\",");
-							res.append("\"thumbnailImage\":");
-							res.append("\"/uploaded_files/" + fname + "_"
+							resImage.append("\"thumbnailImage\":");
+							resImage.append("\"/uploaded_files/" + fname + "_"
 									+ THUMBNAIL_IMG_WIDTH + "_"
 									+ THUMBNAIL_IMG_HEIGHT + "." + extension
 									+ "\"");
-							res.append("}");
+							resImage.append("}");
 						}
 
 						
-						response.getWriter().write(res.toString());
+						
 					}
+					resImageArray.add(resImage.toString());
 				}
+				if(null != request.getParameter("multi")
+						&& true == Boolean.valueOf(request
+								.getParameter("multi"))){
+					response.getWriter().write(resImageArray.toString());
+				}else{
+					response.getWriter().write(resImage.toString());
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error("upload upload failes");

@@ -154,7 +154,7 @@
                     <!--<p>Resized</p>-->
                     <img ng-if="profileImage" ng-src="{{profileImage.resized.dataURL}}"/>
                     <img ng-if="basicProfileInfo.profileImage && !profileImage"
-                         ng-src="{{basicProfileInfo.profileImage}}"/>
+                         ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
                 </div>
                 <div class="col-md-12 by-reg-gallery">
                     <div class="buttonCustom pleaseUploadYourLogoImageHide">
@@ -169,7 +169,7 @@
                            resize-max-width="250"
                            resize-quality="0.7"/>
 
-                    <img ng-repeat="img in basicProfileInfo.photoGalleryURLs" ng-src="{{img}}"/>
+                    <img ng-repeat="img in basicProfileInfo.photoGalleryURLs" ng-src="{{img.thumbnailImage}}"/>
                     <img ng-repeat="img in galleryImages" ng-src="{{img.resized.dataURL}}"/>
                 </div>
             </div>

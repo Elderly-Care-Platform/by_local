@@ -149,7 +149,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                     headers: {'Content-Type': undefined}
                 }).success(function(result) {
                     $scope.profileImage = "";
-                    $scope.basicProfileInfo.profileImage = result.thumbnailImage;
+                    $scope.basicProfileInfo.profileImage = result;
                     $scope.uploadGallery();
                 }).error(function(result) {
                     console.log("Upload profile image failed");
@@ -167,12 +167,12 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                     formData.append('image', $scope.galleryImages[i].file, $scope.galleryImages[i].file.name);
                 }
 
-                $http.post('UploadFile?transcoding=true', formData, {
+                $http.post('UploadFile?transcoding=true&multi=true', formData, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                 }).success(function(result) {
                     $scope.galleryImages = [];
-                    $scope.basicProfileInfo.photoGalleryURLs.push(result.thumbnailImage);
+                    $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat(result);
                     $scope.postUserProfile();
                 }).error(function(result) {
                     console.log("Upload gallery images failed");

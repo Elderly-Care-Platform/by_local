@@ -164,13 +164,13 @@ public class UserProfileTest {
 		/* check the collection */
 		/* validate input Param*/
 		logger.debug("page" + page + ",size");
-		if (( page >= 0) && (size > 0) && (city != null) && (services != null))
+		if ((size > 0) && (city != null) && (services != null))
 		{ 
 			
-			logger.debug("city" + city + "services" + services);
+			logger.debug("city" + city + "services" + services + "page" + page + "size" + size);
 			/*userProfileList = userProfileRepository.findByCustomQuery(city, services);*/
 			this.userProfilePage = null;
-			userProfileList = userProfileRepository.findByCustomQuery(city,services);
+			userProfileList = userProfileRepository.findByCustomQuery(city,services, page, size);
 			//this.userProfilePage = userProfileRepository.findByBasicProfileInfoUserAddressCity(city, new PageRequest(page, size));
 			//logger.debug(userProfilePage.toString());
 		}

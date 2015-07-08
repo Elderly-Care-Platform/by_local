@@ -9,5 +9,5 @@ import com.beautifulyears.domain.UserProfile;
 
 public interface UserProfileRepositoryCustom {
 	
-	List<UserProfile> findByCustomQuery(String city, String services);
+	List<UserProfile> findByCustomQuery(String city, String services, int page, int size);
 }

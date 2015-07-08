@@ -66,7 +66,8 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
         }
 
         $scope.cancel = function(){
-
+            console.log("return");
+            $scope.$parent.exit();
         }
 
 

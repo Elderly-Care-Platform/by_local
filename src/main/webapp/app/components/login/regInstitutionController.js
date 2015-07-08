@@ -4,7 +4,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.selectedServices = {};
         $scope.profileImage = null;
         $scope.galleryImages = [];
-		$scope.gDetails = {formatted_address:"nitin"};
+
 		$scope.addressCallback = function(response){
 			$('#addressLocality').blur();
 			$scope.address.city = "";
@@ -58,19 +58,24 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             console.log($scope.ServiceTypeList);
         })
 
-        if($scope.$parent.profile){
-            $scope.profile = $scope.$parent.profile;
+        $scope.extractData = function(){
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.address = $scope.basicProfileInfo.userAddress;
+            $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
+
+
+        }
+
+        if($scope.$parent.profile){
+            $scope.profile = $scope.$parent.profile;
+            $scope.extractData();
         }else{
             $scope.profile = UserProfile.get({userId:$scope.userId}, function(profile){
-                $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
-                $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
-                $scope.address = $scope.basicProfileInfo.userAddress;
+                $scope.extractData();
             });
         }
-       
+
         $scope.getLocationByPincode = function(element){
         	var element = document.getElementById("zipcode");
         	$scope.address.city = "";
@@ -141,12 +146,17 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         $scope.deleteProfileImage = function(){
             $scope.profileImage = null;
+            $scope.basicProfileInfo.profileImage = null;
         }
 
         $scope.deleteGalleryImage = function(img){
             var imgIndex = $scope.galleryImages.indexOf(img);
             if (imgIndex > -1) {
                 $scope.galleryImages.splice(imgIndex, 1);
+            }
+            imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
+            if (imgIndex > -1) {
+                $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
             }
         }
 
@@ -209,16 +219,8 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
         $scope.postUserProfile = function(){
-            $scope.serviceProviderInfo.services = $scope.getServiceList();
+            $scope.serviceProviderInfo.services = $scope.serviceProviderInfo.services.concat($scope.getServiceList());
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
-
-            //$scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key){
-            //    return value.value;
-            //});
-            //
-            //$scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key){
-            //    return value.value;
-            //});
 
             var userProfile = new UserProfile();
             angular.extend(userProfile,$scope.profile);

@@ -188,13 +188,18 @@ input[type=checkbox]
 
 .by-reg-gallery{
 	display: inline-block;
+	position:relative;
 }
 
 .by-reg-gallery img{
+	position:relative;
+	top:0px;
+	left:0px;
 	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	height: 105px;
+	min-width: 60px;
 }
 
 .by-reg-uploadLabel .myLabel{
@@ -206,18 +211,19 @@ input[type=checkbox]
 	color: #ffffff;
 }
 
-.image-fav {
-	display: none;
-	position: relative;
-	top: -125px;
-	width: 95%;
-	height: 98%;
+.by-reg-gallery>.image-fav {
+	opacity:0;
+	position: absolute;
+	top: 0px;
+	left:0px;
+	width: 100%;
+  	height: 105px;
 	background-image: url(../img/icons/delete1.png);
 	background-repeat: no-repeat;
 	background-position: center;
 }
 .by-reg-gallery:hover .image-fav {
-	display:block;
+	opacity:1;
 }
 
 .by-reg-gallery:hover .by-reg-image{

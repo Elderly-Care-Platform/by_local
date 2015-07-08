@@ -162,7 +162,7 @@
                 <div class="col-md-12">
                     <div class="by-reg-gallery" ng-repeat="img in basicProfileInfo.photoGalleryURLs">
                         <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-                        <img class="image-fav" ng-click="deleteGalleryImage(img)"></img>
+                        <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
                     </div>
                     <div class="by-reg-gallery" ng-repeat="img in galleryImages">
                         <img class="by-reg-image" ng-src="{{img.resized.dataURL}}"/>

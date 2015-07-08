@@ -163,10 +163,11 @@
                         <!-- End Discuss -->
 
                         <!-- Find -->
-                        <li>
-                            <a href="">
+                        <li class="dropdown mega-menu-fullwidth" ng-controller="FindMenuController">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                 Find
                             </a>
+                            <ul class="dropdown-menu" ng-include="'app/shared/header/findMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>
                         </li>
                         <!-- End Find -->
 
@@ -307,7 +308,7 @@
     <script type="text/javascript"  src="app/components/login/regUserTypeController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/login/regInstitutionController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
-
+    <script type="text/javascript"  src="app/shared/header/findMenuController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <!-- custom js files end -->
 
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,10 +24,11 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 			.getLogger(UserProfileRepositoryImpl.class);
 
 	@Override
-	public List<UserProfile> findByCustomQuery(String city, String services){
+	public List<UserProfile> findByCustomQuery(String city, String services, int page, int size){
 		List<UserProfile> userProfilePage = null;
 		LoggerUtil.logEntry();
 		Query q = new Query();
+		q.with(new PageRequest(page,size));
 		q.addCriteria(Criteria.where("BasicProfileInfo.UserAddress.city").is(city).and((String) "ServiceProviderInfo.services").in(new Object[] {services}));
 		userProfilePage = mongoTemplate.find(q,UserProfile.class);
 		for (UserProfile userProfile: userProfilePage)

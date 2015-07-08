@@ -14,7 +14,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.loginUser = function (user) {
             $scope.resetError();
-            $http.post(apiPrefix + 'api/v1/users/login', user).success(function (login) {
+            $http.post(apiPrefix + 'api/v1/users/login', user).success(function (res) {
+                var login = res.data;
                 if (login.sessionId === null) {
                 	$http.defaults.headers.common.sess = "";
                     $scope.setError(login.status);

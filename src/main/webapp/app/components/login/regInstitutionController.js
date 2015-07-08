@@ -6,6 +6,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.galleryImages = [];
 		$scope.gDetails = {formatted_address:"nitin"};
 		$scope.addressCallback = function(response){
+			$('#addressLocality').blur();
 			$scope.address.city = "";
 			$scope.address.locality = "";
 			$scope.address.country = "";

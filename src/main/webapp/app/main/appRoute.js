@@ -19,7 +19,9 @@ byApp.config(['$routeProvider',
 
             .when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html', controller: ''})
             .when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html', controller: ''})
-            .when('/users/contactUs', {templateUrl: 'app/shared/footer/contactUs.html', controller: 'contactUsController'});
+            .when('/users/contactUs', {templateUrl: 'app/shared/footer/contactUs.html', controller: 'contactUsController'})
+            .when('/find/all', {templateUrl: 'app/components/find/find.html', controller: 'FindAllController'})
+            .when('/find/institution/detail', {templateUrl: 'app/components/find/institutionProfile.html', controller: 'FindAllController'});
 
         //.when('/discuss/new/P', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
         //.when('/discuss/new/Q', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})

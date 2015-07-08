@@ -320,8 +320,7 @@ public class UserProfileTest {
 		
 		/* Set basic Profile Information */
 		basicProfileInfo.setFirstName("Nighhtingales");
-		basicProfileInfo.setProfileImage("xyz.url");
-	
+		
 	
 		basicProfileInfo.setDescription("Beautiful home health care services");
 		basicProfileInfo.setPrimaryEmail("abc@nighitngales.com");
@@ -331,7 +330,7 @@ public class UserProfileTest {
 		imageURLs.add("image1.jpg");
 		imageURLs.add("image2.jpg");
 		
-		basicProfileInfo.setPhotoGalleryURLs(imageURLs);
+		
 		
 		/* set address */
 		userAddress.setCountry("India");

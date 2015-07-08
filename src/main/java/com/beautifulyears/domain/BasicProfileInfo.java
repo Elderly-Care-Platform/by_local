@@ -2,6 +2,8 @@ package com.beautifulyears.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import com.beautifulyears.domain.UserAddress;
 
 
@@ -14,7 +16,7 @@ public class BasicProfileInfo {
 
 	private String firstName;	//corresponds to company Name in institutions and user first name for individuals. name in 
 
-	private String profileImage;  //in case of individuals it is the profile or it is the company logo.
+	private Map<String, String> profileImage;  //in case of individuals it is the profile or it is the company logo.
 	
 	private String primaryEmail; //the 
 	
@@ -26,7 +28,7 @@ public class BasicProfileInfo {
 	
 	private String description; //personal story or professional services description
 	
-	private List<String> photoGalleryURLs = new ArrayList<String>();
+	private List<Map<String, String>> photoGalleryURLs = new ArrayList<Map<String, String>>();
 	
 	private UserAddress userAddress = new UserAddress();
 
@@ -37,10 +39,10 @@ public class BasicProfileInfo {
 	
 	
 
-	public BasicProfileInfo(String firstName, String profileImage,
+	public BasicProfileInfo(String firstName, Map<String, String> profileImage,
 			String primaryEmail, List<String> secondaryEmails,
 			String primaryPhoneNo, List<String> secondaryPhoneNos,
-			String description, List<String> photoGalleryURLs,
+			String description, List<Map<String, String>> photoGalleryURLs,
 			UserAddress userAddress) {
 		super();
 		this.firstName = firstName;
@@ -64,11 +66,11 @@ public class BasicProfileInfo {
 		this.firstName = firstName;
 	}
 
-	public String getProfileImage() {
+	public Map<String, String> getProfileImage() {
 		return profileImage;
 	}
 
-	public void setProfileImage(String profileImage) {
+	public void setProfileImage(Map<String, String> profileImage) {
 		this.profileImage = profileImage;
 	}
 
@@ -112,11 +114,11 @@ public class BasicProfileInfo {
 		this.description = description;
 	}
 
-	public List<String> getPhotoGalleryURLs() {
+	public List<Map<String,String>> getPhotoGalleryURLs() {
 		return photoGalleryURLs;
 	}
 
-	public void setPhotoGalleryURLs(List<String> photoGalleryURLs) {
+	public void setPhotoGalleryURLs(List<Map<String, String>> photoGalleryURLs) {
 		this.photoGalleryURLs = photoGalleryURLs;
 	}
 

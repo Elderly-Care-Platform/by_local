@@ -9,7 +9,8 @@ var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
  	"ngRoute",
- 	'ngSanitize'
+ 	'ngSanitize',
+ 	'ngAutocomplete'
  ]);
 
 //Routing and Session Check for Login

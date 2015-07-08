@@ -4,6 +4,55 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.selectedServices = {};
         $scope.profileImage = null;
         $scope.galleryImages = [];
+		$scope.gDetails = {formatted_address:"nitin"};
+		$scope.addressCallback = function(response){
+			$scope.address.city = "";
+			$scope.address.locality = "";
+			$scope.address.country = "";
+			$scope.address.zip = "";
+			
+			 for (var i=0; i<response.address_components.length; i++)
+	            {
+					 if (response.address_components[i].types[0].indexOf("sublocality") != -1) {
+	                     //this is the object you are looking for
+						 if($scope.address.locality.length != 0){
+		                		$scope.address.locality += ", ";
+		                	}
+						 $scope.address.locality += response.address_components[i].long_name;
+	                 }
+					 else if (response.address_components[i].types[0].indexOf("locality") != -1) {
+	                	if($scope.address.city.length != 0){
+	                		$scope.address.city += ", ";
+	                	}
+	                	$scope.address.city += response.address_components[i].long_name;
+	                    }
+	                else if (response.address_components[i].types[0].indexOf("administrative_area_level_2") != -1) {
+	                        //this is the object you are looking for
+	                	if($scope.address.city.length != 0){
+	                		$scope.address.city += ", ";
+	                	}
+	                	$scope.address.city += response.address_components[i].long_name;
+	                    }
+	                else if (response.address_components[i].types[0].indexOf("administrative_area_level_3") != -1) {
+                        //this is the object you are looking for
+	                	if($scope.address.city.length != 0){
+	                		$scope.address.city += ", ";
+	                	}
+	                	$scope.address.city += response.address_components[i].long_name;
+                    }
+	                else  if (response.address_components[i].types[0] == "country") {
+	                        //this is the object you are looking for
+	                	$scope.address.country = response.address_components[i].long_name;
+	                    }
+	                else if (response.address_components[i].types[0] == "postal_code") {
+                        //this is the object you are looking for
+                	$scope.address.zip = response.address_components[i].long_name;
+                    }
+	            }
+			 $scope.address.streetAddress =  response.formatted_address;
+			console.log(response);
+			
+		}
         $scope.ServiceTypeList = ServiceTypeList.get({}, function(){
             console.log($scope.ServiceTypeList);
         })
@@ -20,6 +69,27 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                 $scope.address = $scope.basicProfileInfo.userAddress;
             });
         }
+       
+        $scope.getLocationByPincode = function(element){
+        	var element = document.getElementById("zipcode");
+        	$scope.address.city = "";
+			$scope.address.locality = "";
+			$scope.address.country = "";
+        	$http.get("api/v1/location/getLocationByPincode?pincode="+$scope.address.zip)
+            .success(function(response) {
+            	if(response){
+            		$scope.address.city = response.districtname;
+                	$scope.address.locality = response.officename;
+                	$scope.address.streetAddress = response.officename+", Distt: "+response.districtname + " , State: "+response.statename;
+            	}
+            });
+        }
+        
+        $scope.options = {
+        		country : "in",
+        		types: "(cities)",
+        		resetOnFocusOut: false
+        };
 
 
         //$scope.newAddress = new addressFormat($scope.basicProfileInfo.userAddress.length);

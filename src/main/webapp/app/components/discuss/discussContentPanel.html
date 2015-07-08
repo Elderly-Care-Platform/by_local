@@ -5,7 +5,8 @@
     <div ng-click="go($event, 'id', discuss.id, discuss.discussType)" class="blog-author margin-bottom-35 main-article by_blog_author"
          data-index="discussion-articles"
          data-link="articles.html">
-        <img src="{{discuss.articlePhotoFilename.thumbnailImage||''}}" alt="image" fallback-src='["{{discuss.articlePhotoFilename.original||""}}","assets/img/by.jpg"]'>
+        <img ng-if="discuss.discussType == 'A'" src="{{discuss.articlePhotoFilename.thumbnailImage||''}}" alt="image" fallback-src='["{{discuss.articlePhotoFilename.original||""}}","assets/img/by.jpg"]'>
+         <img ng-if="discuss.discussType != 'A'" src="assets/img/by.jpg" alt="image" >
         <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment" ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'A' || discuss.discussType == 'P')">

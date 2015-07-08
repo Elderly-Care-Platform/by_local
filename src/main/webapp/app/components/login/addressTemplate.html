@@ -1,15 +1,11 @@
+<div class="col-md-12 no-padding-right margin-bottom-20" >
+    <input id="zipcode" type="text" ng-model="address.zip" class="name-textbox textbox "
+           placeholder="Zip" style="width: 50%;"/>
+           <input type="button" class="btn btn-success pull-right register-btn" value="Get address" ng-click="getLocationByPincode()">
+</div>
 
 <div class="col-md-12 no-padding-right margin-bottom-20">
-    <div ng-if="$index > 0"> {{"Address " +(parseInt($index)+2)}}</div>
-    <input type="text" ng-model="address.city" class="name-textbox textbox "
-           placeholder="City"/>
-</div>
-<div class="col-md-12 no-padding-right margin-bottom-20" style="width:85px;">
-    <input type="text" ng-model="address.zip" class="name-textbox textbox "
-           placeholder="Zip"/>
-</div>
-<div class="col-md-12 no-padding-right margin-bottom-20">
-    <input type="text" ng-model="address.locality" class="name-textbox textbox "
+    <input type="text" ng-model="address.locality" class="name-textbox textbox " ng-autocomplete options="options" callback="addressCallback"
            placeholder="Locality"/>
 </div>
 
@@ -17,7 +13,11 @@
     <textarea rows="3" ng-model="address.streetAddress" class="name-textbox textbox "
           placeholder="Address"></textarea>
 </div>
-
+<div class="col-md-12 no-padding-right margin-bottom-20">
+    <div ng-if="$index > 0"> {{"Address " +(parseInt($index)+2)}}</div>
+    <input type="text" ng-model="address.city" class="name-textbox textbox " 
+           placeholder="City"/>
+</div>
 <div class="col-md-12 no-padding-right margin-bottom-20">
     <input type="text" ng-model="address.country" class="name-textbox textbox "
            placeholder="Country"/>

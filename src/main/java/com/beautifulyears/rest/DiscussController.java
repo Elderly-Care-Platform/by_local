@@ -282,7 +282,7 @@ public class DiscussController {
 			@RequestParam(value = "topicId", required = false) List<String> topicId,
 			@RequestParam(value = "subTopicId", required = false) List<String> subTopicId,
 			@RequestParam(value = "userId", required = false) String userId,
-			@RequestParam(value = "isFeatured", required = false, defaultValue = "false") Boolean isFeatured
+			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured
 			)
 			throws Exception {
 		if (null == topicId && null == subTopicId) {

@@ -186,6 +186,12 @@ var userProfile3 = byServices.factory('UserDependent', function($resource) {
 //    })
 //});
 
+var discuss = byServices.factory('DiscussPage', function($resource) {
+    return $resource(apiPrefix+'api/v1/discuss/page',{}, {
+      get: {method: 'GET',params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false, isArray:false}
+    })
+});
+
 
 //Discuss -
 

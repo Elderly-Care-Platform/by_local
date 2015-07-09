@@ -1,0 +1,51 @@
+<div ng-repeat="service in services" data-index="discussion-articles" data-link="articles.html" class="ng-scope">
+
+    <!-- show if discuss is of type Article -->
+    <div ng-click="go($event, 'id')" class="blog-author margin-bottom-35 main-article find-card"
+         data-index="discussion-articles">
+        <div class="col-md-12">
+            <div class="col-md-3 find-card-info dp-inline-block">
+                <img src="{{service.basicProfileInfo.profileImage.thumbnailImage}}" alt="image" class="find-card-image"
+                     fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/by.jpg"]'>
+            </div>
+            <div class="col-md-9 find-card-info dp-inline-block">
+                <div class="article ng-scope">
+                    <div class="article-heading">
+                        <p style="text-transform: capitalize" class="ng-binding">
+                            {{service.basicProfileInfo.firstName}}
+                        </p>
+                    </div>
+                </div>
+                <ul class="list-inline find-review-rate-info">
+                    <li class="find-card-review">
+                        <i class="rounded-x green-bg">
+                            <span class="white-color">4.2</span>
+                        </i>
+                        <span>Rated by</span>
+                        <a href="">56 people</a>
+                    </li>
+                    <li class="find-card-review">
+                        <i class="rounded-x fa fa-pencil-square-o padding7 font-20"></i>
+                        <a href="" style="margin-left: -10px;">  18 review</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <p class="find-service-description" data-ng-bind="service.basicProfileInfo.description" data-ellipsis>
+            </p>
+        </div>
+
+        <div class="find-card-categories col-md-12">
+            <ul class="list-inline">
+                <li> Service in</li>
+                <li class="categoryList"
+                    ng-repeat="category in service.serviceProviderInfo.services" style="display: inline-block" ng-if="$index < 5">
+                    <a class="ng-binding" > {{$root.findCategoryListMap[category].name}} </a>
+                </li>
+            </ul>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>

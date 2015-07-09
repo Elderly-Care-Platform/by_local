@@ -98,8 +98,15 @@ var contactUs = byServices.factory('ContactUs', function($resource) {
 });
 
 
+//Find All
+var findAllService = byServices.factory('FindAllService', function($resource) {
+    return $resource(apiPrefix +'api/v1/userProfile/list?page=0&size=100',{}, {
+        get: {method: 'GET', params: {}, isArray: true}
 
-//New user profile
+    })
+});
+
+//New selected user profile
 var userProfile = byServices.factory('UserProfile', function($resource) {
     return $resource(apiPrefix +'api/v1/userProfile/:userId',{}, {
         get: {method: 'GET', params: {}},
@@ -108,12 +115,10 @@ var userProfile = byServices.factory('UserProfile', function($resource) {
     })
 });
 
-//FindService types
-var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) {
-    return $resource(apiPrefix +'api/v1/service_types/list/all',{}, {
-        get: {method: 'GET', params: {}},
-    })
-});
+
+
+
+
 
 
 //User
@@ -372,4 +377,16 @@ var discussCategoryList = byServices.factory('discussCategoryList', function ($r
         }
 
         })
+});
+
+//FindService types
+var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) {
+    return $resource(apiPrefix +'api/v1/service_types/list/all',{q: '*'}, {
+        get: {method: 'GET', params: {}},
+        query: {method: 'GET',interceptor: {
+            response: function(response) {
+                return response.data;
+            }
+        }, isArray: false}
+    })
 });

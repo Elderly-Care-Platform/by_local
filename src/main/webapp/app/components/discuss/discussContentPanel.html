@@ -2,15 +2,19 @@
      data-link="articles.html">
 
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', discuss.id, discuss.discussType)" class="blog-author margin-bottom-35 main-article by_blog_author"
-         ng-if="discuss" 
+    <div ng-click="go($event, 'id', discuss.id, discuss.discussType)"
+         class="blog-author margin-bottom-35 main-article by_blog_author"
+         ng-if="discuss"
          data-index="discussion-articles"
          data-link="articles.html">
-        <img ng-if="discuss.discussType == 'A'" src="{{discuss.articlePhotoFilename.thumbnailImage||''}}" alt="image" fallback-src='["{{discuss.articlePhotoFilename.original||""}}","assets/img/by.jpg"]'>
-         <img ng-if="discuss.discussType != 'A'" src="assets/img/by.jpg" alt="image" >
+        <img ng-if="discuss.discussType == 'A'" src="{{discuss.articlePhotoFilename.thumbnailImage||''}}" alt="image"
+             fallback-src='["{{discuss.articlePhotoFilename.original||""}}","assets/img/by.jpg"]'>
+        <img ng-if="discuss.discussType != 'A'" src="assets/img/by.jpg" alt="image">
+
         <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
-                <li class="add-comment" ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'A' || discuss.discussType == 'P')">
+                <li class="add-comment"
+                    ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'A' || discuss.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                         <span>{{discuss.aggrReplyCount}}</span>
@@ -38,20 +42,22 @@
                         Story by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
+
                     <p class="article-first-letter" ng-if="discuss.discussType == 'Q'">
                         Question by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
+
                     <p class="article-first-letter" ng-if="discuss.discussType == 'P'">
                         Post by <a validate-user-name="{{discuss.username}}"> {{username}}</a>
                         |
                     </p>
                 </li>
-                <li ng-if="discuss.topicId.length > 0">  In <a ng-click="go($event,'name', discuss.topicId[0])">
+                <li ng-if="discuss.topicId.length > 0"> In <a ng-click="go($event,'name', discuss.topicId[0])">
                     {{$root.discussCategoryListMap[discuss.topicId[0]].name}} </a>
                     |
                 </li>
-                <li time-since="{{discuss.createdAt}}"> </li>
+                <li time-since="{{discuss.createdAt}}"></li>
             </ul>
         </div>
 

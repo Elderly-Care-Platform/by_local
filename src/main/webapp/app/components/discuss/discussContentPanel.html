@@ -68,3 +68,8 @@
         <div ng-if="discuss.text && discuss.text.length > 0" on-finish-render="{{discuss.id}}"></div>
     </div>
 </div>
+
+<div class="animation_image" style="display:block" align="center" ng-if="discuss && discuss.length > 0 && !pageInfo.lastPage || pageInfo.isQueryInProgress">
+<img src="assets/img/BY_preloader.GIF">
+</div>
+

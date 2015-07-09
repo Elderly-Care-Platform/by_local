@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -144,6 +148,38 @@ public class DiscussController {
 		}
 		return BYGenericResponseHandler.getResponse(discussResponse
 				.getResponse());
+	}
+
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/page" }, produces = { "application/json" })
+	@ResponseBody
+	public Object getPage(
+			@RequestParam(value = "discussType", required = false) String discussType,
+			@RequestParam(value = "topicId", required = false) List<String> topicId,
+			@RequestParam(value = "subTopicId", required = false) List<String> subTopicId,
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
+			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
+			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
+			@RequestParam(value = "s", required = false, defaultValue = "10") int pageSize,
+			HttpServletRequest request) throws Exception {
+		LoggerUtil.logEntry();
+		if(null == topicId && null == subTopicId){
+			topicId = new ArrayList<String>();
+		}else if(null != subTopicId){
+			topicId = subTopicId;
+		}
+		Page<Discuss> page = null;
+		Direction sortDirection = Direction.DESC;
+		if(dir == 0){
+			sortDirection = Direction.ASC;
+		}
+		try {
+			Pageable pageable = new PageRequest(pageIndex, pageSize,sortDirection,sort);
+			page = discussRepository.getByDiscussType(discussType,topicId,userId,pageable);
+		} catch (Exception e) {
+			Util.handleException(e);
+		}	
+		return BYGenericResponseHandler.getResponse(page);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/{discussType}/{topicId}/all" }, produces = { "application/json" })

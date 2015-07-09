@@ -28,6 +28,7 @@ public class BYExceptionHandler extends ResponseEntityExceptionHandler{
  
 		logger.error("exception ocurred "+e.getErrorCode() + " msg: "+e.getErrorMsg());
 		
+		
 		HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         

@@ -10,12 +10,14 @@ var byApp = angular.module('byApp', [
  	"byServices",
  	"ngRoute",
  	'ngSanitize',
- 	'ngAutocomplete'
+ 	'ngAutocomplete',
+ 	'infinite-scroll'
  ]);
+
+
 
 //Routing and Session Check for Login
 byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,$http) {
-	
 	if(window.localStorage){
 		$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
 	}
@@ -324,74 +326,98 @@ function ($scope,$location, $rootScope, $http) {
 
 ]);
 
-byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList','$sce',
- function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList, $sce) {
-    	$scope.discuss = new Discuss();
-	var segment = $location.path().substring(1);
-	segment = segment.substring(segment.indexOf("/")+1);
-	segment = segment.substring(segment.indexOf("/")+1);
-	$scope.discuss.topicId = segment.substring(0,segment.indexOf("/"));
-	$scope.discuss.subTopicId = $location.path().substring($location.path().lastIndexOf("/")+1);
-
-
-	$scope.register = function (discussType) {
-
-		/*
-		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
-		{
-			$location.path('/users/login');
-		}
-		*/
-		//alert();
-		$scope.discuss.articlePhotoFilename = document.getElementById('articlePhotoFilename').value;
-		var element_id = discussType;
-		var topicId = $scope.discuss.topicId;
-		var subTopicId = $scope.discuss.subTopicId;
-		var htmlval = tinyMCE.activeEditor.getContent();
-		$scope.discuss.discussType = discussType;
-		$scope.discuss.text=htmlval;
-
-		//putting the userId to discuss being created
-		$scope.discuss.userId = localStorage.getItem("USER_ID");
-		$scope.discuss.username = localStorage.getItem("USER_NAME");
-
-
-		//save the discuss
-		$scope.discuss.$save(function (discuss, headers) {
-
-			var location = $scope.discuss.discussType;
-			var mode = discussType;
-
-			DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId}).$promise.then(
-		             //success
-		             function( value ){
-		            	 $scope.discuss = value.data;
-		             	},
-		             //error
-		             function( error ){
-		             		console.log("QUErY ERROR");
-		             		alert("error2");
-		             		}
-		           );
-			document.getElementById(element_id).style.display = 'none';
-
-			$route.reload();
-			//??????$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
-
-		},
-		function (error) {
-			console.log("Discuss");
-			alert("error");
-		});
-
-	};
-	
-	$scope.trustForcefully = function(html) {
-		return $sce.trustAsHtml(html);
-	};
-
-
- }]);
+//byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussPage','$sce',
+// function($scope, $route, $routeParams, $location, Discuss, DiscussPage, $sce) {
+//    	$scope.discuss = new Discuss();
+//	var segment = $location.path().substring(1);
+//	segment = segment.substring(segment.indexOf("/")+1);
+//	segment = segment.substring(segment.indexOf("/")+1);
+//	$scope.discuss.topicId = segment.substring(0,segment.indexOf("/"));
+//	$scope.discuss.subTopicId = $location.path().substring($location.path().lastIndexOf("/")+1);
+//
+//
+//	$scope.register = function (discussType) {
+//
+//		/*
+//		if(localStorage.getItem('sessionId') == '' || localStorage.getItem('sessionId') == null)
+//		{
+//			$location.path('/users/login');
+//		}
+//		*/
+//		//alert();
+//		$scope.discuss.articlePhotoFilename = document.getElementById('articlePhotoFilename').value;
+//		var element_id = discussType;
+//		var topicId = $scope.discuss.topicId;
+//		var subTopicId = $scope.discuss.subTopicId;
+//		var htmlval = tinyMCE.activeEditor.getContent();
+//		$scope.discuss.discussType = discussType;
+//		$scope.discuss.text=htmlval;
+//
+//		//putting the userId to discuss being created
+//		$scope.discuss.userId = localStorage.getItem("USER_ID");
+//		$scope.discuss.username = localStorage.getItem("USER_NAME");
+//
+//
+//		//save the discuss
+////		$scope.discuss.$save(function (discuss, headers) {
+////
+////			var location = $scope.discuss.discussType;
+////			var mode = discussType;
+////
+//////			DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId}).$promise.then(
+//////		             //success
+//////		             function( value ){
+//////		            	 $scope.discuss = value.data;
+//////		             	},
+//////		             //error
+//////		             function( error ){
+//////		             		console.log("QUErY ERROR");
+//////		             		alert("error2");
+//////		             		}
+//////		           );
+////			
+////			var params = {p:0,s:50};
+////	        if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
+////	        	params.discussType = discussType;
+////	        }
+////	        if(topicId !=null && topicId != "" && topicId.toLowerCase() != "all"){
+////	        	params.topicId = topicQueryId;
+////	        }
+////	        if(subTopicId !=null && subTopicId != "" && subTopicId.toLowerCase() != "all"){
+////	        	params.subTopicId = subTopicQueryId;
+////	        }
+////	        $("#preloader").show();
+////	        DiscussPage.get(params,
+////	        		function(value){
+////	        				$scope.discuss = value.data.content;
+////				       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+////				       	$scope.pageInfo.isQueryInProgress = false;
+////				       	$("#preloader").hide();
+////	        		},
+////	        		function(error){
+////				       	console.log("DiscussPage");
+////				       	alert("error");
+////	        		});
+////			
+////			document.getElementById(element_id).style.display = 'none';
+////
+////			$route.reload();
+////			//??????$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
+////
+////		},
+////		function (error) {
+////			console.log("Discuss");
+////			alert("error");
+////		});
+//
+//	};
+//	
+//	$scope.trustForcefully = function(html) {
+//		return $sce.trustAsHtml(html);
+//	};
+//
+//
+// }]);
 
 
 //DISCUSS
@@ -493,31 +519,31 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 
 
 
-byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList',
-  function($scope,$rootScope, $routeParams, UserDiscussList) {
-	  var userId = $rootScope.bc_userId;
-	  var userName = $rootScope.bc_username;
-	  var discussType = $rootScope.bc_discussType;
-	  var topicId = $rootScope.bc_topic;
-	  var subTopicId = $rootScope.bc_subTopic;
-
-	  if(discussType == '' || discussType == 'undefined' || !discussType || discussType == null)
-	  {
-	  	discussType = 'All';
-	  }
-
-     UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId}).$promise.then(
-             //success
-             function( value ){
-            	 $scope.discuss2 = value.data;
-             	},
-             //error
-             function( error ){
-             		console.log("QUErY ERROR");
-             		alert("error2");
-             		}
-           );
-  }]);
+//byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList',
+//  function($scope,$rootScope, $routeParams, UserDiscussList) {
+//	  var userId = $rootScope.bc_userId;
+//	  var userName = $rootScope.bc_username;
+//	  var discussType = $rootScope.bc_discussType;
+//	  var topicId = $rootScope.bc_topic;
+//	  var subTopicId = $rootScope.bc_subTopic;
+//
+//	  if(discussType == '' || discussType == 'undefined' || !discussType || discussType == null)
+//	  {
+//	  	discussType = 'All';
+//	  }
+//
+//     UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId}).$promise.then(
+//             //success
+//             function( value ){
+//            	 $scope.discuss2 = value.data;
+//             	},
+//             //error
+//             function( error ){
+//             		console.log("QUErY ERROR");
+//             		alert("error2");
+//             		}
+//           );
+//  }]);
 
 
 

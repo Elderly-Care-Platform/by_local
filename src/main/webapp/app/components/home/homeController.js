@@ -2,8 +2,8 @@
  * Created by sanjukta on 02-07-2015.
  */
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'HomeFeaturedContent', '$sce',
-    function ($scope, $rootScope, $routeParams, $timeout, $location, HomeFeaturedContent, $sce) {
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce',
+    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce) {
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";
@@ -45,39 +45,64 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 $scope.currentView = "content";
                 $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                HomeFeaturedContent.query({discussType: 'A'}).$promise.then(
-                        //success
-                        function( value ){
-                        		$scope.articles = value.data;
-                        	},
-                        //error
-                        function( error ){
-                        		console.log("QUErY ERROR");
-                        		alert("error1");
-                        		}
-                      );
-                HomeFeaturedContent.query({discussType: 'Q'}).$promise.then(
-                        //success
-                        function( value ){
-                				$scope.questions = value.data;
-                        	},
-                        //error
-                        function( error ){
-                        		console.log("QUErY ERROR");
-                        		alert("error2");
-                        		}
-                      );
-                HomeFeaturedContent.query({discussType: 'P'}).$promise.then(
-                        //success
-                        function( value ){
-                        		$scope.posts = value.data;
-                        	}
-                        //error
-                        
-                      ,function( error ){
-                    	  console.log("QUErY ERROR");
-                  		alert("error3");
-              		});
+                DiscussPage.get({discussType: 'A',isFeatured:true,p:1,s:3,sort:"lastModifiedAt"},
+                		function(value){
+                				$scope.articles = value.data.content;
+                		},
+                		function(error){
+        			       	console.log("DiscussPage");
+        			       	alert("error");
+                		});
+                DiscussPage.get({discussType: 'P',isFeatured:true,p:1,s:3,sort:"lastModifiedAt"},
+                		function(value){
+                				$scope.posts = value.data.content;
+                		},
+                		function(error){
+        			       	console.log("DiscussPage");
+        			       	alert("error");
+                		});
+                DiscussPage.get({discussType: 'Q',isFeatured:true,p:1,s:3,sort:"lastModifiedAt"},
+                		function(value){
+                				$scope.questions = value.data.content;
+                		},
+                		function(error){
+        			       	console.log("DiscussPage");
+        			       	alert("error");
+                		});
+                
+//                HomeFeaturedContent.query({discussType: 'A'}).$promise.then(
+//                        //success
+//                        function( value ){
+//                        		$scope.articles = value.data;
+//                        	},
+//                        //error
+//                        function( error ){
+//                        		console.log("QUErY ERROR");
+//                        		alert("error1");
+//                        		}
+//                      );
+//                HomeFeaturedContent.query({discussType: 'Q'}).$promise.then(
+//                        //success
+//                        function( value ){
+//                				$scope.questions = value.data;
+//                        	},
+//                        //error
+//                        function( error ){
+//                        		console.log("QUErY ERROR");
+//                        		alert("error2");
+//                        		}
+//                      );
+//                HomeFeaturedContent.query({discussType: 'P'}).$promise.then(
+//                        //success
+//                        function( value ){
+//                        		$scope.posts = value.data;
+//                        	}
+//                        //error
+//                        
+//                      ,function( error ){
+//                    	  console.log("QUErY ERROR");
+//                  		alert("error3");
+//              		});
             } else {
                 $scope.scrollToId(scrollTo);
             }

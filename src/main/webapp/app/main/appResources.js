@@ -51,13 +51,13 @@ var broadCastData = byServices.factory('broadCastData', function($rootScope){
     return data;
 });
 
-//home featured content API
-var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
-    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {
-        query: {method: 'GET', isArray: false}
-        
-    });
-});
+////home featured content API
+//var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
+//    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {
+//        query: {method: 'GET', isArray: false}
+//        
+//    });
+//});
 
 //discuss detail page API
 var discussDetail = byServices.factory('DiscussDetail', function($resource) {

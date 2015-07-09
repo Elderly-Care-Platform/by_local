@@ -73,12 +73,12 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                 }
             	DiscussPage.get(params,
                 		function(value){
-            				if(value.data.content.length > 0){
-            					$scope.pageInfo.isQueryInProgress = false;
-            					$scope.discuss = $scope.discuss.concat(value.data.content);
-            				}
-        			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
-        			       	$scope.pageInfo.isQueryInProgress = false;
+	            			if(value.data.content.length > 0){
+	        					$scope.pageInfo.isQueryInProgress = false;
+	        					$scope.discuss = $scope.discuss.concat(value.data.content);
+	        				}
+	    			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+	    			       	$scope.pageInfo.isQueryInProgress = false;
                 		},
                 		function(error){
         			       	console.log("DiscussAllForDiscussType");

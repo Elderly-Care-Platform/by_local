@@ -157,28 +157,41 @@ public class DiscussController {
 			@RequestParam(value = "topicId", required = false) List<String> topicId,
 			@RequestParam(value = "subTopicId", required = false) List<String> subTopicId,
 			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "isFeatured", required = false, defaultValue = "false") Boolean isFeatured,
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
 			@RequestParam(value = "s", required = false, defaultValue = "10") int pageSize,
 			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
-		if(null == topicId && null == subTopicId){
-			topicId = new ArrayList<String>();
-		}else if(null != subTopicId){
-			topicId = subTopicId;
-		}
 		Page<Discuss> page = null;
-		Direction sortDirection = Direction.DESC;
-		if(dir == 0){
-			sortDirection = Direction.ASC;
-		}
 		try {
-			Pageable pageable = new PageRequest(pageIndex, pageSize,sortDirection,sort);
-			page = discussRepository.getByDiscussType(discussType,topicId,userId,pageable);
+			List<String> discussTypeArray = new ArrayList<String>();
+			if (null == topicId && null == subTopicId) {
+				topicId = new ArrayList<String>();
+			} else if (null != subTopicId) {
+				topicId = subTopicId;
+			}
+			if (null == discussType) {
+				discussTypeArray.add("A");
+				discussTypeArray.add("Q");
+				discussTypeArray.add("P");
+			} else {
+				discussTypeArray.add(discussType);
+			}
+
+			Direction sortDirection = Direction.DESC;
+			if (dir == 0) {
+				sortDirection = Direction.ASC;
+			}
+
+			Pageable pageable = new PageRequest(pageIndex, pageSize,
+					sortDirection, sort);
+			page = discussRepository.getByCriteria(discussTypeArray, topicId,
+					userId, isFeatured, pageable);
 		} catch (Exception e) {
 			Util.handleException(e);
-		}	
+		}
 		return BYGenericResponseHandler.getResponse(page);
 	}
 

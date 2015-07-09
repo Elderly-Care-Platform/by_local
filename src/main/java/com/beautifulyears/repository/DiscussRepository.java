@@ -19,16 +19,11 @@ public interface DiscussRepository extends MongoRepository<Discuss, Serializable
 
     public List<Discuss> findAll();
     
-//    @Query("{'discussType': ?0}")
-    
-    
-//    @Query("{'type':?0,'$or':[{ $where: '?1 == null' },{'key':?1},{ $where: '?2 == null' },{'username':?2}]}")
-//    @Query("{ '$or':[{ $where: '?0 == null' },{'discussType':?0}}")
     @Query("{ "
     			+ "'$and':["
 		    		+ "{'$or':"
 						+ "[ {$where: '?0 == null'}, "
-							+ "{'discussType':?0} "
+							+ "{'discussType':{$in:?0}} "
 							+ "] "
 						+ "},"
 		    		+ "{'$or':"
@@ -41,22 +36,16 @@ public interface DiscussRepository extends MongoRepository<Discuss, Serializable
 							+ "{'userId':?2} "
 							+ "]"
 					+ "},"
+					+ "{'$or':"
+							+ "[ {$where: '?3 == null'}, "
+							+ "{'isFeatured':?3} "
+							+ "]"
+					+ "},"
 					+ "{"
 							+ "'status': {$in:["+DiscussConstants.DISCUSS_STATUS_ACTIVE+",null]}"
 				+ "}"
 				+ "]"
 			+ "}")
-    public Page<Discuss> getByDiscussType(String discussType,List<String> topicId,String userId,Pageable page);
+    public Page<Discuss> getByCriteria(List<String> discussType,List<String> topicId,String userId,Boolean isFeatured,Pageable page);
    
 }
-//@Query("'$and':"
-//		+ "["
-//		+ "{'$or':"
-//			+ "[ {$where: '?0 == null'}, "
-//			+ "{'discussType':?0} "
-//			+ "] },"
-//		+ "{'$or':"
-//			+ "[ {$where: '?1 == null'}, "
-//			+ "{'topicId': {$in:?1}} "
-//			+ "] "
-//		+ "}]")

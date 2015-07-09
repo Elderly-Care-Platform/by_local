@@ -1,100 +1,100 @@
-byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','UserProfile','ServiceTypeList',
+byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.selectedServices = {};
         $scope.profileImage = null;
         $scope.galleryImages = [];
 
-		$scope.addressCallback = function(response){
-			$('#addressLocality').blur();
-			$scope.address.city = "";
-			$scope.address.locality = "";
-			$scope.address.country = "";
-			$scope.address.zip = "";
-			
-			 for (var i=0; i<response.address_components.length; i++)
-	            {
-					 if (response.address_components[i].types[0].indexOf("sublocality") != -1) {
-	                     //this is the object you are looking for
-						 if($scope.address.locality.length != 0){
-		                		$scope.address.locality += ", ";
-		                	}
-						 $scope.address.locality += response.address_components[i].long_name;
-	                 }
-					 else if (response.address_components[i].types[0].indexOf("locality") != -1) {
-	                	if($scope.address.city.length != 0){
-	                		$scope.address.city += ", ";
-	                	}
-	                	$scope.address.city += response.address_components[i].long_name;
-	                    }
-	                else if (response.address_components[i].types[0].indexOf("administrative_area_level_2") != -1) {
-	                        //this is the object you are looking for
-	                	if($scope.address.city.length != 0){
-	                		$scope.address.city += ", ";
-	                	}
-	                	$scope.address.city += response.address_components[i].long_name;
-	                    }
-	                else if (response.address_components[i].types[0].indexOf("administrative_area_level_3") != -1) {
-                        //this is the object you are looking for
-	                	if($scope.address.city.length != 0){
-	                		$scope.address.city += ", ";
-	                	}
-	                	$scope.address.city += response.address_components[i].long_name;
+        $scope.addressCallback = function (response) {
+            console.log(response);
+            $('#addressLocality').blur();
+            $scope.address.city = "";
+            $scope.address.locality = response.name;
+            $scope.address.country = "";
+            $scope.address.zip = "";
+
+            for (var i = 0; i < response.address_components.length; i++) {
+                if (response.address_components[i].types.length > 0) {
+                    if (response.address_components[i].types[0].indexOf("locality") != -1) {
+                        if ($scope.address.city.length != 0) {
+                            $scope.address.city += ", ";
+                        }
+                        $scope.address.city += response.address_components[i].long_name;
                     }
-	                else  if (response.address_components[i].types[0] == "country") {
-	                        //this is the object you are looking for
-	                	$scope.address.country = response.address_components[i].long_name;
-	                    }
-	                else if (response.address_components[i].types[0] == "postal_code") {
+                    else if (response.address_components[i].types[0].indexOf("administrative_area_level_2") != -1) {
                         //this is the object you are looking for
-                	$scope.address.zip = response.address_components[i].long_name;
+                        if ($scope.address.city.length != 0) {
+                            $scope.address.city += ", ";
+                        }
+                        $scope.address.city += response.address_components[i].long_name;
                     }
-	            }
-			 $scope.address.streetAddress =  response.formatted_address;
-			console.log(response);
-			
-		}
-        $scope.ServiceTypeList = ServiceTypeList.get({}, function(){
+                    else if (response.address_components[i].types[0].indexOf("administrative_area_level_3") != -1) {
+                        //this is the object you are looking for
+                        if ($scope.address.city.length != 0) {
+                            $scope.address.city += ", ";
+                        }
+                        $scope.address.city += response.address_components[i].long_name;
+                    }
+                    else if (response.address_components[i].types[0] == "country") {
+                        //this is the object you are looking for
+                        $scope.address.country = response.address_components[i].long_name;
+                    }
+                    else if (response.address_components[i].types[0] == "postal_code") {
+                        //this is the object you are looking for
+                        $scope.address.zip = response.address_components[i].long_name;
+                    }
+                }
+
+            }
+            $scope.address.streetAddress = response.formatted_address;
+
+
+        }
+        $scope.ServiceTypeList = ServiceTypeList.get({}, function () {
             console.log($scope.ServiceTypeList);
         })
 
-        $scope.extractData = function(){
+        $scope.extractData = function () {
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.address = $scope.basicProfileInfo.userAddress;
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
+            if ($scope.address.country === null) {
+                $scope.address.country = "India";
+            }
+
 
         }
 
-        if($scope.$parent.profile){
+        if ($scope.$parent.profile) {
             $scope.profile = $scope.$parent.profile;
             $scope.extractData();
-        }else{
-            $scope.profile = UserProfile.get({userId:$scope.userId}, function(profile){
+        } else {
+            $scope.profile = UserProfile.get({userId: $scope.userId}, function (profile) {
                 $scope.extractData();
             });
         }
 
-        $scope.getLocationByPincode = function(element){
-        	var element = document.getElementById("zipcode");
-        	$scope.address.city = "";
-			$scope.address.locality = "";
-			$scope.address.country = "";
-        	$http.get("api/v1/location/getLocationByPincode?pincode="+$scope.address.zip)
-            .success(function(response) {
-            	if(response){
-            		$scope.address.city = response.districtname;
-                	$scope.address.locality = response.officename;
-                	$scope.address.streetAddress = response.officename+", Distt: "+response.districtname + " , State: "+response.statename;
-            	}
-            });
+        $scope.getLocationByPincode = function (element) {
+            var element = document.getElementById("zipcode");
+            $scope.address.city = "";
+            $scope.address.locality = "";
+            $scope.address.country = "";
+            $http.get("api/v1/location/getLocationByPincode?pincode=" + $scope.address.zip)
+                .success(function (response) {
+                    if (response) {
+                        $scope.address.city = response.districtname;
+                        $scope.address.locality = response.officename;
+                        $scope.address.streetAddress = response.officename + ", Distt: " + response.districtname + " , State: " + response.statename;
+                    }
+                });
         }
-        
+
         $scope.options = {
-        		country : "in",
-        		types: "(cities)",
-        		resetOnFocusOut: false
+            country: "in",
+            types: "(cities)",
+            resetOnFocusOut: false
         };
 
 
@@ -103,27 +103,27 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
 
-        function addressFormat(index){
+        function addressFormat(index) {
             return {
-                "index":index, "city":"","zip":"","locality":"", "landmark":"", "address":""
+                "index": index, "city": "", "zip": "", "locality": "", "landmark": "", "address": ""
             }
         }
 
-        $scope.addPhoneNumber = function(){
+        $scope.addPhoneNumber = function () {
             //var number = {value:""};
-            if($scope.basicProfileInfo.secondaryPhoneNos.length < BY.regConfig.maxSecondaryPhoneNos){
+            if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.regConfig.maxSecondaryPhoneNos) {
                 $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
         }
 
-        $scope.addEmail = function(){
+        $scope.addEmail = function () {
             //var email = {value:""};
-            if( $scope.basicProfileInfo.secondaryEmails.length < BY.regConfig.maxSecondaryEmailId){
+            if ($scope.basicProfileInfo.secondaryEmails.length < BY.regConfig.maxSecondaryEmailId) {
                 $scope.basicProfileInfo.secondaryEmails.push("");
             }
         }
 
-        $scope.addNewAddress = function(){
+        $scope.addNewAddress = function () {
             //if($scope.basicProfileInfo.userAddress.length < BY.regConfig.maxUserAddress){
             //    $scope.newAddress = new addressFormat($scope.basicProfileInfo.userAddress.length);
             //    $scope.basicProfileInfo.userAddress.push($scope.newAddress);
@@ -132,24 +132,24 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
 
-        $scope.selectServiceType = function(elem){
-            if(elem.selected){
+        $scope.selectServiceType = function (elem) {
+            if (elem.selected) {
                 $scope.selectedServices[elem.id] = elem;
-            }else{
+            } else {
                 delete $scope.selectedServices[elem.id];
             }
         }
 
-        $scope.submitData = function(){
+        $scope.submitData = function () {
             $scope.uploadProfileImage();
         }
 
-        $scope.deleteProfileImage = function(){
+        $scope.deleteProfileImage = function () {
             $scope.profileImage = null;
             $scope.basicProfileInfo.profileImage = null;
         }
 
-        $scope.deleteGalleryImage = function(img){
+        $scope.deleteGalleryImage = function (img) {
             var imgIndex = $scope.galleryImages.indexOf(img);
             if (imgIndex > -1) {
                 $scope.galleryImages.splice(imgIndex, 1);
@@ -160,74 +160,74 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             }
         }
 
-        $scope.uploadProfileImage = function(){
-            if($scope.profileImage && $scope.profileImage.file && $scope.profileImage.file!==""){
+        $scope.uploadProfileImage = function () {
+            if ($scope.profileImage && $scope.profileImage.file && $scope.profileImage.file !== "") {
                 var formData = new FormData();
                 formData.append('image', $scope.profileImage.file, $scope.profileImage.file.name);
 
                 $http.post('UploadFile?transcoding=true', formData, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
-                }).success(function(result) {
+                }).success(function (result) {
                     $scope.profileImage = "";
                     $scope.basicProfileInfo.profileImage = result;
                     $scope.uploadGallery();
-                }).error(function(result) {
+                }).error(function (result) {
                     console.log("Upload profile image failed");
                 });
-            } else{
+            } else {
                 $scope.uploadGallery();
             }
 
         }
 
-        $scope.uploadGallery= function(){
-            if($scope.galleryImages.length > 0){
+        $scope.uploadGallery = function () {
+            if ($scope.galleryImages.length > 0) {
                 var formData = new FormData();
-                for(var i=0; i < $scope.galleryImages.length; i++){
+                for (var i = 0; i < $scope.galleryImages.length; i++) {
                     formData.append('image', $scope.galleryImages[i].file, $scope.galleryImages[i].file.name);
                 }
 
                 $http.post('UploadFile?transcoding=true&multi=true', formData, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
-                }).success(function(result) {
+                }).success(function (result) {
                     $scope.galleryImages = [];
                     $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat(result);
                     $scope.postUserProfile();
-                }).error(function(result) {
+                }).error(function (result) {
                     console.log("Upload gallery images failed");
                     $scope.postUserProfile();
                 });
-            } else{
+            } else {
                 $scope.postUserProfile();
             }
         }
 
-        $scope.getServiceList = function(){
-            for(key in $scope.selectedServices){
-                if($scope.selectedServices[key] && $scope.selectedServices[key].parentId){
+        $scope.getServiceList = function () {
+            for (key in $scope.selectedServices) {
+                if ($scope.selectedServices[key] && $scope.selectedServices[key].parentId) {
                     $scope.selectedServices[$scope.selectedServices[key].parentId] = $scope.selectedServices[key];
                 }
             }
 
-            var finalServiceList = $.map($scope.selectedServices, function(value, key){
+            var finalServiceList = $.map($scope.selectedServices, function (value, key) {
                 return key;
             });
 
             return finalServiceList;
         }
 
-        $scope.postUserProfile = function(){
+        $scope.postUserProfile = function () {
             $scope.serviceProviderInfo.services = $scope.serviceProviderInfo.services.concat($scope.getServiceList());
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
             var userProfile = new UserProfile();
-            angular.extend(userProfile,$scope.profile);
-            userProfile.$update({userId:$scope.userId}, function(profileOld){
+            angular.extend(userProfile, $scope.profile);
+            userProfile.$update({userId: $scope.userId}, function (profileOld) {
                 console.log("success");
                 $scope.$parent.exit();
-            }, function(err){
+            }, function (err) {
                 console.log(err);
                 $scope.$parent.exit();
             });

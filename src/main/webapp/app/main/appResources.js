@@ -188,7 +188,13 @@ var user = byServices.factory('User', function($resource) {
 
 var discuss = byServices.factory('DiscussPage', function($resource) {
     return $resource(apiPrefix+'api/v1/discuss/page',{}, {
-      get: {method: 'GET',params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId',p:'@p',s:'@s'}, isArray: false, isArray:false}
+      get: {method: 'GET',params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId',p:'@p',s:'@s',isFeatured:'@isFeatured'}, isArray: false}
+    })
+});
+
+var discuss = byServices.factory('DiscussCount', function($resource) {
+    return $resource(apiPrefix+'api/v1/discuss/count',{}, {
+      get: {method: 'GET',params: {topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false, isArray:false}
     })
 });
 
@@ -312,36 +318,38 @@ var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', func
  });
  */
 
-var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($http, $timeout, $q) {
-
-    var counts = [];
-
-    return {
-        // Get all projects
-        get: function(queryStr) {
 
 
-            var deferred = $q.defer();
-
-            // Don't do call if we already have projects
-            //alert(counts);
-            if (counts.length === 0) {
-
-                // Using a timeout to simulate a server call
-                //$timeout(function() {
-                $http.get(apiPrefix+'api/v1/discuss/count/' + queryStr.discussType + '/' + queryStr.topicId + '/' + queryStr.subTopicId).success(function(data) {
-
-                    deferred.resolve(data);
-                });
-                //}, 200);
-            }
-
-            // Return the projects either way
-            return deferred.promise;
-
-        }
-    }
-});
+//var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($http, $timeout, $q) {
+//
+//    var counts = [];
+//
+//    return {
+//        // Get all projects
+//        get: function(queryStr) {
+//
+//
+//            var deferred = $q.defer();
+//
+//            // Don't do call if we already have projects
+//            //alert(counts);
+//            if (counts.length === 0) {
+//
+//                // Using a timeout to simulate a server call
+//                //$timeout(function() {
+//                $http.get(apiPrefix+'api/v1/discuss/count/' + queryStr.discussType + '/' + queryStr.topicId + '/' + queryStr.subTopicId).success(function(data) {
+//
+//                    deferred.resolve(data);
+//                });
+//                //}, 200);
+//            }
+//
+//            // Return the projects either way
+//            return deferred.promise;
+//
+//        }
+//    }
+//});
 
 //var discussShow = byServices.factory('DiscussShow', function($resource) {
 //    return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {

@@ -1,8 +1,8 @@
 //DIscuss All
 byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams'
-    ,'DiscussPage', 'DiscussOneTopicOneSubTopicListCount','$sce','$timeout',
+    ,'DiscussPage', 'DiscussCount','$sce','$timeout',
     function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
-              DiscussOneTopicOneSubTopicListCount,$sce, $timeout) {
+    		DiscussCount,$sce, $timeout) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
         $scope.article_story = "";
@@ -33,12 +33,21 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             discussType = 'All';
         }
 
-        //query to get the numbers
-        DiscussOneTopicOneSubTopicListCount.get({
-            discussType: "All",
-            topicId: "list",
-            subTopicId: "all"
-        }).then(function (counts) {
+//        //query to get the numbers
+//        DiscussOneTopicOneSubTopicListCount.get({
+//            discussType: "All",
+//            topicId: "list",
+//            subTopicId: "all"
+//        }).then(function (counts) {
+//            $scope.discuss_counts = counts.data;
+//        },
+//        function(error){
+//        	console.log("DiscussOneTopicOneSubTopicListCount");
+//        	alert("error");
+//        });
+        
+        
+        DiscussCount.get({},function (counts) {
             $scope.discuss_counts = counts.data;
         },
         function(error){
@@ -168,8 +177,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
 
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussPage',
-    'DiscussOneTopicOneSubTopicListCount','$sce',
-    function ($scope, $route, $rootScope, $location, $routeParams, DiscussPage, DiscussOneTopicOneSubTopicListCount, $sce) {
+    'DiscussCount','$sce',
+    function ($scope, $route, $rootScope, $location, $routeParams, DiscussPage, DiscussCount, $sce) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
 
@@ -225,16 +234,30 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         //query to get the numbers
         
-        DiscussOneTopicOneSubTopicListCount.get({
-            discussType: "All",
-            topicId: topicQueryId,
-            subTopicId: subTopicQueryId
-        }).then(function (counts) {
+//        DiscussOneTopicOneSubTopicListCount.get({
+//            discussType: "All",
+//            topicId: topicQueryId,
+//            subTopicId: subTopicQueryId
+//        }).then(function (counts) {
+//            $scope.discuss_counts = counts.data;
+//        },
+//        function (error) {
+//        	console.log("DiscussOneTopicOneSubTopicListCount");
+//            alert("error");
+//        });
+        var params = {};
+        if(topicQueryId !=null && topicQueryId != "" && topicQueryId.toLowerCase() != "all"){
+        	params.topicId = topicQueryId;
+        }
+        if(subTopicQueryId !=null && subTopicQueryId != "" && subTopicQueryId.toLowerCase() != "all"){
+        	params.subTopicId = subTopicQueryId;
+        }
+        DiscussCount.get(params,function (counts) {
             $scope.discuss_counts = counts.data;
         },
-        function (error) {
+        function(error){
         	console.log("DiscussOneTopicOneSubTopicListCount");
-            alert("error");
+        	alert("error");
         });
 
 

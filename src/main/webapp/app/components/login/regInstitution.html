@@ -108,15 +108,19 @@
                         </div>
                     </div>
                     <div class="col-md-12 no-padding-right margin-bottom-20">
-                        <input type="text" class="username-textbox textbox"
+                        <input type="email" class="username-textbox textbox" name="primaryEmail"
                                ng-model="basicProfileInfo.primaryEmail"
                                placeholder="Email"/>
+                        <span ng-show="institutionForm.primaryEmail.$error.email">
+                            Not valid Email!
+                        </span>
                     </div>
                     <div class="col-md-12 no-padding-right margin-bottom-20"
                          ng-repeat="email in basicProfileInfo.secondaryEmails track by $index">
-                        <input type="text" class="username-textbox textbox"
+                        <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
                                ng-model="basicProfileInfo.secondaryEmails[$index]"
                                placeholder="Email"/>
+                        <span ng-show="institutionForm.{{'email'+$index}}.$error.email">Not valid Email!</span>
                     </div>
                     <div class="row add-email-wrap margin-bottom-20" style="margin-top:-10px;">
                         <div class="col-md-offset-1 col-md-11">

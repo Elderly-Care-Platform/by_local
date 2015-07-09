@@ -64,6 +64,10 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             $scope.address = $scope.basicProfileInfo.userAddress;
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
+            if($scope.address.country===null){
+                $scope.address.country = "India";
+            }
+
 
         }
 

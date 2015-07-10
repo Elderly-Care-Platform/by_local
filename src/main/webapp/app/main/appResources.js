@@ -121,6 +121,7 @@ var userProfile = byServices.factory('UserProfile', function($resource) {
 
 
 
+
 //User
 var user = byServices.factory('User', function($resource) {
     return $resource(apiPrefix+'api/v1/users/:userId',{}, {

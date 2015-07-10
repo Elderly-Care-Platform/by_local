@@ -1,0 +1,35 @@
+.productMainContent{
+  font-size: 16px;
+}
+.profileContentTitle{
+  width: 100%;
+  min-height: 36px;
+  padding-bottom: 6px;
+  color: #000000;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 26px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.productRating{
+  float: left;
+  margin-bottom: 0px !important;
+}
+
+.productRating i {
+  width: 35px;
+  text-align: center;
+  height: 35px;
+  background: #00af50;
+  border-radius: 50%;
+  padding: 1px 4px 4px 4px;
+  margin-right: 10px;
+  color: #fff;
+  display: inline-block;
+}
+
+.profileAddress{
+  margin-top: 5px;
+}

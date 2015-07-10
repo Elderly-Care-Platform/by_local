@@ -21,7 +21,7 @@ byApp.config(['$routeProvider',
             .when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html', controller: ''})
             .when('/users/contactUs', {templateUrl: 'app/shared/footer/contactUs.html', controller: 'contactUsController'})
             .when('/find/all', {templateUrl: 'app/components/find/services.html', controller: 'ServicesController'})
-            .when('/find/institution/detail', {templateUrl: 'app/components/profile/institutionProfile.html', controller: 'InstitutionProfileController'});
+            .when('/profile/:profileType/:profileId', {templateUrl: 'app/components/profile/profile.html', controller: 'ProfileController'});
 
         //.when('/discuss/new/P', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})
         //.when('/discuss/new/Q', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})

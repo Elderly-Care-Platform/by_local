@@ -1,5 +1,5 @@
 //DIscuss All
-byControllers.controller('FindAllController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
+byControllers.controller('ServicesController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
     'FindAllService', '$sce',
     function ($scope, $rootScope, $location, $route, $routeParams, FindAllService, $sce) {
 
@@ -10,8 +10,8 @@ byControllers.controller('FindAllController', ['$scope', '$rootScope', '$locatio
         }, 200);
 
         $scope.findViews = {};
-        $scope.findViews.leftPanel = "app/components/find/findLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        $scope.findViews.contentPanel = "app/components/find/findContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
 
         $scope.findType = $routeParams.findType;

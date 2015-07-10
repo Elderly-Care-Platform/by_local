@@ -6,19 +6,19 @@
     color: #ffffff;
 }
 
-.find-card {
+.service-card {
     padding: 0px !important;
     font-family: century_gothic !important;
     max-height: 260px !important;
     overflow: hidden;
 }
 
-.find-card .article-heading{
+.service-card .article-heading{
     font-family: century_gothic !important;
 }
 
 
-.find-card-image {
+.service-card-image {
     width: 135px !important;
     max-height: 168px;
     height: auto;
@@ -26,7 +26,7 @@
     float: none!important;
 }
 
-.find-card-info{
+.service-card-info{
     font-size: 14px;
     font-weight: 400;
     margin-top: 14px;
@@ -34,7 +34,7 @@
     padding-left: 0px;
 }
 
-.find-card-review
+.service-card-review
 {
     margin-right: 20px;
     color:  #000;
@@ -42,7 +42,7 @@
     margin-bottom: 10px;
 }
 
-.find-card-review i
+.service-card-review i
 {
     width: 29px;
     text-align: center;
@@ -55,14 +55,14 @@
     font-style: inherit;
 }
 
-.find-review-rate-info{
+.service-review-rate-info{
     font-size: 13px;
     font-weight: 400;
     line-height: 8px;
     margin-bottom: 2px !important;
 }
 
-.find-service-description{
+.service-card-desciption{
     padding-left: 0px;
     padding-top: 5px;
     max-height: 100px;
@@ -74,14 +74,14 @@
 }
 
 
-.find-card-categories{
+.service-card-categories{
     font-size: 14px;
     font-weight: 400;
     margin:10px;
 }
 
 
-.find-card .categoryList{
+.service-card .categoryList{
     display: inline-block;
     background-color: #F2F2F2;
     padding: 0px 12px 0px 12px;
@@ -91,7 +91,7 @@
     border: 1px solid #CFCFCF;
 }
 
-.find-card .categoryList a{
+.service-card .categoryList a{
     color: #000000 !important;
 }
 

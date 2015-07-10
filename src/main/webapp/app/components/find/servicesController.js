@@ -24,7 +24,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             },
             function (error) {
                 console.log("DiscussAllForDiscussType");
-                alert("error");
+//                alert("error");
             });
 
         $rootScope.bc_topic = 'list';

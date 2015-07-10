@@ -25,7 +25,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
                 		},
                 		function(error){
         			       	console.log("DiscussAllForDiscussType");
-        			       	alert("error");
+//        			       	alert("error");
                 		});
                 }
                 
@@ -89,7 +89,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
         		},
         		function(error){
 			       	console.log("DiscussAllForDiscussType");
-			       	alert("error");
+//			       	alert("error");
         		});
         }
         

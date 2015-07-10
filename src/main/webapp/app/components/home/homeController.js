@@ -51,7 +51,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 		},
                 		function(error){
         			       	console.log("DiscussPage");
-        			       	alert("error");
+//        			       	alert("error");
                 		});
                 DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
@@ -59,7 +59,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 		},
                 		function(error){
         			       	console.log("DiscussPage");
-        			       	alert("error");
+//        			       	alert("error");
                 		});
                 DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
@@ -67,7 +67,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 		},
                 		function(error){
         			       	console.log("DiscussPage");
-        			       	alert("error");
+//        			       	alert("error");
                 		});
                 
 //                HomeFeaturedContent.query({discussType: 'A'}).$promise.then(

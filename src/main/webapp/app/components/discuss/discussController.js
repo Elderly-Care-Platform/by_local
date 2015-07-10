@@ -52,7 +52,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         },
         function(error){
         	console.log("DiscussOneTopicOneSubTopicListCount");
-        	alert("error");
+//        	alert("error");
         });
 
         $("#preloader").show();
@@ -257,7 +257,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         },
         function(error){
         	console.log("DiscussOneTopicOneSubTopicListCount");
-        	alert("error");
+//        	alert("error");
         });
 
 
@@ -294,7 +294,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         		},
         		function(error){
 			       	console.log("DiscussAllForDiscussType");
-			       	alert("error");
+//			       	alert("error");
         		});
         $scope.loadMore = function($event){
         	if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){

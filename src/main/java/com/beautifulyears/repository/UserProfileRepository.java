@@ -24,6 +24,25 @@ public interface UserProfileRepository extends PagingAndSortingRepository<UserPr
 	
 	 @Query("{'userTypes':{$in:?0}}" )
 	 public Page<UserProfile> getServiceProvidersByCriteria(Object[] userTypes, Pageable page);
+	 
+	 @Query("{"
+	 		+ "'$and':["
+			 +"{'userTypes':{$in:?0},"
+			 + "{'$or':"
+				+ "[ {$where: '?1 == null'}, "
+				+ "{'BasicProfileInfo.UserAddress.city':?1} "
+				+ "]"
+		+ "},"
+		+ "{'$or':"
+		+ "[ {$where: '?2 == null'}, "
+		+ "{'ServiceProviderInfo.services': {$in:?2}} "
+		+ "] "
++ "}"
+			 +"]"
+					+ "}")
+	 public Page<UserProfile> getServiceProvidersByFilterCriteria(Object[] userTypes, String city, List<String> services, Pageable page);
+	 
+	 
 	    
 	
 	

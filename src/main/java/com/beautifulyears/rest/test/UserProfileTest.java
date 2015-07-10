@@ -152,10 +152,11 @@ public class UserProfileTest {
 	/* this method allows to get a page of userProfiles based on page number and size */
 	@RequestMapping(method = {RequestMethod.GET}, value = { "/list/serviceProviders" }, params = { "city", "services", "page", "size" }, produces = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<List<UserProfile>> getUserProfilebyCity(@RequestParam("city") String city, 
-			@RequestParam("services") String services, @RequestParam( "page" ) int page, @RequestParam( "size" ) int size,
+	public ResponseEntity<List<UserProfile>> getUserProfilebyCity(@RequestParam(value = "city", required = false) String city, 
+			@RequestParam(value = "services", required = false) List<String> services, @RequestParam( "page" ) int page, @RequestParam( "size" ) int size,
 		 HttpServletRequest req, HttpServletResponse res) throws IOException {
 		List<UserProfile> userProfileList = null;
+		Integer[] userTypes = {UserTypes.INSTITUTION_HOUSING, UserTypes.INSTITUTION_SERVICES,UserTypes.INSTITUTION_PRODUCTS, UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL};
 		LoggerUtil.logEntry();
 		HttpStatus httpStatus = HttpStatus.OK;
 		logger.debug("trying to get a user profile by city and service types");
@@ -167,10 +168,18 @@ public class UserProfileTest {
 		if ((size > 0))
 		{ 
 			
-			//logger.debug("city" + city + "services" + services + "page" + page + "size" + size);
+			logger.debug("city" + city + "services" + services + "page" + page + "size" + size);
 			/*userProfileList = userProfileRepository.findByCustomQuery(city, services);*/
 			this.userProfilePage = null;
-			userProfileList = userProfileRepository.findByCustomQuery(city,services, page, size);
+			this.userProfilePage = userProfileRepository.getServiceProvidersByFilterCriteria(userTypes, city, services, new PageRequest(page,size));
+			if (this.userProfilePage != null) {
+				userProfileList = this.userProfilePage.getContent();
+			}
+			else
+			{
+				logger.debug("did not find anything");
+			}
+			//userProfileList = userProfileRepository.findByCustomQuery(city,services, page, size);
 			//this.userProfilePage = userProfileRepository.findByBasicProfileInfoUserAddressCity(city, new PageRequest(page, size));
 			//logger.debug(userProfilePage.toString());
 		}

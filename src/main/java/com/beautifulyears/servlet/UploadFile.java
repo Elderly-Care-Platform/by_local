@@ -71,14 +71,6 @@ public class UploadFile extends HttpServlet {
 						String extension = name
 								.substring(name.lastIndexOf(".") + 1);
 
-						if (null != request.getParameter("transcoding")
-								&& true == Boolean.valueOf(request
-										.getParameter("transcoding"))) {
-							logger.debug("transcoded of the image with UUID = "+fname+"started");
-							Thread t = new Thread(new TranscodingThread(item,
-									fname, extension));
-							t.start();
-						}
 
 						if (null != request.getParameter("type")
 								&& "editor"
@@ -92,6 +84,10 @@ public class UploadFile extends HttpServlet {
 						} else if (null != request.getParameter("transcoding")
 								&& true == Boolean.valueOf(request
 										.getParameter("transcoding"))) {
+							logger.debug("transcoded of the image with UUID = "+fname+"started");
+							Thread t = new Thread(new TranscodingThread(item,
+									fname, extension));
+							t.start();
 							logger.debug("preparing transcoded object of the image with UUID = "+fname+"started");
 							resImage.append("{");
 							resImage.append("\"original\":");

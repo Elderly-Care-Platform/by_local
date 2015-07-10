@@ -26,13 +26,12 @@
     float: none!important;
 }
 
-
 .find-card-info{
     font-size: 14px;
     font-weight: 400;
     margin-top: 14px;
-    margin-left: 0px !important;
-    padding-left: 0px !important;
+    margin-left: 0px;
+    padding-left: 0px;
 }
 
 .find-card-review

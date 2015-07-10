@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.UserProfile;
+import com.beautifulyears.domain.UserTypes;
 import com.beautifulyears.rest.test.UserProfileTest;
 import com.beautifulyears.util.LoggerUtil;
 
@@ -40,6 +41,27 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 		
 		return userProfilePage;
 		
+	}
+	
+	@Override
+	public List<UserProfile> findServiceProviders(int page, int size) {
+		
+		List<UserProfile> userProfilePage = null;
+	
+		LoggerUtil.logEntry();
+		Query q = new Query();
+		q.with(new PageRequest(page,size));
+		q.addCriteria(Criteria.where("userTypes").in(new Object[]{UserTypes.INDIVIDUAL_PROFESSIONAL, UserTypes.INSTITUTION_HOUSING, UserTypes.INSTITUTION_SERVICES}));//where("userTypes").in(userType));
+		logger.debug("added is");
+		userProfilePage = mongoTemplate.find(q,UserProfile.class);
+		for (UserProfile userProfile: userProfilePage)
+		{
+			logger.debug(userProfile.toString());
+			
+		}
+		
+		
+		return userProfilePage;
 	}
 
 }

@@ -38,7 +38,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.go = function ($event, type, id, discussType) {
             $event.stopPropagation();
             if (type === "id") {
-                $location.path('/find/institution/detail');
+                $location.path('/profile/0/'+id);
             }
         }
 

@@ -188,6 +188,8 @@ public class UserProfileTest {
 	public ResponseEntity<List<UserProfile>> getServiceProviderUserProfiles(@RequestParam( "page" ) int page, @RequestParam( "size" ) int size,
 		 HttpServletRequest req, HttpServletResponse res) throws IOException {
 		List<UserProfile> userProfileList = null;
+		Page<UserProfile> userProfilePage = null;
+		Integer[] userTypes = {UserTypes.INSTITUTION_HOUSING, UserTypes.INSTITUTION_SERVICES,UserTypes.INSTITUTION_PRODUCTS, UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL};
 		LoggerUtil.logEntry();
 		HttpStatus httpStatus = HttpStatus.OK;
 		logger.debug("trying to get all service provider profiles");
@@ -197,7 +199,8 @@ public class UserProfileTest {
 		logger.debug("page" + page + ",size");
 		if (( page >= 0) && (size > 0))
 		{
-			userProfileList = this.userProfileRepository.findServiceProviders(page, size);
+			userProfilePage = this.userProfileRepository.getServiceProvidersByCriteria(userTypes, new PageRequest(page,size));
+			userProfileList = userProfilePage.getContent();
 			if (userProfileList.isEmpty())
 			{
 				logger.debug("did not find any service providers");

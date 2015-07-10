@@ -37,6 +37,10 @@ public class UploadFile extends HttpServlet {
 	public void init() {
 		System.out.println("CONTEXT PATH ===== "
 				+ getServletContext().getContextPath());
+		System.out.println(getServletContext().getInitParameter("imageUploadPath"));
+		if(null != getServletContext().getInitParameter("imageUploadPath")){
+			uploadDir = getServletContext().getInitParameter("imageUploadPath");
+		}
 		// uploadDir = "/home/ubuntu/uploads";
 //		uploadDir = "c:/uploads";
 

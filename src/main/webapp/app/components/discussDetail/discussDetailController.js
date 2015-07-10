@@ -17,7 +17,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         },
         function(error){
         	console.log("error");
-        	alert("error");
+//        	alert("error");
         });
 
         $scope.trustForcefully = function (html) {
@@ -77,7 +77,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             },
             function(error){
             	console.log("error");
-            	alert("error");
+//            	alert("error");
             });
         };
 
@@ -101,7 +101,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                     },
                     function(error){
                     	console.log("error");
-                    	alert("error");
+//                    	alert("error");
                     });
                 }else{
                     $scope.discussReply.$postComment(function (discussReply, headers) {
@@ -110,7 +110,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                     },
                     function(error){
                     	console.log("error");
-                    	alert("error");
+//                    	alert("error");
                     });
                 }
             }

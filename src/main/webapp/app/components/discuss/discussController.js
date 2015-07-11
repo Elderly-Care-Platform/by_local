@@ -1,8 +1,8 @@
 //DIscuss All
-byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams',
-    'DiscussAllForDiscussType', 'DiscussOneTopicOneSubTopicListCount','$sce','$timeout',
-    function ($scope, $rootScope, $location ,$route, $routeParams, DiscussAllForDiscussType,
-              DiscussOneTopicOneSubTopicListCount,$sce, $timeout) {
+byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams'
+    ,'DiscussPage', 'DiscussCount','$sce','$timeout',
+    function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
+    		DiscussCount,$sce, $timeout) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
         $scope.article_story = "";
@@ -33,29 +33,67 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             discussType = 'All';
         }
 
-        //query to get the numbers
-        DiscussOneTopicOneSubTopicListCount.get({
-            discussType: "All",
-            topicId: "list",
-            subTopicId: "all"
-        }).then(function (counts) {
+//        //query to get the numbers
+//        DiscussOneTopicOneSubTopicListCount.get({
+//            discussType: "All",
+//            topicId: "list",
+//            subTopicId: "all"
+//        }).then(function (counts) {
+//            $scope.discuss_counts = counts.data;
+//        },
+//        function(error){
+//        	console.log("DiscussOneTopicOneSubTopicListCount");
+//        	alert("error");
+//        });
+        
+        
+        DiscussCount.get({},function (counts) {
             $scope.discuss_counts = counts.data;
         },
         function(error){
         	console.log("DiscussOneTopicOneSubTopicListCount");
-        	alert("error");
+//        	alert("error");
         });
 
         $("#preloader").show();
-        DiscussAllForDiscussType.query({discussType: discussType},function(value){
-        	 $scope.discuss = value.data;
-        	$("#preloader").hide();
-        },
-        function(error){
-        	console.log("DiscussAllForDiscussType");
-        	alert("error");
-        });
-
+        
+        var params = {p:0,s:10};
+        if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
+        	params.discussType = discussType;;
+        }
+        
+        DiscussPage.get(params,
+        		function(value){
+			       	 $scope.discuss = value.data.content;
+			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+			       	$scope.pageInfo.isQueryInProgress = false;
+			       	$("#preloader").hide();
+        		},
+        		function(error){
+			       	console.log("DiscussAllForDiscussType");
+			       	alert("error");
+        		});
+        $scope.loadMore = function($event){
+        	if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
+        		$scope.pageInfo.isQueryInProgress = true;
+        		var params = {p:$scope.pageInfo.number + 1,s:$scope.pageInfo.size};
+                if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
+                	params.discussType = discussType;;
+                }
+            	DiscussPage.get(params,
+                		function(value){
+	            			if(value.data.content.length > 0){
+	        					$scope.pageInfo.isQueryInProgress = false;
+	        					$scope.discuss = $scope.discuss.concat(value.data.content);
+	        				}
+	    			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+	    			       	$scope.pageInfo.isQueryInProgress = false;
+                		},
+                		function(error){
+        			       	console.log("DiscussAllForDiscussType");
+                		});
+        	}
+        }
         $rootScope.bc_topic = 'list';
         $rootScope.bc_subTopic = 'all';
         $rootScope.bc_discussType = discussType;
@@ -138,9 +176,9 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
 
 
-byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussOneTopicOneSubTopicList',
-    'DiscussOneTopicOneSubTopicListCount','$sce',
-    function ($scope, $route, $rootScope, $location, $routeParams, DiscussOneTopicOneSubTopicList, DiscussOneTopicOneSubTopicListCount, $sce) {
+byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussPage',
+    'DiscussCount','$sce',
+    function ($scope, $route, $rootScope, $location, $routeParams, DiscussPage, DiscussCount, $sce) {
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
 
@@ -196,33 +234,97 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         //query to get the numbers
         
-        DiscussOneTopicOneSubTopicListCount.get({
-            discussType: "All",
-            topicId: topicQueryId,
-            subTopicId: subTopicQueryId
-        }).then(function (counts) {
+//        DiscussOneTopicOneSubTopicListCount.get({
+//            discussType: "All",
+//            topicId: topicQueryId,
+//            subTopicId: subTopicQueryId
+//        }).then(function (counts) {
+//            $scope.discuss_counts = counts.data;
+//        },
+//        function (error) {
+//        	console.log("DiscussOneTopicOneSubTopicListCount");
+//            alert("error");
+//        });
+        var params = {};
+        if(topicQueryId !=null && topicQueryId != "" && topicQueryId.toLowerCase() != "all"){
+        	params.topicId = topicQueryId;
+        }
+        if(subTopicQueryId !=null && subTopicQueryId != "" && subTopicQueryId.toLowerCase() != "all"){
+        	params.subTopicId = subTopicQueryId;
+        }
+        DiscussCount.get(params,function (counts) {
             $scope.discuss_counts = counts.data;
         },
-        function (error) {
+        function(error){
         	console.log("DiscussOneTopicOneSubTopicListCount");
-            alert("error");
+//        	alert("error");
         });
 
 
         ///alert("one topic one sub topic :: " + $scope.discuss_counts);
 
         $("#preloader").show();
-        DiscussOneTopicOneSubTopicList.query({
-            discussType: discussType,
-            topicId: topicQueryId,
-            subTopicId: subTopicQueryId
-        },function(value){
-        	$scope.discuss = value.data;
-        	$("#preloader").hide();
-        },function(error){
-        	console.log("DiscussOneTopicOneSubTopicList");
-        	alert("error");
-        })
+//        DiscussOneTopicOneSubTopicList.query({
+//            discussType: discussType,
+//            topicId: topicQueryId,
+//            subTopicId: subTopicQueryId
+//        },function(value){
+//        	$scope.discuss = value.data;
+//        	$("#preloader").hide();
+//        },function(error){
+//        	console.log("DiscussOneTopicOneSubTopicList");
+//        	alert("error");
+//        })
+        var params = {p:0,s:10};
+        if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
+        	params.discussType = discussType;
+        }
+        if(topicQueryId !=null && topicQueryId != "" && topicQueryId.toLowerCase() != "all"){
+        	params.topicId = topicQueryId;
+        }
+        if(subTopicQueryId !=null && subTopicQueryId != "" && subTopicQueryId.toLowerCase() != "all"){
+        	params.subTopicId = subTopicQueryId;
+        }
+        DiscussPage.get(params,
+        		function(value){
+			       	 $scope.discuss = value.data.content;
+			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+			       	$scope.pageInfo.isQueryInProgress = false;
+			       	$("#preloader").hide();
+        		},
+        		function(error){
+			       	console.log("DiscussAllForDiscussType");
+//			       	alert("error");
+        		});
+        $scope.loadMore = function($event){
+        	if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
+        		$scope.pageInfo.isQueryInProgress = true;
+        		var params = {p:$scope.pageInfo.number + 1,s:$scope.pageInfo.size};
+        		if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
+                	params.discussType = discussType;
+                }
+                if(topicQueryId !=null && topicQueryId != "" && topicQueryId.toLowerCase() != "all"){
+                	params.topicId = topicQueryId;
+                }
+                if(subTopicQueryId !=null && subTopicQueryId != "" && subTopicQueryId.toLowerCase() != "all"){
+                	params.subTopicId = subTopicQueryId;
+                }
+            	DiscussPage.get(params,
+                		function(value){
+            				if(value.data.content.length > 0){
+            					$scope.pageInfo.isQueryInProgress = false;
+            					$scope.discuss = $scope.discuss.concat(value.data.content);
+            				}
+        			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+        			       	$scope.pageInfo.isQueryInProgress = false;
+                		},
+                		function(error){
+        			       	console.log("DiscussAllForDiscussType");
+                		});
+        	}
+        }
+        
+        
 
 
 //        //User Discuss Like method

@@ -47,7 +47,7 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
                         //error
                         function( error ){
                         	console.log("QUErY ERROR");
-                        	alert("error2");
+//                        	alert("error2");
                 		});
             }
         }

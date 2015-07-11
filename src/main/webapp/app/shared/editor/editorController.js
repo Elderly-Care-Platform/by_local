@@ -69,7 +69,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
             },
             function (error) {
             	console.log("Discuss");
-                alert("error");
+//                alert("error");
             });
         };
 

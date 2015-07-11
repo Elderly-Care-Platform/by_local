@@ -9,7 +9,9 @@ var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
  	"ngRoute",
- 	'ngSanitize'
+ 	'ngSanitize',
+ 	'ngAutocomplete',
+ 	'infinite-scroll'
  ]);
 
 //Routing and Session Check for Login
@@ -323,8 +325,8 @@ function ($scope,$location, $rootScope, $http) {
 
 ]);
 
-byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussOneTopicOneSubTopicList','$sce',
- function($scope, $route, $routeParams, $location, Discuss, DiscussOneTopicOneSubTopicList, $sce) {
+byControllers.controller('DiscussCreateController', ['$scope', '$route', '$routeParams', '$location', 'Discuss', 'DiscussPage','$sce',
+ function($scope, $route, $routeParams, $location, Discuss, DiscussPage, $sce) {
     	$scope.discuss = new Discuss();
 	var segment = $location.path().substring(1);
 	segment = segment.substring(segment.indexOf("/")+1);
@@ -356,32 +358,56 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 
 
 		//save the discuss
-		$scope.discuss.$save(function (discuss, headers) {
-
-			var location = $scope.discuss.discussType;
-			var mode = discussType;
-
-			DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId}).$promise.then(
-		             //success
-		             function( value ){
-		            	 $scope.discuss = value.data;
-		             	},
-		             //error
-		             function( error ){
-		             		console.log("QUErY ERROR");
-		             		alert("error2");
-		             		}
-		           );
-			document.getElementById(element_id).style.display = 'none';
-
-			$route.reload();
-			//??????$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
-
-		},
-		function (error) {
-			console.log("Discuss");
-			alert("error");
-		});
+//		$scope.discuss.$save(function (discuss, headers) {
+//
+//			var location = $scope.discuss.discussType;
+//			var mode = discussType;
+//
+////			DiscussOneTopicOneSubTopicList.query({discussType: discussType, topicId: topicId, subTopicId:subTopicId}).$promise.then(
+////		             //success
+////		             function( value ){
+////		            	 $scope.discuss = value.data;
+////		             	},
+////		             //error
+////		             function( error ){
+////		             		console.log("QUErY ERROR");
+////		             		alert("error2");
+////		             		}
+////		           );
+//			
+//			var params = {p:0,s:50};
+//	        if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
+//	        	params.discussType = discussType;
+//	        }
+//	        if(topicId !=null && topicId != "" && topicId.toLowerCase() != "all"){
+//	        	params.topicId = topicQueryId;
+//	        }
+//	        if(subTopicId !=null && subTopicId != "" && subTopicId.toLowerCase() != "all"){
+//	        	params.subTopicId = subTopicQueryId;
+//	        }
+//	        $("#preloader").show();
+//	        DiscussPage.get(params,
+//	        		function(value){
+//	        				$scope.discuss = value.data.content;
+//				       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+//				       	$scope.pageInfo.isQueryInProgress = false;
+//				       	$("#preloader").hide();
+//	        		},
+//	        		function(error){
+//				       	console.log("DiscussPage");
+//				       	alert("error");
+//	        		});
+//			
+//			document.getElementById(element_id).style.display = 'none';
+//
+//			$route.reload();
+//			//??????$location.path('/discuss/' + element_id + '/' + topicId + '/' + subTopicId);
+//
+//		},
+//		function (error) {
+//			console.log("Discuss");
+//			alert("error");
+//		});
 
 	};
 	
@@ -410,7 +436,16 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
      if(disType == 'All')
      {
 
-     	$scope.discuss = DiscussSearch.query({term: $rootScope.term});
+     	DiscussSearch.query({term: $rootScope.term},function(value){
+     		$scope.discuss = value;
+     		setTimeout(
+     				function(){
+     						$(".article-content").each(function(a,b){
+     							var myRegExp = new RegExp($rootScope.term,'i');
+     						$(b).html($(b).html().replace(myRegExp,"<span class='highlighted-text' >"+$rootScope.term+"</span>"));
+     						}
+     				)},500);
+     	});
 
      	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
 		$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
@@ -492,31 +527,31 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 
 
 
-byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList',
-  function($scope,$rootScope, $routeParams, UserDiscussList) {
-	  var userId = $rootScope.bc_userId;
-	  var userName = $rootScope.bc_username;
-	  var discussType = $rootScope.bc_discussType;
-	  var topicId = $rootScope.bc_topic;
-	  var subTopicId = $rootScope.bc_subTopic;
-
-	  if(discussType == '' || discussType == 'undefined' || !discussType || discussType == null)
-	  {
-	  	discussType = 'All';
-	  }
-
-     UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId}).$promise.then(
-             //success
-             function( value ){
-            	 $scope.discuss2 = value.data;
-             	},
-             //error
-             function( error ){
-             		console.log("QUErY ERROR");
-             		alert("error2");
-             		}
-           );
-  }]);
+//byControllers.controller('UserDiscussListController', ['$scope', '$rootScope', '$routeParams', 'UserDiscussList',
+//  function($scope,$rootScope, $routeParams, UserDiscussList) {
+//	  var userId = $rootScope.bc_userId;
+//	  var userName = $rootScope.bc_username;
+//	  var discussType = $rootScope.bc_discussType;
+//	  var topicId = $rootScope.bc_topic;
+//	  var subTopicId = $rootScope.bc_subTopic;
+//
+//	  if(discussType == '' || discussType == 'undefined' || !discussType || discussType == null)
+//	  {
+//	  	discussType = 'All';
+//	  }
+//
+//     UserDiscussList.query({discussType:discussType, topicId:topicId, subTopicId:subTopicId, userId:userId}).$promise.then(
+//             //success
+//             function( value ){
+//            	 $scope.discuss2 = value.data;
+//             	},
+//             //error
+//             function( error ){
+//             		console.log("QUErY ERROR");
+//             		alert("error2");
+//             		}
+//           );
+//  }]);
 
 
 

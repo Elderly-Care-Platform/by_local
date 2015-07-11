@@ -116,7 +116,7 @@ public class UserController {
 				if (mongoTemplate.count(q, User.class) > 0) {
 					logger.debug("user with the same emailId already exist = "
 							+ user.getEmail());
-					throw new Exception("Email already exists!");
+					throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userRepository.save(userWithExtractedInformation);

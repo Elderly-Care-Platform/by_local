@@ -20,7 +20,8 @@ public enum BYErrorCodes {
 	// user error
 	USER_NOT_AUTHORIZED(3001, "User is not authorized to persform the selected operation"),
 	USER_LOGIN_REQUIRED(3002, "User is required to login to perform such operation"),
-	USER_LOGIN_FAILED(3003,"User login failed. Invalid user/password combination.")
+	USER_LOGIN_FAILED(3003,"User login failed. Invalid user/password combination."),
+	USER_ALREADY_EXIST(3004,"User with the same emailId already exists")
 
 	;
 

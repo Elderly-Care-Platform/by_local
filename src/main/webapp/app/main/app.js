@@ -437,7 +437,16 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
      if(disType == 'All')
      {
 
-     	$scope.discuss = DiscussSearch.query({term: $rootScope.term});
+     	DiscussSearch.query({term: $rootScope.term},function(value){
+     		$scope.discuss = value;
+     		setTimeout(
+     				function(){
+     						$(".article-content").each(function(a,b){
+     							var myRegExp = new RegExp($rootScope.term,'i');
+     						$(b).html($(b).html().replace(myRegExp,"<span class='highlighted-text' >"+$rootScope.term+"</span>"));
+     						}
+     				)},500);
+     	});
 
      	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
 		$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });

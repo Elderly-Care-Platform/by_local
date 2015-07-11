@@ -51,13 +51,13 @@ var broadCastData = byServices.factory('broadCastData', function($rootScope){
     return data;
 });
 
-//home featured content API
-var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
-    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {
-        query: {method: 'GET', isArray: false}
-        
-    });
-});
+////home featured content API
+//var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
+//    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {
+//        query: {method: 'GET', isArray: false}
+//        
+//    });
+//});
 
 //discuss detail page API
 var discussDetail = byServices.factory('DiscussDetail', function($resource) {
@@ -81,13 +81,13 @@ var discussLike = byServices.factory('DiscussLike', function($resource){
 
 //user articles list for detail left panel
 
-var discussByUserFilter = byServices.factory('UserDiscussList', function($resource) {
-    ///start here
-    return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId/:userId',{}, {
-        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false}
-
-    })
-});
+//var discussByUserFilter = byServices.factory('UserDiscussList', function($resource) {
+//    ///start here
+//    return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId/:userId',{}, {
+//        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false}
+//
+//    })
+//});
 
 
 //ContactUs -
@@ -117,35 +117,35 @@ var user = byServices.factory('User', function($resource) {
 //});
 
 
-var depList = byServices.factory('DependentList', function($resource) {
-    return $resource(apiPrefix+'api/v1/dependent/list/:userId',{}, {
-        //remove:{method: 'DELETE', params: {userId: '@userId'}},
-        //update:{method: 'PUT', params: {userId: '@userId'}},
-        //query: { method: "GET", isArray: true },
-        get: {method: 'GET', params: {userId: '@userId'}}
-    })
-});
+//var depList = byServices.factory('DependentList', function($resource) {
+//    return $resource(apiPrefix+'api/v1/dependent/list/:userId',{}, {
+//        //remove:{method: 'DELETE', params: {userId: '@userId'}},
+//        //update:{method: 'PUT', params: {userId: '@userId'}},
+//        //query: { method: "GET", isArray: true },
+//        get: {method: 'GET', params: {userId: '@userId'}}
+//    })
+//});
 
 
 //Show dependent details for edit
-var userDependent = byServices.factory('ShowDependent', function($resource) {
-    return $resource(apiPrefix+'api/v1/dependent/:userId/:id',{}, {
-        show: {method: 'GET', params: {userId: '@userId', id: '@id'}},
-        get: {method: 'GET', params: {userId: '@userId', id: '@id'}},
-        update:{method: 'PUT', params: {userId: '@userId', id: '@id'}},
-        query: { method: "GET", isArray: true }
-    })
-});
+//var userDependent = byServices.factory('ShowDependent', function($resource) {
+//    return $resource(apiPrefix+'api/v1/dependent/:userId/:id',{}, {
+//        show: {method: 'GET', params: {userId: '@userId', id: '@id'}},
+//        get: {method: 'GET', params: {userId: '@userId', id: '@id'}},
+//        update:{method: 'PUT', params: {userId: '@userId', id: '@id'}},
+//        query: { method: "GET", isArray: true }
+//    })
+//});
 
 
 //UserProfile - step 3
-var userProfile3 = byServices.factory('UserDependent', function($resource) {
-    return $resource(apiPrefix+'api/v1/dependent/:userId',{}, {
-        remove:{method: 'DELETE', params: {userId: '@userId'}},
-        update:{method: 'PUT', params: {userId: '@userId'}},
-        get: {method: 'GET', params: {userId: '@userId'}}
-    })
-});
+//var userProfile3 = byServices.factory('UserDependent', function($resource) {
+//    return $resource(apiPrefix+'api/v1/dependent/:userId',{}, {
+//        remove:{method: 'DELETE', params: {userId: '@userId'}},
+//        update:{method: 'PUT', params: {userId: '@userId'}},
+//        get: {method: 'GET', params: {userId: '@userId'}}
+//    })
+//});
 
 
 //
@@ -168,14 +168,26 @@ var userProfile3 = byServices.factory('UserDependent', function($resource) {
 //    })
 //});
 
+var discuss = byServices.factory('DiscussPage', function($resource) {
+    return $resource(apiPrefix+'api/v1/discuss/page',{}, {
+      get: {method: 'GET',params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId',p:'@p',s:'@s',isFeatured:'@isFeatured'}, isArray: false}
+    })
+});
+
+var discuss = byServices.factory('DiscussCount', function($resource) {
+    return $resource(apiPrefix+'api/v1/discuss/count',{}, {
+      get: {method: 'GET',params: {topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false, isArray:false}
+    })
+});
+
 
 //Discuss -
 
 var discuss = byServices.factory('Discuss', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {
-        remove:{method: 'DELETE', params: {discussId: '@id'}},
-        update:{method: 'PUT', params: {discussId: '@id'}},
-        get: {method: 'GET', params: {discussId: '@id'}}
+    return $resource(apiPrefix+'api/v1/discuss',{}, {
+//        remove:{method: 'DELETE', params: {discussId: '@id'}},
+//        update:{method: 'PUT', params: {discussId: '@id'}},
+//        get: {method: 'GET', params: {discussId: '@id'}}
     })
 });
 
@@ -209,11 +221,11 @@ var discussComment = byServices.factory('DiscussComment', function($resource) {
 });
 
 
-
-var discuss = byServices.factory('DiscussCreate', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss',{}, {
-    })
-});
+//
+//var discuss = byServices.factory('DiscussCreate', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss',{}, {
+//    })
+//});
 
 
 //var discussByFilterPost = byServices.factory('PostDiscuss', function($resource) {
@@ -251,12 +263,12 @@ var discussSearch = byServices.factory('DiscussSearch', function($resource) {
 });
 
 
-var allDiscussByTypeFilter = byServices.factory('DiscussAllForDiscussType', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/list/all/:discussType',{}, {
-        get: {method: 'GET', params: {discussType: '@discussType'},isArray:false},
-        query: {method: 'GET', params: {discussType: '@discussType'},isArray:false}
-    })
-});
+//var allDiscussByTypeFilter = byServices.factory('DiscussAllForDiscussType', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/list/all/:discussType',{}, {
+//        get: {method: 'GET', params: {discussType: '@discussType'},isArray:false},
+//        query: {method: 'GET', params: {discussType: '@discussType'},isArray:false}
+//    })
+//});
 
 
 var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', function($resource) {
@@ -272,12 +284,12 @@ var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', func
 //    })
 //});
 
-var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', function($resource) {
-    return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId',{}, {
-        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false},
-        query: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false}
-    })
-});
+//var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', function($resource) {
+//    return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId',{}, {
+//        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false},
+//        query: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false}
+//    })
+//});
 
 
 /*
@@ -288,36 +300,38 @@ var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', 
  });
  */
 
-var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($http, $timeout, $q) {
-
-    var counts = [];
-
-    return {
-        // Get all projects
-        get: function(queryStr) {
 
 
-            var deferred = $q.defer();
-
-            // Don't do call if we already have projects
-            //alert(counts);
-            if (counts.length === 0) {
-
-                // Using a timeout to simulate a server call
-                //$timeout(function() {
-                $http.get(apiPrefix+'api/v1/discuss/count/' + queryStr.discussType + '/' + queryStr.topicId + '/' + queryStr.subTopicId).success(function(data) {
-
-                    deferred.resolve(data);
-                });
-                //}, 200);
-            }
-
-            // Return the projects either way
-            return deferred.promise;
-
-        }
-    }
-});
+//var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($http, $timeout, $q) {
+//
+//    var counts = [];
+//
+//    return {
+//        // Get all projects
+//        get: function(queryStr) {
+//
+//
+//            var deferred = $q.defer();
+//
+//            // Don't do call if we already have projects
+//            //alert(counts);
+//            if (counts.length === 0) {
+//
+//                // Using a timeout to simulate a server call
+//                //$timeout(function() {
+//                $http.get(apiPrefix+'api/v1/discuss/count/' + queryStr.discussType + '/' + queryStr.topicId + '/' + queryStr.subTopicId).success(function(data) {
+//
+//                    deferred.resolve(data);
+//                });
+//                //}, 200);
+//            }
+//
+//            // Return the projects either way
+//            return deferred.promise;
+//
+//        }
+//    }
+//});
 
 //var discussShow = byServices.factory('DiscussShow', function($resource) {
 //    return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {

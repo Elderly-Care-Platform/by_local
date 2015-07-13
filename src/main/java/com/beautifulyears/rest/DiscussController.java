@@ -179,7 +179,7 @@ public class DiscussController {
 			}
 
 			Direction sortDirection = Direction.DESC;
-			if (dir == 0) {
+			if (dir != 0) {
 				sortDirection = Direction.ASC;
 			}
 

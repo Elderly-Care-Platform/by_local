@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserTypes;
-import com.beautifulyears.rest.test.UserProfileTest;
+
 import com.beautifulyears.util.LoggerUtil;
 
 public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
@@ -59,6 +59,7 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 			logger.debug(userProfile.toString());
 			
 		}
+		
 		
 		
 		return userProfilePage;

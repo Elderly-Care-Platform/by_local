@@ -1,4 +1,4 @@
-package com.beautifulyears.rest.test;
+package com.beautifulyears.rest;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,10 @@ import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserTypes;
+import com.beautifulyears.exceptions.BYErrorCodes;
+import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserProfileRepository;
+import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
@@ -42,15 +45,15 @@ import com.beautifulyears.util.Util;
  */
 @Controller
 @RequestMapping("/userProfile")
-public class UserProfileTest {
-	private Logger logger = Logger.getLogger(UserProfileTest.class);
+public class UserProfileController {
+	private Logger logger = Logger.getLogger(UserProfileController.class);
 
 	private UserProfile userProfile;
 	private Page<UserProfile> userProfilePage;
 	private UserProfileRepository userProfileRepository;
 
 	@Autowired
-	public UserProfileTest(UserProfileRepository userProfileRepository) {
+	public UserProfileController(UserProfileRepository userProfileRepository) {
 		this.userProfileRepository = userProfileRepository;
 
 	}
@@ -95,14 +98,15 @@ public class UserProfileTest {
 	/* @PathVariable(value = "userId") String userId */
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{userId}" }, produces = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<UserProfile> getUserProfilebyID(
+	public Object getUserProfilebyID(
 			@PathVariable(value = "userId") String userId,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		this.userProfile = null;
-		HttpStatus httpStatus = HttpStatus.OK;
+		
 		LoggerUtil.logEntry();
 		logger.debug("trying to get a user profile by user ID");
+		try{
 		if (userId != null) {
 
 			this.userProfile = this.userProfileRepository.findByUserId(userId);
@@ -114,11 +118,14 @@ public class UserProfileTest {
 			}
 		} else {
 			logger.error("invalid parameter");
-			httpStatus = HttpStatus.BAD_REQUEST;
+			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+			
 		}
-
-		return new ResponseEntity<UserProfile>(this.userProfile, null,
-				httpStatus);
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		
+		return BYGenericResponseHandler.getResponse(this.userProfile);
 	}
 
 	/*
@@ -128,18 +135,18 @@ public class UserProfileTest {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list" }, params = {
 			"page", "size" }, produces = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<List<UserProfile>> getUserProfilebyPageParams(
-			@RequestParam("page") int page, @RequestParam("size") int size,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public Object getUserProfilebyPageParams(
+			@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		LoggerUtil.logEntry();
 		HttpStatus httpStatus = HttpStatus.OK;
-		logger.debug("trying to test adding a user profile");
+		logger.debug("trying to get all user profiles by page");
+		try {
+			/* check the collection */
+			/* validate input Param */
+			logger.debug("page" + page + ",size");
 
-		/* check the collection */
-		/* validate input Param */
-		logger.debug("page" + page + ",size");
-		if ((page >= 0) && (size > 0)) {
 			/* check is at least one record exists. */
 			getUserProfilePage(page, size);
 			if (this.userProfilePage.hasContent() == false) {
@@ -147,45 +154,43 @@ public class UserProfileTest {
 				/* not sure whether I should be setting an error here */
 			}
 
-		} else {
-			logger.error("getUserProfilebyPageParams - invalid arguments");
-			httpStatus = HttpStatus.BAD_REQUEST;
+
+		} catch (Exception e){
+			Util.handleException(e);
 		}
-		return new ResponseEntity<List<UserProfile>>(
-				this.userProfilePage.getContent(), null, httpStatus);
+		return BYGenericResponseHandler.getResponse(this.userProfilePage);
+		
 	}
 
-	/* this method is to get list of user profiles by city */
+	/* this method is to get list of service Provider user Profiles. */
 	/*
 	 * this method allows to get a page of userProfiles based on page number and
-	 * size
+	 * size, also optional filter parameters like service types and city.
 	 */
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/serviceProviders" }, produces = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<List<UserProfile>> getUserProfilebyCity(
+	public Object getUserProfilebyCity(
 			@RequestParam(value = "city", required = false) String city,
 			@RequestParam(value = "services", required = false) List<String> services,
-			@RequestParam("page") int page, @RequestParam("size") int size,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
-		List<UserProfile> userProfileList = null;
+			@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+	
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
 				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
 		LoggerUtil.logEntry();
-		HttpStatus httpStatus = HttpStatus.OK;
+
 		logger.debug("trying to get a user profile by city and service types");
 
-		/* check the collection */
-		/* validate input Param */
-		logger.debug("page" + page + ",size");
-		if ((size > 0)) {
-
+		try {
+			
 			logger.debug("city" + city + "services" + services + "page" + page
-					+ "size" + size);
-			/*
-			 * userProfileList = userProfileRepository.findByCustomQuery(city,
-			 * services);
-			 */
+						+ "size" + size);
+				/*
+				 * userProfileList = userProfileRepository.findByCustomQuery(city,
+				 * services);
+				 */
 			if(null == services){
 				services = new ArrayList<String>();
 			}
@@ -194,189 +199,179 @@ public class UserProfileTest {
 					.getServiceProvidersByFilterCriteria(userTypes, city,
 							services, new PageRequest(page, size));
 			if (this.userProfilePage != null) {
-				userProfileList = this.userProfilePage.getContent();
+				logger.debug("found something");
 			} else {
 				logger.debug("did not find anything");
 			}
-			// userProfileList =
-			// userProfileRepository.findByCustomQuery(city,services, page,
-			// size);
-			// this.userProfilePage =
-			// userProfileRepository.findByBasicProfileInfoUserAddressCity(city,
-			// new PageRequest(page, size));
-			// logger.debug(userProfilePage.toString());
-		} else {
-			logger.error("getUserProfilebyPageParams - invalid arguments");
-			httpStatus = HttpStatus.BAD_REQUEST;
+			 
+		} catch (Exception e) {
+			Util.handleException(e);
 		}
-		return new ResponseEntity<List<UserProfile>>(userProfileList, null,
-				httpStatus);
+		return BYGenericResponseHandler.getResponse(this.userProfilePage);
 	}
 
 	/*
-	 * this method allows to get a page of userProfiles based on page number and
-	 * size
+	 * this method allows to get a page of userProfiles who are service providers based on page number and
+	 * size. Service providers can be institution as well as individuals.
 	 */
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/list/serviceProviders/all" }, params = {
 			"page", "size" }, produces = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<List<UserProfile>> getServiceProviderUserProfiles(
-			@RequestParam("page") int page, @RequestParam("size") int size,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
-		List<UserProfile> userProfileList = null;
+	public Object getServiceProviderUserProfiles(
+			@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Page<UserProfile> userProfilePage = null;
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
 				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
 		LoggerUtil.logEntry();
-		HttpStatus httpStatus = HttpStatus.OK;
 		logger.debug("trying to get all service provider profiles");
 
-		/* check the collection */
-		/* validate input Param */
-		logger.debug("page" + page + ",size");
-		if ((page >= 0) && (size > 0)) {
-			userProfilePage = this.userProfileRepository
-					.getServiceProvidersByCriteria(userTypes, new PageRequest(
-							page, size));
-			userProfileList = userProfilePage.getContent();
-			if (userProfileList.isEmpty()) {
-				logger.debug("did not find any service providers");
-			}
+		try {
+				logger.debug("page" + page + ",size" + size);
+				userProfilePage = this.userProfileRepository
+						.getServiceProvidersByCriteria(userTypes, new PageRequest(
+								page, size));
+				if (userProfilePage.hasContent() == false) {
+					logger.debug("did not find any service providers");
+				}
 
-		} else {
-			logger.error("getUserProfilebyPageParams - invalid arguments");
-			httpStatus = HttpStatus.BAD_REQUEST;
+			
+		} catch (Exception e) {
+			Util.handleException(e);
 		}
-		return new ResponseEntity<List<UserProfile>>(userProfileList, null,
-				httpStatus);
+		return BYGenericResponseHandler.getResponse(userProfilePage);
 	}
 
 	/* This method allows the creation of a user profile */
 	@RequestMapping(method = { RequestMethod.POST }, value = { "" }, consumes = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<UserProfile> submitUserProfile(
+	public Object submitUserProfile(
 			@RequestBody UserProfile userProfile, HttpServletRequest req,
-			HttpServletResponse res) throws IOException {
-		HttpStatus httpStatus = HttpStatus.OK;
+			HttpServletResponse res) throws Exception {
+		
 		LoggerUtil.logEntry();
 		logger.debug("in submit User Profile");
-		if ((userProfile != null)) {
-			/* check if a valid user exists, whom the profile belongs to */
-			User currentUser = Util.getSessionUser(req);
-			if (null != currentUser) {
-				logger.debug("current user details" + currentUser.toString());
-				/* save the user profile */
-				this.userProfile = userProfile;
-				if (this.userProfile.getUserId().equals(currentUser.getId())) {
+		
+		try {
+			if ((userProfile != null)) {
+				/* check if a valid user exists, whom the profile belongs to */
+				User currentUser = Util.getSessionUser(req);
+				if (null != currentUser) {
+					logger.debug("current user details" + currentUser.toString());
+					/* save the user profile */
+					this.userProfile = userProfile;
+					if (this.userProfile.getUserId().equals(currentUser.getId())) {
 
-					/*
-					 * check - if a userProfile by this userID already exists,
-					 * do not allow
-					 */
-					if (this.userProfileRepository
-							.findByUserId(this.userProfile.getUserId()) == null) {
-						userProfileRepository.save(this.userProfile);
-						logger.info("New User Profile created with details: "
-								+ this.userProfile.toString());
+						/*
+						 * check - if a userProfile by this userID already exists,
+						 * do not allow
+						 */
+						if (this.userProfileRepository
+								.findByUserId(this.userProfile.getUserId()) == null) {
+							userProfileRepository.save(this.userProfile);
+							logger.info("New User Profile created with details: "
+									+ this.userProfile.toString());
+						} else {
+							logger.debug("resource already exists");
+							this.userProfile = null;
+							throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
+						}
 					} else {
-						httpStatus = HttpStatus.CONFLICT;
-						logger.debug("resource already exists");
+						logger.error("Wrong user ID" + this.userProfile.getUserId());
 						this.userProfile = null;
+						throw new BYException(BYErrorCodes.INVALID_REQUEST);
 					}
 				} else {
-					logger.error("Wrong user ID" + this.userProfile.getUserId());
-					httpStatus = HttpStatus.UNAUTHORIZED;
 					this.userProfile = null;
+					logger.error("No valid user session");
+					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+					
+				
 				}
 			} else {
 				this.userProfile = null;
-				logger.error("No valid user session");
-				httpStatus = HttpStatus.UNAUTHORIZED;
-				;
-			}
-		} else {
-			this.userProfile = null;
-			logger.debug("In trouble Jharana");
-			httpStatus = HttpStatus.BAD_REQUEST;
+				logger.debug("In trouble Jharana");
+				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 
+			}
+		} catch (Exception e) {
+			Util.handleException(e);
 		}
-		return new ResponseEntity<UserProfile>(this.userProfile, null,
-				httpStatus);
+		return BYGenericResponseHandler.getResponse(this.userProfile);
 	}
 
 	/* @PathVariable(value = "userId") String userId */
 	@RequestMapping(method = { RequestMethod.PUT }, value = { "/{userId}" }, consumes = { "application/json" })
 	@ResponseBody
-	public ResponseEntity<UserProfile> updateUserProfile(
+	public Object updateUserProfile(
 			@RequestBody UserProfile userProfile,
 			@PathVariable(value = "userId") String userId,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		this.userProfile = null;
 		HttpStatus httpStatus = HttpStatus.OK;
 		LoggerUtil.logEntry();
 		logger.debug("trying to update a user Profile");
 
-		if ((userProfile != null) && (userId != null)) {
+		try {
+			if ((userProfile != null) && (userId != null)) {
 
-			/* first check if we have valid user session */
-			User currentUser = Util.getSessionUser(req);
-			if (null != currentUser) {
-				logger.debug("current user details" + currentUser.getId());
-				logger.debug("userPRofile ID" + userProfile.getId());
+				/* first check if we have valid user session */
+				User currentUser = Util.getSessionUser(req);
+				if (null != currentUser) {
+					logger.debug("current user details" + currentUser.getId());
+					logger.debug("userPRofile ID" + userProfile.getId());
 
-				if (userProfile.getUserId().equals(currentUser.getId())) {
-					try {
-						this.userProfile = null;
-						this.userProfile = userProfileRepository
-								.findByUserId(userId);
+					if (userProfile.getUserId().equals(currentUser.getId())) {
+						
+							this.userProfile = null;
+							this.userProfile = userProfileRepository
+									.findByUserId(userId);
 
-						if (this.userProfile != null) {
-							logger.debug("userPRofile from repo"
-									+ this.userProfile.toString());
-							/* set required fields */
-							this.userProfile.setBasicProfileInfo(userProfile
-									.getBasicProfileInfo());
-							this.userProfile.setFeatured(userProfile
-									.isFeatured());
-							this.userProfile.setIndividualInfo(userProfile
-									.getIndividualInfo());
-							this.userProfile.setServiceProviderInfo(userProfile
-									.getServiceProviderInfo());
-							this.userProfile.setStatus(userProfile.getStatus());
-							this.userProfile.setUserTypes(userProfile
-									.getUserTypes());
+							if (this.userProfile != null) {
+								logger.debug("userPRofile from repo"
+										+ this.userProfile.toString());
+								/* set required fields */
+								this.userProfile.setBasicProfileInfo(userProfile
+										.getBasicProfileInfo());
+								this.userProfile.setFeatured(userProfile
+										.isFeatured());
+								this.userProfile.setIndividualInfo(userProfile
+										.getIndividualInfo());
+								this.userProfile.setServiceProviderInfo(userProfile
+										.getServiceProviderInfo());
+								this.userProfile.setStatus(userProfile.getStatus());
+								this.userProfile.setUserTypes(userProfile
+										.getUserTypes());
 
-							userProfileRepository.save(this.userProfile);
-							logger.info("User Profile update with details: "
-									+ this.userProfile.toString());
-						}
-					} catch (Exception e) {
-						httpStatus = HttpStatus.NOT_FOUND;
-						logger.error("userID not found in repositry");
+								userProfileRepository.save(this.userProfile);
+								logger.info("User Profile update with details: "
+										+ this.userProfile.toString());
+							}
+						
 
+					} else {
+						logger.error("Wrong user ID" + this.userProfile.getUserId());
+						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 					}
-
 				} else {
-					logger.error("Wrong user ID" + this.userProfile.getUserId());
-					httpStatus = HttpStatus.UNAUTHORIZED;
+					this.userProfile = null;
+					logger.error("No valid user session");
+					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 				}
-			} else {
-				this.userProfile = null;
-				logger.error("No valid user session");
-				httpStatus = HttpStatus.UNAUTHORIZED;
-				;
 			}
+
+			else {
+				/* Bad request */
+				logger.debug("looks like an invalid request");
+				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+			}
+		} catch (Exception e) {
+			Util.handleException(e);
 		}
 
-		else {
-			/* Bad request */
-			httpStatus = HttpStatus.BAD_REQUEST;
-		}
-
-		return new ResponseEntity<UserProfile>(this.userProfile, null,
-				httpStatus);
+		return BYGenericResponseHandler.getResponse(this.userProfile);
 	}
 
 	private void createUserProfile() {

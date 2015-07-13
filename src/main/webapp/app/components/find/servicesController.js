@@ -1,7 +1,7 @@
 //DIscuss All
 byControllers.controller('ServicesController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-    'FindAllService', '$sce',
-    function ($scope, $rootScope, $location, $route, $routeParams, FindAllService, $sce) {
+    'FindServices', '$sce',
+    function ($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce) {
 
         var a = $(".header .navbar-nav > li.dropdown");
         a.removeClass("dropdown");
@@ -18,7 +18,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.findTypeId = $routeParams.findTypeId;
 
         $("#preloader").show();
-        $scope.services = FindAllService.get({}, function (services) {
+        $scope.services = FindServices.get({}, function (services) {
                 $scope.services = services;
                 $("#preloader").hide();
             },

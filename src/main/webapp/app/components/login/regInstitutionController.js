@@ -4,6 +4,8 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.selectedServices = {};
         $scope.profileImage = null;
         $scope.galleryImages = [];
+        $scope.submitted = false;
+        $scope.minCategoryError = false;
 
         $scope.addressCallback = function (response) {
             console.log(response);
@@ -50,10 +52,43 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
 
         }
+
+        //Request service type list
         $scope.ServiceTypeList = ServiceTypeList.get({}, function () {
             console.log($scope.ServiceTypeList);
+            var selectedServices = $scope.serviceProviderInfo.services;
+            if(selectedServices.length > 0){
+                angular.forEach($scope.ServiceTypeList, function(type, index){
+                    if(selectedServices.indexOf(type.id) > -1){
+                        type.selected = true;
+                        $scope.selectServiceType(type);
+                    }
+
+                    angular.forEach(type.children, function(subType, index){
+                        if(selectedServices.indexOf(subType.id) > -1){
+                            subType.selected = true;
+                            $scope.selectServiceType(subType);
+                        }
+                    });
+                });
+            }
+
         })
 
+        //Select type of services provided by the institute
+        $scope.selectServiceType = function (elem) {
+            if (elem.selected) {
+                $scope.selectedServices[elem.id] = elem;
+            } else {
+                delete $scope.selectedServices[elem.id];
+
+                if (elem.parentId && $scope.selectedServices[elem.parentId]) {
+                    delete $scope.selectedServices[elem.parentId];
+                }
+            }
+        }
+
+        //Prefill form with previously selected data
         $scope.extractData = function () {
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
@@ -63,7 +98,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ($scope.address.country === null) {
                 $scope.address.country = "India";
             }
-
 
         }
 
@@ -76,6 +110,8 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             });
         }
 
+
+        //Get location details based on pin code
         $scope.getLocationByPincode = function (element) {
             var element = document.getElementById("zipcode");
             $scope.address.city = "";
@@ -98,10 +134,10 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         };
 
 
+        $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();  //Apply bootstrap toggle for house visit option
+
         //$scope.newAddress = new addressFormat($scope.basicProfileInfo.userAddress.length);
         //$scope.basicProfileInfo.userAddress.push($scope.newAddress);
-
-        $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
 
         function addressFormat(index) {
             return {
@@ -109,20 +145,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             }
         }
 
-        $scope.addPhoneNumber = function () {
-            //var number = {value:""};
-            if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.regConfig.maxSecondaryPhoneNos) {
-                $scope.basicProfileInfo.secondaryPhoneNos.push("");
-            }
-        }
-
-        $scope.addEmail = function () {
-            //var email = {value:""};
-            if ($scope.basicProfileInfo.secondaryEmails.length < BY.regConfig.maxSecondaryEmailId) {
-                $scope.basicProfileInfo.secondaryEmails.push("");
-            }
-        }
-
+        //Function to be used to add additional address
         $scope.addNewAddress = function () {
             //if($scope.basicProfileInfo.userAddress.length < BY.regConfig.maxUserAddress){
             //    $scope.newAddress = new addressFormat($scope.basicProfileInfo.userAddress.length);
@@ -132,23 +155,36 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
 
-        $scope.selectServiceType = function (elem) {
-            if (elem.selected) {
-                $scope.selectedServices[elem.id] = elem;
-            } else {
-                delete $scope.selectedServices[elem.id];
+        //Add secondary phone numbers
+        $scope.addPhoneNumber = function () {
+            //var number = {value:""};
+            if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.regConfig.maxSecondaryPhoneNos) {
+                $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
         }
 
+        //Add secondary email details
+        $scope.addEmail = function () {
+            //var email = {value:""};
+            if ($scope.basicProfileInfo.secondaryEmails.length < BY.regConfig.maxSecondaryEmailId) {
+                $scope.basicProfileInfo.secondaryEmails.push("");
+            }
+        }
+
+
+        //Upload images on form submit
         $scope.submitData = function () {
             $scope.uploadProfileImage();
         }
 
+
+        //Delete profile Image
         $scope.deleteProfileImage = function () {
             $scope.profileImage = null;
             $scope.basicProfileInfo.profileImage = null;
         }
 
+        //Delete gallery images
         $scope.deleteGalleryImage = function (img) {
             var imgIndex = $scope.galleryImages.indexOf(img);
             if (imgIndex > -1) {
@@ -160,6 +196,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             }
         }
 
+        //Upload profile image
         $scope.uploadProfileImage = function () {
             if ($scope.profileImage && $scope.profileImage.file && $scope.profileImage.file !== "") {
                 var formData = new FormData();
@@ -178,9 +215,10 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             } else {
                 $scope.uploadGallery();
             }
-
         }
 
+
+        //Upload multiple images in gallery
         $scope.uploadGallery = function () {
             if ($scope.galleryImages.length > 0) {
                 var formData = new FormData();
@@ -204,6 +242,8 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             }
         }
 
+
+        //Get service list array out of selectedService object
         $scope.getServiceList = function () {
             for (key in $scope.selectedServices) {
                 if ($scope.selectedServices[key] && $scope.selectedServices[key].parentId) {
@@ -218,19 +258,32 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             return finalServiceList;
         }
 
-        $scope.postUserProfile = function () {
-            $scope.serviceProviderInfo.services = $scope.serviceProviderInfo.services.concat($scope.getServiceList());
+        //Post institution form
+        $scope.postUserProfile = function (isValidForm) {
+            $scope.submitted = true;
+            $scope.minCategoryError = false;
+            $scope.serviceProviderInfo.services = $scope.getServiceList();
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
-            var userProfile = new UserProfile();
-            angular.extend(userProfile, $scope.profile);
-            userProfile.$update({userId: $scope.userId}, function (profileOld) {
-                console.log("success");
-                $scope.$parent.exit();
-            }, function (err) {
-                console.log(err);
-                $scope.$parent.exit();
-            });
+            if ($scope.serviceProviderInfo.services.length === 0) {
+                $scope.minCategoryError = true;
+            }
+
+            if (isValidForm.$invalid || $scope.minCategoryError) {
+                window.scrollTo(0, 0);
+            } else {
+                //var userProfile = new UserProfile();
+                //angular.extend(userProfile, $scope.profile);
+                //userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                //    console.log("success");
+                //    $scope.submitted = false;
+                //    $scope.$parent.exit();
+                //}, function (err) {
+                //    console.log(err);
+                //    $scope.$parent.exit();
+                //});
+            }
+
         }
 
 

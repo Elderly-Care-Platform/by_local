@@ -1,5 +1,5 @@
 <div class="row" ng-controller="regInstitutionController">
-    <form name="institutionForm" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;">
+    <form name="institutionForm" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;" ng-submit="postUserProfile(institutionForm)">
         <div class="col-md-12 no-padding margin-bottom-20">
             <div class="col-md-12 no-padding  list-head dp-block">
                 MY INSTITUTION
@@ -15,9 +15,10 @@
                     Name of your company
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <input type="text" class="username-textbox textbox"
+                    <input type="text" class="username-textbox textbox" name="firstName"
                            class="name-textbox textbox grayBg" placeholder="Please enter a name of your company"
-                           ng-model="basicProfileInfo.firstName"/>
+                           ng-model="basicProfileInfo.firstName" required/>
+                    <span ng-show="institutionForm.firstName.$invalid && submitted">Please enter your company name</span>
                 </div>
             </div>
 
@@ -36,7 +37,7 @@
                                         {{category.name}}
 
                                         <input type="checkbox" ng-change="selectServiceType(category)"
-                                               ng-model="category.selected" ng-checked="serviceProviderInfo.services.indexOf(category.id) > -1">
+                                               ng-model="category.selected">
                                     </label>
                                 </h4>
                                 <h4 class="panel-title by_editor_ParentCategories" ng-if="category.childCount > 0">
@@ -53,7 +54,7 @@
                                  class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
                                 <div class="panel-body col-md-6" ng-repeat="subCategory in category.children">
                                     <input type="checkbox" ng-change="selectServiceType(subCategory)"
-                                           ng-model="subCategory.selected" ng-checked="serviceProviderInfo.services.indexOf(subCategory.id) > -1">
+                                           ng-model="subCategory.selected">
                                     <span>{{subCategory.name}}</span>
                                 </div>
                             </div>
@@ -61,6 +62,7 @@
 
                         </div>
                     </div>
+                    <span ng-show="minCategoryError && submitted">Please select atleast one category</span>
                 </div>
 
             </div>
@@ -89,8 +91,9 @@
                     <div class="col-md-12 no-padding-right margin-bottom-20">
                         <input type="text" class="username-textbox textbox" name="primaryTel"
                                ng-model="basicProfileInfo.primaryPhoneNo"
-                               placeholder="Telephone number" ng-pattern="/^[0-9]*$/" maxlength="10">
-                        <span ng-show="institutionForm.primaryTel.$error.pattern">Not a valid number!</span>
+                               placeholder="Telephone number" ng-pattern="/^[0-9]*$/" maxlength="10" required>
+                        <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted">Please enter your contact number</span>
+                        <span ng-show="institutionForm.primaryTel.$error.pattern && submitted">Not a valid number!</span>
                     </div>
 
                     <div class="col-md-12 no-padding-right margin-bottom-20"
@@ -98,7 +101,7 @@
                         <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
                                ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
                                placeholder="Telephone number" ng-pattern="/^[0-9]*$/" maxlength="10"/>
-                        <span ng-show="institutionForm.{{'tel'+$index}}.$error.pattern">Not a valid number!</span>
+                        <span ng-show="institutionForm.{{'tel'+$index}}.$error.pattern && submitted">Not a valid number!</span>
                     </div>
 
 
@@ -110,8 +113,9 @@
                     <div class="col-md-12 no-padding-right margin-bottom-20">
                         <input type="email" class="username-textbox textbox" name="primaryEmail"
                                ng-model="basicProfileInfo.primaryEmail"
-                               placeholder="Email"/>
-                        <span ng-show="institutionForm.primaryEmail.$error.email">
+                               placeholder="Email" required/>
+                        <span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted">Please enter your Email Id!</span>
+                        <span ng-show="institutionForm.primaryEmail.$error.email && submitted">
                             Not valid Email!
                         </span>
                     </div>
@@ -120,7 +124,7 @@
                         <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
                                ng-model="basicProfileInfo.secondaryEmails[$index]"
                                placeholder="Email"/>
-                        <span ng-show="institutionForm.{{'email'+$index}}.$error.email">Not valid Email!</span>
+                        <span ng-show="institutionForm.{{'email'+$index}}.$error.email && submitted">Not valid Email!</span>
                     </div>
                     <div class="row add-email-wrap margin-bottom-20" style="margin-top:-10px;">
                         <div class="col-md-offset-1 col-md-11">
@@ -219,7 +223,7 @@
 
 
         <div class="col-md-12 margin-top-20 margin-bottom-20">
-            <input type="button" value="Done" class="nextButton" ng-click="submitData()"/>
+            <input type="submit" value="Done" class="nextButton" />
 
             <div class="clearfix"></div>
         </div>

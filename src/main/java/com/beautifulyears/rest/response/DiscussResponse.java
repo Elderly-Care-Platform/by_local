@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.User;
 
@@ -18,7 +20,52 @@ public class DiscussResponse implements IResponse {
 		return this.discussArray;
 	}
 
-	public class DiscussEntity {
+	public static class DiscussPage {
+		private List<DiscussEntity> content = new ArrayList<DiscussEntity>();
+		private boolean lastPage;
+		private int number;
+		
+		
+
+		public DiscussPage() {
+			super();
+		}
+
+		public DiscussPage(Page<Discuss> page) {
+			this.lastPage = page.isLastPage();
+			this.number = page.getNumber();
+			for (Discuss discuss : page.getContent()) {
+				this.content.add(new DiscussEntity(discuss, null));
+			}
+		}
+
+		public List<DiscussEntity> getContent() {
+			return content;
+		}
+
+		public void setContent(List<DiscussEntity> content) {
+			this.content = content;
+		}
+
+		public boolean isLastPage() {
+			return lastPage;
+		}
+
+		public void setLastPage(boolean lastPage) {
+			this.lastPage = lastPage;
+		}
+
+		public int getNumber() {
+			return number;
+		}
+
+		public void setNumber(int number) {
+			this.number = number;
+		}
+
+	}
+
+	public static class DiscussEntity {
 		private String id;
 		private String title;
 		private Map<String, String> articlePhotoFilename;
@@ -83,7 +130,8 @@ public class DiscussResponse implements IResponse {
 			return articlePhotoFilename;
 		}
 
-		public void setArticlePhotoFilename(Map<String, String> articlePhotoFilename) {
+		public void setArticlePhotoFilename(
+				Map<String, String> articlePhotoFilename) {
 			this.articlePhotoFilename = articlePhotoFilename;
 		}
 
@@ -175,6 +223,11 @@ public class DiscussResponse implements IResponse {
 
 	public void add(Discuss discuss, User user) {
 		this.discussArray.add(new DiscussEntity(discuss, user));
+	}
+	
+	public static DiscussPage getPage(Page<Discuss> page){
+		DiscussPage res = new DiscussPage(page);
+		return res;
 	}
 
 	public DiscussEntity getDiscussEntity(Discuss discuss, User user) {

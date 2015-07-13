@@ -336,16 +336,8 @@
             }
             else
             {
-                var element = document.getElementById("login_placeholder");
-                element.innerHTML = "";
-                element.href = "";
-                document.getElementById("login_placeHolder_li").style.opacity = "0";
-
-                var pro = document.getElementById('profile_placeholder');
-                pro.innerHTML = "JOIN US";
-                pro.href = apiPrefix+"#/users/login";
-                window.location = "#/users/aboutUs";
-        }
+            	BY.byUtil.inValidateSession();
+        	}
     </script>
 
 

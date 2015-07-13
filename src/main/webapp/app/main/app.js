@@ -20,6 +20,11 @@ var byApp = angular.module('byApp', [
 byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,$http) {
 	if(window.localStorage){
 		$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
+		$http.get("/api/v1/users/validateSession").success(function (response) {
+        }).error(function(err){
+        	$http.defaults.headers.common.sess = "";
+        	BY.byUtil.inValidateSession();
+        })
 	}
 
     // register listener to watch route changes

@@ -91,7 +91,7 @@
                     <div class="col-md-12 no-padding-right margin-bottom-20">
                         <input type="text" class="username-textbox textbox" name="primaryTel"
                                ng-model="basicProfileInfo.primaryPhoneNo"
-                               placeholder="Telephone number" ng-pattern="/^[0-9]*$/" maxlength="10" required>
+                               placeholder="Telephone number" ng-pattern="/^[0-9]*$/" maxlength="17" required>
                         <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted">Please enter your contact number</span>
                         <span ng-show="institutionForm.primaryTel.$error.pattern && submitted">Not a valid number!</span>
                     </div>
@@ -149,23 +149,26 @@
 
             <div class="row margin-bottom-20 by-hover">
                 <div class="col-md-12">
-                    <div class="by-reg-gallery">
-                        <img class="by-reg-image" ng-if="profileImage" ng-src="{{profileImage.resized.dataURL}}"/>
-                        <img class="by-reg-image" ng-if="basicProfileInfo.profileImage && !profileImage"
+                    <div class="by-reg-gallery" ng-if="basicProfileInfo.profileImage && profileImage.length===0">
+                        <img class="by-reg-image"
                              ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
-
-                        <a class="image-fav" ng-click="deleteProfileImage(profileImage)"></a>
+                        <a class="image-fav" ng-if="!profileImage.loading" ng-click="deleteProfileImage(profileImage)"></a>
+                    </div>
+                    <div class="by-reg-gallery" ng-repeat="img in profileImage">
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+                        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
                     </div>
                     <div class="by-reg-uploadLabel">
                         <label class="myLabel">
                             <input id="inputImage2"
                                    type="file"
                                    accept="image/*"
-                                   image="profileImage"
+                                   load-image="profileImage"
                                    resize-max-height="300"
                                    resize-max-width="250"
                                    resize-quality="0.7" class="btn btn-success register-btn"/>
-                            <span>UPLOAD THE MAIN PHOTO</span>
+                            <span>UPLOAD THE MAIN PHOTO </span>
                         </label>
                     </div>
                 </div>
@@ -176,8 +179,9 @@
                         <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
                     </div>
                     <div class="by-reg-gallery" ng-repeat="img in galleryImages">
-                        <img class="by-reg-image" ng-src="{{img.resized.dataURL}}"/>
-                        <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+                        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
                     </div>
                     <div class="by-reg-uploadLabel">
                         <label class="myLabel">
@@ -185,10 +189,10 @@
                                    type="file"
                                    accept="image/*"
                                    multiple
-                                   image="galleryImages"
+                                   load-image="galleryImages"
                                    resize-max-height="300"
                                    resize-max-width="250"
-                                   resize-quality="0.7" class="btn btn-success register-btn"/>
+                                   resize-quality="0.7" class="btn btn-success register-btn" imgArray="$parent.galleryImages"/>
                             <span>UPLOAD OTHER PHOTOS (UP TO 8)</span>
                         </label>
                     </div>

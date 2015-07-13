@@ -2,7 +2,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.selectedServices = {};
-        $scope.profileImage = null;
+        $scope.profileImage = [];
         $scope.galleryImages = [];
         $scope.submitted = false;
         $scope.minCategoryError = false;
@@ -171,13 +171,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             }
         }
 
-
-        //Upload images on form submit
-        $scope.submitData = function () {
-            $scope.uploadProfileImage();
-        }
-
-
         //Delete profile Image
         $scope.deleteProfileImage = function () {
             $scope.profileImage = null;
@@ -193,52 +186,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
             if (imgIndex > -1) {
                 $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
-            }
-        }
-
-        //Upload profile image
-        $scope.uploadProfileImage = function () {
-            if ($scope.profileImage && $scope.profileImage.file && $scope.profileImage.file !== "") {
-                var formData = new FormData();
-                formData.append('image', $scope.profileImage.file, $scope.profileImage.file.name);
-
-                $http.post('UploadFile?transcoding=true', formData, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': undefined}
-                }).success(function (result) {
-                    $scope.profileImage = "";
-                    $scope.basicProfileInfo.profileImage = result;
-                    $scope.uploadGallery();
-                }).error(function (result) {
-                    console.log("Upload profile image failed");
-                });
-            } else {
-                $scope.uploadGallery();
-            }
-        }
-
-
-        //Upload multiple images in gallery
-        $scope.uploadGallery = function () {
-            if ($scope.galleryImages.length > 0) {
-                var formData = new FormData();
-                for (var i = 0; i < $scope.galleryImages.length; i++) {
-                    formData.append('image', $scope.galleryImages[i].file, $scope.galleryImages[i].file.name);
-                }
-
-                $http.post('UploadFile?transcoding=true&multi=true', formData, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': undefined}
-                }).success(function (result) {
-                    $scope.galleryImages = [];
-                    $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat(result);
-                    $scope.postUserProfile();
-                }).error(function (result) {
-                    console.log("Upload gallery images failed");
-                    $scope.postUserProfile();
-                });
-            } else {
-                $scope.postUserProfile();
             }
         }
 
@@ -265,6 +212,9 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             $scope.serviceProviderInfo.services = $scope.getServiceList();
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
+            $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
+            $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
+
             if ($scope.serviceProviderInfo.services.length === 0) {
                 $scope.minCategoryError = true;
             }
@@ -272,16 +222,16 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
             } else {
-                //var userProfile = new UserProfile();
-                //angular.extend(userProfile, $scope.profile);
-                //userProfile.$update({userId: $scope.userId}, function (profileOld) {
-                //    console.log("success");
-                //    $scope.submitted = false;
-                //    $scope.$parent.exit();
-                //}, function (err) {
-                //    console.log(err);
-                //    $scope.$parent.exit();
-                //});
+                var userProfile = new UserProfile();
+                angular.extend(userProfile, $scope.profile);
+                userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                    console.log("success");
+                    $scope.submitted = false;
+                    $scope.$parent.exit();
+                }, function (err) {
+                    console.log(err);
+                    $scope.$parent.exit();
+                });
             }
 
         }

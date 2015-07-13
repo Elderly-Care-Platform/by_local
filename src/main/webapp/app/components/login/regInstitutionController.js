@@ -106,6 +106,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             $scope.extractData();
         } else {
             $scope.profile = UserProfile.get({userId: $scope.userId}, function (profile) {
+                $scope.profile = profile.data;
                 $scope.extractData();
             });
         }

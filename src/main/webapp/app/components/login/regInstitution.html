@@ -91,7 +91,7 @@
                     <div class="col-md-12 no-padding-right margin-bottom-20">
                         <input type="text" class="username-textbox textbox" name="primaryTel"
                                ng-model="basicProfileInfo.primaryPhoneNo"
-                               placeholder="Telephone number" ng-pattern="/^[0-9]*$/" maxlength="17" required>
+                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" required>
                         <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted">Please enter your contact number</span>
                         <span ng-show="institutionForm.primaryTel.$error.pattern && submitted">Not a valid number!</span>
                     </div>
@@ -100,7 +100,7 @@
                          ng-repeat="number in basicProfileInfo.secondaryPhoneNos track by $index">
                         <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
                                ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
-                               placeholder="Telephone number" ng-pattern="/^[0-9]*$/" maxlength="10"/>
+                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
                         <span ng-show="institutionForm.{{'tel'+$index}}.$error.pattern && submitted">Not a valid number!</span>
                     </div>
 

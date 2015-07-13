@@ -447,8 +447,8 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
      		setTimeout(
      				function(){
      						$(".article-content").each(function(a,b){
-     							var myRegExp = new RegExp($rootScope.term,'i');
-     						$(b).html($(b).html().replace(myRegExp,"<span class='highlighted-text' >"+$rootScope.term+"</span>"));
+     							var myRegExp = new RegExp(">([^<,&]*)?("+$rootScope.term+")([^>]*)?<","ig",'i');
+     						$(b).html($(b).html().replace(myRegExp,">$1<span class='highlighted-text' >$2</span>$3<"));
      						}
      				)},500);
      	});

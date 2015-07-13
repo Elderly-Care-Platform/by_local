@@ -51,6 +51,14 @@ public class UserController {
 		this.userRepository = userRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
+	
+	@RequestMapping(value = "/validateSession", method = RequestMethod.GET)
+	public @ResponseBody Object validateSession(HttpServletRequest req, HttpServletResponse res){
+		if(null == Util.getSessionUser(req)){
+			throw new BYException(BYErrorCodes.INVALID_SESSION);
+		}
+		return BYGenericResponseHandler.getResponse(null);
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody Object login(@RequestBody LoginRequest loginRequest,

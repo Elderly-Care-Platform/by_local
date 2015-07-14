@@ -1,88 +1,21 @@
 <div class="row padding20 whiteBg by_discuss_detail margin-bottom-35" ng-controller="InstitutionProfileController">
-
-    <div class="col-md-12 no-padding margin-bottom-35">
-        <div id="home_featured_articles" class="col-md-12 no-padding  list-head dp-block">
-            MY INSTITUTION
-        </div>
-
-        <div class="col-md-12 no-padding bg-gray-h1">
-            <div class="bg-green-h2" style="width: 216px;"></div>
-        </div>
-    </div>
-
     <div class="col-md-12 product-main margin-bottom-15 white-gray ">
         <div class="col-md-5" style="padding:0px;">
             <div class="col-md-12 main-image white-gray " style="
     padding: 0px;">
                 <img class="full-width padding-zero" src="{{institutionProfile.basicProfileInfo.profileImage.original}}" alt="">
             </div>
-            <!--<div class="col-md-12 main-image padding-top-only-5">-->
-                <!--<div id=" col-md-12 padding-zero slideshow_border">-->
-                    <!--<div id="dhtmlgoodies_slideshow">-->
-                        <!--<div id="galleryContainer">-->
-                            <!--<div id="arrow_left"><img src="assets/img/housing/arrow_left.gif"-->
-                                                      <!--style="-->
-    <!--height: 70px;" usemap="#Map" border="0">-->
-                                <!--<map name="Map">-->
-                                    <!--<area shape="poly" coords="20,29" href="#">-->
-                                <!--</map>-->
-                            <!--</div>-->
-                            <!--<div id="arrow_right"><img src="assets/img/housing/arrow_right.gif"-->
-                                                       <!--style="-->
-    <!--height: 70px;"></div>-->
-                            <!--<div id="theImages" style="left: 40px;">-->
-                                <!--&lt;!&ndash; Thumbnails &ndash;&gt;-->
-                                <!--<a href="infusion_therapy.html#GLOFLON"-->
-                                   <!--onclick="showPreview('assets/img/housing/image1_big.jpg','1');return false"><img-->
-                                        <!--src="assets/img/housing/image1.jpg"-->
-                                        <!--style="opacity: 0.5;"></a>-->
-                                <!--<a href="infusion_therapy.html#GLOVAL"-->
-                                   <!--onclick="showPreview('assets/img/housing/_big.jpg','2');return false"><img-->
-                                        <!--src="assets/img/housing/image2.jpg" style="opacity: 1;"></a>-->
-                                <!--<a href="infusion_therapy.html#GLOTHIN"-->
-                                   <!--onclick="showPreview('aassets/img/housing/image3_big.jpg','3');return false"><img-->
-                                        <!--src="assets/img/housing/image3.jpg"-->
-                                        <!--style="opacity: 0.5;"></a>-->
-                                <!--<a href="infusion_therapy.html#GLOCAN"-->
-                                   <!--onclick="showPreview('assets/img/housing/image4_big.jpg','4');return false"><img-->
-                                        <!--src="assets/img/housing/image4.jpg"-->
-                                        <!--style="opacity: 0.5;"></a>-->
-                                <!--<a href="infusion_therapy.html#GLOCANAlpha"-->
-                                   <!--onclick="showPreview('assets/img/housing/image5_big.jpg','5');return false"><img-->
-                                        <!--src="assets/img/housing/image5.jpg"-->
-                                        <!--style="opacity: 0.5;"></a>-->
-                                <!--<a href="infusion_therapy.html#GLOKIT"-->
-                                   <!--onclick="showPreview('assets/img/housing/image6_big.jpg','6');return false"><img-->
-                                        <!--src="assets/img/housing/image6.jpg"-->
-                                        <!--style="opacity: 0.5;"></a>-->
+            <div class="col-md-12 main-image padding-top-only-5">
+                <div>
+                    <ul class="list-inline">
+                        <li class="list-inline image-gallery" ng-repeat="img in institutionProfile.basicProfileInfo.photoGalleryURLs">
+                            <img src="{{img.thumbnailImage}}">
 
-                                <!--&lt;!&ndash; End thumbnails &ndash;&gt;-->
+                        </li>
 
-                                <!--&lt;!&ndash; Image captions &ndash;&gt;-->
-                                <!--<div class="imageCaption">This is the caption of image number 1-->
-                                <!--</div>-->
-                                <!--<div class="imageCaption">This is the caption of image number 2-->
-                                <!--</div>-->
-                                <!--<div class="imageCaption">This is the caption of image number 3-->
-                                <!--</div>-->
-                                <!--<div class="imageCaption">This is the caption of image number 4-->
-                                <!--</div>-->
-                                <!--<div class="imageCaption">This is the caption of image number 5-->
-                                <!--</div>-->
-                                <!--<div class="imageCaption">This is the caption of image number 6-->
-                                <!--</div>-->
-                                <!--<div class="imageCaption">This is the caption of image number 7-->
-                                <!--</div>-->
-                                <!--<div class="imageCaption">This is the caption of image number 8-->
-                                <!--</div>-->
-                                <!--&lt;!&ndash; End image captions &ndash;&gt;-->
-
-                                <!--<div id="slideEnd"></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="col-md-7">
             <div class="col-md-12 productMainContent">
@@ -105,7 +38,7 @@
                         <a href="">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
                     </div>
                     <div class="margin-left-10">
-                        | <i class="fa fa-phone"></i>
+                        <i class="fa fa-phone"></i>
                         {{institutionProfile.basicProfileInfo.primaryPhoneNo}}
                     </div>
                     <div class="no-padding ">
@@ -115,9 +48,21 @@
                 </div>
                 <div class="no-padding profileAddress">
                     <ul class="list-inline">
-                        <li class="list-inline" ng-repeat="adrs in institutionProfile.basicProfileInfo.userAddress">
-                            {{adrs}}
+                        <li class="list-inline">
+                            {{institutionProfile.basicProfileInfo.userAddress.streetAddress}}
+
                         </li>
+                        <li class="list-inline">
+
+                            {{institutionProfile.basicProfileInfo.userAddress.locality}}
+
+                        </li>
+                        <li class="list-inline">
+                            {{institutionProfile.basicProfileInfo.userAddress.city}}
+                            {{institutionProfile.basicProfileInfo.userAddress.country}}
+                            {{institutionProfile.basicProfileInfo.userAddress.zip}}
+                        </li>
+
                     </ul>
                 </div>
                 <!--<div class="col-md-12 no-padding">-->

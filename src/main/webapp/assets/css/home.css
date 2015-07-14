@@ -3,7 +3,8 @@
 }
 
 .by_breadcrumbs_container {
-    height: 35px;
+    height: auto;
+    min-height:35px;
     overflow: hidden;
 
 }
@@ -30,20 +31,26 @@
 .by_left_panel a{
     font-family: century_gothic !important;
 }
+#sidebar-nav
+{
+	width: calc(1vw * 21);
+}
 .by_left_panel_fixed .scrollableLeftPanelDiv {
   height: calc(100vh - 140px);
+  padding-bottom:54px;
   overflow-x: hidden;
   overflow-y: hidden;
 }
 .by_left_panel_fixed .scrollableLeftPanelDiv:hover {
   overflow-y: auto;
 }
+.by_left_panel_fixed .scrollableLeftPanelDiv:hover 
 
-.by_left_panel_fixed .scrollableLeftPanelDiv {
+/*.by_left_panel_fixed .scrollableLeftPanelDiv {
   height: calc(100vh - 140px);
   overflow-x: hidden;
   overflow-y: hidden;
-}
+}*/
 .by_left_panel_fixed .scrollableLeftPanelDiv:hover {
   overflow-y: auto;
 }
@@ -59,7 +66,6 @@
     line-height: 1.1 !important;
 
 }
-
 @media (min-width: 50px){
     .by_left_panel_fixed{
         position:static;
@@ -83,6 +89,7 @@
     
     .by_left_panel_fixed .scrollableLeftPanelDiv{
 		  height: calc(100vh - 140px);
+		  padding-bottom:54px;
 		  overflow-x: hidden;
     }
 }
@@ -322,4 +329,74 @@
 
 .by_blog_author .news-v3 .post-shares li i{
     color:#D8D5D5 !important;
+}
+.or-divider
+{
+	background:url('../img/icons/or.png'); 
+	width:42px;
+	height:277px;
+}
+.loginbar .pull-right
+{
+	text-align:right;
+}
+@media screen and (max-width: 991px){
+	.by_left_panel_fixed .scrollableLeftPanelDiv {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+#sidebar-nav
+{
+	width:100%;
+}
+.scrollableLeftPanelDiv .margin-bottom-40
+{
+	margin-bottom:0px;
+}
+.by_left_panel_fixed .scrollableLeftPanelDiv:hover
+{
+  overflow-y: hidden;	
+}
+.by_left_panel_fixed
+{
+	border-right-width:0px;
+}
+.by_left_panel_fixed, .headerInfoDiv, .by_right_panel > div
+{
+	margin-left:0px !important;
+}
+#sidebar-nav
+{
+	margin-bottom:30px;
+}
+.md-margin-bottom-40 {
+  margin-bottom: 0px;
+}
+.or-divider
+{
+	background:url('../img/icons/or-v.png') ; 
+	width:42px;
+	height:42px;
+	margin:10px auto 10px auto;	
+}
+.divider-login-new-register{
+	min-height:42px;
+}
+.margin-left-20
+{
+	margin-left:0px;
+}
+.header .navbar-nav
+{
+	max-width:100%;
+}
+.navbar-toggle
+{
+	margin-right:-141px !important;
+}
+.header .dropdown-menu .col-md-2
+{
+	width:100%;
+}
 }

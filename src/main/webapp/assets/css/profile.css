@@ -33,3 +33,9 @@
 .profileAddress{
   margin-top: 5px;
 }
+
+.image-gallery{
+  width:60px;
+  height:40px;
+  margin: 10px;
+}

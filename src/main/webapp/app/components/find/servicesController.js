@@ -9,16 +9,25 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             a.addClass("dropdown")
         }, 200);
 
+        var city = $routeParams.city;
+        var services = $routeParams.services;
+        var queryParams = {};
+
+        if(services && services!=="" &&services!=="all"){
+            queryParams.services = services;
+        }
+
+        if(city && city!=="" &&city!=="all"){
+            queryParams.city = city;
+        }
+
         $scope.findViews = {};
         $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
 
-        $scope.findType = $routeParams.findType;
-        $scope.findTypeId = $routeParams.findTypeId;
-
         $("#preloader").show();
-        $scope.services = FindServices.get({}, function (services) {
+        $scope.services = FindServices.get(queryParams, function (services) {
                 $scope.services = services.data.content;
                 $("#preloader").hide();
             },
@@ -29,7 +38,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         $rootScope.bc_topic = 'list';
         $rootScope.bc_subTopic = 'all';
-        $rootScope.bc_discussType = $scope.findType;
+        $rootScope.bc_discussType = 'all';
 
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);

@@ -7,7 +7,7 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         $scope.userId = $routeParams.profileId;
 
         $scope.institutionProfile = UserProfile.get({userId:$scope.userId}, function (profile) {
-                $scope.institutionProfile = profile;
+                $scope.institutionProfile = profile.data;
                 $("#preloader").hide();
             },
             function (error) {

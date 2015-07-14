@@ -100,8 +100,8 @@ var contactUs = byServices.factory('ContactUs', function($resource) {
 
 //Find All
 var findServices = byServices.factory('FindServices', function($resource) {
-    return $resource(apiPrefix +'api/v1/userProfile/list?page=0&size=100',{}, {
-        get: {method: 'GET', params: {}, isArray: true}
+    return $resource(apiPrefix +'api/v1/userProfile/list/serviceProviders/all?page=0&size=100',{}, {
+        get: {method: 'GET', params: {}}
 
     })
 });

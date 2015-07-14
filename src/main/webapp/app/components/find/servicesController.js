@@ -19,7 +19,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         $("#preloader").show();
         $scope.services = FindServices.get({}, function (services) {
-                $scope.services = services;
+                $scope.services = services.data.content;
                 $("#preloader").hide();
             },
             function (error) {

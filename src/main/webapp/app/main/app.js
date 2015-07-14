@@ -444,11 +444,15 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 
      	DiscussSearch.query({term: $rootScope.term},function(value){
      		$scope.discuss = value;
+     		function regexCallback(p1, p2,p3,p4) {
+     		    return ((p2==undefined)||p2=='')?p1:'<span class="highlighted-text" >'+p1+'</span>';
+     		}
      		setTimeout(
      				function(){
      						$(".article-content").each(function(a,b){
-     							var myRegExp = new RegExp(">([^<,&]*)?("+$rootScope.term+")([^>]*)?<","ig",'i');
-     						$(b).html($(b).html().replace(myRegExp,">$1<span class='highlighted-text' >$2</span>$3<"));
+     							var myRegExp = new RegExp("<[^>]+>|("+$rootScope.term+")","ig");
+     						var result = $(b).html().replace(myRegExp,regexCallback);
+     						$(b).html(result);
      						}
      				)},500);
      	});

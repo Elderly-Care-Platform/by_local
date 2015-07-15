@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class GGConnection {
 	public static final String GG_APP_ID = "52899981762-d1khoej7o879atddpcm8sh6639eck4sm.apps.googleusercontent.com";
 	public static final String GG_APP_SECRET = "hInqyMi-mo35OVgx0BROwftu";
-	public static final String REDIRECT_URI = "http://localhost:8080/by/api/v1/users/ggRes";
+	public static final String REDIRECT_URI = "http://localhost:8080/api/v1/users/ggRes";
 
 	static String accessToken = "";
 

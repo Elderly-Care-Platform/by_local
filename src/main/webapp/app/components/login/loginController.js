@@ -1,13 +1,58 @@
 byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User',
     function ($scope, $rootScope, $http, $location, $routeParams, User) {
 		window.scrollTo(0, 0);
-        $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
+       // $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
 
         $scope.user = {};
         $scope.user.email = '';
         $scope.user.password = '';
 
         $scope.newUser = new User();
+        $scope.fbLogin = function(){
+        	$http.get("api/v1/users/getFbURL").success(function(res){
+        		window.getFbData = function(data){
+        			socialRegistration(data);
+        			delete(window.getFbData);
+        		}
+        		window.open(res.data, 'name','width=1000,height=650')
+        	})
+        }
+        
+        $scope.ggLogin = function(){
+        	$http.get("api/v1/users/getGgURL").success(function(res){
+        		window.getGoogleData = function(data){
+        			socialRegistration(data);
+        			delete(window.getGoogleData);
+        		}
+        		
+        		window.open(res.data, 'name','width=500,height=500');
+        	})
+        }
+        
+        var socialRegistration = function(loginReg){
+            if (loginReg.body.data.sessionId === null) {
+            	$http.defaults.headers.common.sess = "";
+                $scope.setError(loginReg.body.data.status);
+                return;
+            }
+            $scope.user.email = '';
+            $scope.user.password = '';
+            $rootScope.bc_discussType = 'All'; //type for discuss list
+            $scope.setUserCredential(loginReg.body.data);
+
+            if($rootScope.nextLocation)
+            {
+                $location.path($rootScope.nextLocation);
+                $scope.$apply();
+            }
+            else
+            {
+                $location.path("/users/home");
+                $scope.$apply();
+            }
+        }
+	
+	
         $scope.pwdError = "";
         $scope.emailError = "";
 

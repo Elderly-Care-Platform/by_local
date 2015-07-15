@@ -130,7 +130,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         $scope.options = {
             country: "in",
-            types: "(cities)",
             resetOnFocusOut: false
         };
 

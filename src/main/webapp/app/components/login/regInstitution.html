@@ -1,5 +1,5 @@
 <div class="row" ng-controller="regInstitutionController">
-    <form name="institutionForm" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;" ng-submit="postUserProfile(institutionForm)">
+    <form name="institutionForm" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;">
         <div class="col-md-12 no-padding margin-bottom-20">
             <div class="col-md-12 no-padding  list-head dp-block">
                 MY INSTITUTION
@@ -227,8 +227,7 @@
 
 
         <div class="col-md-12 margin-top-20 margin-bottom-20">
-            <input type="submit" value="Done" class="nextButton" />
-
+            <input type="button" value="Done" class="nextButton" ng-click="postUserProfile(institutionForm)"/>
             <div class="clearfix"></div>
         </div>
 

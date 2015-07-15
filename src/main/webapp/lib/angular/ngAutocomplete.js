@@ -98,6 +98,8 @@ angular.module( "ngAutocomplete", [])
         if (scope.gPlace == undefined) {
           scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
         }
+
+        initOpts();
         google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
           var result = scope.gPlace.getPlace();
           if (result !== undefined) {

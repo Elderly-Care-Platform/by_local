@@ -344,7 +344,7 @@
                 document.getElementById("login_placeHolder_li").style.opacity = "1";
 
                 var pro = document.getElementById('profile_placeholder');
-                pro.innerHTML = "Profile";
+                pro.innerHTML = localStorage.getItem("USER_NAME") ?  localStorage.getItem("USER_NAME") : "Profile";
                 pro.href = apiPrefix + "#/users/login/";
 
 

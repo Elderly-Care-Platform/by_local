@@ -59,5 +59,24 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             $route.reload();
         };
 
+        $scope.cityOptions = {
+
+            types: "(cities)",
+            resetOnFocusOut: false
+        };
+
+        $scope.addressCallback = function (response) {
+            $('#addressCity').blur();
+            queryParams = {};
+            queryParams.city = response.name;
+            $("#preloader").show();
+            $scope.services = FindServices.get(queryParams, function (services) {
+                    $scope.services = services.data.content;
+                    $("#preloader").hide();
+                },
+                function (error) {
+                    console.log("Services on city not found");
+                });
+        }
 
     }]);

@@ -96,7 +96,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 element.href = apiPrefix + "#/users/logout/" + login.sessionId;
 
                 var pro = document.getElementById('profile_placeholder');
-                pro.innerHTML = "Profile";
+                pro.innerHTML = localStorage.getItem("USER_NAME") ?  localStorage.getItem("USER_NAME") : "Profile";
                 pro.href = apiPrefix + "#/users/login/"; //******************* to be removed*************//
             }
             else {

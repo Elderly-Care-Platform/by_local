@@ -14,4 +14,14 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
                 console.log("institution profile error");
             });
 
+
+        $scope.slideGallery = function(dir){
+            if(dir==="r"){
+                $('.by-gallery-container').addClass('by-gallery-animate-right');
+            }else{
+                $('.by-gallery-container').removeClass('by-gallery-animate-right');
+            }
+
+        }
+
     }]);

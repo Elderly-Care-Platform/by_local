@@ -44,12 +44,12 @@
 
 .service-card-review i
 {
-    width: 29px;
+    width: 23px;
     text-align: center;
-    height: 29px;
+    height: 23px;
 
     border-radius: 50%;
-    padding: 10px 4px 4px 4px;
+    padding: 7px 5px 0px 2px;
     margin-right: 10px;
     display: inline-block;
     font-style: inherit;
@@ -74,25 +74,15 @@
 }
 
 
-.service-card-categories{
-    font-size: 14px;
-    font-weight: 400;
-    margin:10px;
+.categoryList li:after
+{
+    content: ' |';
+}
+.categoryList li:last-child:after, .categoryList li:first-child:after
+{
+    content: '';
 }
 
-
-.service-card .categoryList{
-    display: inline-block;
-    background-color: #F2F2F2;
-    padding: 0px 12px 0px 12px;
-    border-radius: 4px !important;
-    margin-left: 8px;
-    margin-bottom: 3px;
-    border: 1px solid #CFCFCF;
+.categoryList li:not(:first-child){
+    text-transform: uppercase;
 }
-
-.service-card .categoryList a{
-    color: #000000 !important;
-}
-
-

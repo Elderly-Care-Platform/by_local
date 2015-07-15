@@ -134,8 +134,8 @@
 }
 input[type=checkbox]
 {
-	width: 20px;
-	height: 20px;
+	width: 17px;
+	height: 17px;
 	background-color: #ccc;
 }
 .returnButton
@@ -246,7 +246,7 @@ input[type=checkbox]
 }
 
 
-
+.required:after { content:" *"; color: red;}
 /*.image-fav:hover {*/
 	/*background-image:url(hover_plus.png);*/
 /*}*/

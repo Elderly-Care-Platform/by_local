@@ -1,24 +1,55 @@
-<div class="col-md-12 no-padding-right margin-bottom-20" >
-    <input id="zipcode" type="text" ng-model="address.zip" class="name-textbox textbox "
-           placeholder="Zip" style="width: 50%;"/>
-           <input type="button" class="btn btn-success pull-right register-btn" value="Get address" ng-click="getLocationByPincode()">
+<div class="row margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Zip
+    </div>
+    <div class="col-md-7 no-padding-right register-page">
+        <input id="zipcode" type="text" ng-model="address.zip" class="name-textbox textbox "
+               placeholder="Zip" style="width: 50%;"/>
+        <input type="button" class="btn btn-success pull-right register-btn" value="Get address"
+               ng-click="getLocationByPincode()">
+
+    </div>
 </div>
 
-<div class="col-md-12 no-padding-right margin-bottom-20">
-    <input type="text" ng-model="address.locality" class="name-textbox textbox " ng-autocomplete options="options" callback="addressCallback" id="addressLocality"
-           placeholder="Locality"/>
+<div class="row margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Locality
+    </div>
+    <div class="col-md-7 no-padding-right register-page">
+        <input type="text" ng-model="address.locality" class="name-textbox textbox " ng-autocomplete options="options"
+               callback="addressCallback" id="addressLocality"
+               placeholder="Locality"/>
+    </div>
 </div>
 
-<div class="col-md-12 no-padding-right margin-bottom-20">
-    <textarea rows="3" ng-model="address.streetAddress" class="name-textbox textbox "
-          placeholder="Address"></textarea>
+<div class="row margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Address
+    </div>
+    <div class="col-md-7 no-padding-right register-page">
+                   <textarea rows="3" ng-model="address.streetAddress" class="name-textbox textbox "
+                             placeholder="Address"></textarea>
+    </div>
 </div>
-<div class="col-md-12 no-padding-right margin-bottom-20">
-    <div ng-if="$index > 0"> {{"Address " +(parseInt($index)+2)}}</div>
-    <input type="text" ng-model="address.city" class="name-textbox textbox " 
-           placeholder="City"/>
+
+<div class="row margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        City
+    </div>
+    <div class="col-md-7 no-padding-right register-page">
+        <div ng-if="$index > 0"> {{"Address " +(parseInt($index)+2)}}</div>
+        <input type="text" ng-model="address.city" class="name-textbox textbox "
+               placeholder="City"/>
+    </div>
 </div>
-<div class="col-md-12 no-padding-right margin-bottom-20">
-    <input type="text" ng-model="address.country" class="name-textbox textbox "
-           placeholder="Country"/>
+
+<div class="row margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Country
+    </div>
+    <div class="col-md-7 no-padding-right register-page">
+        <input type="text" ng-model="address.country" class="name-textbox textbox "
+               placeholder="Country"/>
+    </div>
 </div>
+

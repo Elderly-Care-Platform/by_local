@@ -83,6 +83,3 @@
     content: '';
 }
 
-.categoryList li:not(:first-child){
-    text-transform: uppercase;
-}

@@ -173,7 +173,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         //Delete profile Image
         $scope.deleteProfileImage = function () {
-            $scope.profileImage = null;
+            $scope.profileImage = [];
             $scope.basicProfileInfo.profileImage = null;
         }
 

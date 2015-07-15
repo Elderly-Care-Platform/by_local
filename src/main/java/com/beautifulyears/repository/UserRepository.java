@@ -11,4 +11,6 @@ import com.beautifulyears.domain.User;
 public interface UserRepository extends MongoRepository<User, String> {
 
 	public List<User> findAll();
+	
+	public List<User> findBySocialSignOnId(String socialSignOnId);
 }

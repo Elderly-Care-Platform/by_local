@@ -9,23 +9,31 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class FBConnection {
 	public static final String FB_APP_ID = "515424301943282";
 	public static final String FB_APP_SECRET = "99534a7d9c9224122b85d9fbaf94a1d1";
-	public static final String REDIRECT_URI = "http://localhost:8080/api/v1/users/fbRes";
+	public static final String REDIRECT_URI = "/api/v1/users/fbRes";
+	private static String redirectURI = "";
 
 	static String accessToken = "";
 
-	public String getFBAuthUrl() {
+	public String getFBAuthUrl(HttpServletRequest req) {
+		redirectURI = "http://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath()
+				+ FBConnection.REDIRECT_URI;
 		String fbLoginUrl = "";
 		try {
 			accessToken = "";
-			fbLoginUrl = "http://www.facebook.com/dialog/oauth?" + "client_id="
-					+ FBConnection.FB_APP_ID + "&redirect_uri="
-					+ URLEncoder.encode(FBConnection.REDIRECT_URI, "UTF-8")
+			fbLoginUrl = "http://www.facebook.com/dialog/oauth?"
+					+ "client_id="
+					+ FBConnection.FB_APP_ID
+					+ "&redirect_uri="
+					+ URLEncoder.encode(redirectURI, "UTF-8")
 					+ "&scope=public_profile,email";
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();	
+			e.printStackTrace();
 		}
 		return fbLoginUrl;
 	}
@@ -35,7 +43,7 @@ public class FBConnection {
 		try {
 			fbGraphUrl = "https://graph.facebook.com/oauth/access_token?"
 					+ "client_id=" + FBConnection.FB_APP_ID + "&redirect_uri="
-					+ URLEncoder.encode(FBConnection.REDIRECT_URI, "UTF-8")
+					+ URLEncoder.encode(redirectURI, "UTF-8")
 					+ "&client_secret=" + FB_APP_SECRET + "&code=" + code;
 			System.out.println(fbGraphUrl);
 		} catch (UnsupportedEncodingException e) {

@@ -168,8 +168,9 @@ public class UserController {
 
 	@RequestMapping(value = "/getFbURL", method = RequestMethod.GET)
 	public @ResponseBody Object getFbURL(HttpServletRequest req) {
+		
 		return BYGenericResponseHandler.getResponse(new FBConnection()
-				.getFBAuthUrl());
+				.getFBAuthUrl(req));
 	}
 
 	@RequestMapping(value = "/fbRes", method = RequestMethod.GET)
@@ -218,7 +219,7 @@ public class UserController {
 	@RequestMapping(value = "/getGgURL", method = RequestMethod.GET)
 	public @ResponseBody Object getGgURL(HttpServletRequest req) {
 		return BYGenericResponseHandler.getResponse(new GGConnection()
-				.getGGAuthUrl());
+				.getGGAuthUrl(req));
 	}
 
 	@RequestMapping(value = "/ggRes", method = RequestMethod.GET)

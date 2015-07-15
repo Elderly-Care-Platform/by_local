@@ -17,25 +17,12 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
             for (var i = 0; i < response.address_components.length; i++) {
                 if (response.address_components[i].types.length > 0) {
-                    if (response.address_components[i].types[0].indexOf("locality") != -1) {
-                        if ($scope.address.city.length != 0) {
-                            $scope.address.city += ", ";
-                        }
+                    if (response.address_components[i].types[0] == "locality") {
                         $scope.address.city += response.address_components[i].long_name;
                     }
-                    else if (response.address_components[i].types[0].indexOf("administrative_area_level_2") != -1) {
-                        //this is the object you are looking for
-                        if ($scope.address.city.length != 0) {
-                            $scope.address.city += ", ";
-                        }
-                        $scope.address.city += response.address_components[i].long_name;
-                    }
+
                     else if (response.address_components[i].types[0].indexOf("administrative_area_level_3") != -1) {
-                        //this is the object you are looking for
-                        if ($scope.address.city.length != 0) {
-                            $scope.address.city += ", ";
-                        }
-                        $scope.address.city += response.address_components[i].long_name;
+                        $scope.address.city = response.address_components[i].long_name;
                     }
                     else if (response.address_components[i].types[0] == "country") {
                         //this is the object you are looking for
@@ -131,6 +118,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.options = {
             country: "in",
             resetOnFocusOut: false
+
         };
 
 

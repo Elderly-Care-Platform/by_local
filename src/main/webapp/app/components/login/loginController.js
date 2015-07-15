@@ -1,7 +1,6 @@
 byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User',
     function ($scope, $rootScope, $http, $location, $routeParams, User) {
 		window.scrollTo(0, 0);
-        $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
 
         $scope.user = {};
         $scope.user.email = '';

@@ -13,11 +13,11 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         var services = $routeParams.services;
         var queryParams = {};
 
-        if(services && services!=="" &&services!=="all"){
+        if (services && services !== "" && services !== "all") {
             queryParams.services = services;
         }
 
-        if(city && city!=="" &&city!=="all"){
+        if (city && city !== "" && city !== "all") {
             queryParams.city = city;
         }
 
@@ -40,6 +40,16 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $rootScope.bc_subTopic = 'all';
         $rootScope.bc_discussType = 'all';
 
+        var category = $rootScope.findCategoryListMap[queryParams.services];
+        if (category) {
+            $rootScope.bc_topic = category.name;
+            $rootScope.bc_subTopic = 'all';
+            if (category.parentId) {
+                $rootScope.bc_subTopic = category.name;
+                $rootScope.bc_topic = $rootScope.findCategoryListMap[category.parentId].name;
+            }
+        }
+
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
@@ -47,7 +57,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.go = function ($event, type, id, discussType) {
             $event.stopPropagation();
             if (type === "id") {
-                $location.path('/profile/0/'+id);
+                $location.path('/profile/0/' + id);
             }
         }
 

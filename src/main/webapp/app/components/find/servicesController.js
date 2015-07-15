@@ -11,7 +11,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         var city = $routeParams.city;
         var services = $routeParams.services;
-        var queryParams = {};
+        var queryParams = {page:0,size:10};
 
         if (services && services !== "" && services !== "all") {
             queryParams.services = services;
@@ -29,6 +29,8 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $("#preloader").show();
         $scope.services = FindServices.get(queryParams, function (services) {
                 $scope.services = services.data.content;
+                $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
+                $scope.pageInfo.isQueryInProgress = false;
                 $("#preloader").hide();
             },
             function (error) {
@@ -82,11 +84,35 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             $("#preloader").show();
             $scope.services = FindServices.get(queryParams, function (services) {
                     $scope.services = services.data.content;
+                    $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
+                    $scope.pageInfo.isQueryInProgress = false;
                     $("#preloader").hide();
                 },
                 function (error) {
                     console.log("Services on city not found");
                 });
+        }
+
+
+        $scope.loadMore = function($event){
+            if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
+                $scope.pageInfo.isQueryInProgress = true;
+                queryParams.page = $scope.pageInfo.number + 1;
+                queryParams.size = $scope.pageInfo.size;
+
+                FindServices.get(queryParams, function (services) {
+                    if(services.data.content.length > 0){
+                        $scope.pageInfo.isQueryInProgress = false;
+                        $scope.services = $scope.services.concat(services.data.content);
+                    }
+                    $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
+                    $scope.pageInfo.isQueryInProgress = false;
+                    $("#preloader").hide();
+                },
+                function (error) {
+                    console.log("Services on city not found");
+                });
+            }
         }
 
     }]);

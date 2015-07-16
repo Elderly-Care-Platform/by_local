@@ -1,5 +1,6 @@
 package com.beautifulyears.rest;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +25,13 @@ import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
 
 /**
@@ -63,13 +66,14 @@ public class DiscussDetailController {
 	 * @param res
 	 * @param discussId
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getDiscussDetail(HttpServletRequest req,
 			HttpServletResponse res,
-			@RequestParam(value = "discussId", required = true) String discussId) throws Exception {
+			@RequestParam(value = "discussId", required = true) String discussId)
+			throws Exception {
 		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
 				discussId, req));
@@ -134,6 +138,7 @@ public class DiscussDetailController {
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(comment);
+				sendMailForCommentOnDiscuss(discuss,user);
 				logger.debug("new answer posted successfully with replyId = "
 						+ comment.getId());
 			} else {
@@ -217,6 +222,21 @@ public class DiscussDetailController {
 			Util.handleException(e);
 		}
 		return response.getResponse();
+	}
+
+	private void sendMailForCommentOnDiscuss(Discuss discuss, User user) {
+		ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
+		String title = !Util.isEmpty(discuss.getTitle()) ? discuss.getTitle()
+				: discuss.getText();
+		String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
+				.getUsername() : "Anonymous User";
+		String commentedBy = !Util.isEmpty(user.getUserName()) ? user
+				.getUserName() : "Anonymous User";
+		String body = MessageFormat.format(
+				resourceUtil.getResource("contentCommentedBy"), userName,
+				commentedBy, title);
+		MailHandler.sendMailToUserId(discuss.getUserId(), "A comment is posted on your content at beautifulYears.com",
+				body);
 	}
 
 }

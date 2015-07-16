@@ -1,5 +1,7 @@
 package com.beautifulyears.rest;
 
+import java.text.MessageFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,12 +20,14 @@ import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
 
 /**
@@ -89,6 +93,7 @@ public class DiscussLikeController {
 						discussLikeRepository.save(discussLike);
 						discussRepository.save(discuss);
 						logger.debug("discuss content liked successfully");
+						sendMailForLikeOnDiscuss(discuss,user);
 						response =  BYGenericResponseHandler.getResponse(discussResponse
 								.getDiscussEntity(discuss, user));
 					}
@@ -171,7 +176,6 @@ public class DiscussLikeController {
 						discussReplyRepository.save(reply);
 					}
 				}
-
 			}
 			reply.setLikeCount(reply.getLikedBy().size());
 			if (null != user && reply.getLikedBy().contains(user.getId())) {
@@ -181,6 +185,14 @@ public class DiscussLikeController {
 			Util.handleException(e);
 		}
 		return reply;
+	}
+	
+	private void sendMailForLikeOnDiscuss(Discuss discuss, User user) {
+		ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
+		String title = !Util.isEmpty(discuss.getTitle()) ? discuss.getTitle() : discuss.getText();
+		String userName = !Util.isEmpty(discuss.getUsername()) ? discuss.getUsername() : "Anonymous User";
+		String body = MessageFormat.format(resourceUtil.getResource("contentLikedBy"), userName, title , user.getUserName());
+		MailHandler.sendMailToUserId(discuss.getUserId(), "Your content was liked on beautifulYears.com", body);
 	}
 
 }

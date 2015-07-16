@@ -85,6 +85,7 @@ ng-view{
 	font-weight: 400;
 	margin-top: 14px;
 	display: inline-block;
+	display:table;
 }
 .article-info a{
 	

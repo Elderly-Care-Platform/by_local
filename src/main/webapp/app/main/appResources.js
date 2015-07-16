@@ -98,16 +98,40 @@ var contactUs = byServices.factory('ContactUs', function($resource) {
 });
 
 
-//User
-var user = byServices.factory('User', function($resource) {
-    return $resource(apiPrefix+'api/v1/users/:userId',{}, {
-        remove:{method: 'DELETE', params: {userId: '@id'}},
-        update:{method: 'PUT', params: {userId: '@id'}},
-        get: {method: 'GET', params: {userId: '@id'}}
+//Find All
+var findServices = byServices.factory('FindServices', function($resource) {
+    return $resource(apiPrefix +'api/v1/userProfile/list/serviceProviders',{}, {
+        get: {method: 'GET', params: {city:'@city', services:'@services', page:'@page',size:'@size'}}
+
     })
 });
 
-////UserProfile
+//New selected user profile
+var userProfile = byServices.factory('UserProfile', function($resource) {
+    return $resource(apiPrefix +'api/v1/userProfile/:userId',{}, {
+        get: {method: 'GET', params: {}},
+        post:{method: 'POST', params: {}},
+        update:{method: 'PUT', params: {}}
+    })
+});
+
+
+
+
+
+
+
+
+//User
+var user = byServices.factory('User', function($resource) {
+    return $resource(apiPrefix+'api/v1/users/:userId',{}, {
+        get: {method: 'GET', params: {userId: '@id'}},
+        post:{method: 'PUT', params: {userId: '@id'}},
+        put:{method: 'PUT', params: {userId: '@id'}}
+    })
+});
+
+////UserProfile old
 //var userProfile = byServices.factory('UserProfile', function($resource) {
 //    return $resource(apiPrefix+'api/v1/userprofile/:userId',{}, {
 //        remove:{method: 'DELETE', params: {userId: '@userId'}},
@@ -354,4 +378,16 @@ var discussCategoryList = byServices.factory('discussCategoryList', function ($r
         }
 
         })
+});
+
+//FindService types
+var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) {
+    return $resource(apiPrefix +'api/v1/service_types/list/all',{q: '*'}, {
+        get: {method: 'GET', params: {}},
+        query: {method: 'GET',interceptor: {
+            response: function(response) {
+                return response.data;
+            }
+        }, isArray: false}
+    })
 });

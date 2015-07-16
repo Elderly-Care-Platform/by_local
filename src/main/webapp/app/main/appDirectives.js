@@ -310,6 +310,61 @@ byApp.directive('image', function($q) {
     };
 });
 
+byApp.directive('loadImage', function($q, $http, $timeout) {
+    'use strict'
+
+    var URL = window.URL || window.webkitURL;
+    var uploadImageinServer = function (formData) {
+        var deferred = $q.defer();
+
+
+        return deferred.promise;
+    };
+
+    return {
+        restrict: 'A',
+        scope: {
+            loadImage: '=',
+            imgArray:'=?'
+        },
+        link: function postLink(scope, element, attrs, ctrl) {
+            if(attrs.multiple){
+                scope.loadImage = scope.$parent.galleryImages || [];
+            }
+
+            element.bind('change', function (evt) {
+                if(attrs.multiple){
+                    scope.loadImage = scope.$parent.galleryImages || [];
+                } else{
+                    scope.loadImage = [];
+                }
+
+                var currentLength = scope.loadImage.length;
+                var files = evt.target.files;
+                for(var i = 0; i < files.length; i++) {
+                    (function(val,idx){
+                        scope.$apply(function() {
+                            scope.loadImage.push({thumbnailImage:"", loading:true});
+                        });
+                        var formData = new FormData();
+                        formData.append('image', files[val], files[val].name);
+
+
+                        $http.post('UploadFile?transcoding=true', formData, {
+                            transformRequest: angular.identity,
+                            headers: {'Content-Type': undefined}
+                        }).success(function (result) {
+                            scope.loadImage.splice(idx+val, 1, result);
+                        }).error(function (result) {
+                            console.log("Upload profile image failed");
+                        });
+                    })(i,currentLength);
+                }
+            });
+        }
+    };
+});
+
 /**
  *	Angular directive to truncate multi-line text to visible height
  *

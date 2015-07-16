@@ -1,0 +1,85 @@
+.green-bg {
+    background: #007a3c;
+}
+
+.white-color {
+    color: #ffffff;
+}
+
+.service-card {
+    padding: 0px !important;
+    font-family: century_gothic !important;
+    max-height: 260px !important;
+    overflow: hidden;
+}
+
+.service-card .article-heading{
+    font-family: century_gothic !important;
+}
+
+
+.service-card-image {
+    width: 135px !important;
+    max-height: 168px;
+    height: auto;
+    margin-right: 20px;
+    float: none!important;
+}
+
+.service-card-info{
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 14px;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.service-card-review
+{
+    margin-right: 20px;
+    color:  #000;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.service-card-review i
+{
+    width: 23px;
+    text-align: center;
+    height: 23px;
+
+    border-radius: 50%;
+    padding: 7px 5px 0px 2px;
+    margin-right: 10px;
+    display: inline-block;
+    font-style: inherit;
+}
+
+.service-review-rate-info{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 8px;
+    margin-bottom: 2px !important;
+}
+
+.service-card-desciption{
+    padding-left: 0px;
+    padding-top: 5px;
+    max-height: 100px;
+    overflow: hidden;
+    font-weight: 400;
+    color: #000 !important;
+    font-size: 16px !important;
+    line-height: 26px;
+}
+
+
+.categoryList li:after
+{
+    content: ' |';
+}
+.categoryList li:last-child:after, .categoryList li:first-child:after
+{
+    content: '';
+}
+

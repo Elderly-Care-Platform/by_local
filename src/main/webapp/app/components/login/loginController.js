@@ -1,24 +1,66 @@
-byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User',
-    function ($scope, $rootScope, $http, $location, $routeParams, User) {
+byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService',
+    function ($scope, $rootScope, $http, $location, $routeParams, User,SessionIdService) {
 		window.scrollTo(0, 0);
-        $scope.signupViews = {};
-        $scope.signupViews.leftPanel = "app/components/login/signUpLeftPanel.html";
-        $scope.signupViews.contentPanel = "app/components/login/login.html";
+       // $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
 
         $scope.user = {};
         $scope.user.email = '';
         $scope.user.password = '';
-        $scope.regLevel = 0;
-        $scope.setView = function(level){
-        	if(level===1){
-        		$scope.signupViews.contentPanel = "app/components/login/user_i_am.html";
-        		$scope.regLevel = 1;
-        	}
+
+        $scope.newUser = new User();
+        $scope.fbLogin = function(){
+        	$http.get("api/v1/users/getFbURL").success(function(res){
+        		window.getFbData = function(data){
+        			socialRegistration(data);
+        			delete(window.getFbData);
+        		}
+        		window.open(res.data, 'name','width=1000,height=650')
+        	})
         }
         
+        $scope.ggLogin = function(){
+        	$http.get("api/v1/users/getGgURL").success(function(res){
+        		window.getGoogleData = function(data){
+        			socialRegistration(data);
+        			delete(window.getGoogleData);
+        		}
+        		
+        		window.open(res.data, 'name','width=500,height=500');
+        	})
+        }
+        
+        var socialRegistration = function(loginReg){
+            if (loginReg.body.data.sessionId === null) {
+            	$http.defaults.headers.common.sess = "";
+                $scope.setError(loginReg.body.data.status);
+                return;
+            }
+            $scope.user.email = '';
+            $scope.user.password = '';
+            $rootScope.bc_discussType = 'All'; //type for discuss list
+            $scope.setUserCredential(loginReg.body.data);
+
+            if($rootScope.nextLocation)
+            {
+                $location.path($rootScope.nextLocation);
+                $scope.$apply();
+            }
+            else
+            {
+                $location.path("/users/home");
+                $scope.$apply();
+            }
+        }
+	
+	
+        $scope.pwdError = "";
+        $scope.emailError = "";
+
+
         $scope.loginUser = function (user) {
             $scope.resetError();
-            $http.post(apiPrefix + 'api/v1/users/login', user).success(function (login) {
+            $http.post(apiPrefix + 'api/v1/users/login', user).success(function (res) {
+                var login = res.data;
                 if (login.sessionId === null) {
                 	$http.defaults.headers.common.sess = "";
                     $scope.setError(login.status);
@@ -26,46 +68,54 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 }
                 $scope.user.email = '';
                 $scope.user.password = '';
-                $rootScope.sessionId = login.sessionId;
-                $rootScope.bc_discussType = 'All';
-                $rootScope.bc_username = login.userName;
-                $rootScope.bc_userId = login.userId;
-//                $scope.setUserCredential();
+                $rootScope.bc_discussType = 'All'; //type for discuss list
+                $scope.setUserCredential(login);
 
-                if ("localStorage" in window) {
-                    localStorage.setItem("SessionId", login.sessionId);
-                    $http.defaults.headers.common.sess = login.sessionId;
-                    localStorage.setItem("USER_ID", login.userId);
-                    localStorage.setItem("USER_NAME", login.userName);
-                    if($rootScope.nextLocation)
-					{
-						$location.path($rootScope.nextLocation);
-					}
-					else
-					{
-						$location.path("/users/home");
-					}
-                    document.getElementById("login_placeHolder_li").style.opacity = "1";
-                    var element = document.getElementById("login_placeholder");
-                    element.innerHTML = "Logout";
-                    element.href = apiPrefix + "#/users/logout/" + login.sessionId;
-
-                    var pro = document.getElementById('profile_placeholder');
-                    pro.innerHTML = "Profile";
-                    pro.href = "javascript:void(0);";
-
+                if($rootScope.nextLocation)
+                {
+                    $location.path($rootScope.nextLocation);
                 }
-                else {
-                    $scope.setError('Browser does not support cookies');
-                    $location.path("/users/login");
+                else
+                {
+                    $location.path("/users/home");
                 }
-
-
             }).error(function () {
-                $scope.error = 'Invalid user/password combination';
-                $scope.message = '';
+                $scope.setError("Invalid user/password combination");
             });
         }
+
+//     ************************   create new user start
+        $scope.createNewUser = function(newUser) {
+            var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if(!$scope.newUser.email || $scope.newUser.email==="" || !emailValidation.test($scope.newUser.email)){
+                $scope.emailError = "Please enter valid Email Id";
+            }else{
+                $scope.emailError = "";
+            }
+
+            if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
+                $scope.pwdError = "Password must be at least 6 character";
+            }else{
+                $scope.pwdError = "";
+            }
+
+            if($scope.pwdError==="" && $scope.emailError===""){
+                $scope.newUser.$save(function (response) {
+                	var login = response.data;
+                    $scope.createUserSuccess = "User registered successfully";
+                    $scope.createUserError = '';
+                    $scope.setUserCredential(login, "reg2");
+                    $scope.$parent.updateRegistration();
+                }, function (error) {
+                    // failure
+                    console.log(error);
+                    $scope.createUserError = error.data.error.errorMsg;
+                    $scope.createUserSuccess = '';
+
+                });
+            }
+        }
+//      ************************   create new user end
 
         $scope.resetError = function () {
             $scope.error = '';
@@ -75,93 +125,29 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.setError = function (message) {
             $scope.error = message;
             $scope.message = '';
-            $rootScope.SessionId = undefined;
             $http.defaults.headers.common.sess = "";
         }
 
-        $scope.setUserCredential = function(userData){
-        	 if ("localStorage" in window) {
-                 localStorage.setItem("SessionId", login.sessionId);
-                 localStorage.setItem("USER_ID", login.userId);
-                 localStorage.setItem("USER_NAME", login.userName);
-                 $location.path("/users/home");
-                 document.getElementById("login_placeHolder_li").style.opacity = "1";
-                 var element = document.getElementById("login_placeholder");
-                 element.innerHTML = "Logout";
-                 element.href = apiPrefix + "#/users/logout/" + login.sessionId;
+        $scope.setUserCredential = function(login, nextLocation){
+            if ("localStorage" in window) {
+            	SessionIdService.setSessionId(login.sessionId);
+                $http.defaults.headers.common.sess = login.sessionId;
+                localStorage.setItem("USER_ID", login.userId);
+                localStorage.setItem("USER_NAME", login.userName);
 
-                 var pro = document.getElementById('profile_placeholder');
-                 pro.innerHTML = "Profile";
-                 pro.href = "javascript:void(0);";
+                document.getElementById("login_placeHolder_li").style.opacity = "1";
+                var element = document.getElementById("login_placeholder");
+                element.innerHTML = "Logout";
+                element.href = apiPrefix + "#/users/logout/" + login.sessionId;
 
-             }
-             else {
-                 $scope.setError('Browser does not support cookies');
-                 $location.path("/users/login");
-             }
-        }
-        
-//     ************************   create new user start
-        $scope.newUser = new User();
-        $scope.pwdError = "";
-        $scope.emailError = "";
-        $scope.createNewUser = function(newUser) {
-            var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if(!$scope.newUser.email || $scope.newUser.email==="" || !emailValidation.test($scope.newUser.email)){
-                $scope.emailError = "Please enter valid Email Id";
-            }else{
-                $scope.emailError = "";
-                if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
-                    $scope.pwdError = "Password must be at least 6 character";
-                }else{
-                    $scope.pwdError = "";
-                }
+                var pro = document.getElementById('profile_placeholder');
+                pro.innerHTML = localStorage.getItem("USER_NAME") ?  localStorage.getItem("USER_NAME") : "Profile";
+                pro.href = apiPrefix + "#/users/login/"; //******************* to be removed*************//
             }
-
-            if($scope.pwdError==="" && $scope.emailError===""){
-                $scope.newUser.$save(function (response) {
-                	var login = response.data;
-                    $scope.createUserSuccess = "User registered successfully";
-                    $scope.createUserError = '';
-//                $scope.setView(1);
-                    if ("localStorage" in window) {
-                        localStorage.setItem("SessionId", login.sessionId);
-                        $http.defaults.headers.common.sess = login.sessionId;
-                        localStorage.setItem("USER_ID", login.userId);
-                        localStorage.setItem("USER_NAME", login.userName);
-                        if($rootScope.nextLocation)
-                        {
-                            $location.path($rootScope.nextLocation);
-                        }
-                        else
-                        {
-                            $location.path("/users/home");
-                        }
-                        document.getElementById("login_placeHolder_li").style.opacity = "1";
-                        var element = document.getElementById("login_placeholder");
-                        element.innerHTML = "Logout";
-                        element.href = apiPrefix + "#/users/logout/" + login.sessionId;
-
-                        var pro = document.getElementById('profile_placeholder');
-                        pro.innerHTML = "Profile";
-                        pro.href = "javascript:void(0);";
-
-                    }
-                    else {
-                        $scope.setError('Browser does not support cookies');
-                        $location.path("/users/login");
-                    }
-                }, function (error) {
-                    // failure
-                    console.log(error);
-                    $scope.createUserError = error.data.error.errorMsg;
-                    $scope.createUserSuccess = '';
-
-                });
+            else {
+                $scope.setError('Browser does not support cookies');
+                $location.path("/users/login");
             }
-
         }
-
-//      ************************   create new user end
 
     }]);

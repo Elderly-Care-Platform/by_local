@@ -1,11 +1,14 @@
 package com.beautifulyears.rest;
 
 import java.util.Date;
+import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -15,8 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.BYConstants;
 import com.beautifulyears.DiscussConstants;
 import com.beautifulyears.domain.LoginRequest;
 import com.beautifulyears.domain.Session;
@@ -27,6 +32,10 @@ import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
+import com.beautifulyears.social.facebook.FBConnection;
+import com.beautifulyears.social.facebook.FBGraph;
+import com.beautifulyears.social.google.GGConnection;
+import com.beautifulyears.social.google.GGraph;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
@@ -51,10 +60,11 @@ public class UserController {
 		this.userRepository = userRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
-	
+
 	@RequestMapping(value = "/validateSession", method = RequestMethod.GET)
-	public @ResponseBody Object validateSession(HttpServletRequest req, HttpServletResponse res){
-		if(null == Util.getSessionUser(req)){
+	public @ResponseBody Object validateSession(HttpServletRequest req,
+			HttpServletResponse res) {
+		if (null == Util.getSessionUser(req)) {
 			throw new BYException(BYErrorCodes.INVALID_SESSION);
 		}
 		return BYGenericResponseHandler.getResponse(null);
@@ -127,7 +137,7 @@ public class UserController {
 					throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
-				userRepository.save(userWithExtractedInformation);
+				userWithExtractedInformation = userRepository.save(userWithExtractedInformation);
 				req.getSession().setAttribute("user",
 						userWithExtractedInformation);
 				session = createSession(req, res, userWithExtractedInformation);
@@ -138,7 +148,7 @@ public class UserController {
 			}
 
 		} else {
-			System.out.println("EDIT USER");
+			logger.debug("EDIT USER");
 			User editedUser = getUser(user.getId());
 			editedUser.setUserName(user.getUserName());
 			editedUser.setPassword(user.getPassword());
@@ -148,12 +158,110 @@ public class UserController {
 			editedUser.setPasswordCodeExpiry(user.getPasswordCodeExpiry());
 			editedUser.setUserRoleId(user.getUserRoleId());
 			editedUser.setActive(user.isActive());
-			userRepository.save(editedUser);
+			editedUser = userRepository.save(editedUser);
 			session = createSession(req, res, editedUser);
 
 		}
 		return BYGenericResponseHandler.getResponse(session);
 
+	}
+
+	@RequestMapping(value = "/getFbURL", method = RequestMethod.GET)
+	public @ResponseBody Object getFbURL(HttpServletRequest req) {
+		
+		return BYGenericResponseHandler.getResponse(new FBConnection()
+				.getFBAuthUrl(req));
+	}
+
+	@RequestMapping(value = "/fbRes", method = RequestMethod.GET)
+	public @ResponseBody Object fbRes(
+			@RequestParam(value = "code", required = false) String code,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		try {
+			FBConnection fbConnection = new FBConnection();
+			ObjectMapper mapper = new ObjectMapper();
+			String accessToken = fbConnection.getAccessToken(code);
+			FBGraph fbGraph = new FBGraph(accessToken);
+			String graph = fbGraph.getFBGraph();
+			Map<String, String> fbProfileData = fbGraph.getGraphData(graph);
+
+			User newFbUser = null;
+			Query q = new Query();
+			q.addCriteria(Criteria.where("email")
+					.is(fbProfileData.get("email")));
+
+			newFbUser = mongoTemplate.findOne(q, User.class);
+			if (null == newFbUser) {
+				newFbUser = new User();
+				newFbUser
+						.setSocialSignOnPlatform(BYConstants.SOCIAL_SIGNON_PLATFORM_FACEBOOK);
+				newFbUser.setSocialSignOnId(fbProfileData.get("id"));
+				newFbUser.setEmail(fbProfileData.get("email"));
+				newFbUser.setUserName(fbProfileData.get("displayName"));
+				logger.debug("creating new social sign on user : "
+						+ newFbUser.toString());
+				newFbUser = userRepository.save(decorateWithInformation(newFbUser));
+			}
+			Session session = createSession(req, res, newFbUser);
+
+			ServletOutputStream out = res.getOutputStream();
+			out.println("<script>window.opener.getFbData("
+					+ mapper.writeValueAsString(BYGenericResponseHandler
+							.getResponse(session)) + ");</script>");
+			out.println("<script>window.close();</script>");
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+
+		return null;
+	}
+
+	@RequestMapping(value = "/getGgURL", method = RequestMethod.GET)
+	public @ResponseBody Object getGgURL(HttpServletRequest req) {
+		return BYGenericResponseHandler.getResponse(new GGConnection()
+				.getGGAuthUrl(req));
+	}
+
+	@RequestMapping(value = "/ggRes", method = RequestMethod.GET)
+	public @ResponseBody Object ggRes(
+			@RequestParam(value = "code", required = false) String code,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			GGConnection ggConnection = new GGConnection();
+			String accessToken = ggConnection.getAccessToken(code);
+			GGraph gGraph = new GGraph(accessToken);
+			String graph = gGraph.getGBGraph();
+			Map<String, String> ggProfileData = gGraph.getGraphData(graph);
+
+			User newGoogleUser = null;
+			Query q = new Query();
+			q.addCriteria(Criteria.where("email")
+					.is(ggProfileData.get("email")));
+
+			newGoogleUser = mongoTemplate.findOne(q, User.class);
+			if (null == newGoogleUser) {
+				newGoogleUser = new User();
+				newGoogleUser
+						.setSocialSignOnPlatform(BYConstants.SOCIAL_SIGNON_PLATFORM_GOOGLE);
+				newGoogleUser.setSocialSignOnId(ggProfileData.get("id"));
+				newGoogleUser.setEmail(ggProfileData.get("email"));
+				newGoogleUser.setUserName(ggProfileData.get("displayName"));
+				logger.debug("creating new social sign on user : "
+						+ newGoogleUser.toString());
+				newGoogleUser = userRepository.save(decorateWithInformation(newGoogleUser));
+			}
+			Session session = createSession(req, res, newGoogleUser);
+
+			ServletOutputStream out = res.getOutputStream();
+			out.println("<script>window.opener.getGoogleData("
+					+ mapper.writeValueAsString(BYGenericResponseHandler
+							.getResponse(session)) + ");</script>");
+			out.println("<script>window.close();</script>");
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return null;
 	}
 
 	private User decorateWithInformation(User user) {
@@ -170,8 +278,6 @@ public class UserController {
 
 		// Users registered through the BY site will always have ROLE = USER
 		String userRoleId = "USER";
-
-		System.out.println("user role id = " + userRoleId);
 
 		// TODO: Change this logic during user regitration phase 2
 		if (userRoleId != null

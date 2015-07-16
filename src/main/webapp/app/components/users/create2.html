@@ -1,131 +1,131 @@
-<div ng-controller="LoadCustomJSController"> </div>
-<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<!--<div ng-controller="LoadCustomJSController"> </div>-->
+<!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
 
-        <div class="breadcrumbs">
-            <div class="container">
-                <ul class="pull-right breadcrumb">
-                    <li class="active"><a href="#/userprofile">Profile</a></li>
-                    <li>Basic Info</li>
-                </ul>
-            </div>
-        </div><!--/breadcrumbs-->
-        <!--=== End Breadcrumbs ===-->
+        <!--<div class="breadcrumbs">-->
+            <!--<div class="container">-->
+                <!--<ul class="pull-right breadcrumb">-->
+                    <!--<li class="active"><a href="#/userprofile">Profile</a></li>-->
+                    <!--<li>Basic Info</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>&lt;!&ndash;/breadcrumbs&ndash;&gt;-->
+        <!--&lt;!&ndash;=== End Breadcrumbs ===&ndash;&gt;-->
 
-        <hr class="breadcrumb-divider" />
-
-
-        <br><br>
+        <!--<hr class="breadcrumb-divider" />-->
 
 
-
-		<!-- FORM -->
-		<form name="userProfileForm" ng-submit="!loggedIn && createprofile() || editprofile()" novalidate>
+        <!--<br><br>-->
 
 
-        <!--=== Content Part ===-->
-        <div class="container content breadCrumbMargin register-page">
-            <div class="row both-container">
-                <div class="col-md-3 md-margin-bottom-40">
-                    <div class="col-md-12 left-container-img-wrapper no-padding">
-                        <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
-                             <li class="list-group-item">
-                            <a href="#/users/new" data-ajax="false">SIGNUP INFO</a>
-                        </li>
-                        <li class="list-group-item active selected">
-                           <a href="#/userprofile" data-ajax="false">I AM..</a>
-                       </li>
-                       <li class="list-group-item" ng-show="userProfile.takeFamilyCare">
-					   	<a href="#/dependent/list/{{$root.bc_userId}}" data-ajax="false">MY DEPENDENTS</a>
-                       </li>
-                       </ul>
-                    </div>
-                </div>
-                <div class="col-md-9 md-margin-bottom-40  margin-top-20 article-outer-wrapper">
 
-                	<div ng-show="error"><font color="red">{{error}}</font></div>
-					<div ng-show="message"><font color="green">{{message}}</font></div>
-
-                    <div class="second-register-page ">
-                        <div class="col-md-6   whiteBg padding20">
-                            <div class="row margin-top-0 margin-bottom-20">
-                                <div class="col-xs-9">
-                                    I am taking care of someone
-                                </div>
-                                <div class="col-xs-3 text-right">
-                                    <input type="checkbox" name="taking_care_of" id="taking-care-of" value = "{{userProfile.takeFamilyCare}}" ng-model="userProfile.takeFamilyCare" ng-checked="userProfile.takeFamilyCare == 'true'"/>
-                                </div>
-                            </div>
-                            <div class="row margin-bottom-20">
-                               <div class="col-xs-9">
-                                I am a professional in elderly care
-                            </div>
-                            <div class="col-xs-3 text-right">
-                                <input type="checkbox" name="pro_elder_care" id="pro-elder-care" value = "{{userProfile.proElderlyCare}}" ng-model="userProfile.proElderlyCare" ng-checked="userProfile.proElderlyCare == 'true'"/>
-                            </div>
-                        </div>
-                        <div class="row margin-bottom-10">
-                           <div class="col-xs-9">
-                            I volunteer helping elderly people
-                        </div>
-                        <div class="col-xs-3 text-right">
-                            <input type="checkbox" name="volunteer" id="volunteer" value = "{{userProfile.volunteer}}" ng-model="userProfile.volunteer" ng-checked="userProfile.volunteer == 'true'"/>
-                        </div>
-                    </div>
-                    <div class="row margin-bottom-20 margin-top-20 reg-border-top padding-top-10">
-                       <div class="col-xs-9">
-                        I am a business establishment
-                    </div>
-                    <div class="col-xs-3 text-right">
-                        <input type="checkbox" name="business_establisment" id="business-establishment" value = "{{userProfile.business}}" ng-model="userProfile.business" ng-checked="userProfile.business == 'true'"/>
-                    </div>
-                </div>
-                <div class="row margin-bottom-20 margin-top-20 reg-border-top padding-top-10">
-                 <div class="col-xs-9">
-                    I am an NGO
-                </div>
-                <div class="col-xs-3 text-right">
-                    <input type="checkbox" name="NGO" id="ngo" value = "{{userProfile.ngo}}" ng-model="userProfile.ngo" ng-checked="userProfile.ngo == 'true'"/>
-                </div>
-            </div>
-                <div class="row margin-bottom-40 margin-top-20 reg-border-top padding-top-10">
-                 <div class="col-xs-9">
-                    None of the above
-                </div>
-                <div class="col-xs-3 text-right">
-                    <input type="checkbox" name="none" id="none" value = "{{userProfile.doNothing}}" ng-model="userProfile.doNothing" ng-checked="userProfile.doNothing == 'true'"/>
-                </div>
-            </div>
+		<!--&lt;!&ndash; FORM &ndash;&gt;-->
+		<!--<form name="userProfileForm" ng-submit="!loggedIn && createprofile() || editprofile()" novalidate>-->
 
 
-            <div class="row margin-bottom-20 margin-top-40 paddingLeft15">
-                <button class="btn btn-sm btn-default  pull-right  grayBg" type="submit">SUBMIT</button>
-            </div>
-        </div>
+        <!--&lt;!&ndash;=== Content Part ===&ndash;&gt;-->
+        <!--<div class="container content breadCrumbMargin register-page">-->
+            <!--<div class="row both-container">-->
+                <!--<div class="col-md-3 md-margin-bottom-40">-->
+                    <!--<div class="col-md-12 left-container-img-wrapper no-padding">-->
+                        <!--<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">-->
+                             <!--<li class="list-group-item">-->
+                            <!--<a href="#/users/new" data-ajax="false">SIGNUP INFO</a>-->
+                        <!--</li>-->
+                        <!--<li class="list-group-item active selected">-->
+                           <!--<a href="#/userprofile" data-ajax="false">I AM..</a>-->
+                       <!--</li>-->
+                       <!--<li class="list-group-item" ng-show="userProfile.takeFamilyCare">-->
+					   	<!--<a href="#/dependent/list/{{$root.bc_userId}}" data-ajax="false">MY DEPENDENTS</a>-->
+                       <!--</li>-->
+                       <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-9 md-margin-bottom-40  margin-top-20 article-outer-wrapper">-->
 
-        </form> <!-- FORM -->
+                	<!--<div ng-show="error"><font color="red">{{error}}</font></div>-->
+					<!--<div ng-show="message"><font color="green">{{message}}</font></div>-->
 
-                        <div class="col-md-5 signup-info borderLeftTwo">
-                            <!--<div class="col-md-offset-1 margin-bottom-20 col-md-offset-11 bg-success">
-                                <p class="bg-success margin-top-20">You can check out first three options in any combination.</p>
-                                 <p class="bg-success">Last two are exclusive. </p>
-                                </div>-->
-                                <div class="row margin-bottom-20">
-                                    <div class="borderRadiouRightIcon">
-                                        <img src="assets/img/infoIcon.png" alt="" />
-                                    </div>
-                                    <div class="borderRadiouRight">
-                                        <img src="assets/img/registerCheck.png" alt="" />
-                                        <p class="margin-top-20">You can check out first three options in any combination.</p>
-                                        <p class="">Last two are exclusive. </p>
-                                        <div style="clear:both;"></div>
-                                    </div>
-                                    <div style="clear:both;"></div>
-                                    <div class="clearfix margin-bottom-40"></div>
-                                </div>
-                            </div>
+                    <!--<div class="second-register-page ">-->
+                        <!--<div class="col-md-6   whiteBg padding20">-->
+                            <!--<div class="row margin-top-0 margin-bottom-20">-->
+                                <!--<div class="col-xs-9">-->
+                                    <!--I am taking care of someone-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-3 text-right">-->
+                                    <!--<input type="checkbox" name="taking_care_of" id="taking-care-of" value = "{{userProfile.takeFamilyCare}}" ng-model="userProfile.takeFamilyCare" ng-checked="userProfile.takeFamilyCare == 'true'"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="row margin-bottom-20">-->
+                               <!--<div class="col-xs-9">-->
+                                <!--I am a professional in elderly care-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-3 text-right">-->
+                                <!--<input type="checkbox" name="pro_elder_care" id="pro-elder-care" value = "{{userProfile.proElderlyCare}}" ng-model="userProfile.proElderlyCare" ng-checked="userProfile.proElderlyCare == 'true'"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-bottom-10">-->
+                           <!--<div class="col-xs-9">-->
+                            <!--I volunteer helping elderly people-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-3 text-right">-->
+                            <!--<input type="checkbox" name="volunteer" id="volunteer" value = "{{userProfile.volunteer}}" ng-model="userProfile.volunteer" ng-checked="userProfile.volunteer == 'true'"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row margin-bottom-20 margin-top-20 reg-border-top padding-top-10">-->
+                       <!--<div class="col-xs-9">-->
+                        <!--I am a business establishment-->
+                    <!--</div>-->
+                    <!--<div class="col-xs-3 text-right">-->
+                        <!--<input type="checkbox" name="business_establisment" id="business-establishment" value = "{{userProfile.business}}" ng-model="userProfile.business" ng-checked="userProfile.business == 'true'"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row margin-bottom-20 margin-top-20 reg-border-top padding-top-10">-->
+                 <!--<div class="col-xs-9">-->
+                    <!--I am an NGO-->
+                <!--</div>-->
+                <!--<div class="col-xs-3 text-right">-->
+                    <!--<input type="checkbox" name="NGO" id="ngo" value = "{{userProfile.ngo}}" ng-model="userProfile.ngo" ng-checked="userProfile.ngo == 'true'"/>-->
+                <!--</div>-->
+            <!--</div>-->
+                <!--<div class="row margin-bottom-40 margin-top-20 reg-border-top padding-top-10">-->
+                 <!--<div class="col-xs-9">-->
+                    <!--None of the above-->
+                <!--</div>-->
+                <!--<div class="col-xs-3 text-right">-->
+                    <!--<input type="checkbox" name="none" id="none" value = "{{userProfile.doNothing}}" ng-model="userProfile.doNothing" ng-checked="userProfile.doNothing == 'true'"/>-->
+                <!--</div>-->
+            <!--</div>-->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/container-->
+
+            <!--<div class="row margin-bottom-20 margin-top-40 paddingLeft15">-->
+                <!--<button class="btn btn-sm btn-default  pull-right  grayBg" type="submit">SUBMIT</button>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--</form> &lt;!&ndash; FORM &ndash;&gt;-->
+
+                        <!--<div class="col-md-5 signup-info borderLeftTwo">-->
+                            <!--&lt;!&ndash;<div class="col-md-offset-1 margin-bottom-20 col-md-offset-11 bg-success">-->
+                                <!--<p class="bg-success margin-top-20">You can check out first three options in any combination.</p>-->
+                                 <!--<p class="bg-success">Last two are exclusive. </p>-->
+                                <!--</div>&ndash;&gt;-->
+                                <!--<div class="row margin-bottom-20">-->
+                                    <!--<div class="borderRadiouRightIcon">-->
+                                        <!--<img src="assets/img/infoIcon.png" alt="" />-->
+                                    <!--</div>-->
+                                    <!--<div class="borderRadiouRight">-->
+                                        <!--<img src="assets/img/registerCheck.png" alt="" />-->
+                                        <!--<p class="margin-top-20">You can check out first three options in any combination.</p>-->
+                                        <!--<p class="">Last two are exclusive. </p>-->
+                                        <!--<div style="clear:both;"></div>-->
+                                    <!--</div>-->
+                                    <!--<div style="clear:both;"></div>-->
+                                    <!--<div class="clearfix margin-bottom-40"></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;/container&ndash;&gt;-->

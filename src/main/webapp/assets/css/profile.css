@@ -1,0 +1,56 @@
+.productMainContent{
+  font-size: 16px;
+}
+.profileContentTitle{
+  width: 100%;
+  min-height: 36px;
+  padding-bottom: 6px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 25px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.productRating{
+  float: left;
+  margin-bottom: 0px !important;
+}
+
+.productRating i{
+  width: 32px;
+  text-align: center;
+  height: 32px;
+  background: #00af50;
+  border-radius: 50%;
+  padding: 3px 7px 4px 3px;
+  margin-right: 10px;
+  color: #fff;
+  display: inline-block;
+}
+
+.productReview {
+  float: left;
+  margin-bottom: 0px !important;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.profileAddress{
+  margin-top: 5px;
+}
+
+.image-gallery{
+  width:60px;
+  height:40px;
+  margin: 10px;
+}
+
+.profile-home-visit input{
+  margin-top: 5px;
+  vertical-align: middle;
+}
+.profile-home-visit span{
+  vertical-align: middle;
+}

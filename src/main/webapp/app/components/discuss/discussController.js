@@ -6,15 +6,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
         $scope.article_story = "";
-		$scope.showme = true;
-//        DiscussList.query(function( value ){
-//						       	 $scope.discuss = value.data;
-//					     	},
-//						     //error
-//						     function( error ){
-//						     		console.log("QUErY ERROR");
-//						     		alert("error2");
-//					     	});
+
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -182,7 +174,6 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 		$scope.preSelected = {};
 
-        $scope.showme = true;
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -220,10 +211,6 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             discussType = 'All';
         }
 
-        //code to prevent users from creating posts and questions when sub topic = all
-        if ($location.path().endsWith('/all') && subTopicId=== "all") {
-            $scope.showme = true;
-        }
 
         $rootScope.bc_topic = topicId;
         $rootScope.bc_subTopic = subTopicId;

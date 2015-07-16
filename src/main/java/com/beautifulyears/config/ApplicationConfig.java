@@ -28,7 +28,6 @@ public class ApplicationConfig {
 				databaseName, null);// userCredentials);
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);
 		mongoTemplate.setWriteConcern(WriteConcern.SAFE);
-		System.out.println(mongoTemplate.collectionExists("discuss"));
 
 //		if (!mongoTemplate.collectionExists(DiscussComment.class)) {
 //			mongoTemplate.createCollection(DiscussComment.class);

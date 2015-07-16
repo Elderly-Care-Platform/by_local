@@ -50,7 +50,8 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
             		next.templateUrl == 'app/components/search/search.html' || next.templateUrl == 'app/components/discuss/discussion.html' ||
             		next.templateUrl == 'app/components/discussDetail/discussDetail.html' ||
             		next.templateUrl == 'app/shared/footer/privacyPolicy.html' || next.templateUrl == 'app/shared/footer/termsConditions.html' ||
-            		next.templateUrl == 'app/shared/footer/contactUs.html' || next.templateUrl == 'app/components/find/services.html') {
+            		next.templateUrl == 'app/shared/footer/contactUs.html' || next.templateUrl == 'app/components/find/services.html' ||
+            		next.templateUrl == 'app/components/profile/profile.html') {
             // already going to #login, no redirect needed
             	
             } else {

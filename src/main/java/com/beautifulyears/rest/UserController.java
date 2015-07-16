@@ -137,7 +137,7 @@ public class UserController {
 					throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
-				userRepository.save(userWithExtractedInformation);
+				userWithExtractedInformation = userRepository.save(userWithExtractedInformation);
 				req.getSession().setAttribute("user",
 						userWithExtractedInformation);
 				session = createSession(req, res, userWithExtractedInformation);
@@ -158,7 +158,7 @@ public class UserController {
 			editedUser.setPasswordCodeExpiry(user.getPasswordCodeExpiry());
 			editedUser.setUserRoleId(user.getUserRoleId());
 			editedUser.setActive(user.isActive());
-			userRepository.save(editedUser);
+			editedUser = userRepository.save(editedUser);
 			session = createSession(req, res, editedUser);
 
 		}
@@ -200,7 +200,7 @@ public class UserController {
 				newFbUser.setUserName(fbProfileData.get("displayName"));
 				logger.debug("creating new social sign on user : "
 						+ newFbUser.toString());
-				userRepository.save(decorateWithInformation(newFbUser));
+				newFbUser = userRepository.save(decorateWithInformation(newFbUser));
 			}
 			Session session = createSession(req, res, newFbUser);
 
@@ -249,7 +249,7 @@ public class UserController {
 				newGoogleUser.setUserName(ggProfileData.get("displayName"));
 				logger.debug("creating new social sign on user : "
 						+ newGoogleUser.toString());
-				userRepository.save(decorateWithInformation(newGoogleUser));
+				newGoogleUser = userRepository.save(decorateWithInformation(newGoogleUser));
 			}
 			Session session = createSession(req, res, newGoogleUser);
 

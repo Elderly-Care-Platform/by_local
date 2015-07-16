@@ -11,7 +11,10 @@ import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 public class FBConnection {
+	private static final Logger logger = Logger.getLogger(FBConnection.class);
 	public static final String FB_APP_ID = "515424301943282";
 	public static final String FB_APP_SECRET = "99534a7d9c9224122b85d9fbaf94a1d1";
 	public static final String REDIRECT_URI = "/api/v1/users/fbRes";
@@ -45,7 +48,7 @@ public class FBConnection {
 					+ "client_id=" + FBConnection.FB_APP_ID + "&redirect_uri="
 					+ URLEncoder.encode(redirectURI, "UTF-8")
 					+ "&client_secret=" + FB_APP_SECRET + "&code=" + code;
-			System.out.println(fbGraphUrl);
+			logger.debug(fbGraphUrl);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +60,7 @@ public class FBConnection {
 			URL fbGraphURL;
 			try {
 				fbGraphURL = new URL(getFBGraphUrl(code));
-				System.out.println(fbGraphURL);
+				logger.debug(fbGraphURL);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 				throw new RuntimeException("Invalid code received " + e);
@@ -73,7 +76,7 @@ public class FBConnection {
 				b = new StringBuffer();
 				while ((inputLine = in.readLine()) != null)
 					b.append(inputLine + "\n");
-				System.out.println(b);
+				logger.debug(b);
 				in.close();
 			} catch (IOException e) {
 				e.printStackTrace();

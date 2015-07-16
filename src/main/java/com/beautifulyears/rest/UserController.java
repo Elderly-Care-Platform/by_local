@@ -148,7 +148,7 @@ public class UserController {
 			}
 
 		} else {
-			System.out.println("EDIT USER");
+			logger.debug("EDIT USER");
 			User editedUser = getUser(user.getId());
 			editedUser.setUserName(user.getUserName());
 			editedUser.setPassword(user.getPassword());
@@ -278,8 +278,6 @@ public class UserController {
 
 		// Users registered through the BY site will always have ROLE = USER
 		String userRoleId = "USER";
-
-		System.out.println("user role id = " + userRoleId);
 
 		// TODO: Change this logic during user regitration phase 2
 		if (userRoleId != null

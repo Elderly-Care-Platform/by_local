@@ -8,10 +8,12 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FBGraph {
+	private static final Logger logger = Logger.getLogger(FBGraph.class);
 	private String accessToken;
 
 	public FBGraph(String accessToken) {
@@ -23,7 +25,7 @@ public class FBGraph {
 		try {
 
 			String g = "https://graph.facebook.com/me?fields=email,id,gender,name&" + accessToken;
-			System.out.println(g);
+			logger.debug(g);
 			URL u = new URL(g);
 			URLConnection c = u.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -34,7 +36,7 @@ public class FBGraph {
 				b.append(inputLine + "\n");
 			in.close();
 			graph = b.toString();
-			System.out.println(graph);
+			logger.debug(graph);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("ERROR in getting FB graph data. " + e);

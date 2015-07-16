@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
 
-import com.beautifulyears.social.facebook.FBConnection;
-
 public class GGConnection {
 	public static final String GG_APP_ID = "52899981762-d1khoej7o879atddpcm8sh6639eck4sm.apps.googleusercontent.com";
 	public static final String GG_APP_SECRET = "hInqyMi-mo35OVgx0BROwftu";

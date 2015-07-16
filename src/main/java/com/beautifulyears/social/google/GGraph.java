@@ -7,11 +7,13 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GGraph {
+	private static final Logger logger = Logger.getLogger(GGraph.class);
 	private String accessToken;
 
 	public GGraph(String accessToken) {
@@ -34,7 +36,7 @@ public class GGraph {
 				b.append(inputLine + "\n");
 			in.close();
 			graph = b.toString();
-			System.out.println(graph);
+			logger.debug(graph);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("ERROR in getting GG graph data. " + e);

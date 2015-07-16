@@ -1,0 +1,33 @@
+.articleProductSearch.ng-scopeProductSearch {
+  margin-top: -15px;
+}
+.productPrice{
+	margin-left: -5px;
+	list-style: none;
+	margin-left: -39px;
+  	font-size: 17px !important;
+  	list-style: none;
+  	line-height: 18px !important;
+}
+.font-green {
+  color: #00af50;
+}
+.font-red {
+  color: #ff0000;
+}
+.text-linethrough {
+  text-decoration: line-through;
+}
+.bigboldfont {
+  font-weight: bold;
+}
+.new-banner {
+	position: absolute;
+	left: 1px;
+	top: 13px;
+	z-index: 4;
+}
+
+img.new-banner-img {
+  width: 61%;
+}

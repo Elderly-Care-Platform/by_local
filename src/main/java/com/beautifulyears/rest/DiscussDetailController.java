@@ -130,15 +130,16 @@ public class DiscussDetailController {
 						ancestor.setChildrenCount(ancestor.getChildrenCount() + 1);
 						mongoTemplate.save(ancestor);
 					}
+					sendMailForReplyOnReply(parentComment, user);
 
 				} else {
 					discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
+					sendMailForReplyOnDiscuss(discuss,user,DiscussConstants.DISCUSS_TYPE_COMMENT);
 				}
 
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(comment);
-				sendMailForCommentOnDiscuss(discuss,user);
 				logger.debug("new answer posted successfully with replyId = "
 						+ comment.getId());
 			} else {
@@ -184,6 +185,7 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
+				sendMailForReplyOnDiscuss(discuss,user,DiscussConstants.DISCUSS_TYPE_ANSWER);
 				logger.debug("new answer posted successfully with replyId = "
 						+ answer.getId());
 			} else {
@@ -224,19 +226,39 @@ public class DiscussDetailController {
 		return response.getResponse();
 	}
 
-	private void sendMailForCommentOnDiscuss(Discuss discuss, User user) {
-		ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
-		String title = !Util.isEmpty(discuss.getTitle()) ? discuss.getTitle()
-				: discuss.getText();
-		String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
-				.getUsername() : "Anonymous User";
-		String commentedBy = !Util.isEmpty(user.getUserName()) ? user
-				.getUserName() : "Anonymous User";
-		String body = MessageFormat.format(
-				resourceUtil.getResource("contentCommentedBy"), userName,
-				commentedBy, title);
-		MailHandler.sendMailToUserId(discuss.getUserId(), "A comment is posted on your content at beautifulYears.com",
-				body);
+	private void sendMailForReplyOnDiscuss(Discuss discuss, User user,int replyType) {
+		if(!discuss.getUserId().equals(user.getId())){
+			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
+			String title = !Util.isEmpty(discuss.getTitle()) ? discuss.getTitle()
+					: discuss.getText();
+			String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
+					.getUsername() : "Anonymous User";
+			String commentedBy = !Util.isEmpty(user.getUserName()) ? user
+					.getUserName() : "Anonymous User";
+			String replyTypeString = (replyType == DiscussConstants.DISCUSS_TYPE_ANSWER) ? "an answer" : "comment"		;
+			String body = MessageFormat.format(
+					resourceUtil.getResource("contentCommentedBy"), userName,replyTypeString,
+					commentedBy, title);
+			MailHandler.sendMailToUserId(discuss.getUserId(), replyTypeString+" is posted on your content at beautifulYears.com",
+					body);
+		}
+		
+	}
+	
+	private void sendMailForReplyOnReply(DiscussReply reply, User user) {
+		if(!reply.getUserId().equals(user.getId())){
+			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
+			String userName = !Util.isEmpty(reply.getUserName()) ? reply.getUserName() : "Anonymous User";
+			String commentedBy = !Util.isEmpty(user.getUserName()) ? user
+					.getUserName() : "Anonymous User";
+			String replyString = "previous comment"; 	
+			String body = MessageFormat.format(
+					resourceUtil.getResource("replyCommentedBy"), userName,
+					commentedBy,replyString, reply.getText());
+			MailHandler.sendMailToUserId(reply.getUserId(), "A comment is posted on your comment at beautifulYears.com",
+					body);
+		}
+		
 	}
 
 }

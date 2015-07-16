@@ -1,5 +1,5 @@
-byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User',
-    function ($scope, $rootScope, $http, $location, $routeParams, User) {
+byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService',
+    function ($scope, $rootScope, $http, $location, $routeParams, User,SessionIdService) {
 		window.scrollTo(0, 0);
        // $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
 
@@ -130,7 +130,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.setUserCredential = function(login, nextLocation){
             if ("localStorage" in window) {
-                localStorage.setItem("SessionId", login.sessionId);
+            	SessionIdService.setSessionId(login.sessionId);
                 $http.defaults.headers.common.sess = login.sessionId;
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);

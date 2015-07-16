@@ -23,6 +23,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 		$http.get("api/v1/users/validateSession").success(function (response) {
         }).error(function(err){
         	$http.defaults.headers.common.sess = "";
+        	SessionIdService.setSessionId("");
         	BY.byUtil.inValidateSession();
         })
 	}
@@ -49,7 +50,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
             		next.templateUrl == 'app/components/search/search.html' || next.templateUrl == 'app/components/discuss/discussion.html' ||
             		next.templateUrl == 'app/components/discussDetail/discussDetail.html' ||
             		next.templateUrl == 'app/shared/footer/privacyPolicy.html' || next.templateUrl == 'app/shared/footer/termsConditions.html' ||
-            		next.templateUrl == 'app/shared/footer/contactUs.html') {
+            		next.templateUrl == 'app/shared/footer/contactUs.html' || next.templateUrl == 'app/components/find/services.html') {
             // already going to #login, no redirect needed
             	
             } else {
@@ -295,8 +296,8 @@ byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$lo
 
 
 // Logout Controller
-byControllers.controller('LogoutController', ['$scope', '$location', '$rootScope' ,'$http',
-function ($scope,$location, $rootScope, $http) {
+byControllers.controller('LogoutController', ['$scope', '$location', '$rootScope' ,'$http','SessionIdService',
+function ($scope,$location, $rootScope, $http,SessionIdService) {
 
 	if($rootScope.sessionId != '') {
 			   $location.path("/users/login");
@@ -307,24 +308,9 @@ function ($scope,$location, $rootScope, $http) {
 	$rootScope.bc_username = '';
 	$rootScope.bc_userId = '';
 
-	localStorage.setItem("SessionId", "");
-	localStorage.setItem("USER_ID", "");
-	localStorage.setItem("USER_NAME", "");
+	SessionIdService.setSessionId("");
+	BY.byUtil.inValidateSession();
 	$http.defaults.headers.common.sess = "";
-
-	localStorage.removeItem(0);
-	localStorage.removeItem(1);
-	localStorage.removeItem(2);
-
-	var element = document.getElementById("login_placeholder");
-	element.innerHTML = "";
-	element.href = "";
-	document.getElementById("login_placeHolder_li").style.opacity = "0";
-
-	var pro = document.getElementById('profile_placeholder');
-	pro.innerHTML = "JOIN US";
-	pro.href = apiPrefix+"#/users/login";
-
 
 	$location.path("/users/login");
 	}

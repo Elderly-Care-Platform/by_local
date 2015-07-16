@@ -17,7 +17,6 @@ BY.byUtil.getPageInfo = function(data){
 
 
 BY.byUtil.inValidateSession = function(){
-	console.log("invalidating session");
 	localStorage.setItem("SessionId", "");
 	localStorage.setItem("USER_ID", "");
 	localStorage.setItem("USER_NAME", "");

@@ -149,6 +149,9 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.regConfig.maxSecondaryPhoneNos) {
                 $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
+            else{
+            	$(".add-phone").hide();
+            }
         }
 
         //Add secondary email details
@@ -156,6 +159,9 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             //var email = {value:""};
             if ($scope.basicProfileInfo.secondaryEmails.length < BY.regConfig.maxSecondaryEmailId) {
                 $scope.basicProfileInfo.secondaryEmails.push("");
+            }
+            else{
+            	$(".add-email").hide();
             }
         }
 

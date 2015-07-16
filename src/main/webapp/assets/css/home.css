@@ -1,7 +1,10 @@
 .by_home_content {
     margin-top: 37px;
 }
-
+.errorRed
+{
+	color:red;
+}
 .by_breadcrumbs_container {
     height: auto;
     min-height:35px;

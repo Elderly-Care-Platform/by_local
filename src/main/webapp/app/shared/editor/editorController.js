@@ -1,5 +1,17 @@
 byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
     function ($scope, $rootScope, Discuss) {
+
+	$(".form-header-content a").on("click", function () {
+	    var state = $(this).data('state');
+	    state = !state;
+	    if (state) {
+	        $(".form-header-content2").addClass("show");
+	    } else {
+	        $(".form-header-content2").removeClass("show");
+	    }
+	    $(this).data('state', state);
+	});
+	
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -25,14 +37,14 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                     $scope.setErrorMessage();
                 }
             } else if($scope.discuss.discussType==="A"){
-                if($scope.discuss.topicId.length > 0 && $scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
+                if($scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();
                 }
 
             } else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
-                if($scope.discuss.topicId.length > 0 && $scope.discuss.text.trim().length > 0){
+                if( $scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();

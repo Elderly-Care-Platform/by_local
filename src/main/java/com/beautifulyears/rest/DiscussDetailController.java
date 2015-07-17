@@ -237,7 +237,7 @@ public class DiscussDetailController {
 					.getUserName() : "Anonymous User";
 			String replyTypeString = (replyType == DiscussConstants.DISCUSS_TYPE_ANSWER) ? "an answer" : "comment"		;
 			String body = MessageFormat.format(
-					resourceUtil.getResource("contentCommentedBy"), userName,replyTypeString,
+					resourceUtil.getResource("contentCommentedBy"), userName,
 					commentedBy, title);
 			MailHandler.sendMailToUserId(discuss.getUserId(), replyTypeString+" is posted on your content at beautifulYears.com",
 					body);

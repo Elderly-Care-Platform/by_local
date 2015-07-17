@@ -236,9 +236,10 @@ public class DiscussDetailController {
 			String commentedBy = !Util.isEmpty(user.getUserName()) ? user
 					.getUserName() : "Anonymous User";
 			String replyTypeString = (replyType == DiscussConstants.DISCUSS_TYPE_ANSWER) ? "an answer" : "comment"		;
+			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,discuss.getId());
 			String body = MessageFormat.format(
 					resourceUtil.getResource("contentCommentedBy"), userName,
-					commentedBy, title);
+					commentedBy, title,path,path);
 			MailHandler.sendMailToUserId(discuss.getUserId(), replyTypeString+" is posted on your content at beautifulYears.com",
 					body);
 		}
@@ -252,9 +253,10 @@ public class DiscussDetailController {
 			String commentedBy = !Util.isEmpty(user.getUserName()) ? user
 					.getUserName() : "Anonymous User";
 			String replyString = "previous comment"; 	
+			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,reply.getDiscussId());
 			String body = MessageFormat.format(
 					resourceUtil.getResource("replyCommentedBy"), userName,
-					commentedBy,replyString, reply.getText());
+					commentedBy,replyString, reply.getText(),path,path);
 			MailHandler.sendMailToUserId(reply.getUserId(), "A comment is posted on your comment at beautifulYears.com",
 					body);
 		}

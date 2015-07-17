@@ -45,7 +45,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
        		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
             // no logged user, we should be going to #login
             //Code to allow non-logged in users to visit read only pages
-            if (next.templateUrl == "app/components/login/login.html" || next.templateUrl == 'app/components/aboutUs/aboutUs.html' ||
+            if (!next.templateUrl || next.templateUrl == "app/components/login/login.html" || next.templateUrl == 'app/components/aboutUs/aboutUs.html' ||
             		next.templateUrl == 'app/components/home/home.html' || next.templateUrl == 'app/components/users/create.html' ||
             		next.templateUrl == 'app/components/search/search.html' || next.templateUrl == 'app/components/discuss/discussion.html' ||
             		next.templateUrl == 'app/components/discussDetail/discussDetail.html' ||

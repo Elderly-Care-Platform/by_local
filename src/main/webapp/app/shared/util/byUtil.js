@@ -31,7 +31,7 @@ BY.byUtil.inValidateSession = function(){
     if(pro){
     	pro.innerHTML = "JOIN US";
         pro.href = apiPrefix+"#/users/login";
-        window.location = "#/users/aboutUs";
+       // window.location = "#/users/home";
     }
 }
 

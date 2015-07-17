@@ -346,7 +346,7 @@ ng-view{
 	}
 	.footer-v1{
 		clear:both;
-		z-index: +999;
+		z-index: 100;
 		position: relative;
 	}
 	
@@ -474,10 +474,11 @@ button.register-btn {
 		display:none;
 	}
 	.breadcrumbs{
-		padding:0;
 		position:fixed;
-		z-index:1;
-		/*height: 35px;*/
+		width: 100%;
+		padding:0;
+		z-index: 10;
+		border-bottom: 0px;
 	}
 	.breadcrumb{
 		padding: 0px 15px 0px 15px;
@@ -549,7 +550,7 @@ button.register-btn {
 	.borderShadow.textarea-label{
 		color:#5C5B5B;
 		border: 1px solid #ccc;
-		z-index: +9999;
+		z-index: 99;
 		/*box-shadow: 1px 1px 10px 5px #fff;
 		-webkit-box-shadow: 1px 1px 10px 5px #fff;
 		-ms-box-shadow: 1px 1px 10px 5px #fff;*/
@@ -795,9 +796,7 @@ a{
 	.left-container{
 		position:relative;
 	}
-	.breadcrumbs{
-		position:relative;
-	}
+
 	.discussion-wrapper .article-outer-wrapper{
 		margin:auto;
 	}

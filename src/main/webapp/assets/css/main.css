@@ -167,4 +167,10 @@ body a:hover
     -webkit-transform:translate3d(0px, 0px, 0px);
 }
 
+.by-login-modal{
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+}
+
 

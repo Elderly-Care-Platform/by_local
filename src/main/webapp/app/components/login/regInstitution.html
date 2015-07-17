@@ -19,7 +19,7 @@
                     <input type="text" class="username-textbox textbox" name="firstName"
                            class="name-textbox textbox grayBg" placeholder="Please enter a name of your company"
                            ng-model="basicProfileInfo.firstName" required/>
-                    <span ng-show="institutionForm.firstName.$invalid && submitted">Please enter your company name</span>
+                    <span ng-show="institutionForm.firstName.$invalid && submitted" class="errorRed">Please enter your company name</span>
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
 
                         </div>
                     </div>
-                    <span ng-show="minCategoryError && submitted">Please select atleast one category</span>
+                    <span ng-show="minCategoryError && submitted" class="errorRed">Please select atleast one category</span>
                 </div>
 
             </div>
@@ -98,8 +98,8 @@
                                    ng-model="basicProfileInfo.primaryPhoneNo"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"
                                    required>
-                            <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted">Please enter your contact number</span>
-                            <span ng-show="institutionForm.primaryTel.$error.pattern && submitted">Not a valid number!</span>
+                            <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted" class="errorRed">Please enter your contact number</span>
+                            <span ng-show="institutionForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
 
@@ -112,7 +112,7 @@
                             <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
                                    ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
-                            <span ng-show="institutionForm.{{'tel'+$index}}.$error.pattern && submitted">Not a valid number!</span>
+                            <span ng-show="institutionForm.{{'tel'+$index}}.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
 
@@ -132,8 +132,8 @@
                             <input type="email" class="username-textbox textbox" name="primaryEmail"
                                    ng-model="basicProfileInfo.primaryEmail"
                                    placeholder="Email" required/>
-                            <span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted">Please enter your Email Id!</span>
-                        <span ng-show="institutionForm.primaryEmail.$error.email && submitted">
+                            <span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted" class="errorRed">Please enter your Email Id!</span>
+                        <span ng-show="institutionForm.primaryEmail.$error.email && submitted" class="errorRed">
                             Not valid Email!
                         </span>
                         </div>
@@ -148,7 +148,7 @@
                             <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
                                    ng-model="basicProfileInfo.secondaryEmails[$index]"
                                    placeholder="Email"/>
-                            <span ng-show="institutionForm.{{'email'+$index}}.$error.email && submitted">Not valid Email!</span>
+                            <span ng-show="institutionForm.{{'email'+$index}}.$error.email && submitted" class="errorRed">Not valid Email!</span>
                         </div>
                     </div>
 

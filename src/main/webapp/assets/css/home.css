@@ -6,7 +6,6 @@
     height: auto;
     min-height:35px;
     overflow: hidden;
-
 }
 
 .by_lc_fix{
@@ -399,4 +398,8 @@
 {
 	width:100%;
 }
+}
+
+.errorRed {
+    color: #ff0000;
 }

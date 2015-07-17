@@ -21,16 +21,16 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         $scope.add = function (type) {
             BY.removeEditor();
-            if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
-                $rootScope.nextLocation = $location.path();
-                $location.path('/users/login');
-            }
-            else {
+            //if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
+            //    $rootScope.nextLocation = $location.path();
+            //    $location.path('/users/login');
+            //}
+            //else {
                 $scope.error = "";
                 $scope.currentView = "editor";
                 $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 window.scrollTo(0, 0);
-            }
+            //}
 
         }
 

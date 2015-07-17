@@ -37,14 +37,14 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                     $scope.setErrorMessage();
                 }
             } else if($scope.discuss.discussType==="A"){
-                if($scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
+                if($scope.discuss.topicId.length >= 0 && $scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();
                 }
 
             } else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
-                if( $scope.discuss.text.trim().length > 0){
+                if($scope.discuss.topicId.length >= 0 && $scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();

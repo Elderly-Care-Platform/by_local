@@ -26,6 +26,11 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 	
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
+		if(null == System.getProperty("path")){
+			String path = "http://" + request.getServerName() + ":"
+					+ request.getServerPort() + request.getContextPath();
+			System.setProperty("path", path);
+		}
 		String sessionId = request.getHeader("sess");
 		if ((!"null".equals(sessionId) && null != sessionId && !sessionId
 				.isEmpty())

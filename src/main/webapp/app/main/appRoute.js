@@ -1,6 +1,7 @@
 byApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
+        	.when('/', {templateUrl: 'app/components/home/home.html', controller: 'BYHomeController'})
             .when('/users/home', {templateUrl: 'app/components/home/home.html', controller: 'BYHomeController'})
             .when('/users/aboutUs', {templateUrl: 'app/components/aboutUs/aboutUs.html', controller: 'BYAboutUsController'})
             .when('/users/new', {templateUrl: 'app/components/users/create.html', controller: 'UserCreateController'})
@@ -21,7 +22,7 @@ byApp.config(['$routeProvider',
             .when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html', controller: ''})
             .when('/users/contactUs', {templateUrl: 'app/shared/footer/contactUs.html', controller: 'contactUsController'})
             .when('/find/:services/:city', {templateUrl: 'app/components/find/services.html', controller: 'ServicesController'})
-	    .when('/product/All/list/all', {templateUrl: 'app/components/product/product.html', controller: 'ProductAllController'})
+            .when('/product/All/list/all', {templateUrl: 'app/components/product/product.html', controller: 'ProductAllController'})
             .when('/profile/:profileType/:profileId', {templateUrl: 'app/components/profile/profile.html', controller: 'ProfileController'});
 
         //.when('/discuss/new/P', {templateUrl: 'views/discuss/create.html', controller: 'DiscussCreateController'})

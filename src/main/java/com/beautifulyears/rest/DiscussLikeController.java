@@ -195,7 +195,8 @@ public class DiscussLikeController {
 			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
 			String title = !Util.isEmpty(discuss.getTitle()) ? discuss.getTitle() : discuss.getText();
 			String userName = !Util.isEmpty(discuss.getUsername()) ? discuss.getUsername() : "Anonymous User";
-			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName, "content",title , user.getUserName());
+			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,discuss.getId());
+			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName, "content",title , user.getUserName(),path,path);
 			MailHandler.sendMailToUserId(discuss.getUserId(), "Your content was liked on beautifulYears.com", body);
 		}
 	}
@@ -206,7 +207,8 @@ public class DiscussLikeController {
 			String title = reply.getText();
 			String userName = !Util.isEmpty(reply.getUserName()) ? reply.getUserName() : "Anonymous User";
 			String replyTypeString = (reply.getReplyType() == DiscussConstants.DISCUSS_TYPE_ANSWER) ? "answer" : "comment";
-			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName,replyTypeString, title , user.getUserName());
+			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,reply.getDiscussId());
+			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName,replyTypeString, title , user.getUserName(),path,path);
 			MailHandler.sendMailToUserId(reply.getUserId(), "Your "+replyTypeString+" was liked on beautifulYears.com", body);
 		}
 	}

@@ -22,8 +22,7 @@ public class GGConnection {
 	static String accessToken = "";
 
 	public String getGGAuthUrl(HttpServletRequest req) {
-		redirectURI = "http://" + req.getServerName() + ":"
-				+ req.getServerPort() + req.getContextPath()
+		redirectURI = System.getProperty("path")
 				+ GGConnection.REDIRECT_URI;
 		String ggLoginUrl = "";
 		try {

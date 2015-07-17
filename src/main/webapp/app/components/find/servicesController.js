@@ -42,13 +42,23 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $rootScope.bc_subTopic = 'all';
         $rootScope.bc_discussType = 'all';
 
+        $rootScope.bc_topicId = 'all';
+        $rootScope.bc_subTopicId = 'all';
+
         var category = $rootScope.findCategoryListMap[queryParams.services];
         if (category) {
             $rootScope.bc_topic = category.name;
             $rootScope.bc_subTopic = 'all';
+
+            $rootScope.bc_topicId = category.id;
+            $rootScope.bc_subTopicId = 'all';
+
             if (category.parentId) {
                 $rootScope.bc_subTopic = category.name;
                 $rootScope.bc_topic = $rootScope.findCategoryListMap[category.parentId].name;
+
+                $rootScope.bc_topicId = category.parentId;
+                $rootScope.bc_subTopicId = category.id;
             }
         }
 

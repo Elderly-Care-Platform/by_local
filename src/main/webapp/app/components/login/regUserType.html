@@ -1,52 +1,82 @@
-<form class="col-md-12 md-margin-bottom-40 margin-top-20 article-outer-wrapper" ng-controller="regUserTypeController" novalidate>
+<form class="col-md-12 md-margin-bottom-40 margin-top-20 article-outer-wrapper" ng-controller="regUserTypeController"
+      novalidate>
     <div class="col-md-12 margin-bottom-20 iconBg">
         <div class="col-md-11 iconBgLeft">
             Thank you for registering with us!! <br/>
             Filling in your Profile would take you about 10-15 min. It will help us provide you with relevant
             information, It will help you find like-minded people in our community - and to be found by others.<br/>
-            If you don't have time now, you can press <a href="">RETURN</a> to go back, and edit your Profile any
+            If you don't have time now, you can press <a ng-click="cancel()">RETURN</a> to go back, and edit your Profile any
             time later (by clicking your Profile icon on the top of the screen). <br/>
             So, let’s get acquainted! Could you please tell us about yourself:
         </div>
         <div class="col-md-1 iconBgRight">i</div>
     </div>
+    <div class="col-md-12 no-padding ">
+        <div class="col-md-12 no-padding  list-head dp-block">
+            I am an Individual
+        </div>
+
+        <div class="col-md-12 no-padding">
+            <div class="bg-green-h2" style="width: 303px;"></div>
+        </div>
+    </div>
     <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
+
         <div class="col-md-7">
             <div class="col-md-12 margin-bottom-20" ng-repeat="type in individualUserType">
                 <div class="divLeft">
                     {{type.value}}
                 </div>
                 <div class="divRight">
-                    <input type="checkbox" class="checkBoxOne" id="{{key}}" ng-model="type.selected" ng-change="selectUserType(this)"/>
+                    <input type="checkbox" class="checkBoxOne" id="{{key}}" ng-model="type.selected"
+                           ng-change="selectUserType(this)"/>
                 </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-7">
+            <div class="col-md-12 margin-bottom-20" ng-repeat="type in individualUserProfessionType">
+                <div class="divLeft">
+                    {{type.value}}
+                </div>
+                <div class="divRight">
+                    <input type="checkbox" class="checkBoxOne" id="{{key}}" ng-model="type.selected"
+                           ng-change="selectUserType(this)"/>
+                </div>
+                <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
         </div>
-        <div class="col-md-5 iconBg">
-            <div class="iconBgLeft">
-                Please select any of these options if you are an Individual person
-            </div>
+
+    </div>
+    <div class="col-md-12 no-padding margin-top-20">
+        <div class="col-md-12 no-padding  list-head dp-block">
+            I represent an Institution
+        </div>
+
+        <div class="col-md-12 no-padding">
+            <div class="bg-green-h2" style="width: 303px;"></div>
         </div>
     </div>
     <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
         <div class="col-md-12 margin-bottom-20">
-            <b>We are providing:</b>
+            <b>We are providing</b>
         </div>
+
         <div class="col-md-7">
             <div class="col-md-12 margin-bottom-20" ng-repeat="type in institutionUserType">
                 <div class="divLeft">
                     {{type.value}}
                 </div>
                 <div class="divRight">
-                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected" ng-change="selectUserType(this)"/>
+                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected"
+                           ng-change="selectUserType(this)"/>
                 </div>
             </div>
         </div>
-        <div class="col-md-5 iconBg">
-            <div class="iconBgLeft">
-                Please select one of these options if you represent an institution
-            </div>
-        </div>
+
     </div>
     <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
         <div class="col-md-7">
@@ -55,7 +85,8 @@
                     {{type.value}}
                 </div>
                 <div class="divRight">
-                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected" ng-change="selectUserType(this)"/>
+                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected"
+                           ng-change="selectUserType(this)"/>
                 </div>
             </div>
         </div>

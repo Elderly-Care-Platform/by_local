@@ -1,0 +1,116 @@
+<div class="row padding20 whiteBg by_discuss_detail margin-bottom-35" ng-controller="IndividualProfileController">
+    <div class="col-md-12 product-main margin-bottom-15 white-gray ">
+        <div class="col-md-5" style="padding:0px;">
+            <div class="col-md-12 main-image white-gray " style="
+    padding: 0px;">
+                <img class="full-width padding-zero" src="{{individualProfile.basicProfileInfo.profileImage.original}}" alt="">
+            </div>
+            <div class="col-md-12 by-imageGallery margin-top-20 row" ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0">
+                <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
+                </div>
+                <div class="by-gallery-container">
+                    <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item">
+                        <img src="{{img.titleImage}}" width="100%" alt=""/>
+                    </div>
+                </div>
+                <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-7">
+            <div class="col-md-12 productMainContent">
+                <div class="profileContentTitle">
+                	 <span>{{individualProfile.individualInfo.sex}}</span>
+                    <span>{{individualProfile.basicProfileInfo.firstName}}</span>
+                   <span> {{individualProfile.individualInfo.lastName}}</span>
+                </div>
+                <div class="no-padding">
+                    <div class="productRating">
+                        <i class="rounded-x">4.2</i>Rated by <a href="">56 people</a>
+                    </div>
+                    <div class="productReview">
+                        <i class="rounded-x  icon-pencil padding4"></i><a href="">18 reviews</a>
+                    </div><div class="clearfix"></div>
+                    <div class="productRating">
+                         {{individualProfile.serviceProviderInfo.yearsExperience}} years of experience</a>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <div class="article">
+                    <ul class="list-inline categoryList"  style="margin-left: 0px; margin-top: 5px;">
+                        <li class="list-inline"> Service in</li>
+                        <li class="list-inline"
+                            ng-repeat="category in individualProfile.serviceProviderInfo.services" style="display: inline-block" ng-if="$index < 5">
+                            <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> {{$root.findCategoryListMap[category].name}} </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12 bg-color-grey" style="margin-bottom: 4px;"></div>
+                <div class="no-padding">
+                    <div class="no-padding">
+                        <i class="fa fa-envelope"></i>
+                        <a href="">{{individualProfile.basicProfileInfo.primaryEmail}}</a>
+                    </div>
+                    <div class="no-padding">
+                        <i class="fa fa-phone"></i>
+                        {{individualProfile.basicProfileInfo.primaryPhoneNo}}
+                    </div>
+                    <div class="no-padding ">
+                        <i class="fa fa-globe"></i>
+                        <a href=""> {{individualProfile.serviceProviderInfo.website}} </a>
+                    </div>
+                    <div class="no-padding profile-home-visit" ng-if="individualProfile.serviceProviderInfo.homeVisits">
+                        <input type="checkbox" class="checkBoxTwo" ng-checked="individualProfile.serviceProviderInfo.homeVisits" disabled/>
+                        <span>Available for home visit</span>
+                    </div>
+                </div>
+                <div class="no-padding profileAddress">
+                    <ul class="list-inline">
+                        <li class="list-inline">
+                            {{individualProfile.basicProfileInfo.userAddress.streetAddress}}
+
+                        </li>
+                        <li class="list-inline">
+
+                            {{individualProfile.basicProfileInfo.userAddress.locality}}
+
+                        </li>
+                        <li class="list-inline">
+                            {{individualProfile.basicProfileInfo.userAddress.city}}
+                            {{individualProfile.basicProfileInfo.userAddress.country}}
+                            {{individualProfile.basicProfileInfo.userAddress.zip}}
+                        </li>
+
+                    </ul>
+                </div>
+                <!--<div class="col-md-12 no-padding">-->
+                    <!--<ul class="list-inline margin-left&#45;&#45;2 font-bold">-->
+                        <!--<li class="list-inline"><img class=" padding-zero"-->
+                                                     <!--src="assets/img/icons/location.png" alt="">-->
+                        <!--</li>-->
+                        <!--<li class="list-inline">PUNE</li>-->
+                        <!--<li class="list-inline"> | DELHI | BANGALORE-->
+                    <!--</ul>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+
+    <!--/end housing details-->
+
+
+    <div class="col-md-12 margin-bottom-20">
+        <div class="row whiteBg padding20 borderShadow">
+            <div class="articles-story">
+                {{individualProfile.basicProfileInfo.description}}
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+    

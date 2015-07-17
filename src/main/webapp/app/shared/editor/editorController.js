@@ -67,9 +67,9 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                 BY.editorCategoryList.resetCategoryList();
                 $scope.$parent.postSuccess();
             },
-            function (response) {
-                console.log(response);
-                if(response.error.errorCode === 3002){
+            function (errorResponse) {
+                console.log(errorResponse);
+                if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                     ValidateUserCredential.login();
                 }
             });

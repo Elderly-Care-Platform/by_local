@@ -3,9 +3,9 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
     ,'DiscussPage', 'DiscussCount','$sce','$timeout',
     function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
     		DiscussCount,$sce, $timeout) {
-	//var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+	    var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
-        $('#discuss').dropdown("toggle");
+        //$('#discuss').dropdown("toggle");
 
 		$scope.preSelected = {};
         $scope.article_story = "";
@@ -131,9 +131,9 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussPage',
     'DiscussCount','$sce',
     function ($scope, $route, $rootScope, $location, $routeParams, DiscussPage, DiscussCount, $sce) {
-	//var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+	    var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
-        $('#discuss').dropdown("toggle");
+        //$('#discuss').dropdown("toggle");
 		$scope.preSelected = {};
 
         $scope.discussionViews = {};

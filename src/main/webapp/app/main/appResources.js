@@ -51,6 +51,22 @@ var broadCastData = byServices.factory('broadCastData', function($rootScope){
     return data;
 });
 
+
+var validateUserCredential = byServices.factory('ValidateUserCredential', function($rootScope){
+    var user = {};
+    user.login = function(){
+        $rootScope.inContextLogin = true;
+        $('#myModalHorizontal').modal('show');
+    };
+
+    user.loginCallback = function(){
+        $rootScope.inContextLogin = false;
+        $('#myModalHorizontal').modal('hide');
+    };
+
+    return user;
+});
+
 ////home featured content API
 //var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
 //    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {

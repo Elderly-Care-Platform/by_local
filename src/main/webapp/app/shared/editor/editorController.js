@@ -1,30 +1,17 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
-    function ($scope, $rootScope, Discuss) {
+byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential',
+    function ($scope, $rootScope, Discuss, ValidateUserCredential) {
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
         $scope.editor.articlePhotoFilename = "";
         $scope.showCategory = false;
-        $scope.isLoginRequired = false;
+        $scope.isValidUser = false;
 
 
         $scope.showCategoryList = function(){
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
 
-
-        $scope.submit = function(discussType){
-            $scope.isLoginRequired = (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) ? true : false;
-
-
-            if(!$scope.isLoginRequired){
-                $scope.postContent(discussType);
-                $("#myModalHorizontal").hide();
-            }else{
-                //$("#myModalHorizontal").show();
-                $('#myModalHorizontal').modal('show')
-            }
-        }
 
         $scope.postContent = function (discussType) {
             $scope.discuss = new Discuss();
@@ -80,9 +67,11 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                 BY.editorCategoryList.resetCategoryList();
                 $scope.$parent.postSuccess();
             },
-            function (error) {
-            	console.log("Discuss");
-//                alert("error");
+            function (response) {
+                console.log(response);
+                if(response.error.errorCode === 3002){
+                    ValidateUserCredential.login();
+                }
             });
         };
 

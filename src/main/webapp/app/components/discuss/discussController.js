@@ -3,7 +3,10 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
     ,'DiscussPage', 'DiscussCount','$sce','$timeout',
     function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
     		DiscussCount,$sce, $timeout) {
-	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+	//var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+
+        $('#discuss').dropdown("toggle");
+
 		$scope.preSelected = {};
         $scope.article_story = "";
 
@@ -25,26 +28,12 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             discussType = 'All';
         }
 
-//        //query to get the numbers
-//        DiscussOneTopicOneSubTopicListCount.get({
-//            discussType: "All",
-//            topicId: "list",
-//            subTopicId: "all"
-//        }).then(function (counts) {
-//            $scope.discuss_counts = counts.data;
-//        },
-//        function(error){
-//        	console.log("DiscussOneTopicOneSubTopicListCount");
-//        	alert("error");
-//        });
-        
-        
+
         DiscussCount.get({},function (counts) {
             $scope.discuss_counts = counts.data;
         },
         function(error){
-        	console.log("DiscussOneTopicOneSubTopicListCount");
-//        	alert("error");
+        	console.log(error);
         });
 
         $("#preloader").show();
@@ -90,36 +79,12 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         $rootScope.bc_subTopic = 'all';
         $rootScope.bc_discussType = discussType;
 
-//        //User Discuss Like method
-//        $scope.UserLike = function(userId, discussId, index) {
-//
-//			//only read-only allowed without login
-//			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-//			{
-//				$rootScope.nextLocation = $location.path();
-//				$location.path('/users/login');
-//			}
-//			else
-//			{
-//	 			//Create the new discuss user like
-//	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-//			}
-//		}
-        
+
         $scope.add = function (type) {
             BY.removeEditor();
-        	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-			{
-				$rootScope.nextLocation = $location.path();
-				$location.path('/users/login');
-			}
-			else
-			{
-				$scope.error = "";
-	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-	            window.scrollTo(0, 0);
-			}
-            
+            $scope.error = "";
+            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            window.scrollTo(0, 0);
         };
 
         $scope.postSuccess = function () {
@@ -134,11 +99,6 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             $event.stopPropagation();
             if(type === "id"){
                 $location.path('/discuss/'+id);
-                //if(discussType === "A"){
-                //
-                //}else{
-                //    $location.path('/comment/'+id);
-                //}
 
             } else if(type === "name"){
                 var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
@@ -171,7 +131,9 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$rootScope', '$location', '$routeParams', 'DiscussPage',
     'DiscussCount','$sce',
     function ($scope, $route, $rootScope, $location, $routeParams, DiscussPage, DiscussCount, $sce) {
-	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+	//var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+
+        $('#discuss').dropdown("toggle");
 		$scope.preSelected = {};
 
         $scope.discussionViews = {};
@@ -214,24 +176,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
 
         $rootScope.bc_topic = topicId;
         $rootScope.bc_subTopic = subTopicId;
-        
-        
-        
         $rootScope.bc_discussType = discussType === '' ? 'A' : discussType;
 
-        //query to get the numbers
-        
-//        DiscussOneTopicOneSubTopicListCount.get({
-//            discussType: "All",
-//            topicId: topicQueryId,
-//            subTopicId: subTopicQueryId
-//        }).then(function (counts) {
-//            $scope.discuss_counts = counts.data;
-//        },
-//        function (error) {
-//        	console.log("DiscussOneTopicOneSubTopicListCount");
-//            alert("error");
-//        });
         var params = {};
         if(topicQueryId !=null && topicQueryId != "" && topicQueryId.toLowerCase() != "all"){
         	params.topicId = topicQueryId;
@@ -243,25 +189,12 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             $scope.discuss_counts = counts.data;
         },
         function(error){
-        	console.log("DiscussOneTopicOneSubTopicListCount");
-//        	alert("error");
+        	console.log(error);
         });
 
 
-        ///alert("one topic one sub topic :: " + $scope.discuss_counts);
-
         $("#preloader").show();
-//        DiscussOneTopicOneSubTopicList.query({
-//            discussType: discussType,
-//            topicId: topicQueryId,
-//            subTopicId: subTopicQueryId
-//        },function(value){
-//        	$scope.discuss = value.data;
-//        	$("#preloader").hide();
-//        },function(error){
-//        	console.log("DiscussOneTopicOneSubTopicList");
-//        	alert("error");
-//        })
+
         var params = {p:0,s:10};
         if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
         	params.discussType = discussType;
@@ -311,38 +244,12 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         	}
         }
         
-        
-
-
-//        //User Discuss Like method
-//        $scope.UserLike = function (userId, discussId, index) {
-//
-//        	//only read-only allowed without login
-//    		if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-//    		{
-//    			$rootScope.nextLocation = $location.path();
-//    			$location.path('/users/login');
-//    		}
-//    		else
-//    		{
-//    			//Create the new discuss user like
-//    			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-//    		}
-//        }
 
         $scope.add = function (type) {
             BY.removeEditor();
-        	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-			{
-				$rootScope.nextLocation = $location.path();
-				$location.path('/users/login');
-			}
-			else
-			{
-				$scope.error = "";
-	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-	            window.scrollTo(0, 0);
-			}
+            $scope.error = "";
+            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            window.scrollTo(0, 0);
         };
 
         $scope.postSuccess = function () {

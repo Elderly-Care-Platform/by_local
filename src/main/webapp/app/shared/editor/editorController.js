@@ -4,6 +4,27 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
         $scope.errorMsg = "";
         $scope.editor.subject = "";
         $scope.editor.articlePhotoFilename = "";
+        $scope.showCategory = false;
+        $scope.isLoginRequired = false;
+
+
+        $scope.showCategoryList = function(){
+            $scope.showCategory = ($scope.showCategory === false) ? true : false;
+        }
+
+
+        $scope.submit = function(discussType){
+            $scope.isLoginRequired = (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) ? true : false;
+
+
+            if(!$scope.isLoginRequired){
+                $scope.postContent(discussType);
+                $("#myModalHorizontal").hide();
+            }else{
+                //$("#myModalHorizontal").show();
+                $('#myModalHorizontal').modal('show')
+            }
+        }
 
         $scope.postContent = function (discussType) {
             $scope.discuss = new Discuss();
@@ -25,20 +46,20 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                     $scope.setErrorMessage();
                 }
             } else if($scope.discuss.discussType==="A"){
-                if($scope.discuss.topicId.length > 0 && $scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
+                if($scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();
                 }
 
             } else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
-                if($scope.discuss.topicId.length > 0 && $scope.discuss.text.trim().length > 0){
+                if($scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();
                 }
             } else {
-                //no more type
+                //no more types
             }
         };
 
@@ -47,16 +68,8 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                 $scope.errorMsg = "Please select title";
             }else if($scope.discuss.text.trim().length <= 0){
                 $scope.errorMsg = "Please add more details";
-            }else if($scope.discuss.topicId.length <= 0){
-                if($scope.discuss.discussType==="Q"){
-                    $scope.errorMsg = "Please select at least one category where your question would appear";
-                }else if($scope.discuss.discussType==="A"){
-                    $scope.errorMsg = "Please select at least one category where your story would appear";
-                }else if($scope.discuss.discussType==="P"){
-                    $scope.errorMsg = "Please select at least one category where your tips would appear";
-                }else{
-                    $scope.errorMsg = "";
-                }
+            }else{
+                $scope.errorMsg = "";
             }
         }
 

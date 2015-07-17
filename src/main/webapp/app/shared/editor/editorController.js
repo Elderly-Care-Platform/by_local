@@ -50,7 +50,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                     $scope.setErrorMessage();
                 }
             } else {
-                //no more type
+                //no more types
             }
         };
 

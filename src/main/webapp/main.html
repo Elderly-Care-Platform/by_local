@@ -60,17 +60,18 @@
     <link rel="stylesheet" href="assets/css/profile.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/replyCard.css?versionTimeStamp=%PROJECT_VERSION%">
 	<link rel="stylesheet" href="assets/css/productSearch.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/image-gallery.css?versionTimeStamp=%PROJECT_VERSION%">
 </head>
 
 <body ng-app="byApp">
     <div class="preloader" id="preloader" style="display: none;">
         <div class="preloaderImage"></div>
     </div>
-<!--
-<div class="preloader">
-    <div class="preloaderImage"></div>
-</div>
--->
+
+    <div class="modal fade by-login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"   id="myModalHorizontal"
+         ng-include="'app/components/login/modalLogin.html'" style="display: none">
+    </div>
+
 
 <div class="tnymcePopUpwrapper">
     <div class="tnymcePopUpwrapperInside">

@@ -1,5 +1,5 @@
-byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService',
-    function ($scope, $rootScope, $http, $location, $routeParams, User,SessionIdService) {
+byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService','ValidateUserCredential',
+    function ($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
 		window.scrollTo(0, 0);
        // $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
 
@@ -40,7 +40,10 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $rootScope.bc_discussType = 'All'; //type for discuss list
             $scope.setUserCredential(loginReg.body.data);
 
-            if($rootScope.nextLocation)
+            if($rootScope.inContextLogin){
+                ValidateUserCredential.loginCallback();
+            }
+            else if($rootScope.nextLocation)
             {
                 $location.path($rootScope.nextLocation);
                 $scope.$apply();
@@ -71,7 +74,10 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $rootScope.bc_discussType = 'All'; //type for discuss list
                 $scope.setUserCredential(login);
 
-                if($rootScope.nextLocation)
+                if($rootScope.inContextLogin){
+                    ValidateUserCredential.loginCallback();
+                }
+                else if($rootScope.nextLocation)
                 {
                     $location.path($rootScope.nextLocation);
                 }
@@ -105,7 +111,13 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                     $scope.createUserSuccess = "User registered successfully";
                     $scope.createUserError = '';
                     $scope.setUserCredential(login, "reg2");
-                    $scope.$parent.updateRegistration();
+
+                    if($rootScope.inContextLogin){
+                        ValidateUserCredential.loginCallback();
+                    } else{
+                        $scope.$parent.updateRegistration();
+                    }
+
                 }, function (error) {
                     // failure
                     console.log(error);

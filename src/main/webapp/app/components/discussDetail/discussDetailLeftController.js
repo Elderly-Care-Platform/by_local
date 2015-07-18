@@ -85,7 +85,12 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
         		function(value){
 		        	$scope.articlesByUser = value.data.content;
 		            $scope.header1 = "Also in";
-		            $scope.header2 = $rootScope.discussCategoryListMap[subTopicId].name;
+					if(subTopicId && subTopicId != "" && subTopicId.toLowerCase() != "all"){
+						$scope.header2 = $rootScope.discussCategoryListMap[subTopicId].name;
+					}else{
+						$scope.header2 = "DISCUSS";
+					}
+
         		},
         		function(error){
 			       	console.log("DiscussAllForDiscussType");

@@ -83,18 +83,18 @@
         ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
         COMMENTS
     </h2>
-    <!--<h2 class="text-success text-underlined"-->
-        <!--ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">-->
-        <!--Be the first to comment-->
-    <!--</h2>-->
+    <h2 class="text-success text-underlined"
+        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
+        Be the first to comment
+    </h2>
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'Q')">
         ANSWERS
     </h2>
-    <!--<h2 class="text-success text-underlined"-->
-        <!--ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'Q')">-->
-        <!--Be the first to answer-->
-    <!--</h2>-->
+    <h2 class="text-success text-underlined"
+        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'Q')">
+        Be the first to answer
+    </h2>
 
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
@@ -113,8 +113,8 @@
     </div>
 </div>
 
-<!--<div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"-->
-     <!--ng-init="initCommentEditor(detailResponse.discuss.id)"></div>-->
+<div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"
+     ng-init="initCommentEditor(detailResponse.discuss.id)"></div>
 
 <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" >
     <div ng-repeat="reply in detailResponse.replies" data-index="discussion-articles"

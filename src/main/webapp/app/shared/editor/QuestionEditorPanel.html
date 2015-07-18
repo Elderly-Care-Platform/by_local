@@ -15,10 +15,10 @@
     </div>
 
     <div class="col-md-12 no-padding form-header-content margin-bottom-15">
-       <a> Please select category in which your story will appear (optional)</a>
+       <a ng-click="showCategoryList()"> Please select category in which your story will appear (optional)</a>
     </div>
 
-    <div class="col-md-12 no-padding margin-bottom-35 form-header-content2" >
+    <div class="col-md-12 no-padding margin-bottom-35" ng-if="showCategory">
         <div class="panel-group acc-v1" id="accordion-1">
             <div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryList">
                 <div class="panel-heading">

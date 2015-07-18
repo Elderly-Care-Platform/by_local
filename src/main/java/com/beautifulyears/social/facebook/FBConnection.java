@@ -23,8 +23,7 @@ public class FBConnection {
 	static String accessToken = "";
 
 	public String getFBAuthUrl(HttpServletRequest req) {
-		redirectURI = "http://" + req.getServerName() + ":"
-				+ req.getServerPort() + req.getContextPath()
+		redirectURI = System.getProperty("path")
 				+ FBConnection.REDIRECT_URI;
 		String fbLoginUrl = "";
 		try {

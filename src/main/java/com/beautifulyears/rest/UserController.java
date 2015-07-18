@@ -50,15 +50,15 @@ import com.beautifulyears.util.Util;
 @RequestMapping("/users")
 public class UserController {
 
-	private UserRepository userRepository;
-	private MongoTemplate mongoTemplate;
+	private static UserRepository userRepository;
+	private static MongoTemplate mongoTemplate;
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	public UserController(UserRepository userRepository,
 			MongoTemplate mongoTemplate) {
-		this.userRepository = userRepository;
-		this.mongoTemplate = mongoTemplate;
+			UserController.userRepository = userRepository;
+			UserController.mongoTemplate = mongoTemplate;
 	}
 
 	@RequestMapping(value = "/validateSession", method = RequestMethod.GET)
@@ -299,7 +299,7 @@ public class UserController {
 			HttpServletResponse res, User user) {
 		LoggerUtil.logEntry();
 		Session session = new Session(user, req);
-		this.mongoTemplate.save(session);
+		mongoTemplate.save(session);
 		req.getSession().setAttribute("session", session);
 		req.getSession().setAttribute("user", user);
 		return session;
@@ -310,13 +310,13 @@ public class UserController {
 		Session session = (Session) req.getSession().getAttribute("session");
 		if (null != session) {
 			session.setStatus(DiscussConstants.SESSION_STATUS_INACTIVE);
-			this.mongoTemplate.save(session);
+			mongoTemplate.save(session);
 			req.getSession().invalidate();
 		}
 		return null;
 	}
 
-	private User getUser(String userId) {
+	public static User getUser(String userId) {
 		LoggerUtil.logEntry();
 		User user = userRepository.findOne(userId);
 		return user;

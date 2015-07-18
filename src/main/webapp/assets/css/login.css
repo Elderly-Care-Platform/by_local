@@ -251,3 +251,15 @@ input[type=checkbox]
 	/*background-image:url(hover_plus.png);*/
 /*}*/
 
+.by-modal-dialog {
+	width:70%;
+	max-width: 910px;
+	min-width: 320px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.by-social-login{
+	padding-right: 5px;
+	padding-bottom: 5px;
+}

@@ -1,5 +1,7 @@
 package com.beautifulyears.rest;
 
+import java.text.MessageFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,12 +20,14 @@ import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
 
 /**
@@ -86,9 +90,11 @@ public class DiscussLikeController {
 						discussLike = new DiscussLike(user, discussId,
 								DiscussConstants.DISCUSS_TYPE_DISCUSS);
 						discuss.getLikedBy().add(user.getId());
+						sendMailForLikeOnDiscuss(discuss,user);
 						discussLikeRepository.save(discussLike);
 						discussRepository.save(discuss);
 						logger.debug("discuss content liked successfully");
+						
 						response =  BYGenericResponseHandler.getResponse(discussResponse
 								.getDiscussEntity(discuss, user));
 					}
@@ -167,11 +173,12 @@ public class DiscussLikeController {
 						discussLike = new DiscussLike(user, contentId,
 								DiscussConstants.DISCUSS_TYPE_DISCUSS);
 						reply.getLikedBy().add(user.getId());
+						sendMailForLikeOnComments(reply, user);
 						discussLikeRepository.save(discussLike);
 						discussReplyRepository.save(reply);
+						
 					}
 				}
-
 			}
 			reply.setLikeCount(reply.getLikedBy().size());
 			if (null != user && reply.getLikedBy().contains(user.getId())) {
@@ -181,6 +188,29 @@ public class DiscussLikeController {
 			Util.handleException(e);
 		}
 		return reply;
+	}
+	
+	private void sendMailForLikeOnDiscuss(Discuss discuss, User user) {
+		if(!discuss.getUserId().equals(user.getId())){
+			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
+			String title = !Util.isEmpty(discuss.getTitle()) ? discuss.getTitle() : discuss.getText();
+			String userName = !Util.isEmpty(discuss.getUsername()) ? discuss.getUsername() : "Anonymous User";
+			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,discuss.getId());
+			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName, "content",title , user.getUserName(),path,path);
+			MailHandler.sendMailToUserId(discuss.getUserId(), "Your content was liked on beautifulYears.com", body);
+		}
+	}
+	
+	private void sendMailForLikeOnComments(DiscussReply reply, User user) {
+		if(!reply.getUserId().equals(user.getId())){
+			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
+			String title = reply.getText();
+			String userName = !Util.isEmpty(reply.getUserName()) ? reply.getUserName() : "Anonymous User";
+			String replyTypeString = (reply.getReplyType() == DiscussConstants.DISCUSS_TYPE_ANSWER) ? "answer" : "comment";
+			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,reply.getDiscussId());
+			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName,replyTypeString, title , user.getUserName(),path,path);
+			MailHandler.sendMailToUserId(reply.getUserId(), "Your "+replyTypeString+" was liked on beautifulYears.com", body);
+		}
 	}
 
 }

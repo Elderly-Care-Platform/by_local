@@ -1,21 +1,17 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
-    function ($scope, $rootScope, Discuss) {
-
-	$(".form-header-content a").on("click", function () {
-	    var state = $(this).data('state');
-	    state = !state;
-	    if (state) {
-	        $(".form-header-content2").addClass("show");
-	    } else {
-	        $(".form-header-content2").removeClass("show");
-	    }
-	    $(this).data('state', state);
-	});
-	
+byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential',
+    function ($scope, $rootScope, Discuss, ValidateUserCredential) {
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
         $scope.editor.articlePhotoFilename = "";
+        $scope.showCategory = false;
+        $scope.isValidUser = false;
+
+
+        $scope.showCategoryList = function(){
+            $scope.showCategory = ($scope.showCategory === false) ? true : false;
+        }
+
 
         $scope.postContent = function (discussType) {
             $scope.discuss = new Discuss();
@@ -37,14 +33,14 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                     $scope.setErrorMessage();
                 }
             } else if($scope.discuss.discussType==="A"){
-                if($scope.discuss.topicId.length >= 0 && $scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
+                if($scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();
                 }
 
             } else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
-                if($scope.discuss.topicId.length >= 0 && $scope.discuss.text.trim().length > 0){
+                if($scope.discuss.text.trim().length > 0){
                     $scope.submitContent();
                 }else{
                     $scope.setErrorMessage();
@@ -59,16 +55,8 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                 $scope.errorMsg = "Please select title";
             }else if($scope.discuss.text.trim().length <= 0){
                 $scope.errorMsg = "Please add more details";
-            }else if($scope.discuss.topicId.length <= 0){
-                if($scope.discuss.discussType==="Q"){
-                    $scope.errorMsg = "Please select at least one category where your question would appear";
-                }else if($scope.discuss.discussType==="A"){
-                    $scope.errorMsg = "Please select at least one category where your story would appear";
-                }else if($scope.discuss.discussType==="P"){
-                    $scope.errorMsg = "Please select at least one category where your tips would appear";
-                }else{
-                    $scope.errorMsg = "";
-                }
+            }else{
+                $scope.errorMsg = "";
             }
         }
 
@@ -79,9 +67,11 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss',
                 BY.editorCategoryList.resetCategoryList();
                 $scope.$parent.postSuccess();
             },
-            function (error) {
-            	console.log("Discuss");
-//                alert("error");
+            function (errorResponse) {
+                console.log(errorResponse);
+                if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                    ValidateUserCredential.login();
+                }
             });
         };
 

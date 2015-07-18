@@ -1,4 +1,4 @@
-byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce','broadCastData',
+byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData',
     function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData) {
 
         var discussId = $routeParams.discussId;	//discuss Id from url
@@ -8,167 +8,156 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $("#preloader").show();
-        DiscussDetail.get({discussId: discussId}, function(discussDetail, header){
-            //broadcast data to left panel, to avoid another query from left panel of detail page
-        	$scope.detailResponse = discussDetail.data;
-            broadCastData.update(discussDetail.data.discuss);
-            $scope.detailResponse.discuss.createdAt = discussDetail.data.discuss.createdAt;
-            $("#preloader").hide();
-        },
-        function(error){
-        	console.log("error");
-//        	alert("error");
-        });
+
+        DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
+                //broadcast data to left panel, to avoid another query from left panel of detail page
+                $scope.detailResponse = discussDetail.data;
+                broadCastData.update(discussDetail.data.discuss);
+                $scope.detailResponse.discuss.createdAt = discussDetail.data.discuss.createdAt;
+                $("#preloader").hide();
+            },
+            function (error) {
+                console.log("error");
+            });
 
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
         //update data in view after comments/answers are posted from child controller
-        $scope.$on('handleBroadcast', function() {
-            if(broadCastData.newData.discuss && discussId === broadCastData.newData.discuss.id){
+        $scope.$on('handleBroadcast', function () {
+            if (broadCastData.newData.discuss && discussId === broadCastData.newData.discuss.id) {
                 $scope.detailResponse = broadCastData.newData;
             }
         });
     }]);
 
 
-byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce','broadCastData',
-    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData) {
+byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData','ValidateUserCredential',
+    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, ValidateUserCredential) {
         $scope.showEditor = false;
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
-        $scope.createNewComment = function(editorId){
-            if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-            {
-                $location.path('/users/login');
-            }else{
-                if(!$scope.showEditor)
-                    $scope.initCommentEditor(editorId);
-            }
+        $scope.createNewComment = function (editorId) {
+            if (!$scope.showEditor)
+                $scope.initCommentEditor(editorId);
         };
 
-        $scope.initCommentEditor = function(editorId){
+        $scope.initCommentEditor = function (editorId) {
             $scope.showEditor = true;
-            BY.addEditor({"editorTextArea":editorId, "commentEditor" : true, "autoFocus":true});
+            BY.addEditor({"editorTextArea": editorId, "commentEditor": true, "autoFocus": true});
             tinyMCE.execCommand('mceFocus', false, editorId);
         };
 
         //dispose the tinymce editor after successful post or on pressing of cancel button from editor
-        $scope.disposeComment  = function(editorId){
+        $scope.disposeComment = function (editorId) {
             $scope.showEditor = false;
 
-            if(tinymce.get(editorId))
+            if (tinymce.get(editorId))
                 tinyMCE.execCommand("mceRemoveEditor", false, editorId);
         };
 
         //Post method called from comments or answers of main detail discuss
-        $scope.postComment = function(discussId, parentReplyId){
+        $scope.postComment = function (discussId, parentReplyId) {
             $scope.discussReply = new DiscussDetail();
-            $scope.discussReply.parentReplyId = parentReplyId ?  parentReplyId : "";
+            $scope.discussReply.parentReplyId = parentReplyId ? parentReplyId : "";
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(parentReplyId).getContent();
 
-            $scope.discussReply.$postComment(function (discussReply) {
-                broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
-                $scope.disposeComment(parentReplyId);           //dispose comment editor and remove tinymce after successful post of comment/answer
-            },
-            function(error){
-            	console.log("error");
-//            	alert("error");
-            });
+            $scope.discussReply.$postComment(
+                function (discussReply) {
+                    broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
+                    $scope.disposeComment(parentReplyId);           //dispose comment editor and remove tinymce after successful post of comment/answer
+                },
+                function (errorResponse) {
+                    console.log(errorResponse);
+                    if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                        ValidateUserCredential.login();
+                    }
+                });
         };
 
 
         //Post method called from main detail discuss
-        $scope.postMainReply = function(discussId, discussType){
-            if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-            {
-                if ("sessionStorage" in window) {
-                    sessionStorage.setItem("CommentData", tinymce.get(discussId).getContent());
-                }
-                $location.path('/users/login');
-            }else {
-                $scope.discussReply = new DiscussDetail();
-                $scope.discussReply.discussId = discussId;
-                $scope.discussReply.text = tinymce.get(discussId).getContent();
-                if(discussType==="Q"){
-                    $scope.discussReply.$postAnswer(function (discussReply, headers) {
+        $scope.postMainReply = function (discussId, discussType) {
+            $scope.discussReply = new DiscussDetail();
+            $scope.discussReply.discussId = discussId;
+            $scope.discussReply.text = tinymce.get(discussId).getContent();
+            if (discussType === "Q") {
+                $scope.discussReply.$postAnswer(function (discussReply, headers) {
                         broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
                         $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
                     },
-                    function(error){
-                    	console.log("error");
-//                    	alert("error");
+                    function (errorResponse) {
+                        console.log(errorResponse);
+                        if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                            ValidateUserCredential.login();
+                        }
                     });
-                }else{
-                    $scope.discussReply.$postComment(function (discussReply, headers) {
+            } else {
+                $scope.discussReply.$postComment(function (discussReply, headers) {
                         broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
                         $scope.disposeComment(discussId); //dispose comment editor and remove tinymce after successful post of comment/answer
                     },
-                    function(error){
-                    	console.log("error");
-//                    	alert("error");
+                    function (errorResponse) {
+                        console.log(errorResponse);
+                        if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                            ValidateUserCredential.login();
+                        }
                     });
-                }
             }
         };
     }]);
 
-byControllers.controller('DiscussLikeController', ['$scope', '$rootScope','DiscussLike','$location',
-    function ($scope, $rootScope, DiscussLike, $location) {
+byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'DiscussLike', '$location','ValidateUserCredential',
+    function ($scope, $rootScope, DiscussLike, $location, ValidateUserCredential) {
         $scope.beforePost = true;
 
-        $scope.likeDiscuss = function(discussId){
-            if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-            {
-                $rootScope.nextLocation = $location.path();
-                $location.path('/users/login');
-            }else{
-                $scope.discussLike = new DiscussLike();
-                $scope.discussLike.discussId = discussId;
-                $scope.discussLike.$likeDiscuss(function(likeReply, headers){
+        $scope.likeDiscuss = function (discussId) {
+            $scope.discussLike = new DiscussLike();
+            $scope.discussLike.discussId = discussId;
+            $scope.discussLike.$likeDiscuss(function (likeReply, headers) {
                     $scope.beforePost = false;
                     $scope.aggrLikeCount = likeReply.data.aggrLikeCount;
                 },
-                function(error){
-                	console.log(error.data.error.errorMsg);
+                function (errorResponse) {
+                    console.log(errorResponse);
+                    if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                        ValidateUserCredential.login();
+                    }
                 });
-            }
         }
 
-        $scope.likeComment = function(commentId, replyType){
-            if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-            {
-                $rootScope.nextLocation = $location.path();
-                $location.path('/users/login');
-            }else{
-                $scope.discussLike = new DiscussLike();
-                $scope.discussLike.replyId = commentId;
+        $scope.likeComment = function (commentId, replyType) {
+            $scope.discussLike = new DiscussLike();
+            $scope.discussLike.replyId = commentId;
 
-                if(replyType===6){
-                    $scope.discussLike.$likeAnswer(function(likeReply, headers){
+            if (replyType === 6) {
+                $scope.discussLike.$likeAnswer(function (likeReply, headers) {
                         $scope.beforePost = false;
                         $scope.aggrLikeCount = likeReply.data.likeCount;
                     },
-                    function(error){
-                    	console.log(error.data.error.errorMsg);
+                    function (errorResponse) {
+                        console.log(errorResponse);
+                        if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                            ValidateUserCredential.login();
+                        }
                     }
-                    );
-                }else{
-                    $scope.discussLike.$likeComment(function(likeReply, headers){
+                );
+            } else {
+                $scope.discussLike.$likeComment(function (likeReply, headers) {
                         $scope.beforePost = false;
                         $scope.aggrLikeCount = likeReply.data.likeCount;
                     },
-                    function(error){
-                    	console.log(error.data.error.errorMsg);
+                    function (errorResponse) {
+                        console.log(errorResponse);
+                        if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                            ValidateUserCredential.login();
+                        }
                     });
-                }
             }
-
-
         }
 
     }]);

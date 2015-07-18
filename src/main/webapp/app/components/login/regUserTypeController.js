@@ -56,13 +56,19 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
             $scope.userProfile.userTypes = $.map($scope.selectedUserType, function(value, key){
                 return parseInt(key);
             })
-            $scope.userProfile.$post(function(profile, headers){
-                console.log("success");
-                $scope.$parent.updateRegistration();
-            }, function(error){
-                console.log("error");
-                $scope.$parent.exit();
-            });
+
+            if($scope.userProfile.userTypes.length > 0){
+                $scope.userProfile.$post(function(profile, headers){
+                    console.log("success");
+                    $scope.$parent.updateRegistration();
+                }, function(error){
+                    console.log("error");
+                    $scope.cancel();
+                });
+            } else{
+                $scope.cancel();
+            }
+
         }
 
         $scope.cancel = function(){

@@ -1,15 +1,11 @@
 .by_home_content {
     margin-top: 37px;
 }
-.errorRed
-{
-	color:red;
-}
+
 .by_breadcrumbs_container {
     height: auto;
     min-height:35px;
     overflow: hidden;
-
 }
 
 .by_lc_fix{
@@ -402,4 +398,8 @@
 {
 	width:100%;
 }
+}
+
+.errorRed {
+    color: #ff0000;
 }

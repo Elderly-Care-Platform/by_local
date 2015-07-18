@@ -4,7 +4,7 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 99999;
+  z-index: 200;
   background: url(../img/Slider_Text_Box.png?versionTimeStamp=%PROJECT_VERSION%);
 }
 .previewButton
@@ -44,7 +44,7 @@
 	left: 0px;
 	background: rgba(0, 0, 0, 0.8);;
 	display: none;
-	z-index: 9999999;
+	z-index: 200;
 }
 .tnymcePopUpwrapperInside
 {
@@ -79,6 +79,8 @@
 	font-size: 15px;
 	cursor: pointer;
 }
+.tnymcePopUpwrapperInsideLabel
+.tnymcePopUpwrapperInsideLabel
 .tnymcePopUpwrapperInsideLabel
 {
 	width: 100px;
@@ -176,7 +178,7 @@
 	right: 5px;
 	bottom: 45px;
 	cursor: pointer;
-	z-index: 9999;
+	z-index: 99;
 	display: none;
 	background: url(../img/Top_Button.jpg?versionTimeStamp=%PROJECT_VERSION%);
 	border-radius: 50% !important;
@@ -607,7 +609,7 @@
 	border-bottom: 0px;
 	position: fixed;
 	background-size:cover;
-	z-index: +9999;
+	z-index: 110;
 }
 .header .dropdown-menu
 {
@@ -674,15 +676,7 @@
 {
 	float: right;
 }
-.searchIconPSC
-{
-	margin-top: -20px;
-	margin-right: 5px;
-	cursor: pointer;
-	float: right;
-	cursor: pointer;
-	z-index: 999;
-}
+
 
 
 .form-control
@@ -884,11 +878,7 @@
 	background-color: #aaa;
 }
 
-.breadcrumbs
-{	
-	width: 100%;
-	z-index: +99;
-}
+
 .info-blocks .info-blocks-in p
 {
 	font-size: 15px;
@@ -1341,63 +1331,8 @@
 			width: 66% !important;
 		}
 	}
-.profilePopupImages
-{
-	width: 100%;
-	height: 100%;
-	position: fixed;
-    z-index: 999999;
-    display: none;
-}	
-.profilePopupImagesOpacity
-{
-	width: 100%;
-	height: 100%;
-	background: #000;
-	opacity: 0.4;
-    filter: alpha(opacity=40);
-    position: absolute;
-    top: 0px;
-    left: 0px;
-}
-.profilePopupImagesWrapper
-{
-	position: relative;
-	width: 80%;
-	height: auto;
-	min-height: 30%;
-	overflow: hidden;
-	margin: 5% 10%;
-	background: #fff;
-	display: block;
-}
-.profilePopupImagesWrapperImage
-{
-	width: 100%;
-	height: 100%;	
-	overflow-y:auto;
-}
-.profilePopupImagesWrapperClose
-{
-	width: 30px;
-	height: 30px;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	z-index: 999;
-	cursor: pointer;
-}
-.profileHoverImages
-{
-	width: 150px;
-	height: 150px;
-	border:3px solid #000;
-	border-radius: 5px !important;
-	position: absolute;
-	z-index: 99999999;
-	background: #fff;
-	display: none;
-}
+
+
 .panel-body:hover
 {
 	background: #F8F6F6;
@@ -1432,7 +1367,7 @@
 	}
 	.searchWrapper{
 		position: absolute;
-		z-index: 999;
+		z-index: 200;
 		width: 196px;
 		margin-top: -76px;
 		right: 16px;

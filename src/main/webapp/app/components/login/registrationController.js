@@ -14,6 +14,9 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                     if($scope.profile.userTypes.indexOf(4)!== -1){
                         $scope.regLevel = 2;
                         $scope.views.contentPanel = "app/components/login/regInstitution.html";
+                    }else if($scope.profile.userTypes.indexOf(7)!== -1){
+                        $scope.regLevel = 2;
+                        $scope.views.contentPanel = "app/components/login/regIndividual.html";                    	
                     } else {
                         $scope.exit();
                     }

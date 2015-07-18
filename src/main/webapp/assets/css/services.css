@@ -8,9 +8,24 @@
 
 .service-card {
     padding: 0px !important;
+    margin-bottom: 20px !important;
     font-family: century_gothic !important;
-    max-height: 285px !important;
     overflow: hidden;
+    min-height: 100px ;
+    max-height: 285px !important;
+
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d5d5d5;
+
+    box-shadow: 10px 10px 6px -6px #f3f3f3;
+    -webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
+    background: #fff;
+}
+
+.service-card[data-index="discussion-articles"] {
+    cursor: pointer;
 }
 
 .service-card .article-heading{

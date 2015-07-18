@@ -188,11 +188,11 @@
                         <img class="by-reg-image"
                              ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
                         <a class="image-fav" ng-if="!profileImage.loading"
-                           ng-click="deleteProfileImage(profileImage)"></a>
+                           ng-click="deleteProfileImage()"></a>
                     </div>
                     <div class="by-reg-gallery" ng-repeat="img in profileImage">
                         <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteProfileImage()"></a>
                         <a class="by-reg-loadingImage" ng-if="img.loading"></a>
                     </div>
                     <div class="by-reg-uploadLabel">

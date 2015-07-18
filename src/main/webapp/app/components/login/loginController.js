@@ -153,7 +153,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 element.href = apiPrefix + "#/users/logout/" + login.sessionId;
 
                 var pro = document.getElementById('profile_placeholder');
-                pro.innerHTML = localStorage.getItem("USER_NAME") ?  localStorage.getItem("USER_NAME") : "Profile";
+                var userName = localStorage.getItem("USER_NAME");
+                pro.innerHTML = (userName && userName!==null) ?  localStorage.getItem("USER_NAME") : "Anonymous";
                 pro.href = apiPrefix + "#/users/login/"; //******************* to be removed*************//
             }
             else {

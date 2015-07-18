@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.beautifulyears.domain.ServiceTypes;
 
@@ -93,9 +94,9 @@ public class ServiceTypesResponse implements IResponse {
 	@Override
 	public Map<Integer, ServiceTypesEntity> getResponse() {
 		root = new HashMap<Integer, ServiceTypesEntity>();
-		Iterator it = ServiceTypesMap.entrySet().iterator();
+		Iterator<Entry<String, ServiceTypesEntity>> it = ServiceTypesMap.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
+			Entry<String, ServiceTypesEntity> pair =  it.next();
 			ServiceTypesEntity ServiceTypes = (ServiceTypesEntity) pair.getValue();
 			Map<Integer, ServiceTypesEntity> childMap = root;
 			if (null != ServiceTypes.getParentId()) {

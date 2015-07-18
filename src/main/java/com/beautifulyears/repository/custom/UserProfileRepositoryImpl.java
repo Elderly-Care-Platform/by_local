@@ -1,21 +1,16 @@
 package com.beautifulyears.repository.custom;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserTypes;
-
 import com.beautifulyears.util.LoggerUtil;
 
 public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {

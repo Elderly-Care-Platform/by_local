@@ -8,6 +8,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
 
         if($scope.profileType===0){
             $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            $scope.profileViews.contentPanel = "app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%";
+          //  $scope.profileViews.contentPanel = "app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.profileViews.contentPanel = "app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%";
         }
     }]);

@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.BasicProfileInfo;
-import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
@@ -140,7 +138,6 @@ public class UserProfileController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		LoggerUtil.logEntry();
-		HttpStatus httpStatus = HttpStatus.OK;
 		logger.debug("trying to get all user profiles by page");
 		try {
 			/* check the collection */
@@ -310,7 +307,6 @@ public class UserProfileController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		this.userProfile = null;
-		HttpStatus httpStatus = HttpStatus.OK;
 		LoggerUtil.logEntry();
 		logger.debug("trying to update a user Profile");
 

@@ -26,7 +26,7 @@ public class DiscussConstants {
 	public static final int SESSION_STATUS_INACTIVE=1;
 	public static final int SESSION_STATUS_EXPIRED=2;
 	
-	public static final String PATH_DISCUSS_DETAIL_PAGE ="/main.html#/discuss/{0}";
+	public static final String PATH_DISCUSS_DETAIL_PAGE ="/#/discuss/{0}";
 	
 
 }

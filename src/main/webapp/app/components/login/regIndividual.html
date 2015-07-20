@@ -1,32 +1,56 @@
-<div class="row" ng-controller="regInstitutionController">
-    <form name="institutionForm" class="third-register-page grayRegisterBgLight" novalidate
+<div class="row" ng-controller="regIndividualController">
+    <form name="individualForm" class="third-register-page grayRegisterBgLight" novalidate
           style="background:transparent;">
         <div class="col-md-12 no-padding margin-bottom-20">
             <div class="col-md-12 no-padding  list-head dp-block">
-                MY INSTITUTION
+                MY Professional information
             </div>
 
             <div class="col-md-12 no-padding">
-                <div class="bg-green-h2" style="width: 216px;"></div>
+                <div class="bg-green-h2" style="width: 293px;"></div>
             </div>
         </div>
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
+
+            <div class="row margin-bottom-20 marginRightMinus5 register-page">
+                <div class="col-md-5">
+                    I am
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                    <select class="form-control grayBgLogin" ng-model="individualInfo.sex">
+                        <option data-gender="0" value="0">Ms.</option>
+                        <option data-gender="1" value="1">Mr.</option>
+                    </select>
+
+                </div>
+            </div>
             <div class="row margin-bottom-20 marginRightMinus5 register-page">
                 <div class="col-md-5 required">
-                    Name of your company
+                    First Name
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" name="firstName"
-                           class="name-textbox textbox grayBg" placeholder="Please enter a name of your company"
+                           class="name-textbox textbox grayBg" placeholder="Please enter first name"
                            ng-model="basicProfileInfo.firstName" required/>
-                    <span ng-show="institutionForm.firstName.$invalid && submitted" class="errorRed">Please enter your company name</span>
+                    <span ng-show="individualForm.firstName.$invalid && submitted" class="errorRed">Please enter your first name</span>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-20 marginRightMinus5 register-page">
+                <div class="col-md-5">
+                    Last Name
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                    <input type="text" class="username-textbox textbox" name="lastName"
+                           class="name-textbox textbox grayBg" placeholder="Please enter last name"
+                           ng-model="individualInfo.lastName"/>
                 </div>
             </div>
 
 
             <div class="row margin-bottom-20 marginRightMinus5 register-page">
                 <div class="col-md-5 required">
-                    We provide services in the following areas
+                    I provide services in the following areas
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <div class="panel-group acc-v1" id="accordion-1">
@@ -63,22 +87,34 @@
 
                         </div>
                     </div>
-                    <span ng-show="minCategoryError && submitted" class="errorRed">Please select atleast one category</span>
+                    <span ng-show="minCategoryError && submitted"
+                          class="errorRed">Please select atleast one category</span>
                 </div>
 
             </div>
 
             <div class="row margin-bottom-20 marginRightMinus5">
                 <div class="col-md-5 col-xs-9" style="margin-right: 17px;">
-                    Our specialists are ready to visit clients at home
+                    I am ready to visit clients at home
                 </div>
                 <input type="checkbox" id="homeVisit" checked data-toggle="toggle" data-on="Yes"
                        data-off="No" data-onstyle="success" data-offstyle="danger">
             </div>
 
+            <div class="row margin-bottom-20 marginRightMinus5 register-page">
+                <div class="col-md-5 col-xs-9">
+                    Years of experience
+                </div>
+                <div class="col-md-7 col-xs-3 no-padding-right register-page" style="width:110px;">
+                    <input type="text" class="username-textbox textbox" name="years"
+                           class="name-textbox textbox grayBg" placeholder="XX years"
+                           ng-model="serviceProviderInfo.yearsExperience"/>
+                </div>
+            </div>
+
             <div class="row margin-bottom-20 marginRightMinus5">
                 <div class="col-md-12 margin-bottom-20">
-                    <b>Our corporate address is</b>
+                    <b> My address is</b>
                 </div>
                 <div class="col-md-12 no-padding">
                     <div style="padding-left: 15px">
@@ -98,8 +134,9 @@
                                    ng-model="basicProfileInfo.primaryPhoneNo"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"
                                    required>
-                            <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted" class="errorRed">Please enter your contact number</span>
-                            <span ng-show="institutionForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
+                            <span ng-show="individualForm.primaryTel.$invalid && !individualForm.primaryTel.$error.pattern && submitted"
+                                  class="errorRed">Please enter your contact number</span>
+                            <span ng-show="individualForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
 
@@ -112,7 +149,8 @@
                             <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
                                    ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
-                            <span ng-show="institutionForm.{{'tel'+$index}}.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
+                            <span ng-show="individualForm.{{'tel'+$index}}.$error.pattern && submitted"
+                                  class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
 
@@ -132,8 +170,9 @@
                             <input type="email" class="username-textbox textbox" name="primaryEmail"
                                    ng-model="basicProfileInfo.primaryEmail"
                                    placeholder="Email" required/>
-                            <span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted" class="errorRed">Please enter your Email Id!</span>
-                        <span ng-show="institutionForm.primaryEmail.$error.email && submitted" class="errorRed">
+                            <span ng-show="individualForm.primaryEmail.$invalid && !individualForm.primaryEmail.$error.email && submitted"
+                                  class="errorRed">Please enter your Email Id!</span>
+                        <span ng-show="individualForm.primaryEmail.$error.email && submitted" class="errorRed">
                             Not valid Email!
                         </span>
                         </div>
@@ -148,7 +187,8 @@
                             <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
                                    ng-model="basicProfileInfo.secondaryEmails[$index]"
                                    placeholder="Email"/>
-                            <span ng-show="institutionForm.{{'email'+$index}}.$error.email && submitted" class="errorRed">Not valid Email!</span>
+                            <span ng-show="individualForm.{{'email'+$index}}.$error.email && submitted"
+                                  class="errorRed">Not valid Email!</span>
                         </div>
                     </div>
 
@@ -242,7 +282,7 @@
                     <div class="shadow-wrapper margin-top-15 margin-bottom-15 ng-scope">
                         <div class="tag-box tag-box-v1 box-shadow shadow-effect-2">
                             <div class="aboutDiscussText">
-                                Please write us more about your company and about services you provides. How
+                                Please write us more about services you provide. How
                                 different are you from others? What makes you stand out? Are you ready to go for
                                 an extra mile for your customers?
                             </div>
@@ -264,7 +304,7 @@
 
 
         <div class="col-md-12 margin-top-20 margin-bottom-20">
-            <input type="button" value="Done" class="nextButton" ng-click="postUserProfile(institutionForm)"/>
+            <input type="button" value="Done" class="nextButton" ng-click="postUserProfile(individualForm)"/>
 
             <div class="clearfix"></div>
         </div>

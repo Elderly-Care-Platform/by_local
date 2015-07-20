@@ -1,5 +1,6 @@
 <div class="row" ng-controller="regIndividualController">
-    <form name="individualForm" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;" ng-submit="postUserProfile(individualForm)">
+    <form name="individualForm" class="third-register-page grayRegisterBgLight" novalidate
+          style="background:transparent;">
         <div class="col-md-12 no-padding margin-bottom-20">
             <div class="col-md-12 no-padding  list-head dp-block">
                 MY Professional information
@@ -10,17 +11,17 @@
             </div>
         </div>
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
-        
-        <div class="row margin-bottom-20 marginRightMinus5 register-page">
+
+            <div class="row margin-bottom-20 marginRightMinus5 register-page">
                 <div class="col-md-5">
                     I am
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                  <select class="form-control grayBgLogin" ng-model="individualInfo.sex">
-                                            <option data-gender="0" value="0" >Ms.</option>
-                                            <option data-gender="1" value="1" >Mr.</option>
-                                        </select>
-                    
+                    <select class="form-control grayBgLogin" ng-model="individualInfo.sex">
+                        <option data-gender="0" value="0">Ms.</option>
+                        <option data-gender="1" value="1">Mr.</option>
+                    </select>
+
                 </div>
             </div>
             <div class="row margin-bottom-20 marginRightMinus5 register-page">
@@ -34,7 +35,7 @@
                     <span ng-show="individualForm.firstName.$invalid && submitted" class="errorRed">Please enter your first name</span>
                 </div>
             </div>
-            
+
             <div class="row margin-bottom-20 marginRightMinus5 register-page">
                 <div class="col-md-5">
                     Last Name
@@ -42,7 +43,7 @@
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" name="lastName"
                            class="name-textbox textbox grayBg" placeholder="Please enter last name"
-                           ng-model="individualInfo.lastName" />                    
+                           ng-model="individualInfo.lastName"/>
                 </div>
             </div>
 
@@ -79,16 +80,29 @@
                                 <div class="panel-body col-md-6" ng-repeat="subCategory in category.children">
                                     <input type="checkbox" ng-change="selectServiceType(subCategory)"
                                            ng-model="subCategory.selected">
-                                    <span>{{subCategory.name}}</span>
+                                    <span style="line-height: 23px;">{{subCategory.name}}</span>
                                 </div>
                             </div>
                             <div style="clear:both"></div>
 
                         </div>
                     </div>
-                    <span ng-show="minCategoryError && submitted" class="errorRed">Please select atleast one category</span>
+                    <span ng-show="minCategoryError && submitted"
+                          class="errorRed">Please select at least one category</span>
                 </div>
 
+            </div>
+
+            <div class="row margin-bottom-20 marginRightMinus5" ng-if="showSpeciality">
+                <div class="col-md-5 required">
+                    Please enter speciality
+                </div>
+                <div class="col-md-7 no-padding-right register-page" >
+                    <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
+                           placeholder="Speciality" ng-model="selectedSpeciality" required/>
+
+                    <span ng-show="individualForm.speciality.$invalid && submitted" class="errorRed">Please enter your speciality</span>
+                </div>
             </div>
 
             <div class="row margin-bottom-20 marginRightMinus5">
@@ -98,21 +112,21 @@
                 <input type="checkbox" id="homeVisit" checked data-toggle="toggle" data-on="Yes"
                        data-off="No" data-onstyle="success" data-offstyle="danger">
             </div>
-            
-             <div class="row margin-bottom-20 marginRightMinus5 register-page">
+
+            <div class="row margin-bottom-20 marginRightMinus5 register-page">
                 <div class="col-md-5 col-xs-9">
                     Years of experience
                 </div>
                 <div class="col-md-7 col-xs-3 no-padding-right register-page" style="width:110px;">
                     <input type="text" class="username-textbox textbox" name="years"
-                           class="name-textbox textbox grayBg" placeholder="XX years" 
-                           ng-model="serviceProviderInfo.yearsExperience"/>                    
+                           class="name-textbox textbox grayBg" placeholder="XX years"
+                           ng-model="serviceProviderInfo.yearsExperience"/>
                 </div>
             </div>
 
             <div class="row margin-bottom-20 marginRightMinus5">
                 <div class="col-md-12 margin-bottom-20">
-                   <b> My address is</b>
+                    <b> My address is</b>
                 </div>
                 <div class="col-md-12 no-padding">
                     <div style="padding-left: 15px">
@@ -122,89 +136,93 @@
                     <!--<div ng-repeat="address in basicProfileInfo.secondaryUserAddress">-->
                     <!--<div ng-include="'app/components/login/addressTemplate.html'"></div>-->
                     <!--</div>-->
-                    
-                    <div class="row margin-bottom-20 marginRightMinus5 marginLeft0" style="padding-left: 15px">
-                <div class="col-md-5  required">
-                    Phone Number
-                </div>
-                <div class="col-md-7 no-padding-right register-page">
-                        <input type="text" class="username-textbox textbox" name="primaryTel"
-                               ng-model="basicProfileInfo.primaryPhoneNo"
-                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" required>
-                        <span ng-show="individualForm.primaryTel.$invalid && !individualForm.primaryTel.$error.pattern && submitted"  class="errorRed">Please enter your contact number</span>
-                        <span ng-show="individualForm.primaryTel.$error.pattern && submitted"  class="errorRed">Not a valid number!</span>
+
+                    <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+                        <div class="col-md-5 required">
+                            Phone Number
+                        </div>
+                        <div class="col-md-7 no-padding-right register-page">
+                            <input type="text" class="username-textbox textbox" name="primaryTel"
+                                   ng-model="basicProfileInfo.primaryPhoneNo"
+                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"
+                                   required>
+                            <span ng-show="individualForm.primaryTel.$invalid && !individualForm.primaryTel.$error.pattern && submitted"
+                                  class="errorRed">Please enter your contact number</span>
+                            <span ng-show="individualForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
+                        </div>
                     </div>
-            </div>
-            
-             <div class="row margin-bottom-20 marginRightMinus5 marginLeft0"  style="padding-left: 15px"
+
+                    <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px"
                          ng-repeat="number in basicProfileInfo.secondaryPhoneNos track by $index">
-                <div class="col-md-5">
-                   Additional Phone Number
-                </div>
-                 <div class="col-md-7 no-padding-right register-page">
-                        <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
-                               ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
-                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
-                        <span ng-show="individualForm.{{'tel'+$index}}.$error.pattern && submitted"  class="errorRed">Not a valid number!</span>
+                        <div class="col-md-5">
+                            Additional Phone Number
+                        </div>
+                        <div class="col-md-7 no-padding-right register-page">
+                            <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
+                                   ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
+                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
+                            <span ng-show="individualForm.{{'tel'+$index}}.$error.pattern && submitted"
+                                  class="errorRed">Not a valid number!</span>
+                        </div>
                     </div>
-            </div>
-            
-             
 
 
                     <div class="row add-phone-wrap margin-bottom-20" style="margin-top:-10px;">
-                    <div class="col-md-5"></div>
+                        <div class="col-md-5"></div>
                         <div class="col-md-offset-1 col-md-6">
                             <a class="add-phone" ng-click="addPhoneNumber()">+ add another phone no</a>
                         </div>
                     </div>
-                    
-                     <div class="row margin-bottom-20 marginRightMinus5 marginLeft0" style="padding-left: 15px">
-                <div class="col-md-5  required">
-                    Email ID
-                </div>
-                <div class="col-md-7 no-padding-right register-page">
-                        <input type="email" class="username-textbox textbox" name="primaryEmail"
-                               ng-model="basicProfileInfo.primaryEmail"
-                               placeholder="Email" required/>
-                        <span ng-show="individualForm.primaryEmail.$invalid && !individualForm.primaryEmail.$error.email && submitted"  class="errorRed">Please enter your Email Id!</span>
-                        <span ng-show="individualForm.primaryEmail.$error.email && submitted"  class="errorRed">
+
+                    <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+                        <div class="col-md-5 required">
+                            Email ID
+                        </div>
+                        <div class="col-md-7 no-padding-right register-page">
+                            <input type="email" class="username-textbox textbox" name="primaryEmail"
+                                   ng-model="basicProfileInfo.primaryEmail"
+                                   placeholder="Email" required/>
+                            <span ng-show="individualForm.primaryEmail.$invalid && !individualForm.primaryEmail.$error.email && submitted"
+                                  class="errorRed">Please enter your Email Id!</span>
+                        <span ng-show="individualForm.primaryEmail.$error.email && submitted" class="errorRed">
                             Not valid Email!
                         </span>
+                        </div>
                     </div>
-            </div>
-            
-             <div class="row margin-bottom-20 marginRightMinus5 marginLeft0" style="padding-left: 15px"  ng-repeat="email in basicProfileInfo.secondaryEmails track by $index">
-                <div class="col-md-5">
-                    Additional Email ID
-                </div>
-                <div class="col-md-7 no-padding-right register-page">
-                        <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
-                               ng-model="basicProfileInfo.secondaryEmails[$index]"
-                               placeholder="Email"/>
-                        <span ng-show="individualForm.{{'email'+$index}}.$error.email && submitted"  class="errorRed">Not valid Email!</span>
+
+                    <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px"
+                         ng-repeat="email in basicProfileInfo.secondaryEmails track by $index">
+                        <div class="col-md-5">
+                            Additional Email ID
+                        </div>
+                        <div class="col-md-7 no-padding-right register-page">
+                            <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
+                                   ng-model="basicProfileInfo.secondaryEmails[$index]"
+                                   placeholder="Email"/>
+                            <span ng-show="individualForm.{{'email'+$index}}.$error.email && submitted"
+                                  class="errorRed">Not valid Email!</span>
+                        </div>
                     </div>
-            </div>
-            
-                    
+
+
                     <div class="row add-email-wrap margin-bottom-20" style="margin-top:-10px;">
-                    <div class="col-md-5"></div>
+                        <div class="col-md-5"></div>
                         <div class="col-md-offset-1 col-md-6">
                             <a class="add-email" ng-click="addEmail()">+ add another email id</a>
                         </div>
                     </div>
-                    
-                     <div class="row margin-bottom-20 marginRightMinus5 marginLeft0" style="padding-left: 15px">
-                <div class="col-md-5">
-                    Website
-                </div>
-                <div class="col-md-7 no-padding-right register-page">
-                       <input type="text" class="username-textbox textbox"
-                               ng-model="serviceProviderInfo.website"
-                               placeholder="Website"/>
+
+                    <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+                        <div class="col-md-5">
+                            Website
+                        </div>
+                        <div class="col-md-7 no-padding-right register-page">
+                            <input type="text" class="username-textbox textbox"
+                                   ng-model="serviceProviderInfo.website"
+                                   placeholder="Website"/>
+                        </div>
                     </div>
-            </div>
-                    
+
                 </div>
             </div>
 
@@ -221,11 +239,12 @@
                     <div class="by-reg-gallery" ng-if="basicProfileInfo.profileImage && profileImage.length===0">
                         <img class="by-reg-image"
                              ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
-                        <a class="image-fav" ng-if="!profileImage.loading" ng-click="deleteProfileImage(profileImage)"></a>
+                        <a class="image-fav" ng-if="!profileImage.loading"
+                           ng-click="deleteProfileImage()"></a>
                     </div>
                     <div class="by-reg-gallery" ng-repeat="img in profileImage">
                         <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteProfileImage()"></a>
                         <a class="by-reg-loadingImage" ng-if="img.loading"></a>
                     </div>
                     <div class="by-reg-uploadLabel">
@@ -261,7 +280,8 @@
                                    load-image="galleryImages"
                                    resize-max-height="300"
                                    resize-max-width="250"
-                                   resize-quality="0.7" class="btn btn-success register-btn" imgArray="$parent.galleryImages"/>
+                                   resize-quality="0.7" class="btn btn-success register-btn"
+                                   imgArray="$parent.galleryImages"/>
                             <span>UPLOAD OTHER PHOTOS (UP TO 8)</span>
                         </label>
                     </div>
@@ -274,7 +294,7 @@
                     <div class="shadow-wrapper margin-top-15 margin-bottom-15 ng-scope">
                         <div class="tag-box tag-box-v1 box-shadow shadow-effect-2">
                             <div class="aboutDiscussText">
-                                Please write us more about  services you provide. How
+                                Please write us more about services you provide. How
                                 different are you from others? What makes you stand out? Are you ready to go for
                                 an extra mile for your customers?
                             </div>
@@ -296,7 +316,7 @@
 
 
         <div class="col-md-12 margin-top-20 margin-bottom-20">
-            <input type="submit" value="Done" class="nextButton" />
+            <input type="button" value="Done" class="nextButton" ng-click="postUserProfile(individualForm)"/>
 
             <div class="clearfix"></div>
         </div>

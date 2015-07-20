@@ -2,9 +2,6 @@ package com.beautifulyears.repository.custom;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import com.beautifulyears.domain.UserProfile;
 
 public interface UserProfileRepositoryCustom {

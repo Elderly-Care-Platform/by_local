@@ -6,6 +6,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.galleryImages = [];
         $scope.submitted = false;
         $scope.minCategoryError = false;
+        $scope.showSpeciality = false;
+        $scope.selectedSpeciality = "";
 
         $scope.addressCallback = function (response) {
             console.log(response);
@@ -73,7 +75,31 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                     delete $scope.selectedServices[elem.parentId];
                 }
             }
+
+            if (elem.parentId && elem.parentId!==null && elem.childCount > 0) {
+                $scope.selectSpecialty(elem);
+            }
         }
+
+        $scope.selectSpecialty = function(parentCategory){
+            $scope.showSpeciality = parentCategory.selected;
+            $scope.selectedSpeciality = "";
+            //$scope.specialities = parentCategory.children;
+            $scope.specialities = $.map(parentCategory.children, function (value, key) {
+                if($scope.serviceProviderInfo.services.indexOf(value.id)!==-1){
+                    if($scope.showSpeciality){
+                        $scope.selectedSpeciality = value.name;
+                    } else{
+                        if ($scope.selectedServices[value.id]) {
+                            delete $scope.selectedServices[value.id];
+                        }
+                    }
+
+                }
+                return {label:value.name,value:value.name, id:value.id};
+            });
+        }
+
 
         //Prefill form with previously selected data
         $scope.extractData = function () {

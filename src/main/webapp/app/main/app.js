@@ -10,7 +10,7 @@ var byApp = angular.module('byApp', [
  	"byServices",
  	"ngRoute",
  	'ngSanitize',
- 	'ngAutocomplete',
+ 	'ngGoogleLocation',
  	'infinite-scroll'
  ]);
 

@@ -30,8 +30,8 @@
  *    }
 **/
 
-angular.module( "ngAutocomplete", [])
-  .directive('ngAutocomplete', function() {
+angular.module( "ngGoogleLocation", [])
+  .directive('ngGoogleLocation', function() {
     return {
      // require: 'ngModel',
       scope: {

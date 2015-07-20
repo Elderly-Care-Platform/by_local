@@ -2,18 +2,15 @@
 byControllers.controller('IndividualProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
     'UserProfile', '$sce',
     function ($scope, $rootScope, $location, $route, $routeParams, UserProfile, $sce) {
-        console.log($routeParams);
         $("#preloader").show();
         $scope.userId = $routeParams.profileId;
-        
+        var genderOption = {0:'Ms.', 1:'Mr.'};
         
 
         $scope.individualProfile = UserProfile.get({userId:$scope.userId}, function (profile) {
                 $scope.individualProfile = profile.data;
                 $("#preloader").hide();
-                
-                var sexValue = {0:'Ms.', 1:'Mr.'};
-                profile.data.individualInfo.sex =  sexValue[profile.data.individualInfo.sex];
+                profile.data.individualInfo.sex =  genderOption[profile.data.individualInfo.sex];
                 //console.log(profile.data.individualInfo.sex);
             },
             function (error) {

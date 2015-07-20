@@ -66,10 +66,10 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             return $sce.trustAsHtml(html);
         };
 
-        $scope.go = function ($event, type, id, discussType) {
+        $scope.go = function ($event, userId, userType) {
             $event.stopPropagation();
-            if (type === "id") {
-                $location.path('/profile/0/' + id);
+            if(userId && userType.length > 0) {
+                $location.path('/profile/'+userType[0] +'/' + userId);
             }
         }
 

@@ -31,6 +31,7 @@ import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
+import com.beautifulyears.util.WebPageParser;
 
 /**
  * The REST based service for managing "discuss"
@@ -68,6 +69,23 @@ public class DiscussController {
 		discuss = discussRepository.save(discuss);
 		logger.info("new feedback entity created with ID: " + discuss.getId());
 		return BYGenericResponseHandler.getResponse(discuss);
+	}
+	
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/getLinkInfo" }, produces = { "application/json" })
+	@ResponseBody
+	public Object getLinkInfo(@RequestParam(value = "url", required = true) String url) throws Exception{
+		Discuss d = new Discuss();
+		try {
+			WebPageParser parser = new WebPageParser(url);
+			d.setTitle(parser.getPageTitle());
+			d.setText(parser.getDescription());
+			d.setUserId(parser.getImage());;
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		
+		
+		return BYGenericResponseHandler.getResponse(d);
 	}
 
 	@RequestMapping(consumes = { "application/json" })

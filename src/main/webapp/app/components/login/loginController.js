@@ -154,7 +154,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                 var pro = document.getElementById('profile_placeholder');
                 var userName = localStorage.getItem("USER_NAME");
-                pro.innerHTML = (userName && userName!==null) ?  localStorage.getItem("USER_NAME") : "Anonymous";
+                pro.innerHTML = BY.validateUserName(userName);
                 pro.href = apiPrefix + "#/users/login/"; //******************* to be removed*************//
             }
             else {

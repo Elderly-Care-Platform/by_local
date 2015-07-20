@@ -3,12 +3,14 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
     function ($scope, $rootScope, $location, $route, $routeParams) {
 
         $scope.profileViews = {};
-        $scope.profileType = parseInt($routeParams.profileType);
+        $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
 
-        if($scope.profileType===0){
-            $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-          //  $scope.profileViews.contentPanel = "app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%";
-            $scope.profileViews.contentPanel = "app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%";
-        }
+        //if($scope.profileType===0){
+
+        //  //  $scope.profileViews.contentPanel = "app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%";
+        //    $scope.profileViews.contentPanel = "app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%";
+        //}
+        $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.profileViews.contentPanel = BY.userType[$scope.profileType].contentPanel;
     }]);

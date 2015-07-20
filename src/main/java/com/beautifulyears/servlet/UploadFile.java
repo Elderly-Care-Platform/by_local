@@ -119,9 +119,6 @@ public class UploadFile extends HttpServlet {
 									+ "\"");
 							resImage.append("}");
 						}
-
-						
-						
 					}
 					resImageArray.add(resImage.toString());
 				}

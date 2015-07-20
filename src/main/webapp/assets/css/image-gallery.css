@@ -1,16 +1,16 @@
 
 .by-imageGallery{
     width: 100%;
-    height: auto;
+    height: 70px;
     margin: 15px 0px 15px 0px;
     overflow: hidden;
     padding-left: 0px;
 }
 
 .by-imageGallery-item {
-    float: left;
-    margin-right: 5px;
     height: 70px;
+    display:inline-block;
+    margin-right:5px;
 }
 
 .by-imageGallery-item img {
@@ -20,13 +20,19 @@
     max-height: 168px;
 
 }
+.by-gallery-container-width
+{
+	width:auto;
+	height:70px;
+	overflow:hidden;
+}
 
 .by-gallery-container{
-    width:200%;
     /*margin-top: 15px;*/
-    left: 0px;
-    position: relative;
-
+    left: 30px;
+    height:100%;
+    position: absolute;
+  white-space: nowrap;
     -webkit-transition-property: -webkit-transform;
     transition-property: -webkit-transform;
     -webkit-transform:translate3d(4px, 0px, 0px);
@@ -73,4 +79,72 @@
 
 .by-gallery-animate-left {
     -webkit-transform:translate3d(0px, 0px, 0px);
+}
+
+
+.profilePopupImages
+{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+    z-index: 999999;
+    display: none;
+    left:0px;
+    top:0px;
+    overflow-y:auto;
+}	
+.profilePopupImagesOpacity
+{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.4;
+    filter: alpha(opacity=40);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.profilePopupImagesWrapper
+{
+	position: relative;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	margin-left:auto;
+	margin-right:auto;
+	background: #fff;
+	display: block;
+	border:3px solid #ccc;
+	border-radius: 5px !important;
+}
+.profilePopupImagesWrapperImage
+{
+	width: 100%;
+	height: 100%;	
+}
+.profilePopupImagesWrapperClose
+{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	z-index: 999;
+	cursor: pointer;
+}
+.profileHoverImages
+{
+	width: auto;
+	height: auto;
+	border:3px solid #ccc;
+	border-radius: 5px !important;
+	position: absolute;
+	z-index: 99999999;
+	background: #fff;
+	display: none;
+	text-align:center;
+}
+.profileHoverImages img
+{
+	
 }

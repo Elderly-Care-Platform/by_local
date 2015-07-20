@@ -1,3 +1,17 @@
+<div class="profilePopupImages">
+    <div class="profilePopupImagesOpacity"></div>
+    <div class="profilePopupImagesWrapper">
+        <div class="profilePopupImagesWrapperImage">
+            <img src=""  alt="" />
+        </div>
+        <div class="profilePopupImagesWrapperClose">
+            <img src="assets/img/close_button.gif" width="30" height="30" alt="" />
+        </div>
+    </div>
+</div>
+<div class="profileHoverImages">
+    <img src=""  alt="" />
+</div>
 <div class="row padding20 whiteBg by_discuss_detail margin-bottom-35" ng-controller="IndividualProfileController">
     <div class="col-md-12 product-main margin-bottom-15 white-gray ">
         <div class="col-md-5" style="padding:0px;">
@@ -9,11 +23,12 @@
                 <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
                 </div>
                 <div class="by-gallery-container">
-                    <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item">
-                        <img src="{{img.titleImage}}" width="100%" alt=""/>
-                    </div>
+                  	  <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item"
+                   	 data-popup="{{img.original || ''}}" data-hover="{{img.thumbnailImage || ''}}" ng-init="galleryClickHover()">
+                        <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                   	 </div>
                 </div>
-                <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
+                <div class="by-gallery-rightArrow"  ng-click="slideGallery('r')">
                 </div>
             </div>
             <div class="clearfix"></div>

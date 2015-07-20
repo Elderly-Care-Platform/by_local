@@ -503,3 +503,18 @@ byApp.directive('ellipsis', ['$timeout', '$window', function($timeout, $window) 
     };
 }]);
 
+byApp.directive('autoComplete', function($timeout) {
+    return function(scope, iElement, iAttrs) {
+        iElement.autocomplete({
+            source: scope[iAttrs.options],
+            select: function(event, item) {
+                $timeout(function() {
+                    iElement.trigger(event, item);
+                    item.item.selected = true;
+                    scope.selectServiceType(item.item);
+                }, 0);
+            }
+        });
+    };
+});
+

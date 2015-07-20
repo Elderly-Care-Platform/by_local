@@ -88,9 +88,21 @@
                         </div>
                     </div>
                     <span ng-show="minCategoryError && submitted"
-                          class="errorRed">Please select atleast one category</span>
+                          class="errorRed">Please select at least one category</span>
                 </div>
 
+            </div>
+
+            <div class="row margin-bottom-20 marginRightMinus5" ng-if="showSpeciality">
+                <div class="col-md-5 required">
+                    Please enter speciality
+                </div>
+                <div class="col-md-7 no-padding-right register-page" >
+                    <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
+                           placeholder="Speciality" ng-model="selectedSpeciality" required/>
+
+                    <span ng-show="individualForm.speciality.$invalid && submitted" class="errorRed">Please enter your speciality</span>
+                </div>
             </div>
 
             <div class="row margin-bottom-20 marginRightMinus5">

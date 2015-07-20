@@ -129,10 +129,11 @@
 					</execution>
 				</executions>
 				<configuration>
+					<basedir>${basedir}/target/by</basedir>
 					<includes>
-						<include>\target\by\**\**.html</include>
-						<include>\target\by\**\**.js</include>
-						<include>\target\by\**\**.css</include>
+						<include>**/*.html</include>
+						<include>**/*.js</include>
+						<include>**/*.css</include>
 					</includes>
 					<replacements>
 						<replacement>

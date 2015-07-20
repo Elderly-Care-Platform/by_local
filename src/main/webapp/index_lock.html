@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,user-scalable=no" />
+<meta name="HandheldFriendly" content="true" />
+<!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/favicon.ico?versionTimeStamp=%PROJECT_VERSION%">
+
+<link rel="icon" type="image/x-icon" href="">
+<meta property="description" content=" " />
+<meta name="keywords" content="" />
+ <script type="text/javascript" src="lib/unify/plugins/jquery/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+<link rel="stylesheet" href="assets/css/landing.css">
+
+	<meta property="og:title" content="Beautiful Years"/>
+	<meta property="og:image" content="http://qa.beautifulyears.com/assets/img/Logo-new-client.png"/>
+	<meta property="og:site_name" content="BeautifulYears.com"/>
+	<meta property="og:description" content="We are a community.We take care of our ageing parents And we'd like to age better ourselves!May all elderly people and their loving families enjoy beautiful years together.Hence, BeautifulYears.com.	Redefining 'ageing' in India"/>
+
+	
+</head>
+<body style="display:none">
+	<div class="wrapper">
+		<div class="logo">
+			<img src="assets/img/Logo-new-client-redefining.png" width="220" alt="" />
+		</div>
+		<div class="col-md-12 text">
+			Welcome to the BeautifulYears community! <br />
+			<br />If you have already received an invitation for a trial, please enter your passcode here: <input id="key" type="password" 
+			class="username-textbox textbox textItalic" style="vertical-align: middle;" value="" onchange="check(this.value)" autofocus>
+ <br />
+		 
+			<br />If you are eager to receive an invite, but haven’t got one, please write to us at <a style="text-decoration:underline;" href="mailto:info@beautifulyears.com">info@beautifulyears.com</a>.
+			<br />
+			<br />Thank you for your interest in our site!<br />
+			<br />
+		</div>
+		<div class="team">
+			The <b>BeautifulYears</b> team
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var str = '';
+		$("#key").on('change keyup paste', function() {
+			var str = "";
+			var val = this.value;
+			for (var i = 0; i < val.length; i++) {
+				str += val.charCodeAt(i);
+			}
+			if (str === '1099710310599') {
+				location.href = "main.html";
+				localStorage.setItem("LANDING_DONE", "DONE");
+			}
+		});
+		
+		if ("localStorage" in window && localStorage.getItem("LANDING_DONE"))
+		{
+			location.href = "main.html";
+       		
+		}else{
+			document.body.style.display = "block";
+		}
+		
+		
+	</script>
+</body>
+</html>

@@ -22,18 +22,16 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
             });
 
 		$scope.calculateGalleryWidth = function(){
-			$scope.byimageGallery = $(".by-imageGallery").outerWidth() - 60;			
-			$scope.bygallerycontainer = $(".by-gallery-container").width();
-			$scope.w = 2 ;
-			$scope.h = bygallerycontainer - byimageGallery;
+			
 		};
         $scope.slideGallery = function(dir){ 
         	if($scope.slideIndex<0){
         		$scope.slideIndex = 1;
         	}
         	$scope.byimageGallery = $(".by-imageGallery").outerWidth() - 60;			
-			$scope.bygallerycontainer = $(".by-gallery-container").width();
-			$scope.w = ($scope.bygallerycontainer / $scope.byimageGallery).toFixed() ;
+			$scope.bygallerycontainer = $(".by-gallery-container").outerWidth();
+			$scope.w = $scope.bygallerycontainer / $scope.byimageGallery ;
+			//alert($scope.w);
             if($scope.slideIndex < $scope.w  && dir==="r"){
             	$('.by-gallery-container').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
             	$scope.slideIndex++;

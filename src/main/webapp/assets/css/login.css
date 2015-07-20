@@ -263,3 +263,47 @@ input[type=checkbox]
 	padding-right: 5px;
 	padding-bottom: 5px;
 }
+
+
+.ui-menu {
+	background-color: #fff;
+	position: absolute!important;
+	z-index: 1000;
+	border-radius: 2px;
+	border-top: 1px solid #d9d9d9;
+	font-family: Arial, sans-serif;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden
+}
+.ui-menu:after {
+	content: "";
+	padding: 1px 1px 1px 0;
+	height: 16px;
+	text-align: right;
+	display: block;
+}
+
+.ui-menu .ui-menu-item{
+	cursor: default;
+	padding: 0 4px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	line-height: 30px;
+	text-align: left;
+	border-top: 1px solid #e6e6e6;
+	font-size: 13px;
+	color: #000000;
+}
+
+
+
+.ui-menu .ui-state-focus,
+.ui-menu .ui-state-active {
+	/*margin: 0px;*/
+	background-color: #ebf2fe;
+}
+

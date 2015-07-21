@@ -43,6 +43,18 @@ public class DiscussReply {
 	private Date lastModifiedAt;
 
 	private int status;
+	
+	private Float userRating;
+	
+	@JsonProperty
+	public Float getUserRating() {
+		return userRating;
+	}
+
+	@JsonIgnore
+	public void setUserRating(Float userRating) {
+		this.userRating = userRating;
+	}
 
 	@Transient
 	private int likeCount;

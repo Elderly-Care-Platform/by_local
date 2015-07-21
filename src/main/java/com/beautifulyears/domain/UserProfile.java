@@ -3,7 +3,10 @@ package com.beautifulyears.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.beautifulyears.domain.BasicProfileInfo;
@@ -44,11 +47,19 @@ public class UserProfile {
 	
 	private List<String> ratedBy = new ArrayList<String>();
 	
-	public UserProfile()
-	{
-		
-	}
+	@Transient
+	private Float aggrRating;
 	
+	
+	@JsonProperty
+	public Float getAggrRating() {
+		return aggrRating;
+	}
+	@JsonIgnore
+	public void setAggrRating(Float aggrRating) {
+		this.aggrRating = aggrRating;
+	}
+
 	public String getId() {
 		return id;
 	}

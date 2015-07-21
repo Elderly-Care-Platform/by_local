@@ -15,6 +15,7 @@ public class DiscussConstants {
 	public static final int DISCUSS_TYPE_REPLY = 4;
 	public static final int DISCUSS_TYPE_COMMENT = 5;
 	public static final int DISCUSS_TYPE_ANSWER = 6;
+	public static final int DISCUSS_TYPE_REVIEW_INSTITUTION = 7;
 	
 	public static final int DISCUSS_STATUS_ACTIVE=0;
 	public static final int DISCUSS_STATUS_INACTIVE=1;

@@ -62,6 +62,8 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
             			var windowWidth = windowWidth/1.1;
             			$(".profilePopupImagesWrapper").width(windowWidth);
             			$(".profilePopupImagesWrapper").height(windowHeight);
+            			$(".profilePopupImagesWrapperImage img").width(windowWidth);
+            			$(".profilePopupImagesWrapperImage img").height(windowHeight);
             		} 
             		if(windowHeight < profilePopupImagesWrapperHeight){
             			$(".profilePopupImagesOpacity").css('height', profilePopupImagesWrapperHeight + 20 + "px");
@@ -74,6 +76,8 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         	
         	$(".profilePopupImagesWrapperClose").click(function(event){
         		$(".profilePopupImages").fadeOut();
+    			$(".profilePopupImagesWrapperImage img").width('auto');
+    			$(".profilePopupImagesWrapperImage img").height('auto');
         	});
 
         	

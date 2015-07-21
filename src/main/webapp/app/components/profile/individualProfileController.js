@@ -65,23 +65,28 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
             		if(windowHeightTop<0){
             			var windowHeightTop = 10;
             		}
-            		if(profilePopupImagesWrapperWidth > windowWidth){
+            		
+            		if(profilePopupImagesWrapperWidth > windowWidth ){
             			var windowHeight = windowHeight/1.1;
             			var windowWidth = windowWidth/1.1;
             			$(".profilePopupImagesWrapper").width(windowWidth);
             			$(".profilePopupImagesWrapper").height(windowHeight);
+            			$(".profilePopupImagesWrapperImage img").width(windowWidth);
+            			$(".profilePopupImagesWrapperImage img").height(windowHeight);
             		} 
             		if(windowHeight < profilePopupImagesWrapperHeight){
             			$(".profilePopupImagesOpacity").css('height', profilePopupImagesWrapperHeight + 20 + "px");
             		}
-            		$(".profilePopupImagesWrapper").css('margin-top', windowHeightTop +"px");
-
+            		$(".profilePopupImagesWrapper").css('margin-top', windowHeightTop +"px");            		
             		
         		}, 100);
+        		
         	});
         	
         	$(".profilePopupImagesWrapperClose").click(function(event){
         		$(".profilePopupImages").fadeOut();
+    			$(".profilePopupImagesWrapperImage img").width('auto');
+    			$(".profilePopupImagesWrapperImage img").height('auto');
         	});
 
         	

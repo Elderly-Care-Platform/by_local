@@ -100,8 +100,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             if(type === "id"){
                 $location.path('/discuss/'+id);
 
-            } else if(type === "name"){
-                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
+            } else if(type === "name" && $rootScope){
+                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId,
                 parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
 
                 if(parentCategoryName){
@@ -143,25 +143,25 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         $scope.editor.articlePhotoFilename = "";
         $scope.error = "";
         $scope.editor.subject = "";
-        var discussType = $routeParams.discussType;
-        
-        
-        var topicId = $routeParams.topicId;
-        var subTopicId = $routeParams.subTopicId;
+        var discussType = $routeParams.discussType,
+            topicId = $routeParams.topicId,
+            subTopicId = $routeParams.subTopicId, topicQueryId, subTopicQueryId, topicCategory, subTopicCategory;
 
-        var topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
-        var subTopicQueryId = $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()] ? $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()] : "all";
 
-        if(topicQueryId){
-            var parentCategory = $rootScope.discussCategoryListMap[topicQueryId];
-            if(parentCategory.childCount <= 0) {
-                $scope.preSelected[topicQueryId] = true;
-                BY.editorCategoryList.addCategory(topicQueryId);
-            }
+        if($rootScope){
+            topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
+            subTopicQueryId = $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()];
+
+            topicCategory = $rootScope.discussCategoryListMap[topicQueryId];
+            subTopicCategory = $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()];
         }
 
-        if($rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()]){
-            var subTopicCategory = $rootScope.discussCategoryNameIdMap[$routeParams.subTopicId.toLowerCase()];
+        if(topicCategory && topicCategory.childCount <= 0){
+            $scope.preSelected[topicQueryId] = true;
+            BY.editorCategoryList.addCategory(topicQueryId);
+        }
+
+        if(subTopicCategory){
         	$scope.preSelected[subTopicCategory] = true;
             BY.editorCategoryList.addCategory(subTopicCategory);
         }
@@ -185,37 +185,34 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         if(subTopicQueryId !=null && subTopicQueryId != "" && subTopicQueryId.toLowerCase() != "all"){
         	params.subTopicId = subTopicQueryId;
         }
-        DiscussCount.get(params,function (counts) {
-            $scope.discuss_counts = counts.data;
-        },
-        function(error){
-        	console.log(error);
-        });
+
+        DiscussCount.get(params, function (counts) {
+                $scope.discuss_counts = counts.data;
+            },
+            function (error) {
+                console.log(error);
+            });
 
 
         $("#preloader").show();
-
-        var params = {p:0,s:10};
+        params.p = 0;
+        params.s = 0;
         if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
         	params.discussType = discussType;
         }
-        if(topicQueryId !=null && topicQueryId != "" && topicQueryId.toLowerCase() != "all"){
-        	params.topicId = topicQueryId;
-        }
-        if(subTopicQueryId !=null && subTopicQueryId != "" && subTopicQueryId.toLowerCase() != "all"){
-        	params.subTopicId = subTopicQueryId;
-        }
+
         DiscussPage.get(params,
-        		function(value){
-			       	 $scope.discuss = value.data.content;
-			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
-			       	$scope.pageInfo.isQueryInProgress = false;
-			       	$("#preloader").hide();
-        		},
-        		function(error){
-			       	console.log("DiscussAllForDiscussType");
-//			       	alert("error");
-        		});
+            function (value) {
+                $scope.discuss = value.data.content;
+                $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+                $scope.pageInfo.isQueryInProgress = false;
+                $("#preloader").hide();
+            },
+            function (error) {
+                console.log(error);
+            });
+
+
         $scope.loadMore = function($event){
         	if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
         		$scope.pageInfo.isQueryInProgress = true;
@@ -261,8 +258,8 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             $event.stopPropagation();
             if(type === "id"){
                 $location.path('/discuss/'+id);
-            } else if(type === "name"){
-                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
+            } else if(type === "name" && $rootScope){
+                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId,
                 parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
 
                 if(parentCategoryName){

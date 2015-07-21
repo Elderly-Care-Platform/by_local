@@ -4,13 +4,28 @@
         <ul class=" list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
 
             <!-- ngIf: discuss_counts.z > 0 -->
-            <li class="row list-group-item false list-div-inline register-page ng-scope" data-index="discussion-articles" style="margin-left: 0px;">
+            <li class="row list-group-item ng-scope" data-index="discussion-articles" style="margin: 0px; margin-top: 4px;">
                 <div class="col-md-2 col-sm-2 no-padding"><a href="#">IN </a></div>
-                <div class="col-md-10 col-sm-10 searchWrapper-find-in" style="margin: 0px; padding-top: 3px;">
+                <div class="col-md-10 col-sm-10 searchWrapper-find-in" style="margin: 0px; padding:0px; padding-top: 3px;">
                     <div class="row no-padding register-page" style="margin: 0px; ">
                         <div class="col-md-10 col-sm-10 no-padding">
                             <input type="text" class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
                                    placeholder="Please enter City Name " ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="row list-group-item ng-scope" data-index="discussion-articles" style="margin: 0px; margin-top: 10px;" ng-if="showSpecialityFilter">
+                <div class="col-md-2 col-sm-2 no-padding"><a href="#">IN </a></div>
+                <div class="col-md-10 col-sm-10 searchWrapper-find-in" style="margin: 0px; padding:0px; padding-top: 3px;">
+                    <div class="row no-padding register-page" style="margin: 0px; ">
+                        <div class="col-md-10 col-sm-10 no-padding">
+                            <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
+                                   placeholder="Speciality" ng-model="selectedSpeciality" required callback="specialityCallback"/>
                         </div>
                         <div class="col-md-2 col-sm-2">
                             <i class="fa fa-search"></i>

@@ -391,7 +391,7 @@
 	}
 }
 
-@media (min-width: 992px) {		
+@media (min-width: 1100px) {
 	/*Navbar Collapse*/
 	.header .navbar-collapse {
 		padding: 0;

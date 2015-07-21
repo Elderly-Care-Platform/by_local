@@ -1,5 +1,9 @@
-.productMainContent{
-  font-size: 16px;
+.profileContainer{
+ margin-top: 20px;
+}
+
+.profileMainContent{
+  font-size: 15px;
 }
 .profileContentTitle{
   width: 100%;
@@ -13,12 +17,12 @@
   text-transform: uppercase;
 }
 
-.productRating{
+.profileRating{
   float: left;
   margin-bottom: 0px !important;
 }
 
-.productRating i{
+.profileRating i{
   width: 32px;
   text-align: center;
   height: 32px;
@@ -30,7 +34,7 @@
   display: inline-block;
 }
 
-.productReview {
+.profileReview {
   float: left;
   margin-bottom: 0px !important;
   display: inline-block;

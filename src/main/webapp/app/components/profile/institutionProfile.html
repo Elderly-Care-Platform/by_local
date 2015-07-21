@@ -47,14 +47,14 @@
                     <div class="no-padding">
                         <i class="fa fa-envelope"></i>
                         <a href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
-                        <span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails">
+                        <span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails" ng-if="mail.trim()!==''">
                             / <a href="mailto::{{mail}}">{{mail}}</a>
                         </span>
                     </div>
                     <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryPhoneNo">
                         <i class="fa fa-phone"></i>
                         <span>{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</span>
-                        <span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos">
+                        <span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos" ng-if="phoneNo.trim()!==''">
                             , {{phoneNo}}
                         </span>
                     </div>

@@ -1,7 +1,7 @@
 <div ng-repeat="service in services" data-index="discussion-articles" data-link="articles.html" class="ng-scope">
 
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, service.userId, service.userTypes)" class="margin-bottom-35 service-card"
+    <div ng-click="location($event, service.userId, service.userTypes)" class="margin-bottom-35 service-card"
          data-index="discussion-articles" ng-if="service.serviceProviderInfo.services.length > 0">
         <div class="col-md-12">
             <div class="col-md-2 col-sm-4 col-xs-6 service-card-info dp-inline-block" ng-if="service.basicProfileInfo.profileImage">

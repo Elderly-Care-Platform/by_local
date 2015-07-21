@@ -9,15 +9,21 @@ byControllers.controller('FindMenuController', ['$scope', '$rootScope', '$http',
                 $rootScope.findCategoryList = categories;
                 $rootScope.findCategoryListMap = {};
                 $rootScope.findCategoryNameIdMap = {};
-                angular.forEach(categories, function(category, index){
-                    $rootScope.findCategoryListMap[category.id] = category;
-                    $rootScope.findCategoryNameIdMap[category.name.toLowerCase()] = category.id;
-                    angular.forEach(category.children, function(subCategory, index){
-                        $rootScope.findCategoryListMap[subCategory.id] = subCategory;
-                        $rootScope.findCategoryNameIdMap[subCategory.name.toLowerCase()] = subCategory.id;
-                    });
-                });
+
+                $scope.createFindCategoryMap(categories);
+
             }
         );
+
+        $scope.createFindCategoryMap = function(categories){
+            angular.forEach(categories, function(category, index){
+                $rootScope.findCategoryListMap[category.id] = category;
+                $rootScope.findCategoryNameIdMap[category.name.toLowerCase()] = category.id;
+
+                if(category.childCount > 0){
+                    $scope.createFindCategoryMap(category.children);
+                }
+            });
+        }
 
     }]);

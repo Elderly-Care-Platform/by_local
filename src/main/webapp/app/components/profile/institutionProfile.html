@@ -2,8 +2,9 @@
     <div class="col-md-12 product-main margin-bottom-15 white-gray ">
         <div class="col-md-5" style="padding:0px;">
             <div class="col-md-12 main-image white-gray " style="
-    padding: 0px;" ng-if="institutionProfile.basicProfileInfo.profileImage && institutionProfile.basicProfileInfo.profileImage!==''">
-                <img class="full-width padding-zero" src="{{institutionProfile.basicProfileInfo.profileImage.original || ''}}" alt="">
+    padding: 0px;">
+                <img class="full-width padding-zero" src="{{institutionProfile.basicProfileInfo.profileImage.original || ''}}"
+                     fallback-src='["assets/img/by-housing-avtar.jpg"]' alt="">
             </div>
             <div class="col-md-12 by-imageGallery margin-top-20 row" ng-if="institutionProfile.basicProfileInfo.photoGalleryURLs.length > 0">
                 <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">

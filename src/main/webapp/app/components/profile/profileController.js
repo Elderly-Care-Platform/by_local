@@ -13,4 +13,13 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         //}
         $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.profileViews.contentPanel = BY.userType[$scope.profileType].contentPanel;
+
+
+        $scope.reviewContent = function(){
+            $scope.profileViews.contentPanel = BY.userType[$scope.profileType].reviewContentPanel;
+        }
+
+        $scope.displayProfile = function(){
+            $scope.profileViews.contentPanel = BY.userType[$scope.profileType].contentPanel;
+        }
     }]);

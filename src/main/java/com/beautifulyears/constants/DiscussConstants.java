@@ -3,7 +3,7 @@
  * Nitin
  * 10:41:56 AM
  */
-package com.beautifulyears;
+package com.beautifulyears.constants;
 
 public class DiscussConstants {
 	

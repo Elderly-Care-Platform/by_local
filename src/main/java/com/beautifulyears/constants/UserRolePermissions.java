@@ -1,4 +1,4 @@
-package com.beautifulyears.domain;
+package com.beautifulyears.constants;
 
 
 import java.util.ArrayList;

@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.BasicProfileInfo;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
 import com.beautifulyears.domain.UserProfile;
-import com.beautifulyears.domain.UserTypes;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserProfileRepository;
@@ -59,16 +59,6 @@ public class UserProfileController {
 	/*
 	 * this method allows to get a page of userProfiles
 	 * 
-	 * @RequestMapping(method = {RequestMethod.GET}, value = { "/list" },
-	 * produces = { "application/json" })
-	 * 
-	 * @ResponseBody public Page<UserProfile> checkUserProfile(
-	 * HttpServletRequest req, HttpServletResponse res) throws IOException {
-	 * logger.debug("trying to test adding a user profile");
-	 * 
-	 * createUserProfile(); getUserProfile();
-	 * 
-	 * return this.userProfilePage; }
 	 */
 
 	/* this is a test method which allows to get first page of userProfiles */

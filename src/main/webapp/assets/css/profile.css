@@ -52,3 +52,52 @@
 .profile-home-visit span{
   vertical-align: middle;
 }
+
+.reviewRateForm{
+  font-size: 15px;
+}
+
+.profileRateValues {
+  width: 35px;
+  height: 35px;
+  padding: 8px 0px 0px 0px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50% !important;
+  background: #ccc;
+  float: right;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+
+.profileRateValues:hover{
+  opacity: 1;
+}
+
+.profileSelected{
+  opacity: 1 !important;
+}
+
+
+.profileRate1{
+  background: #F51B09;
+}
+
+
+
+.profileRate2{
+  background: #F59809;
+}
+
+.profileRate3{
+  background: #F5D709;
+}
+
+.profileRate4{
+  background: #B7E01F;
+}
+
+.profileRate5{
+  background: #1FE021;
+}

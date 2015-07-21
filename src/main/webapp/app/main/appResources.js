@@ -210,3 +210,11 @@ var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) 
         }, isArray: false}
     })
 });
+
+//Review and Rate profile
+var reviewRateProfile = byServices.factory('ReviewRateProfile', function($resource) {
+    return $resource(apiPrefix +'api/v1/reviewRate',{}, {
+        get: {method: 'GET', params: {}},
+        post:{method: 'POST', params: {associatedId:"@associatedId",reviewType:"7"}}
+    })
+});

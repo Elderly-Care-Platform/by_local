@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.UserProfile;
-import com.beautifulyears.domain.UserTypes;
 import com.beautifulyears.util.LoggerUtil;
 
 public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {

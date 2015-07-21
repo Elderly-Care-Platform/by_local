@@ -40,35 +40,15 @@ public class UserProfile {
 	
 	private int status; //Unparroved, verified, etc. 
 	
+	private List<String> reviewedBy = new ArrayList<String>();
+	
+	private List<String> ratedBy = new ArrayList<String>();
+	
 	public UserProfile()
 	{
 		
 	}
 	
-	
-
-	public UserProfile(String id, String userId, List<Integer> userTypes,
-			BasicProfileInfo basicProfileInfo,
-			IndividualProfileInfo individualInfo,
-			ServiceProviderInfo serviceProviderInfo, String tags,
-			boolean isFeatured, List<String> systemTags, List<String> userTags,
-			int status) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.userTypes = userTypes;
-		this.basicProfileInfo = basicProfileInfo;
-		this.individualInfo = individualInfo;
-		this.serviceProviderInfo = serviceProviderInfo;
-		this.tags = tags;
-		this.isFeatured = isFeatured;
-		this.systemTags = systemTags;
-		this.userTags = userTags;
-		this.status = status;
-	}
-
-
-
 	public String getId() {
 		return id;
 	}
@@ -156,6 +136,24 @@ public class UserProfile {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
+	
+
+	public List<String> getReviewedBy() {
+		return reviewedBy;
+	}
+
+	public void setReviewedBy(List<String> reviewedBy) {
+		this.reviewedBy = reviewedBy;
+	}
+
+	public List<String> getRatedBy() {
+		return ratedBy;
+	}
+
+	public void setRatedBy(List<String> ratedBy) {
+		this.ratedBy = ratedBy;
+	}
 
 	@Override
 	public String toString() {
@@ -165,9 +163,10 @@ public class UserProfile {
 				+ ", serviceProviderInfo=" + serviceProviderInfo + ", tags="
 				+ tags + ", isFeatured=" + isFeatured + ", systemTags="
 				+ systemTags + ", userTags=" + userTags + ", status=" + status
-				+ "]";
+				+ ", reviewedBy=" + reviewedBy + ", ratedBy=" + ratedBy + "]";
 	}
 
+	
 	
 
 }

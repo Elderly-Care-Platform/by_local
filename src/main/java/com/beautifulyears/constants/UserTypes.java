@@ -1,4 +1,4 @@
-package com.beautifulyears.domain;
+package com.beautifulyears.constants;
 /** Defining constants for User Types.
  * 
  * @author jharana

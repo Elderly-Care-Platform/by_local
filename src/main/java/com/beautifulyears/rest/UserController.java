@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.beautifulyears.BYConstants;
-import com.beautifulyears.DiscussConstants;
+import com.beautifulyears.constants.BYConstants;
+import com.beautifulyears.constants.DiscussConstants;
+import com.beautifulyears.constants.UserRolePermissions;
 import com.beautifulyears.domain.LoginRequest;
 import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
-import com.beautifulyears.domain.UserRolePermissions;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserRepository;

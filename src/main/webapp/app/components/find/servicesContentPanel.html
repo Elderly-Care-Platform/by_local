@@ -33,7 +33,7 @@
                     <ul class="list-inline categoryList">
                         <li class="list-inline"> Service in</li>
                         <li class="list-inline"
-                            ng-repeat="category in service.serviceProviderInfo.services" style="display: inline-block" ng-if="$index < 5">
+                            ng-repeat="category in service.serviceProviderInfo.services" style="display: inline-block">
                             <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> {{$root.findCategoryListMap[category].name}} </a>
                         </li>
                     </ul>

@@ -24,57 +24,13 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 			                    $scope.header2 = BY.validateUserName($scope.discuss.username);
                 		},
                 		function(error){
-        			       	console.log("DiscussAllForDiscussType");
-//        			       	alert("error");
+        			       	console.log(error);
                 		});
                 }
-                
-                
-//                $scope.articlesByUser = UserDiscussList.get({'discussType':"A", 'topicId':"all", 'subTopicId': "all",
-//                    'userId':$scope.discuss.userId}).$promise.then(
-//                        //success
-//                    		function(value){
-//                    			var userArticles = value.data;
-//                    			$scope.articlesByUser = userArticles;
-//                                if($scope.articlesByUser.length<=0){
-//                                    $scope.getRelatedArticle();
-//                                } else {
-//                                    $scope.articlesByUser = userArticles.splice(0,6);
-//                                    if($scope.articlesByUser.length === 1 && $scope.articlesByUser[0].id===$scope.discuss.id){
-//                                        $scope.getRelatedArticle();
-//                                    }
-//                                }
-//                                $scope.header1 = "Also by";
-//                                $scope.header2 = BY.validateUserName($scope.discuss.username);
-//                            },
-//                        //error
-//	                        function( error ){
-//                            	console.log("QUErY ERROR");
-//	                        		alert("error2");
-//	                        		}
-//                      );
-//            }
 
         });
 
-//        $scope.getRelatedArticle = function(){
-//            var subTopicId = $scope.discuss.topicId[0];
-//            DiscussOneTopicOneSubTopicList.get({
-//                discussType: "A",
-//                topicId: subTopicId,
-//                subTopicId:"all"
-//            }, function(topicRelatedArticle, header){
-//                $scope.articlesByUser = topicRelatedArticle.data.splice(0,6);
-//                $scope.header1 = "Also in";
-//                $scope.header2 = $rootScope.discussCategoryListMap[subTopicId].name;
-//            },
-//            //error
-//            function( error ){
-//            	console.log("QUErY ERROR");
-//            		alert("error2");
-//            		});
-//        }
-//        
+
         $scope.getRelatedArticle = function(){
         var subTopicId = $scope.discuss.topicId[0];
         var params = {p:0,s:6,discussType:"A"};
@@ -86,15 +42,14 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 		        	$scope.articlesByUser = value.data.content;
 		            $scope.header1 = "Also in";
 					if(subTopicId && subTopicId != "" && subTopicId.toLowerCase() != "all"){
-						$scope.header2 = $rootScope.discussCategoryListMap[subTopicId].name;
+						$scope.header2 = $rootScope ? $rootScope.discussCategoryListMap[subTopicId].name : "";
 					}else{
 						$scope.header2 = "DISCUSS";
 					}
 
         		},
         		function(error){
-			       	console.log("DiscussAllForDiscussType");
-//			       	alert("error");
+			       	console.log(error);
         		});
         }
         

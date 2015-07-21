@@ -132,9 +132,9 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $event.stopPropagation();
             if (type === "id") {
                 $location.path('/discuss/' + id);
-            } else if (type === "name") {
+            } else if (type === "name" && $rootScope) {
                 var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
-                parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
+                var parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
 
                 if (parentCategoryName) {
                     $location.path('/discuss/All/' + parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);

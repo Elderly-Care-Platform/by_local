@@ -44,7 +44,7 @@ import com.beautifulyears.util.Util;
 @Controller
 @RequestMapping("/userProfile")
 public class UserProfileController {
-	private Logger logger = Logger.getLogger(UserProfileController.class);
+	private static Logger logger = Logger.getLogger(UserProfileController.class);
 
 	private UserProfile userProfile;
 	private Page<UserProfile> userProfilePage;

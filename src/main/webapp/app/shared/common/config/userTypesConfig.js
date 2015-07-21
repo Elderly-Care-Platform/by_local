@@ -24,6 +24,7 @@ BY.userType = {
     '4' : {
         'category':'1',
         'contentPanel':'app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'SERVICES'
     },
     '5' : {
@@ -39,6 +40,7 @@ BY.userType = {
     '7' : {
         'category':'0',
         'contentPanel':'app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'PROFESSIONAL'
     }
 

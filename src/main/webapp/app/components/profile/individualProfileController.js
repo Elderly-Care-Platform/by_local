@@ -25,7 +25,7 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
 			
 		};
         $scope.slideGallery = function(dir){ 
-        	if($scope.slideIndex<0){
+        	if($scope.slideIndex<1){
         		$scope.slideIndex = 1;
         	}
         	$scope.byimageGallery = $(".by-imageGallery").outerWidth() - 60;			
@@ -36,9 +36,9 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
             	$('.by-gallery-container').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
             	$scope.slideIndex++;
             }
-            if($scope.slideIndex >= 0  && dir==="l"){
+            if($scope.slideIndex >= 1  && dir==="l"){
             	$('.by-gallery-container').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
-            	$scope.slideIndex--;  
+            	$scope.slideIndex--; 
             }
             
         }

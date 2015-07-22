@@ -70,8 +70,7 @@ public class ReviewController {
 			Query q = new Query();
 			q.addCriteria(Criteria.where("replyType")
 					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
-					.is(contentType)
-					.and("discussId").is(associatedId));
+					.is(contentType).and("discussId").is(associatedId));
 			if (null != userId) {
 				q.addCriteria(Criteria.where("userId").is(userId));
 			}
@@ -128,15 +127,16 @@ public class ReviewController {
 			review = new DiscussReply();
 			review.setDiscussId(associatedId);
 			review.setContentType(contentType);
-			review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage());
+			review.setUserRatingPercentage(newReviewRate
+					.getUserRatingPercentage());
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);
 			review.setText(newReviewRate.getText());
 			review.setUserId(user.getId());
 			review.setUserName(user.getUserName());
-			review.setText(newReviewRate.getText());
 		}
 		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage() == null ? review
-				.getUserRatingPercentage() : newReviewRate.getUserRatingPercentage());
+				.getUserRatingPercentage() : newReviewRate
+				.getUserRatingPercentage());
 		discussReplyRepository.save(review);
 		updateAllDependantEntities(contentType, review);
 		return review;
@@ -155,7 +155,8 @@ public class ReviewController {
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
 			}
-			if(reviewRate.getUserRatingPercentage() < 0 || reviewRate.getUserRatingPercentage() > 100){
+			if (reviewRate.getUserRatingPercentage() < 0
+					|| reviewRate.getUserRatingPercentage() > 100) {
 				throw new BYException(BYErrorCodes.RATING_VALUE_INVALID);
 			}
 			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
@@ -176,13 +177,13 @@ public class ReviewController {
 		return this.mongoTemplate.findOne(query, UserRating.class);
 	}
 
-	private DiscussReply getReview(Integer reviewContentType, String associatedId,
-			User user) {
+	private DiscussReply getReview(Integer reviewContentType,
+			String associatedId, User user) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("replyType")
 				.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
-				.is(reviewContentType).and("discussId").is(associatedId).and("userId")
-				.is(user.getId()));
+				.is(reviewContentType).and("discussId").is(associatedId)
+				.and("userId").is(user.getId()));
 		return this.mongoTemplate.findOne(query, DiscussReply.class);
 	}
 
@@ -221,13 +222,14 @@ public class ReviewController {
 							.is(rating.getAssociatedId())
 							.and("associatedContentType")
 							.is(rating.getAssociatedContentType())),
-					group("associatedId").avg("value").as("value"));
+					group("associatedId").avg("ratingPercentage").as("ratingPercentage"));
 
 			AggregationResults<UserRating> result = mongoTemplate.aggregate(
 					aggregation, UserRating.class);
 			List<UserRating> ratingAggregated = result.getMappedResults();
 			if (ratingAggregated.size() > 0) {
-				profile.setAggrRatingPercentage(ratingAggregated.get(0).getRatingPercentage());
+				profile.setAggrRatingPercentage(ratingAggregated.get(0)
+						.getRatingPercentage());
 			}
 
 			this.userProfileRepository.save(profile);
@@ -237,7 +239,11 @@ public class ReviewController {
 	private void updateInstitutionReviews(DiscussReply review) {
 		UserProfile profile = this.userProfileRepository.findOne(review
 				.getDiscussId());
-		if (null != profile
+		if (Util.isEmpty(review.getText()) && null != profile
+				&& !profile.getReviewedBy().contains(review.getUserId())) {
+			profile.getReviewedBy().remove(review.getUserId());
+			this.userProfileRepository.save(profile);
+		} else if (null != profile
 				&& !profile.getReviewedBy().contains(review.getUserId())) {
 			profile.getReviewedBy().add(review.getUserId());
 			this.userProfileRepository.save(profile);

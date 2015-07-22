@@ -35,7 +35,7 @@ public class UserProfileResponse implements IResponse {
 		private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
 		private IndividualProfileInfo individualInfo = new IndividualProfileInfo();
 		private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
-		private Float aggrRating;
+		private Float ratingPercentage;
 		private int ratingCount;
 		private int reviewCount;
 		private boolean isReviewedByUser = false;
@@ -48,7 +48,7 @@ public class UserProfileResponse implements IResponse {
 			this.setBasicProfileInfo(profile.getBasicProfileInfo());
 			this.setIndividualInfo(profile.getIndividualInfo());
 			this.setServiceProviderInfo(profile.getServiceProviderInfo());
-			this.setAggrRating(profile.getAggrRatingPercentage());
+			this.setRatingPercentage(profile.getAggrRatingPercentage());
 			if (null != user && profile.getRatedBy().contains(user.getId())) {
 				this.setRatedByUser(true);
 			}
@@ -124,12 +124,12 @@ public class UserProfileResponse implements IResponse {
 			this.serviceProviderInfo = serviceProviderInfo;
 		}
 
-		public Float getAggrRating() {
-			return aggrRating;
+		public Float getRatingPercentage() {
+			return ratingPercentage;
 		}
 
-		public void setAggrRating(Float aggrRating) {
-			this.aggrRating = aggrRating;
+		public void setRatingPercentage(Float ratingPercentage) {
+			this.ratingPercentage = ratingPercentage;
 		}
 
 		public boolean isReviewedByUser() {

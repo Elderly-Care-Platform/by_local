@@ -88,7 +88,7 @@ public class DiscussLikeController {
 								BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
 					} else {
 						discussLike = new DiscussLike(user, discussId,
-								DiscussConstants.DISCUSS_TYPE_DISCUSS);
+								DiscussConstants.CONTENT_TYPE_DISCUSS);
 						discuss.getLikedBy().add(user.getId());
 						sendMailForLikeOnDiscuss(discuss,user);
 						discussLikeRepository.save(discussLike);
@@ -124,7 +124,7 @@ public class DiscussLikeController {
 			@RequestParam(value = "replyId", required = true) String replyId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		int replyType = DiscussConstants.DISCUSS_TYPE_COMMENT;
+		int replyType = DiscussConstants.REPLY_TYPE_COMMENT;
 		return BYGenericResponseHandler.getResponse(submitReplyLike(replyType,
 				replyId, req, res));
 
@@ -145,7 +145,7 @@ public class DiscussLikeController {
 			@RequestParam(value = "replyId", required = true) String replyId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		int replyType = DiscussConstants.DISCUSS_TYPE_ANSWER;
+		int replyType = DiscussConstants.REPLY_TYPE_ANSWER;
 		return BYGenericResponseHandler.getResponse(submitReplyLike(replyType,
 				replyId, req, res));
 
@@ -171,7 +171,7 @@ public class DiscussLikeController {
 					} else {
 						logger.debug("creating new like for discuss");
 						discussLike = new DiscussLike(user, contentId,
-								DiscussConstants.DISCUSS_TYPE_DISCUSS);
+								DiscussConstants.CONTENT_TYPE_DISCUSS);
 						reply.getLikedBy().add(user.getId());
 						sendMailForLikeOnComments(reply, user);
 						discussLikeRepository.save(discussLike);
@@ -206,7 +206,7 @@ public class DiscussLikeController {
 			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
 			String title = reply.getText();
 			String userName = !Util.isEmpty(reply.getUserName()) ? reply.getUserName() : "Anonymous User";
-			String replyTypeString = (reply.getReplyType() == DiscussConstants.DISCUSS_TYPE_ANSWER) ? "answer" : "comment";
+			String replyTypeString = (reply.getReplyType() == DiscussConstants.REPLY_TYPE_ANSWER) ? "answer" : "comment";
 			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,reply.getDiscussId());
 			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName,replyTypeString, title , user.getUserName(),path,path);
 			MailHandler.sendMailToUserId(reply.getUserId(), "Your "+replyTypeString+" was liked on beautifulYears.com", body);

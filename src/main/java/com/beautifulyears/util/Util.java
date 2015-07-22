@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
@@ -37,5 +38,17 @@ public class Util {
 			throw new BYException(BYErrorCodes.INTERNAL_SERVER_ERROR);
 
 		}
+	}
+	
+	public static int getDiscussContentType(String discussType){
+		int discussContentType = DiscussConstants.CONTENT_TYPE_DISCUSS;
+		if("Q".equals(discussType)){
+			discussContentType = DiscussConstants.CONTENT_TYPE_QUESTION;
+		}else if("P".equals(discussType)){
+			discussContentType = DiscussConstants.CONTENT_TYPE_ARTICLE;
+		}else if("A".equals(discussType)){
+			discussContentType = DiscussConstants.CONTENT_TYPE_POST;
+		}
+		return discussContentType;
 	}
 }

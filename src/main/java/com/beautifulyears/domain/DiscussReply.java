@@ -19,6 +19,8 @@ public class DiscussReply {
 	@Id
 	private String id;
 	private String discussId;
+	
+	private int contentType;
 
 	private String userId;
 
@@ -46,6 +48,16 @@ public class DiscussReply {
 	
 	private Float userRating;
 	
+	@JsonIgnore
+	public int getContentType() {
+		return contentType;
+	}
+	
+	@JsonIgnore
+	public void setContentType(int contentType) {
+		this.contentType = contentType;
+	}
+
 	@JsonProperty
 	public Float getUserRating() {
 		return userRating;

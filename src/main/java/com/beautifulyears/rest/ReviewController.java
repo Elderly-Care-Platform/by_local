@@ -1,5 +1,6 @@
 package com.beautifulyears.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,8 @@ import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.repository.UserRatingRepository;
+import com.beautifulyears.rest.response.BYGenericResponseHandler;
+import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
@@ -54,10 +57,38 @@ public class ReviewController {
 		this.mongoTemplate = mongoTemplate;
 	}
 
+	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
+	@ResponseBody
+	public Object getReviewRate(
+			@RequestParam(value = "reviewType", required = true) Integer contentType,
+			@RequestParam(value = "associatedId", required = true) String associatedId,
+			@RequestParam(value = "userId", required = false) String userId,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		List<DiscussReply> reviewsList = new ArrayList<DiscussReply>();
+		DiscussDetailResponse responseHandler = new DiscussDetailResponse();
+		if (null != contentType && null != associatedId) {
+			Query q = new Query();
+			q.addCriteria(Criteria.where("replyType")
+					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
+					.is(contentType)
+					.and("discussId").is(associatedId));
+			if (null != userId) {
+				q.addCriteria(Criteria.where("userId").is(userId));
+			}
+			reviewsList = mongoTemplate.find(q, DiscussReply.class);
+		} else {
+			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+		}
+		responseHandler.addReplies(reviewsList, Util.getSessionUser(req));
+		return BYGenericResponseHandler.getResponse(responseHandler
+				.getResponse());
+
+	}
+
 	@RequestMapping(method = { RequestMethod.POST }, value = "", consumes = { "application/json" })
 	@ResponseBody
 	public Object submitReviewRate(
-			@RequestParam(value = "reviewType", required = true) Integer reviewType,
+			@RequestParam(value = "reviewType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestBody DiscussReply reviewRate, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
@@ -69,13 +100,13 @@ public class ReviewController {
 
 			DiscussReply newReview = reviewRate;
 			if (null != user) {
-				if (null != reviewType && null != associatedId
+				if (null != contentType && null != associatedId
 						&& null != newReview) {
-					if (isSelfAccessment(associatedId, reviewType, user)) {
+					if (isSelfAccessment(associatedId, contentType, user)) {
 						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 					}
-					submitRating(reviewType, associatedId, newReview, user);
-					submitReview(reviewType, associatedId, newReview, user);
+					submitRating(contentType, associatedId, newReview, user);
+					submitReview(contentType, associatedId, newReview, user);
 				} else {
 					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 				}
@@ -89,77 +120,73 @@ public class ReviewController {
 		return null;
 	}
 
-	private DiscussReply submitReview(Integer reviewType, String associatedId,
+	private DiscussReply submitReview(Integer contentType, String associatedId,
 			DiscussReply newReviewRate, User user) {
 		DiscussReply review = null;
-		review = this.getReview(reviewType, associatedId, user);
-		if (null != newReviewRate.getText()) {
-			if (null == review) {
-				review = new DiscussReply();
-				review.setDiscussId(associatedId);
-				review.setUserRating(newReviewRate.getUserRating());
-				review.setReplyType(reviewType);
-				review.setText(newReviewRate.getText());
-				review.setUserId(user.getId());
-				review.setUserName(user.getUserName());
-				updateAllDependantEntities(reviewType, review);
-			} else {
-				review.setText(newReviewRate.getText());
-			}
+		review = this.getReview(contentType, associatedId, user);
+		if (null == review) {
+			review = new DiscussReply();
+			review.setDiscussId(associatedId);
+			review.setContentType(contentType);
+			review.setUserRating(newReviewRate.getUserRating());
+			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);
+			review.setText(newReviewRate.getText());
+			review.setUserId(user.getId());
+			review.setUserName(user.getUserName());
+			review.setText(newReviewRate.getText());
 		}
-		if (null != review) {
-			review.setUserRating(newReviewRate.getUserRating() == null ? review
-					.getUserRating() : newReviewRate.getUserRating());
-			discussReplyRepository.save(review);
-		}
-
+		review.setUserRating(newReviewRate.getUserRating() == null ? review
+				.getUserRating() : newReviewRate.getUserRating());
+		discussReplyRepository.save(review);
+		updateAllDependantEntities(contentType, review);
 		return review;
 	}
 
-	private UserRating submitRating(Integer reviewType, String associatedId,
+	private UserRating submitRating(Integer contentType, String associatedId,
 			DiscussReply reviewRate, User user) {
 		UserRating rating = null;
-		if (null != reviewRate.getUserRating() && null != reviewType
+		if (null != reviewRate.getUserRating() && null != contentType
 				&& null != reviewRate && null != user) {
-			rating = this.getRating(reviewType, associatedId, user);
+			rating = this.getRating(contentType, associatedId, user);
 			if (null == rating) {
 				rating = new UserRating();
-				rating.setAssociatedContentType(reviewType);
 				rating.setAssociatedId(associatedId);
+				rating.setAssociatedContentType(contentType);
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
 			}
 			rating.setValue(reviewRate.getUserRating());
 			userRatingRepository.save(rating);
-			updateAllDependantEntities(reviewType, rating);
+			updateAllDependantEntities(contentType, rating);
 		} else {
 			logger.debug("not updating any rating");
 		}
 		return rating;
 	}
 
-	private UserRating getRating(Integer reviewType, String associatedId,
+	private UserRating getRating(Integer contentType, String associatedId,
 			User user) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("associatedContentType")
-				.is(reviewType).and("associatedId").is(associatedId)
+				.is(contentType).and("associatedId").is(associatedId)
 				.and("userId").is(user.getId()));
 		return this.mongoTemplate.findOne(query, UserRating.class);
 	}
 
-	private DiscussReply getReview(Integer reviewType, String associatedId,
+	private DiscussReply getReview(Integer reviewContentType, String associatedId,
 			User user) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("replyType").is(reviewType)
-				.and("discussId").is(associatedId).and("userId")
+		query.addCriteria(Criteria.where("replyType")
+				.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
+				.is(reviewContentType).and("discussId").is(associatedId).and("userId")
 				.is(user.getId()));
 		return this.mongoTemplate.findOne(query, DiscussReply.class);
 	}
 
-	private void updateAllDependantEntities(Integer reviewType,
+	private void updateAllDependantEntities(Integer contentType,
 			UserRating rating) {
-		switch (reviewType) {
-		case DiscussConstants.DISCUSS_TYPE_REVIEW_INSTITUTION:
+		switch (contentType) {
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
 			updateInstitutionRating(rating);
 			break;
 		default:
@@ -167,11 +194,11 @@ public class ReviewController {
 		}
 	}
 
-	private void updateAllDependantEntities(Integer reviewType,
-			DiscussReply rating) {
-		switch (reviewType) {
-		case DiscussConstants.DISCUSS_TYPE_REVIEW_INSTITUTION:
-			updateInstitutionReviews(rating);
+	private void updateAllDependantEntities(Integer contentType,
+			DiscussReply review) {
+		switch (contentType) {
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
+			updateInstitutionReviews(review);
 			break;
 		default:
 			throw new BYException(BYErrorCodes.REVIEW_TYPE_INVALID);
@@ -196,7 +223,7 @@ public class ReviewController {
 			AggregationResults<UserRating> result = mongoTemplate.aggregate(
 					aggregation, UserRating.class);
 			List<UserRating> ratingAggregated = result.getMappedResults();
-			if(ratingAggregated.size() > 0){
+			if (ratingAggregated.size() > 0) {
 				profile.setAggrRating(ratingAggregated.get(0).getValue());
 			}
 
@@ -214,12 +241,12 @@ public class ReviewController {
 		}
 	}
 
-	private boolean isSelfAccessment(String associatedId, Integer reviewType,
+	private boolean isSelfAccessment(String associatedId, Integer contentType,
 			User user) throws Exception {
 		boolean isSelf = false;
 		try {
-			switch (reviewType) {
-			case DiscussConstants.DISCUSS_TYPE_REVIEW_INSTITUTION:
+			switch (contentType) {
+			case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
 				UserProfile userProfile = this.userProfileRepository
 						.findByUserId(user.getId());
 				if (null != userProfile

@@ -6,28 +6,35 @@
 package com.beautifulyears.constants;
 
 public class DiscussConstants {
-	
-	public static final int DISCUSS_TYPE_DISCUSS = 0;
-	public static final int DISCUSS_TYPE_QUESTION = 1;
-	public static final int DISCUSS_TYPE_POST = 2;
-	public static final int DISCUSS_TYPE_ARTICLE = 3;
-	
-	public static final int DISCUSS_TYPE_REPLY = 4;
-	public static final int DISCUSS_TYPE_COMMENT = 5;
-	public static final int DISCUSS_TYPE_ANSWER = 6;
-	public static final int DISCUSS_TYPE_REVIEW_INSTITUTION = 7;
-	
-	public static final int DISCUSS_STATUS_ACTIVE=0;
-	public static final int DISCUSS_STATUS_INACTIVE=1;
-	
-	public static final int REPLY_STATUS_ACTIVE=0;
-	public static final int REPLY_STATUS_INACTIVE=1;
-	
-	public static final int SESSION_STATUS_ACTIVE=0;
-	public static final int SESSION_STATUS_INACTIVE=1;
-	public static final int SESSION_STATUS_EXPIRED=2;
-	
-	public static final String PATH_DISCUSS_DETAIL_PAGE ="/#/discuss/{0}";
-	
+
+	public static final int CONTENT_TYPE_DISCUSS = 0;
+	public static final int CONTENT_TYPE_QUESTION = 1;
+	public static final int CONTENT_TYPE_POST = 2;
+	public static final int CONTENT_TYPE_ARTICLE = 3;
+	public static final int CONTENT_TYPE_INSTITUTION_PROFILE = 4;
+
+	public static final int REPLY_TYPE_COMMENT = 5;
+	public static final int REPLY_TYPE_ANSWER = 6;
+	public static final int REPLY_TYPE_REVIEW = 7;
+
+	// ---------------------------------------------------------------//
+
+	public static final int DISCUSS_STATUS_ACTIVE = 0;
+	public static final int DISCUSS_STATUS_INACTIVE = 1;
+
+	// ---------------------------------------------------------------//
+
+	public static final int REPLY_STATUS_ACTIVE = 0;
+	public static final int REPLY_STATUS_INACTIVE = 1;
+
+	// ---------------------------------------------------------------//
+
+	public static final int SESSION_STATUS_ACTIVE = 0;
+	public static final int SESSION_STATUS_INACTIVE = 1;
+	public static final int SESSION_STATUS_EXPIRED = 2;
+
+	// ---------------------------------------------------------------//
+
+	public static final String PATH_DISCUSS_DETAIL_PAGE = "/#/discuss/{0}";
 
 }

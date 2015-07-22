@@ -20,7 +20,7 @@ BY.byUtil.getAverageRating = function(value){
 	var averageRating = null;
 	value = parseFloat(value);
 	if(value > 0){
-		averageRating = (value*range / 100).toFixed(1);
+		averageRating = Number((value*range / 100).toFixed(1));
 	}
 
 	//Number((parseFloat("22.33333333")*10/100).toFixed(1));

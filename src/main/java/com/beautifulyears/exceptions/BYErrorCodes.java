@@ -12,6 +12,7 @@ public enum BYErrorCodes {
 	INVALID_REQUEST(1001, "The request is invalid"),
 	MISSING_PARAMETER(1002, "Required query parameter is missing"),
 	INTERNAL_SERVER_ERROR(1003, "Some unknown internal server error occured"),
+	ERROR_IN_SENDING_MAIL(1004,"Some unexpected error occured while sending the mail"),
 
 	// discuss related error
 	DISCUSS_NOT_FOUND(2001, "Discuss content with provided discussId doesn't exist"),

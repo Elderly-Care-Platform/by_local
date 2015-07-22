@@ -22,8 +22,10 @@ public enum BYErrorCodes {
 	USER_LOGIN_REQUIRED(3002, "User is required to login to perform such operation"),
 	USER_LOGIN_FAILED(3003,"User login failed. Invalid user/password combination."),
 	USER_ALREADY_EXIST(3004,"User with the same emailId already exists"),
-	INVALID_SESSION(3005,"Invalid session, please login to continue")
+	INVALID_SESSION(3005,"Invalid session, please login to continue"),
 	
+	//review rate
+	REVIEW_TYPE_INVALID(4001,"Invalid review type")
 
 	;
 

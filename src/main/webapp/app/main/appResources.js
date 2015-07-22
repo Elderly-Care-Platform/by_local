@@ -67,13 +67,6 @@ var validateUserCredential = byServices.factory('ValidateUserCredential', functi
     return user;
 });
 
-////home featured content API
-//var homeFeaturedContent = byServices.factory('HomeFeaturedContent', function ($resource) {
-//    return $resource('api/v1/discuss/list/all/:discussType?featured=true&count=3&sort=lastModifiedAt', {}, {
-//        query: {method: 'GET', isArray: false}
-//        
-//    });
-//});
 
 //discuss detail page API
 var discussDetail = byServices.factory('DiscussDetail', function($resource) {
@@ -95,15 +88,6 @@ var discussLike = byServices.factory('DiscussLike', function($resource){
     })
 })
 
-//user articles list for detail left panel
-
-//var discussByUserFilter = byServices.factory('UserDiscussList', function($resource) {
-//    ///start here
-//    return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId/:userId',{}, {
-//        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false}
-//
-//    })
-//});
 
 
 //ContactUs -
@@ -131,13 +115,6 @@ var userProfile = byServices.factory('UserProfile', function($resource) {
     })
 });
 
-
-
-
-
-
-
-
 //User
 var user = byServices.factory('User', function($resource) {
     return $resource(apiPrefix+'api/v1/users/:userId',{}, {
@@ -147,66 +124,6 @@ var user = byServices.factory('User', function($resource) {
     })
 });
 
-////UserProfile old
-//var userProfile = byServices.factory('UserProfile', function($resource) {
-//    return $resource(apiPrefix+'api/v1/userprofile/:userId',{}, {
-//        remove:{method: 'DELETE', params: {userId: '@userId'}},
-//        update:{method: 'PUT', params: {userId: '@userId'}},
-//        get: {method: 'GET', params: {userId: '@userId'}}
-//    })
-//});
-
-
-//var depList = byServices.factory('DependentList', function($resource) {
-//    return $resource(apiPrefix+'api/v1/dependent/list/:userId',{}, {
-//        //remove:{method: 'DELETE', params: {userId: '@userId'}},
-//        //update:{method: 'PUT', params: {userId: '@userId'}},
-//        //query: { method: "GET", isArray: true },
-//        get: {method: 'GET', params: {userId: '@userId'}}
-//    })
-//});
-
-
-//Show dependent details for edit
-//var userDependent = byServices.factory('ShowDependent', function($resource) {
-//    return $resource(apiPrefix+'api/v1/dependent/:userId/:id',{}, {
-//        show: {method: 'GET', params: {userId: '@userId', id: '@id'}},
-//        get: {method: 'GET', params: {userId: '@userId', id: '@id'}},
-//        update:{method: 'PUT', params: {userId: '@userId', id: '@id'}},
-//        query: { method: "GET", isArray: true }
-//    })
-//});
-
-
-//UserProfile - step 3
-//var userProfile3 = byServices.factory('UserDependent', function($resource) {
-//    return $resource(apiPrefix+'api/v1/dependent/:userId',{}, {
-//        remove:{method: 'DELETE', params: {userId: '@userId'}},
-//        update:{method: 'PUT', params: {userId: '@userId'}},
-//        get: {method: 'GET', params: {userId: '@userId'}}
-//    })
-//});
-
-
-//
-//var userShow = byServices.factory('UserShow', function($resource) {
-//    return $resource(apiPrefix+'api/v1/users/show/:userId',{}, {
-//        show: {method: 'GET', params: {userId: '@id'}},
-//        get: {method: 'GET', params: {userId: '@id'}}
-//    })
-//});
-
-//var userEdit = byServices.factory('UserEdit', function($resource) {
-//    return $resource(apiPrefix+'api/v1/users/edit/:userId',{}, {
-//        get: {method: 'GET', params: {userId: '@id'}}
-//    })
-//});
-
-//var userByFilter = byServices.factory('UserList', function($resource) {
-//    return $resource(apiPrefix+'api/v1/users/list/all',{}, {
-//    	query: {method: 'GET', isArray: false}
-//    })
-//});
 
 var discuss = byServices.factory('DiscussPage', function($resource) {
     return $resource(apiPrefix+'api/v1/discuss/page',{}, {
@@ -232,16 +149,6 @@ var discuss = byServices.factory('Discuss', function($resource) {
 });
 
 
-//
-//var discussUserLikes = byServices.factory('DiscussUserLikes', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discusslikes/create/:userId/:discussId',{}, {
-//        remove:{method: 'DELETE', params: {userId: '@userId', discussId: '@discussId'}},
-//        update:{method: 'PUT', params: {userId: '@userId', discussId: '@discussId'}},
-//        get: {method: 'GET', params: {userId: '@userId', discussId: '@discussId'}}
-//    })
-//});
-
-
 var commentUserLikes = byServices.factory('AnswerCommentUserLikes', function($resource) {
     return $resource(apiPrefix+'api/v1/commentlikes/create/:userId/:commentId',{}, {
         remove:{method: 'DELETE', params: {userId: '@userId', commentId: '@commentId'}},
@@ -261,37 +168,6 @@ var discussComment = byServices.factory('DiscussComment', function($resource) {
 });
 
 
-//
-//var discuss = byServices.factory('DiscussCreate', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss',{}, {
-//    })
-//});
-
-
-//var discussByFilterPost = byServices.factory('PostDiscuss', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/list/P/:bc_topic/:bc_subTopic',{}, {
-//        get: {method: 'GET', params: {bc_topic: '@bc_topic'}}
-//    })
-//});
-
-
-//var discussByFilterQuestion = byServices.factory('QuestionDiscuss', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/list/Q/:bc_topic/:bc_subTopic',{}, {
-//    })
-//});
-
-//var discussByFilterArticle = byServices.factory('ArticleDiscuss', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/list/A/:bc_topic/:bc_subTopic',{}, {
-//    })
-//});
-
-//
-//var discussByFilter = byServices.factory('DiscussList', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/list/all',{}, {
-//    	query: {method: 'GET', isArray: false}
-//    })
-//});
-
 
 var discussSearch = byServices.factory('DiscussSearch', function($resource) {
 
@@ -302,84 +178,11 @@ var discussSearch = byServices.factory('DiscussSearch', function($resource) {
     })
 });
 
-
-//var allDiscussByTypeFilter = byServices.factory('DiscussAllForDiscussType', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/list/all/:discussType',{}, {
-//        get: {method: 'GET', params: {discussType: '@discussType'},isArray:false},
-//        query: {method: 'GET', params: {discussType: '@discussType'},isArray:false}
-//    })
-//});
-
-
 var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', function($resource) {
     return $resource(apiPrefix+'api/v1/search/:term/:discussType',{}, {
         get: {method: 'GET', params: {term: '@term', discussType: '@discussType'}}
     })
 });
-
-
-//var discussByOTASTFilter = byServices.factory('DiscussOneTopicAllSubTopicList', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/list/:topicId/all',{}, {
-//        get: {method: 'GET', params: {topicId: '@topicId'}}
-//    })
-//});
-
-//var discussByOTOSTFilter = byServices.factory('DiscussOneTopicOneSubTopicList', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/list/:discussType/:topicId/:subTopicId',{}, {
-//        get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false},
-//        query: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}, isArray: false}
-//    })
-//});
-
-
-/*
- var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($resource) {
- return $resource(apiPrefix+'api/v1/discuss/count/:discussType/:topicId/:subTopicId',{}, {
- //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId'}}
- })
- });
- */
-
-
-
-//var discussByOTOSTFilterCount = byServices.factory('DiscussOneTopicOneSubTopicListCount', function($http, $timeout, $q) {
-//
-//    var counts = [];
-//
-//    return {
-//        // Get all projects
-//        get: function(queryStr) {
-//
-//
-//            var deferred = $q.defer();
-//
-//            // Don't do call if we already have projects
-//            //alert(counts);
-//            if (counts.length === 0) {
-//
-//                // Using a timeout to simulate a server call
-//                //$timeout(function() {
-//                $http.get(apiPrefix+'api/v1/discuss/count/' + queryStr.discussType + '/' + queryStr.topicId + '/' + queryStr.subTopicId).success(function(data) {
-//
-//                    deferred.resolve(data);
-//                });
-//                //}, 200);
-//            }
-//
-//            // Return the projects either way
-//            return deferred.promise;
-//
-//        }
-//    }
-//});
-
-//var discussShow = byServices.factory('DiscussShow', function($resource) {
-//    return $resource(apiPrefix+'api/v1/discuss/:discussId',{}, {
-//        show: {method: 'GET', params: {discussId: '@id'}},
-//        get: {method: 'GET', params: {discussId: '@id'}}
-//    })
-//});
-//
 
 
 var discussCategoryList = byServices.factory('discussCategoryList', function ($resource) {
@@ -405,5 +208,13 @@ var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) 
                 return response.data;
             }
         }, isArray: false}
+    })
+});
+
+//Review and Rate profile
+var reviewRateProfile = byServices.factory('ReviewRateProfile', function($resource) {
+    return $resource(apiPrefix +'api/v1/reviewRate',{}, {
+        get: {method: 'GET', params: {}},
+        post:{method: 'POST', params: {associatedId:"@associatedId",reviewType:"7"}}
     })
 });

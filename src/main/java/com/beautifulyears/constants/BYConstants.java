@@ -1,4 +1,4 @@
-package com.beautifulyears;
+package com.beautifulyears.constants;
 
 public final class BYConstants {
 //	public static final String IMAGE_CDN_PATH = "/home/ubuntu/uploads"; //for remote

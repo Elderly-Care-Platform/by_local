@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.beautifulyears.DiscussConstants;
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
@@ -100,7 +100,8 @@ public class DiscussDetailController {
 			List<DiscussReply> ancestors = null;
 			if (null != discuss) {
 				comment.setDiscussId(discuss.getId());
-				comment.setReplyType(DiscussConstants.DISCUSS_TYPE_COMMENT);
+				comment.setContentType(Util.getDiscussContentType(discuss.getDiscussType()));
+				comment.setReplyType(DiscussConstants.REPLY_TYPE_COMMENT);
 				User user = Util.getSessionUser(req);
 				if (null != user) {
 					comment.setUserId(user.getId());
@@ -134,7 +135,7 @@ public class DiscussDetailController {
 
 				} else {
 					discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
-					sendMailForReplyOnDiscuss(discuss,user,DiscussConstants.DISCUSS_TYPE_COMMENT);
+					sendMailForReplyOnDiscuss(discuss,user,DiscussConstants.REPLY_TYPE_COMMENT);
 				}
 
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
@@ -172,7 +173,8 @@ public class DiscussDetailController {
 			Discuss discuss = discussRepository.findOne(discussId);
 			if (null != discuss) {
 				answer.setDiscussId(discuss.getId());
-				answer.setReplyType(DiscussConstants.DISCUSS_TYPE_ANSWER);
+				answer.setReplyType(DiscussConstants.REPLY_TYPE_ANSWER);
+				answer.setContentType(Util.getDiscussContentType(discuss.getDiscussType()));
 				answer.setParentReplyId(null);
 				User user = Util.getSessionUser(req);
 				if (null != user) {
@@ -185,7 +187,7 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
-				sendMailForReplyOnDiscuss(discuss,user,DiscussConstants.DISCUSS_TYPE_ANSWER);
+				sendMailForReplyOnDiscuss(discuss,user,DiscussConstants.REPLY_TYPE_ANSWER);
 				logger.debug("new answer posted successfully with replyId = "
 						+ answer.getId());
 			} else {
@@ -235,7 +237,7 @@ public class DiscussDetailController {
 					.getUsername() : "Anonymous User";
 			String commentedBy = !Util.isEmpty(user.getUserName()) ? user
 					.getUserName() : "Anonymous User";
-			String replyTypeString = (replyType == DiscussConstants.DISCUSS_TYPE_ANSWER) ? "an answer" : "comment"		;
+			String replyTypeString = (replyType == DiscussConstants.REPLY_TYPE_ANSWER) ? "an answer" : "comment"		;
 			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,discuss.getId());
 			String body = MessageFormat.format(
 					resourceUtil.getResource("contentCommentedBy"), userName,

@@ -1,4 +1,4 @@
-package com.beautifulyears.rest.test;
+package com.beautifulyears.rest;
 
 import java.util.Iterator;
 import java.util.List;
@@ -26,12 +26,12 @@ import com.beautifulyears.util.LoggerUtil;
  */
 @Controller
 @RequestMapping({ "service_types" })
-public class ServiceTypesTestController {
+public class ServiceTypeController {
 
 	private ServiceTypesRepository serviceTypesRepository;
 
 	@Autowired
-	public ServiceTypesTestController(ServiceTypesRepository serviceTypesRepository) {
+	public ServiceTypeController(ServiceTypesRepository serviceTypesRepository) {
 		this.serviceTypesRepository = serviceTypesRepository;
 	}
 

@@ -19,6 +19,8 @@ public class DiscussReply {
 	@Id
 	private String id;
 	private String discussId;
+	
+	private int contentType;
 
 	private String userId;
 
@@ -43,6 +45,28 @@ public class DiscussReply {
 	private Date lastModifiedAt;
 
 	private int status;
+	
+	private Float userRating;
+	
+	@JsonIgnore
+	public int getContentType() {
+		return contentType;
+	}
+	
+	@JsonIgnore
+	public void setContentType(int contentType) {
+		this.contentType = contentType;
+	}
+
+	@JsonProperty
+	public Float getUserRating() {
+		return userRating;
+	}
+
+	@JsonIgnore
+	public void setUserRating(Float userRating) {
+		this.userRating = userRating;
+	}
 
 	@Transient
 	private int likeCount;

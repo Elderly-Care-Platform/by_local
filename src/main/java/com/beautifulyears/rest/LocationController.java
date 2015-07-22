@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.beautifulyears.rest.test;
+package com.beautifulyears.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

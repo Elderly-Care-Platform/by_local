@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -19,6 +20,7 @@ import com.beautifulyears.domain.BasicProfileInfo;
  * @author jharana
  */
 @Document(collection = "user_profile")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfile {
 
 	@Id
@@ -55,7 +57,7 @@ public class UserProfile {
 	@JsonIgnore
 	private List<String> ratedBy = new ArrayList<String>();
 
-	private Float aggrRatingPercentage;
+	private Float aggrRatingPercentage = 0f;
 
 	@Transient
 	private boolean isReviewedByUser = false;

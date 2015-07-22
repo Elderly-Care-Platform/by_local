@@ -35,7 +35,7 @@ public class UserProfileResponse implements IResponse {
 		private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
 		private IndividualProfileInfo individualInfo = new IndividualProfileInfo();
 		private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
-		private Float ratingPercentage;
+		private Float ratingPercentage = 0f;
 		private int ratingCount;
 		private int reviewCount;
 		private boolean isReviewedByUser = false;

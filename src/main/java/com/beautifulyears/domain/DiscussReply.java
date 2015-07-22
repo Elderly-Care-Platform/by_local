@@ -46,7 +46,7 @@ public class DiscussReply {
 
 	private int status;
 	
-	private Float userRatingPercentage;
+	private Float userRatingPercentage = 0f;
 	
 	@JsonIgnore
 	public int getContentType() {

@@ -222,7 +222,8 @@ public class ReviewController {
 							.is(rating.getAssociatedId())
 							.and("associatedContentType")
 							.is(rating.getAssociatedContentType())),
-					group("associatedId").avg("ratingPercentage").as("ratingPercentage"));
+					group("associatedId").avg("ratingPercentage").as(
+							"ratingPercentage"));
 
 			AggregationResults<UserRating> result = mongoTemplate.aggregate(
 					aggregation, UserRating.class);
@@ -239,14 +240,14 @@ public class ReviewController {
 	private void updateInstitutionReviews(DiscussReply review) {
 		UserProfile profile = this.userProfileRepository.findOne(review
 				.getDiscussId());
-		 if (null != profile) {
-			if(Util.isEmpty(review.getText())){
+		if (null != profile) {
+			if (Util.isEmpty(review.getText())) {
 				profile.getReviewedBy().remove(review.getUserId());
-			}else if(!profile.getReviewedBy().contains(review.getUserId())){
+			} else if (!profile.getReviewedBy().contains(review.getUserId())) {
 				profile.getReviewedBy().add(review.getUserId());
 			}
 			this.userProfileRepository.save(profile);
-			
+
 		}
 	}
 

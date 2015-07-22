@@ -119,3 +119,17 @@ input::-webkit-inner-spin-button {
 .by_leftPanel_icons:hover .icon_reviewRate {
   content: url("../img/icons/ask_share_submit/rateReview_mo.png?versionTimeStamp=%PROJECT_VERSION%");
 }
+
+
+
+.reviewCardRating i{
+  width: 32px;
+  text-align: center;
+  height: 32px;
+  background: #00af50;
+  border-radius: 50%;
+  padding: 11px 7px 4px 3px;
+  margin-right: 10px;
+  color: #fff;
+  display: inline-block;
+}

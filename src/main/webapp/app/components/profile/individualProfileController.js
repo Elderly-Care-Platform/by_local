@@ -1,9 +1,20 @@
 //DIscuss All
-byControllers.controller('IndividualProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-    function ($scope, $rootScope, $location, $route, $routeParams) {
+byControllers.controller('IndividualProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
         $scope.individualProfile = $scope.$parent.profileData;
         $scope.gender =  BY.config.profile.userGender[$scope.individualProfile.individualInfo.sex];
         $scope.slideIndex = 1;
+
+        var reviewDetails = new ReviewRateProfile();
+        $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id}, function(response){
+            $scope.reviews = response.data.replies;
+        }, function(error){
+            console.log(error)
+        })
+
+        $scope.getProfileRating = function(item){
+            item.profileRating = BY.byUtil.getAverageRating(item.userRatingPercentage);
+        }
 
         $scope.slideGallery = function(dir){
             if(dir==="r"){

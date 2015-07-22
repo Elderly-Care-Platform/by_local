@@ -1,6 +1,8 @@
 var BY = BY || {};
+BY.config = BY.config || {};
+BY.config.profile = BY.config.profile || {};
 
-BY.userType = {
+BY.config.profile.userType = {
     '0' : {
         'category':'0',
         'contentPanel':'',
@@ -46,7 +48,12 @@ BY.userType = {
 
 }
 
-BY.userCategory = {
+BY.config.profile.userCategory = {
     '0':'INDIVIDUAL',
     '1':'INSTITUTION'
+}
+
+BY.config.profile.userGender = {
+    '0':'Ms.',
+    '1':'Mr.'
 }

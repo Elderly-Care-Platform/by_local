@@ -60,6 +60,6 @@ BY.config.profile.userGender = {
 
 
 BY.config.profile.rate = {
-    'lowerLimit':'1',
+    'lowerLimit':'0',
     'upperLimit':'5'
 }

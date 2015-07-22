@@ -4,7 +4,6 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
 
-
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){
                 $scope.slideIndex = 1;

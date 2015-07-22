@@ -16,10 +16,10 @@
                         </p>
                     </div>
                 </div>
-                <ul class="list-inline service-review-rate-info" ng-if="service.reviewCount > 0 || service.ratingCount > 0">
-                    <li class="service-card-review" ng-if="parseInt(service.aggrRating) > 0">
+                <ul class="list-inline service-review-rate-info" ng-if="service.reviewCount > 0 || service.ratingCount > 0" ng-init="getProfileRating(service)">
+                    <li class="service-card-review" ng-if="service.profileRating">
                         <i class="rounded-x green-bg">
-                            <span class="white-color" style="font-size: 11px;">{{service.aggrRating}}</span>
+                            <span class="white-color" style="font-size: 11px;">{{service.profileRating}}</span>
                         </i>
                         <span>Rated by</span>
                         <a href="">{{service.ratingCount}} people</a>

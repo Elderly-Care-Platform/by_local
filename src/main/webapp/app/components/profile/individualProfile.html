@@ -44,8 +44,8 @@
                     <div class="profileRating" ng-if="individualProfile.ratingCount===0 && individualProfile.reviewCount===0 && isAllowedToReview">
                         <a ng-click="reviewContent()"> Be the first to rate/review</a>
                     </div>
-                    <div class="profileRating" ng-if="individualProfile.ratingCount > 0 && parseInt(service.aggrRating) > 0">
-                        <i class="rounded-x">{{individualProfile.aggrRating}}</i>Rated by <a href="">{{individualProfile.ratingCount}} people</a>
+                    <div class="profileRating" ng-if="profileRating">
+                        <i class="rounded-x">{{profileRating}}</i>Rated by <a href="">{{individualProfile.ratingCount}} people</a>
                     </div>
                     <div class="profileReview" ng-if="individualProfile.reviewCount > 0">
                         <i class="rounded-x  icon-pencil padding4"></i><a href="">{{individualProfile.reviewCount}} reviews</a>

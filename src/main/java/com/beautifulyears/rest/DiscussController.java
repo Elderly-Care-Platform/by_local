@@ -118,59 +118,6 @@ public class DiscussController {
 
 	}
 
-	// @RequestMapping(method = { RequestMethod.GET }, value = { "/list/all" },
-	// produces = { "application/json" })
-	// @ResponseBody
-	// public Object allDiscuss(
-	// @RequestParam(value = "sort", required = false, defaultValue =
-	// "createdAt") String sort,
-	// HttpServletRequest request) throws Exception {
-	// LoggerUtil.logEntry();
-	// DiscussResponse discussResponse = new DiscussResponse();
-	// try {
-	// Map<String, Object> filters = new HashMap<String, Object>();
-	// filters.put("discussType", "all");
-	// List<String> sortArray = new ArrayList<String>();
-	// sortArray.add(sort);
-	// List<Discuss> list = discussRepository.findPublished(filters,
-	// sortArray, 0);
-	// discussResponse.add(list, Util.getSessionUser(request));
-	// } catch (Exception e) {
-	// Util.handleException(e);
-	// }
-	// return BYGenericResponseHandler.getResponse(discussResponse
-	// .getResponse());
-	//
-	// }
-
-	// @RequestMapping(method = { RequestMethod.GET }, value = {
-	// "/list/all/{discussType}" }, produces = { "application/json" })
-	// @ResponseBody
-	// public Object showDiscussByDiscussType(
-	// @PathVariable(value = "discussType") String discussType,
-	// @RequestParam(value = "featured", required = false) Boolean isFeatured,
-	// @RequestParam(value = "count", required = false, defaultValue = "0") int
-	// count,
-	// @RequestParam(value = "sort", required = false, defaultValue =
-	// "createdAt") String sort,
-	// HttpServletRequest request) throws Exception {
-	// LoggerUtil.logEntry();
-	// DiscussResponse discussResponse = new DiscussResponse();
-	// try {
-	// Map<String, Object> filters = new HashMap<String, Object>();
-	// filters.put("isFeatured", isFeatured);
-	// filters.put("discussType", discussType);
-	// List<String> sortArray = new ArrayList<String>();
-	// sortArray.add(sort);
-	// List<Discuss> list = discussRepository.findPublished(filters,
-	// sortArray, count);
-	// discussResponse.add(list, Util.getSessionUser(request));
-	// } catch (Exception e) {
-	// Util.handleException(e);
-	// }
-	// return BYGenericResponseHandler.getResponse(discussResponse
-	// .getResponse());
-	// }
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/page" }, produces = { "application/json" })
 	@ResponseBody
@@ -218,97 +165,6 @@ public class DiscussController {
 				.getPage(page));
 	}
 
-	// @RequestMapping(method = { RequestMethod.GET }, value = {
-	// "/list/{discussType}/{topicId}/all" }, produces = { "application/json" })
-	// @ResponseBody
-	// public Object allDiscussDiscussTypeAndTopic(
-	// @PathVariable(value = "discussType") String discussType,
-	// @PathVariable(value = "topicId") String topicId,
-	// @RequestParam(value = "sort", required = false, defaultValue =
-	// "createdAt") String sort,
-	// HttpServletRequest request) throws Exception {
-	// LoggerUtil.logEntry();
-	// DiscussResponse discussResponse = new DiscussResponse();
-	// try {
-	// Map<String, Object> filters = new HashMap<String, Object>();
-	// filters.put("discussType", discussType);
-	// filters.put("topicId", topicId);
-	// List<String> sortArray = new ArrayList<String>();
-	// sortArray.add(sort);
-	// List<Discuss> list = discussRepository.findPublished(filters,
-	// sortArray, 0);
-	// discussResponse.add(list, Util.getSessionUser(request));
-	// } catch (Exception e) {
-	// Util.handleException(e);
-	// }
-	// return BYGenericResponseHandler.getResponse(discussResponse
-	// .getResponse());
-	// }
-	//
-	// @RequestMapping(method = { RequestMethod.GET }, value = {
-	// "/list/{discussType}/{topicId}/{subTopicId}/{userId}" }, produces = {
-	// "application/json" })
-	// @ResponseBody
-	// public Object allDiscussByUser(
-	// @PathVariable(value = "discussType") String discussType,
-	// @PathVariable(value = "topicId") String topicId,
-	// @PathVariable(value = "subTopicId") String subTopicId,
-	// @PathVariable(value = "userId") String userId,
-	// @RequestParam(value = "sort", required = false, defaultValue =
-	// "createdAt") String sort,
-	// HttpServletRequest request) throws Exception {
-	// LoggerUtil.logEntry();
-	// DiscussResponse discussResponse = new DiscussResponse();
-	// try {
-	// Map<String, Object> filters = new HashMap<String, Object>();
-	// filters.put("discussType", discussType);
-	// filters.put("topicId", topicId);
-	// filters.put("subTopicId", subTopicId);
-	// filters.put("userId", userId);
-	// List<String> sortArray = new ArrayList<String>();
-	// sortArray.add(sort);
-	// List<Discuss> list = discussRepository.findPublished(filters,
-	// sortArray, 0);
-	// discussResponse.add(list, Util.getSessionUser(request));
-	// } catch (Exception e) {
-	// Util.handleException(e);
-	// }
-	// return BYGenericResponseHandler.getResponse(discussResponse
-	// .getResponse());
-	//
-	// }
-	//
-	// @RequestMapping(method = { RequestMethod.GET }, value = {
-	// "/list/{discussType}/{topicId}/{subTopicId}" }, produces = {
-	// "application/json" })
-	// @ResponseBody
-	// public Object discussByDiscussTypeTopicAndSubTopic(
-	// @PathVariable(value = "discussType") String discussType,
-	// @PathVariable(value = "topicId") String topicId,
-	// @PathVariable(value = "subTopicId") String subTopicId,
-	// @RequestParam(value = "sort", required = false, defaultValue =
-	// "createdAt") String sort,
-	// HttpServletRequest request) throws Exception {
-	// LoggerUtil.logEntry();
-	// DiscussResponse discussResponse = new DiscussResponse();
-	// try {
-	// Map<String, Object> filters = new HashMap<String, Object>();
-	// filters.put("discussType", discussType);
-	// filters.put("topicId", topicId);
-	// filters.put("subTopicId", subTopicId);
-	// List<String> sortArray = new ArrayList<String>();
-	// sortArray.add(sort);
-	// List<Discuss> list = discussRepository.findPublished(filters,
-	// sortArray, 0);
-	// discussResponse.add(list, Util.getSessionUser(request));
-	//
-	// } catch (Exception e) {
-	// Util.handleException(e);
-	// }
-	// return BYGenericResponseHandler.getResponse(discussResponse
-	// .getResponse());
-	// }
-	//
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/count" }, produces = { "application/json" })
 	@ResponseBody
 	public Object discussByDiscussTypeTopicAndSubTopicCount(
@@ -344,38 +200,6 @@ public class DiscussController {
 		return BYGenericResponseHandler.getResponse(obj);
 	}
 
-	//
-	// @RequestMapping(method = { RequestMethod.GET }, value = {
-	// "/show/{discussId}" }, produces = { "application/json" })
-	// @ResponseBody
-	// public Object showDiscuss(
-	// @PathVariable(value = "discussId") String discussId)
-	// throws Exception {
-	// LoggerUtil.logEntry();
-	// Discuss discuss = null;
-	// try {
-	// discuss = (Discuss) discussRepository.findOne(discussId);
-	// } catch (Exception e) {
-	// Util.handleException(e);
-	// }
-	// return BYGenericResponseHandler.getResponse(discuss);
-	// }
-
-	// @RequestMapping(method = { RequestMethod.GET }, value = { "/{discussId}"
-	// }, produces = { "application/json" })
-	// @ResponseBody
-	// public Object getDiscuss(
-	// @PathVariable(value = "discussId") String discussId,
-	// HttpServletRequest req) {
-	// LoggerUtil.logEntry();
-	// DiscussResponse res = new DiscussResponse();
-	// Discuss discuss = (Discuss) discussRepository.findOne(discussId);
-	// if (null == discuss) {
-	// throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
-	// }
-	// return BYGenericResponseHandler.getResponse(res.getDiscussEntity(
-	// discuss, Util.getSessionUser(req)));
-	// }
 
 	private Discuss setDiscussBean(Discuss discuss) throws Exception {
 		LoggerUtil.logEntry();

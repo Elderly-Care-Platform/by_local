@@ -11,50 +11,83 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.beautifulyears.domain.BasicProfileInfo;
 
-
-/** The UserProfile class specifies profile information of all types of users including 
-*  individual and institutions. 
-*  Documents corresponding to this class are stored in user_profile collection in MongodB.
-*  @author jharana
-*/
+/**
+ * The UserProfile class specifies profile information of all types of users
+ * including individual and institutions. Documents corresponding to this class
+ * are stored in user_profile collection in MongodB.
+ * 
+ * @author jharana
+ */
 @Document(collection = "user_profile")
 public class UserProfile {
 
 	@Id
 	private String id;
-	
-	private String userId; //primary user ID from User.java
-	
-	private List<Integer> userTypes = new ArrayList<Integer>(); // @see @UserTypes.java
-	
-	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo(); //contains all common user profile information.
 
-	private IndividualProfileInfo individualInfo = new IndividualProfileInfo(); //contains information applicable to an individual;
+	// primary user ID from User.java
+	private String userId; 
+
+	//@see @UserTypes.java
+	private List<Integer> userTypes = new ArrayList<Integer>(); 
+
+	// contains all common user profile information.
+	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
+
+	//contains information applicable to an indivisual
+	private IndividualProfileInfo individualInfo = new IndividualProfileInfo(); 
 	
-	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo(); //contains information about service providers
-	
+	//contains information about service provider
+	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo(); 
+
 	private String tags;
 
 	private boolean isFeatured;
-	
+
 	private List<String> systemTags = new ArrayList<String>();
 
 	private List<String> userTags = new ArrayList<String>();
-	
-	private int status; //Unparroved, verified, etc. 
-	
+
+	private int status; // Unparroved, verified, etc.
+
+	@JsonIgnore
 	private List<String> reviewedBy = new ArrayList<String>();
-	
+
+	@JsonIgnore
 	private List<String> ratedBy = new ArrayList<String>();
-	
-	@Transient
+
 	private Float aggrRating;
-	
-	
+
+	@Transient
+	private boolean isReviewedByUser = false;
+
+	@Transient
+	private boolean isRatedByUser = false;
+
+	@JsonProperty
+	public boolean isReviewedByUser() {
+		return isReviewedByUser;
+	}
+
+	@JsonIgnore
+	public void setReviewedByUser(boolean isReviewedByUser) {
+		this.isReviewedByUser = isReviewedByUser;
+	}
+
+	@JsonProperty
+	public boolean isRatedByUser() {
+		return isRatedByUser;
+	}
+
+	@JsonIgnore
+	public void setRatedByUser(boolean isRatedByUser) {
+		this.isRatedByUser = isRatedByUser;
+	}
+
 	@JsonProperty
 	public Float getAggrRating() {
 		return aggrRating;
 	}
+
 	@JsonIgnore
 	public void setAggrRating(Float aggrRating) {
 		this.aggrRating = aggrRating;
@@ -147,8 +180,6 @@ public class UserProfile {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
 
 	public List<String> getReviewedBy() {
 		return reviewedBy;
@@ -176,8 +207,5 @@ public class UserProfile {
 				+ systemTags + ", userTags=" + userTags + ", status=" + status
 				+ ", reviewedBy=" + reviewedBy + ", ratedBy=" + ratedBy + "]";
 	}
-
-	
-	
 
 }

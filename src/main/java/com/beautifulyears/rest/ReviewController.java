@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.DiscussReply;
-import com.beautifulyears.domain.Topic;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRating;
@@ -31,6 +31,8 @@ import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.repository.UserRatingRepository;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @Controller
 @RequestMapping("/reviewRate")
@@ -61,22 +63,28 @@ public class ReviewController {
 			HttpServletResponse res) throws Exception {
 
 		LoggerUtil.logEntry();
-		User user = Util.getSessionUser(req);
+		try {
 
-		DiscussReply newReview = reviewRate;
-		if (null != user) {
-			if (null != reviewType && null != associatedId && null != newReview) {
-				if (isSelfAccessment(associatedId, reviewType, user)) {
-					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+			User user = Util.getSessionUser(req);
+
+			DiscussReply newReview = reviewRate;
+			if (null != user) {
+				if (null != reviewType && null != associatedId
+						&& null != newReview) {
+					if (isSelfAccessment(associatedId, reviewType, user)) {
+						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+					}
+					submitRating(reviewType, associatedId, newReview, user);
+					submitReview(reviewType, associatedId, newReview, user);
+				} else {
+					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 				}
-				submitRating(reviewType, associatedId, newReview, user);
-				submitReview(reviewType, associatedId, newReview, user);
 			} else {
-				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+				logger.debug("user must login to submit review aand ratings");
+				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 			}
-		} else {
-			logger.debug("user must login to submit review aand ratings");
-			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+		} catch (Exception e) {
+			Util.handleException(e);
 		}
 		return null;
 	}
@@ -104,7 +112,7 @@ public class ReviewController {
 					.getUserRating() : newReviewRate.getUserRating());
 			discussReplyRepository.save(review);
 		}
-		
+
 		return review;
 	}
 
@@ -120,10 +128,10 @@ public class ReviewController {
 				rating.setAssociatedId(associatedId);
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
-				updateAllDependantEntities(reviewType, rating);
 			}
 			rating.setValue(reviewRate.getUserRating());
 			userRatingRepository.save(rating);
+			updateAllDependantEntities(reviewType, rating);
 		} else {
 			logger.debug("not updating any rating");
 		}
@@ -173,9 +181,25 @@ public class ReviewController {
 	private void updateInstitutionRating(UserRating rating) {
 		UserProfile profile = this.userProfileRepository.findOne(rating
 				.getAssociatedId());
-		if (null != profile
-				&& !profile.getRatedBy().contains(rating.getUserId())) {
-			profile.getRatedBy().add(rating.getUserId());
+		if (null != profile) {
+			if (!profile.getRatedBy().contains(rating.getUserId())) {
+				profile.getRatedBy().add(rating.getUserId());
+			}
+			TypedAggregation<UserRating> aggregation = newAggregation(
+					UserRating.class,
+					match(Criteria.where("associatedId")
+							.is(rating.getAssociatedId())
+							.and("associatedContentType")
+							.is(rating.getAssociatedContentType())),
+					group("associatedId").avg("value").as("value"));
+
+			AggregationResults<UserRating> result = mongoTemplate.aggregate(
+					aggregation, UserRating.class);
+			List<UserRating> ratingAggregated = result.getMappedResults();
+			if(ratingAggregated.size() > 0){
+				profile.setAggrRating(ratingAggregated.get(0).getValue());
+			}
+
 			this.userProfileRepository.save(profile);
 		}
 	}
@@ -198,7 +222,8 @@ public class ReviewController {
 			case DiscussConstants.DISCUSS_TYPE_REVIEW_INSTITUTION:
 				UserProfile userProfile = this.userProfileRepository
 						.findByUserId(user.getId());
-				if (userProfile.getId().equals(associatedId)) {
+				if (null != userProfile
+						&& userProfile.getId().equals(associatedId)) {
 					isSelf = true;
 				}
 				break;

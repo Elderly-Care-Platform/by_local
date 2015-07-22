@@ -4,11 +4,11 @@
     <div ng-click="location($event, service.userId, service.userTypes)" class="margin-bottom-35 service-card"
          data-index="discussion-articles" ng-if="service.serviceProviderInfo.services.length > 0">
         <div class="col-md-12">
-            <div class="col-md-2 col-sm-4 col-xs-6 service-card-info dp-inline-block" ng-if="service.basicProfileInfo.profileImage">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 service-card-info dp-inline-block" ng-if="service.basicProfileInfo.profileImage">
                 <img src="{{service.basicProfileInfo.profileImage.thumbnailImage}}" alt="image" class="service-card-image"
                      fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/by.jpg"]'>
             </div>
-            <div class="col-md-10 col-sm-8 col-xs-6 service-card-info dp-inline-block" style="padding-left: 15px;">
+            <div class="col-lg-10 col-md-9 col-sm-8 col-xs-6 service-card-info dp-inline-block" style="padding-left: 15px;">
                 <div class="article ng-scope">
                     <div class="article-heading">
                         <p style="text-transform: capitalize" class="ng-binding">

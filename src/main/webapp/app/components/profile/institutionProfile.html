@@ -42,10 +42,10 @@
                     <div class="profileRating" ng-if="institutionProfile.ratingCount===0 && institutionProfile.reviewCount===0 && isAllowedToReview">
                         <a ng-click="reviewContent()"> Be the first to rate/review </a>
                     </div>
-                    <div class="profileRating">
-                        <i class="rounded-x">{{institutionProfile.aggrRating}}</i>Rated by <a href="">{{institutionProfile.ratingCount}} people</a>
+                    <div class="profileRating" ng-if="profileRating">
+                        <i class="rounded-x">{{profileRating}}</i>Rated by <a href="">{{institutionProfile.ratingCount}} people</a>
                     </div>
-                    <div class="profileReview">
+                    <div class="profileReview" ng-if="institutionProfile.reviewCount > 0">
                         <i class="rounded-x  icon-pencil padding4"></i><a href="">{{institutionProfile.reviewCount}} reviews</a>
                     </div>
                     <div style="clear: both"></div>

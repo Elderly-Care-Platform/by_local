@@ -15,6 +15,20 @@ BY.byUtil.getPageInfo = function(data){
 	return ret;
 }
 
+BY.byUtil.getAverageRating = function(value){
+	var range = parseInt(BY.config.profile.rate.upperLimit) - parseInt(BY.config.profile.rate.lowerLimit);
+	var averageRating = null;
+	value = parseFloat(value);
+	if(value > 0){
+		averageRating = (value*range / 100).toFixed(1);
+	}
+
+	//Number((parseFloat("22.33333333")*10/100).toFixed(1));
+
+	return averageRating
+}
+
+
 
 BY.byUtil.inValidateSession = function(){
 	localStorage.setItem("SessionId", "");

@@ -26,6 +26,10 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.showSpecialityFilter = false;
 
+        $scope.getProfileRating = function(service){
+            service.profileRating = BY.byUtil.getAverageRating(service.ratingPercentage);
+        }
+
         $scope.getData = function(queryParams){
             $("#preloader").show();
             $scope.services = FindServices.get(queryParams, function (services) {
@@ -84,6 +88,8 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         }
+
+
 
         $scope.location = function ($event, userId, userType) {
             $event.stopPropagation();

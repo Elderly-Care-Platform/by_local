@@ -42,7 +42,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 		        	$scope.articlesByUser = value.data.content;
 		            $scope.header1 = "Also in";
 					if(subTopicId && subTopicId != "" && subTopicId.toLowerCase() != "all"){
-						$scope.header2 = $rootScope ? $rootScope.discussCategoryListMap[subTopicId].name : "";
+						$scope.header2 = $rootScope.discussCategoryListMap ? $rootScope.discussCategoryListMap[subTopicId].name : "";
 					}else{
 						$scope.header2 = "DISCUSS";
 					}

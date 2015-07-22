@@ -132,7 +132,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $event.stopPropagation();
             if (type === "id") {
                 $location.path('/discuss/' + id);
-            } else if (type === "name" && $rootScope) {
+            } else if (type === "name" && $rootScope.discussCategoryListMap) {
                 var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
                 var parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
 

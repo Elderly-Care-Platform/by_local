@@ -53,7 +53,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             $rootScope.bc_topicId = 'all';
             $rootScope.bc_subTopicId = 'all';
 
-            var category = $rootScope ? $rootScope.findCategoryListMap[queryParams.services] : null;
+            var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
             if (category) {
                 $rootScope.bc_topic = category.name;
                 $rootScope.bc_subTopic = 'all';
@@ -72,7 +72,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         }
 
         $scope.showFilters = function(){
-            var category = $rootScope ? $rootScope.findCategoryListMap[queryParams.services] : null;
+            var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
             if (category && category.parentId && category.parentId!==null && category.childCount > 0){
                 $scope.showSpecialityFilter = true;
                 $scope.specialities = $.map(category.children, function (value, key) {

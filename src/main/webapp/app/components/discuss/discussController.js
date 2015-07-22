@@ -100,7 +100,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             if(type === "id"){
                 $location.path('/discuss/'+id);
 
-            } else if(type === "name" && $rootScope){
+            } else if(type === "name" && $rootScope.discussCategoryListMap){
                 var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId,
                 parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
 
@@ -148,7 +148,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             subTopicId = $routeParams.subTopicId, topicQueryId, subTopicQueryId, topicCategory, subTopicCategory;
 
 
-        if($rootScope){
+        if($rootScope.discussCategoryNameIdMap){
             topicQueryId = $rootScope.discussCategoryNameIdMap[topicId.toLowerCase()];
             subTopicQueryId = $rootScope.discussCategoryNameIdMap[subTopicId.toLowerCase()];
 
@@ -258,7 +258,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
             $event.stopPropagation();
             if(type === "id"){
                 $location.path('/discuss/'+id);
-            } else if(type === "name" && $rootScope){
+            } else if(type === "name" && $rootScope.discussCategoryListMap){
                 var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId,
                 parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
 

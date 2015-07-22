@@ -83,7 +83,7 @@
                     </div>
                     <div class="no-padding" ng-if="individualProfile.serviceProviderInfo.website">
                         <i class="fa fa-globe"></i>
-                        <a href=""> {{individualProfile.serviceProviderInfo.website}} </a>
+                        <a ng-href="http://{{institutionProfile.serviceProviderInfo.website}}" target="_blank"> {{individualProfile.serviceProviderInfo.website}} </a>
                     </div>
                     <div class="no-padding profile-home-visit" ng-if="individualProfile.serviceProviderInfo.homeVisits">
                         <input type="checkbox" class="checkBoxTwo" ng-checked="individualProfile.serviceProviderInfo.homeVisits" disabled/>

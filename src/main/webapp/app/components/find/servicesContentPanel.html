@@ -16,17 +16,17 @@
                         </p>
                     </div>
                 </div>
-                <ul class="list-inline service-review-rate-info">
-                    <li class="service-card-review">
+                <ul class="list-inline service-review-rate-info" ng-if="service.reviewCount > 0 || service.ratingCount > 0">
+                    <li class="service-card-review" ng-if="parseInt(service.aggrRating) > 0">
                         <i class="rounded-x green-bg">
-                            <span class="white-color" style="font-size: 11px;">4.2</span>
+                            <span class="white-color" style="font-size: 11px;">{{service.aggrRating}}</span>
                         </i>
                         <span>Rated by</span>
-                        <a href="">56 people</a>
+                        <a href="">{{service.ratingCount}} people</a>
                     </li>
                     <li class="service-card-review">
                         <i class="rounded-x fa fa-pencil-square-o padding7 font-20"></i>
-                        <a href="" style="margin-left: -10px;">  18 review</a>
+                        <a href="" style="margin-left: -10px;">  {{service.reviewCount}} review</a>
                     </li>
                 </ul>
                 <div class="article">

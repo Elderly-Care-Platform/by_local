@@ -1,3 +1,17 @@
+<div class="profilePopupImages">
+    <div class="profilePopupImagesOpacity"></div>
+    <div class="profilePopupImagesWrapper">
+        <div class="profilePopupImagesWrapperImage">
+            <img src=""  alt="" />
+        </div>
+        <div class="profilePopupImagesWrapperClose">
+            <img src="assets/img/close_button.gif" width="30" height="30" alt="" />
+        </div>
+    </div>
+</div>
+<div class="profileHoverImages">
+    <img src=""  alt="" />
+</div>
 <div class="row whiteBg by_discuss_detail margin-bottom-35" ng-controller="InstitutionProfileController">
     <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
         <div class="col-md-5" style="padding:0px;">
@@ -9,7 +23,8 @@
                 <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
                 </div>
                 <div class="by-gallery-container">
-                    <div ng-repeat="img in institutionProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item">
+                    <div ng-repeat="img in institutionProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item"
+                     data-popup="{{img.original || ''}}" data-hover="{{img.thumbnailImage || ''}}" ng-init="galleryClickHover()">
                         <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
                     </div>
                 </div>
@@ -24,11 +39,14 @@
                     {{institutionProfile.basicProfileInfo.firstName}}
                 </div>
                 <div class="no-padding">
+                    <div class="profileRating" ng-if="institutionProfile.ratingCount===0 && institutionProfile.reviewCount===0 && isAllowedToReview">
+                        <a ng-click="reviewContent()"> Be the first to rate/review </a>
+                    </div>
                     <div class="profileRating">
-                        <i class="rounded-x">4.2</i>Rated by <a href="">56 people</a>
+                        <i class="rounded-x">{{institutionProfile.aggrRating}}</i>Rated by <a href="">{{institutionProfile.ratingCount}} people</a>
                     </div>
                     <div class="profileReview">
-                        <i class="rounded-x  icon-pencil padding4"></i><a href="">18 reviews</a>
+                        <i class="rounded-x  icon-pencil padding4"></i><a href="">{{institutionProfile.reviewCount}} reviews</a>
                     </div>
                     <div style="clear: both"></div>
                 </div>

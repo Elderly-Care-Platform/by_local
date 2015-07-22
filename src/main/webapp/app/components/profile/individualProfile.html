@@ -1,3 +1,17 @@
+<div class="profilePopupImages">
+    <div class="profilePopupImagesOpacity"></div>
+    <div class="profilePopupImagesWrapper">
+        <div class="profilePopupImagesWrapperImage">
+            <img src=""  alt=""  />
+        </div>
+        <div class="profilePopupImagesWrapperClose">
+            <img src="assets/img/close_button.gif" width="30" height="30" alt="" />
+        </div>
+    </div>
+</div>
+<div class="profileHoverImages">
+    <img src=""  alt="" />
+</div>
 <div class="row whiteBg by_discuss_detail margin-bottom-35" ng-controller="IndividualProfileController">
     <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
         <div class="col-md-5" style="padding:0px;">
@@ -9,9 +23,10 @@
                 <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
                 </div>
                 <div class="by-gallery-container">
-                    <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item">
-                        <img src="{{img.titleImage}}" width="100%" alt=""/>
-                    </div>
+                  	  <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item"
+                   	 data-popup="{{img.original || ''}}" data-hover="{{img.thumbnailImage || ''}}" ng-init="galleryClickHover()">
+                        <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                   	 </div>
                 </div>
                 <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
                 </div>
@@ -26,11 +41,14 @@
                     <span ng-if="individualProfile.individualInfo.lastName"> {{individualProfile.individualInfo.lastName}}</span>
                 </div>
                 <div class="no-padding">
-                    <div class="profileRating">
-                        <i class="rounded-x">4.2</i>Rated by <a href="">56 people</a>
+                    <div class="profileRating" ng-if="individualProfile.ratingCount===0 && individualProfile.reviewCount===0 && isAllowedToReview">
+                        <a ng-click="reviewContent()"> Be the first to rate/review</a>
                     </div>
-                    <div class="profileReview">
-                        <i class="rounded-x  icon-pencil padding4"></i><a href="">18 reviews</a>
+                    <div class="profileRating" ng-if="individualProfile.ratingCount > 0 && parseInt(service.aggrRating) > 0">
+                        <i class="rounded-x">{{individualProfile.aggrRating}}</i>Rated by <a href="">{{individualProfile.ratingCount}} people</a>
+                    </div>
+                    <div class="profileReview" ng-if="individualProfile.reviewCount > 0">
+                        <i class="rounded-x  icon-pencil padding4"></i><a href="">{{individualProfile.reviewCount}} reviews</a>
                     </div><div class="clearfix"></div>
                     <div class="profileRating" ng-if="individualProfile.serviceProviderInfo.yearsExperience">
                          {{individualProfile.serviceProviderInfo.yearsExperience}} years of experience</a>

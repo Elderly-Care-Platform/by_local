@@ -36,9 +36,9 @@
                         <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
                         <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
                     </div>
-                    <div class="col-md-2 col-xs-2 no-padding-right changeRatingValue divRightNone">
-                        <input type="text" class="username-textbox textbox"
-                               class="name-textbox textbox grayBg" disabled style="text-align:center;" ng-model="selectedRating"/>
+                    <div class="col-md-2 col-xs-2 changeRatingValue">
+                        <input type="number" class="username-textbox textbox" min="0" max="5"
+                               class="name-textbox textbox grayBg" style="text-align:center;" ng-model="selectedRating" ng-change="selectRating(selectedRating)"/>
                     </div>
                 </div>
 

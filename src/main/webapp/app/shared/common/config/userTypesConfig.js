@@ -57,3 +57,9 @@ BY.config.profile.userGender = {
     '0':'Ms.',
     '1':'Mr.'
 }
+
+
+BY.config.profile.rate = {
+    'lowerLimit':'1',
+    'upperLimit':'5'
+}

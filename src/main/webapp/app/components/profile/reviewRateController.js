@@ -17,23 +17,21 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         //$scope.username = BY.validateUserName(localStorage.getItem("USER_NAME"));
 
         $scope.selectRating = function(value){
-            if($scope.selectedRating){
-                $(".profileRate"+$scope.selectedRating).removeClass("profileSelected");
-            }
-
+            $(".profileSelected").removeClass("profileSelected");
             $scope.selectedRating = value;
             $(".profileRate"+value).addClass("profileSelected");
         }
 
         $scope.postReview = function(){
-            if($scope.selectedRating || $scope.reviewText.trim().length > 0){
+            if(parseInt($scope.selectedRating) > 0 || $scope.reviewText.trim().length > 0){
+                var ratePercentage = (parseInt($scope.selectedRating)/(parseInt(BY.config.profile.rate.upperLimit) - parseInt(BY.config.profile.rate.lowerLimit)))*100;
                 var postReview = new ReviewRateProfile();
-                postReview.userRating = $scope.selectedRating;
+                postReview.userRatingPercentage = ratePercentage;
                 postReview.text = $scope.reviewText;
                 $scope.blankReviewRateError = false;
 
                 postReview.$post({associatedId:$scope.userProfile.id}, function(success){
-                    $scope.$parent.displayProfile();
+                    $scope.$parent.showProfile();
                 }, function(error){
 
                 })

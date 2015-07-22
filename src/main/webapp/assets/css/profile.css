@@ -67,7 +67,7 @@
   background: #ccc;
   float: right;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 
@@ -77,6 +77,9 @@
 
 .profileSelected{
   opacity: 1 !important;
+  -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
+  -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+  box-shadow: rgba(0,0,0,0.8) 0 0 10px;
 }
 
 
@@ -100,4 +103,11 @@
 
 .profileRate5{
   background: #1FE021;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }

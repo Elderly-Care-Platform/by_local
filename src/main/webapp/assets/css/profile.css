@@ -111,3 +111,11 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
+
+.icon_reviewRate:before {
+  content: url("../img/icons/ask_share_submit/rateReview.png?versionTimeStamp=%PROJECT_VERSION%");
+}
+
+.by_leftPanel_icons:hover .icon_reviewRate {
+  content: url("../img/icons/ask_share_submit/rateReview_mo.png?versionTimeStamp=%PROJECT_VERSION%");
+}

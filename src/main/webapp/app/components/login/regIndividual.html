@@ -3,7 +3,7 @@
           style="background:transparent;">
         <div class="col-md-12 no-padding margin-bottom-20">
             <div class="col-md-12 no-padding  list-head dp-block">
-                MY Professional information
+                My Professional information
             </div>
 
             <div class="col-md-12 no-padding">
@@ -119,8 +119,10 @@
                 </div>
                 <div class="col-md-7 col-xs-3 no-padding-right register-page" style="width:110px;">
                     <input type="text" class="username-textbox textbox" name="years"
-                           class="name-textbox textbox grayBg" placeholder="XX years"
+                           class="name-textbox textbox grayBg" placeholder="XX years" maxlength="2" ng-pattern="/^[0-9]*$/"
                            ng-model="serviceProviderInfo.yearsExperience"/>
+
+                    <span ng-show="individualForm.years.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                 </div>
             </div>
 

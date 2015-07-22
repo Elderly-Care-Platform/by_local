@@ -150,9 +150,9 @@ public class UploadFile extends HttpServlet {
 		double aspectRatio = (double) imageWidth / (double) imageHeight;
 
 		if (thumbRatio < aspectRatio) {
-			newHeight = (int) (maxWidth / aspectRatio);
+			newHeight = (int) (newHeight / aspectRatio);
 		} else {
-			newWidth = (int) (maxHeight * aspectRatio);
+			newWidth = (int) (newHeight * aspectRatio);
 		}
 
 		BufferedImage resizedImage = new BufferedImage(newWidth, newHeight,

@@ -90,13 +90,14 @@ public class DiscussLikeController {
 						discussLike = new DiscussLike(user, discussId,
 								DiscussConstants.CONTENT_TYPE_DISCUSS);
 						discuss.getLikedBy().add(user.getId());
-						sendMailForLikeOnDiscuss(discuss,user);
+						sendMailForLikeOnDiscuss(discuss, user);
 						discussLikeRepository.save(discussLike);
 						discussRepository.save(discuss);
 						logger.debug("discuss content liked successfully");
-						
-						response =  BYGenericResponseHandler.getResponse(discussResponse
-								.getDiscussEntity(discuss, user));
+
+						response = BYGenericResponseHandler
+								.getResponse(discussResponse.getDiscussEntity(
+										discuss, user));
 					}
 				} else {
 					throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
@@ -176,7 +177,7 @@ public class DiscussLikeController {
 						sendMailForLikeOnComments(reply, user);
 						discussLikeRepository.save(discussLike);
 						discussReplyRepository.save(reply);
-						
+
 					}
 				}
 			}
@@ -189,27 +190,52 @@ public class DiscussLikeController {
 		}
 		return reply;
 	}
-	
+
 	private void sendMailForLikeOnDiscuss(Discuss discuss, User user) {
-		if(!discuss.getUserId().equals(user.getId())){
-			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
-			String title = !Util.isEmpty(discuss.getTitle()) ? discuss.getTitle() : discuss.getText();
-			String userName = !Util.isEmpty(discuss.getUsername()) ? discuss.getUsername() : "Anonymous User";
-			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,discuss.getId());
-			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName, "content",title , user.getUserName(),path,path);
-			MailHandler.sendMailToUserId(discuss.getUserId(), "Your content was liked on beautifulYears.com", body);
+		try {
+			if (!discuss.getUserId().equals(user.getId())) {
+				ResourceUtil resourceUtil = new ResourceUtil(
+						"mailTemplate.properties");
+				String title = !Util.isEmpty(discuss.getTitle()) ? discuss
+						.getTitle() : discuss.getText();
+				String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
+						.getUsername() : "Anonymous User";
+				String path = MessageFormat.format(System.getProperty("path")
+						+ DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,
+						discuss.getId());
+				String body = MessageFormat.format(
+						resourceUtil.getResource("likedBy"), userName,
+						"content", title, user.getUserName(), path, path);
+				MailHandler.sendMailToUserId(discuss.getUserId(),
+						"Your content was liked on beautifulYears.com", body);
+			}
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 		}
 	}
-	
+
 	private void sendMailForLikeOnComments(DiscussReply reply, User user) {
-		if(!reply.getUserId().equals(user.getId())){
-			ResourceUtil resourceUtil = new ResourceUtil("mailTemplate.properties");
-			String title = reply.getText();
-			String userName = !Util.isEmpty(reply.getUserName()) ? reply.getUserName() : "Anonymous User";
-			String replyTypeString = (reply.getReplyType() == DiscussConstants.REPLY_TYPE_ANSWER) ? "answer" : "comment";
-			String path = MessageFormat.format(System.getProperty("path")+DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,reply.getDiscussId());
-			String body = MessageFormat.format(resourceUtil.getResource("likedBy"), userName,replyTypeString, title , user.getUserName(),path,path);
-			MailHandler.sendMailToUserId(reply.getUserId(), "Your "+replyTypeString+" was liked on beautifulYears.com", body);
+		try {
+			if (!reply.getUserId().equals(user.getId())) {
+				ResourceUtil resourceUtil = new ResourceUtil(
+						"mailTemplate.properties");
+				String title = reply.getText();
+				String userName = !Util.isEmpty(reply.getUserName()) ? reply
+						.getUserName() : "Anonymous User";
+				String replyTypeString = (reply.getReplyType() == DiscussConstants.REPLY_TYPE_ANSWER) ? "answer"
+						: "comment";
+				String path = MessageFormat.format(System.getProperty("path")
+						+ DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,
+						reply.getDiscussId());
+				String body = MessageFormat.format(
+						resourceUtil.getResource("likedBy"), userName,
+						replyTypeString, title, user.getUserName(), path, path);
+				MailHandler.sendMailToUserId(reply.getUserId(), "Your "
+						+ replyTypeString + " was liked on beautifulYears.com",
+						body);
+			}
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 		}
 	}
 

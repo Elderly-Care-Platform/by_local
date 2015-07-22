@@ -182,7 +182,16 @@
 {
 	min-height:100px !important;
 }
-
+.icon-speech:before
+{
+	content: url('../img/cooment_normal.png');
+}
+.icon-heart:before {
+  	content: url('../img/like_normal.png');
+}
+.fa-edit:before, .fa-pencil-square-o:before {
+  content: "\f044";
+}
 /* left panel */
 
 /*.by_left_panel_fixed

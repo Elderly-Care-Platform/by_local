@@ -134,8 +134,7 @@ public class ReviewController {
 			review.setUserName(user.getUserName());
 		}
 		review.setText(newReviewRate.getText());
-		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage() == null ? review
-				.getUserRatingPercentage() : newReviewRate
+		review.setUserRatingPercentage(newReviewRate
 				.getUserRatingPercentage());
 		discussReplyRepository.save(review);
 		updateAllDependantEntities(contentType, review);
@@ -145,18 +144,18 @@ public class ReviewController {
 	private UserRating submitRating(Integer contentType, String associatedId,
 			DiscussReply reviewRate, User user) {
 		UserRating rating = null;
-		if (null != reviewRate.getUserRatingPercentage() && null != contentType
+		if (null != contentType
 				&& null != reviewRate && null != user) {
 			rating = this.getRating(contentType, associatedId, user);
-			if (null == rating) {
+			if (null == rating && null != reviewRate.getUserRatingPercentage()) {
 				rating = new UserRating();
 				rating.setAssociatedId(associatedId);
 				rating.setAssociatedContentType(contentType);
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
 			}
-			if (reviewRate.getUserRatingPercentage() < 0
-					|| reviewRate.getUserRatingPercentage() > 100) {
+			if (null != reviewRate.getUserRatingPercentage() && (reviewRate.getUserRatingPercentage() < 0
+					|| reviewRate.getUserRatingPercentage() > 100)) {
 				throw new BYException(BYErrorCodes.RATING_VALUE_INVALID);
 			}
 			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
@@ -213,7 +212,9 @@ public class ReviewController {
 		UserProfile profile = this.userProfileRepository.findOne(rating
 				.getAssociatedId());
 		if (null != profile) {
-			if (!profile.getRatedBy().contains(rating.getUserId())) {
+			if (null == rating.getRatingPercentage() || 0 == rating.getRatingPercentage()) {
+				profile.getRatedBy().remove(rating.getUserId());
+			} else if (!profile.getRatedBy().contains(rating.getUserId())) {
 				profile.getRatedBy().add(rating.getUserId());
 			}
 			TypedAggregation<UserRating> aggregation = newAggregation(

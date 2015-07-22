@@ -29,6 +29,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.getReview();
 
         $scope.selectRating = function(value){
+        	value = parseInt(value);
             $(".profileSelected").removeClass("profileSelected");
             $scope.selectedRating = value;
             $(".profileRate"+value).addClass("profileSelected");

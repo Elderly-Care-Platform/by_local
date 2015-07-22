@@ -89,6 +89,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 if($scope.serviceProviderInfo.services.indexOf(value.id)!==-1){
                     if($scope.showSpeciality){
                         $scope.selectedSpeciality = value.name;
+                        $scope.selectedServices[value.id] = value;
                     } else{
                         if ($scope.selectedServices[value.id]) {
                             delete $scope.selectedServices[value.id];

@@ -10,7 +10,7 @@
             <!--</li>-->
         </ul>
 
-        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="reviewContent()">
+        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-if="isAllowedToReview" ng-click="reviewContent()">
             <i class="icon-custom icon-sm icon_reviewRate"></i>
             <span>Review / Rate</span>
         </div>

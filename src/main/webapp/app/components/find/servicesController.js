@@ -113,7 +113,6 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         $scope.addressCallback = function (response) {
             $('#addressCity').blur();
-            queryParams = {};
             queryParams.city = response.name;
             $scope.getData(queryParams);
         }

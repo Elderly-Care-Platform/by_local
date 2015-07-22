@@ -7,7 +7,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.submitted = false;
         $scope.minCategoryError = false;
         $scope.showSpeciality = false;
-        $scope.selectedSpeciality = "";
+        $scope.selectedSpeciality = [];
 
         $scope.addressCallback = function (response) {
             console.log(response);
@@ -77,28 +77,32 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
 
             if (elem.parentId && elem.parentId!==null && elem.childCount > 0) {
-                $scope.selectSpecialty(elem);
+                $scope.showSpecialityOptions(elem);
             }
         }
 
-        $scope.selectSpecialty = function(parentCategory){
+        $scope.showSpecialityOptions = function(parentCategory){
             $scope.showSpeciality = parentCategory.selected;
-            $scope.selectedSpeciality = "";
-            //$scope.specialities = parentCategory.children;
             $scope.specialities = $.map(parentCategory.children, function (value, key) {
                 if($scope.serviceProviderInfo.services.indexOf(value.id)!==-1){
                     if($scope.showSpeciality){
-                        $scope.selectedSpeciality = value.name;
-                        $scope.selectedServices[value.id] = value;
+                        $scope.selectSpecialty(value);
                     } else{
                         if ($scope.selectedServices[value.id]) {
-                            delete $scope.selectedServices[value.id];
+                            $scope.selectSpecialty();
                         }
                     }
 
                 }
                 return {label:value.name,value:value.name, id:value.id};
             });
+        }
+
+        $scope.selectSpecialty = function(elem){
+            $scope.selectedSpeciality = [];
+            if(elem){
+                $scope.selectedSpeciality = [{"id":elem.id, "name":elem.name}];
+            }
         }
 
 
@@ -224,6 +228,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             var finalServiceList = $.map($scope.selectedServices, function (value, key) {
                 return key;
             });
+
+            if($scope.selectedSpeciality.length > 0){
+                finalServiceList.concat($scope.selectedSpeciality);
+            }
 
             return finalServiceList;
         }

@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page" >
                     <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
-                           placeholder="Speciality" ng-model="selectedSpeciality" required callback="selectServiceType"/>
+                           placeholder="Speciality" ng-model="selectedSpeciality[0].name" required callback="selectServiceType"/>
 
                     <span ng-show="individualForm.speciality.$invalid && submitted" class="errorRed">Please enter your speciality</span>
                 </div>

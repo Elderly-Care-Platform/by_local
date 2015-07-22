@@ -128,15 +128,15 @@ public class ReviewController {
 			review = new DiscussReply();
 			review.setDiscussId(associatedId);
 			review.setContentType(contentType);
-			review.setUserRating(newReviewRate.getUserRating());
+			review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage());
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);
 			review.setText(newReviewRate.getText());
 			review.setUserId(user.getId());
 			review.setUserName(user.getUserName());
 			review.setText(newReviewRate.getText());
 		}
-		review.setUserRating(newReviewRate.getUserRating() == null ? review
-				.getUserRating() : newReviewRate.getUserRating());
+		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage() == null ? review
+				.getUserRatingPercentage() : newReviewRate.getUserRatingPercentage());
 		discussReplyRepository.save(review);
 		updateAllDependantEntities(contentType, review);
 		return review;
@@ -145,7 +145,7 @@ public class ReviewController {
 	private UserRating submitRating(Integer contentType, String associatedId,
 			DiscussReply reviewRate, User user) {
 		UserRating rating = null;
-		if (null != reviewRate.getUserRating() && null != contentType
+		if (null != reviewRate.getUserRatingPercentage() && null != contentType
 				&& null != reviewRate && null != user) {
 			rating = this.getRating(contentType, associatedId, user);
 			if (null == rating) {
@@ -155,7 +155,10 @@ public class ReviewController {
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
 			}
-			rating.setValue(reviewRate.getUserRating());
+			if(reviewRate.getUserRatingPercentage() < 0 || reviewRate.getUserRatingPercentage() > 100){
+				throw new BYException(BYErrorCodes.RATING_VALUE_INVALID);
+			}
+			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
 			userRatingRepository.save(rating);
 			updateAllDependantEntities(contentType, rating);
 		} else {
@@ -224,7 +227,7 @@ public class ReviewController {
 					aggregation, UserRating.class);
 			List<UserRating> ratingAggregated = result.getMappedResults();
 			if (ratingAggregated.size() > 0) {
-				profile.setAggrRating(ratingAggregated.get(0).getValue());
+				profile.setAggrRatingPercentage(ratingAggregated.get(0).getRatingPercentage());
 			}
 
 			this.userProfileRepository.save(profile);

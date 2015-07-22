@@ -55,7 +55,7 @@ public class UserProfile {
 	@JsonIgnore
 	private List<String> ratedBy = new ArrayList<String>();
 
-	private Float aggrRating;
+	private Float aggrRatingPercentage;
 
 	@Transient
 	private boolean isReviewedByUser = false;
@@ -84,13 +84,13 @@ public class UserProfile {
 	}
 
 	@JsonProperty
-	public Float getAggrRating() {
-		return aggrRating;
+	public Float getAggrRatingPercentage() {
+		return aggrRatingPercentage;
 	}
 
 	@JsonIgnore
-	public void setAggrRating(Float aggrRating) {
-		this.aggrRating = aggrRating;
+	public void setAggrRatingPercentage(Float aggrRating) {
+		this.aggrRatingPercentage = aggrRating;
 	}
 
 	public String getId() {

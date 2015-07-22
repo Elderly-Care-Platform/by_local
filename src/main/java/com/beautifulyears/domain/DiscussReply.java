@@ -46,7 +46,7 @@ public class DiscussReply {
 
 	private int status;
 	
-	private Float userRating;
+	private Float userRatingPercentage;
 	
 	@JsonIgnore
 	public int getContentType() {
@@ -59,13 +59,13 @@ public class DiscussReply {
 	}
 
 	@JsonProperty
-	public Float getUserRating() {
-		return userRating;
+	public Float getUserRatingPercentage() {
+		return userRatingPercentage;
 	}
 
 	@JsonIgnore
-	public void setUserRating(Float userRating) {
-		this.userRating = userRating;
+	public void setUserRatingPercentage(Float userRating) {
+		this.userRatingPercentage = userRating;
 	}
 
 	@Transient

@@ -48,7 +48,7 @@ public class UserProfileResponse implements IResponse {
 			this.setBasicProfileInfo(profile.getBasicProfileInfo());
 			this.setIndividualInfo(profile.getIndividualInfo());
 			this.setServiceProviderInfo(profile.getServiceProviderInfo());
-			this.setAggrRating(profile.getAggrRating());
+			this.setAggrRating(profile.getAggrRatingPercentage());
 			if (null != user && profile.getRatedBy().contains(user.getId())) {
 				this.setRatedByUser(true);
 			}

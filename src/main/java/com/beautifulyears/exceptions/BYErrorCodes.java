@@ -25,7 +25,8 @@ public enum BYErrorCodes {
 	INVALID_SESSION(3005,"Invalid session, please login to continue"),
 	
 	//review rate
-	REVIEW_TYPE_INVALID(4001,"Invalid review type")
+	REVIEW_TYPE_INVALID(4001,"Invalid review type"),
+	RATING_VALUE_INVALID(4002,"Invalid rating value,rating percentage value should be between 0 to 100.")
 
 	;
 

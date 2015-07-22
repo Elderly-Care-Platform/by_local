@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserRating {
 	@Id
 	private String id;
-	private float value;
+	private float ratingPercentage;
 	private String userId;
 	private String userName;
 	private Integer associatedContentType;
@@ -40,12 +40,12 @@ public class UserRating {
 		this.id = id;
 	}
 
-	public float getValue() {
-		return value;
+	public float getRatingPercentage() {
+		return ratingPercentage;
 	}
 
-	public void setValue(float value) {
-		this.value = value;
+	public void setRatingPercentage(float ratingPercentage) {
+		this.ratingPercentage = ratingPercentage;
 	}
 
 	public String getUserId() {

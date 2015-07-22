@@ -130,10 +130,10 @@ public class ReviewController {
 			review.setUserRatingPercentage(newReviewRate
 					.getUserRatingPercentage());
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);
-			review.setText(newReviewRate.getText());
 			review.setUserId(user.getId());
 			review.setUserName(user.getUserName());
 		}
+		review.setText(newReviewRate.getText());
 		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage() == null ? review
 				.getUserRatingPercentage() : newReviewRate
 				.getUserRatingPercentage());
@@ -239,14 +239,14 @@ public class ReviewController {
 	private void updateInstitutionReviews(DiscussReply review) {
 		UserProfile profile = this.userProfileRepository.findOne(review
 				.getDiscussId());
-		if (Util.isEmpty(review.getText()) && null != profile
-				&& !profile.getReviewedBy().contains(review.getUserId())) {
-			profile.getReviewedBy().remove(review.getUserId());
+		 if (null != profile) {
+			if(Util.isEmpty(review.getText())){
+				profile.getReviewedBy().remove(review.getUserId());
+			}else if(!profile.getReviewedBy().contains(review.getUserId())){
+				profile.getReviewedBy().add(review.getUserId());
+			}
 			this.userProfileRepository.save(profile);
-		} else if (null != profile
-				&& !profile.getReviewedBy().contains(review.getUserId())) {
-			profile.getReviewedBy().add(review.getUserId());
-			this.userProfileRepository.save(profile);
+			
 		}
 	}
 

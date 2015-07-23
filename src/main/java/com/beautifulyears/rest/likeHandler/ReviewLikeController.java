@@ -77,22 +77,22 @@ public class ReviewLikeController extends LikeController<DiscussReply> {
 	}
 
 	@Override
-	void sendMailForLike(DiscussReply LikedEntity, User user) {
+	void sendMailForLike(DiscussReply likedEntity, User user) {
 		try {
-			if (!LikedEntity.getUserId().equals(user.getId())) {
+			if (!likedEntity.getUserId().equals(user.getId())) {
 				ResourceUtil resourceUtil = new ResourceUtil(
 						"mailTemplate.properties");
-				String title = LikedEntity.getText();
-				String userName = !Util.isEmpty(LikedEntity.getUserName()) ? LikedEntity
+				String title = likedEntity.getText();
+				String userName = !Util.isEmpty(likedEntity.getUserName()) ? likedEntity
 						.getUserName() : "Anonymous User";
 				String replyTypeString = "review";
 				String path = MessageFormat.format(System.getProperty("path")
-						+ DiscussConstants.PATH_REVIEW_PAGE,LikedEntity.getContentType(),
-						LikedEntity.getDiscussId());
+						+ DiscussConstants.PATH_REVIEW_PAGE,likedEntity.getContentType(),
+						likedEntity.getDiscussId());
 				String body = MessageFormat.format(
 						resourceUtil.getResource("likedBy"), userName,
 						replyTypeString, title, user.getUserName(), path, path);
-				MailHandler.sendMailToUserId(LikedEntity.getUserId(), "Your "
+				MailHandler.sendMailToUserId(likedEntity.getUserId(), "Your "
 						+ replyTypeString + " was liked on beautifulYears.com",
 						body);
 			}

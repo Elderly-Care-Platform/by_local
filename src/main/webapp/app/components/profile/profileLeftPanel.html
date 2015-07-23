@@ -5,10 +5,15 @@
             <li class="list-group-item" >
                 <a ng-click="displayProfile()">INSTITUTE INFO</a>
             </li>
-            <li class="list-group-item" >
-                <a ng-click="reviewContent()">REVIEW / RATE</a>
-            </li>
+            <!--<li class="list-group-item" ng-if="isAllowedToReview">-->
+                <!--<a ng-click="reviewContent()">REVIEW / RATE</a>-->
+            <!--</li>-->
         </ul>
+
+        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-if="isAllowedToReview" ng-click="reviewContent()">
+            <i class="icon-custom icon-sm icon_reviewRate"></i>
+            <span>Review / Rate</span>
+        </div>
     </div>
 </div>
 <!--All classes from Unify end-->

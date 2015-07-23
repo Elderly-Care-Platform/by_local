@@ -13,9 +13,11 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                 if($scope.profile.userTypes.length > 0){
                     if($scope.profile.userTypes.indexOf(4)!== -1){
                         $scope.regLevel = 2;
+                        $scope.sectionLabel = "INSTITUTION INFO";
                         $scope.views.contentPanel = "app/components/login/regInstitution.html";
                     }else if($scope.profile.userTypes.indexOf(7)!== -1){
                         $scope.regLevel = 2;
+                        $scope.sectionLabel = "INDIVIDUAL SERVICE PROVIDER INFO";
                         $scope.views.contentPanel = "app/components/login/regIndividual.html";                    	
                     } else {
                         $scope.exit();

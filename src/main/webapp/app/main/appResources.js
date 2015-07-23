@@ -82,7 +82,12 @@ var discussDetail = byServices.factory('DiscussDetail', function($resource) {
 //discuss Likes api
 var discussLike = byServices.factory('DiscussLike', function($resource){
     return $resource(apiPrefix+'api/v1/discussLike',{},{
-        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId'},isArray:false},
+        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId'},isArray:false}
+    })
+})
+
+var discussReplyLike = byServices.factory('DiscussReplyLike', function($resource){
+    return $resource(apiPrefix+'api/v1/discussReplyLike',{},{
         likeComment:{method:'POST', params:{type:1, replyId:'@replyId'},isArray:false},
         likeAnswer:{method:'POST', params:{type:2, replyId:'@replyId'},isArray:false}
     })
@@ -214,7 +219,7 @@ var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) 
 //Review and Rate profile
 var reviewRateProfile = byServices.factory('ReviewRateProfile', function($resource) {
     return $resource(apiPrefix +'api/v1/reviewRate',{}, {
-        get: {method: 'GET', params: {}},
-        post:{method: 'POST', params: {associatedId:"@associatedId",reviewType:"7"}}
+        get: {method: 'GET', params: {associatedId:"@associatedId",reviewContentType:"@reviewContentType"}},
+        post:{method: 'POST', params: {associatedId:"@associatedId",reviewContentType:"@reviewContentType"}}
     })
 });

@@ -27,7 +27,8 @@ BY.config.profile.userType = {
         'category':'1',
         'contentPanel':'app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
-        'type':'SERVICES'
+        'type':'SERVICES',
+        'reviewContentType':'4'
     },
     '5' : {
         'category':'1',
@@ -43,7 +44,8 @@ BY.config.profile.userType = {
         'category':'0',
         'contentPanel':'app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
-        'type':'PROFESSIONAL'
+        'type':'PROFESSIONAL',
+        'reviewContentType':'5'
     }
 
 }
@@ -56,4 +58,10 @@ BY.config.profile.userCategory = {
 BY.config.profile.userGender = {
     '0':'Ms.',
     '1':'Mr.'
+}
+
+
+BY.config.profile.rate = {
+    'lowerLimit':'0',
+    'upperLimit':'5'
 }

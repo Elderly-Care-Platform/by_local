@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page" >
                     <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
-                           placeholder="Speciality" ng-model="selectedSpeciality" required callback="selectServiceType"/>
+                           placeholder="Speciality" ng-model="selectedSpecialityLabel" required callback="selectSpecialty"/>
 
                     <span ng-show="individualForm.speciality.$invalid && submitted" class="errorRed">Please enter your speciality</span>
                 </div>
@@ -119,8 +119,10 @@
                 </div>
                 <div class="col-md-7 col-xs-3 no-padding-right register-page" style="width:110px;">
                     <input type="text" class="username-textbox textbox" name="years"
-                           class="name-textbox textbox grayBg" maxlength="2" placeholder="XX years"
+                           class="name-textbox textbox grayBg" placeholder="XX years" maxlength="2" ng-pattern="/^[0-9]*$/"
                            ng-model="serviceProviderInfo.yearsExperience"/>
+
+                    <span ng-show="individualForm.years.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                 </div>
             </div>
 

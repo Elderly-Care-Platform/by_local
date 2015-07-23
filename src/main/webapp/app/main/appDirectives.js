@@ -172,7 +172,7 @@ byApp.directive('validateUserName', function(){
 });
 
 
-byApp.directive('image', function($q) {
+byApp.directive('resizeImageUsingCanvas', function($q) {
     'use strict'
 
     var URL = window.URL || window.webkitURL;
@@ -316,8 +316,6 @@ byApp.directive('loadImage', function($q, $http, $timeout) {
     var URL = window.URL || window.webkitURL;
     var uploadImageinServer = function (formData) {
         var deferred = $q.defer();
-
-
         return deferred.promise;
     };
 
@@ -537,4 +535,17 @@ byApp.directive('autoComplete', function ($timeout) {
         }
     };
 });
+
+byApp.directive('rateCalculator', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attrs) {
+            var profileRating = BY.byUtil.getAverageRating(attrs.rateCalculator);
+            elem.html(profileRating);
+            elem.addClass("profileRate"+Math.round(profileRating));
+        }
+    };
+});
+
+
 

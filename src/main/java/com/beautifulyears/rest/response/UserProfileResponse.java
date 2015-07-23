@@ -6,7 +6,6 @@ package com.beautifulyears.rest.response;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.domain.Page;
 
 import com.beautifulyears.domain.BasicProfileInfo;
@@ -14,7 +13,6 @@ import com.beautifulyears.domain.IndividualProfileInfo;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
-import com.beautifulyears.repository.UserRatingRepository;
 
 /**
  * @author Nitin
@@ -23,7 +21,6 @@ import com.beautifulyears.repository.UserRatingRepository;
 public class UserProfileResponse implements IResponse {
 
 	private List<UserProfileEntity> userProfileArray = new ArrayList<UserProfileEntity>();
-	
 
 	@Override
 	public List<UserProfileEntity> getResponse() {
@@ -38,26 +35,44 @@ public class UserProfileResponse implements IResponse {
 		private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
 		private IndividualProfileInfo individualInfo = new IndividualProfileInfo();
 		private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
-		private Float aggrRating;
+		private Float ratingPercentage = 0f;
+		private int ratingCount;
+		private int reviewCount;
 		private boolean isReviewedByUser = false;
 		private boolean isRatedByUser = false;
-		@JsonIgnore
-		private UserRatingRepository userRatingRepository;
-		
-		public UserProfileEntity(UserProfile profile,User user) {
+
+		public UserProfileEntity(UserProfile profile, User user) {
 			this.setId(profile.getId());
 			this.setUserId(profile.getUserId());
 			this.setUserTypes(profile.getUserTypes());
 			this.setBasicProfileInfo(profile.getBasicProfileInfo());
 			this.setIndividualInfo(profile.getIndividualInfo());
 			this.setServiceProviderInfo(profile.getServiceProviderInfo());
-			this.setAggrRating(profile.getAggrRating());
+			this.setRatingPercentage(profile.getAggrRatingPercentage());
 			if (null != user && profile.getRatedBy().contains(user.getId())) {
 				this.setRatedByUser(true);
 			}
 			if (null != user && profile.getReviewedBy().contains(user.getId())) {
 				this.setReviewedByUser(true);
 			}
+			ratingCount = profile.getRatedBy().size();
+			reviewCount = profile.getReviewedBy().size();
+		}
+
+		public int getRatingCount() {
+			return ratingCount;
+		}
+
+		public void setRatingCount(int ratingCount) {
+			this.ratingCount = ratingCount;
+		}
+
+		public int getReviewCount() {
+			return reviewCount;
+		}
+
+		public void setReviewCount(int reviewCount) {
+			this.reviewCount = reviewCount;
 		}
 
 		public String getId() {
@@ -109,12 +124,12 @@ public class UserProfileResponse implements IResponse {
 			this.serviceProviderInfo = serviceProviderInfo;
 		}
 
-		public Float getAggrRating() {
-			return aggrRating;
+		public Float getRatingPercentage() {
+			return ratingPercentage;
 		}
 
-		public void setAggrRating(Float aggrRating) {
-			this.aggrRating = aggrRating;
+		public void setRatingPercentage(Float ratingPercentage) {
+			this.ratingPercentage = ratingPercentage;
 		}
 
 		public boolean isReviewedByUser() {
@@ -144,12 +159,12 @@ public class UserProfileResponse implements IResponse {
 			super();
 		}
 
-		public UserProfilePage(Page<UserProfile> page,User user) {
+		public UserProfilePage(Page<UserProfile> page, User user) {
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (UserProfile profile : page.getContent()) {
 				this.content.add(new UserProfileResponse.UserProfileEntity(
-						profile,user));
+						profile, user));
 			}
 		}
 
@@ -179,24 +194,24 @@ public class UserProfileResponse implements IResponse {
 
 	}
 
-	public void add(UserProfile userProfile,User user){
-		this.userProfileArray.add(new UserProfileEntity(userProfile,user));
+	public void add(UserProfile userProfile, User user) {
+		this.userProfileArray.add(new UserProfileEntity(userProfile, user));
 	}
-	
-	public void add(List<UserProfile> userProfiles,User user){
+
+	public void add(List<UserProfile> userProfiles, User user) {
 		for (UserProfile userProfile : userProfiles) {
-			this.userProfileArray.add(new UserProfileEntity(userProfile,user));
+			this.userProfileArray.add(new UserProfileEntity(userProfile, user));
 		}
 	}
-	
-	public static UserProfilePage getPage(Page<UserProfile> page,User user) {
-		UserProfilePage res = new UserProfilePage(page,user);
+
+	public static UserProfilePage getPage(Page<UserProfile> page, User user) {
+		UserProfilePage res = new UserProfilePage(page, user);
 		return res;
 	}
-	
-	public static UserProfileEntity getUserProfileEntity(UserProfile userProfile, User user) {
+
+	public static UserProfileEntity getUserProfileEntity(
+			UserProfile userProfile, User user) {
 		return new UserProfileEntity(userProfile, user);
 	}
-	
-	
+
 }

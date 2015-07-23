@@ -1,5 +1,10 @@
 package com.beautifulyears.rest;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +32,15 @@ import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRating;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.repository.UserRatingRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
-
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @Controller
 @RequestMapping("/reviewRate")
@@ -60,7 +65,7 @@ public class ReviewController {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getReviewRate(
-			@RequestParam(value = "reviewType", required = true) Integer contentType,
+			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestParam(value = "userId", required = false) String userId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -70,8 +75,7 @@ public class ReviewController {
 			Query q = new Query();
 			q.addCriteria(Criteria.where("replyType")
 					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
-					.is(contentType)
-					.and("discussId").is(associatedId));
+					.is(contentType).and("discussId").is(associatedId));
 			if (null != userId) {
 				q.addCriteria(Criteria.where("userId").is(userId));
 			}
@@ -88,7 +92,7 @@ public class ReviewController {
 	@RequestMapping(method = { RequestMethod.POST }, value = "", consumes = { "application/json" })
 	@ResponseBody
 	public Object submitReviewRate(
-			@RequestParam(value = "reviewType", required = true) Integer contentType,
+			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestBody DiscussReply reviewRate, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
@@ -128,15 +132,15 @@ public class ReviewController {
 			review = new DiscussReply();
 			review.setDiscussId(associatedId);
 			review.setContentType(contentType);
-			review.setUserRating(newReviewRate.getUserRating());
+			review.setUserRatingPercentage(newReviewRate
+					.getUserRatingPercentage());
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);
-			review.setText(newReviewRate.getText());
 			review.setUserId(user.getId());
 			review.setUserName(user.getUserName());
-			review.setText(newReviewRate.getText());
+			sendMailForReview(review,user);
 		}
-		review.setUserRating(newReviewRate.getUserRating() == null ? review
-				.getUserRating() : newReviewRate.getUserRating());
+		review.setText(newReviewRate.getText());
+		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage());
 		discussReplyRepository.save(review);
 		updateAllDependantEntities(contentType, review);
 		return review;
@@ -145,17 +149,21 @@ public class ReviewController {
 	private UserRating submitRating(Integer contentType, String associatedId,
 			DiscussReply reviewRate, User user) {
 		UserRating rating = null;
-		if (null != reviewRate.getUserRating() && null != contentType
-				&& null != reviewRate && null != user) {
+		if (null != contentType && null != reviewRate && null != user) {
 			rating = this.getRating(contentType, associatedId, user);
-			if (null == rating) {
+			if (null == rating && null != reviewRate.getUserRatingPercentage()) {
 				rating = new UserRating();
 				rating.setAssociatedId(associatedId);
 				rating.setAssociatedContentType(contentType);
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
 			}
-			rating.setValue(reviewRate.getUserRating());
+			if (null != reviewRate.getUserRatingPercentage()
+					&& (reviewRate.getUserRatingPercentage() < 0 || reviewRate
+							.getUserRatingPercentage() > 100)) {
+				throw new BYException(BYErrorCodes.RATING_VALUE_INVALID);
+			}
+			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
 			userRatingRepository.save(rating);
 			updateAllDependantEntities(contentType, rating);
 		} else {
@@ -173,20 +181,21 @@ public class ReviewController {
 		return this.mongoTemplate.findOne(query, UserRating.class);
 	}
 
-	private DiscussReply getReview(Integer reviewContentType, String associatedId,
-			User user) {
+	private DiscussReply getReview(Integer reviewContentType,
+			String associatedId, User user) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("replyType")
 				.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
-				.is(reviewContentType).and("discussId").is(associatedId).and("userId")
-				.is(user.getId()));
+				.is(reviewContentType).and("discussId").is(associatedId)
+				.and("userId").is(user.getId()));
 		return this.mongoTemplate.findOne(query, DiscussReply.class);
 	}
 
 	private void updateAllDependantEntities(Integer contentType,
 			UserRating rating) {
 		switch (contentType) {
-		case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
+		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 			updateInstitutionRating(rating);
 			break;
 		default:
@@ -197,7 +206,8 @@ public class ReviewController {
 	private void updateAllDependantEntities(Integer contentType,
 			DiscussReply review) {
 		switch (contentType) {
-		case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
+		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 			updateInstitutionReviews(review);
 			break;
 		default:
@@ -209,7 +219,10 @@ public class ReviewController {
 		UserProfile profile = this.userProfileRepository.findOne(rating
 				.getAssociatedId());
 		if (null != profile) {
-			if (!profile.getRatedBy().contains(rating.getUserId())) {
+			if (null == rating.getRatingPercentage()
+					|| 0 == rating.getRatingPercentage()) {
+				profile.getRatedBy().remove(rating.getUserId());
+			} else if (!profile.getRatedBy().contains(rating.getUserId())) {
 				profile.getRatedBy().add(rating.getUserId());
 			}
 			TypedAggregation<UserRating> aggregation = newAggregation(
@@ -218,13 +231,15 @@ public class ReviewController {
 							.is(rating.getAssociatedId())
 							.and("associatedContentType")
 							.is(rating.getAssociatedContentType())),
-					group("associatedId").avg("value").as("value"));
+					group("associatedId").avg("ratingPercentage").as(
+							"ratingPercentage"));
 
 			AggregationResults<UserRating> result = mongoTemplate.aggregate(
 					aggregation, UserRating.class);
 			List<UserRating> ratingAggregated = result.getMappedResults();
 			if (ratingAggregated.size() > 0) {
-				profile.setAggrRating(ratingAggregated.get(0).getValue());
+				profile.setAggrRatingPercentage(ratingAggregated.get(0)
+						.getRatingPercentage());
 			}
 
 			this.userProfileRepository.save(profile);
@@ -234,10 +249,14 @@ public class ReviewController {
 	private void updateInstitutionReviews(DiscussReply review) {
 		UserProfile profile = this.userProfileRepository.findOne(review
 				.getDiscussId());
-		if (null != profile
-				&& !profile.getReviewedBy().contains(review.getUserId())) {
-			profile.getReviewedBy().add(review.getUserId());
+		if (null != profile) {
+			if (Util.isEmpty(review.getText())) {
+				profile.getReviewedBy().remove(review.getUserId());
+			} else if (!profile.getReviewedBy().contains(review.getUserId())) {
+				profile.getReviewedBy().add(review.getUserId());
+			}
 			this.userProfileRepository.save(profile);
+
 		}
 	}
 
@@ -246,7 +265,8 @@ public class ReviewController {
 		boolean isSelf = false;
 		try {
 			switch (contentType) {
-			case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
+			case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
+			case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 				UserProfile userProfile = this.userProfileRepository
 						.findByUserId(user.getId());
 				if (null != userProfile
@@ -260,6 +280,32 @@ public class ReviewController {
 			Util.handleException(e);
 		}
 		return isSelf;
+	}
+
+	void sendMailForReview(DiscussReply review, User user) {
+		try {
+			UserProfile reviewedEntity = this.userProfileRepository.findOne(review
+					.getDiscussId());
+			if (!reviewedEntity.getUserId().equals(user.getId())) {
+				ResourceUtil resourceUtil = new ResourceUtil(
+						"mailTemplate.properties");
+				User profileUser = UserController.getUser(reviewedEntity
+						.getUserId());
+				String userName = !Util.isEmpty(profileUser.getUserName()) ? profileUser
+						.getUserName() : "Anonymous User";
+				String replyTypeString = "profile";
+				String path = MessageFormat.format(System.getProperty("path")
+						+ DiscussConstants.PATH_REVIEW_PAGE,
+						reviewedEntity.getUserTypes().get(0), reviewedEntity.getId());
+				String body = MessageFormat.format(
+						resourceUtil.getResource("reviewOnProfile"), userName, path);
+				MailHandler.sendMailToUserId(reviewedEntity.getUserId(),
+						"Your " + replyTypeString
+								+ " was reviewed on beautifulYears.com", body);
+			}
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
 	}
 
 }

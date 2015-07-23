@@ -26,6 +26,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.showSpecialityFilter = false;
 
+
         $scope.getData = function(queryParams){
             $("#preloader").show();
             $scope.services = FindServices.get(queryParams, function (services) {
@@ -49,7 +50,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             $rootScope.bc_topicId = 'all';
             $rootScope.bc_subTopicId = 'all';
 
-            var category = $rootScope ? $rootScope.findCategoryListMap[queryParams.services] : null;
+            var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
             if (category) {
                 $rootScope.bc_topic = category.name;
                 $rootScope.bc_subTopic = 'all';
@@ -68,7 +69,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         }
 
         $scope.showFilters = function(){
-            var category = $rootScope ? $rootScope.findCategoryListMap[queryParams.services] : null;
+            var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
             if (category && category.parentId && category.parentId!==null && category.childCount > 0){
                 $scope.showSpecialityFilter = true;
                 $scope.specialities = $.map(category.children, function (value, key) {
@@ -84,6 +85,8 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         }
+
+
 
         $scope.location = function ($event, userId, userType) {
             $event.stopPropagation();
@@ -107,7 +110,6 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         $scope.addressCallback = function (response) {
             $('#addressCity').blur();
-            queryParams = {};
             queryParams.city = response.name;
             $scope.getData(queryParams);
         }

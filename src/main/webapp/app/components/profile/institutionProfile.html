@@ -9,117 +9,127 @@
         </div>
     </div>
 </div>
-<div class="col-md-12 whiteBg by_discuss_detail margin-bottom-35" ng-controller="InstitutionProfileController">
-    <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
-        <div class="col-md-5" style="padding:0px;">
-            <div class="col-md-12 main-image white-gray " style="padding: 0px;">
-                <img class="full-width padding-zero" src="{{institutionProfile.basicProfileInfo.profileImage.original || ''}}"
-                     fallback-src='["assets/img/by-housing-avtar.jpg"]' alt="">
-            </div>
-            <div class="col-md-12 by-imageGallery margin-top-20 row" ng-if="institutionProfile.basicProfileInfo.photoGalleryURLs.length > 0">
-                <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
-                </div>
-                <div class="by-gallery-container">
-                    <div ng-repeat="img in institutionProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item"
-                     data-popup="{{img.original || ''}}" data-hover="{{img.thumbnailImage || ''}}" ng-init="galleryClickHover()">
-                        <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
-                    </div>
-                </div>
-                <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="col-md-7">
-            <div class="col-md-12 profileMainContent">
-                <div class="profileContentTitle" ng-if="institutionProfile.basicProfileInfo.firstName">
-                    {{institutionProfile.basicProfileInfo.firstName}}
-                </div>
-                <div class="no-padding">
-                    <div class="profileRating">
-                        <i class="rounded-x">4.2</i>Rated by <a href="">56 people</a>
-                    </div>
-                    <div class="profileReview">
-                        <i class="rounded-x  icon-pencil padding4"></i><a href="">18 reviews</a>
-                    </div>
-                    <div style="clear: both"></div>
-                </div>
-                <div class="article" ng-if="institutionProfile.serviceProviderInfo.services.length > 0">
-                    <ul class="list-inline categoryList"  style="margin-left: 0px; margin-top: 5px;">
-                        <li class="list-inline"> Service in</li>
-                        <li class="list-inline"
-                            ng-repeat="category in institutionProfile.serviceProviderInfo.services" style="display: inline-block">
-                            <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> {{$root.findCategoryListMap[category].name}} </a>
-                        </li>
-                    </ul>
-                </div>
 
-                <div class="col-md-12 bg-color-grey" style="margin-bottom: 4px;"></div>
-                <div class="no-padding">
+
+<div ng-controller="InstitutionProfileController">
+    <div class="row whiteBg by_discuss_detail margin-bottom-35" >
+        <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
+            <div class="col-md-5" style="padding:0px;">
+                <div class="col-md-12 main-image white-gray " style="padding: 0px;">
+                    <img class="full-width padding-zero" src="{{institutionProfile.basicProfileInfo.profileImage.original || ''}}"
+                         fallback-src='["assets/img/by-housing-avtar.jpg"]' alt="">
+                </div>
+                <div class="col-md-12 by-imageGallery margin-top-20 row" ng-if="institutionProfile.basicProfileInfo.photoGalleryURLs.length > 0">
+                    <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
+                    </div>
+                    <div class="by-gallery-container">
+                        <div ng-repeat="img in institutionProfile.basicProfileInfo.photoGalleryURLs" class="by-imageGallery-item"
+                             data-popup="{{img.original || ''}}" data-hover="{{img.thumbnailImage || ''}}" ng-init="galleryClickHover()">
+                            <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                        </div>
+                    </div>
+                    <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-7">
+                <div class="col-md-12 profileMainContent">
+                    <div class="profileContentTitle" ng-if="institutionProfile.basicProfileInfo.firstName">
+                        {{institutionProfile.basicProfileInfo.firstName}}
+                    </div>
                     <div class="no-padding">
-                        <i class="fa fa-envelope"></i>
-                        <a href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
+                        <div class="profileRating" ng-if="institutionProfile.ratingCount===0 && institutionProfile.reviewCount===0 && isAllowedToReview">
+                            <a ng-click="reviewContent()"> Be the first to rate/review </a>
+                        </div>
+                        <div class="profileRating" ng-if="institutionProfile.ratingCount > 0">
+                            <i class="rounded-x" rate-calculator="{{institutionProfile.ratingPercentage}}"></i>Rated by <a href="">{{institutionProfile.ratingCount}} people</a>
+                        </div>
+                        <div class="profileReview" ng-if="institutionProfile.reviewCount > 0">
+                            <i class="rounded-x fa fa-pencil-square-o padding4"></i><a href="">{{institutionProfile.reviewCount}} reviews</a>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div class="article" ng-if="institutionProfile.serviceProviderInfo.services.length > 0">
+                        <ul class="list-inline categoryList"  style="margin-left: 0px; margin-top: 5px;">
+                            <li class="list-inline"> Service in</li>
+                            <li class="list-inline"
+                                ng-repeat="category in institutionProfile.serviceProviderInfo.services" style="display: inline-block">
+                                <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> {{$root.findCategoryListMap[category].name}} </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-12 bg-color-grey" style="margin-bottom: 4px;"></div>
+                    <div class="no-padding">
+                        <div class="no-padding">
+                            <i class="fa fa-envelope"></i>
+                            <a href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
                         <span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails" ng-if="mail.trim()!==''">
                             / <a href="mailto::{{mail}}">{{mail}}</a>
                         </span>
-                    </div>
-                    <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryPhoneNo">
-                        <i class="fa fa-phone"></i>
-                        <span>{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</span>
+                        </div>
+                        <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryPhoneNo">
+                            <i class="fa fa-phone"></i>
+                            <span>{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</span>
                         <span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos" ng-if="phoneNo.trim()!==''">
                             , {{phoneNo}}
                         </span>
+                        </div>
+                        <div class="no-padding" ng-if="institutionProfile.serviceProviderInfo.website">
+                            <i class="fa fa-globe"></i>
+                            <a ng-href="http://{{institutionProfile.serviceProviderInfo.website}}" target="_blank"> {{institutionProfile.serviceProviderInfo.website}} </a>
+                        </div>
+                        <div class="no-padding profile-home-visit" ng-if="institutionProfile.serviceProviderInfo.homeVisits">
+                            <input type="checkbox" class="checkBoxTwo" ng-checked="institutionProfile.serviceProviderInfo.homeVisits" disabled/>
+                            <span>Available for home visit</span>
+                        </div>
                     </div>
-                    <div class="no-padding" ng-if="institutionProfile.serviceProviderInfo.website">
-                        <i class="fa fa-globe"></i>
-                        <a ng-href="http://{{institutionProfile.serviceProviderInfo.website}}" target="_blank"> {{institutionProfile.serviceProviderInfo.website}} </a>
+                    <div class="no-padding profileAddress">
+                        <ul class="list-inline">
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.streetAddress">
+                                {{institutionProfile.basicProfileInfo.userAddress.streetAddress}}
+                            </li>
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.locality">
+                                {{institutionProfile.basicProfileInfo.userAddress.locality}}
+                            </li>
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.city">
+                                {{institutionProfile.basicProfileInfo.userAddress.city}}
+                            </li>
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.country">
+                                {{institutionProfile.basicProfileInfo.userAddress.country}}
+                            </li>
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.zip">
+                                {{institutionProfile.basicProfileInfo.userAddress.zip}}
+                            </li>
+                        </ul>
                     </div>
-                    <div class="no-padding profile-home-visit" ng-if="institutionProfile.serviceProviderInfo.homeVisits">
-                        <input type="checkbox" class="checkBoxTwo" ng-checked="institutionProfile.serviceProviderInfo.homeVisits" disabled/>
-                        <span>Available for home visit</span>
-                    </div>
-                </div>
-                <div class="no-padding profileAddress">
-                    <ul class="list-inline">
-                        <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.streetAddress">
-                            {{institutionProfile.basicProfileInfo.userAddress.streetAddress}}
-                        </li>
-                        <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.locality">
-                            {{institutionProfile.basicProfileInfo.userAddress.locality}}
-                        </li>
-                        <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.city">
-                            {{institutionProfile.basicProfileInfo.userAddress.city}}
-                        </li>
-                        <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.country">
-                            {{institutionProfile.basicProfileInfo.userAddress.country}}
-                        </li>
-                        <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.zip">
-                            {{institutionProfile.basicProfileInfo.userAddress.zip}}
-                        </li>
-                    </ul>
-                </div>
-                <!--<div class="col-md-12 no-padding">-->
+                    <!--<div class="col-md-12 no-padding">-->
                     <!--<ul class="list-inline margin-left&#45;&#45;2 font-bold">-->
-                        <!--<li class="list-inline"><img class=" padding-zero"-->
-                                                     <!--src="assets/img/icons/location.png" alt="">-->
-                        <!--</li>-->
-                        <!--<li class="list-inline">PUNE</li>-->
-                        <!--<li class="list-inline"> | DELHI | BANGALORE-->
+                    <!--<li class="list-inline"><img class=" padding-zero"-->
+                    <!--src="assets/img/icons/location.png" alt="">-->
+                    <!--</li>-->
+                    <!--<li class="list-inline">PUNE</li>-->
+                    <!--<li class="list-inline"> | DELHI | BANGALORE-->
                     <!--</ul>-->
-                <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" ng-if="institutionProfile.basicProfileInfo.description">
+            <div class="articles-story">
+                {{institutionProfile.basicProfileInfo.description}}
             </div>
         </div>
     </div>
 
-    <!--/end housing details-->
+    <!--/end profile details-->
 
-
-    <div class="col-md-12" ng-if="institutionProfile.basicProfileInfo.description">
-        <div class="articles-story">
-            {{institutionProfile.basicProfileInfo.description}}
-        </div>
+    <div ng-if="reviews && reviews.length > 0"  class="row">
+        <div ng-repeat="review in reviews" data-index="discussion-articles"
+             data-link="articles.html" ng-include="'app/components/profile/profileReviewCard.html'" ng-if="review.text && review.text.trim().length > 0"></div>
     </div>
-
-
 </div>
+
     

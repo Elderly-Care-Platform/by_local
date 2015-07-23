@@ -111,6 +111,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                         $scope.address.city = response.districtname;
                         $scope.address.locality = response.officename;
                         $scope.address.streetAddress = response.officename + ", Distt: " + response.districtname + " , State: " + response.statename;
+                        $scope.address.country = "India";
                     }
                 });
         }

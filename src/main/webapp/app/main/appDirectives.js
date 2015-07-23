@@ -536,19 +536,16 @@ byApp.directive('autoComplete', function ($timeout) {
     };
 });
 
-byApp.directive('validateUserName', function(){
+byApp.directive('rateCalculator', function(){
     return {
-        restrict: '',
-        scope: {
-
-        },
-        link: function(scope, elm, attrs) {
-            if(!attrs.validateUserName || attrs.validateUserName.trim()==="" || attrs.validateUserName==="null"){
-                scope.username = "Anonymous";
-            }else{
-                scope.username = attrs.validateUserName;
-            }
+        restrict: 'A',
+        link: function(scope, elem, attrs) {
+            var profileRating = BY.byUtil.getAverageRating(attrs.rateCalculator);
+            elem.html(profileRating);
+            elem.addClass("profileRate"+Math.round(profileRating));
         }
     };
 });
+
+
 

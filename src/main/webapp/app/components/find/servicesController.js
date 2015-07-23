@@ -26,11 +26,6 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.showSpecialityFilter = false;
 
-        $scope.getProfileRating = function(service){
-            service.profileRating = BY.byUtil.getAverageRating(service.ratingPercentage);
-            //$(".profileRateIcon").addClass("profileRate"+Math.round(service.profileRating));
-
-        }
 
         $scope.getData = function(queryParams){
             $("#preloader").show();

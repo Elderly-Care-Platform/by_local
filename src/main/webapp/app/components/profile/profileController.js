@@ -7,7 +7,6 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.profileId = $routeParams.profileId;
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
-        $scope.profileRating = null;
 
         $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
@@ -24,9 +23,6 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                     if(localStorage.getItem("USER_ID") !== $scope.profileData.userId){
                         $scope.isAllowedToReview = true;
                     }
-
-                    $scope.getProfileRating($scope.profileData.ratingPercentage);
-
                 },
                 function (error) {
                     console.log("institution profile error");
@@ -44,7 +40,4 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
         }
 
-        $scope.getProfileRating = function(value){
-            $scope.profileRating = BY.byUtil.getAverageRating(value);
-        }
     }]);

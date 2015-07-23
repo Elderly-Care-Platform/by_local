@@ -11,9 +11,6 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
             console.log(error)
         })
 
-        $scope.getProfileRating = function(item){
-            item.profileRating = BY.byUtil.getAverageRating(item.userRatingPercentage);
-        }
 
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){

@@ -5,8 +5,8 @@
         <ul class="list-inline posted-info">
             <li ng-if="review"> By <a validate-user-name="{{review.userName}}"> {{username}} </a> &nbsp; |  </li>
             <li time-since="{{review.createdAt}}"></li>
-            <li class="reviewCardRating list-inline" ng-if="review.userRatingPercentage && review.userRatingPercentage!=='0'" ng-init="getProfileRating(review)">
-                &nbsp; | <i class="rounded-x">{{review.profileRating}}</i>
+            <li class="reviewCardRating list-inline" ng-if="review.userRatingPercentage && review.userRatingPercentage!=='0'">
+                &nbsp; | <i class="rounded-x" rate-calculator="{{review.userRatingPercentage}}"></i>
             </li>
         </ul>
     </div>

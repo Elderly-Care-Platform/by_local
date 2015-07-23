@@ -28,7 +28,6 @@
   width: 32px;
   text-align: center;
   height: 32px;
-  background: #00af50;
   border-radius: 50%;
   padding: 3px 7px 4px 3px;
   margin-right: 10px;
@@ -128,7 +127,6 @@ input::-webkit-inner-spin-button {
   text-align: center;
   font-size: 11px;
   height: 23px;
-  background: #007a3c;
   border-radius: 50%;
   padding: 7px 5px 4px 3px;
   margin-right: 5px;

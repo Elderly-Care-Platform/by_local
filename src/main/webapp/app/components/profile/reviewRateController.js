@@ -17,10 +17,13 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
 
         $scope.getReview = function(){
             postReview.$get({associatedId:$scope.userProfile.id, userId:localStorage.getItem("USER_ID"), reviewType:$scope.userProfile.userTypes[0]}, function(response){
-                var response = response.data.replies[0],
-                    ratingPercentage = BY.byUtil.getAverageRating(response.userRatingPercentage);
-                $scope.reviewText = response.text;
-                $scope.selectRating(ratingPercentage);
+                var response = response.data.replies[0];
+                if(response){
+                    var ratingPercentage = BY.byUtil.getAverageRating(response.userRatingPercentage);
+                    $scope.reviewText = response.text;
+                    $scope.selectRating(ratingPercentage);
+                }
+
             }, function(error){
 
             })

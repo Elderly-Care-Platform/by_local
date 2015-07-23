@@ -45,6 +45,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 postReview.userRatingPercentage = ratePercentage;
                 postReview.text = $scope.reviewText;
                 $scope.blankReviewRateError = false;
+                $scope.unauthorizeUserError = false;
 
                 postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
                     $scope.$parent.showProfile();
@@ -52,6 +53,8 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                     console.log(errorResponse);
                     if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                         ValidateUserCredential.login();
+                    } else if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3001){
+                        $scope.unauthorizeUserError = true;
                     }
                 })
             }else{

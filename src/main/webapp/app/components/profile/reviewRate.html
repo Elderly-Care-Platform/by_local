@@ -14,9 +14,9 @@
         </div>
         <div class="row whiteBg register-page padding20 borderShadow margin-bottom-20">
             <div class="col-md-12 margin-bottom-20   reviewRateForm">
-                    This is how I rate <span ng-if="gender">{{gender}}</span>
-                    <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
-                    <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+                This is how I rate <span ng-if="gender">{{gender}}</span>
+                <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+                <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
             </div>
             <div class="col-md-12 margin-bottom-20   register-page reviewRateForm">
                 <div class="col-md-6 col-sm-6 col-xs-6 no-padding">
@@ -66,16 +66,19 @@
                         <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
                         <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
                     </span>
+
+                    <span ng-show="unauthorizeUserError" class="errorRed">
+                       You are not authorized to review/rate this profile
+                    </span>
+
                     </div>
                 </div>
             </div>
-
-
         </div>
 
 
         <div class="col-md-12  margin-bottom-20">
-            <input type="submit" value="Done" class="nextButton" ng-click="postReview(individualForm)"/>
+            <input type="submit" value="Done" id="reviewSubmit" class="nextButton" ng-click="postReview(individualForm)"/>
 
             <div class="clearfix"></div>
         </div>

@@ -12,85 +12,64 @@
                 <div class="bg-green-h2" style="width: 100%;"></div>
             </div>
         </div>
-        <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
-            <div class="col-md-8">
-                <!--<div class="row margin-bottom-20 marginRightMinus5 register-page" id="homeVisit">-->
-                    <!--<div class="col-md-5">-->
-                        <!--I am (or I was)-->
-                    <!--</div>-->
-                    <!--<div class="col-md-7 no-padding-right register-page">-->
-                        <!--<select class="form-control grayBgLogin">-->
-                            <!--<option>Nightingale's customer</option>-->
-                            <!--<option>A relative or a friend of a Nightingale's customer</option>-->
-                            <!--<option>A potential customer</option>-->
-                            <!--<option>Other</option>-->
-                        <!--</select>-->
+        <div class="row whiteBg register-page padding20 borderShadow margin-bottom-20">
+            <div class="col-md-12 margin-bottom-20   reviewRateForm">
+                    This is how I rate <span ng-if="gender">{{gender}}</span>
+                    <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+                    <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+            </div>
+            <div class="col-md-12 margin-bottom-20   register-page reviewRateForm">
+                <div class="col-md-6 col-sm-6 col-xs-6 no-padding">
+                    <div class="row margin-bottom-10  " ng-click="selectRating(5, $event)">
+                        <a class="col-md-6 col-xs-8">Excellent</a>
 
-                    <!--</div>-->
-                <!--</div>-->
-
-
-                <div class="row margin-bottom-20 marginRightMinus5 register-page reviewRateForm">
-                    <div class="col-md-10 col-xs-10">
-                        This is how I rate <span ng-if="gender">{{gender}}</span>
-                        <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
-                        <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate5">5</div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="col-md-2 col-xs-2 changeRatingValue">
-                        <input type="number" class="username-textbox textbox" min="0" max="5"
-                               class="name-textbox textbox grayBg" style="text-align:center;" ng-model="selectedRating" ng-change="selectRating(selectedRating)"/>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(4, $event)">
+                        <a class="col-md-6 col-xs-8">Good</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate4">4</div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(3, $event)">
+                        <a class="col-md-6 col-xs-8">Average</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate3">3</div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(2, $event)">
+                        <a class="col-md-6 col-xs-8">Poor</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate2">2</div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(1, $event)">
+                        <a class="col-md-6 col-xs-8">Terrible</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate1">1</div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
 
-
-                <div class="col-md-12 margin-bottom-10">
-                    <div class="row">
-                    <textarea class="textbox home-address" rows="3"
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="row margin-bottom-10">
+                    <textarea class="textbox home-address" rows="3" style="height: 200px;"
                               ng-model="reviewText" placeholder="Write your review here"></textarea>
 
-                        <span ng-show="blankReviewRateError" class="errorRed">Please rate/review
-                            <span ng-if="gender">{{gender}}</span>
-                            <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
-                            <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
-                        </span>
+                    <span ng-show="blankReviewRateError" class="errorRed">Please rate/review
+                        <span ng-if="gender">{{gender}}</span>
+                        <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+                        <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+                    </span>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4 reviewRateForm" >
-                <div class="row margin-bottom-10 marginRightMinus5">
-                    <div class="col-md-12">
-                        Select rating here
-                    </div>
-                </div>
-                <div class="row margin-bottom-10 marginRightMinus5" ng-click="selectRating(1, $event)">
-                    <a class="col-md-8 col-xs-8">Terrible</a>
-                    <div class="col-md-4 col-xs-4 profileRateValues profileRate1">1</div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="row margin-bottom-10 marginRightMinus5" ng-click="selectRating(2, $event)">
-                    <a class="col-md-8 col-xs-8">Poor</a>
-                    <div class="col-md-4 col-xs-4 profileRateValues profileRate2">2</div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="row margin-bottom-10 marginRightMinus5"  ng-click="selectRating(3, $event)">
-                    <a class="col-md-8 col-xs-8">Average</a>
-                    <div class="col-md-4 col-xs-4 profileRateValues profileRate3">3</div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="row margin-bottom-10 marginRightMinus5" ng-click="selectRating(4, $event)">
-                    <a class="col-md-8 col-xs-8">Good</a>
-                    <div class="col-md-4 col-xs-4 profileRateValues profileRate4" >4</div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="row margin-bottom-10 marginRightMinus5" ng-click="selectRating(5, $event)">
-                    <a class="col-md-8 col-xs-8">Excellent</a>
-                    <div class="col-md-4 col-xs-4 profileRateValues profileRate5" >5</div>
-                    <div class="clearfix"></div>
-                </div>
-
-
-            </div>
 
         </div>
 

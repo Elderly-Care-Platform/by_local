@@ -61,7 +61,7 @@
   line-height: 20px;
   border-radius: 50% !important;
   background: #ccc;
-  float: right;
+  float: left;
   cursor: pointer;
   opacity: 0.5;
 }

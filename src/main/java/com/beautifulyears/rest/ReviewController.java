@@ -60,7 +60,7 @@ public class ReviewController {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getReviewRate(
-			@RequestParam(value = "reviewType", required = true) Integer contentType,
+			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestParam(value = "userId", required = false) String userId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -87,7 +87,7 @@ public class ReviewController {
 	@RequestMapping(method = { RequestMethod.POST }, value = "", consumes = { "application/json" })
 	@ResponseBody
 	public Object submitReviewRate(
-			@RequestParam(value = "reviewType", required = true) Integer contentType,
+			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestBody DiscussReply reviewRate, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
@@ -189,7 +189,8 @@ public class ReviewController {
 	private void updateAllDependantEntities(Integer contentType,
 			UserRating rating) {
 		switch (contentType) {
-		case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
+		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 			updateInstitutionRating(rating);
 			break;
 		default:
@@ -200,7 +201,8 @@ public class ReviewController {
 	private void updateAllDependantEntities(Integer contentType,
 			DiscussReply review) {
 		switch (contentType) {
-		case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
+		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 			updateInstitutionReviews(review);
 			break;
 		default:
@@ -257,7 +259,8 @@ public class ReviewController {
 		boolean isSelf = false;
 		try {
 			switch (contentType) {
-			case DiscussConstants.CONTENT_TYPE_INSTITUTION_PROFILE:
+			case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
+			case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 				UserProfile userProfile = this.userProfileRepository
 						.findByUserId(user.getId());
 				if (null != userProfile

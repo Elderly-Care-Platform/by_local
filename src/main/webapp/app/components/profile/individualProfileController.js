@@ -6,7 +6,7 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
         $scope.slideIndex = 1;
 
         var reviewDetails = new ReviewRateProfile();
-        $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, reviewType:$scope.individualProfile.userTypes[0]}, function(response){
+        $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
             $scope.reviews = response.data.replies;
         }, function(error){
             console.log(error)

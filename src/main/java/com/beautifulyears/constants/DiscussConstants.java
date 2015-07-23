@@ -11,7 +11,8 @@ public class DiscussConstants {
 	public static final int CONTENT_TYPE_QUESTION = 1;
 	public static final int CONTENT_TYPE_POST = 2;
 	public static final int CONTENT_TYPE_ARTICLE = 3;
-	public static final int CONTENT_TYPE_INSTITUTION_PROFILE = 4;
+	public static final int CONTENT_TYPE_INSTITUTION_SERVICES = 4;
+	public static final int CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL = 5;
 
 	public static final int REPLY_TYPE_COMMENT = 5;
 	public static final int REPLY_TYPE_ANSWER = 6;
@@ -36,5 +37,6 @@ public class DiscussConstants {
 	// ---------------------------------------------------------------//
 
 	public static final String PATH_DISCUSS_DETAIL_PAGE = "/#/discuss/{0}";
+	public static final String PATH_REVIEW_PAGE = "/#/profile/{0}/{1}";
 
 }

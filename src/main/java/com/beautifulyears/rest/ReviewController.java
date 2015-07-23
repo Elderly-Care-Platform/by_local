@@ -1,5 +1,10 @@
 package com.beautifulyears.rest;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +32,15 @@ import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRating;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.repository.UserRatingRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
-
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @Controller
 @RequestMapping("/reviewRate")
@@ -132,10 +137,10 @@ public class ReviewController {
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);
 			review.setUserId(user.getId());
 			review.setUserName(user.getUserName());
+			sendMailForReview(review,user);
 		}
 		review.setText(newReviewRate.getText());
-		review.setUserRatingPercentage(newReviewRate
-				.getUserRatingPercentage());
+		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage());
 		discussReplyRepository.save(review);
 		updateAllDependantEntities(contentType, review);
 		return review;
@@ -144,8 +149,7 @@ public class ReviewController {
 	private UserRating submitRating(Integer contentType, String associatedId,
 			DiscussReply reviewRate, User user) {
 		UserRating rating = null;
-		if (null != contentType
-				&& null != reviewRate && null != user) {
+		if (null != contentType && null != reviewRate && null != user) {
 			rating = this.getRating(contentType, associatedId, user);
 			if (null == rating && null != reviewRate.getUserRatingPercentage()) {
 				rating = new UserRating();
@@ -154,8 +158,9 @@ public class ReviewController {
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
 			}
-			if (null != reviewRate.getUserRatingPercentage() && (reviewRate.getUserRatingPercentage() < 0
-					|| reviewRate.getUserRatingPercentage() > 100)) {
+			if (null != reviewRate.getUserRatingPercentage()
+					&& (reviewRate.getUserRatingPercentage() < 0 || reviewRate
+							.getUserRatingPercentage() > 100)) {
 				throw new BYException(BYErrorCodes.RATING_VALUE_INVALID);
 			}
 			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
@@ -214,7 +219,8 @@ public class ReviewController {
 		UserProfile profile = this.userProfileRepository.findOne(rating
 				.getAssociatedId());
 		if (null != profile) {
-			if (null == rating.getRatingPercentage() || 0 == rating.getRatingPercentage()) {
+			if (null == rating.getRatingPercentage()
+					|| 0 == rating.getRatingPercentage()) {
 				profile.getRatedBy().remove(rating.getUserId());
 			} else if (!profile.getRatedBy().contains(rating.getUserId())) {
 				profile.getRatedBy().add(rating.getUserId());
@@ -274,6 +280,32 @@ public class ReviewController {
 			Util.handleException(e);
 		}
 		return isSelf;
+	}
+
+	void sendMailForReview(DiscussReply review, User user) {
+		try {
+			UserProfile reviewedEntity = this.userProfileRepository.findOne(review
+					.getDiscussId());
+			if (!reviewedEntity.getUserId().equals(user.getId())) {
+				ResourceUtil resourceUtil = new ResourceUtil(
+						"mailTemplate.properties");
+				User profileUser = UserController.getUser(reviewedEntity
+						.getUserId());
+				String userName = !Util.isEmpty(profileUser.getUserName()) ? profileUser
+						.getUserName() : "Anonymous User";
+				String replyTypeString = "profile";
+				String path = MessageFormat.format(System.getProperty("path")
+						+ DiscussConstants.PATH_REVIEW_PAGE,
+						reviewedEntity.getUserTypes().get(0), reviewedEntity.getId());
+				String body = MessageFormat.format(
+						resourceUtil.getResource("reviewOnProfile"), userName, path);
+				MailHandler.sendMailToUserId(reviewedEntity.getUserId(),
+						"Your " + replyTypeString
+								+ " was reviewed on beautifulYears.com", body);
+			}
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
 	}
 
 }

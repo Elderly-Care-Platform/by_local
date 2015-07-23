@@ -111,8 +111,8 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
         };
     }]);
 
-byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'DiscussLike', '$location','ValidateUserCredential',
-    function ($scope, $rootScope, DiscussLike, $location, ValidateUserCredential) {
+byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'DiscussLike','DiscussReplyLike', '$location','ValidateUserCredential',
+    function ($scope, $rootScope, DiscussLike,DiscussReplyLike, $location, ValidateUserCredential) {
         $scope.beforePost = true;
 
         $scope.likeDiscuss = function (discussId) {
@@ -131,7 +131,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'Disc
         }
 
         $scope.likeComment = function (commentId, replyType) {
-            $scope.discussLike = new DiscussLike();
+            $scope.discussLike = new DiscussReplyLike();
             $scope.discussLike.replyId = commentId;
 
             if (replyType === 6) {

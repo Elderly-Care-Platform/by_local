@@ -82,7 +82,12 @@ var discussDetail = byServices.factory('DiscussDetail', function($resource) {
 //discuss Likes api
 var discussLike = byServices.factory('DiscussLike', function($resource){
     return $resource(apiPrefix+'api/v1/discussLike',{},{
-        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId'},isArray:false},
+        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId'},isArray:false}
+    })
+})
+
+var discussReplyLike = byServices.factory('DiscussReplyLike', function($resource){
+    return $resource(apiPrefix+'api/v1/discussReplyLike',{},{
         likeComment:{method:'POST', params:{type:1, replyId:'@replyId'},isArray:false},
         likeAnswer:{method:'POST', params:{type:2, replyId:'@replyId'},isArray:false}
     })

@@ -219,10 +219,9 @@
                             Website
                         </div>
                         <div class="col-md-7 no-padding-right register-page">
-                            <input type="text" class="username-textbox textbox" name="website"
-                                   ng-model="serviceProviderInfo.website" ng-pattern={{websiteValidationPattern}}
+                            <input type="text" class="username-textbox textbox"
+                                   ng-model="serviceProviderInfo.website"
                                    placeholder="Website"/>
-                            <span ng-show="individualForm.website.$error.pattern && submitted" class="errorRed">Not a valid URL!</span>
                         </div>
                     </div>
 

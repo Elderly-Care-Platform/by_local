@@ -5,7 +5,6 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         $scope.views = {};
         $scope.views.leftPanel = "app/components/login/registrationLeftPanel.html";
         $scope.profile = {};
-        $scope.websiteValidationPattern = BY.config.registration.websitePattern;
 
         $scope.updateRegistration = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");

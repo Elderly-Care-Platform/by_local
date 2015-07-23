@@ -1,16 +1,16 @@
 .by_blog_author img
 {
-	width:50px !important;
+	width:43px !important;
 }
 .by_blog_author > img
 {
 	margin-top:15px !important;
-	margin-left:25px !important;
+	margin-left:21px !important;
 }
 .by_blog_author .col-md-12
 {
-	padding-left:25px;
-	padding-right:25px;
+	padding-left:21px;
+	padding-right:21px;
 }
 .by-quad-image
 {
@@ -28,8 +28,9 @@
 .by_blog_author
 {
 	max-height:1500px !important;
-	max-width:750px;
-	min-height:auto !important;
+	max-width:705px;
+	min-height:auto !important;	
+  border-radius: 2px !important;
 }
 .list-inline>li
 {
@@ -60,8 +61,8 @@
 {
 	left: 0px;
   margin-top: 7px;
-  padding-right: 25px;
-  padding-left: 25px;
+  padding-right: 21px;
+  padding-left: 21px;
   margin-bottom: 13px;
 }
 .add-comment span.text
@@ -174,9 +175,18 @@
 	text-align:left !important;
 }
 .by_story {
-  max-height: 150px;
-   margin-top: 0px;
+  max-height: 90px;
+   margin-top: 10px;
    margin-bottom: 0px; 
+}
+.questionTag
+{
+	position:absolute;
+	right:-5px;
+	top:-4px;
+	z-index:10px;
+	width:82px;
+	height:49px;
 }
 .discussion-page .blog-author
 {
@@ -192,23 +202,60 @@
 .fa-edit:before, .fa-pencil-square-o:before {
   content: url('../img/answer_icon.png');
 }
-/* left panel */
-
-/*.by_left_panel_fixed
+.icon-share:before {
+  	content: url('../img/share_active.png');
+}
+.by_blog_author .articles-story p img
 {
-	left: calc((100vw - 1170px + 30px)/2);
-	width: calc(21vw);
+	width:100% !important;
+	max-width:100% !important;
+	margin-top:15px;
 }
-@media (min-width: 992px){
-.by_left_panel_fixed
-{	left: calc((100vw - 970px + 30px)/2);
-	width: calc(21vw);
+.container
+{
+	max-width: 960px !important;
 }
+.article-outer-wrapper
+{
+	padding-left:65px;
+	padding-right:65px;
 }
-@media (min-width: 1200px){
 .by_left_panel_fixed
 {
-	left: calc((100vw - 1170px + 30px)/2);
-	width: calc(21vw);
+	left: calc((100vw - 960px + 20px)/2) !important;
+	width: 225px !important;
 }
-}*/
+#sidebar-nav
+{
+	width: 225px;
+}
+.posted-info li
+{
+	font-size:16px;
+}
+@media (max-width: 990px){
+.by_left_panel_fixed, #sidebar-nav
+{	
+	width: 100% !important;
+}
+.questionTag
+{
+	position:absolute;
+	right:10px;
+	top:-4px;
+	z-index:10px;
+	width:82px;
+	height:49px;
+}
+}
+@media (max-width: 750px){
+	.questionTag
+{
+	position:absolute;
+	right:-5px;
+	top:-4px;
+	z-index:10px;
+	width:82px;
+	height:49px;
+}
+}

@@ -1,14 +1,22 @@
-<div class="blog-author margin-bottom-35 main-article replyCard">
+
+<div class="blog-author margin-bottom-35 main-article replyCard by_blog_author">
     <img src="assets/img/by.jpg" alt="image" class="replyCardImg">
 
     <div class="article-info dp-inline-block">
         <ul class="list-inline posted-info">
             <li ng-if="reply"> By <a validate-user-name="{{reply.userName}}"> {{username}} </a> &nbsp; |  </li>
             <li time-since="{{reply.createdAt}}"></li>
-        </ul>
-    </div>
+        </ul><div style="clear: both"></div>
+            <ul class="list-inline posted-info">
+                <li>
+                    <p class="article-first-letter commentHeightLine" ng-bind-html="trustForcefully(reply.text)">                      
+						
+					</p>
+                </li>
+            </ul><div style="clear: both"></div>
+    </div> <div style="clear: both"></div>
 
-    <div class="articles-story" ng-bind-html="trustForcefully(reply.text)"></div>
+    
     <div class="article-share-links news-v3">
         <ul class="post-shares post-shares-lg">
             <li class="add-comment">
@@ -18,10 +26,10 @@
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(reply.id)"><a>Comment</a>
+                     ng-click="createNewComment(reply.id)"> <span class="text">Comment</span>
                 </div>
             </li>
-            <li ng-controller="DiscussLikeController">
+            <li class="add-comment" ng-controller="DiscussLikeController">
                 <a ng-click="likeComment(reply.id, reply.replyType)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
                     <span ng-if="beforePost && reply.likeCount > 0">{{reply.likeCount}}</span>
@@ -29,9 +37,7 @@
                 </a>
 
                 <div class="post-text">
-                    <a ng-click="likeComment(reply.id, reply.replyType)">
-                        Like
-                    </a>
+                     <span class="text" ng-click="likeComment(reply.id, reply.replyType)">Like</span>
                 </div>
             </li>
         </ul>

@@ -1,9 +1,10 @@
-<div class="padding20 whiteBg by_discuss_detail" ng-if="detailResponse.discuss" >
-    <div class="article">
-        <div class="article-info">
+<div  ng-if="detailResponse.discuss" >
+ <div class="blog-author margin-bottom-35 main-article by_blog_author" >
+        <img src="assets/img/by.jpg" alt="image">
+        <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li ng-if="detailResponse.discuss.discussType == 'A'">
-                    Story by <a validate-user-name="{{detailResponse.discuss.username}}"> {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
@@ -14,23 +15,42 @@
                     Question by <a validate-user-name="{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
+                <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
+            </ul><div style="clear: both"></div>
+            <ul class="list-inline posted-info">
+                
                 <li ng-if="detailResponse.discuss.topicId.length > 0"> In
                     <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
                         {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
-                    &nbsp; |
+                    &nbsp; 
                 </li>
-                <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
-            </ul>
+            </ul><div style="clear: both"></div>
         </div>
-        <div class="article-heading">{{detailResponse.discuss.title}}</div>
-        <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]'>
+        
+         <div style="clear: both"></div>
 
-        <div class="articles-story" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
+        <div class="article col-md-12" >
+            <div class="article-heading">
+            	{{detailResponse.discuss.title}}
+            </div>
+        </div>
+        
+        <div class="by-quad-image col-md-12" >
+             <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
+            <div style="clear: both"></div>
+        </div>
+
+        <div class="articles-story  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
         {{testFunction()}}
-    </div>
-    <div class="article-share-links news-v3">
-        <ul class="post-shares post-shares-lg">
+        <div style="clear: both; height:8px;"></div>
+        
+        
+        <div class="by-quad-image col-md-12" >
+        </div>
+        
+         <div class="article-share-links news-v3" >
+            <ul class="post-shares post-shares-lg">
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
@@ -38,7 +58,7 @@
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(detailResponse.discuss.id)"><a>Comment</a>
+                     ng-click="createNewComment(detailResponse.discuss.id)"><span class="text">Comment</span>
                 </div>
             </li>
 
@@ -49,20 +69,20 @@
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(detailResponse.discuss.id)"><a>Answer</a>
+                     ng-click="createNewComment(detailResponse.discuss.id)"><span class="text">Answer</span>
                 </div>
             </li>
 
-            <li ng-if="detailResponse.discuss.discussType == 'A'">
+            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A'">
                 <a href="#">
                     <i class="rounded-x icon-share"></i>
                 </a>
 
-                <div class="post-text post_text-comment"><a>Share</a>
+                <div class="post-text post_text-comment"><span class="text">Share</span>
                 </div>
             </li>
 
-            <li ng-controller="DiscussLikeController">
+            <li class="add-comment" ng-controller="DiscussLikeController">
                 <a ng-click="likeDiscuss(detailResponse.discuss.id)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
                     <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0">{{detailResponse.discuss.aggrLikeCount}}</span>
@@ -70,15 +90,23 @@
                 </a>
 
                 <div class="post-text">
-                    <a ng-click="likeDiscuss(detailResponse.discuss.id)">Like</a>
+                    <span ng-click="likeDiscuss(detailResponse.discuss.id)" class="text">Like</span>
                 </div>
 
             </li>
         </ul>
-    </div>
+        </ul>
+        </div>
+        
+        <!--  cooments -->
+        
+        
+
+</div>
+    
 </div>
 
-<div class="article-comments-wrapper" id="article-comments-wrapper">
+<div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
     <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
         COMMENTS
@@ -97,9 +125,11 @@
     </h2>
 
     <!--Comment Editor for main article-->
-    <div class="col-md-12 no-padding" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
+    <div class="col-md-12 no-padding  by_blog_author" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
+   
         <div class="enter-comment-wrap padding20SM borderShadow by_editor_wrap" id="answer_block">
-            <textarea rows="3"  id={{detailResponse.discuss.id}}></textarea>
+             
+              <textarea rows="3"  id={{detailResponse.discuss.id}}></textarea>
             <div class="clearfix"></div>
             <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn" type="submit" disabled
                     ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT

@@ -4,9 +4,9 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
         $scope.individualUserType = [
             {key:'0', value:"I take care of a senior person", category:"indv"},
             {key:'1', value:"I am not that young, but I am young at heart", category:"indv"},
-            {key:'2', value:"I volunteer with senior people", category:"indv"},
             {key:'7', value:"I am an elder care professional", category:"indv"
             }];
+        //        {key:'2', value:"I volunteer with senior people", category:"indv"},
 
         $scope.institutionUserType = [
             {key:'3', value:"Senior living facilities", category:"inst"},

@@ -339,6 +339,10 @@
 {
 	text-align:right;
 }
+ul.loginbar.pull-right {
+  min-width: 200px;
+  text-align: right;
+}
 @media screen and (max-width: 991px){
 	.by_left_panel_fixed .scrollableLeftPanelDiv {
   height: auto;
@@ -392,7 +396,7 @@
 }
 .navbar-toggle
 {
-	margin-right:-141px !important;
+	
 }
 .header .dropdown-menu .col-md-2
 {

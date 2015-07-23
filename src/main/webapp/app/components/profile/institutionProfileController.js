@@ -44,7 +44,6 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         		event.stopPropagation();
         		var urlPopup = $(this).attr('data-popup');
         		$(".profilePopupImagesWrapperImage").find('img').attr('src', urlPopup);
-        		$(".profilePopupImages").fadeIn();
 
         		setTimeout(function(){ 
             		var windowHeight = $(window).height();
@@ -52,32 +51,41 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
             		var profilePopupImagesWrapperWidth = $(".profilePopupImagesWrapperImage").find('img').outerWidth(true);
             		var profilePopupImagesWrapperHeight = $(".profilePopupImagesWrapperImage").find('img').outerHeight(true);
             		$(".profilePopupImagesWrapper").width(profilePopupImagesWrapperWidth);
-            		$(".profilePopupImagesWrapper").height(profilePopupImagesWrapperHeight);
+            		//$(".profilePopupImagesWrapper").height(profilePopupImagesWrapperHeight);
             		var windowHeightTop = ( windowHeight - profilePopupImagesWrapperHeight - 6 )/2;
             		if(windowHeightTop<0){
             			var windowHeightTop = 10;
             		}
-            		if(profilePopupImagesWrapperWidth > windowWidth){
+            		
+            		if(profilePopupImagesWrapperWidth > windowWidth ){
             			var windowHeight = windowHeight/1.1;
             			var windowWidth = windowWidth/1.1;
             			$(".profilePopupImagesWrapper").width(windowWidth);
             			$(".profilePopupImagesWrapper").height(windowHeight);
             			$(".profilePopupImagesWrapperImage img").width(windowWidth);
-            			$(".profilePopupImagesWrapperImage img").height(windowHeight);
+            			//$(".profilePopupImagesWrapperImage img").height(windowHeight);
             		} 
-            		if(windowHeight < profilePopupImagesWrapperHeight){
-            			$(".profilePopupImagesOpacity").css('height', profilePopupImagesWrapperHeight + 20 + "px");
+            		if(windowWidth<981){
+            			$(".profilePopupImagesWrapper").height('auto');
+                		$('.breadcrumbs').css('z-index','0');
+                		$('.header').css('z-index','0');
             		}
-            		$(".profilePopupImagesWrapper").css('margin-top', windowHeightTop +"px");
-
+            		$(".profilePopupImagesWrapper").css('margin-top', windowHeightTop +"px");            		
             		
         		}, 100);
+
+        		$(".profilePopupImages").fadeIn();
+        		$(".profileHoverImages").hide();
+        		
         	});
         	
         	$(".profilePopupImagesWrapperClose").click(function(event){
         		$(".profilePopupImages").fadeOut();
     			$(".profilePopupImagesWrapperImage img").width('auto');
     			$(".profilePopupImagesWrapperImage img").height('auto');
+    			$(".profilePopupImagesWrapper").height('auto');
+    			$('.breadcrumbs').css('z-index','10');
+        		$('.header').css('z-index','110');
         	});
 
         	
@@ -86,7 +94,7 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         	
         	
         	
-        	$(".by-imageGallery-item, .profileHoverImages").hover(function(event){
+        	/*$(".by-imageGallery-item, .profileHoverImages").hover(function(event){
         		event.stopPropagation();
         		var urlHover = $(this).attr('data-hover');
         		$(".profileHoverImages").find('img').attr('src', urlHover);        		
@@ -101,7 +109,7 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         		
         	}, function(event){
         		$(".profileHoverImages").hide();
-        	});
+        	});*/
         	
         	
         }

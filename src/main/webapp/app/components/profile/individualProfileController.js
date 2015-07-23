@@ -102,7 +102,7 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
         	
         	
         	
-        	$(".by-imageGallery-item, .profileHoverImages").hover(function(event){
+        	/*$(".by-imageGallery-item, .profileHoverImages").hover(function(event){
         		event.stopPropagation();
         		var urlHover = $(this).attr('data-hover');
         		$(".profileHoverImages").find('img').attr('src', urlHover);        		
@@ -117,7 +117,7 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
         		
         	}, function(event){
         		$(".profileHoverImages").hide();
-        	});
+        	});*/
         	
         	
         }

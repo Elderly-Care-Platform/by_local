@@ -28,6 +28,8 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         $scope.getProfileRating = function(service){
             service.profileRating = BY.byUtil.getAverageRating(service.ratingPercentage);
+            //$(".profileRateIcon").addClass("profileRate"+Math.round(service.profileRating));
+
         }
 
         $scope.getData = function(queryParams){

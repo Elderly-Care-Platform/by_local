@@ -8,8 +8,8 @@
             <li class="list-group-item" ng-show="regLevel >= 1" ng-class="{true: 'active'}[regLevel == 1]" ng-click="regLevel === 1">
                 <a>I AM...</a>
             </li>
-            <li class="list-group-item" ng-show="regLevel >= 2" ng-class="{true: 'active'}[regLevel == 2]">
-                <a>INSTITUTION INFO</a>
+            <li class="list-group-item" ng-show="regLevel >= 2" ng-class="{true: 'active'}[regLevel == 2]" ng-if="sectionLabel">
+                <a>{{sectionLabel}}</a>
             </li>
         </ul>
     </div>

@@ -1,8 +1,19 @@
 //DIscuss All
-byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-    function ($scope, $rootScope, $location, $route, $routeParams, $sce) {
+byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
+
+        var reviewDetails = new ReviewRateProfile();
+        $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id}, function(response){
+            $scope.reviews = response.data.replies;
+        }, function(error){
+            console.log(error)
+        })
+
+        $scope.getProfileRating = function(item){
+            item.profileRating = BY.byUtil.getAverageRating(item.userRatingPercentage);
+        }
 
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){

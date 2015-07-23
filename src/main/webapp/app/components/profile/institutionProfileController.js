@@ -5,7 +5,7 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         $scope.slideIndex = 1;
 
         var reviewDetails = new ReviewRateProfile();
-        $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id}, function(response){
+        $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewType:$scope.institutionProfile.userTypes[0]}, function(response){
             $scope.reviews = response.data.replies;
         }, function(error){
             console.log(error)

@@ -30,6 +30,7 @@
 
 .service-card .article-heading{
     font-family: century_gothic !important;
+    overflow-wrap: break-word;
 }
 
 

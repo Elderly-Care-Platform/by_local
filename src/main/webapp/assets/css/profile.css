@@ -4,6 +4,7 @@
 
 .profileMainContent{
   font-size: 15px;
+  overflow-wrap: break-word;
 }
 .profileContentTitle{
   width: 100%;
@@ -15,6 +16,7 @@
   line-height: 25px;
   text-align: left;
   text-transform: uppercase;
+  word-wrap: break-word;
 }
 
 .profileRating, .profileReview{
@@ -49,6 +51,7 @@
 
 .reviewRateForm{
   font-size: 15px;
+  overflow-wrap: break-word;
 }
 
 .profileRateValues {
@@ -115,6 +118,10 @@ input::-webkit-inner-spin-button {
 }
 
 
+.review-rate-header {
+  overflow-wrap: break-word;
+  font-size: 18px;
+}
 
 .reviewCardRating i{
   width: 23px;

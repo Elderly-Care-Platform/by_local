@@ -16,19 +16,28 @@
                         </p>
                     </div>
                 </div>
-                <ul class="list-inline service-review-rate-info" ng-if="service.reviewCount > 0 || service.ratingCount > 0" ng-init="getProfileRating(service)">
-                    <li class="service-card-review" ng-if="service.profileRating">
-                        <i class="rounded-x green-bg">
-                            <span class="white-color" style="font-size: 11px;">{{service.profileRating}}</span>
-                        </i>
-                        <span>Rated by</span>
-                        <a href="">{{service.ratingCount}} people</a>
-                    </li>
-                    <li class="service-card-review">
-                        <i class="rounded-x fa fa-pencil-square-o padding7 font-20"></i>
-                        <a href="" style="margin-left: -10px;">  {{service.reviewCount}} review</a>
-                    </li>
-                </ul>
+                <div class="no-padding" ng-if="service.reviewCount > 0 || service.ratingCount > 0" ng-init="getProfileRating(service)">
+                    <div class="serviceRating" ng-if="service.profileRating">
+                        <i class="rounded-x">{{service.profileRating}}</i>Rated by <a href="">{{service.ratingCount}} people</a>
+                    </div>
+                    <div class="serviceReview" ng-if="service.reviewCount > 0">
+                        <i class="rounded-x fa fa-pencil-square-o"></i><a href="">{{service.reviewCount}} reviews</a>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <!--<ul class="list-inline service-review-rate-info" ng-if="service.reviewCount > 0 || service.ratingCount > 0" ng-init="getProfileRating(service)">-->
+                    <!--<li class="service-card-review" ng-if="service.profileRating">-->
+                        <!--<i class="rounded-x green-bg">-->
+                            <!--<span class="white-color" style="font-size: 11px;">{{service.profileRating}}</span>-->
+                        <!--</i>-->
+                        <!--<span>Rated by</span>-->
+                        <!--<a href="">{{service.ratingCount}} people</a>-->
+                    <!--</li>-->
+                    <!--<li class="service-card-review">-->
+                        <!--<i class="rounded-x fa fa-pencil-square-o padding7 font-20"></i>-->
+                        <!--<a href="" style="margin-left: -10px;">  {{service.reviewCount}} review</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
                 <div class="article">
                     <ul class="list-inline categoryList">
                         <li class="list-inline"> Service in</li>

@@ -2,8 +2,8 @@
  * Created by sanjukta on 21-07-2015.
  */
 //DIscuss All
-byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
+byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile','ValidateUserCredential',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, ValidateUserCredential) {
 
         $scope.userProfile = $scope.$parent.profileData;
         $scope.selectedRating = null;
@@ -45,8 +45,11 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
 
                 postReview.$post({associatedId:$scope.userProfile.id}, function(success){
                     $scope.$parent.showProfile();
-                }, function(error){
-
+                }, function(errorResponse){
+                    console.log(errorResponse);
+                    if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                        ValidateUserCredential.login();
+                    }
                 })
             }else{
                 $scope.blankReviewRateError = true;

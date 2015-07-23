@@ -38,11 +38,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
             }
             $scope.address.streetAddress = response.formatted_address;
-
-
         }
 
-        //Request service type list
+        //Request complete service type list
         $scope.ServiceTypeList = ServiceTypeList.get({}, function () {
             console.log($scope.ServiceTypeList);
             var selectedServices = $scope.serviceProviderInfo.services;
@@ -81,27 +79,35 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
         }
 
+
+        //Create specialities options array for Jquery Ui autocomplete
         $scope.showSpecialityOptions = function(parentCategory){
             $scope.showSpeciality = parentCategory.selected;
+
+            //it accept only An array of objects with label and value properties, ex :[ { label: "Choice1", value: "value1" }, ... ]
             $scope.specialities = $.map(parentCategory.children, function (value, key) {
-                if($scope.serviceProviderInfo.services.indexOf(value.id)!==-1){
+                var autoCompleteOption = {label:value.name,value:value.name, id:value.id};
+
+                if($scope.serviceProviderInfo.services.indexOf(value.id)!==-1){ //show hide selected speciality option based on previous && parent category selection
                     if($scope.showSpeciality){
-                        $scope.selectSpecialty(value);
+                        $scope.selectSpecialty(autoCompleteOption);
                     } else{
                         if ($scope.selectedServices[value.id]) {
                             $scope.selectSpecialty();
                         }
                     }
-
                 }
-                return {label:value.name,value:value.name, id:value.id};
+                return autoCompleteOption;
             });
         }
 
+        //Speciality Autocomplete callback
         $scope.selectSpecialty = function(elem){
             $scope.selectedSpeciality = [];
+            $scope.selectedSpecialityLabel = "";
             if(elem){
-                $scope.selectedSpeciality = [{"id":elem.id, "name":elem.name}];
+                $scope.selectedSpeciality = [elem.id];
+                $scope.selectedSpecialityLabel = elem.label;
             }
         }
 
@@ -120,6 +126,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                      
         }
 
+        //Initialize individual registration
         if ($scope.$parent.profile) {
             $scope.profile = $scope.$parent.profile;
             $scope.extractData();
@@ -151,7 +158,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.options = {
             country: "in",
             resetOnFocusOut: false
-
         };
 
 
@@ -230,7 +236,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             });
 
             if($scope.selectedSpeciality.length > 0){
-                finalServiceList.concat($scope.selectedSpeciality);
+                finalServiceList = finalServiceList.concat($scope.selectedSpeciality);
             }
 
             return finalServiceList;
@@ -264,8 +270,5 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                     $scope.$parent.exit();
                 });
             }
-
         }
-
-
     }]);

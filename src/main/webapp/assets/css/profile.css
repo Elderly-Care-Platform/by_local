@@ -17,7 +17,7 @@
   text-transform: uppercase;
 }
 
-.profileRating{
+.profileRating, .profileReview{
   float: left;
   margin-bottom: 0px !important;
 }
@@ -34,12 +34,6 @@
   display: inline-block;
 }
 
-.profileReview {
-  float: left;
-  margin-bottom: 0px !important;
-  display: inline-block;
-  margin-top: 4px;
-}
 
 .profileAddress{
   margin-top: 5px;
@@ -123,13 +117,15 @@ input::-webkit-inner-spin-button {
 
 
 .reviewCardRating i{
-  width: 32px;
+  width: 23px;
   text-align: center;
-  height: 32px;
-  background: #00af50;
+  font-size: 11px;
+  height: 23px;
+  background: #007a3c;
   border-radius: 50%;
-  padding: 11px 7px 4px 3px;
-  margin-right: 10px;
+  padding: 7px 5px 4px 3px;
+  margin-right: 5px;
   color: #fff;
   display: inline-block;
+  vertical-align: middle;
 }

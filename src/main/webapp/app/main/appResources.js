@@ -219,7 +219,7 @@ var serviceTypeList = byServices.factory('ServiceTypeList', function($resource) 
 //Review and Rate profile
 var reviewRateProfile = byServices.factory('ReviewRateProfile', function($resource) {
     return $resource(apiPrefix +'api/v1/reviewRate',{}, {
-        get: {method: 'GET', params: {associatedId:"@associatedId",reviewType:"@reviewType"}},
-        post:{method: 'POST', params: {associatedId:"@associatedId",reviewType:"@reviewType"}}
+        get: {method: 'GET', params: {associatedId:"@associatedId",reviewContentType:"@reviewContentType"}},
+        post:{method: 'POST', params: {associatedId:"@associatedId",reviewContentType:"@reviewContentType"}}
     })
 });

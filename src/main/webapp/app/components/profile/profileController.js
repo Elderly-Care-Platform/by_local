@@ -8,6 +8,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
         $scope.profileRating = null;
+        $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
 
         $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 

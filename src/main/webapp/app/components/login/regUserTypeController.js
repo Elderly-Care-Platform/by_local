@@ -52,6 +52,7 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
 
         $scope.submit = function(){
             $scope.userProfile = new UserProfile();
+            $scope.userProfile.basicProfileInfo = $scope.$parent.profile.basicProfileInfo;
             $scope.userProfile.userId = localStorage.getItem("USER_ID");
             $scope.userProfile.userTypes = $.map($scope.selectedUserType, function(value, key){
                 return parseInt(key);

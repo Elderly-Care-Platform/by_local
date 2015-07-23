@@ -52,7 +52,6 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
         		event.stopPropagation();
         		var urlPopup = $(this).attr('data-popup');
         		$(".profilePopupImagesWrapperImage").find('img').attr('src', urlPopup);
-        		$(".profilePopupImages").fadeIn();
 
         		setTimeout(function(){ 
             		var windowHeight = $(window).height();
@@ -60,7 +59,7 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
             		var profilePopupImagesWrapperWidth = $(".profilePopupImagesWrapperImage").find('img').outerWidth(true);
             		var profilePopupImagesWrapperHeight = $(".profilePopupImagesWrapperImage").find('img').outerHeight(true);
             		$(".profilePopupImagesWrapper").width(profilePopupImagesWrapperWidth);
-            		$(".profilePopupImagesWrapper").height(profilePopupImagesWrapperHeight);
+            		//$(".profilePopupImagesWrapper").height(profilePopupImagesWrapperHeight);
             		var windowHeightTop = ( windowHeight - profilePopupImagesWrapperHeight - 6 )/2;
             		if(windowHeightTop<0){
             			var windowHeightTop = 10;
@@ -72,14 +71,19 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
             			$(".profilePopupImagesWrapper").width(windowWidth);
             			$(".profilePopupImagesWrapper").height(windowHeight);
             			$(".profilePopupImagesWrapperImage img").width(windowWidth);
-            			$(".profilePopupImagesWrapperImage img").height(windowHeight);
+            			//$(".profilePopupImagesWrapperImage img").height(windowHeight);
             		} 
-            		if(windowHeight < profilePopupImagesWrapperHeight){
-            			$(".profilePopupImagesOpacity").css('height', profilePopupImagesWrapperHeight + 20 + "px");
+            		if(windowWidth<981){
+            			$(".profilePopupImagesWrapper").height('auto');
+                		$('.breadcrumbs').css('z-index','0');
+                		$('.header').css('z-index','0');
             		}
             		$(".profilePopupImagesWrapper").css('margin-top', windowHeightTop +"px");            		
             		
         		}, 100);
+
+        		$(".profilePopupImages").fadeIn();
+        		$(".profileHoverImages").hide();
         		
         	});
         	
@@ -87,6 +91,9 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
         		$(".profilePopupImages").fadeOut();
     			$(".profilePopupImagesWrapperImage img").width('auto');
     			$(".profilePopupImagesWrapperImage img").height('auto');
+    			$(".profilePopupImagesWrapper").height('auto');
+    			$('.breadcrumbs').css('z-index','10');
+        		$('.header').css('z-index','110');
         	});
 
         	

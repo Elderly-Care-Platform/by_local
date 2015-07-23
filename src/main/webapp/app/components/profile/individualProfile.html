@@ -45,10 +45,11 @@
                             <a ng-click="reviewContent()"> Be the first to rate/review</a>
                         </div>
                         <div class="profileRating" ng-if="individualProfile.ratingCount > 0">
-                            <i class="rounded-x" rate-calculator="{{individualProfile.ratingPercentage}}"></i>Rated by <a href="">{{individualProfile.ratingCount}} people</a>
+                            <i class="rounded-x" rate-calculator="{{individualProfile.ratingPercentage}}"></i>Rated by
+                            <a href="">{{individualProfile.ratingCount}} user<xy ng-if="individualProfile.ratingCount > 1">s</xy></a>
                         </div>
                         <div class="profileReview" ng-if="individualProfile.reviewCount > 0">
-                            <i class="rounded-x  icon-pencil padding4"></i><a href="">{{individualProfile.reviewCount}} reviews</a>
+                            <i class="rounded-x fa fa-pencil-square-o padding4"></i><a href="">{{individualProfile.reviewCount}} reviews</a>
                         </div><div class="clearfix"></div>
                         <div class="profileRating" ng-if="individualProfile.serviceProviderInfo.yearsExperience">
                             {{individualProfile.serviceProviderInfo.yearsExperience}} years of experience</a>

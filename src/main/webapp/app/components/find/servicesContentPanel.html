@@ -18,7 +18,8 @@
                 </div>
                 <div class="no-padding" ng-if="service.reviewCount > 0 || service.ratingCount > 0">
                     <div class="serviceRating" ng-if="service.ratingPercentage">
-                        <i class="rounded-x" rate-calculator="{{service.ratingPercentage}}"></i>Rated by <a href="">{{service.ratingCount}} people</a>
+                        <i class="rounded-x" rate-calculator="{{service.ratingPercentage}}"></i>Rated by
+                        <a href="">{{service.ratingCount}} user<xy ng-if="service.ratingCount > 1">s</xy></a>
                     </div>
                     <div class="serviceReview" ng-if="service.reviewCount > 0">
                         <i class="rounded-x fa fa-pencil-square-o"></i><a href="">{{service.reviewCount}} reviews</a>

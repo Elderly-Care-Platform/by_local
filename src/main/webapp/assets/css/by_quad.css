@@ -83,7 +83,18 @@
 	min-width:45px;
 	text-align:left;
 	color:#fff !important;
-	background:#00A24A;
+	background:#00b050;
+}
+.add-comment span.textColor2
+{
+	font-size:15px;
+	padding:1px 5px 1px 5px !important;
+	border:1px solid #ccc;
+	border-radius:1px !important;
+	min-width:45px;
+	text-align:left;
+	color:#fff !important;
+	background:#E87441;
 }
 .by_blog_author .news-v3 .post-shares li
 {

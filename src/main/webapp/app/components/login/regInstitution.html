@@ -90,15 +90,14 @@
                     <!--</div>-->
 
                     <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
-                        <div class="col-md-5 required">
+                        <div class="col-md-5">
                             Phone Number
                         </div>
                         <div class="col-md-7 no-padding-right register-page">
                             <input type="text" class="username-textbox textbox" name="primaryTel"
                                    ng-model="basicProfileInfo.primaryPhoneNo"
-                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"
-                                   required>
-                            <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted" class="errorRed">Please enter your contact number</span>
+                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17">
+                            <!--<span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted" class="errorRed">Please enter your contact number</span>-->
                             <span ng-show="institutionForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
@@ -125,14 +124,14 @@
                     </div>
 
                     <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
-                        <div class="col-md-5 required">
+                        <div class="col-md-5">
                             Email ID
                         </div>
                         <div class="col-md-7 no-padding-right register-page">
                             <input type="email" class="username-textbox textbox" name="primaryEmail"
                                    ng-model="basicProfileInfo.primaryEmail"
-                                   placeholder="Email" required/>
-                            <span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted" class="errorRed">Please enter your Email Id!</span>
+                                   placeholder="Email"/>
+                            <!--<span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted" class="errorRed">Please enter your Email Id!</span>-->
                         <span ng-show="institutionForm.primaryEmail.$error.email && submitted" class="errorRed">
                             Not valid Email!
                         </span>

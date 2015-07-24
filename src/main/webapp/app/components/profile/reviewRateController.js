@@ -53,6 +53,8 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
 
             if(content.indexOf("img") !== -1 && reviewText.trim().length > 0){
                 $scope.reviewText = content;
+            } else{
+                $scope.reviewText = null;
             }
 
 

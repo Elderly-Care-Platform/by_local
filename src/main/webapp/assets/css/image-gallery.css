@@ -50,7 +50,11 @@
     position: relative;
     z-index: 2;
 }
-
+.profilePopupImagesWrapper
+{
+width:300px;
+height:300px;
+}
 .by-gallery-leftArrow:hover{
     background: url("../img/icons/arrow_left_over.gif") no-repeat;
     background-size: 30px 70px;

@@ -27,15 +27,10 @@
 }
 .by_blog_author
 {
-	max-height:1500px !important;
 	max-width:705px;
 	min-height:auto !important;	
   border-radius: 2px !important;
-}
-.list-inline>li
-{
-	padding-left:11px;
-	padding-right:0px;
+  max-height:60000px!important;
 }
 .by_blog_author .news-v3 .post-shares li i
 {
@@ -106,7 +101,7 @@
 }
 .discussion-page .posted-info
 {
-	line-height:14px;
+	line-height:20px;
 }
 .news-v3 .post-shares 
 {
@@ -137,6 +132,19 @@
 	border-top: 1px solid #ccc;
 	padding-top: 10px;
 	margin-top:0px;
+}
+.by_border-tb
+{
+	border-left:0px;
+	border-right:0px;
+}
+.article-comments-wrapper
+{
+	margin-top:0px;
+}
+.article-comments-wrapper h2
+{
+	font-family: century_gothic !important; 
 }
 .blog-author-comment-wrapper  .blog-author
 {
@@ -186,18 +194,18 @@
 	text-align:left !important;
 }
 .by_story {
-  max-height: 90px;
+  max-height: 160px;
    margin-top: 10px;
    margin-bottom: 0px; 
 }
 .questionTag
 {
 	position:absolute;
-	right:-5px;
-	top:-4px;
+	right:-4px;
+	top:5px;
 	z-index:10px;
-	width:82px;
-	height:49px;
+	width:95px;
+	height:37px;
 }
 .discussion-page .blog-author
 {
@@ -244,6 +252,20 @@
 {
 	font-size:16px;
 }
+.by_submit_btn_latest
+{
+	border-radius: 2px !important;
+    color: #000 !important;
+    background-color: #ccc !important;
+    border: 1px solid #ccc !important;
+}
+.by_cancel_btn_latest
+{
+	border-radius: 2px !important;
+    color: #000 !important;
+    background-color: #ccc !important;
+    border: 1px solid #ccc !important;
+}
 @media (max-width: 990px){
 .by_left_panel_fixed, #sidebar-nav
 {	
@@ -251,22 +273,12 @@
 }
 .questionTag
 {
-	position:absolute;
-	right:10px;
-	top:-4px;
-	z-index:10px;
-	width:82px;
-	height:49px;
+	right:11px;
 }
 }
 @media (max-width: 750px){
 	.questionTag
 {
-	position:absolute;
-	right:-5px;
-	top:-4px;
-	z-index:10px;
-	width:82px;
-	height:49px;
+	right:-4px;
 }
 }

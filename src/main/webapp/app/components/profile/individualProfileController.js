@@ -32,21 +32,23 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
 
         }
 
-
+        $scope.galleryImage = function(){
+        	 var urlPopup = $(".by-imageGallery-item").eq(0).attr('data-popup');
+             console.log(urlPopup);
+        }
 
 
         $scope.galleryClickHover = function(){
             $(".by-imageGallery-item").css('cursor', 'pointer');
             $(".by-imageGallery-item").click(function(event){
                 event.stopPropagation();
-                var urlPopup = $(this).attr('data-popup');
-                $(".profilePopupImagesWrapperImage").find('img').attr('src', urlPopup);
+                var urlPopup = $(this).index();
 
                 setTimeout(function(){
                     var windowHeight = $(window).height();
                     var windowWidth = $(window).width();
-                    var profilePopupImagesWrapperWidth = $(".profilePopupImagesWrapperImage").find('img').outerWidth(true);
-                    var profilePopupImagesWrapperHeight = $(".profilePopupImagesWrapperImage").find('img').outerHeight(true);
+                    var profilePopupImagesWrapperWidth = $(".profilePopupImagesWrapperImage").find('img').eq(urlPopup).outerWidth(true);
+                    var profilePopupImagesWrapperHeight = $(".profilePopupImagesWrapperImage").find('img').eq(urlPopup).outerHeight(true);
                     $(".profilePopupImagesWrapper").width(profilePopupImagesWrapperWidth);
                     //$(".profilePopupImagesWrapper").height(profilePopupImagesWrapperHeight);
                     var windowHeightTop = ( windowHeight - profilePopupImagesWrapperHeight - 6 ) / 2;
@@ -72,6 +74,9 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
                 }, 100);
 
                 $(".profilePopupImages").fadeIn();
+
+                $(".profilePopupImagesWrapperImage").find('img').hide();
+                $(".profilePopupImagesWrapperImage").find('img').eq(urlPopup).show();
                 $(".profileHoverImages").hide();
 
             });

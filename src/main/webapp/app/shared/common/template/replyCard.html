@@ -1,5 +1,5 @@
 
-<div class="blog-author margin-bottom-35 main-article replyCard by_blog_author">
+<div class="blog-author margin-bottom-35 main-article replyCard by_blog_author ">
     <img src="assets/img/by.jpg" alt="image" class="replyCardImg">
 
     <div class="article-info dp-inline-block">
@@ -43,15 +43,15 @@
         </ul>
     </div>
     <div style="clear: both"></div>
-    <div class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
+    <div class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap by-commment-bg-gray"  id="commentEditor" ng-show="showEditor">
 
         <textarea rows="3" id={{reply.id}}></textarea>
 
-        <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn" type="submit" disabled
+        <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn by_submit_btn_latest" type="submit" disabled
                 ng-click="postComment(reply.discussId, reply.id)">SUBMIT
         </button>
         <span/>
-        <button class="inner-comment-submit btn btn-sm btn-success by_btn_cancel"
+        <button class="inner-comment-submit btn btn-sm btn-success by_btn_cancel by_cancel_btn_latest"
                 ng-click="disposeComment(reply.id)">CANCEL
         </button>
         <div style="clear: both"></div>

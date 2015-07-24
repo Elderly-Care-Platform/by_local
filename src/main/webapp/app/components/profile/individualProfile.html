@@ -1,17 +1,20 @@
+
+
+
+<div ng-controller="IndividualProfileController">
 <div class="profilePopupImages">
     <div class="profilePopupImagesOpacity"></div>
     <div class="profilePopupImagesWrapper">
         <div class="profilePopupImagesWrapperImage">
-            <img src=""  alt=""  />
+            <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs"  >
+                            <img src="{{img.original || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                        </div>
         </div>
         <div class="profilePopupImagesWrapperClose">
             <img src="assets/img/close_button.gif" width="30" height="30" alt="" />
         </div>
     </div>
 </div>
-
-
-<div ng-controller="IndividualProfileController">
     <div class="row whiteBg by_discuss_detail margin-bottom-35" >
         <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
             <div class="col-md-5" style="padding:0px;">

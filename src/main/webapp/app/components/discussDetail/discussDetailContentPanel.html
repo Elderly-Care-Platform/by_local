@@ -1,7 +1,6 @@
 <div  ng-if="detailResponse.discuss" >
  <div class="blog-author margin-bottom-35 main-article by_blog_author" >
-        <img src="assets/img/by.jpg" alt="image">
-        <div class="article-info dp-inline-block">
+        <div class="article-info dp-inline-block col-md-12">
             <ul class="list-inline posted-info">
                 <li ng-if="detailResponse.discuss.discussType == 'A'">
                     By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform:capitalize;"> {{username}} </a>
@@ -15,16 +14,14 @@
                     Question by <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform:capitalize;"> {{username}} </a>
                     &nbsp; |
                 </li>
-                <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
-            </ul><div style="clear: both"></div>
-            <ul class="list-inline posted-info">
-                
-                <li ng-if="detailResponse.discuss.topicId.length > 0"> In
+                  <li ng-if="detailResponse.discuss.topicId.length > 0"> In
                     <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
                         {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
-                    &nbsp; 
+                    &nbsp; |
                 </li>
+                <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
             </ul><div style="clear: both"></div>
+          
         </div>
         
          <div style="clear: both"></div>
@@ -49,7 +46,7 @@
         <div class="by-quad-image col-md-12" >
         </div>
         
-         <div class="article-share-links news-v3" >
+         <div class="article-share-links news-v3 by-social-border" >
             <ul class="post-shares post-shares-lg">
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
@@ -64,7 +61,7 @@
 
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'Q'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
-                    <i class="rounded-x fa fa-pencil-square-o" title="Answers"></i>
+                    <i class="rounded-x fa fa-pencil-square-o" title="Answers" style="margin-top:-4px;"></i>
                     <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
                 </a>
 
@@ -75,7 +72,7 @@
 
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A'">
                 <a href="#">
-                    <i class="rounded-x icon-share"></i>
+                    <i class="rounded-x icon-share" ></i>
                 </a>
 
                 <div class="post-text post_text-comment"><span class="text">Share</span>
@@ -99,43 +96,38 @@
         </div>
         
         <!--  cooments -->
+        <div style="clear:both;" ></div>
         
-        
-
-</div>
-    
-</div>
-
-<div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
-    <h2 class="text-success text-underlined"
+        <div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
+    <!--  <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
         COMMENTS
-    </h2>
-    <h2 class="text-success text-underlined"
+    </h2>-->
+    <h2 class="text-success text-underlined col-md-12 by-social-border"
         ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
         Be the first to comment
     </h2>
-    <h2 class="text-success text-underlined"
+     <!-- <h2 class="text-success text-underlined"
         ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'Q')">
         ANSWERS
-    </h2>
-    <h2 class="text-success text-underlined"
+    </h2>-->
+    <h2 class="text-success text-underlined col-md-12 by-social-border"
         ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'Q')">
         Be the first to answer
     </h2>
 
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding  by_blog_author" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
-   
-        <div class="enter-comment-wrap padding20SM borderShadow by_editor_wrap" id="answer_block">
+   		
+        <div class="enter-comment-wrap padding20SM borderShadow by_border-tb by_editor_wrap" id="answer_block">
              
               <textarea rows="3"  id={{detailResponse.discuss.id}}></textarea>
             <div class="clearfix"></div>
-            <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn" type="submit" disabled
+            <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn by_submit_btn_latest" type="submit" disabled
                     ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT
             </button>
             <span/>
-            <button class="btn btn-sm btn-success comment-submit by_btn_cancel"
+            <button class="btn btn-sm btn-success comment-submit by_btn_cancel by_cancel_btn_latest"
                     ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
             </button>
             <div class="clearfix"></div>
@@ -150,5 +142,11 @@
     <div ng-repeat="reply in detailResponse.replies" data-index="discussion-articles"
           data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
 </div>
+
+</div>
+    
+</div>
+
+
 
 

@@ -1,6 +1,7 @@
 package com.beautifulyears.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -35,7 +36,7 @@ public class UserProfile {
 	// contains all common user profile information.
 	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
 
-	//contains information applicable to an indivisual
+	//contains information applicable to an individual
 	private IndividualProfileInfo individualInfo = new IndividualProfileInfo(); 
 	
 	//contains information about service provider
@@ -44,6 +45,10 @@ public class UserProfile {
 	private String tags;
 
 	private boolean isFeatured;
+	
+	private final Date createdAt = new Date();
+
+	private Date lastModifiedAt = new Date();
 
 	private List<String> systemTags = new ArrayList<String>();
 
@@ -173,6 +178,20 @@ public class UserProfile {
 
 	public void setUserTags(List<String> userTags) {
 		this.userTags = userTags;
+	}
+	
+	
+
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
 	public int getStatus() {

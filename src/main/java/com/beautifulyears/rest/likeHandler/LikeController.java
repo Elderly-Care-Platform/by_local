@@ -38,9 +38,9 @@ public abstract class LikeController<T> {
 		return discussLike;
 	}
 
-	abstract Object likeContent(String id, String type, HttpServletRequest req,
+	abstract Object likeContent(String id, String type,String url, HttpServletRequest req,
 			HttpServletResponse res) throws Exception;
 
-	abstract void sendMailForLike(T LikedEntity, User user);
+	abstract void sendMailForLike(T LikedEntity, User user, String url) ;
 
 }

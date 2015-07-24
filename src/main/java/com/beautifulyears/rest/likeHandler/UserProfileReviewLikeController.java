@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.DiscussConstants;
@@ -25,14 +26,15 @@ import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
 
 @Controller
-@RequestMapping("/discussReplyLike")
-public class ReviewLikeController extends LikeController<DiscussReply> {
+@RequestMapping("/userProfileReviewLike")
+public class UserProfileReviewLikeController extends LikeController<DiscussReply> {
 
 	private DiscussReplyRepository discussReplyRepository;
-	private Logger logger = Logger.getLogger(ReviewLikeController.class);
+	private Logger logger = Logger.getLogger(UserProfileReviewLikeController.class);
 
 	@Autowired
-	public ReviewLikeController(DiscussLikeRepository discussLikeRepository,DiscussReplyRepository discussReplyRepository) {
+	public UserProfileReviewLikeController(DiscussLikeRepository discussLikeRepository,
+			DiscussReplyRepository discussReplyRepository) {
 		super(discussLikeRepository);
 		this.discussReplyRepository = discussReplyRepository;
 		// TODO Auto-generated constructor stub
@@ -41,8 +43,11 @@ public class ReviewLikeController extends LikeController<DiscussReply> {
 	@Override
 	@RequestMapping(method = { RequestMethod.POST })
 	@ResponseBody
-	Object likeContent(String id, String type, HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+	Object likeContent(
+			@RequestParam(value = "reviewId", required = true) String id,
+			@RequestParam(value = "type", required = true) String type,
+			@RequestParam(value = "url", required = true) String url,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.REPLY_TYPE_REVIEW;
 		DiscussReply reply = null;
@@ -52,16 +57,16 @@ public class ReviewLikeController extends LikeController<DiscussReply> {
 				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 			} else {
 
-				reply = (DiscussReply) discussReplyRepository
-						.findOne(id);
+				reply = (DiscussReply) discussReplyRepository.findOne(id);
 				if (reply != null && reply.getReplyType() == replyType) {
 					if (reply.getLikedBy().contains(user.getId())) {
 						throw new BYException(
 								BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
 					} else {
-						submitLike(user, id, DiscussConstants.CONTENT_TYPE_DISCUSS);
+						submitLike(user, id,
+								DiscussConstants.CONTENT_TYPE_DISCUSS);
 						reply.getLikedBy().add(user.getId());
-						sendMailForLike(reply, user);
+						sendMailForLike(reply, user, url);
 						discussReplyRepository.save(reply);
 					}
 				}
@@ -77,7 +82,7 @@ public class ReviewLikeController extends LikeController<DiscussReply> {
 	}
 
 	@Override
-	void sendMailForLike(DiscussReply likedEntity, User user) {
+	void sendMailForLike(DiscussReply likedEntity, User user, String url) {
 		try {
 			if (!likedEntity.getUserId().equals(user.getId())) {
 				ResourceUtil resourceUtil = new ResourceUtil(
@@ -86,12 +91,9 @@ public class ReviewLikeController extends LikeController<DiscussReply> {
 				String userName = !Util.isEmpty(likedEntity.getUserName()) ? likedEntity
 						.getUserName() : "Anonymous User";
 				String replyTypeString = "review";
-				String path = MessageFormat.format(System.getProperty("path")
-						+ DiscussConstants.PATH_REVIEW_PAGE,likedEntity.getContentType(),
-						likedEntity.getDiscussId());
 				String body = MessageFormat.format(
 						resourceUtil.getResource("likedBy"), userName,
-						replyTypeString, title, user.getUserName(), path, path);
+						replyTypeString, title, user.getUserName(), url, url);
 				MailHandler.sendMailToUserId(likedEntity.getUserId(), "Your "
 						+ replyTypeString + " was liked on beautifulYears.com",
 						body);

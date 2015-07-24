@@ -44,6 +44,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
 
                 postReview.userRatingPercentage = ratePercentage;
                 postReview.text = $scope.reviewText;
+                postReview.url = window.location.href;
                 $scope.blankReviewRateError = false;
                 $scope.unauthorizeUserError = false;
 

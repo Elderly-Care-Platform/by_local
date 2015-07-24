@@ -65,7 +65,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             $scope.discussReply.parentReplyId = parentReplyId ? parentReplyId : "";
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(parentReplyId).getContent();
-
+            $scope.discussReply.url = window.location.href;
             $scope.discussReply.$postComment(
                 function (discussReply) {
                     broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
@@ -85,6 +85,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(discussId).getContent();
+            $scope.discussReply.url = window.location.href;
             if (discussType === "Q") {
                 $scope.discussReply.$postAnswer(function (discussReply, headers) {
                         broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer

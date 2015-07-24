@@ -48,6 +48,20 @@ public class DiscussReply {
 	
 	private Float userRatingPercentage = 0f;
 	
+	@Transient
+	private String url;
+	
+	
+	@JsonIgnore
+	public String getUrl() {
+		return url;
+	}
+
+	@JsonProperty
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@JsonIgnore
 	public int getContentType() {
 		return contentType;

@@ -12,10 +12,9 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         var postReview = new ReviewRateProfile();
 
         var editorInitCallback = function(){
-            if($scope.reviewText){
+            if(tinymce.get("reviewTextArea") && $scope.reviewText){
                 tinymce.get("reviewTextArea").setContent($scope.reviewText);
             }
-
         }
         var tinyEditor = BY.addEditor({"editorTextArea": "reviewTextArea", "commentEditor": true}, editorInitCallback);
 
@@ -41,6 +40,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.getReview();
 
         $scope.selectRating = function(value){
+            $(".by_btn_submit").removeAttr('disabled');
         	value = parseInt(value);
             $(".profileSelected").removeClass("profileSelected");
             $scope.selectedRating = value;
@@ -48,7 +48,14 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         }
 
         $scope.postReview = function(){
-            $scope.reviewText = tinymce.get("reviewTextArea").getContent();
+            var content = tinymce.get("reviewTextArea").getContent();
+            var reviewText = tinymce.get("reviewTextArea").getBody().textContent.trim();
+
+            if(content.indexOf("img") !== -1 && reviewText.trim().length > 0){
+                $scope.reviewText = content;
+            }
+
+
             if(parseInt($scope.selectedRating) > 0 || $scope.reviewText.trim().length > 0){
                 var ratePercentage = (parseInt($scope.selectedRating)/(parseInt(BY.config.profile.rate.upperLimit) - parseInt(BY.config.profile.rate.lowerLimit)))*100;
 

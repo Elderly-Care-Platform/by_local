@@ -3,7 +3,7 @@
           style="background:transparent;">
         <div class="col-md-12 no-padding margin-bottom-20 review-rate-header">
             <div class="col-md-12 no-padding dp-block">
-                Rate <span ng-if="gender">{{gender}}</span>
+                Review &amp; Rate <span ng-if="gender">{{gender}}</span>
                 <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
                 <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
             </div>
@@ -14,12 +14,7 @@
         </div>
         <div class="row whiteBg register-page padding20 borderShadow margin-bottom-20">
             <div class="col-md-12 margin-bottom-20   reviewRateForm">
-                This is how I rate <span ng-if="gender">{{gender}}</span>
-                <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
-                <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
 
-
-                <span>{{selectedRating === 0 && reviewText.trim().length === 0}}</span>
             </div>
             <div class="col-md-12 margin-bottom-20   register-page reviewRateForm">
                 <div class="col-md-6 col-sm-6 col-xs-6 no-padding">
@@ -62,7 +57,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-6">
                     <div class="row margin-bottom-10 home-address byEditor">
                     <textarea class="textbox" rows="3" style="height: 200px;" id="reviewTextArea"
-                              ng-model="reviewText" placeholder="Write your review here"></textarea>
+                              ng-model="reviewText"></textarea>
                     </div>
                     <div>
                         <span ng-show="blankReviewRateError" class="errorRed">Please rate/review
@@ -81,7 +76,7 @@
 
 
         <div class="col-md-12  margin-bottom-20">
-            <input type="submit" value="Done" id="reviewSubmit" class="nextButton by-editor-submit-btn by_btn_submit" ng-click="postReview(individualForm)" ng-disabled="selectedRating === 0 && reviewText.trim().length === 0"/>
+            <input type="submit" value="Done" id="reviewSubmit" class="nextButton by-editor-submit-btn by_btn_submit" ng-click="postReview(individualForm)"/>
 
             <div class="clearfix"></div>
         </div>

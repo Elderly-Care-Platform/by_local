@@ -62,6 +62,10 @@
     line-height: 26px;
 }
 
+.service-card-desciption img{
+    display: none;
+}
+
 .serviceRating, .serviceReview{
     float: left;
     margin-bottom: 0px !important;

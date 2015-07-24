@@ -2,7 +2,7 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
         $scope.userCategory = "";
         $scope.individualUserType = [
-            {key:'0', value:"I take care of a senior person", category:"indv"},
+            {key:'0', value:"I take care of a senior in my family", category:"indv"},
             {key:'1', value:"I am not that young, but I am young at heart", category:"indv"},
             {key:'7', value:"I am an elder care professional", category:"indv"
             }];

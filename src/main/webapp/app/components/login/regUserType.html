@@ -22,8 +22,8 @@
     </div>
     <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
 
-        <div class="col-md-9">
-            <div class="col-md-12 margin-bottom-20" ng-repeat="type in individualUserType">
+        <div class="col-md-12">
+            <div class="col-md-12 margin-bottom-20 by-reg-user-type" ng-repeat="type in individualUserType">
                 <div class="divLeft">
                     {{type.value}}
                 </div>
@@ -37,19 +37,7 @@
         
         <div class="clearfix"></div>
        
-        <div class="col-md-9">
-            <div class="col-md-12 margin-bottom-20" ng-repeat="type in individualUserProfessionType">
-                <div class="divLeft">
-                    {{type.value}}
-                </div>
-                <div class="divRight">
-                    <input type="checkbox" class="checkBoxOne" id="{{key}}" ng-model="type.selected"
-                           ng-change="selectUserType(this)"/>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+      
 
     </div>
     <div class="col-md-12 no-padding margin-top-20">
@@ -63,10 +51,10 @@
     </div>
     <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
         <div class="col-md-12 margin-bottom-20">
-            <b>We are providing</b>
+            <b>We provide</b>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="col-md-12 margin-bottom-20" ng-repeat="type in institutionUserType">
                 <div class="divLeft">
                     {{type.value}}

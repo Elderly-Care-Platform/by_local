@@ -11,6 +11,14 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.blankReviewRateError = false;
         var postReview = new ReviewRateProfile();
 
+        var editorInitCallback = function(){
+            if($scope.reviewText){
+                tinymce.get("reviewTextArea").setContent($scope.reviewText);
+            }
+
+        }
+        var tinyEditor = BY.addEditor({"editorTextArea": "reviewTextArea", "commentEditor": true}, editorInitCallback);
+
         if($scope.$parent.isIndividualProfile){
             $scope.gender =  BY.config.profile.userGender[$scope.userProfile.individualInfo.sex];
         }
@@ -22,6 +30,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                     var ratingPercentage = BY.byUtil.getAverageRating(response.userRatingPercentage);
                     $scope.reviewText = response.text;
                     $scope.selectRating(ratingPercentage);
+                    editorInitCallback();
                 }
 
             }, function(error){
@@ -39,6 +48,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         }
 
         $scope.postReview = function(){
+            $scope.reviewText = tinymce.get("reviewTextArea").getContent();
             if(parseInt($scope.selectedRating) > 0 || $scope.reviewText.trim().length > 0){
                 var ratePercentage = (parseInt($scope.selectedRating)/(parseInt(BY.config.profile.rate.upperLimit) - parseInt(BY.config.profile.rate.lowerLimit)))*100;
 

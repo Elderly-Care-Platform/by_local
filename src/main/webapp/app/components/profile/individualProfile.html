@@ -124,8 +124,7 @@
         </div>
 
         <div class="col-md-12" ng-if="individualProfile.basicProfileInfo.description">
-            <div class="articles-story">
-                {{individualProfile.basicProfileInfo.description}}
+            <div class="articles-story" ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
             </div>
         </div>
     </div>

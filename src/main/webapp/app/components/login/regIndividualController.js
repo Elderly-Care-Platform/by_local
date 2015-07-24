@@ -9,8 +9,15 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.showSpeciality = false;
         $scope.selectedSpeciality = [];
 
+        var editorInitCallback = function(){
+            if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
+                tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
+            }
+        }
+        var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+
+
         $scope.addressCallback = function (response) {
-            console.log(response);
             $('#addressLocality').blur();
             $scope.address.city = "";
             $scope.address.locality = response.name;
@@ -42,7 +49,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
         //Request complete service type list
         $scope.ServiceTypeList = ServiceTypeList.get({}, function () {
-            console.log($scope.ServiceTypeList);
             var selectedServices = $scope.serviceProviderInfo.services;
             if(selectedServices.length > 0){
                 angular.forEach($scope.ServiceTypeList, function(type, index){
@@ -122,8 +128,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
             if ($scope.address.country === null) {
                 $scope.address.country = "India";
-            }       
-                     
+            }
+            editorInitCallback();
         }
 
         //Initialize individual registration
@@ -255,6 +261,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if ($scope.serviceProviderInfo.services.length === 0) {
                 $scope.minCategoryError = true;
             }
+
+            $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);

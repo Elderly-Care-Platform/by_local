@@ -1,6 +1,6 @@
 //DIscuss All
-byControllers.controller('ProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','UserProfile',
-    function ($scope, $rootScope, $location, $route, $routeParams, UserProfile) {
+byControllers.controller('ProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','UserProfile', '$sce',
+    function ($scope, $rootScope, $location, $route, $routeParams, UserProfile, $sce) {
 
         $scope.profileViews = {};
         $scope.profileType = $routeParams.profileType;
@@ -40,5 +40,9 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.displayProfile = function(){
             $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
         }
+
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
+        };
 
     }]);

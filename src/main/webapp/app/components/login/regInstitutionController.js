@@ -7,8 +7,16 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.submitted = false;
         $scope.minCategoryError = false;
 
+
+
+        var editorInitCallback = function(){
+            if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
+                tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
+            }
+        }
+        var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+
         $scope.addressCallback = function (response) {
-            console.log(response);
             $('#addressLocality').blur();
             $scope.address.city = "";
             $scope.address.locality = response.name;
@@ -42,7 +50,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         //Request service type list
         $scope.ServiceTypeList = ServiceTypeList.get({}, function () {
-            console.log($scope.ServiceTypeList);
             var selectedServices = $scope.serviceProviderInfo.services;
             if(selectedServices.length > 0){
                 angular.forEach($scope.ServiceTypeList, function(type, index){
@@ -85,7 +92,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ($scope.address.country === null) {
                 $scope.address.country = "India";
             }
-
+            editorInitCallback();
         }
 
         if ($scope.$parent.profile) {
@@ -213,6 +220,8 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ($scope.serviceProviderInfo.services.length === 0) {
                 $scope.minCategoryError = true;
             }
+
+            $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);

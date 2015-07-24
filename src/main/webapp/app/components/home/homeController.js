@@ -20,7 +20,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
 
         $scope.add = function (type) {
-            BY.removeEditor();
+            //BY.removeEditor();
             $scope.error = "";
             $scope.currentView = "editor";
             $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";

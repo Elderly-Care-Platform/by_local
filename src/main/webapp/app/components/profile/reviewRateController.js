@@ -6,7 +6,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
     function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, ValidateUserCredential) {
 
         $scope.userProfile = $scope.$parent.profileData;
-        $scope.selectedRating = null;
+        $scope.selectedRating = 0;
         $scope.reviewText = "";
         $scope.blankReviewRateError = false;
         var postReview = new ReviewRateProfile();

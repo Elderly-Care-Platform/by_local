@@ -19,6 +19,10 @@ BY.removeEditor = function(){
 }
 
 BY.addEditor = function(param){
+    if (tinymce.get(param.editorTextArea)){
+        tinyMCE.execCommand("mceRemoveEditor", false, param.editorTextArea);
+    }
+
     var textAreas = $("textarea");
     var isCommentEditor = param.commentEditor ? param.commentEditor : false, toolbar, plugins;
     if(isCommentEditor){

@@ -14,7 +14,6 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
 
 
         $scope.add = function (type) {
-            BY.removeEditor();
             $scope.error = "";
             $scope.currentView = "editor";
             $scope.aboutUsViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";

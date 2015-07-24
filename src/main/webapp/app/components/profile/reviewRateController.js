@@ -51,10 +51,10 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
             var content = tinymce.get("reviewTextArea").getContent();
             var reviewText = tinymce.get("reviewTextArea").getBody().textContent.trim();
 
-            if(content.indexOf("img") !== -1 && reviewText.trim().length > 0){
+            if(content.indexOf("img") !== -1 || reviewText.trim().length > 0){
                 $scope.reviewText = content;
             } else{
-                $scope.reviewText = null;
+                $scope.reviewText = "";
             }
 
 

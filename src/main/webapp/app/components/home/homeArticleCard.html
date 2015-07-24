@@ -18,27 +18,32 @@
             <ul class="list-inline posted-info">
                 <li>
                     <p class="article-first-letter" ng-if="article.discussType == 'A'">
-                        Story by <a validate-user-name="{{article.username}}">{{username}}</a>
+                        Story by <a validate-user-name="{{article.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="article.discussType == 'Q'">
-                        Question by <a validate-user-name="{{article.username}}">{{username}}</a>
+                        Question by <a validate-user-name="{{article.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
                     <p class="article-first-letter" ng-if="article.discussType == 'P'">
-                        Post by <a validate-user-name="{{article.username}}">{{username}}</a>
+                        Post by <a validate-user-name="{{article.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
                 </li>
+                <li time-since="{{article.createdAt}}"></li>
+                
+                 </ul><div style="clear: both"></div>
+            <ul class="list-inline posted-info">
                 <li ng-if="article.topicId.length > 0"> In <a ng-click="go($event,'name', article.topicId[0])">
                     {{$root.discussCategoryListMap[article.topicId[0]].name}}</a>
-                    |
+                    
                 </li>
-                <li time-since="{{article.createdAt}}"></li>
-            </ul>
+            </ul><div style="clear: both"></div>
+                
+            
         </div>
 
-        <div class="article" ng-if="article.discussType == 'A'">
+        <div class="article col-md-12" ng-if="article.discussType == 'A'">
             <div class="article-heading"><p style="text-transform: capitalize">{{article.title}}</p>
             </div>
         </div>

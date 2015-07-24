@@ -2,18 +2,22 @@
 
 
 <div ng-controller="IndividualProfileController">
-<div class="profilePopupImages">
-    <div class="profilePopupImagesOpacity"></div>
-    <div class="profilePopupImagesWrapper">
-        <div class="profilePopupImagesWrapperImage">
-            <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs"  >
-                            <img src="{{img.original || ''}}" fallback-src='["{{img.original||""}}"]'/>
-                        </div>
-        </div>
-        <div class="profilePopupImagesWrapperClose">
-            <img src="assets/img/close_button.gif" width="30" height="30" alt="" />
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom:0px;">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        
+      </div>
+      <div class="modal-body">
+         <img src="" style="max-width:100%"/>
+      </div>
+      <div class="modal-footer" style="border-top:0px;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
     <div class="row whiteBg by_discuss_detail margin-bottom-35" >
         <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">

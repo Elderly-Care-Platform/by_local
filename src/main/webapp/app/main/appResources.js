@@ -154,16 +154,6 @@ var discuss = byServices.factory('Discuss', function($resource) {
 });
 
 
-var commentUserLikes = byServices.factory('AnswerCommentUserLikes', function($resource) {
-    return $resource(apiPrefix+'api/v1/commentlikes/create/:userId/:commentId',{}, {
-        remove:{method: 'DELETE', params: {userId: '@userId', commentId: '@commentId'}},
-        update:{method: 'PUT', params: {userId: '@userId', commentId: '@commentId'}},
-        get: {method: 'GET', params: {userId: '@userId', commentId: '@commentId'}}
-    })
-});
-
-
-
 var discussComment = byServices.factory('DiscussComment', function($resource) {
     return $resource(apiPrefix+'api/v1/comment/:commentId',{}, {
         remove:{method: 'DELETE', params: {commentId: '@id'}},

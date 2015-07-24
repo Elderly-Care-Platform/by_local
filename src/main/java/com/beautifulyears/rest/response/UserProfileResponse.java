@@ -4,6 +4,7 @@
 package com.beautifulyears.rest.response;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -40,6 +41,8 @@ public class UserProfileResponse implements IResponse {
 		private int reviewCount;
 		private boolean isReviewedByUser = false;
 		private boolean isRatedByUser = false;
+		private Date createdAt = new Date();
+		private Date lastModifiedAt = new Date();
 
 		public UserProfileEntity(UserProfile profile, User user) {
 			this.setId(profile.getId());
@@ -48,6 +51,8 @@ public class UserProfileResponse implements IResponse {
 			this.setBasicProfileInfo(profile.getBasicProfileInfo());
 			this.setIndividualInfo(profile.getIndividualInfo());
 			this.setServiceProviderInfo(profile.getServiceProviderInfo());
+			this.setCreatedAt(profile.getCreatedAt());
+			this.setLastModifiedAt(profile.getLastModifiedAt());
 			this.setRatingPercentage(profile.getAggrRatingPercentage());
 			if (null != user && profile.getRatedBy().contains(user.getId())) {
 				this.setRatedByUser(true);
@@ -57,6 +62,7 @@ public class UserProfileResponse implements IResponse {
 			}
 			ratingCount = profile.getRatedBy().size();
 			reviewCount = profile.getReviewedBy().size();
+			
 		}
 
 		public int getRatingCount() {
@@ -147,6 +153,24 @@ public class UserProfileResponse implements IResponse {
 		public void setRatedByUser(boolean isRatedByUser) {
 			this.isRatedByUser = isRatedByUser;
 		}
+
+		public Date getCreatedAt() {
+			return createdAt;
+		}
+
+		public void setCreatedAt(Date createdAt) {
+			this.createdAt = createdAt;
+		}
+
+		public Date getLastModifiedAt() {
+			return lastModifiedAt;
+		}
+
+		public void setLastModifiedAt(Date lastModifiedAt) {
+			this.lastModifiedAt = lastModifiedAt;
+		}
+		
+		
 
 	}
 

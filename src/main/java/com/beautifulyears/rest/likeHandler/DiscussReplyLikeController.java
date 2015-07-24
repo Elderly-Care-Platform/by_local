@@ -51,10 +51,11 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 	@ResponseBody
 	public Object submitCommentLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
+			@RequestParam(value = "url", required = true) String url,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(likeContent(replyId,
-				String.valueOf(DiscussConstants.REPLY_TYPE_COMMENT), req, res));
+				String.valueOf(DiscussConstants.REPLY_TYPE_COMMENT),url, req, res));
 
 	}
 
@@ -62,15 +63,16 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 	@ResponseBody
 	public Object submitAnswerLike(
 			@RequestParam(value = "replyId", required = true) String replyId,
+			@RequestParam(value = "url", required = false) String url,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(likeContent(replyId,
-				String.valueOf(DiscussConstants.REPLY_TYPE_ANSWER), req, res));
+				String.valueOf(DiscussConstants.REPLY_TYPE_ANSWER),url, req, res));
 
 	}
 
 	@Override
-	Object likeContent(String id, String type, HttpServletRequest req,
+	Object likeContent(String id, String type,String url, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		int replyType = Integer.parseInt(type);
@@ -90,7 +92,7 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 					} else {
 						submitLike(user, id, DiscussConstants.CONTENT_TYPE_DISCUSS);
 						reply.getLikedBy().add(user.getId());
-						sendMailForLike(reply, user);
+						sendMailForLike(reply, user,url);
 						discussReplyRepository.save(reply);
 
 					}
@@ -107,7 +109,7 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 	}
 
 	@Override
-	void sendMailForLike(DiscussReply LikedEntity, User user) {
+	void sendMailForLike(DiscussReply LikedEntity, User user, String url) {
 		try {
 			if (!LikedEntity.getUserId().equals(user.getId())) {
 				ResourceUtil resourceUtil = new ResourceUtil(
@@ -117,12 +119,9 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 						.getUserName() : "Anonymous User";
 				String replyTypeString = (LikedEntity.getReplyType() == DiscussConstants.REPLY_TYPE_ANSWER) ? "answer"
 						: "comment";
-				String path = MessageFormat.format(System.getProperty("path")
-						+ DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,
-						LikedEntity.getDiscussId());
 				String body = MessageFormat.format(
 						resourceUtil.getResource("likedBy"), userName,
-						replyTypeString, title, user.getUserName(), path, path);
+						replyTypeString, title, user.getUserName(), url, url);
 				MailHandler.sendMailToUserId(LikedEntity.getUserId(), "Your "
 						+ replyTypeString + " was liked on beautifulYears.com",
 						body);

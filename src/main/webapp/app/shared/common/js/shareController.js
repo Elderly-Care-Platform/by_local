@@ -1,22 +1,34 @@
 byControllers.controller('ShareController', ['$scope', '$rootScope', '$location','ValidateUserCredential',
     function ($scope, $rootScope, $location, ValidateUserCredential) {
         $scope.shareNumber = 0;
-        $scope.shareComment = function(){
-            FB.ui({
-                method: 'feed',
-                link: "http://www.beautifulyears.com/#/discuss/5592886ae4b0af99ac53489a",
-                picture: 'http://fbrell.com/f8.jpg',
-                caption: 'Reference Documentation',
-                description: 'Dialogs provide a simple, consistent interface for'
-            }, function(response){
-                console.log(response);
-                if (response && response.post_id) {
-                    $scope.shareNumber++;
-                    alert('Post was published.');
+        $scope.shareComment = function(sharedObj){
+            if(sharedObj){
+                var caption = sharedObj.title ? sharedObj.title: "BeautifulYears",
+                    picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "",
+                    description = sharedObj.text ? $(sharedObj.text).text() : "";
 
-                } else {
-                    alert('Post was not published.');
+                if(picture && picture!==""){
+                    picture = picture.substr(1);
+                    picture = window.location.origin + window.location.pathname + picture;
+
                 }
-            });
+
+                FB.ui({
+                    method: 'feed',
+                    link: window.location.href,
+                    picture: picture,
+                    caption: "Beautiful Years",
+                    description: description,
+                    name:caption
+                }, function(response){
+                    console.log(response);
+                    if (response && response.post_id) {
+                        $scope.shareNumber++;
+                        console.log('Post was published.');
+                    } else {
+                        console.log('Post was not published.');
+                    }
+                });
+            }
         }
     }]);

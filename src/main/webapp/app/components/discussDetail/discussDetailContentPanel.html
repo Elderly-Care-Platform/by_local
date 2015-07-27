@@ -27,7 +27,6 @@
 
         <div class="articles-story" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
-        {{testFunction()}}
     </div>
     <div class="article-share-links news-v3">
         <ul class="post-shares post-shares-lg">
@@ -54,7 +53,7 @@
             </li>
 
             <li ng-if="detailResponse.discuss.discussType == 'A'" ng-controller="ShareController">
-                <a ng-click="shareComment()">
+                <a ng-click="shareComment(detailResponse.discuss, this)">
                     <i class="rounded-x icon-share"></i>
                 </a>
 

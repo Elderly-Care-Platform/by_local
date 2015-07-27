@@ -9,12 +9,21 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $("#preloader").show();
 
+
+
         DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
                 //broadcast data to left panel, to avoid another query from left panel of detail page
                 $scope.detailResponse = discussDetail.data;
                 broadCastData.update(discussDetail.data.discuss);
                 $scope.detailResponse.discuss.createdAt = discussDetail.data.discuss.createdAt;
                 $("#preloader").hide();
+
+                var metaTagParams = {
+                    title:  $scope.detailResponse.discuss.title,
+                    imageUrl:   $scope.detailResponse.discuss.articlePhotoFilename.titleImage,
+                    description:    $scope.detailResponse.discuss.text
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
             },
             function (error) {
                 console.log("error");

@@ -49,7 +49,8 @@
                             <a ng-click="reviewContent()"> Be the first to rate/review </a>
                         </div>
                         <div class="profileRating" ng-if="institutionProfile.ratingCount > 0">
-                            <i class="rounded-x" rate-calculator="{{institutionProfile.ratingPercentage}}"></i>Rated by <a href="">{{institutionProfile.ratingCount}} people</a>
+                            <i class="rounded-x" rate-calculator="{{institutionProfile.ratingPercentage}}"></i>Rated by
+                            <a href="">{{institutionProfile.ratingCount}} user<xy ng-if="institutionProfile.ratingCount > 1">s</xy></a>
                         </div>
                         <div class="profileReview" ng-if="institutionProfile.reviewCount > 0">
                             <i class="rounded-x fa fa-pencil-square-o padding4"></i><a href="">{{institutionProfile.reviewCount}} reviews</a>
@@ -61,7 +62,7 @@
                             <li class="list-inline"> Service in</li>
                             <li class="list-inline"
                                 ng-repeat="category in institutionProfile.serviceProviderInfo.services" style="display: inline-block">
-                                <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> &nbsp; {{$root.findCategoryListMap[category].name}} </a>
+                                <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> {{$root.findCategoryListMap[category].name}} </a>
                             </li>
                         </ul>
                     </div>
@@ -93,20 +94,20 @@
                     </div>
                     <div class="no-padding profileAddress">
                         <ul class="list-inline">
-                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.streetAddress">
-                                {{institutionProfile.basicProfileInfo.userAddress.streetAddress}}
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.streetAddress">
+                                {{institutionProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
                             </li>
-                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.locality">
-                                {{institutionProfile.basicProfileInfo.userAddress.locality}}
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.locality">
+                                {{institutionProfile.basicProfileInfo.primaryUserAddress.locality}}
                             </li>
-                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.city">
-                                {{institutionProfile.basicProfileInfo.userAddress.city}}
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.city">
+                                {{institutionProfile.basicProfileInfo.primaryUserAddress.city}}
                             </li>
-                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.country">
-                                {{institutionProfile.basicProfileInfo.userAddress.country}}
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.country">
+                                {{institutionProfile.basicProfileInfo.primaryUserAddress.country}}
                             </li>
-                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.userAddress.zip">
-                                {{institutionProfile.basicProfileInfo.userAddress.zip}}
+                            <li class="list-inline" ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.zip">
+                                {{institutionProfile.basicProfileInfo.primaryUserAddress.zip}}
                             </li>
                         </ul>
                     </div>
@@ -124,8 +125,8 @@
         </div>
 
         <div class="col-md-12" ng-if="institutionProfile.basicProfileInfo.description">
-            <div class="articles-story">
-                {{institutionProfile.basicProfileInfo.description}}
+            <div class="articles-story" ng-bind-html="trustForcefully(institutionProfile.basicProfileInfo.description)">
+
             </div>
         </div>
     </div>

@@ -81,3 +81,13 @@ $(document).ready(function() {
 	$(".searchWrapper").css('right', searchright+"px");
 
 });
+
+BY.byUtil.updateMetaTags = function(param){
+	 var title = param.title,
+		 imageUrl = param.image,
+		 description = $(param.description).text();
+
+	document.title = title;
+	$("meta[property='og\\:title']").attr("content", title);
+	$("meta[property='og\\:description']").attr("content", description);
+}

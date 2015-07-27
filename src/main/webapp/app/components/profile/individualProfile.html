@@ -52,10 +52,11 @@
                             <a ng-click="reviewContent()"> Be the first to rate/review</a>
                         </div>
                         <div class="profileRating" ng-if="individualProfile.ratingCount > 0">
-                            <i class="rounded-x" rate-calculator="{{individualProfile.ratingPercentage}}"></i>Rated by <a href="">{{individualProfile.ratingCount}} people</a>
+                            <i class="rounded-x" rate-calculator="{{individualProfile.ratingPercentage}}"></i>Rated by
+                            <a href="">{{individualProfile.ratingCount}} user<xy ng-if="individualProfile.ratingCount > 1">s</xy></a>
                         </div>
                         <div class="profileReview" ng-if="individualProfile.reviewCount > 0">
-                            <i class="rounded-x  icon-pencil padding4"></i><a href="">{{individualProfile.reviewCount}} reviews</a>
+                            <i class="rounded-x fa fa-pencil-square-o padding4"></i><a href="">{{individualProfile.reviewCount}} reviews</a>
                         </div><div class="clearfix"></div>
                         <div class="profileRating" ng-if="individualProfile.serviceProviderInfo.yearsExperience">
                             {{individualProfile.serviceProviderInfo.yearsExperience}} years of experience</a>
@@ -67,7 +68,7 @@
                             <li class="list-inline"> Service in</li>
                             <li class="list-inline"
                                 ng-repeat="category in individualProfile.serviceProviderInfo.services" style="display: inline-block">
-                                <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> &nbsp; {{$root.findCategoryListMap[category].name}} </a>
+                                <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> {{$root.findCategoryListMap[category].name}} </a>
                             </li>
                         </ul>
                     </div>
@@ -99,20 +100,20 @@
                     </div>
                     <div class="no-padding profileAddress">
                         <ul class="list-inline">
-                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.userAddress.streetAddress">
-                                {{individualProfile.basicProfileInfo.userAddress.streetAddress}}
+                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.primaryUserAddress.streetAddress">
+                                {{individualProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
                             </li>
-                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.userAddress.locality">
-                                {{individualProfile.basicProfileInfo.userAddress.locality}}
+                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.primaryUserAddress.locality">
+                                {{individualProfile.basicProfileInfo.primaryUserAddress.locality}}
                             </li>
-                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.userAddress.city">
-                                {{individualProfile.basicProfileInfo.userAddress.city}}
+                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city">
+                                {{individualProfile.basicProfileInfo.primaryUserAddress.city}}
                             </li>
-                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.userAddress.country">
-                                {{individualProfile.basicProfileInfo.userAddress.country}}
+                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.primaryUserAddress.country">
+                                {{individualProfile.basicProfileInfo.primaryUserAddress.country}}
                             </li>
-                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.userAddress.zip">
-                                {{individualProfile.basicProfileInfo.userAddress.zip}}
+                            <li class="list-inline" ng-if="individualProfile.basicProfileInfo.primaryUserAddress.zip">
+                                {{individualProfile.basicProfileInfo.primaryUserAddress.zip}}
                             </li>
                         </ul>
                     </div>
@@ -130,8 +131,7 @@
         </div>
 
         <div class="col-md-12" ng-if="individualProfile.basicProfileInfo.description">
-            <div class="articles-story">
-                {{individualProfile.basicProfileInfo.description}}
+            <div class="articles-story" ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
             </div>
         </div>
     </div>

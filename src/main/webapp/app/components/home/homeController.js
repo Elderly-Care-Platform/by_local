@@ -20,7 +20,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
 
         $scope.add = function (type) {
-            BY.removeEditor();
+            //BY.removeEditor();
             $scope.error = "";
             $scope.currentView = "editor";
             $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -62,40 +62,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         			       	console.log("DiscussPage");
 //        			       	alert("error");
                 		});
-                
-//                HomeFeaturedContent.query({discussType: 'A'}).$promise.then(
-//                        //success
-//                        function( value ){
-//                        		$scope.articles = value.data;
-//                        	},
-//                        //error
-//                        function( error ){
-//                        		console.log("QUErY ERROR");
-//                        		alert("error1");
-//                        		}
-//                      );
-//                HomeFeaturedContent.query({discussType: 'Q'}).$promise.then(
-//                        //success
-//                        function( value ){
-//                				$scope.questions = value.data;
-//                        	},
-//                        //error
-//                        function( error ){
-//                        		console.log("QUErY ERROR");
-//                        		alert("error2");
-//                        		}
-//                      );
-//                HomeFeaturedContent.query({discussType: 'P'}).$promise.then(
-//                        //success
-//                        function( value ){
-//                        		$scope.posts = value.data;
-//                        	}
-//                        //error
-//                        
-//                      ,function( error ){
-//                    	  console.log("QUErY ERROR");
-//                  		alert("error3");
-//              		});
             } else {
                 $scope.scrollToId(scrollTo);
             }

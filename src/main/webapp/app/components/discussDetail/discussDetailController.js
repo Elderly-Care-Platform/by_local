@@ -65,7 +65,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             $scope.discussReply.parentReplyId = parentReplyId ? parentReplyId : "";
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(parentReplyId).getContent();
-
+            $scope.discussReply.url = window.location.href;
             $scope.discussReply.$postComment(
                 function (discussReply) {
                     broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
@@ -85,6 +85,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(discussId).getContent();
+            $scope.discussReply.url = window.location.href;
             if (discussType === "Q") {
                 $scope.discussReply.$postAnswer(function (discussReply, headers) {
                         broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
@@ -118,6 +119,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'Disc
         $scope.likeDiscuss = function (discussId) {
             $scope.discussLike = new DiscussLike();
             $scope.discussLike.discussId = discussId;
+            $scope.discussLike.url = window.location.href;
             $scope.discussLike.$likeDiscuss(function (likeReply, headers) {
                     $scope.beforePost = false;
                     $scope.aggrLikeCount = likeReply.data.aggrLikeCount;
@@ -133,6 +135,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'Disc
         $scope.likeComment = function (commentId, replyType) {
             $scope.discussLike = new DiscussReplyLike();
             $scope.discussLike.replyId = commentId;
+            $scope.discussLike.url = window.location.href;
 
             if (replyType === 6) {
                 $scope.discussLike.$likeAnswer(function (likeReply, headers) {

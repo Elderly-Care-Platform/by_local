@@ -54,6 +54,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 	Object likeContent(
 			@RequestParam(value = "discussId", required = true) String id,
 			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "url", required = true) String url,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Object response = null;
@@ -74,7 +75,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 					} else {
 						submitLike(user, id, DiscussConstants.CONTENT_TYPE_DISCUSS);
 						discuss.getLikedBy().add(user.getId());
-						sendMailForLike(discuss, user);
+						sendMailForLike(discuss, user,url);
 						discussRepository.save(discuss);
 						logger.debug("discuss content liked successfully");
 
@@ -94,7 +95,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 	}
 
 	@Override
-	void sendMailForLike(Discuss LikedEntity, User user) {
+	void sendMailForLike(Discuss LikedEntity, User user,String url) {
 		LoggerUtil.logEntry();
 		try {
 			if (!LikedEntity.getUserId().equals(user.getId())) {
@@ -104,12 +105,9 @@ public class DiscussLikeController extends LikeController<Discuss> {
 						.getTitle() : LikedEntity.getText();
 				String userName = !Util.isEmpty(LikedEntity.getUsername()) ? LikedEntity
 						.getUsername() : "Anonymous User";
-				String path = MessageFormat.format(System.getProperty("path")
-						+ DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,
-						LikedEntity.getId());
 				String body = MessageFormat.format(
 						resourceUtil.getResource("likedBy"), userName,
-						"content", title, user.getUserName(), path, path);
+						"content", title, user.getUserName(), url, url);
 				MailHandler.sendMailToUserId(LikedEntity.getUserId(),
 						"Your content was liked on beautifulYears.com", body);
 			}

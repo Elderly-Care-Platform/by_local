@@ -81,7 +81,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
 
         $scope.add = function (type) {
-            BY.removeEditor();
+            //BY.removeEditor();
             $scope.error = "";
             $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             window.scrollTo(0, 0);
@@ -243,7 +243,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
         
 
         $scope.add = function (type) {
-            BY.removeEditor();
+            //BY.removeEditor();
             $scope.error = "";
             $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             window.scrollTo(0, 0);

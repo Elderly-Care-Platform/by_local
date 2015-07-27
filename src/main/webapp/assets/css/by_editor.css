@@ -71,7 +71,7 @@ a.accordion-toggle.ng-binding {
     color:#ffffff !important;
 }
 
-.by-editor-submit-btn:disabled {
+.by-editor-submit-btn:disabled, .by_btn_submit:disabled {
     background: #cfcfcf !important;
     color:#000000 !important;
 }

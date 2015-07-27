@@ -18,7 +18,11 @@ BY.removeEditor = function(){
     }
 }
 
-BY.addEditor = function(param){
+BY.addEditor = function(param, initCallback){
+    if (tinymce.get(param.editorTextArea)){
+        tinyMCE.execCommand("mceRemoveEditor", false, param.editorTextArea);
+    }
+
     var textAreas = $("textarea");
     var isCommentEditor = param.commentEditor ? param.commentEditor : false, toolbar, plugins;
     if(isCommentEditor){
@@ -87,6 +91,9 @@ BY.addEditor = function(param){
                 // switch the order of the elements
                 toolbar.detach().insertAfter(editor);
                 ed.setContent('');
+                if(initCallback){
+                    initCallback();
+                }
             });
             ed.on("keyup", function () {
                 var id = ed.id;

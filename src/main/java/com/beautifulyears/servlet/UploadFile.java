@@ -143,17 +143,40 @@ public class UploadFile extends HttpServlet {
 		BufferedImage image = ImageIO.read(originalImage);
 		int imageWidth = image.getWidth(null);
 		int imageHeight = image.getHeight(null);
-		int newHeight = maxHeight < imageHeight ? maxHeight : imageHeight;
-		int newWidth = maxWidth < imageWidth ? maxWidth : imageWidth;
-		double thumbRatio = (double) maxWidth / (double) maxHeight;
+		int newHeight = 0;
+		int newWidth = 0;
+		
+			double aspectRatio = (double) imageWidth / (double) imageHeight;
+			if(imageWidth > maxWidth && imageHeight > maxHeight){
+				//both height and width are bigger
+				if((imageWidth - maxWidth) > (imageHeight - maxHeight) ){
+					newWidth = maxWidth;
+					newHeight = (int) (maxHeight / aspectRatio);
+				}else{
+					newHeight = maxHeight;
+					newWidth = (int)(maxHeight * aspectRatio);
+				}
+			}else if(imageWidth > maxWidth){
+				//only width is bigger
+				newWidth = maxWidth;
+				newHeight = (int) (maxHeight / aspectRatio);
+			}else  if(imageHeight > maxHeight){
+				//only height is bigger
+				newHeight = maxHeight;
+				newWidth = (int)(maxWidth * aspectRatio);
+			}else{
+				//both are smaller then max
+				newHeight = imageHeight;
+				newWidth = imageWidth;
+			}
 
-		double aspectRatio = (double) imageWidth / (double) imageHeight;
+		
 
-		if (thumbRatio < aspectRatio) {
-			newHeight = (int) (newHeight / aspectRatio);
-		} else {
-			newWidth = (int) (newHeight * aspectRatio);
-		}
+//		if (thumbRatio < aspectRatio) {
+//			newHeight = (int) (newHeight / aspectRatio);
+//		} else {
+//			newWidth = (int) (newHeight * aspectRatio);
+//		}
 
 		BufferedImage resizedImage = new BufferedImage(newWidth, newHeight,
 				BufferedImage.TYPE_INT_RGB);

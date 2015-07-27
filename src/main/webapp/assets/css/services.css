@@ -35,7 +35,7 @@
 
 
 .service-card-image {
-    width: 95px !important;
+    width: 135px !important;
     max-height: 168px;
     height: auto;
     margin-right: 20px;
@@ -60,6 +60,10 @@
     color: #000 !important;
     font-size: 16px !important;
     line-height: 26px;
+}
+
+.service-card-desciption img{
+    display: none;
 }
 
 .serviceRating, .serviceReview{

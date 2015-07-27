@@ -151,8 +151,8 @@ public class UserProfileController {
 
 		UserProfileResponse.UserProfilePage profilePage = null;
 		try {
-			logger.debug("city" + city + "services" + services + "page" + page
-					+ "size" + size);
+			logger.debug(" city " + city + " services " + services + " page " + page
+					+ " size " + size);
 			if (null == services) {
 				services = new ArrayList<String>();
 			}
@@ -169,7 +169,7 @@ public class UserProfileController {
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
 							services, pageable), user);
-			if (profilePage != null) {
+			if (profilePage.getContent().size() > 0) {
 				logger.debug("found something");
 			} else {
 				logger.debug("did not find anything");

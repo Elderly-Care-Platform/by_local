@@ -18,7 +18,7 @@ BY.removeEditor = function(){
     }
 }
 
-BY.addEditor = function(param, callback){
+BY.addEditor = function(param, initCallback){
     if (tinymce.get(param.editorTextArea)){
         tinyMCE.execCommand("mceRemoveEditor", false, param.editorTextArea);
     }
@@ -91,8 +91,8 @@ BY.addEditor = function(param, callback){
                 // switch the order of the elements
                 toolbar.detach().insertAfter(editor);
                 ed.setContent('');
-                if(callback){
-                    callback();
+                if(initCallback){
+                    initCallback();
                 }
             });
             ed.on("keyup", function () {

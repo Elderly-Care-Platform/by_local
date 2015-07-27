@@ -48,6 +48,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         }
 
         $scope.postReview = function(){
+            $(".by_btn_submit").prop("disabled", true);
             var content = tinymce.get("reviewTextArea").getContent();
             var reviewText = tinymce.get("reviewTextArea").getBody().textContent.trim();
 
@@ -79,6 +80,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 })
             }else{
                 $scope.blankReviewRateError = true;
+                $(".by_btn_submit").prop('disabled', false);
             }
         }
 

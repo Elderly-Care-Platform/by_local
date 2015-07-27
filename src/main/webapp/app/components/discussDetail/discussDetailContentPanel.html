@@ -1,17 +1,17 @@
 <div  ng-if="detailResponse.discuss" >
  <div class="blog-author margin-bottom-35 main-article by_blog_author" >
         <div class="article-info dp-inline-block col-md-12">
-            <ul class="list-inline posted-info">
+            <ul class="list-inline posted-info" style="margin-left:0px;">
                 <li ng-if="detailResponse.discuss.discussType == 'A'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform:capitalize;"> {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" > {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
-                    Post by <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform:capitalize;"> {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" > {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
-                    Question by <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform:capitalize;"> {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" > {{username}} </a>
                     &nbsp; |
                 </li>
                   <li ng-if="detailResponse.discuss.topicId.length > 0"> In
@@ -27,13 +27,13 @@
          <div style="clear: both"></div>
 
         <div class="article col-md-12" >
-            <div class="article-heading">
+            <div class="article-heading" style="text-transform: uppercase; padding-bottom:10px;   font-weight: 500;">
             	{{detailResponse.discuss.title}}
             </div>
         </div>
         
         <div class="by-quad-image col-md-12" >
-             <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
+             <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.original||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
             <div style="clear: both"></div>
         </div>
 
@@ -73,10 +73,11 @@
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A'">
                 <a href="#">
                     <i class="rounded-x icon-share" ></i>
-                </a>
+               
+                <span>0</span>
 
                 <div class="post-text post_text-comment"><span class="text">Share</span>
-                </div>
+                </div> </a>
             </li>
 
             <li class="add-comment" ng-controller="DiscussLikeController">
@@ -117,17 +118,17 @@
     </h2>
 
     <!--Comment Editor for main article-->
-    <div class="col-md-12 no-padding  by_blog_author" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
-   		
-        <div class="enter-comment-wrap padding20SM borderShadow by_border-tb by_editor_wrap" id="answer_block">
-             
-              <textarea rows="3"  id={{detailResponse.discuss.id}}></textarea>
+    <div class="col-md-12 no-padding  by_blog_author borderShadow noRadius enter-comment-wrap" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
+   		   <img  src="assets/img/by.jpg" alt="image" style="width:43px  !important; margin-left:5px !important; float:left;">
+        <div class=" padding20SM  by_border-tb by_editor_wrap" style="width:calc(100% - 48px)!important; float:left;" id="answer_block">
+           
+              <textarea rows="3"  id={{detailResponse.discuss.id}} ></textarea>
             <div class="clearfix"></div>
-            <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn by_submit_btn_latest" type="submit" disabled
+            <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit" disabled
                     ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT
             </button>
             <span/>
-            <button class="btn btn-sm btn-success comment-submit by_btn_cancel by_cancel_btn_latest"
+            <button class="btn btn-sm btn-success comment-submit by_btn_cancel "
                     ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
             </button>
             <div class="clearfix"></div>
@@ -138,13 +139,17 @@
 <div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"
      ng-init="initCommentEditor(detailResponse.discuss.id)"></div>
 
-<div ng-if="detailResponse.replies && detailResponse.replies.length > 0" >
-    <div ng-repeat="reply in detailResponse.replies" data-index="discussion-articles"
+<div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:10px;">
+    <div ng-repeat="reply in detailResponse.replies" id="comment" data-index="discussion-articles"
           data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
 </div>
-
+ <div style="clear: both; height:0px; background:#fff !important" ></div>
+ 
+ <div class="by-more-comment col-md-12"><a><u>Show More </u></a></div>
+ 
+  <div style="clear: both; height:20px; background:#fff !important" ></div>
 </div>
-    
+   
 </div>
 
 

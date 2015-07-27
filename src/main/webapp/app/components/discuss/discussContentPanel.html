@@ -12,46 +12,45 @@
          data-index="discussion-articles"
          data-link="articles.html" style="max-height:1500px !important;">
        
-        <img  src="assets/img/33.png" alt="image">
+        <img  src="assets/img/by.jpg" alt="image">
 	
         
         <div class="article-info dp-inline-block">
-            <ul class="list-inline posted-info">
+            <ul class="list-inline posted-info" style="">
                 <li>
-                    <p class="article-first-letter" ng-if="discuss.discussType == 'A'">
-                        By <a validate-user-name="{{discuss.username}}" style="text-transform:capitalize;"> {{username}}</a>
+                    <p ng-if="discuss.discussType == 'A'">
+                        By <a validate-user-name="{{discuss.username}}" > {{username}}</a>
                         |
                     </p>
 
-                    <p class="article-first-letter" ng-if="discuss.discussType == 'Q'">
-                        Question by <a validate-user-name="{{discuss.username}}" style="text-transform:capitalize;"> {{username}}</a>
+                    <p  ng-if="discuss.discussType == 'Q'">
+                        By <a validate-user-name="{{discuss.username}}" > {{username}}</a>
                         |
                     </p>
 
-                    <p class="article-first-letter" ng-if="discuss.discussType == 'P'">
-                        Post by <a validate-user-name="{{discuss.username}}" style="text-transform:capitalize;"> {{username}}</a>
+                    <p  ng-if="discuss.discussType == 'P'">
+                        By <a validate-user-name="{{discuss.username}}" > {{username}}</a>
                         |
                     </p>
+                </li>
+              
+                	  <li ng-if="discuss.topicId.length > 0"> <p> In <a ng-click="go($event,'name', discuss.topicId[0])" >
+                    {{$root.discussCategoryListMap[discuss.topicId[0]].name}} </a> | </p>
+                    
                 </li>
                 <li time-since="{{discuss.createdAt}}"></li>
                 
                 </ul><div style="clear: both"></div>
-            <ul class="list-inline posted-info">
-                <li ng-if="discuss.topicId.length > 0"> In <a ng-click="go($event,'name', discuss.topicId[0])" >
-                    {{$root.discussCategoryListMap[discuss.topicId[0]].name}} </a>
-                    
-                </li>
-            </ul><div style="clear: both"></div>
         </div>
 	
          <div style="clear: both"></div>
         <div class="article  col-md-12" ng-if="discuss.discussType == 'A'">
-            <div class="article-heading"><p style="text-transform: capitalize">{{discuss.title}}</p>
+            <div class="article-heading"><p style="text-transform: uppercase;    font-weight: 500;">{{discuss.title}}</p>
             </div>
         </div>
         
         <div class="by-quad-image col-md-12" >
-             <img ng-if="discuss.discussType == 'A'" src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
+             <img ng-if="discuss.discussType == 'A'" src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
              fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
         
             <div style="clear: both"></div>
@@ -82,7 +81,7 @@
                     ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'A' || discuss.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                         <span class="textColor">Be the first  to comment</span>
+                         <span class="textColor" >Be the first  to comment</span>
                     </a>
                 </li>
                 <li class="add-comment" ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
@@ -111,9 +110,20 @@
                 <li class="add-comment" ng-if="discuss.aggrLikeCount == 0">
                     <a href="#">
                         <i class="rounded-x icon-heart" title="Likes"></i>
-                         <span class="text">Like</span>
+                         <span class="text" >Like</span>
                     </a>
                 </li>
+                
+                 <li class="add-comment" ng-if="discuss.discussType == 'A'">
+                <a href="#">
+                    <i class="rounded-x icon-share" ></i>
+                
+                <span>0</span>
+
+                <div class="post-text post_text-comment"><span class="text">Share</span>
+                </div>
+                </a>
+            </li>
             </ul>
         </div><div style="clear: both"></div>
 

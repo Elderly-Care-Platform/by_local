@@ -14,6 +14,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
 
 
         $scope.postContent = function (discussType) {
+            $(".by_btn_submit").prop("disabled", true);
             $scope.discuss = new Discuss();
             $scope.discuss.discussType = discussType;
             $scope.discuss.text = tinyMCE.activeEditor.getContent();
@@ -51,6 +52,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         };
 
         $scope.setErrorMessage = function(){
+            $(".by_btn_submit").prop("disabled", false);
             if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="A"){
                 $scope.errorMsg = "Please select title";
             }else if($scope.discuss.text.trim().length <= 0){

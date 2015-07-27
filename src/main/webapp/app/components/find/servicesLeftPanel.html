@@ -13,7 +13,7 @@
                                    placeholder="Please enter City Name " ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
                         </div>
                         <div class="col-md-2 col-sm-2">
-                            <i class="fa fa-search"></i>
+                            <i class="fa fa-search" ng-click="addressCallback({'name':address.city})"></i>
                         </div>
                     </div>
                 </div>

@@ -12,33 +12,34 @@
          data-index="discussion-articles"
          data-link="articles.html" style="max-height:1500px !important;">
        
-        <img  src="assets/img/by.jpg" alt="image">
+        <img  src="assets/img/by.png" alt="image">
 	
         
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info" style="">
                 <li>
                     <p ng-if="discuss.discussType == 'A'">
-                        By <a validate-user-name="{{discuss.username}}" > {{username}}</a>
+                        By <a validate-user-name="{{discuss.username}}" style="text-transform: capitalize;"> {{username}}</a>
                         |
                     </p>
 
                     <p  ng-if="discuss.discussType == 'Q'">
-                        By <a validate-user-name="{{discuss.username}}" > {{username}}</a>
+                        By <a validate-user-name="{{discuss.username}}" style="text-transform: capitalize;"> {{username}}</a>
                         |
                     </p>
 
                     <p  ng-if="discuss.discussType == 'P'">
-                        By <a validate-user-name="{{discuss.username}}" > {{username}}</a>
+                        By <a validate-user-name="{{discuss.username}}" style="text-transform: capitalize;"> {{username}}</a>
                         |
                     </p>
                 </li>
+                
+                <li time-since="{{discuss.createdAt}}"> </li>
               
-                	  <li ng-if="discuss.topicId.length > 0"> <p> In <a ng-click="go($event,'name', discuss.topicId[0])" >
-                    {{$root.discussCategoryListMap[discuss.topicId[0]].name}} </a> | </p>
+                	  <li ng-if="discuss.topicId.length > 0" style="text-transform: capitalize;">  <p>| In <a ng-click="go($event,'name', discuss.topicId[0])" >
+                    {{$root.discussCategoryListMap[discuss.topicId[0]].name}} </a>  </p>
                     
                 </li>
-                <li time-since="{{discuss.createdAt}}"></li>
                 
                 </ul><div style="clear: both"></div>
         </div>

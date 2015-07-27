@@ -6,6 +6,7 @@
 {
 	margin-top:15px !important;
 	margin-left:21px !important;
+	border-radius: 2px !important;
 }
 .by_blog_author .col-md-12
 {
@@ -54,7 +55,13 @@
 	float:left;
 	width:auto;
 	height:auto;
-	margin-left:1px;
+	margin-left:3px;
+	border-radius: 2px !important;
+}
+.also-by-head
+{
+	background:#696969 !important;
+	color:#fff !important;
 }
 .discussion-page .news-v3 .post-shares
 {
@@ -101,7 +108,7 @@
 }
 .by_blog_author .news-v3 .post-shares li
 {
-	margin-left:15px !important;
+	margin-left:21px !important;
 }
 .article-share-links .add-comment
 {
@@ -132,7 +139,7 @@
 .by-commment-bg-gray
 {
 	border-color: #ccc  !important;
-	margin-left:10px;
+	margin-left:20px;
 	width:auto !important;
   padding-left: 5px !important;
 }
@@ -261,8 +268,8 @@
 }
 .article-outer-wrapper
 {
-	padding-left:15px;
-	padding-right:15px;
+	padding-left:55px;
+	padding-right:55px;
 }
 .by_left_panel_fixed
 {
@@ -305,15 +312,25 @@
 }
 .blog-author .blog-author
 {
-	border-top-width:1px !important;
+	border-top-width:0px !important;
 }
-.article-comments-wrapper
+.also-by-wrapper
 {
-	background:#F7F3F3; !important;
+	border-left:1px solid #ccc;
+	padding-bottom: 1px !important;
+    border-bottom: 1px solid #ccc;
+}
+.also-by-content
+{
+	border:1px solid #ccc !important;
+	margin:10px;
+	padding-bottom:0px !important;
 }
 .insideComments .blog-author
 {
 	background:#fff !important;
+	margin-bottom: 0px !important; 
+	margin-right:10px;
 }
 .list-inline>li
 {

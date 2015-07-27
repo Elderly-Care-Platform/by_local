@@ -1,6 +1,6 @@
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv">
-        <img src="assets/img/by.jpg" alt="image" style="margin-top: 20px;">
+        <img src="assets/img/by.png" alt="image" style="margin-top: 20px;">
         <div class="also-by-profile" ng-if="discuss">
             <a validate-user-name="{{discuss.username}}">
                 {{username}}
@@ -8,15 +8,16 @@
         </div>
         <div ng-if="articlesByUser.length > 0" class="also-by-wrapper left-container-img-wrapper no-padding">
             <div class="also-by-head col-md-12">{{header1}}<span class="also-by-head">{{header2}}</span></div>
+            <div style="clear:both;"></div>
             <div class="also-by-content" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id">
-                <div ng-if="article.title && article.title.length > 0"><a href="#/discuss/{{article.id}}">{{article.title}}</a></div>
+                <div style="line-height:20px; padding-bottom:5px; font-weight:600;" ng-if="article.title && article.title.length > 0"><a style="color:#000000; font-size:16px; " href="#/discuss/{{article.id}}">{{article.title}}</a></div>
                 <a href="#/discuss/{{article.id}}"><div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 150))"></div></a>
-                <ul class="list-inline posted-info">
-                    <li ng-if="article.topicId.length > 0"> in <a href="#/discuss/{{discuss.discussType}}/{{$root.discussCategoryListMap[article.topicId[0]].name}}/all">
-                        {{$root.discussCategoryListMap[article.topicId[0]].name}}</a>
-                        &nbsp; |
+                <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
+                    <li ng-if="article.topicId.length > 0"> In <a href="#/discuss/{{discuss.discussType}}/{{$root.discussCategoryListMap[article.topicId[0]].name}}/all">
+                        {{$root.discussCategoryListMap[article.topicId[0]].name}}</a>  
                     </li>
-                    <li time-since="{{article.createdAt}}"></li>
+                    <!-- <li time-since="{{article.createdAt}}"></li> -->
+                    <div style="clear:both;"></div>
                 </ul>
             </div>
         </div>

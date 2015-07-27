@@ -3,23 +3,24 @@
         <div class="article-info dp-inline-block col-md-12">
             <ul class="list-inline posted-info" style="margin-left:0px;">
                 <li ng-if="detailResponse.discuss.discussType == 'A'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" > {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" > {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" > {{username}} </a>
-                    &nbsp; |
-                </li>
-                  <li ng-if="detailResponse.discuss.topicId.length > 0"> In
-                    <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
-                        {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
+                  <li ng-if="detailResponse.discuss.topicId.length > 0">| In
+                    <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
+                        {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}</a>
+                    
+                </li>
+                
             </ul><div style="clear: both"></div>
           
         </div>
@@ -46,7 +47,7 @@
         <div class="by-quad-image col-md-12" >
         </div>
         
-         <div class="article-share-links news-v3 by-social-border" >
+         <div class="article-share-links news-v3 by-social-border" style="border-bottom:1px solid #ccc !important;">
             <ul class="post-shares post-shares-lg">
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
@@ -92,12 +93,11 @@
                 </div>
 
             </li>
-        </ul>
-        </ul>
+        </ul><div style="clear:both;"></div>
         </div>
         
         <!--  cooments -->
-        <div style="clear:both;" ></div>
+        <div style="clear:both; height:20px;"></div>
         
         <div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
     <!--  <h2 class="text-success text-underlined"
@@ -119,7 +119,7 @@
 
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding  by_blog_author borderShadow noRadius enter-comment-wrap" id="replyEditor" style="margin-bottom: 20px" ng-show="showEditor">
-   		   <img  src="assets/img/by.jpg" alt="image" style="width:43px  !important; margin-left:5px !important; float:left;">
+   		   <img  src="assets/img/by.png" alt="image" style="width:43px  !important; margin-left:5px !important; float:left;">
         <div class=" padding20SM  by_border-tb by_editor_wrap" style="width:calc(100% - 48px)!important; float:left;" id="answer_block">
            
               <textarea rows="3"  id={{detailResponse.discuss.id}} ></textarea>
@@ -139,7 +139,7 @@
 <div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"
      ng-init="initCommentEditor(detailResponse.discuss.id)"></div>
 
-<div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:10px;">
+<div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:20px;">
     <div ng-repeat="reply in detailResponse.replies" id="comment" data-index="discussion-articles"
           data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
 </div>

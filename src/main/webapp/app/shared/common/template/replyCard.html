@@ -1,17 +1,17 @@
-<div class="blog-author margin-bottom-35 main-article by_blog_author replyCard by-commment-bg-gray" style="background:#F7F3F3; " >
-       <img src="assets/img/by.jpg" alt="image" class="replyCardImg">
+<div class="blog-author margin-bottom-35 main-article by_blog_author replyCard by-commment-bg-gray" style="background:#F9F9F9; border:0px solid #ccc border-top-width:0px !important; margin-bottom: 20px !important; border-radius:0px !important; " >
+       <img src="assets/img/by.png" alt="image" class="replyCardImg" style="margin-left: 12px !important;">
 
 	<div class="article-info dp-inline-block">
-		<ul class="list-inline posted-info">
-			<li ng-if="reply">By <a validate-user-name="{{reply.userName}}">
+		<ul class="list-inline posted-info" >
+			<li ng-if="reply">By <a validate-user-name="{{reply.userName}}" style="font-size: 13.5px;">
 					{{username}} </a> &nbsp; |
 			</li>
-			<li time-since="{{reply.createdAt}}"></li>
+			<li time-since="{{reply.createdAt}}" style="font-size: 13.5px;"></li>
 		</ul>
 		<div style="clear: both"></div>
 		<ul class="list-inline posted-info">
 			<li>
-				<p class="article-first-letter commentHeightLine"
+				<p class=" commentHeightLine" style="text-transform: capitalize;"
 					ng-bind-html="trustForcefully(reply.text)"></p>
 			</li>
 		</ul>
@@ -49,7 +49,7 @@
 	<div
 		class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap by-commment-bg-gray"
 		id="commentEditor" ng-show="showEditor">
-		<img src="assets/img/by.jpg" alt="image"
+		<img src="assets/img/by.png" alt="image"
 			style="width: 43px !important; float: left;">
 		<div style="width: calc(100% - 64px) !important; float: left;">
 			<textarea rows="3" id={{reply.id}}></textarea>

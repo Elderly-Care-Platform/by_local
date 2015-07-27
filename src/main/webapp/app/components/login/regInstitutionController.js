@@ -91,7 +91,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             $scope.otherLocations = $scope.basicProfileInfo.otherAddresses;
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
-            if ($scope.address.country === null) {
+            if ($scope.address && $scope.address.country === null) {
                 $scope.address.country = "India";
             }
             editorInitCallback();

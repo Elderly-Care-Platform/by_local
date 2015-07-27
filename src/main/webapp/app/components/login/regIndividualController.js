@@ -123,10 +123,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.individualInfo = $scope.profile.individualInfo;
-            $scope.address = $scope.basicProfileInfo.userAddress;
+            $scope.address = $scope.basicProfileInfo.primaryUserAddress;
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
-            if ($scope.address.country === null) {
+            if ($scope.address && $scope.address.country === null) {
                 $scope.address.country = "India";
             }
             editorInitCallback();

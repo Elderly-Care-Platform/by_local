@@ -70,6 +70,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
         //Post method called from comments or answers of main detail discuss
         $scope.postComment = function (discussId, parentReplyId) {
+            $(".by_btn_submit").prop("disabled", true);
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.parentReplyId = parentReplyId ? parentReplyId : "";
             $scope.discussReply.discussId = discussId;
@@ -91,6 +92,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
         //Post method called from main detail discuss
         $scope.postMainReply = function (discussId, discussType) {
+            $(".by_btn_submit").prop("disabled", true);
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(discussId).getContent();

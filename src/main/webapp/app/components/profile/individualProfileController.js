@@ -40,11 +40,9 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
 
         $scope.galleryClickHover = function(){
             $(".by-imageGallery-item").css('cursor', 'pointer');
-            $(".by-imageGallery-item").click(function(event){
-                event.stopPropagation();
-                var urlPopup = $('.by-imageGallery-item').index();
+            $(".by-imageGallery-item").click(function(){
                 var urlPopup = $(this).attr('data-popup');
-                $(".modal-body").find('img').attr('src', urlPopup);              
+                $(".by_modal_body").find('img').attr('src', urlPopup);              
                 $('#imagemodal').modal('show');
 
             });

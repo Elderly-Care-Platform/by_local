@@ -210,6 +210,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         //Post institution form
         $scope.postUserProfile = function (isValidForm) {
+            $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.minCategoryError = false;
             $scope.serviceProviderInfo.services = $scope.getServiceList();
@@ -233,6 +234,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
+                $(".by_btn_submit").prop('disabled', false);
             } else {
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);

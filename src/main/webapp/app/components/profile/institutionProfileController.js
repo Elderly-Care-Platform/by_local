@@ -33,53 +33,14 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
 
         $scope.galleryClickHover = function(){
             $(".by-imageGallery-item").css('cursor', 'pointer');
-            $(".by-imageGallery-item").click(function(event){
-                event.stopPropagation();
+            $(".by-imageGallery-item").click(function(){
                 var urlPopup = $(this).attr('data-popup');
-                $(".profilePopupImagesWrapperImage").find('img').attr('src', urlPopup);
-
-                setTimeout(function () {
-                    var windowHeight = $(window).height();
-                    var windowWidth = $(window).width();
-                    var profilePopupImagesWrapperWidth = $(".profilePopupImagesWrapperImage").find('img').outerWidth(true);
-                    var profilePopupImagesWrapperHeight = $(".profilePopupImagesWrapperImage").find('img').outerHeight(true);
-                    $(".profilePopupImagesWrapper").width(profilePopupImagesWrapperWidth);
-                    //$(".profilePopupImagesWrapper").height(profilePopupImagesWrapperHeight);
-                    var windowHeightTop = ( windowHeight - profilePopupImagesWrapperHeight - 6 ) / 2;
-                    if (windowHeightTop < 0) {
-                        var windowHeightTop = 10;
-                    }
-
-                    if (profilePopupImagesWrapperWidth > windowWidth) {
-                        var windowHeight = windowHeight / 1.1;
-                        var windowWidth = windowWidth / 1.1;
-                        $(".profilePopupImagesWrapper").width(windowWidth);
-                        $(".profilePopupImagesWrapper").height(windowHeight);
-                        $(".profilePopupImagesWrapperImage img").width(windowWidth);
-                        //$(".profilePopupImagesWrapperImage img").height(windowHeight);
-                    }
-                    if (windowWidth < 981) {
-                        $(".profilePopupImagesWrapper").height('auto');
-                        $('.breadcrumbs').css('z-index', '0');
-                        $('.header').css('z-index', '0');
-                    }
-                    $(".profilePopupImagesWrapper").css('margin-top', windowHeightTop + "px");
-
-                }, 100);
-
-                $(".profilePopupImages").fadeIn();
-                $(".profileHoverImages").hide();
+                $(".by_modal_body").find('img').attr('src', urlPopup);              
+                $('#imagemodal').modal('show');
 
             });
 
-            $(".profilePopupImagesWrapperClose").click(function (event) {
-                $(".profilePopupImages").fadeOut();
-                $(".profilePopupImagesWrapperImage img").width('auto');
-                $(".profilePopupImagesWrapperImage img").height('auto');
-                $(".profilePopupImagesWrapper").height('auto');
-                $('.breadcrumbs').css('z-index', '10');
-                $('.header').css('z-index', '110');
-            });
+           
 
 
             var byimageGallerywidth = $(".by-imageGallery").width();

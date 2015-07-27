@@ -6,6 +6,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.galleryImages = [];
         $scope.submitted = false;
         $scope.minCategoryError = false;
+        $scope.otherLocations = [];
 
 
 
@@ -16,34 +17,34 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
         var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
 
-        $scope.addressCallback = function (response) {
+        $scope.addressCallback = function (response, addressObj) {
             $('#addressLocality').blur();
-            $scope.address.city = "";
-            $scope.address.locality = response.name;
-            $scope.address.country = "";
-            $scope.address.zip = "";
+            addressObj.city = "";
+            addressObj.locality = response.name;
+            addressObj.country = "";
+            addressObj.zip = "";
 
             for (var i = 0; i < response.address_components.length; i++) {
                 if (response.address_components[i].types.length > 0) {
                     if (response.address_components[i].types[0] == "locality") {
-                        $scope.address.city += response.address_components[i].long_name;
+                        addressObj.city += response.address_components[i].long_name;
                     }
 
                     else if (response.address_components[i].types[0].indexOf("administrative_area_level_3") != -1) {
-                        $scope.address.city = response.address_components[i].long_name;
+                        addressObj.city = response.address_components[i].long_name;
                     }
                     else if (response.address_components[i].types[0] == "country") {
                         //this is the object you are looking for
-                        $scope.address.country = response.address_components[i].long_name;
+                        addressObj.country = response.address_components[i].long_name;
                     }
                     else if (response.address_components[i].types[0] == "postal_code") {
                         //this is the object you are looking for
-                        $scope.address.zip = response.address_components[i].long_name;
+                        addressObj.zip = response.address_components[i].long_name;
                     }
                 }
 
             }
-            $scope.address.streetAddress = response.formatted_address;
+            addressObj.streetAddress = response.formatted_address;
 
 
         }
@@ -86,7 +87,8 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         $scope.extractData = function () {
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
-            $scope.address = $scope.basicProfileInfo.userAddress;
+            $scope.address = $scope.basicProfileInfo.primaryUserAddress;
+            $scope.otherLocations = $scope.basicProfileInfo.otherAddresses;
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
             if ($scope.address.country === null) {
@@ -107,18 +109,18 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
 
         //Get location details based on pin code
-        $scope.getLocationByPincode = function (element) {
+        $scope.getLocationByPincode = function (event, addressObj) {
             var element = document.getElementById("zipcode");
-            $scope.address.city = "";
-            $scope.address.locality = "";
-            $scope.address.country = "";
-            $http.get("api/v1/location/getLocationByPincode?pincode=" + $scope.address.zip)
+            addressObj.city = "";
+            addressObj.locality = "";
+            addressObj.country = "";
+            $http.get("api/v1/location/getLocationByPincode?pincode=" + addressObj.zip)
                 .success(function (response) {
                     if (response) {
-                        $scope.address.city = response.districtname;
-                        $scope.address.locality = response.officename;
-                        $scope.address.streetAddress = response.officename + ", Distt: " + response.districtname + " , State: " + response.statename;
-                        $scope.address.country = "India";
+                        addressObj.city = response.districtname;
+                        addressObj.locality = response.officename;
+                        addressObj.streetAddress = response.officename + ", Distt: " + response.districtname + " , State: " + response.statename;
+                        addressObj.country = "India";
                     }
                 });
         }
@@ -137,17 +139,16 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         function addressFormat(index) {
             return {
-                "index": index, "city": "", "zip": "", "locality": "", "landmark": "", "address": ""
+                "city": "", "country": "", "locality": "",  "streetAddress": "", "zip": ""
             }
         }
 
         //Function to be used to add additional address
         $scope.addNewAddress = function () {
-            //if($scope.basicProfileInfo.userAddress.length < BY.regConfig.maxUserAddress){
-            //    $scope.newAddress = new addressFormat($scope.basicProfileInfo.userAddress.length);
-            //    $scope.basicProfileInfo.userAddress.push($scope.newAddress);
-            //}
-
+            if($scope.otherLocations.length < BY.regConfig.maxUserAddress){
+                $scope.newAddress = new addressFormat($scope.otherLocations.length);
+                $scope.otherLocations.push($scope.newAddress);
+            }
         }
 
 
@@ -220,6 +221,13 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ($scope.serviceProviderInfo.services.length === 0) {
                 $scope.minCategoryError = true;
             }
+
+            if($scope.otherLocations.length > 0){
+                $scope.basicProfileInfo.otherAddresses =  $.map($scope.otherLocations, function (value, key) {
+                    return value;
+                });
+            }
+
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 

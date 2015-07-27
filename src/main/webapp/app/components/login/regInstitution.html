@@ -85,9 +85,16 @@
                         <div ng-include="'app/components/login/addressTemplate.html'"></div>
                     </div>
 
-                    <!--<div ng-repeat="address in basicProfileInfo.secondaryUserAddress">-->
-                    <!--<div ng-include="'app/components/login/addressTemplate.html'"></div>-->
-                    <!--</div>-->
+                    <div ng-repeat="address in otherLocations" style="padding-left: 15px">
+                        <div ng-include="'app/components/login/addressTemplate.html'"></div>
+                    </div>
+
+                    <div class="row add-phone-wrap margin-bottom-20" style="margin-top:-10px;">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-offset-1 col-md-6">
+                            <a class="add-phone" ng-click="addNewAddress()">+ add another location</a>
+                        </div>
+                    </div>
 
                     <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
                         <div class="col-md-5">

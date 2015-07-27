@@ -53,12 +53,12 @@
                 </div>
             </li>
 
-            <li ng-if="detailResponse.discuss.discussType == 'A'">
-                <a href="#">
+            <li ng-if="detailResponse.discuss.discussType == 'A'" ng-controller="ShareController">
+                <a ng-click="shareComment()">
                     <i class="rounded-x icon-share"></i>
                 </a>
 
-                <div class="post-text post_text-comment"><a>Share</a>
+                <div class="post-text post_text-comment"><a  ng-click="shareComment()">Share</a>
                 </div>
             </li>
 

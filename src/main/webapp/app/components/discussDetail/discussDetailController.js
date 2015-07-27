@@ -9,12 +9,21 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $("#preloader").show();
 
+
+
         DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
                 //broadcast data to left panel, to avoid another query from left panel of detail page
                 $scope.detailResponse = discussDetail.data;
                 broadCastData.update(discussDetail.data.discuss);
                 $scope.detailResponse.discuss.createdAt = discussDetail.data.discuss.createdAt;
                 $("#preloader").hide();
+
+                var metaTagParams = {
+                    title:  $scope.detailResponse.discuss.title,
+                    imageUrl:   $scope.detailResponse.discuss.articlePhotoFilename.titleImage,
+                    description:    $scope.detailResponse.discuss.text
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
             },
             function (error) {
                 console.log("error");
@@ -61,6 +70,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
         //Post method called from comments or answers of main detail discuss
         $scope.postComment = function (discussId, parentReplyId) {
+            $(".by_btn_submit").prop("disabled", true);
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.parentReplyId = parentReplyId ? parentReplyId : "";
             $scope.discussReply.discussId = discussId;
@@ -82,6 +92,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
 
         //Post method called from main detail discuss
         $scope.postMainReply = function (discussId, discussType) {
+            $(".by_btn_submit").prop("disabled", true);
             $scope.discussReply = new DiscussDetail();
             $scope.discussReply.discussId = discussId;
             $scope.discussReply.text = tinymce.get(discussId).getContent();

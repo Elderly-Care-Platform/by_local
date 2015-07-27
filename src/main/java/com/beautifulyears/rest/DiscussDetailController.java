@@ -136,8 +136,7 @@ public class DiscussDetailController {
 
 				} else {
 					discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
-					sendMailForReplyOnDiscuss(discuss, user,
-							DiscussConstants.REPLY_TYPE_COMMENT);
+					sendMailForReplyOnDiscuss(discuss, user, comment);
 				}
 
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
@@ -190,8 +189,7 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
-				sendMailForReplyOnDiscuss(discuss, user,
-						DiscussConstants.REPLY_TYPE_ANSWER);
+				sendMailForReplyOnDiscuss(discuss, user, answer);
 				logger.debug("new answer posted successfully with replyId = "
 						+ answer.getId());
 			} else {
@@ -233,7 +231,7 @@ public class DiscussDetailController {
 	}
 
 	private void sendMailForReplyOnDiscuss(Discuss discuss, User user,
-			int replyType) {
+			DiscussReply reply) {
 		try {
 			if (!discuss.getUserId().equals(user.getId())) {
 				ResourceUtil resourceUtil = new ResourceUtil(
@@ -244,11 +242,9 @@ public class DiscussDetailController {
 						.getUsername() : "Anonymous User";
 				String commentedBy = !Util.isEmpty(user.getUserName()) ? user
 						.getUserName() : "Anonymous User";
-				String replyTypeString = (replyType == DiscussConstants.REPLY_TYPE_ANSWER) ? "an answer"
+				String replyTypeString = (reply.getReplyType() == DiscussConstants.REPLY_TYPE_ANSWER) ? "an answer"
 						: "comment";
-				String path = MessageFormat.format(System.getProperty("path")
-						+ DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,
-						discuss.getId());
+				String path = reply.getUrl();
 				String body = MessageFormat.format(
 						resourceUtil.getResource("contentCommentedBy"),
 						userName, commentedBy, title, path, path);
@@ -275,9 +271,7 @@ public class DiscussDetailController {
 				String commentedBy = !Util.isEmpty(user.getUserName()) ? user
 						.getUserName() : "Anonymous User";
 				String replyString = "previous comment";
-				String path = MessageFormat.format(System.getProperty("path")
-						+ DiscussConstants.PATH_DISCUSS_DETAIL_PAGE,
-						reply.getDiscussId());
+				String path = reply.getUrl();
 				String body = MessageFormat.format(
 						resourceUtil.getResource("replyCommentedBy"), userName,
 						commentedBy, replyString, reply.getText(), path, path);

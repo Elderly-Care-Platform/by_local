@@ -1,9 +1,9 @@
 <div class="row" ng-controller="ReviewRateController">
-    <form name="reviewRateForm" class="third-register-page grayRegisterBgLight" novalidate
+    <form name="reviewRateForm" class="third-register-page grayRegisterBgLight by_editor_wrap" novalidate
           style="background:transparent;">
         <div class="col-md-12 no-padding margin-bottom-20 review-rate-header">
             <div class="col-md-12 no-padding dp-block">
-                Rate <span ng-if="gender">{{gender}}</span>
+                Review &amp; Rate <span ng-if="gender">{{gender}}</span>
                 <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
                 <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
             </div>
@@ -14,9 +14,7 @@
         </div>
         <div class="row whiteBg register-page padding20 borderShadow margin-bottom-20">
             <div class="col-md-12 margin-bottom-20   reviewRateForm">
-                    This is how I rate <span ng-if="gender">{{gender}}</span>
-                    <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
-                    <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+
             </div>
             <div class="col-md-12 margin-bottom-20   register-page reviewRateForm">
                 <div class="col-md-6 col-sm-6 col-xs-6 no-padding">
@@ -57,25 +55,28 @@
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                    <div class="row margin-bottom-10">
-                    <textarea class="textbox home-address" rows="3" style="height: 200px;"
-                              ng-model="reviewText" placeholder="Write your review here"></textarea>
+                    <div class="row margin-bottom-10 home-address byEditor">
+                    <textarea class="textbox" rows="3" style="height: 200px;" id="reviewTextArea"
+                              ng-model="reviewText"></textarea>
+                    </div>
+                    <div>
+                        <span ng-show="blankReviewRateError" class="errorRed">Please rate/review
+                            <span ng-if="gender">{{gender}}</span>
+                            <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+                            <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+                        </span>
 
-                    <span ng-show="blankReviewRateError" class="errorRed">Please rate/review
-                        <span ng-if="gender">{{gender}}</span>
-                        <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
-                        <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
-                    </span>
+                        <span ng-show="unauthorizeUserError" class="errorRed">
+                           You are not authorized to review/rate this profile
+                        </span>
                     </div>
                 </div>
             </div>
-
-
         </div>
 
 
         <div class="col-md-12  margin-bottom-20">
-            <input type="submit" value="Done" class="nextButton" ng-click="postReview(individualForm)"/>
+            <input type="submit" value="Done" id="reviewSubmit" class="nextButton by-editor-submit-btn" ng-click="postReview(individualForm)"/>
 
             <div class="clearfix"></div>
         </div>

@@ -82,14 +82,14 @@ var discussDetail = byServices.factory('DiscussDetail', function($resource) {
 //discuss Likes api
 var discussLike = byServices.factory('DiscussLike', function($resource){
     return $resource(apiPrefix+'api/v1/discussLike',{},{
-        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId'},isArray:false}
+        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId',url: '@url'},isArray:false}
     })
 })
 
 var discussReplyLike = byServices.factory('DiscussReplyLike', function($resource){
     return $resource(apiPrefix+'api/v1/discussReplyLike',{},{
-        likeComment:{method:'POST', params:{type:1, replyId:'@replyId'},isArray:false},
-        likeAnswer:{method:'POST', params:{type:2, replyId:'@replyId'},isArray:false}
+        likeComment:{method:'POST', params:{type:1, replyId:'@replyId',url: '@url'},isArray:false},
+        likeAnswer:{method:'POST', params:{type:2, replyId:'@replyId',url: '@url'},isArray:false}
     })
 })
 
@@ -152,16 +152,6 @@ var discuss = byServices.factory('Discuss', function($resource) {
 //        get: {method: 'GET', params: {discussId: '@id'}}
     })
 });
-
-
-var commentUserLikes = byServices.factory('AnswerCommentUserLikes', function($resource) {
-    return $resource(apiPrefix+'api/v1/commentlikes/create/:userId/:commentId',{}, {
-        remove:{method: 'DELETE', params: {userId: '@userId', commentId: '@commentId'}},
-        update:{method: 'PUT', params: {userId: '@userId', commentId: '@commentId'}},
-        get: {method: 'GET', params: {userId: '@userId', commentId: '@commentId'}}
-    })
-});
-
 
 
 var discussComment = byServices.factory('DiscussComment', function($resource) {

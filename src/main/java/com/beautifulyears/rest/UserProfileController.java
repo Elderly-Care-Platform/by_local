@@ -1,6 +1,7 @@
 package com.beautifulyears.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,6 +91,8 @@ public class UserProfileController {
 	public Object getUserProfilebyPageParams(
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
+			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		LoggerUtil.logEntry();
@@ -97,10 +102,18 @@ public class UserProfileController {
 			/* check the collection */
 			/* validate input Param */
 			logger.debug("page" + page + ",size");
+			/* setting page and sort criteria */
+			Direction sortDirection = Direction.DESC;
+			if (dir != 0) {
+				sortDirection = Direction.ASC;
+			}
+
+			Pageable pageable = new PageRequest(page, size,
+					sortDirection, sort);
 
 			/* check is at least one record exists. */
 			profilePage = UserProfileResponse.getPage(
-					userProfileRepository.findAll(new PageRequest(page, size)),
+					userProfileRepository.findAll(pageable),
 					user);
 			if (profilePage.getContent().size() == 0) {
 				logger.debug("There is nothing to retrieve");
@@ -126,6 +139,8 @@ public class UserProfileController {
 			@RequestParam(value = "services", required = false) List<String> services,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
+			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
@@ -141,9 +156,19 @@ public class UserProfileController {
 			if (null == services) {
 				services = new ArrayList<String>();
 			}
+			
+			/* setting page and sort criteria */
+			Direction sortDirection = Direction.DESC;
+			if (dir != 0) {
+				sortDirection = Direction.ASC;
+			}
+
+			Pageable pageable = new PageRequest(page, size,
+					sortDirection, sort);
+			
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
-							services, new PageRequest(page, size)), user);
+							services, pageable), user);
 			if (profilePage != null) {
 				logger.debug("found something");
 			} else {
@@ -166,6 +191,8 @@ public class UserProfileController {
 	public Object getServiceProviderUserProfiles(
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
+			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Page<UserProfile> userProfilePage = null;
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
@@ -176,9 +203,16 @@ public class UserProfileController {
 
 		try {
 			logger.debug("page" + page + ",size" + size);
+			/* setting page and sort criteria */
+			Direction sortDirection = Direction.DESC;
+			if (dir != 0) {
+				sortDirection = Direction.ASC;
+			}
+
+			Pageable pageable = new PageRequest(page, size,
+					sortDirection, sort);
 			userProfilePage = this.userProfileRepository
-					.getServiceProvidersByCriteria(userTypes, new PageRequest(
-							page, size));
+					.getServiceProvidersByCriteria(userTypes, pageable);
 			if (userProfilePage.hasContent() == false) {
 				logger.debug("did not find any service providers");
 			}
@@ -213,6 +247,7 @@ public class UserProfileController {
 						 */
 						if (this.userProfileRepository.findByUserId(userProfile
 								.getUserId()) == null) {
+							
 							userProfileRepository.save(userProfile);
 						} else {
 							throw new BYException(
@@ -261,6 +296,7 @@ public class UserProfileController {
 									.getServiceProviderInfo());
 							profile.setStatus(userProfile.getStatus());
 							profile.setUserTypes(userProfile.getUserTypes());
+							profile.setLastModifiedAt(new Date());
 
 							userProfileRepository.save(profile);
 							logger.info("User Profile update with details: "

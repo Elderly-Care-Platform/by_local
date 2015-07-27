@@ -16,7 +16,6 @@ import com.beautifulyears.repository.custom.UserProfileRepositoryCustom;
 @Repository
 public interface UserProfileRepository extends PagingAndSortingRepository<UserProfile, String>,UserProfileRepositoryCustom{
 
-	Page<UserProfile> findByBasicProfileInfoUserAddressCity(String city, Pageable pageable);
 	UserProfile findByUserId(String UserId);
 	
 	 @Query("{'userTypes':{$in:?0}}" )
@@ -27,9 +26,14 @@ public interface UserProfileRepository extends PagingAndSortingRepository<UserPr
 				 		+"{'userTypes':{$in:?0}},"
 				 		+ "{'$or':"
 				 				+ "[ {$where: '?1 == null'}, "
-				 					+ "{'BasicProfileInfo.UserAddress.city':?1} "
+				 					+ "{'BasicProfileInfo.primaryUserAddress.city':?1} "
 				 				+ "]"
 				 		+ "},"
+				 		+ "{'$or':"
+				 				+ "[ {$where: '?1 == null'}, "
+				 					+ "{BasicProfileInfo.otherAddresses: {$elemMatch: {city:?1}}}"
+				 				+ "]"
+			 			+ "},"
 				 		+ "{'$or':"
 				 				+ "[ "
 					 				+ "{$where: '?2.length == 0'}, "

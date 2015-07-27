@@ -131,6 +131,7 @@ public class ReviewController {
 		if (null == review) {
 			review = new DiscussReply();
 			review.setDiscussId(associatedId);
+			review.setUrl(newReviewRate.getUrl());
 			review.setContentType(contentType);
 			review.setUserRatingPercentage(newReviewRate
 					.getUserRatingPercentage());
@@ -294,9 +295,7 @@ public class ReviewController {
 				String userName = !Util.isEmpty(profileUser.getUserName()) ? profileUser
 						.getUserName() : "Anonymous User";
 				String replyTypeString = "profile";
-				String path = MessageFormat.format(System.getProperty("path")
-						+ DiscussConstants.PATH_REVIEW_PAGE,
-						reviewedEntity.getUserTypes().get(0), reviewedEntity.getId());
+				String path = review.getUrl();
 				String body = MessageFormat.format(
 						resourceUtil.getResource("reviewOnProfile"), userName, path);
 				MailHandler.sendMailToUserId(reviewedEntity.getUserId(),

@@ -6,10 +6,17 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
     function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, ValidateUserCredential) {
 
         $scope.userProfile = $scope.$parent.profileData;
-        $scope.selectedRating = null;
+        $scope.selectedRating = 0;
         $scope.reviewText = "";
         $scope.blankReviewRateError = false;
         var postReview = new ReviewRateProfile();
+
+        var editorInitCallback = function(){
+            if(tinymce.get("reviewTextArea") && $scope.reviewText){
+                tinymce.get("reviewTextArea").setContent($scope.reviewText);
+            }
+        }
+        var tinyEditor = BY.addEditor({"editorTextArea": "reviewTextArea", "commentEditor": true}, editorInitCallback);
 
         if($scope.$parent.isIndividualProfile){
             $scope.gender =  BY.config.profile.userGender[$scope.userProfile.individualInfo.sex];
@@ -22,6 +29,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                     var ratingPercentage = BY.byUtil.getAverageRating(response.userRatingPercentage);
                     $scope.reviewText = response.text;
                     $scope.selectRating(ratingPercentage);
+                    editorInitCallback();
                 }
 
             }, function(error){
@@ -32,6 +40,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.getReview();
 
         $scope.selectRating = function(value){
+            $(".by_btn_submit").removeAttr('disabled');
         	value = parseInt(value);
             $(".profileSelected").removeClass("profileSelected");
             $scope.selectedRating = value;
@@ -39,12 +48,25 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         }
 
         $scope.postReview = function(){
+            $(".by_btn_submit").prop("disabled", true);
+            var content = tinymce.get("reviewTextArea").getContent();
+            var reviewText = tinymce.get("reviewTextArea").getBody().textContent.trim();
+
+            if(content.indexOf("img") !== -1 || reviewText.trim().length > 0){
+                $scope.reviewText = content;
+            } else{
+                $scope.reviewText = "";
+            }
+
+
             if(parseInt($scope.selectedRating) > 0 || $scope.reviewText.trim().length > 0){
                 var ratePercentage = (parseInt($scope.selectedRating)/(parseInt(BY.config.profile.rate.upperLimit) - parseInt(BY.config.profile.rate.lowerLimit)))*100;
 
                 postReview.userRatingPercentage = ratePercentage;
                 postReview.text = $scope.reviewText;
+                postReview.url = window.location.href;
                 $scope.blankReviewRateError = false;
+                $scope.unauthorizeUserError = false;
 
                 postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
                     $scope.$parent.showProfile();
@@ -52,10 +74,13 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                     console.log(errorResponse);
                     if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                         ValidateUserCredential.login();
+                    } else if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3001){
+                        $scope.unauthorizeUserError = true;
                     }
                 })
             }else{
                 $scope.blankReviewRateError = true;
+                $(".by_btn_submit").prop('disabled', false);
             }
         }
 

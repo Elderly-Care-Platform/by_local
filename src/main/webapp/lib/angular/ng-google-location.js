@@ -37,8 +37,9 @@ angular.module( "ngGoogleLocation", [])
       scope: {
       //  ngModel: '=',
         options: '=?',
-        details: '=?',
-        callback:'=?'
+        obj: '=?',
+        callback:'=?',
+
       },
 
       link: function(scope, element, attrs, controller) {
@@ -109,7 +110,7 @@ angular.module( "ngGoogleLocation", [])
 
                 scope.details = result;
                 if(scope.callback){
-              	  scope.callback(result);
+              	  scope.callback(result, scope.obj);
                 }
                // controller.$setViewValue(element.val());
               });
@@ -146,7 +147,7 @@ angular.module( "ngGoogleLocation", [])
 
                       if (placesServiceStatus == google.maps.GeocoderStatus.OK) {
                     	  if(scope.callback){
-                        	  scope.callback(detailsResult);
+                        	  scope.callback(detailsResult, scope.obj);
                           }
                           
                     	  

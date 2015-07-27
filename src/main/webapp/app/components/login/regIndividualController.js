@@ -9,8 +9,15 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.showSpeciality = false;
         $scope.selectedSpeciality = [];
 
+        var editorInitCallback = function(){
+            if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
+                tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
+            }
+        }
+        var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+
+
         $scope.addressCallback = function (response) {
-            console.log(response);
             $('#addressLocality').blur();
             $scope.address.city = "";
             $scope.address.locality = response.name;
@@ -42,7 +49,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
         //Request complete service type list
         $scope.ServiceTypeList = ServiceTypeList.get({}, function () {
-            console.log($scope.ServiceTypeList);
             var selectedServices = $scope.serviceProviderInfo.services;
             if(selectedServices.length > 0){
                 angular.forEach($scope.ServiceTypeList, function(type, index){
@@ -117,13 +123,13 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.individualInfo = $scope.profile.individualInfo;
-            $scope.address = $scope.basicProfileInfo.userAddress;
+            $scope.address = $scope.basicProfileInfo.primaryUserAddress;
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
-            if ($scope.address.country === null) {
+            if ($scope.address && $scope.address.country === null) {
                 $scope.address.country = "India";
-            }       
-                     
+            }
+            editorInitCallback();
         }
 
         //Initialize individual registration
@@ -244,6 +250,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
         //Post individual form
         $scope.postUserProfile = function (isValidForm) {
+            $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.minCategoryError = false;
             $scope.serviceProviderInfo.services = $scope.getServiceList();
@@ -256,8 +263,11 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.minCategoryError = true;
             }
 
+            $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
+
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
+                $(".by_btn_submit").prop('disabled', false);
             } else {
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);

@@ -294,7 +294,6 @@
 .by_blog_author {
     padding: 0px !important;
     font-family: century_gothic !important;
-    max-height: 260px !important;
     overflow-y: hidden;
 }
 

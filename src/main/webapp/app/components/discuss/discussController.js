@@ -109,8 +109,10 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                 }else{
                     $location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
                 }
-            }else if(type = "accordian"){
+            }else if(type === "accordian"){
                 $($event.target).find('a').click();
+            }else if(type === "comment") {
+                $location.path('/discuss/' + id).search({comment: true});
             }
 
         }
@@ -267,11 +269,13 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
                 }else{
                     $location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
                 }
-            }else if(type = "accordian"){
+            }else if(type === "accordian"){
                 $($event.target).find('a').click();
+            }else if(type === "comment") {
+                $location.path('/discuss/' + id).search({comment: true});
             }
-
         }
+
 
         $scope.trustForcefully = function(html) {
             return $sce.trustAsHtml(html);

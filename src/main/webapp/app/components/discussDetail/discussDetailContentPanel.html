@@ -15,12 +15,12 @@
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
-                  <li ng-if="detailResponse.discuss.topicId.length > 0"> <p >| In
-                    <a   href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
-                       {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name.toLowerCase()}}</a></p>
-                    
+                <li ng-if="detailResponse.discuss.topicId.length > 0"> | In  </li>
+
+                <li ng-if="detailResponse.discuss.topicId.length > 0"> <p class="first-letter-uc">
+                    <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
+                        {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name.toLowerCase()}}</a></p>
                 </li>
-                
             </ul><div style="clear: both"></div>
           
         </div>

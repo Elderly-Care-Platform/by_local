@@ -1,7 +1,10 @@
-byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData',
-    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData) {
+byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData','$anchorScroll','$timeout',
+    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, $anchorScroll, $timeout) {
 
         var discussId = $routeParams.discussId;	//discuss Id from url
+        var isComment = $routeParams.comment;
+
+
         $scope.discussDetailViews = {};
         $rootScope.nextLocation = $location.path();
 
@@ -20,10 +23,21 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
                 var metaTagParams = {
                     title:  $scope.detailResponse.discuss.title,
-                    imageUrl:   $scope.detailResponse.discuss.articlePhotoFilename.titleImage,
+                    imageUrl:   $scope.detailResponse.discuss.articlePhotoFilename ? $scope.detailResponse.discuss.articlePhotoFilename.titleImage : "",
                     description:    $scope.detailResponse.discuss.text
                 }
                 BY.byUtil.updateMetaTags(metaTagParams);
+
+
+
+                $timeout(
+                    function () {
+                        if(isComment){
+                            //$scope.scrollToId("replyEditor");
+                            $location.hash('replyEditor');
+                            $anchorScroll();
+                        }
+                    }, 100);
             },
             function (error) {
                 console.log("error");

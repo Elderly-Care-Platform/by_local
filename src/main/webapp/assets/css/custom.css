@@ -160,12 +160,12 @@ ng-view {
     padding-bottom: 20px;
 }
 
-.article-outer-wrapper {
-    padding-left: 22px;
-    padding-right: 0px;
-    padding-bottom: 20px;
-    /*overflow-y:auto;*/
-}
+/*.article-outer-wrapper {*/
+    /*padding-left: 22px;*/
+    /*padding-right: 0px;*/
+    /*padding-bottom: 20px;*/
+    /*/!*overflow-y:auto;*!/*/
+/*}*/
 
 .comment-name-time {
     font-size: 13.963px; /* Approximation due to font substitution */
@@ -821,27 +821,6 @@ button.register-btn {
     text-decoration: none;
 }
 
-.discussion-wrapper .article-outer-wrapper {
-    margin-right: 27% !important;
-    margin-left: 300px !important;
-}
-
-.discussion-wrapper .home-content-wrapper {
-    margin-right: 27%;
-    margin-left: 300px;
-}
-
-.discussion-wrapper .content {
-    padding-top: 0;
-    margin-top: 36px;
-}
-
-.discussion-wrapper .news-v3 .post-shares li i {
-    width: 25px;
-    height: 25px;
-    padding: 5px;
-}
-
 .service a {
     font-style: italic;
 }
@@ -850,15 +829,6 @@ button.register-btn {
     font-style: normal;
 }
 
-.discussion-wrapper .news-v3 .post-shares-lg li span {
-    top: -14px;
-    right: 0px;
-    width: 26px;
-    height: 26px;
-    padding: 4px;
-    font-size: 9px;
-    line-height: 16px;
-}
 
 .list-group-item {
     border-color: #D2D2D2;
@@ -937,10 +907,6 @@ a {
 
     .breadcrumbs {
         position: relative;
-    }
-
-    .discussion-wrapper .article-outer-wrapper {
-        margin: auto;
     }
 
 

@@ -53,20 +53,6 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
                 $scope.detailResponse = broadCastData.newData;
             }
         });
-
-        $scope.scrollToId = function (id) {
-            if (id) {
-                var tag = $("#" + id + ":visible");
-                if (tag.length > 0) {
-                    $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
-                }
-            } else {
-                window.scrollTo(0, 0);
-            }
-
-        }
-
-
     }]);
 
 

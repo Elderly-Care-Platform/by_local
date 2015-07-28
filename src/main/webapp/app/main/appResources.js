@@ -67,6 +67,12 @@ var validateUserCredential = byServices.factory('ValidateUserCredential', functi
     return user;
 });
 
+//BY Menu api
+var byMenu = byServices.factory('BYMenu', function($resource){
+    return $resource(apiPrefix+'api/v1/discussLike',{},{
+        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId',url: '@url'},isArray:false}
+    })
+})
 
 //discuss detail page API
 var discussDetail = byServices.factory('DiscussDetail', function($resource) {

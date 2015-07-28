@@ -5,14 +5,14 @@
 
             <!-- ngIf: discuss_counts.z > 0 -->
             <li class="row list-group-item ng-scope" data-index="discussion-articles" style="margin: 0px; margin-top: 4px;">
-                <div class="col-md-2 col-sm-2 no-padding"><a href="#">IN </a></div>
-                <div class="col-md-10 col-sm-10 searchWrapper-find-in" style="margin: 0px; padding:0px; padding-top: 3px;">
+                <div class="col-md-2 col-sm-2 col-xs-2 no-padding"><a href="#">IN </a></div>
+                <div class="col-md-10 col-sm-10 col-xs-10 searchWrapper-find-in" style="margin: 0px; padding:0px; padding-top: 3px;">
                     <div class="row no-padding register-page" style="margin: 0px; ">
-                        <div class="col-md-10 col-sm-10 no-padding">
-                            <input type="text" class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
+                        <div class="col-md-10 col-sm-10 col-xs-10 no-padding">
+                            <input type="text" style="font-size:11px;" class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
                                    placeholder="Please enter City Name " ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
                         </div>
-                        <div class="col-md-2 col-sm-2">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
                             <i class="fa fa-search" ng-click="addressCallback({'name':address.city})"></i>
                         </div>
                     </div>

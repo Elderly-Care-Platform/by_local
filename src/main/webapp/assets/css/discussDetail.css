@@ -33,6 +33,7 @@
     font-size: 15px; /* Approximation due to font substitution */
     text-align: left;
     margin-top:20px;
+    width:225px;
 }
 
 .also-by-content > a div, .also-by-content > a  p{
@@ -81,7 +82,14 @@
     border-bottom-width:1px;
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-left:10px;
 }
 .also-by-wrapper .also-by-content:last-child{
     border-width:0px;
+}
+@media (max-width: 990px){
+.also-by-wrapper
+{	
+	width: 100% !important;
+}
 }

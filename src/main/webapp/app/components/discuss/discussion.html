@@ -60,7 +60,7 @@
 <div class="container by_home_content">
     <div class="row">
         <div class="col-md-3  md-margin-bottom-40" ng-include="discussionViews.leftPanel"></div>
-        <div infinite-scroll="loadMore()" class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right "
+        <div infinite-scroll="loadMore()" class="col-md-9 discussion-page md-margin-bottom-40 article-outer-wrapper"
              ng-include="discussionViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">
         </div>
     </div>

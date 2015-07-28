@@ -189,6 +189,9 @@
 		
 		
 		
+		
+
+		<div ng-if="reviews && reviews.length > 0" class="row">
 		 <div class="col-md-12  margin-bottom-20 review-rate-header" style="padding-left:8px; padding-right:6px;">
             <div class="col-md-12 no-padding dp-block" style="border-bottom:1px solid #ccc;">
                 Recent Reviews
@@ -198,8 +201,6 @@
                 <div class="bg-green-h2" style="width: 150px;"></div>
             </div>
         </div>
-
-		<div ng-if="reviews && reviews.length > 0" class="row">
 			<div ng-repeat="review in reviews" data-index="discussion-articles"
 				data-link="articles.html"
 				ng-include="'app/components/profile/profileReviewCard.html'"

@@ -155,7 +155,7 @@
 }
 .article-comments-wrapper
 {
-	margin-top:0px;
+	margin-top:20px;
 }
 .article-comments-wrapper h2
 {
@@ -336,4 +336,8 @@
 {
 	padding-left:0px;
 	padding-right:0px;
+}
+.by-first-letter::first-letter
+{
+	text-transform:uppercase;
 }

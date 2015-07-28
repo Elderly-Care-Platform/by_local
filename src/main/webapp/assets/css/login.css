@@ -309,12 +309,15 @@ input[type=checkbox] {
 	background-color: #ebf2fe;
 }
 
-.by-paddingtop-desk {
+.by-register-button {
 	margin-top: 40px;
+	margin-bottom: 25px;
+	font-size: 14px;
+    color: #282828;
 }
 
 @media screen and (max-width: 991px) {
-	.by-paddingtop-desk {
+	.by-register-button {
 		margin-top: 20px;
 	}
 }

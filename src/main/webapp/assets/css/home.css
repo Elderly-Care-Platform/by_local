@@ -399,3 +399,36 @@ ul.loginbar.pull-right {
 .errorRed {
     color: #ff0000;
 }
+
+.homeSlider
+{
+	width:100%;
+	height:auto;
+	margin-top:43px;
+}
+.item
+{
+	width:100%;
+	height:213px;
+}
+.item1{
+	background:url('../img/Banner-small.jpg') center;
+}
+.item2{
+	background:url('../img/Banner-small.jpg') center;
+}
+.item3{
+	background:url('../img/Banner-small.jpg') center;
+}
+@media screen and (max-width: 991px){
+	.homeSlider
+{	
+	margin-top:1px;
+}
+}
+@media screen and (max-width: 670px){
+	.item1, .item2, .item3{
+    	background-size: 100% auto;
+    	background-repeat: no-repeat;
+	}
+}

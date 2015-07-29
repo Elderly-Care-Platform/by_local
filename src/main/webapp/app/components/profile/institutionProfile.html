@@ -124,9 +124,10 @@
 						<div style="clear: both; height: 5px;"></div>
 					</div>
 					<div class="no-padding profileAddress"
-						ng-if="institutionProfile.serviceProviderInfo.primaryUserAddress">
-						<i class="fa fa-address"></i>
-						<ul class="list-inline">
+						ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.streetAddress || institutionProfile.basicProfileInfo.primaryUserAddress.locality ||
+						 institutionProfile.basicProfileInfo.primaryUserAddress.city || institutionProfile.basicProfileInfo.primaryUserAddress.country || institutionProfile.basicProfileInfo.primaryUserAddress.zip">
+						<i class="fa fa-address divLeft"></i>
+						<ul class="list-inline divRight" style="width:calc(100% - 25px);">
 							<li class="list-inline"
 								ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.streetAddress">
 								{{institutionProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
@@ -183,7 +184,7 @@
 		  
 
 		<div ng-if="reviews && reviews.length > 0" class="row">
-		<div class="col-md-12  margin-bottom-20 review-rate-header" style="padding-left:8px; padding-right:6px;">
+		<div class="col-md-12  margin-bottom-20 review-rate-header" style="padding-left:21px; padding-right:21px;">
             <div class="col-md-12 no-padding dp-block" style="border-bottom:1px solid #ccc;">
                 Recent Reviews
             </div>

@@ -1,32 +1,41 @@
 <div ng-controller="LoadCustomJSController"></div>
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 <div class="breadcrumbs">
-    <div class="container by_breadcrumbs_container">
-        <ul class="pull-right breadcrumb">
-            <li class="active"><a>HOME</a></li>
-        </ul>
-    </div>
-    <hr class="breadcrumb-divider"/>
+	<div class="container by_breadcrumbs_container">
+		<ul class="pull-right breadcrumb">
+			<li class="active"><a>HOME</a></li>
+		</ul>
+	</div>
+	<hr class="breadcrumb-divider" />
 </div>
-<!--<div class="homeSlider" >
-<div id="myCarousel" class="carousel slide" data-ride="carousel"> 
-  
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="item active item1"> </div>
-    <div class="item item2">  </div>
-    <div class="item item3">  </div>
-  </div>
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a> </div>
-</div>-->
-<div class="container by_home_content">
-    <div class="row">
-        <div class="col-md-3 md-margin-bottom-40" ng-include="homeViews.leftPanel"></div>
-        <div class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper" ng-include="homeViews.contentPanel"></div>
+<div class="homeSlider">
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-    </div>
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+		<div class="carousel-inner">
+			<div class="item active item1">
+				<img width="100%" src="assets/img/home/banner-1-800.jpg"/>
+			</div>
+			<div class="item item2">
+				<img width="100%" src="assets/img/home/banner-2-800.jpg"/>
+			</div>
+			<div class="item item3">
+				<img width="100%" src="assets/img/home/banner-3-800.jpg"/>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container by_home_content">
+	<div class="row">
+		<div class="col-md-3 md-margin-bottom-40"
+			ng-include="homeViews.leftPanel"></div>
+		<div
+			class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper"
+			ng-include="homeViews.contentPanel"></div>
+
+	</div>
 </div>

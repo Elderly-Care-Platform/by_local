@@ -28,8 +28,8 @@
 			<div class="col-md-5" style="padding: 0px;">
 				<div class="col-md-12 main-image white-gray " style="padding: 0px;">
 					<img class="full-width padding-zero"
-						src="{{individualProfile.basicProfileInfo.profileImage.original}}"
-						alt="">
+						src="{{individualProfile.basicProfileInfo.profileImage.original || ''}}"
+						fallback-src='["assets/img/by-housing-avtar.jpg"]' alt="">
 				</div>
 				<div class="col-md-12 by-imageGallery margin-top-20 row"
 					ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0">

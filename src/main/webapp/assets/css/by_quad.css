@@ -312,6 +312,10 @@
 {
 	border-top-width:0px !important;
 }
+.blog-author .blog-author .blog-author 
+{
+	border-top-width:1px !important;
+}
 .also-by-wrapper
 {
 	border-left:1px solid #ccc;

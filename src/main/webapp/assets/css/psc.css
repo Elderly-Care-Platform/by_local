@@ -628,7 +628,7 @@
 .searchWrapper
 {
 	width: 455px;
-	margin-top: -72px;
+	margin-top: -64px;
 	margin-bottom: 19px;
 	margin-right: auto;
 	margin-left: auto;
@@ -735,7 +735,7 @@
 	margin-right: auto;
 	min-width: 56px;
 	max-width: 605px;
-	margin-top: -6px;
+	margin-top: -14px;
 }
 .header .navbar-nav > li
 {

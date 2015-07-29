@@ -20,7 +20,7 @@
     <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
         <img src="assets/img/by.png" alt="image" >
         <div class="article-info dp-inline-block">
-            <ul class="list-inline posted-info">
+            <ul class="list-inline posted-info" style="margin-right:80px !important;">
                 <li>
                     <p class="article-first-letter" ng-if="question.discussType == 'A'">
                         By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>

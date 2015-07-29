@@ -52,7 +52,7 @@
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0">{{detailResponse.discuss.aggrReplyCount}}</span>
+                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
@@ -63,7 +63,7 @@
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'Q'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x fa fa-pencil-square-o" title="Answers" style="margin-top:-4px;"></i>
-                    <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
+                    <span ng-if="detailResponse.discuss.directReplyCount > 0" style="margin-left:3px;">{{detailResponse.discuss.directReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
@@ -84,8 +84,8 @@
             <li class="add-comment" ng-controller="DiscussLikeController">
                 <a ng-click="likeDiscuss(detailResponse.discuss.id)">
                     <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0">{{detailResponse.discuss.aggrLikeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
+                    <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrLikeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" style="margin-left:3px;">{{aggrLikeCount}}</span>
                 </a>
 
                 <div class="post-text">

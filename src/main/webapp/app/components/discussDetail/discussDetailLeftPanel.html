@@ -10,12 +10,24 @@
             <div class="also-by-head col-md-12">{{header1}}<span class="also-by-head">{{header2}}</span></div>
             <div style="clear:both;"></div>
             <div class="also-by-content" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id">
-                <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:16px; " href="#/discuss/{{article.id}}">{{article.title}}</a></div>
-                <a href="#/discuss/{{article.id}}"><div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 150))"></div></a>
+                <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:16px; text-transform:uppercase;" href="#/discuss/{{article.id}}" >
+                <p class="discuss-card-desciption" style="max-height:63px; color:#00A24A !important;;"
+				data-ng-bind="article.title" data-ellipsis>
+			</p>
+                </a></div>
+                <a href="#/discuss/{{article.id}}"><div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 150))" ></div></a>
                 <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
-                    <li ng-if="article.topicId.length > 0"> In <a href="#/discuss/{{discuss.discussType}}/{{$root.discussCategoryListMap[article.topicId[0]].name}}/all">
-                        {{$root.discussCategoryListMap[article.topicId[0]].name}}</a>  
-                    </li>
+                    
+                    <li ng-if="article.topicId.length > 0">
+                    In
+                </li>
+
+                <li ng-if="article.topicId.length > 0">
+                    <p class="first-letter-uc">
+                    <a href="#/discuss/{{discuss.discussType}}/{{$root.discussCategoryListMap[article.topicId[0]].name}}/all">
+                        {{$root.discussCategoryListMap[article.topicId[0]].name.toLowerCase()}}</a>  
+                </p>
+                </li>
                     <!-- <li time-since="{{article.createdAt}}"></li> -->
                     <div style="clear:both;"></div>
                 </ul>

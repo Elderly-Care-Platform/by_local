@@ -392,7 +392,7 @@ ul.loginbar.pull-right {
 .homeSlider {
 	width: 100%;
 	height: auto;
-	margin-top: 43px;
+	margin-top: 42px;
 }
 
 .item {
@@ -432,7 +432,7 @@ ul.loginbar.pull-right {
 
 @media screen and (max-width: 991px) {
 	.homeSlider {
-		margin-top: 1px;
+		margin-top: 0px;
 	}
 	.by_left_panel_homeSlider_position {
 		margin-top: 0px !important;

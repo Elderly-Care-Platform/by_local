@@ -22,15 +22,15 @@
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info" style="margin-right:80px !important;">
                 <li>
-                    <p class="article-first-letter" ng-if="question.discussType == 'A'">
+                    <p  ng-if="question.discussType == 'A'">
                         By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
-                    <p class="article-first-letter" ng-if="question.discussType == 'Q'">
+                    <p  ng-if="question.discussType == 'Q'">
                         By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
-                    <p class="article-first-letter" ng-if="question.discussType == 'P'">
+                    <p  ng-if="question.discussType == 'P'">
                         By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
@@ -52,29 +52,27 @@
                
         </div>
 
-        <div class="article" ng-if="question.discussType == 'A'">
-            <div class="article-heading"><p style="text-transform: capitalize">{{question.title}}</p>
+       
+          <div class="article  col-md-12" ng-if="question.discussType == 'A'">
+            <div class="article-heading"><p style="text-transform: uppercase;    font-weight: 500;">
+                {{question.title}}</p>
             </div>
         </div>
-
-        <div class="articles-story by_story" id="{{question.id}}">
-            {{question.text}}
+        
+        <div class="articles-story  col-md-12" id="{{discuss.id}}" >
+        	<p class="discuss-card-desciption" 
+				data-ng-bind="question.text" data-ellipsis data-ellipsis-append="read more">
+			</p>
+            
         </div>
         <div style="clear: both"></div>
-         <div class="col-md-12">
-            <a class="divRight by_readmore"><u>Read More</u> <b style="font-size:10px;">&#9002;</b></a>
-
-            <div style="clear: both"></div>
-        </div>
-        <div style="clear: both; height:15px;"></div>
-        
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment"
                     ng-if="question.aggrReplyCount > 0 && (question.discussType == 'A' || question.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span>{{question.aggrReplyCount}}</span>
+                        <span style="margin-left:3px;">{{question.aggrReplyCount}}</span>
                         <span class="text">Comment</span>
                     </a>
                 </li>
@@ -90,7 +88,7 @@
                     <a href="#">
                         <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
                            style="margin-top:-4px;"></i>
-                        <span>{{question.directReplyCount}}</span>
+                        <span style="margin-left:3px;">{{question.directReplyCount}}</span>
                         <span class="text">Answer</span>
                     </a>
                 </li>
@@ -107,7 +105,7 @@
                 <li class="add-comment" ng-if="question.aggrLikeCount > 0">
                     <a href="#">
                         <i class="rounded-x icon-heart" title="Likes"></i>
-                        <span ng-if="question.aggrLikeCount > 0">{{question.aggrLikeCount}}</span>
+                        <span ng-if="question.aggrLikeCount > 0" style="margin-left:3px;">{{question.aggrLikeCount}}</span>
                         <span class="text">Like</span>
                     </a>
                 </li>

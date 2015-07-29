@@ -68,17 +68,15 @@
             <div style="clear: both"></div>
         </div>
 
-        <div class="articles-story by_story col-md-12" id="{{discuss.id}}">
-            {{discuss.text}}
+        <div class="articles-story  col-md-12" id="{{discuss.id}}" >
+        	<p class="discuss-card-desciption" 
+				data-ng-bind="discuss.text" data-ellipsis data-ellipsis-append="read more">
+			</p>
+            
         </div>
         <div style="clear: both; height:1px;"></div>
 
-        <div class="col-md-12">
-            <a class="divRight by_readmore"><u>Read More</u> <b style="font-size:10px;">&#9002;</b></a>
-
-            <div style="clear: both"></div>
-        </div>
-        <div style="clear: both; height:15px;"></div>
+       
 
 
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
@@ -87,7 +85,7 @@
                     ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'A' || discuss.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span>{{discuss.aggrReplyCount}}</span>
+                        <span style="margin-left:3px;">{{discuss.aggrReplyCount}}</span>
                         <span class="text">Comment</span>
                     </a>
                 </li>
@@ -103,7 +101,7 @@
                     <a href="#">
                         <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
                            style="margin-top:-4px;"></i>
-                        <span>{{discuss.directReplyCount}}</span>
+                        <span style="margin-left:3px;">{{discuss.directReplyCount}}</span>
                         <span class="text">Answer</span>
                     </a>
                 </li>
@@ -120,7 +118,7 @@
                 <li class="add-comment" ng-if="discuss.aggrLikeCount > 0">
                     <a href="#">
                         <i class="rounded-x icon-heart" title="Likes"></i>
-                        <span ng-if="discuss.aggrLikeCount > 0">{{discuss.aggrLikeCount}}</span>
+                        <span ng-if="discuss.aggrLikeCount > 0" style="margin-left:3px;">{{discuss.aggrLikeCount}}</span>
                         <span class="text">Like</span>
                     </a>
                 </li>
@@ -146,7 +144,7 @@
         </div>
         <div style="clear: both"></div>
 
-        <div ng-if="discuss.text && discuss.text.length > 0" on-finish-render="{{discuss.id}}"></div>
+        <!--  <div ng-if="discuss.text && discuss.text.length > 0" on-finish-render="{{discuss.id}}"></div>-->
     </div>
 </div>
 

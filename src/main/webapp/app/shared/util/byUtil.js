@@ -66,9 +66,9 @@ $(window).scroll(function(){
 	
 	/////////////////
 	
-	if($("body").scrollTop() > 252){
+	if($("body").scrollTop() > 214){
 		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
-		$(".by_left_panel_homeSlider_position").css('margin-top', '-252px');
+		$(".by_left_panel_homeSlider_position").css('margin-top', '-214px');
 		
 	}else
 	{

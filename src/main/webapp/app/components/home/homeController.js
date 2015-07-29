@@ -38,7 +38,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 $scope.currentView = "content";
                 $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                DiscussPage.get({discussType: 'A',isFeatured:false,p:0,s:3,sort:"lastModifiedAt"},
+                DiscussPage.get({discussType: 'A',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.articles = value.data.content;
                 		},
@@ -46,7 +46,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         			       	console.log("DiscussPage");
 //        			       	alert("error");
                 		});
-                DiscussPage.get({discussType: 'P',isFeatured:false,p:0,s:3,sort:"lastModifiedAt"},
+                DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.posts = value.data.content;
                 		},
@@ -54,7 +54,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         			       	console.log("DiscussPage");
 //        			       	alert("error");
                 		});
-                DiscussPage.get({discussType: 'Q',isFeatured:false,p:0,s:3,sort:"lastModifiedAt"},
+                DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.questions = value.data.content;
                 		},

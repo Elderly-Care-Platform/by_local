@@ -97,8 +97,7 @@
 
 .by-service-disInl {
 	display: inline-block;
-	min-width: calc(100% - 160px);
-	max-width:100%;
+	max-width: calc(100% - 160px);
 }
 .fa-review-icon:before
 {

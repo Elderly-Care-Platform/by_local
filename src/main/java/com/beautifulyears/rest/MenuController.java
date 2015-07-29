@@ -3,6 +3,7 @@ package com.beautifulyears.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -42,12 +43,24 @@ public class MenuController {
 		return menus;
 	}
 
-	@RequestMapping(method = { RequestMethod.GET }, produces = { "application/json" }, value = { "getMenuById" })
+	@RequestMapping(method = { RequestMethod.GET }, produces = { "application/json" }, value = { "getMenu" })
 	@ResponseBody
-	public Object getMenuById(
-			@RequestParam(value = "id", required = true) String id) {
-		Menu menu = this.mongoTemplate.findById(id, Menu.class);
-		return menu;
+	public Object getMenu(
+			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "parentId", required = false) String parentId) {
+		Query q = new Query();
+		if (null != id) {
+			q.addCriteria(Criteria.where("id").is(new ObjectId(id)));
+		}
+		if (null != parentId) {
+			if("root".equals(parentId.toString())){
+				parentId = null;
+			}
+			q.addCriteria(Criteria.where("parentMenuId").is(parentId));
+		}
+
+		List<Menu> menus = this.mongoTemplate.find(q, Menu.class);
+		return menus;
 	}
 
 }

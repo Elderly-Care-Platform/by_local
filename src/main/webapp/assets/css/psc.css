@@ -1196,13 +1196,6 @@
 			margin-left: 23%;
 		}
 	}
-	@media screen and (max-width: 1210px) {
-		.header .navbar-nav
-		{
-			float: right;
-			margin-right: 5%;
-		}
-	}
 
 	@media screen and (min-width: 1390px) {
 		.col-md-offset-3

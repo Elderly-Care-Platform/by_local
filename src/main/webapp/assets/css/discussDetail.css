@@ -83,6 +83,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left:10px;
+    padding-right:5px;
 }
 .also-by-wrapper .also-by-content:last-child{
     border-width:0px;

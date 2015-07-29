@@ -249,7 +249,6 @@
 	margin-left:auto !important;
 	margin-right:auto !important;
 	text-align:center;
-	margin-top:15px;
 	clear:both; 
 }
 .by_blog_author .news-v3 .post-shares li i {
@@ -339,4 +338,13 @@
 .by-first-letter::first-letter
 {
 	text-transform:uppercase;
+}
+.commentHeightLine img
+{
+	width:auto !important;
+	margin-right:3px;
+}
+.blog-author
+{
+	padding:0px !important;
 }

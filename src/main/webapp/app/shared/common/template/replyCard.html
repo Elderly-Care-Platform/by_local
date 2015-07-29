@@ -2,7 +2,7 @@
        <img src="assets/img/by.png" alt="image" class="replyCardImg" style="margin-left: 12px !important;">
 
 	<div class="article-info dp-inline-block">
-		<ul class="list-inline posted-info" >
+		<ul class="list-inline posted-info" style="margin-top: 14px;">
 			<li ng-if="reply">By <a validate-user-name="{{reply.userName}}" style="font-size: 13.5px;">
 					{{username}} </a> &nbsp; |
 			</li>
@@ -11,7 +11,7 @@
 		<div style="clear: both"></div>
 		<ul class="list-inline posted-info">
 			<li>
-				<p class=" commentHeightLine" style="text-transform: capitalize;"
+				<p class=" commentHeightLine" 
 					ng-bind-html="trustForcefully(reply.text)"></p>
 			</li>
 		</ul>

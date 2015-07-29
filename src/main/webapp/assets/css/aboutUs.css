@@ -3,13 +3,14 @@
 }
 
 .aboutUsOne {
-    background: url('../img/aboutUs/AboutOne.png?versionTimeStamp=%PROJECT_VERSION%');
+    /*background: url('../img/aboutUs/AboutOne.png?versionTimeStamp=%PROJECT_VERSION%');
+     padding: 71px 15px 325px 67px;*/
 
     background-size: 100%;
     background-position: 0px;
 
     background-repeat: no-repeat;
-    padding: 71px 15px 325px 67px;
+    padding: 71px 15px 0px 67px;
     text-align: center;
     margin-bottom: 20px;
     padding-left: 0px !important;
@@ -39,7 +40,7 @@
     font-size: 32px;
     font-weight: 400;
     line-height: 62px;
-    padding-bottom: 118px;
+    padding-bottom: 60px;
 }
 
 .aboutUsTwo {
@@ -430,7 +431,7 @@
 
     .aboutUsOne {
         background-position: 0px 243px;
-        padding: 71px 15px 220px 67px;
+        padding: 71px 15px 0px 67px;
     }
 
     @media screen and (max-width: 990px) {
@@ -441,7 +442,7 @@
 
         .aboutUsOne {
             background-position: 0px 243px;
-            padding: 1px 15px 220px 67px;
+            padding: 1px 15px 0px 67px;
         }
 
         .teamWrapperBelowThumb img {
@@ -540,7 +541,7 @@
         }
 
         .aboutUsOne {
-            padding: 111px 7px 360px 15px;
+            padding: 20px 7px 50px 15px;
         }
 
         .aboutFour {

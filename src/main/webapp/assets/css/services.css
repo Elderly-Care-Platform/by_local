@@ -1,101 +1,148 @@
 .green-bg {
-    background: #007a3c;
+	background: #007a3c;
 }
 
 .white-color {
-    color: #ffffff;
+	color: #ffffff;
 }
 
 .service-card {
-    padding: 0px !important;
-    margin-bottom: 20px !important;
-    font-family: century_gothic !important;
-    overflow: hidden;
-    min-height: 100px ;
-    max-height: 285px !important;
-
-    width: 100%;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #d5d5d5;
-
-    box-shadow: 10px 10px 6px -6px #f3f3f3;
-    -webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
-    background: #fff;
+	padding: 0px !important;
+	margin-bottom: 20px !important;
+	font-family: century_gothic !important;
+	overflow: hidden;
+	min-height: 100px;
+	width: 100%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #d5d5d5;
+	box-shadow: 10px 10px 6px -6px #f3f3f3;
+	-webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
+	background: #fff;
+	border-radius: 2px !important;
 }
 
 .service-card[data-index="discussion-articles"] {
-    cursor: pointer;
+	cursor: pointer;
 }
 
-.service-card .article-heading{
-    font-family: century_gothic !important;
-    overflow-wrap: break-word;
+.service-card .article-heading {
+	font-family: century_gothic !important;
+	overflow-wrap: break-word;
 }
-
 
 .service-card-image {
-    width: 135px !important;
-    max-height: 168px;
-    height: auto;
-    margin-right: 20px;
-    float: none!important;
+	width: 135px !important;
+	max-height: 168px;
+	height: auto;
+	margin-right: 20px;
+	float: none !important;
 }
 
-.service-card-info{
-    font-size: 14px;
-    font-weight: 400;
-    margin-top: 14px;
-    margin-left: 0px;
-    padding-left: 0px;
+.service-card-info {
+	font-size: 14px;
+	font-weight: 400;
+	margin-top: 14px;
+	margin-left: 0px;
+	padding-left: 0px;
+	padding-right:0px;
 }
 
-
-.service-card-desciption{
-    padding-left: 0px;
-    padding-top: 5px;
-    max-height: 100px;
-    overflow: hidden;
-    font-weight: 400;
-    color: #000 !important;
-    font-size: 16px !important;
-    line-height: 26px;
+.service-card-desciption {
+	padding-left: 0px;
+	padding-top: 5px;
+	max-height: 100px;
+	overflow: hidden;
+	font-weight: 400;
+	color: #000 !important;
+	font-size: 16px !important;
+	line-height: 26px;
+	margin-bottom:3px;
 }
 
-.service-card-desciption img{
-    display: none;
+.service-card-desciption img {
+	display: none;
 }
 
-.serviceRating, .serviceReview{
-    float: left;
-    margin-bottom: 0px !important;
+.serviceRating, .serviceReview {
+	float: left;
+	margin-bottom: 0px !important;
 }
 
-.serviceRating i{
-    width: 23px;
-    text-align: center;
-    font-size: 11px;
-    height: 23px;
-    /*background: #007a3c;*/
-    border-radius: 50%;
-    padding: 3px 5px 4px 3px;
-    margin-right: 5px;
-    color: #fff;
-    display: inline-block;
+.serviceRating i {
+	width: 23px;
+	text-align: center;
+	font-size: 11px;
+	height: 23px;
+	/*background: #007a3c;*/
+	border-radius: 50%;
+	padding: 3px 5px 4px 3px;
+	margin-right: 5px;
+	color: #fff;
+	display: inline-block;
 }
 
-.serviceReview i{
-    margin-left: 15px;
-    margin-right: 5px;
+.serviceReview i {
+	margin-left: 15px;
+	margin-right: 5px;
 }
 
+.categoryList li:after {
+	content: '|';
+}
 
-.categoryList li:after
+.categoryList li:last-child:after, .categoryList li:first-child:after {
+	content: '';
+}
+
+.by-service-disInl {
+	display: inline-block;
+	min-width: calc(100% - 160px);
+	max-width:100%;
+}
+.fa-review-icon:before
 {
-    content: ' |';
+	content: url('../img/icons/review.png')
 }
-.categoryList li:last-child:after, .categoryList li:first-child:after
+.padding42
 {
-    content: '';
+	padding:2px !important;
+	margin-left:10px;
+	margin-right:6px;
 }
-
+.by-service-border
+{
+	border-top:1px solid #ccc;
+	padding-top:6px;
+	margin-top:5px;
+}
+.fa-envelope:before
+{
+	content: url('../img/icons/e-mail.png')
+}
+.fa-phone:before
+{
+	content: url('../img/icons/phone.png')
+}
+.fa-globe:before
+{
+	content: url('../img/icons/web.png')
+}
+.fa-address:before
+{
+	content: url('../img/icons/place.png')
+}
+.fa
+{
+	vertical-align:middle;
+}
+.bg-color-grey2
+{
+	background:#ccc;
+}
+@media (max-width: 990px){
+.by-service-padding
+{
+	padding:0px;
+}
+}

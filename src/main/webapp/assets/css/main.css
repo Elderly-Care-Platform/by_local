@@ -99,4 +99,37 @@ body a:hover
     z-index: 200;
 }
 
+.container
+{
+    max-width: 960px !important;
+}
+.article-outer-wrapper
+{
+    padding-left:55px;
+    padding-right:55px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+}
+.by_left_panel_fixed
+{
+    left: calc((100vw - 960px + 20px)/2) !important;
+    width: 225px !important;
+}
+#sidebar-nav
+{
+    width: 225px;
+}
+
+@media (max-width: 990px){
+    .by_left_panel_fixed, #sidebar-nav
+    {
+        width: 100% !important;
+    }
+
+}
+
+.first-letter-uc::first-letter {
+    text-transform: uppercase;
+}
+
 

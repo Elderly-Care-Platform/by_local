@@ -18,7 +18,7 @@
 }
 .mce-btn button
 	{
-		padding: 6px 10px !important;
+		padding: 6px 8px !important;
 	}
 .preloaderImage {
   position: absolute;
@@ -105,7 +105,7 @@
 	width: 50px;
 	height: 20px;
 	line-height: 15px;
-	background: #7fba00;	
+	background: #7fba00;
 	min-width: 50px;
 	color: #fff;
 	border: 1px solid #b1b1b1;
@@ -119,7 +119,7 @@
 	width: 60px;
 	height: 20px;
 	line-height: 15px;
-	background: #f0f0f0;	
+	background: #f0f0f0;
 	min-width: 50px;
 	color: #000;
 	border: 1px solid #b1b1b1;
@@ -273,9 +273,9 @@
 	min-height: 60px;
 	padding-bottom: 6px;
 	color:  #626262;
-	font-size: 29.91px; 
+	font-size: 29.91px;
 	font-weight: 600;
-	line-height: 25.901px; 
+	line-height: 25.901px;
 	text-align: left;
 	text-transform: uppercase;
 }
@@ -287,9 +287,9 @@
 {
 	background:#e0e0e0;
 	padding: 9px 20px 6px 20px;
-	width: 100%;	
+	width: 100%;
 	color:  #000;
-	font-size: 14px; 
+	font-size: 14px;
 	line-height: 22px;
 	margin-bottom: 20px;
 }
@@ -298,9 +298,9 @@
 	background:#e0e0e0;
 	padding: 9px 20px 6px 20px;
 	margin-bottom: 1px;
-	width: 210px; 
+	width: 210px;
 	color:  #000;
-	font-size: 15px; 
+	font-size: 15px;
 	text-align: left;
 }
 .personalStoryMainContentShareBg i
@@ -315,10 +315,10 @@
 }
 .personalStoryMainContentShareBg2
 {
-	
+
 	margin-right: 20px;
 	color:  #000;
-	font-size: 15px; 
+	font-size: 15px;
 	margin-bottom: 10px;
 }
 
@@ -328,7 +328,7 @@
 	width: 29px;
 	text-align: center;
 	height: 29px;
-	
+
 	border-radius: 50%;
 	padding: 10px 4px 4px 4px;
 	margin-right: 10px;
@@ -352,9 +352,9 @@
 	height: auto;
 	margin: 15px 0px 15px 0px;
 }
-.personalStoryGalleryItem 
+.personalStoryGalleryItem
 {
-	
+
 }
 .personalStoryGalleryItemPersonal
 {
@@ -473,9 +473,9 @@
 }
 .subscribeButton
 {
-	background:#00af50; 
-	border: #00af50; 
-	cursor:pointer; 
+	background:#00af50;
+	border: #00af50;
+	cursor:pointer;
 	color:#fff;
 	visibility: hidden;
 }
@@ -485,8 +485,8 @@
 }
 .subscribeButton:hover
 {
-	background:#5fb611; 
-	border: #5fb611; 
+	background:#5fb611;
+	border: #5fb611;
 }
 .underline
 {
@@ -621,7 +621,7 @@
 .headerHeightNoBreadCrumb{
 	height:102px;
 }
-.header .topbar 
+.header .topbar
 {
 	padding-top: 10px;
 }
@@ -793,7 +793,7 @@
 }
 .bg-success-psc
 {
-	background: #a4a4a4; 
+	background: #a4a4a4;
 }
 .whiteBg
 {
@@ -882,7 +882,7 @@
 	font-size: 15px;
 }
 .btn-u-bg-ornage
-{	
+{
 	background: #00af50;
 }
 .info-blocks .info-blocks-in  h3
@@ -976,10 +976,10 @@
 {
 	margin-top: -2px;
 }
-.article-outer-wrapper
-{
-	margin-top: 19px;
-}
+/*.article-outer-wrapper*/
+/*{*/
+	/*margin-top: 19px;*/
+/*}*/
 /*.no-padding input
 {
 	border-width: 1px;
@@ -1067,10 +1067,10 @@
 			color: #000;
 			border-color:#ccc;
 		}
-		.article-outer-wrapper
-		{
-			padding-left: 15px;
-		}
+		/*.article-outer-wrapper*/
+		/*{*/
+			/*padding-left: 15px;*/
+		/*}*/
 		.comment-wrapper
 		{
 			margin-left: -15px;
@@ -1104,7 +1104,7 @@
 		{
 			height: 20px;
 		}
-		
+
 		.header .navbar-nav > li > a
 		{
 			color: #000;
@@ -1181,7 +1181,7 @@
 	{
 		padding-left: 34px;
 	}
-	
+
 	.paddingTop0
 	{
 		padding-top: 0px;
@@ -1343,15 +1343,15 @@
 	.header{
 		position: relative;
 	}
-	.article-outer-wrapper, .left-container
-	{
-		margin-left: 0px !important;
-		width: 100% !important;
-		padding-right: 15px !important;
-		padding-left: 15px !important;
-		border-right-width: 0px !important;
-		z-index: 0;
-	}
+	/*.article-outer-wrapper, .left-container*/
+	/*{*/
+		/*margin-left: 0px !important;*/
+		/*width: 100% !important;*/
+		/*padding-right: 15px !important;*/
+		/*padding-left: 15px !important;*/
+		/*border-right-width: 0px !important;*/
+		/*z-index: 0;*/
+	/*}*/
 	.header .topbar ul.loginbar
 	{
 		padding: 0px;
@@ -1405,7 +1405,7 @@
 	{
 		line-height: 27px;
 	}
-	.margin-top-58 
+	.margin-top-58
 	{
 		margin-top: 20px;
 	}
@@ -1426,19 +1426,19 @@
 	.mceEditor table.mceLayout {
 		width:100% !important;
 		height:auto !important;
-	} 
+	}
 
 	table.mceToolbar { float:left; }
 	body .mceToolbar div {
 		white-space:normal;
 	}
 
-	
+
 	.ask-question-textarea, .share-tip-textarea, .submit-article-textarea, .give-feedback-textarea, .send-message-textarea
 	{
 		position: absolute !important;
 	}
-	.submit-article-textarea 
+	.submit-article-textarea
 	{
 		height: auto !important;
 	}
@@ -1499,7 +1499,7 @@
 		width: auto !important;
 		border-radius: 30px !important;
 	}
-	.first-register-page .signup-info 
+	.first-register-page .signup-info
 	{
 		margin-left: -30px;
 	}
@@ -1522,7 +1522,7 @@
 		width: 100%;
 		margin-bottom: 3px;
 	}
-	
+
 }
 @media screen and (max-width: 610px){
 	.tminputWrapper

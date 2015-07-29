@@ -1,136 +1,139 @@
-.profileContainer{
- margin-top: 20px;
+.profileContainer {
+	margin-top: 20px;
 }
 
-.profileMainContent{
-  font-size: 15px;
-  overflow-wrap: break-word;
-}
-.profileContentTitle{
-  width: 100%;
-  min-height: 36px;
-  padding-bottom: 6px;
-  color: #000000;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 25px;
-  text-align: left;
-  text-transform: uppercase;
-  word-wrap: break-word;
+.profileMainContent {
+	font-size: 15px;
+	overflow-wrap: break-word;
 }
 
-.profileRating, .profileReview{
-  float: left;
-  margin-bottom: 0px !important;
+.profileContentTitle {
+	width: 100%;
+	min-height: 36px;
+	padding-bottom: 6px;
+	color: #000000;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 25px;
+	text-align: left;
+	text-transform: uppercase;
+	word-wrap: break-word;
 }
 
-.profileRating i{
-  width: 32px;
-  text-align: center;
-  height: 32px;
-  border-radius: 50%;
-  padding: 3px 7px 4px 3px;
-  margin-right: 10px;
-  color: #fff;
-  display: inline-block;
+.profileRating, .profileReview {
+	float: left;
+	margin-bottom: 0px !important;
 }
 
-
-.profileAddress{
-  margin-top: 5px;
+.profileRating i {
+	width: 23px;
+    text-align: center;
+    height: 23px;
+    border-radius: 50%;
+    padding: 2px 2px 4px 1px;
+    margin-right: 10px;
+    color: #fff;
+    display: inline-block;
+    font-size: 11px;
+    font-style:none;
+    font-style:inherit;
 }
 
-.profile-home-visit input{
-  margin-top: 5px;
-  vertical-align: middle;
-}
-.profile-home-visit span{
-  vertical-align: middle;
+.profileAddress {
+	margin-top: 5px;
 }
 
-.reviewRateForm{
-  font-size: 15px;
-  overflow-wrap: break-word;
+.profile-home-visit input {
+	margin-top: 5px;
+	vertical-align: middle;
+}
+
+.profile-home-visit span {
+	vertical-align: middle;
+}
+
+.reviewRateForm {
+	font-size: 15px;
+	overflow-wrap: break-word;
 }
 
 .profileRateValues {
-  width: 35px;
-  height: 35px;
-  padding: 8px 0px 0px 0px;
-  text-align: center;
-  line-height: 20px;
-  border-radius: 50% !important;
-  background: #ccc;
-  float: left;
-  cursor: pointer;
-  opacity: 0.5;
+	width: 35px;
+	height: 35px;
+	padding: 8px 0px 0px 0px;
+	text-align: center;
+	line-height: 20px;
+	border-radius: 50% !important;
+	background: #ccc;
+	float: left;
+	cursor: pointer;
+	opacity: 0.5;
 }
 
-
-.profileRateValues:hover{
-  opacity: 1;
+.profileRateValues:hover {
+	opacity: 1;
 }
 
-.profileSelected{
-  opacity: 1 !important;
-  -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
-  -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px;
-  box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+.profileSelected {
+	opacity: 1 !important;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 10px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
+	box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
 }
 
-
-.profileRate1{
-  background: #F51B09;
+.profileRate1 {
+	background: #F51B09;
 }
 
-
-
-.profileRate2{
-  background: #F59809;
+.profileRate2 {
+	background: #F59809;
 }
 
-.profileRate3{
-  background: #F5D709;
+.profileRate3 {
+	background: #F5D709;
 }
 
-.profileRate4{
-  background: #B7E01F;
+.profileRate4 {
+	background: #B7E01F;
 }
 
-.profileRate5{
-  background: #1FE021;
+.profileRate5 {
+	background: #1FE021;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
-  -webkit-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0;
+	/* <-- Apparently some margin are still there even though it's hidden */
 }
 
 .icon_reviewRate:before {
-  content: url("../img/icons/ask_share_submit/rateReview.png?versionTimeStamp=%PROJECT_VERSION%");
+	content:
+		url("../img/icons/ask_share_submit/rateReview.png?versionTimeStamp=%PROJECT_VERSION%");
 }
 
 .by_leftPanel_icons:hover .icon_reviewRate {
-  content: url("../img/icons/ask_share_submit/rateReview_mo.png?versionTimeStamp=%PROJECT_VERSION%");
+	content:
+		url("../img/icons/ask_share_submit/rateReview_mo.png?versionTimeStamp=%PROJECT_VERSION%");
 }
-
 
 .review-rate-header {
-  overflow-wrap: break-word;
-  font-size: 18px;
+	overflow-wrap: break-word;
+	font-size: 18px;
 }
 
-.reviewCardRating i{
-  width: 23px;
-  text-align: center;
-  font-size: 11px;
-  height: 23px;
-  border-radius: 50%;
-  padding: 7px 3px 4px 0px;
-  margin-right: 5px;
-  color: #fff;
-  display: inline-block;
-  vertical-align: middle;
+.reviewCardRating i {
+	width: 23px;
+	text-align: center;
+	font-size: 11px;
+	height: 23px;
+	border-radius: 50%;
+	padding: 1px 1px 4px 1px;
+	margin-right: 5px;
+	color: #fff;
+	display: inline-block;
+	vertical-align: middle;
+	font-style:inherit;
+	text-align:center;
 }

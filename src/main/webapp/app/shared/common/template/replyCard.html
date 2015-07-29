@@ -1,61 +1,80 @@
-<div class="blog-author margin-bottom-35 main-article replyCard">
-    <img src="assets/img/by.jpg" alt="image" class="replyCardImg">
+<div class="blog-author margin-bottom-35 main-article by_blog_author replyCard by-commment-bg-gray" style="background:#F9F9F9; border:0px solid #ccc border-top-width:0px !important; margin-bottom: 20px !important; border-radius:0px !important; " >
+       <img src="assets/img/by.png" alt="image" class="replyCardImg" style="margin-left: 12px !important;">
 
-    <div class="article-info dp-inline-block">
-        <ul class="list-inline posted-info">
-            <li ng-if="reply"> By <a validate-user-name="{{reply.userName}}"> {{username}} </a> &nbsp; |  </li>
-            <li time-since="{{reply.createdAt}}"></li>
-        </ul>
-    </div>
+	<div class="article-info dp-inline-block">
+		<ul class="list-inline posted-info" >
+			<li ng-if="reply">By <a validate-user-name="{{reply.userName}}" style="font-size: 13.5px;">
+					{{username}} </a> &nbsp; |
+			</li>
+			<li time-since="{{reply.createdAt}}" style="font-size: 13.5px;"></li>
+		</ul>
+		<div style="clear: both"></div>
+		<ul class="list-inline posted-info">
+			<li>
+				<p class=" commentHeightLine" style="text-transform: capitalize;"
+					ng-bind-html="trustForcefully(reply.text)"></p>
+			</li>
+		</ul>
+		<div style="clear: both"></div>
+	</div>
+	<div style="clear: both"></div>
 
-    <div class="articles-story" ng-bind-html="trustForcefully(reply.text)"></div>
-    <div class="article-share-links news-v3">
-        <ul class="post-shares post-shares-lg">
-            <li class="add-comment">
-                <a ng-click="createNewComment(reply.id)">
-                    <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span ng-if="reply.childrenCount > 0">{{reply.childrenCount}}</span>
-                </a>
 
-                <div class="post-text post_text-comment"
-                     ng-click="createNewComment(reply.id)"><a>Comment</a>
-                </div>
-            </li>
-            <li ng-controller="DiscussLikeController">
-                <a ng-click="likeComment(reply.id, reply.replyType)">
-                    <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span ng-if="beforePost && reply.likeCount > 0">{{reply.likeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
-                </a>
+	<div class="article-share-links news-v3">
+		<ul class="post-shares post-shares-lg">
+			<li class="add-comment"><a ng-click="createNewComment(reply.id)">
+					<i class="rounded-x icon-speech ng-scope" title="Comment"></i> <span
+					ng-if="reply.childrenCount > 0">{{reply.childrenCount}}</span>
+			</a>
 
-                <div class="post-text">
-                    <a ng-click="likeComment(reply.id, reply.replyType)">
-                        Like
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div style="clear: both"></div>
-    <div class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
+				<div class="post-text post_text-comment"
+					ng-click="createNewComment(reply.id)">
+					<span class="text">Comment</span>
+				</div></li>
+			<li class="add-comment" ng-controller="DiscussLikeController"><a
+				ng-click="likeComment(reply.id, reply.replyType)"> <i
+					class="rounded-x icon-heart" title="Likes"></i> <span
+					ng-if="beforePost && reply.likeCount > 0">{{reply.likeCount}}</span>
+					<span ng-model="aggrLikeCount"
+					ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
+			</a>
 
-        <textarea rows="3" id={{reply.id}}></textarea>
+				<div class="post-text">
+					<span class="text"
+						ng-click="likeComment(reply.id, reply.replyType)">Like</span>
+				</div></li>
+		</ul>
+	</div>
+	<div style="clear: both"></div>
+	<div
+		class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap by-commment-bg-gray"
+		id="commentEditor" ng-show="showEditor">
+		<img src="assets/img/by.png" alt="image"
+			style="width: 43px !important; float: left;">
+		<div style="width: calc(100% - 64px) !important; float: left;">
+			<textarea rows="3" id={{reply.id}}></textarea>
 
-        <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn" type="submit" disabled
-                ng-click="postComment(reply.discussId, reply.id)">SUBMIT
-        </button>
-        <span/>
-        <button class="inner-comment-submit btn btn-sm btn-success by_btn_cancel"
-                ng-click="disposeComment(reply.id)">CANCEL
-        </button>
-        <div style="clear: both"></div>
-    </div>
+			<button
+				class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn "
+				type="submit" disabled
+				ng-click="postComment(reply.discussId, reply.id)">SUBMIT</button>
+			<span />
+			<button
+				class="inner-comment-submit btn btn-sm btn-success by_btn_cancel "
+				ng-click="disposeComment(reply.id)">CANCEL</button>
+		</div>
+		<div style="clear: both"></div>
+	</div>
 
-    <div ng-if="reply.replies && reply.replies.length > 0" class="noTopBorder">
-        <hr/>
-        <div  ng-repeat="reply in reply.replies" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
-    </div>
-</div>
+	<div ng-if="reply.replies && reply.replies.length > 0"
+		class="noTopBorder">
+		<div class="insideComments" ng-repeat="reply in reply.replies"
+			ng-controller="DiscussReplyController"
+			ng-include="'app/shared/common/template/replyCard.html'"  ></div>
+	</div>
+        
+        
+      </div> 
 
 
 

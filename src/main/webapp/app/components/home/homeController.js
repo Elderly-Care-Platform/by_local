@@ -109,7 +109,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 } else {
                     $location.path('/discuss/All/' + $rootScope.discussCategoryListMap[id].name + '/all');
                 }
-            } else if (type = "accordian") {
+            } else if (type === "accordian") {
                 $($event.target).find('a').click();
             } else if(type === "comment") {
                 $location.path('/discuss/' + id).search({comment: true});

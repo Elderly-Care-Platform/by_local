@@ -70,7 +70,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 
 		FB.init({
 
-			appId: '1503191563249716',
+			appId: '515424301943282',
 			xfbml: true,
 			version    : 'v2.3'
 		});

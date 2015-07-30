@@ -15,7 +15,7 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
 
                 FB.ui({
                     method: 'feed',
-                    link: "www.beautifulyears.com",
+                    link: window.location.href,
                     picture: picture,
                     caption: "Beautiful Years",
                     description: description,

@@ -2,13 +2,15 @@
  * Created by sanjukta on 02-07-2015.
  */
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce',
-    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce) {
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window',
+    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window) {
+		
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";
         $scope.editor.articlePhotoFilename = "";
         $scope.currentAcceleratorSelected = "";
+      
         $scope.$watch("articles", function (value) {
             $timeout(
                 function () {
@@ -16,10 +18,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 }, 100);
         });
 
-        $scope.homeViews = {};
-        
-        
-
+        $scope.homeViews = {};  
 
         $scope.add = function (type) {
             //BY.removeEditor();
@@ -40,7 +39,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 $scope.currentView = "content";
                 $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                DiscussPage.get({discussType: 'A',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
+                DiscussPage.get({discussType: 'A',isFeatured:false,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.articles = value.data.content;
                 		},
@@ -48,7 +47,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         			       	console.log("DiscussPage");
 //        			       	alert("error");
                 		});
-                DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
+                DiscussPage.get({discussType: 'P',isFeatured:false,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.posts = value.data.content;
                 		},
@@ -56,7 +55,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         			       	console.log("DiscussPage");
 //        			       	alert("error");
                 		});
-                DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
+                DiscussPage.get({discussType: 'Q',isFeatured:false,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.questions = value.data.content;
                 		},
@@ -64,6 +63,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         			       	console.log("DiscussPage");
 //        			       	alert("error");
                 		});
+
+             
             } else {
                 $scope.scrollToId(scrollTo);
             }
@@ -127,6 +128,17 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
             $('.by_story').dotdotdot();
         });
+        
+        angular.element($window).bind("scroll", function() {
+        	$scope.sliderHeight = $(".homeSlider").height();
+        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+        	}else{
+        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        	}
+        })
 
     }]);
 

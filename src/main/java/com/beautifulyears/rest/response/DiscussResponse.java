@@ -24,8 +24,6 @@ public class DiscussResponse implements IResponse {
 		private List<DiscussEntity> content = new ArrayList<DiscussEntity>();
 		private boolean lastPage;
 		private int number;
-		
-		
 
 		public DiscussPage() {
 			super();
@@ -79,6 +77,7 @@ public class DiscussResponse implements IResponse {
 		private List<String> topicId;
 		private boolean isLikedByUser = false;
 		private int aggrLikeCount = 0;
+		private long shareCount = 0;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -93,9 +92,18 @@ public class DiscussResponse implements IResponse {
 			this.setCreatedAt(discuss.getCreatedAt());
 			this.setTopicId(discuss.getTopicId());
 			this.setAggrLikeCount(discuss.getLikedBy().size());
+			this.setShareCount(discuss.getShareCount());
 			if (null != user && discuss.getLikedBy().contains(user.getId())) {
 				this.setLikedByUser(true);
 			}
+		}
+
+		public long getShareCount() {
+			return shareCount;
+		}
+
+		public void setShareCount(long shareCount) {
+			this.shareCount = shareCount;
 		}
 
 		public int getDirectReplyCount() {
@@ -224,8 +232,8 @@ public class DiscussResponse implements IResponse {
 	public void add(Discuss discuss, User user) {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
-	
-	public static DiscussPage getPage(Page<Discuss> page){
+
+	public static DiscussPage getPage(Page<Discuss> page) {
 		DiscussPage res = new DiscussPage(page);
 		return res;
 	}

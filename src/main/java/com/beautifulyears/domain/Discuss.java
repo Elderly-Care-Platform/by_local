@@ -49,8 +49,18 @@ public class Discuss {
 
 	private boolean isFeatured;
 
+	private long shareCount = 0;
+
 	public Discuss() {
 
+	}
+
+	public long getShareCount() {
+		return shareCount;
+	}
+
+	public void setShareCount(long shareCount) {
+		this.shareCount = shareCount;
 	}
 
 	public int getDirectReplyCount() {
@@ -111,7 +121,8 @@ public class Discuss {
 
 	public Discuss(String userId, String username, String discussType,
 			List<String> topicId, String title, String text, int status,
-			int aggrReplyCount,List<String> systemTags,List<String> userTags, Map<String, String> articlePhotoFilename, Boolean isFeatured) {
+			int aggrReplyCount, List<String> systemTags,Long sharedCount, List<String> userTags,
+			Map<String, String> articlePhotoFilename, Boolean isFeatured) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -124,6 +135,7 @@ public class Discuss {
 		this.articlePhotoFilename = articlePhotoFilename;
 		this.isFeatured = isFeatured;
 		this.systemTags = systemTags;
+		this.shareCount = sharedCount;
 		this.userTags = userTags;
 	}
 

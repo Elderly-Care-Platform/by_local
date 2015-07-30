@@ -164,6 +164,17 @@ public class DiscussController {
 		return BYGenericResponseHandler.getResponse(DiscussResponse
 				.getPage(page));
 	}
+	
+	@RequestMapping(consumes = { "application/json" }, value="addShare")
+	@ResponseBody
+	public Object submitShare(@RequestBody  Discuss discuss){
+		Discuss sharedDiscuss = this.discussRepository.findOne(discuss.getId());
+		if(null != sharedDiscuss){
+			sharedDiscuss.setShareCount(sharedDiscuss.getShareCount() + 1);
+			this.discussRepository.save(sharedDiscuss);
+		}
+		return sharedDiscuss;
+	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/count" }, produces = { "application/json" })
 	@ResponseBody
@@ -222,7 +233,7 @@ public class DiscussController {
 			int aggrReplyCount = 0;
 			newDiscuss = new Discuss(discuss.getUserId(),
 					discuss.getUsername(), discussType, topicId, title, text,
-					discussStatus, aggrReplyCount, systemTags,
+					discussStatus, aggrReplyCount, systemTags,discuss.getShareCount(),
 					discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
 							.getArticlePhotoFilename() : null, false);

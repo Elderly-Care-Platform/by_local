@@ -17,6 +17,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         });
 
         $scope.homeViews = {};
+        
+        
 
 
         $scope.add = function (type) {

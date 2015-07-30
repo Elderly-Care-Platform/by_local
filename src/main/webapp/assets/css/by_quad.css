@@ -26,6 +26,35 @@
 	text-align:center;
 	float:none;
 }
+.discuss-card-desciption {
+	padding-left: 0px;
+	padding-top: 5px;
+	max-height: 150px;
+	overflow: hidden;
+	font-weight: 400;
+	color: #000 !important;
+	font-size: 16px !important;
+	line-height: 26px;
+	margin-bottom:3px;
+}
+
+.discuss-card-desciption  span
+{
+	float:right;
+	display:block;
+	margin-top:20px;
+	color:#00A24A;
+	text-transform:capitalize;
+	font-size:14px;
+}
+.discuss-card-desciption  span:hover
+{
+	text-decoration:underline;
+}
+.discuss-card-desciption  span:after
+{
+	content: '\00BB';
+}
 .imgNone
 {
 	display:none;
@@ -48,13 +77,13 @@
 .news-v3 .post-shares li span
 {
 	position:static;
-	font-size:13px;
+	font-size:14px;
 	padding:1px;
 	display:inline-block;
 	float:left;
 	width:auto;
 	height:auto;
-	margin-left:3px;
+	margin-left:7px;
 	border-radius: 2px !important;
 }
 .also-by-head
@@ -324,8 +353,7 @@
 }
 .also-by-content
 {
-	border:1px solid #ccc !important;
-	margin:10px;
+	margin:10px 10px 0px 10px;
 	padding-bottom:0px !important;
 }
 .insideComments .blog-author

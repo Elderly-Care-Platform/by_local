@@ -18,15 +18,15 @@
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
-                    <p class="article-first-letter" ng-if="post.discussType == 'A'">
+                    <p  ng-if="post.discussType == 'A'">
                         By <a validate-user-name="{{post.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
-                    <p class="article-first-letter" ng-if="post.discussType == 'Q'">
+                    <p  ng-if="post.discussType == 'Q'">
                         By <a validate-user-name="{{post.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
-                    <p class="article-first-letter" ng-if="post.discussType == 'P'">
+                    <p ng-if="post.discussType == 'P'">
                         By <a validate-user-name="{{post.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
@@ -48,21 +48,22 @@
               
         </div>
 
-        <div class="article" ng-if="post.discussType == 'A'">
-            <div class="article-heading"><p style="text-transform: capitalize">{{post.title}}</p>
+     
+          <div class="article  col-md-12" ng-if="post.discussType == 'A'">
+            <div class="article-heading"><p style="text-transform: uppercase;    font-weight: 500;">
+                {{post.title}}</p>
             </div>
         </div>
-
-        <div class="articles-story by_story" id="{{post.id}}">
-            {{post.text}}
+        
+        <div class="articles-story  col-md-12" id="{{discuss.id}}" >
+        	<p class="discuss-card-desciption" 
+				data-ng-bind="post.text" data-ellipsis data-ellipsis-append="read more">
+			</p>
+            
         </div>
+
+      
         <div style="clear: both"></div>
-        <div class="col-md-12">
-            <a class="divRight by_readmore"><u>Read More</u> <b style="font-size:10px;">&#9002;</b></a>
-
-            <div style="clear: both"></div>
-        </div>
-        <div style="clear: both; height:15px;"></div>
 
 
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
@@ -71,7 +72,7 @@
                     ng-if="post.aggrReplyCount > 0 && (post.discussType == 'A' || post.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span>{{post.aggrReplyCount}}</span>
+                        <span style="margin-left:3px;">{{post.aggrReplyCount}}</span>
                         <span class="text">Comment</span>
                     </a>
                 </li>
@@ -80,14 +81,14 @@
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                         <span class="textColor"
-                              ng-click="go($event,'comment', post.id)">Be the first  to comment</span>
+                              ng-click="go($event,'comment', discuss.id)">Be the first  to comment</span>
                     </a>
                 </li>
                 <li class="add-comment" ng-if="post.directReplyCount > 0 && post.discussType == 'Q'">
                     <a href="#">
                         <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
                            style="margin-top:-4px;"></i>
-                        <span>{{post.directReplyCount}}</span>
+                        <span style="margin-left:3px;">{{post.directReplyCount}}</span>
                         <span class="text">Answer</span>
                     </a>
                 </li>
@@ -97,14 +98,14 @@
                         <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
                            style="margin-top:-4px;"></i>
                         <span class="textColor2"
-                              ng-click="go($event,'comment', post.id)">Be the first  to answer</span>
+                              ng-click="go($event,'comment', discuss.id)">Be the first  to answer</span>
                     </a>
                 </li>
 
                 <li class="add-comment" ng-if="post.aggrLikeCount > 0">
                     <a href="#">
                         <i class="rounded-x icon-heart" title="Likes"></i>
-                        <span ng-if="post.aggrLikeCount > 0">{{post.aggrLikeCount}}</span>
+                        <span ng-if="post.aggrLikeCount > 0" style="margin-left:3px;">{{post.aggrLikeCount}}</span>
                         <span class="text">Like</span>
                     </a>
                 </li>
@@ -116,16 +117,16 @@
                     </a>
                 </li>
 
-                <li class="add-comment" ng-if="post.discussType == 'A'">
-                    <a href="#">
-                        <i class="rounded-x icon-share"></i>
-
-                        <span>0</span>
-
-                        <div class="post-text post_text-comment"><span class="text">Share</span>
-                        </div>
-                    </a>
-                </li>
+                <li ng-if="post.discussType == 'A'"
+						ng-controller="ShareController"><a
+						ng-click="shareComment(post, $event)"> <i
+							class="rounded-x icon-share"></i>
+					</a>
+	
+					<div class="post-text post_text-comment">
+						<a ng-click="shareComment(post, $event)"><span class="text">Share</span></a>
+					</div>
+				</li>
             </ul>
         </div>
         <div style="clear: both"></div>

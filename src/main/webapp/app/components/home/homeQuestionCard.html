@@ -59,7 +59,7 @@
             </div>
         </div>
         
-        <div class="articles-story  col-md-12" id="{{discuss.id}}" >
+        <div class="articles-story  col-md-12" id="{{question.id}}" >
         	<p class="discuss-card-desciption" 
 				data-ng-bind="question.text" data-ellipsis data-ellipsis-append="read more">
 			</p>
@@ -81,7 +81,7 @@
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                         <span class="textColor"
-                              ng-click="go($event,'comment', discuss.id)">Be the first  to comment</span>
+                              ng-click="go($event,'comment', question.id)">Be the first  to comment</span>
                     </a>
                 </li>
                 <li class="add-comment" ng-if="question.directReplyCount > 0 && question.discussType == 'Q'">
@@ -98,7 +98,7 @@
                         <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
                            style="margin-top:-4px;"></i>
                         <span class="textColor2"
-                              ng-click="go($event,'comment', discuss.id)">Be the first  to answer</span>
+                              ng-click="go($event,'comment', question.id)">Be the first  to answer</span>
                     </a>
                 </li>
 
@@ -117,7 +117,7 @@
                     </a>
                 </li>
 
-                <li ng-if="question.discussType == 'A'"
+                <li class="add-comment" ng-if="question.discussType == 'A'"
 						ng-controller="ShareController"><a
 						ng-click="shareComment(question, $event)"> <i
 							class="rounded-x icon-share"></i>
@@ -130,7 +130,7 @@
             </ul>
         </div>
         <div style="clear: both"></div>
-        <div ng-if="question.text && question.text.length > 0" on-finish-render="{{question.id}}"></div>
+        
     </div>
 </div>
 

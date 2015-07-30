@@ -2,7 +2,7 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
     function ($scope, $rootScope, $location, ValidateUserCredential,ShareDiscuss) {
         $scope.shareComment = function(sharedObj, $event){
         	$event.stopPropagation();
-            if(sharedObj){
+            if(FB && sharedObj){
                 var caption = sharedObj.title ? sharedObj.title: "BeautifulYears",
                     picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "",
                     description = sharedObj.text ? $(sharedObj.text).text() : "";

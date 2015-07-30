@@ -72,6 +72,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                     $scope.$parent.showProfile();
                 }, function(errorResponse){
                     console.log(errorResponse);
+                    $(".by_btn_submit").prop("disabled", false);
                     if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                         ValidateUserCredential.login();
                     } else if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3001){

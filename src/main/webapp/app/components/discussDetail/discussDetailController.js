@@ -101,6 +101,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                 },
                 function (errorResponse) {
                     console.log(errorResponse);
+                    $(".by_btn_submit").prop("disabled", false);
                     if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                         ValidateUserCredential.login();
                     }
@@ -122,6 +123,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                     },
                     function (errorResponse) {
                         console.log(errorResponse);
+                        $(".by_btn_submit").prop("disabled", false);
                         if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                             ValidateUserCredential.login();
                         }
@@ -133,6 +135,7 @@ byControllers.controller('DiscussReplyController', ['$scope', '$rootScope', '$ro
                     },
                     function (errorResponse) {
                         console.log(errorResponse);
+                        $(".by_btn_submit").prop("disabled", false);
                         if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                             ValidateUserCredential.login();
                         }

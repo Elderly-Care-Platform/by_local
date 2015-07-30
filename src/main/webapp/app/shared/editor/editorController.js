@@ -71,6 +71,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             },
             function (errorResponse) {
                 console.log(errorResponse);
+                $(".by_btn_submit").prop("disabled", false);
                 if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                     ValidateUserCredential.login();
                 }

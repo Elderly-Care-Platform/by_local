@@ -173,7 +173,7 @@ public class DiscussController {
 			sharedDiscuss.setShareCount(sharedDiscuss.getShareCount() + 1);
 			this.discussRepository.save(sharedDiscuss);
 		}
-		return sharedDiscuss;
+		return BYGenericResponseHandler.getResponse(sharedDiscuss);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/count" }, produces = { "application/json" })

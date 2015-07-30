@@ -219,3 +219,9 @@ var reviewRateProfile = byServices.factory('ReviewRateProfile', function($resour
         post:{method: 'POST', params: {associatedId:"@associatedId",reviewContentType:"@reviewContentType"}}
     })
 });
+
+var shareDiscuss = byServices.factory('ShareDiscuss', function($resource) {
+    return $resource(apiPrefix +'api/v1/discuss/addShare',{}, {
+        post:{method: 'POST'}
+    })
+});

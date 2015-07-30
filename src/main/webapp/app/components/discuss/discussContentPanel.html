@@ -137,6 +137,7 @@
 						ng-controller="ShareController"><a
 						ng-click="shareComment(discuss, $event)"> <i
 							class="rounded-x icon-share"></i>
+					<span ng-if="discuss.shareCount > 0" style="margin-left:3px;">{{discuss.shareCount}}</span>
 					</a>
 	
 					<div class="post-text post_text-comment">

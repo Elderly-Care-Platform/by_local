@@ -75,9 +75,10 @@
             <li ng-if="detailResponse.discuss.discussType == 'A'" ng-controller="ShareController">
                <a ng-click="shareComment(detailResponse.discuss, $event)">
                    <i class="rounded-x icon-share"></i>
+                   <span ng-if="detailResponse.discuss.shareCount > 0" style="margin-left:3px;">{{detailResponse.discuss.shareCount}}</span>
                </a>
 
-               <div class="post-text post_text-comment"><a  ng-click="shareComment(detailResponse.discuss, $event)"><span class="text">Share</span></a>
+               <div class="post-text post_text-comment"><span ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</span>
                </div>
            </li>
 

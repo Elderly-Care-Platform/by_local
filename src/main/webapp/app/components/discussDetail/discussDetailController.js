@@ -53,6 +53,10 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
                 $scope.detailResponse = broadCastData.newData;
             }
         });
+        
+        $scope.updateShareCount = function(count){
+        	$scope.detailResponse.discuss.shareCount = count;
+        }
     }]);
 
 

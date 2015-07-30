@@ -1,6 +1,5 @@
-byControllers.controller('ShareController', ['$scope', '$rootScope', '$location','ValidateUserCredential',
-    function ($scope, $rootScope, $location, ValidateUserCredential) {
-        $scope.shareNumber = 0;
+byControllers.controller('ShareController', ['$scope', '$rootScope', '$location','ValidateUserCredential','ShareDiscuss',
+    function ($scope, $rootScope, $location, ValidateUserCredential,ShareDiscuss) {
         $scope.shareComment = function(sharedObj, $event){
         	$event.stopPropagation();
             if(sharedObj){
@@ -16,7 +15,7 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
 
                 FB.ui({
                     method: 'feed',
-                    link: window.location.href,
+                    link: "www.beautifulyears.com",
                     picture: picture,
                     caption: "Beautiful Years",
                     description: description,
@@ -24,8 +23,13 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
                 }, function(response){
                     console.log(response);
                     if (response && response.post_id) {
-                        $scope.shareNumber++;
-                        console.log('Post was published.');
+                        var shareDiscuss = new ShareDiscuss();
+                        shareDiscuss.id = sharedObj.id;
+                        shareDiscuss.$post({},function(res){
+                        	$scope.$parent.updateShareCount(res.data.shareCount);
+                        },function(err){
+                        	console.log("alert posting the share count");
+                        });
                     } else {
                         console.log('Post was not published.');
                     }

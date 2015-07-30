@@ -16,7 +16,7 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
 
                 FB.ui({
                     method: 'feed',
-                    link: window.location.href,
+                    link: window.location.origin + "/#/discuss/"+sharedObj.id,
                     picture: picture,
                     caption: "Beautiful Years",
                     description: description,

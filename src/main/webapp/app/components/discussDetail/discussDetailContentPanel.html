@@ -34,7 +34,7 @@
         </div>
         
         <div class="by-quad-image col-md-12" >
-             <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleimage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
+             <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
             <div style="clear: both"></div>
         </div>
 
@@ -71,15 +71,15 @@
                 </div>
             </li>
 
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A'">
-                <a href="#">
-                    <i class="rounded-x icon-share" ></i>
-               
-                <span>0</span>
+           
+            <li ng-if="detailResponse.discuss.discussType == 'A'" ng-controller="ShareController">
+               <a ng-click="shareComment(detailResponse.discuss, $event)">
+                   <i class="rounded-x icon-share"></i>
+               </a>
 
-                <div class="post-text post_text-comment"><span class="text">Share</span>
-                </div> </a>
-            </li>
+               <div class="post-text post_text-comment"><a  ng-click="shareComment(detailResponse.discuss, $event)"><span class="text">Share</span></a>
+               </div>
+           </li>
 
             <li class="add-comment" ng-controller="DiscussLikeController">
                 <a ng-click="likeDiscuss(detailResponse.discuss.id)">

@@ -91,8 +91,12 @@ $(document).ready(function() {
 	var windowWIdth2 = $(window).width();
 	var searchright = (windowWIdth2 - containerWidth)/2;
 	$(".searchWrapper").css('right', searchright+"px");
+	
+	
 
 });
+
+
 
 BY.byUtil.updateMetaTags = function(param){
 	 var title = param.title,

@@ -1,7 +1,8 @@
 byControllers.controller('ShareController', ['$scope', '$rootScope', '$location','ValidateUserCredential',
     function ($scope, $rootScope, $location, ValidateUserCredential) {
         $scope.shareNumber = 0;
-        $scope.shareComment = function(sharedObj){
+        $scope.shareComment = function(sharedObj, $event){
+        	$event.stopPropagation();
             if(sharedObj){
                 var caption = sharedObj.title ? sharedObj.title: "BeautifulYears",
                     picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "",

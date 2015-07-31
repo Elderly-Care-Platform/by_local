@@ -1,6 +1,6 @@
 .byEditor {
     border: 1px solid #ccc;
-      margin-bottom: 70px;
+      margin-bottom: 45px;
 }
 
 .by_editor_ParentCategories{
@@ -72,7 +72,7 @@ a.accordion-toggle.ng-binding {
 }
 
 .by-editor-submit-btn:disabled, .by_btn_submit:disabled {
-    background: #cfcfcf !important;
+    background: #fff !important;
     color:#000000 !important;
 }
 @media screen and (max-width: 550px){
@@ -82,3 +82,37 @@ a.accordion-toggle.ng-binding {
 	}
 
 	}
+.by_editor_wrap_bg 
+{
+	background:#ccc;
+}
+.form-header-content 
+{
+	font-size: 15px;
+    color: #282828;
+}
+.form-header-content span
+{
+	cursor:pointer;
+}
+.by_editor_wrap_bg_head
+{
+	background:#f2f2f2;
+	padding-bottom:30px;
+}
+.byEditorBg
+{
+	background:rgba(240, 240, 240, 0.42);
+	height:auto;
+	margin-bottom:12px;
+}
+.by-arrow-float-none
+{
+	float:none;
+	border-top-color:#00A24A;
+	margin-right:0px;
+}
+.by_editor_wrap_bg .panel-group
+{
+	margin-bottom:0px;
+}

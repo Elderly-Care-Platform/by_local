@@ -1104,10 +1104,6 @@ ul.list-inline.posted-info li:before {
     font-size: 13px;
 }
 
-.form-header-content {
-    font-size: 14px;
-    color: #282828;
-}
 
 label.myLabel input[type="file"] {
     position: fixed;

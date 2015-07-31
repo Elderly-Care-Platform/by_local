@@ -18,7 +18,7 @@
 }
 .mce-btn button
 	{
-		padding: 6px 8px !important;
+		padding: 15px 8px !important;
 	}
 .preloaderImage {
   position: absolute;
@@ -1508,7 +1508,7 @@
 	}
 	.mce-btn button
 	{
-		padding: 6px 5px !important;
+		padding: 15px 4px !important;
 	}
 	.tm-input
 	{
@@ -1538,7 +1538,7 @@
 	}
 	.mce-btn button
 	{
-		padding: 6px 3px !important;
+		padding: 2px 3px 2px 3px !important;
 	}
 }
 @media screen and (max-width: 450px){

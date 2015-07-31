@@ -33,7 +33,7 @@ BY.addEditor = function(param, initCallback){
             "insertdatetime media paste emoticons"
         ];
     }else{
-        toolbar =  "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink emoticons image media  preview ";
+        toolbar =  "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink | emoticons | image media |  preview ";
         plugins = [
             "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",

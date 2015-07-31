@@ -6,30 +6,30 @@
             <li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA" ng-if="discuss_counts.q > 0">
                 <a href="#/discuss/Q/{{bc_topic}}/{{bc_subTopic}}">Q &amp; A ({{discuss_counts.q}})</a>
             </li>
-            <li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts" ng-if="discuss_counts.p > 0">
+            <!--  <li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts" ng-if="discuss_counts.p > 0">
                 <a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS ({{discuss_counts.p}})</a>
-            </li>
+            </li>-->
             <li class="list-group-item {{bc_discussType == 'A' && 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.a > 0">
-                <a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">STORIES ({{discuss_counts.a}})</a>
+                <a href="#/discuss/A/{{bc_topic}}/{{bc_subTopic}}">POSTS ({{discuss_counts.a}})</a>
             </li>
             <li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.z > 0">
-                <a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL ({{discuss_counts.z}})</a>
+                <a href="#/discuss/All/{{bc_topic}}/{{bc_subTopic}}">ALL ({{discuss_counts.q + discuss_counts.a}})</a>
             </li>
         </ul>
         <!--All classes from Unify end-->
 
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
             <i class="icon-custom icon-sm icon_question"></i>
-            <span>Ask a Question</span>
+            <span>Ask</span>
         </div>
-        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Tips')">
+        <!-- <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Tips')">
             <i class="icon-custom icon-sm icon_tips"></i>
             <span>Share Experiences</span>
             </a>
-        </div>
+        </div> -->
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
             <i class="icon-custom icon-sm icon_story"></i>
-            <span>Publish Your Story</span>
+            <span>Post</span>
         </div>
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Feedback')">
             <i class="icon-custom icon-sm icon_feedback"></i>

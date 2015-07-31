@@ -42,7 +42,7 @@
                     </h4>
                 </div>
                 <div id={{category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel-collapse collapse">
-                    <div class="panel-body col-md-4" ng-repeat="subCategory in category.children">
+                    <div class="panel-body col-md-12" ng-repeat="subCategory in category.children">
                         <input type="checkbox" onchange="BY.editorCategoryList.selectCategory(this)" value={{subCategory.id}} ng-model="preSelected[subCategory.id]"> <span>{{subCategory.name}}</span>
                     </div>
                 </div> <div style="clear:both"></div>

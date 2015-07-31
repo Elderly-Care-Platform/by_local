@@ -46,12 +46,15 @@ a.accordion-toggle.ng-binding {
     padding-left: 0px;
     padding-right: 0px;
     text-transform: uppercase;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #ccc;
+   margin: 15px !important;
+    border-top: 0px;
+    width: calc(100% - 30px);
 }
 .by_editor_SubCategories .panel-body {
     padding: 5px !important;
-    line-height: 41px;
-    border-top: 0px !important;
+    line-height: 27px;
+    border-top: 1px solid #ccc !important;
 }
 .panel-body.col-md-4.ng-binding.ng-scope {
     text-transform: uppercase;
@@ -115,4 +118,34 @@ a.accordion-toggle.ng-binding {
 .by_editor_wrap_bg .panel-group
 {
 	margin-bottom:0px;
+}
+.by_editor_wrap_bg .by_editor_button_whiteBg
+{
+	background:#fff;
+	border:1px solid #ccc;
+	padding-top:15px;
+	padding-bottom:15px;
+}
+.by_editor_wrap_bg .register-page .textbox
+{
+	padding:10px 15px;
+	border-left-width:1px;
+	border-left-color:#ccc;
+}
+.by_editor_post_divider
+{
+	text-align:center;
+}
+.by_editor_post_divider label
+{
+	border:1px solid rgba(84, 71, 71, 0.37);
+	border-radius:5px !important;
+	line-height:14px;
+	text-align: center;
+    margin: 2px;
+    background: #ececec;
+    display: inline-block;
+    background-size: 100%;
+    background-repeat: round;
+    padding: 8px 15px;
 }

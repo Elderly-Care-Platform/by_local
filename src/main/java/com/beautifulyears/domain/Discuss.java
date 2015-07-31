@@ -147,7 +147,7 @@ public class Discuss {
 		this.text = text;
 		org.jsoup.nodes.Document doc = Jsoup.parse(this.text);
 		String domText = doc.text();
-		if(domText.length() < DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
+		if(domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
 			this.setShortSynopsis(Util.truncateText(domText));
 		}
 		this.status = status;

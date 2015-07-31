@@ -67,8 +67,8 @@
 		</div>
 
 		<div class="articles-story  col-md-12" id="{{discuss.id}}">
-			<p class="discuss-card-desciption" data-ng-bind="discuss.text"
-				data-ellipsis data-ellipsis-append="read more"></p>
+			<p ng-if="discuss.shortSynopsis">{{discuss.shortSynopsis}}<a class="divRight by_readmore">Read More <b style="font-size:10px;">&#9002;</b></a></p>
+            <p ng-if="!discuss.shortSynopsis" ng-bind-html="trustForcefully(discuss.text)"></p>
 
 		</div>
 		<div style="clear: both; height: 1px;"></div>

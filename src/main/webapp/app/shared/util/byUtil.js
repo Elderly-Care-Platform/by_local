@@ -52,7 +52,7 @@ BY.byUtil.inValidateSession = function(){
 $(window).scroll(function(){
 	var windowHeight = $(window).height()/2;
 
-	if($("body").scrollTop() > windowHeight){
+	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) > windowHeight){
 		$(".topScroll").show();
 	}else
 	{
@@ -69,9 +69,11 @@ $(window).scroll(function(){
 
 $(document).ready(function() {
 	$(".topScroll").click(function(){
-		$('body').animate({
-			scrollTop: 0
-		}, 800);
+		
+		$('html, body').animate({
+            scrollTop: 0
+        }, 800);
+		
 	});
 	
 	//////////////

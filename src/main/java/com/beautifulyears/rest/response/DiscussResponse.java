@@ -5,10 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.data.domain.Page;
 
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.util.Util;
 
 public class DiscussResponse implements IResponse {
 
@@ -73,6 +77,7 @@ public class DiscussResponse implements IResponse {
 		private String text;
 		private int aggrReplyCount;
 		private int directReplyCount;
+		private String shortSynopsis;
 		private Date createdAt = new Date();
 		private List<String> topicId;
 		private boolean isLikedByUser = false;
@@ -87,6 +92,14 @@ public class DiscussResponse implements IResponse {
 			this.setUsername(discuss.getUsername());
 			this.setDiscussType(discuss.getDiscussType());
 			this.setText(discuss.getText());
+			if(null == discuss.getShortSynopsis()){
+				Document doc = Jsoup.parse(discuss.getText());
+				String text = doc.text();
+				if(text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
+					discuss.setShortSynopsis(Util.truncateText(text));
+				}
+			}
+			this.setShortSynopsis(discuss.getShortSynopsis());
 			this.setAggrReplyCount(discuss.getAggrReplyCount());
 			this.setDirectReplyCount(discuss.getDirectReplyCount());
 			this.setCreatedAt(discuss.getCreatedAt());
@@ -96,6 +109,14 @@ public class DiscussResponse implements IResponse {
 			if (null != user && discuss.getLikedBy().contains(user.getId())) {
 				this.setLikedByUser(true);
 			}
+		}
+
+		public String getShortSynopsis() {
+			return shortSynopsis;
+		}
+
+		public void setShortSynopsis(String shortSynopsis) {
+			this.shortSynopsis = shortSynopsis;
 		}
 
 		public long getShareCount() {

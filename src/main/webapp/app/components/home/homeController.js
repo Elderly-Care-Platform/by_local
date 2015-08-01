@@ -4,7 +4,11 @@
 //home
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window',
     function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window) {
-		
+		$scope.carousalType = "carousel";
+		$('.carousel').carousel({
+	        interval: 3000
+	    });
+	    $('.carousel').carousel('cycle');
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";

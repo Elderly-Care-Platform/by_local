@@ -77,7 +77,7 @@
                             </div>
                             <div id={{category.id}}
                                  class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
-                                <div class="panel-body col-md-6" ng-repeat="subCategory in category.children">
+                                <div class="panel-body col-md-12" ng-repeat="subCategory in category.children">
                                     <input type="checkbox" ng-change="selectServiceType(subCategory)"
                                            ng-model="subCategory.selected">
                                     <span style="line-height: 23px;">{{subCategory.name}}</span>

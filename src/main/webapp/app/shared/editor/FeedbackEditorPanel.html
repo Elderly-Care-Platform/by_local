@@ -1,30 +1,36 @@
-<div ng-controller="EditorController" class="by_editor_wrap">
-    <div class="col-md-12 no-padding margin-bottom-35">
+<div ng-controller="EditorController" class="by_editor_wrap by_editor_wrap_bg">
+    <div class="col-md-12 by_editor_wrap_bg_head">
 
-        <div class="col-md-12 no-padding  list-head dp-block">PROVIDE YOUR FEEDBACK
+        <div class="col-md-12 no-padding  list-head dp-block">FEEDBACK
         </div>
 
         <div class="col-md-12 no-padding bg-gray-h1">
-            <div class="bg-green-h2" style="width: 235px;"></div>
+            <div class="bg-green-h2" style="width: 100px;"></div>
         </div>
     </div>
+     <div class="clearfix"></div>
 
-    <div class="col-md-12 no-padding form-header-content margin-bottom-15">Subject/Title for your feedback
+   
+
+    <div class=" col-md-12 no-padding margin-bottom-20 register-page">
+        <input type="text" class="username-textbox textbox" placeholder="Subject/Title for your feedback" name="username" ng-model="editor.subject">
     </div>
 
-    <div class=" col-md-12 no-padding margin-bottom-35 register-page">
-        <input type="text" class="username-textbox textbox "name="username" ng-model="editor.subject">
-    </div>
+	<div class="byEditorBg">
+		<div class="col-md-12 no-padding margin-bottom-35 byEditor">
+			<textarea id="feedback_textArea" class="textbox about-dependent"
+				rows="3" ng-model="editor.text"></textarea>
+		</div>
+		<div class="clearfix"></div>
+	</div>
 
-    <div class="col-md-12 no-padding margin-bottom-35 byEditor">
-        <textarea id="feedback_textArea" class="textbox about-dependent" rows="3"  ng-model="editor.text"></textarea>
-    </div>
+	<div ng-show="errorMsg"><font color="red">{{errorMsg}}</font></div>
 
-    <div ng-show="errorMsg"><font color="red">{{errorMsg}}</font></div>
-
-    <div class="col-md-12 no-padding margin-bottom-35">
+    <div class="col-md-12 margin-bottom-20">
         <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn" disabled ng-click="postContent('F')">submit</button>
+        <div class="clearfix"></div>
     </div>
+    <div class="clearfix"></div>
 </div>
 
 

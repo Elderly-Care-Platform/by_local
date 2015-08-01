@@ -55,6 +55,8 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $(".by_btn_submit").prop("disabled", false);
             if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="A"){
                 $scope.errorMsg = "Please select title";
+            }else if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="F"){
+                $scope.errorMsg = "Please select title";
             }else if($scope.discuss.text.trim().length <= 0){
                 $scope.errorMsg = "Please add more details";
             }else{

@@ -1,4 +1,20 @@
 <div ng-controller="EditorController" class="by_editor_wrap by_editor_wrap_bg">
+
+<div class="by_call_submit_video_wrapper">
+	<div class="by_call_submit_video_abs"></div>
+	<div class="by_call_submit_video_inside">
+		<div class="by_call_submit_video_head">Insert Video <span>X</span></div>
+		<div class="by_call_submit_video_head_below">Paste your video embedded code</div>
+		<textarea rows="" cols="" class="by_call_submit_video_head_textarea"></textarea>
+		<div class="clearfix"></div>
+		<div class="by_call_submit_video_btn">
+			 <button  type="submit" class="btn btn-sm btn-success comment-submit by_btn_submit "  >SUBMIT</button>
+            <button  type="button" class="btn btn-sm btn-success comment-submit by_btn_cancel "  >CANCEL</button>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+
     <div class="col-md-12  by_editor_wrap_bg_head">
 
         <div class="col-md-12  no-padding list-head dp-block">POST
@@ -11,11 +27,11 @@
 
 
     <div class=" col-md-12 no-padding margin-bottom-20 register-page">
-        <input type="text" class="username-textbox textbox " placeholder="Header (optional)" name="username" ng-model="editor.subject">
+        <input type="text" class="username-textbox textbox " placeholder="Please enter a title of your post" name="username" ng-model="editor.subject">
     </div>
 
-	<div class="margon-bottom-20">
-		<div class=" col-md-4 col-xs-4 no-padding register-page by_editor_post_divider">
+	<div class="margon-bottom-20 by-show-three-buttons">
+		<div class=" col-md-6 col-xs-6 no-padding register-page by_editor_post_divider">
 			<form id="UploadImage12" action="UploadFile" method="post"
 				enctype="multipart/form-data">
 				<label class="myLabel"> <input name="sp" id="sp" type="file"
@@ -28,16 +44,30 @@
 				style="display: none" />
 
 		</div>
+		<!--  
 		<div class=" col-md-4 col-xs-4 no-padding  register-page by_editor_post_divider">
 			<label > <span> Submit<br/> a link </span>
 			</label>
-		</div>
-		<div class=" col-md-4 col-xs-4 no-padding  register-page by_editor_post_divider">
-			<label> <span> Submit<br/> a video </span>
+		</div>-->
+		<div class=" col-md-6 col-xs-6 no-padding  register-page by_editor_post_divider">
+			<label class="by_call_submit_video" ng-init="showSubmitVideo()"> <span> Share<br/> a video </span>
 			</label>
 		</div>
 		<div class="clearfix" style="height:20px;"></div>
 	</div><div class="clearfix"></div>
+	<div class="by_uploading_image ">
+		<div class="col-md-6 by_uploading_image_add">
+			<div class="myLabel" style="padding:0px; width:100%;">
+				<img src="" width="100%" alt="" style="border:1px solid #fff;"/>
+			</div>
+			<div class="clearfix"></div>
+			<div class="by_uploading_image_add_close"></div>
+		</div>
+		<div class="col-md-6">
+			 Would you allow us to showcase this image? <input type="checkbox" checked data-toggle="toggle"  data-offstyle="info"  data-size="mini">
+		</div>
+		<div class="clearfix"></div>
+	</div>
 
 
 
@@ -87,9 +117,10 @@
     </div>
 
 
-    <div ng-show="errorMsg"><font color="red">{{errorMsg}}</font></div>
+    
 
     <div class="col-md-12   by_editor_button_whiteBg">
+    	<div ng-show="errorMsg"><font color="red">{{errorMsg}}</font></div>
         <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn" disabled
                 ng-click="postContent('A')">submit
         </button> <div class="clearfix"></div>
@@ -115,6 +146,8 @@
                         success: function (data, textStatus, jqXHR) {
                             $("#articleTitleImage").val(JSON.stringify(data));
                             $("#articleTitleImage").trigger('input');
+                            $(".by_uploading_image").show();
+                            $(".by-show-three-buttons").hide();
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(textStatus);
@@ -128,7 +161,7 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('.myLabel').css('background-image', 'url(' + e.target.result + ')')
+                    $('.myLabel img').attr('src', e.target.result)
                 }
 
                 reader.readAsDataURL(input.files[0]);

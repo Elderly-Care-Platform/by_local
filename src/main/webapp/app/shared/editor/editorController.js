@@ -79,5 +79,53 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                 }
             });
         };
+        
+        $scope.showSubmitVideo = function(){
+        	var screenWidth = $(window).width();
+        	$(".by_call_submit_video").click(function(){
+        		$(".by_call_submit_video_wrapper").fadeIn();
+        		if(screenWidth > 960){
+	        		$(".header").css('z-index','0');
+	        		$(".breadcrumbs").css('z-index','0');
+	        		$(".list-group-item.active").css('z-index','0');
+        		}
+        		$(".by_uploading_image").hide();
+        	});
+        	$(".by_call_submit_video_abs, .by_call_submit_video_btn button[type=button], .by_call_submit_video_head span").click(function(){
+        		$(".by_call_submit_video_wrapper").fadeOut();
+        		$(".by_call_submit_video_head_textarea").val('');
+        		if(screenWidth > 960){
+	        		$(".header").css('z-index','110');
+	        		$(".breadcrumbs").css('z-index','10');
+	        		$(".list-group-item.active").css('z-index','2');
+        		}
+        	});
+        	$(".by_call_submit_video_btn button[type=submit]").click(function(){
+        		$(".by_call_submit_video_wrapper").fadeOut();
+        		var videoUrl = $(".by_call_submit_video_head_textarea").val();
+        		if(screenWidth > 960){
+	        		$(".header").css('z-index','110');
+	        		$(".breadcrumbs").css('z-index','10');
+	        		$(".list-group-item.active").css('z-index','2');
+        		}
+        		$(".by_uploading_video").show();
+        		$(".by-show-three-buttons").hide();
+        		//$(".by_uploading_video_add_inside").text(videoUrl);
+        	});
+        	$(".by_uploading_image_add_close").click(function(){
+        		$(".by-show-three-buttons").show();
+        		 $(".by_uploading_image").hide();
+        	});
+        	
+        	$(".by_call_upload_photo").click(function(){
+        		$(".by-show-three-buttons").hide();
+       		 	$(".by_uploading_image").show();
+        	});
+        	
+        	$(".by_uploading_video_add_close").click(function(){
+        		$(".by-show-three-buttons").show();
+       		 $(".by_uploading_video").hide();
+        	});
+        };
 
     }]);

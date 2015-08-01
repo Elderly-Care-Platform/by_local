@@ -6,7 +6,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
     function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window) {
 		$scope.carousalType = "carousel";
 		$('.carousel').carousel({
-	        interval: 3000
+	        interval: 6000
 	    });
 	    $('.carousel').carousel('cycle');
         $scope.editor = {};

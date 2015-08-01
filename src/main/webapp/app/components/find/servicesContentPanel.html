@@ -37,7 +37,7 @@
 						</div>
 						<div class="serviceReview" ng-if="service.reviewCount > 0">
 							<i class="rounded-x fa fa-review-icon"></i>{{service.reviewCount}}
-								reviews
+								review<span ng-if="service.reviewCount > 1">s</span>
 						</div>
 						<div style="clear: both; height:10px;"></div>
 					</div><div class="clearfix"></div>

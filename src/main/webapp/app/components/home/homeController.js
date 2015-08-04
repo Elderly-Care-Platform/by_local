@@ -4,7 +4,11 @@
 //home
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window',
     function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window) {
-		
+		$scope.carousalType = "carousel";
+		$('.carousel').carousel({
+	        interval: 6000
+	    });
+	    $('.carousel').carousel('cycle');
         $scope.editor = {};
         $scope.error = "";
         $scope.editor.subject = "";
@@ -43,9 +47,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 DiscussPage.get({discussType: 'A',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.articles = value.data.content;
-                				if(value.data.content.length > 0 && !scrollable){
-                					addScroll();
-                				}
                 		},
                 		function(error){
         			       	console.log("DiscussPage");
@@ -54,9 +55,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.posts = value.data.content;
-			                	if(value.data.content.length > 0 && !scrollable){
-			    					addScroll();
-			    				}
                 		},
                 		function(error){
         			       	console.log("DiscussPage");
@@ -65,9 +63,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.questions = value.data.content;
-			                	if(value.data.content.length > 0 && !scrollable){
-			    					addScroll();
-			    				}
                 		},
                 		function(error){
         			       	console.log("DiscussPage");
@@ -139,8 +134,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $('.by_story').dotdotdot();
         });
         
-        var addScroll = function(){
-        	scrollable = true;
+      
+        	
         	 angular.element($window).bind("scroll", function() {
 	        	$scope.sliderHeight = $(".homeSlider").height();
 	        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
@@ -150,8 +145,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
 	        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
 	        	}
-	        })
-        }
+	        });
+       
         
        
 

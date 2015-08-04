@@ -109,6 +109,7 @@ body a:hover
     padding-right:55px;
     padding-bottom: 20px;
     margin-top: 20px;
+    min-height: calc(100vh - 140px);
 }
 .by_left_panel_fixed
 {
@@ -124,6 +125,10 @@ body a:hover
     .by_left_panel_fixed, #sidebar-nav
     {
         width: 100% !important;
+    }
+    .article-outer-wrapper
+    {
+    	min-height:0px;
     }
 
 }

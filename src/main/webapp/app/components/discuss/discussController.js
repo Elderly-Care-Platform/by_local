@@ -1,8 +1,8 @@
 //DIscuss All
 byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams'
-    ,'DiscussPage', 'DiscussCount','$sce','$timeout',
+    ,'DiscussPage', 'DiscussCount','$sce','$timeout', '$window',
     function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
-    		DiscussCount,$sce, $timeout) {
+    		DiscussCount,$sce, $timeout, $window) {
 	    var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
         //$('#discuss').dropdown("toggle");
@@ -123,6 +123,26 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                 if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
                     $this.remove(); });
             $('.by_story').dotdotdot();
+        });
+        
+        $scope.iframeHeight = function(){
+        	var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
+        	$(".by-quad-image iframe").attr('height', iframeHeightA);
+        	$(window).resize(function(){
+        		var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
+            	$(".by-quad-image iframe").attr('height', iframeHeightA);
+        	});
+        };
+        
+        angular.element($window).bind("scroll", function() {
+        	$scope.sliderHeight = $(".by_section_header").height();
+        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+        	}else{
+        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        	}
         });
  	}]);
 
@@ -288,6 +308,15 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
                     $this.remove(); });
             $('.by_story').dotdotdot();
         });
+        
+        $scope.iframeHeight = function(){
+        	var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
+        	$(".by-quad-image iframe").attr('height', iframeHeightA);
+        	$(window).resize(function(){
+        		var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
+            	$(".by-quad-image iframe").attr('height', iframeHeightA);
+        	});
+        };
 
     }]);
 

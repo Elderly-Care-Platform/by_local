@@ -243,3 +243,7 @@ textarea.by_call_submit_video_head_textarea
 	border-color:#e87441;
 	color:#fff;
 }
+.by_uploading_video_add_inside iframe
+{
+	width:100%;
+}

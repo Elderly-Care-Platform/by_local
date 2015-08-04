@@ -1,5 +1,5 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential',
-    function ($scope, $rootScope, Discuss, ValidateUserCredential) {
+byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$location',
+    function ($scope, $rootScope, Discuss, ValidateUserCredential, $location) {
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -80,6 +80,8 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             });
         };
         
+       
+        
         $scope.showSubmitVideo = function(){
         	var screenWidth = $(window).width();
         	$(".by_call_submit_video").click(function(){
@@ -110,7 +112,8 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         		}
         		$(".by_uploading_video").show();
         		$(".by-show-three-buttons").hide();
-        		//$(".by_uploading_video_add_inside").text(videoUrl);
+        		var byuploadingvideoaddinside = $(".by_uploading_video_add_inside").innerWidth();
+            	$(".by_uploading_video_add_inside iframe").attr('height', byuploadingvideoaddinside/2);
         	});
         	$(".by_uploading_image_add_close").click(function(){
         		$(".by-show-three-buttons").show();
@@ -126,6 +129,10 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         		$(".by-show-three-buttons").show();
        		 $(".by_uploading_video").hide();
         	});
+        	
+
+        	
+        	
         };
 
     }]);

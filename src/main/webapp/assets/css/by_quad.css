@@ -112,6 +112,7 @@
 	min-width:45px;
 	text-align:left;
 	margin-left:2px;
+	background:url('../img/icons/button-gray.jpg')
 }
 .by_modal_body{
 	text-align:center;
@@ -125,6 +126,7 @@
 	min-width:45px;
 	text-align:left;
 	color:#fff !important;
+	background:url('../img/icons/button-gray.jpg');
 	background:#00b050;
 }
 .add-comment span.textColor2

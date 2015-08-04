@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.springframework.data.domain.Page;
 
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
@@ -27,13 +26,13 @@ public class DiscussResponse implements IResponse {
 	public static class DiscussPage {
 		private List<DiscussEntity> content = new ArrayList<DiscussEntity>();
 		private boolean lastPage;
-		private int number;
+		private long number;
 
 		public DiscussPage() {
 			super();
 		}
 
-		public DiscussPage(Page<Discuss> page) {
+		public DiscussPage(PageImpl<Discuss> page) {
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (Discuss discuss : page.getContent()) {
@@ -57,11 +56,11 @@ public class DiscussResponse implements IResponse {
 			this.lastPage = lastPage;
 		}
 
-		public int getNumber() {
+		public long getNumber() {
 			return number;
 		}
 
-		public void setNumber(int number) {
+		public void setNumber(long number) {
 			this.number = number;
 		}
 
@@ -254,7 +253,7 @@ public class DiscussResponse implements IResponse {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
 
-	public static DiscussPage getPage(Page<Discuss> page) {
+	public static DiscussPage getPage(PageImpl<Discuss> page) {
 		DiscussPage res = new DiscussPage(page);
 		return res;
 	}

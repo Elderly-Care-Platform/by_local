@@ -36,11 +36,13 @@
                     | In
                 </li>
 
-                <li ng-if="post.topicId.length > 0">
-                    <p class="first-letter-uc">
-                    <a ng-click="go($event,'name', post.topicId[0])">
-                    {{$root.discussCategoryListMap[post.topicId[0]].name.toLowerCase()}}</a>
-                </p>
+                <li ng-repeat="topicId in post.topicId">
+                    <p class="first-letter-uc by-systemTags">
+                        <a ng-click="go($event,'menu', topicId)">
+                            {{$root.menuCategoryMap[topicId].displayMenuName}}
+                        </a>
+                        <span ng-if="$index < post.topicId.length-1">,</span>
+                    </p>
                 </li>
                 
             </ul><div style="clear: both"></div>

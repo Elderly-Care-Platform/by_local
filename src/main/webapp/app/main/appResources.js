@@ -1,12 +1,10 @@
 /**
  * Created by sanjukta on 02-07-2015.
  */
-var discuss = byServices.factory('SessionIdService', function($rootScope, $location) {
+var sessionIdService = byServices.factory('SessionIdService', function($rootScope, $location) {
     var sessionID = '';
     return {
         getSessionId: function() {
-
-
             if((sessionID=='' || sessionID==null))
             {
 
@@ -68,11 +66,16 @@ var validateUserCredential = byServices.factory('ValidateUserCredential', functi
 });
 
 //BY Menu api
-var byMenu = byServices.factory('BYMenu', function($resource){
-    return $resource(apiPrefix+'api/v1/discussLike',{},{
-        likeDiscuss:{method:'POST', params:{type:0, discussId: '@discussId',url: '@url'},isArray:false}
+var byMenu = byServices.factory('BYMenu', function($resource) {
+    return $resource(apiPrefix +'api/v1/menu/getMenu?parentId=root',{q: '*'}, {
+        get: {method: 'GET', params: {}},
+        query: {method: 'GET',interceptor: {
+            response: function(response) {
+                return response.data;
+            }
+        }, isArray: true}
     })
-})
+});
 
 //discuss detail page API
 var discussDetail = byServices.factory('DiscussDetail', function($resource) {
@@ -136,15 +139,15 @@ var user = byServices.factory('User', function($resource) {
 });
 
 
-var discuss = byServices.factory('DiscussPage', function($resource) {
+var discussListing = byServices.factory('DiscussPage', function($resource) {
     return $resource(apiPrefix+'api/v1/discuss/page',{}, {
-      get: {method: 'GET',params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId',p:'@p',s:'@s',isFeatured:'@isFeatured'}, isArray: false}
+      get: {method: 'GET',params: {discussType: '@discussType', tags: '@tags', userId: '@userId', p:'@p',s:'@s',isFeatured:'@isFeatured'}, isArray: false}
     })
 });
 
-var discuss = byServices.factory('DiscussCount', function($resource) {
+var discussCount = byServices.factory('DiscussCount', function($resource) {
     return $resource(apiPrefix+'api/v1/discuss/count',{}, {
-      get: {method: 'GET',params: {topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}, isArray: false, isArray:false}
+      get: {method: 'GET',params: {tags: '@tags', userId: '@userId'}, isArray: false, isArray:false}
     })
 });
 

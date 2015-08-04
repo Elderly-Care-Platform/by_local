@@ -6,7 +6,7 @@
 	<div class="questionTag" ng-if="discuss.discussType == 'Q'">
 		<img src="assets/img/Q_A.png" alt="image">
 	</div>
-	<div ng-click="go($event, 'id', discuss.id, discuss.discussType)"
+	<div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
 		class="blog-author margin-bottom-35 main-article by_blog_author"
 		ng-if="discuss" data-index="discussion-articles"
 		data-link="articles.html">
@@ -36,13 +36,14 @@
 
 				<li time-since="{{discuss.createdAt}}"></li>
 
-				<li ng-if="discuss.topicId.length > 0">| In</li>
-
 				<li ng-if="discuss.topicId.length > 0">
-					<p class="first-letter-uc">
-						<a ng-click="go($event,'name', discuss.topicId[0])">
-							{{$root.discussCategoryListMap[discuss.topicId[0]].name.toLowerCase()}}
-						</a>
+                    | In
+                </li>
+
+				<li ng-repeat="topicId in discuss.topicId">
+					<p class="first-letter-uc by-systemTags">
+						<a ng-click="go($event,'menu', topicId)">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
+						<span ng-if="$index < discuss.topicId.length-1">,</span>
 					</p>
 				</li>
 

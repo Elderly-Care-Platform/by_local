@@ -4,7 +4,6 @@ var apiPrefix = "";
 var byServices = angular.module("byServices", ["ngResource"]);
 var byControllers = angular.module("byControllers", []);
 
-
 var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
@@ -38,32 +37,8 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 		if($location.path().indexOf('/search/') == -1)
         	$rootScope.term = '';
 
-
-       	var session = SessionIdService.getSessionId();
-       	if (session == '' || session == null) {
-       		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
-        }else{
-        	$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
-        }
+		$(".selected-dropdown").removeClass("selected-dropdown");
     });
-
-    discussCategoryList.query().$promise.then(
-    	    function(categories){
-    	    	$rootScope.discussCategoryList = categories;
-    	    	$rootScope.discussCategoryListMap = {};
-    	    	$rootScope.discussCategoryNameIdMap = {};
-    	        angular.forEach(categories, function(category, index){
-    	        	$rootScope.discussCategoryListMap[category.id] = category;
-    	        	$rootScope.discussCategoryNameIdMap[category.name.toLowerCase()] = category.id;
-    	        	angular.forEach(category.children, function(subCategory, index){
-	    				$rootScope.discussCategoryListMap[subCategory.id] = subCategory;
-	    				$rootScope.discussCategoryNameIdMap[subCategory.name.toLowerCase()] = subCategory.id;
-	    			});
-    	        });
-    	    }
-    	);
-
-
 
 	window.fbAsyncInit = function() {
 		// Executed when the SDK is loaded
@@ -71,6 +46,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 		FB.init({
 
 			appId: '475153235986093',
+			//appId: 1503191563249716,
 			xfbml: true,
 			version    : 'v2.3'
 		});

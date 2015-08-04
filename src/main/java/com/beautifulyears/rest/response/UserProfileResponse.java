@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-
 import com.beautifulyears.domain.BasicProfileInfo;
 import com.beautifulyears.domain.IndividualProfileInfo;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
+import com.beautifulyears.domain.menu.Tag;
 
 /**
  * @author Nitin
@@ -42,6 +41,7 @@ public class UserProfileResponse implements IResponse {
 		private boolean isReviewedByUser = false;
 		private boolean isRatedByUser = false;
 		private Date createdAt = new Date();
+		private List<Tag> systemTags = new ArrayList<Tag>();
 		private Date lastModifiedAt = new Date();
 
 		public UserProfileEntity(UserProfile profile, User user) {
@@ -54,6 +54,7 @@ public class UserProfileResponse implements IResponse {
 			this.setCreatedAt(profile.getCreatedAt());
 			this.setLastModifiedAt(profile.getLastModifiedAt());
 			this.setRatingPercentage(profile.getAggrRatingPercentage());
+			this.setSystemTags(profile.getSystemTags());
 			if (null != user && profile.getRatedBy().contains(user.getId())) {
 				this.setRatedByUser(true);
 			}
@@ -64,6 +65,20 @@ public class UserProfileResponse implements IResponse {
 			reviewCount = profile.getReviewedBy().size();
 			
 		}
+		
+		
+
+		public List<Tag> getSystemTags() {
+			return systemTags;
+		}
+
+
+
+		public void setSystemTags(List<Tag> systemTags) {
+			this.systemTags = systemTags;
+		}
+
+
 
 		public int getRatingCount() {
 			return ratingCount;
@@ -177,13 +192,13 @@ public class UserProfileResponse implements IResponse {
 	public static class UserProfilePage {
 		private List<UserProfileEntity> content = new ArrayList<UserProfileEntity>();
 		private boolean lastPage;
-		private int number;
+		private long number;
 
 		public UserProfilePage() {
 			super();
 		}
 
-		public UserProfilePage(Page<UserProfile> page, User user) {
+		public UserProfilePage(PageImpl<UserProfile> page, User user) {
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (UserProfile profile : page.getContent()) {
@@ -208,11 +223,11 @@ public class UserProfileResponse implements IResponse {
 			this.lastPage = lastPage;
 		}
 
-		public int getNumber() {
+		public long getNumber() {
 			return number;
 		}
 
-		public void setNumber(int number) {
+		public void setNumber(long number) {
 			this.number = number;
 		}
 
@@ -228,7 +243,7 @@ public class UserProfileResponse implements IResponse {
 		}
 	}
 
-	public static UserProfilePage getPage(Page<UserProfile> page, User user) {
+	public static UserProfilePage getPage(PageImpl<UserProfile> page, User user) {
 		UserProfilePage res = new UserProfilePage(page, user);
 		return res;
 	}

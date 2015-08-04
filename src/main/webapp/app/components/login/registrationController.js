@@ -1,10 +1,18 @@
 byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','UserProfile',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
 
-        //$rootScope.nextLocation = $location.path();
         $scope.views = {};
         $scope.views.leftPanel = "app/components/login/registrationLeftPanel.html";
         $scope.profile = {};
+
+        (function(){
+            var metaTagParams = {
+                title:  "Beautiful Years | Registration",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
 
         $scope.updateRegistration = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");

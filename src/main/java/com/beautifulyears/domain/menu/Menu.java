@@ -27,9 +27,20 @@ public class Menu {
 	private String displayMenuName;
 	private List<String> ancestorIds = new ArrayList<String>();
 	private String parentMenuId;
+	private String slug;
+	private int orderIdx;
+
 	@DBRef
 	private List<Menu> children = new ArrayList<Menu>();
 	private String filterName;
+
+	public int getOrderIdx() {
+		return orderIdx;
+	}
+
+	public void setOrderIdx(int orderIdx) {
+		this.orderIdx = orderIdx;
+	}
 
 	public String getId() {
 		return id;
@@ -79,7 +90,6 @@ public class Menu {
 		this.module = module;
 	}
 
-
 	public String getDisplayMenuName() {
 		return displayMenuName;
 	}
@@ -95,8 +105,6 @@ public class Menu {
 	public void setChildren(List<Menu> children) {
 		this.children = children;
 	}
-	
-	
 
 	public String getLinkedMenuId() {
 		return linkedMenuId;
@@ -104,6 +112,14 @@ public class Menu {
 
 	public void setLinkedMenuId(String linkedMenuId) {
 		this.linkedMenuId = linkedMenuId;
+	}
+
+	public String getSlug() {
+		return slug;
+	}
+
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 
 	@Override

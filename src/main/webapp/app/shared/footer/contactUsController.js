@@ -15,6 +15,16 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
             $scope.username = BY.validateUserName(localStorage.getItem("USER_NAME"));
         }
 
+        (function(){
+            var metaTagParams = {
+                title:  "Contact us",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
+
+
         $scope.subjectOptionsMap = {'0':"FEEDBACK", '1':"SUGGESTION", '2':"READY TO HELP ", '3':"DOING BUSINESS TOGETHER", '4':"WOULD LIKE TO INFORM YOU"};
         $scope.subjectTitle = $routeParams.subject ? $scope.subjectOptionsMap[$routeParams.subject]:"";
 

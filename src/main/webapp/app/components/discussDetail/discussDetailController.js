@@ -1,18 +1,28 @@
-byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData','$anchorScroll','$timeout', '$window',
-    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, $anchorScroll, $timeout, $window) {
+byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData', '$timeout', '$window',
+    function ($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, $timeout, $window) {
 
         var discussId = $routeParams.discussId;	//discuss Id from url
         var isComment = $routeParams.comment;
 
 
         $scope.discussDetailViews = {};
-        $rootScope.nextLocation = $location.path();
-
         $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussDetailViews.contentPanel = "app/components/discussDetail/discussDetailContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $("#preloader").show();
 
 
+        var scrollToEditor = function(){
+            if(isComment){
+                $timeout(
+                    function () {
+                        var tag = $("#replyEditor:visible");
+                        if (tag.length > 0) {
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+                        }
+                    }, 100);
+            }
+
+        };
 
         DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
                 //broadcast data to left panel, to avoid another query from left panel of detail page
@@ -27,21 +37,13 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
                     description:    $scope.detailResponse.discuss.text
                 }
                 BY.byUtil.updateMetaTags(metaTagParams);
-
-
-
-                $timeout(
-                    function () {
-                        if(isComment){
-                            //$scope.scrollToId("replyEditor");
-                            $location.hash('replyEditor');
-                            $anchorScroll();
-                        }
-                    }, 100);
+                scrollToEditor();
             },
             function (error) {
                 console.log("error");
             });
+
+
 
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);

@@ -36,15 +36,14 @@
                     | In
                 </li>
 
-                <li ng-if="article.topicId.length > 0">
-                    <p class="first-letter-uc">
-                   <a ng-click="go($event,'name', article.topicId[0])">
-                    {{$root.discussCategoryListMap[article.topicId[0]].name.toLowerCase()}}</a>
-                </p>
+                <li ng-repeat="topicId in article.topicId">
+                    <p class="first-letter-uc by-systemTags">
+                        <a ng-click="go($event,'menu', topicId)">
+                            {{$root.menuCategoryMap[topicId].displayMenuName}}
+                        </a>
+                        <span ng-if="$index < article.topicId.length-1">,</span>
+                    </p>
                 </li>
-                
-                
-              
             </ul><div style="clear: both"></div>
                 
             

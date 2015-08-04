@@ -15,17 +15,18 @@
                 </a></div>
                 <a href="#/discuss/{{article.id}}"><div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 150))" ></div></a>
                 <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
-                    
                     <li ng-if="article.topicId.length > 0">
-                    In
-                </li>
+                        In
+                    </li>
 
-                <li ng-if="article.topicId.length > 0">
-                    <p class="first-letter-uc">
-                    <a href="#/discuss/{{discuss.discussType}}/{{$root.discussCategoryListMap[article.topicId[0]].name}}/all">
-                        {{$root.discussCategoryListMap[article.topicId[0]].name.toLowerCase()}}</a>  
-                </p>
-                </li>
+                    <li ng-repeat="topicId in article.topicId">
+                        <p class="first-letter-uc by-systemTags">
+                            <a di-href="#/discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/all/{{$root.menuCategoryMap[topicId].id}}">
+                                {{$root.menuCategoryMap[topicId].displayMenuName}}
+                            </a>
+                            <span ng-if="$index < article.topicId.length-1">,</span>
+                        </p>
+                    </li>
                     <!-- <li time-since="{{article.createdAt}}"></li> -->
                     <div style="clear:both;"></div>
                 </ul>

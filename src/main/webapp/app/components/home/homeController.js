@@ -9,10 +9,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	        interval: 6000
 	    });
 	    $('.carousel').carousel('cycle');
-        $scope.editor = {};
-        $scope.error = "";
-        $scope.editor.subject = "";
-        $scope.editor.articlePhotoFilename = "";
         $scope.currentAcceleratorSelected = "";
         var scrollable = false;
         
@@ -23,11 +19,10 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 }, 100);
         });
 
-        $scope.homeViews = {};  
+        $scope.homeViews = {};
 
         $scope.add = function (type) {
             //BY.removeEditor();
-            $scope.error = "";
             $scope.currentView = "editor";
             $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             window.scrollTo(0, 0);
@@ -36,6 +31,15 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.postSuccess = function () {
             $scope.switchToContentView();
         };
+
+        (function(){
+            var metaTagParams = {
+                title:  "Home",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
 
 
         $scope.switchToContentView = function (scrollTo) {
@@ -106,21 +110,20 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $event.stopPropagation();
             if (type === "id") {
                 $location.path('/discuss/' + id);
-            } else if (type === "name" && $rootScope.discussCategoryListMap) {
-                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
-                var parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
-
-                if (parentCategoryName) {
-                    $location.path('/discuss/All/' + parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
-                } else {
-                    $location.path('/discuss/All/' + $rootScope.discussCategoryListMap[id].name + '/all');
+            } else if (type === "menu") {
+                var menu = $rootScope.menuCategoryMap[id];
+                if(menu.module===0){
+                    $location.path("/discuss/list/"+menu.displayMenuName+"/all/"+menu.id);
+                }else if(menu.module===1){
+                    $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
+                }else{
+                    //nothing as of now
                 }
             } else if (type === "accordian") {
                 $($event.target).find('a').click();
             } else if(type === "comment") {
                 $location.path('/discuss/' + id).search({comment: true});
             }
-
         }
 
         $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {

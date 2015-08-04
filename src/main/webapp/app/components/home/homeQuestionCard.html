@@ -40,11 +40,13 @@
                     | In
                 </li>
 
-                <li ng-if="question.topicId.length > 0">
-                    <p class="first-letter-uc">
-                   <a ng-click="go($event,'name', question.topicId[0])">
-                    {{$root.discussCategoryListMap[question.topicId[0]].name.toLowerCase()}}</a>
-                </p>
+                <li ng-repeat="topicId in question.topicId">
+                    <p class="first-letter-uc by-systemTags">
+                        <a ng-click="go($event,'menu', topicId)">
+                            {{$root.menuCategoryMap[topicId].displayMenuName}}
+                        </a>
+                        <span ng-if="$index < question.topicId.length-1">,</span>
+                    </p>
                 </li>
                
             </ul><div style="clear: both"></div>

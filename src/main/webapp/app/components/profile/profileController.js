@@ -11,6 +11,15 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
 
         $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
+        (function(){
+            var metaTagParams = {
+                title:  "Beautiful Years | Profile",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
+
         $scope.showProfile = function(){
             $("#preloader").show();
             $scope.profileData = UserProfile.get({userId:$scope.profileId}, function (profile) {

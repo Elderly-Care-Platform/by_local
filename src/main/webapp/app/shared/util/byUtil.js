@@ -39,7 +39,7 @@ BY.byUtil.inValidateSession = function(){
 	if(element){
 		element.innerHTML = "";
 	    element.href = "";
-	    document.getElementById("login_placeHolder_li").style.opacity = "0";
+	    document.getElementById("login_placeHolder_li").style.display = "none";
 	}
     var pro = document.getElementById('profile_placeholder');
     if(pro){
@@ -75,15 +75,23 @@ $(document).ready(function() {
         }, 800);
 		
 	});
-
+	
 });
 
 
 
 BY.byUtil.updateMetaTags = function(param){
-	 var title = param.title,
+	 var title = param.title.trim(),
 		 imageUrl = param.image,
-		 description = $(param.description).text();
+		 description = $(param.description).text().trim();
+
+	if(!description && description===""){
+		description = "Beautiful Years"
+	}
+
+	if(!title && title===""){
+		title = description;
+	}
 
 	document.title = title;
 	$("meta[property='og\\:title']").attr("content", title);

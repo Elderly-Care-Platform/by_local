@@ -5,6 +5,7 @@ package com.beautifulyears.domain.menu;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -21,6 +22,7 @@ public class Tag {
 	@Id
 	private String id;
 	private int type = TAG_TYPE_SYSTEM;
+	@Indexed(unique = true)
 	private String name;
 	private String description;
 	
@@ -55,6 +57,16 @@ public class Tag {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		boolean isEqual = false;
+
+		if (object != null && object instanceof Tag) {
+			isEqual = (this.getId().equals(((Tag) object).getId()));
+		}
+		return isEqual;
 	}
 
 }

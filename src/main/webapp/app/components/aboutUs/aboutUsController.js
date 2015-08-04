@@ -3,6 +3,16 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
         $scope.currentAcceleratorSelected = "";
         $scope.currentView = "aboutUs";
 
+
+        (function(){
+            var metaTagParams = {
+                title:  "About Us",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
+
         $scope.$watch("articles", function (value) {
             $timeout(
                 function () {
@@ -50,6 +60,7 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
                 window.scrollTo(0, 0);
             }
         }
+
 
 
     }]);

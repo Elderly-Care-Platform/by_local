@@ -1,15 +1,14 @@
 package com.beautifulyears.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,10 +52,11 @@ public class MenuController {
 			q.addCriteria(Criteria.where("id").is(new ObjectId(id)));
 		}
 		if (null != parentId) {
-			if("root".equals(parentId.toString())){
+			if ("root".equals(parentId.toString())) {
 				parentId = null;
 			}
 			q.addCriteria(Criteria.where("parentMenuId").is(parentId));
+			q.with(new Sort(Sort.Direction.ASC, "orderIdx"));
 		}
 
 		List<Menu> menus = this.mongoTemplate.find(q, Menu.class);

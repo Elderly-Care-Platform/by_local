@@ -16,7 +16,18 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         		}
         		window.open(res.data, 'name','width=1000,height=650')
         	})
-        }
+        };
+
+        (function(){
+            var metaTagParams = {
+                title:  "Beautiful Years | Login",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
+
+
         
         $scope.ggLogin = function(){
         	$http.get("api/v1/users/getGgURL").success(function(res){
@@ -42,17 +53,19 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
             if($rootScope.inContextLogin){
                 ValidateUserCredential.loginCallback();
+            } else{
+                $scope.$parent.exit();
             }
-            else if($rootScope.nextLocation)
-            {
-                $location.path($rootScope.nextLocation);
-                $scope.$apply();
-            }
-            else
-            {
-                $location.path("/users/home");
-                $scope.$apply();
-            }
+            //else if($rootScope.nextLocation)
+            //{
+            //    $location.path($rootScope.nextLocation);
+            //    $scope.$apply();
+            //}
+            //else
+            //{
+            //    $location.path("/users/home");
+            //    $scope.$apply();
+            //}
         }
 	
 	
@@ -76,15 +89,10 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                 if($rootScope.inContextLogin){
                     ValidateUserCredential.loginCallback();
+                } else{
+                    $scope.$parent.exit();
                 }
-                else if($rootScope.nextLocation)
-                {
-                    $location.path($rootScope.nextLocation);
-                }
-                else
-                {
-                    $location.path("/users/home");
-                }
+
             }).error(function () {
                 $scope.setError("Invalid user/password combination");
             });
@@ -147,7 +155,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
 
-                document.getElementById("login_placeHolder_li").style.opacity = "1";
+                document.getElementById("login_placeHolder_li").style.display = "inline";
                 var element = document.getElementById("login_placeholder");
                 element.innerHTML = "Logout";
                 element.href = apiPrefix + "#/users/logout/" + login.sessionId;

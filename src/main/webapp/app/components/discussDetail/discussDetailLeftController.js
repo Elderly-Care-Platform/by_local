@@ -14,10 +14,10 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 			                	var userArticles = value.data.content;
 			        			$scope.articlesByUser = userArticles;
 			                    if($scope.articlesByUser.length<=0){
-			                        $scope.getRelatedArticle();
+			                        $scope.getTagBasedArticle();
 			                    } else {
 			                        if($scope.articlesByUser.length === 1 && $scope.articlesByUser[0].id===$scope.discuss.id){
-			                            $scope.getRelatedArticle();
+			                            $scope.getTagBasedArticle();
 			                        }
 			                    }
 			                    $scope.header1 = "Also by";
@@ -31,31 +31,41 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
         });
 
 
-        $scope.getRelatedArticle = function(){
-        var subTopicId = $scope.discuss.topicId[0];
-        var params = {p:0,s:6,discussType:"A"};
-        if(subTopicId && subTopicId != "" && subTopicId.toLowerCase() != "all"){
-        	params.topicId = subTopicId;
-        }
-        DiscussPage.get(params,
-        		function(value){
-		        	$scope.articlesByUser = value.data.content;
-		            $scope.header1 = "Also in";
-					if(subTopicId && subTopicId != "" && subTopicId.toLowerCase() != "all"){
-						$scope.header2 = $rootScope.discussCategoryListMap ? $rootScope.discussCategoryListMap[subTopicId].name : "";
-					}else{
-						$scope.header2 = "DISCUSS";
+        $scope.getTagBasedArticle = function(){
+			var systemTags = [];
+			if($scope.discuss.topicId && $scope.discuss.topicId.length > 0){
+				for(var i=0; i < $scope.discuss.topicId.length; i++){
+					var topicId = $scope.discuss.topicId[i];
+					var menu = $rootScope.menuCategoryMap[topicId];
+
+					for(var j=0; j < menu.tags.length; j++){
+						systemTags.push(menu.tags[j].id);
 					}
+				}
+			}
 
-        		},
-        		function(error){
-			       	console.log(error);
-        		});
-        }
-        
-        
+			if(systemTags && systemTags.length > 0){
+				var params = {p:0,s:6,discussType:"A"};
+				//params.tags = $.map($scope.discuss.systemTags, function(value, key){
+				//	return value.id;
+				//})
 
-        $scope.trustForcefully = function(html) {
-            return $sce.trustAsHtml(html);
-        };
+				params.tags = systemTags.toString();
+				DiscussPage.get(params,
+					function(response){
+						$scope.articlesByUser = response.data.content;
+						$scope.header1 = "Related Article";
+						$scope.header2 = "";
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+
+		}
+
+		$scope.trustForcefully = function(html) {
+			return $sce.trustAsHtml(html);
+		};
+		
     }]);

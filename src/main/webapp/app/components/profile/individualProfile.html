@@ -93,11 +93,12 @@
 						<ul class="list-inline categoryList"
 							style="margin-left: 5px; margin-top: 5px;">
 							<li class="list-inline">In</li>
-							<li class="list-inline"
-								ng-repeat="category in individualProfile.serviceProviderInfo.services"
-								style="display: inline-block"><a class="ng-binding"
-								di-href="#/find/{{$root.findCategoryListMap[category].id}}/all">&nbsp;
-									{{$root.findCategoryListMap[category].name}} </a></li>
+							<li class="list-inline" ng-repeat="category in individualProfile.serviceProviderInfo.services" style="display: inline-block">
+								&nbsp;&nbsp;
+								<a class="ng-binding" di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+									{{$root.menuCategoryMap[category].displayMenuName}}
+								</a>
+							</li>
 						</ul>
 					</div>
 

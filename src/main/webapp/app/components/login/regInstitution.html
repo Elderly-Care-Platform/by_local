@@ -29,22 +29,20 @@
                     We provide services in the following areas
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <div class="panel-group acc-v1" id="accordion-1">
-                        <div class="panel panel-default" ng-repeat="category in ServiceTypeList">
+                    <div class="panel-group acc-v1" id="accordion-1" ng-repeat="service in $root.serviceCategoryMap">
+                        <div class="panel panel-default"  ng-repeat="category in service.children" ng-if="category.module===1">
                             <div class="panel-heading">
-                                <h4 class="panel-title by_editor_ParentCategories by-reg-toggle"
-                                    ng-if="category.childCount <= 0">
+                                <h4 class="panel-title by_editor_ParentCategories by-reg-toggle" ng-if="category.children.length <= 0">
                                     <label>
-                                        {{category.name}}
+                                        {{category.displayMenuName}}
 
-                                        <input type="checkbox" ng-change="selectServiceType(category)"
-                                               ng-model="category.selected">
+                                        <input type="checkbox" ng-click="selectTag($event, category)" ng-checked="serviceProviderInfo.services.indexOf(category.id) !== -1">
                                     </label>
                                 </h4>
-                                <h4 class="panel-title by_editor_ParentCategories" ng-if="category.childCount > 0">
+                                <h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length > 0">
                                     <a class="accordion-toggle collapsed by-reg-toggle" data-toggle="collapse"
                                        data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
-                                        {{category.name}}
+                                        {{category.displayMenuName}}
                                     </a>
                                     <a class="triangle-down accordion-toggle collapsed by-reg-triangle"
                                        data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}}
@@ -53,10 +51,9 @@
                             </div>
                             <div id={{category.id}}
                                  class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
-                                <div class="panel-body col-md-12" ng-repeat="subCategory in category.children">
-                                    <input type="checkbox" ng-change="selectServiceType(subCategory)"
-                                           ng-model="subCategory.selected">
-                                    <span style="line-height: 23px;">{{subCategory.name}}</span>
+                                <div class="panel-body col-md-12" ng-repeat="subCategory in category.children" ng-if="subCategory.module===1">
+                                    <input type="checkbox" ng-click="selectTag($event, subCategory)" ng-checked="serviceProviderInfo.services.indexOf(subCategory.id) !== -1">
+                                    <span style="line-height: 23px;">{{subCategory.displayMenuName}}</span>
                                 </div>
                             </div>
                             <div style="clear:both"></div>

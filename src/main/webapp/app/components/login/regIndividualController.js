@@ -8,6 +8,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.minCategoryError = false;
         $scope.showSpeciality = false;
         $scope.selectedSpeciality = [];
+	    $scope.selectedMenuList = {};
 
         var editorInitCallback = function(){
             if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
@@ -47,76 +48,86 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.address.streetAddress = response.formatted_address;
         }
 
-        //Request complete service type list
-        $scope.ServiceTypeList = ServiceTypeList.get({}, function () {
-            var selectedServices = $scope.serviceProviderInfo.services;
-            if(selectedServices.length > 0){
-                angular.forEach($scope.ServiceTypeList, function(type, index){
-                    if(selectedServices.indexOf(type.id) > -1){
-                        type.selected = true;
-                        $scope.selectServiceType(type);
-                    }
+        ////Request complete service type list
+        //$scope.ServiceTypeList = ServiceTypeList.get({}, function () {
+        //    var selectedServices = $scope.serviceProviderInfo.services;
+        //    if(selectedServices.length > 0){
+        //        angular.forEach($scope.ServiceTypeList, function(type, index){
+        //            if(selectedServices.indexOf(type.id) > -1){
+        //                type.selected = true;
+        //                $scope.selectServiceType(type);
+        //            }
+        //
+        //            angular.forEach(type.children, function(subType, index){
+        //                if(selectedServices.indexOf(subType.id) > -1){
+        //                    subType.selected = true;
+        //                    $scope.selectServiceType(subType);
+        //                }
+        //            });
+        //        });
+        //    }
+        //
+        //})
+        //
+        ////Select type of services provided by the institute
+        //$scope.selectServiceType = function (elem) {
+        //    if (elem.selected) {
+        //        $scope.selectedServices[elem.id] = elem;
+        //    } else {
+        //        delete $scope.selectedServices[elem.id];
+        //
+        //        if (elem.parentId && $scope.selectedServices[elem.parentId]) {
+        //            delete $scope.selectedServices[elem.parentId];
+        //        }
+        //    }
+        //
+        //    if (elem.parentId && elem.parentId!==null && elem.childCount > 0) {
+        //        $scope.showSpecialityOptions(elem);
+        //    }
+        //}
+        //
+        //
+        ////Create specialities options array for Jquery Ui autocomplete
+        //$scope.showSpecialityOptions = function(parentCategory){
+        //    $scope.showSpeciality = parentCategory.selected;
+        //
+        //    //it accept only An array of objects with label and value properties, ex :[ { label: "Choice1", value: "value1" }, ... ]
+        //    $scope.specialities = $.map(parentCategory.children, function (value, key) {
+        //        var autoCompleteOption = {label:value.name,value:value.name, id:value.id};
+        //
+        //        if($scope.serviceProviderInfo.services.indexOf(value.id)!==-1){ //show hide selected speciality option based on previous && parent category selection
+        //            if($scope.showSpeciality){
+        //                $scope.selectSpecialty(autoCompleteOption);
+        //            } else{
+        //                if ($scope.selectedServices[value.id]) {
+        //                    $scope.selectSpecialty();
+        //                }
+        //            }
+        //        }
+        //        return autoCompleteOption;
+        //    });
+        //}
+        //
+        ////Speciality Autocomplete callback
+        //$scope.selectSpecialty = function(elem){
+        //    $scope.selectedSpeciality = [];
+        //    $scope.selectedSpecialityLabel = "";
+        //    if(elem){
+        //        $scope.selectedSpeciality = [elem.id];
+        //        $scope.selectedSpecialityLabel = elem.label;
+        //    }
+        //}
 
-                    angular.forEach(type.children, function(subType, index){
-                        if(selectedServices.indexOf(subType.id) > -1){
-                            subType.selected = true;
-                            $scope.selectServiceType(subType);
-                        }
-                    });
-                });
-            }
-
-        })
-
-        //Select type of services provided by the institute
-        $scope.selectServiceType = function (elem) {
-            if (elem.selected) {
-                $scope.selectedServices[elem.id] = elem;
-            } else {
-                delete $scope.selectedServices[elem.id];
-
-                if (elem.parentId && $scope.selectedServices[elem.parentId]) {
-                    delete $scope.selectedServices[elem.parentId];
+        $scope.selectTag = function(event, category){
+            if(event.target.checked){
+                $scope.selectedMenuList[category.id] = category;
+                if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
+                    delete $scope.selectedMenuList[category.parentMenuId];
                 }
-            }
-
-            if (elem.parentId && elem.parentId!==null && elem.childCount > 0) {
-                $scope.showSpecialityOptions(elem);
+            }else{
+                delete $scope.selectedMenuList[category.id];
             }
         }
-
-
-        //Create specialities options array for Jquery Ui autocomplete
-        $scope.showSpecialityOptions = function(parentCategory){
-            $scope.showSpeciality = parentCategory.selected;
-
-            //it accept only An array of objects with label and value properties, ex :[ { label: "Choice1", value: "value1" }, ... ]
-            $scope.specialities = $.map(parentCategory.children, function (value, key) {
-                var autoCompleteOption = {label:value.name,value:value.name, id:value.id};
-
-                if($scope.serviceProviderInfo.services.indexOf(value.id)!==-1){ //show hide selected speciality option based on previous && parent category selection
-                    if($scope.showSpeciality){
-                        $scope.selectSpecialty(autoCompleteOption);
-                    } else{
-                        if ($scope.selectedServices[value.id]) {
-                            $scope.selectSpecialty();
-                        }
-                    }
-                }
-                return autoCompleteOption;
-            });
-        }
-
-        //Speciality Autocomplete callback
-        $scope.selectSpecialty = function(elem){
-            $scope.selectedSpeciality = [];
-            $scope.selectedSpecialityLabel = "";
-            if(elem){
-                $scope.selectedSpeciality = [elem.id];
-                $scope.selectedSpecialityLabel = elem.label;
-            }
-        }
-
 
         //Prefill form with previously selected data
         $scope.extractData = function () {
@@ -130,6 +141,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.address.country = "India";
             }
             editorInitCallback();
+	    for(var i=0; i<$scope.serviceProviderInfo.services.length; i++){
+                var menuId = $scope.serviceProviderInfo.services[i];
+                $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
+            }
         }
 
         //Initialize individual registration
@@ -248,18 +263,44 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             return finalServiceList;
         }
 
+        var systemTagList = {};
+        var getSystemTagList = function(data){
+            function rec(data){
+                angular.forEach(data, function(menu, index){
+                    systemTagList[menu.id] = menu.tags;
+                    if(menu.ancestorIds.length > 0){
+                        for(var j=0; j < menu.ancestorIds.length; j++){
+                            var ancestordata = {};
+                            ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
+                            rec(ancestordata);
+                        }
+                    }
+                })
+            }
+
+            rec(data);
+
+            return  $.map(systemTagList, function(value, key){
+                return value;
+            });
+        }
+
         //Post individual form
         $scope.postUserProfile = function (isValidForm) {
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.minCategoryError = false;
-            $scope.serviceProviderInfo.services = $scope.getServiceList();
+            $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
+                return value.id;
+            });
+
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
 
-            if ($scope.serviceProviderInfo.services.length === 0) {
+            $scope.profile.systemTags = getSystemTagList($scope.selectedMenuList);
+            if ( $scope.profile.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
 

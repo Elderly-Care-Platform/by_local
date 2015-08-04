@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,7 +66,8 @@ public class UserProfileController {
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					userProfile.getBasicProfileInfo().setPrimaryEmail(user.getEmail());
+					userProfile.getBasicProfileInfo().setPrimaryEmail(
+							user.getEmail());
 				} else {
 					logger.debug(userProfile.toString());
 				}
@@ -108,13 +110,11 @@ public class UserProfileController {
 				sortDirection = Direction.ASC;
 			}
 
-			Pageable pageable = new PageRequest(page, size,
-					sortDirection, sort);
+			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
 
 			/* check is at least one record exists. */
 			profilePage = UserProfileResponse.getPage(
-					userProfileRepository.findAll(pageable),
-					user);
+					userProfileRepository.findAllUserProfiles(pageable), user);
 			if (profilePage.getContent().size() == 0) {
 				logger.debug("There is nothing to retrieve");
 				/* not sure whether I should be setting an error here */
@@ -136,7 +136,7 @@ public class UserProfileController {
 	@ResponseBody
 	public Object getUserProfilebyCity(
 			@RequestParam(value = "city", required = false) String city,
-			@RequestParam(value = "services", required = false) List<String> services,
+			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
@@ -147,28 +147,34 @@ public class UserProfileController {
 				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
 		LoggerUtil.logEntry();
+		List<ObjectId> tagIds = new ArrayList<ObjectId>();
 		User user = Util.getSessionUser(req);
 
 		UserProfileResponse.UserProfilePage profilePage = null;
 		try {
-			logger.debug(" city " + city + " services " + services + " page " + page
+			logger.debug(" city " + city + " tags " + tags + " page " + page
 					+ " size " + size);
-			if (null == services) {
-				services = new ArrayList<String>();
+			// if (null == services) {
+			// services = new ArrayList<String>();
+			// }
+
+			if (null != tags) {
+				for (String tagId : tags) {
+					tagIds.add(new ObjectId(tagId));
+				}
 			}
-			
+
 			/* setting page and sort criteria */
 			Direction sortDirection = Direction.DESC;
 			if (dir != 0) {
 				sortDirection = Direction.ASC;
 			}
 
-			Pageable pageable = new PageRequest(page, size,
-					sortDirection, sort);
-			
+			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
+
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
-							services, pageable), user);
+							tagIds, pageable), user);
 			if (profilePage.getContent().size() > 0) {
 				logger.debug("found something");
 			} else {
@@ -209,8 +215,7 @@ public class UserProfileController {
 				sortDirection = Direction.ASC;
 			}
 
-			Pageable pageable = new PageRequest(page, size,
-					sortDirection, sort);
+			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
 			userProfilePage = this.userProfileRepository
 					.getServiceProvidersByCriteria(userTypes, pageable);
 			if (userProfilePage.hasContent() == false) {
@@ -247,7 +252,11 @@ public class UserProfileController {
 						 */
 						if (this.userProfileRepository.findByUserId(userProfile
 								.getUserId()) == null) {
-							
+							userProfile.getBasicProfileInfo()
+									.setShortDescription(
+											Util.truncateText(userProfile
+													.getBasicProfileInfo()
+													.getDescription()));
 							userProfileRepository.save(userProfile);
 						} else {
 							throw new BYException(
@@ -287,6 +296,11 @@ public class UserProfileController {
 
 						if (profile != null) {
 							/* set required fields */
+							userProfile.getBasicProfileInfo()
+									.setShortDescription(
+											Util.truncateText(userProfile
+													.getBasicProfileInfo()
+													.getDescription()));
 							profile.setBasicProfileInfo(userProfile
 									.getBasicProfileInfo());
 							profile.setFeatured(userProfile.isFeatured());
@@ -297,6 +311,7 @@ public class UserProfileController {
 							profile.setStatus(userProfile.getStatus());
 							profile.setUserTypes(userProfile.getUserTypes());
 							profile.setLastModifiedAt(new Date());
+							profile.setSystemTags(userProfile.getSystemTags());
 
 							userProfileRepository.save(profile);
 							logger.info("User Profile update with details: "

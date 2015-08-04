@@ -17,12 +17,15 @@
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
                 <li ng-if="detailResponse.discuss.topicId.length > 0"> | In  </li>
 
-                <li ng-if="detailResponse.discuss.topicId.length > 0"> <p class="first-letter-uc">
-                    <a href="#/discuss/{{detailResponse.discuss.discussType}}/{{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name}}/all">
-                        {{$root.discussCategoryListMap[detailResponse.discuss.topicId[0]].name.toLowerCase()}}</a></p>
+                <li ng-repeat="topicId in detailResponse.discuss.topicId">
+                    <p class="first-letter-uc by-systemTags">
+                        <a di-href="#/discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/all/{{$root.menuCategoryMap[topicId].id}}">
+                            {{$root.menuCategoryMap[topicId].displayMenuName}}
+                        </a>
+                        <span ng-if="$index < detailResponse.discuss.topicId.length-1">,</span>
+                    </p>
                 </li>
             </ul><div style="clear: both"></div>
-          
         </div>
         
          <div style="clear: both"></div>
@@ -45,7 +48,6 @@
 
         <div class="articles-story  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
-        {{testFunction()}}
         <div style="clear: both; height:8px;"></div>
         
         

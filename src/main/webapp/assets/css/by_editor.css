@@ -247,3 +247,7 @@ textarea.by_call_submit_video_head_textarea
 {
 	width:100%;
 }
+label input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}

@@ -75,16 +75,6 @@ $(document).ready(function() {
         }, 800);
 		
 	});
-	
-	//////////////
-	
-	
-	var containerWidth = $(".container").width();
-	var windowWIdth2 = $(window).width();
-	var searchright = (windowWIdth2 - containerWidth)/2;
-	$(".searchWrapper").css('right', searchright+"px");
-	
-	
 
 });
 

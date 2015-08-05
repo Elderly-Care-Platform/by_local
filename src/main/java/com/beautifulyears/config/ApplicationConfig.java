@@ -21,33 +21,17 @@ public class ApplicationConfig {
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception {
 		Mongo mongo = new Mongo("localhost", 27017);
-		// UserCredentials userCredentials = new UserCredentials("demo",
-		// "demo");
 		String databaseName = "demo";
 		MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo,
 				databaseName, null);// userCredentials);
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);
 		mongoTemplate.setWriteConcern(WriteConcern.SAFE);
 
-//		if (!mongoTemplate.collectionExists(DiscussComment.class)) {
-//			mongoTemplate.createCollection(DiscussComment.class);
-//		}
 		if (!mongoTemplate.collectionExists(Topic.class)) {
 			mongoTemplate.createCollection(Topic.class);
 		}
-//		if (!mongoTemplate.collectionExists(SubTopic.class)) {
-//			mongoTemplate.createCollection(SubTopic.class);
-//		}
 
 		return mongoTemplate;
-	}
-
-	public static void main(String[] args) {
-		try {
-			new ApplicationConfig().mongoTemplate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }

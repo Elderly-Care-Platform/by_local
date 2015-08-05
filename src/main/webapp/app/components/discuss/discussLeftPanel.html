@@ -7,13 +7,13 @@
                 <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/Q/{{selectedMenu.id}}">Q &amp; A ({{discuss_counts.q}})</a>
             </li>
             <li class="list-group-item {{discussType == 'P' && 'selected active'}}" data-index="discussion-posts" ng-if="discuss_counts.p > 0">
-                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/P/{{selectedMenu.id}}">POSTS ({{discuss_counts.p}})</a>
+                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/P/{{selectedMenu.id}}">Posts ({{discuss_counts.p}})</a>
             </li>
             <li class="list-group-item {{discussType == 'A' && 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.a > 0">
-                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/A/{{selectedMenu.id}}">STORIES ({{discuss_counts.a}})</a>
+                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/A/{{selectedMenu.id}}">Stories ({{discuss_counts.a}})</a>
             </li>
             <li class="list-group-item {{(discussType == '' || discussType == 'All')&& 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.z > 0">
-                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/all/{{selectedMenu.id}}">ALL ({{discuss_counts.z}})</a>
+                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/all/{{selectedMenu.id}}">All ({{discuss_counts.z}})</a>
             </li>
         </ul>
         <!--All classes from Unify end-->

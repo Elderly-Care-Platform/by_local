@@ -61,6 +61,12 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
             }
         }
 
+        $scope.showMore = function(){
+            document.getElementById("more_para").style.display = "block";
+            document.getElementById("more").style.display = "none";
+
+        }
+
 
 
     }]);

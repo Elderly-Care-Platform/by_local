@@ -15,12 +15,21 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         var queryParams = {p:0,s:10};
         
         $scope.updateSectionHeader = function(){
-        	if($scope.selectedMenu.ancestorIds.length === 0){
-        		$scope.sectionHeader = BY.config.sectionHeader[$scope.selectedMenu.displayMenuName];
-        	} else{
-        		var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[0]];
-        		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName];
-        	}
+        	var menuName = $scope.selectedMenu.displayMenuName.toLowerCase().trim();
+        	$scope.sectionHeader = BY.config.sectionHeader[menuName];
+        	if(!$scope.sectionHeader && $scope.selectedMenu.ancestorIds.length > 0) {
+        		if($scope.selectedMenu.ancestorIds.length===1){
+        			var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[0]];
+            		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+        		} else if ($scope.selectedMenu.ancestorIds.length===2){
+        			var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[1]];
+            		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+        		}
+        		
+        		if($scope.sectionHeader[menuName]){
+        			$scope.sectionHeader = $scope.sectionHeader[menuName];
+        		}
+        	} 
         	//console.log($scope.sectionHeader);
         };
         

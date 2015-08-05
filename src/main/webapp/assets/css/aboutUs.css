@@ -1,30 +1,42 @@
 .aboutUsParent {
     font-family: century_gothic !important;
 }
-
+.aboutBgBackground
+{
+	width:100%;
+	height:1039px;
+	background:url('../img/aboutUs/hdbg.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
+	position:absolute;
+}
+.aboutUsAgingBg
+{
+	width:100%;
+	height:590px;
+	background:url('../img/aboutUs/4.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
+	position:absolute;
+	z-index:0;
+	right:0px;
+	top:90px;
+	left: calc((100vw - 858px )/2) !important;
+}
 .aboutUsOne {
-    /*background: url('../img/aboutUs/AboutOne.png?versionTimeStamp=%PROJECT_VERSION%');
-     padding: 71px 15px 325px 67px;*/
-
-    background-size: 100%;
-    background-position: 0px;
-
-    background-repeat: no-repeat;
-    padding: 71px 15px 0px 67px;
+   
+    padding: 35px 15px 0px 15px;
     text-align: center;
-    margin-bottom: 20px;
-    padding-left: 0px !important;
     /* margin-left: -22px !important; */
     margin-top: 0px !important;
     /* margin-top: -21px; */
 }
 
 .aboutUsOneFirst, .aboutUsOneSecond {
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
+    .font-23 {
+        font-size: 23px !important;
+    }
 .aboutUsOneFirst {
     color: #333333;
 
@@ -37,10 +49,9 @@
 .aboutUsOneSecond {
     color: #333333;
     text-align: center;
-    font-size: 32px;
+    font-size: 17px;
     font-weight: 400;
-    line-height: 62px;
-    padding-bottom: 60px;
+    line-height: 26px;
 }
 
 .aboutUsTwo {
@@ -169,11 +180,15 @@
 }
 
 .helprightText {
-    font-size: 22px;
+    font-size: 17px;
+    padding-left:8%;
+    padding-top:5%;
 }
 
 .helpleftText {
-    font-size: 22px;
+    font-size: 17px;
+    padding-right:8%;
+    padding-top:5%;
 }
 
 .blackColorMore {
@@ -229,6 +244,10 @@
     margin-top: 15px;
     background-size: 100%;
 }
+   .bold-green {
+        font-weight: bold;
+        color: #007a3c;
+    }
 
 .aboutUsShop {
     background: url('../img/aboutUs/shop.jpg?versionTimeStamp=%PROJECT_VERSION%');
@@ -241,14 +260,16 @@
 }
 
 .aboutUsThreeText {
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
     color: #000;
-    font-size: 24px;
+    font-size: 17px;
     font-weight: 400;
-    line-height: 50px;
+    line-height: 30px;
+    text-align:center;
+    padding-bottom:30px;
 }
 
 .aboutUsDiscussText {
@@ -429,10 +450,7 @@
         padding: 30px 15px 30px 20%;
     }
 
-    .aboutUsOne {
-        background-position: 0px 243px;
-        padding: 71px 15px 0px 67px;
-    }
+   
 
     @media screen and (max-width: 990px) {
         .aboutProductsThumbWrap:nth-child(even) {
@@ -440,10 +458,13 @@
             margin-left: 0px;
         }
 
-        .aboutUsOne {
-            background-position: 0px 243px;
-            padding: 1px 15px 0px 67px;
-        }
+       .aboutUsAgingBg
+       {
+       	 left: calc(100% - 255px ) !important;
+       	 background:url('../img/aboutUs/4-mobile.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
+       	 width:255px;
+       	 height:284px;
+       }
 
         .teamWrapperBelowThumb img {
             width: 300px;
@@ -508,68 +529,12 @@
             padding: 30px 15px 30px 45%;
         }
     }
-    @media screen and (max-width: 760px) {
-        .aboutFourText {
-            line-height: 32px;
-            font-size: 23px;
-
-        }
-
-        .aboutUsOneFirst, .aboutUsOneSecond {
-            width: 90%;
-        }
-
-        .aboutUsTwo {
-            padding: 0px 7px 84px 15px !important;
-        }
-
-        .aboutUsOneThree {
-            font-size: 30px;
-            line-height: 40px;
-        }
-
-        .aboutUsOneFirst {
-            font-size: 45px;
-            line-height: 48px;
-            padding-bottom: 20px;
-        }
-
-        .aboutUsOneSecond {
-            font-size: 26px;
-            line-height: 42px;
-            padding-bottom: 10px;
-        }
-
-        .aboutUsOne {
-            padding: 20px 7px 50px 15px;
-        }
-
-        .aboutFour {
-            padding: 24px 7px 195px 15px;
-        }
-
-        .teamWrapperBelowLeft {
-            position: absolute;
-            z-index: 9;
-            left: 9px;
-            buttom: -10px;
-            width: 230px;
-        }
-
-        .mita-padding-top {
-            margin-top: 166px;
-        }
-    }
-
-
+    
     .col-xs-height {
         display: table-cell;
         float: none !important;
     }
 
-    .font-23 {
-        font-size: 23px !important;
-    }
 
     .helpjustifyText {
         margin-left: auto;
@@ -581,7 +546,7 @@
         line-height: 45px;
     }
 
-    .helpleftText {
+    /*.helpleftText {
         margin-left: auto;
         margin-right: auto;
         text-align: left;
@@ -599,7 +564,7 @@
         font-size: 22px;
         font-weight: 400;
         line-height: 45px;
-    }
+    }*/
 
     .margin-top-40 {
         margin-top: 40px !Important;
@@ -615,12 +580,7 @@
         margin-top: 60px !Important;
     }
 
-    .bold-green {
-        font-size: 24px;
-        font-weight: bold;
-        color: #007a3c;
-    }
-
+ 
     .teamall {
         background: url('../img/aboutUs/team_all.png?versionTimeStamp=%PROJECT_VERSION%');
         background-repeat: no-repeat;

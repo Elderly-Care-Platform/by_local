@@ -460,8 +460,10 @@
 
        .aboutUsAgingBg
        {
-       	 left:0px !important;
-       	 background:url('../img/aboutUs/4.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
+       	 left: calc(100% - 255px ) !important;
+       	 background:url('../img/aboutUs/4-mobile.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
+       	 width:255px;
+       	 height:284px;
        }
 
         .teamWrapperBelowThumb img {

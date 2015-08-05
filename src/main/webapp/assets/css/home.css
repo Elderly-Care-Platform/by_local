@@ -432,10 +432,14 @@ ul.loginbar.pull-right {
 
 @media screen and (max-width: 991px) {
 	.homeSlider {
-		margin-top: 0px;
+		margin-top: 7px;
 	}
 	.by_left_panel_homeSlider_position {
 		margin-top: 0px !important;
+	}
+	.navbar-toggle
+	{
+		margin-top:-9px;
 	}
 }
 

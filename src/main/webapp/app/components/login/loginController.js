@@ -1,5 +1,5 @@
-byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService',
-    function ($scope, $rootScope, $http, $location, $routeParams, User,SessionIdService) {
+byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService','ValidateUserCredential',
+    function ($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
 		window.scrollTo(0, 0);
        // $scope.views.contentPanelView  = "app/components/login/signUpLeftPanel.html";
 
@@ -16,7 +16,18 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         		}
         		window.open(res.data, 'name','width=1000,height=650')
         	})
-        }
+        };
+
+        (function(){
+            var metaTagParams = {
+                title:  "Beautiful Years | Login",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
+
+
         
         $scope.ggLogin = function(){
         	$http.get("api/v1/users/getGgURL").success(function(res){
@@ -40,16 +51,21 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $rootScope.bc_discussType = 'All'; //type for discuss list
             $scope.setUserCredential(loginReg.body.data);
 
-            if($rootScope.nextLocation)
-            {
-                $location.path($rootScope.nextLocation);
-                $scope.$apply();
+            if($rootScope.inContextLogin){
+                ValidateUserCredential.loginCallback();
+            } else{
+                $scope.$parent.exit();
             }
-            else
-            {
-                $location.path("/users/home");
-                $scope.$apply();
-            }
+            //else if($rootScope.nextLocation)
+            //{
+            //    $location.path($rootScope.nextLocation);
+            //    $scope.$apply();
+            //}
+            //else
+            //{
+            //    $location.path("/users/home");
+            //    $scope.$apply();
+            //}
         }
 	
 	
@@ -71,14 +87,12 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $rootScope.bc_discussType = 'All'; //type for discuss list
                 $scope.setUserCredential(login);
 
-                if($rootScope.nextLocation)
-                {
-                    $location.path($rootScope.nextLocation);
+                if($rootScope.inContextLogin){
+                    ValidateUserCredential.loginCallback();
+                } else{
+                    $scope.$parent.exit();
                 }
-                else
-                {
-                    $location.path("/users/home");
-                }
+
             }).error(function () {
                 $scope.setError("Invalid user/password combination");
             });
@@ -105,7 +119,13 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                     $scope.createUserSuccess = "User registered successfully";
                     $scope.createUserError = '';
                     $scope.setUserCredential(login, "reg2");
-                    $scope.$parent.updateRegistration();
+
+                    if($rootScope.inContextLogin){
+                        ValidateUserCredential.loginCallback();
+                    } else{
+                        $scope.$parent.updateRegistration();
+                    }
+
                 }, function (error) {
                     // failure
                     console.log(error);
@@ -135,13 +155,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
 
-                document.getElementById("login_placeHolder_li").style.opacity = "1";
+                document.getElementById("login_placeHolder_li").style.display = "inline";
                 var element = document.getElementById("login_placeholder");
                 element.innerHTML = "Logout";
                 element.href = apiPrefix + "#/users/logout/" + login.sessionId;
 
                 var pro = document.getElementById('profile_placeholder');
-                pro.innerHTML = localStorage.getItem("USER_NAME") ?  localStorage.getItem("USER_NAME") : "Profile";
+                var userName = localStorage.getItem("USER_NAME");
+                pro.innerHTML = BY.validateUserName(userName);
                 pro.href = apiPrefix + "#/users/login/"; //******************* to be removed*************//
             }
             else {

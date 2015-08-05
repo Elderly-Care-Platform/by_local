@@ -3,6 +3,16 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
         $scope.currentAcceleratorSelected = "";
         $scope.currentView = "aboutUs";
 
+
+        (function(){
+            var metaTagParams = {
+                title:  "About Us",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
+
         $scope.$watch("articles", function (value) {
             $timeout(
                 function () {
@@ -14,17 +24,10 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
 
 
         $scope.add = function (type) {
-            BY.removeEditor();
-            if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
-                $rootScope.nextLocation = $location.path();
-                $location.path('/users/login');
-            }
-            else {
-                $scope.error = "";
-                $scope.currentView = "editor";
-                $scope.aboutUsViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                window.scrollTo(0, 0);
-            }
+            $scope.error = "";
+            $scope.currentView = "editor";
+            $scope.aboutUsViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            window.scrollTo(0, 0);
         };
 
 
@@ -57,6 +60,7 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
                 window.scrollTo(0, 0);
             }
         }
+
 
 
     }]);

@@ -1,67 +1,55 @@
 package com.beautifulyears.repository.custom;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.UserProfile;
-import com.beautifulyears.domain.UserTypes;
-
-import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.rest.response.PageImpl;
 
 public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	private Logger logger = Logger
-			.getLogger(UserProfileRepositoryImpl.class);
 
 	@Override
-	public List<UserProfile> findByCustomQuery(String city, String services, int page, int size){
-		List<UserProfile> userProfilePage = null;
-		LoggerUtil.logEntry();
+	public PageImpl<UserProfile> getServiceProvidersByFilterCriteria(
+			Object[] userTypes, String city, List<ObjectId> tagIds,
+			Pageable page) {
+		List<UserProfile> userProfileList = null;
 		Query q = new Query();
-		q.with(new PageRequest(page,size));
-		q.addCriteria(Criteria.where("BasicProfileInfo.UserAddress.city").is(city).and((String) "ServiceProviderInfo.services").in(new Object[] {services}));
-		userProfilePage = mongoTemplate.find(q,UserProfile.class);
-		for (UserProfile userProfile: userProfilePage)
-		{
-			logger.debug(userProfile.toString());
-			
+		if (null != tagIds && tagIds.size() > 0) {
+			q.addCriteria(Criteria.where("systemTags.$id").in(tagIds));
 		}
+		if (city != null) {
+			Criteria criteria = new Criteria();
+	        criteria.orOperator(Criteria
+					.where("basicProfileInfo.primaryUserAddress.city")
+					.regex(city ,"i"),Criteria.where("basicProfileInfo.otherAddresses")
+					.elemMatch(Criteria.where("city").regex(city ,"i")));
+			
+			q.addCriteria(criteria);
+		}
+		q.with(page);
+		userProfileList = mongoTemplate.find(q, UserProfile.class);
 		
-		
+		long total = this.mongoTemplate.count(q, UserProfile.class);
+		PageImpl<UserProfile> userProfilePage = new PageImpl<UserProfile>(userProfileList, page,
+				total);
+
 		return userProfilePage;
-		
 	}
-	
+
 	@Override
-	public List<UserProfile> findServiceProviders(int page, int size) {
-		
-		List<UserProfile> userProfilePage = null;
-	
-		LoggerUtil.logEntry();
-		Query q = new Query();
-		q.with(new PageRequest(page,size));
-		q.addCriteria(Criteria.where("userTypes").in(new Object[]{UserTypes.INDIVIDUAL_PROFESSIONAL, UserTypes.INSTITUTION_HOUSING, UserTypes.INSTITUTION_SERVICES}));//where("userTypes").in(userType));
-		logger.debug("added is");
-		userProfilePage = mongoTemplate.find(q,UserProfile.class);
-		for (UserProfile userProfile: userProfilePage)
-		{
-			logger.debug(userProfile.toString());
-			
-		}
-		
-		
-		
+	public PageImpl<UserProfile> findAllUserProfiles(Pageable pageable) {
+		 List<UserProfile> userProfileList = mongoTemplate.findAll(UserProfile.class);
+		 long total = userProfileList.size();
+		 PageImpl<UserProfile> userProfilePage = new PageImpl<UserProfile>(userProfileList, pageable,
+					total);
 		return userProfilePage;
 	}
 

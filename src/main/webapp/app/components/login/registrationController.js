@@ -1,10 +1,18 @@
 byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','UserProfile',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
 
-        //$rootScope.nextLocation = $location.path();
         $scope.views = {};
         $scope.views.leftPanel = "app/components/login/registrationLeftPanel.html";
         $scope.profile = {};
+
+        (function(){
+            var metaTagParams = {
+                title:  "Beautiful Years | Registration",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
 
         $scope.updateRegistration = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");
@@ -13,7 +21,12 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                 if($scope.profile.userTypes.length > 0){
                     if($scope.profile.userTypes.indexOf(4)!== -1){
                         $scope.regLevel = 2;
+                        $scope.sectionLabel = "INSTITUTION INFO";
                         $scope.views.contentPanel = "app/components/login/regInstitution.html";
+                    }else if($scope.profile.userTypes.indexOf(7)!== -1){
+                        $scope.regLevel = 2;
+                        $scope.sectionLabel = "INDIVIDUAL SERVICE PROVIDER INFO";
+                        $scope.views.contentPanel = "app/components/login/regIndividual.html";                    	
                     } else {
                         $scope.exit();
                     }

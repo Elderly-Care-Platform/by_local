@@ -3,84 +3,45 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
     'FindServices', '$sce',
     function ($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce) {
 
-        var a = $(".header .navbar-nav > li.dropdown");
-        a.removeClass("dropdown");
-        setTimeout(function () {
-            a.addClass("dropdown")
-        }, 200);
+        var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+
+        $scope.findViews = {};
+        $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+
+        $scope.showSpecialityFilter = false;
+        $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
 
         var city = $routeParams.city;
-        var services = $routeParams.services;
-        var queryParams = {page:0,size:10};
+        var tags = [];
+        var queryParams = {p:0,s:10};
 
-        if (services && services !== "" && services !== "all") {
-            queryParams.services = services;
+        if($scope.selectedMenu){
+            $(".selected-dropdown").removeClass("selected-dropdown");
+            $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
+
+            tags = $.map($scope.selectedMenu.tags, function(value, key){
+                return value.id;
+            })
+            queryParams.tags = tags.toString();  //to create comma separated tags list
         }
 
         if (city && city !== "" && city !== "all") {
             queryParams.city = city;
         }
 
-        $scope.findViews = {};
-        $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        //var serviceCategory = $routeParams.services;
+        //var queryParams = {page: 0, size: 10};
+        //
+        //if (serviceCategory && serviceCategory !== "" && serviceCategory !== "all") {
+        //    queryParams.services = serviceCategory;
+        //}
+        //
+        //if (city && city !== "" && city !== "all") {
+        //    queryParams.city = city;
+        //}
 
-
-        $("#preloader").show();
-        $scope.services = FindServices.get(queryParams, function (services) {
-                $scope.services = services.data.content;
-                $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
-                $scope.pageInfo.isQueryInProgress = false;
-                $("#preloader").hide();
-            },
-            function (error) {
-                console.log("DiscussAllForDiscussType");
-//                alert("error");
-            });
-
-        $rootScope.bc_topic = 'list';
-        $rootScope.bc_subTopic = 'all';
-        $rootScope.bc_discussType = 'all';
-
-        var category = $rootScope.findCategoryListMap[queryParams.services];
-        if (category) {
-            $rootScope.bc_topic = category.name;
-            $rootScope.bc_subTopic = 'all';
-            if (category.parentId) {
-                $rootScope.bc_subTopic = category.name;
-                $rootScope.bc_topic = $rootScope.findCategoryListMap[category.parentId].name;
-            }
-        }
-
-        $scope.trustForcefully = function (html) {
-            return $sce.trustAsHtml(html);
-        };
-
-        $scope.go = function ($event, type, id, discussType) {
-            $event.stopPropagation();
-            if (type === "id") {
-                $location.path('/profile/0/' + id);
-            }
-        }
-
-        //Editor initialize
-        $scope.add = function (type) {
-        };
-        //Editor post callback
-        $scope.postSuccess = function () {
-            $route.reload();
-        };
-
-        $scope.cityOptions = {
-
-            types: "(cities)",
-            resetOnFocusOut: false
-        };
-
-        $scope.addressCallback = function (response) {
-            $('#addressCity').blur();
-            queryParams = {};
-            queryParams.city = response.name;
+        $scope.getData = function (queryParams) {
             $("#preloader").show();
             $scope.services = FindServices.get(queryParams, function (services) {
                     $scope.services = services.data.content;
@@ -89,30 +50,111 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                     $("#preloader").hide();
                 },
                 function (error) {
-                    console.log("Services on city not found");
+                    console.log(error);
                 });
+
         }
 
 
-        $scope.loadMore = function($event){
-            if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
+        //$scope.showBreadcrums = function () {
+        //    $rootScope.bc_topic = 'list';
+        //    $rootScope.bc_subTopic = 'all';
+        //    $rootScope.bc_discussType = 'all';
+        //
+        //    $rootScope.bc_topicId = 'all';
+        //    $rootScope.bc_subTopicId = 'all';
+        //
+        //    var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
+        //    if (category) {
+        //        $rootScope.bc_topic = category.name;
+        //        $rootScope.bc_subTopic = 'all';
+        //
+        //        $rootScope.bc_topicId = category.id;
+        //        $rootScope.bc_subTopicId = 'all';
+        //
+        //        if (category.parentId) {
+        //            $rootScope.bc_subTopic = category.name;
+        //            $rootScope.bc_topic = $rootScope.findCategoryListMap[category.parentId].name;
+        //
+        //            $rootScope.bc_topicId = category.parentId;
+        //            $rootScope.bc_subTopicId = category.id;
+        //        }
+        //    }
+        //}
+
+        $scope.showFilters = function () {
+            var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
+            if (category && category.parentId && category.parentId !== null && category.childCount > 0) {
+                $scope.showSpecialityFilter = true;
+                $scope.specialities = $.map(category.children, function (value, key) {
+                    return {label: value.name, value: value.name, id: value.id};
+                });
+            }
+        }
+
+        //$scope.showBreadcrums();
+        $scope.showFilters();
+        $scope.getData(queryParams);
+
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
+        }
+
+
+
+        $scope.location = function ($event, userId, userType) {
+            $event.stopPropagation();
+            if (userId && userType.length > 0) {
+                $location.path('/profile/' + userType[0] + '/' + userId);
+            }
+        }
+
+        //Editor initialize
+        $scope.add = function (type) {
+        }
+        //Editor post callback
+        $scope.postSuccess = function () {
+            $route.reload();
+        }
+
+        $scope.cityOptions = {
+            types: "(cities)",
+            resetOnFocusOut: false
+        }
+
+        $scope.addressCallback = function (response) {
+            $('#addressCity').blur();
+            queryParams.city = response.name;
+            $scope.getData(queryParams);
+        }
+
+        $scope.specialityCallback  = function (speciality){
+            queryParams.services = speciality.id;
+            $scope.getData(queryParams);
+        }
+
+
+        $scope.loadMore = function ($event) {
+            if ($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress) {
                 $scope.pageInfo.isQueryInProgress = true;
                 queryParams.page = $scope.pageInfo.number + 1;
                 queryParams.size = $scope.pageInfo.size;
 
                 FindServices.get(queryParams, function (services) {
-                    if(services.data.content.length > 0){
+                        if (services.data.content.length > 0) {
+                            $scope.pageInfo.isQueryInProgress = false;
+                            $scope.services = $scope.services.concat(services.data.content);
+                        }
+                        $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
                         $scope.pageInfo.isQueryInProgress = false;
-                        $scope.services = $scope.services.concat(services.data.content);
-                    }
-                    $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
-                    $scope.pageInfo.isQueryInProgress = false;
-                    $("#preloader").hide();
-                },
-                function (error) {
-                    console.log("Services on city not found");
-                });
+                        $("#preloader").hide();
+                    },
+                    function (error) {
+                        console.log("Services on city not found");
+                    });
             }
         }
+
+
 
     }]);

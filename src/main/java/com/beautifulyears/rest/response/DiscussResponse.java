@@ -5,10 +5,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.domain.Page;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.util.Util;
 
 public class DiscussResponse implements IResponse {
 
@@ -23,15 +26,13 @@ public class DiscussResponse implements IResponse {
 	public static class DiscussPage {
 		private List<DiscussEntity> content = new ArrayList<DiscussEntity>();
 		private boolean lastPage;
-		private int number;
-		
-		
+		private long number;
 
 		public DiscussPage() {
 			super();
 		}
 
-		public DiscussPage(Page<Discuss> page) {
+		public DiscussPage(PageImpl<Discuss> page) {
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (Discuss discuss : page.getContent()) {
@@ -55,11 +56,11 @@ public class DiscussResponse implements IResponse {
 			this.lastPage = lastPage;
 		}
 
-		public int getNumber() {
+		public long getNumber() {
 			return number;
 		}
 
-		public void setNumber(int number) {
+		public void setNumber(long number) {
 			this.number = number;
 		}
 
@@ -75,10 +76,12 @@ public class DiscussResponse implements IResponse {
 		private String text;
 		private int aggrReplyCount;
 		private int directReplyCount;
+		private String shortSynopsis;
 		private Date createdAt = new Date();
 		private List<String> topicId;
 		private boolean isLikedByUser = false;
 		private int aggrLikeCount = 0;
+		private long shareCount = 0;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -88,14 +91,39 @@ public class DiscussResponse implements IResponse {
 			this.setUsername(discuss.getUsername());
 			this.setDiscussType(discuss.getDiscussType());
 			this.setText(discuss.getText());
+			if(null == discuss.getShortSynopsis()){
+				Document doc = Jsoup.parse(discuss.getText());
+				String text = doc.text();
+				if(text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
+					discuss.setShortSynopsis(Util.truncateText(text));
+				}
+			}
+			this.setShortSynopsis(discuss.getShortSynopsis());
 			this.setAggrReplyCount(discuss.getAggrReplyCount());
 			this.setDirectReplyCount(discuss.getDirectReplyCount());
 			this.setCreatedAt(discuss.getCreatedAt());
 			this.setTopicId(discuss.getTopicId());
 			this.setAggrLikeCount(discuss.getLikedBy().size());
+			this.setShareCount(discuss.getShareCount());
 			if (null != user && discuss.getLikedBy().contains(user.getId())) {
 				this.setLikedByUser(true);
 			}
+		}
+
+		public String getShortSynopsis() {
+			return shortSynopsis;
+		}
+
+		public void setShortSynopsis(String shortSynopsis) {
+			this.shortSynopsis = shortSynopsis;
+		}
+
+		public long getShareCount() {
+			return shareCount;
+		}
+
+		public void setShareCount(long shareCount) {
+			this.shareCount = shareCount;
 		}
 
 		public int getDirectReplyCount() {
@@ -224,8 +252,8 @@ public class DiscussResponse implements IResponse {
 	public void add(Discuss discuss, User user) {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
-	
-	public static DiscussPage getPage(Page<Discuss> page){
+
+	public static DiscussPage getPage(PageImpl<Discuss> page) {
 		DiscussPage res = new DiscussPage(page);
 		return res;
 	}

@@ -1,0 +1,216 @@
+<div ng-controller="IndividualProfileController">
+	<!-- Modal -->
+	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog"
+			style="width: 80%; margin-left: auto; margin-right: auto;">
+			<div class="modal-content">
+				<div class="modal-header" style="border-bottom: 0px;">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+
+				</div>
+				<div class="modal-body by_modal_body">
+					<img src="" style="max-width: 100%" />
+				</div>
+				<div class="modal-footer" style="border-top: 0px;">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 whiteBg by_discuss_detail margin-bottom-35">
+		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
+			<div class="col-md-5" style="padding: 0px;">
+				<div class="col-md-12 main-image white-gray " style="padding: 0px;">
+					<img class="full-width padding-zero"
+						src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"
+						fallback-src='["assets/img/by-housing-avtar.jpg"]' alt="">
+				</div>
+				<div class="col-md-12 by-imageGallery margin-top-20 row"
+					ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0">
+					<div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
+					</div>
+					<div class="by-gallery-container">
+						<div
+							ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs"
+							class="by-imageGallery-item" data-popup="{{img.original || ''}}"
+							data-hover="{{img.thumbnailImage || ''}}"
+							ng-init="galleryClickHover()">
+							<img src="{{img.thumbnailImage || ''}}"
+								fallback-src='["{{img.original||""}}"]' />
+						</div>
+					</div>
+					<div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="col-md-7 by-service-padding">
+				<div class="profileMainContent">
+					<div class="profileContentTitle">
+						<span ng-if="gender">{{gender}}</span> <span
+							ng-if="individualProfile.basicProfileInfo.firstName">{{individualProfile.basicProfileInfo.firstName}}</span>
+						<span ng-if="individualProfile.individualInfo.lastName">
+							{{individualProfile.individualInfo.lastName}}</span>
+					</div>
+					<div class="no-padding">
+						<div class="profileRating"
+							ng-if="individualProfile.ratingCount===0 && individualProfile.reviewCount===0 && isAllowedToReview">
+							<a ng-click="reviewContent()"> Be the first to rate/review</a>
+						</div>
+						<div class="profileRating"
+							ng-if="individualProfile.ratingCount > 0">
+							<i class="rounded-x"
+								rate-calculator="{{individualProfile.ratingPercentage}}"></i>Rated
+							by <a href="">{{individualProfile.ratingCount}} users<xy
+									ng-if="individualProfile.ratingCount > 1">s</xy></a>
+						</div>
+						<div class="profileReview"
+							ng-if="individualProfile.reviewCount > 0">
+							<i class="rounded-x fa fa-review-icon padding42"></i>{{individualProfile.reviewCount}}
+							reviews
+						</div>
+						<div class="clearfix" style="height: 6px;"></div>
+						<div class="profileRating"
+							ng-if="individualProfile.serviceProviderInfo.yearsExperience > 1">
+							{{individualProfile.serviceProviderInfo.yearsExperience}} years
+							of experience</a>
+						</div>
+						<div class="profileRating"
+							ng-if="individualProfile.serviceProviderInfo.yearsExperience < 2">
+							{{individualProfile.serviceProviderInfo.yearsExperience}} year
+							of experience</a>
+						</div>
+						<div style="clear: both"></div>
+					</div>
+					<div class="article"
+						ng-if="individualProfile.serviceProviderInfo.services.length > 0">
+						<ul class="list-inline categoryList"
+							style="margin-left: 5px; margin-top: 5px;">
+							<li class="list-inline">In</li>
+							<li class="list-inline" ng-repeat="category in individualProfile.serviceProviderInfo.services" style="display: inline-block">
+								&nbsp;&nbsp;
+								<a class="ng-binding" di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+									{{$root.menuCategoryMap[category].displayMenuName}}
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class=" profile-home-visit by-service-border"
+						ng-if="individualProfile.serviceProviderInfo.homeVisits">
+						 <span>Available for home visit</span> <input type="checkbox" class="checkBoxTwo"
+							ng-checked="individualProfile.serviceProviderInfo.homeVisits"
+							disabled />
+					</div>
+
+					<div class="col-md-12 bg-color-grey2"
+						style="margin-bottom: 14px; margin-top: 10px;"></div>
+					<div class="no-padding">
+						<div class="no-padding">
+							<i class="fa fa-envelope"></i> <a href="">{{individualProfile.basicProfileInfo.primaryEmail}}</a>
+							<span
+								ng-repeat="mail in individualProfile.basicProfileInfo.secondaryEmails"
+								ng-if="mail.trim()!==''"> / <a href="mailto::{{mail}}">{{mail}}</a>
+							</span>
+						</div>
+						<div style="clear: both; height: 5px;"></div>
+						<div class="no-padding"
+							ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">
+							<i class="fa fa-phone"></i> <span>{{individualProfile.basicProfileInfo.primaryPhoneNo}}</span>
+							<span
+								ng-repeat="phoneNo in individualProfile.basicProfileInfo.secondaryPhoneNos"
+								ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
+						</div>
+						<div style="clear: both; height: 5px;"></div>
+						<div class="no-padding"
+							ng-if="individualProfile.serviceProviderInfo.website">
+							<i class="fa fa-globe"></i> <a
+								ng-href="http://{{institutionProfile.serviceProviderInfo.website}}"
+								target="_blank">
+								{{individualProfile.serviceProviderInfo.website}} </a>
+						</div>
+						<div style="clear: both; height: 5px;"></div>
+					</div>
+					<div class="no-padding profileAddress"
+						ng-if="individualProfile.basicProfileInfo.primaryUserAddress.streetAddress || individualProfile.basicProfileInfo.primaryUserAddress.locality ||
+						 individualProfile.basicProfileInfo.primaryUserAddress.city || individualProfile.basicProfileInfo.primaryUserAddress.country || individualProfile.basicProfileInfo.primaryUserAddress.zip">
+						<i class="fa fa-address divLeft"></i>
+						<ul class="list-inline divRight" style="width:calc(100% - 25px);">
+							<li class="list-inline"
+								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.streetAddress">
+								{{individualProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
+							</li>
+							<li class="list-inline"
+								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.locality">
+								{{individualProfile.basicProfileInfo.primaryUserAddress.locality}}, 
+							</li>
+							<li class="list-inline"
+								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city">
+								&nbsp;{{individualProfile.basicProfileInfo.primaryUserAddress.city}}, </li>
+							<li class="list-inline"
+								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.country">
+								&nbsp;{{individualProfile.basicProfileInfo.primaryUserAddress.country}}&nbsp;-&nbsp;
+							</li>
+							<li class="list-inline"
+								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.zip">
+								{{individualProfile.basicProfileInfo.primaryUserAddress.zip}}</li>
+						</ul>
+					</div>
+					<!--<div class="col-md-12 no-padding">-->
+					<!--<ul class="list-inline margin-left&#45;&#45;2 font-bold">-->
+					<!--<li class="list-inline"><img class=" padding-zero"-->
+					<!--src="assets/img/icons/location.png" alt="">-->
+					<!--</li>-->
+					<!--<li class="list-inline">PUNE</li>-->
+					<!--<li class="list-inline"> | DELHI | BANGALORE-->
+					<!--</ul>-->
+					<!--</div>-->
+				</div>
+			</div>
+		</div>
+	
+
+		<div class="col-md-12"
+			ng-if="individualProfile.basicProfileInfo.description">
+			<div class="col-md-12 bg-color-grey2"
+						style="margin-bottom: 22px; margin-top: 5px; height:1px;"></div>
+			
+			<div class="articles-story"
+				ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+		
+		
+		
+
+		<div ng-if="reviews && reviews.length > 0" class="row">
+		<div class="col-md-12 bg-color-grey2"
+						style="margin-bottom: 22px; margin-top: 5px; height:1px;"></div>
+		
+		
+		
+		 <div class="col-md-12  margin-bottom-20 review-rate-header" style="padding-left:21px; padding-right:21px;">
+            <div class="col-md-12 no-padding dp-block" style="border-bottom:1px solid #ccc;">
+                Recent Reviews
+            </div>
+
+            <div class="col-md-12 no-padding">
+                <div class="bg-green-h2" style="width: 150px;"></div>
+            </div>
+        </div>
+			<div ng-repeat="review in reviews" data-index="discussion-articles"
+				data-link="articles.html"
+				ng-include="'app/components/profile/profileReviewCard.html'"
+				ng-if="review.text && review.text.trim().length > 0"></div>
+		</div>
+	</div>
+
+	<!--/end profile details-->
+
+
+
+</div>

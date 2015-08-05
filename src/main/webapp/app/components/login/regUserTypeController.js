@@ -2,11 +2,11 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
         $scope.userCategory = "";
         $scope.individualUserType = [
-            {key:'0', value:"I take care of a senior person", category:"indv"},
+            {key:'0', value:"I take care of a senior in my family", category:"indv"},
             {key:'1', value:"I am not that young, but I am young at heart", category:"indv"},
-            {key:'2', value:"I volunteer with senior people", category:"indv"},
             {key:'7', value:"I am an elder care professional", category:"indv"
             }];
+        //        {key:'2', value:"I volunteer with senior people", category:"indv"},
 
         $scope.institutionUserType = [
             {key:'3', value:"Senior living facilities", category:"inst"},
@@ -52,17 +52,24 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
 
         $scope.submit = function(){
             $scope.userProfile = new UserProfile();
+            $scope.userProfile.basicProfileInfo = $scope.$parent.profile.basicProfileInfo;
             $scope.userProfile.userId = localStorage.getItem("USER_ID");
             $scope.userProfile.userTypes = $.map($scope.selectedUserType, function(value, key){
                 return parseInt(key);
             })
-            $scope.userProfile.$post(function(profile, headers){
-                console.log("success");
-                $scope.$parent.updateRegistration();
-            }, function(error){
-                console.log("error");
-                $scope.$parent.exit();
-            });
+
+            if($scope.userProfile.userTypes.length > 0){
+                $scope.userProfile.$post(function(profile, headers){
+                    console.log("success");
+                    $scope.$parent.updateRegistration();
+                }, function(error){
+                    console.log("error");
+                    $scope.cancel();
+                });
+            } else{
+                $scope.cancel();
+            }
+
         }
 
         $scope.cancel = function(){

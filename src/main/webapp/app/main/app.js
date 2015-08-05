@@ -4,13 +4,12 @@ var apiPrefix = "";
 var byServices = angular.module("byServices", ["ngResource"]);
 var byControllers = angular.module("byControllers", []);
 
-
 var byApp = angular.module('byApp', [
  	"byControllers",
  	"byServices",
  	"ngRoute",
  	'ngSanitize',
- 	'ngAutocomplete',
+ 	'ngGoogleLocation',
  	'infinite-scroll'
  ]);
 
@@ -38,47 +37,31 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 		if($location.path().indexOf('/search/') == -1)
         	$rootScope.term = '';
 
-
-       	var session = SessionIdService.getSessionId();
-       	if (session == '' || session == null) {
-//       		console.log(next.templateUrl);
-       		$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
-            // no logged user, we should be going to #login
-            //Code to allow non-logged in users to visit read only pages
-            if (next.templateUrl == "app/components/login/login.html" || next.templateUrl == 'app/components/aboutUs/aboutUs.html' ||
-            		next.templateUrl == 'app/components/home/home.html' || next.templateUrl == 'app/components/users/create.html' ||
-            		next.templateUrl == 'app/components/search/search.html' || next.templateUrl == 'app/components/discuss/discussion.html' ||
-            		next.templateUrl == 'app/components/discussDetail/discussDetail.html' ||
-            		next.templateUrl == 'app/shared/footer/privacyPolicy.html' || next.templateUrl == 'app/shared/footer/termsConditions.html' ||
-            		next.templateUrl == 'app/shared/footer/contactUs.html' || next.templateUrl == 'app/components/find/services.html') {
-            // already going to #login, no redirect needed
-            	
-            } else {
-                // not going to #login, we should redirect now
-            	
-            	$location.path("/users/login");
-            }
-        }else{
-        	$rootScope.bc_discussType = $rootScope.bc_discussType? $rootScope.bc_discussType : 'All';
-        }
+		$(".selected-dropdown").removeClass("selected-dropdown");
     });
 
-    discussCategoryList.query().$promise.then(
-    	    function(categories){
-    	    	$rootScope.discussCategoryList = categories;
-    	    	$rootScope.discussCategoryListMap = {};
-    	    	$rootScope.discussCategoryNameIdMap = {};
-    	        angular.forEach(categories, function(category, index){
-    	        	$rootScope.discussCategoryListMap[category.id] = category;
-    	        	$rootScope.discussCategoryNameIdMap[category.name.toLowerCase()] = category.id;
-    	        	angular.forEach(category.children, function(subCategory, index){
-	    				$rootScope.discussCategoryListMap[subCategory.id] = subCategory;
-	    				$rootScope.discussCategoryNameIdMap[subCategory.name.toLowerCase()] = subCategory.id;
-	    			});
-    	        });
-    	    }
-    	);
-    
+	window.fbAsyncInit = function() {
+		// Executed when the SDK is loaded
+
+		FB.init({
+
+			appId: '475153235986093',
+			//appId: 1503191563249716,
+			xfbml: true,
+			version    : 'v2.3'
+		});
+
+		//sAuth.watchAuthenticationStatusChange();
+
+	};
+
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
 });
 
 

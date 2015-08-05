@@ -1,73 +1,106 @@
 package com.beautifulyears.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.beautifulyears.domain.BasicProfileInfo;
+import com.beautifulyears.domain.menu.Tag;
 
-
-/** The UserProfile class specifies profile information of all types of users including 
-*  individual and institutions. 
-*  Documents corresponding to this class are stored in user_profile collection in MongodB.
-*  @author jharana
-*/
+/**
+ * The UserProfile class specifies profile information of all types of users
+ * including individual and institutions. Documents corresponding to this class
+ * are stored in user_profile collection in MongodB.
+ * 
+ * @author jharana
+ */
 @Document(collection = "user_profile")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfile {
 
 	@Id
 	private String id;
-	
-	private String userId; //primary user ID from User.java
-	
-	private List<Integer> userTypes = new ArrayList<Integer>(); // @see @UserTypes.java
-	
-	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo(); //contains all common user profile information.
 
-	private IndividualProfileInfo individualInfo = new IndividualProfileInfo(); //contains information applicable to an individual;
-	
-	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo(); //contains information about service providers
-	
+	// primary user ID from User.java
+	private String userId;
+
+	// @see @UserTypes.java
+	private List<Integer> userTypes = new ArrayList<Integer>();
+
+	// contains all common user profile information.
+	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
+
+	// contains information applicable to an individual
+	private IndividualProfileInfo individualInfo = new IndividualProfileInfo();
+
+	// contains information about service provider
+	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
+
 	private String tags;
 
 	private boolean isFeatured;
-	
-	private List<String> systemTags = new ArrayList<String>();
+
+	private final Date createdAt = new Date();
+
+	private Date lastModifiedAt = new Date();
+	@DBRef
+	private List<Tag> systemTags = new ArrayList<Tag>();
 
 	private List<String> userTags = new ArrayList<String>();
-	
-	private int status; //Unparroved, verified, etc. 
-	
-	public UserProfile()
-	{
-		
-	}
-	
-	
 
-	public UserProfile(String id, String userId, List<Integer> userTypes,
-			BasicProfileInfo basicProfileInfo,
-			IndividualProfileInfo individualInfo,
-			ServiceProviderInfo serviceProviderInfo, String tags,
-			boolean isFeatured, List<String> systemTags, List<String> userTags,
-			int status) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.userTypes = userTypes;
-		this.basicProfileInfo = basicProfileInfo;
-		this.individualInfo = individualInfo;
-		this.serviceProviderInfo = serviceProviderInfo;
-		this.tags = tags;
-		this.isFeatured = isFeatured;
-		this.systemTags = systemTags;
-		this.userTags = userTags;
-		this.status = status;
+	private int status; // Unparroved, verified, etc.
+
+	@JsonIgnore
+	private List<String> reviewedBy = new ArrayList<String>();
+
+	@JsonIgnore
+	private List<String> ratedBy = new ArrayList<String>();
+
+	private Float aggrRatingPercentage = 0f;
+
+	@Transient
+	private boolean isReviewedByUser = false;
+
+	@Transient
+	private boolean isRatedByUser = false;
+
+	@JsonProperty
+	public boolean isReviewedByUser() {
+		return isReviewedByUser;
 	}
 
+	@JsonIgnore
+	public void setReviewedByUser(boolean isReviewedByUser) {
+		this.isReviewedByUser = isReviewedByUser;
+	}
 
+	@JsonProperty
+	public boolean isRatedByUser() {
+		return isRatedByUser;
+	}
+
+	@JsonIgnore
+	public void setRatedByUser(boolean isRatedByUser) {
+		this.isRatedByUser = isRatedByUser;
+	}
+
+	@JsonProperty
+	public Float getAggrRatingPercentage() {
+		return aggrRatingPercentage;
+	}
+
+	@JsonIgnore
+	public void setAggrRatingPercentage(Float aggrRating) {
+		this.aggrRatingPercentage = aggrRating;
+	}
 
 	public String getId() {
 		return id;
@@ -133,11 +166,11 @@ public class UserProfile {
 		this.isFeatured = isFeatured;
 	}
 
-	public List<String> getSystemTags() {
+	public List<Tag> getSystemTags() {
 		return systemTags;
 	}
 
-	public void setSystemTags(List<String> systemTags) {
+	public void setSystemTags(List<Tag> systemTags) {
 		this.systemTags = systemTags;
 	}
 
@@ -149,12 +182,40 @@ public class UserProfile {
 		this.userTags = userTags;
 	}
 
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
 	public int getStatus() {
 		return status;
 	}
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public List<String> getReviewedBy() {
+		return reviewedBy;
+	}
+
+	public void setReviewedBy(List<String> reviewedBy) {
+		this.reviewedBy = reviewedBy;
+	}
+
+	public List<String> getRatedBy() {
+		return ratedBy;
+	}
+
+	public void setRatedBy(List<String> ratedBy) {
+		this.ratedBy = ratedBy;
 	}
 
 	@Override
@@ -165,9 +226,7 @@ public class UserProfile {
 				+ ", serviceProviderInfo=" + serviceProviderInfo + ", tags="
 				+ tags + ", isFeatured=" + isFeatured + ", systemTags="
 				+ systemTags + ", userTags=" + userTags + ", status=" + status
-				+ "]";
+				+ ", reviewedBy=" + reviewedBy + ", ratedBy=" + ratedBy + "]";
 	}
-
-	
 
 }

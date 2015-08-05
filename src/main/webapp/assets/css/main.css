@@ -93,78 +93,43 @@ body a:hover
 
 }
 
-
-.by-imageGallery{
+.by-login-modal{
     width: 100%;
-    height: auto;
-    margin: 15px 0px 15px 0px;
-    overflow: hidden;
-    padding-left: 0px;
+    height: 100%;
+    z-index: 200;
 }
 
-.by-imageGallery-item {
-    float: left;
-    margin-right: 5px;
-    height: 70px;
+.container
+{
+    max-width: 960px;
+}
+.article-outer-wrapper
+{
+    padding-left:55px;
+    padding-right:55px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+}
+.by_left_panel_fixed
+{
+    left: calc((100vw - 960px + 20px)/2) !important;
+    width: 225px !important;
+}
+#sidebar-nav
+{
+    width: 225px;
 }
 
-.by-imageGallery-item img {
-    height:100%;
-    width: auto !important;
+@media (max-width: 990px){
+    .by_left_panel_fixed, #sidebar-nav
+    {
+        width: 100% !important;
+    }
+
 }
 
-.by-gallery-container{
-    width:200%;
-    /*margin-top: 15px;*/
-    left: 0px;
-    position: relative;
-
-    -webkit-transition-property: -webkit-transform;
-    transition-property: -webkit-transform;
-    -webkit-transform:translate3d(4px, 0px, 0px);
-    -webkit-transition-duration: 1000ms; transition-duration: 1000ms;
-    -webkit-transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-}
-
-.by-gallery-leftArrow{
-    background: url("../img/icons/arrow_left.gif") no-repeat;
-    float: left;
-    height: 70px;
-    background-size: 30px 70px;
-    width: 30px;
-    position: relative;
-    z-index: 2;
-}
-
-.by-gallery-leftArrow:hover{
-    background: url("../img/icons/arrow_left_over.gif") no-repeat;
-    background-size: 30px 70px;
-}
-
-.by-gallery-rightArrow{
-    background: url("../img/icons/arrow_right.gif") no-repeat;
-    float: left;
-    height: 70px;
-    background-size: 30px 70px;
-    width: 30px;
-    position: absolute;
-    right: 0px;
-    z-index: 2;
-}
-
-.by-gallery-rightArrow:hover{
-    background: url("../img/icons/arrow_right_over.gif") no-repeat;
-    background-size: 30px 70px;
-}
-
-
-.by-gallery-animate-right {
-    -webkit-transform:translate3d(-204px, 0px, 0px);
-}
-
-.by-gallery-animate-left {
-    -webkit-transform:translate3d(0px, 0px, 0px);
+.first-letter-uc::first-letter {
+    text-transform: uppercase;
 }
 
 

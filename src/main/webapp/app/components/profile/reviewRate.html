@@ -1,0 +1,86 @@
+<div ng-controller="ReviewRateController">
+    <form name="reviewRateForm" class="third-register-page grayRegisterBgLight by_editor_wrap" novalidate
+          style="background:transparent;">
+        <div class="row  margin-bottom-20 review-rate-header">
+            <div class="col-md-12 no-padding dp-block">
+                Review &amp; Rate <span ng-if="gender">{{gender}}</span>
+                <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+                <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+            </div>
+
+            <div class="col-md-12 no-padding">
+                <div class="bg-green-h2" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div class="row whiteBg register-page padding20 borderShadow margin-bottom-20">
+            <div class="col-md-12 margin-bottom-20   reviewRateForm">
+
+            </div>
+            <div class="col-md-12 margin-bottom-20   register-page reviewRateForm">
+                <div class="col-md-6 col-sm-6 col-xs-6 no-padding">
+                    <div class="row margin-bottom-10  " ng-click="selectRating(5, $event)">
+                        <a class="col-md-6 col-xs-8">Excellent</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate5">5</div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(4, $event)">
+                        <a class="col-md-6 col-xs-8">Good</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate4">4</div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(3, $event)">
+                        <a class="col-md-6 col-xs-8">Average</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate3">3</div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(2, $event)">
+                        <a class="col-md-6 col-xs-8">Poor</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate2">2</div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="row margin-bottom-10  " ng-click="selectRating(1, $event)">
+                        <a class="col-md-6 col-xs-8">Terrible</a>
+
+                        <div class="col-md-6 col-xs-4 profileRateValues profileRate1">1</div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="row margin-bottom-10 home-address byEditor">
+                    <textarea class="textbox" rows="3" style="height: 200px;" id="reviewTextArea"
+                              ng-model="reviewText"></textarea>
+                    </div>
+                    <div>
+                        <span ng-show="blankReviewRateError" class="errorRed">Please rate/review
+                            <span ng-if="gender">{{gender}}</span>
+                            <span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+                            <span ng-if="userProfile.individualInfo.lastName"> {{userProfile.individualInfo.lastName}}</span>
+                        </span>
+
+                        <span ng-show="unauthorizeUserError" class="errorRed">
+                           You are not authorized to review/rate this profile
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12  margin-bottom-20">
+            <input type="submit" value="Done" id="reviewSubmit" class="nextButton by-editor-submit-btn" ng-click="postReview(individualForm)"/>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </form>
+
+</div>

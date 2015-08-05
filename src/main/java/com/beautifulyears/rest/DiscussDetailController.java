@@ -1,5 +1,6 @@
 package com.beautifulyears.rest;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,17 +19,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.beautifulyears.DiscussConstants;
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussReplyRepository;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
 
 /**
@@ -63,13 +66,14 @@ public class DiscussDetailController {
 	 * @param res
 	 * @param discussId
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getDiscussDetail(HttpServletRequest req,
 			HttpServletResponse res,
-			@RequestParam(value = "discussId", required = true) String discussId) throws Exception {
+			@RequestParam(value = "discussId", required = true) String discussId)
+			throws Exception {
 		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
 				discussId, req));
@@ -96,7 +100,9 @@ public class DiscussDetailController {
 			List<DiscussReply> ancestors = null;
 			if (null != discuss) {
 				comment.setDiscussId(discuss.getId());
-				comment.setReplyType(DiscussConstants.DISCUSS_TYPE_COMMENT);
+				comment.setContentType(Util.getDiscussContentType(discuss
+						.getDiscussType()));
+				comment.setReplyType(DiscussConstants.REPLY_TYPE_COMMENT);
 				User user = Util.getSessionUser(req);
 				if (null != user) {
 					comment.setUserId(user.getId());
@@ -126,9 +132,11 @@ public class DiscussDetailController {
 						ancestor.setChildrenCount(ancestor.getChildrenCount() + 1);
 						mongoTemplate.save(ancestor);
 					}
+					sendMailForReplyOnReply(parentComment, user);
 
 				} else {
 					discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
+					sendMailForReplyOnDiscuss(discuss, user, comment);
 				}
 
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
@@ -166,7 +174,9 @@ public class DiscussDetailController {
 			Discuss discuss = discussRepository.findOne(discussId);
 			if (null != discuss) {
 				answer.setDiscussId(discuss.getId());
-				answer.setReplyType(DiscussConstants.DISCUSS_TYPE_ANSWER);
+				answer.setReplyType(DiscussConstants.REPLY_TYPE_ANSWER);
+				answer.setContentType(Util.getDiscussContentType(discuss
+						.getDiscussType()));
 				answer.setParentReplyId(null);
 				User user = Util.getSessionUser(req);
 				if (null != user) {
@@ -179,6 +189,7 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
+				sendMailForReplyOnDiscuss(discuss, user, answer);
 				logger.debug("new answer posted successfully with replyId = "
 						+ answer.getId());
 			} else {
@@ -217,6 +228,63 @@ public class DiscussDetailController {
 			Util.handleException(e);
 		}
 		return response.getResponse();
+	}
+
+	private void sendMailForReplyOnDiscuss(Discuss discuss, User user,
+			DiscussReply reply) {
+		try {
+			if (!discuss.getUserId().equals(user.getId())) {
+				ResourceUtil resourceUtil = new ResourceUtil(
+						"mailTemplate.properties");
+				String title = !Util.isEmpty(discuss.getTitle()) ? discuss
+						.getTitle() : discuss.getText();
+				String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
+						.getUsername() : "Anonymous User";
+				String commentedBy = !Util.isEmpty(user.getUserName()) ? user
+						.getUserName() : "Anonymous User";
+				String replyTypeString = (reply.getReplyType() == DiscussConstants.REPLY_TYPE_ANSWER) ? "an answer"
+						: "comment";
+				String path = reply.getUrl();
+				String body = MessageFormat.format(
+						resourceUtil.getResource("contentCommentedBy"),
+						userName, commentedBy, title, path, path);
+				MailHandler
+						.sendMailToUserId(
+								discuss.getUserId(),
+								replyTypeString
+										+ " is posted on your content at beautifulYears.com",
+								body);
+			}
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
+
+	}
+
+	private void sendMailForReplyOnReply(DiscussReply reply, User user) {
+		try {
+			if (!reply.getUserId().equals(user.getId())) {
+				ResourceUtil resourceUtil = new ResourceUtil(
+						"mailTemplate.properties");
+				String userName = !Util.isEmpty(reply.getUserName()) ? reply
+						.getUserName() : "Anonymous User";
+				String commentedBy = !Util.isEmpty(user.getUserName()) ? user
+						.getUserName() : "Anonymous User";
+				String replyString = "previous comment";
+				String path = reply.getUrl();
+				String body = MessageFormat.format(
+						resourceUtil.getResource("replyCommentedBy"), userName,
+						commentedBy, replyString, reply.getText(), path, path);
+				MailHandler
+						.sendMailToUserId(
+								reply.getUserId(),
+								"A comment is posted on your comment at beautifulYears.com",
+								body);
+			}
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
+
 	}
 
 }

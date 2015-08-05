@@ -1,51 +1,82 @@
-<div ng-repeat="service in services" data-index="discussion-articles" data-link="articles.html" class="ng-scope">
+<div ng-repeat="service in services" data-index="discussion-articles"
+     data-link="articles.html" class="ng-scope">
 
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', service.userId)" class="blog-author margin-bottom-35 main-article service-card"
-         data-index="discussion-articles">
+    <div ng-click="location($event, service.userId, service.userTypes)"
+         class="margin-bottom-35 service-card" data-index="discussion-articles"
+         ng-if="service.systemTags.length > 0">
         <div class="col-md-12">
-            <div class="col-md-2 col-sm-4 col-xs-6 service-card-info dp-inline-block" ng-if="service.basicProfileInfo.profileImage">
-                <img src="{{service.basicProfileInfo.profileImage.thumbnailImage}}" alt="image" class="service-card-image"
-                     fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/by.jpg"]'>
-            </div>
-            <div class="col-md-10 col-sm-8 col-xs-6 service-card-info dp-inline-block" style="padding-left: 15px;">
-                <div class="article ng-scope">
-                    <div class="article-heading">
-                        <p style="text-transform: capitalize" class="ng-binding">
-                            {{service.basicProfileInfo.firstName}}
-                        </p>
+            <div
+                    class="col-lg-12 col-md-12 col-sm-12 col-xs-12 service-card-info dp-inline-block">
+				<span> <img ng-if="service.basicProfileInfo.profileImage"
+                            src="{{service.basicProfileInfo.profileImage.thumbnailImage}}"
+                            alt="image" class="service-card-image"
+                            fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/by.jpg"]'
+                            align="left" style="vertical-align:top; border-radius:2px !important;">
+					
+					<img ng-if="!service.basicProfileInfo.profileImage"
+                         src="assets/img/by.png"
+                         alt="image" class="service-card-image"
+                         align="left" style="vertical-align:top; border-radius:2px !important;">
+					
+				</span>
+
+                <div class="by-service-disInl">
+                    <div class="article ng-scope">
+                        <div class="article-heading">
+                            <p style="text-transform: capitalize" class="ng-binding">
+                                {{service.basicProfileInfo.firstName}}</p>
+                        </div>
                     </div>
-                </div>
-                <ul class="list-inline service-review-rate-info">
-                    <li class="service-card-review">
-                        <i class="rounded-x green-bg">
-                            <span class="white-color" style="font-size: 11px;">4.2</span>
-                        </i>
-                        <span>Rated by</span>
-                        <a href="">56 people</a>
-                    </li>
-                    <li class="service-card-review">
-                        <i class="rounded-x fa fa-pencil-square-o padding7 font-20"></i>
-                        <a href="" style="margin-left: -10px;">  18 review</a>
-                    </li>
-                </ul>
-                <div class="article">
-                    <ul class="list-inline categoryList">
-                        <li class="list-inline"> Service in</li>
-                        <li class="list-inline"
-                            ng-repeat="category in service.serviceProviderInfo.services" style="display: inline-block" ng-if="$index < 5">
-                            <a class="ng-binding" di-href="#/find/{{$root.findCategoryListMap[category].id}}/all"> {{$root.findCategoryListMap[category].name}} </a>
-                        </li>
-                    </ul>
+                    <div class="clearfix"></div>
+                    <div class="no-padding"
+                         ng-if="service.reviewCount > 0 || service.ratingCount > 0">
+                        <div class="serviceRating" ng-if="service.ratingPercentage">
+                            <i class="rounded-x"
+                               rate-calculator="{{service.ratingPercentage}}"></i>Rated by <a
+                                href="">{{service.ratingCount}} user
+                            <xy
+                                    ng-if="service.ratingCount > 1">s
+                            </xy>
+                        </a>
+                        </div>
+                        <div class="serviceReview" ng-if="service.reviewCount > 0">
+                            <i class="rounded-x fa fa-review-icon"></i>{{service.reviewCount}}
+                            reviews
+                        </div>
+                        <div style="clear: both; height:10px;"></div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="article">
+                        <ul class="list-inline categoryList" style="margin-left:5px;">
+                            <li class="list-inline">Service in</li>
+                            <li class="list-inline" ng-repeat="category in service.serviceProviderInfo.services" style="display: inline-block">
+                                &nbsp;&nbsp;
+                                <a class="ng-binding" di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+                                    {{$root.menuCategoryMap[category].displayMenuName}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
 
         </div>
+        <div style="clear: both;"></div>
 
         <div class="col-md-12 col-sm-12">
-            <p class="service-card-desciption" data-ng-bind="service.basicProfileInfo.description" data-ellipsis>
-            </p>
+            <p class="service-card-desciption" ng-if="service.basicProfileInfo.shortDescription">{{service.basicProfileInfo.shortDescription}}</p>
+            <p class="service-card-desciption" ng-if="!service.basicProfileInfo.shortDescription" ng-bind-html="trustForcefully(service.basicProfileInfo.description)"></p>
         </div>
+
+        <div class="col-md-12">
+            <a class="divRight by_readmore">Read More <b style="font-size:10px;">&#9002;</b></a>
+
+            <div style="clear: both"></div>
+        </div>
+        <div style="clear: both; height:15px;"></div>
 
 
         <div style="clear: both"></div>

@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.beautifulyears.constants.UserRolePermissions;
+
 @Document(collection = "users")
 public class User {
 

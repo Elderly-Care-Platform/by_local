@@ -2,13 +2,16 @@
  * Created by sanjukta on 02-07-2015.
  */
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce',
-    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce) {
-        $scope.editor = {};
-        $scope.error = "";
-        $scope.editor.subject = "";
-        $scope.editor.articlePhotoFilename = "";
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window',
+    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window) {
+		$scope.carousalType = "carousel";
+		$('.carousel').carousel({
+	        interval: 6000
+	    });
+	    $('.carousel').carousel('cycle');
         $scope.currentAcceleratorSelected = "";
+        var scrollable = false;
+        
         $scope.$watch("articles", function (value) {
             $timeout(
                 function () {
@@ -18,25 +21,25 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         $scope.homeViews = {};
 
-
         $scope.add = function (type) {
-            BY.removeEditor();
-            if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
-                $rootScope.nextLocation = $location.path();
-                $location.path('/users/login');
-            }
-            else {
-                $scope.error = "";
-                $scope.currentView = "editor";
-                $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                window.scrollTo(0, 0);
-            }
-
+            //BY.removeEditor();
+            $scope.currentView = "editor";
+            $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            window.scrollTo(0, 0);
         }
 
         $scope.postSuccess = function () {
             $scope.switchToContentView();
         };
+
+        (function(){
+            var metaTagParams = {
+                title:  "Home",
+                imageUrl:   "",
+                description:   ""
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        })();
 
 
         $scope.switchToContentView = function (scrollTo) {
@@ -69,40 +72,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         			       	console.log("DiscussPage");
 //        			       	alert("error");
                 		});
-                
-//                HomeFeaturedContent.query({discussType: 'A'}).$promise.then(
-//                        //success
-//                        function( value ){
-//                        		$scope.articles = value.data;
-//                        	},
-//                        //error
-//                        function( error ){
-//                        		console.log("QUErY ERROR");
-//                        		alert("error1");
-//                        		}
-//                      );
-//                HomeFeaturedContent.query({discussType: 'Q'}).$promise.then(
-//                        //success
-//                        function( value ){
-//                				$scope.questions = value.data;
-//                        	},
-//                        //error
-//                        function( error ){
-//                        		console.log("QUErY ERROR");
-//                        		alert("error2");
-//                        		}
-//                      );
-//                HomeFeaturedContent.query({discussType: 'P'}).$promise.then(
-//                        //success
-//                        function( value ){
-//                        		$scope.posts = value.data;
-//                        	}
-//                        //error
-//                        
-//                      ,function( error ){
-//                    	  console.log("QUErY ERROR");
-//                  		alert("error3");
-//              		});
+
+             
             } else {
                 $scope.scrollToId(scrollTo);
             }
@@ -139,19 +110,20 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $event.stopPropagation();
             if (type === "id") {
                 $location.path('/discuss/' + id);
-            } else if (type === "name") {
-                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
-                parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
-
-                if (parentCategoryName) {
-                    $location.path('/discuss/All/' + parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
-                } else {
-                    $location.path('/discuss/All/' + $rootScope.discussCategoryListMap[id].name + '/all');
+            } else if (type === "menu") {
+                var menu = $rootScope.menuCategoryMap[id];
+                if(menu.module===0){
+                    $location.path("/discuss/list/"+menu.displayMenuName+"/all/"+menu.id);
+                }else if(menu.module===1){
+                    $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
+                }else{
+                    //nothing as of now
                 }
-            } else if (type = "accordian") {
+            } else if (type === "accordian") {
                 $($event.target).find('a').click();
+            } else if(type === "comment") {
+                $location.path('/discuss/' + id).search({comment: true});
             }
-
         }
 
         $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
@@ -164,6 +136,24 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
             $('.by_story').dotdotdot();
         });
+        
+        //var addScroll = function(){
+        //	scrollable = true;
+        //
+        ////}
+
+        angular.element($window).bind("scroll", function() {
+            $scope.sliderHeight = $(".homeSlider").height();
+            if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+                $(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+                $(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+            }else{
+                $(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+                $(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+            }
+        })
+        
+       
 
     }]);
 

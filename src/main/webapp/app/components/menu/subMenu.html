@@ -1,0 +1,31 @@
+<li>
+    <div class="container mega-menu-content disable-icons" style="max-width: 1170px;">
+        <div class="row">
+            <div class=" equal-height">
+                <div class="col-md-4 equal-height-in" ng-repeat="menu in menu.children" style="padding-top: 0px;">
+                    <ul class="list-unstyled equal-height-list">
+                        <li>
+                            <a ng-click="selectMenu(menu)" id="{{menu.id}}">
+                                <h3 style="margin-bottom: 0px; line-height: 14px; padding: 3px; ">
+                                    {{menu.displayMenuName}}
+                                </h3>
+                            </a>
+                        </li>
+                        <li ng-repeat="subMenu in menu.children">
+                            <a ng-click="selectMenu(subMenu)" id="{{subMenu.id}}" style="line-height: 1.4; padding-bottom: 10px">
+                                {{subMenu.displayMenuName}}
+                            </a>
+                            <!--<ul class="list-unstyled equal-height-list" style="margin-left: 10px;" ng-repeat="subMenu in menu.children">-->
+                                <!--<li>-->
+                                    <!--<a ng-click="selectMenu(subMenu)" id="{{subMenu.id}}">-->
+                                        <!--{{subMenu.displayMenuName}}-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

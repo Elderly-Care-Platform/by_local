@@ -6,57 +6,57 @@ import java.util.Map;
 
 import com.beautifulyears.domain.UserAddress;
 
-
-/** The BasicProfileInfo class contains basic information of all types of users 
-*  Documents corresponding to this class are stored as part of user_profile document in MongodB.
-*  @author jharana
-*/
+/**
+ * The BasicProfileInfo class contains basic information of all types of users
+ * Documents corresponding to this class are stored as part of user_profile
+ * document in MongodB.
+ * 
+ * @author jharana
+ */
 
 public class BasicProfileInfo {
 
-	private String firstName;	//corresponds to company Name in institutions and user first name for individuals. name in 
+	// corresponds to company Name in institutions and user first name for
+	// individuals. name in
+	private String firstName;
 
-	private Map<String, String> profileImage;  //in case of individuals it is the profile or it is the company logo.
-	
-	private String primaryEmail; //the 
-	
+	// in case of individuals it is the profile or it is the company logo.
+	private Map<String, String> profileImage;
+
+	private String primaryEmail; // the
+
 	private List<String> secondaryEmails = new ArrayList<String>();
-	
+
 	private String primaryPhoneNo;
-	
-	private List<String> secondaryPhoneNos = new ArrayList<String>();	
-	
-	private String description; //personal story or professional services description
-	
+
+	private List<String> secondaryPhoneNos = new ArrayList<String>();
+
+	// personal story or professional services description
+	private String description;
+
 	private List<Map<String, String>> photoGalleryURLs = new ArrayList<Map<String, String>>();
-	
-	private UserAddress userAddress = new UserAddress();
 
-	
-	public BasicProfileInfo() {
-		
-	}
-	
-	
+	private UserAddress primaryUserAddress = new UserAddress();
 
-	public BasicProfileInfo(String firstName, Map<String, String> profileImage,
-			String primaryEmail, List<String> secondaryEmails,
-			String primaryPhoneNo, List<String> secondaryPhoneNos,
-			String description, List<Map<String, String>> photoGalleryURLs,
-			UserAddress userAddress) {
-		super();
-		this.firstName = firstName;
-		this.profileImage = profileImage;
-		this.primaryEmail = primaryEmail;
-		this.secondaryEmails = secondaryEmails;
-		this.primaryPhoneNo = primaryPhoneNo;
-		this.secondaryPhoneNos = secondaryPhoneNos;
-		this.description = description;
-		this.photoGalleryURLs = photoGalleryURLs;
-		this.userAddress = userAddress;
+	private List<UserAddress> otherAddresses = new ArrayList<UserAddress>();
+	
+	private String shortDescription;
+
+	public UserAddress getPrimaryUserAddress() {
+		return primaryUserAddress;
 	}
 
+	public void setPrimaryUserAddress(UserAddress primaryUserAddress) {
+		this.primaryUserAddress = primaryUserAddress;
+	}
 
+	public List<UserAddress> getOtherAddresses() {
+		return otherAddresses;
+	}
+
+	public void setOtherAddresses(List<UserAddress> otherAddresses) {
+		this.otherAddresses = otherAddresses;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -114,7 +114,7 @@ public class BasicProfileInfo {
 		this.description = description;
 	}
 
-	public List<Map<String,String>> getPhotoGalleryURLs() {
+	public List<Map<String, String>> getPhotoGalleryURLs() {
 		return photoGalleryURLs;
 	}
 
@@ -122,12 +122,12 @@ public class BasicProfileInfo {
 		this.photoGalleryURLs = photoGalleryURLs;
 	}
 
-	public UserAddress getUserAddress() {
-		return userAddress;
+	public String getShortDescription() {
+		return shortDescription;
 	}
 
-	public void setUserAddress(UserAddress userAddress) {
-		this.userAddress = userAddress;
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 
 	@Override
@@ -137,9 +137,11 @@ public class BasicProfileInfo {
 				+ ", secondaryEmails=" + secondaryEmails + ", primaryPhoneNo="
 				+ primaryPhoneNo + ", secondaryPhoneNos=" + secondaryPhoneNos
 				+ ", description=" + description + ", photoGalleryURLs="
-				+ photoGalleryURLs + ", userAddress=" + userAddress + "]";
+				+ photoGalleryURLs + ", primaryUserAddress="
+				+ primaryUserAddress + ", otherAddresses=" + otherAddresses
+				+ ", shortDescription=" + shortDescription + "]";
 	}
+
 	
-	
-	
+
 }

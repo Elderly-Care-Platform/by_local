@@ -1,53 +1,95 @@
-<form class="col-md-12 md-margin-bottom-40 margin-top-20 article-outer-wrapper" ng-controller="regUserTypeController" novalidate>
-    <div class="col-md-12 margin-bottom-20 iconBg">
+<form class="col-md-12 md-margin-bottom-40 margin-top-20 article-outer-wrapper" ng-controller="regUserTypeController"
+      novalidate >
+    <!--<div class="col-md-12 margin-bottom-20 iconBg">
         <div class="col-md-11 iconBgLeft">
             Thank you for registering with us!! <br/>
             Filling in your Profile would take you about 10-15 min. It will help us provide you with relevant
             information, It will help you find like-minded people in our community - and to be found by others.<br/>
-            If you don't have time now, you can press <a href="">RETURN</a> to go back, and edit your Profile any
+            If you don't have time now, you can press <a ng-click="cancel()">RETURN</a> to go back, and edit your Profile any
             time later (by clicking your Profile icon on the top of the screen). <br/>
             So, let’s get acquainted! Could you please tell us about yourself:
         </div>
         <div class="col-md-1 iconBgRight">i</div>
+    </div>-->
+     <div class="col-md-12  iconBg ">
+        <div class="col-md-11 col-xs-10 iconBgLeft">
+            Thank you for being with us! Please fill in your profile below,  so that we know you better and offer you information and services that are relevant for you.
+        </div>
+        <div class="col-md-1 col-xs-2 iconBgRight" >i</div><div style="clear:both;"></div>
     </div>
-    <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
-        <div class="col-md-7">
-            <div class="col-md-12 margin-bottom-20" ng-repeat="type in individualUserType">
+    <div class="col-md-12 no-padding margin-top-10">
+        <div class="col-md-12 no-padding  list-head dp-block">
+            I am an Individual
+        </div>
+
+        <div class="col-md-12 no-padding">
+            <div class="bg-green-h2" style="width: 303px;"></div>
+        </div>
+    </div>
+    
+    <!-- <div class="col-md-12  iconBg margin-top-20">
+        <div class="col-md-11 col-xs-10 iconBgLeft">
+            Help us know you better so we can offer  information and services that really make sense for you! 
+            It would also allow other people in the similar situation to find you. 
+        </div>
+        <div class="col-md-1 col-xs-2 iconBgRight" >i</div><div style="clear:both;"></div>
+    </div>-->
+    <div style="clear:both;"></div>
+    
+   
+   
+    <div class="col-md-12 margin-top-20 whiteBg  padding20 borderShadow" style="padding-bottom:10px;">
+
+        <div class="col-md-12">
+            <div class="col-md-12 margin-bottom-10 by-reg-user-type" ng-repeat="type in individualUserType">
                 <div class="divLeft">
                     {{type.value}}
                 </div>
                 <div class="divRight">
-                    <input type="checkbox" class="checkBoxOne" id="{{key}}" ng-model="type.selected" ng-change="selectUserType(this)"/>
+                    <input type="checkbox" class="checkBoxOne" id="{{key}}" ng-model="type.selected"
+                           ng-change="selectUserType(this)"/>
                 </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
         </div>
-        <div class="col-md-5 iconBg">
-            <div class="iconBgLeft">
-                Please select any of these options if you are an Individual person
-            </div>
+        
+        <div class="clearfix"></div>
+       
+      
+
+    </div>
+    <div class="col-md-12 no-padding margin-top-10">
+        <div class="col-md-12 no-padding  list-head dp-block">
+            I represent an Institution. We provide:
+        </div>
+
+        <div class="col-md-12 no-padding">
+            <div class="bg-green-h2" style="width: 313px;"></div>
         </div>
     </div>
-    <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
-        <div class="col-md-12 margin-bottom-20">
-            <b>We are providing:</b>
+    
+     <!-- <div class="col-md-12  iconBg margin-top-20">
+        <div class="col-md-11 col-xs-10 iconBgLeft">
+           Enable us to feature your products and services on our site by creating your profile.
         </div>
-        <div class="col-md-7">
-            <div class="col-md-12 margin-bottom-20" ng-repeat="type in institutionUserType">
+        <div class="col-md-1 col-xs-2 iconBgRight2">i</div><div style="clear:both;"></div>
+    </div>-->
+    <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow" style="padding-bottom:10px;">
+        
+        <div class="col-md-12">
+            <div class="col-md-12 margin-bottom-10" ng-repeat="type in institutionUserType" >
                 <div class="divLeft">
                     {{type.value}}
                 </div>
                 <div class="divRight">
-                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected" ng-change="selectUserType(this)"/>
-                </div>
+                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected"
+                           ng-change="selectUserType(this)"/>
+                </div> <div class="clearfix"></div>
             </div>
         </div>
-        <div class="col-md-5 iconBg">
-            <div class="iconBgLeft">
-                Please select one of these options if you represent an institution
-            </div>
-        </div>
+
     </div>
+    <!--  
     <div class="col-md-12 margin-top-20 whiteBg padding20 borderShadow">
         <div class="col-md-7">
             <div class="col-md-12 margin-bottom-20" ng-repeat="type in otherUserType">
@@ -55,7 +97,8 @@
                     {{type.value}}
                 </div>
                 <div class="divRight">
-                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected" ng-change="selectUserType(this)"/>
+                    <input type="checkbox" class="checkBoxTwo" id="{{key}}" ng-model="type.selected"
+                           ng-change="selectUserType(this)"/>
                 </div>
             </div>
         </div>
@@ -70,7 +113,7 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div class="col-md-12 margin-top-20 margin-bottom-20">
         <input type="button" value="Next" class="nextButton" ng-click="submit()"/>

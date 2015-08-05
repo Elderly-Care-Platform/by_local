@@ -15,16 +15,15 @@ import org.apache.log4j.Logger;
 
 public class FBConnection {
 	private static final Logger logger = Logger.getLogger(FBConnection.class);
-	public static final String FB_APP_ID = "515424301943282";
-	public static final String FB_APP_SECRET = "99534a7d9c9224122b85d9fbaf94a1d1";
+	public static final String FB_APP_ID = "475153235986093";
+	public static final String FB_APP_SECRET = "7af74ded3f21370d2452b8a5574e340e";
 	public static final String REDIRECT_URI = "/api/v1/users/fbRes";
 	private static String redirectURI = "";
 
 	static String accessToken = "";
 
 	public String getFBAuthUrl(HttpServletRequest req) {
-		redirectURI = "http://" + req.getServerName() + ":"
-				+ req.getServerPort() + req.getContextPath()
+		redirectURI = System.getProperty("path")
 				+ FBConnection.REDIRECT_URI;
 		String fbLoginUrl = "";
 		try {

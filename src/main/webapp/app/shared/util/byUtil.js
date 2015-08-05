@@ -15,6 +15,20 @@ BY.byUtil.getPageInfo = function(data){
 	return ret;
 }
 
+BY.byUtil.getAverageRating = function(value){
+	var range = parseInt(BY.config.profile.rate.upperLimit) - parseInt(BY.config.profile.rate.lowerLimit);
+	var averageRating = null;
+	value = parseFloat(value);
+	if(value > 0){
+		averageRating = (value*range / 100).toFixed(1);
+	}
+
+	//Number((parseFloat("22.33333333")*10/100).toFixed(1));
+
+	return averageRating
+}
+
+
 
 BY.byUtil.inValidateSession = function(){
 	localStorage.setItem("SessionId", "");
@@ -25,20 +39,20 @@ BY.byUtil.inValidateSession = function(){
 	if(element){
 		element.innerHTML = "";
 	    element.href = "";
-	    document.getElementById("login_placeHolder_li").style.opacity = "0";
+	    document.getElementById("login_placeHolder_li").style.display = "none";
 	}
     var pro = document.getElementById('profile_placeholder');
     if(pro){
     	pro.innerHTML = "JOIN US";
         pro.href = apiPrefix+"#/users/login";
-        window.location = "#/users/aboutUs";
+       // window.location = "#/users/home";
     }
 }
 
 $(window).scroll(function(){
 	var windowHeight = $(window).height()/2;
 
-	if($("body").scrollTop() > windowHeight){
+	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) > windowHeight){
 		$(".topScroll").show();
 	}else
 	{
@@ -49,21 +63,37 @@ $(window).scroll(function(){
 	
 	var footerv1Height = $(".footer-v1").height()+10;
 	$(".topScroll").css('bottom', footerv1Height +"px");
+	
+	
 });
 
 $(document).ready(function() {
 	$(".topScroll").click(function(){
-		$('body').animate({
-			scrollTop: 0
-		}, 800);
+		
+		$('html, body').animate({
+            scrollTop: 0
+        }, 800);
+		
 	});
 	
-	//////////////
-	
-	
-	var containerWidth = $(".container").width();
-	var windowWIdth2 = $(window).width();
-	var searchright = (windowWIdth2 - containerWidth)/2;
-	$(".searchWrapper").css('right', searchright+"px");
-
 });
+
+
+
+BY.byUtil.updateMetaTags = function(param){
+	 var title = param.title.trim(),
+		 imageUrl = param.image,
+		 description = $(param.description).text().trim();
+
+	if(!description && description===""){
+		description = "Beautiful Years"
+	}
+
+	if(!title && title===""){
+		title = description;
+	}
+
+	document.title = title;
+	$("meta[property='og\\:title']").attr("content", title);
+	$("meta[property='og\\:description']").attr("content", description);
+}

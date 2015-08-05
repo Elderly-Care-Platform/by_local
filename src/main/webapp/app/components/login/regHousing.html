@@ -1,0 +1,285 @@
+<div class="row" ng-controller="regInstitutionController">
+    <form name="institutionForm" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;" ng-submit="postUserProfile(institutionForm)">
+        <div class="col-md-12 no-padding margin-bottom-20">
+            <div class="col-md-12 no-padding  list-head dp-block">
+                Housing Profile
+            </div>
+
+            <div class="col-md-12 no-padding">
+                <div class="bg-green-h2" style="width: 216px;"></div>
+            </div>
+        </div>
+        <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
+            <div class="row margin-bottom-20 marginRightMinus5 register-page">
+                <div class="col-md-5">
+                    Name of your facilty
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                    <input type="text" class="username-textbox textbox" name="firstName"
+                           class="name-textbox textbox grayBg" placeholder="Please enter a name of your facility"
+                           />                  
+                </div>
+            </div>
+            
+           
+
+            <div class="row margin-bottom-20 marginRightMinus5 register-page">
+                <div class="col-md-5">
+                    Select a catrgory
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                    <div class="panel-group acc-v1" id="accordion-1">
+                        <div class="panel panel-default" ng-repeat="category in ServiceTypeList">
+                            <div class="panel-heading">
+                                <h4 class="panel-title by_editor_ParentCategories by-reg-toggle"
+                                    ng-if="category.childCount <= 0">
+                                    <label>
+                                        {{category.name}}
+
+                                        <input type="checkbox" ng-change="selectServiceType(category)"
+                                               ng-model="category.selected">
+                                    </label>
+                                </h4>
+                                <h4 class="panel-title by_editor_ParentCategories" ng-if="category.childCount > 0">
+                                    <a class="accordion-toggle collapsed by-reg-toggle" data-toggle="collapse"
+                                       data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
+                                        {{category.name}}
+                                    </a>
+                                    <a class="triangle-down accordion-toggle collapsed by-reg-triangle"
+                                       data-toggle="collapse" data-parent="#accordion-1" href={{"#"+category.id}}
+                                       onclick="return false;"></a>
+                                </h4>
+                            </div>
+                            <div id={{category.id}}
+                                 class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
+                                <div class="panel-body col-md-6" ng-repeat="subCategory in category.children">
+                                    <input type="checkbox" ng-change="selectServiceType(subCategory)"
+                                           ng-model="subCategory.selected">
+                                    <span>{{subCategory.name}}</span>
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+
+                        </div>
+                    </div>
+                    <span ng-show="minCategoryError && submitted">Please select atleast one category</span>
+                </div>
+
+            </div>
+            
+             <div class="row margin-bottom-20 marginRightMinus5 register-page">
+                <div class="col-md-5">
+                    Our facilities are
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                  <select class="form-control grayBgLogin">
+                                           <option>Luxury</option>
+                                                <option>Moderate</option>                 
+                                                <option>Basic</option>
+                                                <option>Free</option>  
+                                        </select>
+                    
+                </div>
+            </div>
+            
+
+            
+
+            <div class="row margin-bottom-20 marginRightMinus5" id="homeVisit">
+                <div class="col-md-12 margin-bottom-20">
+                    <b>Our facility address is</b>
+                </div>
+                <div class="col-md-12 no-padding">
+                    <div>
+                        <div ng-include="'app/components/login/addressTemplate.html'"></div>
+                    </div>
+
+                    <!--<div ng-repeat="address in basicProfileInfo.secondaryUserAddress">-->
+                    <!--<div ng-include="'app/components/login/addressTemplate.html'"></div>-->
+                    <!--</div>-->
+                    
+                    <div class="row margin-bottom-20 marginRightMinus5 marginLeft0">
+                <div class="col-md-5">
+                    Phone Number
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                        <input type="text" class="username-textbox textbox" name="primaryTel"
+                               ng-model="basicProfileInfo.primaryPhoneNo"
+                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" required>
+                        <span ng-show="institutionForm.primaryTel.$invalid && !institutionForm.primaryTel.$error.pattern && submitted">Please enter your contact number</span>
+                        <span ng-show="institutionForm.primaryTel.$error.pattern && submitted">Not a valid number!</span>
+                    </div>
+            </div>
+            
+             <div class="row margin-bottom-20 marginRightMinus5 marginLeft0" 
+                         ng-repeat="number in basicProfileInfo.secondaryPhoneNos track by $index">
+                <div class="col-md-5">
+                   Additional Phone Number
+                </div>
+                 <div class="col-md-7 no-padding-right register-page">
+                        <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
+                               ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
+                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
+                        <span ng-show="institutionForm.{{'tel'+$index}}.$error.pattern && submitted">Not a valid number!</span>
+                    </div>
+            </div>
+            
+             
+
+
+                    <div class="row add-phone-wrap margin-bottom-20" style="margin-top:-10px;">
+                    <div class="col-md-5"></div>
+                        <div class="col-md-offset-1 col-md-6">
+                            <a class="add-phone" ng-click="addPhoneNumber()">+ add another phone no</a>
+                        </div>
+                    </div>
+                    
+                     <div class="row margin-bottom-20 marginRightMinus5 marginLeft0">
+                <div class="col-md-5">
+                    Email ID
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                        <input type="email" class="username-textbox textbox" name="primaryEmail"
+                               ng-model="basicProfileInfo.primaryEmail"
+                               placeholder="Email" required/>
+                        <span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted">Please enter your Email Id!</span>
+                        <span ng-show="institutionForm.primaryEmail.$error.email && submitted">
+                            Not valid Email!
+                        </span>
+                    </div>
+            </div>
+            
+             <div class="row margin-bottom-20 marginRightMinus5 marginLeft0"  ng-repeat="email in basicProfileInfo.secondaryEmails track by $index">
+                <div class="col-md-5">
+                    Additional Email ID
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                        <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
+                               ng-model="basicProfileInfo.secondaryEmails[$index]"
+                               placeholder="Email"/>
+                        <span ng-show="institutionForm.{{'email'+$index}}.$error.email && submitted">Not valid Email!</span>
+                    </div>
+            </div>
+            
+                    
+                    <div class="row add-email-wrap margin-bottom-20" style="margin-top:-10px;">
+                    <div class="col-md-5"></div>
+                        <div class="col-md-offset-1 col-md-6">
+                            <a class="add-email" ng-click="addEmail()">+ add another email id</a>
+                        </div>
+                    </div>
+                    
+                     <div class="row margin-bottom-20 marginRightMinus5 marginLeft0">
+                <div class="col-md-5">
+                    Website
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                       <input type="text" class="username-textbox textbox"
+                               ng-model="serviceProviderInfo.website"
+                               placeholder="Website"/>
+                    </div>
+            </div>
+                    
+                </div>
+            </div>
+
+            <!--<div class="row margin-bottom-20">-->
+            <!--<div class="col-md-12">-->
+            <!--<a ng-click="addNewAddress()">-->
+            <!--Add address in another city-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="row margin-bottom-20 by-hover">
+                <div class="col-md-12">
+                    <div class="by-reg-gallery" ng-if="basicProfileInfo.profileImage && profileImage.length===0">
+                        <img class="by-reg-image"
+                             ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
+                        <a class="image-fav" ng-if="!profileImage.loading" ng-click="deleteProfileImage(profileImage)"></a>
+                    </div>
+                    <div class="by-reg-gallery" ng-repeat="img in profileImage">
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+                        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
+                    </div>
+                    <div class="by-reg-uploadLabel">
+                        <label class="myLabel">
+                            <input id="inputImage2"
+                                   type="file"
+                                   accept="image/*"
+                                   load-image="profileImage"
+                                   resize-max-height="300"
+                                   resize-max-width="250"
+                                   resize-quality="0.7" class="btn btn-success register-btn"/>
+                            <span>UPLOAD THE MAIN PHOTO </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="by-reg-gallery" ng-repeat="img in basicProfileInfo.photoGalleryURLs">
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
+                    </div>
+                    <div class="by-reg-gallery" ng-repeat="img in galleryImages">
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+                        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
+                    </div>
+                    <div class="by-reg-uploadLabel">
+                        <label class="myLabel">
+                            <input id="inputImage4"
+                                   type="file"
+                                   accept="image/*"
+                                   multiple
+                                   load-image="galleryImages"
+                                   resize-max-height="300"
+                                   resize-max-width="250"
+                                   resize-quality="0.7" class="btn btn-success register-btn" imgArray="$parent.galleryImages"/>
+                            <span>UPLOAD OTHER PHOTOS (UP TO 8)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 divRightNone">
+                <div class="row">
+                    <div class="shadow-wrapper margin-top-15 margin-bottom-15 ng-scope">
+                        <div class="tag-box tag-box-v1 box-shadow shadow-effect-2">
+                            <div class="aboutDiscussText">
+                               Please enter a description of your facility. Please refer to:  rooms and housing options, costs, health services, dining options, services and amenities, activities, connectivity (mobile/wifi) and TV, as well as those features that make your facility stand out. What is your location and how easy is commuting to your place?
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 margin-bottom-10">
+                <div class="row">
+                    <textarea class="textbox home-address" rows="3"
+                              ng-model="basicProfileInfo.description"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+
+       <div class="col-md-12  margin-bottom-20">
+                       <div class="row"> 
+                       <div class="col-md-6">
+                           <input type="button" value="+ ADD ANOTHER LOCATION" class="nextButton" style="width:200px; float:left;" />
+                       </div>    
+                       <div class="col-md-6">
+                        <input type="button" value="Done" class="nextButton" /> 
+                       </div>  
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+    </form>
+
+</div>

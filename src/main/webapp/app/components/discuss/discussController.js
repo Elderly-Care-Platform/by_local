@@ -13,7 +13,19 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
         var tags = [];
         var queryParams = {p:0,s:10};
+        
+        $scope.updateSectionHeader = function(){
+        	if($scope.selectedMenu.ancestorIds.length === 0){
+        		$scope.sectionHeader = BY.config.sectionHeader[$scope.selectedMenu.displayMenuName];
+        	} else{
+        		var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[0]];
+        		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName];
+        	}
+        	//console.log($scope.sectionHeader);
+        };
+        
         if($scope.selectedMenu){
+        	//console.log($scope.selectedMenu.displayMenuName);
             $(".selected-dropdown").removeClass("selected-dropdown");
             $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
             //Set page title and FB og tags
@@ -56,7 +68,11 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                     console.log("DiscussAllForDiscussType");
                     alert("error");
                 });
-        }
+            
+            $scope.updateSectionHeader();
+        };
+        
+       
 
         $scope.loadMore = function($event){
             if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){

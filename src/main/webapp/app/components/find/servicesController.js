@@ -15,6 +15,16 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         var city = $routeParams.city;
         var tags = [];
         var queryParams = {p:0,s:10};
+        
+        $scope.updateSectionHeader = function(){
+        	if($scope.selectedMenu.ancestorIds.length === 0){
+        		$scope.sectionHeader = BY.config.sectionHeader[$scope.selectedMenu.displayMenuName];
+        	} else{
+        		var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[0]];
+        		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName];
+        	}
+        	//console.log($scope.sectionHeader);
+        };
 
         if($scope.selectedMenu){
             $(".selected-dropdown").removeClass("selected-dropdown");
@@ -53,6 +63,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                     console.log(error);
                 });
 
+            $scope.updateSectionHeader();
         }
 
 

@@ -5,13 +5,14 @@
 }
 
 .by_section_header_health {
-	height: 251px;
-	background: url('../img/section_headers/Health_1.jpg') no-repeat top
-		center;
+	height: 250px;
+	background-image: url('../img/section_headers/stories.jpg');
+	background-repeat:  no-repeat;
+	background-position:  top center;
 }
 
 .by_section_header_content_head, .by_section_header_content_text {
-	width: 76%;
+	width: 66%;
 	color: #000;
 }
 

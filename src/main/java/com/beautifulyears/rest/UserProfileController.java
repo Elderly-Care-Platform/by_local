@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -253,10 +255,7 @@ public class UserProfileController {
 						if (this.userProfileRepository.findByUserId(userProfile
 								.getUserId()) == null) {
 							userProfile.getBasicProfileInfo()
-									.setShortDescription(
-											Util.truncateText(userProfile
-													.getBasicProfileInfo()
-													.getDescription()));
+									.setShortDescription(getShortDescription(userProfile));
 							userProfileRepository.save(userProfile);
 						} else {
 							throw new BYException(
@@ -297,10 +296,7 @@ public class UserProfileController {
 						if (profile != null) {
 							/* set required fields */
 							userProfile.getBasicProfileInfo()
-									.setShortDescription(
-											Util.truncateText(userProfile
-													.getBasicProfileInfo()
-													.getDescription()));
+									.setShortDescription(getShortDescription(userProfile));
 							profile.setBasicProfileInfo(userProfile
 									.getBasicProfileInfo());
 							profile.setFeatured(userProfile.isFeatured());
@@ -335,6 +331,19 @@ public class UserProfileController {
 
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
 				.getUserProfileEntity(profile, currentUser));
+	}
+	
+	private String getShortDescription(UserProfile profile){
+		String shortDescription = null;
+		if(null != profile.getBasicProfileInfo() && null != profile.getBasicProfileInfo().getDescription()){
+			Document doc = Jsoup.parse(profile
+					.getBasicProfileInfo()
+					.getDescription());
+			shortDescription = doc.text();
+			shortDescription = Util.truncateText(shortDescription);
+		}
+		return shortDescription;
+		
 	}
 
 }

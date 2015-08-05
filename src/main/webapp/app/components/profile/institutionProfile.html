@@ -63,13 +63,13 @@
 							ng-if="institutionProfile.ratingCount > 0">
 							<i class="rounded-x"
 								rate-calculator="{{institutionProfile.ratingPercentage}}"></i>Rated
-							by <a href="">{{institutionProfile.ratingCount}} users<xy
+							by <a href="">{{institutionProfile.ratingCount}} user<xy
 									ng-if="institutionProfile.ratingCount > 1">s</xy></a>
 						</div>
 						<div class="profileReview"
 							ng-if="institutionProfile.reviewCount > 0">
 							<i class="rounded-x fa fa-review-icon padding42"></i>{{institutionProfile.reviewCount}}
-							reviews
+							review<span ng-if="institutionProfile.reviewCount > 1">s</span>
 						</div>
 						<div style="clear: both"></div>
 					</div>
@@ -164,7 +164,7 @@
 		</div>
 
 
-
+		<div class="clearfix"></div>
 		<div class="col-md-12"
 			ng-if="institutionProfile.basicProfileInfo.description">
 			<div class="col-md-12 bg-color-grey2"

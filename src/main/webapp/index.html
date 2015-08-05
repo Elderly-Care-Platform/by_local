@@ -67,9 +67,10 @@
     <link rel="stylesheet" href="assets/css/replyCard.css?versionTimeStamp=%PROJECT_VERSION%">
 	<link rel="stylesheet" href="assets/css/productSearch.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/image-gallery.css?versionTimeStamp=%PROJECT_VERSION%">
-    <link rel="stylesheet" href="assets/css/by_quad.css?versionTimeStamp=%PROJECT_VERSION%">
-
-    <!-- unify libs and plugins start -->
+     <link rel="stylesheet" href="assets/css/by_quad.css?versionTimeStamp=%PROJECT_VERSION%">
+      <link rel="stylesheet" href="assets/css/by_section_headers.css?versionTimeStamp=%PROJECT_VERSION%">
+      
+	   <!-- unify libs and plugins start -->
     <script type="text/javascript" src="lib/unify/plugins/jquery/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/unify/plugins/jquery/jquery-migrate.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/unify/plugins/bootstrap/js/bootstrap.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -111,11 +112,6 @@
     <script type="text/javascript"  src="lib/angular/angular-sanitize.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/angular/ng-google-location.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type='text/javascript' src='lib/angular/ng-infinite-scroll.js?versionTimeStamp=%PROJECT_VERSION%'></script>
-
-    <!-- JS Customization -->
-    <!-- <script type="text/javascript" src="assets/js/custom.js"></script> -->
-
-
     <!-- angular libs and plugins end -->
 
     <!-- config js files start -->
@@ -157,6 +153,8 @@
     <script type="text/javascript"  src="app/components/profile/individualProfileController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/profile/reviewRateController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="app/shared/common/js/shareController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    
+     <script type="text/javascript"  src="app/components/menu/sectionHeaderConfig.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 </head>
 
 <body>
@@ -202,9 +200,10 @@
         <div class="wrapper">
             <!--=== Header ===-->
             <div class="header">
+            	<div class="headerBg">
                 <div class="container">
                     <!-- Logo -->
-                    <a class="logo" di-href="#/users/home?type=home">
+                    <a class="logo divLeft" di-href="#/users/home?type=home">
                         <img src="assets/img/BY-alpha.png" alt="Logo">
                     </a>
                     <!-- End Logo -->
@@ -240,6 +239,7 @@
                         <span class="fa fa-bars"></span>
                     </button>
                     <div class="searchClearboth"></div>
+                </div><div class="clearfix"></div>
                 </div>
 
 
@@ -256,39 +256,39 @@
             <!--=== End Header ===-->
 
 
-            <ng-view></ng-view>
+    <ng-view></ng-view>
 
-            <!--=== Footer Version 1 ===-->
-            <div class="footer-v1">
-                <div class="copyright">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p>
-                                    2015 © BeautifulYears Ltd.
-                                    <a href="#/users/privacyPolicy">Privacy Policy </a> <a>|</a> <a
-                                        href="#/users/termsCondition">Terms of Service</a><a>|</a>
-                                    <a href="#/users/contactUs">Contact Us</a>
-                                </p>
-                            </div>
-                            <!-- Social Links -->
-                            <div class="col-md-2 pull-right">
-                                <ul class="social-icons pull-right">
-                                    <li><span>Like us on</span></li>
-                                    <li><a data-original-title="Facebook" class="social_facebook"
-                                           onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'name','width=600,height=400')"></a>
-                                    </li>
-                                    <li><a href="#" data-original-title="Google Plus" class="social_googleplus"></a></li>
-
-                                </ul>
-                            </div>
-                            <!-- End Social Links -->
+    <!--=== Footer Version 1 ===-->
+        <div class="footer-v1">
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-xs-9">
+                            <p>
+                                2015 © BeautifulYears Ltd.
+                                <a href="#/users/privacyPolicy">Privacy Policy </a> <a>|</a> <a
+                                    href="#/users/termsCondition">Terms of Service</a><a>|</a>
+                                <a href="#/users/contactUs">Contact Us</a>
+                            </p>
                         </div>
+                        <!-- Social Links -->
+                        <div class="col-md-2 col-xs-3 pull-right">
+                            <ul class="social-icons pull-right">
+                                <li><span>Like us on</span></li>
+                                <li><a data-original-title="Facebook" class="social_facebook"
+                                       onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'name','width=600,height=400')"></a>
+                                </li>
+                                <li><a href="#" data-original-title="Google Plus" class="social_googleplus"></a></li>
+
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
                     </div>
                 </div>
-            </div> <!--/wrapper-->
-         <!--</div>-->
-        </div>
+            </div>
+        </div> <!--/wrapper-->
+     <!--</div>-->
+    </div>
 
 
 

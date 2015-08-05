@@ -1,8 +1,8 @@
 //DIscuss All
 byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams'
-    ,'DiscussPage', 'DiscussCount','$sce','$timeout',
+    ,'DiscussPage', 'DiscussCount','$sce','$timeout', '$window',
     function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
-    		DiscussCount,$sce, $timeout) {
+    		DiscussCount,$sce, $timeout, $window) {
 	    var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
         $scope.discussionViews = {};
@@ -13,7 +13,19 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
 
         var tags = [];
         var queryParams = {p:0,s:10};
+        
+        $scope.updateSectionHeader = function(){
+        	if($scope.selectedMenu.ancestorIds.length === 0){
+        		$scope.sectionHeader = BY.config.sectionHeader[$scope.selectedMenu.displayMenuName];
+        	} else{
+        		var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[0]];
+        		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName];
+        	}
+        	//console.log($scope.sectionHeader);
+        };
+        
         if($scope.selectedMenu){
+        	//console.log($scope.selectedMenu.displayMenuName);
             $(".selected-dropdown").removeClass("selected-dropdown");
             $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
             //Set page title and FB og tags
@@ -56,7 +68,11 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                     console.log("DiscussAllForDiscussType");
                     alert("error");
                 });
-        }
+            
+            $scope.updateSectionHeader();
+        };
+        
+       
 
         $scope.loadMore = function($event){
             if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
@@ -113,6 +129,16 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                 $location.path('/discuss/' + id).search({comment: true});
             }
         }
+        angular.element($window).bind("scroll", function() {
+        	$scope.sliderHeight = $(".by_section_header").height();
+        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+        	}else{
+        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        	}
+        });
  	}]);
 
 

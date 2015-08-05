@@ -1,7 +1,7 @@
 //DIscuss All
 byControllers.controller('ServicesController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-    'FindServices', '$sce',
-    function ($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce) {
+    'FindServices', '$sce', '$window',
+    function ($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, $window) {
 
         var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
@@ -15,6 +15,16 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         var city = $routeParams.city;
         var tags = [];
         var queryParams = {p:0,s:10};
+        
+        $scope.updateSectionHeader = function(){
+        	if($scope.selectedMenu.ancestorIds.length === 0){
+        		$scope.sectionHeader = BY.config.sectionHeader[$scope.selectedMenu.displayMenuName];
+        	} else{
+        		var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[0]];
+        		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName];
+        	}
+        	//console.log($scope.sectionHeader);
+        };
 
         if($scope.selectedMenu){
             $(".selected-dropdown").removeClass("selected-dropdown");
@@ -53,6 +63,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                     console.log(error);
                 });
 
+            $scope.updateSectionHeader();
         }
 
 
@@ -154,6 +165,17 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                     });
             }
         }
+        
+        angular.element($window).bind("scroll", function() {
+        	$scope.sliderHeight = $(".by_section_header").height();
+        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+        	}else{
+        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        	}
+        });
 
 
 

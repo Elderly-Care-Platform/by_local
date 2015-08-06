@@ -242,7 +242,7 @@
 		color: #000;
 	}
 	.header .topbar {
-		padding-top: 7px;
+		padding-top: 0px;
 	}
 	.header .navbar-toggle, .header .navbar-toggle:hover, .header .navbar-toggle:focus
 	{

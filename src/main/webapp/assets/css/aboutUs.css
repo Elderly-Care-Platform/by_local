@@ -16,12 +16,12 @@
 	position:absolute;
 	z-index:0;
 	right:0px;
-	top:70px;
+	top:90px;
 	left: calc((100vw - 858px )/2) !important;
 }
 .aboutUsOne {
    
-    padding: 21px 15px 0px 15px;
+    padding: 35px 15px 0px 15px;
     text-align: center;
     /* margin-left: -22px !important; */
     margin-top: 0px !important;

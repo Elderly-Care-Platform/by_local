@@ -53,19 +53,11 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
             if($rootScope.inContextLogin){
                 ValidateUserCredential.loginCallback();
-            } else{
-                $scope.$parent.exit();
+            } else
+            {
+                $location.path("/users/home");
+                $scope.$apply();
             }
-            //else if($rootScope.nextLocation)
-            //{
-            //    $location.path($rootScope.nextLocation);
-            //    $scope.$apply();
-            //}
-            //else
-            //{
-            //    $location.path("/users/home");
-            //    $scope.$apply();
-            //}
         }
 	
 	

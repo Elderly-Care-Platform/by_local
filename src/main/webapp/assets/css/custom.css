@@ -105,7 +105,7 @@ ng-view {
 
 .article-heading {
     font-size: 22.806px; /* Approximation due to font substitution */
-    font-weight: 600;
+    font-weight: bold;
     line-height: 25.901px; /* Approximation due to font substitution */
     margin-top: 10px;
 }
@@ -273,7 +273,7 @@ ng-view {
 }
 
 .list-group-item {
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .list-group-item:hover, .list-group-item:hover a {
@@ -364,7 +364,7 @@ ng-view {
 
 .discussion-page .article-heading {
     font-size: 16.181px; /* Approximation due to font substitution */
-    font-weight: 600;
+    font-weight: bold;
     line-height: 25.901px;
 }
 

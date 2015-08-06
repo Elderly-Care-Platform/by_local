@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.rest.response.PageImpl;
 
@@ -106,6 +107,7 @@ public class DiscussRepositoryImpl implements DiscussRepositoryCustom {
 		Query query = new Query();
 		query = getQuery(query, discussTypeArray, tagIds, userId, isFeatured);
 		query.with(pageable);
+		query.addCriteria(Criteria.where("status").is(DiscussConstants.DISCUSS_STATUS_ACTIVE));
 
 		stories = this.mongoTemplate.find(query, Discuss.class);
 
@@ -142,6 +144,7 @@ public class DiscussRepositoryImpl implements DiscussRepositoryCustom {
 		long count = 0;
 		Query query = new Query();
 		query = getQuery(query, discussTypeArray, tagIds, userId, isFeatured);
+		query.addCriteria(Criteria.where("status").is(DiscussConstants.DISCUSS_STATUS_ACTIVE));
 		count = this.mongoTemplate.count(query, Discuss.class);
 		
 		return count;

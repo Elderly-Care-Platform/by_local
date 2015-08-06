@@ -65,7 +65,7 @@
                                 </h4>
                                 <h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length > 0">
                                     <a class="accordion-toggle collapsed by-reg-toggle" data-toggle="collapse"
-                                       data-parent="#accordion-1" href={{"#"+category.id}} onclick="return false;">
+                                       data-parent="#accordion-1" href={{"#accord_"+category.id}} onclick="return false;">
                                         {{category.displayMenuName}}
                                     </a>
                                     <a class="triangle-down accordion-toggle collapsed by-reg-triangle"
@@ -73,7 +73,7 @@
                                        onclick="return false;"></a>
                                 </h4>
                             </div>
-                            <div id={{category.id}}
+                            <div id={{"accord_"+category.id}}
                                  class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
                                 <div class="panel-body col-md-12" ng-repeat="subCategory in category.children" ng-if="subCategory.module===1">
                                     <input type="checkbox" ng-click="selectTag($event, subCategory)" ng-checked="serviceProviderInfo.services.indexOf(subCategory.id) !== -1">

@@ -15,14 +15,17 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 
+import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.rest.UserController;
+import com.beautifulyears.util.Util;
 
 /**
  * @author Nitin
  *
  */
 public class MailHandler {
+	private final static Logger logger = Logger.getLogger(MailHandler.class);
 	private static final String user = "support@beautifulyears.com";
 	private static final String pass = "BY2015@)!%";
 	private static final String SMTP = "smtp.gmail.com";
@@ -33,7 +36,7 @@ public class MailHandler {
 		private String to;
 		private String subject;
 		private String body;
-		private Logger logger = Logger.getLogger(MailDispatcher.class);
+		private final Logger logger = Logger.getLogger(MailDispatcher.class);
 
 		public MailDispatcher(String to, String subject, String body) {
 			this.to = to;
@@ -74,13 +77,18 @@ public class MailHandler {
 	}
 
 	public static void sendMail(String to, String subject, String body) {
-		new Thread(new MailDispatcher(to, subject, body)).start();
+		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
+			new Thread(new MailDispatcher(to, subject, body)).start();
+		}else{
+			logger.debug("not sending mail as it is disabled in context config");
+		}
+		
 	}
 	
 	public static void sendMailToUserId(String userId, String subject, String body) {
 		User  user = UserController.getUser(userId);
 		if(null != user){
-			new Thread(new MailDispatcher(user.getEmail(), subject, body)).start();
+			sendMail(user.getEmail(), subject, body);
 		}
 		
 	}

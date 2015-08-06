@@ -7,9 +7,9 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$http',
 
         $scope.mainMenu = window.by_menu;
         $rootScope.menuCategoryMap = {};
+        $rootScope.menuCategoryMapByName = {};
         $rootScope.discussCategoryMap = {};
         $rootScope.serviceCategoryMap = {};
-
 
         //$scope.mainMenu = BYMenu.query({}, function(response){
         //    $scope.mainMenu = response;
@@ -25,6 +25,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$http',
         $scope.createMenuCategoryMap = function(categories){
             angular.forEach(categories, function(category, index){
                 $rootScope.menuCategoryMap[category.id] = category;
+                $rootScope.menuCategoryMapByName[category.displayMenuName] = category;
                 if(category.module === 0){
                     if(!category.parentMenuId){
                         $rootScope.discussCategoryMap[category.id] = category;
@@ -61,6 +62,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$http',
                     $scope.createMenuCategoryMap(category.children);
                 }
             });
+
         };
 
 
@@ -68,11 +70,11 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$http',
             //$(".selected-dropdown").removeClass("selected-dropdown");
             //$("#" + menu.id).parents(".dropdown").addClass("selected-dropdown");
             if(menu.module===0){
-                $location.path("/discuss/list/"+menu.slug+"/all/"+menu.id);
+                $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===1){
                 $location.path("/services/list/"+menu.slug+"/"+menu.id+"/all/");
             }else{
-                $location.path("/discuss/list/"+menu.slug+"/all/"+menu.id);
+                $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }
 
         };

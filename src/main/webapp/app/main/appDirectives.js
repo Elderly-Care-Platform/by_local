@@ -548,4 +548,35 @@ byApp.directive('rateCalculator', function(){
 });
 
 
+byApp.directive('windowResize', function ($window) {
+    return {
+        scope: {
+            callback: '=?'
+        },
+        link: function (scope, element) {
+        	var w = angular.element($window);
+            scope.getWindowDimensions = function () {
+                return {
+                    'h': w.height(),
+                    'w': w.width()
+                };
+            };
+            scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+                scope.windowHeight = newValue.h;
+                scope.windowWidth = newValue.w;
+
+                //var height =  (newValue.h - 100),
+	           	 //width = (newValue.w - 100);
+	           	scope.callback(scope.windowHeight, scope.windowWidth);
+
+            }, true);
+
+            w.bind('resize', function () {
+                scope.$apply();
+            });
+        }
+    };
+});
+
+
 

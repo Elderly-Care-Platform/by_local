@@ -185,6 +185,14 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
         	}
         });
+        
+        $scope.resize = function(height, width){
+        	if(width > 730){
+        		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+        	} else{
+        		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+        	}   	
+        };
 
 
 

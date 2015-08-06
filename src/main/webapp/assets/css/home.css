@@ -335,7 +335,11 @@
 
 ul.loginbar.pull-right {
 	min-width: 200px;
-	text-align: right;
+    text-align: right;
+    height: 20px;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
 }
 
 @media screen and (max-width: 991px) {
@@ -343,6 +347,9 @@ ul.loginbar.pull-right {
 		height: auto;
 		overflow-x: hidden;
 		overflow-y: hidden;
+	}
+	ul.loginbar.pull-right{
+		top:3px;
 	}
 	#sidebar-nav {
 		width: 100%;
@@ -392,7 +399,7 @@ ul.loginbar.pull-right {
 .homeSlider {
 	width: 100%;
 	height: auto;
-	margin-top: 112px;
+	margin-top: 111px;
 }
 
 .item {

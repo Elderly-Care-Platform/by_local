@@ -1,6 +1,6 @@
 //DIscuss All
-byControllers.controller('ProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','UserProfile', '$sce', '$window',
-    function ($scope, $rootScope, $location, $route, $routeParams, UserProfile, $sce, $window) {
+byControllers.controller('ProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','UserProfile', '$sce',
+    function ($scope, $rootScope, $location, $route, $routeParams, UserProfile, $sce) {
 
         $scope.profileViews = {};
         $scope.profileType = $routeParams.profileType;
@@ -54,15 +54,5 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             return $sce.trustAsHtml(html);
         };
         
-        angular.element($window).bind("scroll", function() {
-        	$scope.sliderHeight = $(".by_section_header").height();
-        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
-        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
-        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
-        	}else{
-        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
-        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
-        	}
-        });
-
+       
     }]);

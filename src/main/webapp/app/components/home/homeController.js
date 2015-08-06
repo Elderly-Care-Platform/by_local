@@ -113,7 +113,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             } else if (type === "menu") {
                 var menu = $rootScope.menuCategoryMap[id];
                 if(menu.module===0){
-                    $location.path("/discuss/list/"+menu.displayMenuName+"/all/"+menu.id);
+                    $location.path("/discuss/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
                 }else if(menu.module===1){
                     $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
                 }else{

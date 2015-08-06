@@ -174,13 +174,18 @@
 		bottom: 0px;
 	}
 	.header .navbar-nav>li:hover, .header .navbar-nav>li:active, .nav>li>a:focus,
-		.nav>li>a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover
+		.nav>li>a:hover
 		{
 		background-color: #008a4b;
 	}
 	.selected-dropdown {
 		background-color: #004f24 !important;
 	}
+
+	.selected-dropdown > a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+		background-color: #004f24 !important;
+	}
+
 	.header .navbar-nav>li {
 		padding-bottom: 5px;
 		padding-top: 5px;

@@ -7,7 +7,7 @@ byApp.config(['$routeProvider',
             .when('/users/new', {templateUrl: 'app/components/users/create.html', controller: 'UserCreateController'})
             .when('/users/login', {templateUrl: 'app/components/login/registration.html', controller: 'RegistrationController'})
             .when('/users/logout/:sessionId', {templateUrl: 'app/components/users/home.html', controller: 'LogoutController'})
-            .when('/discuss/list/:slug/:discussType/:menuId', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussAllController'})
+            .when('/discuss/list/:slug/:menuId/:discussType', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussAllController'})
             .when('/discuss/:topicId/all', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussCategoryController'})
             .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussSubCategoryController'})
 

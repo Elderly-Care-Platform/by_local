@@ -27,7 +27,7 @@
 .header .navbar-collapse {
 	top: 0px;
 	background-color: #ffffff;
-	border: 1px solid #004f24;
+	border-bottom: 1px solid #004f24;
 }
 
 .header .dropdown-menu {
@@ -247,7 +247,7 @@
 		color: #000;
 	}
 	.header .topbar {
-		padding-top: 7px;
+		padding-top: 0px;
 	}
 	.header .navbar-toggle, .header .navbar-toggle:hover, .header .navbar-toggle:focus
 	{

@@ -1148,13 +1148,13 @@
     .searchWrapper {
         /*position: absolute;*/
         z-index: 200;
-        width: 196px;
+        width: 50%;
         right: 16px;
         margin-top:-48px;
     }
 
     .searchLeft {
-        width: 160px;
+        width: calc(100% - 31px);
     }
 
     .comment-wrapper {

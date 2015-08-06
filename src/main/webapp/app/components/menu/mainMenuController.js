@@ -79,6 +79,21 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$http',
 
         };
 
+        $scope.resize = function(height, width){
+            if(width < 992){
+                $(".hbMenu").attr("data-toggle", "collapse");
+                $(".hbMenu").attr("data-target", ".navbar-responsive-collapse");
+
+                $(".mega-menu-content a").attr("data-toggle", "collapse");
+                $(".mega-menu-content a").attr("data-target", ".navbar-responsive-collapse");
+            } else{
+                $(".hbMenu").removeAttr("data-toggle");
+                $(".hbMenu").removeAttr("data-target");
+
+                $(".mega-menu-content a").removeAttr("data-toggle");
+                $(".mega-menu-content a").removeAttr("data-target");
+            }
+        };
 
         $scope.createMenuCategoryMap($scope.mainMenu);
         window.by_menu = null;

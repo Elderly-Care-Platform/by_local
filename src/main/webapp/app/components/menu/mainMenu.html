@@ -1,7 +1,11 @@
 <!--<ul class="nav navbar-nav">-->
     <!-- Start Home -->
-    <li ng-repeat="menu in mainMenu" ng-if="$index < 8" class="dropdown mega-menu-fullwidth by-menu">
-        <a ng-click="selectMenu(menu)" class="dropdown-toggle" data-toggle="dropdown" id="{{menu.id}}">
+    <li ng-repeat="menu in mainMenu" ng-if="$index < 8" class="dropdown mega-menu-fullwidth by-menu" window-resize callback="resize">
+        <a ng-click="selectMenu(menu)" class="dropdown-toggle hbMenu" ng-if="menu.children.length === 0" id="{{menu.id}}">
+            {{menu.displayMenuName}}
+        </a>
+
+        <a ng-click="selectMenu(menu)" class="dropdown-toggle " data-toggle="dropdown" id="{{menu.id}}" ng-if="menu.children.length > 0">
             {{menu.displayMenuName}}
         </a>
         <ul class="dropdown-menu" ng-if="menu.children.length > 0" ng-include="'app/components/menu/subMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>

@@ -1,5 +1,5 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential',
-    function ($scope, $rootScope, Discuss, ValidateUserCredential) {
+byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window',
+    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window) {
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -10,6 +10,14 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.showCategoryList = function(){
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
+        $(".by_section_header").hide();
+        
+        angular.element($window).bind("scroll", function() {        	
+        	$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');  
+    		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        });
+        
+        
 
         if($scope.$parent.selectedMenu){
             $scope.selectedMenuId = $scope.$parent.selectedMenu.id;

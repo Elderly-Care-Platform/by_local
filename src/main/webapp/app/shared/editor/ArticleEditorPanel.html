@@ -31,11 +31,11 @@
     </div>
 
 	<div class="margon-bottom-20 by-show-three-buttons">
-		<div class=" col-md-6 col-xs-6 no-padding register-page by_editor_post_divider">
+		<div class=" col-md-4 col-xs-4 no-padding register-page by_editor_post_divider">
 			<form id="UploadImage12" action="UploadFile" method="post"
 				enctype="multipart/form-data">
 				<label > <input name="sp" id="sp" type="file"
-					required onchange="javascript:uploadImage(this)" /><img src="assets/img/icons/photo.png" width="42" height="33"/> 
+					required onchange="javascript:uploadImage(this)" /><img src="assets/img/icons/photo.png" width="100%" /> 
 					<span style="float: right;    min-width: 50px;    max-width: 80px;    margin-left: 10px;    text-align: left;">Upload<br/>
 						your photo</span>
 				</label>
@@ -45,13 +45,14 @@
 				style="display: none" />
 
 		</div>
-		<!--  
 		<div class=" col-md-4 col-xs-4 no-padding  register-page by_editor_post_divider">
-			<label > <span> Submit<br/> a link </span>
+			<label >
+			<img src="assets/img/icons/link.png" width="100%" />
+			 <span style="float: right;    min-width: 50px;    max-width: 80px;    margin-left: 10px;    text-align: left;"> Share<br/> a link </span>
 			</label>
-		</div>-->
-		<div class=" col-md-6 col-xs-6 no-padding  register-page by_editor_post_divider">
-			<label class="by_call_submit_video" ng-init="showSubmitVideo()"><img src="assets/img/icons/video.png" width="42" height="33"/>
+		</div>
+		<div class=" col-md-4 col-xs-4 no-padding  register-page by_editor_post_divider">
+			<label class="by_call_submit_video" ng-init="showSubmitVideo()"><img src="assets/img/icons/video.png" width="100%"/>
 			 <span style="float: right;    min-width: 50px;    max-width: 80px;    margin-left: 10px;    text-align: left;"> Share<br/> a video </span>
 			</label>
 		</div>

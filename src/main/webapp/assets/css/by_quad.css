@@ -14,12 +14,6 @@
 	padding-right:21px;
 }
 
-.by_blog_author .shareInfo-image img, .by_blog_author .shareInfo-generalImage img{
-	width:100% !important;
-	height: auto;
-	padding-top: 15px;
-}
-
 .by_blog_author .col-md-12 img
 {
 	width:auto !important;
@@ -392,18 +386,26 @@
 
 .by-card-shareInfo{
 	border: 2px solid #dcdcdc;
-	background-color: #dcdcdc;
+	/*background-color: #dcdcdc;*/
 	margin: 10px;
+
+}
+.by-card-shareInfo .row{
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 .by-card-shareInfo .shareInfo-content{
-	padding-top: 0px;
+	padding-top: 15px;
 }
 
 .by-card-shareInfo .shareInfo-generalImage{
 	background-color: #fff;
 }
-.by-card-shareInfo .shareInfo-generalImage img{
+
+.by_blog_author .shareInfo-image img, .by_blog_author .shareInfo-generalImage img{
+	width:100% !important;
+	height: auto;
 	padding-top: 15px;
 }
 

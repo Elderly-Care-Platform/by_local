@@ -136,7 +136,7 @@ public class DiscussController {
 			// List<String> subTopicId,
 			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
-			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
+			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
 			@RequestParam(value = "s", required = false, defaultValue = "10") int pageSize,

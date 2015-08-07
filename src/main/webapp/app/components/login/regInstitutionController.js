@@ -271,6 +271,9 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ( $scope.profile.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
+            
+            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 

@@ -284,6 +284,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 return value;
             });
         }
+        
+      
 
         //Post individual form
         $scope.postUserProfile = function (isValidForm) {
@@ -293,9 +295,12 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
                 return value.id;
             });
+            
+           
+
 
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
-
+           
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
 
@@ -303,9 +308,12 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if ( $scope.profile.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
+            
+            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
-
+            
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
@@ -322,4 +330,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
         }
+        
+       
     }]);

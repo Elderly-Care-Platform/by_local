@@ -158,7 +158,14 @@
 .header .mega-menu .equal-height-list h3 {
 	padding: 0px;
 }
-
+li.mega-menu-fullwidth.by-menu.ng-scope.ng-isolate-scope.open.dropdown a {
+    color: #fff;
+    line-height: 28px;
+    margin-top: -5px;
+    margin-bottom: -5px;    
+    padding-top: 8px;
+    padding-bottom: 10px;
+}
 @media ( min-width : 768px) {
 	.navbar-nav>li>a {
 		padding-top: 9px;
@@ -283,6 +290,16 @@
 }
 
 @media screen and (max-width: 992px) {
+	
+li.mega-menu-fullwidth.by-menu.ng-scope.ng-isolate-scope.open.dropdown a 
+{
+	    color: #000;
+    line-height: 16px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 13px;
+    padding-bottom: 12px;
+}
 	.header {
 		position: relative;
 		height: auto;
@@ -311,7 +328,6 @@
 		margin: 15px 0px 0px 0px;
 	}
 }
-
 
 
 @media screen and (max-width: 450px) {

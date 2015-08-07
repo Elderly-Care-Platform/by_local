@@ -1,5 +1,17 @@
 <div ng-show="articles.length > 0" ng-include="'app/components/home/homeArticleCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 <div ng-show="questions.length > 0" ng-include="'app/components/home/homeQuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+<div ng-show="services.length > 0" class="col-md-12 no-padding margin-bottom-35">
+    <div id="home_featured_services" class="col-md-12 no-padding  list-head dp-block">
+        FEATURED SERVICES
+    </div>
+
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 216px;"></div>
+    </div>
+</div>
+<div style="clear:both;"></div>
+
+<div ng-show="services.length > 0" ng-include="'app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 <!--<div ng-show="posts.length > 0" ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>-->
 
 

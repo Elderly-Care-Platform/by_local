@@ -2,8 +2,8 @@
  * Created by sanjukta on 02-07-2015.
  */
 //home
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window',
-    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window) {
+byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window','FindServices',
+    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window,FindServices) {
 		$scope.carousalType = "carousel";
 		$('.carousel').carousel({
 	        interval: 8000
@@ -67,6 +67,14 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
                 		function(value){
                 				$scope.questions = value.data.content;
+                		},
+                		function(error){
+        			       	console.log("DiscussPage");
+//        			       	alert("error");
+                		});
+                FindServices.get({page:0,size:3,sort:"lastModifiedAt",isFeatured:true},
+                		function(value){
+                				$scope.services = value.data.content;
                 		},
                 		function(error){
         			       	console.log("DiscussPage");
@@ -150,7 +158,18 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	        	}
 	        });
        
-        
+        	 
+        	 //for services
+        	 $scope.location = function ($event, userId, userType) {
+                 $event.stopPropagation();
+                 if (userId && userType.length > 0) {
+                     $location.path('/profile/' + userType[0] + '/' + userId);
+                 }
+             }
+        	 //for services
+        	 $scope.profileImage = function (service) {
+                 service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
+              }
        
 
     }]);

@@ -141,6 +141,7 @@ public class UserProfileController {
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(value = "isFeatured", required = false,defaultValue = "false") Boolean isFeatured,
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -176,7 +177,7 @@ public class UserProfileController {
 
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
-							tagIds, pageable), user);
+							tagIds,isFeatured, pageable), user);
 			if (profilePage.getContent().size() > 0) {
 				logger.debug("found something");
 			} else {

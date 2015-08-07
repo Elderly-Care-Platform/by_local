@@ -18,10 +18,11 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 
 	@Override
 	public PageImpl<UserProfile> getServiceProvidersByFilterCriteria(
-			Object[] userTypes, String city, List<ObjectId> tagIds,
+			Object[] userTypes, String city, List<ObjectId> tagIds,boolean isFeatured,
 			Pageable page) {
 		List<UserProfile> userProfileList = null;
 		Query q = new Query();
+		q.addCriteria(Criteria.where("isFeatured").is(isFeatured));
 		if (null != tagIds && tagIds.size() > 0) {
 			q.addCriteria(Criteria.where("systemTags.$id").in(tagIds));
 		}

@@ -103,7 +103,7 @@
 								href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
 							<span
 								ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails"
-								ng-if="mail.trim()!==''"> / <a href="mailto::{{mail}}">{{mail}}</a>
+								ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
 							</span>
 						</div>
 						<div style="clear: both; height: 5px;"></div>

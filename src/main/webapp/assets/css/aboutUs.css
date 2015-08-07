@@ -190,7 +190,10 @@
     padding-right:8%;
     padding-top:5%;
 }
-
+.helpleftTextAbs
+{
+	width: calc(100% - 181px); position: absolute; left: 200px; top: 0px; z-index: 1;
+}
 .blackColorMore {
     color: #000;
     font-style: normal !important;
@@ -250,8 +253,8 @@
     }
 
 .aboutUsShop {
-    background: url('../img/aboutUs/shop.jpg?versionTimeStamp=%PROJECT_VERSION%');
-    background-repeat: no-repeat;
+    background: url('../img/aboutUs/discuss.jpg?versionTimeStamp=%PROJECT_VERSION%');
+    background-repeat: repeat-y;
     padding: 19px 15px 0px 15px;
     text-align: center;
     margin-bottom: 20px;
@@ -527,6 +530,12 @@
             font-weight: 400;
             line-height: 24px;
             padding: 30px 15px 30px 45%;
+        }
+        .helpleftTextAbs
+        {
+        	position:relative;
+        	width:100%;
+        	left:0px;
         }
     }
     

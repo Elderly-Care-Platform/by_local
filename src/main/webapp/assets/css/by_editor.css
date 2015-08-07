@@ -234,7 +234,21 @@ textarea.by_editorModalTextArea {
 	position: relative;
 }
 
-.by_uploading_image_add_close, .by_uploading_video_add_close {
+.by-editor-view-buttons{
+
+}
+
+.by-linkEditor-view-close {
+	position: relative;
+	z-index: 9;
+	background: url('../img/icons/close.png');
+	height: 29px;
+	background-repeat: no-repeat;
+	background-position: top right;
+	cursor: pointer;
+}
+
+.by-imageEditor-view-close{
 	position: absolute;
 	right: 20px;
 	top: 5px;
@@ -242,6 +256,7 @@ textarea.by_editorModalTextArea {
 	background: url('../img/icons/close.png');
 	width: 29px;
 	height: 29px;
+	background-repeat: no-repeat;
 	cursor: pointer;
 }
 
@@ -286,6 +301,7 @@ label input[type="file"] {
 .by-editor-shareInfo{
 	border: 2px solid #fff;
 	background-color: #fff;
+	margin: 2px;
 }
 
 .by-editor-shareInfo .row{
@@ -293,6 +309,17 @@ label input[type="file"] {
 	margin-right: 0px;
 }
 
+.by-editor-shareInfo .by-editor-loadingImage{
+	opacity: 1;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 105px;
+	background-image: url(../img/ajax_scroll_loading.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
 
 .shareInfo-content{
 	overflow-wrap:break-word;
@@ -301,14 +328,15 @@ label input[type="file"] {
 }
 
 .shareInfo-generalImage img{
-	width:100%;
+	width: auto;
 	height: auto;
-	padding-top: 15px;
+	max-width: 100%;
 }
 
 .shareInfo-image img{
-	width:100%;
+	width: auto;
 	height: auto;
-	padding-top: 15px;
+	max-width: 100%;
+	/*padding-top: 15px;*/
 }
 

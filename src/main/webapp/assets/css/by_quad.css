@@ -403,13 +403,22 @@
 	background-color: #fff;
 }
 
-.by_blog_author .shareInfo-image img, .by_blog_author .shareInfo-generalImage img{
-	width:100% !important;
+.by_blog_author .shareInfo-image img{
+	width: auto !important;
+	height: auto;
+	max-width: 100%;
+}
+
+.by_blog_author .shareInfo-generalImage img{
+	width: auto !important;
+	height: auto;
+	max-width: 100%;
 	height: auto;
 	padding-top: 15px;
 }
 
 .shareInfo-generalImage iframe{
-	width:100%;
+	width: auto !important;
 	height: auto;
+	max-width: 100%;
 }

@@ -1,25 +1,41 @@
-<div class="by-editor-shareInfo">
+<div class="by-editor-shareInfo" ng-if="!linkInfoLoading">
     <div class="row row-height" ng-if="linkInfo.type===0">
-        <div class="col-md-6 shareInfo-content col-height col-top">
-            <p>{{linkInfo.title}}</p>
-            <p>{{linkInfo.description}}</p>
+        <div class="col-md-6 shareInfo-content col-sm-12 col-xs-12">
+            <div class="by-linkEditor-view-close" ng-click="resetEditorView()"></div>
+            <p ng-if="linkInfo.title">{{linkInfo.title}}</p>
+            <p ng-if="linkInfo.description">{{linkInfo.description}}</p>
             <p>{{linkInfo.domainName}}</p>
         </div>
-        <div class="col-md-6 shareInfo-generalImage col-height col-middle">
+        <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage">
             <img src="{{linkInfo.mainImage}}">
         </div>
+
+        <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage===null && linkInfo.otherImages && linkInfo.otherImages.length > 0">
+            <img src="{{linkInfo.otherImages[0]}}">
+        </div>
+
     </div>
-    <div class="row row-height shareInfo-image" ng-if="linkInfo.type===1">
+    <div class="row shareInfo-image" ng-if="linkInfo.type===1">
+        <div class="by-linkEditor-view-close" ng-click="resetEditorView()"></div>
         <img src="{{linkInfo.mainImage}}">
     </div>
-    <div class="row row-height shareInfo-image" ng-if="linkInfo.type===2">
-        <div class="col-md-6 shareInfo-content col-height col-top">
-            <p>{{linkInfo.title}}</p>
-            <p>{{linkInfo.description}}</p>
+    <div class="row shareInfo-image" ng-if="linkInfo.type===2">
+        <div class="col-md-6 shareInfo-content col-sm-12 col-xs-12">
+            <div class="by-linkEditor-view-close" ng-click="resetEditorView()"></div>
+            <p ng-if="linkInfo.title">{{linkInfo.title}}</p>
+            <p ng-if="linkInfo.description">{{linkInfo.description}}</p>
             <p>{{linkInfo.domainName}}</p>
         </div>
-        <div class="col-md-6 shareInfo-generalImage col-height col-middle">
+        <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage">
             <img src="{{linkInfo.mainImage}}">
         </div>
+
+        <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="!linkInfo.mainImage && linkInfo.otherImages && linkInfo.otherImages.length > 0">
+            <img src="{{linkInfo.otherImages[0]}}">
+        </div>
     </div>
+
+</div>
+<div class="by-editor-shareInfo" ng-if="linkInfoLoading">
+    <div class="by-editor-loadingImage"></div>
 </div>

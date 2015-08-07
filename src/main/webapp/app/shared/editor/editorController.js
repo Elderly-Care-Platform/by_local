@@ -7,7 +7,9 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.showCategory = false;
         $scope.selectedMenuId = "";
         $scope.selectedMenuList = {};
-        $scope.showLinkInfo = false;
+        $scope.showLinkView = false;
+        $scope.sharedLinkUrl = "";
+
         $scope.showCategoryList = function(){
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
@@ -80,7 +82,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
 
-            if($scope.showLinkInfo){
+            if($scope.showLinkView){
                 $scope.discuss.contentType = 2;
                 $scope.discuss.linkInfo = $scope.linkInfo;
             }else{
@@ -99,12 +101,14 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
 
             if($scope.discuss.topicId.length === 0){
                 $scope.errorMsg = "Please select atleast one category";
-            } else if($scope.showLinkInfo){
+            } else if($scope.showLinkView){
                 if(!$scope.linkInfo){
                     $scope.errorMsg = "Invalid shared info";
                 }else{
                     $scope.errorMsg = "";
                 }
+            } else if($scope.editor.articlePhotoFilename){
+                $scope.errorMsg = "";
             } else if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="A"){
                 $scope.errorMsg = "Please select title";
             } else if($scope.discuss.text.trim().length <= 0){
@@ -184,15 +188,28 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         //
         //
         //};
+        $scope.resetEditorView = function(){
+            $scope.showLinkView = false;
+            $(".by_uploading_image").hide();
+            $(".by-editor-view-buttons").show();
+        };
+
 
         $scope.postLink = function(){
             if($scope.sharedLinkUrl && $scope.sharedLinkUrl.trim().length > 0){
+                $(".by-editor-view-buttons").hide();
+                $scope.linkInfoLoading = true;
                 $http.get('api/v1/discuss/getLinkInfo?url='+$scope.sharedLinkUrl).
                     then(function(response) {
                         $scope.linkInfo = response.data.data;
-                        $scope.showLinkInfo = true;
+                        $scope.showLinkView = true;
                         $(".by_btn_submit").prop("disabled", false);
+                        $scope.linkInfoLoading = false;
+                        $scope.sharedLinkUrl = "";
                     }, function(error) {
+                        $scope.linkInfoLoading = false;
+                        console.log(error);
+                        $scope.sharedLinkUrl = "";
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });

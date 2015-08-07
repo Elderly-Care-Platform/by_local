@@ -66,15 +66,15 @@
     </div>
 
 
-    <div class=" col-md-12 no-padding margin-bottom-20 register-page">
+    <div class="col-md-12 no-padding register-page">
         <input type="text" class="username-textbox textbox " placeholder="Please enter a title of your post"
                name="username" ng-model="editor.subject">
     </div>
-
-    <div class="margin-bottom-20 by-show-three-buttons">
+    <div class="clearfix"></div>
+    <div class="by-editor-view-buttons">
         <div class="col-md-4 col-xs-4 no-padding register-page by_editor_post_divider">
             <form id="UploadImage12" action="UploadFile" method="post" enctype="multipart/form-data">
-                <label>
+                <label ng-click="resetEditorView()">
                     <input name="sp" id="sp" type="file" required onchange="javascript:uploadImage(this)"/>
                         <img src="assets/img/icons/photo.png"  width="100%"/>
 					    <span style="float: right;min-width: 50px;max-width: 80px;margin-left: 10px;text-align: left;">
@@ -85,7 +85,7 @@
             <input type="text" id="articleTitleImage" ng-model="editor.articlePhotoFilename" value="" style="display: none"/>
         </div>
         <div class="col-md-4 col-xs-4 no-padding  register-page by_editor_post_divider">
-            <label data-toggle="modal" data-target="#editorLinkModal">
+            <label data-toggle="modal" data-target="#editorLinkModal" ng-click="resetEditorView()">
                 <img src="assets/img/icons/link.png"  width="100%"/>
                     <span style="float: right;min-width: 50px;max-width: 80px;margin-left: 10px;text-align: left;">
                         Share<br/> a link
@@ -93,7 +93,7 @@
             </label>
         </div>
         <div class="col-md-4 col-xs-4 no-padding register-page by_editor_post_divider">
-            <label data-toggle="modal" data-target="#editorVideoModal">
+            <label data-toggle="modal" data-target="#editorVideoModal" ng-click="resetEditorView()">
                 <img src="assets/img/icons/video.png"  width="100%"/>
                     <span style="float: right;min-width: 50px;max-width: 80px;margin-left: 10px;text-align: left;">
                         Share<br/> a video
@@ -113,7 +113,7 @@
                 <img src="" width="100%" alt="" style="border:1px solid #fff;"/>
             </div>
             <div class="clearfix"></div>
-            <div class="by_uploading_image_add_close" ng-click="closeView()"></div>
+            <div class="by-imageEditor-view-close" ng-click="resetEditorView()"></div>
         </div>
         <div class="col-md-6">
             Would you allow us to showcase this image?
@@ -121,7 +121,7 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <div ng-include="'app/shared/editor/ShareLinkEditor.html'" ng-if="showLinkInfo"></div>
+    <div ng-include="'app/shared/editor/ShareLinkEditor.html'" ng-if="showLinkView"></div>
     <!--<div class="by_uploading_video">-->
         <!--<div class="col-md-12 by_uploading_video_add">-->
             <!--<div class="by_uploading_video_add_inside">-->
@@ -226,7 +226,8 @@
                         $("#articleTitleImage").val(JSON.stringify(data));
                         $("#articleTitleImage").trigger('input');
                         $(".by_uploading_image").show();
-                        $(".by-show-three-buttons").hide();
+                        $(".by-editor-view-buttons").hide();
+                        $(".by_btn_submit").prop("disabled", false);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus);

@@ -16,6 +16,12 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         var tags = [];
         var queryParams = {p:0,s:10};
         
+        
+        
+        $scope.profileImage = function (service) {
+           service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
+        }
+        
         $scope.updateSectionHeader = function(){
         	var menuName = $scope.selectedMenu.displayMenuName.toLowerCase().trim();
         	$scope.sectionHeader = BY.config.sectionHeader[menuName];

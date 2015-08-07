@@ -20,6 +20,10 @@
     background: #fff;
 }
 
+.header .topbar ul.loginbar > li > a, .header .topbar ul.loginbar > li > a:hover
+{
+	text-transform:capitalize;
+}
 .header {
 	top: 0px;
 	width: 100%;

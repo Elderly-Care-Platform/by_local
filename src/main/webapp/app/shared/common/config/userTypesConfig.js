@@ -28,7 +28,8 @@ BY.config.profile.userType = {
         'contentPanel':'app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'SERVICES',
-        'reviewContentType':'4'
+        'reviewContentType':'4',
+        'profileImage':'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '5' : {
         'category':'1',
@@ -45,7 +46,8 @@ BY.config.profile.userType = {
         'contentPanel':'app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'PROFESSIONAL',
-        'reviewContentType':'5'
+        'reviewContentType':'5',
+        'profileImage':'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%'
     }
 
 }

@@ -14,10 +14,12 @@
                             fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/by.jpg"]'
                             align="left" style="vertical-align:top; border-radius:2px !important;">
 					
-					<img ng-if="!service.basicProfileInfo.profileImage"
-                         src="assets/img/by.png"
+					<img ng-if="!service.basicProfileInfo.profileImage" ng-init="profileImage(service)" 
+                         src="{{service.profileImage}}"
                          alt="image" class="service-card-image"
                          align="left" style="vertical-align:top; border-radius:2px !important;">
+                         
+                        
 					
 				</span>
 

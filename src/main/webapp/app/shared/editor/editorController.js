@@ -11,6 +11,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
         $(".by_section_header").hide();
+        $(".homeSlider").hide();        
         
         angular.element($window).bind("scroll", function() {        	
         	$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');  

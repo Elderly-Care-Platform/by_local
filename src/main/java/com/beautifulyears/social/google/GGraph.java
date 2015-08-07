@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.beautifulyears.util.LoggerUtil;
+
 public class GGraph {
 	private static final Logger logger = Logger.getLogger(GGraph.class);
 	private String accessToken;
@@ -21,6 +23,7 @@ public class GGraph {
 	}
 
 	public String getGBGraph() {
+		LoggerUtil.logEntry();
 		String graph = null;
 		try {
 
@@ -45,6 +48,7 @@ public class GGraph {
 	}
 
 	public Map<String, String> getGraphData(String gGraph) {
+		LoggerUtil.logEntry();
 		Map<String, String> ggProfile = new HashMap<String, String>();
 		try {
 			JSONObject json = new JSONObject(gGraph);

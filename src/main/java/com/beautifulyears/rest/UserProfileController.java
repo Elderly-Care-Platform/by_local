@@ -31,7 +31,9 @@ import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
+import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.rest.response.UserProfileResponse;
+import com.beautifulyears.rest.response.UserProfileResponse.UserProfilePage;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
@@ -202,7 +204,7 @@ public class UserProfileController {
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Page<UserProfile> userProfilePage = null;
+		UserProfilePage userProfilePage = null;
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
 				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
@@ -218,9 +220,10 @@ public class UserProfileController {
 			}
 
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
-			userProfilePage = this.userProfileRepository
-					.getServiceProvidersByCriteria(userTypes, pageable);
-			if (userProfilePage.hasContent() == false) {
+			userProfilePage = UserProfileResponse.getPage(userProfileRepository
+					.getServiceProvidersByFilterCriteria(userTypes, null,
+							null, pageable), null);
+			if (userProfilePage.getContent().size() > 0) {
 				logger.debug("did not find any service providers");
 			}
 

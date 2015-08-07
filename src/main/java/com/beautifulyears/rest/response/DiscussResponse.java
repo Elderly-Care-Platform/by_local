@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
+import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.util.Util;
 
@@ -82,6 +83,8 @@ public class DiscussResponse implements IResponse {
 		private boolean isLikedByUser = false;
 		private int aggrLikeCount = 0;
 		private long shareCount = 0;
+		private int contentType;
+		private LinkInfo linkInfo;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -108,7 +111,35 @@ public class DiscussResponse implements IResponse {
 			if (null != user && discuss.getLikedBy().contains(user.getId())) {
 				this.setLikedByUser(true);
 			}
+			this.setContentType(discuss.getContentType());
+			this.setLinkInfo(discuss.getLinkInfo());
 		}
+		
+		
+
+		public int getContentType() {
+			return contentType;
+		}
+
+
+
+		public void setContentType(int contentType) {
+			this.contentType = contentType;
+		}
+
+
+
+		public LinkInfo getLinkInfo() {
+			return linkInfo;
+		}
+
+
+
+		public void setLinkInfo(LinkInfo linkInfo) {
+			this.linkInfo = linkInfo;
+		}
+
+
 
 		public String getShortSynopsis() {
 			return shortSynopsis;

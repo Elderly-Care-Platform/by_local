@@ -1,5 +1,5 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window',
-    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window) {
+byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http',
+    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http) {
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -7,6 +7,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.showCategory = false;
         $scope.selectedMenuId = "";
         $scope.selectedMenuList = {};
+        $scope.showLinkInfo = false;
         $scope.showCategoryList = function(){
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
@@ -79,33 +80,18 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
 
+            if($scope.showLinkInfo){
+                $scope.discuss.contentType = 2;
+                $scope.discuss.linkInfo = $scope.linkInfo;
+            }else{
+                $scope.discuss.contentType = 0;
+            }
+
             $scope.setErrorMessage();
 
             if($scope.errorMsg.trim().length === 0){
                 $scope.submitContent();
             }
-            //if($scope.discuss.discussType==="F"){
-            //    if($scope.discuss.title.trim().length > 0 &&  $scope.discuss.text.trim().length > 0){
-            //        $scope.submitContent();
-            //    }else {
-            //        $scope.setErrorMessage();
-            //    }
-            //} else if($scope.discuss.discussType==="A"){
-            //    if($scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
-            //        $scope.submitContent();
-            //    }else{
-            //        $scope.setErrorMessage();
-            //    }
-            //
-            //} else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
-            //    if($scope.discuss.text.trim().length > 0){
-            //        $scope.submitContent();
-            //    }else{
-            //        $scope.setErrorMessage();
-            //    }
-            //} else {
-            //    //no more types
-            //}
         };
 
         $scope.setErrorMessage = function(){
@@ -113,6 +99,12 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
 
             if($scope.discuss.topicId.length === 0){
                 $scope.errorMsg = "Please select atleast one category";
+            } else if($scope.showLinkInfo){
+                if(!$scope.linkInfo){
+                    $scope.errorMsg = "Invalid shared info";
+                }else{
+                    $scope.errorMsg = "";
+                }
             } else if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="A"){
                 $scope.errorMsg = "Please select title";
             } else if($scope.discuss.text.trim().length <= 0){
@@ -140,57 +132,75 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         
        
         
-        $scope.showSubmitVideo = function(){
-        	var screenWidth = $(window).width();
-        	$(".by_call_submit_video").click(function(){
-        		$(".by_call_submit_video_wrapper").fadeIn();
-        		if(screenWidth > 960){
-	        		$(".header").css('z-index','0');
-	        		$(".breadcrumbs").css('z-index','0');
-	        		$(".list-group-item.active").css('z-index','0');
-        		}
-        		$(".by_uploading_image").hide();
-        	});
-        	$(".by_call_submit_video_abs, .by_call_submit_video_btn button[type=button], .by_call_submit_video_head span").click(function(){
-        		$(".by_call_submit_video_wrapper").fadeOut();
-        		$(".by_call_submit_video_head_textarea").val('');
-        		if(screenWidth > 960){
-	        		$(".header").css('z-index','110');
-	        		$(".breadcrumbs").css('z-index','10');
-	        		$(".list-group-item.active").css('z-index','2');
-        		}
-        	});
-        	$(".by_call_submit_video_btn button[type=submit]").click(function(){
-        		$(".by_call_submit_video_wrapper").fadeOut();
-        		var videoUrl = $(".by_call_submit_video_head_textarea").val();
-        		if(screenWidth > 960){
-	        		$(".header").css('z-index','110');
-	        		$(".breadcrumbs").css('z-index','10');
-	        		$(".list-group-item.active").css('z-index','2');
-        		}
-        		$(".by_uploading_video").show();
-        		$(".by-show-three-buttons").hide();
-        		var byuploadingvideoaddinside = $(".by_uploading_video_add_inside").innerWidth();
-            	$(".by_uploading_video_add_inside iframe").attr('height', byuploadingvideoaddinside/2);
-        	});
-        	$(".by_uploading_image_add_close").click(function(){
-        		$(".by-show-three-buttons").show();
-        		 $(".by_uploading_image").hide();
-        	});
-        	
-        	$(".by_call_upload_photo").click(function(){
-        		$(".by-show-three-buttons").hide();
-       		 	$(".by_uploading_image").show();
-        	});
-        	
-        	$(".by_uploading_video_add_close").click(function(){
-        		$(".by-show-three-buttons").show();
-       		 $(".by_uploading_video").hide();
-        	});
-        	
+        //$scope.showSubmitVideo = function(){
+        //	var screenWidth = $(window).width();
+        //	$(".by_call_submit_video").click(function(){
+        //		$(".by_call_submit_video_wrapper").fadeIn();
+        //		if(screenWidth > 960){
+	     //   		$(".header").css('z-index','0');
+	     //   		$(".breadcrumbs").css('z-index','0');
+	     //   		$(".list-group-item.active").css('z-index','0');
+        //		}
+        //		$(".by_uploading_image").hide();
+        //	});
+        //	$(".by_call_submit_video_abs, .by_call_submit_video_btn button[type=button], .by_call_submit_video_head span").click(function(){
+        //		$(".by_call_submit_video_wrapper").fadeOut();
+        //		$(".by_call_submit_video_head_textarea").val('');
+        //		if(screenWidth > 960){
+	     //   		$(".header").css('z-index','110');
+	     //   		$(".breadcrumbs").css('z-index','10');
+	     //   		$(".list-group-item.active").css('z-index','2');
+        //		}
+        //	});
+        //	$(".by_call_submit_video_btn button[type=submit]").click(function(){
+        //		$(".by_call_submit_video_wrapper").fadeOut();
+        //		var videoUrl = $(".by_call_submit_video_head_textarea").val();
+        //		if(screenWidth > 960){
+	     //   		$(".header").css('z-index','110');
+	     //   		$(".breadcrumbs").css('z-index','10');
+	     //   		$(".list-group-item.active").css('z-index','2');
+        //		}
+        //		$(".by_uploading_video").show();
+        //		$(".by-show-three-buttons").hide();
+        //		var byuploadingvideoaddinside = $(".by_uploading_video_add_inside").innerWidth();
+        //    	$(".by_uploading_video_add_inside iframe").attr('height', byuploadingvideoaddinside/2);
+        //	});
+        //	$(".by_uploading_image_add_close").click(function(){
+        //		$(".by-show-three-buttons").show();
+        //		 $(".by_uploading_image").hide();
+        //	});
+        //
+        //	$(".by_call_upload_photo").click(function(){
+        //		$(".by-show-three-buttons").hide();
+       	//	 	$(".by_uploading_image").show();
+        //	});
+        //
+        //	$(".by_uploading_video_add_close").click(function(){
+        //		$(".by-show-three-buttons").show();
+       	//	 $(".by_uploading_video").hide();
+        //	});
+        //
+        //
+        //
+        //
+        //};
 
-        	
-        	
-        };
+        $scope.postLink = function(){
+            if($scope.sharedLinkUrl && $scope.sharedLinkUrl.trim().length > 0){
+                $http.get('api/v1/discuss/getLinkInfo?url='+$scope.sharedLinkUrl).
+                    then(function(response) {
+                        $scope.linkInfo = response.data.data;
+                        $scope.showLinkInfo = true;
+                        $(".by_btn_submit").prop("disabled", false);
+                    }, function(error) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+            }
+        }
+
+        $scope.postVideo = function(){
+
+        }
 
     }]);

@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.beautifulyears.util.LoggerUtil;
+
 public class FBGraph {
 	private static final Logger logger = Logger.getLogger(FBGraph.class);
 	private String accessToken;
@@ -21,6 +23,7 @@ public class FBGraph {
 	}
 	
 	public String getFBGraph() {
+		LoggerUtil.logEntry();
 		String graph = null;
 		try {
 
@@ -45,6 +48,7 @@ public class FBGraph {
 	}
 
 	public Map<String, String> getGraphData(String fbGraph) throws IOException {
+		LoggerUtil.logEntry();
 		Map<String, String> fbProfile = new HashMap<String, String>();
 		try {
 			JSONObject json = new JSONObject(fbGraph);

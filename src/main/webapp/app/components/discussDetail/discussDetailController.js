@@ -48,6 +48,9 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
+        $scope.trustAsResourceUrl = function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
 
         //update data in view after comments/answers are posted from child controller
         $scope.$on('handleBroadcast', function () {
@@ -59,16 +62,6 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
         $scope.updateShareCount = function(count){
         	$scope.detailResponse.discuss.shareCount = count;
         }
-       /* $scope.iframeHeight = function(){
-        	var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
-        	$(".by-quad-image iframe").attr('height', iframeHeightA);
-        	$(window).resize(function(){
-        		var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
-            	$(".by-quad-image iframe").attr('height', iframeHeightA);
-        	});
-        };*/
-        
-        
     }]);
 
 

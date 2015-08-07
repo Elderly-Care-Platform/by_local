@@ -2,15 +2,7 @@
  <div class="blog-author margin-bottom-35 main-article by_blog_author" >
         <div class="article-info dp-inline-block col-md-12">
             <ul class="list-inline posted-info" style="margin-left:0px;">
-                <li ng-if="detailResponse.discuss.discussType == 'A'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
-                    &nbsp; |
-                </li>
-                <li ng-if="detailResponse.discuss.discussType == 'P'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
-                    &nbsp; |
-                </li>
-                <li ng-if="detailResponse.discuss.discussType == 'Q'">
+                <li>
                     By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
                     &nbsp; |
                 </li>
@@ -27,8 +19,7 @@
                 </li>
             </ul><div style="clear: both"></div>
         </div>
-        
-         <div style="clear: both"></div>
+        <div style="clear: both"></div>
 
         <div class="article col-md-12" >
             <div class="article-heading" style="text-transform: uppercase; padding-bottom:10px;">
@@ -40,19 +31,13 @@
              <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
             <div style="clear: both"></div>
         </div>
-        
-         <div class="by-quad-image col-md-12" ng-if="detailResponse.discuss.discussType == 'A'" ng-init="iframeHeight()">
-            
-			<div style="clear: both"></div>
-        </div>
+
+        <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
 
         <div class="articles-story  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
         <div style="clear: both; height:8px;"></div>
         
-        
-        <div class="by-quad-image col-md-12" >
-        </div>
         
          <div class="article-share-links news-v3 by-social-border" style="border-bottom:1px solid #ccc !important;">
             <ul class="post-shares post-shares-lg">
@@ -77,9 +62,6 @@
                      ng-click="createNewComment(detailResponse.discuss.id)"><span class="text">Answer</span>
                 </div>
             </li>
-
-           
-            
 
             <li class="add-comment" ng-controller="DiscussLikeController">
                 <a ng-click="likeDiscuss(detailResponse.discuss.id)">

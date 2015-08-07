@@ -211,7 +211,7 @@ ul.list-unstyled.equal-height-list a {
 	}
 
 	.selected-dropdown > a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
-		background-color: #004f24 !important;
+		/*background-color: #004f24 !important;*/
 	}
 
 	.header .navbar-nav>li {

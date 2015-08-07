@@ -117,6 +117,10 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             return $sce.trustAsHtml(html);
         };
 
+        $scope.trustAsResourceUrl = function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
+
         $scope.go = function($event, type, id, discussType){
             $event.stopPropagation();
             if(type === "detail"){
@@ -139,16 +143,6 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             }
         }
 
-               
-        $scope.iframeHeight = function(){
-        	var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
-        	$(".by-quad-image iframe").attr('height', iframeHeightA);
-        	$(window).resize(function(){
-        		var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
-            	$(".by-quad-image iframe").attr('height', iframeHeightA);
-        	});
-        };
-        
         angular.element($window).bind("scroll", function() {
         	$scope.sliderHeight = $(".by_section_header").height();
         	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
@@ -331,15 +325,7 @@ byControllers.controller('DiscussSubCategoryController', ['$scope', '$route', '$
                     $this.remove(); });
             $('.by_story').dotdotdot();
         });
-        
-        $scope.iframeHeight = function(){
-        	var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
-        	$(".by-quad-image iframe").attr('height', iframeHeightA);
-        	$(window).resize(function(){
-        		var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
-            	$(".by-quad-image iframe").attr('height', iframeHeightA);
-        	});
-        };
+
 
     }]);
 

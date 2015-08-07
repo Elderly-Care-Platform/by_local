@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.Discuss;
+import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.menu.Tag;
 import com.beautifulyears.exceptions.BYErrorCodes;
@@ -31,8 +32,8 @@ import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
-import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.rest.response.DiscussResponse.DiscussPage;
+import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 import com.beautifulyears.util.WebPageParser;
@@ -82,18 +83,15 @@ public class DiscussController {
 	public Object getLinkInfo(
 			@RequestParam(value = "url", required = true) String url)
 			throws Exception {
-		Discuss d = new Discuss();
+		LinkInfo linkInfo = null;
 		try {
 			WebPageParser parser = new WebPageParser(url);
-			d.setTitle(parser.getPageTitle());
-			d.setText(parser.getDescription());
-			d.setUserId(parser.getImage());
-			;
+			linkInfo = parser.getUrlDetails();
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
 
-		return BYGenericResponseHandler.getResponse(d);
+		return BYGenericResponseHandler.getResponse(linkInfo);
 	}
 
 	@RequestMapping(consumes = { "application/json" })
@@ -184,12 +182,12 @@ public class DiscussController {
 		}
 		return BYGenericResponseHandler.getResponse(discussPage);
 	}
-	
-	@RequestMapping(consumes = { "application/json" }, value="addShare")
+
+	@RequestMapping(consumes = { "application/json" }, value = "addShare")
 	@ResponseBody
-	public Object submitShare(@RequestBody  Discuss discuss){
+	public Object submitShare(@RequestBody Discuss discuss) {
 		Discuss sharedDiscuss = this.discussRepository.findOne(discuss.getId());
-		if(null != sharedDiscuss){
+		if (null != sharedDiscuss) {
 			sharedDiscuss.setShareCount(sharedDiscuss.getShareCount() + 1);
 			this.discussRepository.save(sharedDiscuss);
 		}
@@ -269,10 +267,11 @@ public class DiscussController {
 			int aggrReplyCount = 0;
 			newDiscuss = new Discuss(discuss.getUserId(),
 					discuss.getUsername(), discussType, topicId, title, text,
-					discussStatus, aggrReplyCount, systemTags,discuss.getShareCount(),
-					discuss.getUserTags(),
+					discussStatus, aggrReplyCount, systemTags,
+					discuss.getShareCount(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("A") ? discuss
-							.getArticlePhotoFilename() : null, false);
+							.getArticlePhotoFilename() : null, false,
+					discuss.getContentType(), discuss.getLinkInfo());
 		} catch (Exception e) {
 			Util.handleException(e);
 		}

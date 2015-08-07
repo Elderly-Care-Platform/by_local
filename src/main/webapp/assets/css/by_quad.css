@@ -13,10 +13,13 @@
 	padding-left:21px;
 	padding-right:21px;
 }
-.by-quad-image
-{
-	
+
+.by_blog_author .shareInfo-image img, .by_blog_author .shareInfo-generalImage img{
+	width:100% !important;
+	height: auto;
+	padding-top: 15px;
 }
+
 .by_blog_author .col-md-12 img
 {
 	width:auto !important;
@@ -385,7 +388,26 @@
 {
 	padding:0px !important;
 }
-.by-quad-image iframe
-{
+
+
+.by-card-shareInfo{
+	border: 2px solid #dcdcdc;
+	background-color: #dcdcdc;
+	margin: 10px;
+}
+
+.by-card-shareInfo .shareInfo-content{
+	padding-top: 0px;
+}
+
+.by-card-shareInfo .shareInfo-generalImage{
+	background-color: #fff;
+}
+.by-card-shareInfo .shareInfo-generalImage img{
+	padding-top: 15px;
+}
+
+.shareInfo-generalImage iframe{
 	width:100%;
+	height: auto;
 }

@@ -1,0 +1,27 @@
+<div class="by-card-shareInfo">
+    <div class="row row-height" ng-if="linkInfo.type===0">
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content col-height col-top">
+            <p>{{linkInfo.title}}</p>
+            <p>{{linkInfo.description.substring(0, 150)}}</p>
+            <p><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.url}} </a></p>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage col-height col-middle">
+            <img src="{{linkInfo.mainImage}}">
+        </div>
+    </div>
+    <div class="row row-height shareInfo-image" ng-if="linkInfo.type===1">
+        <img src="{{linkInfo.mainImage}}">
+    </div>
+    <div class="row row-height shareInfo-image" ng-if="linkInfo.type===2">
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content col-height col-top">
+            <p>{{linkInfo.title}}</p>
+            <p>{{linkInfo.description.substring(0, 150)}}</p>
+            <p><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.url}} </a></p>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage col-height col-middle">
+            <!--<img src="{{linkInfo.mainImage}}">-->
+            <iframe ng-src="{{trustAsResourceUrl(linkInfo.embeddedVideo)}}" frameborder="0" allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>

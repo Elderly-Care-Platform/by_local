@@ -1,8 +1,8 @@
 /**
  * Created by sanjukta on 08-07-2015.
  */
-byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','BYMenu',
-    function ($scope, $rootScope, $http, $location, $routeParams, BYMenu) {
+byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$location', '$routeParams','BYMenu',
+    function ($scope, $rootScope, $location, $routeParams, BYMenu) {
         var categoryId = "", discussCategoryLevel = 0;
 
         $scope.mainMenu = window.by_menu;

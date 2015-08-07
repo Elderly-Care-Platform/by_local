@@ -168,7 +168,7 @@ public class UserController {
 
 	@RequestMapping(value = "/getFbURL", method = RequestMethod.GET)
 	public @ResponseBody Object getFbURL(HttpServletRequest req) {
-		
+		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(new FBConnection()
 				.getFBAuthUrl(req));
 	}
@@ -177,6 +177,7 @@ public class UserController {
 	public @ResponseBody Object fbRes(
 			@RequestParam(value = "code", required = false) String code,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		LoggerUtil.logEntry();
 		try {
 			FBConnection fbConnection = new FBConnection();
 			ObjectMapper mapper = new ObjectMapper();
@@ -209,6 +210,7 @@ public class UserController {
 					+ mapper.writeValueAsString(BYGenericResponseHandler
 							.getResponse(session)) + ");</script>");
 			out.println("<script>window.close();</script>");
+			logger.debug("returning response for fbRes");
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
@@ -218,6 +220,7 @@ public class UserController {
 
 	@RequestMapping(value = "/getGgURL", method = RequestMethod.GET)
 	public @ResponseBody Object getGgURL(HttpServletRequest req) {
+		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(new GGConnection()
 				.getGGAuthUrl(req));
 	}
@@ -226,6 +229,7 @@ public class UserController {
 	public @ResponseBody Object ggRes(
 			@RequestParam(value = "code", required = false) String code,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		LoggerUtil.logEntry();
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			GGConnection ggConnection = new GGConnection();
@@ -302,6 +306,7 @@ public class UserController {
 		mongoTemplate.save(session);
 		req.getSession().setAttribute("session", session);
 		req.getSession().setAttribute("user", user);
+		logger.debug("returning existing session for user "+user.getEmail());
 		return session;
 	}
 

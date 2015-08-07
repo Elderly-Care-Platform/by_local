@@ -209,7 +209,7 @@ a.accordion-toggle.ng-binding {
 	padding-bottom: 5px;
 }
 
-textarea.by_call_submit_video_head_textarea {
+textarea.by_editorModalTextArea {
 	width: 100%;
 	height: 100px;
 	margin-bottom: 10px;
@@ -282,3 +282,27 @@ label input[type="file"] {
 		line-height:10px !important;
 	}
 }
+
+.by-editor-shareInfo{
+	border: 2px solid #fff;
+	background-color: #fff;
+}
+
+.shareInfo-content{
+	overflow-wrap:break-word;
+	padding-top: 15px;
+	background-color: #dcdcdc;
+}
+
+.shareInfo-generalImage img{
+	width:100%;
+	height: auto;
+	padding-top: 15px;
+}
+
+.shareInfo-image img{
+	width:100%;
+	height: auto;
+	padding-top: 15px;
+}
+

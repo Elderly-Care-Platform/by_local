@@ -80,7 +80,8 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         };
 
         $scope.resize = function(height, width){
-            if(width < 992){
+            console.log(width);
+            if(width < 984){
                 $(".hbMenu").attr("data-toggle", "collapse");
                 $(".hbMenu").attr("data-target", ".navbar-responsive-collapse");
 

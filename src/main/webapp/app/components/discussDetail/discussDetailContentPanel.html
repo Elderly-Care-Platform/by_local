@@ -65,7 +65,8 @@
 
             <li class="add-comment" ng-controller="DiscussLikeController">
                 <a ng-click="likeDiscuss(detailResponse.discuss.id)">
-                    <i class="rounded-x" ng:class="{true:'icon-heart', false:'icon-heart-active'}[detailResponse.discuss.likedByUser===false]" title="Likes"></i>
+                    <i class="rounded-x" ng-if="beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[detailResponse.discuss.likedByUser===true]" title="Likes"></i>
+                    <i class="rounded-x" ng-if="!beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]" title="Likes"></i>
                     <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrLikeCount}}</span>
                     <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" style="margin-left:3px;">{{aggrLikeCount}}</span>
                 </a>

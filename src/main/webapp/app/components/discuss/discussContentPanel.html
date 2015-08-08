@@ -118,7 +118,7 @@
                 </li>-->
 
 
-                <li class="add-comment" ng-controller="DiscussLikeController">
+                <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
                     <a ng-click="likeDiscuss(discuss.id)">
                         <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]" title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]" title="Likes"></i>

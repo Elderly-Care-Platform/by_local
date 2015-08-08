@@ -179,6 +179,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'Disc
                 $scope.discussLike.$likeAnswer(function (likeReply, headers) {
                         $scope.beforePost = false;
                         $scope.aggrLikeCount = likeReply.data.likeCount;
+                        $scope.likedByUser = likeReply.data.likedByUser;
                     },
                     function (errorResponse) {
                         console.log(errorResponse);
@@ -191,6 +192,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'Disc
                 $scope.discussLike.$likeComment(function (likeReply, headers) {
                         $scope.beforePost = false;
                         $scope.aggrLikeCount = likeReply.data.likeCount;
+                        $scope.likedByUser = likeReply.data.likedByUser;
                     },
                     function (errorResponse) {
                         console.log(errorResponse);

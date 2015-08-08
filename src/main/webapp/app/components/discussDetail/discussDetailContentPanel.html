@@ -27,7 +27,7 @@
             </div>
         </div>
         <div style="clear: both"></div>
-        <div class="by-quad-image col-md-12" ng-if="detailResponse.discuss.discussType == 'A'">
+        <div class="by-quad-image col-md-12" ng-if="detailResponse.discuss.discussType == 'P'">
              <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
             <div style="clear: both"></div>
         </div>
@@ -41,7 +41,7 @@
         
          <div class="article-share-links news-v3 by-social-border" style="border-bottom:1px solid #ccc !important;">
             <ul class="post-shares post-shares-lg">
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P'">
+            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                     <span ng-if="detailResponse.discuss.aggrReplyCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrReplyCount}}</span>
@@ -77,7 +77,7 @@
 
             </li>
             
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A'" ng-controller="ShareController">
+            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'" ng-controller="ShareController">
                <a ng-click="shareComment(detailResponse.discuss, $event)">
                    <i class="rounded-x icon-share"></i>
                    <span ng-if="detailResponse.discuss.shareCount > 0" style="margin-left:3px;">{{detailResponse.discuss.shareCount}}</span>
@@ -94,11 +94,11 @@
         
         <div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
     <!--  <h2 class="text-success text-underlined"
-        ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
+        ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'P')">
         COMMENTS
     </h2>
     <h2 class="text-success text-underlined col-md-12 by-social-border"
-        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
+        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'P')">
         Be the first to comment
     </h2>-->
      <!-- <h2 class="text-success text-underlined"

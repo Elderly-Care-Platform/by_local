@@ -140,6 +140,9 @@ public class WebPageParser {
 		if (Util.isEmpty(imageUrl)) {
 			imageUrl = getMetaTag(doc, "twitter:image");
 		}
+		if (Util.isEmpty(imageUrl)) {
+			imageUrl = getMetaTag(doc, "og:image");
+		}
 
 		return imageUrl;
 	}

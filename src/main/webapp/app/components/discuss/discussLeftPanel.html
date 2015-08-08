@@ -9,8 +9,8 @@
             <!--  <li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts" ng-if="discuss_counts.p > 0">
                 <a href="#/discuss/P/{{bc_topic}}/{{bc_subTopic}}">POSTS ({{discuss_counts.p}})</a>
             </li>-->
-            <li class="list-group-item {{discussType == 'A' && 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.a > 0">
-                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/A">Posts ({{discuss_counts.a}})</a>
+            <li class="list-group-item {{discussType == 'P' && 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.p > 0">
+                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts ({{discuss_counts.p}})</a>
             </li>
             <li class="list-group-item {{(discussType == '' || discussType == 'All')&& 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.z > 0">
                 <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All ({{discuss_counts.z}})</a>

@@ -18,15 +18,7 @@
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
-                    <p  ng-if="article.discussType == 'A'">
-                        By <a validate-user-name="{{article.username}}" style="text-transform:capitalize;">{{username}}</a>
-                        |
-                    </p>
-                    <p  ng-if="article.discussType == 'Q'">
-                        By <a validate-user-name="{{article.username}}" style="text-transform:capitalize;">{{username}}</a>
-                        |
-                    </p>
-                    <p  ng-if="article.discussType == 'P'">
+                    <p  ng-if="article.discussType == 'Q' || article.discussType == 'P'">
                         By <a validate-user-name="{{article.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
@@ -51,14 +43,14 @@
 
         
         
-          <div class="article  col-md-12" ng-if="article.discussType == 'A'">
+          <div class="article  col-md-12" ng-if="article.discussType == 'P'">
             <div class="article-heading"><p style="text-transform: uppercase;">
                 {{article.title}}</p>
             </div>
         </div>
         
          <div class="by-quad-image col-md-12">
-            <img ng-if="article.discussType == 'A'" src="{{article.articlePhotoFilename.titleImage||''}}" alt="image" fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
+            <img ng-if="article.discussType == 'P'" src="{{article.articlePhotoFilename.titleImage||''}}" alt="image" fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
         </div>
@@ -73,7 +65,7 @@
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment"
-                    ng-if="article.aggrReplyCount > 0 && (article.discussType == 'A' || article.discussType == 'P')">
+                    ng-if="article.aggrReplyCount > 0 && (article.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                         <span style="margin-left:3px;">{{article.aggrReplyCount}}</span>
@@ -81,7 +73,7 @@
                     </a>
                 </li>
                 <li class="add-comment"
-                    ng-if="article.aggrReplyCount == 0 && (article.discussType == 'A' || article.discussType == 'P')">
+                    ng-if="article.aggrReplyCount == 0 && (article.discussType == 'P')">
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                         <span class="textColor"
@@ -122,7 +114,7 @@
 
 				</li>
 
-				<li class="add-comment" ng-if="article.discussType == 'A'"
+				<li class="add-comment" ng-if="article.discussType == 'P'"
 						ng-controller="ShareController"><a
 						ng-click="shareComment(article, $event)"> <i
 							class="rounded-x icon-share"></i>

@@ -160,6 +160,7 @@ byControllers.controller('DiscussLikeController', ['$scope', '$rootScope', 'Disc
             $scope.discussLike.$likeDiscuss(function (likeReply, headers) {
                     $scope.beforePost = false;
                     $scope.aggrLikeCount = likeReply.data.aggrLikeCount;
+                    $scope.likedByUser = likeReply.data.likedByUser;
                 },
                 function (errorResponse) {
                     console.log(errorResponse);

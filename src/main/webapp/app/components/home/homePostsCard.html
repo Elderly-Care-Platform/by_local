@@ -104,7 +104,7 @@
 
                 <li class="add-comment" ng-if="post.aggrLikeCount > 0">
                     <a href="#">
-                        <i class="rounded-x icon-heart" title="Likes"></i>
+                        <i class="rounded-x" ng:class="{true:'icon-heart', false:'icon-heart-active'}[post.likedByUser===false]" title="Likes"></i>
                         <span ng-if="post.aggrLikeCount > 0" style="margin-left:3px;">{{post.aggrLikeCount}}</span>
                         <span class="text">Like</span>
                     </a>

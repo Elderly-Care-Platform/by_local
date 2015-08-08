@@ -33,11 +33,11 @@ public class DiscussResponse implements IResponse {
 			super();
 		}
 
-		public DiscussPage(PageImpl<Discuss> page) {
+		public DiscussPage(PageImpl<Discuss> page,User user) {
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (Discuss discuss : page.getContent()) {
-				this.content.add(new DiscussEntity(discuss, null));
+				this.content.add(new DiscussEntity(discuss, user));
 			}
 		}
 
@@ -284,8 +284,8 @@ public class DiscussResponse implements IResponse {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
 
-	public static DiscussPage getPage(PageImpl<Discuss> page) {
-		DiscussPage res = new DiscussPage(page);
+	public static DiscussPage getPage(PageImpl<Discuss> page,User user) {
+		DiscussPage res = new DiscussPage(page,user);
 		return res;
 	}
 

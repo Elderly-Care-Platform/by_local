@@ -141,6 +141,7 @@ public class DiscussController {
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
+		User currentUser = Util.getSessionUser(request);
 		PageImpl<Discuss> page = null;
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
 		DiscussPage discussPage = null;
@@ -174,7 +175,7 @@ public class DiscussController {
 					sortDirection, sort);
 			page = discussRepository.getPage(discussTypeArray, tagIds, userId,
 					isFeatured, pageable);
-			discussPage = DiscussResponse.getPage(page);
+			discussPage = DiscussResponse.getPage(page, currentUser);
 			// page = discussRepository.getByCriteria(discussTypeArray, topicId,
 			// userId, isFeatured, pageable);
 		} catch (Exception e) {

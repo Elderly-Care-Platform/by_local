@@ -214,6 +214,7 @@ textarea.by_editorModalTextArea {
 	height: 100px;
 	margin-bottom: 10px;
 	padding: 10px;
+	resize: none;
 }
 
 .by_call_submit_video_btn {

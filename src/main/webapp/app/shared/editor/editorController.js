@@ -200,7 +200,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                 $(".by-editor-view-buttons").hide();
                 $scope.showLinkView = true;
                 $scope.linkInfoLoading = true;
-                $http.get('api/v1/discuss/getLinkInfo?url='+encodeURI($scope.sharedLinkUrl)).
+                $http.get('api/v1/discuss/getLinkInfo?url='+encodeURIComponent($scope.sharedLinkUrl)).
                     then(function(response) {
                         $scope.linkInfo = response.data.data;
                         $scope.linkInfoLoading = false;

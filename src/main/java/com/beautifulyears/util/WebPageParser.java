@@ -236,6 +236,7 @@ public class WebPageParser {
 
 	private String prepareUrl(String url) throws URISyntaxException,
 			UnsupportedEncodingException {
+		url = java.net.URLDecoder.decode(url, "UTF-8");
 		if (!url.matches("^\\w+?://.*")) {
 			url = "http://" + url;
 		} else {
@@ -271,7 +272,7 @@ public class WebPageParser {
 			Matcher m = pattern.matcher(url);
 			if (m.matches()) {
 				String videoId = m.group(2);
-				$media.add("http://i2.ytimg.com/vi/$vid/hqdefault.jpg");
+				$media.add("http://i2.ytimg.com/vi/"+videoId+"/hqdefault.jpg");
 				$media.add("http://www.youtube.com/embed/" + videoId);
 			} else {
 				$media.add("");

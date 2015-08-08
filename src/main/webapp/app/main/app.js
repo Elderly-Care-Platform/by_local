@@ -426,7 +426,7 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
      				)},500);
      	});
 
-     	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
+//     	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
 		$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
 	 	$scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
 	 }
@@ -438,7 +438,7 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 	 	$scope.q = $scope.discuss;
 
 	 	$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-	 	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
+//	 	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
 	 }
 	 else if(disType == 'P')
 	 {
@@ -449,19 +449,19 @@ byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$r
 		$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
 
 	 }
-	 else if(disType == 'A')
-	 {
-		 $scope.discuss = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
-
-		 $scope.a = $scope.discuss;
-		 $scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-	 	 $scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
-	 }
+//	 else if(disType == 'A')
+//	 {
+//		 $scope.discuss = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
+//
+//		 $scope.a = $scope.discuss;
+//		 $scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
+//	 	 $scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
+//	 }
 	 else
 	 {
 		 $scope.discuss = DiscussSearch.query({term: $rootScope.term});
 
-		 $scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
+//		 $scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
 		 $scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
 	 	 $scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
 	 }

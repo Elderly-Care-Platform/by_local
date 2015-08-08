@@ -122,7 +122,6 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.errorMsg = "";
             $scope.discuss.$save(function (discuss, headers) {
                 $scope.editor.subject = "";
-                BY.editorCategoryList.resetCategoryList();
                 $scope.$parent.postSuccess();
             },
             function (errorResponse) {
@@ -201,7 +200,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                 $(".by-editor-view-buttons").hide();
                 $scope.showLinkView = true;
                 $scope.linkInfoLoading = true;
-                $http.get('api/v1/discuss/getLinkInfo?url='+$scope.sharedLinkUrl).
+                $http.get('api/v1/discuss/getLinkInfo?url='+encodeURI($scope.sharedLinkUrl)).
                     then(function(response) {
                         $scope.linkInfo = response.data.data;
                         $scope.linkInfoLoading = false;
@@ -217,8 +216,8 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             }
         }
 
-        $scope.postVideo = function(){
-
+        $scope.exitEditor = function(){
+            $scope.$parent.postSuccess();
         }
 
     }]);

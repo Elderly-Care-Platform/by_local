@@ -135,13 +135,15 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             }
         }
 
-        //Editor initialize
         $scope.add = function (type) {
-        }
-        //Editor post callback
+            $scope.error = "";
+            $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            window.scrollTo(0, 0);
+        };
+
         $scope.postSuccess = function () {
             $route.reload();
-        }
+        };
 
         $scope.cityOptions = {
             types: "(cities)",

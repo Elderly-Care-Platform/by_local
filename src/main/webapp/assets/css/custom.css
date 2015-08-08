@@ -413,7 +413,7 @@ ng-view {
 
 .footer-v1 {
     clear: both;
-    z-index: 100;
+    z-index: 0;
     position: relative;
 }
 

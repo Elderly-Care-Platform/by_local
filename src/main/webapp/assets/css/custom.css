@@ -1215,4 +1215,7 @@ ul.social-ul {
 .margin-top-25 {
     margin-top: 25px;
 }
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
+    z-index: 0;
+}
 

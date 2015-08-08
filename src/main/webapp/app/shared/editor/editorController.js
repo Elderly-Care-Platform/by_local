@@ -190,6 +190,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         //};
         $scope.resetEditorView = function(){
             $scope.showLinkView = false;
+            $scope.editor.articlePhotoFilename = "";
             $(".by_uploading_image").hide();
             $(".by-editor-view-buttons").show();
         };

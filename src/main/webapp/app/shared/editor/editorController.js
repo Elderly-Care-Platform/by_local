@@ -198,14 +198,14 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.postLink = function(){
             if($scope.sharedLinkUrl && $scope.sharedLinkUrl.trim().length > 0){
                 $(".by-editor-view-buttons").hide();
+                $scope.showLinkView = true;
                 $scope.linkInfoLoading = true;
                 $http.get('api/v1/discuss/getLinkInfo?url='+$scope.sharedLinkUrl).
                     then(function(response) {
                         $scope.linkInfo = response.data.data;
-                        $scope.showLinkView = true;
-                        $(".by_btn_submit").prop("disabled", false);
                         $scope.linkInfoLoading = false;
                         $scope.sharedLinkUrl = "";
+                        $(".by_btn_submit").prop("disabled", false);
                     }, function(error) {
                         $scope.linkInfoLoading = false;
                         console.log(error);

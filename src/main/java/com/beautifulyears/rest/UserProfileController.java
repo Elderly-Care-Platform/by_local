@@ -12,7 +12,6 @@ import org.bson.types.ObjectId;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -31,7 +30,6 @@ import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
-import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.rest.response.UserProfileResponse;
 import com.beautifulyears.rest.response.UserProfileResponse.UserProfilePage;
 import com.beautifulyears.util.LoggerUtil;
@@ -143,7 +141,7 @@ public class UserProfileController {
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
-			@RequestParam(value = "isFeatured", required = false,defaultValue = "false") Boolean isFeatured,
+			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -223,7 +221,7 @@ public class UserProfileController {
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
 			userProfilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, null,
-							null, pageable), null);
+							null,null, pageable), null);
 			if (userProfilePage.getContent().size() > 0) {
 				logger.debug("did not find any service providers");
 			}

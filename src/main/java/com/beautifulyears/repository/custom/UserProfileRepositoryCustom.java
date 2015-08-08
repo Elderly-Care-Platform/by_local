@@ -10,6 +10,6 @@ import com.beautifulyears.rest.response.PageImpl;
 
 public interface UserProfileRepositoryCustom {
 	
-	public PageImpl<UserProfile> getServiceProvidersByFilterCriteria(Object[] userTypes, String city, List<ObjectId> tagIds,boolean isFeatured, Pageable page);
+	public PageImpl<UserProfile> getServiceProvidersByFilterCriteria(Object[] userTypes, String city, List<ObjectId> tagIds,Boolean isFeatured, Pageable page);
 	public PageImpl<UserProfile> findAllUserProfiles(Pageable pageable);
 }

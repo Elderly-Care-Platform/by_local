@@ -81,7 +81,7 @@ public class WebPageParser {
 		// doc = Jsoup.parse(html.toString());
 		// }
 		try {
-			doc = Jsoup.connect(this.url).get();
+			doc = Jsoup.connect(this.url).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").get();
 		} catch (Exception e) {
 
 		}
@@ -258,7 +258,7 @@ public class WebPageParser {
 		} else {
 			if (doc == null) {
 				Connection.Response res = Jsoup.connect(this.url)
-						.ignoreContentType(true).execute();
+						.ignoreContentType(true).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").execute();
 				if (null != res.contentType()
 						&& res.contentType().contains("image")) {
 					isImage = true;

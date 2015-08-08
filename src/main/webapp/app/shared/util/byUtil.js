@@ -97,3 +97,11 @@ BY.byUtil.updateMetaTags = function(param){
 	$("meta[property='og\\:title']").attr("content", title);
 	$("meta[property='og\\:description']").attr("content", description);
 }
+
+function resizeIframe(obj) {
+   // obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    //console.log(parent.obj);
+   // var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
+	//$(".by-quad-image iframe").attr('height', iframeHeightA);
+  }
+

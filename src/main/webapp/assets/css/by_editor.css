@@ -324,7 +324,7 @@ label input[type="file"] {
 .shareInfo-content{
 	overflow-wrap:break-word;
 	padding-top: 15px;
-	background-color: #dcdcdc;
+	background-color: #f0f0f0;
 }
 
 .shareInfo-generalImage img{

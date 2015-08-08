@@ -387,14 +387,15 @@
 .by-card-shareInfo{
 	border: 2px solid #dcdcdc;
 	/*background-color: #dcdcdc;*/
-	margin: 10px;
+	margin-left: 20px;
+	margin-right:20px;
 
 }
 .by-card-shareInfo .row{
 	margin-left: 0px;
 	margin-right: 0px;
+	background: linear-gradient(to right, #f0f0f0 50%, #ffffff 50%);
 }
-
 .by-card-shareInfo .shareInfo-content{
 	padding-top: 15px;
 }
@@ -410,15 +411,18 @@
 }
 
 .by_blog_author .shareInfo-generalImage img{
-	width: auto !important;
+	width: 100% !important;
 	height: auto;
 	max-width: 100%;
 	height: auto;
 	padding-top: 15px;
+	padding-bottom:15px;
 }
 
 .shareInfo-generalImage iframe{
-	width: auto !important;
+	width: 100% !important;
 	height: auto;
 	max-width: 100%;
+	margin-top:15px;
+	margin-bottom:15px;
 }

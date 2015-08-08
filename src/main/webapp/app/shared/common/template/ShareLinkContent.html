@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage">
             <!--<img src="{{linkInfo.mainImage}}">-->
-            <iframe ng-src="{{trustAsResourceUrl(linkInfo.embeddedVideo)}}" frameborder="0" allowfullscreen>
+            <iframe ng-src="{{trustAsResourceUrl(linkInfo.embeddedVideo)}}" frameborder="0" allowfullscreen onload='javascript:resizeIframe(this);'>
             </iframe>
         </div>
     </div>

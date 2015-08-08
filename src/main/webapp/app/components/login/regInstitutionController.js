@@ -273,7 +273,10 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             }
             
             var regex = /(?:[\w-]+\.)+[\w-]+/ ;
-            $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+            if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
+            	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+            }
+            
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 

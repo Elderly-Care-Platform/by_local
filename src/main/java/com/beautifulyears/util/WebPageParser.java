@@ -3,16 +3,12 @@
  */
 package com.beautifulyears.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +20,7 @@ import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,11 +32,12 @@ import com.beautifulyears.domain.LinkInfo;
 
 /**
  * @author Nitin
- *	
+ *
  */
 public class WebPageParser {
 
 	private String url;
+	private String contentType;
 	private StringBuilder html = new StringBuilder();
 	private Document doc;
 	private static final Pattern PIPE_SPLITTER = Pattern.compile(Pattern
@@ -82,12 +80,11 @@ public class WebPageParser {
 		// if(html != null){
 		// doc = Jsoup.parse(html.toString());
 		// }
-		try{
+		try {
 			doc = Jsoup.connect(this.url).get();
-		}catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
-		
 
 	}
 
@@ -143,7 +140,7 @@ public class WebPageParser {
 		if (Util.isEmpty(imageUrl)) {
 			imageUrl = getMetaTag(doc, "twitter:image");
 		}
-		
+
 		return imageUrl;
 	}
 
@@ -239,6 +236,7 @@ public class WebPageParser {
 
 	private String prepareUrl(String url) throws URISyntaxException,
 			UnsupportedEncodingException {
+		url = java.net.URLDecoder.decode(url, "UTF-8");
 		if (!url.matches("^\\w+?://.*")) {
 			url = "http://" + url;
 		} else {
@@ -248,12 +246,21 @@ public class WebPageParser {
 		return url;
 	}
 
-	private boolean isImage(String url) {
+	private boolean isImage(String url) throws IOException {
 		Pattern r = Pattern.compile("\\.(jpg|png|gif|bmp)$");
 		Matcher m = r.matcher(url);
 		boolean isImage = false;
 		if (m.find()) {
 			isImage = true;
+		} else {
+			if (doc == null) {
+				Connection.Response res = Jsoup.connect(this.url)
+						.ignoreContentType(true).execute();
+				if (null != res.contentType()
+						&& res.contentType().contains("image")) {
+					isImage = true;
+				}
+			}
 		}
 		return isImage;
 	}
@@ -265,18 +272,22 @@ public class WebPageParser {
 			Matcher m = pattern.matcher(url);
 			if (m.matches()) {
 				String videoId = m.group(2);
-				$media.add("http://i2.ytimg.com/vi/$vid/hqdefault.jpg");
-				$media.add("http://www.youtube.com/embed/"
-						+ videoId);
+				$media.add("http://i2.ytimg.com/vi/"+videoId+"/hqdefault.jpg");
+				$media.add("http://www.youtube.com/embed/" + videoId);
 			} else {
 				$media.add("");
 				$media.add("");
 			}
-		} else if (url.indexOf("vimeo.com") != -1) {
+		} else if (url.indexOf("youtu.be") != -1) {
 			String videoId = url.substring(url.lastIndexOf("/") + 1, url.length());
+			$media.add("http://i2.ytimg.com/vi/$vid/hqdefault.jpg");
+			$media.add("http://www.youtube.com/embed/" + videoId);
+		} else if (url.indexOf("vimeo.com") != -1) {
+			String videoId = url.substring(url.lastIndexOf("/") + 1,
+					url.length());
 			if (videoId != "") {
 				$media.add("https://f.vimeocdn.com/images_v6/logo.png");
-				$media.add("http://player.vimeo.com/video/"+videoId);
+				$media.add("http://player.vimeo.com/video/" + videoId);
 			} else {
 				$media.add("");
 				$media.add("");
@@ -285,23 +296,24 @@ public class WebPageParser {
 			$media.add("");
 			$media.add("");
 		} else if (url.indexOf("metacafe.com") != -1) {
-			Pattern p = Pattern.compile("metacafe\\.com/watch/([\\w\\-\\_]+)(.*)");
+			Pattern p = Pattern
+					.compile("metacafe\\.com/watch/([\\w\\-\\_]+)(.*)");
 			Matcher m = p.matcher(url);
-			if(m.matches()){
+			if (m.matches()) {
 				String videoId = m.group(1);
 				System.out.println(videoId);
-			}else{
+			} else {
 				$media.add("");
 				$media.add("");
 			}
-			
+
 		} else if (url.indexOf("dailymotion.com") != -1) {
 			url = url.substring(url.lastIndexOf("/") + 1, url.length());
 			String videoId = url.substring(0, url.indexOf('_'));
 			if (videoId != "") {
-				$media.add("http://www.dailymotion.com/thumbnail/160x120/video/"+videoId);
-				$media.add("http://www.dailymotion.com/embed/video/"
+				$media.add("http://www.dailymotion.com/thumbnail/160x120/video/"
 						+ videoId);
+				$media.add("http://www.dailymotion.com/embed/video/" + videoId);
 			} else {
 				$media.add("");
 				$media.add("");
@@ -371,7 +383,7 @@ public class WebPageParser {
 				linkInfo.setVideoThumbnail(media.get(0));
 				linkInfo.setEmbeddedVideo(media.get(1));
 			}
-			if(doc != null){
+			if (doc != null) {
 				linkInfo.setTitle(this.getPageTitle());
 				linkInfo.setDescription(getDescription());
 				linkInfo.setMainImage(getImage());
@@ -379,14 +391,14 @@ public class WebPageParser {
 					linkInfo.setOtherImages(getImages(5));
 				}
 			}
-			
+
 		}
 		return linkInfo;
 	}
-	
+
 	private String getDomainName(String url) throws URISyntaxException {
-	    URI uri = new URI(url);
-	    String domain = uri.getHost();
-	    return domain.startsWith("www.") ? domain.substring(4) : domain;
+		URI uri = new URI(url);
+		String domain = uri.getHost();
+		return domain.startsWith("www.") ? domain.substring(4) : domain;
 	}
 }

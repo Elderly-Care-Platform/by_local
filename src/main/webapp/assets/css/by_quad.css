@@ -393,7 +393,7 @@
 }
 
 .by-card-shareInfo {
-	border: 2px solid #dcdcdc;
+	border: 1px solid #F5F5F5;
 	/*background-color: #dcdcdc;*/
 	margin-left: 20px;
 	margin-right: 20px;
@@ -402,15 +402,18 @@
 .by-card-shareInfo .row {
 	margin-left: 0px;
 	margin-right: 0px;
-	background: linear-gradient(to right, #f0f0f0 50%, #ffffff 50%);
+	/*background: linear-gradient(to right, #FBFBFB 50%, #ffffff 50%);*/
 }
 
 .by-card-shareInfo .shareInfo-content {
 	padding-top: 15px;
+	height:200px;
+	background: linear-gradient(to right, #F1F1F1 100%, #ffffff 100%);
 }
 
 .by-card-shareInfo .shareInfo-generalImage {
 	background-color: #fff;
+	height:200px;
 }
 
 .by_blog_author .shareInfo-image img {
@@ -420,10 +423,9 @@
 }
 
 .by_blog_author .shareInfo-generalImage img {
-	width: 100% !important;
-	height: auto;
+	width: auto !important;
+	height: 100%;
 	max-width: 100%;
-	height: auto;
 	padding-top: 15px;
 	padding-bottom: 15px;
 }

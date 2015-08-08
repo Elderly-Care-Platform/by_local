@@ -300,7 +300,7 @@ label input[type="file"] {
 }
 
 .by-editor-shareInfo{
-	border: 2px solid #fff;
+	border: 1px solid #F5F5F5;
 	background-color: #fff;
 	margin: 2px;
 }
@@ -308,6 +308,7 @@ label input[type="file"] {
 .by-editor-shareInfo .row{
 	margin-left: 0px;
 	margin-right: 0px;
+	background: linear-gradient(to right, #F1F1F1 50%, #ffffff 50%);
 }
 
 .by-editor-shareInfo .by-editor-loadingImage{
@@ -325,8 +326,13 @@ label input[type="file"] {
 .shareInfo-content{
 	overflow-wrap:break-word;
 	padding-top: 15px;
-	background-color: #f0f0f0;
+	/*background-color: #f0f0f0;*/
 }
+
+.shareInfo-content p {
+	color:#4C4C4C;
+}
+
 
 .shareInfo-generalImage img{
 	width: auto;
@@ -339,5 +345,11 @@ label input[type="file"] {
 	height: auto;
 	max-width: 100%;
 	/*padding-top: 15px;*/
+}
+
+.linkUrl{
+	bottom: 0px;
+	position: absolute;
+	text-transform: uppercase;
 }
 

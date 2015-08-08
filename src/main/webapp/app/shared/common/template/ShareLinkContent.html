@@ -1,9 +1,13 @@
 <div class="by-card-shareInfo">
     <div class="row" ng-if="linkInfo.type===0">
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content">
-            <p ng-if="linkInfo.title">{{linkInfo.title}}</p>
+            <p ng-if="linkInfo.title" style="font-weight: bold">
+                <a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();">
+                    {{linkInfo.title.substring(0, 70)}}
+                </a>
+            </p>
             <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 150)}}</p>
-            <p><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
+            <p class="linkUrl"><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage" ng-if="linkInfo.mainImage">
             <img src="{{linkInfo.mainImage}}">
@@ -18,9 +22,13 @@
     </div>
     <div class="row shareInfo-image" ng-if="linkInfo.type===2">
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content">
-            <p ng-if="linkInfo.title">{{linkInfo.title}}</p>
+            <p ng-if="linkInfo.title" style="font-weight: bold">
+                <a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();">
+                    {{linkInfo.title.substring(0, 70)}}
+                </a>
+            </p>
             <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 150)}}</p>
-            <p><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
+            <p class="linkUrl"><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage">
             <!--<img src="{{linkInfo.mainImage}}">-->

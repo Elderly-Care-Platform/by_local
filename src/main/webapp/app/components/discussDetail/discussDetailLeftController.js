@@ -8,7 +8,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
         $scope.$on('handleBroadcast', function() {
             if(discussId === broadCastData.newData.id){
                 $scope.discuss = broadCastData.newData;
-                var params = {p:0,s:6,discussType:"A",userId:$scope.discuss.userId};
+                var params = {p:0,s:6,discussType:"P",userId:$scope.discuss.userId};
                 DiscussPage.get(params,
                 		function(value){
 			                	var userArticles = value.data.content;
@@ -45,7 +45,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 			}
 
 			if(systemTags && systemTags.length > 0){
-				var params = {p:0,s:6,discussType:"A"};
+				var params = {p:0,s:6,discussType:"P"};
 				//params.tags = $.map($scope.discuss.systemTags, function(value, key){
 				//	return value.id;
 				//})
@@ -54,7 +54,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 				DiscussPage.get(params,
 					function(response){
 						$scope.articlesByUser = response.data.content;
-						$scope.header1 = "Related Article";
+						$scope.header1 = "Related Post";
 						$scope.header2 = "";
 					},
 					function(error){

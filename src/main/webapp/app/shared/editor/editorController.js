@@ -109,7 +109,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                 }
             } else if($scope.editor.articlePhotoFilename){
                 $scope.errorMsg = "";
-            } else if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="A"){
+            } else if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="P"){
                 $scope.errorMsg = "Please select title";
             } else if($scope.discuss.text.trim().length <= 0){
                 $scope.errorMsg = "Please add more details";

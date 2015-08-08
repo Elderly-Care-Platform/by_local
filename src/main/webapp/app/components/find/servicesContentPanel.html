@@ -8,10 +8,10 @@
         <div class="col-md-12">
             <div
                     class="col-lg-12 col-md-12 col-sm-12 col-xs-12 service-card-info dp-inline-block">
-				<span> <img ng-if="service.basicProfileInfo.profileImage"
+				<span> <img ng-if="service.basicProfileInfo.profileImage" ng-init="profileImage(service)" 
                             src="{{service.basicProfileInfo.profileImage.thumbnailImage}}"
                             alt="image" class="service-card-image"
-                            fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/by.jpg"]'
+                            fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","{{service.profileImage}}"]'
                             align="left" style="vertical-align:top; border-radius:2px !important;">
 					
 					<img ng-if="!service.basicProfileInfo.profileImage" ng-init="profileImage(service)" 

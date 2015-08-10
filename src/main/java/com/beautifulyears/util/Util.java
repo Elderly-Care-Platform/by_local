@@ -45,7 +45,7 @@ public class Util {
 		if("Q".equals(discussType)){
 			discussContentType = DiscussConstants.CONTENT_TYPE_QUESTION;
 		}else if("P".equals(discussType)){
-			discussContentType = DiscussConstants.CONTENT_TYPE_ARTICLE;
+			discussContentType = DiscussConstants.CONTENT_TYPE_POST;
 		}else if("A".equals(discussType)){
 			discussContentType = DiscussConstants.CONTENT_TYPE_POST;
 		}

@@ -42,7 +42,7 @@
 
         <div class="submit-article-textarea textarea-label borderShadow" id="A">
 
-        <form novalidate class="form-horizontal" ng-submit="register('A')" ng-controller="DiscussCreateController">
+        <form novalidate class="form-horizontal" ng-submit="register('P')" ng-controller="DiscussCreateController">
 
             <div class="col-md-12">
                 <div class="col-md-12 alert zindexhigh whiteBg borderShadow rounded-r">
@@ -128,7 +128,7 @@
                                     <li>{{discuss.createdAt | date:'medium'}}</li>
                                 </ul>
                             </div>
-                            <div class="article-heading" ng-show="discuss.discussType == 'A'">
+                            <div class="article-heading" ng-show="discuss.discussType == 'P'">
                                 <a href="#/discuss/{{discuss.id}}">{{!discuss.title && discuss.id || discuss.title}}</a>
                             </div>
                             <div class="article-content">

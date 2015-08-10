@@ -252,8 +252,10 @@ public class WebPageParser {
 		// Document doc = Jsoup.connect(url).get();
 		Elements images = doc.select("img");
 		Map<Long, String> map = new TreeMap<Long, String>();
+		int count = 0;
 		for (Element el : images) {
-			if (imgAdded > imageQuantity - 1) {
+			
+			if (imgAdded > imageQuantity - 1 || count > 2*imageQuantity) {
 				break;
 			}
 			long size = getImageSize(el.attr("src"));
@@ -261,6 +263,7 @@ public class WebPageParser {
 				System.out.println("adding");
 				map.put(size, el.attr("src"));
 				imgAdded++;
+				count++;
 			}
 
 		}

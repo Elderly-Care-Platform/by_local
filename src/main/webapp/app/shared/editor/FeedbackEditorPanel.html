@@ -1,4 +1,4 @@
-<div ng-controller="EditorController" class="by_editor_wrap by_editor_wrap_bg">
+<div ng-controller="EditorController" class="by_editor_wrap">
     <div class="col-md-12 by_editor_wrap_bg_head">
 
         <div class="col-md-12 no-padding  list-head dp-block">FEEDBACK
@@ -10,31 +10,38 @@
     </div>
      <div class="clearfix"></div>
 
-   
+	<div class="by_editor_wrap_bg">
 
-    <div class=" col-md-12 no-padding margin-bottom-20 register-page">
-        <input type="text" class="username-textbox textbox" placeholder="Subject/Title for your feedback" name="username" ng-model="editor.subject">
-    </div>
+		<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+			<input type="text" class="username-textbox textbox"
+				placeholder="Subject/Title for your feedback" name="username"
+				ng-model="editor.subject" style="border-top-width:0px;">
+		</div>
 
-	<div class="byEditorBg">
-		<div class="col-md-12 no-padding margin-bottom-35 byEditor">
-			<textarea id="feedback_textArea" class="textbox about-dependent"
-				rows="3" ng-model="editor.text"></textarea>
+		<div class="byEditorBg" style="margin-bottom:0px;">
+			<div class="col-md-12 no-padding margin-bottom-35 byEditor">
+				<textarea id="feedback_textArea" class="textbox about-dependent"
+					rows="3" ng-model="editor.text"></textarea>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+
+
+		<div class="col-md-12 by_editor_white_bg">
+			<div ng-show="errorMsg">
+				<font color="red">{{errorMsg}}</font>
+			</div>
+			<button
+				class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn"
+				disabled ng-click="postContent('F')">Submit</button>
+			<button
+				class="btn btn-big btn-default pull-right by_btn_submit by-editor-cancel-btn"
+				ng-click="exitEditor()">Cancel</button>
+			<div class="clearfix"></div>
 		</div>
 		<div class="clearfix"></div>
 	</div>
-
-	
-
-    <div class="col-md-12 margin-bottom-20">
-    <div ng-show="errorMsg"><font color="red">{{errorMsg}}</font></div>
-        <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn" disabled ng-click="postContent('F')">submit</button>
-        <button class="btn btn-big btn-default pull-right by_btn_submit by-editor-cancel-btn" ng-click="exitEditor()">
-            Cancel
-        </button>
-        <div class="clearfix"></div>
-    </div>
-    <div class="clearfix"></div>
 </div>
 
 

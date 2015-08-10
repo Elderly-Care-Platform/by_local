@@ -45,7 +45,7 @@
 	margin-top: 14px;
 	margin-left: 0px;
 	padding-left: 0px;
-	padding-right:0px;
+	padding-right: 0px;
 }
 
 .service-card-desciption {
@@ -57,9 +57,8 @@
 	color: #000 !important;
 	font-size: 16px !important;
 	line-height: 26px;
-	margin-bottom:3px;
+	margin-bottom: 3px;
 }
-
 
 .service-card-desciption img {
 	display: none;
@@ -100,49 +99,56 @@
 	display: inline-block;
 	max-width: calc(100% - 160px);
 }
-.fa-review-icon:before
-{
+
+.fa-review-icon:before {
 	content: url('../img/icons/review.png')
 }
-.padding42
-{
-	padding:2px !important;
-	margin-left:10px;
-	margin-right:6px;
+
+.padding42 {
+	padding: 2px !important;
+	margin-left: 10px;
+	margin-right: 6px;
 }
-.by-service-border
-{
-	border-top:1px solid #ccc;
-	padding-top:6px;
-	margin-top:5px;
+
+.by-service-border {
+	border-top: 1px solid #ccc;
+	padding-top: 6px;
+	margin-top: 5px;
 }
-.fa-envelope:before
-{
+
+.fa-envelope:before {
 	content: url('../img/icons/e-mail.png')
 }
-.fa-phone:before
-{
+
+.fa-phone:before {
 	content: url('../img/icons/phone.png')
 }
-.fa-globe:before
-{
+
+.fa-globe:before {
 	content: url('../img/icons/web.png')
 }
-.fa-address:before
-{
+
+.fa-address:before {
 	content: url('../img/icons/place.png')
 }
-.fa
-{
-	vertical-align:middle;
+
+.fa {
+	vertical-align: middle;
 }
-.bg-color-grey2
-{
-	background:#ccc;
+
+.bg-color-grey2 {
+	background: #ccc;
 }
-@media (max-width: 992px){
-.by-service-padding
-{
-	padding:0px;
+
+@media ( max-width : 992px) {
+	.by-service-padding {
+		padding: 0px;
+	}
 }
+
+@media ( max-width : 480px) {
+	.by_services_full_width
+	{
+		width:100%;
+	}
 }

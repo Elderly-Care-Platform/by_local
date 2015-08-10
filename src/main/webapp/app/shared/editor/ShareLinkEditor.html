@@ -3,7 +3,7 @@
         <div class="col-md-6 shareInfo-content col-sm-12 col-xs-12">
             <div class="by-linkEditor-view-close" ng-click="resetEditorView()"></div>
             <p ng-if="linkInfo.title" style="font-weight: bold">{{linkInfo.title.substring(0, 70)}}</p>
-            <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 100)}}</p>
+            <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 150)}}</p>
             <p class="linkUrl">{{linkInfo.domainName}}</p>
         </div>
         <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage">
@@ -15,7 +15,7 @@
         </div>
 
     </div>
-    <div class="row shareInfo-image" ng-if="linkInfo.type===1">
+    <div class="row shareInfo-image" ng-if="linkInfo.type===1" style="background:#f1f1f1;">
         <div class="by-linkEditor-view-close" ng-click="resetEditorView()"></div>
         <img src="{{linkInfo.mainImage}}">
     </div>
@@ -23,7 +23,7 @@
         <div class="col-md-6 shareInfo-content col-sm-12 col-xs-12">
             <div class="by-linkEditor-view-close" ng-click="resetEditorView()"></div>
             <p ng-if="linkInfo.title" style="font-weight: bold">{{linkInfo.title.substring(0, 70)}}</p>
-            <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 100)}}</p>
+            <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 150)}}</p>
             <p class="linkUrl">{{linkInfo.domainName}}</p>
         </div>
         <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage">

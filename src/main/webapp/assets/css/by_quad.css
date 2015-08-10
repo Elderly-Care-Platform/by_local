@@ -414,6 +414,7 @@
 .by-card-shareInfo .shareInfo-generalImage {
 	background-color: #fff;
 	height:200px;
+	text-align:center;
 }
 
 .by_blog_author .shareInfo-image img {
@@ -428,6 +429,9 @@
 	max-width: 100%;
 	padding-top: 15px;
 	padding-bottom: 15px;
+	line-height:100%;
+	vertical-align:middle;
+	float:none;
 }
 
 .shareInfo-generalImage iframe {

@@ -25,14 +25,14 @@
 	</div>
 	<div class="col-md-12 whiteBg by_discuss_detail margin-bottom-35">
 		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
-			<div class="col-md-5" style="padding: 0px;">
-				<div class="col-md-12 main-image white-gray " style="padding: 0px;">
+			<div class="col-md-5 col-xs-5 by_services_full_width" style="padding-left:0px;">
+				<div class="col-md-12 main-image white-gray " style="padding-left:0px;">
 					<img class="full-width padding-zero"
 						src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"
 						fallback-src='["assets/img/profile/individual-big.png"]' alt="">
 				</div>
 				<div class="col-md-12 by-imageGallery margin-top-20 row"
-					ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0">
+					ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
 					<div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
 					</div>
 					<div class="by-gallery-container">
@@ -50,7 +50,7 @@
 				</div>
 				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-7 by-service-padding">
+			<div class="col-md-7 col-xs-7 by_services_full_width by-service-padding">
 				<div class="profileMainContent">
 					<div class="profileContentTitle">
 						<span ng-if="gender">{{gender}}</span> <span

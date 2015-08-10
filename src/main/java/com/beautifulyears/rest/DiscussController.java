@@ -153,7 +153,7 @@ public class DiscussController {
 			// topicId = subTopicId;
 			// }
 			if (null == discussType) {
-				discussTypeArray.add("A");
+//				discussTypeArray.add("A");
 				discussTypeArray.add("Q");
 				discussTypeArray.add("P");
 			} else {
@@ -222,19 +222,19 @@ public class DiscussController {
 				}
 			}
 
-			Long articlesCount = discussRepository.getCount(
-					(new ArrayList<String>(Arrays.asList("A"))), tagIds,
-					userId, isFeatured);
+//			Long articlesCount = discussRepository.getCount(
+//					(new ArrayList<String>(Arrays.asList("A"))), tagIds,
+//					userId, isFeatured);
 			Long questionsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
 					userId, isFeatured);
 			Long postsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("P"))), tagIds,
 					userId, isFeatured);
-			obj.put("a", new Long(articlesCount));
+//			obj.put("a", new Long(articlesCount));
 			obj.put("q", new Long(questionsCount));
 			obj.put("p", new Long(postsCount));
-			obj.put("z", articlesCount + questionsCount + postsCount);
+			obj.put("z", questionsCount + postsCount);
 
 		} catch (Exception e) {
 			Util.handleException(e);
@@ -249,7 +249,7 @@ public class DiscussController {
 
 			String discussType = discuss.getDiscussType();
 			String title = "";
-			if (discussType.equalsIgnoreCase("A")) {
+			if (discussType.equalsIgnoreCase("P")) {
 				title = discuss.getTitle();
 			}
 			String text = discuss.getText();
@@ -270,7 +270,7 @@ public class DiscussController {
 					discuss.getUsername(), discussType, topicId, title, text,
 					discussStatus, aggrReplyCount, systemTags,
 					discuss.getShareCount(), discuss.getUserTags(),
-					discuss.getDiscussType().equals("A") ? discuss
+					discuss.getDiscussType().equals("P") ? discuss
 							.getArticlePhotoFilename() : null, false,
 					discuss.getContentType(), discuss.getLinkInfo());
 		} catch (Exception e) {

@@ -380,7 +380,7 @@ label input[type="file"] {
 }
 .by-editor-shareInfo .shareInfo-content, .shareInfo-content .shareInfo-generalImage
 {
-	height:200px;
+	height:230px;
 }
 @media ( max-width : 990px) {
 	.by-editor-shareInfo .row

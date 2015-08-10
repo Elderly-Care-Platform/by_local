@@ -21,7 +21,6 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
     		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
         });
         
-        
 
         if($scope.$parent.selectedMenu){
             $scope.selectedMenuId = $scope.$parent.selectedMenu.id;
@@ -33,6 +32,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.selectTag = function(event, category){
             if(event.target.checked){
                 $scope.selectedMenuList[category.id] = category;
+                //Add only Leaf category and not any parent category
                 if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
                     delete $scope.selectedMenuList[category.parentMenuId];
                 }

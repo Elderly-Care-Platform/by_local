@@ -519,7 +519,8 @@ byApp.directive('autoComplete', function ($timeout) {
         scope: {
             options: '=?',
             details: '=?',
-            callback: '=?'
+            callback: '=?',
+            obj: '=?',
         },
         link: function (scope, element, attrs) {
             element.autocomplete({
@@ -528,8 +529,11 @@ byApp.directive('autoComplete', function ($timeout) {
                     $timeout(function () {
                         element.trigger(event, item);
                         item.item.selected = true;
-                        scope.callback(item.item);
+                        scope.callback(item.item, scope.obj);
                     }, 0);
+                },
+                change: function(event, item){
+                    scope.callback(item.item, scope.obj);
                 }
             });
         }

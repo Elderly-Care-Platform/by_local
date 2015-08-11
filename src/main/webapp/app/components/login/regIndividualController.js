@@ -59,14 +59,14 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
                 //it accept only An array of objects with label and value properties, ex :[ { label: "Choice1", value: "value1" }, ... ]
                 var specialities = $.map(parentCategory.children, function (value, key) {
-                    var autoCompleteOption = {label:value.displayMenuName, value:value.displayMenuName, filter:value, parent:parentCategory.displayMenuName};
+                    var autoCompleteOption = {label:value.displayMenuName, value:value.displayMenuName, obj:value, parent:parentCategory.displayMenuName};
 
                     //show/hide selected speciality option based on previous selection && parent category selection
                     if(JSON.stringify($scope.profile.systemTags).indexOf(JSON.stringify(value.tags[0]))!=-1){
-                        $scope.filters[parentCategory.displayMenuName].selectedFilter = value;
+                        $scope.filters[parentCategory.displayMenuName].selectedSpeciality = value;
 
                         //important - separate property for ng-model, to restrict modification in actual menu object (object reference issue)
-                        $scope.filters[parentCategory.displayMenuName].selectedFilterName = value.displayMenuName;
+                        $scope.filters[parentCategory.displayMenuName].selectedSpecialityName = value.displayMenuName;
                     }
                     return autoCompleteOption;
                 });
@@ -77,9 +77,16 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         }
 
         //Speciality Autocomplete callback
-        $scope.selectSpecialty = function(elem){
-            $scope.filters[elem.parent].selectedFilter = elem.filter;
-            $scope.filters[elem.parent].selectedFilterName = elem.value;
+        $scope.selectSpecialty = function(spaciality, filterObj){
+            if(spaciality){
+                filterObj.selectedSpeciality = spaciality.obj;
+                filterObj.selectedSpecialityName = spaciality.value;
+            }else{
+                filterObj.selectedSpeciality = null;
+                filterObj.selectedSpecialityName = null;
+                //filterObj.specialityError = true;
+            }
+            $scope.$apply();
         }
 
         //Select menu from accordion
@@ -119,7 +126,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 var menuId = $scope.serviceProviderInfo.services[i],
                  category = $rootScope.menuCategoryMap[menuId];
                 $scope.selectedMenuList[menuId] = category;
-                if (category.filterName && category.filterName!==null && category.children.length > 0) {
+                if(category.filterName && category.filterName!==null && category.children.length > 0) {
                     $scope.showSpecialityOptions(category);
                 }
             }
@@ -228,12 +235,12 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
             //Add selected speciality tags to system tags
             angular.forEach($scope.filters, function(filter, index){
-                if(filter.selectedFilterName){
-                    systemTagList[filter.selectedFilter.id] = filter.selectedFilter.tags;
+                if(filter.selectedSpecialityName && filter.selectedSpeciality){
+                    systemTagList[filter.selectedSpeciality.id] = filter.selectedSpeciality.tags;
                 }else{
+                    filter.selectedSpecialityName = null;
                     filter.specialityError = true;
                 }
-
             })
 
             return  $.map(systemTagList, function(value, key){
@@ -251,7 +258,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
                 return value.id;
             });
-
 
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;

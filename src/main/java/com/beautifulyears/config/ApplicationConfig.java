@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.beautifulyears.domain.Topic;
 import com.beautifulyears.repository.DiscussRepository;
 import com.mongodb.Mongo;
 import com.mongodb.WriteConcern;
@@ -26,10 +25,6 @@ public class ApplicationConfig {
 				databaseName, null);// userCredentials);
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);
 		mongoTemplate.setWriteConcern(WriteConcern.SAFE);
-
-		if (!mongoTemplate.collectionExists(Topic.class)) {
-			mongoTemplate.createCollection(Topic.class);
-		}
 
 		return mongoTemplate;
 	}

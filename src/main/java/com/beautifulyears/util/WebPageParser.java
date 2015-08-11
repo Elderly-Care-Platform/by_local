@@ -36,14 +36,6 @@ public class WebPageParser {
 
 	private String url;
 	private Document doc;
-	private static final Pattern PIPE_SPLITTER = Pattern.compile(Pattern
-			.quote("|"));
-	private static final Pattern DASH_SPLITTER = Pattern.compile(Pattern
-			.quote("-"));
-	private static final Pattern ARROWS_SPLITTER = Pattern.compile(Pattern
-			.quote("»"));
-	private static final Pattern COLON_SPLITTER = Pattern.compile(Pattern
-			.quote(":"));
 
 	public WebPageParser(String url) throws IOException, SAXException,
 			ParserConfigurationException, URISyntaxException {
@@ -115,24 +107,6 @@ public class WebPageParser {
 		}
 		return null;
 	}
-
-	private String doTitleSplits(String title, Pattern delimiter) {
-		int largetTextLen = 0;
-		int largeTextIndex = 0;
-		String[] titlePieces = delimiter.split(title);
-		int i = 0;
-		while (i < titlePieces.length) {
-
-			String current = titlePieces[i];
-			if (current.length() > largetTextLen) {
-				largetTextLen = current.length();
-				largeTextIndex = i;
-			}
-			i += 1;
-		}
-		return titlePieces[largeTextIndex].trim();
-	}
-
 
 	private String prepareUrl(String url) throws URISyntaxException,
 			UnsupportedEncodingException {

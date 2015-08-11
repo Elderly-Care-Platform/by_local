@@ -247,29 +247,34 @@ public class WebPageParser {
 	public LinkInfo getUrlDetails() throws IOException, URISyntaxException {
 		LinkInfo linkInfo = new LinkInfo();
 		linkInfo.setUrl(this.url);
-		linkInfo.setDomainName(getDomainName(this.url));
-		if (isImage(linkInfo.getUrl())) {
-			linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_IMAGE);
-			linkInfo.setMainImage(this.url);
-		} else {
-			List<String> media = getMedia(linkInfo.getUrl());
-			linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_GENERAL);
-			if (media.size() > 0 && !Util.isEmpty(media.get(0))
-					&& !Util.isEmpty(media.get(1))) {
-				linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_VIDEO);
-				linkInfo.setVideoThumbnail(media.get(0));
-				linkInfo.setEmbeddedVideo(media.get(1));
-			}
-			if (doc != null) {
-				linkInfo.setTitle(this.getPageTitle());
-				linkInfo.setDescription(getDescription());
-				linkInfo.setMainImage(getImage());
-				if (linkInfo.getMainImage() == null) {
-					linkInfo.setOtherImages(getImages(5));
+		try{
+			linkInfo.setDomainName(getDomainName(this.url));
+			if (isImage(linkInfo.getUrl())) {
+				linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_IMAGE);
+				linkInfo.setMainImage(this.url);
+			} else {
+				List<String> media = getMedia(linkInfo.getUrl());
+				linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_GENERAL);
+				if (media.size() > 0 && !Util.isEmpty(media.get(0))
+						&& !Util.isEmpty(media.get(1))) {
+					linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_VIDEO);
+					linkInfo.setVideoThumbnail(media.get(0));
+					linkInfo.setEmbeddedVideo(media.get(1));
 				}
-			}
+				if (doc != null) {
+					linkInfo.setTitle(this.getPageTitle());
+					linkInfo.setDescription(getDescription());
+					linkInfo.setMainImage(getImage());
+					if (linkInfo.getMainImage() == null) {
+						linkInfo.setOtherImages(getImages(5));
+					}
+				}
 
+			}
+		}catch(Exception e){
+			
 		}
+		
 		return linkInfo;
 	}
 

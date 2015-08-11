@@ -48,40 +48,41 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 $scope.currentView = "content";
                 $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-//                DiscussPage.get({discussType: 'A',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
-//                		function(value){
-//                				$scope.articles = value.data.content;
-//                		},
-//                		function(error){
-//        			       	console.log("DiscussPage");
-////        			       	alert("error");
-//                		});
-                DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
-                		function(value){
-                				$scope.posts = value.data.content;
-                		},
-                		function(error){
-        			       	console.log("DiscussPage");
-//        			       	alert("error");
-                		});
-                DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
-                		function(value){
-                				$scope.questions = value.data.content;
-                		},
-                		function(error){
-        			       	console.log("DiscussPage");
-//        			       	alert("error");
-                		});
-                FindServices.get({page:0,size:3,sort:"lastModifiedAt",isFeatured:true},
-                		function(value){
-                				$scope.services = value.data.content;
-                		},
-                		function(error){
-        			       	console.log("DiscussPage");
-//        			       	alert("error");
-                		});
+                if($scope.contentType==="all" || $scope.contentType==="P"){
+                    DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:$scope.contentSize,sort:"lastModifiedAt"},
+                        function(value){
+                            $scope.posts = value.data.content;
+                            $scope.postsPageInfo = BY.byUtil.getPageInfo(value.data);
+                            $scope.postsPageInfo.isQueryInProgress = false;
+                        },
+                        function(error){
+                            console.log("DiscussPage");
+                        });
+                }
 
-             
+                if($scope.contentType==="all" || $scope.contentType==="Q"){
+                    DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:$scope.contentSize,sort:"lastModifiedAt"},
+                        function(value){
+                            $scope.questions = value.data.content;
+                            $scope.questionsPageInfo = BY.byUtil.getPageInfo(value.data);
+                            $scope.questionsPageInfo.isQueryInProgress = false;
+                        },
+                        function(error){
+                            console.log("DiscussPage");
+                        });
+                }
+
+                if($scope.contentType==="all" || $scope.contentType==="S"){
+                    FindServices.get({page:0,size:$scope.contentSize,sort:"lastModifiedAt",isFeatured:true},
+                        function(value){
+                            $scope.services = value.data.content;
+                            $scope.servicesPageInfo = BY.byUtil.getPageInfo(value.data);
+                            $scope.servicesPageInfo.isQueryInProgress = false;
+                        },
+                        function(error){
+                            console.log("DiscussPage");
+                        });
+                }
             } else {
                 $scope.scrollToId(scrollTo);
             }
@@ -104,14 +105,15 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             return $sce.trustAsHtml(html);
         };
 
-        if ($routeParams.type === "aboutUs") {
-            $scope.currentView = "aboutUs";
-            //$scope.homeViews.contentPanel = "'app/components/aboutUs/aboutUs.html?nitin=jain'";
-            //$scope.homeViews.leftPanel = "'app/components/aboutUs/aboutUsContentPanel.html?nitin=jain'";
+        if ($routeParams.type === "P" || $routeParams.type === "Q" || $routeParams.type === "S") {
+            $scope.contentType = $routeParams.type;
+            $scope.contentSize = 10;
+            $scope.switchToContentView();
         } else {
+            $scope.contentType = "all";
+            $scope.contentSize = 3;
             $scope.currentView = "";
             $scope.switchToContentView();
-
         }
 
         $scope.go = function ($event, type, id, discussType) {
@@ -134,43 +136,94 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             }
         }
 
-        $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-
-            $('p').each(function () {
-                var $this = $(this);
-                if ($this.html().replace(/\s|&nbsp;/g, '').length == 0)
-                    $this.remove();
-            });
-
-            $('.by_story').dotdotdot();
+         angular.element($window).bind("scroll", function() {
+            $scope.sliderHeight = $(".homeSlider").height();
+            if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+                $(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+                $(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+            }else{
+                $(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+                $(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+            }
         });
-        
-      
-        	
-        	 angular.element($window).bind("scroll", function() {
-	        	$scope.sliderHeight = $(".homeSlider").height();
-	        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
-	        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
-	        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
-	        	}else{
-	        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
-	        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
-	        	}
-	        });
        
         	 
-        	 //for services
-        	 $scope.location = function ($event, userId, userType) {
-                 $event.stopPropagation();
-                 if (userId && userType.length > 0) {
-                     $location.path('/profile/' + userType[0] + '/' + userId);
-                 }
+         //for featured services
+         $scope.location = function ($event, userId, userType) {
+             $event.stopPropagation();
+             if (userId && userType.length > 0) {
+                 $location.path('/profile/' + userType[0] + '/' + userId);
              }
-        	 //for services
-        	 $scope.profileImage = function (service) {
-                 service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
-              }
-       
+         };
+         //for featured services
+         $scope.profileImage = function (service) {
+             service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
+         };
+
+        $scope.showMore = function(discussType){
+            $location.path($location.$$path).search({type: discussType});
+        };
+
+
+        $scope.loadMore = function($event){
+            if($scope.contentType !=="all"){
+                if($scope.contentType === "P"){
+                    $scope.pageInfo = $scope.postsPageInfo;
+                }else if($scope.contentType === "Q"){
+                    $scope.pageInfo = $scope.questionsPageInfo;
+                }else if($scope.contentType === "S"){
+                    $scope.pageInfo = $scope.servicesPageInfo;
+                }
+
+                if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
+                    $scope.pageInfo.isQueryInProgress = true;
+                    var p = $scope.pageInfo.number + 1,
+                    s = $scope.pageInfo.size;
+
+                    if($scope.contentType === "Q"){
+                        DiscussPage.get({discussType: $scope.contentType, isFeatured:true, p:p, s:s, sort:"lastModifiedAt"},
+                            function(value){
+                                if(value.data.content.length > 0){
+                                    $scope.questionsPageInfo.isQueryInProgress = false;
+                                    $scope.questions = $scope.questions.concat(value.data.content);
+                                }
+                                $scope.questionsPageInfo = BY.byUtil.getPageInfo(value.data);
+                                $scope.questionsPageInfo.isQueryInProgress = false;
+                            },
+                            function(error){
+                                console.log("DiscussPage");
+                            });
+                    } else if($scope.contentType === "P"){
+                        DiscussPage.get({discussType: $scope.contentType, isFeatured:true, p:p, s:s, sort:"lastModifiedAt"},
+                            function(value){
+                                if(value.data.content.length > 0){
+                                    $scope.postsPageInfo.isQueryInProgress = false;
+                                    $scope.posts = $scope.posts.concat(value.data.content);
+                                }
+                                $scope.postsPageInfo = BY.byUtil.getPageInfo(value.data);
+                                $scope.postsPageInfo.isQueryInProgress = false;
+                            },
+                            function(error){
+                                console.log("DiscussPage");
+                            });
+                    } else{
+                        FindServices.get({page:p,size:s,sort:"lastModifiedAt",isFeatured:true},
+                            function(value){
+                                if(value.data.content.length > 0){
+                                    $scope.servicesPageInfo.isQueryInProgress = false;
+                                    $scope.services = $scope.services.concat(value.data.content);
+                                }
+                                $scope.servicesPageInfo = BY.byUtil.getPageInfo(value.data);
+                                $scope.servicesPageInfo.isQueryInProgress = false;
+                            },
+                            function(error){
+                                console.log("DiscussPage");
+                            });
+                    }
+                }
+            }
+
+        };
 
     }]);
 

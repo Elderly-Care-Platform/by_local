@@ -10,7 +10,7 @@
 <div style="clear:both;"></div>
 
 <div ng-repeat="question in questions" data-index="discussion-articles"
-     data-link="articles.html" on-finish-render="ngRepeatFinished" style="position:relative;">
+     data-link="articles.html" style="position:relative;">
      
      <div class="questionTag">
   		<img  src="assets/img/Q_A.png" alt="image">
@@ -22,13 +22,13 @@
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info" style="margin-right:80px !important;">
                 <li>
-                    <p  ng-if="question.discussType == 'Q' || question.discussType == 'P'">
+                    <p>
                         By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
                 </li>
                 <li time-since="{{question.createdAt}}"></li>
-                 <li ng-if="question.topicId.length > 0">
+                <li ng-if="question.topicId.length > 0">
                     | In
                 </li>
 
@@ -40,14 +40,12 @@
                         <span ng-if="$index < question.topicId.length-1">,</span>
                     </p>
                 </li>
-               
-            </ul><div style="clear: both"></div>
-                
-               
+            </ul>
+            <div style="clear: both"></div>
         </div>
 
        
-          <div class="article  col-md-12" ng-if="question.discussType == 'P'">
+        <div class="article  col-md-12" ng-if="question.discussType == 'P'">
             <div class="article-heading"><p style="text-transform: uppercase;">
                 {{question.title}}</p>
             </div>
@@ -60,55 +58,27 @@
         <div style="clear: both"></div>
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
             <ul class="post-shares post-shares-lg">
-                <li class="add-comment"
-                    ng-if="question.aggrReplyCount > 0 && (question.discussType == 'P')">
+                <li class="add-comment" ng-if="question.directReplyCount > 0">
                     <a href="#">
-                        <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span style="margin-left:3px;">{{question.aggrReplyCount}}</span>
-                        <span class="text">Comment</span>
-                    </a>
-                </li>
-                <li class="add-comment"
-                    ng-if="question.aggrReplyCount == 0 && (question.discussType == 'P')">
-                    <a>
-                        <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span class="textColor"
-                              ng-click="go($event,'comment', question.id)">Be the first  to comment</span>
-                    </a>
-                </li>
-                <li class="add-comment" ng-if="question.directReplyCount > 0 && question.discussType == 'Q'">
-                    <a href="#">
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
-                           style="margin-top:-4px;"></i>
+                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers" style="margin-top:-4px;"></i>
                         <span style="margin-left:3px;">{{question.directReplyCount}}</span>
                         <span class="text">Answer</span>
                     </a>
                 </li>
 
-                <li class="add-comment" ng-if="question.directReplyCount == 0 && question.discussType == 'Q'">
+                <li class="add-comment" ng-if="question.directReplyCount == 0">
                     <a>
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
-                           style="margin-top:-4px;"></i>
-                        <span class="textColor2"
-                              ng-click="go($event,'comment', question.id)">Be the first  to answer</span>
+                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers" style="margin-top:-4px;"></i>
+                        <span class="textColor2" ng-click="go($event,'comment', question.id)">Be the first  to answer</span>
                     </a>
                 </li>
-
-                <!--<li class="add-comment" ng-if="question.aggrLikeCount > 0">-->
-                    <!--<a href="#">-->
-                        <!--<i class="rounded-x" ng:class="{true:'icon-heart', false:'icon-heart-active'}[question.likedByUser===false]" title="Likes"></i>-->
-                        <!--<span ng-if="question.aggrLikeCount > 0" style="margin-left:3px;">{{question.aggrLikeCount}}</span>-->
-                        <!--<span class="text">Like</span>-->
-                    <!--</a>-->
-                <!--</li>-->
 
                 <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
                     <a ng-click="likeDiscuss(question.id)">
                         <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[question.likedByUser===false]" title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]" title="Likes"></i>
                         <span ng-if="beforePost && question.aggrLikeCount > 0" style="margin-left:3px;">{{question.aggrLikeCount}}</span>
-                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0"
-                              style="margin-left:3px;">{{aggrLikeCount}}</span>
+                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" style="margin-left:3px;">{{aggrLikeCount}}</span>
                     </a>
 
                     <div class="post-text">
@@ -116,24 +86,14 @@
                     </div>
 
                 </li>
-
-                <!--<li class="add-comment" ng-if="question.aggrLikeCount == 0">-->
-                    <!--<a href="#">-->
-                        <!--<i class="rounded-x icon-heart" title="Likes"></i>-->
-                        <!--<span class="text">Like</span>-->
-                    <!--</a>-->
-                <!--</li>-->
-
             </ul>
         </div>
         <div style="clear: both"></div>
-        
     </div>
 </div>
 
-<!--  
 
-<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html">
-    <a href="#discuss/Q/list/all">More...</a>
+
+<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html" ng-if="!questionsPageInfo.lastPage && contentType==='all'">
+    <a ng-click="showMore('Q')">More...</a>
 </div>
--->

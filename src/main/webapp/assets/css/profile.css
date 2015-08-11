@@ -67,7 +67,7 @@
 	background: #ccc;
 	float: left;
 	cursor: pointer;
-	opacity: 0.5;
+	opacity: 1;
 }
 
 .profileRateValues:hover {
@@ -136,4 +136,62 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	vertical-align: middle;
 	font-style:inherit;
 	text-align:center;
+}
+
+.by_leftPanel_icons span.text{
+    font-size: 15px;
+    padding: 1px 5px 1px 5px !important;
+    border: 1px solid #ccc;
+    border-radius: 1px !important;
+    min-width: 45px;
+    text-align: left;
+    margin-left: 2px;
+    background: url('../img/icons/button-gray.jpg');
+}
+#by_rate_show
+{
+	text-align:center;
+}
+#by_rate_hide
+{
+	display:none;
+}
+.by_rate_bg
+{
+	margin-top:5px;
+	margin-bottom:-5px;
+	background:#f2f2f2;
+}
+.by_rating_left
+{
+	width:68px;
+	margin-right:20px;
+	text-align:center;
+}
+.by_rating_left .profileRateValues
+{
+	width:35px;
+	margin-left:20px;
+	clear:both;
+}
+.by_rating_left .text
+{
+	width:100%;
+	text-align:center;
+	margin-top:3px;
+	border:1px solid #ccc;
+	font-size:12px;
+	paddng:0px 5px 0px 5px;
+	line-height:19px;
+}
+
+@media ( max-width : 992px) {
+	#by_rate_hide
+	{
+		margin-top:-11px;
+	}
+	.by_rate_bg
+	{
+		padding-top:15px;
+	}
 }

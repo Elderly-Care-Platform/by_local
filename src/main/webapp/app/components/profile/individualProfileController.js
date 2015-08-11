@@ -71,6 +71,17 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
 
 
         }
+        
+        $scope.showMore = function(){
+            document.getElementById("service-card-desciption-detail-more").style.display = "block";
+            document.getElementById("service-card-desciption-detail").style.display = "none";
+        }
+        
+        $scope.showLess = function(){
+            document.getElementById("service-card-desciption-detail-more").style.display = "none";
+            document.getElementById("service-card-desciption-detail").style.display = "block";
+        }
+
 
 
     }]);

@@ -42,9 +42,10 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.selectRating = function(value){
             $(".by_btn_submit").removeAttr('disabled');
         	value = parseInt(value);
-            $(".profileSelected").removeClass("profileSelected");
+            $(".by_rating_left .text").css('color', '#000');
             $scope.selectedRating = value;
-            $(".profileRate"+value).addClass("profileSelected");
+            $(".profileRate"+value).siblings(".text").addClass("profileRate"+value);
+            $(".profileRate"+value).siblings(".text").css('color','#fff');
         }
 
         $scope.postReview = function(){
@@ -70,6 +71,8 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
 
                 postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
                     $scope.$parent.showProfile();
+                    $("#by_rate_hide").hide();
+                    $("#by_rate_show").show();
                 }, function(errorResponse){
                     console.log(errorResponse);
                     $(".by_btn_submit").prop("disabled", false);
@@ -84,6 +87,15 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 $(".by_btn_submit").prop('disabled', false);
             }
         }
+        
+        $scope.showRate = function(){
+        	document.getElementById("by_rate_hide").style.display = "block";
+            document.getElementById("by_rate_show").style.display = "none";
+        };
+        $scope.hideRate = function(){
+        	document.getElementById("by_rate_hide").style.display = "none";
+            document.getElementById("by_rate_show").style.display = "block";
+        };
 
 
     }]);

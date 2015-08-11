@@ -43,7 +43,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.showProfile();
 
         $scope.reviewContent = function(){
-            $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].reviewContentPanel;
+           // $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].reviewContentPanel;
         }
 
         $scope.displayProfile = function(){

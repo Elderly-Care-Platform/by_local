@@ -11,16 +11,28 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	    $('.carousel').carousel('cycle');
         $scope.currentAcceleratorSelected = "";
         var scrollable = false;
-        
+
         $scope.$watch("posts", function (value) {
-            $timeout(
-                function () {
-                    $scope.scrollToId($scope.currentAcceleratorSelected)
-                }, 100);
+            if($scope.currentAcceleratorSelected === 'home_featured_articles'){
+                $timeout(
+                    function () {
+                        $scope.scrollToId($scope.currentAcceleratorSelected)
+                    }, 100);
+            }
+
+        });
+
+        $scope.$watch("questions", function (value) {
+            if($scope.currentAcceleratorSelected === 'home_featured_qa'){
+                $timeout(
+                    function () {
+                        $scope.scrollToId($scope.currentAcceleratorSelected)
+                    }, 100);
+            }
+
         });
 
         $scope.homeViews = {};
-
         $scope.add = function (type) {
             //BY.removeEditor();
             $scope.currentView = "editor";
@@ -44,6 +56,11 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         $scope.switchToContentView = function (scrollTo) {
             $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
+            if($scope.currentAcceleratorSelected && $scope.currentAcceleratorSelected!=="" && $scope.contentType !== "all"){
+                $scope.contentType = "all";
+                $scope.contentSize = 3;
+                $scope.currentView = "";
+            }
             if ($scope.currentView != "content") {
                 $scope.currentView = "content";
                 $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -91,15 +108,16 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         //$scope.switchToContentView();
 
         $scope.scrollToId = function (id) {
+            $scope.currentAcceleratorSelected = "";
             if (id) {
                 var tag = $("#" + id + ":visible");
                 if (tag.length > 0) {
                     $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
                 }
+
             } else {
                 window.scrollTo(0, 0);
             }
-
         }
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
@@ -107,7 +125,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         if ($routeParams.type === "P" || $routeParams.type === "Q" || $routeParams.type === "S") {
             $scope.contentType = $routeParams.type;
-            $scope.contentSize = 10;
+            $scope.contentSize = 3;
             $scope.switchToContentView();
         } else {
             $scope.contentType = "all";

@@ -1,12 +1,12 @@
-<div ng-show="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
+<div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll-disabled="contentType==='all' || postsPageInfo.lastPage || postsPageInfo.isQueryInProgress" infinite-scroll-distance="0"></div>
 
-<div ng-show="questions.length > 0 && (contentType==='all' || contentType==='Q')" infinite-scroll="loadMore()"
+<div ng-if="questions.length > 0 && (contentType==='all' || contentType==='Q')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homeQuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll-disabled="contentType==='all' || questionsPageInfo.lastPage || questionsPageInfo.isQueryInProgress" infinite-scroll-distance="0"></div>
 
-<div ng-show="services.length > 0 && (contentType==='all' || contentType==='S')" class="col-md-12 no-padding margin-bottom-35" >
+<div ng-if="services.length > 0 && (contentType==='all' || contentType==='S')" class="col-md-12 no-padding margin-bottom-35" >
     <div id="home_featured_services" class="col-md-12 no-padding  list-head dp-block">
         FEATURED SERVICES
     </div>
@@ -17,7 +17,7 @@
 </div>
 <div style="clear:both;"></div>
 
-<div ng-show="services.length > 0 && (contentType==='all' || contentType==='S')" infinite-scroll="loadMore()"
+<div ng-if="services.length > 0 && (contentType==='all' || contentType==='S')" infinite-scroll="loadMore()"
      ng-include="'app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll-disabled="contentType==='all' || servicesPageInfo.lastPage || servicesPageInfo.isQueryInProgress" infinite-scroll-distance="0">
 </div>

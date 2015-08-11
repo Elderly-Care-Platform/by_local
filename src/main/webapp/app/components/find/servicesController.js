@@ -109,11 +109,10 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         //}
 
         $scope.showFilters = function () {
-            var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
-            if (category && category.parentId && category.parentId !== null && category.childCount > 0) {
+            if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName!==null && $scope.selectedMenu.children.length > 0) {
                 $scope.showSpecialityFilter = true;
-                $scope.specialities = $.map(category.children, function (value, key) {
-                    return {label: value.name, value: value.name, id: value.id};
+                $scope.specialities = $.map($scope.selectedMenu.children, function (value, key) {
+                    return {label:value.displayMenuName, value:value.displayMenuName, obj:value};
                 });
             }
         }
@@ -125,7 +124,6 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         }
-
 
 
         $scope.location = function ($event, userId, userType) {
@@ -157,7 +155,14 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         }
 
         $scope.specialityCallback  = function (speciality){
-            queryParams.services = speciality.id;
+            //angular.forEach($scope.specialities, function(data, index){
+            //    if(tags.indexOf(data.obj.tags[0].id) > -1){
+            //        tags.splice(tags.indexOf(data.obj.tags[0].id), 1);
+            //    }
+            //});
+
+            tags = speciality.obj.tags[0].id;
+            queryParams.tags = tags.toString();
             $scope.getData(queryParams);
         }
 

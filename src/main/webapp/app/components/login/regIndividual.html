@@ -96,8 +96,8 @@
                     Please enter {{filter.filterName}}
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <input type="text" class="name-textbox textbox " auto-complete options="filter.specialities" obj="filter"
-                           placeholder="Speciality" ng-model="filter.selectedSpecialityName" required callback="selectSpecialty"/>
+                    <input type="text" class="name-textbox textbox " auto-complete options="filter.specialities" obj="filter" on-change-callback="selectSpecialty"
+                           placeholder="Speciality" ng-model="filter.selectedSpecialityName" required on-select-callback="selectSpecialty"/>
 
                     <span ng-show="filter.specialityError && submitted" class="errorRed">Please enter your speciality</span>
                 </div>

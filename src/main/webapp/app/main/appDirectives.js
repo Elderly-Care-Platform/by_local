@@ -519,8 +519,9 @@ byApp.directive('autoComplete', function ($timeout) {
         scope: {
             options: '=?',
             details: '=?',
-            callback: '=?',
+            onSelectCallback: '=?',
             obj: '=?',
+            onChangeCallback: '=?'
         },
         link: function (scope, element, attrs) {
             element.autocomplete({
@@ -529,11 +530,13 @@ byApp.directive('autoComplete', function ($timeout) {
                     $timeout(function () {
                         element.trigger(event, item);
                         item.item.selected = true;
-                        scope.callback(item.item, scope.obj);
+                        scope.onSelectCallback(item.item, scope.obj);
                     }, 0);
                 },
                 change: function(event, item){
-                    scope.callback(item.item, scope.obj);
+                    if(scope.onChangeCallback){
+                        scope.onChangeCallback(item.item, scope.obj);
+                    }
                 }
             });
         }

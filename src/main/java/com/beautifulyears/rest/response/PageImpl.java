@@ -9,14 +9,23 @@ public class PageImpl<T> {
 	private List<T> content = new ArrayList<T>();
 	private boolean lastPage = false;
 	private long number;
-	
+	private long size;
+
 	public PageImpl(List<T> content, Pageable pageable, long total) {
 		this.content = content;
 		this.number = pageable.getPageNumber();
-		if(((pageable.getPageNumber() + 1) * pageable.getPageSize() ) > total){
+		this.size = pageable.getPageSize();
+		if (((pageable.getPageNumber() + 1) * pageable.getPageSize()) > total) {
 			lastPage = true;
 		}
-		
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
 	}
 
 	public List<T> getContent() {

@@ -63,22 +63,16 @@ public class UserProfileResponse implements IResponse {
 			}
 			ratingCount = profile.getRatedBy().size();
 			reviewCount = profile.getReviewedBy().size();
-			
+
 		}
-		
-		
 
 		public List<Tag> getSystemTags() {
 			return systemTags;
 		}
 
-
-
 		public void setSystemTags(List<Tag> systemTags) {
 			this.systemTags = systemTags;
 		}
-
-
 
 		public int getRatingCount() {
 			return ratingCount;
@@ -184,8 +178,6 @@ public class UserProfileResponse implements IResponse {
 		public void setLastModifiedAt(Date lastModifiedAt) {
 			this.lastModifiedAt = lastModifiedAt;
 		}
-		
-		
 
 	}
 
@@ -193,6 +185,7 @@ public class UserProfileResponse implements IResponse {
 		private List<UserProfileEntity> content = new ArrayList<UserProfileEntity>();
 		private boolean lastPage;
 		private long number;
+		private long size;
 
 		public UserProfilePage() {
 			super();
@@ -205,10 +198,19 @@ public class UserProfileResponse implements IResponse {
 				this.content.add(new UserProfileResponse.UserProfileEntity(
 						profile, user));
 			}
+			this.size = page.getSize();
 		}
 
 		public List<UserProfileEntity> getContent() {
 			return content;
+		}
+
+		public long getSize() {
+			return size;
+		}
+
+		public void setSize(long size) {
+			this.size = size;
 		}
 
 		public void setContent(List<UserProfileEntity> content) {

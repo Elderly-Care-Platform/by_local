@@ -1,7 +1,9 @@
 package com.beautifulyears.rest;
 
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +26,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.constants.UserRolePermissions;
+import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.LoginRequest;
 import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 //import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.UserRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.social.facebook.FBConnection;
@@ -37,6 +41,7 @@ import com.beautifulyears.social.facebook.FBGraph;
 import com.beautifulyears.social.google.GGConnection;
 import com.beautifulyears.social.google.GGraph;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
 
 /**
@@ -267,6 +272,79 @@ public class UserController {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
+	public @ResponseBody Object getResetPasswordLink(
+			@RequestParam(value = "email", required = true) String email,			
+			HttpServletRequest req) {
+		LoggerUtil.logEntry();
+		if(!Util.isEmpty(email)){
+			Query q = new Query();
+			q.addCriteria(Criteria.where("email")
+					.is(email));
+			User user = mongoTemplate.findOne(q, User.class);
+			if(null != user){
+				user.setVerificationCode(UUID.randomUUID().toString());
+				Date t = new Date();
+				user.setVerificationCodeExpiry(new Date(t.getTime() + (BYConstants.FORGOT_PASSWORD_CODE_EXPIRY_IN_MIN * 60000)));
+				mongoTemplate.save(user);
+				sendMailForResetPassword(user);
+			}else{
+				throw new BYException(BYErrorCodes.USER_EMAIL_DOES_NOT_EXIST);
+			}
+		}else{
+			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+		}
+		
+		return true;
+	}
+	
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public @ResponseBody Object getResetPasswordLink(
+			@RequestBody User user,			
+			HttpServletRequest req) {
+		LoggerUtil.logEntry();
+		if(null != user && !Util.isEmpty(user.getVerificationCode()) && !Util.isEmpty(user.getPassword())){
+			Query q = new Query();
+			q.addCriteria(Criteria.where("verificationCode")
+					.is(user.getVerificationCode()));
+			User user1 = mongoTemplate.findOne(q, User.class);
+			if(null != user1){
+				Date currentDate = new Date();
+				if(currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0){
+					user1.setVerificationCodeExpiry(currentDate);
+					user1.setPassword(user.getPassword());
+					//send mail on successful changing the password
+					mongoTemplate.save(user1);
+				}else{
+					throw new BYException(BYErrorCodes.USER_CODE_EXPIRED);
+				}
+			}else{
+				throw new BYException(BYErrorCodes.USER_EMAIL_DOES_NOT_EXIST);
+			}
+		}else{
+			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+		}
+		
+		return true;
+	}
+	
+	void sendMailForResetPassword(User user) {
+		try {
+				ResourceUtil resourceUtil = new ResourceUtil(
+						"mailTemplate.properties");
+				String url = "http://beautifulyears.com/#/discuss/55c8fa5fe4b0d01a10f85275";
+				String userName = !Util.isEmpty(user.getUserName()) ? user
+						.getUserName() : "Anonymous User";
+				String body = MessageFormat.format(
+						resourceUtil.getResource("resetPassword"), userName,url,url,url);
+				MailHandler.sendMail(user.getEmail(), "Reset Beutifulyears' password",
+						body);
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
+	}
+
 
 	private User decorateWithInformation(User user) {
 		LoggerUtil.logEntry();

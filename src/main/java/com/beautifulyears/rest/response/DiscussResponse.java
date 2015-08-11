@@ -28,17 +28,27 @@ public class DiscussResponse implements IResponse {
 		private List<DiscussEntity> content = new ArrayList<DiscussEntity>();
 		private boolean lastPage;
 		private long number;
+		private long size;
 
 		public DiscussPage() {
 			super();
 		}
 
-		public DiscussPage(PageImpl<Discuss> page,User user) {
+		public DiscussPage(PageImpl<Discuss> page, User user) {
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (Discuss discuss : page.getContent()) {
 				this.content.add(new DiscussEntity(discuss, user));
 			}
+			this.size = page.getSize();
+		}
+
+		public long getSize() {
+			return size;
+		}
+
+		public void setSize(long size) {
+			this.size = size;
 		}
 
 		public List<DiscussEntity> getContent() {
@@ -94,10 +104,10 @@ public class DiscussResponse implements IResponse {
 			this.setUsername(discuss.getUsername());
 			this.setDiscussType(discuss.getDiscussType());
 			this.setText(discuss.getText());
-			if(null == discuss.getShortSynopsis()){
+			if (null == discuss.getShortSynopsis()) {
 				Document doc = Jsoup.parse(discuss.getText());
 				String text = doc.text();
-				if(text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
+				if (text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
 					discuss.setShortSynopsis(Util.truncateText(text));
 				}
 			}
@@ -114,32 +124,22 @@ public class DiscussResponse implements IResponse {
 			this.setContentType(discuss.getContentType());
 			this.setLinkInfo(discuss.getLinkInfo());
 		}
-		
-		
 
 		public int getContentType() {
 			return contentType;
 		}
 
-
-
 		public void setContentType(int contentType) {
 			this.contentType = contentType;
 		}
-
-
 
 		public LinkInfo getLinkInfo() {
 			return linkInfo;
 		}
 
-
-
 		public void setLinkInfo(LinkInfo linkInfo) {
 			this.linkInfo = linkInfo;
 		}
-
-
 
 		public String getShortSynopsis() {
 			return shortSynopsis;
@@ -284,8 +284,8 @@ public class DiscussResponse implements IResponse {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
 
-	public static DiscussPage getPage(PageImpl<Discuss> page,User user) {
-		DiscussPage res = new DiscussPage(page,user);
+	public static DiscussPage getPage(PageImpl<Discuss> page, User user) {
+		DiscussPage res = new DiscussPage(page, user);
 		return res;
 	}
 

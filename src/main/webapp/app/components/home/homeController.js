@@ -32,6 +32,16 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         });
 
+        $scope.$watch("services", function (value) {
+            if($scope.currentAcceleratorSelected === 'home_featured_services'){
+                $timeout(
+                    function () {
+                        $scope.scrollToId($scope.currentAcceleratorSelected)
+                    }, 100);
+            }
+
+        });
+
         $scope.homeViews = {};
         $scope.add = function (type) {
             //BY.removeEditor();

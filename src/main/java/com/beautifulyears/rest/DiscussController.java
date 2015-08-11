@@ -84,11 +84,13 @@ public class DiscussController {
 			@RequestParam(value = "url", required = true) String url)
 			throws Exception {
 		LinkInfo linkInfo = null;
+		WebPageParser parser = null;
 		try {
-			WebPageParser parser = new WebPageParser(url);
-			linkInfo = parser.getUrlDetails();
+			parser = new WebPageParser(url);
 		} catch (Exception e) {
 			Util.handleException(e);
+		}finally{
+			linkInfo = parser.getUrlDetails();
 		}
 
 		return BYGenericResponseHandler.getResponse(linkInfo);

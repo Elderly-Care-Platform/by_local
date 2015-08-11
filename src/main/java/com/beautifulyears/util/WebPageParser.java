@@ -36,14 +36,6 @@ public class WebPageParser {
 
 	private String url;
 	private Document doc;
-	private static final Pattern PIPE_SPLITTER = Pattern.compile(Pattern
-			.quote("|"));
-	private static final Pattern DASH_SPLITTER = Pattern.compile(Pattern
-			.quote("-"));
-	private static final Pattern ARROWS_SPLITTER = Pattern.compile(Pattern
-			.quote("»"));
-	private static final Pattern COLON_SPLITTER = Pattern.compile(Pattern
-			.quote(":"));
 
 	public WebPageParser(String url) throws IOException, SAXException,
 			ParserConfigurationException, URISyntaxException {
@@ -115,24 +107,6 @@ public class WebPageParser {
 		}
 		return null;
 	}
-
-	private String doTitleSplits(String title, Pattern delimiter) {
-		int largetTextLen = 0;
-		int largeTextIndex = 0;
-		String[] titlePieces = delimiter.split(title);
-		int i = 0;
-		while (i < titlePieces.length) {
-
-			String current = titlePieces[i];
-			if (current.length() > largetTextLen) {
-				largetTextLen = current.length();
-				largeTextIndex = i;
-			}
-			i += 1;
-		}
-		return titlePieces[largeTextIndex].trim();
-	}
-
 
 	private String prepareUrl(String url) throws URISyntaxException,
 			UnsupportedEncodingException {
@@ -273,29 +247,34 @@ public class WebPageParser {
 	public LinkInfo getUrlDetails() throws IOException, URISyntaxException {
 		LinkInfo linkInfo = new LinkInfo();
 		linkInfo.setUrl(this.url);
-		linkInfo.setDomainName(getDomainName(this.url));
-		if (isImage(linkInfo.getUrl())) {
-			linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_IMAGE);
-			linkInfo.setMainImage(this.url);
-		} else {
-			List<String> media = getMedia(linkInfo.getUrl());
-			linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_GENERAL);
-			if (media.size() > 0 && !Util.isEmpty(media.get(0))
-					&& !Util.isEmpty(media.get(1))) {
-				linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_VIDEO);
-				linkInfo.setVideoThumbnail(media.get(0));
-				linkInfo.setEmbeddedVideo(media.get(1));
-			}
-			if (doc != null) {
-				linkInfo.setTitle(this.getPageTitle());
-				linkInfo.setDescription(getDescription());
-				linkInfo.setMainImage(getImage());
-				if (linkInfo.getMainImage() == null) {
-					linkInfo.setOtherImages(getImages(5));
+		try{
+			linkInfo.setDomainName(getDomainName(this.url));
+			if (isImage(linkInfo.getUrl())) {
+				linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_IMAGE);
+				linkInfo.setMainImage(this.url);
+			} else {
+				List<String> media = getMedia(linkInfo.getUrl());
+				linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_GENERAL);
+				if (media.size() > 0 && !Util.isEmpty(media.get(0))
+						&& !Util.isEmpty(media.get(1))) {
+					linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_VIDEO);
+					linkInfo.setVideoThumbnail(media.get(0));
+					linkInfo.setEmbeddedVideo(media.get(1));
 				}
-			}
+				if (doc != null) {
+					linkInfo.setTitle(this.getPageTitle());
+					linkInfo.setDescription(getDescription());
+					linkInfo.setMainImage(getImage());
+					if (linkInfo.getMainImage() == null) {
+						linkInfo.setOtherImages(getImages(5));
+					}
+				}
 
+			}
+		}catch(Exception e){
+			
 		}
+		
 		return linkInfo;
 	}
 

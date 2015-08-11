@@ -12,7 +12,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.currentAcceleratorSelected = "";
         var scrollable = false;
         
-        $scope.$watch("articles", function (value) {
+        $scope.$watch("posts", function (value) {
             $timeout(
                 function () {
                     $scope.scrollToId($scope.currentAcceleratorSelected)

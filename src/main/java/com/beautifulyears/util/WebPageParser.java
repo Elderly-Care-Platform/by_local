@@ -68,22 +68,7 @@ public class WebPageParser {
 		if (Util.isEmpty(titleText)) {
 			titleText = doc.title();
 		}
-		Boolean usedDelimeter = false;
-		if (titleText.contains("|")) {
-			titleText = doTitleSplits(titleText, PIPE_SPLITTER);
-			usedDelimeter = true;
-		}
-		if (!usedDelimeter && titleText.contains("-")) {
-			titleText = doTitleSplits(titleText, DASH_SPLITTER);
-			usedDelimeter = true;
-		}
-		if (!usedDelimeter && titleText.contains("»")) {
-			titleText = doTitleSplits(titleText, ARROWS_SPLITTER);
-			usedDelimeter = true;
-		}
-		if (!usedDelimeter && titleText.contains(":")) {
-			titleText = doTitleSplits(titleText, COLON_SPLITTER);
-		}
+		
 
 		return titleText;
 	}

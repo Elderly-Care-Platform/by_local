@@ -43,6 +43,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                         //this is the object you are looking for
                         $scope.address.zip = response.address_components[i].long_name;
                     }
+                    else if (response.address_components[i].types.indexOf("sublocality") != -1 && response.address_components[i].types.indexOf("political") != -1) {
+                        $scope.address.locality = response.address_components[i].long_name;
+                    }
                 }
 
             }

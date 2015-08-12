@@ -95,6 +95,7 @@ public class DiscussResponse implements IResponse {
 		private long shareCount = 0;
 		private int contentType;
 		private LinkInfo linkInfo;
+		private boolean isFeatured;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -123,6 +124,15 @@ public class DiscussResponse implements IResponse {
 			}
 			this.setContentType(discuss.getContentType());
 			this.setLinkInfo(discuss.getLinkInfo());
+			this.setFeatured(discuss.isFeatured());
+		}
+
+		public boolean isFeatured() {
+			return isFeatured;
+		}
+
+		public void setFeatured(boolean isFeatured) {
+			this.isFeatured = isFeatured;
 		}
 
 		public int getContentType() {

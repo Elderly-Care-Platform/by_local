@@ -43,6 +43,7 @@ public class UserProfileResponse implements IResponse {
 		private Date createdAt = new Date();
 		private List<Tag> systemTags = new ArrayList<Tag>();
 		private Date lastModifiedAt = new Date();
+		private boolean isFeatured;
 
 		public UserProfileEntity(UserProfile profile, User user) {
 			this.setId(profile.getId());
@@ -63,7 +64,16 @@ public class UserProfileResponse implements IResponse {
 			}
 			ratingCount = profile.getRatedBy().size();
 			reviewCount = profile.getReviewedBy().size();
+			this.isFeatured = profile.isFeatured();
 
+		}
+
+		public boolean isFeatured() {
+			return isFeatured;
+		}
+
+		public void setFeatured(boolean isFeatured) {
+			this.isFeatured = isFeatured;
 		}
 
 		public List<Tag> getSystemTags() {

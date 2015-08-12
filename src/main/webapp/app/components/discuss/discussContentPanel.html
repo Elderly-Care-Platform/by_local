@@ -1,13 +1,18 @@
 <div ng-repeat="discuss in discuss" data-index="discussion-articles"
-     data-link="articles.html" style="position: relative;">
+     data-link="articles.html" >
 
-    <div class="questionTag" ng-if="discuss.discussType == 'Q'">
-        <img src="assets/img/Q_A.png" alt="image">
-    </div>
+   
     <div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
          class="blog-author margin-bottom-35 main-article by_blog_author"
          ng-if="discuss" data-index="discussion-articles"
-         data-link="articles.html">
+         data-link="articles.html" style="position: relative;">
+         
+          <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true">
+        <img src="assets/img/feature/featured_Q&A.png" alt="image">
+    </div>
+     <div class="questionTag" ng-if="discuss.discussType == 'P' && discuss.featured == true">
+        <img src="assets/img/feature/featured.png" alt="image">
+    </div>
 
         <img src="assets/img/by.png" alt="image">
         <div class="article-info dp-inline-block " style="margin-right: 80px !important;">
@@ -68,68 +73,60 @@
                     ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span style="margin-left: 3px;">{{discuss.aggrReplyCount}}</span>
-                        <span class="text">Comment</span>
+                        <span>{{discuss.aggrReplyCount}}</span>
+                        <div class="text">Comment</div>
                     </a>
                 </li>
-                <li class="add-comment"
+                
+                <li class="add-comment add-comment-FC"
                     ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-						<span class="textColor" ng-click="go($event,'comment', discuss.id)">
+						<div class="text" ng-click="go($event,'comment', discuss.id)">
 							Be the first to comment
-						</span>
+						</div>
                     </a>
                 </li>
                 <li class="add-comment"
                     ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
                     <a href="#">
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers" style="margin-top: -4px;"></i>
-                        <span style="margin-left: 3px;">{{discuss.directReplyCount}}</span>
-                        <span class="text">Answer</span>
+                        <i class="rounded-x icon-answer ng-scope" title="Answers" ></i>
+                        <span>{{discuss.directReplyCount}}</span>
+                        <div class="text">Answer</div>
                     </a>
                 </li>
 
-                <li class="add-comment"
+                <li class="add-comment add-comment-FA" 
                     ng-if="discuss.directReplyCount == 0 && discuss.discussType == 'Q'">
                     <a>
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers" style="margin-top: -4px;"></i>
-                        <span class="textColor2" ng-click="go($event,'comment', discuss.id)">
+                        <i class="rounded-x icon-answer ng-scope" title="Answers" ></i>
+                        <div class="text" ng-click="go($event,'comment', discuss.id)">
                             Be the first to answer
-                        </span>
+                        </div>
                     </a>
                 </li>
-
-                <!--  <li class="add-comment" ng-controller="DiscussLikeController">
-                    <a href="#"> <i class="rounded-x icon-heart" title="Likes"></i>
-                        <span ng-if="discuss.aggrLikeCount > 0" style="margin-left: 3px;">{{discuss.aggrLikeCount}}</span>
-                        <span class="text">Like</span>
-                    </a>
-                </li>-->
 
 
                 <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
                     <a ng-click="likeDiscuss(discuss.id)">
                         <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]" title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]" title="Likes"></i>
-                        <span ng-if="beforePost && discuss.aggrLikeCount > 0" style="margin-left:3px;">{{discuss.aggrLikeCount}}</span>
+                        <span ng-if="beforePost && discuss.aggrLikeCount > 0">{{discuss.aggrLikeCount}}</span>
                         <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0"
-                              style="margin-left:3px;">{{aggrLikeCount}}</span>
+                              >{{aggrLikeCount}}</span>
                     </a>
 
-                    <div class="post-text">
-                        <span ng-click="likeDiscuss(discuss.id)" class="text">Like</span>
-                    </div>
+                        <div ng-click="likeDiscuss(discuss.id)" class="text text2">Like</div>
 
                 </li>
 
                 <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
                     <a ng-click="shareComment(discuss, $event)">
                         <i class="rounded-x icon-share"></i>
-                        <span ng-if="discuss.shareCount > 0" style="margin-left:3px;">{{discuss.shareCount}}</span>
+                        <span ng-if="discuss.shareCount > 0" >{{discuss.shareCount}}</span>
                     </a>
                     <div class="post-text post_text-comment">
-                        <a ng-click="shareComment(discuss, $event)"><span class="text">Share</span></a>
+                        <a ng-click="shareComment(discuss, $event)"><div class="text">Share</div></a>
                     </div>
                 </li>
             </ul>

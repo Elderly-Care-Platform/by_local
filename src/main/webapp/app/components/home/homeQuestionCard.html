@@ -10,15 +10,17 @@
 <div style="clear:both;"></div>
 
 <div ng-repeat="question in questions" data-index="discussion-articles"
-     data-link="articles.html" style="position:relative;">
+     data-link="articles.html" >
      
-     <div class="questionTag">
-  		<img  src="assets/img/Q_A.png" alt="image">
-  	</div>
+   
 
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
+    <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
+        <div class="questionTag" ng-if="discuss.featured == true">
+        <img src="assets/img/feature/featured_Q&A.png" alt="image">
+    </div>
         <img src="assets/img/by.png" alt="image" >
+        
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info" style="margin-right:80px !important;">
                 <li>
@@ -60,16 +62,16 @@
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment" ng-if="question.directReplyCount > 0">
                     <a href="#">
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers" style="margin-top:-4px;"></i>
-                        <span style="margin-left:3px;">{{question.directReplyCount}}</span>
-                        <span class="text">Answer</span>
+                        <i class="rounded-x icon-answer ng-scope" title="Answers" ></i>
+                        <span>{{question.directReplyCount}}</span>
+                        <div class="text">Answer</div>
                     </a>
                 </li>
 
-                <li class="add-comment" ng-if="question.directReplyCount == 0">
+                <li class="add-comment add-comment-FA" ng-if="question.directReplyCount == 0">
                     <a>
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers" style="margin-top:-4px;"></i>
-                        <span class="textColor2" ng-click="go($event,'comment', question.id)">Be the first  to answer</span>
+                        <i class="rounded-x icon-answer ng-scope" title="Answers" ></i>
+                        <div class="text" ng-click="go($event,'comment', question.id)">Be the first  to answer</div>
                     </a>
                 </li>
 
@@ -77,12 +79,12 @@
                     <a ng-click="likeDiscuss(question.id)">
                         <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[question.likedByUser===false]" title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]" title="Likes"></i>
-                        <span ng-if="beforePost && question.aggrLikeCount > 0" style="margin-left:3px;">{{question.aggrLikeCount}}</span>
-                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" style="margin-left:3px;">{{aggrLikeCount}}</span>
+                        <span ng-if="beforePost && question.aggrLikeCount > 0" >{{question.aggrLikeCount}}</span>
+                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" >{{aggrLikeCount}}</span>
                     </a>
 
                     <div class="post-text">
-                        <span ng-click="likeDiscuss(question.id)" class="text">Like</span>
+                        <div ng-click="likeDiscuss(question.id)" class="text">Like</div>
                     </div>
 
                 </li>

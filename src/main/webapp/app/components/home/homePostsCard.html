@@ -10,7 +10,10 @@
 
 <div ng-repeat="article in posts" data-index="discussion-articles" data-link="articles.html" ng-if="article">
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
+    <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
+         <div class="questionTag" ng-if="discuss.featured == true">
+        <img src="assets/img/feature/featured.png" alt="image">
+    </div>
         <img src="assets/img/by.png" alt="image" >
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
@@ -61,16 +64,16 @@
                     ng-if="article.aggrReplyCount > 0 && (article.discussType == 'P')">
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span style="margin-left:3px;">{{article.aggrReplyCount}}</span>
-                        <span class="text">Comment</span>
+                        <span>{{article.aggrReplyCount}}</span>
+                        <div class="text">Comment</div>
                     </a>
                 </li>
-                <li class="add-comment"
+                <li class="add-comment add-comment-FC"
                     ng-if="article.aggrReplyCount == 0 && (article.discussType == 'P')">
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span class="textColor"
-                              ng-click="go($event,'comment', article.id)">Be the first  to comment</span>
+                        <div class="text"
+                              ng-click="go($event,'comment', article.id)">Be the first  to comment</div>
                     </a>
                 </li>
 
@@ -79,24 +82,25 @@
                     <a ng-click="likeDiscuss(article.id)">
                         <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[article.likedByUser===false]" title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]" title="Likes"></i>
-                        <span ng-if="beforePost && article.aggrLikeCount > 0" style="margin-left:3px;">{{article.aggrLikeCount}}</span>
+                        <span ng-if="beforePost && article.aggrLikeCount > 0" >{{article.aggrLikeCount}}</span>
                         <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0"
-                              style="margin-left:3px;">{{aggrLikeCount}}</span>
+                             >{{aggrLikeCount}}</span>
                     </a>
 
                     <div class="post-text">
-                        <span ng-click="likeDiscuss(article.id)" class="text">Like</span>
+                        <div ng-click="likeDiscuss(article.id)" class="text">Like</div>
                     </div>
                 </li>
 
 				<li class="add-comment" ng-if="article.discussType == 'P'"
 						ng-controller="ShareController"><a
-						ng-click="shareComment(article, $event)"> <i
-							class="rounded-x icon-share"></i>
+						ng-click="shareComment(article, $event)">
+						 <i class="rounded-x icon-share"></i>
+						 <span ng-if="article.shareCount > 0" >{{article.shareCount}}</span>
 					</a>
 	
 					<div class="post-text post_text-comment">
-						<a ng-click="shareComment(article, $event)"><span class="text">Share</span></a>
+						<a ng-click="shareComment(article, $event)"><div class="text">Share</div></a>
 					</div>
 				</li>
             </ul>

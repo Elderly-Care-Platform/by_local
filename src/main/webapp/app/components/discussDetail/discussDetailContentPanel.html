@@ -44,22 +44,22 @@
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrReplyCount}}</span>
+                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0">{{detailResponse.discuss.aggrReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(detailResponse.discuss.id)"><span class="text">Comment</span>
+                     ng-click="createNewComment(detailResponse.discuss.id)"><div class="text">Comment</div>
                 </div>
             </li>
 
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'Q'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
-                    <i class="rounded-x fa fa-pencil-square-o" title="Answers" style="margin-top:-4px;"></i>
-                    <span ng-if="detailResponse.discuss.directReplyCount > 0" style="margin-left:3px;">{{detailResponse.discuss.directReplyCount}}</span>
+                    <i class="rounded-x icon-answer" title="Answers"></i>
+                    <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
-                     ng-click="createNewComment(detailResponse.discuss.id)"><span class="text">Answer</span>
+                     ng-click="createNewComment(detailResponse.discuss.id)"><div class="text">Answer</div>
                 </div>
             </li>
 
@@ -67,12 +67,12 @@
                 <a ng-click="likeDiscuss(detailResponse.discuss.id)">
                     <i class="rounded-x" ng-if="beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[detailResponse.discuss.likedByUser===true]" title="Likes"></i>
                     <i class="rounded-x" ng-if="!beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]" title="Likes"></i>
-                    <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrLikeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" style="margin-left:3px;">{{aggrLikeCount}}</span>
+                    <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" >{{detailResponse.discuss.aggrLikeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" >{{aggrLikeCount}}</span>
                 </a>
 
                 <div class="post-text">
-                    <span ng-click="likeDiscuss(detailResponse.discuss.id)" class="text">Like</span>
+                    <div ng-click="likeDiscuss(detailResponse.discuss.id)" class="text text2">Like</div>
                 </div>
 
             </li>
@@ -80,10 +80,10 @@
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'" ng-controller="ShareController">
                <a ng-click="shareComment(detailResponse.discuss, $event)">
                    <i class="rounded-x icon-share"></i>
-                   <span ng-if="detailResponse.discuss.shareCount > 0" style="margin-left:3px;">{{detailResponse.discuss.shareCount}}</span>
+                   <span ng-if="detailResponse.discuss.shareCount > 0">{{detailResponse.discuss.shareCount}}</span>
                </a>
 
-               <div class="post-text post_text-comment"><span ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</span>
+               <div class="post-text post_text-comment"><div ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</div>
                </div>
            </li>
         </ul><div style="clear:both;"></div>
@@ -93,22 +93,6 @@
         <div style="clear:both; "></div>
         
         <div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
-    <!--  <h2 class="text-success text-underlined"
-        ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'P')">
-        COMMENTS
-    </h2>
-    <h2 class="text-success text-underlined col-md-12 by-social-border"
-        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'P')">
-        Be the first to comment
-    </h2>-->
-     <!-- <h2 class="text-success text-underlined"
-        ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'Q')">
-        ANSWERS
-    </h2>
-    <h2 class="text-success text-underlined col-md-12 by-social-border"
-        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'Q')">
-        Be the first to answer
-    </h2>-->
 
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding  by_blog_author borderShadow noRadius enter-comment-wrap" id="replyEditor" style="margin-bottom: 0px; margin-top:-20px; border-top:0px;" ng-show="showEditor">

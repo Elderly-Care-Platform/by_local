@@ -30,19 +30,19 @@
                 </a>
 
                 <div class="post-text post_text-comment" ng-click="createNewComment(reply.id)">
-                    <span class="text">Comment</span>
+                    <div class="text">Comment</div>
                 </div>
             </li>
             <li class="add-comment" ng-controller="DiscussLikeController">
                 <a ng-click="likeComment(reply.id, reply.replyType)">
                     <i class="rounded-x" ng-if="beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[reply.likedByUser===true]" title="Likes"></i>
                     <i class="rounded-x" ng-if="!beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]" title="Likes"></i>
-                    <span ng-if="beforePost && reply.likeCount > 0" style="margin-left:3px;">{{reply.likeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" style="margin-left:3px;">{{aggrLikeCount}}</span>
+                    <span ng-if="beforePost && reply.likeCount > 0" >{{reply.likeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" >{{aggrLikeCount}}</span>
                 </a>
 
                 <div class="post-text">
-					<span class="text" ng-click="likeComment(reply.id, reply.replyType)">Like</span>
+					<div class="text text2" ng-click="likeComment(reply.id, reply.replyType)">Like</div>
                 </div>
             </li>
         </ul>

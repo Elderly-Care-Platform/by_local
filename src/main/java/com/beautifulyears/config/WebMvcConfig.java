@@ -1,41 +1,39 @@
 package com.beautifulyears.config;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.text.SimpleDateFormat;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import com.beautifulyears.interceptors.LoggerInterceptor;
-import com.beautifulyears.interceptors.SessionInterceptor;
-import com.beautifulyears.rest.PingResource;
+import com.beautifulyears.rest.MenuController;
 
 @EnableWebMvc
-@ComponentScan(basePackageClasses = PingResource.class)
+@ComponentScan(basePackageClasses = MenuController.class)
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	
-	@Autowired
-    private LoggerInterceptor loggerInterceptor;
-	@Autowired
-    private SessionInterceptor sessionInterceptor;
-	
+//	@Autowired
+//    private LoggerInterceptor loggerInterceptor;
+//	@Autowired
+//    private SessionInterceptor sessionInterceptor;
+//	
 
 	@Bean
-	public MappingJacksonJsonView jsonView() {
-		MappingJacksonJsonView jsonView = new MappingJacksonJsonView();
-		jsonView.setPrefixJson(false);
-		return jsonView;
+	public Jackson2ObjectMapperBuilder jacksonBuilder() {
+	    Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+	    builder.indentOutput(true).dateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+	    return builder;
 	}
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(loggerInterceptor).addPathPatterns("/**");
-		registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
-		;
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(loggerInterceptor).addPathPatterns("/**");
+//		registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
+//		;
+//	}
 }

@@ -196,6 +196,7 @@ public class UserProfileResponse implements IResponse {
 		private boolean lastPage;
 		private long number;
 		private long size;
+		private long total;
 
 		public UserProfilePage() {
 			super();
@@ -209,10 +210,19 @@ public class UserProfileResponse implements IResponse {
 						profile, user));
 			}
 			this.size = page.getSize();
+			this.total = page.getTotal();
 		}
 
 		public List<UserProfileEntity> getContent() {
 			return content;
+		}
+
+		public long getTotal() {
+			return total;
+		}
+
+		public void setTotal(long total) {
+			this.total = total;
 		}
 
 		public long getSize() {

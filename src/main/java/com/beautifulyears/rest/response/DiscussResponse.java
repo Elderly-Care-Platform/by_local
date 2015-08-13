@@ -1,3 +1,4 @@
+
 package com.beautifulyears.rest.response;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class DiscussResponse implements IResponse {
 		private boolean lastPage;
 		private long number;
 		private long size;
+		private long total;
 
 		public DiscussPage() {
 			super();
@@ -41,6 +43,17 @@ public class DiscussResponse implements IResponse {
 				this.content.add(new DiscussEntity(discuss, user));
 			}
 			this.size = page.getSize();
+			this.total = page.getTotal();
+		}
+		
+		
+
+		public long getTotal() {
+			return total;
+		}
+
+		public void setTotal(long total) {
+			this.total = total;
 		}
 
 		public long getSize() {

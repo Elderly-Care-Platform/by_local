@@ -175,10 +175,16 @@ var discussComment = byServices.factory('DiscussComment', function($resource) {
 
 var discussSearch = byServices.factory('DiscussSearch', function($resource) {
 
-    ///start here
-    return $resource(apiPrefix+'api/v1/search/:term',{}, {
-        //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
+    return $resource(apiPrefix+'api/v1/search/discussPageSearch',{}, {
+        get: {method: 'GET'}
 
+    })
+});
+
+var ServicePageSearch = byServices.factory('ServicePageSearch', function($resource) {
+
+    return $resource(apiPrefix+'api/v1/search/servicePageSearch',{}, {
+    	 get: {method: 'GET'}
     })
 });
 

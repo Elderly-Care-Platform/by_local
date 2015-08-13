@@ -11,7 +11,9 @@ byApp.config(['$routeProvider',
             .when('/discuss/:topicId/all', {templateUrl: 'app/components/discuss/discussion.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussCategoryController'})
             .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'app/components/discuss/discussion.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussSubCategoryController'})
 
-            .when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussSearchController'})
+            .when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'SearchController'})
+            .when('/search/:term/:disType/Discuss', {templateUrl: 'app/components/search/discussSearch.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussSearchController'})
+            .when('/search/:term/:disType/Service', {templateUrl: 'app/components/search/serviceSearch.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ServiceSearchController'})
             .when('/discuss/:discussId', {templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussDetailController'})
 
             .when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html?versionTimeStamp=%PROJECT_VERSION%', controller: ''})

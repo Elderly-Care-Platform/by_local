@@ -72,7 +72,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 $scope.unauthorizeUserError = false;
 
                 postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
-                    $scope.$parent.showProfile();
+                    $scope.$parent.showReviews();
                     $scope.reviewText = "";
                     $("#by_rate_hide").hide();
                     $("#by_rate_show").show();

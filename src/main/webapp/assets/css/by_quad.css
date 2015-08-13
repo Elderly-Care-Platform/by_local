@@ -1,5 +1,5 @@
 .by_blog_author img {
-	width: 43px !important;
+	width: 43px;
 }
 
 .by_blog_author>img {
@@ -71,9 +71,23 @@
 	float: left;
 	margin-top: 3px;
 }
+
+.article-share-links .add-comment {
+	height: 28px;
+	font-size: 15px;
+	padding: 1px 5px 1px 5px !important;
+	border: 1px solid #ccc;
+	border-radius: 2px !important;
+	min-width: 45px;
+	text-align: left;
+	margin-left: 2px;
+	background: url('../img/icons/button-gray.jpg?versionTimeStamp=%PROJECT_VERSION%')
+}
+
 .add-comment-FC
 {
 	background:url('../img/icons/comment_b.jpg?versionTimeStamp=%PROJECT_VERSION%') !important;
+	border: 1px solid #007a43 !important;
 }
  .add-comment-FC .text
  {
@@ -82,6 +96,7 @@
 .add-comment-FA 
 {
 	background:url('../img/icons/orange_bg.jpg?versionTimeStamp=%PROJECT_VERSION%') !important;
+	border:1px solid #d36e41 !important;
 }
 .add-comment-FA .text
 {
@@ -143,18 +158,6 @@
 
 .by_blog_author .news-v3 .post-shares li {
 	margin-left: 10px !important;
-}
-
-.article-share-links .add-comment {
-	height: 28px;
-	font-size: 15px;
-	padding: 1px 5px 1px 5px !important;
-	border: 1px solid #ccc;
-	border-radius: 1px !important;
-	min-width: 45px;
-	text-align: left;
-	margin-left: 2px;
-	background: url('../img/icons/button-gray.jpg?versionTimeStamp=%PROJECT_VERSION%')
 }
 
 
@@ -263,16 +266,16 @@
 
 .questionTag {
 	position: absolute;
-	 right: 10px;
-    top: -6px;
-	z-index: 10px;
+	right: -5px;
+    top: -4px;
+	z-index: 10;
 	width:85px;
 	height:89px;
 }
 .questionTag img
 {
-	width:102px !important;
-	height:107px;
+	width:85px;
+	height:89px;
 }
 
 .discussion-page .blog-author {

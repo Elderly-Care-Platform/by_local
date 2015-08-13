@@ -224,4 +224,13 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                 iconNode.addClass("fa-angle-down");
             }
         }
+
+
+        $scope.isAllowedToReview = function(service){
+            if(localStorage.getItem("USER_ID") !== service.userId){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }]);

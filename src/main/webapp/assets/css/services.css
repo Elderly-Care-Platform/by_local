@@ -89,7 +89,7 @@
 	margin-bottom: 3px;
 }
 
-#service-card-desciption-detail {
+#profile-shortDesc {
 	padding-left: 0px;
 	padding-top: 5px;
 	overflow:hidden;
@@ -103,7 +103,19 @@
 .service-card-desciption img {
 	display: none;
 }
-
+.add-comment-FA .icon-rate
+{
+	background:url('../img/icons/rate_mo_icon.png');
+	width:19px;
+	height:19px;
+	margin: 0px 5px 0px 5px;
+}
+.service-rating_p
+{
+	border:1px solid #d36e41;
+	padding:0 5px 0 1px;
+	border-radius: 2px !important;
+}
 .serviceRating, .serviceReview {
 	float: left;
 	margin-bottom: 0px !important;

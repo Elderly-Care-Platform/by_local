@@ -5,13 +5,6 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         $scope.slideIndex = 1;
 
         var reviewDetails = new ReviewRateProfile();
-        $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
-            $scope.reviews = response.data.replies;
-        }, function(error){
-            console.log(error)
-        })
-
-
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){
                 $scope.slideIndex = 1;
@@ -29,7 +22,7 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
                 $scope.slideIndex--;
             }
 
-        }
+        };
 
         $scope.galleryClickHover = function(){
             $(".by-imageGallery-item").css('cursor', 'pointer');
@@ -39,41 +32,22 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
                 $('#imagemodal').modal('show');
 
             });
-
-           
-
-
-            var byimageGallerywidth = $(".by-imageGallery").width();
-
-
-            /*$(".by-imageGallery-item, .profileHoverImages").hover(function(event){
-             event.stopPropagation();
-             var urlHover = $(this).attr('data-hover');
-             $(".profileHoverImages").find('img').attr('src', urlHover);
-             $(".profileHoverImages").show();
-             setTimeout(function(){
-             var hoverHeight = $(".main-image").height() + 106;
-             var hoverOffLeft =  28;
-             $(".profileHoverImages").css('left', hoverOffLeft +"px");
-             $(".profileHoverImages").css('top', hoverHeight +"px");
-             $(".profileHoverImages").css('width', byimageGallerywidth +"px");
-             }, 100);
-
-             }, function(event){
-             $(".profileHoverImages").hide();
-             });*/
-
-
-        }
+        };
         
         $scope.showMore = function(){
-            document.getElementById("service-card-desciption-detail-more").style.display = "block";
-            document.getElementById("service-card-desciption-detail").style.display = "none";
-        }
+            document.getElementById("profile-desc").style.display = "block";
+            document.getElementById("profile-shortDesc").style.display = "none";
+        };
         
-        $scope.showLess = function(){
-            document.getElementById("service-card-desciption-detail-more").style.display = "none";
-            document.getElementById("service-card-desciption-detail").style.display = "block";
-        }
+
+        $scope.showReviews = function(){
+            $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+                $scope.reviews = response.data.replies;
+            }, function(error){
+                console.log(error)
+            })
+        };
+
+        $scope.showReviews();
 
     }]);

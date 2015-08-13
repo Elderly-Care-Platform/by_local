@@ -336,16 +336,17 @@ public class UserProfileController {
 	}
 	
 	private String getShortDescription(UserProfile profile){
-		String shortDescription = null;
-		if(null != profile.getBasicProfileInfo() && null != profile.getBasicProfileInfo().getDescription()){
-			Document doc = Jsoup.parse(profile
-					.getBasicProfileInfo()
-					.getDescription());
-			String desc = Util.truncateText(doc.text());
-			if(!desc.equals(shortDescription)){
-				shortDescription = desc;
-			}
-		}
+		 String shortDescription = null;
+         if(null != profile.getBasicProfileInfo() && null != profile.getBasicProfileInfo().getDescription()){
+                 Document doc = Jsoup.parse(profile
+                                 .getBasicProfileInfo()
+                                 .getDescription());
+                 String longDesc = doc.text();
+                 String desc = Util.truncateText(doc.text());
+                 if(longDesc != null && !desc.equals(longDesc)){
+                         shortDescription = desc;
+                 }
+         }
 		return shortDescription;
 	}
 

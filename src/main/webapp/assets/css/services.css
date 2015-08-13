@@ -20,7 +20,6 @@
 	-webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
 	background: #fff;
 	border-radius: 4px !important;
-	position:relative;
 }
 .serviceFeatured
 {
@@ -29,7 +28,7 @@
 	background:url('../img/feature/featured.png');
 	position:absolute;
 	z-index:10;
-	top: -7px;
+	top: -5px;
     right: -6px;
 }
 .service-card[data-index="discussion-articles"] {

@@ -207,6 +207,22 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         	}   	
         };
 
+        $scope.showAllServices = function($event, service){
+            var parentNode = $($event.target.parentElement),
+                linkNode = parentNode.find(".serviceShowMoreLink"),
+                iconNode = parentNode.find(".serviceShowMoreIcon");
 
+            service.showMoreServices = (service.showMoreServices===false)? true : false;
+            var linkText = (linkNode.text().trim()==="More") ? "Less" : "More";
+            linkNode.text(linkText);
 
+            if(service.showMoreServices){
+                iconNode.addClass("fa-angle-up");
+                iconNode.removeClass("fa-angle-down");
+            }else{
+                iconNode.removeClass("fa-angle-up");
+                iconNode.addClass("fa-angle-down");
+            }
+            $scope.$apply();
+        }
     }]);

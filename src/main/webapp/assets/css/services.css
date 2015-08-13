@@ -141,7 +141,7 @@
 	content: '';
 }
 
-.by-service-disInl {
+.by-service-inline {
 	display: inline-block;
 	max-width: calc(100% - 168px);
 }

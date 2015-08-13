@@ -1,45 +1,32 @@
-
     <div ng-click="location($event, service.userId, service.userTypes)"
          class="margin-bottom-35 service-card" data-index="discussion-articles"
-         ng-if="service.systemTags.length > 0">
-         <div class="serviceFeatured" ng-if="service.featured == true"></div>
+         ng-if="service.systemTags.length > 0" ng-init="service.showMoreServices=false;">
+        <div class="serviceFeatured" ng-if="service.featured == true"></div>
         <div class="col-md-12">
-            <div
-                    class="col-lg-12 col-md-12 col-sm-12 col-xs-12 service-card-info dp-inline-block">
-				<div class="service-card-image service-card-image-height divLeft"> <img ng-if="service.basicProfileInfo.profileImage" ng-init="profileImage(service)" 
-                            src="{{service.basicProfileInfo.profileImage.thumbnailImage}}"
-                            alt="image" 
-                            fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/profile/individual_female_small.png"]'
-                            >
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 service-card-info dp-inline-block">
+				<div class="service-card-image service-card-image-height divLeft">
+                    <img ng-if="service.basicProfileInfo.profileImage" ng-init="profileImage(service)"
+                            src="{{service.basicProfileInfo.profileImage.thumbnailImage}}" alt="image"
+                            fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/profile/individual_female_small.png"]'>
 					
 					<img ng-if="!service.basicProfileInfo.profileImage && service.individualInfo.sex == 1" 
-                         src="assets/img/profile/individual.png"
-                         alt="image" 
-                         >
+                         src="assets/img/profile/individual.png" alt="image">
+
                      <img ng-if="!service.basicProfileInfo.profileImage && service.individualInfo.sex == 0" 
-                         src="assets/img/profile/individual_female_small.png"
-                         alt="image" 
-                         >    
-                         
-                        
-					
+                         src="assets/img/profile/individual_female_small.png" alt="image">
 				</div>
 
-                <div class="by-service-disInl divLeft">
+                <div class="by-service-inline divLeft">
                     <div class="article ng-scope">
                         <div class="article-heading" style="padding-top:0px; margin-top:-6px;">
-                            <p style="text-transform: capitalize" class="ng-binding">
-                                {{service.basicProfileInfo.firstName}}</p>
+                            <p style="text-transform: capitalize" class="ng-binding">{{service.basicProfileInfo.firstName}}</p>
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="no-padding"
-                         ng-if="service.reviewCount > 0 || service.ratingCount > 0">
+                    <div class="no-padding" ng-if="service.reviewCount > 0 || service.ratingCount > 0">
                         <div class="serviceRating" ng-if="service.ratingPercentage">
-                            <i class="rounded-x"
-                               rate-calculator="{{service.ratingPercentage}}"></i>Rated by <a
-                                href="">{{service.ratingCount}} user<xy
-                                    ng-if="service.ratingCount > 1">s
+                            <i class="rounded-x" rate-calculator="{{service.ratingPercentage}}"></i>Rated by
+                            <a href="">{{service.ratingCount}} user<xy ng-if="service.ratingCount > 1">s
                             </xy>
                         </a>
                         </div>
@@ -48,68 +35,70 @@
 								review<span ng-if="service.reviewCount > 1">s</span>
 						</div>
 						<div style="clear: both; height:12px;"></div>
-					</div><div class="clearfix"></div>
-					
-				
-					
+					</div>
+                    <div class="clearfix"></div>
+
                     <div class="no-padding" >
-                        <div class="divLeft" ng-if="service.basicProfileInfo.primaryUserAddress.locality ||
-						 service.basicProfileInfo.primaryUserAddress.city " style="margin-right:25px;">
+                        <div class="divLeft" style="margin-right:25px;"
+                             ng-if="service.basicProfileInfo.primaryUserAddress.locality || service.basicProfileInfo.primaryUserAddress.city">
 						<i class="fa fa-map-marker divLeft" style="margin-right:10px;  color:#A9A9A9;  font-size: 20px; "></i>
-                            <span
-								ng-if="service.basicProfileInfo.primaryUserAddress.locality">
+                            <span ng-if="service.basicProfileInfo.primaryUserAddress.locality">
 								{{service.basicProfileInfo.primaryUserAddress.locality}}, 
 							</span>
-							<span
-								ng-if="service.basicProfileInfo.primaryUserAddress.city">
+							<span ng-if="service.basicProfileInfo.primaryUserAddress.city">
 								&nbsp;{{service.basicProfileInfo.primaryUserAddress.city}} </span>
-                        </div><div style="clear: both; height:10px;"></div>
-                        </div> 
-                      <div class="no-padding" >  
+                        </div>
+                        <div style="clear: both; height:10px;"></div>
+                    </div>
+                    <div class="no-padding" >
                         <div class="divLeft" style="margin-right:25px;">
 							<span ng-if="service.serviceProviderInfo.homeVisits"><b>Available</b>
-								for home visit</span> <span
-								ng-if="!service.serviceProviderInfo.homeVisits"><b>Not
-									available</b> for home visit</span>
+								for home visit</span>
+                            <span ng-if="!service.serviceProviderInfo.homeVisits"><b>Not
+									available</b> for home visit
+                            </span>
 						</div>
-							<div class="divLeft" ng-if="service.serviceProviderInfo.yearsExperience > 0">
+                        <div class="divLeft" ng-if="service.serviceProviderInfo.yearsExperience > 0">
 							{{service.serviceProviderInfo.yearsExperience}} year<span ng-if="service.serviceProviderInfo.yearsExperience > 1">s</span>
 							of experience
-							</div>
+                        </div>
 						<div style="clear: both; height:10px;"></div>
-					</div><div class="clearfix"></div>
-					
-					
-					
-					
-
-                    
+					</div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
-
         </div>
         <div style="clear: both; height:2px;"></div>
 
-		<div class="article col-md-12 col-sm-12">
-			<ul class="list-inline categoryList" style="margin-left: 5px;">
-				<li class="list-inline" style="margin-right: 7px;">Service in</li>
-				<li class="list-inline"
-					ng-repeat="category in service.serviceProviderInfo.services"
-					style="display: inline-block; margin-right: 7px;"> <a
-					class="ng-binding"
-					di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
-						{{$root.menuCategoryMap[category].displayMenuName}} </a>
-				</li>
-			</ul>
-		</div>
-		<div class="clearfix"></div>
+        <div class="article col-md-12 col-sm-12">
+            <ul class="list-inline categoryList" style="margin-left: 5px;">
+                <li class="list-inline" style="margin-right: 7px;">Service in</li>
+                <li class="list-inline" ng-repeat="category in service.serviceProviderInfo.services"
+                    style="display: inline-block; margin-right: 7px;" ng-if="$index < 5">
+                    <a class="ng-binding"
+                       di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+                        {{$root.menuCategoryMap[category].displayMenuName}}
+                    </a>
+                </li>
+                <li class="list-inline" ng-repeat="category in service.serviceProviderInfo.services"
+                    style="display: inline-block; margin-right: 7px;" ng-if="$index >= 5 && service.showMoreServices===true">
+                    <a class="ng-binding"
+                       di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+                        {{$root.menuCategoryMap[category].displayMenuName}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
 
-		
-
-        <div class="col-md-12" style="margin-top: -10px;">
-        	<a class="diveLeft by_readmore">More<i class="fa fa-angle-down" style="margin-left: 2px; font-size: 16px;"></i></a>
+        <div class="col-md-12 serviceCardMoreLinks" style="margin-top: -10px;">
+            <a class="diveLeft by_readmore serviceShowMoreLink" ng-if="service.serviceProviderInfo.services.length > 5"
+               ng-click="showAllServices($event, service);$event.stopPropagation();" style="display: inline">
+                More
+            </a>
+            <i class="fa fa-angle-down serviceShowMoreIcon" ng-click="showAllServices($event, service);$event.stopPropagation();"
+               style="margin-left: 2px; font-size: 16px;"></i>
             <a class="divRight by_readmore">Detail<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
-
             <div style="clear: both"></div>
         </div>
         <div style="clear: both; height:7px;"></div>

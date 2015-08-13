@@ -369,9 +369,9 @@
 }
 
 .also-by-wrapper {
-	border: 1px solid #ccc;
+	border-left: 1px solid #ccc;
 	padding-bottom: 1px !important;
-	border-top: 0px;
+	border-bottom: 1px solid #ccc;
 }
 
 .also-by-content {

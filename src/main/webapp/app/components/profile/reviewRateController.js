@@ -40,12 +40,14 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.getReview();
 
         $scope.selectRating = function(value){
+            $(".profileRatetext").removeClass("profileRate"+$scope.selectedRating);
             $(".by_btn_submit").removeAttr('disabled');
         	value = parseInt(value);
-            $(".by_rating_left .text").css('color', '#000');
+            $(".by_rating_left .profileRatetext").css('color', '#000');
+
+            $(".profileRate"+value).siblings(".profileRatetext").addClass("profileRate"+value);
+            $(".profileRate"+value).siblings(".profileRatetext").css('color','#fff');
             $scope.selectedRating = value;
-            $(".profileRate"+value).siblings(".text").addClass("profileRate"+value);
-            $(".profileRate"+value).siblings(".text").css('color','#fff');
         }
 
         $scope.postReview = function(){
@@ -71,6 +73,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
 
                 postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
                     $scope.$parent.showProfile();
+                    $scope.reviewText = "";
                     $("#by_rate_hide").hide();
                     $("#by_rate_show").show();
                 }, function(errorResponse){

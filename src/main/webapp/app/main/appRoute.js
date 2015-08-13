@@ -11,7 +11,9 @@ byApp.config(['$routeProvider',
             .when('/discuss/:topicId/all', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussCategoryController'})
             .when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussSubCategoryController'})
 
-            .when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html', controller: 'DiscussSearchController'})
+            .when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html', controller: 'SearchController'})
+            .when('/search/:term/:disType/Discuss', {templateUrl: 'app/components/search/discussSearch.html', controller: 'DiscussSearchController'})
+            .when('/search/:term/:disType/Service', {templateUrl: 'app/components/search/serviceSearch.html', controller: 'ServiceSearchController'})
             .when('/discuss/:discussId', {templateUrl: 'app/components/discussDetail/discussDetail.html', controller: 'DiscussDetailController'})
 
             .when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html', controller: ''})

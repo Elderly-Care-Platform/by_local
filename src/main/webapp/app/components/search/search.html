@@ -1,222 +1,38 @@
-<div ng-controller="LoadCustomJSController"> </div>
 
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<div class="container by_home_content">
+	<div class="row" ng-if="discuss.length > 0">
+		<div class="col-md-3 md-margin-bottom-40"
+			ng-include="'app/components/search/searchLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 
-        <div class="breadcrumbs">
-            <div class="container">
-                <div class="pull-left sort-wrapper breadcrumb">SORT BY:
-                   <select>
-                       <option>Newest</option>
-                       <option>Oldest</option>
-                   </select>
-               </div>
+		<div
+			class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper">
 
-               <!--
-                <ul class="pull-right breadcrumb">
-                <li class="active"><a href="#/discuss/All/list/all">Discuss</a></li>
-				<li class="active"><a href="#/discuss/{{bc_discussType}}/{{bc_topic}}/all" ng-click="showme=false">{{bc_topic}}</a></li>
-				<li>{{bc_subTopic}}</li>
-				-->
-            </ul>
-        </div>
-    </div><!--/breadcrumbs-->
-    <!--=== End Breadcrumbs ===-->
-	<br><p><p>
-    <hr class="breadcrumb-divider" />
-    <!--=== Content Part ===-->
-    <div class="container content discussion-page">
+			<div id="home_featured_services"
+				class="col-md-12 no-padding  list-head dp-block">POSTS/Q&A</div>
+			<div
+				ng-include="'app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 
-        <div class="ask-question-textarea textarea-label borderShadow" id="Q" style="height: 158px; top: 273px; left: 109px;">
-        <form novalidate ng-submit="register('Q')" ng-controller="DiscussCreateController">
-            <textarea id="ask-question" rows="3" placeholder="Please enter your question" class="question-text"></textarea>
-            <button class="btn btn-u question-submit disabled">SUBMIT</button>
-        </form>
-        </div>
-
-        <div class="share-tip-textarea textarea-label borderShadow" id="P" style="height: 158px; top: 315px; left: 109px;">
-			<form novalidate class="form-horizontal" ng-submit="register('P')" ng-controller="DiscussCreateController">
-			<textarea id="share-tip" ng-model="discuss.text" rows="3" placeholder="Share your tips and experience" class="share-tips-text"></textarea>
-			<button class="btn btn-u share-tips-submit disabled">SUBMIT</button>
-			</form>
 		</div>
+		<div class="col-md-12 no-padding margin-bottom-30 more-link">
+		    <a ng-click="showMore('Discuss')">More...</a>
+		</div>
+	</div>
 
-        <div class="submit-article-textarea textarea-label borderShadow" id="A">
+	<div class="row" ng-if="services.length > 0">
+	<div class="col-md-3 md-margin-bottom-40"
+			></div>
+		<div
+			class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper">
 
-        <form novalidate class="form-horizontal" ng-submit="register('P')" ng-controller="DiscussCreateController">
+			<div id="home_featured_services"
+				class="col-md-12 no-padding  list-head dp-block">SERVICES</div>
+			<div
+				ng-include="'app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 
-            <div class="col-md-12">
-                <div class="col-md-12 alert zindexhigh whiteBg borderShadow rounded-r">
-                    <p>You can send us your article as a Word document with embedded images to <a href="mailto:content@beautifulyears.com">content@beautifulyears.com</a> But it would help us a lot if you enter it here.</p>
-                    <p>Please not that before posting on our site, your article could be edited.</p>
-                </div>
-            </div>
-            <div class="col-md-12 zindexhigh">
-                <div class="col-md-7 no-padding">
-                    <input type="text" ng-model="discuss.title" class="form-control borderShadow col-md-12" placeholder="Please enter the headline here. (Upto 80 characters)" />
-                </div>
-            </div>
-            <div class="col-md-12 zindexhigh">
-                <div class="col-md-3 no-padding">
-                    <button  class="btn btn-xs btn-success submitTextFileButton col-md-12">PLEASE UPLOAD A COVER PHOTO</button>
-                    <input type="file"  id="submitTextFile" />
-                </div>
-            </div>
-            <div class="col-md-12 zindexhigh">
-                 <textarea id="submit-article" ng-model="discuss.text" rows="3" placeholder="Please enter the  text of your article here." class="submit-article-text margin-top-10"></textarea>
-            </div>
-
-
-            <div class="col-md-12 zindexhigh margintop30 tminputWrapper">
-                <div class="col-md-12 no-padding">
-                    <input class="col-md-12 tm-input" ng-model="discuss.tags" name="tags" placeholder="Tag your keywords here" />
-                </div>
-
-                <button class="btn btn-u submit-article-submit disabled">SUBMIT</button>
-                <div class="previewButton">
-                    <img src="assets/img/Preview_Icon.png" width="100%" title="Preview" alt="Preview" />
-                </div>
-            </div>
-
-
-        </div>
-        <div class="give-feedback-textarea textarea-label borderShadow">
-            <textarea id="give-feedback" rows="3" placeholder="Please give your feedback" class="give-feedback-text"></textarea>
-            <button class="btn btn-u give-feedback-submit disabled">SUBMIT</button>
-        </div>
-        <div class="row both-container">
-            <div class="col-md-3 md-margin-bottom-40 left-container">
-                <div class="col-md-12 left-container-img-wrapper no-padding">
-                    <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
-                        <li class="list-group-item {{bc_discussType == 'Q' && 'selected active'}}" data-index="discussion-QA">
-							<a href="#/search/{{term}}/Q" ng-click="$rootScope.bc_discussType = 'Q'">Q &amp; A ({{q.length}})</a>
-
-						</li>
-						<li class="list-group-item {{bc_discussType == 'P' && 'selected active'}}" data-index="discussion-posts">
-							<a href="#/search/{{term}}/P" ng-click="$rootScope.bc_discussType = 'P'">POSTS ({{p.length}})</a>
-						</li>
-						<li class="list-group-item {{(bc_discussType == '' || bc_discussType == 'All')&& 'selected active'}}" data-index="discussion-articles">
-							<a href="#/search/{{term}}/All" ng-click="$rootScope.bc_discussType = 'All'">ALL ({{p.length + q.length}})</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-11 no-padding" ng-show="showme">
-                    <div class="ask-question"></div>
-                </div>
-                <div class="col-md-11 no-padding" ng-show="showme">
-                    <div class="share-tips"></div>
-                </div>
-                <div class="col-md-11 no-padding" ng-show="showme">
-                    <div class="submit-article"></div>
-                    <!-- <input id="fileopen" type="file" style="display: none"> -->
-                </div>
-                <div class="col-md-11 no-padding" ng-show="showme">
-                    <div class="give-feedback"></div>
-                </div>
-            </div>
-            <div class="col-md-9 col-md-offset-3 md-margin-bottom-40 article-outer-wrapper" ng-repeat="discuss in discuss">
-
-
-                <!-- Post Section -->
-                <div class="blog-author margin-bottom-15 main-article" data-index="discussion-articles" ng-show="discuss.discussType == 'P'" data-link="articles.html">
-                    <img src="assets/img/img1-md.jpg" alt="">
-                    <div class="blog-author-desc news-v3">
-                        <div class="article">
-                            <div class="article-info">
-                                <ul class="list-inline posted-info">
-                                    <li><a href="">By {{discuss.username !== "null"  ? discuss.username : "Anonymous"}}</a></li>
-									<li><a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">In {{discuss.subTopicId}}</a></li>
-                                    <li>{{discuss.createdAt | date:'medium'}}</li>
-                                </ul>
-                            </div>
-                            <div class="article-heading" ng-show="discuss.discussType == 'P'">
-                                <a href="#/discuss/{{discuss.id}}">{{!discuss.title && discuss.id || discuss.title}}</a>
-                            </div>
-                            <div class="article-content">
-                                 <p class="lead">
-									<span ng-bind-html="discuss.text"></span>
-								</p>
-
-                            </div>
-                            <div class="article-share-links news-v3">
-								<ul class="post-shares post-shares-lg">
-									<li class="add-comment">
-										<a href="#/comment/{{discuss.id}}">
-											<i class="rounded-x icon-speech"></i>
-											<span>{{discuss.aggrLikeCount}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<i class="rounded-x icon-share"></i>
-											<span>0</span>
-										</a>
-									</li>
-									<li class="add-comment" ng-show="discuss.discussType == 'Q'" ng-hide="discuss.discussType == 'P'">
-										<a href="">
-											<i class="rounded-x fa fa-retweet"></i>
-											<span>0</span>
-										</a>
-									</li>
-									<li>
-										<a href="" ng-click="UserLike(bc_userId,discuss.id)">
-											<i class="rounded-x icon-heart"></i>
-											<span id="like_count_message"></span>
-											<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
-										</a>
-									</li>
-								</ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Question Section -->
-                <div class="blog-author margin-bottom-15 main-article" data-index="discussion-QA" data-answers="0" data-question="1" data-link="discussion_QA.html" ng-show="discuss.discussType == 'Q'">
-                    <img src="assets/img/img1-md.jpg" alt="">
-                    <div class="blog-author-desc news-v3">
-                        <div class="article">
-                            <div class="article-info">
-                               <ul class="list-inline posted-info">
-                                <li><p class="question-first-letter">Question By <a href="">{{discuss.username}}</a></p></li>
-								<li>In <a href="#/discuss/{{bc_discussType}}/{{discuss.topicId}}/{{discuss.subTopicId}}">{{discuss.subTopicId}}</a></li>
-                                <li>{{discuss.createdAt | date:'medium'}}</li>
-                            </ul>
-                        </div>
-                        <div class="article-content">
-                            <p class="lead">
-								<span ng-bind-html="discuss.text"></span>
-							</p>
-                            </div>
-                            <div class="article-share-links news-v3">
-                                <ul class="post-shares post-shares-lg">
-									<li class="add-comment">
-										<a href="#/comment/{{discuss.id}}">
-											<i class="rounded-x fa fa-pencil-square-o"></i>
-											<span>0</span>
-										</a>
-									</li>
-									<li>
-										<a href="" ng-click="UserLike(bc_userId,discuss.id)">
-											<i class="rounded-x icon-heart"></i>
-											<span id="like_count_message"></span>
-											<span id="like_count_{{discuss.id}}"> {{discuss.aggrLikeCount}}</span>
-										</a>
-									</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-    </div>
-
+		</div>
+		<div class="col-md-12 no-padding margin-bottom-30 more-link">
+		    <a ng-click="showMore('Service')">More...</a>
+		</div>
+	</div>
 </div>
-</div>
-</div><!--/container-->
-
-<!-- we are hiring -->
-<!-- end we are hiring -->
-<!-- End Content Part -->

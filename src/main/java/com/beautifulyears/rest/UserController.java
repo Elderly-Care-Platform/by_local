@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.constants.UserRolePermissions;
-import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.LoginRequest;
 import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
@@ -43,6 +41,7 @@ import com.beautifulyears.social.google.GGraph;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * /** The REST based service for managing "users"

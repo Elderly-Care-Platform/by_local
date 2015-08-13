@@ -176,7 +176,34 @@ var discussComment = byServices.factory('DiscussComment', function($resource) {
 var discussSearch = byServices.factory('DiscussSearch', function($resource) {
 
     ///start here
-    return $resource(apiPrefix+'api/v1/search/:term',{}, {
+    return $resource(apiPrefix+'api/v1/search/:term/:discussType',{}, {
+        //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
+
+    })
+});
+
+var DiscussPageSearch = byServices.factory('DiscussPageSearch', function($resource) {
+
+    ///start here
+    return $resource(apiPrefix+'api/v1/search/discussPageSearch',{}, {
+        //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
+
+    })
+});
+
+var ServicePageSearch = byServices.factory('ServicePageSearch', function($resource) {
+
+    ///start here
+    return $resource(apiPrefix+'api/v1/search/servicePageSearch',{}, {
+        //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
+
+    })
+});
+
+var serviceSearch = byServices.factory('ServiceSearch', function($resource) {
+
+    ///start here
+    return $resource(apiPrefix+'api/v1/search/service/:term',{}, {
         //get: {method: 'GET', params: {discussType: '@discussType', topicId: '@topicId', subTopicId: '@subTopicId', userId: '@userId'}}
 
     })

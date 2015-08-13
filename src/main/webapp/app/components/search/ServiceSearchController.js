@@ -98,8 +98,8 @@ byControllers.controller('ServiceSearchController', ['$scope', '$rootScope', '$l
          $scope.loadMore = function ($event) {
              if ($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress) {
                  $scope.pageInfo.isQueryInProgress = true;
-                 queryParams.page = $scope.pageInfo.number + 1;
-                 queryParams.size = $scope.pageInfo.size;
+                 queryParams.p = $scope.pageInfo.number + 1;
+                 queryParams.s = $scope.pageInfo.size;
 
                  FindServices.get(queryParams, function (services) {
                          if (services.data.content.length > 0) {

@@ -16,7 +16,7 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','
      if(disType == 'All')
      {
 
-     	DiscussSearch.get({'term': $rootScope.term},function(value){
+     	DiscussSearch.get({'term': $rootScope.term,'p':0,'s':3},function(value){
      		$scope.discuss = value.data.content;
      		$scope.discussTotal = value.data.total;
      		function regexCallback(p1, p2,p3,p4) {
@@ -34,7 +34,7 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','
      		alert(e);
      	});
      	
-     	ServiceSearch.get({term: $rootScope.term},function(value){
+     	ServiceSearch.get({term: $rootScope.term,'p':0,'s':3},function(value){
      		$scope.services = value.data.content;
      		$scope.serviceTotal = value.data.total;
      		function regexCallback(p1, p2,p3,p4) {

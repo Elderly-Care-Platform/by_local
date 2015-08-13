@@ -1,5 +1,5 @@
 
-byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','$location', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch','ServiceSearch',
+byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','$location', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch','ServicePageSearch',
   function($scope, $rootScope, $route,$location, $routeParams, DiscussSearchForDiscussType, DiscussSearch,ServiceSearch) {
      $rootScope.term = $routeParams.term;
 
@@ -16,8 +16,9 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','
      if(disType == 'All')
      {
 
-     	DiscussSearch.query({term: $rootScope.term},function(value){
-     		$scope.discuss = value;
+     	DiscussSearch.get({'term': $rootScope.term},function(value){
+     		$scope.discuss = value.data.content;
+     		$scope.discussTotal = value.data.total;
      		function regexCallback(p1, p2,p3,p4) {
      		    return ((p2==undefined)||p2=='')?p1:'<i class="highlighted-text" >'+p1+'</i>';
      		}
@@ -29,10 +30,13 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','
      						$(b).html(result);
      						}
      				)},500);
+     	},function(e){
+     		alert(e);
      	});
      	
-     	ServiceSearch.query({term: $rootScope.term},function(value){
-     		$scope.services = value;
+     	ServiceSearch.get({term: $rootScope.term},function(value){
+     		$scope.services = value.data.content;
+     		$scope.serviceTotal = value.data.total;
      		function regexCallback(p1, p2,p3,p4) {
      		    return ((p2==undefined)||p2=='')?p1:'<i class="highlighted-text" >'+p1+'</i>';
      		}

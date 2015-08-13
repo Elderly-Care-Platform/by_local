@@ -10,6 +10,7 @@ public class PageImpl<T> {
 	private boolean lastPage = false;
 	private long number;
 	private long size;
+	private long total;
 
 	public PageImpl(List<T> content, Pageable pageable, long total) {
 		this.content = content;
@@ -18,6 +19,15 @@ public class PageImpl<T> {
 		if (((pageable.getPageNumber() + 1) * pageable.getPageSize()) > total) {
 			lastPage = true;
 		}
+		this.total = total;
+	}
+
+	public long getTotal() {
+		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
 	}
 
 	public long getSize() {

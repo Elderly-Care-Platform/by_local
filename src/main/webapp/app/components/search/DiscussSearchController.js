@@ -1,5 +1,5 @@
 byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$location','$route', '$routeParams'
-    ,'DiscussPageSearch', 'DiscussCount','$sce','$timeout', '$window',
+    ,'DiscussSearch', 'DiscussCount','$sce','$timeout', '$window',
     function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
     		DiscussCount,$sce, $timeout, $window) {
 

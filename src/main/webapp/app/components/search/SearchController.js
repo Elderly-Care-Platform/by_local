@@ -53,31 +53,8 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','
      	$scope.profileImage = function (service) {
             service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
          }
-		$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-	 	$scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
 	 }
      
-     $scope.go = function($event, type, id, discussType){
-         $event.stopPropagation();
-         if(type === "detail"){
-             $location.path('/discuss/'+id);
-         } else if(type === "menu" && $rootScope.menuCategoryMap){
-             var menu = $rootScope.menuCategoryMap[id];
-             //$(".selected-dropdown").removeClass("selected-dropdown");
-             //$("#" + menu.id).parents(".dropdown").addClass("selected-dropdown");
-             if(menu.module===0){
-                 $location.path("/discuss/list/"+menu.displayMenuName+"/"+menu.id+"/all");
-             }else if(menu.module===1){
-                 $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
-             }else{
-                 //nothing as of now
-             }
-         }else if(type === "accordian"){
-             $($event.target).find('a').click();
-         }else if(type === "comment") {
-             $location.path('/discuss/' + id).search({comment: true});
-         }
-     }
      
      $scope.location = function ($event, userId, userType) {
          $event.stopPropagation();

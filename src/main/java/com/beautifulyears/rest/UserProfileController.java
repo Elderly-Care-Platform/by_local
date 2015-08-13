@@ -341,11 +341,12 @@ public class UserProfileController {
 			Document doc = Jsoup.parse(profile
 					.getBasicProfileInfo()
 					.getDescription());
-			shortDescription = doc.text();
-			shortDescription = Util.truncateText(shortDescription);
+			String desc = Util.truncateText(doc.text());
+			if(!desc.equals(shortDescription)){
+				shortDescription = desc;
+			}
 		}
 		return shortDescription;
-		
 	}
 
 }

@@ -186,7 +186,7 @@
 		
 		<div style="clear:both;"></div>
         
-         <div class="row" ng-include="'app/components/profile/reviewRate.html'" ng-if="isAllowedToReview"></div>
+         <div class="row" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
 		  
 
 		<div ng-if="reviews && reviews.length > 0" class="row">

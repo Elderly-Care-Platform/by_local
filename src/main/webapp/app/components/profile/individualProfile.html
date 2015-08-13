@@ -180,8 +180,7 @@
 			<div class="articles-story">
 				<p id="service-card-desciption-detail"
 					ng-if="individualProfile.basicProfileInfo.shortDescription">
-					{{individualProfile.basicProfileInfo.shortDescription}}
-					<div class="clearfix"></div>
+					{{individualProfile.basicProfileInfo.shortDescription}}<br/>
 					<a
 						class="divRight by_readmore" ng-click="showMore()">Read More<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
 				</p>
@@ -194,7 +193,7 @@
 		</div>
 		<div style="clear:both;"></div>
 		
-		<div class="row" ng-include="'app/components/profile/reviewRate.html'" ng-if="isAllowedToReview"></div>
+		<div class="row" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
 		
 
 		<div ng-if="reviews && reviews.length > 0" class="row">

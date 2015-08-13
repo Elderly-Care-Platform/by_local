@@ -11,6 +11,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	    $('.carousel').carousel('cycle');
         $scope.currentAcceleratorSelected = "";
         var scrollable = false;
+        $scope.showFeaturedTag = false;
 
         $scope.$watch("posts", function (value) {
             if($scope.currentAcceleratorSelected === 'home_featured_articles'){

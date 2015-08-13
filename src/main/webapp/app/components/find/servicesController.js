@@ -11,6 +11,7 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         $scope.showSpecialityFilter = false;
         $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
+        $scope.showFeaturedTag = true;
 
         var city = $routeParams.city;
         var tags = [];

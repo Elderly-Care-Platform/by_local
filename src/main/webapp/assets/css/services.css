@@ -23,13 +23,13 @@
 }
 .serviceFeatured
 {
-	width:102px;
-	height:107px;
-	background:url('../img/feature/featured.png');
+	width:85px;
+	height:89px;
+	background:url('../img/feature/service.png?versionTimeStamp=%PROJECT_VERSION%');
 	position:absolute;
 	z-index:10;
-	top: -5px;
-    right: -6px;
+	top: -4px;
+    right: -5px;
 }
 .service-card[data-index="discussion-articles"] {
 	cursor: pointer;

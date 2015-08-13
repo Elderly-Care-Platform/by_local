@@ -71,21 +71,27 @@
 	float: left;
 	margin-top: 3px;
 }
-.add-comment-FC, .add-comment-FC .text
+.add-comment-FC
 {
 	background:url('../img/icons/comment_b.jpg?versionTimeStamp=%PROJECT_VERSION%') !important;
-	color:#fff !important;
 }
-.add-comment-FA, .add-comment-FA .text
+ .add-comment-FC .text
+ {
+	color:#fff !important;
+ }
+.add-comment-FA 
 {
 	background:url('../img/icons/orange_bg.jpg?versionTimeStamp=%PROJECT_VERSION%') !important;
-	color:#fff !important;
+}
+.add-comment-FA .text
+{
+	color:#fff !important;	
 }
 .add-comment-FA .icon-answer:before {
     content: url('../img/icons/answer-white.png?versionTimeStamp=%PROJECT_VERSION%');
 }
-.add-comment-FC .icon-speech {
-    margin-top:4px !important;
+.add-comment-FC .icon-speech:before {
+    content: url('../img/icons/comment.png?versionTimeStamp=%PROJECT_VERSION%');
 }
 .news-v3 .post-shares li span {
 	font-size: 11px;

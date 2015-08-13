@@ -254,5 +254,23 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         };
 
+        $scope.showAllServices = function($event, service){
+            var parentNode = $($event.target.parentElement),
+                linkNode = parentNode.find(".serviceShowMoreLink"),
+                iconNode = parentNode.find(".serviceShowMoreIcon");
+
+            service.showMoreServices = (service.showMoreServices===false)? true : false;
+            var linkText = (linkNode.text().trim()==="Show all") ? "Show less" : "Show all";
+            linkNode.text(linkText);
+
+            if(service.showMoreServices){
+                iconNode.addClass("fa-angle-up");
+                iconNode.removeClass("fa-angle-down");
+            }else{
+                iconNode.removeClass("fa-angle-up");
+                iconNode.addClass("fa-angle-down");
+            }
+        }
+
     }]);
 

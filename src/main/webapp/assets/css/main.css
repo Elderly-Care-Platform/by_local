@@ -31,8 +31,15 @@ body#tinymce{
     url('../font/century_gothic/gothic.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-
 }
+
+@font-face {
+    font-family: 'helvetica_narrow';
+    src: url("../font/helveticaneueltstd-ltcn.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 body p, body span, body div
 {

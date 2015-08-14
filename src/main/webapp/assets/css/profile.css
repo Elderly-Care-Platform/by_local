@@ -33,12 +33,12 @@
     text-align: center;
     height: 21px;
     border-radius: 50%;
-    padding: 0px 2px 4px 1px;
+    padding: 1px 2px 4px 1px;
     margin-right: 10px;
-    color: #fff;
+    color: #000;
     display: inline-block;
     font-size: 12px;
-    font-style:none;
+    font-family:helvetica_narrow;
 	font-style:normal;
 	letter-spacing:-0.5px;
 }

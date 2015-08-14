@@ -8,9 +8,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.beautifulyears.domain.Topic;
 import com.beautifulyears.repository.DiscussRepository;
-import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
 @Configuration
@@ -20,16 +19,12 @@ public class ApplicationConfig {
 
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception {
-		Mongo mongo = new Mongo("localhost", 27017);
+		MongoClient mongo = new MongoClient("localhost", 27017);
 		String databaseName = "demo";
 		MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo,
-				databaseName, null);// userCredentials);
+				databaseName);// userCredentials);
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);
 		mongoTemplate.setWriteConcern(WriteConcern.SAFE);
-
-		if (!mongoTemplate.collectionExists(Topic.class)) {
-			mongoTemplate.createCollection(Topic.class);
-		}
 
 		return mongoTemplate;
 	}

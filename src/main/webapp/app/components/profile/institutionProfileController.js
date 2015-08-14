@@ -3,6 +3,7 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
     function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
+<<<<<<< HEAD
 
         var reviewDetails = new ReviewRateProfile();
         $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
@@ -11,7 +12,10 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
             console.log(error)
         })
 
+=======
+>>>>>>> remotes/origin/profileChanges
 
+        var reviewDetails = new ReviewRateProfile();
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){
                 $scope.slideIndex = 1;
@@ -29,7 +33,33 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
                 $scope.slideIndex--;
             }
 
-        }
+        };
+
+        $scope.galleryClickHover = function(){
+            $(".by-imageGallery-item").css('cursor', 'pointer');
+            $(".by-imageGallery-item").click(function(){
+                var urlPopup = $(this).attr('data-popup');
+                $(".by_modal_body").find('img').attr('src', urlPopup);              
+                $('#imagemodal').modal('show');
+
+            });
+        };
+        
+        $scope.showMore = function(){
+            document.getElementById("profile-desc").style.display = "block";
+            document.getElementById("profile-shortDesc").style.display = "none";
+        };
+        
+
+        $scope.showReviews = function(){
+            $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+                $scope.reviews = response.data.replies;
+            }, function(error){
+                console.log(error)
+            })
+        };
+
+        $scope.showReviews();
 
         $scope.galleryClickHover = function(){
             $(".by-imageGallery-item").css('cursor', 'pointer');

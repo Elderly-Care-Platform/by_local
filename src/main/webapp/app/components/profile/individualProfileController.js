@@ -4,6 +4,7 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
         $scope.individualProfile = $scope.$parent.profileData;
         $scope.gender =  BY.config.profile.userGender[$scope.individualProfile.individualInfo.sex];
         $scope.slideIndex = 1;
+<<<<<<< HEAD
 
         var reviewDetails = new ReviewRateProfile();
         $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
@@ -12,6 +13,9 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
             console.log(error)
         })
 
+=======
+        var reviewDetails = new ReviewRateProfile();
+>>>>>>> remotes/origin/profileChanges
 
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){
@@ -29,13 +33,21 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
                 $('.by-gallery-container').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
                 $scope.slideIndex--;
             }
+<<<<<<< HEAD
 
         }
+=======
+        };
+>>>>>>> remotes/origin/profileChanges
 
         $scope.galleryImage = function(){
         	 var urlPopup = $(".by-imageGallery-item").eq(0).attr('data-popup');
              console.log(urlPopup);
+<<<<<<< HEAD
         }
+=======
+        };
+>>>>>>> remotes/origin/profileChanges
 
 
         $scope.galleryClickHover = function(){
@@ -46,6 +58,7 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
                 $('#imagemodal').modal('show');
 
             });
+<<<<<<< HEAD
 
 
 
@@ -73,6 +86,25 @@ byControllers.controller('IndividualProfileController', ['$scope', '$rootScope',
         }
 
 
+=======
+        };
+        
+        $scope.showMore = function(){
+            document.getElementById("profile-desc").style.display = "block";
+            document.getElementById("profile-shortDesc").style.display = "none";
+        };
+        
+
+        $scope.showReviews = function(){
+            $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+                $scope.reviews = response.data.replies;
+            }, function(error){
+                console.log(error)
+            })
+        };
+
+        $scope.showReviews();
+>>>>>>> remotes/origin/profileChanges
     }]);
 
 

@@ -395,112 +395,97 @@ byControllers.controller('DiscussCreateController', ['$scope', '$route', '$route
 
 
 //DISCUSS
-
-byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$route', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch',
-  function($scope, $rootScope, $route, $routeParams, DiscussSearchForDiscussType, DiscussSearch) {
-     $rootScope.term = $routeParams.term;
-
-	 //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
-	 //For now Discuss cannot be created from the search page.
-     $scope.showme = false;
-
-     var disType = $routeParams.disType;
-
-     $scope.discuss = "";
-
-     if(disType == 'All')
-     {
-
-     	DiscussSearch.query({term: $rootScope.term},function(value){
-     		$scope.discuss = value;
-     		function regexCallback(p1, p2,p3,p4) {
-     		    return ((p2==undefined)||p2=='')?p1:'<span class="highlighted-text" >'+p1+'</span>';
-     		}
-     		setTimeout(
-     				function(){
-     						$(".article-content").each(function(a,b){
-     							var myRegExp = new RegExp("<[^>]+>|("+$rootScope.term+")","ig");
-     						var result = $(b).html().replace(myRegExp,regexCallback);
-     						$(b).html(result);
-     						}
-     				)},500);
-     	});
-
-     	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
-		$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-	 	$scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
-	 }
-	 else if(disType == 'Q')
-	 {
-	 	//queries to get the numbers
-	 	$scope.discuss = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
-
-	 	$scope.q = $scope.discuss;
-
-	 	$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-	 	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
-	 }
-	 else if(disType == 'P')
-	 {
-		$scope.discuss = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-
-		$scope.p = $scope.discuss;
-		$scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
-		$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
-
-	 }
-	 else if(disType == 'A')
-	 {
-		 $scope.discuss = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
-
-		 $scope.a = $scope.discuss;
-		 $scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-	 	 $scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
-	 }
-	 else
-	 {
-		 $scope.discuss = DiscussSearch.query({term: $rootScope.term});
-
-		 $scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
-		 $scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
-	 	 $scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
-	 }
-
-	 $scope.term = $rootScope.term;
-
-
-	 $rootScope.bc_topic = 'list';
-	 $rootScope.bc_subTopic = 'all';
-	 $rootScope.bc_discussType = disType;
-
-	  //User Discuss Like method
-//	 	 $scope.UserLike = function(userId, discussId, index) {
-//			//only read-only allowed without login
-//	 		 
-//			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-//			{
-//				$rootScope.nextLocation = $location.path();
-//				$location.path('/users/login');
-//			}
-//			else
-//			{
-//	 			//Create the new discuss user like
-//	 			DiscussUserLikes.get({userId:userId, discussId: discussId}).$promise.then(
-//	 		             //success
-//	 		             function( value ){
-//	 		            	 $scope.discuss = value.data;
-//	 		             	},
-//	 		             //error
-//	 		             function( error ){
-//	 		             		console.log("QUErY ERROR");
-//	 		             		alert("error2");
-//	 		             		}
-//	 		           );
-//			}
 //
-//		}
-  }]);
-
+//byControllers.controller('DiscussSearchController', ['$scope', '$rootScope', '$route', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch','ServiceSearch',
+//  function($scope, $rootScope, $route, $routeParams, DiscussSearchForDiscussType, DiscussSearch,ServiceSearch) {
+//     $rootScope.term = $routeParams.term;
+//
+//	 //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
+//	 //For now Discuss cannot be created from the search page.
+//     $scope.showme = false;
+//
+//     var disType = $routeParams.disType;
+//
+//     $scope.discuss = "";
+//     $scope.pageInfo = {};
+//     $scope.pageInfo.lastPage = true;
+//
+//     if(disType == 'All')
+//     {
+//
+//     	DiscussSearch.query({term: $rootScope.term},function(value){
+//     		$scope.discuss = value;
+//     		function regexCallback(p1, p2,p3,p4) {
+//     		    return ((p2==undefined)||p2=='')?p1:'<i class="highlighted-text" >'+p1+'</i>';
+//     		}
+//     		setTimeout(
+//     				function(){
+//     						$(".blog-author").each(function(a,b){
+//     							var myRegExp = new RegExp("<[^>]+>|("+$rootScope.term+")","ig");
+//     						var result = $(b).html().replace(myRegExp,regexCallback);
+//     						$(b).html(result);
+//     						}
+//     				)},500);
+//     	});
+//     	
+//     	ServiceSearch.query({term: $rootScope.term},function(value){
+//     		$scope.services = value;
+//     		function regexCallback(p1, p2,p3,p4) {
+//     		    return ((p2==undefined)||p2=='')?p1:'<i class="highlighted-text" >'+p1+'</i>';
+//     		}
+//     		setTimeout(
+//     				function(){
+//     						$(".service-card").each(function(a,b){
+//     							var myRegExp = new RegExp("<[^>]+>|("+$rootScope.term+")","ig");
+//     						var result = $(b).html().replace(myRegExp,regexCallback);
+//     						$(b).html(result);
+//     						}
+//     				)},500);
+//     	});
+//
+//     	$scope.profileImage = function (service) {
+//            service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
+//         }
+//		$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
+//	 	$scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
+//	 }
+//	 else if(disType == 'Q')
+//	 {
+//	 	//queries to get the numbers
+//	 	$scope.discuss = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
+//
+//	 	$scope.q = $scope.discuss;
+//
+//	 	$scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
+////	 	$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
+//	 }
+//	 else if(disType == 'P')
+//	 {
+//		$scope.discuss = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
+//
+//		$scope.p = $scope.discuss;
+//		$scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
+//		$scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
+//
+//	 }
+//	 else
+//	 {
+//		 $scope.discuss = DiscussSearch.query({term: $rootScope.term});
+//
+////		 $scope.a = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'A' });
+//		 $scope.p = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'P' });
+//	 	 $scope.q = DiscussSearchForDiscussType.query({term: $rootScope.term, discussType: 'Q' });
+//	 }
+//
+//	 $scope.term = $rootScope.term;
+//
+//
+//	 $rootScope.bc_topic = 'list';
+//	 $rootScope.bc_subTopic = 'all';
+//	 $rootScope.bc_discussType = disType;
+//
+//  }]);
+//
 
 
 

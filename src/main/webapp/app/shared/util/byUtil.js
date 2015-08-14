@@ -43,7 +43,7 @@ BY.byUtil.inValidateSession = function(){
 	}
     var pro = document.getElementById('profile_placeholder');
     if(pro){
-    	pro.innerHTML = "JOIN US";
+    	pro.innerHTML = "Join us";
         pro.href = apiPrefix+"#/users/login";
        // window.location = "#/users/home";
     }
@@ -97,3 +97,14 @@ BY.byUtil.updateMetaTags = function(param){
 	$("meta[property='og\\:title']").attr("content", title);
 	$("meta[property='og\\:description']").attr("content", description);
 }
+<<<<<<< HEAD
+=======
+
+function resizeIframe(obj) {
+   // obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    //console.log(parent.obj);
+   // var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
+	//$(".by-quad-image iframe").attr('height', iframeHeightA);
+  }
+
+>>>>>>> remotes/origin/profileChanges

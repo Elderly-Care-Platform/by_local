@@ -1,3 +1,4 @@
+
 package com.beautifulyears.rest.response;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.jsoup.nodes.Document;
 
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
+import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.util.Util;
 
@@ -27,17 +29,46 @@ public class DiscussResponse implements IResponse {
 		private List<DiscussEntity> content = new ArrayList<DiscussEntity>();
 		private boolean lastPage;
 		private long number;
+<<<<<<< HEAD
+=======
+		private long size;
+		private long total;
+>>>>>>> remotes/origin/profileChanges
 
 		public DiscussPage() {
 			super();
 		}
 
+<<<<<<< HEAD
 		public DiscussPage(PageImpl<Discuss> page) {
+=======
+		public DiscussPage(PageImpl<Discuss> page, User user) {
+>>>>>>> remotes/origin/profileChanges
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (Discuss discuss : page.getContent()) {
-				this.content.add(new DiscussEntity(discuss, null));
+				this.content.add(new DiscussEntity(discuss, user));
 			}
+			this.size = page.getSize();
+			this.total = page.getTotal();
+		}
+		
+		
+
+		public long getTotal() {
+			return total;
+		}
+
+		public void setTotal(long total) {
+			this.total = total;
+		}
+
+		public long getSize() {
+			return size;
+		}
+
+		public void setSize(long size) {
+			this.size = size;
 		}
 
 		public List<DiscussEntity> getContent() {
@@ -82,6 +113,12 @@ public class DiscussResponse implements IResponse {
 		private boolean isLikedByUser = false;
 		private int aggrLikeCount = 0;
 		private long shareCount = 0;
+<<<<<<< HEAD
+=======
+		private int contentType;
+		private LinkInfo linkInfo;
+		private boolean isFeatured;
+>>>>>>> remotes/origin/profileChanges
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -91,10 +128,17 @@ public class DiscussResponse implements IResponse {
 			this.setUsername(discuss.getUsername());
 			this.setDiscussType(discuss.getDiscussType());
 			this.setText(discuss.getText());
+<<<<<<< HEAD
 			if(null == discuss.getShortSynopsis()){
 				Document doc = Jsoup.parse(discuss.getText());
 				String text = doc.text();
 				if(text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
+=======
+			if (null == discuss.getShortSynopsis()) {
+				Document doc = Jsoup.parse(discuss.getText());
+				String text = doc.text();
+				if (text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
+>>>>>>> remotes/origin/profileChanges
 					discuss.setShortSynopsis(Util.truncateText(text));
 				}
 			}
@@ -108,6 +152,49 @@ public class DiscussResponse implements IResponse {
 			if (null != user && discuss.getLikedBy().contains(user.getId())) {
 				this.setLikedByUser(true);
 			}
+			this.setContentType(discuss.getContentType());
+			this.setLinkInfo(discuss.getLinkInfo());
+			this.setFeatured(discuss.isFeatured());
+		}
+
+		public boolean isFeatured() {
+			return isFeatured;
+		}
+
+		public void setFeatured(boolean isFeatured) {
+			this.isFeatured = isFeatured;
+		}
+
+		public int getContentType() {
+			return contentType;
+		}
+
+		public void setContentType(int contentType) {
+			this.contentType = contentType;
+		}
+
+		public LinkInfo getLinkInfo() {
+			return linkInfo;
+		}
+
+		public void setLinkInfo(LinkInfo linkInfo) {
+			this.linkInfo = linkInfo;
+		}
+
+		public String getShortSynopsis() {
+			return shortSynopsis;
+		}
+
+		public void setShortSynopsis(String shortSynopsis) {
+			this.shortSynopsis = shortSynopsis;
+		}
+
+		public long getShareCount() {
+			return shareCount;
+		}
+
+		public void setShareCount(long shareCount) {
+			this.shareCount = shareCount;
 		}
 
 		public String getShortSynopsis() {
@@ -253,8 +340,13 @@ public class DiscussResponse implements IResponse {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
 
+<<<<<<< HEAD
 	public static DiscussPage getPage(PageImpl<Discuss> page) {
 		DiscussPage res = new DiscussPage(page);
+=======
+	public static DiscussPage getPage(PageImpl<Discuss> page, User user) {
+		DiscussPage res = new DiscussPage(page, user);
+>>>>>>> remotes/origin/profileChanges
 		return res;
 	}
 

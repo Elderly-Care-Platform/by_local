@@ -519,7 +519,13 @@ byApp.directive('autoComplete', function ($timeout) {
         scope: {
             options: '=?',
             details: '=?',
+<<<<<<< HEAD
             callback: '=?'
+=======
+            onSelectCallback: '=?',
+            obj: '=?',
+            onChangeCallback: '=?'
+>>>>>>> remotes/origin/profileChanges
         },
         link: function (scope, element, attrs) {
             element.autocomplete({
@@ -528,8 +534,18 @@ byApp.directive('autoComplete', function ($timeout) {
                     $timeout(function () {
                         element.trigger(event, item);
                         item.item.selected = true;
+<<<<<<< HEAD
                         scope.callback(item.item);
                     }, 0);
+=======
+                        scope.onSelectCallback(item.item, scope.obj);
+                    }, 0);
+                },
+                change: function(event, item){
+                    if(scope.onChangeCallback){
+                        scope.onChangeCallback(item.item, scope.obj);
+                    }
+>>>>>>> remotes/origin/profileChanges
                 }
             });
         }

@@ -85,6 +85,7 @@ ng-view {
     margin-top: 20px;
     padding: 6px;
     color: #D3A643;
+<<<<<<< HEAD
 }
 
 .article-info {
@@ -154,6 +155,77 @@ ng-view {
     color: #000 !important;
 }
 
+=======
+}
+
+.article-info {
+    font-size: 13.963px; /* Approximation due to font substitution */
+    font-weight: 400;
+    margin-top: 14px;
+    display: inline-block;
+    display: table;
+}
+
+.article-info a {
+
+}
+
+.article {
+    text-align: left;
+}
+
+.article-heading {
+    font-size: 22.806px; /* Approximation due to font substitution */
+    font-weight: bold;
+    line-height: 25.901px; /* Approximation due to font substitution */
+    margin-top: 10px;
+}
+
+.article-content {
+    font-size: 14px; /* Approximation due to font substitution */
+    font-weight: 400;
+    line-height: 29.139px; /* Approximation due to font substitution */
+    margin-top: 10px;
+}
+
+.article-content:first-letter {
+    font-size: 38.806px;
+    font-weight: bold;
+    color: #00af50;
+}
+
+.article-share-links.news-v3 li span {
+    left: 16px;
+}
+
+.article-share-links.news-v3 li a {
+    text-decoration: none;
+}
+
+.article-share-links.news-v3 li .post-text {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13.96px;
+}
+
+.post-text:hover {
+    text-decoration: underline;
+}
+
+.text-underlined {
+    text-decoration: underline;
+}
+
+.article-comments-wrapper {
+    margin-top: 20px;
+    color: #8c8c8c;
+}
+
+.article-comments-wrapper p {
+    color: #000 !important;
+}
+
+>>>>>>> remotes/origin/profileChanges
 .right-container {
     padding-left: 30px;
     padding-right: 0px;
@@ -413,7 +485,11 @@ ng-view {
 
 .footer-v1 {
     clear: both;
+<<<<<<< HEAD
     z-index: 100;
+=======
+    z-index: 0;
+>>>>>>> remotes/origin/profileChanges
     position: relative;
 }
 
@@ -441,6 +517,7 @@ button.register-btn {
 .discussion-QA, .discussion-posts, .discussion-articles {
     display: none;
 }
+<<<<<<< HEAD
 
 .in-page {
     display: block;
@@ -619,6 +696,186 @@ button.register-btn {
     font-size: 20px;
 }
 
+=======
+
+.in-page {
+    display: block;
+}
+
+.register-page .sidebar-nav-v1 li {
+    display: block;
+    padding: 8px 30px 8px 10px;
+}
+
+.discussion-page .sidebar-nav-v1 li {
+    display: block;
+    padding: 8px 30px 8px 10px;
+}
+
+.register-page .sidebar-nav-v1 li.selected {
+    background-color: #00af50;
+    color: white !important;
+}
+
+.register-page {
+    padding-top: 0;
+    color: #858585;
+    font-size: 12.955px; /* Approximation due to font substitution */
+    font-weight: 400;
+    line-height: 25.901px; /* Approximation due to font substitution */
+    text-align: left;
+}
+
+.register-page .left-container {
+    border-style: solid;
+    border-width: 0px;
+    border-color: #cfcfcf;
+}
+
+.register-page .textbox {
+    width: 95%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E5E5E5;
+    border-left-width: 2px;
+    border-left-color: #00af50;
+    border-radius: 0;
+    font-size: 14px;
+    font-size: 13px;
+    color: black;
+}
+
+.register-page .textbox::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.margin-right-20 {
+    margin-right: 20px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+.text-green {
+    color: #12B215;
+}
+
+.reg-border-top {
+    border-width: 0px;
+    border-color: #c2c2c2;
+    border-style: solid;
+    border-top-width: 1px;
+}
+
+.padding-top-10 {
+    padding-top: 10px;
+}
+
+.no-padding-left {
+    padding-left: 0;
+}
+
+.no-padding-right {
+    padding-right: 0;
+}
+
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+.register-page textarea.textbox {
+    resize: none;
+    width: 100%;
+}
+
+.reg-images {
+    width: 100%;
+}
+
+.register-page .border-grey {
+    border-color: #CBCBCB;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 3px 3px 3px #c2c2c2;
+}
+
+.register-page .bg-success {
+    padding: 5px;
+}
+
+.register-page .border-grey label {
+    font-size: 15px;
+}
+
+.dropdown-wrapper {
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    display: none;
+}
+
+.breadcrumbs {
+    position: fixed;
+    width: 100%;
+    padding: 0;
+    z-index: 10;
+    border-bottom: 0px;
+}
+
+.breadcrumb {
+    padding: 0px 15px 0px 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: -2px;
+}
+
+.blog-author-desc .article-content p {
+    font-size: 14px;
+    padding-right: 19px;
+}
+
+.inner-enter-comment-wrap {
+    margin-top: 10px;
+    width: 95%;
+    background-color: #F2F2F2;
+    margin: 10px;
+}
+
+.news-v3 .post-shares li {
+    padding: 0;
+    margin-left: 11px;
+}
+
+.posted-info li {
+    font-style: normal;
+    font-size: 14px;
+}
+
+.article-share-links.news-v3 {
+    text-align: right;
+}
+
+.articles-page .article-share-links .post-shares li {
+    margin-left: 11px;
+}
+
+.discussion-page .question-first-letter:first-letter {
+    color: #ff4e00;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.discussion-page .question-first-letter:first-letter {
+    color: #ff0000;
+    font-size: 20px;
+}
+
+>>>>>>> remotes/origin/profileChanges
 .discussion-page .article-first-letter:first-letter {
     /*color:#00d16f;*/
     font-size: 20px;
@@ -828,6 +1085,7 @@ button.register-btn {
 .service a button {
     font-style: normal;
 }
+<<<<<<< HEAD
 
 
 .list-group-item {
@@ -910,6 +1168,90 @@ a {
     }
 
 
+=======
+
+
+.list-group-item {
+    border-color: #D2D2D2;
+}
+
+.article-wrapper .content, .QA-wrapper .content {
+    padding-top: 0;
+}
+
+.article-wrapper .posted-info li:first-child a {
+    display: block;
+}
+
+.textarea-label .btn-u {
+    padding: 2px 6px;
+    margin-top: 3px;
+}
+
+.mci-btn i {
+    text-shadow: none;
+}
+
+a {
+    cursor: pointer;
+}
+
+.hidden-article-comment {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .posted-info li {
+        line-height: 15px;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .article-content .articleTitleImage {
+        max-width: 444px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .QA-wrapper .sidebar-nav-v1 {
+        margin: 0;
+    }
+
+    .QA-wrapper .container-fluid > .navbar-collapse {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .onphone-col-header {
+        width: 100%;
+    }
+
+    .header .equal-height-list h3 {
+        border-bottom: none !important;
+    }
+
+    .header li.text-center {
+        text-align: left;
+    }
+
+    .header .col-md-4.equal-height-in.no-padding-top {
+        padding-left: 0px;
+    }
+
+    .header .list-unstyled.equal-height-list li a {
+        margin-left: 5px;
+    }
+
+    .left-container {
+        position: relative;
+    }
+
+    .breadcrumbs {
+        position: relative;
+    }
+
+
+>>>>>>> remotes/origin/profileChanges
 }
 
 .alert {
@@ -1214,5 +1556,11 @@ ul.social-ul {
 
 .margin-top-25 {
     margin-top: 25px;
+<<<<<<< HEAD
+=======
+}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
+    z-index: 0;
+>>>>>>> remotes/origin/profileChanges
 }
 

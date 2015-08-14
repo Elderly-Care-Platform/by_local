@@ -30,7 +30,11 @@ BY.config.sectionHeader = {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'services',
             'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home! Check out our services directory for solutions to your problems, with reviews and overviews.',
+<<<<<<< HEAD
             'sectionImage':'assets/img/section_headers/Services.jpg',
+=======
+            'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
             'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
     },
@@ -49,7 +53,11 @@ BY.config.sectionHeader = {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'products',
             'sectionDesc':'Need a light weight wheelchair? Or a stable walker? Or even a walking stick. You can find everything from knee braces to adult diapers and more in this section. Our product catalogue and reviews will show you the way!',
+<<<<<<< HEAD
             'sectionImage':'assets/img/section_headers/product.jpg',
+=======
+            'sectionImage':'assets/img/section_headers/product.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
             'sectionImageMobile':'assets/img/section_headers/product_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
     },
@@ -62,7 +70,11 @@ BY.config.sectionHeader = {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'housing',
             'sectionDesc':'If you need a home away from home for your parents, or for yourself, just check out our overviews and reviews of senior housing to find the best fit for them.',
+<<<<<<< HEAD
             'sectionImage':'assets/img/section_headers/Housing.jpg',
+=======
+            'sectionImage':'assets/img/section_headers/Housing.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
             'sectionImageMobile':'assets/img/section_headers/Housing_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
     },
@@ -99,74 +111,122 @@ BY.config.sectionHeader = {
     'personal hygiene' : {
         'sectionHead':'Personal Hygiene',
         'sectionDesc':'Coping with elders’ bathing and toileting issues? Dealing with old age smells? Find out how others are coping – learn from their experiences and share yours with them!',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Caregiving.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Caregiving.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Caregiving_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'mobility & transportation' : {
         'sectionHead':'Mobility & Transportation',
         'sectionDesc':'Is your mother bedridden? Is your father housebound? Learn how to get them up and about – safely and effectively.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Caregiving.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Caregiving.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Caregiving_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'stress & burnout' : {
         'sectionHead':'Stress & Burnout',
         'sectionDesc':'Exhausted? Stressed? Can’t take any more? Learn how to deal with caregivers stress and burnout. Share in the experiences of others like you.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Caregiving.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Caregiving.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Caregiving_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'medical conditions' : {
         'sectionHead':'Medical Conditions',
         'sectionDesc':'Does your mom have Alzheimer’s? Is your dad suffering from incontinence? Find out the best ways to deal with elder care medical issues.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/health.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'food & nutrition' : {
         'sectionHead':'Food & Nutrition',
         'sectionDesc':'What are the foods a diabetic should avoid? What is a healthy diet for a heart patient? Learn all about the nutritional needs of your elders – right here!',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/health.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'medication' : {
         'sectionHead':'Medication',
         'sectionDesc':'Is your mother over-medicating? Is your father forgetting his pills? Check out ways to monitor and control medication for elders.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/health.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'wellness' : {
         'sectionHead':'Wellness',
         'sectionDesc':'If you want a holistic approach to keeping your elders healthy, read all about ‘keep fit’ measures, yoga, meditation, exercise and so much more…',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/health.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'healthcare at home' : {
         'sectionHead':'Healthcare at Home',
         'sectionDesc':'Need blood samples to be taken? Or a nursing aid or physiotherapist at home? Need help with bathing and toileting? Or getting medical equipment? Check our listings to locate healthcare professionals who make house calls.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Services.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'general home assistance' : {
         'sectionHead':'General Home assistance',
         'sectionDesc':'If you need general assistance at home to help your parents; or if you need bills paid or electrical work done; or if you just need domestic help - you are in the right place.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Services.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'services for active seniors' : {
         'sectionHead':'Services for Active Seniors',
         'sectionDesc':'Interested in senior travel? Want to take your parents on a pilgrimage? Check out service providers and what they can offer you.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Services.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'legal & counselling' : {
         'sectionHead':'Legal & Counselling',
         'sectionDesc':'If you or your elders want to know more about making a Will or about inheritance laws; or if you need investment or insurance advice – find professionals here who can help you.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Services.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     
     'miscellaneous' : {
         'sectionHead':'Miscellaneous',
         'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home! Check out our services directory for solutions to your problems, with reviews and overviews.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Services.jpg',
+=======
+        'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
+>>>>>>> remotes/origin/profileChanges
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     
@@ -182,7 +242,11 @@ BY.config.caregivingSH = {
     'Stories' : {
         'sectionHead':'Stories',
         'sectionDesc':'Taking care of your elders? Meet others like yourself. Read their stories and learn how they cope – know you are not alone.',
+<<<<<<< HEAD
         'sectionImage':'assets/img/section_headers/Caregiving.jpg'
+=======
+        'sectionImage':'assets/img/section_headers/Caregiving.jpg?versionTimeStamp=%PROJECT_VERSION%'
+>>>>>>> remotes/origin/profileChanges
     }
 }
 

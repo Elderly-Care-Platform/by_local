@@ -7,7 +7,27 @@
 	margin: -1px 0;
 	position: relative;
 }
+<<<<<<< HEAD
 
+=======
+.header .dropdown-menu {
+    padding: 0;
+    border: none;
+    min-width: 200px;
+    border-radius: 0;
+    z-index: 100 !important;
+    border: 1px solid #545454;
+    box-shadow: 1px 2px 5px 5px rgba(10, 10, 10, 0.17);
+    -webkit-box-shadow: 1px 2px 5px 5px rgba(10, 10, 10, 0.17);
+    -ms-box-shadow: 1px 2px 5px 5px rgba(10, 10, 10, 0.17);
+    background: #fff;
+}
+
+.header .topbar ul.loginbar > li > a, .header .topbar ul.loginbar > li > a:hover
+{
+	text-transform:capitalize;
+}
+>>>>>>> remotes/origin/profileChanges
 .header {
 	top: 0px;
 	width: 100%;
@@ -158,7 +178,10 @@
 .header .mega-menu .equal-height-list h3 {
 	padding: 0px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> remotes/origin/profileChanges
 @media ( min-width : 768px) {
 	.navbar-nav>li>a {
 		padding-top: 9px;
@@ -185,7 +208,11 @@
 	}
 
 	.selected-dropdown > a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+<<<<<<< HEAD
 		background-color: #004f24 !important;
+=======
+		/*background-color: #004f24 !important;*/
+>>>>>>> remotes/origin/profileChanges
 	}
 
 	.header .navbar-nav>li {
@@ -283,9 +310,17 @@
 }
 
 @media screen and (max-width: 992px) {
+<<<<<<< HEAD
 	.header {
 		position: relative;
 		height: auto;
+=======
+	
+	.header {
+		position: relative;
+		height: auto;
+		z-index: 0;
+>>>>>>> remotes/origin/profileChanges
 	}
 	.header .topbar ul.loginbar {
 		padding: 0px;
@@ -313,7 +348,10 @@
 }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> remotes/origin/profileChanges
 @media screen and (max-width: 450px) {
 	.header .logo, .header .logo img {
 		width: 156px;
@@ -338,4 +376,25 @@
 	.searchLeft {
 		width: 140px !important;
 	}
+<<<<<<< HEAD
+=======
+}
+
+@media only screen and (min-width:992px) and (max-width: 1200px){
+	.header .navbar-nav>li
+	{
+		padding-top:0px;
+		padding-bottom:0px;
+	}
+	.header .navbar-nav>li>a
+	{
+		padding-right:19px;
+		margin-bottom: 0px;
+		line-height:28px;
+	}
+	.nav .open>a, .nav .open>a:focus, .nav .open>a:hover
+	{
+		background-color:#004f24 ;
+	}
+>>>>>>> remotes/origin/profileChanges
 }

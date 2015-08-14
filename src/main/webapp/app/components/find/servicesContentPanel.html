@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div ng-repeat="service in services" data-index="discussion-articles"
      data-link="articles.html" class="ng-scope">
 
@@ -80,4 +81,17 @@
 
         <div style="clear: both"></div>
     </div>
+=======
+<div ng-repeat="service in services" class="ng-scope" style="position:relative;">
+	<div ng-include="'app/components/find/servicesInstitutionContentPanel.html'"
+		ng-if="service.userTypes[0] == 4"></div>
+	<div ng-include="'app/components/find/servicesIndividualContentPanel.html'"
+		ng-if="service.userTypes[0] == 7"></div>
+
+</div>
+
+<div class="animation_image" style="display: block" align="center"
+	 ng-if="showFeaturedTag && services && services.length > 0 && !pageInfo.lastPage || pageInfo.isQueryInProgress">
+	<img src="assets/img/ajax_scroll_loading.gif" style="margin-bottom: 20px">
+>>>>>>> remotes/origin/profileChanges
 </div>

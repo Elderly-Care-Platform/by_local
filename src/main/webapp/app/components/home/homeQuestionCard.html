@@ -9,6 +9,7 @@
 </div>
 <div style="clear:both;"></div>
 
+<<<<<<< HEAD
 <div ng-repeat="question in questions" data-index="discussion-articles"
      data-link="articles.html" on-finish-render="ngRepeatFinished" style="position:relative;">
      
@@ -31,12 +32,26 @@
                         |
                     </p>
                     <p  ng-if="question.discussType == 'P'">
+=======
+<div ng-repeat="question in questions" data-index="discussion-articles" data-link="articles.html" >
+    <!-- show if discuss is of type Article -->
+    <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
+        <img src="assets/img/by.png" alt="image">
+        <div class="article-info dp-inline-block">
+            <ul class="list-inline posted-info" style="margin-right:80px !important;">
+                <li>
+                    <p>
+>>>>>>> remotes/origin/profileChanges
                         By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
                 </li>
                 <li time-since="{{question.createdAt}}"></li>
+<<<<<<< HEAD
                  <li ng-if="question.topicId.length > 0">
+=======
+                <li ng-if="question.topicId.length > 0">
+>>>>>>> remotes/origin/profileChanges
                     | In
                 </li>
 
@@ -48,6 +63,7 @@
                         <span ng-if="$index < question.topicId.length-1">,</span>
                     </p>
                 </li>
+<<<<<<< HEAD
                
             </ul><div style="clear: both"></div>
                 
@@ -56,6 +72,14 @@
 
        
           <div class="article  col-md-12" ng-if="question.discussType == 'A'">
+=======
+            </ul>
+            <div style="clear: both"></div>
+        </div>
+
+       
+        <div class="article  col-md-12" ng-if="question.discussType == 'P'">
+>>>>>>> remotes/origin/profileChanges
             <div class="article-heading"><p style="text-transform: uppercase;">
                 {{question.title}}</p>
             </div>
@@ -68,6 +92,7 @@
         <div style="clear: both"></div>
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
             <ul class="post-shares post-shares-lg">
+<<<<<<< HEAD
                 <li class="add-comment"
                     ng-if="question.aggrReplyCount > 0 && (question.discussType == 'A' || question.discussType == 'P')">
                     <a href="#">
@@ -131,11 +156,44 @@
         </div>
         <div style="clear: both"></div>
         
+=======
+                <li class="add-comment" ng-if="question.directReplyCount > 0">
+                    <a href="#">
+                        <i class="rounded-x icon-answer ng-scope" title="Answers" ></i>
+                        <span>{{question.directReplyCount}}</span>
+                        <div class="text">Answer</div>
+                    </a>
+                </li>
+
+                <li class="add-comment add-comment-FA" ng-if="question.directReplyCount == 0">
+                    <a>
+                        <i class="rounded-x icon-answer ng-scope" title="Answers" ></i>
+                        <div class="text" ng-click="go($event,'comment', question.id)">Be the first  to answer</div>
+                    </a>
+                </li>
+
+                <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
+                    <a ng-click="likeDiscuss(question.id)">
+                        <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[question.likedByUser===false]" title="Likes"></i>
+                        <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]" title="Likes"></i>
+                        <span ng-if="beforePost && question.aggrLikeCount > 0" >{{question.aggrLikeCount}}</span>
+                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" >{{aggrLikeCount}}</span>
+                    </a>
+
+                    <div class="post-text">
+                        <div ng-click="likeDiscuss(question.id)" class="text">Like</div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+        <div style="clear: both"></div>
+>>>>>>> remotes/origin/profileChanges
     </div>
 </div>
 
 
 
-<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html">
-    <a href="#discuss/Q/list/all">More...</a>
+<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html" ng-if="!questionsPageInfo.lastPage && contentType==='all'">
+    <a ng-click="showMore('Q')">More...</a>
 </div>

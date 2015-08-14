@@ -23,7 +23,11 @@ public class FBConnection {
 	static String accessToken = "";
 
 	public String getFBAuthUrl(HttpServletRequest req) {
+<<<<<<< HEAD
 		redirectURI = System.getProperty("path")
+=======
+		FBConnection.redirectURI = System.getProperty("path")
+>>>>>>> remotes/origin/profileChanges
 				+ FBConnection.REDIRECT_URI;
 		String fbLoginUrl = "";
 		try {
@@ -32,7 +36,7 @@ public class FBConnection {
 					+ "client_id="
 					+ FBConnection.FB_APP_ID
 					+ "&redirect_uri="
-					+ URLEncoder.encode(redirectURI, "UTF-8")
+					+ URLEncoder.encode(FBConnection.redirectURI, "UTF-8")
 					+ "&scope=public_profile,email";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -45,7 +49,7 @@ public class FBConnection {
 		try {
 			fbGraphUrl = "https://graph.facebook.com/oauth/access_token?"
 					+ "client_id=" + FBConnection.FB_APP_ID + "&redirect_uri="
-					+ URLEncoder.encode(redirectURI, "UTF-8")
+					+ URLEncoder.encode(FBConnection.redirectURI, "UTF-8")
 					+ "&client_secret=" + FB_APP_SECRET + "&code=" + code;
 			logger.debug(fbGraphUrl);
 		} catch (UnsupportedEncodingException e) {

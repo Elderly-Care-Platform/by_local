@@ -33,7 +33,7 @@ BY.addEditor = function(param, initCallback){
             "insertdatetime media paste emoticons"
         ];
     }else{
-        toolbar =  "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink emoticons image media  preview ";
+        toolbar =  "styleselect | bold italic | bullist numlist hr  | undo redo | link unlink | emoticons | image media |  preview ";
         plugins = [
             "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
@@ -48,6 +48,9 @@ BY.addEditor = function(param, initCallback){
         menubar: false,
         content_css : "assets/css/tinyMce_custom.css",
         plugins: plugins,
+        target_list: [
+                      {title: 'New page', value: '_blank'}
+                ],
         toolbar: toolbar,
         setup : function(ed) {
             var placeholder = $('#' + ed.id).attr('placeholder');
@@ -120,7 +123,9 @@ BY.addEditor = function(param, initCallback){
                 console.log('remove event', e);
             });
         }
+    
     });
+    
 
 }
 

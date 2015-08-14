@@ -41,6 +41,12 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                     else if (response.address_components[i].types[0] == "postal_code") {
                         //this is the object you are looking for
                         addressObj.zip = response.address_components[i].long_name;
+<<<<<<< HEAD
+=======
+                    }
+                    else if (response.address_components[i].types.indexOf("sublocality") != -1 && response.address_components[i].types.indexOf("political") != -1) {
+                        $scope.address.locality = response.address_components[i].long_name;
+>>>>>>> remotes/origin/profileChanges
                     }
                 }
 
@@ -271,6 +277,14 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ( $scope.profile.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
+            
+            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
+            	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+            }
+            
+
+            $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 

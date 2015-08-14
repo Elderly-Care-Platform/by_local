@@ -41,6 +41,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
 
 
         $scope.showProfile();
+<<<<<<< HEAD
 
         $scope.reviewContent = function(){
             $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].reviewContentPanel;
@@ -54,5 +55,36 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             return $sce.trustAsHtml(html);
         };
         
+=======
+        $scope.reviewContent = function(){
+           // $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].reviewContentPanel;
+        }
+
+        $scope.displayProfile = function(){
+            $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
+        }
+
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
+        };
+
+        $scope.showAllServices = function($event, service){
+            var parentNode = $($event.target.parentElement),
+                linkNode = parentNode.find(".serviceShowMoreLink"),
+                iconNode = parentNode.find(".serviceShowMoreIcon");
+
+            service.showMoreServices = (service.showMoreServices===false)? true : false;
+            var linkText = (linkNode.text().trim()==="Show all") ? "Show less" : "Show all";
+            linkNode.text(linkText);
+
+            if(service.showMoreServices){
+                iconNode.addClass("fa-angle-up");
+                iconNode.removeClass("fa-angle-down");
+            }else{
+                iconNode.removeClass("fa-angle-up");
+                iconNode.addClass("fa-angle-down");
+            }
+        }
+>>>>>>> remotes/origin/profileChanges
        
     }]);

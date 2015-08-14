@@ -25,7 +25,11 @@
                     <div class="row no-padding register-page" style="margin: 0px; ">
                         <div class="col-md-10 col-sm-10 no-padding">
                             <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
+<<<<<<< HEAD
                                    placeholder="Speciality" ng-model="selectedSpeciality" required callback="specialityCallback"/>
+=======
+                                   placeholder="Speciality" ng-model="selectedSpeciality" required on-select-callback="specialityCallback"/>
+>>>>>>> remotes/origin/profileChanges
                         </div>
                         <div class="col-md-2 col-sm-2">
                             <i class="fa fa-search"></i>
@@ -58,16 +62,11 @@
 
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
             <i class="icon-custom icon-sm icon_question"></i>
-            <span>Ask a Question</span>
-        </div>
-        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Tips')">
-            <i class="icon-custom icon-sm icon_tips"></i>
-            <span>Share Experiences</span>
-            </a>
+            <span>Ask</span>
         </div>
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
             <i class="icon-custom icon-sm icon_story"></i>
-            <span>Publish Your Story</span>
+            <span>Post</span>
         </div>
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Feedback')">
             <i class="icon-custom icon-sm icon_feedback"></i>

@@ -22,7 +22,11 @@ public class GGConnection {
 	static String accessToken = "";
 
 	public String getGGAuthUrl(HttpServletRequest req) {
+<<<<<<< HEAD
 		redirectURI = System.getProperty("path")
+=======
+		GGConnection.redirectURI = System.getProperty("path")
+>>>>>>> remotes/origin/profileChanges
 				+ GGConnection.REDIRECT_URI;
 		String ggLoginUrl = "";
 		try {
@@ -30,7 +34,7 @@ public class GGConnection {
 					+ "client_id="
 					+ URLEncoder.encode(GGConnection.GG_APP_ID, "UTF-8")
 					+ "&redirect_uri="
-					+ URLEncoder.encode(redirectURI, "UTF-8")
+					+ URLEncoder.encode(GGConnection.redirectURI, "UTF-8")
 					+ "&response_type=code" + "&scope=email%20profile";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -46,7 +50,7 @@ public class GGConnection {
 		rawData.append("&");
 		rawData.append("client_secret=" + GG_APP_SECRET);
 		rawData.append("&");
-		rawData.append("redirect_uri=" + redirectURI);
+		rawData.append("redirect_uri=" + GGConnection.redirectURI);
 		rawData.append("&");
 		rawData.append("grant_type=authorization_code");
 
@@ -71,38 +75,5 @@ public class GGConnection {
 		JSONObject json = new JSONObject(b.toString());
 		String accessToken = json.getString("access_token");
 		return accessToken;
-		// if ("".equals(accessToken)) {
-		// URL fbGraphURL;
-		// try {
-		// fbGraphURL = new URL(getGGraphUrl(code));
-		// } catch (MalformedURLException e) {
-		// e.printStackTrace();
-		// throw new RuntimeException("Invalid code received " + e);
-		// }
-		// URLConnection fbConnection;
-		// StringBuffer b = null;
-		// try {
-		// fbConnection = fbGraphURL.openConnection();
-		// BufferedReader in;
-		// in = new BufferedReader(new InputStreamReader(
-		// fbConnection.getInputStream()));
-		// String inputLine;
-		// b = new StringBuffer();
-		// while ((inputLine = in.readLine()) != null)
-		// b.append(inputLine + "\n");
-		// in.close();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// throw new RuntimeException("Unable to connect with Google "
-		// + e);
-		// }
-		//
-		// accessToken = b.toString();
-		// if (accessToken.startsWith("{")) {
-		// throw new RuntimeException("ERROR: Access Token Invalid: "
-		// + accessToken);
-		// }
-		// }
-		// return accessToken;
 	}
 }

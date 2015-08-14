@@ -84,12 +84,19 @@
 
                         </div>
                     </div>
+<<<<<<< HEAD
                     <span ng-show="minCategoryError && submitted"
                           class="errorRed">Please select at least one category</span>
+=======
+                    <span ng-show="minCategoryError && submitted" class="errorRed">
+                        Please select at least one category
+                    </span>
+>>>>>>> remotes/origin/profileChanges
                 </div>
 
             </div>
 
+<<<<<<< HEAD
             <div class="row margin-bottom-20 marginRightMinus5" ng-if="showSpeciality">
                 <div class="col-md-5 required">
                     Please enter speciality
@@ -99,6 +106,17 @@
                            placeholder="Speciality" ng-model="selectedSpecialityLabel" required callback="selectSpecialty"/>
 
                     <span ng-show="individualForm.speciality.$invalid && submitted" class="errorRed">Please enter your speciality</span>
+=======
+            <div class="row margin-bottom-20 marginRightMinus5" ng-repeat="filter in filters">
+                <div class="col-md-5 required">
+                    Please enter {{filter.filterName}}
+                </div>
+                <div class="col-md-7 no-padding-right register-page">
+                    <input type="text" class="name-textbox textbox " auto-complete options="filter.specialities" obj="filter" on-change-callback="selectSpecialty"
+                           placeholder="Speciality" ng-model="filter.selectedSpecialityName" required on-select-callback="selectSpecialty"/>
+
+                    <span ng-show="filter.specialityError && submitted" class="errorRed">Please enter your speciality</span>
+>>>>>>> remotes/origin/profileChanges
                 </div>
             </div>
 
@@ -304,7 +322,11 @@
 
 
             <div class="col-md-12 margin-bottom-10">
+<<<<<<< HEAD
                 <div class="row home-address byEditor">
+=======
+                <div class="row home-address byEditor" style="border:1px solid #ccc;">
+>>>>>>> remotes/origin/profileChanges
                     <textarea class="textbox " rows="3" id="registrationDescription"
                               ng-model="basicProfileInfo.description"></textarea>
                 </div>

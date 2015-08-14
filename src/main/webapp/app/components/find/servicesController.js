@@ -11,11 +11,24 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
         $scope.showSpecialityFilter = false;
         $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
+<<<<<<< HEAD
+=======
+        $scope.showFeaturedTag = true;
+>>>>>>> remotes/origin/profileChanges
 
         var city = $routeParams.city;
         var tags = [];
         var queryParams = {p:0,s:10};
         
+<<<<<<< HEAD
+=======
+        
+        
+        $scope.profileImage = function (service) {
+           service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
+        }
+        
+>>>>>>> remotes/origin/profileChanges
         $scope.updateSectionHeader = function(){
         	var menuName = $scope.selectedMenu.displayMenuName.toLowerCase().trim();
         	$scope.sectionHeader = BY.config.sectionHeader[menuName];
@@ -34,11 +47,19 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         	} 
         	//console.log($scope.sectionHeader);
         };
+<<<<<<< HEAD
 
         if($scope.selectedMenu){
             $(".selected-dropdown").removeClass("selected-dropdown");
             $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
 
+=======
+
+        if($scope.selectedMenu){
+            $(".selected-dropdown").removeClass("selected-dropdown");
+            $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
+
+>>>>>>> remotes/origin/profileChanges
             tags = $.map($scope.selectedMenu.tags, function(value, key){
                 return value.id;
             })
@@ -103,11 +124,18 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         //}
 
         $scope.showFilters = function () {
+<<<<<<< HEAD
             var category = $rootScope.findCategoryListMap ? $rootScope.findCategoryListMap[queryParams.services] : null;
             if (category && category.parentId && category.parentId !== null && category.childCount > 0) {
                 $scope.showSpecialityFilter = true;
                 $scope.specialities = $.map(category.children, function (value, key) {
                     return {label: value.name, value: value.name, id: value.id};
+=======
+            if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName!==null && $scope.selectedMenu.children.length > 0) {
+                $scope.showSpecialityFilter = true;
+                $scope.specialities = $.map($scope.selectedMenu.children, function (value, key) {
+                    return {label:value.displayMenuName, value:value.displayMenuName, obj:value};
+>>>>>>> remotes/origin/profileChanges
                 });
             }
         }
@@ -120,7 +148,10 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             return $sce.trustAsHtml(html);
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> remotes/origin/profileChanges
 
         $scope.location = function ($event, userId, userType) {
             $event.stopPropagation();
@@ -129,10 +160,17 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             }
         }
 
-        //Editor initialize
         $scope.add = function (type) {
+<<<<<<< HEAD
         }
         //Editor post callback
+=======
+            $scope.error = "";
+            $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            window.scrollTo(0, 0);
+        };
+
+>>>>>>> remotes/origin/profileChanges
         $scope.postSuccess = function () {
             $route.reload();
         }
@@ -149,7 +187,18 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         }
 
         $scope.specialityCallback  = function (speciality){
+<<<<<<< HEAD
             queryParams.services = speciality.id;
+=======
+            //angular.forEach($scope.specialities, function(data, index){
+            //    if(tags.indexOf(data.obj.tags[0].id) > -1){
+            //        tags.splice(tags.indexOf(data.obj.tags[0].id), 1);
+            //    }
+            //});
+
+            tags = speciality.obj.tags[0].id;
+            queryParams.tags = tags.toString();
+>>>>>>> remotes/origin/profileChanges
             $scope.getData(queryParams);
         }
 
@@ -172,6 +221,46 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                     function (error) {
                         console.log("Services on city not found");
                     });
+<<<<<<< HEAD
+=======
+            }
+        }
+        
+        angular.element($window).bind("scroll", function() {
+        	$scope.sliderHeight = $(".by_section_header").height();
+        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+        	}else{
+        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        	}
+        });
+        
+        $scope.resize = function(height, width){
+        	if(width > 730){
+        		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+        	} else{
+        		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+        	}   	
+        };
+
+        $scope.showAllServices = function($event, service){
+            var parentNode = $($event.target.parentElement),
+                linkNode = parentNode.find(".serviceShowMoreLink"),
+                iconNode = parentNode.find(".serviceShowMoreIcon");
+
+            service.showMoreServices = (service.showMoreServices===false)? true : false;
+            var linkText = (linkNode.text().trim()==="Show all") ? "Show less" : "Show all";
+            linkNode.text(linkText);
+
+            if(service.showMoreServices){
+                iconNode.addClass("fa-angle-up");
+                iconNode.removeClass("fa-angle-down");
+            }else{
+                iconNode.removeClass("fa-angle-up");
+                iconNode.addClass("fa-angle-down");
+>>>>>>> remotes/origin/profileChanges
             }
         }
         
@@ -196,4 +285,12 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
 
 
 
+
+        $scope.isAllowedToReview = function(service){
+            if(localStorage.getItem("USER_ID") !== service.userId){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }]);

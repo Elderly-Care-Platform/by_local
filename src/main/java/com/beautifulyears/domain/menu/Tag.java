@@ -3,10 +3,11 @@
  */
 package com.beautifulyears.domain.menu;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Nitin

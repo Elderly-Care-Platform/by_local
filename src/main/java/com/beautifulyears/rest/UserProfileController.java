@@ -12,7 +12,6 @@ import org.bson.types.ObjectId;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -32,6 +31,10 @@ import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.UserProfileResponse;
+<<<<<<< HEAD
+=======
+import com.beautifulyears.rest.response.UserProfileResponse.UserProfilePage;
+>>>>>>> remotes/origin/profileChanges
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 
@@ -141,6 +144,10 @@ public class UserProfileController {
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+<<<<<<< HEAD
+=======
+			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
+>>>>>>> remotes/origin/profileChanges
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -176,7 +183,11 @@ public class UserProfileController {
 
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
+<<<<<<< HEAD
 							tagIds, pageable), user);
+=======
+							tagIds,isFeatured, pageable), user);
+>>>>>>> remotes/origin/profileChanges
 			if (profilePage.getContent().size() > 0) {
 				logger.debug("found something");
 			} else {
@@ -202,7 +213,7 @@ public class UserProfileController {
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Page<UserProfile> userProfilePage = null;
+		UserProfilePage userProfilePage = null;
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
 				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
@@ -218,9 +229,16 @@ public class UserProfileController {
 			}
 
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
+<<<<<<< HEAD
 			userProfilePage = this.userProfileRepository
 					.getServiceProvidersByCriteria(userTypes, pageable);
 			if (userProfilePage.hasContent() == false) {
+=======
+			userProfilePage = UserProfileResponse.getPage(userProfileRepository
+					.getServiceProvidersByFilterCriteria(userTypes, null,
+							null,null, pageable), null);
+			if (userProfilePage.getContent().size() > 0) {
+>>>>>>> remotes/origin/profileChanges
 				logger.debug("did not find any service providers");
 			}
 
@@ -334,6 +352,7 @@ public class UserProfileController {
 	}
 	
 	private String getShortDescription(UserProfile profile){
+<<<<<<< HEAD
 		String shortDescription = null;
 		if(null != profile.getBasicProfileInfo() && null != profile.getBasicProfileInfo().getDescription()){
 			Document doc = Jsoup.parse(profile
@@ -344,6 +363,20 @@ public class UserProfileController {
 		}
 		return shortDescription;
 		
+=======
+		 String shortDescription = null;
+         if(null != profile.getBasicProfileInfo() && null != profile.getBasicProfileInfo().getDescription()){
+                 Document doc = Jsoup.parse(profile
+                                 .getBasicProfileInfo()
+                                 .getDescription());
+                 String longDesc = doc.text();
+                 String desc = Util.truncateText(doc.text());
+                 if(longDesc != null && !desc.equals(longDesc)){
+                         shortDescription = desc;
+                 }
+         }
+		return shortDescription;
+>>>>>>> remotes/origin/profileChanges
 	}
 
 }

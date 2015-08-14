@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed by_left_panel_homeSlider by_left_panel_homeSlider_position">
+=======
+<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
+>>>>>>> remotes/origin/profileChanges
     <div class="scrollableLeftPanelDiv">
         <img src="assets/img/by.png" alt="image" style="margin-top: 20px;">
         <div class="also-by-profile" ng-if="discuss">
@@ -9,11 +13,22 @@
         <div ng-if="articlesByUser.length > 0" class="also-by-wrapper left-container-img-wrapper no-padding">
             <div class="also-by-head col-md-12">{{header1}}<span class="also-by-head">{{header2}}</span></div>
             <div style="clear:both;"></div>
+<<<<<<< HEAD
             <div class="also-by-content" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id">
                 <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:16px; text-transform:capitalize;" href="#/discuss/{{article.id}}" >
                 {{article.title}}
                 </a></div>
                 <a href="#/discuss/{{article.id}}"><div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 150))" ></div></a>
+=======
+            <div class="also-by-content" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id && !article.linkInfo">
+                <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:16px; text-transform:capitalize;" href="#/discuss/{{article.id}}" >
+                {{article.title}}
+                </a></div>
+                <!--<div style="line-height:20px; padding-bottom:5px; " ng-if="article.linkInfo && article.linkInfo.title"><a style="font-size:16px; text-transform:capitalize;" href="#/discuss/{{article.id}}" >-->
+                    <!--{{article.linkInfo.title}}-->
+                <!--</a></div>-->
+                <a href="#/discuss/{{article.id}}"><div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div></a>
+>>>>>>> remotes/origin/profileChanges
                 <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
                     <li ng-if="article.topicId.length > 0">
                         In

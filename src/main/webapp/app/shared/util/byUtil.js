@@ -92,6 +92,10 @@ BY.byUtil.updateMetaTags = function(param){
 	if(!title && title===""){
 		title = description;
 	}
+	
+	if(title.indexOf("Beautiful Years") == -1){
+		title += " - Beautiful Years";
+	}
 
 	document.title = title;
 	$("meta[property='og\\:title']").attr("content", title);

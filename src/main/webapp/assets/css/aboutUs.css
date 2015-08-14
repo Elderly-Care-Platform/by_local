@@ -1,6 +1,12 @@
 .aboutUsParent {
     font-family: century_gothic !important;
 }
+
+.aboutUsParent .by_editor_wrap
+{
+    height:1039px;
+}
+
 .aboutBgBackground
 {
 	width:100%;
@@ -17,7 +23,7 @@
 	z-index:0;
 	right:0px;
 	top:90px;
-	left: calc((100vw - 858px )/2) !important;
+	left: calc((100vw - 888px )/2) !important;
 }
 .aboutUsOne {
    

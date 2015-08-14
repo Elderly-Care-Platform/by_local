@@ -2,13 +2,8 @@
  * Created by sanjukta on 02-07-2015.
  */
 //home
-<<<<<<< HEAD
-byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window',
-    function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window) {
-=======
 byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', 'DiscussPage', '$sce', '$window','FindServices',
     function ($scope, $rootScope, $routeParams, $timeout, $location, DiscussPage, $sce, $window,FindServices) {
->>>>>>> remotes/origin/profileChanges
 		$scope.carousalType = "carousel";
 		$('.carousel').carousel({
 	        interval: 8000
@@ -16,17 +11,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 	    $('.carousel').carousel('cycle');
         $scope.currentAcceleratorSelected = "";
         var scrollable = false;
-<<<<<<< HEAD
-        
-        $scope.$watch("articles", function (value) {
-            $timeout(
-                function () {
-                    $scope.scrollToId($scope.currentAcceleratorSelected)
-                }, 100);
-        });
-=======
         $scope.showFeaturedTag = false;
->>>>>>> remotes/origin/profileChanges
 
         $scope.$watch("posts", function (value) {
             if($scope.currentAcceleratorSelected === 'home_featured_articles'){
@@ -36,8 +21,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                     }, 100);
             }
 
-<<<<<<< HEAD
-=======
         });
 
         $scope.$watch("questions", function (value) {
@@ -61,7 +44,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         });
 
         $scope.homeViews = {};
->>>>>>> remotes/origin/profileChanges
         $scope.add = function (type) {
             //BY.removeEditor();
             $scope.currentView = "editor";
@@ -94,34 +76,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 $scope.currentView = "content";
                 $scope.homeViews.leftPanel = "app/components/home/homeLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-<<<<<<< HEAD
-                DiscussPage.get({discussType: 'A',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
-                		function(value){
-                				$scope.articles = value.data.content;
-                		},
-                		function(error){
-        			       	console.log("DiscussPage");
-//        			       	alert("error");
-                		});
-                DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
-                		function(value){
-                				$scope.posts = value.data.content;
-                		},
-                		function(error){
-        			       	console.log("DiscussPage");
-//        			       	alert("error");
-                		});
-                DiscussPage.get({discussType: 'Q',isFeatured:true,p:0,s:3,sort:"lastModifiedAt"},
-                		function(value){
-                				$scope.questions = value.data.content;
-                		},
-                		function(error){
-        			       	console.log("DiscussPage");
-//        			       	alert("error");
-                		});
-
-             
-=======
                 if($scope.contentType==="all" || $scope.contentType==="P"){
                     DiscussPage.get({discussType: 'P',isFeatured:true,p:0,s:$scope.contentSize,sort:"lastModifiedAt"},
                         function(value){
@@ -157,7 +111,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                             console.log("DiscussPage");
                         });
                 }
->>>>>>> remotes/origin/profileChanges
             } else {
                 $scope.scrollToId(scrollTo);
             }
@@ -240,26 +193,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $location.path($location.$$path).search({type: discussType});
         };
 
-<<<<<<< HEAD
-            $('.by_story').dotdotdot();
-        });
-        
-      
-        	
-        	 angular.element($window).bind("scroll", function() {
-	        	$scope.sliderHeight = $(".homeSlider").height();
-	        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
-	        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
-	        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
-	        	}else{
-	        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
-	        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
-	        	}
-	        });
-       
-        
-       
-=======
 
         $scope.loadMore = function($event){
             if($scope.contentType !=="all"){
@@ -338,7 +271,6 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 iconNode.addClass("fa-angle-down");
             }
         }
->>>>>>> remotes/origin/profileChanges
 
     }]);
 

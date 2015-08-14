@@ -22,11 +22,7 @@ public class GGConnection {
 	static String accessToken = "";
 
 	public String getGGAuthUrl(HttpServletRequest req) {
-<<<<<<< HEAD
-		redirectURI = System.getProperty("path")
-=======
 		GGConnection.redirectURI = System.getProperty("path")
->>>>>>> remotes/origin/profileChanges
 				+ GGConnection.REDIRECT_URI;
 		String ggLoginUrl = "";
 		try {

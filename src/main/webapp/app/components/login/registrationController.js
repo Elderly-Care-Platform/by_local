@@ -22,19 +22,11 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                     if($scope.profile.userTypes.indexOf(4)!== -1){
                         $scope.regLevel = 2;
                         $scope.sectionLabel = "INSTITUTION INFO";
-<<<<<<< HEAD
-                        $scope.views.contentPanel = "app/components/login/regInstitution.html";
-                    }else if($scope.profile.userTypes.indexOf(7)!== -1){
-                        $scope.regLevel = 2;
-                        $scope.sectionLabel = "INDIVIDUAL SERVICE PROVIDER INFO";
-                        $scope.views.contentPanel = "app/components/login/regIndividual.html";                    	
-=======
                         $scope.views.contentPanel = "app/components/login/regInstitution.html?versionTimeStamp=%PROJECT_VERSION%";
                     }else if($scope.profile.userTypes.indexOf(7)!== -1){
                         $scope.regLevel = 2;
                         $scope.sectionLabel = "INDIVIDUAL SERVICE PROVIDER INFO";
                         $scope.views.contentPanel = "app/components/login/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%";                    	
->>>>>>> remotes/origin/profileChanges
                     } else {
                         $scope.exit();
                     }

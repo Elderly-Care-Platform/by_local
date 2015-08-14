@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window',
-    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window) {
-=======
 byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http',
     function ($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http) {
->>>>>>> remotes/origin/profileChanges
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -12,30 +7,20 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.showCategory = false;
         $scope.selectedMenuId = "";
         $scope.selectedMenuList = {};
-<<<<<<< HEAD
-=======
         $scope.showLinkView = false;
         $scope.sharedLinkUrl = "";
 
->>>>>>> remotes/origin/profileChanges
         $scope.showCategoryList = function(){
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
         $(".by_section_header").hide();
-<<<<<<< HEAD
-=======
         $(".homeSlider").hide();        
->>>>>>> remotes/origin/profileChanges
         
         angular.element($window).bind("scroll", function() {        	
         	$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');  
     		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
         });
         
-<<<<<<< HEAD
-        
-=======
->>>>>>> remotes/origin/profileChanges
 
         if($scope.$parent.selectedMenu){
             $scope.selectedMenuId = $scope.$parent.selectedMenu.id;
@@ -47,10 +32,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.selectTag = function(event, category){
             if(event.target.checked){
                 $scope.selectedMenuList[category.id] = category;
-<<<<<<< HEAD
-=======
                 //Add only Leaf category and not any parent category
->>>>>>> remotes/origin/profileChanges
                 if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
                     delete $scope.selectedMenuList[category.parentMenuId];
                 }
@@ -100,10 +82,6 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
 
-<<<<<<< HEAD
-            $scope.setErrorMessage();
-
-=======
             if($scope.showLinkView){
                 $scope.discuss.contentType = 2;
                 $scope.discuss.linkInfo = $scope.linkInfo;
@@ -113,32 +91,9 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
 
             $scope.setErrorMessage();
 
->>>>>>> remotes/origin/profileChanges
             if($scope.errorMsg.trim().length === 0){
                 $scope.submitContent();
             }
-            //if($scope.discuss.discussType==="F"){
-            //    if($scope.discuss.title.trim().length > 0 &&  $scope.discuss.text.trim().length > 0){
-            //        $scope.submitContent();
-            //    }else {
-            //        $scope.setErrorMessage();
-            //    }
-            //} else if($scope.discuss.discussType==="A"){
-            //    if($scope.discuss.title.trim().length > 0 && $scope.discuss.text.trim().length > 0){
-            //        $scope.submitContent();
-            //    }else{
-            //        $scope.setErrorMessage();
-            //    }
-            //
-            //} else if($scope.discuss.discussType==="Q" || $scope.discuss.discussType==="P"){
-            //    if($scope.discuss.text.trim().length > 0){
-            //        $scope.submitContent();
-            //    }else{
-            //        $scope.setErrorMessage();
-            //    }
-            //} else {
-            //    //no more types
-            //}
         };
 
         $scope.setErrorMessage = function(){
@@ -146,9 +101,6 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
 
             if($scope.discuss.topicId.length === 0){
                 $scope.errorMsg = "Please select atleast one category";
-<<<<<<< HEAD
-            } else if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="A"){
-=======
             } else if($scope.showLinkView){
                 if(!$scope.linkInfo){
                     $scope.errorMsg = "Invalid shared info";
@@ -158,7 +110,6 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             } else if($scope.editor.articlePhotoFilename){
                 $scope.errorMsg = "";
             } else if($scope.discuss.title.trim().length <= 0 && $scope.discuss.discussType==="P"){
->>>>>>> remotes/origin/profileChanges
                 $scope.errorMsg = "Please select title";
             } else if($scope.discuss.text.trim().length <= 0){
                 $scope.errorMsg = "Please add more details";

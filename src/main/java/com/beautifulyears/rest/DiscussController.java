@@ -32,13 +32,8 @@ import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
-<<<<<<< HEAD
-import com.beautifulyears.rest.response.PageImpl;
-import com.beautifulyears.rest.response.DiscussResponse.DiscussPage;
-=======
 import com.beautifulyears.rest.response.DiscussResponse.DiscussPage;
 import com.beautifulyears.rest.response.PageImpl;
->>>>>>> remotes/origin/profileChanges
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 import com.beautifulyears.util.WebPageParser;
@@ -88,20 +83,6 @@ public class DiscussController {
 	public Object getLinkInfo(
 			@RequestParam(value = "url", required = true) String url)
 			throws Exception {
-<<<<<<< HEAD
-		Discuss d = new Discuss();
-		try {
-			WebPageParser parser = new WebPageParser(url);
-			d.setTitle(parser.getPageTitle());
-			d.setText(parser.getDescription());
-			d.setUserId(parser.getImage());
-			;
-		} catch (Exception e) {
-			Util.handleException(e);
-		}
-
-		return BYGenericResponseHandler.getResponse(d);
-=======
 		LinkInfo linkInfo = null;
 		WebPageParser parser = null;
 		try {
@@ -113,7 +94,6 @@ public class DiscussController {
 		}
 
 		return BYGenericResponseHandler.getResponse(linkInfo);
->>>>>>> remotes/origin/profileChanges
 	}
 
 	@RequestMapping(consumes = { "application/json" })
@@ -156,17 +136,14 @@ public class DiscussController {
 			// List<String> subTopicId,
 			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
-			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
+			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
 			@RequestParam(value = "s", required = false, defaultValue = "10") int pageSize,
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
-<<<<<<< HEAD
-=======
 		User currentUser = Util.getSessionUser(request);
->>>>>>> remotes/origin/profileChanges
 		PageImpl<Discuss> page = null;
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
 		DiscussPage discussPage = null;
@@ -200,11 +177,7 @@ public class DiscussController {
 					sortDirection, sort);
 			page = discussRepository.getPage(discussTypeArray, tagIds, userId,
 					isFeatured, pageable);
-<<<<<<< HEAD
-			discussPage = DiscussResponse.getPage(page);
-=======
 			discussPage = DiscussResponse.getPage(page, currentUser);
->>>>>>> remotes/origin/profileChanges
 			// page = discussRepository.getByCriteria(discussTypeArray, topicId,
 			// userId, isFeatured, pageable);
 		} catch (Exception e) {
@@ -212,21 +185,12 @@ public class DiscussController {
 		}
 		return BYGenericResponseHandler.getResponse(discussPage);
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(consumes = { "application/json" }, value="addShare")
-	@ResponseBody
-	public Object submitShare(@RequestBody  Discuss discuss){
-		Discuss sharedDiscuss = this.discussRepository.findOne(discuss.getId());
-		if(null != sharedDiscuss){
-=======
 
 	@RequestMapping(consumes = { "application/json" }, value = "addShare")
 	@ResponseBody
 	public Object submitShare(@RequestBody Discuss discuss) {
 		Discuss sharedDiscuss = this.discussRepository.findOne(discuss.getId());
 		if (null != sharedDiscuss) {
->>>>>>> remotes/origin/profileChanges
 			sharedDiscuss.setShareCount(sharedDiscuss.getShareCount() + 1);
 			this.discussRepository.save(sharedDiscuss);
 		}
@@ -260,26 +224,16 @@ public class DiscussController {
 				}
 			}
 
-<<<<<<< HEAD
-			Long articlesCount = discussRepository.getCount(
-					(new ArrayList<String>(Arrays.asList("A"))), tagIds,
-					userId, isFeatured);
-=======
 //			Long articlesCount = discussRepository.getCount(
 //					(new ArrayList<String>(Arrays.asList("A"))), tagIds,
 //					userId, isFeatured);
->>>>>>> remotes/origin/profileChanges
 			Long questionsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
 					userId, isFeatured);
 			Long postsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("P"))), tagIds,
 					userId, isFeatured);
-<<<<<<< HEAD
-			obj.put("a", new Long(articlesCount));
-=======
 //			obj.put("a", new Long(articlesCount));
->>>>>>> remotes/origin/profileChanges
 			obj.put("q", new Long(questionsCount));
 			obj.put("p", new Long(postsCount));
 			obj.put("z", questionsCount + postsCount);
@@ -316,18 +270,11 @@ public class DiscussController {
 			int aggrReplyCount = 0;
 			newDiscuss = new Discuss(discuss.getUserId(),
 					discuss.getUsername(), discussType, topicId, title, text,
-<<<<<<< HEAD
-					discussStatus, aggrReplyCount, systemTags,discuss.getShareCount(),
-					discuss.getUserTags(),
-					discuss.getDiscussType().equals("A") ? discuss
-							.getArticlePhotoFilename() : null, false);
-=======
 					discussStatus, aggrReplyCount, systemTags,
 					discuss.getShareCount(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("P") ? discuss
 							.getArticlePhotoFilename() : null, false,
 					discuss.getContentType(), discuss.getLinkInfo());
->>>>>>> remotes/origin/profileChanges
 		} catch (Exception e) {
 			Util.handleException(e);
 		}

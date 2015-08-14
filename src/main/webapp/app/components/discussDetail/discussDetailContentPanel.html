@@ -2,19 +2,7 @@
  <div class="blog-author margin-bottom-35 main-article by_blog_author" >
         <div class="article-info dp-inline-block col-md-12">
             <ul class="list-inline posted-info" style="margin-left:0px;">
-<<<<<<< HEAD
-                <li ng-if="detailResponse.discuss.discussType == 'A'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
-                    &nbsp; |
-                </li>
-                <li ng-if="detailResponse.discuss.discussType == 'P'">
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
-                    &nbsp; |
-                </li>
-                <li ng-if="detailResponse.discuss.discussType == 'Q'">
-=======
                 <li>
->>>>>>> remotes/origin/profileChanges
                     By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
                     &nbsp; |
                 </li>
@@ -31,42 +19,19 @@
                 </li>
             </ul><div style="clear: both"></div>
         </div>
-<<<<<<< HEAD
-        
-         <div style="clear: both"></div>
-=======
         <div style="clear: both"></div>
->>>>>>> remotes/origin/profileChanges
 
         <div class="article col-md-12" >
             <div class="article-heading" style="text-transform: uppercase; padding-bottom:10px;">
             	{{detailResponse.discuss.title}}
             </div>
         </div>
-<<<<<<< HEAD
-        
-        <div class="by-quad-image col-md-12" >
-=======
         <div style="clear: both"></div>
         <div class="by-quad-image col-md-12" ng-if="detailResponse.discuss.discussType == 'P'">
->>>>>>> remotes/origin/profileChanges
              <img class="articleTitleImage" src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}" fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
             <div style="clear: both"></div>
         </div>
 
-<<<<<<< HEAD
-        <div class="articles-story  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
-        </div>
-        <div style="clear: both; height:8px;"></div>
-        
-        
-        <div class="by-quad-image col-md-12" >
-        </div>
-        
-         <div class="article-share-links news-v3 by-social-border" style="border-bottom:1px solid #ccc !important;">
-            <ul class="post-shares post-shares-lg">
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P'">
-=======
         <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
 
         <div class="articles-story  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
@@ -77,46 +42,18 @@
          <div class="article-share-links news-v3 by-social-border" style="border-bottom:1px solid #ccc !important;">
             <ul class="post-shares post-shares-lg">
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'">
->>>>>>> remotes/origin/profileChanges
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrReplyCount}}</span>
+                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0">{{detailResponse.discuss.aggrReplyCount}}</span>
                 </a>
 
                 <div class="post-text post_text-comment"
-<<<<<<< HEAD
-                     ng-click="createNewComment(detailResponse.discuss.id)"><span class="text">Comment</span>
-=======
                      ng-click="createNewComment(detailResponse.discuss.id)"><div class="text">Comment</div>
->>>>>>> remotes/origin/profileChanges
                 </div>
             </li>
 
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'Q'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
-<<<<<<< HEAD
-                    <i class="rounded-x fa fa-pencil-square-o" title="Answers" style="margin-top:-4px;"></i>
-                    <span ng-if="detailResponse.discuss.directReplyCount > 0" style="margin-left:3px;">{{detailResponse.discuss.directReplyCount}}</span>
-                </a>
-
-                <div class="post-text post_text-comment"
-                     ng-click="createNewComment(detailResponse.discuss.id)"><span class="text">Answer</span>
-                </div>
-            </li>
-
-           
-            
-
-            <li class="add-comment" ng-controller="DiscussLikeController">
-                <a ng-click="likeDiscuss(detailResponse.discuss.id)">
-                    <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" style="margin-left:3px;">{{detailResponse.discuss.aggrLikeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" style="margin-left:3px;">{{aggrLikeCount}}</span>
-                </a>
-
-                <div class="post-text">
-                    <span ng-click="likeDiscuss(detailResponse.discuss.id)" class="text">Like</span>
-=======
                     <i class="rounded-x icon-answer" title="Answers"></i>
                     <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
                 </a>
@@ -136,20 +73,10 @@
 
                 <div class="post-text">
                     <div ng-click="likeDiscuss(detailResponse.discuss.id)" class="text text2">Like</div>
->>>>>>> remotes/origin/profileChanges
                 </div>
 
             </li>
             
-<<<<<<< HEAD
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'A'" ng-controller="ShareController">
-               <a ng-click="shareComment(detailResponse.discuss, $event)">
-                   <i class="rounded-x icon-share"></i>
-                   <span ng-if="detailResponse.discuss.shareCount > 0" style="margin-left:3px;">{{detailResponse.discuss.shareCount}}</span>
-               </a>
-
-               <div class="post-text post_text-comment"><span ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</span>
-=======
             <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'" ng-controller="ShareController">
                <a ng-click="shareComment(detailResponse.discuss, $event)">
                    <i class="rounded-x icon-share"></i>
@@ -157,7 +84,6 @@
                </a>
 
                <div class="post-text post_text-comment"><div ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</div>
->>>>>>> remotes/origin/profileChanges
                </div>
            </li>
         </ul><div style="clear:both;"></div>
@@ -167,25 +93,6 @@
         <div style="clear:both; "></div>
         
         <div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
-<<<<<<< HEAD
-    <!--  <h2 class="text-success text-underlined"
-        ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
-        COMMENTS
-    </h2>
-    <h2 class="text-success text-underlined col-md-12 by-social-border"
-        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'A' || detailResponse.discuss.discussType == 'P')">
-        Be the first to comment
-    </h2>-->
-     <!-- <h2 class="text-success text-underlined"
-        ng-if="(detailResponse.replies && detailResponse.replies.length > 0) && (detailResponse.discuss.discussType == 'Q')">
-        ANSWERS
-    </h2>
-    <h2 class="text-success text-underlined col-md-12 by-social-border"
-        ng-if="(detailResponse.replies && detailResponse.replies.length <= 0) && (detailResponse.discuss.discussType == 'Q')">
-        Be the first to answer
-    </h2>-->
-=======
->>>>>>> remotes/origin/profileChanges
 
     <!--Comment Editor for main article-->
     <div class="col-md-12 no-padding  by_blog_author borderShadow noRadius enter-comment-wrap" id="replyEditor" style="margin-bottom: 0px; margin-top:-20px; border-top:0px;" ng-show="showEditor">

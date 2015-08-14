@@ -181,8 +181,6 @@ var discussSearch = byServices.factory('DiscussSearch', function($resource) {
     })
 });
 
-<<<<<<< HEAD
-=======
 var ServicePageSearch = byServices.factory('ServicePageSearch', function($resource) {
 
     return $resource(apiPrefix+'api/v1/search/servicePageSearch',{}, {
@@ -190,7 +188,6 @@ var ServicePageSearch = byServices.factory('ServicePageSearch', function($resour
     })
 });
 
->>>>>>> remotes/origin/profileChanges
 var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', function($resource) {
     return $resource(apiPrefix+'api/v1/search/:term/:discussType',{}, {
         get: {method: 'GET', params: {term: '@term', discussType: '@discussType'}}

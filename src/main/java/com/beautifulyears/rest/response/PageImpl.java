@@ -9,16 +9,6 @@ public class PageImpl<T> {
 	private List<T> content = new ArrayList<T>();
 	private boolean lastPage = false;
 	private long number;
-<<<<<<< HEAD
-	
-	public PageImpl(List<T> content, Pageable pageable, long total) {
-		this.content = content;
-		this.number = pageable.getPageNumber();
-		if(((pageable.getPageNumber() + 1) * pageable.getPageSize() ) > total){
-			lastPage = true;
-		}
-		
-=======
 	private long size;
 	private long total;
 
@@ -46,7 +36,6 @@ public class PageImpl<T> {
 
 	public void setSize(long size) {
 		this.size = size;
->>>>>>> remotes/origin/profileChanges
 	}
 
 	public List<T> getContent() {

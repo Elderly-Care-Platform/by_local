@@ -1131,10 +1131,6 @@
 @media screen and (max-width: 992px) {
     .article-outer-wrapper, .left-container {
         margin-left: 0px !important;
-<<<<<<< HEAD
-        width: 100% !important;
-=======
->>>>>>> remotes/origin/profileChanges
         padding-right: 15px !important;
         padding-left: 15px !important;
         border-right-width: 0px !important;

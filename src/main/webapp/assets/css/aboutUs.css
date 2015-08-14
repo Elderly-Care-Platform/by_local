@@ -1,15 +1,12 @@
 .aboutUsParent {
     font-family: century_gothic !important;
 }
-<<<<<<< HEAD
-=======
 
 .aboutUsParent .by_editor_wrap
 {
     height:1039px;
 }
 
->>>>>>> remotes/origin/profileChanges
 .aboutBgBackground
 {
 	width:100%;
@@ -26,11 +23,7 @@
 	z-index:0;
 	right:0px;
 	top:90px;
-<<<<<<< HEAD
-	left: calc((100vw - 858px )/2) !important;
-=======
 	left: calc((100vw - 888px )/2) !important;
->>>>>>> remotes/origin/profileChanges
 }
 .aboutUsOne {
    
@@ -202,13 +195,10 @@
     font-size: 17px;
     padding-right:8%;
     padding-top:5%;
-<<<<<<< HEAD
-=======
 }
 .helpleftTextAbs
 {
 	width: calc(100% - 181px); position: absolute; left: 200px; top: 0px; z-index: 1;
->>>>>>> remotes/origin/profileChanges
 }
 .blackColorMore {
     color: #000;
@@ -547,15 +537,12 @@
             line-height: 24px;
             padding: 30px 15px 30px 45%;
         }
-<<<<<<< HEAD
-=======
         .helpleftTextAbs
         {
         	position:relative;
         	width:100%;
         	left:0px;
         }
->>>>>>> remotes/origin/profileChanges
     }
     
     .col-xs-height {

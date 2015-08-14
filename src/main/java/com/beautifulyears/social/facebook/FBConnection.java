@@ -23,11 +23,7 @@ public class FBConnection {
 	static String accessToken = "";
 
 	public String getFBAuthUrl(HttpServletRequest req) {
-<<<<<<< HEAD
-		redirectURI = System.getProperty("path")
-=======
 		FBConnection.redirectURI = System.getProperty("path")
->>>>>>> remotes/origin/profileChanges
 				+ FBConnection.REDIRECT_URI;
 		String fbLoginUrl = "";
 		try {

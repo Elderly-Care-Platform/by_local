@@ -97,8 +97,6 @@ BY.byUtil.updateMetaTags = function(param){
 	$("meta[property='og\\:title']").attr("content", title);
 	$("meta[property='og\\:description']").attr("content", description);
 }
-<<<<<<< HEAD
-=======
 
 function resizeIframe(obj) {
    // obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
@@ -107,4 +105,3 @@ function resizeIframe(obj) {
 	//$(".by-quad-image iframe").attr('height', iframeHeightA);
   }
 
->>>>>>> remotes/origin/profileChanges

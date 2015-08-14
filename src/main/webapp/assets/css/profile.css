@@ -1,9 +1,5 @@
 .profileContainer {
-<<<<<<< HEAD
-	margin-top: 20px;
-=======
 	margin-top: 29px;
->>>>>>> remotes/origin/profileChanges
 }
 
 .profileMainContent {
@@ -28,21 +24,6 @@
 	float: left;
 	margin-bottom: 0px !important;
 }
-<<<<<<< HEAD
-
-.profileRating i {
-	width: 23px;
-    text-align: center;
-    height: 23px;
-    border-radius: 50%;
-    padding: 2px 2px 4px 1px;
-    margin-right: 10px;
-    color: #fff;
-    display: inline-block;
-    font-size: 11px;
-    font-style:none;
-    font-style:inherit;
-=======
 .profileRating
 {
 	margin-right:15px;
@@ -60,7 +41,6 @@
     font-family:helvetica_narrow;
 	font-style:normal;
 	letter-spacing:-0.5px;
->>>>>>> remotes/origin/profileChanges
 }
 
 .profileAddress {
@@ -70,70 +50,6 @@
 .profile-home-visit input {
 	margin-top: 5px;
 	vertical-align: middle;
-<<<<<<< HEAD
-}
-
-.profile-home-visit span {
-	vertical-align: middle;
-}
-
-.reviewRateForm {
-	font-size: 15px;
-	overflow-wrap: break-word;
-}
-
-.profileRateValues {
-	width: 35px;
-	height: 35px;
-	padding: 8px 0px 0px 0px;
-	text-align: center;
-	line-height: 20px;
-	border-radius: 50% !important;
-	background: #ccc;
-	float: left;
-	cursor: pointer;
-	opacity: 0.5;
-}
-
-.profileRateValues:hover {
-	opacity: 1;
-}
-
-.profileSelected {
-	opacity: 1 !important;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 10px;
-	-moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
-	box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
-}
-
-.profileRate1 {
-	background: #F51B09;
-}
-
-.profileRate2 {
-	background: #F59809;
-}
-
-.profileRate3 {
-	background: #F5D709;
-}
-
-.profileRate4 {
-	background: #B7E01F;
-}
-
-.profileRate5 {
-	background: #1FE021;
-}
-
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-	/* display: none; <- Crashes Chrome on hover */
-	-webkit-appearance: none;
-	margin: 0;
-	/* <-- Apparently some margin are still there even though it's hidden */
-}
-
-=======
 }
 
 .profile-home-visit span {
@@ -196,7 +112,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	/* <-- Apparently some margin are still there even though it's hidden */
 }
 
->>>>>>> remotes/origin/profileChanges
 .icon_reviewRate:before {
 	content:
 		url("../img/icons/ask_share_submit/rateReview.png?versionTimeStamp=%PROJECT_VERSION%");
@@ -213,20 +128,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .reviewCardRating i {
-<<<<<<< HEAD
-	width: 23px;
-	text-align: center;
-	font-size: 11px;
-	height: 23px;
-	border-radius: 50%;
-	padding: 1px 1px 4px 1px;
-	margin-right: 5px;
-	color: #fff;
-	display: inline-block;
-	vertical-align: middle;
-	font-style:inherit;
-	text-align:center;
-=======
 	width: 21px;
 	text-align: center;
 	font-size: 12px;
@@ -339,5 +240,4 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	{
 		width:100%;
 	}
->>>>>>> remotes/origin/profileChanges
 }

@@ -29,21 +29,14 @@ public class DiscussResponse implements IResponse {
 		private List<DiscussEntity> content = new ArrayList<DiscussEntity>();
 		private boolean lastPage;
 		private long number;
-<<<<<<< HEAD
-=======
 		private long size;
 		private long total;
->>>>>>> remotes/origin/profileChanges
 
 		public DiscussPage() {
 			super();
 		}
 
-<<<<<<< HEAD
-		public DiscussPage(PageImpl<Discuss> page) {
-=======
 		public DiscussPage(PageImpl<Discuss> page, User user) {
->>>>>>> remotes/origin/profileChanges
 			this.lastPage = page.isLastPage();
 			this.number = page.getNumber();
 			for (Discuss discuss : page.getContent()) {
@@ -113,12 +106,9 @@ public class DiscussResponse implements IResponse {
 		private boolean isLikedByUser = false;
 		private int aggrLikeCount = 0;
 		private long shareCount = 0;
-<<<<<<< HEAD
-=======
 		private int contentType;
 		private LinkInfo linkInfo;
 		private boolean isFeatured;
->>>>>>> remotes/origin/profileChanges
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -128,17 +118,10 @@ public class DiscussResponse implements IResponse {
 			this.setUsername(discuss.getUsername());
 			this.setDiscussType(discuss.getDiscussType());
 			this.setText(discuss.getText());
-<<<<<<< HEAD
-			if(null == discuss.getShortSynopsis()){
-				Document doc = Jsoup.parse(discuss.getText());
-				String text = doc.text();
-				if(text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
-=======
 			if (null == discuss.getShortSynopsis()) {
 				Document doc = Jsoup.parse(discuss.getText());
 				String text = doc.text();
 				if (text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
->>>>>>> remotes/origin/profileChanges
 					discuss.setShortSynopsis(Util.truncateText(text));
 				}
 			}
@@ -179,22 +162,6 @@ public class DiscussResponse implements IResponse {
 
 		public void setLinkInfo(LinkInfo linkInfo) {
 			this.linkInfo = linkInfo;
-		}
-
-		public String getShortSynopsis() {
-			return shortSynopsis;
-		}
-
-		public void setShortSynopsis(String shortSynopsis) {
-			this.shortSynopsis = shortSynopsis;
-		}
-
-		public long getShareCount() {
-			return shareCount;
-		}
-
-		public void setShareCount(long shareCount) {
-			this.shareCount = shareCount;
 		}
 
 		public String getShortSynopsis() {
@@ -340,13 +307,8 @@ public class DiscussResponse implements IResponse {
 		this.discussArray.add(new DiscussEntity(discuss, user));
 	}
 
-<<<<<<< HEAD
-	public static DiscussPage getPage(PageImpl<Discuss> page) {
-		DiscussPage res = new DiscussPage(page);
-=======
 	public static DiscussPage getPage(PageImpl<Discuss> page, User user) {
 		DiscussPage res = new DiscussPage(page, user);
->>>>>>> remotes/origin/profileChanges
 		return res;
 	}
 

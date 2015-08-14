@@ -40,13 +40,6 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.getReview();
 
         $scope.selectRating = function(value){
-<<<<<<< HEAD
-            $(".by_btn_submit").removeAttr('disabled');
-        	value = parseInt(value);
-            $(".profileSelected").removeClass("profileSelected");
-            $scope.selectedRating = value;
-            $(".profileRate"+value).addClass("profileSelected");
-=======
             $(".profileRatetext").removeClass("profileRate"+$scope.selectedRating);
             $(".by_btn_submit").removeAttr('disabled');
         	value = parseInt(value);
@@ -55,7 +48,6 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
             $(".profileRate"+value).siblings(".profileRatetext").addClass("profileRate"+value);
             $(".profileRate"+value).siblings(".profileRatetext").css('color','#fff');
             $scope.selectedRating = value;
->>>>>>> remotes/origin/profileChanges
         }
 
         $scope.postReview = function(){
@@ -80,14 +72,10 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 $scope.unauthorizeUserError = false;
 
                 postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
-<<<<<<< HEAD
-                    $scope.$parent.showProfile();
-=======
                     $scope.$parent.showReviews();
                     $scope.reviewText = "";
                     $("#by_rate_hide").hide();
                     $("#by_rate_show").show();
->>>>>>> remotes/origin/profileChanges
                 }, function(errorResponse){
                     console.log(errorResponse);
                     $(".by_btn_submit").prop("disabled", false);
@@ -102,8 +90,6 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 $(".by_btn_submit").prop('disabled', false);
             }
         }
-<<<<<<< HEAD
-=======
         
         $scope.showRate = function(){
         	document.getElementById("by_rate_hide").style.display = "block";
@@ -113,7 +99,6 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         	document.getElementById("by_rate_hide").style.display = "none";
             document.getElementById("by_rate_show").style.display = "block";
         };
->>>>>>> remotes/origin/profileChanges
 
 
     }]);

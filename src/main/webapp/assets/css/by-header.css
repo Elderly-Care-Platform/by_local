@@ -7,9 +7,6 @@
 	margin: -1px 0;
 	position: relative;
 }
-<<<<<<< HEAD
-
-=======
 .header .dropdown-menu {
     padding: 0;
     border: none;
@@ -27,7 +24,6 @@
 {
 	text-transform:capitalize;
 }
->>>>>>> remotes/origin/profileChanges
 .header {
 	top: 0px;
 	width: 100%;
@@ -178,10 +174,6 @@
 .header .mega-menu .equal-height-list h3 {
 	padding: 0px;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> remotes/origin/profileChanges
 @media ( min-width : 768px) {
 	.navbar-nav>li>a {
 		padding-top: 9px;
@@ -208,11 +200,7 @@
 	}
 
 	.selected-dropdown > a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
-<<<<<<< HEAD
-		background-color: #004f24 !important;
-=======
 		/*background-color: #004f24 !important;*/
->>>>>>> remotes/origin/profileChanges
 	}
 
 	.header .navbar-nav>li {
@@ -310,17 +298,11 @@
 }
 
 @media screen and (max-width: 992px) {
-<<<<<<< HEAD
-	.header {
-		position: relative;
-		height: auto;
-=======
 	
 	.header {
 		position: relative;
 		height: auto;
 		z-index: 0;
->>>>>>> remotes/origin/profileChanges
 	}
 	.header .topbar ul.loginbar {
 		padding: 0px;
@@ -348,10 +330,6 @@
 }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> remotes/origin/profileChanges
 @media screen and (max-width: 450px) {
 	.header .logo, .header .logo img {
 		width: 156px;
@@ -376,8 +354,6 @@
 	.searchLeft {
 		width: 140px !important;
 	}
-<<<<<<< HEAD
-=======
 }
 
 @media only screen and (min-width:992px) and (max-width: 1200px){
@@ -396,5 +372,4 @@
 	{
 		background-color:#004f24 ;
 	}
->>>>>>> remotes/origin/profileChanges
 }

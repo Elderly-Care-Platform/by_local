@@ -3,17 +3,6 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
     function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
-<<<<<<< HEAD
-
-        var reviewDetails = new ReviewRateProfile();
-        $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
-            $scope.reviews = response.data.replies;
-        }, function(error){
-            console.log(error)
-        })
-
-=======
->>>>>>> remotes/origin/profileChanges
 
         var reviewDetails = new ReviewRateProfile();
         $scope.slideGallery = function(dir){
@@ -60,40 +49,5 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         };
 
         $scope.showReviews();
-
-        $scope.galleryClickHover = function(){
-            $(".by-imageGallery-item").css('cursor', 'pointer');
-            $(".by-imageGallery-item").click(function(){
-                var urlPopup = $(this).attr('data-popup');
-                $(".by_modal_body").find('img').attr('src', urlPopup);              
-                $('#imagemodal').modal('show');
-
-            });
-
-           
-
-
-            var byimageGallerywidth = $(".by-imageGallery").width();
-
-
-            /*$(".by-imageGallery-item, .profileHoverImages").hover(function(event){
-             event.stopPropagation();
-             var urlHover = $(this).attr('data-hover');
-             $(".profileHoverImages").find('img').attr('src', urlHover);
-             $(".profileHoverImages").show();
-             setTimeout(function(){
-             var hoverHeight = $(".main-image").height() + 106;
-             var hoverOffLeft =  28;
-             $(".profileHoverImages").css('left', hoverOffLeft +"px");
-             $(".profileHoverImages").css('top', hoverHeight +"px");
-             $(".profileHoverImages").css('width', byimageGallerywidth +"px");
-             }, 100);
-
-             }, function(event){
-             $(".profileHoverImages").hide();
-             });*/
-
-
-        }
 
     }]);

@@ -22,26 +22,6 @@
 }
 
 a.accordion-toggle.ng-binding {
-<<<<<<< HEAD
-    display: inline-block !important;
-    font-size: 14px !important;
-    background: transparent !important;
-    vertical-align: top;
-    width: 92%;
-}
-
-.by_editor_ParentCategories label{
-    display: inline-block !important;
-    font-size: 14px !important;
-    background: transparent !important;
-    vertical-align: top;
-    width: 99%;
-    color: #0A0A0A;
-    font-family: century_gothic !important;
-    font-weight:normal !important;
-    padding: 5px 15px;
-    cursor: pointer;
-=======
 	display: inline-block !important;
 	font-size: 14px !important;
 	background: transparent !important;
@@ -65,7 +45,6 @@ a.accordion-toggle.ng-binding {
 	font-weight: normal !important;
 	padding: 5px 15px;
 	cursor: pointer;
->>>>>>> remotes/origin/profileChanges
 }
 
 .by_editor_SubCategories {
@@ -273,11 +252,6 @@ textarea.by_editorModalTextArea {
 	cursor: pointer;
 }
 
-<<<<<<< HEAD
-.by-editor-submit-btn:disabled, .by_btn_submit:disabled {
-    background: #cfcfcf !important;
-    color:#000000 !important;
-=======
 .by-imageEditor-view-close{
 	position: absolute;
 	right: 20px;
@@ -288,17 +262,8 @@ textarea.by_editorModalTextArea {
 	height: 29px;
 	background-repeat: no-repeat;
 	cursor: pointer;
->>>>>>> remotes/origin/profileChanges
 }
-@media screen and (max-width: 550px){
-	a.accordion-toggle.ng-binding
-	{
-		width:86%;
-	}
 
-<<<<<<< HEAD
-	}
-=======
 .by-editor-cancel-btn, .by-editor-cancel-btn:hover,
 	.by-editor-cancel-btn a, .by-editor-cancel-btn a:hover {
 	margin-right: 10px;
@@ -427,4 +392,3 @@ label input[type="file"] {
 		background:#F1F1F1;
 	}
 }
->>>>>>> remotes/origin/profileChanges

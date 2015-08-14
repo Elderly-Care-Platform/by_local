@@ -45,11 +45,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 			}
 
 			if(systemTags && systemTags.length > 0){
-<<<<<<< HEAD
-				var params = {p:0,s:6,discussType:"A"};
-=======
 				var params = {p:0,s:6,discussType:"P"};
->>>>>>> remotes/origin/profileChanges
 				//params.tags = $.map($scope.discuss.systemTags, function(value, key){
 				//	return value.id;
 				//})
@@ -58,11 +54,7 @@ byControllers.controller('discussDetailLeftController', ['$scope', '$rootScope',
 				DiscussPage.get(params,
 					function(response){
 						$scope.articlesByUser = response.data.content;
-<<<<<<< HEAD
-						$scope.header1 = "Related Article";
-=======
 						$scope.header1 = "Related Post";
->>>>>>> remotes/origin/profileChanges
 						$scope.header2 = "";
 					},
 					function(error){

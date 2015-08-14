@@ -26,16 +26,10 @@ BY.config.profile.userType = {
     '4' : {
         'category':'1',
         'contentPanel':'app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%',
-<<<<<<< HEAD
-        'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
-        'type':'SERVICES',
-        'reviewContentType':'4'
-=======
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'SERVICES',
         'reviewContentType':'4',
         'profileImage':'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%'
->>>>>>> remotes/origin/profileChanges
     },
     '5' : {
         'category':'1',
@@ -50,16 +44,10 @@ BY.config.profile.userType = {
     '7' : {
         'category':'0',
         'contentPanel':'app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%',
-<<<<<<< HEAD
-        'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
-        'type':'PROFESSIONAL',
-        'reviewContentType':'5'
-=======
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'PROFESSIONAL',
         'reviewContentType':'5',
         'profileImage':'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%'
->>>>>>> remotes/origin/profileChanges
     }
 
 }

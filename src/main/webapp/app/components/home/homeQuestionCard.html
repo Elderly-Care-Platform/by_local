@@ -9,30 +9,6 @@
 </div>
 <div style="clear:both;"></div>
 
-<<<<<<< HEAD
-<div ng-repeat="question in questions" data-index="discussion-articles"
-     data-link="articles.html" on-finish-render="ngRepeatFinished" style="position:relative;">
-     
-     <div class="questionTag">
-  		<img  src="assets/img/Q_A.png" alt="image">
-  	</div>
-
-    <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author">
-        <img src="assets/img/by.png" alt="image" >
-        <div class="article-info dp-inline-block">
-            <ul class="list-inline posted-info" style="margin-right:80px !important;">
-                <li>
-                    <p  ng-if="question.discussType == 'A'">
-                        By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
-                        |
-                    </p>
-                    <p  ng-if="question.discussType == 'Q'">
-                        By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
-                        |
-                    </p>
-                    <p  ng-if="question.discussType == 'P'">
-=======
 <div ng-repeat="question in questions" data-index="discussion-articles" data-link="articles.html" >
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
@@ -41,17 +17,12 @@
             <ul class="list-inline posted-info" style="margin-right:80px !important;">
                 <li>
                     <p>
->>>>>>> remotes/origin/profileChanges
                         By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
                 </li>
                 <li time-since="{{question.createdAt}}"></li>
-<<<<<<< HEAD
-                 <li ng-if="question.topicId.length > 0">
-=======
                 <li ng-if="question.topicId.length > 0">
->>>>>>> remotes/origin/profileChanges
                     | In
                 </li>
 
@@ -63,23 +34,12 @@
                         <span ng-if="$index < question.topicId.length-1">,</span>
                     </p>
                 </li>
-<<<<<<< HEAD
-               
-            </ul><div style="clear: both"></div>
-                
-               
-        </div>
-
-       
-          <div class="article  col-md-12" ng-if="question.discussType == 'A'">
-=======
             </ul>
             <div style="clear: both"></div>
         </div>
 
        
         <div class="article  col-md-12" ng-if="question.discussType == 'P'">
->>>>>>> remotes/origin/profileChanges
             <div class="article-heading"><p style="text-transform: uppercase;">
                 {{question.title}}</p>
             </div>
@@ -92,71 +52,6 @@
         <div style="clear: both"></div>
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
             <ul class="post-shares post-shares-lg">
-<<<<<<< HEAD
-                <li class="add-comment"
-                    ng-if="question.aggrReplyCount > 0 && (question.discussType == 'A' || question.discussType == 'P')">
-                    <a href="#">
-                        <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span style="margin-left:3px;">{{question.aggrReplyCount}}</span>
-                        <span class="text">Comment</span>
-                    </a>
-                </li>
-                <li class="add-comment"
-                    ng-if="question.aggrReplyCount == 0 && (question.discussType == 'A' || question.discussType == 'P')">
-                    <a>
-                        <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span class="textColor"
-                              ng-click="go($event,'comment', question.id)">Be the first  to comment</span>
-                    </a>
-                </li>
-                <li class="add-comment" ng-if="question.directReplyCount > 0 && question.discussType == 'Q'">
-                    <a href="#">
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
-                           style="margin-top:-4px;"></i>
-                        <span style="margin-left:3px;">{{question.directReplyCount}}</span>
-                        <span class="text">Answer</span>
-                    </a>
-                </li>
-
-                <li class="add-comment" ng-if="question.directReplyCount == 0 && question.discussType == 'Q'">
-                    <a>
-                        <i class="rounded-x fa fa-pencil-square-o ng-scope" title="Answers"
-                           style="margin-top:-4px;"></i>
-                        <span class="textColor2"
-                              ng-click="go($event,'comment', question.id)">Be the first  to answer</span>
-                    </a>
-                </li>
-
-                <li class="add-comment" ng-if="question.aggrLikeCount > 0">
-                    <a href="#">
-                        <i class="rounded-x icon-heart" title="Likes"></i>
-                        <span ng-if="question.aggrLikeCount > 0" style="margin-left:3px;">{{question.aggrLikeCount}}</span>
-                        <span class="text">Like</span>
-                    </a>
-                </li>
-
-                <li class="add-comment" ng-if="question.aggrLikeCount == 0">
-                    <a href="#">
-                        <i class="rounded-x icon-heart" title="Likes"></i>
-                        <span class="text">Like</span>
-                    </a>
-                </li>
-
-                <li class="add-comment" ng-if="question.discussType == 'A'"
-						ng-controller="ShareController"><a
-						ng-click="shareComment(question, $event)"> <i
-							class="rounded-x icon-share"></i>
-					</a>
-	
-					<div class="post-text post_text-comment">
-						<a ng-click="shareComment(question, $event)"><span class="text">Share</span></a>
-					</div>
-				</li>
-            </ul>
-        </div>
-        <div style="clear: both"></div>
-        
-=======
                 <li class="add-comment" ng-if="question.directReplyCount > 0">
                     <a href="#">
                         <i class="rounded-x icon-answer ng-scope" title="Answers" ></i>
@@ -188,7 +83,6 @@
             </ul>
         </div>
         <div style="clear: both"></div>
->>>>>>> remotes/origin/profileChanges
     </div>
 </div>
 

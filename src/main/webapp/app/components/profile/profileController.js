@@ -41,21 +41,6 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
 
 
         $scope.showProfile();
-<<<<<<< HEAD
-
-        $scope.reviewContent = function(){
-            $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].reviewContentPanel;
-        }
-
-        $scope.displayProfile = function(){
-            $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
-        }
-
-        $scope.trustForcefully = function (html) {
-            return $sce.trustAsHtml(html);
-        };
-        
-=======
         $scope.reviewContent = function(){
            // $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].reviewContentPanel;
         }
@@ -85,6 +70,5 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 iconNode.addClass("fa-angle-down");
             }
         }
->>>>>>> remotes/origin/profileChanges
        
     }]);

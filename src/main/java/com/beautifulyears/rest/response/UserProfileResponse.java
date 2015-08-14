@@ -43,10 +43,7 @@ public class UserProfileResponse implements IResponse {
 		private Date createdAt = new Date();
 		private List<Tag> systemTags = new ArrayList<Tag>();
 		private Date lastModifiedAt = new Date();
-<<<<<<< HEAD
-=======
 		private boolean isFeatured;
->>>>>>> remotes/origin/profileChanges
 
 		public UserProfileEntity(UserProfile profile, User user) {
 			this.setId(profile.getId());
@@ -67,18 +64,6 @@ public class UserProfileResponse implements IResponse {
 			}
 			ratingCount = profile.getRatedBy().size();
 			reviewCount = profile.getReviewedBy().size();
-<<<<<<< HEAD
-			
-		}
-		
-		
-
-		public List<Tag> getSystemTags() {
-			return systemTags;
-		}
-
-
-=======
 			this.isFeatured = profile.isFeatured();
 
 		}
@@ -94,17 +79,11 @@ public class UserProfileResponse implements IResponse {
 		public List<Tag> getSystemTags() {
 			return systemTags;
 		}
->>>>>>> remotes/origin/profileChanges
 
 		public void setSystemTags(List<Tag> systemTags) {
 			this.systemTags = systemTags;
 		}
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> remotes/origin/profileChanges
 		public int getRatingCount() {
 			return ratingCount;
 		}
@@ -209,11 +188,6 @@ public class UserProfileResponse implements IResponse {
 		public void setLastModifiedAt(Date lastModifiedAt) {
 			this.lastModifiedAt = lastModifiedAt;
 		}
-<<<<<<< HEAD
-		
-		
-=======
->>>>>>> remotes/origin/profileChanges
 
 	}
 
@@ -221,11 +195,8 @@ public class UserProfileResponse implements IResponse {
 		private List<UserProfileEntity> content = new ArrayList<UserProfileEntity>();
 		private boolean lastPage;
 		private long number;
-<<<<<<< HEAD
-=======
 		private long size;
 		private long total;
->>>>>>> remotes/origin/profileChanges
 
 		public UserProfilePage() {
 			super();
@@ -238,19 +209,14 @@ public class UserProfileResponse implements IResponse {
 				this.content.add(new UserProfileResponse.UserProfileEntity(
 						profile, user));
 			}
-<<<<<<< HEAD
-=======
 			this.size = page.getSize();
 			this.total = page.getTotal();
->>>>>>> remotes/origin/profileChanges
 		}
 
 		public List<UserProfileEntity> getContent() {
 			return content;
 		}
 
-<<<<<<< HEAD
-=======
 		public long getTotal() {
 			return total;
 		}
@@ -267,7 +233,6 @@ public class UserProfileResponse implements IResponse {
 			this.size = size;
 		}
 
->>>>>>> remotes/origin/profileChanges
 		public void setContent(List<UserProfileEntity> content) {
 			this.content = content;
 		}

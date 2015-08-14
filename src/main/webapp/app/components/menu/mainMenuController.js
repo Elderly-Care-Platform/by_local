@@ -1,13 +1,8 @@
 /**
  * Created by sanjukta on 08-07-2015.
  */
-<<<<<<< HEAD
-byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','BYMenu',
-    function ($scope, $rootScope, $http, $location, $routeParams, BYMenu) {
-=======
 byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$location', '$routeParams','BYMenu',
     function ($scope, $rootScope, $location, $routeParams, BYMenu) {
->>>>>>> remotes/origin/profileChanges
         var categoryId = "", discussCategoryLevel = 0;
 
         $scope.mainMenu = window.by_menu;
@@ -85,12 +80,8 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         };
 
         $scope.resize = function(height, width){
-<<<<<<< HEAD
-            if(width < 992){
-=======
             console.log(width);
             if(width < 984){
->>>>>>> remotes/origin/profileChanges
                 $(".hbMenu").attr("data-toggle", "collapse");
                 $(".hbMenu").attr("data-target", ".navbar-responsive-collapse");
 

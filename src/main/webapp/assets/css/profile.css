@@ -131,11 +131,12 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	width: 21px;
 	text-align: center;
 	font-size: 12px;
+	font-family:helvetica_narrow;
 	height: 21px;
 	border-radius: 50%;
-	padding: 0px 1px 4px 1px;
+	padding: 1px 1px 4px 1px;
 	margin-right: 5px;
-	color: #fff;
+	color: #000;
 	display: inline-block;
 	vertical-align: middle;
 	font-style:normal;

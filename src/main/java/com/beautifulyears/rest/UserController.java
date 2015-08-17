@@ -328,6 +328,32 @@ public class UserController {
 		return true;
 	}
 	
+	@RequestMapping(value = "/verifyPwdCode", method = RequestMethod.GET)
+	public @ResponseBody Object verifyPwdCode(
+			@RequestParam(value = "verificationCode", required = true) String verificationCode,			
+			HttpServletRequest req) {
+		LoggerUtil.logEntry();
+		if(!Util.isEmpty(verificationCode)){
+			Query q = new Query();
+			q.addCriteria(Criteria.where("verificationCode")
+					.is(verificationCode));
+			User user1 = mongoTemplate.findOne(q, User.class);
+			if(null != user1){
+				Date currentDate = new Date();
+				if(currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0){
+				}else{
+					throw new BYException(BYErrorCodes.USER_CODE_EXPIRED);
+				}
+			}else{
+				throw new BYException(BYErrorCodes.USER_CODE_DOES_NOT_EXIST);
+			}
+		}else{
+			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+		}
+		
+		return true;
+	}
+	
 	void sendMailForResetPassword(User user) {
 		try {
 				ResourceUtil resourceUtil = new ResourceUtil(

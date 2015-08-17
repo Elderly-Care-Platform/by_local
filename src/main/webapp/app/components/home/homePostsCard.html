@@ -10,18 +10,21 @@
 
 <div ng-repeat="article in posts" data-index="discussion-articles" data-link="articles.html" ng-if="article">
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
-        <img src="assets/img/by.png" alt="image" >
+    <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles"
+         class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
+        <img src="assets/img/by.png" alt="image">
+
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
                     <p>
-                        By <a validate-user-name="{{article.username}}" style="text-transform:capitalize;">{{username}}</a>
+                        By <a validate-user-name="{{article.username}}"
+                              style="text-transform:capitalize;">{{username}}</a>
                         |
                     </p>
                 </li>
                 <li time-since="{{article.createdAt}}"></li>
-                  <li ng-if="article.topicId.length > 0">
+                <li ng-if="article.topicId.length > 0">
                     | In
                 </li>
 
@@ -33,7 +36,8 @@
                         <span ng-if="$index < article.topicId.length-1">,</span>
                     </p>
                 </li>
-            </ul><div style="clear: both"></div>
+            </ul>
+            <div style="clear: both"></div>
         </div>
 
         <div class="article  col-md-12" ng-if="article.discussType == 'P'">
@@ -42,18 +46,25 @@
             </div>
         </div>
         
-         <div class="by-quad-image col-md-12">
-            <img ng-if="article.discussType == 'P'" src="{{article.articlePhotoFilename.titleImage||''}}" alt="image" fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
+        <div class="by-quad-image col-md-12">
+            <img ng-if="article.discussType == 'P'" src="{{article.articlePhotoFilename.titleImage||''}}" alt="image"
+                 fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
-         </div>
-        
-         <div class="articles-story  col-md-12" id="{{article.id}}" >
-            <p class="discuss-card-desciption" ng-if="article.shortSynopsis">{{article.shortSynopsis}}<a class="divRight by_readmore">Read More <b style="font-size:10px;">&#9002;</b></a></p>
-            <p class="discuss-card-desciption" ng-if="!article.shortSynopsis" ng-bind-html="trustForcefully(article.text)"></p>
-         </div>
+        </div>
+        <div style="clear: both"></div>
+        <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="article.linkInfo"
+             ng-init="linkInfo=article.linkInfo"></div>
 
-      
+        <div class="articles-story  col-md-12" id="{{article.id}}">
+            <p class="discuss-card-desciption" ng-if="article.shortSynopsis">{{article.shortSynopsis}}<a
+                    class="divRight by_readmore">Read More <b style="font-size:10px;">&#9002;</b></a></p>
+
+            <p class="discuss-card-desciption" ng-if="!article.shortSynopsis"
+               ng-bind-html="trustForcefully(article.text)"></p>
+        </div>
+
+
         <div style="clear: both"></div>
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
             <ul class="post-shares post-shares-lg">
@@ -62,6 +73,7 @@
                     <a href="#">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                         <span>{{article.aggrReplyCount}}</span>
+
                         <div class="text">Comment</div>
                     </a>
                 </li>
@@ -69,19 +81,25 @@
                     ng-if="article.aggrReplyCount == 0 && (article.discussType == 'P')">
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+
                         <div class="text"
-                              ng-click="go($event,'comment', article.id)">Be the first  to comment</div>
+                             ng-click="go($event,'comment', article.id)">Be the first to comment
+                        </div>
                     </a>
                 </li>
 
 
                 <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
                     <a ng-click="likeDiscuss(article.id)">
-                        <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[article.likedByUser===false]" title="Likes"></i>
-                        <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]" title="Likes"></i>
-                        <span ng-if="beforePost && article.aggrLikeCount > 0" >{{article.aggrLikeCount}}</span>
+                        <i class="rounded-x" ng-if="beforePost"
+                           ng:class="{true:'icon-heart', false:'icon-heart-active'}[article.likedByUser===false]"
+                           title="Likes"></i>
+                        <i class="rounded-x" ng-if="!beforePost"
+                           ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]"
+                           title="Likes"></i>
+                        <span ng-if="beforePost && article.aggrLikeCount > 0">{{article.aggrLikeCount}}</span>
                         <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0"
-                             >{{aggrLikeCount}}</span>
+                                >{{aggrLikeCount}}</span>
                     </a>
 
                     <div class="post-text">
@@ -89,25 +107,28 @@
                     </div>
                 </li>
 
-				<li class="add-comment" ng-if="article.discussType == 'P'"
-						ng-controller="ShareController"><a
-						ng-click="shareComment(article, $event)">
-						 <i class="rounded-x icon-share"></i>
-						 <span ng-if="article.shareCount > 0" >{{article.shareCount}}</span>
-					</a>
-	
-					<div class="post-text post_text-comment">
-						<a ng-click="shareComment(article, $event)"><div class="text">Share</div></a>
-					</div>
-				</li>
+                <li class="add-comment" ng-if="article.discussType == 'P'"
+                    ng-controller="ShareController"><a
+                        ng-click="shareComment(article, $event)">
+                    <i class="rounded-x icon-share"></i>
+                    <span ng-if="article.shareCount > 0">{{article.shareCount}}</span>
+                </a>
+
+                    <div class="post-text post_text-comment">
+                        <a ng-click="shareComment(article, $event)">
+                            <div class="text">Share</div>
+                        </a>
+                    </div>
+                </li>
             </ul>
         </div>
         <div style="clear: both"></div>
-        
+
     </div>
 </div>
 
 
-<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html" ng-if="!postsPageInfo.lastPage && contentType==='all'">
+<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"
+     ng-if="!postsPageInfo.lastPage && contentType==='all'">
     <a ng-click="showMore('P')">More...</a>
 </div>

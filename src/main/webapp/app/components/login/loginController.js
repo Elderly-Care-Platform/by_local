@@ -9,6 +9,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.newUser = new User();
         $scope.formState = 0;
+        
 
         $scope.resetPwd = {};
         $scope.resetPwd.email = '';
@@ -55,6 +56,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.modalLoginInit = function(){
             $scope.formState = 0;
+            $rootScope.loginFormState=0;
             $('#myModalHorizontal').on('hidden.bs.modal', function () {
                 $scope.user = {};
                 $scope.user.email = '';
@@ -62,6 +64,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                 $scope.newUser = new User();
                 $scope.formState = 0;
+                $rootScope.loginFormState=0;
 
                 $scope.resetPwd = {};
                 $scope.resetPwd.email = '';
@@ -72,6 +75,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.showForm = function(formId){
             $scope.formState = formId;
+            $rootScope.loginFormState=formId;
+            ValidateUserCredential.login();
         };
 
         

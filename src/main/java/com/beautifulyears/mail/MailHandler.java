@@ -17,6 +17,8 @@ import org.apache.log4j.Logger;
 
 import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.BYErrorCodes;
+import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.rest.UserController;
 import com.beautifulyears.util.Util;
 
@@ -81,6 +83,7 @@ public class MailHandler {
 			new Thread(new MailDispatcher(to, subject, body)).start();
 		}else{
 			logger.debug("not sending mail as it is disabled in context config");
+			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 		}
 		
 	}

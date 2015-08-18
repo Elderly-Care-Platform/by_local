@@ -286,8 +286,11 @@ public class UserController {
 				user.setVerificationCode(UUID.randomUUID().toString());
 				Date t = new Date();
 				user.setVerificationCodeExpiry(new Date(t.getTime() + (BYConstants.FORGOT_PASSWORD_CODE_EXPIRY_IN_MIN * 60000)));
+				boolean mailStatus = sendMailForResetPassword(user);
+				if(mailStatus == false){
+					throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+				}
 				mongoTemplate.save(user);
-				sendMailForResetPassword(user);
 			}else{
 				throw new BYException(BYErrorCodes.USER_EMAIL_DOES_NOT_EXIST);
 			}
@@ -313,6 +316,7 @@ public class UserController {
 				if(currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0){
 					user1.setVerificationCodeExpiry(currentDate);
 					user1.setPassword(user.getPassword());
+					logger.debug("password changed successfuully for user "+user1.getEmail());
 					//send mail on successful changing the password
 					mongoTemplate.save(user1);
 				}else{
@@ -354,20 +358,24 @@ public class UserController {
 		return true;
 	}
 	
-	void sendMailForResetPassword(User user) {
+	boolean sendMailForResetPassword(User user) {
+		boolean mailStatus = false;
 		try {
 				ResourceUtil resourceUtil = new ResourceUtil(
 						"mailTemplate.properties");
-				String url = "http://beautifulyears.com/#/discuss/55c8fa5fe4b0d01a10f85275";
+				String url = System.getProperty("path")
+						+ "#/users/resetPassword/"+user.getVerificationCode();
 				String userName = !Util.isEmpty(user.getUserName()) ? user
 						.getUserName() : "Anonymous User";
 				String body = MessageFormat.format(
 						resourceUtil.getResource("resetPassword"), userName,url,url,url);
 				MailHandler.sendMail(user.getEmail(), "Reset Beutifulyears' password",
 						body);
+				mailStatus = true;
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 		}
+		return mailStatus;
 	}
 
 

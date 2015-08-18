@@ -18,7 +18,21 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.pwdError = "";
         $scope.emailError = "";
 
-        $scope.resetPasswordCode = $routeParams.resetPasswordCode;
+        
+        if($routeParams.resetPasswordCode){
+        	verifyPasswordCode($routeParams.resetPasswordCode);
+        }
+        
+        function verifyPasswordCode(passCode){
+        	$http.get("api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
+        		$scope.resetPasswordCode = $routeParams.resetPasswordCode;
+        	}).error(function(errorRes){
+        		console.log(errorRes);
+                $scope.resetPwd.error = errorRes.error.errorMsg;
+        	})
+        	
+        	
+        }
 
         $scope.fbLogin = function(){
         	$http.get("api/v1/users/getFbURL").success(function(res){

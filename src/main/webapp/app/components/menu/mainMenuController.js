@@ -1,8 +1,8 @@
 /**
  * Created by sanjukta on 08-07-2015.
  */
-byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$location', '$routeParams','BYMenu',
-    function ($scope, $rootScope, $location, $routeParams, BYMenu) {
+byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$location', '$routeParams','BYMenu','broadCastMenuDetail','$window',
+    function ($scope, $rootScope, $location, $routeParams, BYMenu, broadCastMenuDetail, $window) {
         var categoryId = "", discussCategoryLevel = 0;
 
         $scope.mainMenu = window.by_menu;
@@ -10,6 +10,8 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $rootScope.menuCategoryMapByName = {};
         $rootScope.discussCategoryMap = {};
         $rootScope.serviceCategoryMap = {};
+        var menuWidth;
+
 
         //$scope.mainMenu = BYMenu.query({}, function(response){
         //    $scope.mainMenu = response;
@@ -69,6 +71,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $scope.selectMenu = function(menu){
             //$(".selected-dropdown").removeClass("selected-dropdown");
             //$("#" + menu.id).parents(".dropdown").addClass("selected-dropdown");
+            //$scope.selectedMenu = menu.children;
             if(menu.module===0){
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===1){
@@ -76,12 +79,12 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }else{
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }
-
         };
 
+
         $scope.resize = function(height, width){
-            console.log(width);
-            if(width < 984){
+            menuWidth = width;
+            if(menuWidth < 984){
                 $(".hbMenu").attr("data-toggle", "collapse");
                 $(".hbMenu").attr("data-target", ".navbar-responsive-collapse");
 
@@ -94,10 +97,103 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 $(".mega-menu-content a").removeAttr("data-toggle");
                 $(".mega-menu-content a").removeAttr("data-target");
             }
+
+            if($scope.sectionHeader){
+                if(menuWidth > 730){
+                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+                } else{
+                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+                }
+            }
         };
 
         $scope.createMenuCategoryMap($scope.mainMenu);
         window.by_menu = null;
         delete window.by_menu;
+
+        $scope.updateSectionHeader = function(menu){
+            var menuName = menu.displayMenuName.toLowerCase().trim();
+            $scope.sectionHeader = BY.config.sectionHeader[menuName];
+            if(!$scope.sectionHeader && menu.ancestorIds.length > 0) {
+                if(menu.ancestorIds.length===1){
+                    var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
+                    $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                } else if (menu.ancestorIds.length===2){
+                    var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
+                    $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                }
+
+                if($scope.sectionHeader[menuName]){
+                    $scope.sectionHeader = $scope.sectionHeader[menuName];
+                }
+            }
+
+            if($scope.sectionHeader){
+                $(".by_section_header_title").text($scope.sectionHeader.sectionHead);
+                $(".by_section_header_desc").text($scope.sectionHeader.sectionDesc);
+                if(menuWidth > 730){
+                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+                } else{
+                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+                }
+            }
+        };
+
+        $scope.$on('handleBroadcastMenu', function () {
+            if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
+                var menu = broadCastMenuDetail.selectedMenu;
+                $scope.selectedSubMenu = menu.children;
+
+                $scope.updateSectionHeader(menu);
+                $(".selected-dropdown").removeClass("selected-dropdown");
+                $("#" + menu.id).parents(".by-menu").addClass("selected-dropdown");
+
+                window.setTimeout(function(){
+                    if(!$scope.selectedSubMenu || $scope.selectedSubMenu.length == 0){
+                        $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
+                        $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
+                        //$(".by_left_panel_fixed").css('margin-top', '0px');
+                    }else{
+                        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+                    }
+                },0);
+
+
+            }else{
+                $(".selected-dropdown").removeClass("selected-dropdown");
+                $scope.selectedSubMenu = null;
+            }
+        });
+
+        $scope.subMenuResize = function(height, width){
+            var leftMenuHeight = $(".by-left-menu").height(),
+                sliderHeight = $(".by_section_header").height();
+            console.log(leftMenuHeight);
+            if (leftMenuHeight > 0) {
+                var marginTop = leftMenuHeight - sliderHeight;
+                $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
+            }
+        }
+
+        angular.element($window).bind("scroll", function() {
+            if(!$scope.selectedSubMenu || $scope.selectedSubMenu.length == 0){
+                console.log("comes inside");
+                if($(".homeSlider").length > 0){
+                    $scope.sliderHeight = $(".homeSlider").height();
+                }else{
+                    $scope.sliderHeight = $(".by_section_header").height();
+                }
+                if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+                    console.log("margin nottttttt 0");
+                    $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+                    $(".by_left_panel_fixed").css('margin-top', -$scope.sliderHeight+'px');
+                }else{
+                    console.log("margin 0");
+                    $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
+                    $(".by_left_panel_fixed").css('margin-top', '0px');
+                }
+            }
+
+        });
 
     }]);

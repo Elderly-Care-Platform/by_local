@@ -1,7 +1,7 @@
 //DIscuss All
 byControllers.controller('ServicesController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-    'FindServices', '$sce', '$window',
-    function ($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, $window) {
+    'FindServices', '$sce', '$window','broadCastMenuDetail',
+    function ($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, $window, broadCastMenuDetail) {
 
         var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
@@ -23,24 +23,6 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
            service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
         }
         
-        $scope.updateSectionHeader = function(){
-        	var menuName = $scope.selectedMenu.displayMenuName.toLowerCase().trim();
-        	$scope.sectionHeader = BY.config.sectionHeader[menuName];
-        	if(!$scope.sectionHeader && $scope.selectedMenu.ancestorIds.length > 0) {
-        		if($scope.selectedMenu.ancestorIds.length===1){
-        			var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[0]];
-            		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
-        		} else if ($scope.selectedMenu.ancestorIds.length===2){
-        			var rootMenu = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[1]];
-            		$scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
-        		}
-        		
-        		if($scope.sectionHeader[menuName]){
-        			$scope.sectionHeader = $scope.sectionHeader[menuName];
-        		}
-        	} 
-        	//console.log($scope.sectionHeader);
-        };
 
         if($scope.selectedMenu){
             $(".selected-dropdown").removeClass("selected-dropdown");
@@ -74,12 +56,12 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                     $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
                     $scope.pageInfo.isQueryInProgress = false;
                     $("#preloader").hide();
+                    broadCastMenuDetail.setMenuId($scope.selectedMenu);
                 },
                 function (error) {
                     console.log(error);
                 });
 
-            $scope.updateSectionHeader();
         }
 
 
@@ -189,24 +171,24 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             }
         }
         
-        angular.element($window).bind("scroll", function() {
-        	$scope.sliderHeight = $(".by_section_header").height();
-        	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
-        		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
-        		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
-        	}else{
-        		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
-        		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
-        	}
-        });
+        //angular.element($window).bind("scroll", function() {
+        //	$scope.sliderHeight = $(".by_section_header").height();
+        //	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+        //		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+        //		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+        //	}else{
+        //		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+        //		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        //	}
+        //});
         
-        $scope.resize = function(height, width){
-        	if(width > 730){
-        		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
-        	} else{
-        		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
-        	}   	
-        };
+        //$scope.resize = function(height, width){
+        //	if(width > 730){
+        //		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+        //	} else{
+        //		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+        //	}
+        //};
 
         $scope.showAllServices = function($event, service){
             var parentNode = $($event.target.parentElement),

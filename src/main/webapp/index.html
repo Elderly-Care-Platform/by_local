@@ -245,12 +245,14 @@
                 </div><div class="clearfix"></div>
                 </div>
 
-
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
-                    <div class="container-fluid"  style="max-width: 960px;" ng-controller="MainMenuController">
-                        <ul class="nav navbar-nav" ng-include="'app/components/menu/mainMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>
+                    <div class="container-fluid"  style="max-width: 960px;" ng-controller="MainMenuController" >
+                        <ul class="nav navbar-nav" ng-include="'app/components/menu/mainMenu.html?versionTimeStamp=%PROJECT_VERSION%'" window-resize callback="resize"></ul>
+                        <div class="clearfix"></div>
+                        <ul class="dropdown-menu by-left-menu" ng-if="selectedSubMenu.length > 0" element-resize callback="subMenuResize"
+                            ng-include="'app/components/menu/subMenu.html?versionTimeStamp=%PROJECT_VERSION%'"
+                                style="display: block; min-width: 225px;min-height: 174px;max-width: 225px;overflow-wrap: break-word;display: table-row;"></ul>
                     </div>
                     <!--/end container-->
                 </div>

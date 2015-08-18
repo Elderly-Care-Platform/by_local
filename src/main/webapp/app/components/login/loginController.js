@@ -237,6 +237,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $http.post(apiPrefix + 'api/v1/users/resetPassword', resetPwdUser).success(function (res) {
                     console.log(res);
                     $location.path("/users/home");
+                    $scope.setUserCredential(res.data);
                 }).error(function (errorRes) {
                     console.log(errorRes);
                     $(".by_btn_submit").prop('disabled', false);

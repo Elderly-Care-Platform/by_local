@@ -304,13 +304,14 @@ public class UserController {
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	public @ResponseBody Object getResetPasswordLink(
 			@RequestBody User user,			
-			HttpServletRequest req) {
+			HttpServletRequest req,HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
+		User user1 = null;
 		if(null != user && !Util.isEmpty(user.getVerificationCode()) && !Util.isEmpty(user.getPassword())){
 			Query q = new Query();
 			q.addCriteria(Criteria.where("verificationCode")
 					.is(user.getVerificationCode()));
-			User user1 = mongoTemplate.findOne(q, User.class);
+			user1 = mongoTemplate.findOne(q, User.class);
 			if(null != user1){
 				Date currentDate = new Date();
 				if(currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0){
@@ -328,8 +329,7 @@ public class UserController {
 		}else{
 			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 		}
-		
-		return true;
+		return login(new LoginRequest(user1),req,res);
 	}
 	
 	@RequestMapping(value = "/verifyPwdCode", method = RequestMethod.GET)

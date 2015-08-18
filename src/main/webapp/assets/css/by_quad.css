@@ -400,6 +400,7 @@
 .commentHeightLine img {
 	width: auto !important;
 	margin-right: 3px;
+	float: none;
 }
 
 .blog-author {

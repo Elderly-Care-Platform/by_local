@@ -124,3 +124,19 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 	border-bottom: 0px;
 	font-size: 15px;
 }
+.header .mega-menu .dropdown-submenu .by-leafMenu
+{
+	top:4px;
+	min-height: 174px;
+	width:705px;
+}
+.mega-menu-content-left
+{
+	width:224px;
+	float:left;
+	border-right:1px solid #000;
+}
+.mega-menu-content-left:last-child
+{
+	border-right:0px;
+}

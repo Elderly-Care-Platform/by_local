@@ -203,23 +203,31 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         }
 
         angular.element($window).bind("scroll", function() {
-            if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
-                console.log("comes inside");
-                if($(".homeSlider").length > 0){
-                    $scope.sliderHeight = $(".homeSlider").height();
-                }else{
-                    $scope.sliderHeight = $(".by_section_header").height();
-                }
+            if($(".homeSlider").length > 0){
+                $scope.sliderHeight = $(".homeSlider").height();
                 if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
-                    console.log("margin nottttttt 0");
                     $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
                     $(".by_left_panel_fixed").css('margin-top', -$scope.sliderHeight+'px');
                 }else{
-                    console.log("margin 0");
                     $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
                     $(".by_left_panel_fixed").css('margin-top', '0px');
                 }
+            }else{
+                if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
+                    console.log("comes inside");
+                    $scope.sliderHeight = $(".by_section_header").height();
+                    if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+                        console.log("margin nottttttt 0");
+                        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+                        $(".by_left_panel_fixed").css('margin-top', -$scope.sliderHeight+'px');
+                    }else{
+                        console.log("margin 0");
+                        $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
+                        $(".by_left_panel_fixed").css('margin-top', '0px');
+                    }
+                }
             }
+
         });
 
     }]);

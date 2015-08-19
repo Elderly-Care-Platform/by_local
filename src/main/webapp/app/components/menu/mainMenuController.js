@@ -169,7 +169,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 var marginTop = leftMenuHeight - sliderHeight;
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
             }
-            $(".by-leafMenu").height(leftMenuHeight);
+            $(".by-leafMenu").css('min-height', leftMenuHeight - 11);
         }
 
         angular.element($window).bind("scroll", function() {

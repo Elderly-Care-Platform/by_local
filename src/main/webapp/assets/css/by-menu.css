@@ -126,9 +126,13 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 }
 .header .mega-menu .dropdown-submenu .by-leafMenu
 {
-	top:4px;
-	min-height: 174px;
+	top:15px;
+	min-height: 164px;
 	width:705px;
+	border:1px solid #ccc;
+	box-shadow: none;
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
 }
 .mega-menu-content-left
 {
@@ -144,4 +148,49 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 {
 	width:224px;
 	float:left;
+}
+.header .dropdown-menu .active > a, .header .dropdown-menu li > a:hover, .header .dropdown-menu li:hover 
+{
+	background:#efefef;
+	color:#000;
+}
+.header .dropdown-menu li:hover .mega-menu-content
+{
+	background:#fff;
+}
+.header .dropdown-menu li:hover .mega-menu-content li > a:hover, .header .dropdown-menu li:hover .mega-menu-content li:hover
+{
+	background:#fff !important;
+	color:#189652;	
+}
+.header .mega-menu .mega-menu-content li a:after
+{
+	content:'';
+}
+.header .mega-menu .mega-menu-content li a
+{
+	padding: 7px 10px 7px 10px;
+}
+.header .mega-menu .mega-menu-content
+{
+	line-height:26px;
+}
+ .header .dropdown-submenu>a:after {
+    content: "\f105";
+    position:relative;
+    float: right;
+    margin-top: -5px;
+    margin-right: -10px;
+}
+ .header .dropdown-submenu:hover >a:after {
+ 	content:'';
+    width: 0; 
+	height: 0; 
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent; 	
+	border-right:7px solid #fff; 
+    position:relative;
+    float: right;
+    margin-top: -5px;
+    margin-right: -19px;
 }

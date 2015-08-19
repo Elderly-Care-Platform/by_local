@@ -4,9 +4,7 @@
         <li ng-if="submenu.children.length > 0" ng-init="colCount = submenu.children.length/3">
 			<div class="mega-menu-content">
 				<ul class="list-unstyled style-list">
-					<li ng-repeat="leafMenu in submenu.children"
-						style="margin-top: 10px; margin-bottom: 10px;"><a href="#"
-						style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a></li>
+					<li ng-repeat="leafMenu in submenu.children"><a href="#">{{leafMenu.displayMenuName}}</a></li>
 				</ul>
 			</div>
 		</li>

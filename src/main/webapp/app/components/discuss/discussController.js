@@ -52,9 +52,6 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                     $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
                     $scope.pageInfo.isQueryInProgress = false;
                     $("#preloader").hide();
-
-                    broadCastMenuDetail.setMenuId($scope.selectedMenu);
-
                 },
                 function (error) {
                     console.log("DiscussAllForDiscussType");
@@ -63,7 +60,9 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             
         };
         
-       
+       $scope.fixedMenuInitialized = function(){
+           broadCastMenuDetail.setMenuId($scope.selectedMenu);
+       };
 
         $scope.loadMore = function($event){
             if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){

@@ -56,14 +56,17 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
                     $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
                     $scope.pageInfo.isQueryInProgress = false;
                     $("#preloader").hide();
-                    broadCastMenuDetail.setMenuId($scope.selectedMenu);
+                    //broadCastMenuDetail.setMenuId($scope.selectedMenu);
                 },
                 function (error) {
                     console.log(error);
                 });
 
-        }
+        };
 
+        $scope.fixedMenuInitialized = function(){
+            broadCastMenuDetail.setMenuId($scope.selectedMenu);
+        };
 
         //$scope.showBreadcrums = function () {
         //    $rootScope.bc_topic = 'list';

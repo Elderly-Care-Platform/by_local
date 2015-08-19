@@ -252,9 +252,9 @@
                     <div class="container-fluid"  style="max-width: 960px;" ng-controller="MainMenuController" >
                         <ul class="nav navbar-nav" ng-include="'app/components/menu/mainMenu.html?versionTimeStamp=%PROJECT_VERSION%'" window-resize callback="resize"></ul>
                         <div class="clearfix"></div>
-                        <ul class="dropdown-menu by-left-menu" ng-if="selectedSubMenu.length > 0" element-resize callback="subMenuResize"
-                            ng-include="'app/components/menu/subMenu.html?versionTimeStamp=%PROJECT_VERSION%'"
-                               ></ul>
+                        <ul class="dropdown-menu by-left-menu" ng-if="selectedTopMenu.children.length > 0"
+                            element-resize callback="subMenuResize"
+                            ng-include="'app/components/menu/subMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>
                     </div>
                     <!--/end container-->
                 </div>

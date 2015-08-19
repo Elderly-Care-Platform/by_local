@@ -142,26 +142,22 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $scope.$on('handleBroadcastMenu', function () {
             if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
                 var menu = broadCastMenuDetail.selectedMenu;
-                $scope.selectedSubMenu = menu.children;
+                $scope.selectedTopMenu = menu;
 
                 $scope.updateSectionHeader(menu);
                 $(".selected-dropdown").removeClass("selected-dropdown");
                 $("#" + menu.id).parents(".by-menu").addClass("selected-dropdown");
 
-                window.setTimeout(function(){
-                    if(!$scope.selectedSubMenu || $scope.selectedSubMenu.length == 0){
-                        $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
-                        $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
-                        //$(".by_left_panel_fixed").css('margin-top', '0px');
-                    }else{
-                        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-                    }
-                },0);
-
-
+                if($scope.selectedTopMenu.children.length == 0){
+                    $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
+                    $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
+                    //$(".by_left_panel_fixed").css('margin-top', '0px');
+                }else{
+                    $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+                }
             }else{
                 $(".selected-dropdown").removeClass("selected-dropdown");
-                $scope.selectedSubMenu = null;
+                $scope.selectedTopMenu = null;
             }
         });
 
@@ -173,10 +169,11 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 var marginTop = leftMenuHeight - sliderHeight;
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
             }
+            $(".by-leafMenu").height(leftMenuHeight);
         }
 
         angular.element($window).bind("scroll", function() {
-            if(!$scope.selectedSubMenu || $scope.selectedSubMenu.length == 0){
+            if($scope.selectedTopMenu.children.length == 0){
                 console.log("comes inside");
                 if($(".homeSlider").length > 0){
                     $scope.sliderHeight = $(".homeSlider").height();
@@ -193,7 +190,6 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                     $(".by_left_panel_fixed").css('margin-top', '0px');
                 }
             }
-
         });
 
     }]);

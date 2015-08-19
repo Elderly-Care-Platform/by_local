@@ -1,3 +1,41 @@
-<li ng-repeat="submenu in selectedSubMenu">
-    <a href="shop-ui-register.html">{{submenu.displayMenuName}}</a>
+<li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module==submenu.module">
+    <a href="javascript:void(0);">{{submenu.displayMenuName}}</a>
+    <ul class="dropdown-menu by-leafMenu"  style="margin-left: 2px;">
+        <li ng-if="submenu.children.length > 0">
+            <div class="mega-menu-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <ul class="list-unstyled style-list">
+                                <li ng-repeat="leafMenu in submenu.children" ng-if="$index < 5" style="margin-top: 10px;margin-bottom: 10px;">
+                                    <a href="#" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr style="height:100%;background-color: black;width: 2px;">
+                        <div class="col-md-4 col-sm-6">
+                            <ul class="list-unstyled style-list">
+                                <li ng-repeat="leafMenu in submenu.children" ng-if="$index >= 5 && $index < 10" style="margin-top: 10px;margin-bottom: 10px;">
+                                    <a href="#" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr style="height:100%;background-color: black;width: 2px;">
+                        <div class="col-md-4 col-sm-6">
+                            <ul class="list-unstyled style-list">
+                                <li ng-repeat="leafMenu in submenu.children" ng-if="$index >= 10 && $index < 15" style="margin-top: 10px;margin-bottom: 10px;">
+                                    <a href="#" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</li>
+
+<li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module!=submenu.module">
+    <div style="background-color: black; height:1px" ng-if="$index===0"></div>
+    <a href="javascript:void(0);">{{submenu.displayMenuName}}</a>
 </li>

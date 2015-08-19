@@ -17,9 +17,16 @@
                 </div>
 
                 <div class="row" ng-if="colCount > 1 && colCount <= 2">
-                    <div class="col-md-6 col-sm-6" ng-repeat="leafMenu in submenu.children">
+                    <div class="col-md-6 col-sm-6" >
                         <ul class="list-unstyled style-list">
-                            <li style="width: 100%;">
+                            <li style="width: 100%;" ng-repeat="leafMenu in submenu.children" ng-if="$index < 4">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6" >
+                        <ul class="list-unstyled style-list">
+                            <li style="width: 100%;" ng-repeat="leafMenu in submenu.children" ng-if="$index >= 4">
                                 <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
                             </li>
                         </ul>

@@ -145,6 +145,10 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 if(menu.ancestorIds.length > 0){
                     $scope.selectedTopMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
                     $scope.selectedSubMenu = menu;
+                    if(menu.ancestorIds.length >= 2){
+                        $scope.selectedSubMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
+                    }
+
                 }else{
                     $scope.selectedTopMenu = menu;
                 }

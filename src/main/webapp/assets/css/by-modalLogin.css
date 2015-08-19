@@ -49,3 +49,8 @@
 	width:96%;
 	margin:6px auto 15px auto;
 }
+
+.emailSentSuccessModal{
+	overflow-wrap: break-word;
+    margin: 10px;
+}

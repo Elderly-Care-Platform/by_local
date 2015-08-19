@@ -280,7 +280,7 @@ public class UserController {
 		if(!Util.isEmpty(email)){
 			Query q = new Query();
 			q.addCriteria(Criteria.where("email")
-					.is(email));
+					.regex(email, "i"));
 			User user = mongoTemplate.findOne(q, User.class);
 			if(null != user){
 				user.setVerificationCode(UUID.randomUUID().toString());

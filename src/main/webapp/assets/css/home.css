@@ -59,7 +59,7 @@
 	border-style: solid;
 	border-width: 0px;
 	border-color: #cfcfcf;
-	border-right-width: 1px;
+	border-right-width: 0px;
 	padding-right: 0px; ! important;
 	line-height: 1.1 !important;
 }
@@ -84,8 +84,8 @@
 		left: 50px;
 	}
 	.by_left_panel_fixed .scrollableLeftPanelDiv {
-		height: calc(100vh - 140px);
-		padding-bottom: 54px;
+		height: calc(100vh - 166px);
+		padding-bottom: 0px;
 		overflow-x: hidden;
 	}
 }

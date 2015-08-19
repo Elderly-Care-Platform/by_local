@@ -372,9 +372,9 @@
 }
 
 .also-by-wrapper {
-	border-left: 1px solid #ccc;
 	padding-bottom: 1px !important;
-	border-bottom: 1px solid #ccc;
+	border:1px solid #ccc;
+	border-top:0px;
 }
 
 .also-by-content {

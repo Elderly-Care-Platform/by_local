@@ -19,21 +19,17 @@
 				<div class="modal-body">
 					<p style="margin-bottom: 2px;">Paste your video embedded code</p>
 					<div class="clearfix"></div>
-					<img
-						src="assets/img/icons/dailymotion.png?versionTimeStamp=%PROJECT_VERSION%" />
-					<img
-						src="assets/img/icons/vimeo.png?versionTimeStamp=%PROJECT_VERSION%" />
-					<img
-						src="assets/img/icons/metacafe.png?versionTimeStamp=%PROJECT_VERSION%" />
-					<img
-						src="assets/img/icons/youtube.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<img src="assets/img/icons/dailymotion.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<img src="assets/img/icons/vimeo.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<img src="assets/img/icons/metacafe.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<img src="assets/img/icons/youtube.png?versionTimeStamp=%PROJECT_VERSION%" />
 					<div class="clearfix" style="height: 10px;"></div>
 					<textarea rows="" cols="" class="by_editorModalTextArea"
 						ng-model="sharedLinkUrl"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="submit"
-						class="btn btn-sm btn-success comment-submit by_btn_submit"
+						class="btn btn-sm btn-success comment-submit by_share_btn_submit"
 						data-dismiss="modal" ng-click="postLink()">Submit</button>
 					<button type="button"
 						class="btn btn-sm btn-success comment-submit by_btn_cancel"
@@ -60,7 +56,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit"
-						class="btn btn-sm btn-success comment-submit by_btn_submit"
+						class="btn btn-sm btn-success comment-submit by_share_btn_submit"
 						data-dismiss="modal" ng-click="postLink()">Submit</button>
 					<button type="button"
 						class="btn btn-sm btn-success comment-submit by_btn_cancel"
@@ -222,7 +218,7 @@
 				class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn"
 				disabled ng-click="postContent('P')">Submit</button>
 			<button
-				class="btn btn-big btn-default pull-right by_btn_submit by-editor-cancel-btn"
+				class="btn btn-big btn-default pull-right by-editor-cancel-btn"
 				ng-click="exitEditor()">Cancel</button>
 			<div class="clearfix"></div>
 		</div>

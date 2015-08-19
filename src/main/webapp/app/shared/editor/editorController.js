@@ -199,6 +199,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.postLink = function(){
             if($scope.sharedLinkUrl && $scope.sharedLinkUrl.trim().length > 0){
                 $(".by-editor-view-buttons").hide();
+                //$(".by_share_btn_submit").prop("disabled", true);
                 $scope.showLinkView = true;
                 $scope.linkInfoLoading = true;
                 $http.get('api/v1/discuss/getLinkInfo?url='+encodeURIComponent($scope.sharedLinkUrl)).
@@ -211,6 +212,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                         $scope.linkInfoLoading = false;
                         console.log(error);
                         $scope.sharedLinkUrl = "";
+                        $(".by_btn_submit").prop("disabled", false);
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });

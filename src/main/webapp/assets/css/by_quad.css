@@ -462,3 +462,19 @@
 		border-right: 1px solid #ccc;
 	}
 }
+.discussRightCategory
+{
+	color:#000;
+	margin-right:15px;
+	padding-bottom:5px;
+}
+.article-outer-wrapper a.discussRightCategory:hover
+{
+	text-decoration:none;
+}
+
+.article-outer-wrapper a.selected
+{
+	border-bottom:1px solid #000;
+	text-decoration:none;
+}

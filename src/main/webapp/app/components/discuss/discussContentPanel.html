@@ -1,3 +1,19 @@
+
+<a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
+	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
+	&amp; A ({{discuss_counts.q}})</a>
+
+
+<a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
+	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
+	({{discuss_counts.p}})</a>
+
+
+<a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
+	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
+	({{discuss_counts.z}})</a>
+
+<div class="clearfix" style="height:15px;"></div>
 <div ng-repeat="discuss in discuss" data-index="discussion-articles" data-link="articles.html">
     <div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
          class="blog-author margin-bottom-35 main-article by_blog_author"

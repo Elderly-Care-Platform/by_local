@@ -8,7 +8,7 @@
                 <div class="row" ng-if="colCount <= 1">
                     <div class="col-md-12 col-sm-6"  ng-repeat="leafMenu in submenu.children">
                         <ul class="list-unstyled style-list">
-                            <li style="margin-top: 10px; margin-bottom: 10px;width: 100%;">
+                            <li style="width: 100%;">
                                 <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
                             </li>
                         </ul>
@@ -18,7 +18,7 @@
                 <div class="row" ng-if="colCount > 1 && colCount <= 2">
                     <div class="col-md-6 col-sm-6" ng-repeat="leafMenu in submenu.children">
                         <ul class="list-unstyled style-list">
-                            <li style="margin-top: 10px; margin-bottom: 10px;    width: 100%;">
+                            <li style="width: 100%;">
                                 <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
                             </li>
                         </ul>
@@ -28,7 +28,7 @@
                 <div class="row" ng-if="colCount > 2">
                     <div class="col-md-4 col-sm-6" ng-repeat="leafMenu in submenu.children">
                         <ul class="list-unstyled style-list">
-                            <li style="margin-top: 10px; margin-bottom: 10px;    width: 100%;">
+                            <li style="width: 100%;">
                                 <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
                             </li>
                         </ul>
@@ -71,5 +71,5 @@
 <li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}"
     ng-if="selectedTopMenu.module!=submenu.module">
     <div style="background-color: black; height:1px" ng-if="$index===0"></div>
-    <a href="javascript:void(0);">{{submenu.displayMenuName}}</a>
+    <a ng-click="selectMenu(submenu)">{{submenu.displayMenuName}}</a>
 </li>

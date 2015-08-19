@@ -1,7 +1,7 @@
 <div class="modal-dialog by-modalLogin">
-    <div class="modal-content" style="border-radius: 8px !important;" ng-controller="LoginController" ng-init="modalLoginInit()">
+    <div class="modal-content"  ng-controller="LoginController" ng-init="modalLoginInit()">
         <!-- Modal Header -->
-        <div class="modal-header" style="border:0px">
+        <div class="modal-header">
             <button type="button" class="close"
                     data-dismiss="modal">
                 <span aria-hidden="true">&times;</span>
@@ -10,13 +10,12 @@
         </div>
 <div style="display:none">{{formState = $root.loginFormState}}</div>
         <!-- Modal Body -->
-        <div class="modal-body" style="padding-top: 0px;text-align: center">
+        <div class="modal-body">
             <div class="row signup">
-                <div class="col-md-12 login">
+                <div class="login">
                     <!----------------------Login Form start------------------------->
-                    <form class="" name="loginForm" ng-submit="loginUser(user)" ng-if="formState===0" novalidate>
-                        <div class="no-padding form-header-content font-bold"
-                             style="margin-bottom: 10px;font-size: 20px;">
+                    <form class="" name="loginForm" ng-submit="loginUser(user)" ng-if="formState===1" novalidate>
+                        <div class="no-padding form-header-content font-bold">
                             Login
                         </div>
                         <div ng-show="error">
@@ -26,11 +25,10 @@
                             <font color="green">{{message}}</font>
                         </div>
 
-                        <div class="no-padding margin-bottom-20">
+                        <div class="no-padding margin-bottom-10">
                             <input type="text" class="username-textbox textbox modal-login-input"
                                    placeholder="Please enter your Email ID "
-                                   ng-model="user.email"
-                                   style="width: 80%;border: 1px solid #ccc;border-radius: 4px !important;padding-left: 10px;">
+                                   ng-model="user.email">
                         </div>
 
                         <span>
@@ -38,34 +36,32 @@
                                class="help-block">Email is required.</p>
                         </span>
 
-                        <div class="col-md-12 no-padding margin-bottom-20">
+                        <div class="col-md-12 no-padding margin-bottom-10">
                             <input type="password" class="username-textbox textbox modal-login-input"
                                    placeholder="Please enter your password"
-                                   ng-model="user.password"
-                                   style="width: 80%;border: 1px solid #ccc;border-radius: 4px !important;padding-left: 10px;">
+                                   ng-model="user.password">
                         </div>
                         <span>
                             <p ng-show="loginForm.password.$invalid && loginForm.password.$pristine"
                                class="help-block">Password is required.</p>
                         </span>
 
-                        <div class="no-padding form-header-content" style="margin-bottom: 10px;">
+                        <div class="no-padding form-header-content margin-bottom-10" >
                             <button class="btn btn-success login-btn by_btn_submit" ng-disabled="!loginForm.$valid"
                                     type="submit">LOGIN
                             </button>
                         </div>
 
-                        <div class="no-padding margin-bottom-25">
+                        <div class="no-padding margin-bottom-10">
                             Forgot your password? <a ng-click="showForm(2)">Click here</a>
                         </div>
                     </form>
                     <!----------------------Login Form End------------------------->
 
                     <!----------------------Registration Form start------------------------->
-                    <form class="" name="userForm" ng-submit="createNewUser(userForm.$valid)" ng-if="formState===1"
+                    <form class="" name="userForm" ng-submit="createNewUser(userForm.$valid)" ng-if="formState===0"
                           novalidate>
-                        <div class="no-padding form-header-content font-bold"
-                             style="margin-bottom: 10px;font-size: 20px;">
+                        <div class="no-padding form-header-content font-bold">
                             Sign Up
                         </div>
                         <div ng-if="createUserError">
@@ -74,32 +70,29 @@
                         <div ng-if="emailError!==''">
                             <font color="red">{{emailError}}</font>
                         </div>
-                        <div class="no-padding margin-bottom-20">
+                        <div class="no-padding margin-bottom-10">
                             <input type="text" class="username-textbox textbox modal-login-input"
                                    placeholder="Please enter your Email ID "
-                                   ng-model="newUser.email"
-                                   style="width: 80%;border: 1px solid #ccc;border-radius: 4px !important;padding-left: 10px;">
+                                   ng-model="newUser.email">
                         </div>
 
-                        <div class="no-padding margin-bottom-20">
+                        <div class="no-padding margin-bottom-10">
                             <input type="text" class="username-textbox textbox modal-login-input"
                                    placeholder="Please select your User Name (optional)"
-                                   ng-model="newUser.userName"
-                                   style="width: 80%;border: 1px solid #ccc;border-radius: 4px !important;padding-left: 10px;">
+                                   ng-model="newUser.userName">
                         </div>
 
                         <div ng-if="pwdError!==''">
                             <font color="red">{{pwdError}}</font>
                         </div>
 
-                        <div class="no-padding margin-bottom-20">
+                        <div class="no-padding margin-bottom-10">
                             <input type="password" class="username-textbox textbox modal-login-input"
                                    placeholder="Please select your password"
-                                   ng-model="newUser.password"
-                                   style="width: 80%;border: 1px solid #ccc;border-radius: 4px !important;padding-left: 10px;">
+                                   ng-model="newUser.password">
                         </div>
 
-                        <div class="no-padding form-header-content" style="margin-bottom: 10px;">
+                        <div class="no-padding form-header-content margin-bottom-10" >
                             <button class="btn btn-success register-btn by_btn_submit"
                                     type="submit">REGISTER
                             </button>
@@ -110,8 +103,7 @@
 
                     <!----------------------Forgot Password Form start------------------------->
                     <form class="" name="forgotPwdForm" ng-submit="emailPwdLink(resetPwd.email)" ng-if="formState===2" novalidate>
-                        <div class="no-padding form-header-content font-bold"
-                             style="margin-bottom: 10px;font-size: 20px;">
+                        <div class="no-padding form-header-content font-bold">
                              Forgot your password
                         </div>
 
@@ -122,11 +114,10 @@
                         <div ng-if="resetPwd.status===0" class="no-padding margin-bottom-20">
                             <input type="text" class="username-textbox textbox modal-login-input"
                                    placeholder="Please enter email id"
-                                   ng-model="resetPwd.email"
-                                   style="width: 80%;border: 1px solid #ccc;border-radius: 4px !important;padding-left: 10px;">
+                                   ng-model="resetPwd.email">
                         </div>
 
-                        <div ng-if="resetPwd.status===0" class="no-padding form-header-content" style="margin-bottom: 10px;">
+                        <div ng-if="resetPwd.status===0" class="no-padding form-header-content margin-bottom-10">
                             <button class="btn btn-success register-btn by_btn_submit"
                                     type="submit">SUBMIT
                             </button>
@@ -140,12 +131,12 @@
                     <!----------------------Forgot Password Form End------------------------->
                 </div>
                 <div class="clearfix"></div>
-                <div class="no-padding signup-social" ng-if="resetPwd.status!=1">
+                <div class="no-padding signup-social" ng-if="resetPwd.status!=1" style=" margin-top: -5px;">
                     <div>
-                        Or
+                        OR
                     </div>
                     <div class="no-padding form-header-content">
-                        You could also use your Social login to <br/> sign up
+                     You could use your social login to <span ng-if="formState===1">login</span>  <span ng-if="formState===0">sign up</span>
                     </div>
 
                     <div style="margin-top: 5px;">
@@ -158,189 +149,29 @@
                         </div>
                     </div>
 
-                    <div style="margin-left: 13px;margin-right: 13px;color: #ccc;">
-                        <ul class="social-ul">
-                            <li>
-                                <span class="lock-icon">
-                                    <img src="assets/img/icons/lock.png" width="8"
-                                         height="11">
-                                </span>
-                                Be assured, BeautifulYears do not share your information
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
+					<div class="modalLoginUl">
+
+						<span class="lock-icon"> <img
+							src="assets/img/icons/lock.png" width="8" height="11">
+						</span> BeautifulYears do not share your information
+					</div>
+					<div class="clearfix"></div>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
 
         <!-- Modal Footer -->
-        <div class="modal-footer" style="border:0px; text-align: center;padding-top: 0px;" ng-if="resetPwd.status!=1">
+        <div class="modal-footer" style="border:0px; font-size: 15px; text-align:center; background-color: #e7e7e7; border-bottom-right-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    padding-top: 8px; margin-top: -18px;" ng-if="resetPwd.status!=1">
             <div class="no-padding" ng-if="formState===0 || formState===2">
-                Not a BeautifulYears member?<br/> <a ng-click="showForm(1)">Register Now</a>
+                Already a BeautifulYears member?<br/> <a ng-click="showForm(1)">Login Here</a>
             </div>
-            <div class="no-padding margin-bottom-25" ng-if="formState===1">
-                Already a BeautifulYears member?<br/> <a ng-click="showForm(0)">Login Here</a>
+            <div class="no-padding" ng-if="formState===1">
+                Not a BeautifulYears member?<br/> <a ng-click="showForm(0)">Register Now</a>
             </div>
         </div>
     </div>
 </div>
 
-
-<!--<div class="modal-dialog by-modal-dialog">-->
-<!--<div class="modal-content">-->
-<!--&lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--<div class="modal-header" style="border:0px">-->
-<!--<button type="button" class="close"-->
-<!--data-dismiss="modal">-->
-<!--<span aria-hidden="true">&times;</span>-->
-<!--<span class="sr-only">Close</span>-->
-<!--</button>-->
-<!--&lt;!&ndash;<div class="i-login-img col-md-12 padding-zero-only headerInfoDiv" style="margin-left: 0px;">&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="i-login col-md-11 ">To publish your stories or articles; to comment; to 'like'; to answer questions; and to provide relevant personalized information - we invite you to join us!&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="col-md-1 i-icon">&ndash;&gt;-->
-<!--&lt;!&ndash;<img src="assets/img/icons/i-icon.png" width="18" height="34">&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--</div>-->
-
-<!--&lt;!&ndash; Modal Body &ndash;&gt;-->
-<!--<div class="modal-body">-->
-<!--<div class="col-md-12 no-padding margin-top-10 whitebg-graybdr signup" ng-controller="LoginController">-->
-<!--<div class="col-md-5 margin-left-20  login">-->
-<!--<form class="" name="loginForm" ng-submit="loginUser(user)" novalidate>-->
-<!--<div class="col-md-12 no-padding form-header-content margin-bottom-35 margin-top-20 font-bold grayBgWhite">-->
-<!--LOGIN-->
-<!--</div>-->
-<!--<div ng-show="error">-->
-<!--<font color="red">{{error}}</font>-->
-<!--</div>-->
-<!--<div ng-show="message">-->
-<!--<font color="green">{{message}}</font>-->
-<!--</div>-->
-
-<!--<div class=" col-md-12 no-padding margin-bottom-20 register-page">-->
-<!--<input type="text" class="username-textbox textbox"-->
-<!--placeholder="Please enter your Email ID  "-->
-<!--ng-model="user.email">-->
-<!--</div>-->
-
-<!--<span>-->
-<!--<p ng-show="loginForm.email.$invalid && loginForm.email.$pristine"-->
-<!--class="help-block">Email is required.</p>-->
-<!--</span>-->
-
-<!--<div class=" col-md-12 no-padding margin-bottom-20 register-page">-->
-<!--<input type="password" class="username-textbox textbox"-->
-<!--placeholder="Please enter your password"-->
-<!--ng-model="user.password">-->
-<!--</div>-->
-<!--<span>-->
-<!--<p ng-show="loginForm.password.$invalid && loginForm.password.$pristine"-->
-<!--class="help-block">Password is required.</p>-->
-<!--</span>-->
-
-<!--<div class="col-md-12 no-padding form-header-content margin-bottom-25">-->
-<!--Forgot your password? <br> <a href="">Click here</a> to get a-->
-<!--reminder over email.-->
-<!--</div>-->
-
-
-<!--<div class="col-md-12 no-padding form-header-content margin-bottom-25">-->
-<!--<button class="btn btn-success pull-right login-btn" ng-disabled="!loginForm.$valid"-->
-<!--type="submit">LOGIN-->
-<!--</button>-->
-<!--</div>-->
-<!--</form>-->
-<!--</div>-->
-<!--<div class=" col-md-1 margin-top-20 divider-login-new-register">-->
-
-<!--<div class="or-divider">-->
-
-<!--</div>-->
-
-<!--</div>-->
-<!--<div class="col-md-5 new-register">-->
-<!--<form class="" name="userForm"-->
-<!--ng-submit="createNewUser(userForm.$valid)" novalidate>-->
-<!--<div class="col-md-12 no-padding form-header-content margin-bottom-35 margin-top-20 font-bold grayBgWhite">-->
-<!--Not registered yet? <br/> No worries, it takes just a few seconds!-->
-<!--</div>-->
-
-<!--<div ng-if="createUserError">-->
-<!--<font color="red">{{createUserError}}</font>-->
-<!--</div>-->
-
-
-<!--<div ng-if="emailError!==''">-->
-<!--<font color="red">{{emailError}}</font>-->
-<!--</div>-->
-<!--<div class=" col-md-12 no-padding margin-bottom-20 register-page">-->
-<!--<input type="text" class="username-textbox textbox"-->
-<!--placeholder="Please enter your Email ID"-->
-<!--ng-model="newUser.email">-->
-<!--</div>-->
-
-
-<!--<div class=" col-md-12 no-padding margin-bottom-20 register-page">-->
-<!--<input type="text" class="username-textbox textbox"-->
-<!--placeholder="Please select your User Name (optional)"-->
-<!--ng-model="newUser.userName">-->
-<!--</div>-->
-
-<!--<div ng-if="pwdError!==''">-->
-<!--<font color="red">{{pwdError}}</font>-->
-<!--</div>-->
-<!--<div class=" col-md-12 no-padding margin-bottom-20 register-page">-->
-<!--<input type="password" class="username-textbox textbox"-->
-<!--placeholder="Please select your password"-->
-<!--ng-model="newUser.password">-->
-<!--</div>-->
-
-
-<!--<div class="col-md-12 no-padding form-header-content margin-bottom-25 margin-top-20">-->
-<!--<button class="btn btn-success pull-right register-btn">REGISTER</button>-->
-<!--<div class="clearfix"></div>-->
-<!--</div>-->
-<!--<div class="clearfix"></div>-->
-<!--</form>-->
-<!--</div>-->
-
-<!--<div class="col-md-12 no-padding signup-social whitebg-graybdr">-->
-
-<!--<div class="col-md-8 form-header-content margin-top-20  ">-->
-<!--<ul class="social-ul">-->
-<!--<li>You could also use your Social login to sign up.</li>-->
-<!--<li><span class="lock-icon"><img-->
-<!--src="assets/img/icons/lock.png" width="8" height="11"></span>Be-->
-<!--assured, BeautifulYears do not share your information-->
-<!--</li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--<div class="col-md-4  margin-top-20">-->
-<!--<div class="dp-inline-block by-social-login" ng-click="fbLogin()">-->
-<!--<img src="assets/img/icons/fb-login.png" width="97" height="23" class="post-text">-->
-<!--</div>-->
-<!--<div class="dp-inline-block" ng-click="ggLogin()">-->
-<!--<img src="assets/img/icons/googleplus-login.png" width="82"-->
-<!--height="23" class="post-text">-->
-<!--</div>-->
-<!--<div class="clearfix" style="height:20px;"></div>-->
-<!--</div>-->
-<!--<div class="clearfix"></div>-->
-<!--</div>-->
-<!--<div class="clearfix" style="height:10px;"></div>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--&lt;!&ndash; Modal Footer &ndash;&gt;-->
-<!--<div class="modal-footer" style="border:0px">-->
-<!--<button type="button" class="btn btn-default"-->
-<!--data-dismiss="modal">-->
-<!--Close-->
-<!--</button>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->

@@ -256,18 +256,8 @@ input[type=checkbox] {
 /*.image-fav:hover {*/
 /*background-image:url(hover_plus.png);*/
 /*}*/
-.by-modalLogin {
-	width: 25%;
-	max-width: 910px;
-	min-width: 320px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
-.by-social-login {
-	padding-right: 5px;
-	padding-bottom: 5px;
-}
+
 
 .ui-menu {
 	background-color: #fff;
@@ -322,9 +312,7 @@ input[type=checkbox] {
 	}
 }
 
-.modal-login-input::-webkit-input-placeholder {
-	text-align: center;
-}
+
 
 .by-modalResetPwd {
 	width: 50%;

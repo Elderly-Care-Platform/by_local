@@ -3,37 +3,11 @@
     <ul class="dropdown-menu by-leafMenu" >
         <li ng-if="submenu.children.length > 0" ng-init="colCount = submenu.children.length/3">
 			<div class="mega-menu-content">
-				<div class="mega-menu-content-left">
-					<ul class="list-unstyled style-list">
-						<li ng-repeat="leafMenu in submenu.children" ng-if="$index < colCount"
-							style="margin-top: 10px; margin-bottom: 10px;"><a href="#"
-							style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a></li>
-					</ul>
-				</div>
-				<div class="mega-menu-content-left">
-					<ul class="list-unstyled style-list">
-						<li ng-repeat="leafMenu in submenu.children"
-							ng-if="$index >= colCount && $index < colCount*2"
-							style="margin-top: 10px; margin-bottom: 10px;"><a href="#"
-							style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a></li>
-					</ul>
-				</div>
-				<div class="mega-menu-content-left">
-					<ul class="list-unstyled style-list">
-						<li ng-repeat="leafMenu in submenu.children"
-							ng-if="$index >= colCount*2 && $index < colCount*3"
-							style="margin-top: 10px; margin-bottom: 10px;"><a href="#"
-							style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a></li>
-					</ul>
-				</div>
-				<div class="mega-menu-content-left">
-					<ul class="list-unstyled style-list">
-						<li ng-repeat="leafMenu in submenu.children"
-							ng-if="$index >= 15 && $index < 20"
-							style="margin-top: 10px; margin-bottom: 10px;"><a href="#"
-							style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a></li>
-					</ul>
-				</div>
+				<ul class="list-unstyled style-list">
+					<li ng-repeat="leafMenu in submenu.children"
+						style="margin-top: 10px; margin-bottom: 10px;"><a href="#"
+						style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a></li>
+				</ul>
 			</div>
 		</li>
     </ul>

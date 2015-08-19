@@ -140,3 +140,8 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 {
 	border-right:0px;
 }
+.mega-menu-content li
+{
+	width:224px;
+	float:left;
+}

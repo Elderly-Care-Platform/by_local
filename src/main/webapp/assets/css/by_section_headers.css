@@ -10,8 +10,9 @@
 }
 
 .by_section_header_title, .by_section_header_desc {
-	width: 66%;
+	width: calc(100% - 270px);
 	color: #000;
+	margin-left:270px;
 }
 
 .by_section_header_title {
@@ -28,6 +29,11 @@
 
 @media ( max-width : 992px) {
 	.by_section_header {
+	}
+	.by_section_header_title, .by_section_header_desc
+	{
+		width:100%;
+		margin-left:0px;
 	}
 }
 @media ( max-width : 750px) {

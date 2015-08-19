@@ -67,14 +67,14 @@
     <div class="article col-md-12 col-sm-12">
         <ul class="list-inline categoryList" style="margin-left: 5px;">
             <li class="list-inline" style="margin-right: 7px;">Service in</li>
-            <li class="list-inline" ng-repeat="category in service.serviceProviderInfo.services"
+            <li class="list-inline" ng-repeat="category in service.serviceProviderInfo.services track by $index"
                 style="display: inline-block; margin-right: 7px;" ng-if="$index < 5">
                 <a class="ng-binding"
                     di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
                     {{$root.menuCategoryMap[category].displayMenuName}}
                 </a>
             </li>
-            <li class="list-inline" ng-repeat="category in service.serviceProviderInfo.services"
+            <li class="list-inline" ng-repeat="category in service.serviceProviderInfo.services track by $index"
                 style="display: inline-block; margin-right: 7px;" ng-if="$index >= 5 && service.showMoreServices===true">
                 <a class="ng-binding"
                    di-href="#/services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">

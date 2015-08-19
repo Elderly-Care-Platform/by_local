@@ -1,17 +1,75 @@
-<li style="position:static;" ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module==submenu.module">
-    <a href="javascript:void(0);">{{submenu.displayMenuName}}</a>
-    <ul class="dropdown-menu by-leafMenu" >
-        <li ng-if="submenu.children.length > 0" ng-init="colCount = submenu.children.length/3">
-			<div class="mega-menu-content">
-				<ul class="list-unstyled style-list">
-					<li ng-repeat="leafMenu in submenu.children"><a href="#">{{leafMenu.displayMenuName}}</a></li>
-				</ul>
-			</div>
-		</li>
+<li style="position:static;" ng-repeat="submenu in selectedTopMenu.children"
+    ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module==submenu.module">
+    <a ng-click="selectMenu(submenu)" ng-class="{'selected-submenu':selectedSubMenu.id===submenu.id}">{{submenu.displayMenuName}}</a>
+    <ul class="dropdown-menu by-leafMenu">
+        <li ng-if="submenu.children.length > 0" ng-init="colCount = submenu.children.length/4">
+            <div class="mega-menu-content">
+                <!--<p>{{colCount}}</p>-->
+                <div class="row" ng-if="colCount <= 1">
+                    <div class="col-md-12 col-sm-6"  ng-repeat="leafMenu in submenu.children">
+                        <ul class="list-unstyled style-list">
+                            <li style="margin-top: 10px; margin-bottom: 10px;width: 100%;">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="colCount > 1 && colCount <= 2">
+                    <div class="col-md-6 col-sm-6" ng-repeat="leafMenu in submenu.children">
+                        <ul class="list-unstyled style-list">
+                            <li style="margin-top: 10px; margin-bottom: 10px;    width: 100%;">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="colCount > 2">
+                    <div class="col-md-4 col-sm-6" ng-repeat="leafMenu in submenu.children">
+                        <ul class="list-unstyled style-list">
+                            <li style="margin-top: 10px; margin-bottom: 10px;    width: 100%;">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!--<div class="mega-menu-content-left">-->
+                    <!--<ul class="list-unstyled style-list">-->
+                        <!--<li ng-repeat="leafMenu in submenu.children"-->
+                            <!--ng-if="$index >= colCount && $index < colCount*2"-->
+                            <!--style="margin-top: 10px; margin-bottom: 10px;">-->
+                            <!--<a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="mega-menu-content-left">-->
+                    <!--<ul class="list-unstyled style-list">-->
+                        <!--<li ng-repeat="leafMenu in submenu.children"-->
+                            <!--ng-if="$index >= colCount*2 && $index < colCount*3"-->
+                            <!--style="margin-top: 10px; margin-bottom: 10px;">-->
+                            <!--<a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="mega-menu-content-left">-->
+                    <!--<ul class="list-unstyled style-list">-->
+                        <!--<li ng-repeat="leafMenu in submenu.children"-->
+                            <!--ng-if="$index >= 15 && $index < 20"-->
+                            <!--style="margin-top: 10px; margin-bottom: 10px;">-->
+                            <!--<a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            </div>
+        </li>
     </ul>
 </li>
 
-<li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module!=submenu.module">
+<li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}"
+    ng-if="selectedTopMenu.module!=submenu.module">
     <div style="background-color: black; height:1px" ng-if="$index===0"></div>
     <a href="javascript:void(0);">{{submenu.displayMenuName}}</a>
 </li>

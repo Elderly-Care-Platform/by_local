@@ -142,13 +142,18 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $scope.$on('handleBroadcastMenu', function () {
             if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
                 var menu = broadCastMenuDetail.selectedMenu;
-                $scope.selectedTopMenu = menu;
+                if(menu.ancestorIds.length > 0){
+                    $scope.selectedTopMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
+                    $scope.selectedSubMenu = menu;
+                }else{
+                    $scope.selectedTopMenu = menu;
+                }
 
                 $scope.updateSectionHeader(menu);
                 $(".selected-dropdown").removeClass("selected-dropdown");
                 $("#" + menu.id).parents(".by-menu").addClass("selected-dropdown");
 
-                if($scope.selectedTopMenu.children.length == 0){
+                if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
                     $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
                     $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
                     //$(".by_left_panel_fixed").css('margin-top', '0px');
@@ -164,7 +169,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $scope.subMenuResize = function(height, width){
             var leftMenuHeight = $(".by-left-menu").height(),
                 sliderHeight = $(".by_section_header").height();
-            console.log(leftMenuHeight);
+
             if (leftMenuHeight > 0) {
                 var marginTop = leftMenuHeight - sliderHeight;
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
@@ -173,7 +178,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         }
 
         angular.element($window).bind("scroll", function() {
-            if($scope.selectedTopMenu.children.length == 0){
+            if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
                 console.log("comes inside");
                 if($(".homeSlider").length > 0){
                     $scope.sliderHeight = $(".homeSlider").height();

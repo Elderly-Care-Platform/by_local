@@ -113,7 +113,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.loginUser = function (user) {
             $scope.resetError();
-            $(".by_btn_submit").prop("disabled", true);
+            $(".login-btn").prop("disabled", true);
             $http.post(apiPrefix + 'api/v1/users/login', user).success(function (res) {
                 var login = res.data;
                 if (login.sessionId === null) {
@@ -134,7 +134,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
             }).error(function () {
                 $scope.setError("Invalid user/password combination");
-                $(".by_btn_submit").prop('disabled', false);
+                $(".login-btn").prop('disabled', false);
             });
         }
 
@@ -154,7 +154,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             }
 
             if($scope.pwdError==="" && $scope.emailError===""){
-                $(".by_btn_submit").prop("disabled", true);
+                $(".login-btn").prop("disabled", true);
                 $scope.newUser.$save(function (response) {
                 	var login = response.data;
                     $scope.createUserSuccess = "User registered successfully";
@@ -170,7 +170,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 }, function (error) {
                     // failure
                     console.log(error);
-                    $(".by_btn_submit").prop('disabled', false);
+                    $(".login-btn").prop('disabled', false);
                     $scope.createUserError = error.data.error.errorMsg;
                     $scope.createUserSuccess = '';
 
@@ -214,14 +214,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         }
 
         $scope.emailPwdLink = function(email){
-            $(".by_btn_submit").prop('disabled', true);
+            $(".login-btn").prop('disabled', true);
             $http.get(apiPrefix +"api/v1/users/resetPassword?email="+encodeURIComponent(email)).success(function(res){
                 console.log(res);
                 $scope.resetPwd.status = 1;
                 $scope.resetPwd.error = '';
             }).error(function(errorRes){
                 console.log(errorRes);
-                $(".by_btn_submit").prop('disabled', false);
+                $(".login-btn").prop('disabled', false);
                 $scope.resetPwd.error = errorRes.error.errorMsg;
             });
         };
@@ -238,14 +238,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                     verificationCode:$scope.resetPasswordCode,
                     password:$scope.resetPwd.newPwd
                 }
-                $(".by_btn_submit").prop('disabled', true);
+                $(".login-btn").prop('disabled', true);
                 $http.post(apiPrefix + 'api/v1/users/resetPassword', resetPwdUser).success(function (res) {
                     console.log(res);
                     $location.path("/users/home");
                     $scope.setUserCredential(res.data);
                 }).error(function (errorRes) {
                     console.log(errorRes);
-                    $(".by_btn_submit").prop('disabled', false);
+                    $(".login-btn").prop('disabled', false);
                     $scope.resetPwd.error = errorRes.error.errorMsg;
                 });
             }

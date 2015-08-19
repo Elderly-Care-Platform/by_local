@@ -11,6 +11,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $rootScope.discussCategoryMap = {};
         $rootScope.serviceCategoryMap = {};
         var menuWidth;
+        $scope.discussMenuCnt = 0;
 
 
         //$scope.mainMenu = BYMenu.query({}, function(response){
@@ -81,23 +82,32 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }
         };
 
+        $scope.showHbMenu = function(){
+            if(menuWidth < 984){
+                console.log($(".by-left-menu")[0]);
+                $(".by-left-menu").css("display","none");
+            }else{
+                $(".by-hb-menu").css("display","none");
+            }
 
-        $scope.resize = function(height, width){
-            menuWidth = width;
             if(menuWidth < 984){
                 $(".hbMenu").attr("data-toggle", "collapse");
                 $(".hbMenu").attr("data-target", ".navbar-responsive-collapse");
 
-                $(".mega-menu-content a").attr("data-toggle", "collapse");
-                $(".mega-menu-content a").attr("data-target", ".navbar-responsive-collapse");
+                $(".hb-anchorTag").attr("data-toggle", "collapse");
+                $(".hb-anchorTag").attr("data-target", ".navbar-responsive-collapse");
             } else{
                 $(".hbMenu").removeAttr("data-toggle");
                 $(".hbMenu").removeAttr("data-target");
 
-                $(".mega-menu-content a").removeAttr("data-toggle");
-                $(".mega-menu-content a").removeAttr("data-target");
+                $(".hb-anchorTag").removeAttr("data-toggle");
+                $(".hb-anchorTag").removeAttr("data-target");
             }
+        };
 
+        $scope.resize = function(height, width){
+            console.log(width);
+            menuWidth = width;
             if($scope.sectionHeader){
                 if(menuWidth > 730){
                     $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
@@ -105,6 +115,8 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                     $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
                 }
             }
+
+            $scope.showHbMenu();
         };
 
         $scope.createMenuCategoryMap($scope.mainMenu);
@@ -141,6 +153,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
 
         $scope.$on('handleBroadcastMenu', function () {
             if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
+                $scope.discussMenuCnt = 0;
                 var menu = broadCastMenuDetail.selectedMenu;
                 if(menu.ancestorIds.length > 0){
                     $scope.selectedTopMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
@@ -151,6 +164,14 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
 
                 }else{
                     $scope.selectedTopMenu = menu;
+                }
+
+                if($scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length > 0){
+                    angular.forEach($scope.selectedTopMenu.children, function(menu, index){
+                        if(menu.module==0){
+                            $scope.discussMenuCnt++;
+                        }
+                    })
                 }
 
                 $scope.updateSectionHeader(menu);

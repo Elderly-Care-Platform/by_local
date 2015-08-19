@@ -6,4 +6,15 @@
     <a ng-click="selectMenu(menu)" class="dropdown-toggle " data-toggle="dropdown" id="{{menu.id}}" ng-if="menu.children.length > 0">
         {{menu.displayMenuName}}
     </a>
+
+    <ul class="dropdown-menu by-hb-menu" ng-if="selectedTopMenu.children.length > 0" ng-init="showHbMenu()">
+        <li class="dropdown-submenu" ng-repeat="submenu in selectedTopMenu.children">
+            <a ng-click="selectMenu(submenu)" class="hb-anchorTag" ng-class="{'selected-submenu':selectedSubMenu.id===submenu.id}">{{submenu.displayMenuName}}</a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="leafMenu in submenu.children">
+                    <a ng-click="selectMenu(leafMenu)"  class="hb-anchorTag">{{leafMenu.displayMenuName}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
 </li>

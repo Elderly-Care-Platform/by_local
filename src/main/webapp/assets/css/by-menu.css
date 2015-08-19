@@ -206,3 +206,7 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 {
 	color:#005326 !important;
 }
+
+.by-leafMenu{
+	font-weight: normal;
+}

@@ -1,10 +1,10 @@
 <li style="position:static;" ng-repeat="submenu in selectedTopMenu.children"
-    ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module==submenu.module" style="lineHeight:12px">
+    ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module==submenu.module" style="lineHeight:12px" ng-init="showHbMenu()">
     <a ng-click="selectMenu(submenu)" ng-class="{'selected-submenu':selectedSubMenu.id===submenu.id}">{{submenu.displayMenuName}}</a>
     <!--<div class="bg-green-h2" style="width: 100%; position: relative;background-color:#005326" ng-if="selectedSubMenu.id===submenu.id"></div>-->
     <ul class="dropdown-menu by-leafMenu">
         <li ng-if="submenu.children.length > 0" ng-init="colCount = submenu.children.length/4">
-            <div class="mega-menu-content">
+            <div class="mega-menu-content" style="font-weight: normal">
                 <!--<p>{{colCount}}</p>-->
                 <div class="row" ng-if="colCount <= 1">
                     <div class="col-md-12 col-sm-6"  ng-repeat="leafMenu in submenu.children">
@@ -23,7 +23,9 @@
                                 <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
                             </li>
                         </ul>
+
                     </div>
+                    <div class="col-md-1 "><img class="list-unstyled style-list" src="assets/img/icons/divider.png"></div>
                     <div class="col-md-4 col-sm-6">
                         <ul class="list-unstyled style-list">
                             <li style="width: 100%;" ng-repeat="leafMenu in submenu.children" ng-if="$index >= 4">
@@ -34,51 +36,74 @@
                     <div class="col-md-4 col-sm-6"></div>
                 </div>
 
-                <div class="row" ng-if="colCount > 2">
-                    <div class="col-md-4 col-sm-6" ng-repeat="leafMenu in submenu.children">
+                <div class="row" ng-if="colCount > 2 && colCount <= 3">
+                    <!--<div class="col-md-4 col-sm-6" ng-repeat="leafMenu in submenu.children">-->
+                        <!--<ul class="list-unstyled style-list">-->
+                            <!--<li style="width: 100%;">-->
+                                <!--<a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName+""+$index}}</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                        <!--<div ng-if="$index ==3"><img class="list-unstyled style-list" src="assets/img/icons/divider.png"></div>-->
+                    <!--</div>-->
+                    <div class="col-md-4 col-sm-6">
                         <ul class="list-unstyled style-list">
-                            <li style="width: 100%;">
+                            <li style="width: 100%;" ng-repeat="leafMenu in submenu.children" ng-if="$index < 4">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-sm-1" style="width:1px;padding: 0px;margin: 0px;"><img class="list-unstyled style-list" src="assets/img/icons/divider.png"></div>
+                    <div class="col-md-4 col-sm-6">
+                        <ul class="list-unstyled style-list">
+                            <li style="width: 100%;" ng-repeat="leafMenu in submenu.children" ng-if="$index >= 4 && $index < 8">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-1"  style="width:1px;padding: 0px;margin: 0px;"><img class="list-unstyled style-list" src="assets/img/icons/divider.png"></div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;">
+                        <ul class="list-unstyled style-list">
+                            <li style="width: 130%;" ng-repeat="leafMenu in submenu.children" ng-if="$index >= 8">
                                 <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-
-                <!--<div class="mega-menu-content-left">-->
-                    <!--<ul class="list-unstyled style-list">-->
-                        <!--<li ng-repeat="leafMenu in submenu.children"-->
-                            <!--ng-if="$index >= colCount && $index < colCount*2"-->
-                            <!--style="margin-top: 10px; margin-bottom: 10px;">-->
-                            <!--<a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-                <!--<div class="mega-menu-content-left">-->
-                    <!--<ul class="list-unstyled style-list">-->
-                        <!--<li ng-repeat="leafMenu in submenu.children"-->
-                            <!--ng-if="$index >= colCount*2 && $index < colCount*3"-->
-                            <!--style="margin-top: 10px; margin-bottom: 10px;">-->
-                            <!--<a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-                <!--<div class="mega-menu-content-left">-->
-                    <!--<ul class="list-unstyled style-list">-->
-                        <!--<li ng-repeat="leafMenu in submenu.children"-->
-                            <!--ng-if="$index >= 15 && $index < 20"-->
-                            <!--style="margin-top: 10px; margin-bottom: 10px;">-->
-                            <!--<a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
+                <div class="row" ng-if="colCount > 3">
+                    <div class="col-md-4 col-sm-6">
+                        <ul class="list-unstyled style-list">
+                            <li style="width: 100%;" ng-repeat="leafMenu in submenu.children" ng-if="$index < 6">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-1" style="width:1px;padding: 0px;margin: 0px;"><img class="list-unstyled style-list" src="assets/img/icons/divider.png"></div>
+                    <div class="col-md-4 col-sm-6">
+                        <ul class="list-unstyled style-list">
+                            <li style="width: 100%;" ng-repeat="leafMenu in submenu.children" ng-if="$index >= 6 && $index < 12">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-1"  style="width:1px;padding: 0px;margin: 0px;"><img class="list-unstyled style-list" src="assets/img/icons/divider.png"></div>
+                    <div class="col-md-3 col-sm-6" style="padding-right: 0px;">
+                        <ul class="list-unstyled style-list">
+                            <li style="width: 130%;" ng-repeat="leafMenu in submenu.children" ng-if="$index >= 12">
+                                <a ng-click="selectMenu(leafMenu)" style="padding-left: 3px;">{{leafMenu.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </li>
     </ul>
 </li>
-
+<li ng-if="discussMenuCnt>0 && discussMenuCnt!==selectedTopMenu.children.length">
+    <div style="background-color: black; height:1px" ></div>
+</li>
 <li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}"
-    ng-if="selectedTopMenu.module!=submenu.module">
-    <div style="background-color: black; height:1px" ng-if="$index===0"></div>
+    ng-if="selectedTopMenu.module!=submenu.module" ng-init="showHbMenu();">
     <a ng-click="selectMenu(submenu)">{{submenu.displayMenuName}}</a>
 </li>

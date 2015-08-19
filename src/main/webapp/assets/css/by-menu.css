@@ -120,14 +120,13 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 }
 .header .by-left-menu li a 
  {
-	padding: 7px 11px;
+	padding: 5px 11px;
 	border-bottom: 0px;
 	font-size: 15px;
 }
 .header .mega-menu .dropdown-submenu .by-leafMenu
 {
 	top:15px;
-	min-height: 164px;
 	width:705px;
 	border:1px solid #ccc;
 	box-shadow: none;
@@ -151,12 +150,17 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 }
 .header .dropdown-menu .active > a, .header .dropdown-menu li > a:hover, .header .dropdown-menu li:hover 
 {
-	background:#efefef;
+	background:#e6e6e6;
 	color:#000;
+	font-weight:bold;
 }
 .header .dropdown-menu li:hover .mega-menu-content
 {
 	background:#fff;
+	font-size:14px;
+}
+.header .dropdown-menu li:hover .mega-menu-content a{
+	font-size:14px;
 }
 .header .dropdown-menu li:hover .mega-menu-content li > a:hover, .header .dropdown-menu li:hover .mega-menu-content li:hover
 {
@@ -191,4 +195,14 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
     margin-right: -28px;
     z-index: 102;
     content: url("../img/icons/arrow_menu.png");
+}
+.selected-submenu
+{
+	color:#005326 !important;
+	text-decoration:underline !important;
+	font-weight:bold !important;
+}
+.selected-submenu:after
+{
+	color:#005326 !important;
 }

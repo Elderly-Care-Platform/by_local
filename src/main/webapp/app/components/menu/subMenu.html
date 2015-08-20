@@ -105,5 +105,5 @@
 </li>
 <li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}"
     ng-if="selectedTopMenu.module!=submenu.module" ng-init="showHbMenu();">
-    <a ng-click="selectMenu(submenu)">{{submenu.displayMenuName}}</a>
+    <a ng-click="selectMenu(submenu)" ng-class="{'selected-submenu':selectedSubMenu.id===submenu.id}">{{submenu.displayMenuName}}</a>
 </li>

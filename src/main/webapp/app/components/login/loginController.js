@@ -25,14 +25,15 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         }
         
         function verifyPasswordCode(passCode){
+            $(".by_resetPwd_btn").prop("disabled", true);
         	$http.get("api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
         		$scope.resetPasswordCode = $routeParams.resetPasswordCode;
+                $(".by_resetPwd_btn").prop("disabled", false);
         	}).error(function(errorRes){
         		console.log(errorRes);
                 $scope.resetPwd.error = errorRes.error.errorMsg;
+                $(".by_resetPwd_btn").prop("disabled", true);
         	})
-        	
-        	
         }
 
         $scope.fbLogin = function(){
@@ -40,6 +41,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         		window.getFbData = function(data){
         			socialRegistration(data);
         			delete(window.getFbData);
+                    $scope.resetError();
         		}
         		window.open(res.data, 'name','width=1000,height=650')
         	})
@@ -70,6 +72,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $scope.resetPwd.email = '';
                 $scope.resetPwd.error = '';
                 $scope.resetPwd.status = 0;
+
+                $scope.resetError();
             })
         };
 
@@ -134,7 +138,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
             }).error(function () {
                 $scope.setError("Invalid user/password combination");
-                $(".login-btn").prop('disabled', false);
+                $(".login-btn").prop("disabled", false);
             });
         }
 
@@ -154,7 +158,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             }
 
             if($scope.pwdError==="" && $scope.emailError===""){
-                $(".login-btn").prop("disabled", true);
+                $(".register-btn").prop("disabled", true);
                 $scope.newUser.$save(function (response) {
                 	var login = response.data;
                     $scope.createUserSuccess = "User registered successfully";
@@ -170,7 +174,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 }, function (error) {
                     // failure
                     console.log(error);
-                    $(".login-btn").prop('disabled', false);
+                    $(".register-btn").prop("disabled", false);
                     $scope.createUserError = error.data.error.errorMsg;
                     $scope.createUserSuccess = '';
 
@@ -182,6 +186,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.resetError = function () {
             $scope.error = '';
             $scope.message = '';
+            $scope.pwdError = "";
+            $scope.emailError = "";
         }
 
         $scope.setError = function (message) {
@@ -214,14 +220,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         }
 
         $scope.emailPwdLink = function(email){
-            $(".login-btn").prop('disabled', true);
+            $(".by_btn_submit").prop("disabled", true);
             $http.get(apiPrefix +"api/v1/users/resetPassword?email="+encodeURIComponent(email)).success(function(res){
                 console.log(res);
                 $scope.resetPwd.status = 1;
                 $scope.resetPwd.error = '';
             }).error(function(errorRes){
                 console.log(errorRes);
-                $(".login-btn").prop('disabled', false);
+                $(".by_btn_submit").prop("disabled", false);
                 $scope.resetPwd.error = errorRes.error.errorMsg;
             });
         };
@@ -238,14 +244,14 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                     verificationCode:$scope.resetPasswordCode,
                     password:$scope.resetPwd.newPwd
                 }
-                $(".login-btn").prop('disabled', true);
+                $(".by_resetPwd_btn").prop("disabled", true);
                 $http.post(apiPrefix + 'api/v1/users/resetPassword', resetPwdUser).success(function (res) {
                     console.log(res);
                     $location.path("/users/home");
                     $scope.setUserCredential(res.data);
                 }).error(function (errorRes) {
                     console.log(errorRes);
-                    $(".login-btn").prop('disabled', false);
+                    $(".by_resetPwd_btn").prop("disabled", false);
                     $scope.resetPwd.error = errorRes.error.errorMsg;
                 });
             }

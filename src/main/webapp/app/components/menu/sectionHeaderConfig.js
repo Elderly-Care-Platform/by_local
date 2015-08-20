@@ -5,7 +5,7 @@ BY.config = BY.config || {};
 BY.config.sectionHeader = {
     'stories' : {
         'sectionHead':'Stories',
-        'sectionDesc':'Everyone is special - meet vibrant personalities; read about the people who care; and learn from the people who cope. Discuss challenges, stereotypes, and opportunities of ageing". ',
+        'sectionDesc':'If you want to know what people like you are thinking and doing, read about them right here.',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -29,39 +29,39 @@ BY.config.sectionHeader = {
         'overviews & reviews' : {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'services',
-            'sectionDesc':'Need a doctor on call? Or a nursing aide? Or a yoga instructor at home? Check out our services listing, 	reviews and overviews.',
+            'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home! Check out our services directory for solutions to your problems, with reviews and overviews.',
             'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
             'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
     },
     'news' : {
         'sectionHead':'News',
-        'sectionDesc':'What’s hot? And what’s not! Read about cutting-edge research on immortality, and more! Keep track of interesting local events that impact seniors’ lives. Get the latest news and views on delaying ageing!',
+        'sectionDesc':'Want to delay ageing? Read the news about ground breaking research in immortality and more! Keep track of local events. Get the latest news about seniors and their lives!',
         'sectionImage':'assets/img/section_headers/News.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/News_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'products' : {
         'sectionHead':'Products',
-        'sectionDesc':'Need a light weight wheelchair? Or just a walking stick? Our product reviews will help you make the right choices.',
+        'sectionDesc':'Need a light weight wheelchair? Or a stable walker? Or even a walking stick. You can find everything from knee braces to adult diapers and more in this section. Our product catalogue and reviews will show you the way!',
         'sectionImage':'assets/img/section_headers/product.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/product_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'overviews & reviews' : {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'products',
-            'sectionDesc':'Need a light weight wheelchair? Or just a walking stick? Our product reviews will help you make the right choices.',
+            'sectionDesc':'Need a light weight wheelchair? Or a stable walker? Or even a walking stick. You can find everything from knee braces to adult diapers and more in this section. Our product catalogue and reviews will show you the way!',
             'sectionImage':'assets/img/section_headers/product.jpg?versionTimeStamp=%PROJECT_VERSION%',
             'sectionImageMobile':'assets/img/section_headers/product_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
     },
     'housing' : {
         'sectionHead':'Housing',
-        'sectionDesc':'If you need a home away from home for your parents, or for yourself, just check out our overviews and reviews of senior housing - to find the one that fits your needs best.',
+        'sectionDesc':'If you need a home away from home for your parents, or for yourself, just check out our overviews and reviews of senior housing to find the best fit for them.',
         'sectionImage':'assets/img/section_headers/Housing.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Housing_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'overviews & reviews' : {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'housing',
-            'sectionDesc':'If you need a home away from home for your parents, or for yourself, just check out our overviews and reviews of senior housing - to find the one that fits your needs best.',
+            'sectionDesc':'If you need a home away from home for your parents, or for yourself, just check out our overviews and reviews of senior housing to find the best fit for them.',
             'sectionImage':'assets/img/section_headers/Housing.jpg?versionTimeStamp=%PROJECT_VERSION%',
             'sectionImageMobile':'assets/img/section_headers/Housing_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
@@ -74,7 +74,7 @@ BY.config.sectionHeader = {
     },
     'beautiful lives' : {
         'sectionHead':'Beautiful Lives',
-        'sectionDesc':'Ordinary people who are extraordinary! Read about the beautiful lives of people like you and your parents. And share your stories with us.',
+        'sectionDesc':'Ordinary people who are extraordinary! Read stories about the beautiful lives of people like you and your parents.',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -92,7 +92,7 @@ BY.config.sectionHeader = {
     },
     'challenges of ageing' : {
         'sectionHead':'Challenges of Ageing',
-        'sectionDesc':'What are the issues of ageing? Understand what growing old means. Find out how others are coping with the stigmas and stereotypes of ageing. Is there more to life as we age?',
+        'sectionDesc':'What are the issues of ageing? Understand the process of growing old. Recognise what your parents are going through.',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },

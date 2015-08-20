@@ -1,6 +1,8 @@
 
 <li style="position:static;" ng-repeat="submenu in selectedTopMenu.children"
-    ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module==submenu.module" style="lineHeight:12px" ng-init="showHbMenu()">
+    ng-class="{'dropdown-submenu':submenu.children.length > 0}"
+    ng-if="selectedTopMenu.module==submenu.module"
+    style="lineHeight:12px" ng-init="showHbMenu()" class="by-subMenu">
     <a ng-click="selectMenu(submenu)" ng-class="{'selected-submenu':selectedSubMenu.id===submenu.id}">{{submenu.displayMenuName}}</a>
     <!--<div class="bg-green-h2" style="width: 100%; position: relative;background-color:#005326" ng-if="selectedSubMenu.id===submenu.id"></div>-->
     <ul class="dropdown-menu by-leafMenu">

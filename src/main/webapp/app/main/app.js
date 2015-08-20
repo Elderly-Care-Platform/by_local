@@ -36,7 +36,12 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 		if($location.path().indexOf('/search/') == -1)
         	$rootScope.term = '';
 
-		broadCastMenuDetail.setMenuId(0);
+		if(next.params && next.params.menuId){
+			broadCastMenuDetail.setMenuId({"routeParamMenuId":next.params.menuId});
+		}else{
+			broadCastMenuDetail.setMenuId(0);
+		}
+
     });
 
 	window.fbAsyncInit = function() {

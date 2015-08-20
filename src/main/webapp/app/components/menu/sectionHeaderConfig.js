@@ -23,7 +23,7 @@ BY.config.sectionHeader = {
     },
     'services' : {
         'sectionHead':'Services',
-        'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home! Check out our services directory for solutions to your problems, with reviews and overviews.Need a doctor on call? Or a nursing aide? Or a yoga instructor at home? Check out our services listing, reviews and overviews.',
+        'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home! Check out our services directory for solutions to your problems, with reviews and overviews.',
         'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'overviews & reviews' : {

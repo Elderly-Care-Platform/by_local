@@ -80,6 +80,10 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }else{
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }
+
+            if(menu.ancestorIds.length >= 2){
+                $scope.selectedTopMenu = null;
+            }
         };
 
         $scope.showHbMenu = function(){
@@ -176,7 +180,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                         //$scope.selectedSubMenu = menu;
                         if(menu.ancestorIds.length >= 2){
                             subMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
-                            $scope.selectedTopMenu = null;
+                            //$scope.selectedTopMenu = null;
                             //$scope.$apply();
                             //$scope.selectedSubMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
                         }

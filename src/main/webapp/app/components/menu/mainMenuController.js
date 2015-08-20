@@ -133,9 +133,9 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             if (submenuHeight > 0) {
                 var marginTop = submenuHeight - sliderHeight + 13;
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
-                var leftFixMenuHeight = screen.height - $(".header").height()  - sliderHeight - submenuHeight ;
-                $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
             }
+            var leftFixMenuHeight = screen.height - $(".header").height()  - sliderHeight - submenuHeight ;
+            $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
         };
 
         $scope.createMenuCategoryMap($scope.mainMenu);

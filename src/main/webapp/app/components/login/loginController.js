@@ -200,12 +200,12 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 document.getElementById("login_placeHolder_li").style.display = "inline";
                 var element = document.getElementById("login_placeholder");
                 element.innerHTML = "Logout";
-                element.href = apiPrefix + "#/users/logout/" + login.sessionId;
+                element.href = apiPrefix + "#!/users/logout/" + login.sessionId;
 
                 var pro = document.getElementById('profile_placeholder');
                 var userName = localStorage.getItem("USER_NAME");
                 pro.innerHTML = BY.validateUserName(userName);
-                pro.href = apiPrefix + "#/users/login/"; //******************* to be removed*************//
+                pro.href = apiPrefix + "#!/users/login/"; //******************* to be removed*************//
             }
             else {
                 $scope.setError('Browser does not support cookies');

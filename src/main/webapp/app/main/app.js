@@ -13,7 +13,9 @@ var byApp = angular.module('byApp', [
  	'infinite-scroll'
  ]);
 
-
+byApp.config(function($locationProvider) {
+	  $locationProvider.hashPrefix('!');
+	});
 
 //Routing and Session Check for Login
 byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,$http, broadCastMenuDetail) {

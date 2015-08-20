@@ -124,67 +124,97 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         delete window.by_menu;
 
         $scope.updateSectionHeader = function(menu){
-            var menuName = menu.displayMenuName.toLowerCase().trim();
-            $scope.sectionHeader = BY.config.sectionHeader[menuName];
-            if(!$scope.sectionHeader && menu.ancestorIds.length > 0) {
-                if(menu.ancestorIds.length===1){
-                    var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
-                    $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
-                } else if (menu.ancestorIds.length===2){
-                    var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
-                    $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+            if(menu.displayMenuName){
+                var menuName = menu.displayMenuName.toLowerCase().trim();
+                $scope.sectionHeader = BY.config.sectionHeader[menuName];
+                if(!$scope.sectionHeader && menu.ancestorIds.length > 0) {
+                    if(menu.ancestorIds.length===1){
+                        var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
+                        $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                    } else if (menu.ancestorIds.length===2){
+                        var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
+                        $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                    }
+
+                    if($scope.sectionHeader[menuName]){
+                        $scope.sectionHeader = $scope.sectionHeader[menuName];
+                    }
                 }
 
-                if($scope.sectionHeader[menuName]){
-                    $scope.sectionHeader = $scope.sectionHeader[menuName];
-                }
-            }
-
-            if($scope.sectionHeader){
-                $(".by_section_header_title").text($scope.sectionHeader.sectionHead);
-                $(".by_section_header_desc").text($scope.sectionHeader.sectionDesc);
-                if(menuWidth > 730){
-                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
-                } else{
-                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+                if($scope.sectionHeader){
+                    $(".by_section_header_title").text($scope.sectionHeader.sectionHead);
+                    $(".by_section_header_desc").text($scope.sectionHeader.sectionDesc);
+                    if(menuWidth > 730){
+                        $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+                    } else{
+                        $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+                    }
                 }
             }
         };
 
         $scope.$on('handleBroadcastMenu', function () {
             if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
-                $scope.discussMenuCnt = 0;
-                var menu = broadCastMenuDetail.selectedMenu;
-                if(menu.ancestorIds.length > 0){
-                    $scope.selectedTopMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
-                    $scope.selectedSubMenu = menu;
-                    if(menu.ancestorIds.length >= 2){
-                        $scope.selectedSubMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
+                //if(!$scope.selectedSubMenu || $scope.selectedSubMenu.id !== broadCastMenuDetail.selectedMenu.routeParamMenuId){
+                    $scope.discussMenuCnt = 0;
+                    var menu, topMenu, subMenu;
+                    if(broadCastMenuDetail.selectedMenu.routeParamMenuId){
+                        menu = $rootScope.menuCategoryMap[broadCastMenuDetail.selectedMenu.routeParamMenuId];
+                    }else{
+                        menu = broadCastMenuDetail.selectedMenu
                     }
 
-                }else{
-                    $scope.selectedTopMenu = menu;
-                }
 
-                if($scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length > 0){
-                    angular.forEach($scope.selectedTopMenu.children, function(menu, index){
-                        if(menu.module==0){
-                            $scope.discussMenuCnt++;
+                    //update section header for any level till leaf
+                    $scope.updateSectionHeader(menu);
+
+                    //Find the top level menu using ancestorId array
+                    if(menu.ancestorIds.length > 0){
+                        topMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
+                        subMenu = menu;
+                        //$scope.selectedTopMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
+                        //$scope.selectedSubMenu = menu;
+                        if(menu.ancestorIds.length >= 2){
+                            subMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
+                            $scope.selectedTopMenu = null;
+                            //$scope.$apply();
+                            //$scope.selectedSubMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
                         }
-                    })
-                }
+                    }else{
+                        topMenu = menu;
+                        //$scope.selectedTopMenu = menu;
+                    }
 
-                $scope.updateSectionHeader(menu);
-                $(".selected-dropdown").removeClass("selected-dropdown");
-                $("#" + menu.id).parents(".by-menu").addClass("selected-dropdown");
+                    if(topMenu && (!$scope.selectedTopMenu || topMenu.id!==$scope.selectedTopMenu.id)){
+                        $scope.selectedTopMenu = topMenu;
+                    }
 
-                if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
-                    $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
-                    $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
-                    //$(".by_left_panel_fixed").css('margin-top', '0px');
-                }else{
-                    $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-                }
+                    if(subMenu && (!$scope.selectedSubMenu || subMenu.id!==$scope.selectedSubMenu.id)){
+                        $scope.selectedSubMenu = subMenu;
+                    }
+
+                    //Find number of discuss module menu, to show separator line in UI
+                    if($scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length > 0){
+                        angular.forEach($scope.selectedTopMenu.children, function(menu, index){
+                            if(menu.module==0){
+                                $scope.discussMenuCnt++;
+                            }
+                        })
+                    }
+
+                    //Add selected css for top level menu
+                    $(".selected-dropdown").removeClass("selected-dropdown");
+                    $("#" + $scope.selectedTopMenu.id).parents(".by-menu").addClass("selected-dropdown");
+
+                    if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
+                        $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
+                        $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
+                        //$(".by_left_panel_fixed").css('margin-top', '0px');
+                    }else{
+                        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+                    }
+                //}
+
             }else{
                 $(".selected-dropdown").removeClass("selected-dropdown");
                 $scope.selectedTopMenu = null;
@@ -229,7 +259,5 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }
 
         });
-        
-       
 
     }]);

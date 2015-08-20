@@ -125,15 +125,14 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $scope.subMenuResize = function(height, width){
             submenuHeight = $(".by-left-menu").height();
             resizeLeftMenu();
+            $(".by-leafMenu").css('min-height', submenuHeight - 21);
         };
 
         var resizeLeftMenu = function(){
             var sliderHeight = $(".by_section_header").height();
-
             if (submenuHeight > 0) {
                 var marginTop = submenuHeight - sliderHeight + 13;
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
-                $(".by-leafMenu").css('min-height', submenuHeight - 21);
             }
         };
 

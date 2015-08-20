@@ -130,12 +130,16 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
 
         var resizeLeftMenu = function(){
             var sliderHeight = $(".by_section_header").height();
+            submenuHeight = $(".by-left-menu").height();
             if (submenuHeight > 0) {
                 var marginTop = submenuHeight - sliderHeight + 13;
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
             }
-            var leftFixMenuHeight = screen.height - $(".header").height()  - sliderHeight - submenuHeight ;
+            if(menuWidth > 991){
+            var leftFixMenuHeight = screen.height - $(".header").height()  - $(".by_section_header").height() - submenuHeight ;
             $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
+        }
+           
         };
 
         $scope.createMenuCategoryMap($scope.mainMenu);
@@ -250,6 +254,12 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                     $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
                     $(".by_left_panel_fixed").css('margin-top', '0px');
                 }
+                
+                if($(".homeSlider")[0].style.display == "none"){
+                	$(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+                	$(".by_left_panel_fixed").css('margin-top', '0px');
+                }
+//                console.log($(".homeSlider")[0].style.display);
             }else{
                 if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
                     console.log("comes inside");

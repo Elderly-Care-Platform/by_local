@@ -15,10 +15,11 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
         $(".by_section_header").hide();
-        $(".homeSlider").hide();        
-        
+        $(".homeSlider").hide();     
+        //$(".by_left_panel_fixed").css('margin-top', '0px');
+        $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', screen.height - $(".header").height());
         //angular.element($window).bind("scroll", function() {
-        //	$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+        //$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
     		//$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
         //});
         

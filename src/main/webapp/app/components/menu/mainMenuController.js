@@ -196,7 +196,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 sliderHeight = $(".by_section_header").height();
 
             if (leftMenuHeight > 0) {
-                var marginTop = leftMenuHeight - sliderHeight;
+                var marginTop = leftMenuHeight - sliderHeight + 13;
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
             }
             $(".by-leafMenu").css('min-height', leftMenuHeight - 21);
@@ -229,5 +229,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }
 
         });
+        
+       
 
     }]);

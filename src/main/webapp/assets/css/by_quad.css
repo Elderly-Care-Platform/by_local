@@ -328,17 +328,17 @@
 }
 
 .article-outer-wrapper {
-	padding-left: 40px;
+	padding-left: 45px;
 	padding-right: 40px;
 }
 
 .by_left_panel_fixed {
 	left: calc(( 100vw - 960px + 20px)/2) !important;
-	width: 225px !important;
+	width: 235px !important;
 }
 
 #sidebar-nav {
-	width: 225px;
+	width: 235px;
 }
 
 .by_submit_btn_latest {

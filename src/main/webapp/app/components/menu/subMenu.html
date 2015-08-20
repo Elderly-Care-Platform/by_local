@@ -1,9 +1,10 @@
+
 <li style="position:static;" ng-repeat="submenu in selectedTopMenu.children"
     ng-class="{'dropdown-submenu':submenu.children.length > 0}" ng-if="selectedTopMenu.module==submenu.module" style="lineHeight:12px" ng-init="showHbMenu()">
     <a ng-click="selectMenu(submenu)" ng-class="{'selected-submenu':selectedSubMenu.id===submenu.id}">{{submenu.displayMenuName}}</a>
     <!--<div class="bg-green-h2" style="width: 100%; position: relative;background-color:#005326" ng-if="selectedSubMenu.id===submenu.id"></div>-->
     <ul class="dropdown-menu by-leafMenu">
-        <li ng-if="submenu.children.length > 0" ng-init="colCount = submenu.children.length/4">
+        <li ng-if="submenu.children.length > 0" ng-init="colCount = submenu.children.length/4 ">
             <div class="mega-menu-content" style="font-weight: normal">
                 <!--<p>{{colCount}}</p>-->
                 <div class="row" ng-if="colCount <= 1">
@@ -101,7 +102,7 @@
     </ul>
 </li>
 <li ng-if="discussMenuCnt>0 && discussMenuCnt!==selectedTopMenu.children.length">
-    <div style="background-color: black; height:1px" ></div>
+    <div style="background-color: black; height:1px; margin-top:20px;" ></div>
 </li>
 <li ng-repeat="submenu in selectedTopMenu.children" ng-class="{'dropdown-submenu':submenu.children.length > 0}"
     ng-if="selectedTopMenu.module!=submenu.module" ng-init="showHbMenu();">

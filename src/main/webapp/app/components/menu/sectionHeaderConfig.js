@@ -68,7 +68,7 @@ BY.config.sectionHeader = {
     },
     'activities' : {
        'sectionHead':'Activities',
-       'sectionDesc':'Looking for stimulating activities for your parents and for yourself? We feature a range of activities that  engage and motivate, increase mental and physical stamina, and enhance creativity. From hobbies to showcasing talent – come join us!',
+       'sectionDesc':'Looking for interesting activities for your parents and for yourself? We feature indoor and outdoor  activities to increase mental and physical stimulation; and to enhance creativity. From hobbies to  showcasing talent – come join us!',
        'sectionImage':'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
        'sectionImageMobile':'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -170,73 +170,73 @@ BY.config.sectionHeader = {
     },
 	    'photography' : {
 		'sectionHead' : 'Photography',
-		'sectionDesc' : 'Imagine the rich colours and textures of the world in your minds eye! Would you like to capture these images as seen through your eyes? You can now give free rein to your creativity with a stimulating activity – photography. And get tips and techniques from other photography enthusiasts!',
+		'sectionDesc' : 'Imagine the rich colours and textures of the world in your minds eye! You can now give free rein to your creativity with a stimulating activity – photography. And get tips and techniques from other photography enthusiasts!',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'cooking & recipes' : {
 		'sectionHead' : 'Cooking & Recipes',
-		'sectionDesc' : 'Here’s a fun activity that’s also useful – cooking! You can find recipes and tips here that are perfect for seniors and their health issues. And you can also share your recipes to win a prize for Recipe of the Month. So start cooking up a storm!',
+		'sectionDesc' : 'Start cooking for fun!! You can find recipes and tips here that are perfect for seniors and their health issues. And you can also share your recipes to win a prize for Recipe of the Month.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'painting & drawing' : {
 		'sectionHead' : 'Painting & Drawing',
-		'sectionDesc' : 'Is there an artist deep within you just waiting to surface? Here’s your opportunity to develop your drawing and painting skills to unveil the artist in you. Interact with other like-minded artists. Find creative solutions to staying busy and feeling satisfied.',
+		'sectionDesc' : 'Is there an artist deep within you just waiting to surface? Here’s your opportunity to develop your drawing and painting skills to unveil the artist in you. Find creative solutions to staying busy and feeling satisfied.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'yoga & meditation' : {
 		'sectionHead' : 'Yoga & Meditation',
-		'sectionDesc' : 'Feeling stressed and unwell? Would you like to feel calm, relaxed and healthy? Here are ways to help	you unwind and heal using yoga and meditation techniques. Check out what techniques others are using to achieve mental and physical peace.',
+		'sectionDesc' : 'Would you like to feel calm, relaxed and healthy? Here are ways to help you unwind and heal using yoga and meditation techniques. Check out what others are to achieve mental and physical peace.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'walking & hiking' : {
 		'sectionHead' : 'Walking & Hiking',
-		'sectionDesc' : 'Think young, think fit! Don’t let yourself become housebound. There are many physical activities that are adapted to senior living that you can participate in. Find out how others in the group are doing it. Do it at your own pace – but start moving!',
+		'sectionDesc' : 'Think young, think fit! Don’t let yourself become housebound. There are many physical activities that are adapted to senior living that you can participate in. Find out how others in the group are doing it.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'gardening' : {
 		'sectionHead' : 'Gardening',
-		'sectionDesc' : 'If you want to keep yourself busy with an activity that is peaceful and fulfilling – gardening is what you need. Feel that damp soil, inhale the fragrance of flowers and experience the satisfaction of watching new life grow as you nurture it gently. Share your joy with other enthusiastic gardeners.',
+		'sectionDesc' : 'Keep yourself busy with an activity that is peaceful and fulfilling – gardening. Feel that damp soil, inhale the fragrance of flowers and experience the satisfaction of watching new life grow. Share your joy with other enthusiastic gardeners.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'interiors & home decor' : {
 		'sectionHead' : 'Interiors & Home Decor',
-		'sectionDesc' : 'Tired of looking at the same walls and furniture every day? Would you like to take matters into your own hands and transform your environment? Then this is the place for you to get tips and home décor solutions at your fingertips and share in others’ experiences.',
+		'sectionDesc' : 'Tired of looking at the same walls and furniture every day? Then this is the place for you to get tips and 	home décor solutions at your fingertips and share in others’ experiences.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'mind gym' : {
 		'sectionHead' : 'Mind Gym',
-		'sectionDesc' : 'Thinking is an essential part of growing old gracefully. And so is keeping yourself busy. So put on your thinking cap and get involved in mental gymnastics playing stimulating games like bridge, chess, scrabble and so much more. With yourself, your computer or with others!',
+		'sectionDesc' : 'Thinking is an essential part of growing old gracefully. So put on your thinking cap and play stimulating games like bridge, chess, scrabble and so much more. With yourself, your computer or with others!',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'reading' : {
 		'sectionHead' : 'Reading',
-		'sectionDesc' : 'The magic of the written word will always prevail. So stimulate your brain and occupy yourself with books that speak to you. Participate in discussions of popular books. Get to know other bookworms. Experience the pleasures of reading and get transported to other worlds!',
+		'sectionDesc' : 'Stimulate your brain and occupy yourself with books that speak to you. Participate in discussions of books with other bookworms. Experience the joy of reading and get transported to other worlds!',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'music & dance' : {
 		'sectionHead' : 'Music & Dance',
-		'sectionDesc' : 'The sheer pleasure of listening to music or succumbing to the rhythm is unrivalled. Choose your	favourite music, sit back and let it flow around you. Or let your body move in sync to the beat and enjoy the gentle exercise. Meet others who share your love for music and dance.',
+		'sectionDesc' : 'The sheer pleasure of listening to music is unrivalled. Choose your favourite music and let it flow around you. Or let your body move in sync to the beat with others who share your love for music and dance.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'creative writing' : {
 		'sectionHead' : 'Creative Writing',
-		'sectionDesc' : 'Love to write? Let the words flow out of you. Express your thoughts and ideas. Learn the many ways you	can write in a structured form and how best to express yourself. And share your writing with others who are as passionate about the written word as you are.',
+		'sectionDesc' : 'Love to write? Express your thoughts and ideas. Learn how to write in a structured form and how best to express yourself. And share your writing with others who are as passionate about the written word.',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},
 	'pets & animals' : {
 		'sectionHead' : 'Pets & Animals',
-		'sectionDesc' : 'The presence of a pet is undeniably fulfilling. The companionship and unconditional love a pet gives can motivate you to reach out and devote yourself to its well being. Read about all the activities you can share with your pet to experience that wonderful sense of satisfaction, to feel happy and occupied. Meet other pet lovers right here and share your love for animals.',
+		'sectionDesc' : 'The companionship and unconditional love a pet gives can motivate you to reach out and devote yourself to its wellbeing. Read about all the activities you can share with your pet. And meet other pet lovers!',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
 	},

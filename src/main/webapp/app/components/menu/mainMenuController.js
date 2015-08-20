@@ -177,6 +177,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         };
 
         $scope.$on('handleBroadcastMenu', function () {
+            $("#mask").css("display", "none");
             if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
                 $scope.discussMenuCnt = 0;
                 var menu, topMenu, subMenu;
@@ -235,6 +236,17 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                     $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
                 }
 
+                $(".by-subMenu" ).hover(
+                    function() {
+                        //console.log($(this).find(".by-leafMenu li").length);
+                        if($(this).find(".by-leafMenu li").length > 0){
+                            $("#mask").css("display", "block");
+                        }
+
+                    }, function() {
+                        $("#mask").css("display", "none");
+                    }
+                );
                 resizeLeftMenu();
             }else{
                 $(".selected-dropdown").removeClass("selected-dropdown");

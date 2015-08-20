@@ -258,6 +258,10 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
 
         angular.element($window).bind("scroll", function() {
             if($(".homeSlider").length > 0){
+                if($(".homeSlider")[0].style.display !== "none"){
+                   $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
+                }
+
                 $scope.sliderHeight = $(".homeSlider").height();
                 if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
                     $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
@@ -266,11 +270,12 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                     $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
                     $(".by_left_panel_fixed").css('margin-top', '0px');
                 }
-                
+
                 if($(".homeSlider")[0].style.display == "none"){
-                	$(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-                	$(".by_left_panel_fixed").css('margin-top', '0px');
+                    $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+                    $(".by_left_panel_fixed").css('margin-top', '0px');
                 }
+
 //                console.log($(".homeSlider")[0].style.display);
             }else{
                 if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){

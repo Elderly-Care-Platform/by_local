@@ -221,6 +221,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         }
 
         $scope.exitEditor = function(){
+            $(".homeSlider").show();
             $scope.$parent.postSuccess();
         }
 

@@ -26,6 +26,7 @@ public enum BYErrorCodes {
 	INVALID_SESSION(3005,"Invalid session, please login to continue"),
 	USER_EMAIL_DOES_NOT_EXIST(3006,"User's emailId is not registered"),
 	USER_CODE_EXPIRED(3007,"Validation code has been expired, please generate a new one"),
+	USER_CODE_DOES_NOT_EXIST(3008,"Validation code entered is invalid. Please enter a valid code."),
 	
 	//review rate
 	REVIEW_TYPE_INVALID(4001,"Invalid review type"),

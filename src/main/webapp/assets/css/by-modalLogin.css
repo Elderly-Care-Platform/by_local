@@ -1,0 +1,56 @@
+
+.by-modalLogin {
+	width: 321px;
+	max-width: 910px;
+	min-width: 321px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.by-social-login {
+	padding-right: 5px;
+	padding-bottom: 5px;
+}
+.modal-login-input::-webkit-input-placeholder {
+	text-align: center;
+	color:#7c7c7c;
+}
+.by-modalLogin .modal-content
+{
+	border-radius: 8px !important;
+}
+.by-modalLogin .modal-header
+{
+	border:0px; 
+	padding: 8px 8px 15px 8px;
+}
+.by-modalLogin .modal-body
+{
+	padding-top: 0px;
+	text-align: center;
+}
+.by-modalLogin .font-bold
+{
+	margin-bottom: 16px;
+	font-size: 20px;
+	line-height: 15px;
+}
+.by-modalLogin form input
+{
+	width: 89%;
+	border: 1px solid #a6a6a6;
+	border-radius: 2px !important;
+	padding :7px;
+	border-left:2px solid #00af50;
+	font-style:italic;
+}
+.modalLoginUl
+{
+	width:96%;
+	margin:6px auto 15px auto;
+}
+
+.emailSentSuccessModal{
+	overflow-wrap: break-word;
+    margin: 10px;
+}

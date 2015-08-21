@@ -127,24 +127,24 @@ byControllers.controller('ServiceSearchController', ['$scope', '$rootScope', '$l
              }
          }
          
-         angular.element($window).bind("scroll", function() {
-         	$scope.sliderHeight = $(".by_section_header").height();
-         	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
-         		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
-         		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
-         	}else{
-         		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
-         		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
-         	}
-         });
+         //angular.element($window).bind("scroll", function() {
+         //	$scope.sliderHeight = $(".by_section_header").height();
+         //	if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+         //		$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');
+         //		$(".by_left_panel_homeSlider_position").css('margin-top', -$scope.sliderHeight+'px');
+         //	}else{
+         //		$(".by_left_panel_homeSlider_position").addClass('by_left_panel_homeSlider');
+         //		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+         //	}
+         //});
          
-         $scope.resize = function(height, width){
-         	if(width > 730){
-         		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
-         	} else{
-         		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
-         	}   	
-         };
+         //$scope.resize = function(height, width){
+         //	if(width > 730){
+         //		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+         //	} else{
+         //		$(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+         //	}
+         //};
 
 
  	}]);

@@ -16,7 +16,7 @@ var byApp = angular.module('byApp', [
 
 
 //Routing and Session Check for Login
-byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,$http) {
+byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,$http, broadCastMenuDetail) {
 	if(window.localStorage){
 		$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
 		$http.get("api/v1/users/validateSession").success(function (response) {
@@ -29,7 +29,6 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 
     // register listener to watch route changes
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
-    	
     	window.scrollTo(0, 0);
         BY.removeEditor();
         BY.editorCategoryList.resetCategoryList();
@@ -37,7 +36,13 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 		if($location.path().indexOf('/search/') == -1)
         	$rootScope.term = '';
 
-		$(".selected-dropdown").removeClass("selected-dropdown");
+		//Menu should not be reset, if same menu id is selected as it create problem in iPad
+		if(next.params && next.params.menuId){
+			broadCastMenuDetail.setMenuId({"routeParamMenuId":next.params.menuId});
+		}else{
+			broadCastMenuDetail.setMenuId(0);
+		}
+
     });
 
 	window.fbAsyncInit = function() {

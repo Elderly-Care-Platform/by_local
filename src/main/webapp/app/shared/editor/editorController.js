@@ -1,5 +1,5 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http',
-    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http) {
+byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail',
+    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail) {
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -10,16 +10,18 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.showLinkView = false;
         $scope.sharedLinkUrl = "";
 
+        broadCastMenuDetail.setMenuId(0);
         $scope.showCategoryList = function(){
             $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
         $(".by_section_header").hide();
-        $(".homeSlider").hide();        
-        
-        angular.element($window).bind("scroll", function() {        	
-        	$(".by_left_panel_homeSlider_position").removeClass('by_left_panel_homeSlider');  
-    		$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
-        });
+        $(".homeSlider").hide();     
+        $(".by_left_panel_fixed").css('margin-top', 'auto');
+        $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - $(".footer-v1").height() - 10);
+        //angular.element($window).bind("scroll", function() {
+        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+    		//$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        //});
         
 
         if($scope.$parent.selectedMenu){
@@ -198,6 +200,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.postLink = function(){
             if($scope.sharedLinkUrl && $scope.sharedLinkUrl.trim().length > 0){
                 $(".by-editor-view-buttons").hide();
+                //$(".by_share_btn_submit").prop("disabled", true);
                 $scope.showLinkView = true;
                 $scope.linkInfoLoading = true;
                 $http.get('api/v1/discuss/getLinkInfo?url='+encodeURIComponent($scope.sharedLinkUrl)).
@@ -210,6 +213,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                         $scope.linkInfoLoading = false;
                         console.log(error);
                         $scope.sharedLinkUrl = "";
+                        $(".by_btn_submit").prop("disabled", false);
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -217,6 +221,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         }
 
         $scope.exitEditor = function(){
+            $(".homeSlider").show();
             $scope.$parent.postSuccess();
         }
 

@@ -280,14 +280,17 @@ public class UserController {
 		if(!Util.isEmpty(email)){
 			Query q = new Query();
 			q.addCriteria(Criteria.where("email")
-					.is(email));
+					.regex(email, "i"));
 			User user = mongoTemplate.findOne(q, User.class);
 			if(null != user){
 				user.setVerificationCode(UUID.randomUUID().toString());
 				Date t = new Date();
 				user.setVerificationCodeExpiry(new Date(t.getTime() + (BYConstants.FORGOT_PASSWORD_CODE_EXPIRY_IN_MIN * 60000)));
+				boolean mailStatus = sendMailForResetPassword(user);
+				if(mailStatus == false){
+					throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+				}
 				mongoTemplate.save(user);
-				sendMailForResetPassword(user);
 			}else{
 				throw new BYException(BYErrorCodes.USER_EMAIL_DOES_NOT_EXIST);
 			}
@@ -301,18 +304,20 @@ public class UserController {
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	public @ResponseBody Object getResetPasswordLink(
 			@RequestBody User user,			
-			HttpServletRequest req) {
+			HttpServletRequest req,HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
+		User user1 = null;
 		if(null != user && !Util.isEmpty(user.getVerificationCode()) && !Util.isEmpty(user.getPassword())){
 			Query q = new Query();
 			q.addCriteria(Criteria.where("verificationCode")
 					.is(user.getVerificationCode()));
-			User user1 = mongoTemplate.findOne(q, User.class);
+			user1 = mongoTemplate.findOne(q, User.class);
 			if(null != user1){
 				Date currentDate = new Date();
 				if(currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0){
 					user1.setVerificationCodeExpiry(currentDate);
 					user1.setPassword(user.getPassword());
+					logger.debug("password changed successfuully for user "+user1.getEmail());
 					//send mail on successful changing the password
 					mongoTemplate.save(user1);
 				}else{
@@ -324,24 +329,53 @@ public class UserController {
 		}else{
 			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 		}
+		return login(new LoginRequest(user1),req,res);
+	}
+	
+	@RequestMapping(value = "/verifyPwdCode", method = RequestMethod.GET)
+	public @ResponseBody Object verifyPwdCode(
+			@RequestParam(value = "verificationCode", required = true) String verificationCode,			
+			HttpServletRequest req) {
+		LoggerUtil.logEntry();
+		if(!Util.isEmpty(verificationCode)){
+			Query q = new Query();
+			q.addCriteria(Criteria.where("verificationCode")
+					.is(verificationCode));
+			User user1 = mongoTemplate.findOne(q, User.class);
+			if(null != user1){
+				Date currentDate = new Date();
+				if(currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0){
+				}else{
+					throw new BYException(BYErrorCodes.USER_CODE_EXPIRED);
+				}
+			}else{
+				throw new BYException(BYErrorCodes.USER_CODE_DOES_NOT_EXIST);
+			}
+		}else{
+			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+		}
 		
 		return true;
 	}
 	
-	void sendMailForResetPassword(User user) {
+	boolean sendMailForResetPassword(User user) {
+		boolean mailStatus = false;
 		try {
 				ResourceUtil resourceUtil = new ResourceUtil(
 						"mailTemplate.properties");
-				String url = "http://beautifulyears.com/#/discuss/55c8fa5fe4b0d01a10f85275";
+				String url = System.getProperty("path")
+						+ "#/users/resetPassword/"+user.getVerificationCode();
 				String userName = !Util.isEmpty(user.getUserName()) ? user
 						.getUserName() : "Anonymous User";
 				String body = MessageFormat.format(
 						resourceUtil.getResource("resetPassword"), userName,url,url,url);
 				MailHandler.sendMail(user.getEmail(), "Reset Beutifulyears' password",
 						body);
+				mailStatus = true;
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 		}
+		return mailStatus;
 	}
 
 

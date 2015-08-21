@@ -115,6 +115,7 @@ public class DiscussDetailController {
 					DiscussReply parentComment = discussReplyRepository
 							.findOne(comment.getParentReplyId());
 					if (null != parentComment) {
+						parentComment.setUrl(comment.getUrl());
 						parentComment.setDirectChildrenCount(parentComment
 								.getDirectChildrenCount() + 1);
 						comment.getAncestorsId().addAll(

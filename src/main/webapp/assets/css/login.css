@@ -256,18 +256,8 @@ input[type=checkbox] {
 /*.image-fav:hover {*/
 /*background-image:url(hover_plus.png);*/
 /*}*/
-.by-modal-dialog {
-	width: 70%;
-	max-width: 910px;
-	min-width: 320px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
-.by-social-login {
-	padding-right: 5px;
-	padding-bottom: 5px;
-}
+
 
 .ui-menu {
 	background-color: #fff;
@@ -320,4 +310,14 @@ input[type=checkbox] {
 	.by-register-button {
 		margin-top: 20px;
 	}
+}
+
+
+
+.by-modalResetPwd {
+	width: 50%;
+	max-width: 910px;
+	min-width: 320px;
+	margin-left: auto;
+	margin-right: auto;
 }

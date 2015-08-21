@@ -1,0 +1,222 @@
+/*.header .navbar-nav>li.dropdown:hover>.dropdown-menu {
+	display: none;
+}
+
+.subMenu {
+	width: 225px;
+	min-height: 165px;
+	background: #fff;
+	padding-bottom: 10px;
+	position: absolute;
+}
+
+.addMenu
+{
+	display: block;
+	width:945px;
+	left: calc(( 100vw - 960px + 20px)/2) !important;
+	min-height: 175px;
+	margin-top: 1px !important;
+	box-shadow: none !important; 
+    -webkit-box-shadow: none !important; 
+    -ms-box-shadow: none !important;
+    border:0px !important;
+    z-index:210 ;
+}
+.secondLevelMenuNew
+{
+	position:relative;
+}
+.secondLevelMenuNew a
+{
+	border-bottom:0px !important;
+}
+.thirdLevelMenuhide
+{
+	position:absolute;	
+    left: 225px;
+    top: 0px;
+    background-color: #ccc;
+    min-width:241px;
+    width:725px;
+    z-index:9;
+    display:none;
+}
+.thirdLevelMenuhide li
+{
+	float:left;
+	width:251px;
+}
+li.secondLevelMenuNew:hover .thirdLevelMenuhide
+{
+	display:block !important;
+}
+.sidebar-nav-v1-home {
+	margin-top: 0px;
+}
+
+.by_subMenu ul {
+	padding: 10px 0px 0px 0px;
+	margin: 0px;
+}
+
+.by_subMenu li {
+	line-height: 30px;
+	vertical-align: middle;
+	display: block;
+	padding: 0px 10px 0px 10px;
+	margin-bottom: 1px;
+	font-size: 15px;
+	list-style: none;
+}
+
+.by_subMenu li a {
+	color: #000;
+}
+
+.by_subMenu ul>li.dropdown>.dropdown-menu {
+	display: none;
+	width:100%;
+	min-width:225px;
+	max-width:705px;
+	min-height: 165px;
+	left: 226px;
+	top: 0px;
+}
+.by_subMenu ul .dropdown-menu li
+{
+	float:left;
+	display:block;
+}
+.by_subMenu ul>li.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+.by_subMenu ul>li:hover, .by_subMenu ul>li:active, .by_subMenu ul>li>a:focus,
+	.by_subMenu ul>li>a:hover {
+	background: #eee;
+}
+
+@media screen and (max-width: 990px) {
+	.header .navbar-nav>li.dropdown:hover>.dropdown-menu {
+		display: block;
+	}
+	.subMenu {
+		display: none;
+	}
+}*/
+.header .by-left-menu
+{
+	display: block; 
+	min-width: 235px;
+	min-height: 175px;
+	max-width: 225px;
+	overflow-wrap: break-word;
+	display: table-row;
+	border:1px solid #c5c5c5;
+	box-shadow: 0px 2px 4px 3px rgba(10, 10, 10, 0.08);
+    -webkit-box-shadow: 0px 2px 4px 3px rgba(10, 10, 10, 0.08);
+    -ms-box-shadow: 0px 2px 4px 3px rgba(10, 10, 10, 0.08);
+    padding-top:13px;
+    margin-top:1px;
+    border-top:0px;
+}
+.header .by-left-menu li a 
+ {
+	padding: 5px 11px;
+	border-bottom: 0px;
+	font-size: 16px;
+}
+.header .mega-menu .dropdown-submenu .by-leafMenu
+{
+	top:13px;
+	width:705px;
+	border:1px solid #c5c5c5;	
+	box-shadow: 0px 2px 4px 3px rgba(10, 10, 10, 0.08);
+    -webkit-box-shadow: 0px 2px 4px 3px rgba(10, 10, 10, 0.08);
+    -ms-box-shadow: 0px 2px 4px 3px rgba(10, 10, 10, 0.08);
+}
+.mega-menu-content-left
+{
+	width:224px;
+	float:left;
+	border-right:1px solid #000;
+}
+.mega-menu-content-left:last-child
+{
+	border-right:0px;
+}
+.mega-menu-content li
+{
+	width:224px;
+	float:left;
+}
+.header .dropdown-menu .active > a, .header .dropdown-menu li > a:hover, .header .dropdown-menu li:hover 
+{
+	background:#e6e6e6;
+	color:#000;
+	font-weight:bold;
+}
+.header .dropdown-menu li:hover .mega-menu-content
+{
+	background:#fff;
+	font-size:14px;
+}
+.header .dropdown-menu li:hover .mega-menu-content a{
+	font-size:15px;
+}
+.header .dropdown-menu li:hover .mega-menu-content li > a:hover, .header .dropdown-menu li:hover .mega-menu-content li:hover
+{
+	background:#fff !important;
+	color:#189652;	
+}
+.header .mega-menu .mega-menu-content li a:after
+{
+	content:'';
+}
+.header .mega-menu .mega-menu-content li a
+{
+	padding: 7px 5px 7px 10px;
+}
+.header .mega-menu .mega-menu-content
+{
+	line-height:26px;
+}
+ .header .dropdown-submenu>a:after {
+    content: "\f105";
+    position:relative;
+    float: right;
+    margin-top: -5px;
+    margin-right: -10px;
+}
+ .header .dropdown-submenu:hover >a:after {
+    width: 19px;
+    height: 22px;
+    position: relative;
+    float: right;
+    margin-top: -5px;
+    margin-right: -28px;
+    z-index: 102;
+    content: url("../img/icons/arrow_menu.png");
+}
+.selected-submenu
+{
+	color:#005326 !important;
+	text-decoration:underline !important;
+	font-weight:bold !important;
+}
+.selected-submenu:after
+{
+	color:#005326 !important;
+}
+
+.by-leafMenu{
+	font-weight: normal;
+}
+.mega-menu-content .col-md-4
+{
+	padding-right:0px;
+}
+
+
+

@@ -8,11 +8,40 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.user.password = '';
 
         $scope.newUser = new User();
+        $scope.formState = 0;
+        
+
+        $scope.resetPwd = {};
+        $scope.resetPwd.email = '';
+        $scope.resetPwd.error = '';
+        $scope.resetPwd.status = 0;
+
+        $scope.pwdError = "";
+        $scope.emailError = "";
+
+        
+        if($routeParams.resetPasswordCode){
+        	verifyPasswordCode($routeParams.resetPasswordCode);
+        }
+        
+        function verifyPasswordCode(passCode){
+            $(".by_resetPwd_btn").prop("disabled", true);
+        	$http.get("api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
+        		$scope.resetPasswordCode = $routeParams.resetPasswordCode;
+                $(".by_resetPwd_btn").prop("disabled", false);
+        	}).error(function(errorRes){
+        		console.log(errorRes);
+                $scope.resetPwd.error = errorRes.error.errorMsg;
+                $(".by_resetPwd_btn").prop("disabled", true);
+        	})
+        }
+
         $scope.fbLogin = function(){
         	$http.get("api/v1/users/getFbURL").success(function(res){
         		window.getFbData = function(data){
         			socialRegistration(data);
         			delete(window.getFbData);
+                    $scope.resetError();
         		}
         		window.open(res.data, 'name','width=1000,height=650')
         	})
@@ -27,6 +56,32 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             BY.byUtil.updateMetaTags(metaTagParams);
         })();
 
+        $scope.modalLoginInit = function(){
+            $scope.formState = 0;
+            $rootScope.loginFormState=0;
+            $('#myModalHorizontal').on('hidden.bs.modal', function () {
+                $scope.user = {};
+                $scope.user.email = '';
+                $scope.user.password = '';
+
+                $scope.newUser = new User();
+                $scope.formState = 0;
+                $rootScope.loginFormState=0;
+
+                $scope.resetPwd = {};
+                $scope.resetPwd.email = '';
+                $scope.resetPwd.error = '';
+                $scope.resetPwd.status = 0;
+
+                $scope.resetError();
+            })
+        };
+
+        $scope.showForm = function(formId){
+            $scope.formState = formId;
+            $rootScope.loginFormState=formId;
+            ValidateUserCredential.login();
+        };
 
         
         $scope.ggLogin = function(){
@@ -38,7 +93,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         		
         		window.open(res.data, 'name','width=500,height=500');
         	})
-        }
+        };
         
         var socialRegistration = function(loginReg){
             if (loginReg.body.data.sessionId === null) {
@@ -58,15 +113,11 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 $location.path("/users/home");
                 $scope.$apply();
             }
-        }
-	
-	
-        $scope.pwdError = "";
-        $scope.emailError = "";
-
+        };
 
         $scope.loginUser = function (user) {
             $scope.resetError();
+            $(".login-btn").prop("disabled", true);
             $http.post(apiPrefix + 'api/v1/users/login', user).success(function (res) {
                 var login = res.data;
                 if (login.sessionId === null) {
@@ -87,6 +138,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
             }).error(function () {
                 $scope.setError("Invalid user/password combination");
+                $(".login-btn").prop("disabled", false);
             });
         }
 
@@ -106,6 +158,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             }
 
             if($scope.pwdError==="" && $scope.emailError===""){
+                $(".register-btn").prop("disabled", true);
                 $scope.newUser.$save(function (response) {
                 	var login = response.data;
                     $scope.createUserSuccess = "User registered successfully";
@@ -121,6 +174,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 }, function (error) {
                     // failure
                     console.log(error);
+                    $(".register-btn").prop("disabled", false);
                     $scope.createUserError = error.data.error.errorMsg;
                     $scope.createUserSuccess = '';
 
@@ -132,6 +186,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.resetError = function () {
             $scope.error = '';
             $scope.message = '';
+            $scope.pwdError = "";
+            $scope.emailError = "";
         }
 
         $scope.setError = function (message) {
@@ -160,6 +216,44 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             else {
                 $scope.setError('Browser does not support cookies');
                 $location.path("/users/login");
+            }
+        }
+
+        $scope.emailPwdLink = function(email){
+            $(".by_btn_submit").prop("disabled", true);
+            $http.get(apiPrefix +"api/v1/users/resetPassword?email="+encodeURIComponent(email)).success(function(res){
+                console.log(res);
+                $scope.resetPwd.status = 1;
+                $scope.resetPwd.error = '';
+            }).error(function(errorRes){
+                console.log(errorRes);
+                $(".by_btn_submit").prop("disabled", false);
+                $scope.resetPwd.error = errorRes.error.errorMsg;
+            });
+        };
+
+        $scope.resetPassword  = function(){
+            if(!$scope.resetPwd.newPwd || $scope.resetPwd.newPwd.trim().length < 6){
+                $scope.resetPwd.error = "Password must be at least 6 character";
+            }else{
+                $scope.resetPwd.error = "";
+            }
+
+            if($scope.resetPasswordCode && $scope.resetPwd.error===""){
+                var resetPwdUser = {
+                    verificationCode:$scope.resetPasswordCode,
+                    password:$scope.resetPwd.newPwd
+                }
+                $(".by_resetPwd_btn").prop("disabled", true);
+                $http.post(apiPrefix + 'api/v1/users/resetPassword', resetPwdUser).success(function (res) {
+                    console.log(res);
+                    $location.path("/users/home");
+                    $scope.setUserCredential(res.data);
+                }).error(function (errorRes) {
+                    console.log(errorRes);
+                    $(".by_resetPwd_btn").prop("disabled", false);
+                    $scope.resetPwd.error = errorRes.error.errorMsg;
+                });
             }
         }
 

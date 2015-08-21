@@ -1,48 +1,20 @@
-<!--<ul class="nav navbar-nav">-->
-    <!-- Start Home -->
-    <li ng-repeat="menu in mainMenu" ng-if="$index < 8" class="dropdown mega-menu-fullwidth by-menu" window-resize callback="resize">
-        <a ng-click="selectMenu(menu)" class="dropdown-toggle hbMenu" ng-if="menu.children.length === 0" id="{{menu.id}}">
-            {{menu.displayMenuName}}
-        </a>
+<li ng-repeat="menu in mainMenu" ng-if="$index < 8" class="dropdown by-menu">
+    <a ng-click="selectMenu(menu)" class="dropdown-toggle hbMenu" ng-if="menu.children.length === 0" id="{{menu.id}}">
+        {{menu.displayMenuName}}
+    </a>
 
-        <a ng-click="selectMenu(menu)" class="dropdown-toggle " data-toggle="dropdown" id="{{menu.id}}" ng-if="menu.children.length > 0">
-            {{menu.displayMenuName}}
-        </a>
-        <ul class="dropdown-menu" ng-if="menu.children.length > 0" ng-include="'app/components/menu/subMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>
-    </li>
-    <!-- End Home -->
-    <!-- Discuss -->
-    <!--<li class="dropdown mega-menu-fullwidth">-->
-        <!--<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" id="discuss">-->
-            <!--Discuss-->
-        <!--</a>-->
-        <!--<ul class="dropdown-menu" ng-include="'app/components/menu/discussMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>-->
-    <!--</li>-->
-    <!--&lt;!&ndash; End Discuss &ndash;&gt;-->
+    <a ng-click="selectMenu(menu)" class="dropdown-toggle " data-toggle="dropdown" id="{{menu.id}}" ng-if="menu.children.length > 0">
+        {{menu.displayMenuName}}
+    </a>
 
-    <!--&lt;!&ndash; Find &ndash;&gt;-->
-    <!--<li class="dropdown mega-menu-fullwidth" ng-controller="FindMenuController">-->
-        <!--<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">-->
-            <!--Find-->
-        <!--</a>-->
-        <!--<ul class="dropdown-menu" ng-include="'app/components/menu/subMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>-->
-    <!--</li>-->
-    <!--&lt;!&ndash; End Find &ndash;&gt;-->
-
-    <!--&lt;!&ndash; Do &ndash;&gt;-->
-    <!--<li>-->
-        <!--<a href="">-->
-            <!--Do-->
-        <!--</a>-->
-    <!--</li>-->
-    <!--&lt;!&ndash; End Do &ndash;&gt;-->
-
-    <!--&lt;!&ndash; Shop &ndash;&gt;-->
-    <!--<li>-->
-        <!--<a href="">-->
-            <!--Shop-->
-        <!--</a>-->
-    <!--</li>-->
-    <!-- End Shop -->
-
-<!--</ul>-->
+    <ul class="dropdown-menu by-hb-menu" ng-if="selectedTopMenu.children.length > 0" ng-init="showHbMenu()">
+        <li class="dropdown-submenu" ng-repeat="submenu in selectedTopMenu.children">
+            <a ng-click="selectMenu(submenu)" class="hb-anchorTag" ng-class="{'selected-submenu':selectedSubMenu.id===submenu.id}">{{submenu.displayMenuName}}</a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="leafMenu in submenu.children">
+                    <a ng-click="selectMenu(leafMenu)"  class="hb-anchorTag">{{leafMenu.displayMenuName}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>

@@ -3,14 +3,17 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
         $scope.userCategory = "";
         $scope.individualUserType = [
             {key:'0', value:"I take care of a senior in my family", category:"indv"},
-            {key:'1', value:"I am not that young, but I am young at heart", category:"indv"},
-            {key:'7', value:"I am an elder care professional", category:"indv"
+            {key:'1', value:"I am a senior person", category:"indv"},
+            {key:'2', value:"I am just curious", category:"indv"
             }];
         //        {key:'2', value:"I volunteer with senior people", category:"indv"},
+    
+        $scope.individualUserType2 =[{key:'7', value:"I am an elder care professional", category:"indv2"}];
 
         $scope.institutionUserType = [
-            {key:'3', value:"Senior living facilities", category:"inst"},
-            {key:'4', value:"Services for seniors & elder care", category:"inst"}];
+            {key:'3', value:"Senior living facilities", category:"inst"}];
+        $scope.institutionUserType2 = [
+             {key:'4', value:"Services for seniors & elder care", category:"inst2"}];
 
         $scope.otherUserType = [
             {key:'-1', value:"None of the above!", category:"other"}];
@@ -23,18 +26,38 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
                 $scope.selectedUserType[element.type.key] = element.type.category;
 
                 if($scope.userCategory === $scope.individualUserType[0].category){
+                    $scope.unSelectUserType($scope.individualUserType2);
                     $scope.unSelectUserType($scope.institutionUserType);
+                    $scope.unSelectUserType($scope.institutionUserType2);
                     $scope.unSelectUserType($scope.otherUserType);
                 }
 
+                if($scope.userCategory === $scope.individualUserType2[0].category){
+                    $scope.unSelectUserType($scope.individualUserType);
+                    $scope.unSelectUserType($scope.institutionUserType);
+                    $scope.unSelectUserType($scope.otherUserType); 
+                    $scope.unSelectUserType($scope.institutionUserType2);
+                }
+                
                 if($scope.userCategory === $scope.institutionUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
+                    $scope.unSelectUserType($scope.individualUserType2);
                     $scope.unSelectUserType($scope.otherUserType);
+                    $scope.unSelectUserType($scope.institutionUserType2);
+                }
+                
+                if($scope.userCategory === $scope.institutionUserType2[0].category){
+                    $scope.unSelectUserType($scope.individualUserType);
+                    $scope.unSelectUserType($scope.individualUserType2);
+                    $scope.unSelectUserType($scope.otherUserType);
+                    $scope.unSelectUserType($scope.institutionUserType);
                 }
 
                 if($scope.userCategory === $scope.otherUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
+                    $scope.unSelectUserType($scope.individualUserType2);
                     $scope.unSelectUserType($scope.institutionUserType);
+                    $scope.unSelectUserType($scope.institutionUserType2);
                 }
             } else {
                 $scope.userCategory = "";

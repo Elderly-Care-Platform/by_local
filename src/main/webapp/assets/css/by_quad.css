@@ -335,6 +335,7 @@
 .by_left_panel_fixed {
 	left: calc(( 100vw - 960px + 20px)/2) !important;
 	width: 235px !important;
+	padding-right:10px !important;
 }
 
 #sidebar-nav {

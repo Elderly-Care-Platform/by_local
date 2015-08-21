@@ -17,7 +17,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $(".by_section_header").hide();
         $(".homeSlider").hide();     
         $(".by_left_panel_fixed").css('margin-top', 'auto');
-        $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', screen.height - $(".header").height());
+        $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - $(".footer-v1").height() - 10);
         //angular.element($window).bind("scroll", function() {
         $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
     		//$(".by_left_panel_homeSlider_position").css('margin-top', '0px');

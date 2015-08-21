@@ -321,6 +321,7 @@ ul.loginbar.pull-right {
 	}
 	.by_left_panel_fixed, .headerInfoDiv, .by_right_panel>div {
 		margin-left: 0px !important;
+		margin-right: 0px !important;
 	}
 	#sidebar-nav {
 		margin-bottom: 30px;

@@ -347,6 +347,10 @@ ul.loginbar.pull-right {
 	.header .dropdown-menu .col-md-2 {
 		width: 100%;
 	}
+	.by_left_panel_fixed .scrollableLeftPanelDiv
+	{
+		padding-bottom:0px;
+	}
 }
 
 .errorRed {

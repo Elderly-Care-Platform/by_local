@@ -30,7 +30,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                     }else if(($scope.profile.userTypes.indexOf(1) || $scope.profile.userTypes.indexOf(0) || $scope.profile.userTypes.indexOf(2))!== -1){
                         $scope.regLevel = 2;
                         $scope.sectionLabel = "ABOUT ME";
-                        $scope.views.contentPanel = "app/components/login/regIndividual2.html?versionTimeStamp=%PROJECT_VERSION%";                    	
+                        $scope.views.contentPanel = "app/components/login/aboutMe.html?versionTimeStamp=%PROJECT_VERSION%";                    	
                     } else {
                         $scope.exit();
                     }

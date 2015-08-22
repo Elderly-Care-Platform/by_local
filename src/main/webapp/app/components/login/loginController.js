@@ -43,7 +43,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         			delete(window.getFbData);
                     $scope.resetError();
         		}
-        		window.open(res.data, 'name','width=1000,height=650')
+        		window.open(res.data, 'Facebook Login','width=1000,height=650')
         	})
         };
 
@@ -91,7 +91,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         			delete(window.getGoogleData);
         		}
         		
-        		window.open(res.data, 'name','width=500,height=500');
+        		window.open(res.data, 'Google Login','width=500,height=500');
         	})
         };
         

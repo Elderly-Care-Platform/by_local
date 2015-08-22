@@ -55,7 +55,12 @@
 	line-height: 1.1 !important;
 }
 
-
+@media ( min-width : 50px) {
+ 	.by_left_panel_fixed {
+ 		position: static;
+ 		width: auto;
+ 	}
+ }
 
 .by_left_top_panel li {
 	color: #8b8b8b;

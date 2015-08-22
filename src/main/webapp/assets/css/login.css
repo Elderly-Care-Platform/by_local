@@ -375,3 +375,44 @@ input[type=checkbox] {
 	vertical-align:middle;
 	margin-top:-2px !important;
 }
+.fontSizeIndi
+{
+	 font-size: 15px;
+    font-weight: bold;
+}
+.marginLeftMinus5
+{
+	margin-left:-5px;
+	border:1px dashed #ccc;
+	background:#ececec;
+}
+.marginleft0
+{
+	margin-left:-3px;
+}
+.darkBgwithText
+{
+	margin-left:-5px;
+	border:1px solid #000;
+	background:#A09E9E;
+	padding:10px;
+	color:#fff;
+}
+.marginleftMinu4
+{
+	margin-left:-5px;
+}
+.profilePictureIndi
+{
+	margin-bottom:20px;
+	border:1px solid #ccc;
+	background:#ececec;
+	margin-left:12px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.profilePictureIndi input
+{
+	margin-top:10px;
+	width:100%;
+}

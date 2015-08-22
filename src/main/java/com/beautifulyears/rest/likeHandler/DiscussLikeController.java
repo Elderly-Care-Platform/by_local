@@ -111,6 +111,9 @@ public class DiscussLikeController extends LikeController<Discuss> {
 					title = !Util.isEmpty(title) ? title : LikedEntity
 							.getLinkInfo().getUrl();
 				}
+				if(Util.isEmpty(title)){
+					title = "<<Your post>>";
+				}
 				String userName = !Util.isEmpty(LikedEntity.getUsername()) ? LikedEntity
 						.getUsername() : "Anonymous User";
 				String body = MessageFormat.format(

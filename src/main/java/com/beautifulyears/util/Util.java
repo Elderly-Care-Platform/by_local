@@ -14,7 +14,7 @@ public class Util {
 	private static final Logger logger = Logger.getLogger(Util.class);
 
 	public static boolean isEmpty(String value) {
-		return value == null || value.length() == 0;
+		return value == null || value.trim().length() == 0;
 	}
 
 	public static User getSessionUser(HttpServletRequest req) {

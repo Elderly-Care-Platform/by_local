@@ -246,6 +246,9 @@ public class DiscussDetailController {
 					title = !Util.isEmpty(title) ? title : discuss
 							.getLinkInfo().getUrl();
 				}
+				if(Util.isEmpty(title)){
+					title = "<<Your post>>";
+				}
 				String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
 						.getUsername() : "Anonymous User";
 				String commentedBy = !Util.isEmpty(user.getUserName()) ? user
@@ -280,9 +283,10 @@ public class DiscussDetailController {
 						.getUserName() : "Anonymous User";
 				String replyString = "previous comment";
 				String path = reply.getUrl();
+				String replyText = Util.isEmpty(reply.getText()) ? "<<Your reply>>" : reply.getText();
 				String body = MessageFormat.format(
 						resourceUtil.getResource("replyCommentedBy"), userName,
-						commentedBy, replyString, reply.getText(), path, path);
+						commentedBy, replyString, replyText, path, path);
 				MailHandler
 						.sendMailToUserId(
 								reply.getUserId(),

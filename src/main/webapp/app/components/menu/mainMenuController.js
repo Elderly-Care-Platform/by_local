@@ -63,6 +63,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         window.by_menu = null;
         delete window.by_menu;
 
+        //Select menu and show relevant page
         $scope.selectMenu = function(menu){
             if(menu.module===0){
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
@@ -72,11 +73,13 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }
 
+            //Reset top menu, to dismiss hover menu - ipad fix
             if(menu.ancestorIds.length >= 2){
                 $scope.selectedTopMenu = null;
             }
         };
 
+        //
         $rootScope.setLeftScroll = function(){
             if($rootScope.scrollableLeftPanel){
                 $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
@@ -102,6 +105,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             );
         };
 
+        //Show different section header based on screen size
         var resizeSectionHeader = function(){
             if($scope.sectionHeader){
                 if(windowWidth > 730){
@@ -112,6 +116,8 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }
         };
 
+
+        //Reset Left panel fix menu top position based on sub menu height
         var resizeLeftMenu = function(){
             var sliderHeight = $(".by_section_header").height();
             submenuHeight = $(".by-left-menu").height();
@@ -124,11 +130,12 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
 
             //Set left panel's scrollable height below menu
             if (windowWidth > 991) {
-                var leftFixMenuHeight = window.innerHeight - $(".header").height() - submenuHeight - $(".footer-v1").height() - 10;
+                var leftFixMenuHeight = window.innerHeight - $(".header").height() - submenuHeight - 10;
                 $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
             }
         };
 
+        //callback from window resize directive
         $scope.windowResize = function(height, width){
             console.log(width);
             var browserScrollBarWidth = 8; //Specified in psc.css, webkit-scrollbar width 8 px
@@ -204,13 +211,11 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 }
             }
 
-
-
             $rootScope.setLeftScroll();
         };
 
 
-
+        //Reset selected Top Menu and sub menu
         $scope.$on('handleBroadcastMenu', function () {
             if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
                 $scope.discussMenuCnt = 0;
@@ -264,7 +269,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         });
 
 
-
+        //bind scroll to window and calculate left panel scroll
         angular.element($window).bind("scroll", function() {
             if($rootScope.scrollableLeftPanel && !$scope.hamburgerView){
                 var bannerHeight = 0;

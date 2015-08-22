@@ -5,6 +5,10 @@
 		<div class="col-md-12 no-padding bg-gray-h1">
 			<div class="bg-green-h2" style="width: 70px;"></div>
 		</div>
+		<div class="col-md-12 no-padding discuss-card-desciption dp-block">
+			Please share your experiences, thoughts, stories, and feelings. Share relevant news, great photos and videos.
+		</div>
+
 	</div>
 
 	<!--Upload Video Modal popup-->
@@ -151,17 +155,26 @@
 
 		<div class="byEditorBg">
 			<div class="col-md-12 no-padding margin-bottom-35 byEditor">
-				<textarea id="article_textArea" class="textbox about-dependent"
+				<textarea id="article_textArea" class="textbox about-dependent" placeholder="Please enter your text here"
 					rows="3"></textarea>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 
 		<div class="col-md-12  form-header-content margin-bottom-15">
-			<a ng-click="showCategoryList()">Please click to select category
-				in which your post will appear (optional) <span
-				class="triangle-down by-arrow-float-none"></span>
+			<a ng-click="showCategoryList()" ng-if="selectedMenuCount == 0">
+				Please click to select the category in which your post  will appear
+				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
 			</a>
+			<div ng-if="selectedMenuCount > 0">
+				Your post will appear under the
+				<a ng-repeat="(key, value) in selectedMenuList">
+					<span ng-if="$index > 0"> | </span>
+					{{'"'+value.displayMenuName+'"'}}
+				</a> &nbsp;category.
+				<a ng-click="showCategoryList()">Please select additional categories (optional)</a>
+				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
+			</div>
 		</div>
 
 		<div class="col-md-12  margin-bottom-20" ng-if="showCategory">

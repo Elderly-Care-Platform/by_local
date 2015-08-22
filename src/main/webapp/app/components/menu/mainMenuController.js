@@ -136,7 +136,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
             }
             if(menuWidth > 991){
-            var leftFixMenuHeight = window.innerHeight - $(".header").height()   - submenuHeight - $(".footer-v1").height() - 10;
+            var leftFixMenuHeight = window.innerHeight - $(".header").height()   - submenuHeight  - 10;
             $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
         }
            

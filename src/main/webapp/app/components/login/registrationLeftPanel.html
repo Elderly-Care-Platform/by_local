@@ -11,6 +11,9 @@
             <li class="list-group-item" ng-show="regLevel >= 2" ng-class="{true: 'active'}[regLevel == 2]" ng-if="sectionLabel">
                 <a>{{sectionLabel}}</a>
             </li>
+            <li class="list-group-item {{classActive}}"  ng-click="changeUsername()">
+                <a >Change Signup Info</a>
+            </li>
         </ul>
     </div>
 </div>

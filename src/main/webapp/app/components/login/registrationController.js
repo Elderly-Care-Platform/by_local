@@ -13,6 +13,13 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         })();
+        
+        $scope.changeUsername = function(){
+        	 $scope.views.contentPanel = "app/components/login/changeUsername.html?versionTimeStamp=%PROJECT_VERSION%";
+        	 $(".list-group-item").removeClass('active');
+        	 $scope.classActive = 'active';
+        };
+        
 
         $scope.updateRegistration = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");

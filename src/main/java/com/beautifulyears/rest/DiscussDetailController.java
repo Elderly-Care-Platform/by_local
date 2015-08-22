@@ -239,6 +239,13 @@ public class DiscussDetailController {
 						"mailTemplate.properties");
 				String title = !Util.isEmpty(discuss.getTitle()) ? discuss
 						.getTitle() : discuss.getText();
+				if (Util.isEmpty(title) && discuss.getLinkInfo() != null) {
+					title = !Util.isEmpty(discuss.getLinkInfo().getTitle()) ? discuss
+							.getLinkInfo().getTitle() : discuss.getLinkInfo()
+							.getDescription();
+					title = !Util.isEmpty(title) ? title : discuss
+							.getLinkInfo().getUrl();
+				}
 				String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
 						.getUsername() : "Anonymous User";
 				String commentedBy = !Util.isEmpty(user.getUserName()) ? user

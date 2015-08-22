@@ -229,7 +229,7 @@ public class UserController {
 			Session session = createSession(req, res, newFbUser);
 
 			ServletOutputStream out = res.getOutputStream();
-			out.println("<script>window.opener.getFbData("
+			out.println("<script>parent.window.opener.getFbData("
 					+ mapper.writeValueAsString(BYGenericResponseHandler
 							.getResponse(session)) + ");</script>");
 			out.println("<script>window.close();</script>");
@@ -282,7 +282,7 @@ public class UserController {
 			Session session = createSession(req, res, newGoogleUser);
 
 			ServletOutputStream out = res.getOutputStream();
-			out.println("<script>window.opener.getGoogleData("
+			out.println("<script>parent.window.opener.getGoogleData("
 					+ mapper.writeValueAsString(BYGenericResponseHandler
 							.getResponse(session)) + ");</script>");
 			out.println("<script>window.close();</script>");

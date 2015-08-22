@@ -31,11 +31,11 @@
 				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
 			</a>
 			<div ng-if="selectedMenuCount > 0">
-				Your question will appear under the &nbsp;
-				<span ng-repeat="(key, value) in selectedMenuList">
-					<span ng-if="$index > 0"> , </span>
-					{{value.displayMenuName}}
-				</span> &nbsp; category.
+				Your post will appear under the
+				<a ng-repeat="(key, value) in selectedMenuList">
+					<span ng-if="$index > 0"> | </span>
+					{{'"'+value.displayMenuName+'"'}}
+				</a> &nbsp;category.
 				<a ng-click="showCategoryList()">Please select additional categories (optional)</a>
 				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
 			</div>

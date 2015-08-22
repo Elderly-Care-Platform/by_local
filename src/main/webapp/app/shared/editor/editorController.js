@@ -110,7 +110,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.setErrorMessage = function(){
             $(".by_btn_submit").prop("disabled", false);
 
-            if($scope.discuss.topicId.length === 0){
+            if($scope.discuss.topicId.length === 0 && $scope.discuss.discussType!=="F"){
                 $scope.errorMsg = "Please select atleast one category";
             } else if($scope.showLinkView){
                 if(!$scope.linkInfo){
@@ -133,7 +133,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.errorMsg = "";
             $scope.discuss.$save(function (discuss, headers) {
                 $scope.editor.subject = "";
-                if($scope.discuss.discussType!="F" && discuss && discuss.data){
+                if(discuss && discuss.data && discuss.data.discussType!="F"){
                     $location.path('/discuss/'+discuss.data.id);
                 }else{
                     $scope.$parent.postSuccess();

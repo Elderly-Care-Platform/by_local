@@ -62,6 +62,7 @@
 	min-height: auto !important;
 	border-radius: 2px !important;
 	overflow-wrap: break-word;
+	word-break: break-word;
 }
 
 .by_blog_author .news-v3 .post-shares li i {

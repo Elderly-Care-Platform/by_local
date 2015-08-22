@@ -66,6 +66,9 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
 
         $scope.switchToContentView = function (scrollTo) {
+            $rootScope.scrollableLeftPanel = true;
+            $rootScope.setLeftScroll();
+            $(".homeSlider").show();
             $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
             if($scope.currentAcceleratorSelected && $scope.currentAcceleratorSelected!=="" && $scope.contentType !== "all"){
                 $scope.contentType = "all";

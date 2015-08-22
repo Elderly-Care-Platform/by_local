@@ -55,7 +55,7 @@
 	line-height: 1.1 !important;
 }
 
-@media ( min-width : 50px) {
+@media screen and (max-width: 991px) {
 	.by_left_panel_fixed {
 		position: static;
 		width: auto;

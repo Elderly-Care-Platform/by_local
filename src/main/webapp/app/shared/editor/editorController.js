@@ -18,8 +18,12 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $(".homeSlider").hide();     
         $(".by_left_panel_fixed").css('margin-top', 'auto');
         $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - $(".footer-v1").height() - 10);
+
+        $rootScope.scrollableLeftPanel = false;
+        $rootScope.setLeftScroll();
+
         //angular.element($window).bind("scroll", function() {
-        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+        //$(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
     		//$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
         //});
         

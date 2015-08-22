@@ -104,7 +104,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 						"mailTemplate.properties");
 				String title = !Util.isEmpty(LikedEntity.getTitle()) ? LikedEntity
 						.getTitle() : LikedEntity.getText();
-				if (Util.isEmpty(title) && LikedEntity.getLinkInfo() != null) {
+				if (Util.isEmpty(title) && LikedEntity != null && LikedEntity.getLinkInfo() != null) {
 					title = !Util.isEmpty(LikedEntity.getLinkInfo().getTitle()) ? LikedEntity
 							.getLinkInfo().getTitle() : LikedEntity.getLinkInfo()
 							.getDescription();

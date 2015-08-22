@@ -90,7 +90,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         };
 
 
-        var bySubMenuInit = function(){
+        $scope.bySubMenuInit = function(){
             //Show/hide mask on screen on hover of by submenu
             $(".by-subMenu" ).hover(
                 function() {
@@ -239,6 +239,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                     }
                 }else{
                     topMenu = menu;
+                    $scope.selectedSubMenu = null;
                 }
 
                 //Menu should not be reset, if same menu id is selected as it create problem in iPad

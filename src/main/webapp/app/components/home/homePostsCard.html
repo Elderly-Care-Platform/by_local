@@ -30,10 +30,10 @@
 
                 <li ng-repeat="topicId in article.topicId">
                     <p class="first-letter-uc by-systemTags">
+                        <span ng-if="$index > 0">|</span>
                         <a ng-click="go($event,'menu', topicId)">
                             {{$root.menuCategoryMap[topicId].displayMenuName}}
                         </a>
-                        <span ng-if="$index < article.topicId.length-1">,</span>
                     </p>
                 </li>
             </ul>

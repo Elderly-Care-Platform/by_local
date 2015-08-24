@@ -10,13 +10,13 @@
     <meta http-equiv="expires" content="0">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="We are a community.We take care of our ageing parents And we'd like to age better ourselves!May all elderly people and their loving families enjoy beautiful years together.Hence, BeautifulYears.com.	Redefining 'ageing' in India">
+    <meta name="description" content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing.">
     <meta name="robots" content="index, follow">
     
     <meta property="og:title" content="Beautiful Years"/>
 	<meta property="og:image" content="http://www.beautifulyears.com/assets/img/logo-fb.jpg"/>
 	<meta property="og:site_name" content="BeautifulYears.com"/>
-	<meta property="og:description" content="We are a community.We take care of our ageing parents And we'd like to age better ourselves!May all elderly people and their loving families enjoy beautiful years together.Hence, BeautifulYears.com.	Redefining 'ageing' in India"/>
+	<meta property="og:description" content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing."/>
     
     <!-- copyrightInfo -->
 	<link rel="copyright" href="http://www.beautifulyears.com/main.html#/users/termsCondition">
@@ -69,6 +69,8 @@
     <link rel="stylesheet" href="assets/css/image-gallery.css?versionTimeStamp=%PROJECT_VERSION%">
      <link rel="stylesheet" href="assets/css/by_quad.css?versionTimeStamp=%PROJECT_VERSION%">
       <link rel="stylesheet" href="assets/css/by_section_headers.css?versionTimeStamp=%PROJECT_VERSION%">
+      <link rel="stylesheet" href="assets/css/by-menu.css?versionTimeStamp=%PROJECT_VERSION%">
+      <link rel="stylesheet" href="assets/css/by-modalLogin.css?versionTimeStamp=%PROJECT_VERSION%">
       
 	   <!-- unify libs and plugins start -->
     <script type="text/javascript" src="lib/unify/plugins/jquery/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -245,12 +247,14 @@
                 </div><div class="clearfix"></div>
                 </div>
 
-
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
-                    <div class="container-fluid"  style="max-width: 960px;" ng-controller="MainMenuController">
-                        <ul class="nav navbar-nav" ng-include="'app/components/menu/mainMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>
+                    <div class="container-fluid"  style="max-width: 960px;" ng-controller="MainMenuController" >
+                        <ul class="nav navbar-nav" ng-include="'app/components/menu/mainMenu.html?versionTimeStamp=%PROJECT_VERSION%'" window-resize callback="resize"></ul>
+                        <div class="clearfix"></div>
+                        <ul class="dropdown-menu by-left-menu" ng-if="selectedTopMenu.children.length > 0"
+                            element-resize callback="subMenuResize"
+                            ng-include="'app/components/menu/subMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></ul>
                     </div>
                     <!--/end container-->
                 </div>
@@ -258,7 +262,7 @@
             </div>
             <!--=== End Header ===-->
 
-
+    <div id="mask"></div>
     <ng-view></ng-view>
 
     <!--=== Footer Version 1 ===-->
@@ -279,7 +283,7 @@
                             <ul class="social-icons pull-right">
                                 <li><span>Like us on</span></li>
                                 <li><a data-original-title="Facebook" class="social_facebook"
-                                       onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'name','width=600,height=400')"></a>
+                                       onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'Share on facebook','width=600,height=400')"></a>
                                 </li>
                                 <li><a href="#" data-original-title="Google Plus" class="social_googleplus"></a></li>
 

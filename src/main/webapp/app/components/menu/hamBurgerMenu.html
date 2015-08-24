@@ -1,0 +1,31 @@
+<ul class="nav navbar-nav">
+    <li ng-repeat="menu in mainMenu" ng-if="$index < 8" class="dropdown by-menu">
+        <a ng-if="menu.children.length > 0" ng-click="selectMenu(menu)" class="dropdown-toggle hbMenu" data-toggle="dropdown" id="{{menu.id}}">
+            {{menu.displayMenuName}}
+        </a>
+
+        <a ng-if="menu.children.length == 0" ng-click="selectMenu(menu)" class="dropdown-toggle hbMenu" id="{{menu.id}}"
+           data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            {{menu.displayMenuName}}
+        </a>
+
+        <ul class="dropdown-menu" ng-if="menu.children.length > 0">
+            <li class="dropdown-submenu" ng-repeat="submenu in menu.children">
+                <a ng-if="submenu.children.length > 0" ng-click="selectMenu(submenu)">
+                    {{submenu.displayMenuName}}
+                </a>
+
+                <a ng-if="submenu.children.length == 0" ng-click="selectMenu(submenu)"
+                   data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    {{submenu.displayMenuName}}
+                </a>
+
+                <ul class="dropdown-menu" ng-if="submenu.children.length > 0">
+                    <li ng-repeat="leafMenu in submenu.children">
+                        <a ng-click="selectMenu(leafMenu)" data-toggle="collapse" data-target=".navbar-responsive-collapse">{{leafMenu.displayMenuName}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>

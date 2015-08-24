@@ -11,6 +11,13 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
                     picture = picture.substr(1);
                     picture = window.location.origin + window.location.pathname + picture;
 
+                }else if(sharedObj.linkInfo && sharedObj.linkInfo.mainImage){
+                	picture = sharedObj.linkInfo.mainImage;
+                }
+                
+                if((!description || description =="") && (sharedObj.linkInfo)){
+                	description = sharedObj.linkInfo.description || "";
+                	caption = caption || sharedObj.linkInfo.title || "BeautifulYears";
                 }
 
                 FB.ui({

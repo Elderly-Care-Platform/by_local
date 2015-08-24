@@ -66,10 +66,13 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
 
         $scope.switchToContentView = function (scrollTo) {
+            $rootScope.scrollableLeftPanel = true;
+            $rootScope.setLeftScroll();
+            $(".homeSlider").show();
             $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
             if($scope.currentAcceleratorSelected && $scope.currentAcceleratorSelected!=="" && $scope.contentType !== "all"){
                 $scope.contentType = "all";
-                $scope.contentSize = 3;
+                $scope.contentSize = 8;
                 $scope.currentView = "";
             }
             if ($scope.currentView != "content") {
@@ -136,11 +139,11 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         if ($routeParams.type === "P" || $routeParams.type === "Q" || $routeParams.type === "S") {
             $scope.contentType = $routeParams.type;
-            $scope.contentSize = 3;
+            $scope.contentSize = 8;
             $scope.switchToContentView();
         } else {
             $scope.contentType = "all";
-            $scope.contentSize = 3;
+            $scope.contentSize = 8;
             $scope.currentView = "";
             $scope.switchToContentView();
         }

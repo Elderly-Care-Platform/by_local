@@ -1,5 +1,5 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail',
-    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail) {
+byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location',
+    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail, $location) {
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -9,6 +9,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.selectedMenuList = {};
         $scope.showLinkView = false;
         $scope.sharedLinkUrl = "";
+        $scope.selectedMenuCount = 0;
 
         broadCastMenuDetail.setMenuId(0);
         $scope.showCategoryList = function(){
@@ -17,9 +18,13 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $(".by_section_header").hide();
         $(".homeSlider").hide();     
         $(".by_left_panel_fixed").css('margin-top', 'auto');
-        $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - $(".footer-v1").height() - 10);
+        $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - 10);
+
+        $rootScope.scrollableLeftPanel = false;
+        $rootScope.setLeftScroll();
+
         //angular.element($window).bind("scroll", function() {
-        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
+        //$(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
     		//$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
         //});
         
@@ -27,6 +32,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         if($scope.$parent.selectedMenu){
             $scope.selectedMenuId = $scope.$parent.selectedMenu.id;
             $scope.selectedMenuList[$scope.selectedMenuId] = $scope.$parent.selectedMenu;
+            $scope.selectedMenuCount++;
         }else{
             $scope.showCategory = true;
         }
@@ -38,9 +44,12 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
                 if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
                     delete $scope.selectedMenuList[category.parentMenuId];
                 }
+                $scope.selectedMenuCount++;
             }else{
+                $scope.selectedMenuCount--;
                 delete $scope.selectedMenuList[category.id];
             }
+
         }
 
         var systemTagList = {};
@@ -101,7 +110,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
         $scope.setErrorMessage = function(){
             $(".by_btn_submit").prop("disabled", false);
 
-            if($scope.discuss.topicId.length === 0){
+            if($scope.discuss.topicId.length === 0 && $scope.discuss.discussType!=="F"){
                 $scope.errorMsg = "Please select atleast one category";
             } else if($scope.showLinkView){
                 if(!$scope.linkInfo){
@@ -124,7 +133,13 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.errorMsg = "";
             $scope.discuss.$save(function (discuss, headers) {
                 $scope.editor.subject = "";
-                $scope.$parent.postSuccess();
+                if(discuss && discuss.data && discuss.data.discussType!="F"){
+                    $location.path('/discuss/'+discuss.data.id);
+                }else{
+                    $scope.$parent.postSuccess();
+                }
+
+
             },
             function (errorResponse) {
                 console.log(errorResponse);
@@ -135,60 +150,7 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             });
         };
         
-       
-        
-        //$scope.showSubmitVideo = function(){
-        //	var screenWidth = $(window).width();
-        //	$(".by_call_submit_video").click(function(){
-        //		$(".by_call_submit_video_wrapper").fadeIn();
-        //		if(screenWidth > 960){
-	     //   		$(".header").css('z-index','0');
-	     //   		$(".breadcrumbs").css('z-index','0');
-	     //   		$(".list-group-item.active").css('z-index','0');
-        //		}
-        //		$(".by_uploading_image").hide();
-        //	});
-        //	$(".by_call_submit_video_abs, .by_call_submit_video_btn button[type=button], .by_call_submit_video_head span").click(function(){
-        //		$(".by_call_submit_video_wrapper").fadeOut();
-        //		$(".by_call_submit_video_head_textarea").val('');
-        //		if(screenWidth > 960){
-	     //   		$(".header").css('z-index','110');
-	     //   		$(".breadcrumbs").css('z-index','10');
-	     //   		$(".list-group-item.active").css('z-index','2');
-        //		}
-        //	});
-        //	$(".by_call_submit_video_btn button[type=submit]").click(function(){
-        //		$(".by_call_submit_video_wrapper").fadeOut();
-        //		var videoUrl = $(".by_call_submit_video_head_textarea").val();
-        //		if(screenWidth > 960){
-	     //   		$(".header").css('z-index','110');
-	     //   		$(".breadcrumbs").css('z-index','10');
-	     //   		$(".list-group-item.active").css('z-index','2');
-        //		}
-        //		$(".by_uploading_video").show();
-        //		$(".by-show-three-buttons").hide();
-        //		var byuploadingvideoaddinside = $(".by_uploading_video_add_inside").innerWidth();
-        //    	$(".by_uploading_video_add_inside iframe").attr('height', byuploadingvideoaddinside/2);
-        //	});
-        //	$(".by_uploading_image_add_close").click(function(){
-        //		$(".by-show-three-buttons").show();
-        //		 $(".by_uploading_image").hide();
-        //	});
-        //
-        //	$(".by_call_upload_photo").click(function(){
-        //		$(".by-show-three-buttons").hide();
-       	//	 	$(".by_uploading_image").show();
-        //	});
-        //
-        //	$(".by_uploading_video_add_close").click(function(){
-        //		$(".by-show-three-buttons").show();
-       	//	 $(".by_uploading_video").hide();
-        //	});
-        //
-        //
-        //
-        //
-        //};
+
         $scope.resetEditorView = function(){
             $scope.showLinkView = false;
             $scope.editor.articlePhotoFilename = "";

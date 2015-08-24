@@ -153,7 +153,7 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 }
 .header .dropdown-menu .active > a, .header .dropdown-menu li > a:hover, .header .dropdown-menu li:hover 
 {
-	background:#e6e6e6;
+	/*background:#e6e6e6;*/
 	color:#000;
 	font-weight:bold;
 }
@@ -182,14 +182,14 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 {
 	line-height:26px;
 }
- .header .dropdown-submenu>a:after {
+ .header .by-leafMenu-parent>a:after {
     content: "\f105";
     position:relative;
     float: right;
     margin-top: -5px;
     margin-right: -10px;
 }
- .header .dropdown-submenu:hover >a:after {
+ .header .by-leafMenu-parent:hover >a:after {
     width: 19px;
     height: 22px;
     position: relative;
@@ -213,9 +213,28 @@ li.secondLevelMenuNew:hover .thirdLevelMenuhide
 .by-leafMenu{
 	font-weight: normal;
 }
+
+.by-leafMenu li{
+	width: 100%;
+}
+
+.by-leafMenu li a{
+	padding-left: 3px;
+}
+
+.by-subMenu{
+	lineHeight:12px;
+}
+
 .mega-menu-content .col-md-4
 {
 	padding-right:0px;
+}
+
+.by-menu-separator {
+	width:1px;
+	padding:0px;
+	margin: 0px;
 }
 
 

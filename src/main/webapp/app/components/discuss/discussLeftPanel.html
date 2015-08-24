@@ -1,29 +1,12 @@
 <!--All classes from Unify start-->
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed" ng-init="fixedMenuInitialized()">
-    <div class="scrollableLeftPanelDiv by-filter-links">
-        <ul class="list-group sidebar-nav-v1 margin-bottom-20 "
-            id="sidebar-nav">
-            <!--<li class="list-group-item {{discussType == 'Q' && 'selected active'}}" data-index="discussion-QA" ng-if="discuss_counts.q > 0">
-                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q &amp; A ({{discuss_counts.q}})</a>
-            </li>
-            <li class="list-group-item {{discussType == 'P' && 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.p > 0">
-                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts ({{discuss_counts.p}})</a>
-            </li>
-            <li class="list-group-item {{(discussType == '' || discussType == 'All')&& 'selected active'}}" data-index="discussion-articles" ng-if="discuss_counts.z > 0">
-                <a href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All ({{discuss_counts.z}})</a>
-            </li>-->
-        </ul>
+    <div class="scrollableLeftPanelDiv by-filter-links" style="margin-top: 20px;">
         <!--All classes from Unify end-->
 
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
             <i class="icon-custom icon-sm icon_question"></i>
             <span>Ask</span>
         </div>
-        <!-- <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Tips')">
-            <i class="icon-custom icon-sm icon_tips"></i>
-            <span>Share Experiences</span>
-            </a>
-        </div> -->
         <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
             <i class="icon-custom icon-sm icon_story"></i>
             <span>Post</span>

@@ -15,7 +15,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         })();
         
         $scope.changeUsername = function(){
-        	 $scope.views.contentPanel = "app/components/login/changeUsername.html?versionTimeStamp=%PROJECT_VERSION%";
+        	 $scope.views.contentPanel = "app/components/login/modifySignup.html?versionTimeStamp=%PROJECT_VERSION%";
         	 $(".list-group-item").removeClass('active');
         	 $scope.classActive = 'active';
         };

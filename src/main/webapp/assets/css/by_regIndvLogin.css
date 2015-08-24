@@ -1,5 +1,17 @@
 
-
+.indvBorderRadius
+{
+	border-radius:2px !important;
+}
+.indvBorderRadius .register-page
+{
+	font-size:14px;
+}
+.indvspacing
+{
+	margin-left: 25px !important;
+    margin-right: 60px !important;
+}
 .addBasicInfo
 {
 	margin:-20px -30px 20px -20px;
@@ -24,6 +36,7 @@
 	margin-left:-5px;
 	border:1px dashed #ccc;
 	background:#ececec;
+	border-radius: 2px !important;
 }
 .marginleft0
 {
@@ -32,10 +45,24 @@
 .darkBgwithText
 {
 	margin-left:-5px;
-	border:1px solid #000;
-	background:#A09E9E;
+	border:1px solid #4d4d4d;
+	background:#7c7c7c;
 	padding:10px;
-	color:#fff;
+	color:#fff;    
+	box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
+    -webkit-box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
+    -ms-box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
+	border-radius: 2px !important;
+    position:relative;
+}
+.darkBgwithTextArrow
+{
+	position:absolute;
+	width:16px;
+	height:14px;
+	bottom:-7px;
+	left:20%;
+	z-index:2;
 }
 .marginleftMinu4
 {

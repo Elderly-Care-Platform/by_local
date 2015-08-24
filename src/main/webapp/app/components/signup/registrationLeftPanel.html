@@ -2,17 +2,14 @@
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
-            <li class="list-group-item" ng-class="{true: 'active'}[regLevel == 0]">
-                <a>LOGIN / REGISTRATION</a>
-            </li>
-            <li class="list-group-item" ng-show="regLevel === 1" ng-class="{true: 'active'}[regLevel == 1]" ng-click="regLevel === 1">
+            <li class="list-group-item active" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
                 <a>I AM...</a>
             </li>
-            <li class="list-group-item" ng-show="regLevel >= 2" ng-class="{true: 'active'}[regLevel == 2]" ng-if="sectionLabel">
+            <li class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length > 0" ng-click="editUserProfile('reg-menu-1')">
                 <a>{{sectionLabel}}</a>
             </li>
-            <li class="list-group-item {{classActive}}"  ng-click="changeUsername()">
-                <a >CHANGE SIGNUP INFO</a>
+            <li class="list-group-item reg-menu-2" ng-click="changeUsername('reg-menu-2')">
+                <a>Change Signup Info</a>
             </li>
         </ul>
     </div>

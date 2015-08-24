@@ -167,7 +167,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                     if($rootScope.inContextLogin){
                         ValidateUserCredential.loginCallback();
                     } else{
-                        $scope.$parent.updateRegistration();
+                        $scope.$parent.getUserProfile();
                     }
 
                 }, function (error) {

@@ -1,17 +1,16 @@
-<div class="row indvspacing" >
+<div class="row indvspacing" ng-controller="modifySignUpCtrl">
     <form  class="third-register-page grayRegisterBgLight" novalidate
           style="background:transparent;">
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
 			<div class="addBasicInfo">&nbsp;</div>
-            
-            
+
             <div class="row margin-bottom-20  register-page">
                 <div class="col-md-5">
                    Change username
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" 
-                           class="name-textbox textbox grayBg" />                    
+                           class="name-textbox textbox grayBg" ng-model="userName"/>
                 </div>
             </div>
             
@@ -21,21 +20,15 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="password" class="username-textbox textbox" 
-                           class="name-textbox textbox grayBg" />                    
+                           class="name-textbox textbox grayBg" ng-model="password"/>
                 </div>
             </div>
 
 			<div class="row margin-bottom-0  register-page">
-				<input type="button" value="Submit" class="nextButton by_btn_submit" />
-				<input type="button" value="Cancel" class="returnButton" >
+				<input type="button" value="Submit" class="nextButton by_btn_submit" ng-click="modifyUserCredential()"/>
+				<input type="button" value="Cancel" class="returnButton">
 				<div class="clearfix"></div>
 			</div>
-			
-			
 		</div>
-
-		
-		
     </form>
-
 </div>

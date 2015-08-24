@@ -165,7 +165,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         //Function to be used to add additional address
         $scope.addNewAddress = function () {
-            if($scope.otherLocations.length < BY.regConfig.maxUserAddress){
+            if($scope.otherLocations.length < BY.config.regConfig.formConfig.maxUserAddress){
                 $scope.newAddress = new addressFormat($scope.otherLocations.length);
                 $scope.otherLocations.push($scope.newAddress);
             }
@@ -175,7 +175,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         //Add secondary phone numbers
         $scope.addPhoneNumber = function () {
             //var number = {value:""};
-            if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.regConfig.maxSecondaryPhoneNos) {
+            if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
                 $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
             else{
@@ -186,7 +186,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         //Add secondary email details
         $scope.addEmail = function () {
             //var email = {value:""};
-            if ($scope.basicProfileInfo.secondaryEmails.length < BY.regConfig.maxSecondaryEmailId) {
+            if ($scope.basicProfileInfo.secondaryEmails.length < BY.config.regConfig.formConfig.maxSecondaryEmailId) {
                 $scope.basicProfileInfo.secondaryEmails.push("");
             }
             else{

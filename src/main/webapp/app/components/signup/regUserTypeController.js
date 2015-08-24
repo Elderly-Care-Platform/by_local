@@ -84,7 +84,7 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
             if($scope.userProfile.userTypes.length > 0){
                 $scope.userProfile.$post(function(profile, headers){
                     console.log("success");
-                    $scope.$parent.updateRegistration();
+                    $scope.$parent.getUserProfile();
                 }, function(error){
                     console.log("error");
                     $scope.cancel();

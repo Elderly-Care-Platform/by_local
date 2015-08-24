@@ -1,70 +1,65 @@
-byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','UserProfile',
+byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
 
         $scope.views = {};
         $scope.views.leftPanel = "";
-        $scope.profile = {};
+        $scope.profile = null;
 
-        (function(){
+        (function () {
             var metaTagParams = {
-                title:  "Beautiful Years | Registration",
-                imageUrl:   "",
-                description:   ""
+                title: "Beautiful Years | Registration",
+                imageUrl: "",
+                description: ""
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         })();
-        
-        $scope.changeUsername = function(){
-        	 $scope.views.contentPanel = "app/components/signup/login/modifySignup.html?versionTimeStamp=%PROJECT_VERSION%";
-        	 $(".list-group-item").removeClass('active');
-        	 $scope.classActive = 'active';
-        };
-        
 
-        $scope.updateRegistration = function (regLevel) {
+        $scope.changeUsername = function (elemClassName) {
+            $(".list-group-item").removeClass('active');
+            $("."+elemClassName).addClass('active');
+            $scope.views.contentPanel = "app/components/signup/login/modifySignup.html?versionTimeStamp=%PROJECT_VERSION%";
+        };
+
+        $scope.editUserProfile = function (elemClassName) {
+            if ($scope.profile && $scope.profile.userTypes && $scope.profile.userTypes.length) {
+                $(".list-group-item").removeClass('active');
+                $("."+elemClassName).addClass('active');
+                $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
+            } else {
+                $scope.getUserProfile();
+            }
+        };
+
+        $scope.getUserProfile = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");
-            $scope.userProfile = UserProfile.get({userId:$scope.userId}, function(profile){
+            $scope.userProfile = UserProfile.get({userId: $scope.userId}, function (profile) {
                 $scope.profile = profile.data;
-                if($scope.profile.userTypes.length > 0){
-                    if($scope.profile.userTypes.indexOf(4)!== -1){
-                        $scope.regLevel = 2;
-                        $scope.sectionLabel = "INSTITUTION INFO";
-                        $scope.views.contentPanel = "app/components/signup/registration/regInstitution.html?versionTimeStamp=%PROJECT_VERSION%";
-                    }else if($scope.profile.userTypes.indexOf(7)!== -1){
-                        $scope.regLevel = 2;
-                        $scope.sectionLabel = "PROFESSIONAL SERVICE PROVIDER INFO";
-                        $scope.views.contentPanel = "app/components/signup/registration/regProfessional.html?versionTimeStamp=%PROJECT_VERSION%";
-                    }else if(($scope.profile.userTypes.indexOf(1) || $scope.profile.userTypes.indexOf(0) || $scope.profile.userTypes.indexOf(2))!== -1){
-                        $scope.regLevel = 2;
-                        $scope.sectionLabel = "INDIVIDUAL SERVICE PROVIDER INFO";
-                        $scope.views.contentPanel = "app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%";
-                    } else {
+                if ($scope.profile.userTypes.length > 0) {
+                    $scope.userTypeConfig = BY.config.regConfig.userTypeConfig[$scope.profile.userTypes[0]];
+                    $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
+                    $scope.sectionLabel = $scope.userTypeConfig.label;
+                    if (!$scope.views.contentPanel || $scope.views.contentPanel == "") {
                         $scope.exit();
                     }
-                } else{
-                    $scope.regLevel = 1;
-                    $scope.views.contentPanel = "app/components/signup/regUserType.html?versionTimeStamp=%PROJECT_VERSION%";
+                } else {
+                    $scope.views.contentPanel = BY.config.regConfig.userTypeConfig[-1].contentPanel;
                 }
             });
         }
 
-        if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-        {
+        if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
             $scope.views.leftPanel = "app/components/signup/login/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
-            $scope.regLevel = 0;
         } else {
             $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            $scope.updateRegistration();
+            $scope.getUserProfile();
         }
 
-        $scope.exit = function(){
-            if($rootScope.nextLocation)
-            {
+        $scope.exit = function () {
+            if ($rootScope.nextLocation) {
                 $location.path($rootScope.nextLocation);
             }
-            else
-            {
+            else {
                 $location.path("/users/home");
             }
         }

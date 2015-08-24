@@ -463,10 +463,6 @@
 	.also-by-wrapper {
 		border-right: 1px solid #ccc;
 	}
-	.by_left_panel_fixed
-	{
-		padding-right:0px !important;
-	}
 }
 .discussRightCategory
 {

@@ -50,9 +50,11 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
 
         if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
         {
+            $scope.views.leftPanel = "app/components/signup/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.regLevel = 0;
         } else {
+            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.updateRegistration();
         }
 

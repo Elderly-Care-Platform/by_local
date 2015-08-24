@@ -2,7 +2,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
 
         $scope.views = {};
-        $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.views.leftPanel = "";
         $scope.profile = {};
 
         (function(){
@@ -54,7 +54,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             $scope.views.contentPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.regLevel = 0;
         } else {
-            $scope.views.leftPanel = "app/components/signup/registration/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.updateRegistration();
         }
 

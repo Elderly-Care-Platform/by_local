@@ -70,56 +70,56 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 });
 
 
-byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$location', 'User',
-  function($scope, $routeParams, $location, User) {
-	  	$scope.message = ""
-	  	$scope.error = "";
-
-     	if(localStorage.getItem("SessionId") && localStorage.getItem("USER_ID") && localStorage.getItem("USER_ID") != '' && localStorage.getItem("SessionId") != '' )
-	 	{
-			$scope.loggedIn = true;
-			document.getElementById('email').disabled = true;
-	 		$scope.user = User.get({userId: localStorage.getItem("USER_ID")});
-	 		$scope.edituser = function () {
-	 			$scope.user.$save(function (user, headers) {
-	 				$scope.message = "User updated successfully";
-					$scope.error = '';
-	 				$location.path('/users/new');
-	 			}, function (error) {
-					// failure
-					console.log(error);
-					$scope.error = error.data.error.errorMsg;
-					$scope.message = '';
-
-				});
-	 		};
-	 	}
-	 	else
-	 	{
-			$scope.loggedIn = false;
-	 		$scope.user = new User();
-
-			$scope.register = function () {
-
-				$scope.user.$save(function (user, headers)
-				{
-
-
-					$scope.message = "User registered successfully";
-					$scope.error = '';
-					$location.path('/users/new');
-				}, function (error) {
-                    	// failure
-                    	console.log("$save failed " + JSON.stringify(error));
-                    	$scope.error = error.data.error.errorMsg;
-                    	$scope.message = '';
-
-                });
-
-			};
-
-		}
-  }]);
+//byControllers.controller('UserCreateController', ['$scope', '$routeParams', '$location', 'User',
+//  function($scope, $routeParams, $location, User) {
+//	  	$scope.message = ""
+//	  	$scope.error = "";
+//
+//     	if(localStorage.getItem("SessionId") && localStorage.getItem("USER_ID") && localStorage.getItem("USER_ID") != '' && localStorage.getItem("SessionId") != '' )
+//	 	{
+//			$scope.loggedIn = true;
+//			document.getElementById('email').disabled = true;
+//	 		$scope.user = User.get({userId: localStorage.getItem("USER_ID")});
+//	 		$scope.edituser = function () {
+//	 			$scope.user.$save(function (user, headers) {
+//	 				$scope.message = "User updated successfully";
+//					$scope.error = '';
+//	 				$location.path('/users/new');
+//	 			}, function (error) {
+//					// failure
+//					console.log(error);
+//					$scope.error = error.data.error.errorMsg;
+//					$scope.message = '';
+//
+//				});
+//	 		};
+//	 	}
+//	 	else
+//	 	{
+//			$scope.loggedIn = false;
+//	 		$scope.user = new User();
+//
+//			$scope.register = function () {
+//
+//				$scope.user.$save(function (user, headers)
+//				{
+//
+//
+//					$scope.message = "User registered successfully";
+//					$scope.error = '';
+//					$location.path('/users/new');
+//				}, function (error) {
+//                    	// failure
+//                    	console.log("$save failed " + JSON.stringify(error));
+//                    	$scope.error = error.data.error.errorMsg;
+//                    	$scope.message = '';
+//
+//                });
+//
+//			};
+//
+//		}
+//  }]);
 
 //
 //

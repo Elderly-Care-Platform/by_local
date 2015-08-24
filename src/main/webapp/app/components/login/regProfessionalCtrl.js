@@ -1,4 +1,4 @@
-byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
+byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.selectedServices = {};

@@ -1,5 +1,5 @@
 //DIscuss All
-byControllers.controller('IndividualProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile',
+byControllers.controller('ProfessionalUserProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile',
     function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
         $scope.individualProfile = $scope.$parent.profileData;
         $scope.gender =  BY.config.profile.userGender[$scope.individualProfile.individualInfo.sex];

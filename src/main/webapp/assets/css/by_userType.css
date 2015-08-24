@@ -1,0 +1,44 @@
+
+#userTypeaccord a
+{
+	display:block;
+	cursor:pointer;
+	font-weight:bold;
+	font-size:14px;
+	color:#000;
+}
+#userTypeaccord a:after{
+	content:'';
+	width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #282828;
+    float: right;
+    padding: 0px !important;
+    background: none !important;
+    margin-top: 7px;
+    margin-right: 5px;
+}
+#userTypeaccord a:hover
+{
+	text-decoration:none;
+}
+#userTypeaccord label
+{
+	display:block;
+	font-weight:normal;
+	cursor:pointer;
+}
+#userTypeaccord label input
+{
+	float:right;
+}
+#userTypeaccord label a
+{
+	display:inline-block;
+}
+#userTypeaccord .panel-body, #userTypeaccord .panel-body:hover
+{
+	background:#fff;
+}

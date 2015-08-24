@@ -25,7 +25,7 @@ BY.config.profile.userType = {
     },
     '4' : {
         'category':'1',
-        'contentPanel':'app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/profile/instProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'SERVICES',
         'reviewContentType':'4',
@@ -43,7 +43,7 @@ BY.config.profile.userType = {
     },
     '7' : {
         'category':'0',
-        'contentPanel':'app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/profile/profUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'PROFESSIONAL',
         'reviewContentType':'5',

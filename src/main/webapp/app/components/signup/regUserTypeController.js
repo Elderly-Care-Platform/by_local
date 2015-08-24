@@ -8,11 +8,11 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
             }];
         //        {key:'2', value:"I volunteer with senior people", category:"indv"},
     
-        $scope.individualUserType2 =[{key:'7', value:"I am an elder care professional", category:"indv2"}];
+        $scope.profUserType =[{key:'7', value:"I am an elder care professional", category:"indv2"}];
 
-        $scope.institutionUserType = [
+        $scope.housingUserType = [
             {key:'3', value:"Senior living facilities", category:"inst"}];
-        $scope.institutionUserType2 = [
+        $scope.institutionUserType = [
              {key:'4', value:"Services for seniors & elder care", category:"inst2"}];
 
         $scope.otherUserType = [
@@ -26,38 +26,38 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
                 $scope.selectedUserType[element.type.key] = element.type.category;
 
                 if($scope.userCategory === $scope.individualUserType[0].category){
-                    $scope.unSelectUserType($scope.individualUserType2);
+                    $scope.unSelectUserType($scope.profUserType);
+                    $scope.unSelectUserType($scope.housingUserType);
                     $scope.unSelectUserType($scope.institutionUserType);
-                    $scope.unSelectUserType($scope.institutionUserType2);
                     $scope.unSelectUserType($scope.otherUserType);
                 }
 
-                if($scope.userCategory === $scope.individualUserType2[0].category){
+                if($scope.userCategory === $scope.profUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
-                    $scope.unSelectUserType($scope.institutionUserType);
+                    $scope.unSelectUserType($scope.housingUserType);
                     $scope.unSelectUserType($scope.otherUserType); 
-                    $scope.unSelectUserType($scope.institutionUserType2);
+                    $scope.unSelectUserType($scope.institutionUserType);
+                }
+                
+                if($scope.userCategory === $scope.housingUserType[0].category){
+                    $scope.unSelectUserType($scope.individualUserType);
+                    $scope.unSelectUserType($scope.profUserType);
+                    $scope.unSelectUserType($scope.otherUserType);
+                    $scope.unSelectUserType($scope.institutionUserType);
                 }
                 
                 if($scope.userCategory === $scope.institutionUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
-                    $scope.unSelectUserType($scope.individualUserType2);
+                    $scope.unSelectUserType($scope.profUserType);
                     $scope.unSelectUserType($scope.otherUserType);
-                    $scope.unSelectUserType($scope.institutionUserType2);
-                }
-                
-                if($scope.userCategory === $scope.institutionUserType2[0].category){
-                    $scope.unSelectUserType($scope.individualUserType);
-                    $scope.unSelectUserType($scope.individualUserType2);
-                    $scope.unSelectUserType($scope.otherUserType);
-                    $scope.unSelectUserType($scope.institutionUserType);
+                    $scope.unSelectUserType($scope.housingUserType);
                 }
 
                 if($scope.userCategory === $scope.otherUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
-                    $scope.unSelectUserType($scope.individualUserType2);
+                    $scope.unSelectUserType($scope.profUserType);
+                    $scope.unSelectUserType($scope.housingUserType);
                     $scope.unSelectUserType($scope.institutionUserType);
-                    $scope.unSelectUserType($scope.institutionUserType2);
                 }
             } else {
                 $scope.userCategory = "";

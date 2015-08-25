@@ -16,6 +16,8 @@
 
 
 
-<div ng-controller="BYHomePromoController"  
-     ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"  ></div>
+<div ng-controller="BYHomePromoController"
+     ng-if="contentType==='all' || contentType==='promo'"
+     ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
+     infinite-scroll="loadMore()"></div>
 

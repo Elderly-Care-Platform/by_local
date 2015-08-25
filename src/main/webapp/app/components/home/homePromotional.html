@@ -7,7 +7,7 @@
 			<div class="bg-green-h2" style="width: 216px;"></div>
 		</div>
 	</div>
-	<div style="clear: both; height: 30px;"></div>
+	<div style="clear: both;"></div>
 </div>
 <div ng-repeat="article in promo" ng-if="promo.length > 0"  data-index="discussion-articles" data-link="articles.html" ng-if="article">
     <!-- show if discuss is of type Article -->
@@ -131,5 +131,5 @@
 
 <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"
      ng-if="!postsPageInfo.lastPage && contentType==='all'">
-    <a ng-click="showMore('P')">More...</a>
+    <a ng-click="showMore('promo')">More...</a>
 </div>

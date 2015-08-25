@@ -139,7 +139,11 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         if ($routeParams.type === "P" || $routeParams.type === "Q" || $routeParams.type === "S") {
             $scope.contentType = $routeParams.type;
-            $scope.contentSize = 8;
+            $scope.contentSize = 10;
+            $scope.switchToContentView();
+        } else if($routeParams.type === "promo") {
+            $scope.contentType = $routeParams.type;
+            $scope.contentSize = 10;
             $scope.switchToContentView();
         } else {
             $scope.contentType = "all";

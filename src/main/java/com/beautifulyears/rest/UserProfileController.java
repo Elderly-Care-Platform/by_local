@@ -248,7 +248,7 @@ public class UserProfileController {
 					logger.debug("current user details"
 							+ currentUser.toString());
 					/* save the user profile */
-					if (userProfile.getUserId().equals(currentUser.getId())) {
+					if (userProfile.getUserId() != null && userProfile.getUserId().equals(currentUser.getId())) {
 
 						/*
 						 * check - if a userProfile by this userID already

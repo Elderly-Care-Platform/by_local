@@ -1,4 +1,3 @@
-
 package com.beautifulyears.rest.response;
 
 import java.util.ArrayList;
@@ -45,8 +44,6 @@ public class DiscussResponse implements IResponse {
 			this.size = page.getSize();
 			this.total = page.getTotal();
 		}
-		
-		
 
 		public long getTotal() {
 			return total;
@@ -109,6 +106,7 @@ public class DiscussResponse implements IResponse {
 		private int contentType;
 		private LinkInfo linkInfo;
 		private boolean isFeatured;
+		private boolean isPromotion;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -138,6 +136,15 @@ public class DiscussResponse implements IResponse {
 			this.setContentType(discuss.getContentType());
 			this.setLinkInfo(discuss.getLinkInfo());
 			this.setFeatured(discuss.isFeatured());
+			this.setPromotion(discuss.isPromotion());
+		}
+
+		public boolean isPromotion() {
+			return isPromotion;
+		}
+
+		public void setPromotion(boolean isPromotion) {
+			this.isPromotion = isPromotion;
 		}
 
 		public boolean isFeatured() {

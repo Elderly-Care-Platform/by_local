@@ -1,15 +1,12 @@
 package com.beautifulyears.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,7 +14,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +25,8 @@ import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
-import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.rest.response.DiscussResponse.DiscussPage;
+import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.rest.response.UserProfileResponse;
 import com.beautifulyears.rest.response.UserProfileResponse.UserProfilePage;
 import com.beautifulyears.util.LoggerUtil;

@@ -136,6 +136,7 @@ public class DiscussController {
 			// List<String> subTopicId,
 			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
+			@RequestParam(value = "isPromotion", required = false) Boolean isPromotion,
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
@@ -149,11 +150,6 @@ public class DiscussController {
 		DiscussPage discussPage = null;
 		try {
 			List<String> discussTypeArray = new ArrayList<String>();
-			// if (null == topicId && null == subTopicId) {
-			// topicId = new ArrayList<String>();
-			// } else if (null != subTopicId) {
-			// topicId = subTopicId;
-			// }
 			if (null == discussType) {
 //				discussTypeArray.add("A");
 				discussTypeArray.add("Q");
@@ -176,7 +172,7 @@ public class DiscussController {
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
 			page = discussRepository.getPage(discussTypeArray, tagIds, userId,
-					isFeatured, pageable);
+					isFeatured,isPromotion, pageable);
 			discussPage = DiscussResponse.getPage(page, currentUser);
 			// page = discussRepository.getByCriteria(discussTypeArray, topicId,
 			// userId, isFeatured, pageable);
@@ -206,34 +202,26 @@ public class DiscussController {
 			// List<String> subTopicId,
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "userId", required = false) String userId,
-			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured)
+			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
+			@RequestParam(value = "isFeatured", required = false) Boolean isPromotion)
 			throws Exception {
 		LoggerUtil.logEntry();
 		Map<String, Long> obj = new HashMap<String, Long>();
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
 		try {
 
-			// if (null == topicId && null == subTopicId) {
-			// topicId = new ArrayList<String>();
-			// } else if (null != subTopicId) {
-			// topicId = subTopicId;
-			// }
 			if (null != tags) {
 				for (String tagId : tags) {
 					tagIds.add(new ObjectId(tagId));
 				}
 			}
 
-//			Long articlesCount = discussRepository.getCount(
-//					(new ArrayList<String>(Arrays.asList("A"))), tagIds,
-//					userId, isFeatured);
 			Long questionsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
-					userId, isFeatured);
+					userId, isFeatured,isPromotion);
 			Long postsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("P"))), tagIds,
-					userId, isFeatured);
-//			obj.put("a", new Long(articlesCount));
+					userId, isFeatured,isPromotion);
 			obj.put("q", new Long(questionsCount));
 			obj.put("p", new Long(postsCount));
 			obj.put("z", questionsCount + postsCount);
@@ -273,7 +261,7 @@ public class DiscussController {
 					discussStatus, aggrReplyCount, systemTags,
 					discuss.getShareCount(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("P") ? discuss
-							.getArticlePhotoFilename() : null, false,
+							.getArticlePhotoFilename() : null, false,false,
 					discuss.getContentType(), discuss.getLinkInfo());
 		} catch (Exception e) {
 			Util.handleException(e);

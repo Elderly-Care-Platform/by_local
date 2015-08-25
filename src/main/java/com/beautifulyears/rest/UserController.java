@@ -131,7 +131,7 @@ public class UserController {
 	public Object submitUser(@RequestBody User user, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		Session session = (Session)req.getSession().getAttribute("session");
+		Session session = (Session) req.getSession().getAttribute("session");
 
 		if (user == null || user.getId() == null || user.getId().equals("")) {
 			try {
@@ -157,12 +157,15 @@ public class UserController {
 		} else {
 			logger.debug("EDIT USER");
 			User sessionUser = Util.getSessionUser(req);
-			if(sessionUser == null || !sessionUser.getId().equals(user.getId())){
+			if (sessionUser == null
+					|| !sessionUser.getId().equals(user.getId())) {
 				throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 			}
 			boolean isUserNameChanged = false;
+			boolean isPasswordChanged = false;
 			User editedUser = getUser(user.getId());
-			if (null != editedUser && !editedUser.getUserName().equals(user.getUserName())) {
+			if (null != editedUser
+					&& !editedUser.getUserName().equals(user.getUserName())) {
 				isUserNameChanged = true;
 				editedUser.setUserName(user.getUserName());
 				logger.debug("trying changing the user name from "
@@ -172,7 +175,7 @@ public class UserController {
 			if (null != editedUser && user.getPassword() != null) {
 				if (!user.getPassword().equals(editedUser.getPassword())) {
 					inValidateAllSessions(user.getId());
-					session = createSession(req, res, editedUser);
+					isPasswordChanged = true;
 				}
 				editedUser.setPassword(user.getPassword());
 			}
@@ -183,6 +186,10 @@ public class UserController {
 						mongoTemplate);
 				userNameHandler.setUserParams(user.getId(), user.getUserName());
 				new Thread(userNameHandler).start();
+			}
+
+			if (isUserNameChanged || isPasswordChanged) {
+				session = createSession(req, res, editedUser);
 			}
 		}
 		return BYGenericResponseHandler.getResponse(session);

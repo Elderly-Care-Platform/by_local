@@ -1,11 +1,15 @@
 byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', 'SessionIdService',
     function ($scope, $rootScope, $http, SessionIdService) {
-        $scope.userName = "";
+        $scope.userName = localStorage.getItem("USER_NAME");
         $scope.password = "";
 
         $scope.modifyUserCredential = function(){
+            var newUserCredential = {
+                "id" : $scope.$parent.userId
+            }
+
             if(!$scope.userName && !$scope.password){
-                $scope.signUpErorr = "Username/Password empty";
+                $scope.signUpErorr = "Username/Password can not be left empty";
             } else if($scope.password && $scope.password.trim().length < 6){
                 $scope.signUpErorr = "Password must be at least 6 character";
             }else{
@@ -15,11 +19,11 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
 
 
             if($scope.signUpErorr===""){
-                var newUserCredential = {
-                    "id" : $scope.$parent.userId,
-                    "userName" : $scope.userName,
-                    "password" : $scope.password
+                newUserCredential.userName = $scope.userName;
+                if($scope.password && $scope.password.trim().length > 0){
+                    newUserCredential.password = $scope.password;
                 }
+
                 $http.post(apiPrefix +'api/v1/users/', newUserCredential)
                     .success(function (response) {
                         $scope.setUserCredential(response.data);

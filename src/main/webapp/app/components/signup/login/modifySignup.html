@@ -4,9 +4,9 @@
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
 			<div class="addBasicInfo">&nbsp;</div>
 
-            <span ng-if="signUpErorr && signUpErorr!=''">
-				<p class="help-block">{{signUpErorr}}</p>
-			</span>
+            <div ng-if="signUpErorr && signUpErorr!=''">
+                <font color="red">{{signUpErorr}}</font>
+            </div>
 
             <div class="row margin-bottom-20  register-page">
                 <div class="col-md-5">

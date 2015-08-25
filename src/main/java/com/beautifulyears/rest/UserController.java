@@ -131,7 +131,7 @@ public class UserController {
 	public Object submitUser(@RequestBody User user, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		Session session = null;
+		Session session = (Session)req.getSession().getAttribute("session");
 
 		if (user == null || user.getId() == null || user.getId().equals("")) {
 			try {

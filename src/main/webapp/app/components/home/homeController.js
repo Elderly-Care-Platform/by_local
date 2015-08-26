@@ -12,6 +12,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.currentAcceleratorSelected = "";
         var scrollable = false;
         $scope.showFeaturedTag = false;
+        $scope.promotionsCount = {'count':0};
 
         $scope.$watch("posts", function (value) {
             if($scope.currentAcceleratorSelected === 'home_featured_articles'){

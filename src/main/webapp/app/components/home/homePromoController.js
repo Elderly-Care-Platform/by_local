@@ -5,6 +5,7 @@ byControllers.controller('BYHomePromoController', ['$scope', '$rootScope', '$rou
              DiscussPage.get({discussType:'P',isPromotion:true,p:0,s:$scope.$parent.contentSize,sort:"lastModifiedAt"},
                      function(value){
                          $scope.promo = value.data.content;
+                         $scope.$parent.promotionsCount.count = $scope.promo.length;
                          $scope.promoPageInfo = BY.byUtil.getPageInfo(value.data);
                          $scope.promoPageInfo.isQueryInProgress = false;
                      },
@@ -29,6 +30,7 @@ byControllers.controller('BYHomePromoController', ['$scope', '$rootScope', '$rou
                         if(value.data.content.length > 0){
                             $scope.promoPageInfo.isQueryInProgress = false;
                             $scope.promo = $scope.posts.concat(value.data.content);
+                            $scope.$parent.promotionsCount.count = $scope.promo.length;
                         }
                         $scope.promoPageInfo = BY.byUtil.getPageInfo(value.data);
                         $scope.promoPageInfo.isQueryInProgress = false;

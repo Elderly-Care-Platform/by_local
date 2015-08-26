@@ -1,11 +1,13 @@
-<div class="row indvspacing" ng-controller="modifySignUpCtrl">
-    <form  ng-if="!successMsg" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;">
+<div class="row indvspacing" ng-controller="modifySignUpCtrl" ng-init="changePwd = false">
+    <form  ng-if="showSuccessMsg == false" class="third-register-page grayRegisterBgLight" novalidate style="background:transparent;">
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
 			<div class="addBasicInfo">&nbsp;</div>
 
             <div ng-if="userCredential.signUpErorr && userCredential.signUpErorr!=''">
                 <font color="red">{{userCredential.signUpErorr}}</font>
             </div>
+            
+            
 
             <div class="row margin-bottom-20  register-page">
                 <div class="col-md-5">
@@ -14,16 +16,6 @@
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" 
                            class="name-textbox textbox grayBg" ng-model="userCredential.userName"/>
-                </div>
-            </div>
-            
-            <div class="row margin-bottom-20  register-page">
-                <div class="col-md-5">
-                   Change password
-                </div>
-                <div class="col-md-7 no-padding-right register-page">
-                    <input type="password" class="username-textbox textbox" 
-                           class="name-textbox textbox grayBg" ng-model="userCredential.password"/>
                 </div>
             </div>
 
@@ -35,10 +27,10 @@
 		</div>
     </form>
 
-    <div ng-if="successMsg" class="third-register-page grayRegisterBgLight" style="background:transparent;">
+    <div ng-if="showSuccessMsg == true" class="third-register-page grayRegisterBgLight" style="background:transparent;">
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20">
-            <div>
-                {{successMsg}}
+            <div >
+                Username changed successfully.
             </div>
 
             <div class="row margin-bottom-0  register-page">

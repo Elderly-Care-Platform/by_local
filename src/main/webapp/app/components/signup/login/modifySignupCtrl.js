@@ -3,20 +3,27 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
         $scope.userCredential = {};
         $scope.userCredential.userName = localStorage.getItem("USER_NAME");
         $scope.userCredential.password = "";
-        $scope.successMsg = null;
+        $scope.showSuccessMsg = false;
+        $scope.changePwd = false;
 
         $scope.modifyUserCredential = function(){
+        	$scope.userCredential.signUpErorr = "";
             var newUserCredential = {
                 "id" : $scope.$parent.userId
             }
-
-            if(!$scope.userCredential.userName && !$scope.userCredential.password){
-                $scope.userCredential.signUpErorr = "Username/Password can not be left empty";
-            } else if($scope.userCredential.password && $scope.userCredential.password.trim().length < 6){
-                $scope.userCredential.signUpErorr = "Password must be at least 6 character";
+            
+            if($scope.changePwd){
+            	if(!$scope.userCredential.password){
+               	 	$scope.userCredential.signUpErorr = "Password can not be empty";
+            	} else if($scope.userCredential.password && $scope.userCredential.password.trim().length < 6){
+                   $scope.userCredential.signUpErorr = "Password must be at least 6 character";
+            	}  else{
+                   $scope.userCredential.signUpErorr = "";
+            	}
             }else{
-                $scope.userCredential.signUpErorr = "";
+            	$scope.userCredential.signUpErorr = "";
             }
+            
 
             if($scope.userCredential.signUpErorr===""){
                 newUserCredential.userName = $scope.userCredential.userName;
@@ -26,7 +33,7 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
 
                 $http.post(apiPrefix +'api/v1/users/', newUserCredential)
                     .success(function (response) {
-                        $scope.successMsg = "Username/Pwd successfully modified"
+                    	$scope.showSuccessMsg = true;                                            	
                         $scope.setUserCredential(response.data);
                     }).error(function (error) {
                         console.log(error);

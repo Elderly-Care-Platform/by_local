@@ -17,7 +17,12 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         $scope.changeUsername = function (elemClassName) {
             $(".list-group-item").removeClass('active');
             $("."+elemClassName).addClass('active');
-            $scope.views.contentPanel = "app/components/signup/login/modifySignup.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.views.contentPanel = "app/components/signup/login/modifyUsername.html?versionTimeStamp=%PROJECT_VERSION%";
+        };
+        $scope.changePassword = function (elemClassName) {
+            $(".list-group-item").removeClass('active');
+            $("."+elemClassName).addClass('active');
+            $scope.views.contentPanel = "app/components/signup/login/modifyPassword.html?versionTimeStamp=%PROJECT_VERSION%";
         };
         
       
@@ -29,6 +34,8 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                 $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
             } else {
                 $scope.getUserProfile();
+                $(".list-group-item").removeClass('active');
+                $("."+elemClassName).addClass('active');
             }
         };
 

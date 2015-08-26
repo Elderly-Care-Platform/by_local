@@ -197,7 +197,5 @@ public class IndividualProfileInfo {
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
-	
-	
 
 }

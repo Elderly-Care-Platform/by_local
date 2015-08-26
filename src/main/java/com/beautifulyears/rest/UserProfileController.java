@@ -33,6 +33,7 @@ import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.UserProfileResponse;
 import com.beautifulyears.rest.response.UserProfileResponse.UserProfilePage;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.UserProfilePrivacyHandler;
 import com.beautifulyears.util.Util;
 
 /**
@@ -174,10 +175,11 @@ public class UserProfileController {
 			}
 
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
-
+			List<String> fields = new ArrayList<String>();
+			fields = UserProfilePrivacyHandler.getPublicFields(-1);
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
-							tagIds,isFeatured, pageable), user);
+							tagIds,isFeatured, pageable,fields), user);
 			if (profilePage.getContent().size() > 0) {
 				logger.debug("found something");
 			} else {
@@ -217,11 +219,13 @@ public class UserProfileController {
 			if (dir != 0) {
 				sortDirection = Direction.ASC;
 			}
+			List<String> fields = new ArrayList<String>();
+			fields.add("userId");
 
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
 			userProfilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, null,
-							null,null, pageable), null);
+							null,null, pageable,fields), null);
 			if (userProfilePage.getContent().size() > 0) {
 				logger.debug("did not find any service providers");
 			}

@@ -164,8 +164,8 @@ public class UserController {
 			boolean isUserNameChanged = false;
 			boolean isPasswordChanged = false;
 			User editedUser = getUser(user.getId());
-			if (null != editedUser
-					&& !editedUser.getUserName().equals(user.getUserName())) {
+			if (null != editedUser && null != user.getUserName() 
+					&& !user.getUserName().equals(editedUser.getUserName())) {
 				isUserNameChanged = true;
 				editedUser.setUserName(user.getUserName());
 				logger.debug("trying changing the user name from "

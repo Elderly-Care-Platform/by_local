@@ -6,6 +6,9 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
         $scope.showSuccessMsg = false;
         $scope.changePwd = false;
 
+        if($scope.userCredential.userName === "null") {
+            $scope.userCredential.userName = "";
+        }
         $scope.modifyUserCredential = function(){
         	$scope.userCredential.signUpErorr = "";
             var newUserCredential = {
@@ -18,19 +21,16 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
             	} else if($scope.userCredential.password && $scope.userCredential.password.trim().length < 6){
                    $scope.userCredential.signUpErorr = "Password must be at least 6 character";
             	}  else{
+                    newUserCredential.password = $scope.userCredential.password;
                    $scope.userCredential.signUpErorr = "";
             	}
             }else{
+                newUserCredential.userName = $scope.userCredential.userName;
             	$scope.userCredential.signUpErorr = "";
             }
             
 
             if($scope.userCredential.signUpErorr===""){
-                newUserCredential.userName = $scope.userCredential.userName;
-                if($scope.userCredential.password && $scope.userCredential.password.trim().length > 0){
-                    newUserCredential.password = $scope.userCredential.password;
-                }
-
                 $http.post(apiPrefix +'api/v1/users/', newUserCredential)
                     .success(function (response) {
                     	$scope.showSuccessMsg = true;                                            	

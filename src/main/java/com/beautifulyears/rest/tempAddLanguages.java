@@ -34,35 +34,37 @@ public class tempAddLanguages {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/" }, produces = { "application/json" })
 	@ResponseBody
 	public Object addIsPromotion() throws Exception {
-		List<String> lang = new ArrayList<String>();
-		lang.add("Assamese (Asamiya)");
-		lang.add("Bengali");
-		lang.add("Bodo");
-		lang.add("Dogri");
-		lang.add("Gujarati");
-		lang.add("Hindi");
-		lang.add("Kannada");
-		lang.add("Kashmiri");
-		lang.add("Konkani");
-		lang.add("Maithili");
-		lang.add("Malayalam");
-		lang.add("Manipuri");
-		lang.add("Marathi");
-		lang.add("Nepali");
-		lang.add("Odia");
-		lang.add("Punjabi");
-		lang.add("Sanskrit");
-		lang.add("Santali");
-		lang.add("Sindhi");
-		lang.add("Tamil");
-		lang.add("Telugu");
-		lang.add("Urdu");
-		for (String l : lang) {
-			Language language = new Language();
-			language.setName(l);
-			mongoTemplate.save(language);
+		if (mongoTemplate.findAll(Language.class).size() <= 0) {
+			List<String> lang = new ArrayList<String>();
+			lang.add("Assamese (Asamiya)");
+			lang.add("Bengali");
+			lang.add("Bodo");
+			lang.add("Dogri");
+			lang.add("Gujarati");
+			lang.add("Hindi");
+			lang.add("Kannada");
+			lang.add("Kashmiri");
+			lang.add("Konkani");
+			lang.add("Maithili");
+			lang.add("Malayalam");
+			lang.add("Manipuri");
+			lang.add("Marathi");
+			lang.add("Nepali");
+			lang.add("Odia");
+			lang.add("Punjabi");
+			lang.add("Sanskrit");
+			lang.add("Santali");
+			lang.add("Sindhi");
+			lang.add("Tamil");
+			lang.add("Telugu");
+			lang.add("Urdu");
+			for (String l : lang) {
+				Language language = new Language();
+				language.setName(l);
+				mongoTemplate.save(language);
+			}
 		}
-		
+
 		return BYGenericResponseHandler.getResponse(null);
 	}
 }

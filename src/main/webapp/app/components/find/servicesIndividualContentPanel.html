@@ -9,10 +9,10 @@
                         src="{{service.basicProfileInfo.profileImage.thumbnailImage}}" alt="image"
                         fallback-src='["{{service.basicProfileInfo.profileImage.original||""}}","assets/img/profile/individual_female_small.png"]'>
 
-                <img ng-if="!service.basicProfileInfo.profileImage && service.individualInfo.sex == 1"
+                <img ng-if="!service.basicProfileInfo.profileImage && service.individualInfo.gender == 1"
                      src="assets/img/profile/individual.png" alt="image">
 
-                 <img ng-if="!service.basicProfileInfo.profileImage && service.individualInfo.sex == 0"
+                 <img ng-if="!service.basicProfileInfo.profileImage && service.individualInfo.gender == 0"
                      src="assets/img/profile/individual_female_small.png" alt="image">
             </div>
 

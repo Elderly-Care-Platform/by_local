@@ -224,6 +224,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 {
 	width:calc(100% - 255px);
 }
+.by_services_full_width_right_extra
+{
+	width:calc(100% - 260px);
+}
 @media ( max-width : 992px) {
 	#by_rate_hide
 	{
@@ -237,8 +241,40 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 @media ( max-width : 480px) {
-	.by_services_full_width, .by_services_full_width_right
+	.by_services_full_width, .by_services_full_width_right, .by_services_full_width_right_extra
 	{
 		width:100%;
 	}
+}
+.verticalAlign
+{
+	vertical-align:baseline;
+	margin-right:3px !important;
+}
+.fa-home:before {
+    content: url('../img/profile/home_icon.png?versionTimeStamp=%PROJECT_VERSION%');
+}
+.fa-speak:before {
+    content: url('../img/profile/speak_icon.png?versionTimeStamp=%PROJECT_VERSION%');
+}
+.fa-interest:before {
+    content: url('../img/profile/interest_icon.png?versionTimeStamp=%PROJECT_VERSION%');
+}
+.fa-hobbies:before {
+    content: url('../img/profile/hobbies_icon.png?versionTimeStamp=%PROJECT_VERSION%');
+}
+.fontIndv
+{
+	font-size:16px;
+	font-weight:bold;
+}
+.boxShadowNone
+{
+	box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+     margin-bottom: none !important;
+}
+.profileRating .divRight
+{
+	width: calc(100% - 24px);
 }

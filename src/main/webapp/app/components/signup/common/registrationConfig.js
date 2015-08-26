@@ -14,24 +14,28 @@ BY.config.regConfig.userTypeConfig = {
     '-1' : {
         'type':'-1',
         'contentPanel':'app/components/signup/regUserType.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'NONE',
         'label' : "I am"
     },
     '0' : {
         'type':'0',
         'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'CAREGIVER',
         'label' : "About Me"
     },
     '1' : {
         'type':'1',
         'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'ELDER',
         'label' : "About Me"
     },
     '2' : {
         'type':'2',
         'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'VOLUNTEER',
         'label' : "About Me"
     },
@@ -44,6 +48,7 @@ BY.config.regConfig.userTypeConfig = {
     '4' : {
         'type':'4',
         'contentPanel':'app/components/signup/registration/regInstitution.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'SERVICES',
         'label' : "Institution info"
     },
@@ -61,8 +66,9 @@ BY.config.regConfig.userTypeConfig = {
     },
     '7' : {
         'type':'7',
-        'contentPanel':'app/components/profile/profUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/signup/registration/regProfessional.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'PROFESSIONAL',
-        'label' : "About me"
+        'label' : "Professional Info"
     }
 }

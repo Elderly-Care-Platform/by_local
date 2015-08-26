@@ -19,6 +19,8 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             $("."+elemClassName).addClass('active');
             $scope.views.contentPanel = "app/components/signup/login/modifySignup.html?versionTimeStamp=%PROJECT_VERSION%";
         };
+        
+      
 
         $scope.editUserProfile = function (elemClassName) {
             if ($scope.profile && $scope.profile.userTypes && $scope.profile.userTypes.length) {
@@ -37,12 +39,14 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                 if ($scope.profile.userTypes.length > 0) {
                     $scope.userTypeConfig = BY.config.regConfig.userTypeConfig[$scope.profile.userTypes[0]];
                     $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
+                    $scope.views.leftPanel = $scope.userTypeConfig.leftPanel;
                     $scope.sectionLabel = $scope.userTypeConfig.label;
                     if (!$scope.views.contentPanel || $scope.views.contentPanel == "") {
                         $scope.exit();
                     }
                 } else {
                     $scope.views.contentPanel = BY.config.regConfig.userTypeConfig[-1].contentPanel;
+                    $scope.views.leftPanel = BY.config.regConfig.userTypeConfig[-1].leftPanel;
                 }
             });
         }
@@ -51,7 +55,6 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             $scope.views.leftPanel = "app/components/signup/login/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
         } else {
-            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.getUserProfile();
         }
 

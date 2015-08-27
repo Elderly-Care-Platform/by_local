@@ -84,6 +84,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if(!$scope.individualInfo.emotionalIssues){
                 $scope.individualInfo.emotionalIssues = $scope.regConfig.emotional_challenges[0];
             }
+            
+            if(!$scope.individualInfo.maritalStatus){
+                $scope.individualInfo.maritalStatus = $scope.regConfig.maritalStatus[0];
+            }
 
             if ($scope.basicProfileInfo.primaryUserAddress && $scope.basicProfileInfo.primaryUserAddress.country === null) {
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";

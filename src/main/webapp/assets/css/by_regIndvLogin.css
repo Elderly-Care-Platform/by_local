@@ -76,9 +76,16 @@
 	margin-left:12px;
 	padding-top:10px;
 	padding-bottom:10px;
+	min-width:83px;
 }
 .profilePictureIndi input
 {
 	margin-top:10px;
 	width:100%;
+}
+.ui-datepicker-trigger
+{
+	position: absolute;
+    right: 10px;
+    top: 7px;
 }

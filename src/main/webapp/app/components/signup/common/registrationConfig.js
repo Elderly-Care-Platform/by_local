@@ -99,6 +99,8 @@ BY.config.regConfig.indvUserRegConfig = {
     },
 
     'countries' : ["India"],
+    
+    'maritalStatus' : ["single", "married", "divorced", "widowed"],
 
     'default-avatars' : []
 

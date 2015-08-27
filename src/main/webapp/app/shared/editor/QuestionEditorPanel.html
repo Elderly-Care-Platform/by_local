@@ -61,11 +61,11 @@
 							   href={{"#accord_"+category.id}} onclick="return false;">
 								{{category.displayMenuName}}
 							</a>
-							<a ng-if="category.parentMenuId" class="accordion-toggle collapsed" data-toggle="collapse"
+							<a ng-if="category.parentMenuId" class="accordion-toggle collapsed"  data-toggle="collapse"
 							   data-parent="#accordion-1" href={{"#accord_"+category.id}} onclick="return false;">
 								{{$root.menuCategoryMap[category.parentMenuId].displayMenuName + " >> " + category.displayMenuName}}
 							</a>
-							<a class="triangle-down accordion-toggle collapsed"
+							<a class="triangle-down accordion-toggle collapsed" style="width: auto;"
 							   data-toggle="collapse" data-parent="#accordion-1"
 							   href={{"#accord_"+category.id}} onclick="return false;"></a>
 						</h4>

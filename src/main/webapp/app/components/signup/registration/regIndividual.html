@@ -7,12 +7,12 @@
 					I am
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-					<select name="mySelect"
+					<select name="mySelect" class="form-control grayBgLogin"
 							ng-options="option for option in regConfig.salutations track by option"
 							ng-model="individualInfo.salutation">
 					</select>
                 </div>
-            </div>
+			</div>
 
 			<div class="row margin-bottom-20  register-page" ng-if="regConfig.showGenderOptions[individualInfo.salutation]">
                 <div class="col-md-5 col-xs-3">
@@ -278,7 +278,7 @@
 				<div class="col-md-12 margin-top-20 margin-bottom-10  register-page">
 					<div class="col-md-5 no-padding">My birthday</div>
 					<div class="col-md-7 no-padding register-page">
-						<input id="datepicker" type="text" class="username-textbox grayBg"/>
+						<input id="datepicker" type="text" class="username-textbox textbox" />
 					</div>
 				</div>
 				<div class="col-md-12 margin-bottom-20  register-page">
@@ -291,9 +291,10 @@
 				<div class="col-md-12 margin-bottom-20 register-page">
 					<div class="col-md-5 no-padding">I am</div>
 					<div class="col-md-7 no-padding register-page">
-						<select class="form-control grayBgLogin">
-							<option value="0">Married</option>
-						</select>
+						<select name="marryStatus" class="form-control grayBgLogin"
+							ng-options="option for option in regConfig.maritalStatus track by option"
+							ng-model="individualInfo.maritalStatus">
+					</select>
 					</div>
 				</div>
 			</div>
@@ -381,9 +382,11 @@
             	</div>
 			</div>
 
-			<div class="row marginleftMinu4 margin-bottom-20 no-padding register-page">
+			<div class="row marginleftMinu4 margin-bottom-20 no-padding register-page byEditor" style="border:1px solid #ccc;">
 				<textarea class="textbox" rows="3" id="registrationDescription" ng-model="basicProfileInfo.description"></textarea>
+				<div class="clearfix"></div>
 			</div>
+			<div class="clearfix"></div>
 
 			<div class="row no-padding margin-bottom-20 marginleft0">
 				<div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
@@ -412,19 +415,19 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-2 col-xs-4 profilePictureIndi">
+				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
 					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
 					<input type="button" value="select"/>
 				</div>
-				<div class="col-md-2 col-xs-4 profilePictureIndi">
+				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
 					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
 					<input type="button" value="select"/>
 				</div>
-				<div class="col-md-2 col-xs-4 profilePictureIndi">
+				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
 					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
 					<input type="button" value="select"/>
 				</div>
-				<div class="col-md-2 col-xs-4 profilePictureIndi">
+				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
 					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
 					<input type="button" value="select"/>
 				</div>

@@ -20,21 +20,21 @@ BY.config.regConfig.userTypeConfig = {
     },
     '0' : {
         'type':'0',
-        'contentPanel':'',
+        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'CAREGIVER',
         'label' : "About Me"
     },
     '1' : {
         'type':'1',
-        'contentPanel':'',
+        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'ELDER',
         'label' : "About Me"
     },
     '2' : {
         'type':'2',
-        'contentPanel':'',
+        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'CURIOUS',
         'label' : "About Me"
@@ -75,28 +75,30 @@ BY.config.regConfig.userTypeConfig = {
 
 
 BY.config.regConfig.indvUserRegConfig = {
-    'salutations' : [{'titleName' : "Ms.", 'id' : '0', 'gender' : ['0']},
-        {'titleName' : "Mr.", 'id' : '1', 'gender' : ['1']},
-        {'titleName' : "Dr.", 'id' : '2', 'gender' : ['0', '1']},
-        {'titleName' : "Prof.", 'id' :' 3', 'gender' : ['0', '1']}],
+    'salutations' : ["Ms.", "Mr.", "Dr.","Prof."],
+
+    'showGenderOptions' : {
+        "Dr." : ['0', '1'],
+        "Prof." : ['0', '1']
+    },
 
     'gender' : {
         '0' : "Female",
         '1' : "Male"
     },
 
-    'workingStatus' : ["Working", "Not Working", "Studying", "Retired"],
+    'occupation' : ["Working", "Not Working", "Studying", "Retired"],
 
 
-    'emotional_challenges' : {
-        'userType' : [0, 1],
-        'options'  : ['Caregiver Burn-out',
+    'emotional_challenges' : ['Caregiver Burn-out',
                         'Boredom',
-                        'Depression','Stress', 'Anxiety', 'Problematic Relationship']
-    },
+                        'Depression','Stress', 'Anxiety', 'Problematic Relationship'],
     'medical_issues' : {
         'userType' : [0, 1],
+        'fetchFromMenu' : "Medical Conditions"
     },
+
+    'countries' : ["India"],
 
     'default-avatars' : []
 

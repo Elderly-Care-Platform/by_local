@@ -215,7 +215,7 @@
                                 <div id="emotional-issues" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
                                     <div class="panel-body col-md-12" ng-repeat="option in regConfig.emotional_challenges">
                                         <input type="checkbox" ng-click="selectEmotionalIssue(option)"
-                                               ng-checked="individualInfo.emotionalIssues && individualInfo.emotionalIssues.indexOf(option.id) !== -1">
+                                               ng-checked="individualInfo.emotionalIssues && individualInfo.emotionalIssues.indexOf(option) !== -1">
                                         <span style="line-height: 23px;">{{option}}</span>
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@
 								<div id="medical-issues" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
 									<div class="panel-body col-md-12" ng-repeat="option in medicalIssuesOptions">
 										<input type="checkbox" ng-click="selectMedicalIssue(option)"
-                                               ng-checked="individualInfo.medicalIssues && individualInfo.medicalIssues.indexOf(option.id) !== -1">
+                                               ng-checked="individualInfo.medicalIssues && individualInfo.medicalIssues.indexOf(option) !== -1">
 										<span style="line-height: 23px;">{{option.displayMenuName}}</span>
 									</div>
 								</div>
@@ -278,13 +278,13 @@
 				<div class="col-md-12 margin-top-20 margin-bottom-10  register-page">
 					<div class="col-md-5 no-padding">My birthday</div>
 					<div class="col-md-7 no-padding register-page">
-						<input id="datepicker" type="text" class="username-textbox textbox" />
+						<input id="datepicker" type="text" ng-model="individualInfo.dob" class="username-textbox textbox" />
 					</div>
 				</div>
 				<div class="col-md-12 margin-bottom-20  register-page">
 					<div class="col-md-5 no-padding"></div>
 					<div class="col-md-7 no-padding register-page">
-						<i><a>+ add another significant date</a></i>
+						<a>+ add another significant date</a>
 					</div>
 				</div>
 
@@ -304,7 +304,11 @@
                   I speak
                 </div>
                 <div class="col-md-7 no-padding-right register-page" ng-if="languages.length > 0">
-                    <input type="text" class="name-textbox textbox grayBg" auto-complete options="languages" on-select-callback="langSelectCallback"/>
+                    <input ng-if="individualInfo.language.length > 0" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
+						   on-select-callback="langSelectCallback" ng-repeat="lang in individualInfo.language"/>
+
+					<input ng-if="individualInfo.language.length == 0" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
+						   on-select-callback="langSelectCallback"/>
 
 					<!--<input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"-->
 						   <!--placeholder="Speciality" ng-model="selectedSpeciality" required on-select-callback="specialityCallback"/>-->
@@ -349,7 +353,7 @@
 							<div id="hobbies" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
 								<div class="panel-body col-md-12" ng-repeat="option in hobbiesOptions">
 									<input type="checkbox" ng-click="selectHobbies(option)"
-										   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option.id) !== -1">
+										   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option) !== -1">
 									<span style="line-height: 23px;">{{option.displayMenuName}}</span>
 								</div>
 							</div>
@@ -386,7 +390,7 @@
 								<div id="interests" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
 									<div class="panel-body col-md-12" ng-repeat="option in interestsOptions">
 										<input type="checkbox" ng-click="selectTopicOfInterest(option)"
-											   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option.id) !== -1">
+											   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option) !== -1">
 										<span style="line-height: 23px;">{{option.displayMenuName}}</span>
 									</div>
 								</div>

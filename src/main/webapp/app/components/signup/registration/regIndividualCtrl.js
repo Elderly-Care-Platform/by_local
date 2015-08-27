@@ -84,16 +84,16 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.individualInfo.occupation = $scope.regConfig.occupation[0];
             }
 
-            if(!$scope.individualInfo.emotionalIssues){
-                $scope.individualInfo.emotionalIssues = $scope.regConfig.emotional_challenges[0];
-            }
-            
             if(!$scope.individualInfo.maritalStatus){
                 $scope.individualInfo.maritalStatus = $scope.regConfig.maritalStatus[0];
             }
 
             if ($scope.basicProfileInfo.primaryUserAddress && $scope.basicProfileInfo.primaryUserAddress.country === null) {
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
+            }
+
+            if(!$scope.individualInfo.language){
+                $scope.individualInfo.language = [];
             }
 
             $( "#datepicker" ).datepicker({
@@ -219,6 +219,23 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
         };
 
+        $scope.selectEmotionalIssue = function (option) {
+            var index = -1;
+            if($scope.individualInfo.emotionalIssues && $scope.individualInfo.emotionalIssues.length > 0){
+                index = $scope.individualInfo.emotionalIssues.indexOf(option);
+            }else{
+                $scope.individualInfo.emotionalIssues = [];
+            }
+
+            if(index > -1){
+                $scope.individualInfo.emotionalIssues.splice($scope.individualInfo.emotionalIssues.indexOf(option), 1);
+            }else{
+                $scope.individualInfo.emotionalIssues.push(option);
+            }
+
+            console.log($scope.individualInfo.emotionalIssues);
+        };
+
         $scope.selectTopicOfInterest = function(option){
             var index = -1;
             if($scope.individualInfo.interests && $scope.individualInfo.interests.length > 0){
@@ -302,6 +319,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
+            console.log($scope.profile);
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);

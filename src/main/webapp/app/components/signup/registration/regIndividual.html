@@ -148,14 +148,14 @@
 					</div>
 				</div>
 
-				<div class="col-md-12 add-phone margin-bottom-20  register-page">
+				<div class="col-md-12 add-phone margin-bottom-10  register-page">
 					<div class="col-md-5 no-padding"></div>
 					<div class="col-md-7 no-padding register-page">
 						<a class="add-phone" ng-click="addPhoneNumber()">+ add another phone number</a>
 					</div>
 				</div>
 
-				<div class="col-md-12 margin-bottom-10  register-page">
+				<div class="col-md-12 margin-bottom-20  register-page">
 					<div class="col-md-5 no-padding">Email ID</div>
 					<div class="col-md-7 no-padding register-page">
 						<input type="email" class="username-textbox textbox" name="primaryEmail"
@@ -335,9 +335,27 @@
                    My hobbies
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <select class="form-control grayBgLogin" >
-                        <option  value="0">None</option>
-                    </select>
+					<div class="panel-group acc-v1" id="accord-hobbies">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title by_editor_ParentCategories" data-toggle="collapse"
+									data-parent="#accord-hobbies" href="#hobbies" onclick="return false;">
+									<a class="accordion-toggle collapsed by-reg-toggle">
+										None
+									</a>
+									<a class="triangle-down collapsed by-reg-triangle"></a>
+								</h4>
+							</div>
+							<div id="hobbies" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
+								<div class="panel-body col-md-12" ng-repeat="option in hobbiesOptions">
+									<input type="checkbox" ng-click="selectHobbies(option)"
+										   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option.id) !== -1">
+									<span style="line-height: 23px;">{{option.displayMenuName}}</span>
+								</div>
+							</div>
+							<div style="clear:both"></div>
+						</div>
+					</div>
                 </div>
             </div>
             <div class="row margin-bottom-20  register-page">
@@ -354,9 +372,29 @@
                    Topic of interests
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <select class="form-control grayBgLogin" >
-                        <option  value="0">Stories</option>
-                    </select>
+					<div class="col-md-7 no-padding-right register-page">
+						<div class="panel-group acc-v1" id="accord-interest">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title by_editor_ParentCategories" data-toggle="collapse"
+										data-parent="#accord-hobbies" href="#interests" onclick="return false;">
+										<a class="accordion-toggle collapsed by-reg-toggle">
+											None
+										</a>
+										<a class="triangle-down collapsed by-reg-triangle"></a>
+									</h4>
+								</div>
+								<div id="interests" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
+									<div class="panel-body col-md-12" ng-repeat="option in interestsOptions">
+										<input type="checkbox" ng-click="selectTopicOfInterest(option)"
+											   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option.id) !== -1">
+										<span style="line-height: 23px;">{{option.displayMenuName}}</span>
+									</div>
+								</div>
+								<div style="clear:both"></div>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
             <div class="row margin-bottom-20  register-page">
@@ -459,14 +497,11 @@
 				</span>
 				</label>
 			</div>
-
-
-
 		</div>
 
 
 		<div class="col-md-12 margin-top-0 margin-bottom-20">
-			<input type="button" value="Done" class="nextButton by_btn_submit" />
+			<input type="button" value="Done" class="nextButton by_btn_submit" ng-click="postUserProfile(individualForm)"/>
 			<div class="clearfix"></div>
         </div>
 

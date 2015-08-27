@@ -5,7 +5,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.galleryImages = [];
         $scope.submitted = false;
         $scope.regConfig = BY.config.regConfig.indvUserRegConfig;
-        $scope.medicalIssuesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu].children
+        $scope.medicalIssuesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu].children;
+        $scope.hobbiesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.hobbies.fetchFromMenu].children;
+        $scope.interestsOptions = $rootScope.mainMenu;
+
 
         var editorInitCallback = function(){
             if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
@@ -186,11 +189,56 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
         }
 
+        $scope.selectMedicalIssue = function(option){
+            var index = -1;
+            if($scope.individualInfo.medicalIssues && $scope.individualInfo.medicalIssues.length > 0){
+                index = $scope.individualInfo.medicalIssues.indexOf(option);
+            }else{
+                $scope.individualInfo.medicalIssues = [];
+            }
+
+            if(index > -1){
+                $scope.individualInfo.medicalIssues.splice($scope.individualInfo.medicalIssues.indexOf(option), 1);
+            }else{
+                $scope.individualInfo.medicalIssues.push(option);
+            }
+        };
+
+        $scope.selectHobbies = function(option){
+            var index = -1;
+            if($scope.individualInfo.hobbies && $scope.individualInfo.hobbies.length > 0){
+                index = $scope.individualInfo.hobbies.indexOf(option);
+            }else{
+                $scope.individualInfo.hobbies = [];
+            }
+
+            if(index > -1){
+                $scope.individualInfo.hobbies.splice($scope.individualInfo.hobbies.indexOf(option), 1);
+            }else{
+                $scope.individualInfo.hobbies.push(option);
+            }
+        };
+
+        $scope.selectTopicOfInterest = function(option){
+            var index = -1;
+            if($scope.individualInfo.interests && $scope.individualInfo.interests.length > 0){
+                index = $scope.individualInfo.interests.indexOf(option);
+            }else{
+                $scope.individualInfo.interests = [];
+            }
+
+            if(index > -1){
+                $scope.individualInfo.interests.splice($scope.individualInfo.interests.indexOf(option), 1);
+            }else{
+                $scope.individualInfo.interests.push(option);
+            }
+        };
+
         //Delete profile Image
         $scope.deleteProfileImage = function () {
             $scope.profileImage = [];
             $scope.basicProfileInfo.profileImage = null;
-        }
+        };
 
         //Delete gallery images
         $scope.deleteGalleryImage = function (img) {
@@ -202,7 +250,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if (imgIndex > -1) {
                 $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
             }
-        }
+        };
 
 
         var systemTagList = {};
@@ -236,7 +284,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             return  $.map(systemTagList, function(value, key){
                 return value;
             });
-        }
+        };
 
 
 
@@ -244,24 +292,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.postUserProfile = function (isValidForm) {
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
-            $scope.minCategoryError = false;
-            $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
-                return value.id;
-            });
-
-            $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
-
-            $scope.profile.systemTags = getSystemTagList($scope.selectedMenuList);
-            if ( $scope.profile.systemTags.length === 0) {
-                $scope.minCategoryError = true;
-            }
-
-            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
-            if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-                $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
-            }
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
@@ -281,6 +313,5 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
         }
-
 
     }]);

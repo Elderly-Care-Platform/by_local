@@ -98,6 +98,10 @@ BY.config.regConfig.indvUserRegConfig = {
         'fetchFromMenu' : "Medical Conditions"
     },
 
+    'hobbies' : {
+        'fetchFromMenu' : "Activities"
+    },
+
     'countries' : ["India"],
     
     'maritalStatus' : ["single", "married", "divorced", "widowed"],

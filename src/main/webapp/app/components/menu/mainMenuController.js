@@ -6,6 +6,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         var categoryId = "", discussCategoryLevel = 0;
 
         $scope.mainMenu = window.by_menu;
+        $rootScope.mainMenu = $scope.mainMenu;
         $rootScope.menuCategoryMap = {};
         $rootScope.menuCategoryMapByName = {};
         $rootScope.discussCategoryMap = {};

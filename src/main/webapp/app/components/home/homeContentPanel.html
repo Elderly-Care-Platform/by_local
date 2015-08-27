@@ -1,7 +1,8 @@
-<div ng-controller="BYHomePromoController"
-     ng-if="contentType==='all' || contentType==='promo'"
+<div ng-controller="BYHomePromoController">
+     	<div ng-if="contentType==='all' || contentType==='promo'"
      ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll="loadMore()"></div>
+     </div>
      
      <div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"

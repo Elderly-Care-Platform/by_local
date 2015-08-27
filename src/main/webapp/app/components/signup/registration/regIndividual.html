@@ -441,16 +441,46 @@
             	</div>
 			</div>
 
-			<div class=" no-padding margin-bottom-20 register-page by_editor_post_divider" style="text-align:left; width:200px;">
-				<label > <img
+			
+			
+			<div class="no-padding margin-bottom-20 register-page by_editor_post_divider" style="text-align:left;">
+                    <div class="by-reg-gallery" ng-if="basicProfileInfo.profileImage && profileImage.length===0">
+                        <img class="by-reg-image" ng-if="basicProfileInfo.profileImage.thumbnailImage"
+                             ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
+                        
+                        <img class="by-reg-image" 
+                             ng-src="{{basicProfileInfo.profileImage}}"/>
+                        <a class="image-fav" ng-if="!profileImage.loading"
+                           ng-click="deleteProfileImage()"></a>
+                    </div>
+                    <div class="by-reg-gallery" ng-repeat="img in profileImage">
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteProfileImage()"></a>
+                        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
+                    </div>
+                    <div class="by-reg-uploadLabel" style="text-align:left; width:200px;">
+                        <label class="myLabel" style="background:#ececec;">
+                            <input id="inputImage2"
+                                   type="file"
+                                   accept="image/*"
+                                   load-image="profileImage"
+                                   resize-max-height="300"
+                                   resize-max-width="250"
+                                   resize-quality="0.7" class="btn btn-success register-btn"/>
+                            <img
 					src="assets/img/icons/photo.png" width="100%" /> <span
-					style="float: right;max-width: 130px; margin-left: 10px; text-align: left; line-height:17px;">
+					style="float: right;max-width: 130px; margin-left: 10px; text-align: left; line-height:17px; color:#000;">
 						Upload your <br/>profile picture
 				</span>
-				</label>
-			</div>
+                        </label>
+                    </div>
+                </div>
 
 			<div class="row">
+				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi" ng-click="defaultImage('assets/img/profile/individual_female_small.png')">
+					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
+					<input type="button" value="select" load-image="profileImage"/>
+				</div><!-- 
 				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
 					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
 					<input type="button" value="select"/>
@@ -462,11 +492,7 @@
 				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
 					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
 					<input type="button" value="select"/>
-				</div>
-				<div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
-					<img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
-					<input type="button" value="select"/>
-				</div>
+				</div> -->
 			</div>
 
 
@@ -487,14 +513,36 @@
             	</div>
 			</div>
 
-			<div class=" no-padding  register-page by_editor_post_divider" style="text-align:left; width:250px;">
-				<label > <img
-					src="assets/img/icons/photo.png" width="100%" /> <span
-					style="float: right;  max-width: 180px; margin-left: 10px; text-align: left; line-height:17px;">
-						Upload multiple<br/> photos for your gallery
-				</span>
-				</label>
-			</div>
+			
+			
+			<div class="no-padding  register-page by_editor_post_divider" style="text-align:left;">
+                    <div class="by-reg-gallery" ng-repeat="img in basicProfileInfo.photoGalleryURLs">
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
+                    </div>
+                    <div class="by-reg-gallery" ng-repeat="img in galleryImages">
+                        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+                        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+                        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
+                    </div>
+                    <div class="by-reg-uploadLabel" style="text-align:left; width:250px;">
+                        <label class="myLabel" style="background:#ececec">
+                            <input id="inputImage4"
+                                   type="file"
+                                   accept="image/*"
+                                   multiple
+                                   load-image="galleryImages"
+                                   resize-max-height="300"
+                                   resize-max-width="250"
+                                   resize-quality="0.7" class="btn btn-success register-btn"
+                                   imgArray="$parent.galleryImages"/> <img
+						src="assets/img/icons/photo.png" width="100%" /> <span
+						style="float: right; max-width: 180px; margin-left: 10px; text-align: left; line-height: 17px; color: #000;">
+							Upload multiple<br /> photos for your gallery
+					</span>
+					</label>
+                    </div>
+                </div>
 		</div>
 
 

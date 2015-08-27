@@ -251,6 +251,12 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
             }
         };
+        
+        // Default avatar
+        $scope.defaultImage = function(url){
+        	$scope.basicProfileInfo.profileImage = url;
+        	$scope.profileImage = [];
+        };
 
 
         var systemTagList = {};
@@ -303,14 +309,14 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             } else {
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
-                userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                /*userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;
                     $scope.$parent.exit();
                 }, function (err) {
                     console.log(err);
                     $scope.$parent.exit();
-                });
+                });*/
             }
         }
 

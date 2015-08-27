@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" name="firstName"
-                           class="name-textbox textbox grayBg" placeholder="Please enter a name of your company"
+                           placeholder="Please enter a name of your company"
                            ng-model="basicProfileInfo.firstName" required/>
                     <span ng-show="institutionForm.firstName.$invalid && submitted" class="errorRed">Please enter your company name</span>
                 </div>
@@ -81,7 +81,7 @@
                     <div style="padding-left: 15px">
                         <div ng-include="'app/components/signup/common/addressTemplate.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
                     </div>
-
+                    
                     <div ng-repeat="address in otherLocations" style="padding-left: 15px">
                         <div ng-include="'app/components/signup/common/addressTemplate.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
                     </div>
@@ -92,6 +92,8 @@
                             <a class="add-phone" ng-click="addNewAddress()">+ add another location</a>
                         </div>
                     </div>
+
+                    
 
                     <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
                         <div class="col-md-5">

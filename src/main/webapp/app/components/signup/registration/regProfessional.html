@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" name="firstName"
-                           class="name-textbox textbox grayBg" placeholder="Please enter first name"
+                            placeholder="Please enter first name"
                            ng-model="basicProfileInfo.firstName" required/>
                     <span ng-show="individualForm.firstName.$invalid && submitted" class="errorRed">Please enter your first name</span>
                 </div>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" name="lastName"
-                           class="name-textbox textbox grayBg" placeholder="Please enter last name"
+                           placeholder="Please enter last name"
                            ng-model="individualInfo.lastName"/>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="col-md-7 col-xs-3 no-padding-right register-page" style="width:110px;">
                     <input type="text" class="username-textbox textbox" name="years"
-                           class="name-textbox textbox grayBg" placeholder="XX years" maxlength="2" ng-pattern="/^[0-9]*$/"
+                            placeholder="XX years" maxlength="2" ng-pattern="/^[0-9]*$/"
                            ng-model="serviceProviderInfo.yearsExperience"/>
 
                     <span ng-show="individualForm.years.$error.pattern && submitted" class="errorRed">Not a valid number!</span>

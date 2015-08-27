@@ -5,31 +5,31 @@ BY.config = BY.config || {};
 BY.config.sectionHeader = {
     'stories' : {
         'sectionHead':'Stories',
-        'sectionDesc':'If you want to know what people like you are thinking and doing, read about them right here.',
+        'sectionDesc':'Let’s talk about ageing and senior care! Let’s exchange opinions, share and discuss views. Let’s get inspired, and pay tribute to lives well lived. ',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'caregiving' : {
         'sectionHead':'Caregiving',
-        'sectionDesc':'Is your father being difficult? Has your mother isolated herself? Are you feeling burnt out? Understand the issues of ageing – learn how to cope.',
+        'sectionDesc':'Is your father being difficult? Has your mother isolated herself? Are you feeling burnt out? Understand the issues of ageing care, and learn how to cope better.',
         'sectionImage':'assets/img/section_headers/Caregiving.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Caregiving_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'health' : {
         'sectionHead':'Health',
-        'sectionDesc':'Concerned about your parents health? And yours? We provide comprehensive information that can help deal with health issues on a daily basis. From health conditions to healthy diets; and from daily routines to wellness measures.',
+        'sectionDesc':'Concerned about your parents health? And yours? We are a community of people dealing with similar issues! Please join us – let’s help each other with information and advice! ',
         'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'services' : {
         'sectionHead':'Services',
-        'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home! Check out our services directory for solutions to your problems, with reviews and overviews.',
+        'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home? Check out our services directory with reviews and overviews, to find a solution. ',
         'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'overviews & reviews' : {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'services',
-            'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home! Check out our services directory for solutions to your problems, with reviews and overviews.',
+            'sectionDesc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home? Check out our services directory with reviews and overviews, to find a solution. ',
             'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
             'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
@@ -42,63 +42,63 @@ BY.config.sectionHeader = {
     },
     'products' : {
         'sectionHead':'Products',
-        'sectionDesc':'Need a light weight wheelchair? Or a stable walker? Or even a walking stick. You can find everything from knee braces to adult diapers and more in this section. Our product catalogue and reviews will show you the way!',
+        'sectionDesc':'Want to know how innovative products can improve lives of your loved ones? You can find everything from knee braces to adult diapers reviews and more in this section. ',
         'sectionImage':'assets/img/section_headers/product.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/product_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'overviews & reviews' : {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'products',
-            'sectionDesc':'Need a light weight wheelchair? Or a stable walker? Or even a walking stick. You can find everything from knee braces to adult diapers and more in this section. Our product catalogue and reviews will show you the way!',
+            'sectionDesc':'Want to know how innovative products can improve lives of your loved ones? You can find everything from knee braces to adult diapers reviews and more in this section. ',
             'sectionImage':'assets/img/section_headers/product.jpg?versionTimeStamp=%PROJECT_VERSION%',
             'sectionImageMobile':'assets/img/section_headers/product_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
     },
     'housing' : {
         'sectionHead':'Housing',
-        'sectionDesc':'If you need a home away from home for your parents, or for yourself, just check out our overviews and reviews of senior housing to find the best fit for them.',
+        'sectionDesc':'If you are looking for a home away from home for your parents or for yourself, just check out our overviews and reviews of senior housing, to find the best fit.',
         'sectionImage':'assets/img/section_headers/Housing.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Housing_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'overviews & reviews' : {
             'sectionHead':'Overviews & Reviews',
             'sectionParent':'housing',
-            'sectionDesc':'If you need a home away from home for your parents, or for yourself, just check out our overviews and reviews of senior housing to find the best fit for them.',
+            'sectionDesc':'If you are looking for a home away from home for your parents or for yourself, just check out our overviews and reviews of senior housing, to find the best fit.',
             'sectionImage':'assets/img/section_headers/Housing.jpg?versionTimeStamp=%PROJECT_VERSION%',
             'sectionImageMobile':'assets/img/section_headers/Housing_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
         }
     },
     'activities' : {
        'sectionHead':'Activities',
-       'sectionDesc':'Looking for interesting activities for your parents and for yourself? We feature indoor and outdoor  activities to increase mental and physical stimulation; and to enhance creativity. From hobbies to  showcasing talent – come join us!',
+       'sectionDesc':'Looking for interesting activities for your parents and for yourself? Want to increase mental and physical stimulation, and to enhance creativity? From hobbies to showcasing talent – come join us!',
        'sectionImage':'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
        'sectionImageMobile':'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'beautiful lives' : {
         'sectionHead':'Beautiful Lives',
-        'sectionDesc':'Ordinary people who are extraordinary! Read stories about the beautiful lives of people like you and your parents.',
+        'sectionDesc':'Ordinary people who are extraordinary! Read and share stories about beautiful lives of people like you and your parents. ',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'stars forever' : {
         'sectionHead':'Stars Forever',
-        'sectionDesc':'Check out celebrities who are coping with the issues of ageing – like you.',
+        'sectionDesc':'Check out celebrities who are dealing gracefully with issues of ageing.',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'caregiving stories' : {
         'sectionHead':'Caregiving Stories',
-        'sectionDesc':'Taking care of your elders? Meet others like yourself. Read their stories and learn how they cope – know you are not alone.',
+        'sectionDesc':'Taking care of your elders? You are not alone! Learn how others cope, and let others learn from your experience! ',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'challenges of ageing' : {
         'sectionHead':'Challenges of Ageing',
-        'sectionDesc':'What are the issues of ageing? Understand the process of growing old. Recognise what your parents are going through.',
+        'sectionDesc':'What are the issues of ageing? What does it really mean to grow old?  How does ageing change you… or does it really?',
         'sectionImage':'assets/img/section_headers/stories.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'personal hygiene' : {
         'sectionHead':'Personal Hygiene',
-        'sectionDesc':'Coping with elders’ bathing and toileting issues? Dealing with old age smells? Find out how others are coping – learn from their experiences and share yours with them!',
+        'sectionDesc':'Coping with elders’ bathing and toileting issues? Dealing with old age smells? Find out how to do it in a better way! ',
         'sectionImage':'assets/img/section_headers/Caregiving.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Caregiving_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -110,19 +110,19 @@ BY.config.sectionHeader = {
     },
     'stress & burnout' : {
         'sectionHead':'Stress & Burnout',
-        'sectionDesc':'Exhausted? Stressed? Can’t take any more? Learn how to deal with caregivers stress and burnout. Share in the experiences of others like you.',
+        'sectionDesc':'Exhausted? Stressed? Can’t take any more? Learn how to deal with caregivers stress and burnout. Share in the experiences of others.',
         'sectionImage':'assets/img/section_headers/Caregiving.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Caregiving_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'medical conditions' : {
         'sectionHead':'Medical Conditions',
-        'sectionDesc':'Does your mom have Alzheimer’s? Is your dad suffering from incontinence? Find out the best ways to deal with elder care medical issues.',
+        'sectionDesc':'Does your mom have Alzheimer’s? Is your dad suffering from incontinence? Find out the best ways to deal with those issues. Contribute from your experience! ',
         'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'food & nutrition' : {
         'sectionHead':'Food & Nutrition',
-        'sectionDesc':'What are the foods a diabetic should avoid? What is a healthy diet for a heart patient? Learn all about the nutritional needs of your elders – right here!',
+        'sectionDesc':'What are the foods a diabetic should avoid? What is a healthy diet for a heart patient? Let’s discuss the nutritional needs of your elders – right here!',
         'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -134,13 +134,13 @@ BY.config.sectionHeader = {
     },
     'wellness' : {
         'sectionHead':'Wellness',
-        'sectionDesc':'If you want a holistic approach to keeping your elders healthy, read all about ‘keep fit’ measures, yoga, meditation, exercise and so much more…',
+        'sectionDesc':'If you want a holistic approach to keeping your elders and yourself healthy, join us with ‘keep fit’ measures, yoga, meditation, exercise and so much more…',
         'sectionImage':'assets/img/section_headers/health.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/health_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
     'healthcare at home' : {
         'sectionHead':'Healthcare at Home',
-        'sectionDesc':'Need blood samples to be taken? Or a nursing aid or physiotherapist at home? Need help with bathing and toileting? Or getting medical equipment? Check our listings to locate healthcare professionals who make house calls.',
+        'sectionDesc':'Need blood samples to be taken? Or a nursing aid or physiotherapist at home? Need help with bathing and toileting? Or getting medical equipment? Find healthcare professionals who make house calls here.',
         'sectionImage':'assets/img/section_headers/Services.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/Services_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },

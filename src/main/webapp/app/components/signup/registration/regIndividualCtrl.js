@@ -335,6 +335,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.selectDefaultImage = function(url){
             $scope.basicProfileInfo.profileImage = {}
         	$scope.basicProfileInfo.profileImage.thumbnailImage = url;
+            $scope.basicProfileInfo.profileImage.titleImage = url;
         	$scope.profileImage = [];
         };
 

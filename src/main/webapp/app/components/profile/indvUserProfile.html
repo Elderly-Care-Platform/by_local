@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div class="col-md-12 whiteBg by_discuss_detail  margin-bottom-35" style="border-radius:4px !important;" >
-		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
+		<div class="col-md-12 profileContainer  white-gray ">
 			<div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;">
 				<div class="main-image white-gray " style="padding-left:0px;">
 					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
@@ -61,7 +61,7 @@
 							style="font-weight: normal;"><span
 								validate-user-name="{{discuss.username}}">({{username}})</span></span>
 						</span>
-						<div style="clear: both; height: 16px;"></div>
+						<div style="clear: both; height: 6px;"></div>
 					</div>
 					<div class="no-padding"
 						ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city || individualProfile.basicProfileInfo.primaryUserAddress.country">
@@ -80,7 +80,7 @@
 								
 							</div>
 						</div>
-						<div style="clear: both; height: 6px;"></div>
+						<div style="clear: both; height: 2px;"></div>
 					</div>
 					<!-- <div class="no-padding"
 						ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">
@@ -131,7 +131,7 @@
 									 </span>
 							</div>
 						</div>
-						<div style="clear: both; height: 6px;"></div>
+						<div style="clear: both; height: 8px;"></div>
 					</div>
 					<div class="no-padding"
 						ng-if="individualProfile.individualInfo.hobbies">
@@ -148,11 +148,12 @@
 									</span>
 							</div>
 						</div>
-						<div style="clear: both; height: 46px;"></div>
+						<div style="clear: both; height: 26px;"></div>
 					</div>
 
 				</div>
 
+			</div>
 				<span ng-if="individualProfile.basicProfileInfo.description">
 					<div class="col-md-12 no-padding  list-head dp-block fontIndv">My
 						Story</div>
@@ -161,194 +162,17 @@
 						<div class="bg-green-h2" style="width: 96px;"></div>
 					</div>
 					<div style="clear: both; height: 16px;"></div>
-			</div>
-			<div class="articles-story" ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
+			<div class="articles-story" style="margin-bottom:0px;" ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
 			</div>
 			</span>
 		</div>
 		
+		<div ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="postsUser.length > 0"></div>
 		
-
-		<div class="col-md-12  margin-bottom-30">
-			<div class="col-md-12 no-padding  list-head dp-block fontIndv">
-				Posts</div>
-
-			<div class="col-md-12 no-padding bg-gray-h1">
-				<div class="bg-green-h2" style="width: 96px;"></div>
-			</div>
-		</div>
-
-		<div class="col-md-12 discussion-page">
-			
-			<div class="blog-author margin-bottom-35 main-article by_blog_author boxShadowNone"
-				style="position: relative;">
-				<div class="questionTag">
-					<img
-						src="assets/img/feature/featured_post.png?versionTimeStamp=%PROJECT_VERSION%"
-						alt="image">
-				</div>
-				<img src="assets/img/by.png" alt="image">
-
-				<div class="article-info dp-inline-block">
-					<ul class="list-inline posted-info">
-						<li>
-							<p>
-								By <a >Malu 420</a> |
-							</p>
-						</li>
-						<li >June 20, 2015</li>
-						<li >| In</li>
-
-						<li >
-							<p class="first-letter-uc by-systemTags">
-								 <a>caregiving guides</a>
-							</p>
-						</li>
-					</ul>
-					<div style="clear: both"></div>
-				</div>
-
-				<div class="article  col-md-12" >
-					<div class="article-heading">
-						<p style="text-transform: uppercase;">Heaer baerivaeriov daper vvldieav faer via heaer baerivaeriov</p>
-					</div>
-				</div>
-
-				<div class="by-quad-image col-md-12">
-					<img src="assets/img/profile/indvImage.png" alt="image">				
-					<div style="clear: both"></div>
-				</div>
-				<div style="clear: both"></div>
-			
-				<div class="articles-story  col-md-12" >
-					<p class="discuss-card-desciption" >
-						When my horoscope said I would live 
-						to the age of eighty five (we Indians like to believe in horoscopes
-						 when it suits us), I was happy
-					</p>
-				</div>
-
-
-				<div style="clear: both"></div>
-				<div class="article-share-links news-v3 by-social-border"
-					style="position: relative; top: 0px;">
-					<ul class="post-shares post-shares-lg" style="top: 0px;">
-						
-						<li class="add-comment add-comment-FC">
-							<a> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-								<div class="text" >Be
-									the first to comment</div>
-															</a>
-						</li>
-
-
-						<li class="add-comment"><a ><i class="rounded-x icon-heart" title="Likes"></i> 
-						
-								<span >1</span>
-						</a>
-
-							<div class="post-text">
-								<div class="text">Like</div>
-							</div></li>
-
-						<li class="add-comment" >
-						<a	> <i class="rounded-x icon-share"></i>
-						 <span>2</span>
-						</a>
-							<div class="post-text post_text-comment">
-								<a >
-									<div class="text">Share</div>
-								</a>
-							</div></li>
-							
-					</ul>
-					<div style="clear: both"></div>
-				</div>
-				
-			</div>
-		</div>
+		<div ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="qaUser.length > 0"></div>
 		
-		<div class="col-md-12  margin-bottom-30">
-			<div class="col-md-12 no-padding  list-head dp-block fontIndv">
-				Q & A</div>
-
-			<div class="col-md-12 no-padding bg-gray-h1">
-				<div class="bg-green-h2" style="width: 96px;"></div>
-			</div>
-		</div>
-
-		<div class="col-md-12 discussion-page">
-			
-			<div class="blog-author margin-bottom-35 main-article by_blog_author boxShadowNone"
-				style="position: relative;">
-				<div class="questionTag">
-					<img
-						src="assets/img/feature/featured_post.png?versionTimeStamp=%PROJECT_VERSION%"
-						alt="image">
-				</div>
-				<img src="assets/img/by.png" alt="image">
-
-				<div class="article-info dp-inline-block">
-					<ul class="list-inline posted-info">
-						<li>
-							<p>
-								By <a >Malu 420</a> |
-							</p>
-						</li>
-						<li >June 20, 2015</li>
-						<li >| In</li>
-
-						<li >
-							<p class="first-letter-uc by-systemTags">
-								 <a>caregiving guides</a>
-							</p>
-						</li>
-					</ul>
-					<div style="clear: both"></div>
-				</div>
-
-				
-			
-				<div class="articles-story  col-md-12" >
-					<p class="discuss-card-desciption" >
-						When my horoscope said I would live 
-						to the age of eighty five (we Indians like to believe in horoscopes
-						 when it suits us), I was happy
-					</p>
-				</div>
-
-
-				<div style="clear: both"></div>
-				<div class="article-share-links news-v3 by-social-border"
-					style="position: relative; top: 0px;">
-					<ul class="post-shares post-shares-lg" style="top: 0px;">
-
-						<li class="add-comment add-comment-FA">
-							<a> <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
-
-								<div class="text">
-									Be the first to answer</div>
-						</a>
-						</li>
-
-
-						<li class="add-comment"><a ><i class="rounded-x icon-heart" title="Likes"></i> 
-						
-								<span >1</span>
-						</a>
-
-							<div class="post-text">
-								<div class="text">Like</div>
-							</div></li>
-
-						
-							
-					</ul>
-					<div style="clear: both"></div>
-				</div>
-				
-			</div>
-		</div>
+		
+		
 
 	<div style="clear: both; height:40px;"></div>
 	</div>

@@ -8,9 +8,21 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
         $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
+        $scope.label = BY.config.profile.userType[$scope.profileType].label;
 
         $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        
+        $scope.gotoHref = function(id) {
+//        	$(document).scrollTo('#'+param);
+        	if (id) {
+                var tag = $("#" + id + ":visible");
+                if (tag.length > 0) {
+                    $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+                }
 
+            }
+        };
+        
         (function(){
             var metaTagParams = {
                 title:  "Beautiful Years | Profile",
@@ -70,5 +82,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 iconNode.addClass("fa-angle-down");
             }
         }
+        
+        
        
     }]);

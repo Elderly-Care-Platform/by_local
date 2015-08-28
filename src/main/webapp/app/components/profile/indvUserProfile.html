@@ -166,10 +166,24 @@
 			</div>
 			</span>
 		</div>
+
 		
-		<div ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="postsUser.length > 0"></div>
+			<a style="padding-left:15px; "
+				class="discussRightCategory {{discussType == 'P' && 'selected active'}}"
+				ng-click="showPosts(true)" ng-if="postsUser.length > 0">Posts
+				({{postsUser.length}})</a> <a style="padding-left:15px;"
+				class="discussRightCategory {{discussType == 'Q' && 'selected active'}}"
+				ng-click="showPosts(false)" ng-if="qaUser.length > 0">Q &amp; A
+				({{qaUser.length}})</a>
 		
-		<div ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="qaUser.length > 0"></div>
+
+
+			<div class="clearfix" style="height:20px;"></div>
+
+
+		<div id="userPosts" ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="postsUser.length > 0 && isShowPosts===true"></div>
+		
+		<div id="userQA" ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="qaUser.length > 0 && isShowPosts===false"></div>
 		
 		
 		

@@ -2,6 +2,7 @@ byControllers.controller('IndividualUserProfileController', ['$scope', '$rootSco
     function ($scope, $rootScope, $location, $route, $routeParams, DiscussPage) {
 	 $scope.individualProfile = $scope.$parent.profileData;
      $scope.slideIndex = 1;
+     $scope.isShowPosts = true;
 	 
 	 $scope.slideGallery = function(dir){
          if($scope.slideIndex<1){
@@ -81,5 +82,9 @@ byControllers.controller('IndividualUserProfileController', ['$scope', '$rootSco
              $location.path('/discuss/' + id).search({comment: true});
          }
      }
+     
+     $scope.showPosts = function(param){
+    	 $scope.isShowPosts = param;
+     };
      
 }]);

@@ -32,7 +32,7 @@
             <ul class="list-inline posted-info" style="">
                 <li>
                     <p ng-if="discuss.discussType == 'Q' || discuss.discussType == 'P'">
-                        By <a validate-user-name="{{discuss.username}}" style="text-transform: capitalize;"> {{username}}</a> |
+                        By <a validate-user-name="{{discuss.username}}" style="text-transform: capitalize;" href="#/profile/0/{{discuss.userId}}"> {{username}}</a> |
                     </p>
                 </li>
 

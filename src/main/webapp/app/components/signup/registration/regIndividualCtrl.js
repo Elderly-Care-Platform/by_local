@@ -5,10 +5,15 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.galleryImages = [];
         $scope.submitted = false;
         $scope.regConfig = BY.config.regConfig.indvUserRegConfig;
+
         $scope.medicalIssuesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu].children;
         $scope.hobbiesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.hobbies.fetchFromMenu].children;
         $scope.interestsOptions = $rootScope.mainMenu;
+
         $scope.selectedLanguages = {};
+        $scope.selectedMedicalIssues = [];
+        $scope.selectedHobbies = [];
+        $scope.selectedInterests = [];
 
         var editorInitCallback = function(){
             if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
@@ -92,6 +97,24 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
             }
 
+            if($scope.individualInfo.medicalIssues && $scope.individualInfo.medicalIssues.length > 0){
+                $scope.selectedMedicalIssues =  $.map($scope.individualInfo.medicalIssues, function(value, key){
+                    return value.id;
+                });
+            }
+
+            if($scope.individualInfo.interests && $scope.individualInfo.interests.length > 0){
+                $scope.selectedInterests =  $.map($scope.individualInfo.interests, function(value, key){
+                    return value.id;
+                });
+            }
+
+            if($scope.individualInfo.hobbies && $scope.individualInfo.hobbies.length > 0){
+                $scope.selectedHobbies =  $.map($scope.individualInfo.hobbies, function(value, key){
+                    return value.id;
+                });
+            }
+
             $("#datepicker" ).datepicker({
                 showOn: "button",
                 buttonImage: "assets/img/icons/callender.png",
@@ -159,7 +182,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
 
             $("#langField").val("");
-            if($scope.selectedLanguages.length > 0){
+            if(Object.keys($scope.selectedLanguages).length > 0){
                 $("#langField").show();
             }else{
                 $("#langField").hide();
@@ -198,32 +221,18 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         }
 
         $scope.selectMedicalIssue = function(option){
-            var index = -1;
-            if($scope.individualInfo.medicalIssues && $scope.individualInfo.medicalIssues.length > 0){
-                index = $scope.individualInfo.medicalIssues.indexOf(option);
+            if($scope.selectedMedicalIssues && $scope.selectedMedicalIssues.indexOf(option.id) > -1){
+                $scope.selectedMedicalIssues.splice($scope.selectedMedicalIssues.indexOf(option.id), 1);
             }else{
-                $scope.individualInfo.medicalIssues = [];
-            }
-
-            if(index > -1){
-                $scope.individualInfo.medicalIssues.splice($scope.individualInfo.medicalIssues.indexOf(option), 1);
-            }else{
-                $scope.individualInfo.medicalIssues.push(option);
+                $scope.selectedMedicalIssues.push(option.id);
             }
         };
 
         $scope.selectHobbies = function(option){
-            var index = -1;
-            if($scope.individualInfo.hobbies && $scope.individualInfo.hobbies.length > 0){
-                index = $scope.individualInfo.hobbies.indexOf(option);
+            if($scope.selectedHobbies && $scope.selectedHobbies.indexOf(option.id) > -1){
+                $scope.selectedHobbies.splice($scope.selectedHobbies.indexOf(option.id), 1);
             }else{
-                $scope.individualInfo.hobbies = [];
-            }
-
-            if(index > -1){
-                $scope.individualInfo.hobbies.splice($scope.individualInfo.hobbies.indexOf(option), 1);
-            }else{
-                $scope.individualInfo.hobbies.push(option);
+                $scope.selectedHobbies.push(option.id);
             }
         };
 
@@ -244,18 +253,12 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             console.log($scope.individualInfo.emotionalIssues);
         };
 
-        $scope.selectTopicOfInterest = function(option){
-            var index = -1;
-            if($scope.individualInfo.interests && $scope.individualInfo.interests.length > 0){
-                index = $scope.individualInfo.interests.indexOf(option);
-            }else{
-                $scope.individualInfo.interests = [];
-            }
 
-            if(index > -1){
-                $scope.individualInfo.interests.splice($scope.individualInfo.interests.indexOf(option), 1);
+        $scope.selectTopicOfInterest = function(option){
+            if($scope.selectedInterests && $scope.selectedInterests.indexOf(option.id) > -1){
+                $scope.selectedInterests.splice($scope.selectedInterests.indexOf(option.id), 1);
             }else{
-                $scope.individualInfo.interests.push(option);
+                $scope.selectedInterests.push(option.id);
             }
         };
 
@@ -293,13 +296,25 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
-            if($scope.selectedLanguages.length > 0){
+            if(Object.keys($scope.selectedLanguages).length > 0){
                 $scope.individualInfo.language = $.map($scope.selectedLanguages, function(value, key){
                     return value;
                 });
             }
 
-            console.log($scope.profile);
+            $scope.individualInfo.medicalIssues = $.map($scope.selectedMedicalIssues, function(value, key){
+                return $rootScope.menuCategoryMap[value];
+            });
+
+            $scope.individualInfo.interests = $.map($scope.selectedInterests, function(value, key){
+                return $rootScope.menuCategoryMap[value];
+            });
+
+            $scope.individualInfo.hobbies = $.map($scope.selectedHobbies, function(value, key){
+                return $rootScope.menuCategoryMap[value];
+            });
+
+
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);

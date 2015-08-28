@@ -243,7 +243,7 @@
 								<div id="medical-issues" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
 									<div class="panel-body col-md-12" ng-repeat="option in medicalIssuesOptions">
 										<input type="checkbox" ng-click="selectMedicalIssue(option)"
-                                               ng-checked="individualInfo.medicalIssues && individualInfo.medicalIssues.indexOf(option) !== -1">
+                                               ng-checked="selectedMedicalIssues && selectedMedicalIssues.indexOf(option.id) > -1">
 										<span style="line-height: 23px;">{{option.displayMenuName}}</span>
 									</div>
 								</div>
@@ -357,7 +357,7 @@
 							<div id="hobbies" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
 								<div class="panel-body col-md-12" ng-repeat="option in hobbiesOptions">
 									<input type="checkbox" ng-click="selectHobbies(option)"
-										   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option) !== -1">
+										   ng-checked="selectedHobbies && selectedHobbies.indexOf(option.id) !== -1">
 									<span style="line-height: 23px;">{{option.displayMenuName}}</span>
 								</div>
 							</div>
@@ -394,7 +394,7 @@
 								<div id="interests" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
 									<div class="panel-body col-md-12" ng-repeat="option in interestsOptions">
 										<input type="checkbox" ng-click="selectTopicOfInterest(option)"
-											   ng-checked="individualInfo.hobbies && individualInfo.hobbies.indexOf(option) !== -1">
+											   ng-checked="selectedInterests && selectedInterests.indexOf(option.id) !== -1">
 										<span style="line-height: 23px;">{{option.displayMenuName}}</span>
 									</div>
 								</div>

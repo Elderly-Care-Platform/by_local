@@ -1,7 +1,7 @@
 <!--All classes from Unify start-->
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv by-filter-links">
-        <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
+        <ul class="list-group sidebar-nav-v1" id="sidebar-nav">
         	
             <li class="list-group-item  username" ng-click="changeUsername('username')">
                 <a>Change Username</a>
@@ -15,10 +15,12 @@
              <li class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length > 0" ng-click="editUserProfile('reg-menu-1')">
                 <a>{{sectionLabel}}</a>
             </li>
-             <li class="list-group-item reg-menu-3" ng-if="profile.userTypes.length > 0" >
-                <a href="#/profile/{{profile.userTypes[0]}}/{{profile.userId}}">View Profile</a>
-            </li> 
+            <div class="clearfix"></div>
         </ul>
+        <div class="list-group sidebar-nav-v1" id="sidebar-nav">
+         <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="profile.userTypes.length > 0" >
+                <a href="#/profile/{{profile.userTypes[0]}}/{{profile.userId}}">View Profile</a>
+            </div> </div>
     </div>
 </div>
 <!--All classes from Unify end-->

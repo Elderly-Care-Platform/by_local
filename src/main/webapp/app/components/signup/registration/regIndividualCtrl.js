@@ -15,6 +15,18 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.selectedMedicalIssues = [];
         $scope.selectedHobbies = [];
         $scope.selectedInterests = [];
+        $scope.showOtherHobbies = false;
+        $scope.showOtherInterest = false;
+
+        $scope.showOtherHobby = function(){
+            $scope.showOtherHobbies = true;
+        };
+
+        $scope.showOtherIntrst = function(){
+            $scope.showOtherInterest = true;
+        };
+
+
 
         var editorInitCallback = function(){
             if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
@@ -212,7 +224,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.langSelectCallback = function(changedVal, actualValue){
             //{label:value.name, value:value.name, obj:value}
             if(changedVal && changedVal!==""){
-                if(changedVal.label!== actualValue.name){
+                if(actualValue && changedVal.label!== actualValue.name){
                     delete $scope.selectedLanguages[actualValue.name];
                 }
                 $scope.selectedLanguages[changedVal.label] = changedVal.obj;
@@ -320,8 +332,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         };
         
         // Default avatar
-        $scope.defaultImage = function(url){
-        	$scope.basicProfileInfo.profileImage = url;
+        $scope.selectDefaultImage = function(url){
+            $scope.basicProfileInfo.profileImage = {}
+        	$scope.basicProfileInfo.profileImage.thumbnailImage = url;
         	$scope.profileImage = [];
         };
 
@@ -345,11 +358,11 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             //    $scope.individualInfo.otherIssues = [];
             //}
 
-            if($scope.individualInfo.otherInterests[0] && $scope.individualInfo.otherInterests[0].trim().length == 0){
+            if(!$scope.individualInfo.otherInterests[0] || $scope.individualInfo.otherInterests[0].trim().length == 0){
                 $scope.individualInfo.otherInterests = [];
             }
 
-            if($scope.individualInfo.otherHobbies[0] && $scope.individualInfo.otherHobbies[0].trim().trim().length == 0){
+            if(!$scope.individualInfo.otherHobbies[0] || $scope.individualInfo.otherHobbies[0].trim().length == 0){
                 $scope.individualInfo.otherHobbies = [];
             }
 

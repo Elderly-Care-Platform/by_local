@@ -115,6 +115,14 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
 
+            $.map($scope.individualInfo.language, function(value, key){
+                return $scope.selectedLanguages[value.name] = value;
+            });
+
+            var dob = new Date($scope.individualInfo.dob);
+
+            $scope.individualInfo.dob = "" + (dob.getMonth()+1) + "/" + dob.getDate()+ "/" + dob.getFullYear();
+
             $("#datepicker" ).datepicker({
                 showOn: "button",
                 buttonImage: "assets/img/icons/callender.png",
@@ -176,6 +184,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.langSelectCallback = function(changedVal, actualValue){
             //{label:value.name, value:value.name, obj:value}
             if(changedVal && changedVal!==""){
+                if(changedVal.label!== actualValue.name){
+                    delete $scope.selectedLanguages[actualValue.name];
+                }
                 $scope.selectedLanguages[changedVal.label] = changedVal.obj;
             }else{
                 delete $scope.selectedLanguages[actualValue.name];
@@ -183,9 +194,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
             $("#langField").val("");
             if(Object.keys($scope.selectedLanguages).length > 0){
-                $("#langField").show();
-            }else{
                 $("#langField").hide();
+            }else{
+                $("#langField").show();
             }
 
             $scope.$apply();
@@ -301,6 +312,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                     return value;
                 });
             }
+
+            $scope.individualInfo.dob = (new Date($scope.individualInfo.dob)).getTime();
 
             $scope.individualInfo.medicalIssues = $.map($scope.selectedMedicalIssues, function(value, key){
                 return $rootScope.menuCategoryMap[value];

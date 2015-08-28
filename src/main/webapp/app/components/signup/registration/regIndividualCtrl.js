@@ -8,7 +8,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.medicalIssuesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu].children;
         $scope.hobbiesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.hobbies.fetchFromMenu].children;
         $scope.interestsOptions = $rootScope.mainMenu;
-
+        $scope.selectedLanguages = {};
 
         var editorInitCallback = function(){
             if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
@@ -92,8 +92,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
             }
 
-
-            $( "#datepicker" ).datepicker({
+            $("#datepicker" ).datepicker({
                 showOn: "button",
                 buttonImage: "assets/img/icons/callender.png",
                 buttonImageOnly: true,
@@ -151,17 +150,29 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
         }
 
-        $scope.langSelectCallback = function(language){
-            if(!$scope.individualInfo.language){
-                $scope.individualInfo.language = [];
+        $scope.langSelectCallback = function(changedVal, actualValue){
+            //{label:value.name, value:value.name, obj:value}
+            if(changedVal && changedVal!==""){
+                $scope.selectedLanguages[changedVal.label] = changedVal.obj;
+            }else{
+                delete $scope.selectedLanguages[actualValue.name];
             }
-            $scope.individualInfo.language.push(language);
+
+            $("#langField").val("");
+            if($scope.selectedLanguages.length > 0){
+                $("#langField").show();
+            }else{
+                $("#langField").hide();
+            }
+
+            $scope.$apply();
+            console.log($scope.selectedLanguages);
+            //$scope.individualInfo.language.push(language.obj);
         };
 
         $scope.addLangField = function(){
-            if ($scope.individualInfo.language.length > 0) {
-                $scope.individualInfo.language.push("");
-            }
+            $("#langField").show();
+            console.log($scope.selectedLanguages);
         };
 
         //Add secondary phone numbers
@@ -273,52 +284,22 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         };
 
 
-        var systemTagList = {};
-        var getSystemTagList = function(data){
-            //For a selected menu category, Add tags of menu hierarchy recursively to system tags
-            function rec(data){
-                angular.forEach(data, function(menu, index){
-                    systemTagList[menu.id] = menu.tags;
-                    if(menu.ancestorIds.length > 0){
-                        for(var j=0; j < menu.ancestorIds.length; j++){
-                            var ancestordata = {};
-                            ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
-                            rec(ancestordata);
-                        }
-                    }
-                })
-            }
-
-            rec(data);
-
-            //Add selected speciality tags to system tags
-            angular.forEach($scope.filters, function(filter, index){
-                if(filter.selectedSpecialityName && filter.selectedSpeciality){
-                    systemTagList[filter.selectedSpeciality.id] = filter.selectedSpeciality.tags;
-                }else{
-                    filter.selectedSpecialityName = null;
-                    filter.specialityError = true;
-                }
-            })
-
-            return  $.map(systemTagList, function(value, key){
-                return value;
-            });
-        };
-
-
-
         //Post individual form
         $scope.postUserProfile = function (isValidForm) {
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
-           
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
-            console.log($scope.profile);
 
+            if($scope.selectedLanguages.length > 0){
+                $scope.individualInfo.language = $.map($scope.selectedLanguages, function(value, key){
+                    return value;
+                });
+            }
+
+            console.log($scope.profile);
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);

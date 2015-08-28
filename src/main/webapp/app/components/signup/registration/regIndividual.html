@@ -304,10 +304,14 @@
                   I speak
                 </div>
                 <div class="col-md-7 no-padding-right register-page" ng-if="languages.length > 0">
-                    <input ng-if="individualInfo.language.length > 0" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
-						   on-select-callback="langSelectCallback" ng-repeat="lang in individualInfo.language"/>
+                    <input type="text" class="name-textbox textbox grayBg margin-bottom-20"
+						   obj="lang" auto-complete options="languages"
+						   on-select-callback="langSelectCallback"
+						   on-change-callback="langSelectCallback"
+						   ng-repeat="(key, lang) in selectedLanguages"
+						   ng-model="key"/>
 
-					<input ng-if="!individualInfo.language" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
+					<input id="langField" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
 						   on-select-callback="langSelectCallback"/>
 
 					<!--<input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"-->
@@ -315,7 +319,7 @@
                 </div>
             </div>
 
-             <div class="row margin-bottom-20  register-page" ng-if="individualInfo.language.length && individualInfo.language.length > 0">
+             <div class="row margin-bottom-20  register-page">
                 <div class="col-md-5">
 
                 </div>

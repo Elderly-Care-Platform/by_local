@@ -456,7 +456,7 @@
                         <img class="by-reg-image" ng-if="basicProfileInfo.profileImage.thumbnailImage"
                              ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
                         
-                        <img class="by-reg-image" 
+                        <img class="by-reg-image" ng-if="!basicProfileInfo.profileImage.thumbnailImage"
                              ng-src="{{basicProfileInfo.profileImage}}"/>
                         <a class="image-fav" ng-if="!profileImage.loading"
                            ng-click="deleteProfileImage()"></a>

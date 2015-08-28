@@ -5,17 +5,17 @@ BY.config.profile = BY.config.profile || {};
 BY.config.profile.userType = {
     '0' : {
         'category':'0',
-        'contentPanel':'',
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'CAREGIVER'
     },
     '1' : {
         'category':'0',
-        'contentPanel':'',
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'ELDER'
     },
     '2' : {
         'category':'0',
-        'contentPanel':'',
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'VOLUNTEER'
     },
     '3' : {

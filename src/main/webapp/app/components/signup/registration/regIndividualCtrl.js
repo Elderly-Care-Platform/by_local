@@ -92,9 +92,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
             }
 
-            if(!$scope.individualInfo.language){
-                $scope.individualInfo.language = [];
-            }
 
             $( "#datepicker" ).datepicker({
                 showOn: "button",
@@ -316,6 +313,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
+           
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
@@ -327,14 +325,14 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             } else {
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
-                /*userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;
                     $scope.$parent.exit();
                 }, function (err) {
                     console.log(err);
                     $scope.$parent.exit();
-                });*/
+                });
             }
         }
 

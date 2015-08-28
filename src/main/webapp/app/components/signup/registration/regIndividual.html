@@ -307,7 +307,7 @@
                     <input ng-if="individualInfo.language.length > 0" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
 						   on-select-callback="langSelectCallback" ng-repeat="lang in individualInfo.language"/>
 
-					<input ng-if="individualInfo.language.length == 0" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
+					<input ng-if="!individualInfo.language" type="text" class="name-textbox textbox grayBg" auto-complete options="languages"
 						   on-select-callback="langSelectCallback"/>
 
 					<!--<input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"-->

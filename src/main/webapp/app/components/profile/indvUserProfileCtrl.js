@@ -38,7 +38,7 @@ byControllers.controller('IndividualUserProfileController', ['$scope', '$rootSco
      };
      
      var postsByUser = function(){
-    	 var params = {p:0,discussType:"P",userId:$scope.individualProfile.userId};
+    	 var params = {p:0,discussType:"P",userId:$scope.$parent.profileId};
     	 DiscussPage.get(params, function(value){
     		 var userPosts = value.data.content;
     		 $scope.postsUser = userPosts;
@@ -50,7 +50,7 @@ byControllers.controller('IndividualUserProfileController', ['$scope', '$rootSco
      postsByUser();
      
      var qaByUser = function(){
-    	 var params = {p:0,discussType:"Q",userId:$scope.individualProfile.userId};
+    	 var params = {p:0,discussType:"Q",userId:$scope.$parent.profileId};
     	 DiscussPage.get(params, function(value){
     		 var userQA = value.data.content;
     		 $scope.qaUser = userQA;

@@ -9,6 +9,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.medicalIssuesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu].children;
         $scope.hobbiesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.hobbies.fetchFromMenu].children;
         $scope.interestsOptions = $rootScope.mainMenu;
+        $scope.emotional_challenges = $scope.regConfig.emotional_challenges1;
 
         $scope.selectedLanguages = {};
         $scope.selectedMedicalIssues = [];
@@ -75,10 +76,21 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
         //Prefill form with previously selected data
         var initializeRegForm = function () {
+            $scope.curiousUser = false;
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
+
+            if($scope.profile.userTypes && $scope.profile.userTypes.length > 0){
+                if($scope.profile.userTypes.length===1 && $scope.profile.userTypes[0]===2){
+                    $scope.curiousUser = true;
+                }
+
+                if($scope.profile.userTypes.indexOf(1) > -1){
+                    $scope.emotional_challenges = $scope.regConfig.emotional_challenges2;
+                }
+            }
 
 
             if(!$scope.individualInfo.salutation){
@@ -103,6 +115,18 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
 
+            //if(!$scope.individualInfo.otherIssues){
+            //    $scope.individualInfo.otherIssues = [];
+            //}
+
+            if(!$scope.individualInfo.otherInterests){
+                $scope.individualInfo.otherInterests = [];
+            }
+
+            if(!$scope.individualInfo.otherHobbies){
+                $scope.individualInfo.otherHobbies = [];
+            }
+
             if($scope.individualInfo.interests && $scope.individualInfo.interests.length > 0){
                 $scope.selectedInterests =  $.map($scope.individualInfo.interests, function(value, key){
                     return value.id;
@@ -115,13 +139,17 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
 
-            $.map($scope.individualInfo.language, function(value, key){
-                return $scope.selectedLanguages[value.name] = value;
-            });
+            if($scope.individualInfo.language && $scope.individualInfo.language.length > 0){
+                $.map($scope.individualInfo.language, function(value, key){
+                    return $scope.selectedLanguages[value.name] = value;
+                });
+            }
 
-            var dob = new Date($scope.individualInfo.dob);
+            if($scope.individualInfo.dob){
+                var dob = new Date($scope.individualInfo.dob);
+                $scope.individualInfo.dob = "" + (dob.getMonth()+1) + "/" + dob.getDate()+ "/" + dob.getFullYear();
+            }
 
-            $scope.individualInfo.dob = "" + (dob.getMonth()+1) + "/" + dob.getDate()+ "/" + dob.getFullYear();
 
             $("#datepicker" ).datepicker({
                 showOn: "button",
@@ -313,7 +341,26 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
 
-            $scope.individualInfo.dob = (new Date($scope.individualInfo.dob)).getTime();
+            //if($scope.individualInfo.otherIssues[0].trim() == ""){
+            //    $scope.individualInfo.otherIssues = [];
+            //}
+
+            if($scope.individualInfo.otherInterests[0] && $scope.individualInfo.otherInterests[0].trim().length == 0){
+                $scope.individualInfo.otherInterests = [];
+            }
+
+            if($scope.individualInfo.otherHobbies[0] && $scope.individualInfo.otherHobbies[0].trim().trim().length == 0){
+                $scope.individualInfo.otherHobbies = [];
+            }
+
+            //$scope.individualInfo.otherIssues = [$scope.individualInfo.otherIssues];
+            //$scope.individualInfo.otherInterests = [$scope.individualInfo.otherInterests];
+            //
+            //otherHobbies
+
+            if($scope.individualInfo.dob){
+                $scope.individualInfo.dob = (new Date($scope.individualInfo.dob)).getTime();
+            }
 
             $scope.individualInfo.medicalIssues = $.map($scope.selectedMedicalIssues, function(value, key){
                 return $rootScope.menuCategoryMap[value];

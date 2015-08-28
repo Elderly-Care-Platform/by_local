@@ -188,76 +188,78 @@
 					</div>
 				</div>
 
-				<div class="col-md-12 margin-bottom-20">
-					<div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
-						I have
+				<div ng-if="!curiousUser">
+					<div class="col-md-12 margin-bottom-20">
+						<div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+							I have
+						</div>
+
+						<div class="col-md-12 no-padding bg-gray-h1">
+							<div class="bg-green-h2" style="width: 76px;"></div>
+						</div>
 					</div>
 
-					<div class="col-md-12 no-padding bg-gray-h1">
-						<div class="bg-green-h2" style="width: 76px;"></div>
-					</div>
-				</div>
-
-				<div class="col-md-12 margin-bottom-0 register-page">
-					<div class="col-md-5 no-padding">Emotional challenges </div>
-					<div class="col-md-7 no-padding register-page">
-                        <div class="panel-group acc-v1" id="accord-emotional-issue">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title by_editor_ParentCategories" data-toggle="collapse"
-                                        data-parent="#accord-emotional-issue" href="#emotional-issues" onclick="return false;">
-                                        <a class="accordion-toggle collapsed by-reg-toggle" style="padding: 2px 11px;">
-                                            None
-                                        </a>
-                                        <a class="triangle-down collapsed by-reg-triangle" style="padding: 2px 11px;"></a>
-                                    </h4>
-                                </div>
-                                <div id="emotional-issues" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
-                                    <div class="panel-body col-md-12" ng-repeat="option in regConfig.emotional_challenges">
-                                        <input type="checkbox" ng-click="selectEmotionalIssue(option)"
-                                               ng-checked="individualInfo.emotionalIssues && individualInfo.emotionalIssues.indexOf(option) !== -1">
-                                        <span style="line-height: 23px;">{{option}}</span>
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-                            </div>
-                        </div>
-					</div>
-				</div>
-
-				<div class="col-md-12 margin-bottom-0 register-page">
-					<div class="col-md-5 no-padding">Medical issues </div>
-					<div class="col-md-7 no-padding register-page">
-						<!--<dropdown-multiselect class="col-md-12 no-padding register-page form-control grayBgLogin" pre-selected="member.roles" ng-model="selected_items" options="medicalIssuesOptions"></dropdown-multiselect>-->
-						<div class="panel-group acc-v1" id="accord-medical-issue">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title by_editor_ParentCategories" data-toggle="collapse"
-                                        data-parent="#accord-medical-issue" href="#medical-issues" onclick="return false;">
-										<a class="accordion-toggle collapsed by-reg-toggle" style="padding: 2px 11px;">
-											None
-										</a>
-										<a class="triangle-down collapsed by-reg-triangle" style="padding: 2px 11px;"></a>
-									</h4>
-								</div>
-								<div id="medical-issues" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
-									<div class="panel-body col-md-12" ng-repeat="option in medicalIssuesOptions">
-										<input type="checkbox" ng-click="selectMedicalIssue(option)"
-                                               ng-checked="selectedMedicalIssues && selectedMedicalIssues.indexOf(option.id) > -1">
-										<span style="line-height: 23px;">{{option.displayMenuName}}</span>
+					<div class="col-md-12 margin-bottom-0 register-page">
+						<div class="col-md-5 no-padding">Emotional challenges </div>
+						<div class="col-md-7 no-padding register-page">
+							<div class="panel-group acc-v1" id="accord-emotional-issue">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title by_editor_ParentCategories" data-toggle="collapse"
+											data-parent="#accord-emotional-issue" href="#emotional-issues" onclick="return false;">
+											<a class="accordion-toggle collapsed by-reg-toggle" style="padding: 2px 11px;">
+												None
+											</a>
+											<a class="triangle-down collapsed by-reg-triangle" style="padding: 2px 11px;"></a>
+										</h4>
 									</div>
+									<div id="emotional-issues" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
+										<div class="panel-body col-md-12" ng-repeat="option in emotional_challenges">
+											<input type="checkbox" ng-click="selectEmotionalIssue(option)"
+												   ng-checked="individualInfo.emotionalIssues && individualInfo.emotionalIssues.indexOf(option) !== -1">
+											<span style="line-height: 23px;">{{option}}</span>
+										</div>
+									</div>
+									<div style="clear:both"></div>
 								</div>
-								<div style="clear:both"></div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="col-md-12 margin-bottom-20  register-page">
-					<div class="col-md-5 no-padding">Other difficulties</div>
-					<div class="col-md-7 no-padding register-page">
-						<input type="text" class="username-textbox textbox"
-							class="name-textbox textbox grayBg" />
+					<div class="col-md-12 margin-bottom-0 register-page">
+						<div class="col-md-5 no-padding">Medical issues </div>
+						<div class="col-md-7 no-padding register-page">
+							<!--<dropdown-multiselect class="col-md-12 no-padding register-page form-control grayBgLogin" pre-selected="member.roles" ng-model="selected_items" options="medicalIssuesOptions"></dropdown-multiselect>-->
+							<div class="panel-group acc-v1" id="accord-medical-issue">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title by_editor_ParentCategories" data-toggle="collapse"
+											data-parent="#accord-medical-issue" href="#medical-issues" onclick="return false;">
+											<a class="accordion-toggle collapsed by-reg-toggle" style="padding: 2px 11px;">
+												None
+											</a>
+											<a class="triangle-down collapsed by-reg-triangle" style="padding: 2px 11px;"></a>
+										</h4>
+									</div>
+									<div id="medical-issues" class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
+										<div class="panel-body col-md-12" ng-repeat="option in medicalIssuesOptions">
+											<input type="checkbox" ng-click="selectMedicalIssue(option)"
+												   ng-checked="selectedMedicalIssues && selectedMedicalIssues.indexOf(option.id) > -1">
+											<span style="line-height: 23px;">{{option.displayMenuName}}</span>
+										</div>
+									</div>
+									<div style="clear:both"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12 margin-bottom-20  register-page">
+						<div class="col-md-5 no-padding">Other difficulties</div>
+						<div class="col-md-7 no-padding register-page">
+							<input type="text" class="username-textbox textbox"
+								   ng-model="individualInfo.otherIssues[0]"/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -371,7 +373,10 @@
 
                 </div>
                 <div class="col-md-7 no-padding-right register-page"  style="margin-top:-10px;">
-                    <i><a>+ other</a></i>
+					<input ng-if="showOtherHobbies || individualInfo.otherHobbies.length > 0" type="text"
+						   class="name-textbox textbox"
+						   ng-model="individualInfo.otherHobbies[0]"/>
+                    <i><a ng-if="individualInfo.otherHobbies.length == 0"  ng-click="showOtherHobbies=true">+ other</a></i>
                 </div>
             </div>
 
@@ -408,7 +413,10 @@
 
                 </div>
                 <div class="col-md-7 no-padding-right register-page"  style="margin-top:-10px;">
-                    <i><a>+ other</a></i>
+						<input ng-if="showOtherInterest || individualInfo.otherInterests.length > 0" type="text"
+							   class="name-textbox textbox"
+							   ng-model="individualInfo.otherInterests[0]"/>
+						<i><a ng-if="individualInfo.otherInterests.length == 0" ng-click="showOtherInterest=true">+ other</a></i>
                 </div>
             </div>
 

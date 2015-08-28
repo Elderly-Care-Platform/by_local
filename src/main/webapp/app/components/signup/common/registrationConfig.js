@@ -90,9 +90,13 @@ BY.config.regConfig.indvUserRegConfig = {
     'occupation' : ["Working", "Not Working", "Studying", "Retired"],
 
 
-    'emotional_challenges' : ['Caregiver Burn-out',
-                        'Boredom',
+    'emotional_challenges1' : ['Boredom',
                         'Depression','Stress', 'Anxiety', 'Problematic Relationship'],
+
+    'emotional_challenges2' : ['Caregiver Burn-out',
+        'Boredom',
+        'Depression','Stress', 'Anxiety', 'Problematic Relationship'],
+
     'medical_issues' : {
         'userType' : [0, 1],
         'fetchFromMenu' : "Medical Conditions"

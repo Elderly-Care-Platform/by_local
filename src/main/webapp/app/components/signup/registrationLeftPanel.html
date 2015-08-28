@@ -15,9 +15,9 @@
              <li class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length > 0" ng-click="editUserProfile('reg-menu-1')">
                 <a>{{sectionLabel}}</a>
             </li>
-           <!--  <li class="list-group-item reg-menu-3" ng-click="viewProfile('reg-menu-3')">
-                <a>View Profile</a>
-            </li> -->
+             <li class="list-group-item reg-menu-3" ng-if="profile.userTypes.length > 0" >
+                <a href="#/profile/{{profile.userTypes[0]}}/{{profile.userId}}">View Profile</a>
+            </li> 
         </ul>
     </div>
 </div>

@@ -3,6 +3,7 @@ byControllers.controller('IndividualUserProfileController', ['$scope', '$rootSco
 	 $scope.individualProfile = $scope.$parent.profileData;
      $scope.slideIndex = 1;
      $scope.isShowPosts = true;
+     $scope.userName = $scope.$parent.userName;
 	 
 	 $scope.slideGallery = function(dir){
          if($scope.slideIndex<1){

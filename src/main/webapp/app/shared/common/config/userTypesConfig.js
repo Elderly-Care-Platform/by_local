@@ -7,19 +7,19 @@ BY.config.profile.userType = {
         'category':'0',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'CAREGIVER',
-        'label':'Individual Info'
+        'label':'Personal Story'
     },
     '1' : {
         'category':'0',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'ELDER',
-        'label':'Individual Info'
+        'label':'Personal Story'
     },
     '2' : {
         'category':'0',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'VOLUNTEER',
-        'label':'Individual Info'
+        'label':'Personal Story'
     },
     '3' : {
         'category':'1',

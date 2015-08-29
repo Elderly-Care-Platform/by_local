@@ -113,8 +113,13 @@ BY.config.regConfig.indvUserRegConfig = {
     'maritalStatus' : ["single", "married", "divorced", "widowed"],
 
     'defaultAvatars' : {
-        '0' : ["assets/img/profile/f-1.png", "assets/img/profile/f-2.png", "assets/img/profile/f-3.png"],
-        '1' : ["assets/img/profile/m-1.png", "assets/img/profile/m-2.png", "assets/img/profile/m-3.png"]
+        '0' : [{"reg":"assets/img/profile/f-1.png","detail":"assets/img/profile/detail_f-1.png"},
+            {"reg":"assets/img/profile/f-2.png", "detail":"assets/img/profile/detail_f-2.png"},
+            {"reg":"assets/img/profile/f-3.png", "detail":"assets/img/profile/detail_f-3.png"}],
+
+        '1' : [{"reg":"assets/img/profile/m-1.png","detail":"assets/img/profile/detail_m-1.png"},
+            {"reg":"assets/img/profile/m-2.png", "detail":"assets/img/profile/detail_m-2.png"},
+            {"reg":"assets/img/profile/m-3.png", "detail":"assets/img/profile/detail_m-3.png"}]
     }
 
 

@@ -140,7 +140,7 @@
                         <input type="text" class="username-textbox textbox" name="primaryTel"
                                ng-model="basicProfileInfo.primaryPhoneNo"
                                placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17">
-
+                        <span ng-show="individualForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                     </div>
                 </div>
 
@@ -556,9 +556,9 @@
 
             <div class="row margin-bottom-20">
                 <div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi"
-                     ng-click="selectDefaultImage(avatar)"
+                     ng-click="selectDefaultImage(avatar.detail)"
                         ng-repeat="avatar in regConfig.defaultAvatars[individualInfo.gender]">
-                    <img src="{{avatar}}" width="100%" alt=""><br/>
+                    <img src="{{avatar.reg}}" width="100%" alt=""><br/>
                     <input type="button" value="select" load-image="profileImage"/>
                 </div>
             </div>

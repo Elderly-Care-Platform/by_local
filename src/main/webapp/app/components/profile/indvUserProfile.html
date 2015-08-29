@@ -97,7 +97,7 @@
                     </div>-->
 
                     <div class="no-padding"
-                         ng-if="individualProfile.individualInfo.language">
+                         ng-if="individualProfile.individualInfo.language && individualProfile.individualInfo.language.length > 0">
                         <div class="profileRating">
                             <div class="divLeft">
                                 <i class="fa fa-speak verticalAlign"></i>
@@ -113,7 +113,8 @@
                         <div style="clear: both; height: 6px;"></div>
                     </div>
                     <div class="no-padding"
-                         ng-if="individualProfile.individualInfo.interests">
+                         ng-if="(individualProfile.individualInfo.interests && individualProfile.individualInfo.interests.length > 0) || 
+                         individualProfile.individualInfo.otherInterests.length > 0">
                         <div class="profileRating">
                             <div class="divLeft">
                                 <i class="fa fa-interest verticalAlign"></i>
@@ -124,11 +125,13 @@
                                     ng-if="interest.trim()!==''"> {{interest.displayMenuName}}
                                     <span ng-if="$index<individualProfile.individualInfo.interests.length - 1">,</span>
                                 </span>
+                                <span ng-if="individualProfile.individualInfo.otherInterests">
+                                <span ng-if="individualProfile.individualInfo.interests.length > 0">,</span> {{individualProfile.individualInfo.otherInterests[0]}}</span>
                             </div>
                         </div>
                         <div style="clear: both; height: 8px;"></div>
                     </div>
-                    <div class="no-padding" ng-if="individualProfile.individualInfo.hobbies">
+                    <div class="no-padding" ng-if="(individualProfile.individualInfo.hobbies && individualProfile.individualInfo.hobbies.length > 0) || individualProfile.individualInfo.otherHobbies.length > 0">
                         <div class="profileRating">
                             <div class="divLeft">
                                 <i class="fa fa-hobbies verticalAlign"></i>
@@ -138,13 +141,16 @@
                                 <span ng-repeat="hobby in individualProfile.individualInfo.hobbies"
                                         ng-if="hobby.trim()!==''"> {{hobby.displayMenuName}}
                                     <span ng-if="$index<individualProfile.individualInfo.hobbies.length - 1">,</span>
-                                </span>
+                                </span> 
+                                <span ng-if="individualProfile.individualInfo.otherHobbies">
+                                <span ng-if="individualProfile.individualInfo.hobbies.length > 0">,</span> {{individualProfile.individualInfo.otherHobbies[0]}}</span>
                             </div>
                         </div>
                         <div style="clear: both; height: 26px;"></div>
                     </div>
                 </div>
             </div>
+            <div class="clearfix"></div>
             <div class="clearfix" style="height:20px;" ng-if="!individualProfile.basicProfileInfo.photoGalleryURLs.length > 0"></div>
             <span ng-if="individualProfile.basicProfileInfo.description">
                 <div class="col-md-12 no-padding  list-head dp-block fontIndv">My
@@ -163,11 +169,11 @@
 
 		
 
-        <a style="padding-left:15px; " class="discussRightCategory {{discussType == 'P' && 'selected active'}}"
+        <a style="margin-left:15px; " class="discussRightCategory {{isShowPosts===true && 'selected active'}}"
            ng-click="showPosts(true)" ng-if="postsUser.length > 0">
             Posts({{postsUser.length}})
         </a>
-        <a style="padding-left:15px;" class="discussRightCategory {{discussType == 'Q' && 'selected active'}}"
+        <a style="margin-left:15px;" class="discussRightCategory {{isShowPosts===false && 'selected active'}}"
            ng-click="showPosts(false)" ng-if="qaUser.length > 0">
             Q &amp; A({{qaUser.length}})
         </a>

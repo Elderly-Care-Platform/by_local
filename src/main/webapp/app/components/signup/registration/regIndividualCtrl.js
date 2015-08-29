@@ -99,7 +99,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                     $scope.curiousUser = true;
                 }
 
-                if($scope.profile.userTypes.indexOf(1) > -1){
+                if($scope.profile.userTypes.indexOf(0) > -1){
                     $scope.emotional_challenges = $scope.regConfig.emotional_challenges2;
                 }
             }

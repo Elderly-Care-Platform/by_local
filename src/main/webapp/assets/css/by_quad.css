@@ -480,3 +480,19 @@
 	border-bottom:1px solid #000;
 	text-decoration:none;
 }
+@media ( max-width : 450px){
+	.add-comment-FC
+	{
+		margin-bottom:5px;
+	} 
+}
+@media ( max-width : 400px){
+	.post-shares .add-comment
+	{
+		margin-bottom:5px;
+	} 
+	.post-shares
+	{
+		margin-bottom:10px !important;
+	}
+}

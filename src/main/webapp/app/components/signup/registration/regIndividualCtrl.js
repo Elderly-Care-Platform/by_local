@@ -411,7 +411,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                         return value;
                     }
                 });
-                
+
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {

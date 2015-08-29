@@ -228,19 +228,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                 return value.id;
             });
 
-            $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
-            {
-                if (value && value !== "") {
-                    return value;
-                }
-            });
-
-            $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
-            {
-                if (value && value !== "") {
-                    return value;
-                }
-            });
 
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
@@ -270,6 +257,20 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {
+                $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
+                $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {

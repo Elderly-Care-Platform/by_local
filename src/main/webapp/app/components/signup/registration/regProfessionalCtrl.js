@@ -264,20 +264,6 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
                 return value.id;
             });
 
-            $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
-            {
-                if (value && value !== "") {
-                    return value;
-                }
-            });
-
-            $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
-            {
-                if (value && value !== "") {
-                    return value;
-                }
-            });
-
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
@@ -298,6 +284,20 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {
+                $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
+                $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {

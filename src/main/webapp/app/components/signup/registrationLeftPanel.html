@@ -15,12 +15,12 @@
              <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length > 0" ng-click="editUserProfile('reg-menu-1')">
                 <a>{{sectionLabel}}</a>
             </li>
-            <div class="clearfix" style="height:30px; background:#fff;"></div>
-        </ul>
-        <div class="list-group sidebar-nav-v1" id="sidebar-nav">
-         <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="profile.userTypes.length > 0" >
+            <div class="clearfix" style="height:50px; background:#fff;"></div>
+             <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="profile.userTypes.length > 0" >
                 <a href="#/profile/{{profile.userTypes[0]}}/{{profile.userId}}">View Profile</a>
-            </div> </div>
+            </div>
+        </ul>
+       
     </div>
 </div>
 <!--All classes from Unify end-->

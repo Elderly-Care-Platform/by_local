@@ -293,7 +293,7 @@
 }
 
 .or-divider {
-	background: url('../img/icons/or.png');
+	background: url('../img/icons/or.png?versionTimeStamp=%PROJECT_VERSION%');
 	width: 42px;
 	height: 277px;
 }
@@ -343,7 +343,7 @@ ul.loginbar.pull-right {
 		margin-bottom: 0px;
 	}
 	.or-divider {
-		background: url('../img/icons/or-v.png');
+		background: url('../img/icons/or-v.png?versionTimeStamp=%PROJECT_VERSION%');
 		width: 42px;
 		height: 42px;
 		margin: 10px auto 10px auto;
@@ -385,15 +385,15 @@ ul.loginbar.pull-right {
 }
 
 .item1 {
-	background: url('../img/home/banner-1.jpg') center;
+	background: url('../img/home/banner-1.jpg?versionTimeStamp=%PROJECT_VERSION%') center;
 }
 
 .item2 {
-	background: url('../img/home/banner-2.jpg') center;
+	background: url('../img/home/banner-2.jpg?versionTimeStamp=%PROJECT_VERSION%') center;
 }
 
 .item3 {
-	background: url('../img/home/banner-3.jpg') center;
+	background: url('../img/home/banner-3.jpg?versionTimeStamp=%PROJECT_VERSION%') center;
 }
 
 .carousel-indicators li {
@@ -423,20 +423,6 @@ ul.loginbar.pull-right {
 	}
 }
 
-@media screen and (max-width: 800px) {
-	.item1, .item2, .item3 {
-		background: none;
-	}
-	.item img {
-		display: block !important;;
-	}
-	.item {
-		height: auto;
-	}
-	.carousel-indicators {
-		bottom: -12px;
-	}
-}
 
 .by_left_panel_homeSlider {
 	position: static;
@@ -465,9 +451,50 @@ ul.loginbar.pull-right {
 {
 	    opacity: 1;
 }
-.carousel-control .icon-prev:before {
-    content: '\2329';
+#myCarousel .left .icon-prev
+{
+	background:url("../img/home/left_arrow_banner_desktop.png?versionTimeStamp=%PROJECT_VERSION%");
+	width:45px;
+	height:45px;
 }
-.carousel-control .icon-next:before {
-    content: '\232A';
+#myCarousel .right .icon-next
+{
+	background:url("../img/home/right_arrow_banner_desktop.png?versionTimeStamp=%PROJECT_VERSION%");
+	width:45px;
+	height:45px;
+}
+
+.carousel-control .icon-prev:before{
+	content:'';
+}	
+.carousel-control .icon-next:before{
+	content:'';
+}
+@media screen and (max-width: 800px) {
+	.item1, .item2, .item3 {
+		background: none;
+	}
+	.item img {
+		display: block !important;;
+	}
+	.item {
+		height: auto;
+	}
+	.carousel-indicators {
+		bottom: -6px;
+	}
+	#myCarousel .left .icon-prev {
+		background:
+			url("../img/home/left_arrow_banner_small.png?versionTimeStamp=%PROJECT_VERSION%");
+		width: 30px;
+		height: 30px;
+		left:15px;
+	}
+	#myCarousel .right .icon-next {
+		background:
+			url("../img/home/right_arrow_banner_small.png?versionTimeStamp=%PROJECT_VERSION%");
+		width: 30px;
+		height: 30px;
+		right:15px;
+	}
 }

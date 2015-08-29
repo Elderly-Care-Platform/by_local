@@ -3,11 +3,11 @@
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 "
             id="sidebar-nav">
-            <li class="list-group-item" ng-if="discussTotal>0">
-                <a ng-click="showMore('Discuss')">Posts/Q &amp; A({{discussTotal}})</a>
+            <li class="list-group-item" ng-if="discussTotal>0" ng-click="showServices(true)">
+                <a >Posts/Q &amp; A({{discussTotal}})</a>
             </li>
-            <li class="list-group-item" ng-if="serviceTotal>0">
-                <a ng-click="showMore('Service')">Services ({{serviceTotal}})</a>
+            <li class="list-group-item" ng-if="serviceTotal>0" ng-click="showServices(false)">
+                <a >Services ({{serviceTotal}})</a>
             </li>
         </ul>
     </div>

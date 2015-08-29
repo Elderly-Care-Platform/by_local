@@ -44,6 +44,9 @@ byControllers.controller('IndividualUserProfileController', ['$scope', '$rootSco
     	 DiscussPage.get(params, function(value){
     		 var userPosts = value.data.content;
     		 $scope.postsUser = userPosts;
+             if($scope.postsUser.length === 0){
+                 $scope.isShowPosts = false;
+             }
     	 }, function(error){
     		 console.log(error);
     	 });

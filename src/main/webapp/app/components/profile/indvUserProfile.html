@@ -1,192 +1,182 @@
 <div class="row  grayRegisterBgLight " style="background:transparent;" ng-controller="IndividualUserProfileController">
-	<!-- Modal -->
-	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog"
-			style="width: 80%; margin-left: auto; margin-right: auto;">
-			<div class="modal-content">
-				<div class="modal-header" style="border-bottom: 0px;">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
+    <!-- Modal -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog"
+             style="width: 80%; margin-left: auto; margin-right: auto;">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
 
-				</div>
-				<div class="modal-body by_modal_body">
-					<img src="" style="max-width: 100%" />
-				</div>
-				<div class="modal-footer" style="border-top: 0px;">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12 whiteBg by_discuss_detail  margin-bottom-35" style="border-radius:4px !important;" >
-		<div class="col-md-12 profileContainer  white-gray ">
-			<div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;">
-				<div class="main-image white-gray " style="padding-left:0px;">
-					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
-						src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}" alt="">
-					<img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage"
-						src="assets/img/by.png" alt="">
-				</div>
-				<div class="col-md-12 by-imageGallery margin-top-20 row"
-					ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
-					<div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
-					</div>
-					<div class="by-gallery-container">
-						<div
-							ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs"
-							class="by-imageGallery-item" data-popup="{{img.original || ''}}"
-							data-hover="{{img.thumbnailImage || ''}}"
-							ng-init="galleryClickHover()">
-							<img src="{{img.thumbnailImage || ''}}"
-								fallback-src='["{{img.original||""}}"]' />
-						</div>
-					</div>
-					<div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
-					</div>
-					<div class="clearfix" style="height:10px;"></div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			<div
-				class="col-md-7 col-xs-7 by_services_full_width_right by_services_full_width_right_extra by-service-padding no-padding">
-				<div class="profileMainContent">
-					<div class="profileContentTitle">
+                </div>
+                <div class="modal-body by_modal_body">
+                    <img src="" style="max-width: 100%"/>
+                </div>
+                <div class="modal-footer" style="border-top: 0px;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 whiteBg by_discuss_detail  margin-bottom-35" style="border-radius:4px !important;">
+        <div class="col-md-12 profileContainer  white-gray ">
+            <div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;">
+                <div class="main-image white-gray " style="padding-left:0px;">
+                    <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
+                         src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}" alt="">
+                    <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage"
+                         src="assets/img/by.png" alt="">
+                </div>
+                <div class="col-md-12 by-imageGallery margin-top-20 row"
+                     ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
+                    <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
+                    </div>
+                    <div class="by-gallery-container">
+                        <div ng-repeat="img in individualProfile.basicProfileInfo.photoGalleryURLs"
+                             class="by-imageGallery-item" data-popup="{{img.original || ''}}"
+                             data-hover="{{img.thumbnailImage || ''}}"
+                             ng-init="galleryClickHover()">
+                            <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                        </div>
+                    </div>
+                    <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
+                    </div>
+                    <div class="clearfix" style="height:10px;"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-7 col-xs-7 by_services_full_width_right by_services_full_width_right_extra by-service-padding no-padding">
+                <div class="profileMainContent">
+                    <div class="profileContentTitle">
 						<span>{{individualProfile.individualInfo.salutation}}
 							{{individualProfile.basicProfileInfo.firstName}}
-							{{individualProfile.individualInfo.lastName}} <span
-							style="font-weight: normal;"><span
-								validate-user-name="{{discuss.username}}">({{userName}})</span></span>
+							{{individualProfile.individualInfo.lastName}}
+                            <span style="font-weight: normal;">
+                                <span validate-user-name="{{discuss.username}}">({{userName}})</span>
+                            </span>
 						</span>
-						<div style="clear: both; height: 6px;"></div>
-					</div>
-					<div class="no-padding"
-						ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city || individualProfile.basicProfileInfo.primaryUserAddress.country">
-						<div class="profileRating">
-							<div class="divLeft">
-								<i class="fa fa-home verticalAlign"></i>
-							</div>
-							<div class="divRight">
-								Lives in 
+                        <div style="clear: both; height: 6px;"></div>
+                    </div>
+                    <div class="no-padding"
+                         ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city || individualProfile.basicProfileInfo.primaryUserAddress.country">
+                        <div class="profileRating">
+                            <div class="divLeft">
+                                <i class="fa fa-home verticalAlign"></i>
+                            </div>
+                            <div class="divRight">
+                                Lives in
 								<span ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city">
-										{{individualProfile.basicProfileInfo.primaryUserAddress.city}},
-										</span> <span
-									ng-if="individualProfile.basicProfileInfo.primaryUserAddress.country">
-										{{individualProfile.basicProfileInfo.primaryUserAddress.country}}
+                                    {{individualProfile.basicProfileInfo.primaryUserAddress.city}},
+                                </span>
+                                <span ng-if="individualProfile.basicProfileInfo.primaryUserAddress.country">
+                                    {{individualProfile.basicProfileInfo.primaryUserAddress.country}}
 								</span>
-								
-							</div>
-						</div>
-						<div style="clear: both; height: 2px;"></div>
-					</div>
-					<!-- <div class="no-padding"
-						ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">
-						<i class="fa fa-phone"></i> <span>{{individualProfile.basicProfileInfo.primaryPhoneNo}}</span>
-						<span
-							ng-repeat="phoneNo in individualProfile.basicProfileInfo.secondaryPhoneNos"
-							ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
-						<div style="clear: both; height: 9px;"></div>
-					</div>
+                            </div>
+                        </div>
+                        <div style="clear: both; height: 2px;"></div>
+                    </div>
+                    <!-- <div class="no-padding"
+                        ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">
+                        <i class="fa fa-phone"></i> <span>{{individualProfile.basicProfileInfo.primaryPhoneNo}}</span>
+                        <span
+                            ng-repeat="phoneNo in individualProfile.basicProfileInfo.secondaryPhoneNos"
+                            ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
+                        <div style="clear: both; height: 9px;"></div>
+                    </div>
 
-					<div class="no-padding"
-						ng-if="individualProfile.basicProfileInfo.primaryEmail">
-						<i class="fa fa-envelope"></i> <a href="">{{individualProfile.basicProfileInfo.primaryEmail}}</a>
-						<span
-							ng-repeat="mail in individualProfile.basicProfileInfo.secondaryEmails"
-							ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
-						</span>
-						<div style="clear: both; height: 9px;"></div>
-					</div>-->
+                    <div class="no-padding"
+                        ng-if="individualProfile.basicProfileInfo.primaryEmail">
+                        <i class="fa fa-envelope"></i> <a href="">{{individualProfile.basicProfileInfo.primaryEmail}}</a>
+                        <span
+                            ng-repeat="mail in individualProfile.basicProfileInfo.secondaryEmails"
+                            ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
+                        </span>
+                        <div style="clear: both; height: 9px;"></div>
+                    </div>-->
 
-					<div class="no-padding"
-						ng-if="individualProfile.individualInfo.language">
-						<div class="profileRating">
-							<div class="divLeft">
-								<i class="fa fa-speak verticalAlign"></i>
-							</div>
-							<div class="divRight">
-								Speaks
+                    <div class="no-padding"
+                         ng-if="individualProfile.individualInfo.language">
+                        <div class="profileRating">
+                            <div class="divLeft">
+                                <i class="fa fa-speak verticalAlign"></i>
+                            </div>
+                            <div class="divRight">
+                                Speaks
 								<span ng-repeat="speak in individualProfile.individualInfo.language">
 									{{speak.name}}
 									<span ng-if="$index<individualProfile.individualInfo.language.length - 1">,</span>
 								</span>
-							</div>
-						</div>
-						<div style="clear: both; height: 6px;"></div>
-					</div>
-					<div class="no-padding"
-						ng-if="individualProfile.individualInfo.interests">
-						<div class="profileRating">
-							<div class="divLeft">
-								<i class="fa fa-interest verticalAlign"></i>
-							</div>
-							<div class="divRight">
-								Interested in <span
-									ng-repeat="interest in individualProfile.individualInfo.interests"
-									ng-if="interest.trim()!==''"> {{interest.displayMenuName}} 
-									<span ng-if="$index<individualProfile.individualInfo.interests.length - 1">,</span>
-									 </span>
-							</div>
-						</div>
-						<div style="clear: both; height: 8px;"></div>
-					</div>
-					<div class="no-padding"
-						ng-if="individualProfile.individualInfo.hobbies">
-						<div class="profileRating">
-							<div class="divLeft">
-								<i class="fa fa-hobbies verticalAlign"></i>
-							</div>
-							<div class="divRight">
-								Hobbies in 
-									<span
-									ng-repeat="hobby in individualProfile.individualInfo.hobbies"
-									ng-if="hobby.trim()!==''"> {{hobby.displayMenuName}}
-									<span ng-if="$index<individualProfile.individualInfo.hobbies.length - 1">,</span>
-									</span>
-							</div>
-						</div>
-						<div style="clear: both; height: 26px;"></div>
-					</div>
+                            </div>
+                        </div>
+                        <div style="clear: both; height: 6px;"></div>
+                    </div>
+                    <div class="no-padding"
+                         ng-if="individualProfile.individualInfo.interests">
+                        <div class="profileRating">
+                            <div class="divLeft">
+                                <i class="fa fa-interest verticalAlign"></i>
+                            </div>
+                            <div class="divRight">
+                                Interested in
+                                <span ng-repeat="interest in individualProfile.individualInfo.interests"
+                                    ng-if="interest.trim()!==''"> {{interest.displayMenuName}}
+                                    <span ng-if="$index<individualProfile.individualInfo.interests.length - 1">,</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="clear: both; height: 8px;"></div>
+                    </div>
+                    <div class="no-padding" ng-if="individualProfile.individualInfo.hobbies">
+                        <div class="profileRating">
+                            <div class="divLeft">
+                                <i class="fa fa-hobbies verticalAlign"></i>
+                            </div>
+                            <div class="divRight">
+                                Hobbies in
+                                <span ng-repeat="hobby in individualProfile.individualInfo.hobbies"
+                                        ng-if="hobby.trim()!==''"> {{hobby.displayMenuName}}
+                                    <span ng-if="$index<individualProfile.individualInfo.hobbies.length - 1">,</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="clear: both; height: 26px;"></div>
+                    </div>
+                </div>
+            </div>
+            <span ng-if="individualProfile.basicProfileInfo.description">
+                <div class="col-md-12 no-padding  list-head dp-block fontIndv">My
+                    Story
+                </div>
 
-				</div>
-
-			</div>
-				<span ng-if="individualProfile.basicProfileInfo.description">
-					<div class="col-md-12 no-padding  list-head dp-block fontIndv">My
-						Story</div>
-
-					<div class="col-md-12 no-padding bg-gray-h1">
-						<div class="bg-green-h2" style="width: 96px;"></div>
-					</div>
-					<div style="clear: both; height: 16px;"></div>
-			<div class="articles-story" style="margin-bottom:0px;" ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
-			</div>
+                <div class="col-md-12 no-padding bg-gray-h1">
+                    <div class="bg-green-h2" style="width: 96px;"></div>
+                </div>
+                <div style="clear: both; height: 16px;"></div>
+                <div class="articles-story" style="margin-bottom:0px;"
+                     ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
+                </div>
 			</span>
-		</div>
-
-		
-			<a style="padding-left:15px; "
-				class="discussRightCategory {{discussType == 'P' && 'selected active'}}"
-				ng-click="showPosts(true)" ng-if="postsUser.length > 0">Posts
-				({{postsUser.length}})</a> <a style="padding-left:15px;"
-				class="discussRightCategory {{discussType == 'Q' && 'selected active'}}"
-				ng-click="showPosts(false)" ng-if="qaUser.length > 0">Q &amp; A
-				({{qaUser.length}})</a>
-		
+        </div>
 
 
-			<div class="clearfix" style="height:20px;"></div>
+        <a style="padding-left:15px; " class="discussRightCategory {{discussType == 'P' && 'selected active'}}"
+           ng-click="showPosts(true)" ng-if="postsUser.length > 0">
+            Posts({{postsUser.length}})
+        </a>
+        <a style="padding-left:15px;" class="discussRightCategory {{discussType == 'Q' && 'selected active'}}"
+           ng-click="showPosts(false)" ng-if="qaUser.length > 0">
+            Q &amp; A({{qaUser.length}})
+        </a>
 
+        <div class="clearfix" style="height:20px;"></div>
+        <div id="userPosts" ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
+             ng-if="postsUser.length > 0 && isShowPosts===true"></div>
 
-		<div id="userPosts" ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="postsUser.length > 0 && isShowPosts===true"></div>
-		
-		<div id="userQA" ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="qaUser.length > 0 && isShowPosts===false"></div>
-		
-		
-		
-
-	<div style="clear: both; height:40px;"></div>
-	</div>
-	<!--/end profile details-->
+        <div id="userQA" ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"
+             ng-if="qaUser.length > 0 && isShowPosts===false"></div>
+        <div style="clear: both; height:40px;"></div>
+    </div>
+    <!--/end profile details-->
 </div>

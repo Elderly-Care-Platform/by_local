@@ -127,9 +127,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
 
-            //if(!$scope.individualInfo.otherIssues){
-            //    $scope.individualInfo.otherIssues = [];
-            //}
+            if(!$scope.individualInfo.otherIssues){
+                $scope.individualInfo.otherIssues = [];
+            }
 
             if(!$scope.individualInfo.otherInterests){
                 $scope.individualInfo.otherInterests = [];
@@ -155,6 +155,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $.map($scope.individualInfo.language, function(value, key){
                     return $scope.selectedLanguages[value.name] = value;
                 });
+            }
+
+            if(!$scope.individualInfo.emotionalIssues) {
+                $scope.individualInfo.emotionalIssues = [];
             }
 
             if($scope.individualInfo.dob){

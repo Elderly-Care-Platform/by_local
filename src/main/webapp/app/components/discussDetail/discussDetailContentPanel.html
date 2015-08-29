@@ -3,7 +3,8 @@
         <div class="article-info dp-inline-block col-md-12">
             <ul class="list-inline posted-info" style="margin-left:0px;">
                 <li>
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;" href="#/profile/0/{{detailResponse.discuss.userId}}"> {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"
+                          href="#/profile/0/{{detailResponse.discuss.userId}}/{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>

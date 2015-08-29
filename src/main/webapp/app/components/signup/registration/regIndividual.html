@@ -80,10 +80,8 @@
                     Country
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <select class="form-control grayBgLogin"
-                            ng-options="option for option in regConfig.countries track by option"
-                            ng-model="basicProfileInfo.primaryUserAddress.country">
-                    </select>
+                    <input type="text" class="username-textbox textbox"
+                           ng-model="basicProfileInfo.primaryUserAddress.country"/>
                 </div>
             </div>
 

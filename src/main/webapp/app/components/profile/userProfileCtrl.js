@@ -5,7 +5,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.profileViews = {};
         $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
-        $scope.userName = $routeParams.userName ? $routeParams.userName : "";
+        $scope.userName = $routeParams.userName ? BY.validateUserName($routeParams.userName) : "";
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
         $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;

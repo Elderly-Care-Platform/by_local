@@ -1,17 +1,9 @@
 <div class="row indvspacing" ng-controller="regProfessionalController">
     <form name="individualForm" class="third-register-page grayRegisterBgLight" novalidate
           style="background:transparent;">
-        <div class="col-md-12 no-padding margin-bottom-20">
-            <div class="col-md-12 no-padding  list-head dp-block">
-                My Professional information
-            </div>
-
-            <div class="col-md-12 no-padding">
-                <div class="bg-green-h2" style="width: 293px;"></div>
-            </div>
-        </div>
+        
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20 indvBorderRadius">
-
+			<div class="addBasicInfo">My Professional Information</div>
             <div class="row margin-bottom-20 marginRightMinus5 register-page">
                 <div class="col-md-5">
                     I am
@@ -111,7 +103,7 @@
                        data-off="No" data-onstyle="success" data-offstyle="danger">
             </div>
 
-            <div class="row margin-bottom-20 marginRightMinus5 register-page">
+            <div class="row margin-bottom-40 marginRightMinus5 register-page">
                 <div class="col-md-5 col-xs-9">
                     Years of experience
                 </div>
@@ -123,11 +115,19 @@
                     <span ng-show="individualForm.years.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
                 </div>
             </div>
-
-            <div class="row margin-bottom-20 marginRightMinus5">
-                <div class="col-md-12 margin-bottom-20">
-                    <b> My address is</b>
+            
+            <div class="row no-padding margin-bottom-20 marginleft0">
+                <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+                    My address is
                 </div>
+
+                <div class="col-md-12 no-padding bg-gray-h1">
+                    <div class="bg-green-h2" style="width: 156px;"></div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-40 marginRightMinus5">
+               
                 <div class="col-md-12 no-padding">
                     <div style="padding-left: 15px">
                         <div ng-include="'app/components/signup/common/addressTemplate.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
@@ -232,10 +232,27 @@
             <!--</a>-->
             <!--</div>-->
             <!--</div>-->
+            
+            <div class="row no-padding margin-bottom-20 marginleft0">
+                <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+                    Profile picture
+                </div>
 
-            <div class="row margin-bottom-20 by-hover">
-                <div class="col-md-12">
-                    <div class="by-reg-gallery" ng-if="basicProfileInfo.profileImage && profileImage.length===0">
+                <div class="col-md-12 no-padding bg-gray-h1">
+                    <div class="bg-green-h2" style="width: 156px;"></div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-20 darkBgwithText register-page">
+                Please upload your profile picture 
+                <div class="darkBgwithTextArrow">
+                    <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
+                </div>
+            </div>
+
+
+            <div class="no-padding margin-bottom-40 register-page by_editor_post_divider" style="text-align:left;">
+               <div class="by-reg-gallery" ng-if="basicProfileInfo.profileImage && profileImage.length===0">
                         <img class="by-reg-image"
                              ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
                         <a class="image-fav" ng-if="!profileImage.loading"
@@ -247,7 +264,7 @@
                         <a class="by-reg-loadingImage" ng-if="img.loading"></a>
                     </div>
                     <div class="by-reg-uploadLabel">
-                        <label class="myLabel">
+                        <label class="myLabel"  style="background:#ececec;">
                             <input id="inputImage2"
                                    type="file"
                                    accept="image/*"
@@ -255,13 +272,35 @@
                                    resize-max-height="300"
                                    resize-max-width="250"
                                    resize-quality="0.7" class="btn btn-success register-btn"/>
-                            <span>UPLOAD THE MAIN PHOTO </span>
+                        <img src="assets/img/icons/photo.png" width="100%"/>
+                        <span style="float: right;max-width: 130px; margin-left: 10px; text-align: left; line-height:17px; color:#000;">
+                            Upload your <br/>profile picture
+                        </span>
                         </label>
                     </div>
+            </div>
+
+           
+            <div class="row no-padding margin-bottom-20 marginleft0">
+                <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+                    Gallery pictures
                 </div>
 
-                <div class="col-md-12">
-                    <div class="by-reg-gallery" ng-repeat="img in basicProfileInfo.photoGalleryURLs">
+                <div class="col-md-12 no-padding bg-gray-h1">
+                    <div class="bg-green-h2" style="width: 156px;"></div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-20 darkBgwithText register-page">
+                Please upload pictures from your photo gallery
+                <div class="darkBgwithTextArrow">
+                    <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
+                </div>
+            </div>
+
+
+            <div class="no-padding margin-bottom-20  register-page by_editor_post_divider" style="text-align:left;">
+                <div class="by-reg-gallery" ng-repeat="img in basicProfileInfo.photoGalleryURLs">
                         <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
                         <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
                     </div>
@@ -271,7 +310,7 @@
                         <a class="by-reg-loadingImage" ng-if="img.loading"></a>
                     </div>
                     <div class="by-reg-uploadLabel">
-                        <label class="myLabel">
+                        <label class="myLabel" style="background:#ececec">
                             <input id="inputImage4"
                                    type="file"
                                    accept="image/*"
@@ -280,36 +319,33 @@
                                    resize-max-height="300"
                                    resize-max-width="250"
                                    resize-quality="0.7" class="btn btn-success register-btn"
-                                   imgArray="$parent.galleryImages"/>
-                            <span>UPLOAD OTHER PHOTOS (UP TO 8)</span>
+                                   imgArray="$parent.galleryImages"/><img
+                            src="assets/img/icons/photo.png" width="100%"/> <span
+                            style="float: right; max-width: 180px; margin-left: 10px; text-align: left; line-height: 17px; color: #000;">
+							Upload multiple<br/> photos for your gallery
+					</span>
                         </label>
                     </div>
-                </div>
             </div>
-
-
-            <div class="col-md-12 divRightNone">
-                <div class="row">
-                    <div class="shadow-wrapper margin-top-15 margin-bottom-15 ng-scope">
-                        <div class="tag-box tag-box-v1 box-shadow shadow-effect-2">
-                            <div class="aboutDiscussText">
-                                Please write us more about services you provide. How
+            
+            <div class="row margin-bottom-20 darkBgwithText register-page">
+               Please write us more about services you provide. How
                                 different are you from others? What makes you stand out? Are you ready to go for
                                 an extra mile for your customers?
-                            </div>
-
-                        </div>
-                    </div>
+                <div class="darkBgwithTextArrow">
+                    <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
                 </div>
             </div>
 
-
-            <div class="col-md-12 margin-bottom-10">
-                <div class="row home-address byEditor" style="border:1px solid #ccc;">
-                    <textarea class="textbox " rows="3" id="registrationDescription"
+            <div class="row marginleftMinu4 margin-bottom-20 no-padding register-page byEditor"
+                 style="border:1px solid #ccc;">
+                <textarea class="textbox " rows="3" id="registrationDescription"
                               ng-model="basicProfileInfo.description"></textarea>
-                </div>
+
+                <div class="clearfix"></div>
             </div>
+
+
 
         </div>
 

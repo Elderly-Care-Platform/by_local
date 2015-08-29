@@ -79,7 +79,9 @@ BY.config.regConfig.indvUserRegConfig = {
 
     'showGenderOptions' : {
         "Dr." : ['0', '1'],
-        "Prof." : ['0', '1']
+        "Prof." : ['0', '1'],
+        "Ms." : [0],
+        "Mr." : [1]
     },
 
     'gender' : {
@@ -110,7 +112,10 @@ BY.config.regConfig.indvUserRegConfig = {
     
     'maritalStatus' : ["single", "married", "divorced", "widowed"],
 
-    'default-avatars' : []
+    'defaultAvatars' : {
+        '0' : ["assets/img/profile/f-1.png", "assets/img/profile/f-2.png", "assets/img/profile/f-3.png"],
+        '1' : ["assets/img/profile/m-1.png", "assets/img/profile/m-2.png", "assets/img/profile/m-3.png"]
+    }
 
 
 }

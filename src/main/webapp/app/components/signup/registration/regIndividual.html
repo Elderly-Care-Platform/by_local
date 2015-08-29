@@ -11,13 +11,13 @@
                 <div class="col-md-7 no-padding-right register-page">
                     <select name="mySelect" class="form-control grayBgLogin"
                             ng-options="option for option in regConfig.salutations track by option"
-                            ng-model="individualInfo.salutation">
+                            ng-model="individualInfo.salutation" ng-click="individualInfo.gender=regConfig.showGenderOptions[individualInfo.salutation][0]">
                     </select>
                 </div>
             </div>
 
             <div class="row margin-bottom-20  register-page"
-                 ng-if="regConfig.showGenderOptions[individualInfo.salutation]">
+                 ng-if="regConfig.showGenderOptions[individualInfo.salutation].length > 1">
                 <div class="col-md-5 col-xs-3">
                     Gender
                 </div>
@@ -556,23 +556,11 @@
 
             <div class="row margin-bottom-20">
                 <div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi"
-                     ng-click="selectDefaultImage('assets/img/profile/individual_female_small.png')">
-                    <img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
+                     ng-click="selectDefaultImage(avatar)"
+                        ng-repeat="avatar in regConfig.defaultAvatars[individualInfo.gender]">
+                    <img src="{{avatar}}" width="100%" alt=""><br/>
                     <input type="button" value="select" load-image="profileImage"/>
                 </div>
-                <!--
-                                <div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
-                                    <img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
-                                    <input type="button" value="select"/>
-                                </div>
-                                <div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
-                                    <img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
-                                    <input type="button" value="select"/>
-                                </div>
-                                <div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi">
-                                    <img src="assets/img/profile/individual_female_small.png" width="100%" alt=""><br/>
-                                    <input type="button" value="select"/>
-                                </div> -->
             </div>
 
 

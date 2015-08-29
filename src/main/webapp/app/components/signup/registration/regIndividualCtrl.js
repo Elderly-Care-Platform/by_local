@@ -364,20 +364,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
 
-            $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
-            {
-                if (value && value !== "") {
-                    return value;
-                }
-            });
-
-            $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
-            {
-                if (value && value !== "") {
-                    return value;
-                }
-            });
-
             if(!$scope.individualInfo.otherInterests[0] || $scope.individualInfo.otherInterests[0].trim().length == 0){
                 $scope.individualInfo.otherInterests = [];
             }
@@ -412,6 +398,20 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {
+                $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
+                $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+                
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {

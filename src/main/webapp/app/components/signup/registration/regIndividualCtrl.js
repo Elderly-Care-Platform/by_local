@@ -194,6 +194,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             });
         }
 
+        $scope.updateGenderOption = function(){
+            $scope.individualInfo.gender =  $scope.regConfig.showGenderOptions[$scope.individualInfo.salutation][0];
+        }
 
         //Get location details based on pin code
         $scope.getLocationByPincode = function (element) {
@@ -259,7 +262,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
                 $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
-            else{
+
+            if ($scope.basicProfileInfo.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos){
                 $(".add-phone").hide();
             }
         }
@@ -270,7 +274,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if ($scope.basicProfileInfo.secondaryEmails.length < BY.config.regConfig.formConfig.maxSecondaryEmailId) {
                 $scope.basicProfileInfo.secondaryEmails.push("");
             }
-            else{
+
+            if ($scope.basicProfileInfo.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId){
                 $(".add-email").hide();
             }
         }
@@ -359,9 +364,19 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
 
-            //if($scope.individualInfo.otherIssues[0].trim() == ""){
-            //    $scope.individualInfo.otherIssues = [];
-            //}
+            $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
+            {
+                if (value && value !== "") {
+                    return value;
+                }
+            });
+
+            $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
+            {
+                if (value && value !== "") {
+                    return value;
+                }
+            });
 
             if(!$scope.individualInfo.otherInterests[0] || $scope.individualInfo.otherInterests[0].trim().length == 0){
                 $scope.individualInfo.otherInterests = [];

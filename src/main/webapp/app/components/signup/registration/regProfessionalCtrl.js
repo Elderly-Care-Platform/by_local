@@ -183,7 +183,8 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
                 $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
-            else{
+
+            if ($scope.basicProfileInfo.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos){
             	$(".add-phone").hide();
             }
         }
@@ -194,7 +195,8 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             if ($scope.basicProfileInfo.secondaryEmails.length < BY.config.regConfig.formConfig.maxSecondaryEmailId) {
                 $scope.basicProfileInfo.secondaryEmails.push("");
             }
-            else{
+
+            if ($scope.basicProfileInfo.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId){
             	$(".add-email").hide();
             }
         }
@@ -260,6 +262,20 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             $scope.minCategoryError = false;
             $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
                 return value.id;
+            });
+
+            $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
+            {
+                if (value && value !== "") {
+                    return value;
+                }
+            });
+
+            $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
+            {
+                if (value && value !== "") {
+                    return value;
+                }
             });
 
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;

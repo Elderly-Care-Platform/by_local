@@ -37,7 +37,9 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             $("#preloader").show();
             $scope.profileData = UserProfile.get({userId:$scope.profileId}, function (profile) {
                     $scope.profileData = profile.data;
-                    $scope.profileType = $scope.profileData.userTypes[0];
+                    if($scope.profileData.userTypes.length > 0){
+                        $scope.profileType = $scope.profileData.userTypes[0];
+                    }
                     $("#preloader").hide();
                     $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
                     if(BY.config.profile.userType[$scope.profileType].category==='0'){

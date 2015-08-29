@@ -144,10 +144,8 @@
                         <div class="col-md-7 no-padding-right register-page">
                             <input type="text" class="username-textbox textbox" name="primaryTel"
                                    ng-model="basicProfileInfo.primaryPhoneNo"
-                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17">
-                            <!--<span ng-show="individualForm.primaryTel.$invalid && !individualForm.primaryTel.$error.pattern && submitted"-->
-                                  <!--class="errorRed">Please enter your contact number</span>-->
-                            <span ng-show="individualForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
+                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10">
+                            <span ng-show="(individualForm.primaryTel.$invalid || individualForm.primaryTel.$error.pattern) && submitted" class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
 
@@ -159,9 +157,10 @@
                         <div class="col-md-7 no-padding-right register-page">
                             <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
                                    ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
-                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
-                            <span ng-show="individualForm.{{'tel'+$index}}.$error.pattern && submitted"
-                                  class="errorRed">Not a valid number!</span>
+                                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10"/>
+
+						    <span ng-show="(individualForm.{{'tel'+$index}}.$invalid || individualForm.{{'tel'+$index}}.$error.pattern) && submitted"
+                                    class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
 

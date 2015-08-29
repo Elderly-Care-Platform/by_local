@@ -11,7 +11,7 @@
                 <div class="col-md-7 no-padding-right register-page">
                     <select name="mySelect" class="form-control grayBgLogin"
                             ng-options="option for option in regConfig.salutations track by option"
-                            ng-model="individualInfo.salutation" ng-click="individualInfo.gender=regConfig.showGenderOptions[individualInfo.salutation][0]">
+                            ng-model="individualInfo.salutation" ng-change="updateGenderOption()">
                     </select>
                 </div>
             </div>
@@ -139,8 +139,8 @@
                     <div class="col-md-7 no-padding register-page">
                         <input type="text" class="username-textbox textbox" name="primaryTel"
                                ng-model="basicProfileInfo.primaryPhoneNo"
-                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17">
-                        <span ng-show="individualForm.primaryTel.$error.pattern && submitted" class="errorRed">Not a valid number!</span>
+                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10">
+                        <span ng-show="(individualForm.primaryTel.$invalid || individualForm.primaryTel.$error.pattern) && submitted" class="errorRed">Not a valid number!</span>
                     </div>
                 </div>
 
@@ -152,9 +152,9 @@
                     <div class="col-md-7 no-padding register-page">
                         <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
                                ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
-                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"/>
+                               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10"/>
 
-						<span ng-show="individualForm.{{'tel'+$index}}.$error.pattern && submitted"
+						<span ng-show="(individualForm.{{'tel'+$index}}.$invalid || individualForm.{{'tel'+$index}}.$error.pattern) && submitted"
                               class="errorRed">Not a valid number!</span>
                     </div>
                 </div>

@@ -171,11 +171,11 @@
 
         <a style="margin-left:15px; " class="discussRightCategory {{isShowPosts===true && 'selected active'}}"
            ng-click="showPosts(true)" ng-if="postsUser.length > 0">
-            Posts({{postsUser.length}})
+            Posts({{totalPosts}})
         </a>
         <a style="margin-left:15px;" class="discussRightCategory {{isShowPosts===false && 'selected active'}}"
            ng-click="showPosts(false)" ng-if="qaUser.length > 0">
-            Q &amp; A({{qaUser.length}})
+            Q &amp; A({{totalQA}})
         </a>
 
         <div class="clearfix" style="height:20px;"></div>

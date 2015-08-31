@@ -135,4 +135,9 @@ public class Menu {
 		return isEqual;
 	}
 
+	@Override
+	public int hashCode() {
+		return 33;
+	}
+
 }

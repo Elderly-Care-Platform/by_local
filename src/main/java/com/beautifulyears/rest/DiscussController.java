@@ -89,8 +89,10 @@ public class DiscussController {
 			parser = new WebPageParser(url);
 		} catch (Exception e) {
 			Util.handleException(e);
-		}finally{
-			linkInfo = parser.getUrlDetails();
+		} finally {
+			if (parser != null) {
+				linkInfo = parser.getUrlDetails();
+			}
 		}
 
 		return BYGenericResponseHandler.getResponse(linkInfo);
@@ -104,8 +106,7 @@ public class DiscussController {
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
 		if (null != currentUser) {
-			if (discuss == null || discuss.getId() == null
-					|| discuss.getId().equals("")) {
+			if (discuss != null && (Util.isEmpty(discuss.getId()))) {
 
 				discuss.setUserId(currentUser.getId());
 				discuss.setUsername(currentUser.getUserName());
@@ -151,7 +152,7 @@ public class DiscussController {
 		try {
 			List<String> discussTypeArray = new ArrayList<String>();
 			if (null == discussType) {
-//				discussTypeArray.add("A");
+				// discussTypeArray.add("A");
 				discussTypeArray.add("Q");
 				discussTypeArray.add("P");
 			} else {
@@ -172,7 +173,7 @@ public class DiscussController {
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
 			page = discussRepository.getPage(discussTypeArray, tagIds, userId,
-					isFeatured,isPromotion, pageable);
+					isFeatured, isPromotion, pageable);
 			discussPage = DiscussResponse.getPage(page, currentUser);
 			// page = discussRepository.getByCriteria(discussTypeArray, topicId,
 			// userId, isFeatured, pageable);
@@ -218,10 +219,10 @@ public class DiscussController {
 
 			Long questionsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
-					userId, isFeatured,isPromotion);
+					userId, isFeatured, isPromotion);
 			Long postsCount = discussRepository.getCount(
 					(new ArrayList<String>(Arrays.asList("P"))), tagIds,
-					userId, isFeatured,isPromotion);
+					userId, isFeatured, isPromotion);
 			obj.put("q", new Long(questionsCount));
 			obj.put("p", new Long(postsCount));
 			obj.put("z", questionsCount + postsCount);
@@ -261,7 +262,7 @@ public class DiscussController {
 					discussStatus, aggrReplyCount, systemTags,
 					discuss.getShareCount(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("P") ? discuss
-							.getArticlePhotoFilename() : null, false,false,
+							.getArticlePhotoFilename() : null, false, false,
 					discuss.getContentType(), discuss.getLinkInfo());
 		} catch (Exception e) {
 			Util.handleException(e);

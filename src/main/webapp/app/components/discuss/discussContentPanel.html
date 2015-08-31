@@ -12,6 +12,10 @@
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
 	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
 	({{discuss_counts.z}})</a>
+	
+<a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
+	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
+	({{discuss_counts.featured}})</a>	
 
 <div class="clearfix" style="height:15px;"></div>
 <div ng-repeat="discuss in discuss" data-index="discussion-articles" data-link="articles.html">

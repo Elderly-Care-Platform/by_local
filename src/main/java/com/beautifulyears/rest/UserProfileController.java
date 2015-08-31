@@ -69,8 +69,11 @@ public class UserProfileController {
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					userProfile.getBasicProfileInfo().setPrimaryEmail(
-							user.getEmail());
+					if(user != null && user.getEmail() != null && user.getId().equals(userId)){
+						userProfile.getBasicProfileInfo().setPrimaryEmail(
+								user.getEmail());
+					}
+					
 				} else {
 					logger.debug(userProfile.toString());
 				}

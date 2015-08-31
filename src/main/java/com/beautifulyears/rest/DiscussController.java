@@ -204,7 +204,8 @@ public class DiscussController {
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
-			@RequestParam(value = "isFeatured", required = false) Boolean isPromotion)
+			@RequestParam(value = "isPromotion", required = false) Boolean isPromotion,
+			@RequestParam(value = "contentTypes", required = true) List<String> contentTypes)
 			throws Exception {
 		LoggerUtil.logEntry();
 		Map<String, Long> obj = new HashMap<String, Long>();
@@ -216,16 +217,39 @@ public class DiscussController {
 					tagIds.add(new ObjectId(tagId));
 				}
 			}
-
-			Long questionsCount = discussRepository.getCount(
-					(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
-					userId, isFeatured, isPromotion);
-			Long postsCount = discussRepository.getCount(
-					(new ArrayList<String>(Arrays.asList("P"))), tagIds,
-					userId, isFeatured, isPromotion);
-			obj.put("q", new Long(questionsCount));
-			obj.put("p", new Long(postsCount));
-			obj.put("z", questionsCount + postsCount);
+			Long questionsCount = null;
+			Long postsCount = null;
+			Long featuredCount = null;
+			if (contentTypes.contains("q")) {
+				questionsCount = discussRepository.getCount(
+						(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
+						userId, isFeatured, isPromotion);
+				obj.put("q", new Long(questionsCount));
+			}
+			if (contentTypes.contains("p")) {
+				postsCount = discussRepository.getCount((new ArrayList<String>(
+						Arrays.asList("P"))), tagIds, userId, isFeatured,
+						isPromotion);
+				obj.put("p", new Long(postsCount));
+			}
+			if (contentTypes.contains("f")) {
+				featuredCount = discussRepository.getCount(null, tagIds,
+						userId, true, isPromotion);
+				obj.put("featured", new Long(featuredCount));
+			}
+			if (contentTypes.contains("total")) {
+				if (null == questionsCount) {
+					questionsCount = discussRepository.getCount(
+							(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
+							userId, isFeatured, isPromotion);
+				}
+				if (null == postsCount) {
+					postsCount = discussRepository.getCount((new ArrayList<String>(
+							Arrays.asList("P"))), tagIds, userId, isFeatured,
+							isPromotion);
+				}
+				obj.put("z", questionsCount + postsCount);
+			}
 
 		} catch (Exception e) {
 			Util.handleException(e);

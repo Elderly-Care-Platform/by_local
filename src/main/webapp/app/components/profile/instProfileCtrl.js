@@ -41,6 +41,7 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
         
 
         $scope.showReviews = function(){
+            //Get reviews by all user for this professional
             $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviews = response.data.replies;
             }, function(error){

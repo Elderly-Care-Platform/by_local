@@ -41,6 +41,8 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
 
         $scope.getUserProfile = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");
+            $scope.userName = localStorage.getItem("USER_NAME");
+
             $scope.userProfile = UserProfile.get({userId: $scope.userId}, function (profile) {
                 $scope.profile = profile.data;
                 if ($scope.profile.userTypes.length > 0) {

@@ -183,7 +183,8 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
                 $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
-            else{
+
+            if ($scope.basicProfileInfo.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos){
             	$(".add-phone").hide();
             }
         }
@@ -194,7 +195,8 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             if ($scope.basicProfileInfo.secondaryEmails.length < BY.config.regConfig.formConfig.maxSecondaryEmailId) {
                 $scope.basicProfileInfo.secondaryEmails.push("");
             }
-            else{
+
+            if ($scope.basicProfileInfo.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId){
             	$(".add-email").hide();
             }
         }
@@ -282,6 +284,20 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {
+                $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
+                $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {

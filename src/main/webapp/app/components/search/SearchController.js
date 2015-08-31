@@ -12,6 +12,7 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','
      $scope.discuss = "";
      $scope.pageInfo = {};
      $scope.pageInfo.lastPage = true;
+     $scope.isShowServices = true;
 
      if(disType == 'All')
      {
@@ -94,6 +95,10 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route','
 	 
 	 $scope.showMore = function(discussType){
          $location.path("/search/"+$rootScope.term+"/"+disType+"/"+discussType);
+     };
+     
+     $scope.showServices = function(param){
+    	 $scope.isShowServices = param;
      };
 
   }]);

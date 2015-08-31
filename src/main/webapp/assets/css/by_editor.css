@@ -21,7 +21,7 @@
 	margin-left: 10px;
 }
 
-a.accordion-toggle.ng-binding {
+a.accordion-toggle {
 	display: inline-block !important;
 	font-size: 14px !important;
 	background: transparent !important;

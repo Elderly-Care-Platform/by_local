@@ -20,21 +20,21 @@ BY.config.regConfig.userTypeConfig = {
     },
     '0' : {
         'type':'0',
-        'contentPanel':'',
+        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'CAREGIVER',
         'label' : "About Me"
     },
     '1' : {
         'type':'1',
-        'contentPanel':'',
+        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'ELDER',
         'label' : "About Me"
     },
     '2' : {
         'type':'2',
-        'contentPanel':'',
+        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'CURIOUS',
         'label' : "About Me"
@@ -75,30 +75,52 @@ BY.config.regConfig.userTypeConfig = {
 
 
 BY.config.regConfig.indvUserRegConfig = {
-    'salutations' : [{'titleName' : "Ms.", 'id' : '0', 'gender' : ['0']},
-        {'titleName' : "Mr.", 'id' : '1', 'gender' : ['1']},
-        {'titleName' : "Dr.", 'id' : '2', 'gender' : ['0', '1']},
-        {'titleName' : "Prof.", 'id' :' 3', 'gender' : ['0', '1']}],
+    'salutations' : ["Ms.", "Mr.", "Dr.","Prof."],
+
+    'showGenderOptions' : {
+        "Dr." : ['0', '1'],
+        "Prof." : ['0', '1'],
+        "Ms." : [0],
+        "Mr." : [1]
+    },
 
     'gender' : {
         '0' : "Female",
         '1' : "Male"
     },
 
-    'workingStatus' : ["Working", "Not Working", "Studying", "Retired"],
+    'occupation' : ["Working", "Not Working", "Studying", "Retired"],
 
 
-    'emotional_challenges' : {
-        'userType' : [0, 1],
-        'options'  : ['Caregiver Burn-out',
-                        'Boredom',
-                        'Depression','Stress', 'Anxiety', 'Problematic Relationship']
-    },
+    'emotional_challenges1' : ['Boredom',
+                        'Depression','Stress', 'Anxiety', 'Problematic Relationship'],
+
+    'emotional_challenges2' : ['Caregiver Burn-out',
+        'Boredom',
+        'Depression','Stress', 'Anxiety', 'Problematic Relationship'],
+
     'medical_issues' : {
         'userType' : [0, 1],
+        'fetchFromMenu' : "Medical Conditions"
     },
 
-    'default-avatars' : []
+    'hobbies' : {
+        'fetchFromMenu' : "Activities"
+    },
+
+    'countries' : ["India"],
+    
+    'maritalStatus' : ["single", "married", "divorced", "widowed"],
+
+    'defaultAvatars' : {
+        '0' : [{"reg":"assets/img/profile/f-1.png","detail":"assets/img/profile/detail_f-1.png"},
+            {"reg":"assets/img/profile/f-2.png", "detail":"assets/img/profile/detail_f-2.png"},
+            {"reg":"assets/img/profile/f-3.png", "detail":"assets/img/profile/detail_f-3.png"}],
+
+        '1' : [{"reg":"assets/img/profile/m-1.png","detail":"assets/img/profile/detail_m-1.png"},
+            {"reg":"assets/img/profile/m-2.png", "detail":"assets/img/profile/detail_m-2.png"},
+            {"reg":"assets/img/profile/m-3.png", "detail":"assets/img/profile/detail_m-3.png"}]
+    }
 
 
 }

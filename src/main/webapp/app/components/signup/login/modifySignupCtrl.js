@@ -51,6 +51,8 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
 
                 var pro = document.getElementById('profile_placeholder');
                 pro.innerHTML = BY.validateUserName(login.userName);
+
+                $scope.$parent.userName = login.userName;
             }
             else {
                 $scope.setError('Browser does not support cookies');

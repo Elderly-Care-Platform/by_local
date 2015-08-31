@@ -5,18 +5,21 @@ BY.config.profile = BY.config.profile || {};
 BY.config.profile.userType = {
     '0' : {
         'category':'0',
-        'contentPanel':'',
-        'type':'CAREGIVER'
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'CAREGIVER',
+        'label':'Personal Story'
     },
     '1' : {
         'category':'0',
-        'contentPanel':'',
-        'type':'ELDER'
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'ELDER',
+        'label':'Personal Story'
     },
     '2' : {
         'category':'0',
-        'contentPanel':'',
-        'type':'VOLUNTEER'
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'VOLUNTEER',
+        'label':'Personal Story'
     },
     '3' : {
         'category':'1',
@@ -29,7 +32,8 @@ BY.config.profile.userType = {
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'SERVICES',
         'reviewContentType':'4',
-        'profileImage':'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%'
+        'profileImage':'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%',
+        'label':'Institution Info'
     },
     '5' : {
         'category':'1',
@@ -47,7 +51,8 @@ BY.config.profile.userType = {
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'PROFESSIONAL',
         'reviewContentType':'5',
-        'profileImage':'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%'
+        'profileImage':'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%',
+        'label':'Professional Info'
     }
 
 }

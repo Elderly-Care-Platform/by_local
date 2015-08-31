@@ -22,7 +22,8 @@ byApp.config(['$routeProvider',
             .when('/find/:slug/:services/:city', {templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ServicesController'})
             .when('/services/list/:slug/:menuId/:city', {templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ServicesController'})
             .when('/product/All/list/all', {templateUrl: 'app/components/product/product.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProductAllController'})
-            .when('/profile/:profileType/:profileId', {templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProfileController'})
+            .when('/profile/:profileType/:profileId/:userName', {templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProfileController'})
+            .when('/profile/:profileType/:profileId/', {templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProfileController'})
             .when('/users/resetPassword/:resetPasswordCode', {templateUrl: 'app/components/signup/login/resetPassword.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'LoginController'});
 
 

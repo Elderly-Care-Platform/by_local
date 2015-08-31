@@ -53,39 +53,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
 
         }
 
-        ////Request service type list
-        //$scope.ServiceTypeList = ServiceTypeList.get({}, function () {
-        //    var selectedServices = $scope.serviceProviderInfo.services;
-        //    if(selectedServices.length > 0){
-        //        angular.forEach($scope.ServiceTypeList, function(type, index){
-        //            if(selectedServices.indexOf(type.id) > -1){
-        //                type.selected = true;
-        //                $scope.selectServiceType(type);
-        //            }
-        //
-        //            angular.forEach(type.children, function(subType, index){
-        //                if(selectedServices.indexOf(subType.id) > -1){
-        //                    subType.selected = true;
-        //                    $scope.selectServiceType(subType);
-        //                }
-        //            });
-        //        });
-        //    }
-        //
-        //})
-
-        ////Select type of services provided by the institute
-        //$scope.selectServiceType = function (elem) {
-        //    if (elem.selected) {
-        //        $scope.selectedServices[elem.id] = elem;
-        //    } else {
-        //        delete $scope.selectedServices[elem.id];
-        //
-        //        if (elem.parentId && $scope.selectedServices[elem.parentId]) {
-        //            delete $scope.selectedServices[elem.parentId];
-        //        }
-        //    }
-        //}
 
         $scope.selectTag = function(event, category){
             if(event.target.checked){
@@ -178,8 +145,9 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
                 $scope.basicProfileInfo.secondaryPhoneNos.push("");
             }
-            else{
-            	$(".add-phone").hide();
+
+            if ($scope.basicProfileInfo.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos){
+                $(".add-phone").hide();
             }
         }
 
@@ -189,8 +157,9 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ($scope.basicProfileInfo.secondaryEmails.length < BY.config.regConfig.formConfig.maxSecondaryEmailId) {
                 $scope.basicProfileInfo.secondaryEmails.push("");
             }
-            else{
-            	$(".add-email").hide();
+
+            if ($scope.basicProfileInfo.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId){
+                $(".add-email").hide();
             }
         }
 
@@ -259,6 +228,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                 return value.id;
             });
 
+
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
@@ -287,6 +257,20 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {
+                $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
+                $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,12 +35,13 @@ public class tempAddLanguages {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/" }, produces = { "application/json" })
 	@ResponseBody
 	public Object addIsPromotion() throws Exception {
-		if (mongoTemplate.findAll(Language.class).size() <= 0) {
+		mongoTemplate.remove(new Query(), Language.class);
 			List<String> lang = new ArrayList<String>();
 			lang.add("Assamese (Asamiya)");
 			lang.add("Bengali");
 			lang.add("Bodo");
 			lang.add("Dogri");
+			lang.add("English");
 			lang.add("Gujarati");
 			lang.add("Hindi");
 			lang.add("Kannada");
@@ -63,7 +65,6 @@ public class tempAddLanguages {
 				language.setName(l);
 				mongoTemplate.save(language);
 			}
-		}
 
 		return BYGenericResponseHandler.getResponse(null);
 	}

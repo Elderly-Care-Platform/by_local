@@ -37,7 +37,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
         	$rootScope.term = '';
 
 		//Menu should not be reset, if same menu id is selected as it create problem in iPad
-		if(next.params && next.params.menuId){
+		if(next && next.params && next.params.menuId){
 			broadCastMenuDetail.setMenuId({"routeParamMenuId":next.params.menuId});
 		}else{
 			broadCastMenuDetail.setMenuId(0);

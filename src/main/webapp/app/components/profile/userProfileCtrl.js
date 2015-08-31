@@ -5,12 +5,25 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.profileViews = {};
         $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
+        $scope.userName = $routeParams.userName ? BY.validateUserName($routeParams.userName) : "Anonymous";
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
         $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
+        $scope.label = BY.config.profile.userType[$scope.profileType].label;
 
         $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        
+        $scope.gotoHref = function(id) {
+//        	$(document).scrollTo('#'+param);
+        	if (id) {
+                var tag = $("#" + id + ":visible");
+                if (tag.length > 0) {
+                    $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+                }
 
+            }
+        };
+        
         (function(){
             var metaTagParams = {
                 title:  "Beautiful Years | Profile",
@@ -24,6 +37,9 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             $("#preloader").show();
             $scope.profileData = UserProfile.get({userId:$scope.profileId}, function (profile) {
                     $scope.profileData = profile.data;
+                    if($scope.profileData.userTypes.length > 0){
+                        $scope.profileType = $scope.profileData.userTypes[0];
+                    }
                     $("#preloader").hide();
                     $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
                     if(BY.config.profile.userType[$scope.profileType].category==='0'){
@@ -70,5 +86,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 iconNode.addClass("fa-angle-down");
             }
         }
+        
+        
        
     }]);

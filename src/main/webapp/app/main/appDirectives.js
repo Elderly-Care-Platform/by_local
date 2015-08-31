@@ -311,5 +311,67 @@ byApp.directive('elementResize', function () {
     };
 });
 
+byApp.directive('dropdownMultiselect', function(){
+    return {
+        restrict: 'E',
+        scope:{
+            model: '=',
+            options: '=',
+            pre_selected: '=preSelected'
+        },
+        template: "<div class='col-md-12' data-ng-class='{open: open}'>"+
+        "<div class='col-md-12 dropdown-toggle' data-ng-click='open=!open;openDropdown()'>Select <span class='caret'></span></div>"+
+        //"<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
+        "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" +
+        "<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
+        "<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
+        "<li class='divider'></li>" +
+        "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.displayMenuName}}" +
+        "<i data-ng-class='isChecked(option.id)'></i></a></li>" +
+        "</ul>" +
+        "</div>" ,
+        controller: function($scope){
+
+            $scope.openDropdown = function(){
+                $scope.selected_items = [];
+                if($scope.pre_selected && $scope.pre_selected.length > 0){
+                    for(var i=0; i<$scope.pre_selected.length; i++){
+                        $scope.selected_items.push($scope.pre_selected[i].id);
+                    }
+                }
+            };
+
+            $scope.selectAll = function () {
+                for(var i=0; i<$scope.options.length; i++){
+                    $scope.selected_items.push($scope.options[i].id);
+                }
+                console.log($scope.selected_items);
+            };
+
+            $scope.deselectAll = function() {
+                $scope.selected_items=[];
+                console.log($scope.selected_items);
+            };
+            $scope.setSelectedItem = function(){
+                var id = this.option.id;
+                if($scope.selected_items && $scope.selected_items.indexOf(id) > -1){
+                    $scope.selected_items.splice($scope.selected_items.indexOf(id), 1);
+                }else{
+                    $scope.selected_items.push(id);
+                }
+
+                console.log($scope.selected_items);
+                return false;
+            };
+            $scope.isChecked = function (id) {
+                if($scope.selected_items && $scope.selected_items.indexOf(id) > -1){
+                    return 'glyphicon glyphicon-ok pull-right';
+                }
+                return false;
+            };
+        }
+    }
+});
+
 
 

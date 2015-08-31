@@ -23,6 +23,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         }
 
         $scope.getReview = function(){
+            //Get review posted by currently logged in user
             postReview.$get({associatedId:$scope.userProfile.id, userId:localStorage.getItem("USER_ID"), reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 var response = response.data.replies[0];
                 if(response){
@@ -67,7 +68,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
 
                 postReview.userRatingPercentage = ratePercentage;
                 postReview.text = $scope.reviewText;
-                postReview.url = window.location.href;
+                postReview.url = encodeURIComponent(window.location.href);
                 $scope.blankReviewRateError = false;
                 $scope.unauthorizeUserError = false;
 

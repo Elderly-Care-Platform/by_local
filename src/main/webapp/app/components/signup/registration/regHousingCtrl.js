@@ -15,10 +15,12 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
                 tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
             }
         }
-        var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
-        $(function() {
-
-        });
+        
+        $scope.addEditor = function(){
+        	 var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+        };
+       
+        
 
         $scope.addressCallback = function (response) {
             $('#addressLocality').blur();
@@ -209,15 +211,21 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
 
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
-                userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                /*userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;
                     $scope.$parent.exit();
                 }, function (err) {
                     console.log(err);
                     $scope.$parent.exit();
-                });
+                });*/
             }
         }
+        
+        // Adding another faciltiy
+        $scope.addingFacilty = function(){
+            $scope.views.contentPanel = "app/components/signup/registration/regHousingAddFacility.html?versionTimeStamp=%PROJECT_VERSION%";
+        };
+        
 
     }]);

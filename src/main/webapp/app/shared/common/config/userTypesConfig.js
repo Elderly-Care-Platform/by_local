@@ -23,8 +23,9 @@ BY.config.profile.userType = {
     },
     '3' : {
         'category':'1',
-        'contentPanel':'',
-        'type':'HOUSING'
+        'contentPanel':'app/components/profile/housingProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'HOUSING',
+        'label':'Housing Info'
     },
     '4' : {
         'category':'1',

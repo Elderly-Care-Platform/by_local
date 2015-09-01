@@ -23,6 +23,7 @@ import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.mail.MailHandler;
@@ -107,6 +108,11 @@ public class DiscussDetailController {
 				if (null != user) {
 					comment.setUserId(user.getId());
 					comment.setUserName(user.getUserName());
+					Query query = new Query();
+					query.addCriteria(Criteria.where("userId").is(user.getId()));
+					UserProfile profile = mongoTemplate.findOne(query,
+							UserProfile.class);
+					comment.setUserProfile(profile);
 				} else {
 					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 				}
@@ -183,6 +189,11 @@ public class DiscussDetailController {
 				if (null != user) {
 					answer.setUserId(user.getId());
 					answer.setUserName(user.getUserName());
+					Query query = new Query();
+					query.addCriteria(Criteria.where("userId").is(user.getId()));
+					UserProfile profile = mongoTemplate.findOne(query,
+							UserProfile.class);
+					answer.setUserProfile(profile);
 				} else {
 					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 				}

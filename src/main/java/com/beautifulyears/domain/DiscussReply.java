@@ -20,7 +20,7 @@ public class DiscussReply {
 	@Id
 	private String id;
 	private String discussId;
-	
+
 	private int contentType;
 
 	private String userId;
@@ -46,13 +46,14 @@ public class DiscussReply {
 	private Date lastModifiedAt;
 
 	private int status;
-	
+
 	private Float userRatingPercentage = 0f;
-	
+
+	private UserProfile userProfile;
+
 	@Transient
 	private String url;
-	
-	
+
 	@JsonIgnore
 	public String getUrl() {
 		return url;
@@ -63,11 +64,19 @@ public class DiscussReply {
 		this.url = url;
 	}
 
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
 	@JsonIgnore
 	public int getContentType() {
 		return contentType;
 	}
-	
+
 	@JsonIgnore
 	public void setContentType(int contentType) {
 		this.contentType = contentType;

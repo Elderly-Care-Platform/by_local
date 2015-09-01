@@ -126,12 +126,14 @@
             </ul>
         </div>
         <div style="clear: both"></div>
-
     </div>
 </div>
 
 
-<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"
-     ng-if="!postsPageInfo.lastPage && contentType==='all'">
-    <a ng-click="showMore('P')">More...</a>
+
+<div ng-if="postsPagination.noOfPages > 0">
+    <div class="text-left">
+        <by-pagination obj="postsPagination" callback="postsByUser"></by-pagination>
+    </div>
 </div>
+

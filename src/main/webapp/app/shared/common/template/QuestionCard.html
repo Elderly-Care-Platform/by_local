@@ -91,7 +91,8 @@
 </div>
 
 
-
-<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html" ng-if="!questionsPageInfo.lastPage && contentType==='all'">
-    <a ng-click="showMore('Q')">More...</a>
+<div ng-if="qaPagination.noOfPages > 0">
+    <div class="text-left">
+        <by-pagination obj="qaPagination" callback="qaByUser"></by-pagination>
+    </div>
 </div>

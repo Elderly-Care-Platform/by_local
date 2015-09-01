@@ -230,6 +230,7 @@ byApp.directive('autoComplete', function ($timeout) {
                     }, 0);
                 },
                 change: function(event, item){
+                    console.log(scope.obj);
                     if(scope.onChangeCallback){
                         scope.onChangeCallback(item.item, scope.obj);
                     }
@@ -371,6 +372,131 @@ byApp.directive('dropdownMultiselect', function(){
             };
         }
     }
+});
+
+byApp.directive('byPagination', function () {
+    return {
+        scope: {
+            obj: '=?',
+            callback: '=?',
+        },
+        templateUrl: 'app/shared/common/template/contentPagination.html?versionTimeStamp=%PROJECT_VERSION%',
+        controller: function($scope){
+            $scope.contentPagination = $scope.obj;
+            $scope.maxPageNo = 5;
+            $scope.selectedPageNo = 0;
+            //$scope.pageArray = [0,1,2,3,4]
+
+            $scope.setPrevPageArr = function(){
+                var startPage , lastPage;
+                if(($scope.selectedPageNo+1) - $scope.maxPageNo > 0){
+                    $scope.pageArray = [];
+                    // Visible pages are paginated with maxSize
+                    startPage = ($scope.selectedPageNo+1) - $scope.maxPageNo;
+
+                    // Adjust last page if limit is exceeded
+                    lastPage = startPage + $scope.maxPageNo;
+                    for(var i=startPage; i<=lastPage-1; i++){
+                        $scope.pageArray.push(i);
+                    }
+                }else{
+                    $scope.pageArray = [];
+                    startPage = 0;
+                    lastPage = $scope.maxPageNo;
+
+                    for(var i=startPage; i<=lastPage-1; i++){
+                        $scope.pageArray.push(i);
+                    }
+                }
+            };
+
+            $scope.getPageArray = function(){
+                var startPage , lastPage;
+                //$scope.pageArray = [];
+                if($scope.contentPagination.noOfPages > $scope.maxPageNo){
+                    if($scope.selectedPageNo === 0){
+                        $scope.pageArray = [];
+                        startPage = $scope.selectedPageNo;
+                        lastPage = $scope.maxPageNo;
+                        for(var i=startPage; i<=lastPage-1; i++){
+                            $scope.pageArray.push(i);
+                        }
+                    } else{
+
+                        if($scope.contentPagination.noOfPages - $scope.selectedPageNo >= $scope.maxPageNo){
+                            $scope.pageArray = [];
+                            // Visible pages are paginated with maxSize
+                            startPage = $scope.selectedPageNo;
+
+                            // Adjust last page if limit is exceeded
+                            lastPage = Math.min(startPage + $scope.maxPageNo, $scope.contentPagination.noOfPages);
+                            for(var i=startPage; i<=lastPage-1; i++){
+                                $scope.pageArray.push(i);
+                            }
+                        }else{
+                            $scope.pageArray = [];
+                            startPage = $scope.contentPagination.noOfPages -  $scope.maxPageNo;
+                            lastPage = $scope.contentPagination.noOfPages;
+
+                            for(var i=startPage; i<=lastPage-1; i++){
+                                $scope.pageArray.push(i);
+                            }
+                        }
+
+                    }
+
+
+                    console.log($scope.pageArray);
+                }else{
+                    $scope.pageArray = [];
+                    startPage = 0;
+                    lastPage = $scope.contentPagination.noOfPages;
+                    for(var i=startPage; i<=lastPage-1; i++){
+                        $scope.pageArray.push(i);
+                    }
+                }
+
+
+            };
+
+            $scope.selectPage = function(pageNo){
+                $scope.selectedPageNo = pageNo;
+                $scope.callback($scope.selectedPageNo, 3);
+                if($scope.selectedPageNo === $scope.contentPagination.noOfPages-1){
+                    $scope.nextDisabled = true;
+                }else{
+                    $scope.nextDisabled = false;
+                }
+
+                if($scope.selectedPageNo === 0) {
+                    $scope.prevDisabled = true;
+                }else{
+                    $scope.prevDisabled = false;
+                }
+
+            };
+
+            $scope.nextPageSet = function(pageNo){
+                if($scope.selectedPageNo === $scope.contentPagination.noOfPages-1){
+                    $scope.nextDisabled = true;
+                }else{
+                    $scope.selectedPageNo = pageNo;
+                    $scope.callback($scope.selectedPageNo, 3);
+                    $scope.getPageArray();
+                }
+            };
+
+            $scope.previousPageSet = function(pageNo){
+                if($scope.selectedPageNo === 0){
+                    $scope.prevDisabled = true;
+                }else{
+                    $scope.selectedPageNo = pageNo;
+                    $scope.callback($scope.selectedPageNo, 3);
+                    $scope.setPrevPageArr();
+                }
+            };
+        }
+    };
 });
 
 

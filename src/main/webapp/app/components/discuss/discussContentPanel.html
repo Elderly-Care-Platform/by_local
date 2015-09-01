@@ -30,7 +30,7 @@
         <div class="questionTag" ng-if="discuss.discussType == 'P' && discuss.featured == true">
             <img src="assets/img/feature/featured_post.png?versionTimeStamp=%PROJECT_VERSION%" alt="image">
         </div>
-        <img src="assets/img/by.png" alt="image">
+        <img src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
 
         <div class="article-info dp-inline-block " style="margin-right: 80px !important;">
             <ul class="list-inline posted-info" style="">

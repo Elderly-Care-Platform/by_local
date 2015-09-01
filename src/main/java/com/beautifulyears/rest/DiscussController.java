@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.menu.Tag;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
@@ -71,8 +74,14 @@ public class DiscussController {
 		if (null != currentUser) {
 			discuss.setUserId(currentUser.getId());
 			discuss.setUsername(currentUser.getUserName());
+			Query query = new Query();
+			query.addCriteria(Criteria.where("userId").is(currentUser.getId()));
+			UserProfile profile = mongoTemplate.findOne(query,
+					UserProfile.class);
+			discuss.setUserProfile(profile);
 		}
 		discuss.setDiscussType("F");
+
 		discuss = discussRepository.save(discuss);
 		logger.info("new feedback entity created with ID: " + discuss.getId());
 		return BYGenericResponseHandler.getResponse(discuss);
@@ -240,13 +249,13 @@ public class DiscussController {
 			if (contentTypes.contains("total")) {
 				if (null == questionsCount) {
 					questionsCount = discussRepository.getCount(
-							(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
-							userId, isFeatured, isPromotion);
+							(new ArrayList<String>(Arrays.asList("Q"))),
+							tagIds, userId, isFeatured, isPromotion);
 				}
 				if (null == postsCount) {
-					postsCount = discussRepository.getCount((new ArrayList<String>(
-							Arrays.asList("P"))), tagIds, userId, isFeatured,
-							isPromotion);
+					postsCount = discussRepository.getCount(
+							(new ArrayList<String>(Arrays.asList("P"))),
+							tagIds, userId, isFeatured, isPromotion);
 				}
 				obj.put("z", questionsCount + postsCount);
 			}
@@ -280,6 +289,11 @@ public class DiscussController {
 				systemTags.add(newTag);
 			}
 
+			Query query = new Query();
+			query.addCriteria(Criteria.where("userId").is(discuss.getUserId()));
+			UserProfile profile = mongoTemplate.findOne(query,
+					UserProfile.class);
+
 			int aggrReplyCount = 0;
 			newDiscuss = new Discuss(discuss.getUserId(),
 					discuss.getUsername(), discussType, topicId, title, text,
@@ -287,7 +301,7 @@ public class DiscussController {
 					discuss.getShareCount(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("P") ? discuss
 							.getArticlePhotoFilename() : null, false, false,
-					discuss.getContentType(), discuss.getLinkInfo());
+					discuss.getContentType(), discuss.getLinkInfo(), profile);
 		} catch (Exception e) {
 			Util.handleException(e);
 		}

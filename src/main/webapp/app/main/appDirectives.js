@@ -385,83 +385,85 @@ byApp.directive('byPagination', function () {
             $scope.contentPagination = $scope.obj;
             $scope.maxPageNo = 5;
             $scope.selectedPageNo = 0;
-            //$scope.pageArray = [0,1,2,3,4]
 
-            $scope.setPrevPageArr = function(){
-                var startPage , lastPage;
+            var firstPageIndex = 0, lastPageIndex = $scope.maxPageNo;
+            var setPageArray = function(){
+                $scope.pageArray = [];
+                for(var i=firstPageIndex; i<=lastPageIndex-1; i++){
+                    $scope.pageArray.push(i);
+                }
+            };
+
+
+            var setPrevPageArr = function(){
                 if(($scope.selectedPageNo+1) - $scope.maxPageNo > 0){
-                    $scope.pageArray = [];
-                    // Visible pages are paginated with maxSize
-                    startPage = ($scope.selectedPageNo+1) - $scope.maxPageNo;
-
-                    // Adjust last page if limit is exceeded
-                    lastPage = startPage + $scope.maxPageNo;
-                    for(var i=startPage; i<=lastPage-1; i++){
-                        $scope.pageArray.push(i);
-                    }
-                }else{
-                    $scope.pageArray = [];
-                    startPage = 0;
-                    lastPage = $scope.maxPageNo;
-
-                    for(var i=startPage; i<=lastPage-1; i++){
-                        $scope.pageArray.push(i);
-                    }
+                    firstPageIndex = ($scope.selectedPageNo+1) - $scope.maxPageNo;
+                    lastPageIndex = firstPageIndex + $scope.maxPageNo;
+                }else {
+                    firstPageIndex = 0;
+                    lastPageIndex = Math.min($scope.maxPageNo, $scope.contentPagination.noOfPages);
                 }
+                setPageArray();
             };
 
-            $scope.getPageArray = function(){
-                var startPage , lastPage;
-                //$scope.pageArray = [];
-                if($scope.contentPagination.noOfPages > $scope.maxPageNo){
-                    if($scope.selectedPageNo === 0){
-                        $scope.pageArray = [];
-                        startPage = $scope.selectedPageNo;
-                        lastPage = $scope.maxPageNo;
-                        for(var i=startPage; i<=lastPage-1; i++){
-                            $scope.pageArray.push(i);
-                        }
-                    } else{
+            var getNextPageArray = function(){
+                if($scope.contentPagination.noOfPages - $scope.selectedPageNo >= $scope.maxPageNo){
+                    firstPageIndex = $scope.selectedPageNo;
+                    lastPageIndex = Math.min(firstPageIndex + $scope.maxPageNo, $scope.contentPagination.noOfPages);
 
-                        if($scope.contentPagination.noOfPages - $scope.selectedPageNo >= $scope.maxPageNo){
-                            $scope.pageArray = [];
-                            // Visible pages are paginated with maxSize
-                            startPage = $scope.selectedPageNo;
-
-                            // Adjust last page if limit is exceeded
-                            lastPage = Math.min(startPage + $scope.maxPageNo, $scope.contentPagination.noOfPages);
-                            for(var i=startPage; i<=lastPage-1; i++){
-                                $scope.pageArray.push(i);
-                            }
-                        }else{
-                            $scope.pageArray = [];
-                            startPage = $scope.contentPagination.noOfPages -  $scope.maxPageNo;
-                            lastPage = $scope.contentPagination.noOfPages;
-
-                            for(var i=startPage; i<=lastPage-1; i++){
-                                $scope.pageArray.push(i);
-                            }
-                        }
-
-                    }
-
-
-                    console.log($scope.pageArray);
                 }else{
-                    $scope.pageArray = [];
-                    startPage = 0;
-                    lastPage = $scope.contentPagination.noOfPages;
-                    for(var i=startPage; i<=lastPage-1; i++){
-                        $scope.pageArray.push(i);
-                    }
+                    firstPageIndex = $scope.contentPagination.noOfPages -  $scope.maxPageNo;
+                    lastPageIndex = $scope.contentPagination.noOfPages;
                 }
-
+                setPageArray();
+                //var startPage , lastPage;
+                ////$scope.pageArray = [];
+                //if($scope.contentPagination.noOfPages > $scope.maxPageNo){
+                //    if($scope.selectedPageNo === 0){
+                //        $scope.pageArray = [];
+                //        startPage = $scope.selectedPageNo;
+                //        lastPage = $scope.maxPageNo;
+                //        for(var i=startPage; i<=lastPage-1; i++){
+                //            $scope.pageArray.push(i);
+                //        }
+                //    } else{
+                //
+                //        if($scope.contentPagination.noOfPages - $scope.selectedPageNo >= $scope.maxPageNo){
+                //            $scope.pageArray = [];
+                //            // Visible pages are paginated with maxSize
+                //            startPage = $scope.selectedPageNo;
+                //
+                //            // Adjust last page if limit is exceeded
+                //            lastPage = Math.min(startPage + $scope.maxPageNo, $scope.contentPagination.noOfPages);
+                //            for(var i=startPage; i<=lastPage-1; i++){
+                //                $scope.pageArray.push(i);
+                //            }
+                //        }else{
+                //            $scope.pageArray = [];
+                //            startPage = $scope.contentPagination.noOfPages -  $scope.maxPageNo;
+                //            lastPage = $scope.contentPagination.noOfPages;
+                //
+                //            for(var i=startPage; i<=lastPage-1; i++){
+                //                $scope.pageArray.push(i);
+                //            }
+                //        }
+                //
+                //    }
+                //
+                //
+                //    console.log($scope.pageArray);
+                //}else{
+                //    $scope.pageArray = [];
+                //    startPage = 0;
+                //    lastPage = $scope.contentPagination.noOfPages;
+                //    for(var i=startPage; i<=lastPage-1; i++){
+                //        $scope.pageArray.push(i);
+                //    }
+                //}
 
             };
 
-            $scope.selectPage = function(pageNo){
-                $scope.selectedPageNo = pageNo;
-                $scope.callback($scope.selectedPageNo, 3);
+            var updateNextPevLink = function(){
                 if($scope.selectedPageNo === $scope.contentPagination.noOfPages-1){
                     $scope.nextDisabled = true;
                 }else{
@@ -473,27 +475,47 @@ byApp.directive('byPagination', function () {
                 }else{
                     $scope.prevDisabled = false;
                 }
+            }
 
+            $scope.initPageArray = function(){
+                if($scope.contentPagination.noOfPages > $scope.maxPageNo){
+                    firstPageIndex = 0;
+                    lastPageIndex = $scope.maxPageNo;
+                }else{
+                    firstPageIndex = 0;
+                    lastPageIndex = $scope.contentPagination.noOfPages;
+                }
+                setPageArray();
+                updateNextPevLink();
+            };
+
+            $scope.selectPage = function(pageNo){
+                $scope.selectedPageNo = pageNo;
+                $scope.callback($scope.selectedPageNo, 3);
+                updateNextPevLink();
             };
 
             $scope.nextPageSet = function(pageNo){
-                if($scope.selectedPageNo === $scope.contentPagination.noOfPages-1){
-                    $scope.nextDisabled = true;
-                }else{
+                if(pageNo < $scope.contentPagination.noOfPages){
                     $scope.selectedPageNo = pageNo;
                     $scope.callback($scope.selectedPageNo, 3);
-                    $scope.getPageArray();
+                    if(lastPageIndex < $scope.contentPagination.noOfPages){
+                        getNextPageArray();
+                    }
+                    updateNextPevLink();
                 }
             };
 
             $scope.previousPageSet = function(pageNo){
-                if($scope.selectedPageNo === 0){
-                    $scope.prevDisabled = true;
-                }else{
+                if(pageNo >= 0){
                     $scope.selectedPageNo = pageNo;
                     $scope.callback($scope.selectedPageNo, 3);
-                    $scope.setPrevPageArr();
+                    if(firstPageIndex > 0){
+                        setPrevPageArr();
+                    }
+                    updateNextPevLink();
                 }
+
             };
         }
     };

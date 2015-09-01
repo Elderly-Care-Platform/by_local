@@ -4,14 +4,14 @@
 </a>
 <a style="margin-left:15px;" class="discussRightCategory {{isShowPosts===false && 'selected active'}}"
    ng-click="showPosts(false)" ng-if="qaUser.length > 0">
-    Q &amp; A({{totalQA}})
+    Q &amp; A({{qaPagination.totalPosts}})
 </a>
 
 <div class="clearfix" style="height:20px;"></div>
 <div id="userPosts" ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      ng-if="postsUser.length > 0 && isShowPosts===true"></div>
 
-<!--<div ng-if="postsPagination.noOfPages.length > 0" ng-include="'app/shared/common/template/pagination.html?versionTimeStamp=%PROJECT_VERSION%'" ng-init="pagination=postsPagination"></div>-->
+
 
 <div id="userQA" ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      ng-if="qaUser.length > 0 && isShowPosts===false"></div>

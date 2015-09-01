@@ -1219,3 +1219,17 @@ ul.social-ul {
     z-index: 0;
 }
 
+
+.pagination
+{
+	float:right;
+	margin-top:0px;
+}
+.pagination li{
+	padding: 5px 1px;
+	display:inline-block;
+	float:left;
+}
+.pagination li a{
+	padding: 0px 9px;
+}

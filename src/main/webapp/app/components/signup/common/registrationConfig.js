@@ -111,7 +111,7 @@ BY.config.regConfig.indvUserRegConfig = {
 
     'countries' : ["India"],
     
-    'maritalStatus' : ["single", "married", "divorced", "widowed"],
+    'maritalStatus' : ["married", "single", "divorced", "widowed"],
 
     'defaultAvatars' : {
         '0' : [{"reg":"assets/img/profile/f-1.png","detail":"assets/img/profile/detail_f-1.png"},

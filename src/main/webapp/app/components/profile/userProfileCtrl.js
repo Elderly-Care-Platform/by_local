@@ -76,7 +76,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 $scope.qaUser = value.data.content;
                 $scope.qaPagination = {};
                 $scope.qaPagination.totalPosts = value.data.total;
-                $scope.qaPagination.noOfPages = new Array(Math.ceil(value.data.total/value.data.size));
+                $scope.qaPagination.noOfPages = Math.ceil(value.data.total/value.data.size);
                 $scope.qaPagination.currentPage = value.data.number;
             }, function (error) {
                 console.log(error);

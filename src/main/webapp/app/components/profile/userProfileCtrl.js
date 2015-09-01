@@ -8,9 +8,11 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.userName = $routeParams.userName ? BY.validateUserName($routeParams.userName) : "Anonymous";
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
+        var pageSize = 3;
+
         //$scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
         //$scope.label = BY.config.profile.userType[$scope.profileType].label;
-        $scope.isShowPosts = true;
+        //$scope.isShowPosts = true;
         $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
 
@@ -61,10 +63,14 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 $scope.postsPagination.totalPosts = value.data.total;
                 $scope.postsPagination.noOfPages = Math.ceil(value.data.total/value.data.size);
                 $scope.postsPagination.currentPage = value.data.number;
+                $scope.postsPagination.pageSize = pageSize;
+
+                $scope.gotoHref("userPosts");
+
                 //$scope.postsPagination.loadMoreFunc = $scope.postsByUser;
-                if ($scope.postsUser.length === 0) {
-                    $scope.isShowPosts = false;
-                }
+                //if ($scope.postsUser.length === 0) {
+                //    $scope.isShowPosts = false;
+                //}
             }, function (error) {
                 console.log(error);
             });
@@ -78,6 +84,10 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 $scope.qaPagination.totalPosts = value.data.total;
                 $scope.qaPagination.noOfPages = Math.ceil(value.data.total/value.data.size);
                 $scope.qaPagination.currentPage = value.data.number;
+                $scope.qaPagination.pageSize = pageSize;
+
+                $scope.gotoHref("userQA");
+
             }, function (error) {
                 console.log(error);
             });
@@ -85,9 +95,9 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
 
 
         var fetchUserPostedContent = function(){
-            var pageNumber = 0, size = 3;
-            $scope.postsByUser(pageNumber, size);
-            $scope.qaByUser(pageNumber, size);
+            var pageNumber = 0;
+            $scope.postsByUser(pageNumber, pageSize);
+            $scope.qaByUser(pageNumber, pageSize);
         };
 
         var initUserProfile = function(){
@@ -159,8 +169,8 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             }
         }
 
-        $scope.showPosts = function (param) {
-            $scope.isShowPosts = param;
-        };
+        //$scope.showPosts = function (param) {
+        //    $scope.isShowPosts = param;
+        //};
 
     }]);

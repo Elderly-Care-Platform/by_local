@@ -378,7 +378,8 @@ byApp.directive('byPagination', function () {
     return {
         scope: {
             obj: '=?',
-            callback: '=?',
+            callback: '=?'
+
         },
         templateUrl: 'app/shared/common/template/contentPagination.html?versionTimeStamp=%PROJECT_VERSION%',
         controller: function($scope){
@@ -491,14 +492,14 @@ byApp.directive('byPagination', function () {
 
             $scope.selectPage = function(pageNo){
                 $scope.selectedPageNo = pageNo;
-                $scope.callback($scope.selectedPageNo, 3);
+                $scope.callback($scope.selectedPageNo, $scope.contentPagination.pageSize);
                 updateNextPevLink();
             };
 
             $scope.nextPageSet = function(pageNo){
                 if(pageNo < $scope.contentPagination.noOfPages){
                     $scope.selectedPageNo = pageNo;
-                    $scope.callback($scope.selectedPageNo, 3);
+                    $scope.callback($scope.selectedPageNo, $scope.contentPagination.pageSize);
                     if(lastPageIndex < $scope.contentPagination.noOfPages){
                         getNextPageArray();
                     }
@@ -509,7 +510,7 @@ byApp.directive('byPagination', function () {
             $scope.previousPageSet = function(pageNo){
                 if(pageNo >= 0){
                     $scope.selectedPageNo = pageNo;
-                    $scope.callback($scope.selectedPageNo, 3);
+                    $scope.callback($scope.selectedPageNo, $scope.contentPagination.pageSize);
                     if(firstPageIndex > 0){
                         setPrevPageArr();
                     }

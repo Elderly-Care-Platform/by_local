@@ -1,6 +1,6 @@
 <div class="col-md-12 discussion-page" ng-repeat="article in discuss" data-index="discussion-articles" data-link="articles.html" ng-if="article">
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles"
+    <div ng-click="go($event, 'detail', article.id, article.discussType)" data-index="discussion-articles"
          class="blog-author margin-bottom-35 main-article by_blog_author boxShadowNone" style="position:relative;">
 
         <div class="questionTag" ng-if="article.featured == true">

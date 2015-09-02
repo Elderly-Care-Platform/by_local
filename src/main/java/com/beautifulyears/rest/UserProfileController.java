@@ -69,11 +69,12 @@ public class UserProfileController {
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					if(user != null && user.getEmail() != null && user.getId().equals(userId)){
+					if (user != null && user.getEmail() != null
+							&& user.getId().equals(userId)) {
 						userProfile.getBasicProfileInfo().setPrimaryEmail(
 								user.getEmail());
 					}
-					
+
 				} else {
 					logger.debug(userProfile.toString());
 				}
@@ -182,7 +183,7 @@ public class UserProfileController {
 			fields = UserProfilePrivacyHandler.getPublicFields(-1);
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
-							tagIds,isFeatured, pageable,fields), user);
+							tagIds, isFeatured, pageable, fields), user);
 			if (profilePage.getContent().size() > 0) {
 				logger.debug("found something");
 			} else {
@@ -227,8 +228,8 @@ public class UserProfileController {
 
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
 			userProfilePage = UserProfileResponse.getPage(userProfileRepository
-					.getServiceProvidersByFilterCriteria(userTypes, null,
-							null,null, pageable,fields), null);
+					.getServiceProvidersByFilterCriteria(userTypes, null, null,
+							null, pageable, fields), null);
 			if (userProfilePage.getContent().size() > 0) {
 				logger.debug("did not find any service providers");
 			}
@@ -255,7 +256,9 @@ public class UserProfileController {
 					logger.debug("current user details"
 							+ currentUser.toString());
 					/* save the user profile */
-					if (userProfile.getUserId() != null && userProfile.getUserId().equals(currentUser.getId())) {
+					if (userProfile.getUserId() != null
+							&& userProfile.getUserId().equals(
+									currentUser.getId())) {
 
 						/*
 						 * check - if a userProfile by this userID already
@@ -264,7 +267,8 @@ public class UserProfileController {
 						if (this.userProfileRepository.findByUserId(userProfile
 								.getUserId()) == null) {
 							userProfile.getBasicProfileInfo()
-									.setShortDescription(getShortDescription(userProfile));
+									.setShortDescription(
+											getShortDescription(userProfile));
 							userProfileRepository.save(userProfile);
 						} else {
 							throw new BYException(
@@ -305,7 +309,8 @@ public class UserProfileController {
 						if (profile != null) {
 							/* set required fields */
 							userProfile.getBasicProfileInfo()
-									.setShortDescription(getShortDescription(userProfile));
+									.setShortDescription(
+											getShortDescription(userProfile));
 							profile.setBasicProfileInfo(userProfile
 									.getBasicProfileInfo());
 							profile.setFeatured(userProfile.isFeatured());
@@ -321,6 +326,9 @@ public class UserProfileController {
 							userProfileRepository.save(profile);
 							logger.info("User Profile update with details: "
 									+ profile.toString());
+						} else {
+							throw new BYException(
+									BYErrorCodes.USER_PROFILE_DOES_NOT_EXIST);
 						}
 
 					} else {
@@ -341,19 +349,19 @@ public class UserProfileController {
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
 				.getUserProfileEntity(profile, currentUser));
 	}
-	
-	private String getShortDescription(UserProfile profile){
-		 String shortDescription = null;
-         if(null != profile.getBasicProfileInfo() && null != profile.getBasicProfileInfo().getDescription()){
-                 Document doc = Jsoup.parse(profile
-                                 .getBasicProfileInfo()
-                                 .getDescription());
-                 String longDesc = doc.text();
-                 String desc = Util.truncateText(doc.text());
-                 if(longDesc != null && !desc.equals(longDesc)){
-                         shortDescription = desc;
-                 }
-         }
+
+	private String getShortDescription(UserProfile profile) {
+		String shortDescription = null;
+		if (null != profile.getBasicProfileInfo()
+				&& null != profile.getBasicProfileInfo().getDescription()) {
+			Document doc = Jsoup.parse(profile.getBasicProfileInfo()
+					.getDescription());
+			String longDesc = doc.text();
+			String desc = Util.truncateText(doc.text());
+			if (longDesc != null && !desc.equals(longDesc)) {
+				shortDescription = desc;
+			}
+		}
 		return shortDescription;
 	}
 

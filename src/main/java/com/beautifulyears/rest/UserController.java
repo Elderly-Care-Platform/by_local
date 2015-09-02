@@ -57,14 +57,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserController {
 
 	private static UserRepository userRepository;
-	private static MongoTemplate mongoTemplate;
+	private MongoTemplate mongoTemplate;
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	public UserController(UserRepository userRepository,
 			MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+		setUserRepository(userRepository);
+	}
+
+	private static void setUserRepository(UserRepository userRepository) {
 		UserController.userRepository = userRepository;
-		UserController.mongoTemplate = mongoTemplate;
 	}
 
 	@RequestMapping(value = "/validateSession", method = RequestMethod.GET)
@@ -133,7 +137,7 @@ public class UserController {
 		LoggerUtil.logEntry();
 		Session session = (Session) req.getSession().getAttribute("session");
 
-		if (user == null || user.getId() == null || user.getId().equals("")) {
+		if (null != user && (Util.isEmpty(user.getId()))) {
 			try {
 				Query q = new Query();
 				q.addCriteria(Criteria.where("email").is(user.getEmail()));
@@ -164,7 +168,7 @@ public class UserController {
 			boolean isUserNameChanged = false;
 			boolean isPasswordChanged = false;
 			User editedUser = getUser(user.getId());
-			if (null != editedUser && null != user.getUserName() 
+			if (null != editedUser && null != user.getUserName()
 					&& !user.getUserName().equals(editedUser.getUserName())) {
 				isUserNameChanged = true;
 				editedUser.setUserName(user.getUserName());

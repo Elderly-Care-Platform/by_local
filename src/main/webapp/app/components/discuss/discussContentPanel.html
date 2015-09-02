@@ -12,6 +12,10 @@
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
 	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
 	({{discuss_counts.z}})</a>
+	
+<a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
+	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
+	({{discuss_counts.featured}})</a>	
 
 <div class="clearfix" style="height:15px;"></div>
 <div ng-repeat="discuss in discuss" data-index="discussion-articles" data-link="articles.html">
@@ -26,7 +30,7 @@
         <div class="questionTag" ng-if="discuss.discussType == 'P' && discuss.featured == true">
             <img src="assets/img/feature/featured_post.png?versionTimeStamp=%PROJECT_VERSION%" alt="image">
         </div>
-        <img src="assets/img/by.png" alt="image">
+        <img src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
 
         <div class="article-info dp-inline-block " style="margin-right: 80px !important;">
             <ul class="list-inline posted-info" style="">

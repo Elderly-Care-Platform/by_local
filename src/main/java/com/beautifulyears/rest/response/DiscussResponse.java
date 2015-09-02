@@ -12,6 +12,7 @@ import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.util.Util;
 
 public class DiscussResponse implements IResponse {
@@ -107,6 +108,7 @@ public class DiscussResponse implements IResponse {
 		private LinkInfo linkInfo;
 		private boolean isFeatured;
 		private boolean isPromotion;
+		private UserProfile userProfile;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -137,6 +139,22 @@ public class DiscussResponse implements IResponse {
 			this.setLinkInfo(discuss.getLinkInfo());
 			this.setFeatured(discuss.isFeatured());
 			this.setPromotion(discuss.isPromotion());
+
+			if (discuss.getUserProfile() != null) {
+				UserProfile userProfile = new UserProfile();
+				userProfile.getBasicProfileInfo().setProfileImage(
+						discuss.getUserProfile().getBasicProfileInfo()
+								.getProfileImage());
+				this.setUserProfile(userProfile);
+			}
+		}
+
+		public UserProfile getUserProfile() {
+			return userProfile;
+		}
+
+		public void setUserProfile(UserProfile userProfile) {
+			this.userProfile = userProfile;
 		}
 
 		public boolean isPromotion() {

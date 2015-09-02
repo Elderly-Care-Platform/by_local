@@ -13,6 +13,7 @@ import java.util.Map;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -59,6 +60,13 @@ public class DiscussDetailResponse implements IResponse {
 		Map<String,DiscussReply> tempMap = new HashMap<String, DiscussReply>();
 		List<DiscussReply> repliesList = new ArrayList<DiscussReply>();
 		for (DiscussReply discussReply : replies) {
+			if (discussReply.getUserProfile() != null) {
+				UserProfile userProfile = new UserProfile();
+				userProfile.getBasicProfileInfo().setProfileImage(
+						discussReply.getUserProfile().getBasicProfileInfo()
+								.getProfileImage());
+				discussReply.setUserProfile(userProfile);
+			}
 			discussReply.setLikeCount(discussReply.getLikedBy().size());
 			if (null != user && discussReply.getLikedBy().contains(user.getId())) {
 				discussReply.setLikedByUser(true);

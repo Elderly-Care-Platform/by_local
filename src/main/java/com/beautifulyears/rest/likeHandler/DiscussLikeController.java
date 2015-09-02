@@ -99,19 +99,21 @@ public class DiscussLikeController extends LikeController<Discuss> {
 	void sendMailForLike(Discuss LikedEntity, User user, String url) {
 		LoggerUtil.logEntry();
 		try {
-			if (!LikedEntity.getUserId().equals(user.getId())) {
+			if (null != LikedEntity && null != LikedEntity.getUserId()
+					&& !LikedEntity.getUserId().equals(user.getId())) {
 				ResourceUtil resourceUtil = new ResourceUtil(
 						"mailTemplate.properties");
 				String title = !Util.isEmpty(LikedEntity.getTitle()) ? LikedEntity
 						.getTitle() : LikedEntity.getText();
-				if (Util.isEmpty(title) && LikedEntity != null && LikedEntity.getLinkInfo() != null) {
+				if (Util.isEmpty(title) && LikedEntity != null
+						&& LikedEntity.getLinkInfo() != null) {
 					title = !Util.isEmpty(LikedEntity.getLinkInfo().getTitle()) ? LikedEntity
-							.getLinkInfo().getTitle() : LikedEntity.getLinkInfo()
-							.getDescription();
+							.getLinkInfo().getTitle() : LikedEntity
+							.getLinkInfo().getDescription();
 					title = !Util.isEmpty(title) ? title : LikedEntity
 							.getLinkInfo().getUrl();
 				}
-				if(Util.isEmpty(title)){
+				if (Util.isEmpty(title)) {
 					title = "<<Your post>>";
 				}
 				String userName = !Util.isEmpty(LikedEntity.getUsername()) ? LikedEntity

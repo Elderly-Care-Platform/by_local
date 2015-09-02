@@ -1,4 +1,4 @@
-byControllers.controller('IndividualUserProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 
+byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 
     function ($scope, $rootScope, $location, $route, $routeParams) {
 	 $scope.individualProfile = $scope.$parent.profileData;
      $scope.slideIndex = 1;

@@ -79,29 +79,33 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 		DiscussReply reply = null;
 		try {
 			User user = Util.getSessionUser(req);
-			if (null == user) {
-				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
-			} else {
+			reply = (DiscussReply) discussReplyRepository
+					.findOne(id);
+			if(null != reply){
+				if (null == user) {
+					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+				} else {
+					if (reply.getReplyType() == replyType) {
+						if (reply.getLikedBy().contains(user.getId())) {
+							throw new BYException(
+									BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
+						} else {
+							submitLike(user, id, DiscussConstants.CONTENT_TYPE_DISCUSS);
+							reply.getLikedBy().add(user.getId());
+							sendMailForLike(reply, user,url);
+							discussReplyRepository.save(reply);
 
-				reply = (DiscussReply) discussReplyRepository
-						.findOne(id);
-				if (reply != null && reply.getReplyType() == replyType) {
-					if (reply.getLikedBy().contains(user.getId())) {
-						throw new BYException(
-								BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
-					} else {
-						submitLike(user, id, DiscussConstants.CONTENT_TYPE_DISCUSS);
-						reply.getLikedBy().add(user.getId());
-						sendMailForLike(reply, user,url);
-						discussReplyRepository.save(reply);
-
+						}
 					}
 				}
+				reply.setLikeCount(reply.getLikedBy().size());
+				if (null != user && reply.getLikedBy().contains(user.getId())) {
+					reply.setLikedByUser(true);
+				}
+			}else{
+				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
-			reply.setLikeCount(reply.getLikedBy().size());
-			if (null != user && reply.getLikedBy().contains(user.getId())) {
-				reply.setLikedByUser(true);
-			}
+			
 		} catch (Exception e) {
 			Util.handleException(e);
 		}

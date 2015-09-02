@@ -1,49 +1,11 @@
-
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 <div class="container by_home_content">
 	<div class="row">
-		<div class="col-md-3 md-margin-bottom-40"
-			ng-include="'app/components/search/searchLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-
-		<div
-			class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper"  >
-			<div ng-if="discuss.length > 0 && isShowServices===true">
-				<div id="home_featured_services"
-					class="col-md-12 no-padding  list-head dp-block">POSTS/Q&A</div>
-				<div class="col-md-12 no-padding bg-gray-h1">
-					<div class="bg-green-h2" style="width: 136px;"></div>
-				</div>
-				<div class="clearfix" style="height: 16px;"></div>
-				<div
-					ng-include="'app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-
-				<div class="col-md-12 no-padding margin-bottom-30 more-link">
-					<a ng-click="showMore('Discuss')">More...</a>
-				</div>
-			</div>
-
-			<div ng-if="services.length > 0 && isShowServices===false">
-				<div id="home_featured_services"
-					class="col-md-12 no-padding  list-head dp-block">SERVICES</div>
-				<div class="col-md-12 no-padding bg-gray-h1">
-					<div class="bg-green-h2" style="width: 106px;"></div>
-				</div>
-				<div class="clearfix" style="height: 30px;"></div>
-				<div
-					ng-include="'app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-
-
-				<div class="col-md-12 no-padding margin-bottom-30 more-link">
-					<a ng-click="showMore('Service')">More...</a>
-				</div>
-
-			</div>
-
+		<div class="col-md-3 md-margin-bottom-40" ng-include="'app/components/search/searchLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
 		</div>
-		
-		
-		
-	</div>
 
-	
+		<div class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper"
+			 ng-include="'app/components/search/searchContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
+		</div>
+	</div>
 </div>

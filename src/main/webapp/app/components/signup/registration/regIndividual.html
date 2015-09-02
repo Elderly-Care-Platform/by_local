@@ -318,7 +318,7 @@
                     <div class="col-md-5 no-padding">My birthday</div>
                     <div class="col-md-7 no-padding register-page">
                         <input id="datepicker" type="text" ng-model="individualInfo.dob"
-                               class="username-textbox textbox"/>
+                               class="username-textbox textbox" placeholder="mm/dd/yyyy"/>
                     </div>
                 </div>
                 <!--<div class="col-md-12 margin-bottom-20  register-page">-->
@@ -343,17 +343,17 @@
                 <div class="col-md-5">
                     I speak
                 </div>
-                <div class="col-md-7 no-padding-right register-page" ng-if="languages.length > 0">
-                    <input type="text" class="name-textbox textbox  margin-bottom-20"
-                           obj="lang" auto-complete options="languages"
-                           on-select-callback="langSelectCallback"
-                           on-change-callback="langSelectCallback"
-                           ng-repeat="(key, lang) in selectedLanguages"
-                           ng-model="key"/>
+                 <div class="col-md-7 no-padding-right register-page" ng-if="languages.length > 0">
+                     <input type="text" class="name-textbox textbox  margin-bottom-20"
+                            obj="lang" auto-complete options="languages"
+                            on-select-callback="langSelectCallback"
+                            on-change-callback="langSelectCallback"
+                            ng-repeat="(key, lang) in selectedLanguages"
+                            ng-model="key"/>
 
                     <input id="langField" type="text" class="name-textbox textbox " auto-complete
                            options="languages"
-                           on-select-callback="langSelectCallback"/>
+                           on-select-callback="langSelectCallback" placeholder="type your language here, e.g. English"/>
 
                     <!--<input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"-->
                     <!--placeholder="Speciality" ng-model="selectedSpeciality" required on-select-callback="specialityCallback"/>-->

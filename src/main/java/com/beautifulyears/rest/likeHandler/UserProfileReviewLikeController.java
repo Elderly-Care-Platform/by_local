@@ -27,13 +27,16 @@ import com.beautifulyears.util.Util;
 
 @Controller
 @RequestMapping("/userProfileReviewLike")
-public class UserProfileReviewLikeController extends LikeController<DiscussReply> {
+public class UserProfileReviewLikeController extends
+		LikeController<DiscussReply> {
 
 	private DiscussReplyRepository discussReplyRepository;
-	private Logger logger = Logger.getLogger(UserProfileReviewLikeController.class);
+	private Logger logger = Logger
+			.getLogger(UserProfileReviewLikeController.class);
 
 	@Autowired
-	public UserProfileReviewLikeController(DiscussLikeRepository discussLikeRepository,
+	public UserProfileReviewLikeController(
+			DiscussLikeRepository discussLikeRepository,
 			DiscussReplyRepository discussReplyRepository) {
 		super(discussLikeRepository);
 		this.discussReplyRepository = discussReplyRepository;
@@ -51,33 +54,36 @@ public class UserProfileReviewLikeController extends LikeController<DiscussReply
 		LoggerUtil.logEntry();
 		int replyType = DiscussConstants.REPLY_TYPE_REVIEW;
 		DiscussReply reply = null;
-		try {
-			User user = Util.getSessionUser(req);
-			if (null == user) {
-				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
-			} else {
+		reply = (DiscussReply) discussReplyRepository.findOne(id);
+		if (null != reply) {
+			try {
+				User user = Util.getSessionUser(req);
+				if (null == user) {
+					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+				} else {
 
-				reply = (DiscussReply) discussReplyRepository.findOne(id);
-				if (reply != null && reply.getReplyType() == replyType) {
-					if (reply.getLikedBy().contains(user.getId())) {
-						throw new BYException(
-								BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
-					} else {
-						submitLike(user, id,
-								DiscussConstants.CONTENT_TYPE_DISCUSS);
-						reply.getLikedBy().add(user.getId());
-						sendMailForLike(reply, user, url);
-						discussReplyRepository.save(reply);
+					if (reply != null && reply.getReplyType() == replyType) {
+						if (reply.getLikedBy().contains(user.getId())) {
+							throw new BYException(
+									BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
+						} else {
+							submitLike(user, id,
+									DiscussConstants.CONTENT_TYPE_DISCUSS);
+							reply.getLikedBy().add(user.getId());
+							sendMailForLike(reply, user, url);
+							discussReplyRepository.save(reply);
+						}
 					}
 				}
+				reply.setLikeCount(reply.getLikedBy().size());
+				if (null != user && reply.getLikedBy().contains(user.getId())) {
+					reply.setLikedByUser(true);
+				}
+			} catch (Exception e) {
+				Util.handleException(e);
 			}
-			reply.setLikeCount(reply.getLikedBy().size());
-			if (null != user && reply.getLikedBy().contains(user.getId())) {
-				reply.setLikedByUser(true);
-			}
-		} catch (Exception e) {
-			Util.handleException(e);
 		}
+
 		return reply;
 	}
 

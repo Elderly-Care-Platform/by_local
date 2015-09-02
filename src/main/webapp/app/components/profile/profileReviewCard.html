@@ -1,5 +1,5 @@
 <div class="blog-author margin-bottom-35 main-article replyCard by_blog_author  by-commment-bg-gray" style="box-shadow:none !important;; margin-left:23px !important; background:#F9F9F9; border:0px solid #ccc border-top-width:0px !important; margin-bottom: 20px !important; border-radius:0px !important; margin-right:21px !important; ">
-    <img src="assets/img/by.png" alt="image" class="replyCardImg" >
+    <img src="{{review.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image" class="replyCardImg" >
 
     <div class="article-info dp-inline-block">
         <ul class="list-inline posted-info">

@@ -30,7 +30,10 @@ public enum BYErrorCodes {
 	
 	//review rate
 	REVIEW_TYPE_INVALID(4001,"Invalid review type"),
-	RATING_VALUE_INVALID(4002,"Invalid rating value,rating percentage value should be between 0 to 100.")
+	RATING_VALUE_INVALID(4002,"Invalid rating value,rating percentage value should be between 0 to 100."),
+	
+	//profile error
+	USER_PROFILE_DOES_NOT_EXIST(5001,"User profile for the sent userId does not exist")
 
 	;
 

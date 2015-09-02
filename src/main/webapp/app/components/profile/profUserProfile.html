@@ -227,6 +227,12 @@
 				ng-if="review.text && review.text.trim().length > 0">
 			</div>
 		</div>
+		
+		<div ng-if="reviews && reviews.length === 0">
+			<div class="clearfix" style="height:20px;"></div>
+		</div>
+
+		<div ng-include="'app/components/profile/contentByUser.html'"></div>
 	</div>
 	<!--/end profile details-->
 </div>

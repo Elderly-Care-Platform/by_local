@@ -41,9 +41,10 @@ BY.config.regConfig.userTypeConfig = {
     },
     '3' : {
         'type':'3',
-        'contentPanel':'',
+        'contentPanel':'app/components/signup/registration/regHousing.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'HOUSING',
-        'label' : ""
+        'label' : "Housing"
     },
     '4' : {
         'type':'4',
@@ -110,7 +111,7 @@ BY.config.regConfig.indvUserRegConfig = {
 
     'countries' : ["India"],
     
-    'maritalStatus' : ["single", "married", "divorced", "widowed"],
+    'maritalStatus' : ["married", "single", "divorced", "widowed"],
 
     'defaultAvatars' : {
         '0' : [{"reg":"assets/img/profile/f-1.png","detail":"assets/img/profile/detail_f-1.png"},

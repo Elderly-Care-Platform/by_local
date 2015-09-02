@@ -159,6 +159,39 @@
                 </div>
 			</span>
         </div>
+        
+        
+        <div style="clear:both;"></div>
+		
+		<div class="row" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
+
+		<div ng-if="reviews && reviews.length == 0" class="row">
+			<div class="col-md-12 bg-color-grey2"
+				 style=" margin-top: 12px; "></div>
+		</div>
+		
+
+		<div ng-if="reviews && reviews.length > 0" class="row">
+			<div class="col-md-12 bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
+		 	<div class="col-md-12  margin-bottom-20 review-rate-header" style="padding-left:21px; padding-right:21px;">
+				<div class="col-md-12 no-padding dp-block" style="border-bottom:1px solid #ccc;">
+					 Reviews
+				</div>
+
+				<div class="col-md-12 no-padding">
+					<div class="bg-green-h2" style="width: 75px;"></div>
+				</div>
+			</div>
+			<div ng-repeat="review in reviews" data-index="discussion-articles"
+				data-link="articles.html"
+				ng-include="'app/components/profile/profileReviewCard.html'"
+				ng-if="review.text && review.text.trim().length > 0">
+			</div>
+		</div>
+		
+		<div ng-if="reviews && reviews.length === 0">
+			<div class="clearfix" style="height:20px;"></div>
+		</div>
 
 		<div ng-include="'app/components/profile/contentByUser.html'"></div>
 

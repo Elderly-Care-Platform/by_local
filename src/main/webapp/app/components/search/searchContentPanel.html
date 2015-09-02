@@ -11,14 +11,14 @@
 </div>
 
 <div ng-if="services.length > 0 && isShowServices===false">
-    <div class="col-md-12 no-padding  list-head dp-block">SERVICES</div>
+    <div class="col-md-12 no-padding  list-head dp-block" id="search-search">SERVICES</div>
     <div class="col-md-12 no-padding bg-gray-h1">
         <div class="bg-green-h2" style="width: 106px;"></div>
     </div>
     <div class="clearfix" style="height: 30px;"></div>
-    <div ng-include="'app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-    <div class="col-md-12 no-padding margin-bottom-30 more-link">
+    <div ng-include="'app/components/search/serviceSearch.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+    <!--  <div class="col-md-12 no-padding margin-bottom-30 more-link">
         <a ng-click="showMore('Service')">More...</a>
-    </div>
+    </div>-->
 </div>
 

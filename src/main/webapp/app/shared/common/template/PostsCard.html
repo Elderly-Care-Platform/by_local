@@ -2,8 +2,7 @@
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', data.id, data.discussType)" data-index="discussion-articles"
          class="blog-author margin-bottom-35 main-article by_blog_author boxShadowNone" style="position:relative;">
-         <div class="questionTag" ng-if="data.featured == true">
-            <img src="assets/img/feature/featured_post.png?versionTimeStamp=%PROJECT_VERSION%" alt="image">
+         <div class="questionTag postTag" ng-if="data.featured == true">
         </div>
         <img src="{{data.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
 

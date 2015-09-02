@@ -1,5 +1,6 @@
 package com.beautifulyears.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.DiscussConstants;
+import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
@@ -102,6 +104,11 @@ public class SearchController {
 			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
 			@RequestParam(value = "s", required = false, defaultValue = "10") int pageSize,
 			HttpServletRequest request) throws Exception {
+		List<Integer> serviceTypes = new ArrayList<Integer>();
+		serviceTypes.add(UserTypes.INSTITUTION_HOUSING);
+		serviceTypes.add(UserTypes.INSTITUTION_NGO);
+		serviceTypes.add(UserTypes.INSTITUTION_SERVICES);
+		
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
 		UserProfilePage profilePage = null;
@@ -119,6 +126,8 @@ public class SearchController {
 
 			Query query = TextQuery.queryText(criteria);
 			query.with(pageable);
+			
+			query.addCriteria(Criteria.where("userTypes").in(serviceTypes));
 
 			List<UserProfile> profiles = this.mongoTemplate.find(query, UserProfile.class);
 

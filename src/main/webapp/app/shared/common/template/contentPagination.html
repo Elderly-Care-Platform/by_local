@@ -1,5 +1,5 @@
 <div class="col-md-12">
-<ul class="pagination" ng-init="getPageArray()">
+<ul class="pagination" ng-init="initPageArray()">
     <!--<li ng-click="firstPageSet()"><a>First</a></li>-->
     <li ng-click="previousPageSet(selectedPageNo-1)" ng-class="{disabled:prevDisabled}"><a>&lt;</a></li>
     <li ng-repeat="page in pageArray track by $index"

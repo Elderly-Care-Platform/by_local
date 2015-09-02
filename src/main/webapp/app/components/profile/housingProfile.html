@@ -160,24 +160,9 @@
 			</span>
         </div>
 
-		
+		<div ng-include="'app/components/profile/contentByUser.html'"></div>
 
-        <a style="margin-left:15px; " class="discussRightCategory {{isShowPosts===true && 'selected active'}}"
-           ng-click="showPosts(true)" ng-if="postsUser.length > 0">
-            Posts({{totalPosts}})
-        </a>
-        <a style="margin-left:15px;" class="discussRightCategory {{isShowPosts===false && 'selected active'}}"
-           ng-click="showPosts(false)" ng-if="qaUser.length > 0">
-            Q &amp; A({{totalQA}})
-        </a>
-
-        <div class="clearfix" style="height:20px;"></div>
-        <div id="userPosts" ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-             ng-if="postsUser.length > 0 && isShowPosts===true"></div>
-
-        <div id="userQA" ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-             ng-if="qaUser.length > 0 && isShowPosts===false"></div>
-        <div style="clear: both; height:40px;"></div>
+       
     </div>
     <!--/end profile details-->
 </div>

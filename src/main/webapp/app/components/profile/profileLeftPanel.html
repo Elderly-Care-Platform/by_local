@@ -5,13 +5,13 @@
             <li class="list-group-item" >
                 <a>{{label}}</a>
             </li>
-            <!--<li class="list-group-item" ng-if="profileType[0] == 0 || profileType[0] == 1 || profileType[0] == 2"  ng-click="gotoHref('userPosts')">
+            <li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')">
                 <a>Posts</a>
             </li>
-            <li class="list-group-item" ng-if="profileType[0] == 0 || profileType[0] == 1 || profileType[0] == 2"  ng-click="gotoHref('userQA')">
+            <li class="list-group-item" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')">
                 <a >Q&A</a>
             </li>
-            <li class="list-group-item" ng-if="isAllowedToReview">-->
+            <!--<li class="list-group-item" ng-if="isAllowedToReview">-->
                 <!--<a ng-click="reviewContent()">REVIEW / RATE</a>-->
             <!--</li>-->
         </ul>

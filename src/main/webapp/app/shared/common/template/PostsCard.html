@@ -1,27 +1,27 @@
-<div class="discussion-page" ng-repeat="article in postsUser" data-index="discussion-articles" data-link="articles.html" ng-if="article">
+
     <!-- show if discuss is of type Article -->
-    <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles"
+    <div ng-click="go($event, 'id', data.id, data.discussType)" data-index="discussion-articles"
          class="blog-author margin-bottom-35 main-article by_blog_author boxShadowNone" style="position:relative;">
-         <div class="questionTag" ng-if="article.featured == true">
+         <div class="questionTag" ng-if="data.featured == true">
             <img src="assets/img/feature/featured_post.png?versionTimeStamp=%PROJECT_VERSION%" alt="image">
         </div>
-        <img src="{{article.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
+        <img src="{{data.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
 
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info">
                 <li>
                     <p>
-                        By <a validate-user-name="{{article.username}}"
-                              style="text-transform:capitalize;" href="#/profile/0/{{article.userId}}/{{article.username}}">{{username}}</a>
+                        By <a validate-user-name="{{data.username}}"
+                              style="text-transform:capitalize;" href="#/profile/0/{{data.userId}}/{{data.username}}">{{username}}</a>
                         |
                     </p>
                 </li>
-                <li time-since="{{article.createdAt}}"></li>
-                <li ng-if="article.topicId.length > 0">
+                <li time-since="{{data.createdAt}}"></li>
+                <li ng-if="data.topicId.length > 0">
                     | In
                 </li>
 
-                <li ng-repeat="topicId in article.topicId">
+                <li ng-repeat="topicId in data.topicId">
                     <p class="first-letter-uc by-systemTags">
                         <span ng-if="$index > 0">|</span>
                         <a ng-click="go($event,'menu', topicId)">
@@ -33,28 +33,28 @@
             <div style="clear: both"></div>
         </div>
 
-        <div class="article  col-md-12" ng-if="article.discussType == 'P'">
+        <div class="article  col-md-12" ng-if="data.discussType == 'P'">
             <div class="article-heading"><p style="text-transform: uppercase;">
-                {{article.title}}</p>
+                {{data.title}}</p>
             </div>
         </div>
         
         <div class="by-quad-image col-md-12">
-            <img ng-if="article.discussType == 'P'" src="{{article.articlePhotoFilename.titleImage||''}}" alt="image"
-                 fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
+            <img ng-if="data.discussType == 'P'" src="{{data.articlePhotoFilename.titleImage||''}}" alt="image"
+                 fallback-src='["{{data.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
         </div>
         <div style="clear: both"></div>
-        <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="article.linkInfo"
-             ng-init="linkInfo=article.linkInfo"></div>
+        <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="data.linkInfo"
+             ng-init="linkInfo=data.linkInfo"></div>
 
-        <div class="articles-story  col-md-12" id="{{article.id}}">
-            <p class="discuss-card-desciption" ng-if="article.shortSynopsis">{{article.shortSynopsis}}<a
+        <div class="articles-story  col-md-12" id="{{data.id}}">
+            <p class="discuss-card-desciption" ng-if="data.shortSynopsis">{{data.shortSynopsis}}<a
                     class="divRight by_readmore">Read More <b style="font-size:10px;">&#9002;</b></a></p>
 
-            <p class="discuss-card-desciption" ng-if="!article.shortSynopsis"
-               ng-bind-html="trustForcefully(article.text)"></p>
+            <p class="discuss-card-desciption" ng-if="!data.shortSynopsis"
+               ng-bind-html="trustForcefully(data.text)"></p>
         </div>
 
 
@@ -62,53 +62,53 @@
         <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
             <ul class="post-shares post-shares-lg" style="top: 0px;">
                 <li class="add-comment"
-                    ng-if="article.aggrReplyCount > 0 && (article.discussType == 'P')">
+                    ng-if="data.aggrReplyCount > 0 && (data.discussType == 'P')">
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span>{{article.aggrReplyCount}}</span>
+                        <span>{{data.aggrReplyCount}}</span>
 
                         <div class="text">Comment</div>
                     </a>
                 </li>
                 <li class="add-comment add-comment-FC"
-                    ng-if="article.aggrReplyCount == 0 && (article.discussType == 'P')">
+                    ng-if="data.aggrReplyCount == 0 && (data.discussType == 'P')">
                     <a>
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
 
                         <div class="text"
-                             ng-click="go($event,'comment', article.id)">Be the first to comment
+                             ng-click="go($event,'comment', data.id)">Be the first to comment
                         </div>
                     </a>
                 </li>
 
 
                 <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
-                    <a ng-click="likeDiscuss(article.id)">
+                    <a ng-click="likeDiscuss(data.id)">
                         <i class="rounded-x" ng-if="beforePost"
-                           ng:class="{true:'icon-heart', false:'icon-heart-active'}[article.likedByUser===false]"
+                           ng:class="{true:'icon-heart', false:'icon-heart-active'}[data.likedByUser===false]"
                            title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost"
                            ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]"
                            title="Likes"></i>
-                        <span ng-if="beforePost && article.aggrLikeCount > 0">{{article.aggrLikeCount}}</span>
+                        <span ng-if="beforePost && data.aggrLikeCount > 0">{{data.aggrLikeCount}}</span>
                         <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0"
                                 >{{aggrLikeCount}}</span>
                     </a>
 
                     <div class="post-text">
-                        <div ng-click="likeDiscuss(article.id)" class="text">Like</div>
+                        <div ng-click="likeDiscuss(data.id)" class="text">Like</div>
                     </div>
                 </li>
 
-                <li class="add-comment" ng-if="article.discussType == 'P'"
+                <li class="add-comment" ng-if="data.discussType == 'P'"
                     ng-controller="ShareController"><a
-                        ng-click="shareComment(article, $event)">
+                        ng-click="shareComment(data, $event)">
                     <i class="rounded-x icon-share"></i>
-                    <span ng-if="article.shareCount > 0">{{article.shareCount}}</span>
+                    <span ng-if="data.shareCount > 0">{{data.shareCount}}</span>
                 </a>
 
                     <div class="post-text post_text-comment">
-                        <a ng-click="shareComment(article, $event)">
+                        <a ng-click="shareComment(data, $event)">
                             <div class="text">Share</div>
                         </a>
                     </div>
@@ -117,13 +117,7 @@
         </div>
         <div style="clear: both"></div>
     </div>
-</div>
 
 
 
-<div ng-if="postsPagination.noOfPages > 1">
-    <div class="text-left">
-        <by-pagination obj="postsPagination" callback="postsByUser"></by-pagination>
-    </div>
-</div>
 

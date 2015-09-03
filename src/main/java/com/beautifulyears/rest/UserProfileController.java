@@ -264,6 +264,7 @@ public class UserProfileController {
 						if (this.userProfileRepository.findByUserId(userProfile
 								.getUserId()) == null) {
 							profile = new UserProfile();
+							profile.setUserId(currentUser.getId());
 							profile.setUserTypes(userProfile.getUserTypes());
 							userProfileRepository.save(profile);
 						} else {

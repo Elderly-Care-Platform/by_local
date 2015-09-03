@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.beautifulyears.domain.BasicProfileInfo;
+import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.IndividualProfileInfo;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
@@ -44,6 +45,7 @@ public class UserProfileResponse implements IResponse {
 		private List<Tag> systemTags = new ArrayList<Tag>();
 		private Date lastModifiedAt = new Date();
 		private boolean isFeatured;
+		private List<HousingFacility> facilities = new ArrayList<HousingFacility>();
 
 		public UserProfileEntity(UserProfile profile, User user) {
 			this.setId(profile.getId());
@@ -65,7 +67,15 @@ public class UserProfileResponse implements IResponse {
 			ratingCount = profile.getRatedBy().size();
 			reviewCount = profile.getReviewedBy().size();
 			this.isFeatured = profile.isFeatured();
+			this.facilities = profile.getFacilities();
+		}
 
+		public List<HousingFacility> getFacilities() {
+			return facilities;
+		}
+
+		public void setFacilities(List<HousingFacility> facilities) {
+			this.facilities = facilities;
 		}
 
 		public boolean isFeatured() {
@@ -272,7 +282,11 @@ public class UserProfileResponse implements IResponse {
 
 	public static UserProfileEntity getUserProfileEntity(
 			UserProfile userProfile, User user) {
-		return new UserProfileEntity(userProfile, user);
+		UserProfileEntity res = null;
+		if (null != userProfile) {
+			res = new UserProfileEntity(userProfile, user);
+		}
+		return res;
 	}
 
 }

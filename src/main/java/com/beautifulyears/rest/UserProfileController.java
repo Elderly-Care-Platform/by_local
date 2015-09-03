@@ -1,6 +1,8 @@
 package com.beautifulyears.rest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.UserTypes;
+import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
@@ -247,29 +250,22 @@ public class UserProfileController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		LoggerUtil.logEntry();
-		logger.debug("in submit User Profile");
+		UserProfile profile = null;
+		User currentUser = null;
 		try {
 			if ((userProfile != null)) {
-				/* check if a valid user exists, whom the profile belongs to */
-				User currentUser = Util.getSessionUser(req);
+				currentUser = Util.getSessionUser(req);
 				if (null != currentUser) {
 					logger.debug("current user details"
 							+ currentUser.toString());
-					/* save the user profile */
 					if (userProfile.getUserId() != null
 							&& userProfile.getUserId().equals(
 									currentUser.getId())) {
-
-						/*
-						 * check - if a userProfile by this userID already
-						 * exists, do not allow
-						 */
 						if (this.userProfileRepository.findByUserId(userProfile
 								.getUserId()) == null) {
-							userProfile.getBasicProfileInfo()
-									.setShortDescription(
-											getShortDescription(userProfile));
-							userProfileRepository.save(userProfile);
+							profile = new UserProfile();
+							profile.setUserTypes(userProfile.getUserTypes());
+							userProfileRepository.save(profile);
 						} else {
 							throw new BYException(
 									BYErrorCodes.USER_ALREADY_EXIST);
@@ -287,7 +283,8 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		return BYGenericResponseHandler.getResponse(userProfile);
+		return BYGenericResponseHandler.getResponse(UserProfileResponse
+				.getUserProfileEntity(profile, currentUser));
 	}
 
 	/* @PathVariable(value = "userId") String userId */
@@ -307,21 +304,44 @@ public class UserProfileController {
 						profile = userProfileRepository.findByUserId(userId);
 
 						if (profile != null) {
-							/* set required fields */
 							userProfile.getBasicProfileInfo()
 									.setShortDescription(
 											getShortDescription(userProfile));
-							profile.setBasicProfileInfo(userProfile
-									.getBasicProfileInfo());
-							profile.setFeatured(userProfile.isFeatured());
-							profile.setIndividualInfo(userProfile
-									.getIndividualInfo());
-							profile.setServiceProviderInfo(userProfile
-									.getServiceProviderInfo());
 							profile.setStatus(userProfile.getStatus());
 							profile.setUserTypes(userProfile.getUserTypes());
 							profile.setLastModifiedAt(new Date());
 							profile.setSystemTags(userProfile.getSystemTags());
+
+							profile.setBasicProfileInfo(userProfile
+									.getBasicProfileInfo());
+							profile.setFeatured(userProfile.isFeatured());
+							if (!Collections.disjoint(
+									profile.getUserTypes(),
+									new ArrayList<>(Arrays.asList(
+											UserTypes.INDIVIDUAL_CAREGIVER,
+											UserTypes.INDIVIDUAL_ELDER,
+											UserTypes.INDIVIDUAL_PROFESSIONAL,
+											UserTypes.INDIVIDUAL_VOLUNTEER)))) {
+								profile.setIndividualInfo(userProfile
+										.getIndividualInfo());
+							}
+							if (!Collections
+									.disjoint(
+											profile.getUserTypes(),
+											new ArrayList<>(
+													Arrays.asList(
+															UserTypes.INSTITUTION_SERVICES,
+															UserTypes.INDIVIDUAL_PROFESSIONAL)))) {
+								profile.setServiceProviderInfo(userProfile
+										.getServiceProviderInfo());
+							}
+							if (!Collections
+									.disjoint(
+											profile.getUserTypes(),
+											new ArrayList<>(
+													Arrays.asList(UserTypes.INSTITUTION_HOUSING)))) {
+								addFacilities(profile, userProfile, currentUser);
+							}
 
 							userProfileRepository.save(profile);
 							logger.info("User Profile update with details: "
@@ -363,6 +383,14 @@ public class UserProfileController {
 			}
 		}
 		return shortDescription;
+	}
+
+	private void addFacilities(UserProfile nativeProfile,
+			UserProfile newProfile, User currentUser) {
+		for (HousingFacility facility : newProfile.getFacilities()) {
+			facility.setUserId(currentUser.getId());
+		}
+		nativeProfile.setFacilities(newProfile.getFacilities());
 	}
 
 }

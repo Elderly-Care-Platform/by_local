@@ -1,6 +1,6 @@
 byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile',
     function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
-	 $scope.individualProfile = $scope.$parent.profileData;
+	 $scope.housingProfile = $scope.$parent.profileData;
      $scope.slideIndex = 1;
      //$scope.userName = $scope.$parent.userName;
      var reviewDetails = new ReviewRateProfile();
@@ -55,7 +55,7 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
          })
      };
 
-     $scope.showReviews();
+    // $scope.showReviews();
 
      
 }]);

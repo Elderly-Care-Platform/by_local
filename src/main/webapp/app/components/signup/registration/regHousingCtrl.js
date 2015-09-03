@@ -4,9 +4,25 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
         $scope.profileImage = [];
         $scope.galleryImages = [];
         $scope.submitted = false;
-        $scope.regConfig = BY.config.regConfig.indvUserRegConfig;
+        $scope.regConfig = BY.config.regConfig.housingFacility;
 
        
+        var tempCheck=true;
+
+    	$scope.showAddressButton = function(){
+    		if ($(".showAddress").css('display')=='none') 
+    		{
+    			$(".showAddress").show();
+    			$(".showAddressButton").val('- Remove Address');
+    			tempCheck=false;
+    		}
+    		else
+    		{
+    			$(".showAddress").hide();
+    			$(".showAddressButton").val('+ Add Address');
+    			tempCheck=true;
+    		}
+    	};
 
 
 
@@ -211,14 +227,14 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
 
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
-                /*userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;
                     $scope.$parent.exit();
                 }, function (err) {
                     console.log(err);
                     $scope.$parent.exit();
-                });*/
+                });
             }
         }
         

@@ -256,18 +256,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	vertical-align:baseline;
 	margin-right:3px !important;
 }
-.fa-home:before {
-    content: url('../img/profile/home_icon.png?versionTimeStamp=%PROJECT_VERSION%');
-}
-.fa-speak:before {
-    content: url('../img/profile/speak_icon.png?versionTimeStamp=%PROJECT_VERSION%');
-}
-.fa-interest:before {
-    content: url('../img/profile/interest_icon.png?versionTimeStamp=%PROJECT_VERSION%');
-}
-.fa-hobbies:before {
-    content: url('../img/profile/hobbies_icon.png?versionTimeStamp=%PROJECT_VERSION%');
-}
 .fontIndv
 {
 	font-size:16px;

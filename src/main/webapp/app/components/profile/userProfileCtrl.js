@@ -8,7 +8,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.userName = $routeParams.userName ? BY.validateUserName($routeParams.userName) : "Anonymous";
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
-        var pageSize = 3;
+        var pageSize = 10;
 
         //$scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
         //$scope.label = BY.config.profile.userType[$scope.profileType].label;

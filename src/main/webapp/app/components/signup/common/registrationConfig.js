@@ -41,10 +41,9 @@ BY.config.regConfig.userTypeConfig = {
     },
     '3' : {
         'type':'3',
-        'contentPanel':'app/components/signup/registration/regHousing.html?versionTimeStamp=%PROJECT_VERSION%',
-        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'contentPanel':'',
         'category':'HOUSING',
-        'label' : "Housing"
+        'label' : ""
     },
     '4' : {
         'type':'4',

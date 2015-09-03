@@ -21,16 +21,7 @@
 	background: #fff;
 	border-radius: 4px !important;
 }
-.serviceFeatured
-{
-	width:85px;
-	height:89px;
-	background:url('../img/feature/service.png?versionTimeStamp=%PROJECT_VERSION%');
-	position:absolute;
-	z-index:10;
-	top: -4px;
-    right: -5px;
-}
+
 .service-card[data-index="discussion-articles"] {
 	cursor: pointer;
 }
@@ -103,13 +94,7 @@
 .service-card-desciption img {
 	display: none;
 }
-.add-comment-FA .icon-rate
-{
-	background:url('../img/icons/rate_mo_icon.png');
-	width:19px;
-	height:19px;
-	margin: 0px 5px 0px 5px;
-}
+
 .service-rating_p
 {
 	border:1px solid #d36e41;
@@ -158,9 +143,6 @@
 	max-width: calc(100% - 168px);
 }
 
-.fa-review-icon:before {
-	content: url('../img/icons/review.png')
-}
 
 .padding42 {
 	padding: 2px !important;
@@ -173,21 +155,7 @@
 	margin-top: 5px;
 }
 
-.fa-envelope:before {
-	content: url('../img/icons/e-mail.png')
-}
 
-.fa-phone:before {
-	content: url('../img/icons/phone.png')
-}
-
-.fa-globe:before {
-	content: url('../img/icons/web.png')
-}
-
-.fa-address:before {
-	content: url('../img/icons/place.png')
-}
 
 .fa {
 	vertical-align: middle;

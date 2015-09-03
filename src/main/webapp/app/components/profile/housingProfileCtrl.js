@@ -1,8 +1,9 @@
-byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 
-    function ($scope, $rootScope, $location, $route, $routeParams) {
+byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
 	 $scope.individualProfile = $scope.$parent.profileData;
      $scope.slideIndex = 1;
      //$scope.userName = $scope.$parent.userName;
+     var reviewDetails = new ReviewRateProfile();
 	 
 	 $scope.slideGallery = function(dir){
          if($scope.slideIndex<1){
@@ -39,7 +40,22 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
      };
      
      
+     $scope.showMore = function(){
+         document.getElementById("profile-desc").style.display = "block";
+         document.getElementById("profile-shortDesc").style.display = "none";
+     };
      
+
+     $scope.showReviews = function(){
+         //Get reviews by all user for this professional
+         $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+             $scope.reviews = response.data.replies;
+         }, function(error){
+             console.log(error)
+         })
+     };
+
+     $scope.showReviews();
 
      
 }]);

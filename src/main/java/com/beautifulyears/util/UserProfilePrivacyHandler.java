@@ -50,6 +50,7 @@ public class UserProfilePrivacyHandler {
 		fields.add("status");
 		fields.add("reviewedBy");
 		fields.add("ratedBy");
+		fields.add("aggrRatingPercentage");
 		return fields;
 	}
 }

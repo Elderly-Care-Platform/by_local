@@ -1,10 +1,13 @@
+<div ng-repeat="service in services" class="ng-scope" style="position:relative;">
+	<div ng-include="'app/components/find/servicesInstitutionContentPanel.html'"
+		ng-if="service.userTypes[0] == 4"></div>
+	<div ng-include="'app/components/find/servicesIndividualContentPanel.html'"
+		ng-if="service.userTypes[0] == 7"></div>
 
-<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+</div>
 
-<div class="container by_home_content">
-    <div class="row">
-        <div class="col-md-3  md-margin-bottom-40"></div>
-        <div class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right " infinite-scroll="loadMore()"
-             ng-include="findViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">
+<div ng-if="servicePagination.noOfPages > 1">
+    <div class="text-left">
+        <by-pagination obj="servicePagination" callback="getServicesData"></by-pagination>
     </div>
 </div>

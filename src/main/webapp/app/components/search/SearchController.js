@@ -1,5 +1,5 @@
-byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', '$location', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'ServicePageSearch',
-    function ($scope, $rootScope, $route, $location, $routeParams, DiscussSearchForDiscussType, DiscussSearch, ServiceSearch) {
+byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', '$location', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'ServicePageSearch', '$sce',
+    function ($scope, $rootScope, $route, $location, $routeParams, DiscussSearchForDiscussType, DiscussSearch, ServiceSearch, $sce) {
         $rootScope.term = $routeParams.term;
 
         //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -45,11 +45,17 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
         $scope.getServicesData = function(page, size){
             ServiceSearch.get({term: $rootScope.term, 'p': page, 's': size}, function (value) {
                 $scope.services = value.data.content;
+                $scope.servicePagination = {};
+                $scope.servicePagination.totalPosts = value.data.total;
+                $scope.servicePagination.noOfPages = Math.ceil(value.data.total / value.data.size);
+                $scope.servicePagination.currentPage = value.data.number;
+                $scope.servicePagination.pageSize = $scope.pageSize;
+                
                 $scope.serviceTotal = value.data.total;
                 function regexCallback(p1, p2, p3, p4) {
                     return ((p2 == undefined) || p2 == '') ? p1 : '<i class="highlighted-text" >' + p1 + '</i>';
                 }
-
+                $scope.scrollTo("search-search");
                 setTimeout(
                     function () {
                         $(".service-card").each(function (a, b) {
@@ -74,11 +80,14 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
             service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
         }
 
+        $scope.trustForcefully = function(html) {
+            return $sce.trustAsHtml(html);
+        };
 
 
         $scope.go = function ($event, type, id, discussType) {
             $event.stopPropagation();
-            if (type === "detail") {
+            if (type === "id") {
                 $location.path('/discuss/' + id);
             } else if (type === "menu" && $rootScope.menuCategoryMap) {
                 var menu = $rootScope.menuCategoryMap[id];

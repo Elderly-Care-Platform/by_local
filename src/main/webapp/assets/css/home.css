@@ -98,46 +98,6 @@
 	border: none !important;
 }
 
-.icon_question:before {
-	content:
-		url("../img/icons/ask_share_submit/question.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
-.by_leftPanel_icons:hover .icon_question:before {
-	content:
-		url("../img/icons/ask_share_submit/question_mo.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
-.icon_feedback:before {
-	content:
-		url("../img/icons/ask_share_submit/feedback.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
-.by_leftPanel_icons:hover .icon_feedback:before {
-	content:
-		url("../img/icons/ask_share_submit/feedback_mo.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
-.icon_tips:before {
-	content:
-		url("../img/icons/ask_share_submit/tips.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
-.by_leftPanel_icons:hover .icon_tips {
-	content:
-		url("../img/icons/ask_share_submit/tips_mo.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
-.icon_story:before {
-	content:
-		url("../img/icons/ask_share_submit/story.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
-.by_leftPanel_icons:hover .icon_story:before {
-	content:
-		url("../img/icons/ask_share_submit/story_mo.png?versionTimeStamp=%PROJECT_VERSION%");
-}
-
 
 .by_leftPanel_icons i
 {
@@ -498,3 +458,4 @@ ul.loginbar.pull-right {
 		right:15px;
 	}
 }
+

@@ -1,297 +1,308 @@
-<div class="row no-padding margin-bottom-20 marginleft0">
-    <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
-        Facility Info
+<div ng-controller="regHousingFacilityController">
+    <div class="row no-padding margin-bottom-20 marginleft0">
+        <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+            Facility Info
+        </div>
+
+        <div class="col-md-12 no-padding bg-gray-h1">
+            <div class="bg-green-h2" style="width: 156px;"></div>
+        </div>
     </div>
 
-    <div class="col-md-12 no-padding bg-gray-h1">
-        <div class="bg-green-h2" style="width: 156px;"></div>
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5 required">
+            Name of your facility
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" name="facilityName" class="username-textbox textbox name-textbox" ng-model="facility.name" required/>
+            <span ng-show="housingForm.facilityName.$invalid && submitted" class="errorRed">Please enter facility name</span>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5">
-        Name of your facility
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5">
+            Select a category
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <select class="form-control grayBgLogin">
+                <option value="0"></option>
+                <option value="1"></option>
+                <option value="2"></option>
+            </select>
+        </div>
     </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" class="username-textbox textbox name-textbox" ng-model="facility.name"/>
-    </div>
-</div>
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5">
-        Select a category
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5">
+            Our facilities are
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <select class="form-control grayBgLogin">
+                <option value="0"></option>
+                <option value="1"></option>
+                <option value="2"></option>
+            </select>
+        </div>
     </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <select class="form-control grayBgLogin">
-            <option value="0"></option>
-            <option value="1"></option>
-            <option value="2"></option>
-        </select>
-    </div>
-</div>
-
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5">
-        Our facilities are
-    </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <select class="form-control grayBgLogin">
-            <option value="0"></option>
-            <option value="1"></option>
-            <option value="2"></option>
-        </select>
-    </div>
-</div>
 
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5">
-        Country
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5">
+            Country
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" class="username-textbox textbox"
+                   ng-model="facility.primaryAddress.country"/>
+        </div>
     </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" class="username-textbox textbox"
-               ng-model="facility.primaryAddress.country"/>
-    </div>
-</div>
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5">
-        Zip
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5">
+            Zip
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" class="username-textbox textbox"
+                   ng-model="facility.primaryAddress.zip" style="width:50%;"/>
+            <input type="button" class="btn btn-success pull-right register-btn"
+                   value="Get address" style="padding:4px 12px;"
+                   ng-click="getLocationByPincode($event, address)">
+        </div>
     </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" class="username-textbox textbox"
-               ng-model="facility.primaryAddress.zip" style="width:50%;"/>
-        <input type="button" class="btn btn-success pull-right register-btn"
-               value="Get address" style="padding:4px 12px;"
-               ng-click="getLocationByPincode($event, address)">
-    </div>
-</div>
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5">
-        City
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5">
+            City
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" class="username-textbox textbox" name="facilityCity"
+                   ng-model="facility.primaryAddress.city"/>
+            <span ng-show="housingForm.facilityCity.$invalid && submitted" class="errorRed">Please enter your first name</span>
+        </div>
     </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" class="username-textbox textbox"
-               ng-model="facility.primaryAddress.city"/>
-    </div>
-</div>
 
 
-<div class="row  margin-bottom-20  register-page">
-    <div class="col-md-5 ">Locality</div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" ng-model="facility.primaryAddress.locality"
-               class="name-textbox textbox" ng-google-location options="options" obj="address"
-               callback="addressCallback" id="addressLocality"
-               placeholder="Locality"/>
+    <div class="row  margin-bottom-20  register-page">
+        <div class="col-md-5 ">Locality</div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" ng-model="facility.primaryAddress.locality"
+                   class="name-textbox textbox" ng-google-location options="options" obj="address"
+                   callback="addressCallback" id="addressLocality"
+                   placeholder="Locality"/>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5 ">Address detail</div>
-    <div class="col-md-7 no-padding-right register-page">
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5 ">Address detail</div>
+        <div class="col-md-7 no-padding-right register-page">
         <textarea class="textbox " rows="3"
                   ng-model="facility.primaryAddress.streetAddress"></textarea>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5 ">Phone number</div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" class="username-textbox textbox" name="primaryTel"
-               ng-model="facility.primaryPhoneNo"
-               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10">
-        <span ng-show="(individualForm.primaryTel.$invalid || individualForm.primaryTel.$error.pattern) && submitted"
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5 ">Phone number</div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" class="username-textbox textbox" name="primaryTel"
+                   ng-model="facility.primaryPhoneNo"
+                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10">
+        <span ng-show="(housingForm.primaryTel.$invalid || housingForm.primaryTel.$error.pattern) && submitted"
               class="errorRed">Not a valid number!</span>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20  register-page"
-     ng-repeat="number in facility.secondaryPhoneNos track by $index">
-    <div class="col-md-5 ">
-        Additional Phone Number
-    </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
-               ng-model="facility.secondaryPhoneNos[$index]"
-               placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10"/>
+    <div class="row margin-bottom-20  register-page"
+         ng-repeat="number in facility.secondaryPhoneNos track by $index">
+        <div class="col-md-5 ">
+            Additional Phone Number
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
+                   ng-model="facility.secondaryPhoneNos[$index]"
+                   placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10"/>
 
-        <span ng-show="(individualForm.{{'tel'+$index}}.$invalid || individualForm.{{'tel'+$index}}.$error.pattern) && submitted"
+        <span ng-show="(housingForm.{{'tel'+$index}}.$invalid || housingForm.{{'tel'+$index}}.$error.pattern) && submitted"
               class="errorRed">Not a valid number!</span>
+        </div>
     </div>
-</div>
 
-<div class="row add-phone margin-bottom-20  register-page" style="margin-top:-10px;">
-    <div class="col-md-5 "></div>
-    <div class="col-md-7 no-padding-right register-page">
-        <a class="add-phone" ng-click="addPhoneNumber()">+ add another phone number</a>
+    <div class="row add-phone margin-bottom-20  register-page" style="margin-top:-10px;">
+        <div class="col-md-5 "></div>
+        <div class="col-md-7 no-padding-right register-page">
+            <a class="add-phone" ng-click="addPhoneNumber()">+ add another phone number</a>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20  register-page">
-    <div class="col-md-5 ">Email ID</div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="email" class="username-textbox textbox" name="primaryEmail"
-               ng-model="facility.primaryEmail"
-               placeholder="Email"/>
-        <span ng-show="individualForm.primaryEmail.$error.email && submitted" class="errorRed">
+    <div class="row margin-bottom-20  register-page">
+        <div class="col-md-5 ">Email ID</div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="email" class="username-textbox textbox" name="primaryEmail"
+                   ng-model="facility.primaryEmail"
+                   placeholder="Email"/>
+        <span ng-show="housingForm.primaryEmail.$error.email && submitted" class="errorRed">
             Not valid Email!
         </span>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20 register-page"
-     ng-repeat="email in facility.secondaryEmails track by $index">
-    <div class="col-md-5">
-        Additional Email ID
-    </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
-               ng-model="facility.secondaryEmails[$index]"
-               placeholder="Email"/>
-        <span ng-show="individualForm.{{'email'+$index}}.$error.email && submitted"
+    <div class="row margin-bottom-20 register-page"
+         ng-repeat="email in facility.secondaryEmails track by $index">
+        <div class="col-md-5">
+            Additional Email ID
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
+                   ng-model="facility.secondaryEmails[$index]"
+                   placeholder="Email"/>
+        <span ng-show="housingForm.{{'email'+$index}}.$error.email && submitted"
               class="errorRed">Not valid Email!</span>
-    </div>
-</div>
-
-<div class="row add-email margin-bottom-20  register-page" style="margin-top:-10px;">
-    <div class="col-md-5 "></div>
-    <div class="col-md-7 no-padding-right register-page">
-        <a class="add-email" ng-click="addEmail()">+ add another email id</a>
-    </div>
-</div>
-
-<div class="row margin-bottom-40 register-page">
-    <div class="col-md-5">
-        Website
-    </div>
-    <div class="col-md-7 no-padding-right register-page">
-        <input type="text" class="username-textbox textbox"
-               ng-model="serviceProviderInfo.website"
-               placeholder="Website"/>
-    </div>
-</div>
-
-<div class="row no-padding margin-bottom-20 marginleft0">
-    <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
-        Profile picture
+        </div>
     </div>
 
-    <div class="col-md-12 no-padding bg-gray-h1">
-        <div class="bg-green-h2" style="width: 156px;"></div>
+    <div class="row add-email margin-bottom-20  register-page" style="margin-top:-10px;">
+        <div class="col-md-5 "></div>
+        <div class="col-md-7 no-padding-right register-page">
+            <a class="add-email" ng-click="addEmail()">+ add another email id</a>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20 darkBgwithText register-page">
-    Please upload your profile picture
-    <div class="darkBgwithTextArrow">
-        <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
+    <div class="row margin-bottom-40 register-page">
+        <div class="col-md-5">
+            Website
+        </div>
+        <div class="col-md-7 no-padding-right register-page">
+            <input type="text" class="username-textbox textbox"
+                   ng-model="serviceProviderInfo.website"
+                   placeholder="Website"/>
+        </div>
     </div>
-</div>
+
+    <div class="row no-padding margin-bottom-20 marginleft0">
+        <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+            Profile picture
+        </div>
+
+        <div class="col-md-12 no-padding bg-gray-h1">
+            <div class="bg-green-h2" style="width: 156px;"></div>
+        </div>
+    </div>
+
+    <div class="row margin-bottom-20 darkBgwithText register-page">
+        Please upload your profile picture
+        <div class="darkBgwithTextArrow">
+            <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
+        </div>
+    </div>
 
 
-<div class="no-padding margin-bottom-40 register-page by_editor_post_divider" style="text-align:left;">
-    <div class="by-reg-gallery" ng-if="facility.profileImage && profileImage.length===0">
-        <img class="by-reg-image"
-             ng-src="{{facility.profileImage.thumbnailImage}}"/>
-        <a class="image-fav" ng-if="!profileImage.loading"
-           ng-click="deleteProfileImage()"></a>
-    </div>
-    <div class="by-reg-gallery" ng-repeat="img in profileImage">
-        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-        <a class="image-fav" ng-if="!img.loading" ng-click="deleteProfileImage()"></a>
-        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
-    </div>
-    <div class="by-reg-uploadLabel">
-        <label class="myLabel" style="background:#ececec;">
-            <input id="inputImage2"
-                   type="file"
-                   accept="image/*"
-                   load-image="profileImage"
-                   resize-max-height="300"
-                   resize-max-width="250"
-                   resize-quality="0.7" class="btn btn-success register-btn"/>
-            <img src="assets/img/icons/photo.png" width="100%"/>
+    <div class="no-padding margin-bottom-40 register-page by_editor_post_divider" style="text-align:left;">
+        <div class="by-reg-gallery" ng-if="facility.profileImage && profileImage.length===0">
+            <img class="by-reg-image"
+                 ng-src="{{facility.profileImage.thumbnailImage}}"/>
+            <a class="image-fav" ng-if="!profileImage.loading"
+               ng-click="deleteProfileImage()"></a>
+        </div>
+        <div class="by-reg-gallery" ng-repeat="img in profileImage">
+            <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+            <a class="image-fav" ng-if="!img.loading" ng-click="deleteProfileImage()"></a>
+            <a class="by-reg-loadingImage" ng-if="img.loading"></a>
+        </div>
+        <div class="by-reg-uploadLabel">
+            <label class="myLabel" style="background:#ececec;">
+                <input id="inputImage2"
+                       type="file"
+                       accept="image/*"
+                       load-image="profileImage"
+                       resize-max-height="300"
+                       resize-max-width="250"
+                       resize-quality="0.7" class="btn btn-success register-btn"/>
+                <img src="assets/img/icons/photo.png" width="100%"/>
             <span style="float: right;max-width: 130px; margin-left: 10px; text-align: left; line-height:17px; color:#000;">
                 Upload your <br/>profile picture
             </span>
-        </label>
-    </div>
-</div>
-
-<div class="row no-padding margin-bottom-20 marginleft0">
-    <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
-        Gallery pictures
+            </label>
+        </div>
     </div>
 
-    <div class="col-md-12 no-padding bg-gray-h1">
-        <div class="bg-green-h2" style="width: 156px;"></div>
-    </div>
-</div>
+    <div class="row no-padding margin-bottom-20 marginleft0">
+        <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+            Gallery pictures
+        </div>
 
-<div class="row margin-bottom-20 darkBgwithText register-page">
-    Please upload pictures from your photo gallery
-    <div class="darkBgwithTextArrow">
-        <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
-    </div>
-</div>
-
-
-<div class="no-padding margin-bottom-40  register-page by_editor_post_divider" style="text-align:left;">
-    <div class="by-reg-gallery" ng-repeat="img in facility.photoGalleryURLs">
-        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-        <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
-    </div>
-    <div class="by-reg-gallery" ng-repeat="img in galleryImages">
-        <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-        <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
-        <a class="by-reg-loadingImage" ng-if="img.loading"></a>
-    </div>
-    <div class="by-reg-uploadLabel">
-        <label class="myLabel" style="background:#ececec">
-            <input id="inputImage4"
-                   type="file"
-                   accept="image/*"
-                   multiple
-                   load-image="galleryImages"
-                   resize-max-height="300"
-                   resize-max-width="250"
-                   resize-quality="0.7" class="btn btn-success register-btn"
-                   imgArray="$parent.galleryImages"/><img
-                src="assets/img/icons/photo.png" width="100%"/>
-            <span style="float: right; max-width: 180px; margin-left: 10px; text-align: left; line-height: 17px; color: #000;">
-                Upload multiple<br/> photos for your gallery
-            </span>
-        </label>
-    </div>
-</div>
-
-<div class="row no-padding margin-bottom-20 marginleft0">
-    <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
-        About facility
+        <div class="col-md-12 no-padding bg-gray-h1">
+            <div class="bg-green-h2" style="width: 156px;"></div>
+        </div>
     </div>
 
-    <div class="col-md-12 no-padding bg-gray-h1">
-        <div class="bg-green-h2" style="width: 156px;"></div>
+    <div class="row margin-bottom-20 darkBgwithText register-page">
+        Please upload pictures from your photo gallery
+        <div class="darkBgwithTextArrow">
+            <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
+        </div>
     </div>
-</div>
 
-<div class="row margin-bottom-20 darkBgwithText register-page">
-    Please enter a description of your facility. Please refer to: rooms and housing options,
-    costs, health services, dining options, services and amenities, activities,
-    connectivity (mobile/wifi) and TV,
-    as well as those features that make your facility stand out. What is your
-    location and how easy is commuting to your place?
-    <div class="darkBgwithTextArrow">
-        <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
+
+    <div class="no-padding margin-bottom-40  register-page by_editor_post_divider" style="text-align:left;">
+        <div class="by-reg-gallery" ng-repeat="img in facility.photoGalleryURLs">
+            <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+            <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
+        </div>
+        <div class="by-reg-gallery" ng-repeat="img in galleryImages">
+            <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
+            <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+            <a class="by-reg-loadingImage" ng-if="img.loading"></a>
+        </div>
+        <div class="by-reg-uploadLabel">
+            <label class="myLabel" style="background:#ececec">
+                <input id="inputImage4"
+                       type="file"
+                       accept="image/*"
+                       multiple
+                       load-image="galleryImages"
+                       resize-max-height="300"
+                       resize-max-width="250"
+                       resize-quality="0.7" class="btn btn-success register-btn"
+                       imgArray="$parent.galleryImages"/><img
+                    src="assets/img/icons/photo.png" width="100%"/>
+                <span style="float: right; max-width: 180px; margin-left: 10px; text-align: left; line-height: 17px; color: #000;">
+                    Upload multiple<br/> photos for your gallery
+                </span>
+            </label>
+        </div>
     </div>
-</div>
 
-<div class="row marginleftMinu4 margin-bottom-20 no-padding register-page byEditor" style="border:1px solid #ccc;">
+    <div class="row no-padding margin-bottom-20 marginleft0">
+        <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
+            About facility
+        </div>
+
+        <div class="col-md-12 no-padding bg-gray-h1">
+            <div class="bg-green-h2" style="width: 156px;"></div>
+        </div>
+    </div>
+
+    <div class="row margin-bottom-20 darkBgwithText register-page">
+        Please enter a description of your facility. Please refer to: rooms and housing options,
+        costs, health services, dining options, services and amenities, activities,
+        connectivity (mobile/wifi) and TV,
+        as well as those features that make your facility stand out. What is your
+        location and how easy is commuting to your place?
+        <div class="darkBgwithTextArrow">
+            <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
+        </div>
+    </div>
+
+    <div class="row marginleftMinu4 margin-bottom-20 no-padding register-page byEditor" style="border:1px solid #ccc;">
     <textarea class="textbox " rows="3" id="facilityDescription"
               ng-model="facility.description" ng-init="addEditor('facilityDescription')"></textarea>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="col-md-12 margin-top-0 margin-bottom-20">
+        <input type="button" value="Done" class="nextButton by_btn_submit divRight"
+               ng-click="postUserProfile(housingForm)"/>
+        <input type="button" value="+ Add Another Facility" ng-click="addingFacilty()"
+               class="nextButton by_btn_submit" style="float:left; width:200px;"/>
+        <div class="clearfix"></div>
+    </div>
 </div>
-                    

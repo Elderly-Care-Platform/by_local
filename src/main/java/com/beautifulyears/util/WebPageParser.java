@@ -41,11 +41,14 @@ public class WebPageParser {
 			ParserConfigurationException, URISyntaxException {
 		this.url = prepareUrl(url);
 		try {
-			doc = Jsoup.connect(this.url).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").get();
+			doc = Jsoup
+					.connect(this.url)
+					.userAgent(
+							"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36")
+					.timeout(10*1000).get();
 		} catch (Exception e) {
-
+			System.out.println("error while getting the page");
 		}
-
 	}
 
 	private String getPageTitle() throws IOException {
@@ -60,7 +63,6 @@ public class WebPageParser {
 		if (Util.isEmpty(titleText)) {
 			titleText = doc.title();
 		}
-		
 
 		return titleText;
 	}
@@ -128,8 +130,12 @@ public class WebPageParser {
 			isImage = true;
 		} else {
 			if (doc == null) {
-				Connection.Response res = Jsoup.connect(this.url)
-						.ignoreContentType(true).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").execute();
+				Connection.Response res = Jsoup
+						.connect(this.url)
+						.ignoreContentType(true)
+						.userAgent(
+								"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36")
+						.execute();
 				if (null != res.contentType()
 						&& res.contentType().contains("image")) {
 					isImage = true;
@@ -146,20 +152,22 @@ public class WebPageParser {
 			Matcher m = pattern.matcher(url);
 			if (m.matches()) {
 				String videoId = m.group(2);
-				$media.add("http://i2.ytimg.com/vi/"+videoId+"/hqdefault.jpg");
+				$media.add("http://i2.ytimg.com/vi/" + videoId
+						+ "/hqdefault.jpg");
 				$media.add("http://www.youtube.com/embed/" + videoId);
 			} else {
 				$media.add("");
 				$media.add("");
 			}
 		} else if (url.indexOf("youtu.be") != -1) {
-			String videoId = url.substring(url.lastIndexOf("/") + 1, url.length());
+			String videoId = url.substring(url.lastIndexOf("/") + 1,
+					url.length());
 			$media.add("http://i2.ytimg.com/vi/$vid/hqdefault.jpg");
 			$media.add("http://www.youtube.com/embed/" + videoId);
 		} else if (url.indexOf("vimeo.com") != -1) {
 			String videoId = url.substring(url.lastIndexOf("/") + 1,
 					url.length());
-			if ( !("").equals(videoId)) {
+			if (!("").equals(videoId)) {
 				$media.add("https://f.vimeocdn.com/images_v6/logo.png");
 				$media.add("http://player.vimeo.com/video/" + videoId);
 			} else {
@@ -213,8 +221,8 @@ public class WebPageParser {
 		Map<Long, String> map = new TreeMap<Long, String>();
 		int count = 0;
 		for (Element el : images) {
-			
-			if (imgAdded > imageQuantity - 1 || count > 2*imageQuantity) {
+
+			if (imgAdded > imageQuantity - 1 || count > 2 * imageQuantity) {
 				break;
 			}
 			long size = getImageSize(el.attr("src"));
@@ -247,7 +255,7 @@ public class WebPageParser {
 	public LinkInfo getUrlDetails() throws IOException, URISyntaxException {
 		LinkInfo linkInfo = new LinkInfo();
 		linkInfo.setUrl(this.url);
-		try{
+		try {
 			linkInfo.setDomainName(getDomainName(this.url));
 			if (isImage(linkInfo.getUrl())) {
 				linkInfo.setType(DiscussConstants.LINK_TYPE_TYPE_IMAGE);
@@ -271,10 +279,10 @@ public class WebPageParser {
 				}
 
 			}
-		}catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
-		
+
 		return linkInfo;
 	}
 

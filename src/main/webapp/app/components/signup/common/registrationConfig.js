@@ -170,6 +170,6 @@ BY.config.regConfig.housingFacility = {
 		
 		'isReviewedByUser': false,
 		
-		 'isRatedByUser' : false
+        'isRatedByUser' : false
 		
 };

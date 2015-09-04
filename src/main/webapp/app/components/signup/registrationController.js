@@ -1,7 +1,7 @@
- $.ajax({url: apiPrefix +'api/v1/menu/getMenu?parentId=root', success: function(response){
-              window.by_menu = response;
-              angular.bootstrap(document, ["byApp"]);
-          }});
+ //$.ajax({url: apiPrefix +'api/v1/menu/getMenu?parentId=root', success: function(response){
+ //             window.by_menu = response;
+ //             angular.bootstrap(document, ["byApp"]);
+ //         }});
 
 byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {

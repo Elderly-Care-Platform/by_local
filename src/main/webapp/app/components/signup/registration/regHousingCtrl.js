@@ -24,19 +24,16 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
     		}
     	};
 
+        //var editorInitCallback = function(){
+        //    if(tinymce.get("facilityDescription") && $scope.facility && $scope.facility.description){
+        //        tinymce.get("facilityDescription").setContent($scope.facility.description);
+        //    }
+        //}
+        //
+        //$scope.addEditor = function(){
+        //	 var tinyEditor = BY.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
+        //};
 
-
-        var editorInitCallback = function(){
-            if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
-                tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
-            }
-        }
-        
-        $scope.addEditor = function(){
-        	 var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
-        };
-       
-        
 
         $scope.addressCallback = function (response) {
             $('#addressLocality').blur();
@@ -71,35 +68,25 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             $scope.address.streetAddress = response.formatted_address;
         };
 
-       
+
 
         //Prefill form with previously selected data
         var initializeRegForm = function () {
-            $scope.curiousUser = false;
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
 
-            if($scope.profile.userTypes && $scope.profile.userTypes.length > 0){
-                if($scope.profile.userTypes.length===1 && $scope.profile.userTypes[0]===2){
-                    $scope.curiousUser = true;
-                }
-
-                if($scope.profile.userTypes.indexOf(0) > -1){
-                    $scope.emotional_challenges = $scope.regConfig.emotional_challenges2;
-                }
-            }
-
-
-            
-
             if ($scope.basicProfileInfo.primaryUserAddress && $scope.basicProfileInfo.primaryUserAddress.country === null) {
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
             }
 
-           
-            editorInitCallback();
+            if($scope.profile.facilities.length===0){
+                var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
+                $scope.profile.facilities.push(facilityObj);
+            }
+
+            $scope.facility = $scope.profile.facilities[0];
         };
 
 
@@ -199,8 +186,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             $scope.submitted = true;
             $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
             $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
-
-            $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
+            //$scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
             var regex = /(?:[\w-]+\.)+[\w-]+/ ;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
@@ -240,7 +226,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
         
         // Adding another faciltiy
         $scope.addingFacilty = function(){
-            $scope.views.contentPanel = "app/components/signup/registration/regHousingAddFacility.html?versionTimeStamp=%PROJECT_VERSION%";
+            //$scope.views.contentPanel = "app/components/signup/registration/regHousingAddFacility.html?versionTimeStamp=%PROJECT_VERSION%";
         };
         
 

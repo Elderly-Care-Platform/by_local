@@ -7,7 +7,7 @@ var CubePortfolio = function () {
         	jQuery(document).ready( function() {
 			    jQuery('#grid-container').cubeportfolio({
 			        // options
-			        gridContainer.cubeportfolio({
+			        gridContainer:cubeportfolio({
 				        mediaQueries: [{
 				            width: 800,
 				            cols: 3
@@ -18,7 +18,7 @@ var CubePortfolio = function () {
 				            width: 320,
 				            cols: 1
 				        }]
-				    });
+				    })
 			    });
 			});
         }

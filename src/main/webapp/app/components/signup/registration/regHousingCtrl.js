@@ -77,6 +77,14 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
 
+            if($scope.profile.facilities.length > 0){
+            	for(var i=0; i < $scope.profile.facilities.length; i++){
+                	if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
+                		$scope.profile.facilities.splice(i, 1);
+                	}
+                }
+            }
+            
             if ($scope.basicProfileInfo.primaryUserAddress && $scope.basicProfileInfo.primaryUserAddress.country === null) {
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
             }
@@ -212,6 +220,14 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
                         return value;
                     }
                 });
+                
+                if($scope.profile.facilities.length > 0){
+                	for(var i=0; i < $scope.profile.facilities.length; i++){
+                    	if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
+                    		$scope.profile.facilities.splice(i, 1);
+                    	}
+                    }
+                }
 
 
                 var userProfile = new UserProfile();

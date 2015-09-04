@@ -174,6 +174,11 @@ BY.config.regConfig.housingFacility = {
 		
         'isRatedByUser' : false, 
         
-        'website' : ""
+        'website' : "",
+        
+
+        'category' : {
+            'fetchFromMenu' : "Housing"
+        },
 		
 };

@@ -1,10 +1,12 @@
 byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope', '$http', '$location',
-    '$routeParams',
-    function ($scope, $rootScope, $http, $location, $routeParams) {
+    '$routeParams', 'ServiceTypeList',
+    function ($scope, $rootScope, $http, $location, $routeParams, ServiceTypeList) {
         $scope.profileImage = [];
         $scope.galleryImages = [];
         $scope.submitted = false;
+        $scope.categoryOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.category.fetchFromMenu].children;
         $scope.facility = $scope.$parent.facility;
+        $scope.selectedCategory = [];
 
         var editorInitCallback = function(){
             if(tinymce.get("facilityDescription") && $scope.facility && $scope.facility.description){
@@ -15,8 +17,29 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
         $scope.addEditor = function(){
             var tinyEditor = BY.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
         };
-        editorInitCallback();
-
+        
+        var initialize = function(){
+      	if(!$scope.facility.tier){
+               $scope.facility.tier = $scope.regConfig.facilityType[0];
+          } 
+      	if($scope.facility.category && $scope.facility.category.length > 0){
+            $scope.selectedCategory =  $.map($scope.facility.category, function(value, key){
+                return value.id;
+            });
+        }
+        	editorInitCallback();
+        };
+       
+        initialize();
+        
+        $scope.selectCategory = function(option){
+            if($scope.selectedCategory && $scope.selectedCategory.indexOf(option.id) > -1){
+                $scope.selectedCategory.splice($scope.selectedCategory.indexOf(option.id), 1);
+            }else{
+                $scope.selectedHobbies.push(option.id);
+            }
+        };
+        
         $scope.addressCallback = function (response) {
             $('#addressLocality').blur();
             $scope.facility.primaryAddress.city = "";
@@ -125,10 +148,9 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             }
         };
         
-        if(!$scope.facility.tier){
-            $scope.facility.tier = $scope.regConfig.facilityType[0];
-        }
-
+        
+        
+       
 
         $scope.postUserProfile = function(isValidForm){
             $(".by_btn_submit").prop("disabled", true);

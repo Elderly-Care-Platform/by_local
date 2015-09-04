@@ -1,0 +1,82 @@
+<form class="col-md-12 md-margin-bottom-40 margin-top-20 article-outer-wrapper" ng-controller="regUserTypeController"
+      novalidate >
+     <div class="col-md-12  iconBg ">
+        <div class="col-md-11 col-xs-10 iconBgLeft">
+            Thank you for being with us! Please fill in your profile below,  so that we know you better and offer you information and services that are relevant for you.
+        </div>
+        <div class="col-md-1 col-xs-2 iconBgRight" >i</div><div style="clear:both;"></div>
+    </div>
+  <div class="clearfix" style="height:30px;"></div>
+
+	<div class="panel-group" id="userTypeaccord">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#userTypeaccord"
+						href="#collapseOne">I am an Individual</a>
+				</h4>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse">
+				<div class="panel-body">
+					<div class="margin-bottom-10 by-reg-user-type"
+						ng-repeat="type in individualUserType">
+						<label> {{type.value}} <input type="checkbox"
+							class="checkBoxOne" id="{{key}}" ng-model="type.selected"
+							ng-change="selectUserType(this)" />
+						</label>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"> 
+					<div ng-repeat="type in profUserType">
+						<label style="font-weight:bold; color:#000; font-size:14px;">{{type.value}}
+							<input type="checkbox" class="checkBoxTwo" id="{{key}}"
+								ng-model="type.selected" ng-change="selectUserType(this)" />
+						</label>
+						<div class="clearfix"></div>
+					</div>
+				</h4>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#userTypeaccord"
+						href="#collapseTwo">I represent an Institution. We provide:</a>
+				</h4>
+			</div>
+			<div id="collapseTwo" class="panel-collapse collapse">
+				<div class="panel-body">
+					<div class="margin-bottom-10"
+						ng-repeat="type in housingUserType">
+						<label>{{type.value}} <input type="checkbox"
+							class="checkBoxTwo" id="{{key}}" ng-model="type.selected"
+							ng-change="selectUserType(this)" />
+						</label>
+						<div class="clearfix"></div>
+					</div>
+					<div class="margin-bottom-10"
+						ng-repeat="type in institutionUserType">
+						<label>{{type.value}} <input type="checkbox"
+							class="checkBoxTwo" id="{{key}}" ng-model="type.selected"
+							ng-change="selectUserType(this)" />
+						</label>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12 margin-top-10 margin-bottom-20">
+        <input type="button" value="Next" class="nextButton" ng-click="submit()"/>
+        <input type="button" value="Return" class="returnButton" ng-click="cancel()"/>
+
+        <div class="clearfix"></div>
+    </div>
+</form>

@@ -82,7 +82,7 @@ $(document).ready(function() {
 
 BY.byUtil.updateMetaTags = function(param){
 	 var title = param.title.trim(),
-		 imageUrl = param.image,
+		 imageUrl = param.imageUrl || $("meta[property='og:image']").attr('content'),
 		 description = $(param.description).text().trim();
 
 	if(!description && description===""){
@@ -99,7 +99,12 @@ BY.byUtil.updateMetaTags = function(param){
 
 	document.title = title;
 	$("meta[property='og\\:title']").attr("content", title);
+	$("meta[name='twitter\\:title']").attr("content", title);
 	$("meta[property='og\\:description']").attr("content", description);
+	$("meta[name='description']").attr("content", description);
+	$("meta[name='twitter\\:description']").attr("content", description);
+	$("meta[property='og\\:image']").attr("content", imageUrl);
+	$("meta[name='twitter\\:image']").attr("content", imageUrl);
 }
 
 function resizeIframe(obj) {

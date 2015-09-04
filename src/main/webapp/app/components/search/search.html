@@ -1,38 +1,11 @@
-
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 <div class="container by_home_content">
-	<div class="row" ng-if="discuss.length > 0">
-		<div class="col-md-3 md-margin-bottom-40"
-			ng-include="'app/components/search/searchLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-
-		<div
-			class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper">
-
-			<div id="home_featured_services"
-				class="col-md-12 no-padding  list-head dp-block">POSTS/Q&A</div>
-			<div
-				ng-include="'app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-
+	<div class="row">
+		<div class="col-md-3 md-margin-bottom-40" ng-include="'app/components/search/searchLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
 		</div>
-		<div class="col-md-12 no-padding margin-bottom-30 more-link">
-		    <a ng-click="showMore('Discuss')">More...</a>
-		</div>
-	</div>
 
-	<div class="row" ng-if="services.length > 0">
-	<div class="col-md-3 md-margin-bottom-40"
-			></div>
-		<div
-			class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper">
-
-			<div id="home_featured_services"
-				class="col-md-12 no-padding  list-head dp-block">SERVICES</div>
-			<div
-				ng-include="'app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-
-		</div>
-		<div class="col-md-12 no-padding margin-bottom-30 more-link">
-		    <a ng-click="showMore('Service')">More...</a>
+		<div class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper"
+			 ng-include="'app/components/search/searchContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
 		</div>
 	</div>
 </div>

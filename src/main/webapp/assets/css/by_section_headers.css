@@ -10,7 +10,7 @@
 }
 
 .by_section_header_title, .by_section_header_desc {
-	width: calc(100% - 270px);
+	width: calc(82% - 270px);
 	color: #000;
 	margin-left:270px;
 }

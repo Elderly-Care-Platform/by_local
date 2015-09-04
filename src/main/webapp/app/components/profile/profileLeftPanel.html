@@ -2,8 +2,14 @@
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
-            <li class="list-group-item" >
-                <a ng-click="displayProfile()">INSTITUTE INFO</a>
+            <li class="list-group-item" ng-click="gotoHref('profileSection')">
+                <a>{{label}}</a>
+            </li>
+            <li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')">
+                <a>Posts ({{postsPagination.totalPosts}})</a>
+            </li>
+            <li class="list-group-item" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')">
+                <a >Q&A ({{qaPagination.totalPosts}})</a>
             </li>
             <!--<li class="list-group-item" ng-if="isAllowedToReview">-->
                 <!--<a ng-click="reviewContent()">REVIEW / RATE</a>-->

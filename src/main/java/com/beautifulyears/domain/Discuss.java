@@ -37,6 +37,9 @@ public class Discuss {
 	private String text;
 
 	private int status; // published, unpublished
+	
+	@DBRef
+	private UserProfile userProfile;
 
 	@DBRef
 	private List<Tag> systemTags = new ArrayList<Tag>();
@@ -57,6 +60,8 @@ public class Discuss {
 
 	private boolean isFeatured;
 
+	private boolean isPromotion;
+
 	private long shareCount = 0;
 
 	private String shortSynopsis;
@@ -74,7 +79,7 @@ public class Discuss {
 			List<String> topicId, String title, String text, int status,
 			int aggrReplyCount, List<Tag> systemTags, Long sharedCount,
 			List<String> userTags, Map<String, String> articlePhotoFilename,
-			Boolean isFeatured, int contentType, LinkInfo linkInfo) {
+			Boolean isFeatured,Boolean isPromotion, int contentType, LinkInfo linkInfo,UserProfile profile) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -91,11 +96,31 @@ public class Discuss {
 		this.aggrReplyCount = aggrReplyCount;
 		this.articlePhotoFilename = articlePhotoFilename;
 		this.isFeatured = isFeatured;
+		this.isPromotion = isPromotion;
 		this.systemTags = systemTags;
 		this.shareCount = sharedCount;
 		this.userTags = userTags;
 		this.contentType = contentType;
 		this.linkInfo = linkInfo;
+		this.userProfile = profile;
+	}
+	
+	
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	public boolean isPromotion() {
+		return isPromotion;
+	}
+
+	public void setPromotion(boolean isPromotion) {
+		this.isPromotion = isPromotion;
 	}
 
 	public int getContentType() {

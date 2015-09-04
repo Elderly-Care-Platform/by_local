@@ -14,8 +14,12 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         var tags = [];
         var queryParams = {p:0,s:10};
         
+      
+        
         if($scope.selectedMenu){
         	//console.log($scope.selectedMenu.displayMenuName);
+        	
+        	
 
             //Set page title and FB og tags
             (function(){
@@ -38,16 +42,21 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             }
 
             $("#preloader").show();
-            DiscussCount.get({tags:tags}, function (counts) {
+            DiscussCount.get({tags:tags, contentTypes:"f,total,p,q"}, function (counts) {
                     $scope.discuss_counts = counts.data;
                 },
                 function (error) {
                     console.log(error);
                 });
-
+            
+            if(queryParams.discussType === 'f'){
+              	 queryParams.isFeatured=true;
+              	 delete queryParams.discussType;
+               }
 
             DiscussPage.get(queryParams,
                 function (value) {
+            	
                     $scope.discuss = value.data.content;
                     $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
                     $scope.pageInfo.isQueryInProgress = false;
@@ -68,10 +77,16 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
             if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
                 $scope.pageInfo.isQueryInProgress = true;
                 queryParams.p = $scope.pageInfo.number + 1;
-                queryParams.s = $scope.pageInfo.size;
+                queryParams.s = $scope.pageInfo.size; 
+                
+                if(queryParams.discussType === 'f'){
+                	 queryParams.isFeatured=true;
+                	 delete queryParams[discussType];
+                 }
 
                 DiscussPage.get(queryParams,
                     function(value){
+                	
                         if(value.data.content.length > 0){
                             $scope.pageInfo.isQueryInProgress = false;
                             $scope.discuss = $scope.discuss.concat(value.data.content);

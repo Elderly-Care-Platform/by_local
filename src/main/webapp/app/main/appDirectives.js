@@ -230,6 +230,7 @@ byApp.directive('autoComplete', function ($timeout) {
                     }, 0);
                 },
                 change: function(event, item){
+                    console.log(scope.obj);
                     if(scope.onChangeCallback){
                         scope.onChangeCallback(item.item, scope.obj);
                     }
@@ -307,6 +308,216 @@ byApp.directive('elementResize', function () {
             w.bind('resize', function () {
                 scope.$apply();
             });
+        }
+    };
+});
+
+byApp.directive('dropdownMultiselect', function(){
+    return {
+        restrict: 'E',
+        scope:{
+            model: '=',
+            options: '=',
+            pre_selected: '=preSelected'
+        },
+        template: "<div class='col-md-12' data-ng-class='{open: open}'>"+
+        "<div class='col-md-12 dropdown-toggle' data-ng-click='open=!open;openDropdown()'>Select <span class='caret'></span></div>"+
+        //"<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
+        "<ul class='dropdown-menu' aria-labelledby='dropdownMenu'>" +
+        "<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
+        "<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
+        "<li class='divider'></li>" +
+        "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.displayMenuName}}" +
+        "<i data-ng-class='isChecked(option.id)'></i></a></li>" +
+        "</ul>" +
+        "</div>" ,
+        controller: function($scope){
+
+            $scope.openDropdown = function(){
+                $scope.selected_items = [];
+                if($scope.pre_selected && $scope.pre_selected.length > 0){
+                    for(var i=0; i<$scope.pre_selected.length; i++){
+                        $scope.selected_items.push($scope.pre_selected[i].id);
+                    }
+                }
+            };
+
+            $scope.selectAll = function () {
+                for(var i=0; i<$scope.options.length; i++){
+                    $scope.selected_items.push($scope.options[i].id);
+                }
+                console.log($scope.selected_items);
+            };
+
+            $scope.deselectAll = function() {
+                $scope.selected_items=[];
+                console.log($scope.selected_items);
+            };
+            $scope.setSelectedItem = function(){
+                var id = this.option.id;
+                if($scope.selected_items && $scope.selected_items.indexOf(id) > -1){
+                    $scope.selected_items.splice($scope.selected_items.indexOf(id), 1);
+                }else{
+                    $scope.selected_items.push(id);
+                }
+
+                console.log($scope.selected_items);
+                return false;
+            };
+            $scope.isChecked = function (id) {
+                if($scope.selected_items && $scope.selected_items.indexOf(id) > -1){
+                    return 'glyphicon glyphicon-ok pull-right';
+                }
+                return false;
+            };
+        }
+    }
+});
+
+byApp.directive('byPagination', function () {
+    return {
+        scope: {
+            obj: '=?',
+            callback: '=?'
+
+        },
+        templateUrl: 'app/shared/common/template/contentPagination.html?versionTimeStamp=%PROJECT_VERSION%',
+        controller: function($scope){
+            $scope.contentPagination = $scope.obj;
+            $scope.maxPageNo = 5;
+            $scope.selectedPageNo = 0;
+
+            var firstPageIndex = 0, lastPageIndex = $scope.maxPageNo;
+            var setPageArray = function(){
+                $scope.pageArray = [];
+                for(var i=firstPageIndex; i<=lastPageIndex-1; i++){
+                    $scope.pageArray.push(i);
+                }
+            };
+
+
+            var setPrevPageArr = function(){
+                if(($scope.selectedPageNo+1) - $scope.maxPageNo > 0){
+                    firstPageIndex = ($scope.selectedPageNo+1) - $scope.maxPageNo;
+                    lastPageIndex = firstPageIndex + $scope.maxPageNo;
+                }else {
+                    firstPageIndex = 0;
+                    lastPageIndex = Math.min($scope.maxPageNo, $scope.contentPagination.noOfPages);
+                }
+                setPageArray();
+            };
+
+            var getNextPageArray = function(){
+                if($scope.contentPagination.noOfPages - $scope.selectedPageNo >= $scope.maxPageNo){
+                    firstPageIndex = $scope.selectedPageNo;
+                    lastPageIndex = Math.min(firstPageIndex + $scope.maxPageNo, $scope.contentPagination.noOfPages);
+
+                }else{
+                    firstPageIndex = $scope.contentPagination.noOfPages -  $scope.maxPageNo;
+                    lastPageIndex = $scope.contentPagination.noOfPages;
+                }
+                setPageArray();
+                //var startPage , lastPage;
+                ////$scope.pageArray = [];
+                //if($scope.contentPagination.noOfPages > $scope.maxPageNo){
+                //    if($scope.selectedPageNo === 0){
+                //        $scope.pageArray = [];
+                //        startPage = $scope.selectedPageNo;
+                //        lastPage = $scope.maxPageNo;
+                //        for(var i=startPage; i<=lastPage-1; i++){
+                //            $scope.pageArray.push(i);
+                //        }
+                //    } else{
+                //
+                //        if($scope.contentPagination.noOfPages - $scope.selectedPageNo >= $scope.maxPageNo){
+                //            $scope.pageArray = [];
+                //            // Visible pages are paginated with maxSize
+                //            startPage = $scope.selectedPageNo;
+                //
+                //            // Adjust last page if limit is exceeded
+                //            lastPage = Math.min(startPage + $scope.maxPageNo, $scope.contentPagination.noOfPages);
+                //            for(var i=startPage; i<=lastPage-1; i++){
+                //                $scope.pageArray.push(i);
+                //            }
+                //        }else{
+                //            $scope.pageArray = [];
+                //            startPage = $scope.contentPagination.noOfPages -  $scope.maxPageNo;
+                //            lastPage = $scope.contentPagination.noOfPages;
+                //
+                //            for(var i=startPage; i<=lastPage-1; i++){
+                //                $scope.pageArray.push(i);
+                //            }
+                //        }
+                //
+                //    }
+                //
+                //
+                //    console.log($scope.pageArray);
+                //}else{
+                //    $scope.pageArray = [];
+                //    startPage = 0;
+                //    lastPage = $scope.contentPagination.noOfPages;
+                //    for(var i=startPage; i<=lastPage-1; i++){
+                //        $scope.pageArray.push(i);
+                //    }
+                //}
+
+            };
+
+            var updateNextPevLink = function(){
+                if($scope.selectedPageNo === $scope.contentPagination.noOfPages-1){
+                    $scope.nextDisabled = true;
+                }else{
+                    $scope.nextDisabled = false;
+                }
+
+                if($scope.selectedPageNo === 0) {
+                    $scope.prevDisabled = true;
+                }else{
+                    $scope.prevDisabled = false;
+                }
+            }
+
+            $scope.initPageArray = function(){
+                if($scope.contentPagination.noOfPages > $scope.maxPageNo){
+                    firstPageIndex = 0;
+                    lastPageIndex = $scope.maxPageNo;
+                }else{
+                    firstPageIndex = 0;
+                    lastPageIndex = $scope.contentPagination.noOfPages;
+                }
+                setPageArray();
+                updateNextPevLink();
+            };
+
+            $scope.selectPage = function(pageNo){
+                $scope.selectedPageNo = pageNo;
+                $scope.callback($scope.selectedPageNo, $scope.contentPagination.pageSize);
+                updateNextPevLink();
+            };
+
+            $scope.nextPageSet = function(pageNo){
+                if(pageNo < $scope.contentPagination.noOfPages){
+                    $scope.selectedPageNo = pageNo;
+                    $scope.callback($scope.selectedPageNo, $scope.contentPagination.pageSize);
+                    if(lastPageIndex < $scope.contentPagination.noOfPages){
+                        getNextPageArray();
+                    }
+                    updateNextPevLink();
+                }
+            };
+
+            $scope.previousPageSet = function(pageNo){
+                if(pageNo >= 0){
+                    $scope.selectedPageNo = pageNo;
+                    $scope.callback($scope.selectedPageNo, $scope.contentPagination.pageSize);
+                    if(firstPageIndex > 0){
+                        setPrevPageArr();
+                    }
+                    updateNextPevLink();
+                }
+
+            };
         }
     };
 });

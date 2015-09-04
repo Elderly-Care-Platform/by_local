@@ -20,11 +20,16 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 	@Override
 	public PageImpl<UserProfile> getServiceProvidersByFilterCriteria(
 			Object[] userTypes, String city, List<ObjectId> tagIds,
-			Boolean isFeatured, Pageable page) {
+			Boolean isFeatured, Pageable page, List<String> fields) {
 		List<UserProfile> userProfileList = null;
 		Query q = new Query();
 		q.addCriteria(Criteria.where("status").in(
 				new Object[] { DiscussConstants.DISCUSS_STATUS_ACTIVE, null }));
+		if(null != userTypes && userTypes.length > 0){
+			q.addCriteria(Criteria.where((String) "userTypes").in(
+					userTypes));
+		}
+		
 		if (null != isFeatured) {
 			q.addCriteria(Criteria.where("isFeatured").is(isFeatured));
 		}
@@ -41,6 +46,12 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 							.elemMatch(Criteria.where("city").regex(city, "i")));
 
 			q.addCriteria(criteria);
+		}
+		if (null != fields && fields.size() > 0) {
+			for (String field : fields) {
+				q.fields().include(field);
+			}
+
 		}
 		q.with(page);
 		userProfileList = mongoTemplate.find(q, UserProfile.class);

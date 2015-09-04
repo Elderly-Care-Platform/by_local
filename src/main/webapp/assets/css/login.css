@@ -112,10 +112,6 @@
 	padding-left: 15px;
 }
 
-.by-reg-user-type:last-child {
-	border-top: 1px solid #ccc;
-	padding-top: 10px;
-}
 
 .iconBgRight {
 	text-align: center;
@@ -210,6 +206,7 @@ input[type=checkbox] {
 
 .by-reg-uploadLabel .myLabel {
 	background-color: #449d44;
+	cursor:pointer;
 }
 
 .by-reg-uploadLabel .myLabel span {
@@ -320,4 +317,22 @@ input[type=checkbox] {
 	min-width: 320px;
 	margin-left: auto;
 	margin-right: auto;
+}
+.viewProfile
+{
+	width:cal(100% - 2px);
+	margin-top:-20px;
+	background:#E8E8E8;
+	padding:0px;
+	border:0px;
+	border-top:1px solid #ccc;
+}
+.viewProfile a
+{	
+	padding:9px 15px 9px 15px;
+	display:block;
+}
+.showAddress
+{
+	display:none;
 }

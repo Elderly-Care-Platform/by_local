@@ -23,6 +23,7 @@ import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.mail.MailHandler;
@@ -107,6 +108,11 @@ public class DiscussDetailController {
 				if (null != user) {
 					comment.setUserId(user.getId());
 					comment.setUserName(user.getUserName());
+					Query query = new Query();
+					query.addCriteria(Criteria.where("userId").is(user.getId()));
+					UserProfile profile = mongoTemplate.findOne(query,
+							UserProfile.class);
+					comment.setUserProfile(profile);
 				} else {
 					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 				}
@@ -115,6 +121,7 @@ public class DiscussDetailController {
 					DiscussReply parentComment = discussReplyRepository
 							.findOne(comment.getParentReplyId());
 					if (null != parentComment) {
+						parentComment.setUrl(comment.getUrl());
 						parentComment.setDirectChildrenCount(parentComment
 								.getDirectChildrenCount() + 1);
 						comment.getAncestorsId().addAll(
@@ -182,6 +189,11 @@ public class DiscussDetailController {
 				if (null != user) {
 					answer.setUserId(user.getId());
 					answer.setUserName(user.getUserName());
+					Query query = new Query();
+					query.addCriteria(Criteria.where("userId").is(user.getId()));
+					UserProfile profile = mongoTemplate.findOne(query,
+							UserProfile.class);
+					answer.setUserProfile(profile);
 				} else {
 					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 				}
@@ -238,6 +250,16 @@ public class DiscussDetailController {
 						"mailTemplate.properties");
 				String title = !Util.isEmpty(discuss.getTitle()) ? discuss
 						.getTitle() : discuss.getText();
+				if (Util.isEmpty(title) && discuss.getLinkInfo() != null) {
+					title = !Util.isEmpty(discuss.getLinkInfo().getTitle()) ? discuss
+							.getLinkInfo().getTitle() : discuss.getLinkInfo()
+							.getDescription();
+					title = !Util.isEmpty(title) ? title : discuss
+							.getLinkInfo().getUrl();
+				}
+				if(Util.isEmpty(title)){
+					title = "<<Your post>>";
+				}
 				String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
 						.getUsername() : "Anonymous User";
 				String commentedBy = !Util.isEmpty(user.getUserName()) ? user
@@ -272,9 +294,10 @@ public class DiscussDetailController {
 						.getUserName() : "Anonymous User";
 				String replyString = "previous comment";
 				String path = reply.getUrl();
+				String replyText = Util.isEmpty(reply.getText()) ? "<<Your reply>>" : reply.getText();
 				String body = MessageFormat.format(
 						resourceUtil.getResource("replyCommentedBy"), userName,
-						commentedBy, replyString, reply.getText(), path, path);
+						commentedBy, replyString, replyText, path, path);
 				MailHandler
 						.sendMailToUserId(
 								reply.getUserId(),

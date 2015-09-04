@@ -1,11 +1,14 @@
+<div class="col-md-12 discussion-page" ng-repeat="data in discuss" data-index="discussion-articles" data-link="articles.html" >
+    <!-- show if discuss is of type Article -->
+    
+    <div ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="data.discussType == 'P'"></div>
+    <div ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="data.discussType == 'Q'"></div>
+</div>
 
-<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
-<div class="container by_home_content">
-    <div class="row">
-        <div class="col-md-3  md-margin-bottom-40" ></div>
-        <div infinite-scroll="loadMore()" class="col-md-9 discussion-page md-margin-bottom-40 article-outer-wrapper"
-             ng-include="discussionViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">
-        </div>
+
+<div ng-if="discussPagination.noOfPages > 1">
+    <div class="text-left">
+        <by-pagination obj="discussPagination" callback="getDiscussData"></by-pagination>
     </div>
 </div>

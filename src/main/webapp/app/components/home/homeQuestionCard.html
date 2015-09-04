@@ -12,12 +12,13 @@
 <div ng-repeat="question in questions" data-index="discussion-articles" data-link="articles.html" >
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles" class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
-        <img src="assets/img/by.png" alt="image">
+        <img src="{{question.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
         <div class="article-info dp-inline-block">
             <ul class="list-inline posted-info" style="margin-right:80px !important;">
                 <li>
                     <p>
-                        By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;">{{username}}</a>
+                        By <a validate-user-name="{{question.username}}" style="text-transform:capitalize;"
+                              href="#/profile/0/{{question.userId}}/{{question.username}}">{{username}}</a>
                         |
                     </p>
                 </li>
@@ -28,10 +29,10 @@
 
                 <li ng-repeat="topicId in question.topicId">
                     <p class="first-letter-uc by-systemTags">
+                        <span ng-if="$index > 0">|</span>
                         <a ng-click="go($event,'menu', topicId)">
                             {{$root.menuCategoryMap[topicId].displayMenuName}}
                         </a>
-                        <span ng-if="$index < question.topicId.length-1">,</span>
                     </p>
                 </li>
             </ul>

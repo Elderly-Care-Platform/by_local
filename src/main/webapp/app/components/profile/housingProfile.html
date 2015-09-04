@@ -1,0 +1,185 @@
+<div class="row  grayRegisterBgLight " style="background:transparent;" ng-controller="housingProfileController">
+    <!-- Modal -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog"
+             style="width: 80%; margin-left: auto; margin-right: auto;">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 0px;">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+
+                </div>
+                <div class="modal-body by_modal_body">
+                    <img src="" style="max-width: 100%"/>
+                </div>
+                <div class="modal-footer" style="border-top: 0px;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 whiteBg by_discuss_detail  margin-bottom-35" style="border-radius:4px !important;">
+        <div class="col-md-12 profileContainer  white-gray ">
+            <div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;">
+                <div class="main-image white-gray " style="padding-left:0px;">
+                    <img class="padding-zero" ng-if="housingProfile.basicProfileInfo.profileImage.titleImage"
+                         src="{{housingProfile.basicProfileInfo.profileImage.titleImage || ''}}" alt="">
+                    <img class="padding-zero" ng-if="!housingProfile.basicProfileInfo.profileImage.titleImage"
+                         src="assets/img/by.png" alt="">
+                </div>
+                <div class="col-md-12 by-imageGallery margin-top-20 row"
+                     ng-if="housingProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
+                    <div class="by-gallery-leftArrow" ng-click="slideGallery('l')">
+                    </div>
+                    <div class="by-gallery-container">
+                        <div ng-repeat="img in housingProfile.basicProfileInfo.photoGalleryURLs"
+                             class="by-imageGallery-item" data-popup="{{img.original || ''}}"
+                             data-hover="{{img.thumbnailImage || ''}}"
+                             ng-init="galleryClickHover()">
+                            <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                        </div>
+                    </div>
+                    <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
+                    </div>
+                    <div class="clearfix" style="height:10px;"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-7 col-xs-7 by_services_full_width_right by_services_full_width_right_extra by-service-padding no-padding">
+                <div class="profileMainContent">
+                    <div class="profileContentTitle">
+						<span>{{housingProfile.individualInfo.salutation}}
+							{{housingProfile.individualInfo.lastName}}
+                            <span style="font-weight: normal;">
+                                <span validate-user-name="{{discuss.username}}">({{userName}})</span>
+                            </span>
+						</span>
+                        <div style="clear: both; height: 6px;"></div>
+                    </div>
+                   
+                  
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="clearfix" style="height:20px;" ng-if="!housingProfile.basicProfileInfo.photoGalleryURLs.length > 0"></div>
+            <span ng-if="housingProfile.basicProfileInfo.description">
+                <div class="col-md-12 no-padding  list-head dp-block fontIndv">My
+                    Story
+                </div>
+
+                <div class="col-md-12 no-padding bg-gray-h1">
+                    <div class="bg-green-h2" style="width: 96px;"></div>
+                </div>
+                <div style="clear: both; height: 16px;"></div>
+                <div class="articles-story" style="margin-bottom:0px;"
+                     ng-bind-html="trustForcefully(housingProfile.basicProfileInfo.description)">
+                </div>
+			</span>
+
+			<div class="col-md-12 no-padding  list-head dp-block fontIndv">
+				Corporate Details</div>
+
+			<div class="col-md-12 no-padding bg-gray-h1">
+				<div class="bg-green-h2" style="width: 176px;"></div>
+			</div>
+			<div style="clear: both; height: 22px;"></div>
+			
+			<div class="profileContentTitle" ng-if="housingProfile.basicProfileInfo.firstName">
+				{{housingProfile.basicProfileInfo.firstName}}
+			<div style="clear: both; height: 6px;"></div>				
+			</div>
+			<div class="no-padding articles-story"
+				ng-if="housingProfile.basicProfileInfo.primaryUserAddress.streetAddress || housingProfile.basicProfileInfo.primaryUserAddress.locality ||
+						 housingProfile.basicProfileInfo.primaryUserAddress.city || housingProfile.basicProfileInfo.primaryUserAddress.country || housingProfile.basicProfileInfo.primaryUserAddress.zip">
+				
+					<span
+						ng-if="housingProfile.basicProfileInfo.primaryUserAddress.streetAddress">
+						{{housingProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
+					</span>
+					<span
+						ng-if="housingProfile.basicProfileInfo.primaryUserAddress.locality">
+						{{housingProfile.basicProfileInfo.primaryUserAddress.locality}},
+						&nbsp;</span>
+					<span
+						ng-if="housingProfile.basicProfileInfo.primaryUserAddress.city">
+						{{housingProfile.basicProfileInfo.primaryUserAddress.city}},
+						&nbsp;</span>
+					<span
+						ng-if="housingProfile.basicProfileInfo.primaryUserAddress.country">
+						{{housingProfile.basicProfileInfo.primaryUserAddress.country}}&nbsp;
+						- &nbsp;</span>
+					<span
+						ng-if="housingProfile.basicProfileInfo.primaryUserAddress.zip">
+						{{housingProfile.basicProfileInfo.primaryUserAddress.zip}}</span>
+				<div style="clear: both; height: 6px;"></div>
+			</div>
+
+
+			<div class="no-padding"
+				ng-if="housingProfile.basicProfileInfo.primaryPhoneNo">
+				<i class="fa fa-phone" style="margin-right: 9px;"></i> <span>{{housingProfile.basicProfileInfo.primaryPhoneNo}}</span>
+				<span
+					ng-repeat="phoneNo in housingProfile.basicProfileInfo.secondaryPhoneNos"
+					ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
+				<div style="clear: both; height: 16px;"></div>
+			</div>
+
+			<div class="no-padding"
+				ng-if="housingProfile.basicProfileInfo.primaryEmail">
+				<i class="fa fa-envelope" style="margin-right: 9px;"></i> <a
+					href="mailto::{{housingProfile.basicProfileInfo.primaryEmail}}">{{housingProfile.basicProfileInfo.primaryEmail}}</a>
+				<span
+					ng-repeat="mail in housingProfile.basicProfileInfo.secondaryEmails"
+					ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
+				</span>
+				<div style="clear: both; height: 26px;"></div>
+			</div>
+
+
+
+		</div>
+        
+        
+        
+        
+        <div style="clear:both;"></div>
+		
+		<div class="row" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
+
+		<div ng-if="reviews && reviews.length == 0" class="row">
+			<div class="col-md-12 bg-color-grey2"
+				 style=" margin-top: 12px; "></div>
+		</div>
+		
+
+		<div ng-if="reviews && reviews.length > 0" class="row">
+			<div class="col-md-12 bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
+		 	<div class="col-md-12  margin-bottom-20 review-rate-header" style="padding-left:21px; padding-right:21px;">
+				<div class="col-md-12 no-padding dp-block" style="border-bottom:1px solid #ccc;">
+					 Reviews
+				</div>
+
+				<div class="col-md-12 no-padding">
+					<div class="bg-green-h2" style="width: 75px;"></div>
+				</div>
+			</div>
+			<div ng-repeat="review in reviews" data-index="discussion-articles"
+				data-link="articles.html"
+				ng-include="'app/components/profile/profileReviewCard.html'"
+				ng-if="review.text && review.text.trim().length > 0">
+			</div>
+		</div>
+		
+		<div ng-if="reviews && reviews.length === 0">
+			<div class="clearfix" style="height:20px;"></div>
+		</div>
+
+		<div ng-include="'app/components/profile/contentByUser.html'"></div>
+
+       
+    </div>
+    <!--/end profile details-->
+</div>

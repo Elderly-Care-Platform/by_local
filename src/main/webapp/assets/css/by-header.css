@@ -282,10 +282,10 @@
 	/*.header .dropdown>a:after, .header .dropdown-submenu>a:after {*/
 		/*content: '';*/
 	/*}*/
-	.header .dropdown > .hbMenu:after{
+	/*.header .dropdown > .hbMenu:after{*/
 
-		content: '';
-	}
+		/*content: '';*/
+	/*}*/
 
 
 }

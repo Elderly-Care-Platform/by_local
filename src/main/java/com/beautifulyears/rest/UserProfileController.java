@@ -1,6 +1,8 @@
 package com.beautifulyears.rest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +36,7 @@ import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.UserProfileResponse;
 import com.beautifulyears.rest.response.UserProfileResponse.UserProfilePage;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.UserProfilePrivacyHandler;
 import com.beautifulyears.util.Util;
 
 /**
@@ -49,9 +53,14 @@ public class UserProfileController {
 
 	private UserProfileRepository userProfileRepository;
 
+	// private MongoTemplate mongoTemplate;
+
 	@Autowired
-	public UserProfileController(UserProfileRepository userProfileRepository) {
+	public UserProfileController(UserProfileRepository userProfileRepository,
+			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
+		// this.mongoTemplate = mongoTemplate;
+		;
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{userId}" }, produces = { "application/json" })
@@ -68,8 +77,12 @@ public class UserProfileController {
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					userProfile.getBasicProfileInfo().setPrimaryEmail(
-							user.getEmail());
+					if (user != null && user.getEmail() != null
+							&& user.getId().equals(userId)) {
+						userProfile.getBasicProfileInfo().setPrimaryEmail(
+								user.getEmail());
+					}
+
 				} else {
 					logger.debug(userProfile.toString());
 				}
@@ -174,10 +187,11 @@ public class UserProfileController {
 			}
 
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
-
+			List<String> fields = new ArrayList<String>();
+			fields = UserProfilePrivacyHandler.getPublicFields(-1);
 			profilePage = UserProfileResponse.getPage(userProfileRepository
 					.getServiceProvidersByFilterCriteria(userTypes, city,
-							tagIds,isFeatured, pageable), user);
+							tagIds, isFeatured, pageable, fields), user);
 			if (profilePage.getContent().size() > 0) {
 				logger.debug("found something");
 			} else {
@@ -217,11 +231,13 @@ public class UserProfileController {
 			if (dir != 0) {
 				sortDirection = Direction.ASC;
 			}
+			List<String> fields = new ArrayList<String>();
+			fields.add("userId");
 
 			Pageable pageable = new PageRequest(page, size, sortDirection, sort);
 			userProfilePage = UserProfileResponse.getPage(userProfileRepository
-					.getServiceProvidersByFilterCriteria(userTypes, null,
-							null,null, pageable), null);
+					.getServiceProvidersByFilterCriteria(userTypes, null, null,
+							null, pageable, fields), null);
 			if (userProfilePage.getContent().size() > 0) {
 				logger.debug("did not find any service providers");
 			}
@@ -239,26 +255,23 @@ public class UserProfileController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		LoggerUtil.logEntry();
-		logger.debug("in submit User Profile");
+		UserProfile profile = null;
+		User currentUser = null;
 		try {
 			if ((userProfile != null)) {
-				/* check if a valid user exists, whom the profile belongs to */
-				User currentUser = Util.getSessionUser(req);
+				currentUser = Util.getSessionUser(req);
 				if (null != currentUser) {
 					logger.debug("current user details"
 							+ currentUser.toString());
-					/* save the user profile */
-					if (userProfile.getUserId().equals(currentUser.getId())) {
-
-						/*
-						 * check - if a userProfile by this userID already
-						 * exists, do not allow
-						 */
+					if (userProfile.getUserId() != null
+							&& userProfile.getUserId().equals(
+									currentUser.getId())) {
 						if (this.userProfileRepository.findByUserId(userProfile
 								.getUserId()) == null) {
-							userProfile.getBasicProfileInfo()
-									.setShortDescription(getShortDescription(userProfile));
-							userProfileRepository.save(userProfile);
+							profile = new UserProfile();
+							profile.setUserId(currentUser.getId());
+							profile.setUserTypes(userProfile.getUserTypes());
+							userProfileRepository.save(profile);
 						} else {
 							throw new BYException(
 									BYErrorCodes.USER_ALREADY_EXIST);
@@ -276,7 +289,8 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		return BYGenericResponseHandler.getResponse(userProfile);
+		return BYGenericResponseHandler.getResponse(UserProfileResponse
+				.getUserProfileEntity(profile, currentUser));
 	}
 
 	/* @PathVariable(value = "userId") String userId */
@@ -296,24 +310,54 @@ public class UserProfileController {
 						profile = userProfileRepository.findByUserId(userId);
 
 						if (profile != null) {
-							/* set required fields */
 							userProfile.getBasicProfileInfo()
-									.setShortDescription(getShortDescription(userProfile));
-							profile.setBasicProfileInfo(userProfile
-									.getBasicProfileInfo());
-							profile.setFeatured(userProfile.isFeatured());
-							profile.setIndividualInfo(userProfile
-									.getIndividualInfo());
-							profile.setServiceProviderInfo(userProfile
-									.getServiceProviderInfo());
+									.setShortDescription(
+											getShortDescription(userProfile));
 							profile.setStatus(userProfile.getStatus());
 							profile.setUserTypes(userProfile.getUserTypes());
 							profile.setLastModifiedAt(new Date());
 							profile.setSystemTags(userProfile.getSystemTags());
 
+							profile.setBasicProfileInfo(userProfile
+									.getBasicProfileInfo());
+							profile.setFeatured(userProfile.isFeatured());
+							if (!Collections.disjoint(
+									profile.getUserTypes(),
+									new ArrayList<>(Arrays.asList(
+											UserTypes.INDIVIDUAL_CAREGIVER,
+											UserTypes.INDIVIDUAL_ELDER,
+											UserTypes.INDIVIDUAL_PROFESSIONAL,
+											UserTypes.INDIVIDUAL_VOLUNTEER)))) {
+								profile.setIndividualInfo(userProfile
+										.getIndividualInfo());
+							}
+							if (!Collections
+									.disjoint(
+											profile.getUserTypes(),
+											new ArrayList<>(
+													Arrays.asList(
+															UserTypes.INSTITUTION_SERVICES,
+															UserTypes.INDIVIDUAL_PROFESSIONAL)))) {
+								profile.setServiceProviderInfo(userProfile
+										.getServiceProviderInfo());
+							}
+							if (!Collections
+									.disjoint(
+											profile.getUserTypes(),
+											new ArrayList<>(
+													Arrays.asList(UserTypes.INSTITUTION_HOUSING)))) {
+								profile.setFacilities(HousingController
+										.addFacilities(
+												userProfile.getFacilities(),
+												currentUser));
+							}
+
 							userProfileRepository.save(profile);
 							logger.info("User Profile update with details: "
 									+ profile.toString());
+						} else {
+							throw new BYException(
+									BYErrorCodes.USER_PROFILE_DOES_NOT_EXIST);
 						}
 
 					} else {
@@ -334,19 +378,19 @@ public class UserProfileController {
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
 				.getUserProfileEntity(profile, currentUser));
 	}
-	
-	private String getShortDescription(UserProfile profile){
-		 String shortDescription = null;
-         if(null != profile.getBasicProfileInfo() && null != profile.getBasicProfileInfo().getDescription()){
-                 Document doc = Jsoup.parse(profile
-                                 .getBasicProfileInfo()
-                                 .getDescription());
-                 String longDesc = doc.text();
-                 String desc = Util.truncateText(doc.text());
-                 if(longDesc != null && !desc.equals(longDesc)){
-                         shortDescription = desc;
-                 }
-         }
+
+	private String getShortDescription(UserProfile profile) {
+		String shortDescription = null;
+		if (null != profile.getBasicProfileInfo()
+				&& null != profile.getBasicProfileInfo().getDescription()) {
+			Document doc = Jsoup.parse(profile.getBasicProfileInfo()
+					.getDescription());
+			String longDesc = doc.text();
+			String desc = Util.truncateText(doc.text());
+			if (longDesc != null && !desc.equals(longDesc)) {
+				shortDescription = desc;
+			}
+		}
 		return shortDescription;
 	}
 

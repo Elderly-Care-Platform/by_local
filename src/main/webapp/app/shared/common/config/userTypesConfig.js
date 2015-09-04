@@ -5,31 +5,36 @@ BY.config.profile = BY.config.profile || {};
 BY.config.profile.userType = {
     '0' : {
         'category':'0',
-        'contentPanel':'',
-        'type':'CAREGIVER'
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'CAREGIVER',
+        'label':'Personal Story'
     },
     '1' : {
         'category':'0',
-        'contentPanel':'',
-        'type':'ELDER'
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'ELDER',
+        'label':'Personal Story'
     },
     '2' : {
         'category':'0',
-        'contentPanel':'',
-        'type':'VOLUNTEER'
+        'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'VOLUNTEER',
+        'label':'Personal Story'
     },
     '3' : {
         'category':'1',
-        'contentPanel':'',
-        'type':'HOUSING'
+        'contentPanel':'app/components/profile/housingProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'type':'HOUSING',
+        'label':'Housing Info'
     },
     '4' : {
         'category':'1',
-        'contentPanel':'app/components/profile/institutionProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/profile/instProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'SERVICES',
         'reviewContentType':'4',
-        'profileImage':'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%'
+        'profileImage':'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%',
+        'label':'Institution Info'
     },
     '5' : {
         'category':'1',
@@ -43,11 +48,12 @@ BY.config.profile.userType = {
     },
     '7' : {
         'category':'0',
-        'contentPanel':'app/components/profile/individualProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/profile/profUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'PROFESSIONAL',
         'reviewContentType':'5',
-        'profileImage':'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%'
+        'profileImage':'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%',
+        'label':'Professional Info'
     }
 
 }

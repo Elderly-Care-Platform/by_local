@@ -10,69 +10,9 @@ import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.repository.custom.DiscussRepositoryCustom;
 
 @Repository
-public interface DiscussRepository extends MongoRepository<Discuss, Serializable>, DiscussRepositoryCustom {
-	
+public interface DiscussRepository extends
+		MongoRepository<Discuss, Serializable>, DiscussRepositoryCustom {
 
-    public List<Discuss> findAll();
-    
-//    @Query(value = 
-//    		"{ "
-//    			+ "'$and':["
-//		    		+ "{'$or':"
-//						+ "[ {$where: '?0 == null'}, "
-//							+ "{'discussType':{$in:?0}} "
-//							+ "] "
-//						+ "},"
-//		    		+ "{'$or':"
-//							+ "[ {$where: '?1.length == 0'}, "
-//							+ "{'topicId': {$in:?1}} "
-//							+ "] "
-//					+ "},"
-//					+ "{'$or':"
-//							+ "[ {$where: '?2 == null'}, "
-//							+ "{'userId':?2} "
-//							+ "]"
-//					+ "},"
-//					+ "{'$or':"
-//							+ "[ {$where: '?3 == null'}, "
-//							+ "{'isFeatured':?3} "
-//							+ "]"
-//					+ "},"
-//					+ "{"
-//							+ "'status': {$in:["+DiscussConstants.DISCUSS_STATUS_ACTIVE+",null]}"
-//				+ "}"
-//				+ "]"
-//			+ "}")
-//    public Page<Discuss> getByCriteria(List<String> discussType,List<String> topicId,String userId,Boolean isFeatured,Pageable page);
-    
-//    @Query(value = 
-//    		"{ "
-//        			+ "'$and':["
-//    		    		+ "{'$or':"
-//    						+ "[ {$where: '?0 == null'}, "
-//    							+ "{'discussType':{$in:?0}} "
-//    							+ "] "
-//    						+ "},"
-//    		    		+ "{'$or':"
-//    							+ "[ {$where: '?1.length == 0'}, "
-//    							+ "{'topicId': {$in:?1}} "
-//    							+ "] "
-//    					+ "},"
-//    					+ "{'$or':"
-//    							+ "[ {$where: '?2 == null'}, "
-//    							+ "{'userId':?2} "
-//    							+ "]"
-//    					+ "},"
-//    					+ "{'$or':"
-//    							+ "[ {$where: '?3 == null'}, "
-//    							+ "{'isFeatured':?3} "
-//    							+ "]"
-//    					+ "},"
-//    					+ "{"
-//    							+ "'status': {$in:["+DiscussConstants.DISCUSS_STATUS_ACTIVE+",null]}"
-//    				+ "}"
-//    				+ "]"
-//    			+ "}", count = true)
-//    public Long getCountByCriteria(String[] discussType,List<String> topicId,String userId,Boolean isFeatured);
-   
+	public List<Discuss> findAll();
+	
 }

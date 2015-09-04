@@ -1,4 +1,10 @@
-<div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
+<div ng-controller="BYHomePromoController">
+     	<div ng-if="contentType==='all' || contentType==='promo'"
+     ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
+     infinite-scroll="loadMore()"></div>
+     </div>
+     
+     <div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll-disabled="contentType==='all' || postsPageInfo.lastPage || postsPageInfo.isQueryInProgress" infinite-scroll-distance="0"></div>
 
@@ -6,21 +12,15 @@
      ng-include="'app/components/home/homeQuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll-disabled="contentType==='all' || questionsPageInfo.lastPage || questionsPageInfo.isQueryInProgress" infinite-scroll-distance="0"></div>
 
-<div ng-if="services.length > 0 && (contentType==='all' || contentType==='S')" class="col-md-12 no-padding margin-bottom-35" >
-    <div id="home_featured_services" class="col-md-12 no-padding  list-head dp-block">
-        FEATURED SERVICES
-    </div>
 
-    <div class="col-md-12 no-padding bg-gray-h1">
-        <div class="bg-green-h2" style="width: 216px;"></div>
-    </div>
-</div>
-<div style="clear:both;"></div>
 
 <div ng-if="services.length > 0 && (contentType==='all' || contentType==='S')" infinite-scroll="loadMore()"
-     ng-include="'app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"
+     ng-include="'app/components/home/homeServicesCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll-disabled="contentType==='all' || servicesPageInfo.lastPage || servicesPageInfo.isQueryInProgress" infinite-scroll-distance="0">
 </div>
-<!--<div ng-show="posts.length > 0" ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>-->
+
+
+
+
 
 

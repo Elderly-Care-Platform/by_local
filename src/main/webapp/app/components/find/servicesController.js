@@ -123,9 +123,11 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
             $scope.error = "";
             $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             window.scrollTo(0, 0);
+            $(".service-filters").hide();
         };
 
         $scope.postSuccess = function () {
+            $(".service-filters").show();
             $route.reload();
         };
 

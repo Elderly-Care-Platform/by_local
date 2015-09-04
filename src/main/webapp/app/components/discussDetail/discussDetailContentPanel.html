@@ -3,7 +3,8 @@
         <div class="article-info dp-inline-block col-md-12">
             <ul class="list-inline posted-info" style="margin-left:0px;">
                 <li>
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"> {{username}} </a>
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"
+                          href="#/profile/0/{{detailResponse.discuss.userId}}/{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
@@ -11,10 +12,10 @@
 
                 <li ng-repeat="topicId in detailResponse.discuss.topicId">
                     <p class="first-letter-uc by-systemTags">
-                        <a di-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/{{$root.menuCategoryMap[topicId].id}}/all">
+                        <span ng-if="$index > 0">|</span>
+                        <a di-href="#/discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/{{$root.menuCategoryMap[topicId].id}}/all">
                             {{$root.menuCategoryMap[topicId].displayMenuName}}
                         </a>
-                        <span ng-if="$index < detailResponse.discuss.topicId.length-1">,</span>
                     </p>
                 </li>
             </ul><div style="clear: both"></div>

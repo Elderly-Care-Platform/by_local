@@ -6,24 +6,16 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         var categoryId = "", discussCategoryLevel = 0;
 
         $scope.mainMenu = window.by_menu;
+        $rootScope.mainMenu = $scope.mainMenu;
         $rootScope.menuCategoryMap = {};
         $rootScope.menuCategoryMapByName = {};
         $rootScope.discussCategoryMap = {};
         $rootScope.serviceCategoryMap = {};
-        var menuWidth;
+        var windowWidth, submenuHeight;
         $scope.discussMenuCnt = 0;
-
-
-        //$scope.mainMenu = BYMenu.query({}, function(response){
-        //    $scope.mainMenu = response;
-        //
-        //
-        //
-        //    console.log($rootScope.discussCategoryMap);
-        //
-        //}, function(error){
-        //
-        //})
+        $scope.menuView = "";
+        $rootScope.scrollableLeftPanel = false;
+        $scope.hamburgerView = false;
 
         $scope.createMenuCategoryMap = function(categories){
             angular.forEach(categories, function(category, index){
@@ -68,11 +60,12 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
 
         };
 
+        $scope.createMenuCategoryMap($scope.mainMenu);
+        window.by_menu = null;
+        delete window.by_menu;
 
+        //Select menu and show relevant page
         $scope.selectMenu = function(menu){
-            //$(".selected-dropdown").removeClass("selected-dropdown");
-            //$("#" + menu.id).parents(".dropdown").addClass("selected-dropdown");
-            //$scope.selectedMenu = menu.children;
             if(menu.module===0){
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===1){
@@ -80,92 +73,187 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }else{
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }
+
+            //Reset top menu, to dismiss hover menu - ipad fix
+            if(menu.ancestorIds.length >= 2){
+                $scope.selectedTopMenu = null;
+            }
         };
 
-        $scope.showHbMenu = function(){
-            if(menuWidth < 984){
-                console.log($(".by-left-menu")[0]);
-                $(".by-left-menu").css("display","none");
+        //
+        $rootScope.setLeftScroll = function(){
+            if($rootScope.scrollableLeftPanel){
+                $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
+                $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
             }else{
-                $(".by-hb-menu").css("display","none");
-            }
-
-            if(menuWidth < 984){
-                $(".hbMenu").attr("data-toggle", "collapse");
-                $(".hbMenu").attr("data-target", ".navbar-responsive-collapse");
-
-                $(".hb-anchorTag").attr("data-toggle", "collapse");
-                $(".hb-anchorTag").attr("data-target", ".navbar-responsive-collapse");
-            } else{
-                $(".hbMenu").removeAttr("data-toggle");
-                $(".hbMenu").removeAttr("data-target");
-
-                $(".hb-anchorTag").removeAttr("data-toggle");
-                $(".hb-anchorTag").removeAttr("data-target");
+                $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
             }
         };
 
-        $scope.resize = function(height, width){
+
+        $scope.bySubMenuInit = function(){
+            //Show/hide mask on screen on hover of by submenu
+            $(".by-subMenu" ).hover(
+                function() {
+                    //console.log($(this).find(".by-leafMenu li").length);
+                    if($(this).find(".by-leafMenu li").length > 0){
+                        $("#mask").css("display", "block");
+                    }
+
+                }, function() {
+                    $("#mask").css("display", "none");
+                }
+            );
+        };
+
+        //Show different section header based on screen size
+        var resizeSectionHeader = function(){
+            if($scope.sectionHeader){
+                if(windowWidth > 730){
+                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
+                } else{
+                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+                }
+            }
+        };
+
+
+        //Reset Left panel fix menu top position based on sub menu height
+        var resizeLeftMenu = function(){
+            var sliderHeight = $(".by_section_header").height();
+            submenuHeight = $(".by-left-menu").height();
+
+            //Set the margin top of left panel below menu
+            if (submenuHeight > 0) {
+                var marginTop = submenuHeight - sliderHeight + 13;
+                $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
+            }
+
+            //Set left panel's scrollable height below menu
+            if (windowWidth > 991) {
+                var leftFixMenuHeight = window.innerHeight - $(".header").height() - submenuHeight - 10;
+                $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
+            }
+        };
+
+        //callback from window resize directive
+        $scope.windowResize = function(height, width){
             console.log(width);
-            menuWidth = width;
-            if($scope.sectionHeader){
-                if(menuWidth > 730){
-                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
-                } else{
-                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
-                }
-            }
+            var browserScrollBarWidth = 8; //Specified in psc.css, webkit-scrollbar width 8 px
+            windowWidth = width;
 
-            $scope.showHbMenu();
+            if((width + browserScrollBarWidth) > 991){
+                $scope.menuView = "app/components/menu/mainMenu.html";
+                $scope.hamburgerView = false;
+            }else{
+                $scope.menuView = "app/components/menu/hamBurgerMenu.html";
+                $scope.hamburgerView = true;
+            }
+            resizeSectionHeader();
+            resizeLeftMenu();
+            $rootScope.setLeftScroll();
         };
 
-        $scope.createMenuCategoryMap($scope.mainMenu);
-        window.by_menu = null;
-        delete window.by_menu;
 
+        //BY-Submenu resize callbak from element resize directive
+        $scope.subMenuResize = function(height, width){
+            submenuHeight = $(".by-left-menu").height();
+            resizeLeftMenu();
+            $(".by-leafMenu").css('min-height', submenuHeight - 21);
+        };
+
+
+        //BY-Update section header based on selected by menu
         $scope.updateSectionHeader = function(menu){
-            var menuName = menu.displayMenuName.toLowerCase().trim();
-            $scope.sectionHeader = BY.config.sectionHeader[menuName];
-            if(!$scope.sectionHeader && menu.ancestorIds.length > 0) {
-                if(menu.ancestorIds.length===1){
-                    var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
-                    $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
-                } else if (menu.ancestorIds.length===2){
-                    var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
-                    $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+            if(menu.displayMenuName){
+                var menuName = menu.displayMenuName.toLowerCase().trim();
+                $scope.sectionHeader = BY.config.sectionHeader[menuName];
+                if(!$scope.sectionHeader && menu.ancestorIds.length > 0) {
+                    if(menu.ancestorIds.length===1){
+                        var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
+                        $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                    } else if (menu.ancestorIds.length===2){
+                        var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
+                        $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                    }
+
+                    if($scope.sectionHeader[menuName]){
+                        $scope.sectionHeader = $scope.sectionHeader[menuName];
+                    }
                 }
 
-                if($scope.sectionHeader[menuName]){
-                    $scope.sectionHeader = $scope.sectionHeader[menuName];
-                }
-            }
-
-            if($scope.sectionHeader){
-                $(".by_section_header_title").text($scope.sectionHeader.sectionHead);
-                $(".by_section_header_desc").text($scope.sectionHeader.sectionDesc);
-                if(menuWidth > 730){
-                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
-                } else{
-                    $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
+                if($scope.sectionHeader){
+                    $(".by_section_header_title").text($scope.sectionHeader.sectionHead);
+                    $(".by_section_header_desc").text($scope.sectionHeader.sectionDesc);
+                    resizeSectionHeader();
                 }
             }
         };
 
+
+        //Reset all menu css and selection menu style based on selected menu
+        var updateMenuStyle = function(){
+            $("#mask").css("display", "none");
+
+            //Add selected css for top level menu
+            $(".selected-dropdown").removeClass("selected-dropdown");
+            if($scope.selectedTopMenu){
+                $("#" + $scope.selectedTopMenu.id).parents(".by-menu").addClass("selected-dropdown");
+            }
+
+            //Reset scrollableLeftPanel
+            if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length > 0){
+                $rootScope.scrollableLeftPanel = false;
+            }else{
+                if($(".homeSlider").length > 0 || $(".by_section_header").length > 0){
+                    $rootScope.scrollableLeftPanel = true;
+                }else{
+                    $rootScope.scrollableLeftPanel = false;
+                }
+            }
+
+            $rootScope.setLeftScroll();
+        };
+
+
+        //Reset selected Top Menu and sub menu
         $scope.$on('handleBroadcastMenu', function () {
             if (broadCastMenuDetail.selectedMenu && broadCastMenuDetail.selectedMenu!=0) {
                 $scope.discussMenuCnt = 0;
-                var menu = broadCastMenuDetail.selectedMenu;
-                if(menu.ancestorIds.length > 0){
-                    $scope.selectedTopMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
-                    $scope.selectedSubMenu = menu;
-                    if(menu.ancestorIds.length >= 2){
-                        $scope.selectedSubMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
-                    }
+                var menu, topMenu, subMenu;
 
+                if(broadCastMenuDetail.selectedMenu.routeParamMenuId) {
+                    menu = $rootScope.menuCategoryMap[broadCastMenuDetail.selectedMenu.routeParamMenuId];
                 }else{
-                    $scope.selectedTopMenu = menu;
+                    menu = broadCastMenuDetail.selectedMenu
                 }
 
+                //update section header for any level till leaf
+                $scope.updateSectionHeader(menu);
+
+                //Find the top level menu using ancestorId array
+                if(menu.ancestorIds.length > 0){
+                    topMenu = $rootScope.menuCategoryMap[menu.ancestorIds[0]];
+                    subMenu = menu;
+                    if(menu.ancestorIds.length >= 2){
+                        subMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
+                    }
+                }else{
+                    topMenu = menu;
+                    $scope.selectedSubMenu = null;
+                }
+
+                //Menu should not be reset, if same menu id is selected as it create problem in iPad
+                if(topMenu && (!$scope.selectedTopMenu || topMenu.id!==$scope.selectedTopMenu.id)){
+                    $scope.selectedTopMenu = topMenu;
+                }
+
+                //Menu should not be reset, if same menu id is selected as it create problem in iPad
+                if(subMenu && (!$scope.selectedSubMenu || subMenu.id!==$scope.selectedSubMenu.id)){
+                    $scope.selectedSubMenu = subMenu;
+                }
+
+                //Find number of discuss module menu, to show separator line in menu UI between submenus
                 if($scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length > 0){
                     angular.forEach($scope.selectedTopMenu.children, function(menu, index){
                         if(menu.module==0){
@@ -174,62 +262,37 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                     })
                 }
 
-                $scope.updateSectionHeader(menu);
-                $(".selected-dropdown").removeClass("selected-dropdown");
-                $("#" + menu.id).parents(".by-menu").addClass("selected-dropdown");
-
-                if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
-                    $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
-                    $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
-                    //$(".by_left_panel_fixed").css('margin-top', '0px');
-                }else{
-                    $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-                }
             }else{
-                $(".selected-dropdown").removeClass("selected-dropdown");
                 $scope.selectedTopMenu = null;
             }
+
+            updateMenuStyle();
+            resizeLeftMenu();
         });
 
-        $scope.subMenuResize = function(height, width){
-            var leftMenuHeight = $(".by-left-menu").height(),
-                sliderHeight = $(".by_section_header").height();
 
-            if (leftMenuHeight > 0) {
-                var marginTop = leftMenuHeight - sliderHeight + 13;
-                $(".by_left_panel_fixed").css('margin-top', marginTop + 'px');
-            }
-            $(".by-leafMenu").css('min-height', leftMenuHeight - 21);
-        }
-
+        //bind scroll to window and calculate left panel scroll
         angular.element($window).bind("scroll", function() {
-            if($(".homeSlider").length > 0){
-                $scope.sliderHeight = $(".homeSlider").height();
-                if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
+            if($rootScope.scrollableLeftPanel && !$scope.hamburgerView){
+                var bannerHeight = 0;
+                if($(".homeSlider").length > 0){
+                    bannerHeight = $(".homeSlider").height();
+                }else if($(".by_section_header").length > 0){
+                    bannerHeight = $(".by_section_header").height();
+                }
+
+                if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= bannerHeight){
+                    console.log("margin nottttttt 0");
                     $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-                    $(".by_left_panel_fixed").css('margin-top', -$scope.sliderHeight+'px');
+                    $(".by_left_panel_fixed").removeClass("by_left_panel_homeSlider_position");
+                    $(".by_left_panel_fixed").css('margin-top', -bannerHeight+'px');
                 }else{
+                    console.log("margin 0");
                     $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
+                    $(".by_left_panel_fixed").addClass("by_left_panel_homeSlider_position");
                     $(".by_left_panel_fixed").css('margin-top', '0px');
                 }
-            }else{
-                if($scope.selectedTopMenu && $scope.selectedTopMenu.children && $scope.selectedTopMenu.children.length == 0){
-                    console.log("comes inside");
-                    $scope.sliderHeight = $(".by_section_header").height();
-                    if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= $scope.sliderHeight){
-                        console.log("margin nottttttt 0");
-                        $(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-                        $(".by_left_panel_fixed").css('margin-top', -$scope.sliderHeight+'px');
-                    }else{
-                        console.log("margin 0");
-                        $(".by_left_panel_fixed").addClass('by_left_panel_homeSlider');
-                        $(".by_left_panel_fixed").css('margin-top', '0px');
-                    }
-                }
             }
-
         });
-        
-       
 
     }]);

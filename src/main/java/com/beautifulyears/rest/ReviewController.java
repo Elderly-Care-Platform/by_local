@@ -138,6 +138,11 @@ public class ReviewController {
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);
 			review.setUserId(user.getId());
 			review.setUserName(user.getUserName());
+			Query query = new Query();
+			query.addCriteria(Criteria.where("userId").is(user.getId()));
+			UserProfile profile = mongoTemplate.findOne(query,
+					UserProfile.class);
+			review.setUserProfile(profile);
 			sendMailForReview(review,user);
 		}
 		review.setText(newReviewRate.getText());

@@ -73,9 +73,10 @@ public class DiscussLikeController extends LikeController<Discuss> {
 						throw new BYException(
 								BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
 					} else {
-						submitLike(user, id, DiscussConstants.CONTENT_TYPE_DISCUSS);
+						submitLike(user, id,
+								DiscussConstants.CONTENT_TYPE_DISCUSS);
 						discuss.getLikedBy().add(user.getId());
-						sendMailForLike(discuss, user,url);
+						sendMailForLike(discuss, user, url);
 						discussRepository.save(discuss);
 						logger.debug("discuss content liked successfully");
 
@@ -95,14 +96,26 @@ public class DiscussLikeController extends LikeController<Discuss> {
 	}
 
 	@Override
-	void sendMailForLike(Discuss LikedEntity, User user,String url) {
+	void sendMailForLike(Discuss LikedEntity, User user, String url) {
 		LoggerUtil.logEntry();
 		try {
-			if (!LikedEntity.getUserId().equals(user.getId())) {
+			if (null != LikedEntity && null != LikedEntity.getUserId()
+					&& !LikedEntity.getUserId().equals(user.getId())) {
 				ResourceUtil resourceUtil = new ResourceUtil(
 						"mailTemplate.properties");
 				String title = !Util.isEmpty(LikedEntity.getTitle()) ? LikedEntity
 						.getTitle() : LikedEntity.getText();
+				if (Util.isEmpty(title) && LikedEntity != null
+						&& LikedEntity.getLinkInfo() != null) {
+					title = !Util.isEmpty(LikedEntity.getLinkInfo().getTitle()) ? LikedEntity
+							.getLinkInfo().getTitle() : LikedEntity
+							.getLinkInfo().getDescription();
+					title = !Util.isEmpty(title) ? title : LikedEntity
+							.getLinkInfo().getUrl();
+				}
+				if (Util.isEmpty(title)) {
+					title = "<<Your post>>";
+				}
 				String userName = !Util.isEmpty(LikedEntity.getUsername()) ? LikedEntity
 						.getUsername() : "Anonymous User";
 				String body = MessageFormat.format(

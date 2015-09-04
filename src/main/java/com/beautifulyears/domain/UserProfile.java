@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -25,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Document(collection = "user_profile")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfile {
-
 	@Id
 	private String id;
 
@@ -36,16 +34,16 @@ public class UserProfile {
 	private List<Integer> userTypes = new ArrayList<Integer>();
 
 	// contains all common user profile information.
-	@TextIndexed
 	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
 
-	@TextIndexed
 	// contains information applicable to an individual
 	private IndividualProfileInfo individualInfo = new IndividualProfileInfo();
 
 	// contains information about service provider
-	@TextIndexed
 	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
+
+	@DBRef
+	private List<HousingFacility> facilities = new ArrayList<HousingFacility>();
 
 	private String tags;
 
@@ -221,15 +219,28 @@ public class UserProfile {
 		this.ratedBy = ratedBy;
 	}
 
+	public List<HousingFacility> getFacilities() {
+		return facilities;
+	}
+
+	public void setFacilities(List<HousingFacility> facilities) {
+		this.facilities = facilities;
+	}
+
 	@Override
 	public String toString() {
 		return "UserProfile [id=" + id + ", userId=" + userId + ", userTypes="
 				+ userTypes + ", basicProfileInfo=" + basicProfileInfo
 				+ ", individualInfo=" + individualInfo
-				+ ", serviceProviderInfo=" + serviceProviderInfo + ", tags="
-				+ tags + ", isFeatured=" + isFeatured + ", systemTags="
+				+ ", serviceProviderInfo=" + serviceProviderInfo
+				+ ", facilities=" + facilities + ", tags=" + tags
+				+ ", isFeatured=" + isFeatured + ", createdAt=" + createdAt
+				+ ", lastModifiedAt=" + lastModifiedAt + ", systemTags="
 				+ systemTags + ", userTags=" + userTags + ", status=" + status
-				+ ", reviewedBy=" + reviewedBy + ", ratedBy=" + ratedBy + "]";
+				+ ", reviewedBy=" + reviewedBy + ", ratedBy=" + ratedBy
+				+ ", aggrRatingPercentage=" + aggrRatingPercentage
+				+ ", isReviewedByUser=" + isReviewedByUser + ", isRatedByUser="
+				+ isRatedByUser + "]";
 	}
 
 }

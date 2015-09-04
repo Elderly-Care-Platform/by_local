@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.menu.Tag;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
@@ -71,8 +74,14 @@ public class DiscussController {
 		if (null != currentUser) {
 			discuss.setUserId(currentUser.getId());
 			discuss.setUsername(currentUser.getUserName());
+			Query query = new Query();
+			query.addCriteria(Criteria.where("userId").is(currentUser.getId()));
+			UserProfile profile = mongoTemplate.findOne(query,
+					UserProfile.class);
+			discuss.setUserProfile(profile);
 		}
 		discuss.setDiscussType("F");
+
 		discuss = discussRepository.save(discuss);
 		logger.info("new feedback entity created with ID: " + discuss.getId());
 		return BYGenericResponseHandler.getResponse(discuss);
@@ -89,8 +98,10 @@ public class DiscussController {
 			parser = new WebPageParser(url);
 		} catch (Exception e) {
 			Util.handleException(e);
-		}finally{
-			linkInfo = parser.getUrlDetails();
+		} finally {
+			if (parser != null) {
+				linkInfo = parser.getUrlDetails();
+			}
 		}
 
 		return BYGenericResponseHandler.getResponse(linkInfo);
@@ -104,8 +115,7 @@ public class DiscussController {
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
 		if (null != currentUser) {
-			if (discuss == null || discuss.getId() == null
-					|| discuss.getId().equals("")) {
+			if (discuss != null && (Util.isEmpty(discuss.getId()))) {
 
 				discuss.setUserId(currentUser.getId());
 				discuss.setUsername(currentUser.getUserName());
@@ -136,6 +146,7 @@ public class DiscussController {
 			// List<String> subTopicId,
 			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
+			@RequestParam(value = "isPromotion", required = false) Boolean isPromotion,
 			@RequestParam(value = "sort", required = false, defaultValue = "createdAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
@@ -149,13 +160,8 @@ public class DiscussController {
 		DiscussPage discussPage = null;
 		try {
 			List<String> discussTypeArray = new ArrayList<String>();
-			// if (null == topicId && null == subTopicId) {
-			// topicId = new ArrayList<String>();
-			// } else if (null != subTopicId) {
-			// topicId = subTopicId;
-			// }
 			if (null == discussType) {
-//				discussTypeArray.add("A");
+				// discussTypeArray.add("A");
 				discussTypeArray.add("Q");
 				discussTypeArray.add("P");
 			} else {
@@ -176,7 +182,7 @@ public class DiscussController {
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
 			page = discussRepository.getPage(discussTypeArray, tagIds, userId,
-					isFeatured, pageable);
+					isFeatured, isPromotion, pageable);
 			discussPage = DiscussResponse.getPage(page, currentUser);
 			// page = discussRepository.getByCriteria(discussTypeArray, topicId,
 			// userId, isFeatured, pageable);
@@ -206,37 +212,53 @@ public class DiscussController {
 			// List<String> subTopicId,
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "userId", required = false) String userId,
-			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured)
+			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
+			@RequestParam(value = "isPromotion", required = false) Boolean isPromotion,
+			@RequestParam(value = "contentTypes", required = true) List<String> contentTypes)
 			throws Exception {
 		LoggerUtil.logEntry();
 		Map<String, Long> obj = new HashMap<String, Long>();
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
 		try {
 
-			// if (null == topicId && null == subTopicId) {
-			// topicId = new ArrayList<String>();
-			// } else if (null != subTopicId) {
-			// topicId = subTopicId;
-			// }
 			if (null != tags) {
 				for (String tagId : tags) {
 					tagIds.add(new ObjectId(tagId));
 				}
 			}
-
-//			Long articlesCount = discussRepository.getCount(
-//					(new ArrayList<String>(Arrays.asList("A"))), tagIds,
-//					userId, isFeatured);
-			Long questionsCount = discussRepository.getCount(
-					(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
-					userId, isFeatured);
-			Long postsCount = discussRepository.getCount(
-					(new ArrayList<String>(Arrays.asList("P"))), tagIds,
-					userId, isFeatured);
-//			obj.put("a", new Long(articlesCount));
-			obj.put("q", new Long(questionsCount));
-			obj.put("p", new Long(postsCount));
-			obj.put("z", questionsCount + postsCount);
+			Long questionsCount = null;
+			Long postsCount = null;
+			Long featuredCount = null;
+			if (contentTypes.contains("q")) {
+				questionsCount = discussRepository.getCount(
+						(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
+						userId, isFeatured, isPromotion);
+				obj.put("q", new Long(questionsCount));
+			}
+			if (contentTypes.contains("p")) {
+				postsCount = discussRepository.getCount((new ArrayList<String>(
+						Arrays.asList("P"))), tagIds, userId, isFeatured,
+						isPromotion);
+				obj.put("p", new Long(postsCount));
+			}
+			if (contentTypes.contains("f")) {
+				featuredCount = discussRepository.getCount(null, tagIds,
+						userId, true, isPromotion);
+				obj.put("featured", new Long(featuredCount));
+			}
+			if (contentTypes.contains("total")) {
+				if (null == questionsCount) {
+					questionsCount = discussRepository.getCount(
+							(new ArrayList<String>(Arrays.asList("Q"))),
+							tagIds, userId, isFeatured, isPromotion);
+				}
+				if (null == postsCount) {
+					postsCount = discussRepository.getCount(
+							(new ArrayList<String>(Arrays.asList("P"))),
+							tagIds, userId, isFeatured, isPromotion);
+				}
+				obj.put("z", questionsCount + postsCount);
+			}
 
 		} catch (Exception e) {
 			Util.handleException(e);
@@ -267,14 +289,19 @@ public class DiscussController {
 				systemTags.add(newTag);
 			}
 
+			Query query = new Query();
+			query.addCriteria(Criteria.where("userId").is(discuss.getUserId()));
+			UserProfile profile = mongoTemplate.findOne(query,
+					UserProfile.class);
+
 			int aggrReplyCount = 0;
 			newDiscuss = new Discuss(discuss.getUserId(),
 					discuss.getUsername(), discussType, topicId, title, text,
 					discussStatus, aggrReplyCount, systemTags,
 					discuss.getShareCount(), discuss.getUserTags(),
 					discuss.getDiscussType().equals("P") ? discuss
-							.getArticlePhotoFilename() : null, false,
-					discuss.getContentType(), discuss.getLinkInfo());
+							.getArticlePhotoFilename() : null, false, false,
+					discuss.getContentType(), discuss.getLinkInfo(), profile);
 		} catch (Exception e) {
 			Util.handleException(e);
 		}

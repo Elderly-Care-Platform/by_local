@@ -56,19 +56,22 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                     $scope.sectionLabel = $scope.userTypeConfig.label;
 
                     if($scope.profile.userTypes[0]===3){
-                        //$scope.sectionLabel = "";
-                        //if($scope.profile.facilities && $scope.profile.facilities.length > 0){
-                        //    $scope.sectionLabel = null;
-                        //    for(var i=0; i<$scope.profile.facilities.length; i++){
-                        //        if($scope.profile.facilities[i].name && $scope.profile.facilities[i].name.trim().length > 0){
-                        //            $scope.housingFacilityTabs.push($scope.profile.facilities[i].name);
-                        //        }
-                        //    }
-                        //}
-                        //
-                        //if($routeParams.facilityIndex){
-                        //    $scope.housingFacilityTabs.push("Facility"+$routeParams.facilityIndex);
-                        //}
+                        $scope.sectionLabel = "";
+                        if($scope.profile.facilities && $scope.profile.facilities.length > 0){
+                            $scope.sectionLabel = null;
+                            for(var i=0; i<$scope.profile.facilities.length; i++){
+                                if($scope.profile.facilities[i].name && $scope.profile.facilities[i].name.trim().length > 0){
+                                    $scope.housingFacilityTabs.push("Facility"+(i+1));
+                                }
+                            }
+                        }
+
+                        if($routeParams.facilityIndex){
+                            if($scope.housingFacilityTabs.indexOf("Facility"+$routeParams.facilityIndex) === -1){
+                                $scope.housingFacilityTabs.push("Facility"+$routeParams.facilityIndex);
+                            }
+
+                        }
                     }
                     if (!$scope.views.contentPanel || $scope.views.contentPanel == "") {
                         $scope.exit();

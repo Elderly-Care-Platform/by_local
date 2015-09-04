@@ -128,8 +128,10 @@ public class HousingController {
 
 		for (HousingFacility addedFacility : newlyAdded) {
 			addedFacility.setUserId(user.getId());
-			staticMongoTemplate.save(addedFacility);
-			facilities.set(facilities.indexOf(addedFacility),addedFacility);
+			HousingFacility newFacility = new HousingFacility();
+			updateHousing(newFacility, addedFacility);
+			staticMongoTemplate.save(newFacility);
+			facilities.set(facilities.indexOf(addedFacility),newFacility);
 		}
 
 		for (HousingFacility updatedFacility : updated) {

@@ -153,6 +153,7 @@ public class HousingController {
 		oldHousing.setProfileImage(newHousing.getProfileImage());
 		oldHousing.setSecondaryEmails(newHousing.getSecondaryEmails());
 		oldHousing.setSecondaryPhoneNos(newHousing.getSecondaryPhoneNos());
+		oldHousing.setWebsite(newHousing.getWebsite());
 		if(!Util.isEmpty(newHousing.getDescription())){
 			org.jsoup.nodes.Document doc = Jsoup.parse(newHousing.getDescription());
 			String domText = doc.text();

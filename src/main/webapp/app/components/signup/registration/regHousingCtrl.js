@@ -1,8 +1,8 @@
 byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
         $scope.userId = localStorage.getItem("USER_ID");
-        $scope.profileImage = [];
-        $scope.galleryImages = [];
+        //$scope.profileImage = [];
+        //$scope.galleryImages = [];
         $scope.submitted = false;
         $scope.regConfig = BY.config.regConfig.housingFacility;
 
@@ -162,36 +162,36 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
 
        
 
-        //Delete profile Image
-        $scope.deleteProfileImage = function () {
-            $scope.profileImage = [];
-            $scope.basicProfileInfo.profileImage = null;
-        };
-
-        //Delete gallery images
-        $scope.deleteGalleryImage = function (img) {
-            var imgIndex = $scope.galleryImages.indexOf(img);
-            if (imgIndex > -1) {
-                $scope.galleryImages.splice(imgIndex, 1);
-            }
-            imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
-            if (imgIndex > -1) {
-                $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
-            }
-        };
+        ////Delete profile Image
+        //$scope.deleteProfileImage = function () {
+        //    $scope.profileImage = [];
+        //    $scope.basicProfileInfo.profileImage = null;
+        //};
+        //
+        ////Delete gallery images
+        //$scope.deleteGalleryImage = function (img) {
+        //    var imgIndex = $scope.galleryImages.indexOf(img);
+        //    if (imgIndex > -1) {
+        //        $scope.galleryImages.splice(imgIndex, 1);
+        //    }
+        //    imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
+        //    if (imgIndex > -1) {
+        //        $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
+        //    }
+        //};
         
         //Post individual form
         $scope.postUserProfile = function (isValidForm) {
-            $(".by_btn_submit").prop("disabled", true);
-            $scope.submitted = true;
-            $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
-            $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
-            //$scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
-
-            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
-            if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-            	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
-            }
+            //$(".by_btn_submit").prop("disabled", true);
+            //$scope.submitted = true;
+            //$scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
+            //$scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
+            ////$scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
+            //
+            //var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            //if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
+            //	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+            //}
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
@@ -211,8 +211,10 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
                     }
                 });
 
+
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
+
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;

@@ -7,14 +7,15 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
         $scope.facility = $scope.$parent.facility;
 
         var editorInitCallback = function(){
-            if(tinymce.get("facilityDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
-                tinymce.get("facilityDescription").setContent($scope.basicProfileInfo.description);
+            if(tinymce.get("facilityDescription") && $scope.facility && $scope.facility.description){
+                tinymce.get("facilityDescription").setContent($scope.facility.description);
             }
         }
 
         $scope.addEditor = function(){
             var tinyEditor = BY.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
         };
+        editorInitCallback();
 
         $scope.addressCallback = function (response) {
             $('#addressLocality').blur();
@@ -124,6 +125,45 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             }
         };
 
+
+        $scope.postUserProfile = function(isValidForm){
+            $(".by_btn_submit").prop("disabled", true);
+            $scope.submitted = true;
+
+            $scope.facility.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.facility.profileImage ;
+            $scope.facility.photoGalleryURLs = $scope.facility.photoGalleryURLs.concat($scope.galleryImages);
+            $scope.facility.description = tinymce.get("facilityDescription").getContent();
+
+            if (isValidForm.$invalid || $scope.minCategoryError) {
+                window.scrollTo(0, 0);
+                $(".by_btn_submit").prop('disabled', false);
+            } else {
+                $scope.facility.secondaryPhoneNos = $.map($scope.facility.secondaryPhoneNos, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
+                $scope.facility.secondaryEmails = $.map($scope.facility.secondaryEmails, function(value, key)
+                {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+                $scope.$parent.postUserProfile(isValidForm);
+                //var userProfile = new UserProfile();
+                //angular.extend(userProfile, $scope.profile);
+                //userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                //    console.log("success");
+                //    $scope.submitted = false;
+                //    $scope.$parent.exit();
+                //}, function (err) {
+                //    console.log(err);
+                //    $scope.$parent.exit();
+                //});
+            }
+        };
         ////Post individual form
         //$scope.postUserProfile = function (isValidForm) {
         //

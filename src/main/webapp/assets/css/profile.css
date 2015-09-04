@@ -277,3 +277,18 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	max-height:100%;
 	margin-top:-5px;
 }
+
+
+.profileRatingHP
+{
+	width:100% ;
+}
+.profileRatingHP .divLeft
+{
+	width:29px ;
+}
+
+.profileRatingHP .divRight
+{
+	width:calc(100% - 29px);
+}

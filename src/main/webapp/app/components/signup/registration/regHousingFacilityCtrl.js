@@ -124,6 +124,10 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
                 $scope.facility.photoGalleryURLs.splice(imgIndex, 1);
             }
         };
+        
+        if(!$scope.facility.tier){
+            $scope.facility.tier = $scope.regConfig.facilityType[0];
+        }
 
 
         $scope.postUserProfile = function(isValidForm){
@@ -133,7 +137,8 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             $scope.facility.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.facility.profileImage ;
             $scope.facility.photoGalleryURLs = $scope.facility.photoGalleryURLs.concat($scope.galleryImages);
             $scope.facility.description = tinymce.get("facilityDescription").getContent();
-
+            
+           
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);

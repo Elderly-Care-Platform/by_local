@@ -29,6 +29,7 @@
                 <option value="1"></option>
                 <option value="2"></option>
             </select>
+            
         </div>
     </div>
 
@@ -36,14 +37,13 @@
         <div class="col-md-5">
             Our facilities are
         </div>
-        <div class="col-md-7 no-padding-right register-page">
-            <select class="form-control grayBgLogin">
-                <option value="0"></option>
-                <option value="1"></option>
-                <option value="2"></option>
-            </select>
-        </div>
-    </div>
+		<div class="col-md-7 no-padding-right register-page">
+			<select name="facilityType" class="form-control grayBgLogin"
+				ng-options="option for option in regConfig.facilityType track by option"
+				ng-model="facility.tier">
+			</select>
+		</div>
+	</div>
 
 
     <div class="row margin-bottom-20  register-page">
@@ -171,7 +171,7 @@
         </div>
         <div class="col-md-7 no-padding-right register-page">
             <input type="text" class="username-textbox textbox"
-                   ng-model="serviceProviderInfo.website"
+                   ng-model="facility.website"
                    placeholder="Website"/>
         </div>
     </div>

@@ -160,6 +160,8 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             }
         }
 
+        
+        
        
 
         ////Delete profile Image

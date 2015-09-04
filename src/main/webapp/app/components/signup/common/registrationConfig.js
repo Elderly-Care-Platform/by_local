@@ -144,6 +144,8 @@ BY.config.regConfig.housingFacility = {
 			'zip': ""
 		},
 		
+		'facilityType' : ["Luxury", "Moderate", "Basic", "Free"],
+		
 		'primaryPhoneNo' : "",
 		
 		'secondaryPhoneNos' : [],
@@ -170,6 +172,8 @@ BY.config.regConfig.housingFacility = {
 		
 		'isReviewedByUser': false,
 		
-        'isRatedByUser' : false
+        'isRatedByUser' : false, 
+        
+        'website' : ""
 		
 };

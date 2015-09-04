@@ -25,6 +25,11 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 		Query q = new Query();
 		q.addCriteria(Criteria.where("status").in(
 				new Object[] { DiscussConstants.DISCUSS_STATUS_ACTIVE, null }));
+		if(null != userTypes && userTypes.length > 0){
+			q.addCriteria(Criteria.where((String) "userTypes").in(
+					userTypes));
+		}
+		
 		if (null != isFeatured) {
 			q.addCriteria(Criteria.where("isFeatured").is(isFeatured));
 		}

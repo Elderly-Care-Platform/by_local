@@ -36,6 +36,7 @@ import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.UserProfileResponse;
 import com.beautifulyears.rest.response.UserProfileResponse.UserProfilePage;
 import com.beautifulyears.util.LoggerUtil;
+import com.beautifulyears.util.UpdateUserProfileHandler;
 import com.beautifulyears.util.UserProfilePrivacyHandler;
 import com.beautifulyears.util.Util;
 
@@ -53,13 +54,13 @@ public class UserProfileController {
 
 	private UserProfileRepository userProfileRepository;
 
-	// private MongoTemplate mongoTemplate;
+	 private MongoTemplate mongoTemplate;
 
 	@Autowired
 	public UserProfileController(UserProfileRepository userProfileRepository,
 			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
-		// this.mongoTemplate = mongoTemplate;
+		 this.mongoTemplate = mongoTemplate;
 		;
 	}
 
@@ -272,6 +273,10 @@ public class UserProfileController {
 							profile.setUserId(currentUser.getId());
 							profile.setUserTypes(userProfile.getUserTypes());
 							userProfileRepository.save(profile);
+							UpdateUserProfileHandler userProfileHandler = new UpdateUserProfileHandler(
+									mongoTemplate);
+							userProfileHandler.setProfile(profile);
+							new Thread(userProfileHandler).start();
 						} else {
 							throw new BYException(
 									BYErrorCodes.USER_ALREADY_EXIST);

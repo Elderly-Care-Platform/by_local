@@ -230,8 +230,8 @@ public class WebPageParser {
 				System.out.println("adding");
 				map.put(size, el.attr("src"));
 				imgAdded++;
-				count++;
 			}
+			count++;
 
 		}
 		List<String> ret = new ArrayList<>(map.values());

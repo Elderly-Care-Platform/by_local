@@ -233,5 +233,21 @@ public class HousingFacility {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	@Override
+	public boolean equals(Object object) {
+		boolean isEqual = false;
+
+		if (object != null && object instanceof HousingFacility) {
+			isEqual = this.getId() != null && (this.getId().equals(((HousingFacility) object).getId()));
+		}
+		return isEqual;
+	}
+
+	@Override
+	public int hashCode() {
+		assert false : "hashCode not designed";
+		return 42;
+	}
 
 }

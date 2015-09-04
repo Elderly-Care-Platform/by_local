@@ -18,6 +18,7 @@ import com.beautifulyears.repository.custom.HousingRepositoryCustom;
 public interface HousingRepository extends
 		MongoRepository<HousingFacility, Serializable>, HousingRepositoryCustom {
 	public List<HousingFacility> findAll();
+	public List<HousingFacility> findByUserId(String userId);
 
 	public HousingFacility findById(String id);
 }

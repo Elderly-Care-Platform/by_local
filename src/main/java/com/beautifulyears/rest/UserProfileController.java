@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.UserTypes;
-import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
@@ -53,9 +53,14 @@ public class UserProfileController {
 
 	private UserProfileRepository userProfileRepository;
 
+	// private MongoTemplate mongoTemplate;
+
 	@Autowired
-	public UserProfileController(UserProfileRepository userProfileRepository) {
+	public UserProfileController(UserProfileRepository userProfileRepository,
+			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
+		// this.mongoTemplate = mongoTemplate;
+		;
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{userId}" }, produces = { "application/json" })
@@ -341,7 +346,10 @@ public class UserProfileController {
 											profile.getUserTypes(),
 											new ArrayList<>(
 													Arrays.asList(UserTypes.INSTITUTION_HOUSING)))) {
-								addFacilities(profile, userProfile, currentUser);
+								profile.setFacilities(HousingController
+										.addFacilities(
+												userProfile.getFacilities(),
+												currentUser));
 							}
 
 							userProfileRepository.save(profile);
@@ -384,14 +392,6 @@ public class UserProfileController {
 			}
 		}
 		return shortDescription;
-	}
-
-	private void addFacilities(UserProfile nativeProfile,
-			UserProfile newProfile, User currentUser) {
-		for (HousingFacility facility : newProfile.getFacilities()) {
-			facility.setUserId(currentUser.getId());
-		}
-		nativeProfile.setFacilities(newProfile.getFacilities());
 	}
 
 }

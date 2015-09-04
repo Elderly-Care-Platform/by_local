@@ -42,6 +42,7 @@ public class UserProfile {
 	// contains information about service provider
 	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
 
+	@DBRef
 	private List<HousingFacility> facilities = new ArrayList<HousingFacility>();
 
 	private String tags;

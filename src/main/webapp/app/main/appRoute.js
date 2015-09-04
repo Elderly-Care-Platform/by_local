@@ -18,6 +18,8 @@ byApp.config(['$routeProvider',
             .when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html?versionTimeStamp=%PROJECT_VERSION%', controller: ''})
             .when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html?versionTimeStamp=%PROJECT_VERSION%', controller: ''})
             .when('/users/contactUs', {templateUrl: 'app/shared/footer/contactUs.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'contactUsController'})
+            
+            .when('/housing/list/:slug/:menuId/:city', {templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'HousingController'})
 
             .when('/find/:slug/:services/:city', {templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ServicesController'})
             .when('/services/list/:slug/:menuId/:city', {templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ServicesController'})

@@ -64,6 +64,16 @@ public class HousingFacility {
 	@Transient
 	private boolean isRatedByUser = false;
 
+	private boolean isFeatured;
+
+	public boolean isFeatured() {
+		return isFeatured;
+	}
+
+	public void setFeatured(boolean isFeatured) {
+		this.isFeatured = isFeatured;
+	}
+
 	public String getName() {
 		return name;
 	}

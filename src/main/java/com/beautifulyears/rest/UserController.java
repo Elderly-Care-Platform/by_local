@@ -45,12 +45,6 @@ import com.beautifulyears.util.UserNameHandler;
 import com.beautifulyears.util.Util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * /** The REST based service for managing "users"
- * 
- * @author jumpstart
- *
- */
 
 @Controller
 @RequestMapping("/users")

@@ -5,6 +5,7 @@ byApp.config(['$routeProvider',
             .when('/users/home', {templateUrl: 'app/components/home/home.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'BYHomeController'})
             .when('/users/aboutUs', {templateUrl: 'app/components/aboutUs/aboutUs.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'BYAboutUsController'})
             .when('/users/login', {templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'RegistrationController'})
+            .when('/users/housingRegistration/:facilityIndex', {templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'RegistrationController'})
             .when('/users/logout/:sessionId', {templateUrl: 'app/components/users/home.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'LogoutController'})
 
             .when('/discuss/list/:slug/:menuId/:discussType', {templateUrl: 'app/components/discuss/discussion.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussAllController'})

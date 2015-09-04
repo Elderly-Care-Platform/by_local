@@ -125,6 +125,11 @@ BY.config.regConfig.indvUserRegConfig = {
 
 
 }
+
+BY.config.regConfig.housingConfig = {
+    'fetchFromMenu' : "Housing"
+}
+
 BY.config.regConfig.housingFacility = {
 		'id' : "",
 		
@@ -174,11 +179,6 @@ BY.config.regConfig.housingFacility = {
 		
         'isRatedByUser' : false, 
         
-        'website' : "",
-        
+        'website' : ""
 
-        'category' : {
-            'fetchFromMenu' : "Housing"
-        },
-		
 };

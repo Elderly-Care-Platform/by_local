@@ -5,22 +5,20 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
         //$scope.galleryImages = [];
         $scope.submitted = false;
         $scope.regConfig = BY.config.regConfig.housingFacility;
-
+        $scope.views = {};
+        $scope.addFacility = false;
+        $scope.facilityIndex = 1;
        
-        var tempCheck=true;
-
     	$scope.showAddressButton = function(){
     		if ($(".showAddress").css('display')=='none') 
     		{
     			$(".showAddress").show();
     			$(".showAddressButton").val('- Remove Address');
-    			tempCheck=false;
     		}
     		else
     		{
     			$(".showAddress").hide();
     			$(".showAddressButton").val('+ Add Address');
-    			tempCheck=true;
     		}
     	};
 
@@ -92,9 +90,23 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             if($scope.profile.facilities.length===0){
                 var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
                 $scope.profile.facilities.push(facilityObj);
+                $scope.facility = $scope.profile.facilities[0];
+            } else if($routeParams.facilityIndex){
+                $scope.facilityIndex = $routeParams.facilityIndex;
+                if($scope.profile.facilities.length < $routeParams.facilityIndex){
+                    var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
+                    $scope.profile.facilities.push(facilityObj);
+                }
+                $scope.facility = $scope.profile.facilities[$scope.facilityIndex - 1];
+            } else{
+                $scope.facility = $scope.profile.facilities[0];
             }
 
-            $scope.facility = $scope.profile.facilities[0];
+            if($scope.facilityIndex == 1){
+                $scope.views.corporateFormView = "app/components/signup/registration/regHousingCorp.html?versionTimeStamp=%PROJECT_VERSION%";
+            }
+
+            $scope.views.facilityFormView = "app/components/signup/registration/regHousingFacility.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
 
@@ -168,8 +180,6 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             }
         }
 
-        
-        
        
 
         ////Delete profile Image
@@ -191,7 +201,8 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
         //};
         
         //Post individual form
-        $scope.postUserProfile = function (isValidForm) {
+        $scope.postUserProfile = function (isValidForm, addAnotherFacility) {
+            $scope.addFacility = addAnotherFacility;
             //$(".by_btn_submit").prop("disabled", true);
             //$scope.submitted = true;
             //$scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
@@ -232,11 +243,19 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
 
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
-
+console.log(userProfile);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;
-                    $scope.$parent.exit();
+                    if($scope.addFacility){
+                        $location.path('/users/housingRegistration/'+ ($scope.profile.facilities.length + 1));
+                        //$templateCache.removeAll();
+                        ////$scope.views = {};
+                        //$scope.addNewFacilty();
+                    }else{
+                        $scope.$parent.exit();
+                    }
+
                 }, function (err) {
                     console.log(err);
                     $scope.$parent.exit();
@@ -244,10 +263,19 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             }
         }
         
-        // Adding another faciltiy
-        $scope.addingFacilty = function(){
-            //$scope.views.contentPanel = "app/components/signup/registration/regHousingAddFacility.html?versionTimeStamp=%PROJECT_VERSION%";
-        };
+        //// Adding another faciltiy
+        //$scope.addNewFacilty = function(){
+        //    $scope.views.corporateFormView = "";
+        //    var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
+        //    $scope.profile.facilities.push(facilityObj);
+        //
+        //    $scope.facility = $scope.profile.facilities[$scope.profile.facilities.length-1];
+        //    $scope.views.corporateFormView = "";
+        //
+        //    var content=angular.element('#newFacility');
+        //    var scope=content.scope();
+        //    $compile(content)(scope);
+        //};
         
 
     }]);

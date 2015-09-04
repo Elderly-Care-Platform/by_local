@@ -66,6 +66,16 @@ public class HousingFacility {
 
 	private boolean isFeatured;
 
+	private String website;
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
 	public boolean isFeatured() {
 		return isFeatured;
 	}
@@ -233,13 +243,14 @@ public class HousingFacility {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+
 	@Override
 	public boolean equals(Object object) {
 		boolean isEqual = false;
 
 		if (object != null && object instanceof HousingFacility) {
-			isEqual = this.getId() != null && (this.getId().equals(((HousingFacility) object).getId()));
+			isEqual = this.getId() != null
+					&& (this.getId().equals(((HousingFacility) object).getId()));
 		}
 		return isEqual;
 	}

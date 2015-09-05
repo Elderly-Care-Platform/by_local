@@ -6,7 +6,7 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
         $scope.submitted = false;
         $scope.categoryOptions = $rootScope.menuCategoryMapByName[BY.config.regConfig.housingConfig.fetchFromMenu].children;
         $scope.facility = $scope.$parent.facility;
-        $scope.selectedCategory = [];
+        $scope.selectedMenuList = {};
 
         var editorInitCallback = function () {
             if (tinymce.get("facilityDescription") && $scope.facility && $scope.facility.description) {
@@ -27,12 +27,15 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
 
         initialize();
 
-        $scope.selectCategory = function (option) {
-            //if ($scope.facility.systemTags && $scope.facility.systemTags.indexOf(option.id)  > -1) {
-            //    $scope.facility.systemTags.splice($scope.selectedCategory.indexOf(option.id), 1);
-            //} else {
-            //    $scope.selectedHobbies.push(option.id);
-            //}
+        $scope.selectTag = function(event, category){
+            if(event.target.checked){
+                $scope.selectedMenuList[category.id] = category;
+                if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
+                    delete $scope.selectedMenuList[category.parentMenuId];
+                }
+            }else{
+                delete $scope.selectedMenuList[category.id];
+            }
         };
 
         $scope.addressCallback = function (response) {
@@ -142,14 +145,46 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             }
         };
 
+        var systemTagList = {};
+        var getSystemTagList = function(data){
+            function rec(data){
+                angular.forEach(data, function(menu, index){
+                    systemTagList[menu.id] = menu.tags;
+                    if(menu.ancestorIds.length > 0){
+                        for(var j=0; j < menu.ancestorIds.length; j++){
+                            var ancestordata = {};
+                            ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
+                            rec(ancestordata);
+                        }
+                    }
+                })
+            }
+
+            rec(data);
+
+            return  $.map(systemTagList, function(value, key){
+                return value;
+            });
+        }
 
         $scope.postUserProfile = function (isValidForm, addAnotherFacility) {
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
-
+            $scope.minCategoryError = false;
             $scope.facility.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.facility.profileImage;
             $scope.facility.photoGalleryURLs = $scope.facility.photoGalleryURLs.concat($scope.galleryImages);
             $scope.facility.description = tinymce.get("facilityDescription").getContent();
+
+
+            $scope.facility.categoriesId = $.map($scope.selectedMenuList, function(value, key){
+                return value.id;
+            });
+
+            $scope.facility.systemTags = getSystemTagList($scope.selectedMenuList);
+
+            if ( $scope.facility.systemTags.length === 0) {
+                $scope.minCategoryError = true;
+            }
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);

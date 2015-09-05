@@ -22,17 +22,18 @@
     </div>
 
     <div class="row margin-bottom-0  register-page">
-        <div class="col-md-5">
+        <div class="col-md-5 required">
             Select a category
         </div>
         <div class="col-md-7 no-padding-right register-page">
             <div class="panel-group acc-v1 " id="accord-housingCategory">
-                <div class="panel panel-default">
-                    <div class="panel-heading" data-toggle="collapse"
-                         data-parent="#accord-housingCategory" href="#housingCategory" onclick="return false;">
+                <div class="panel panel-default by_accordian ng-scope">
+                    <div class="panel-heading">
                         <h4 class="panel-title by_editor_ParentCategories">
-                            <a ng-if="selectedCategory.length==0" class="accordion-toggle collapsed by-reg-toggle"
-                               style="padding: 2px 11px;">
+                            <a class="accordion-toggle collapsed by-reg-toggle"
+                               style="padding: 2px 11px;"
+                               data-toggle="collapse"
+                               data-parent="#accord-housingCategory" href="#housingCategory" onclick="return false;">
                                 Select a category
                             </a>
                             <a class="triangle-down collapsed by-reg-triangle" style="padding: 2px 11px;"></a>
@@ -40,15 +41,16 @@
                     </div>
                     <div id="housingCategory"
                          class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
-                        <div class="panel-body col-md-12" ng-repeat="option in categoryOptions">
-                            <input type="checkbox" ng-click="selectCategory(option)"
-                                   ng-checked="facility.systemTags && facility.systemTags.indexOf(option.id) !== -1">
-                            <span style="line-height: 23px;">{{option.displayMenuName}}</span>
+                        <div class="panel-body col-md-12" ng-repeat="subCategory in categoryOptions" ng-if="subCategory.module===2">
+                            <input type="checkbox" ng-click="selectTag($event, subCategory)"
+                                   ng-checked="facility.categoriesId && facility.categoriesId.indexOf(subCategory.id) !== -1">
+                            <span style="line-height: 23px;">{{subCategory.displayMenuName}}</span>
                         </div>
                     </div>
                     <div style="clear:both"></div>
                 </div>
             </div>
+            <span ng-show="minCategoryError && submitted" class="errorRed">Please select at least one category</span>
         </div>
     </div>
 
@@ -90,14 +92,14 @@
     </div>
 
     <div class="row margin-bottom-20  register-page">
-        <div class="col-md-5">
+        <div class="col-md-5 required">
             City
         </div>
         <div class="col-md-7 no-padding-right register-page">
             <input type="text" class="username-textbox textbox" name="facilityCity"
-                   ng-model="facility.primaryAddress.city"/>
+                   ng-model="facility.primaryAddress.city" required/>
             <span ng-show="housingForm.facilityCity.$invalid && submitted"
-                  class="errorRed">Please enter your first name</span>
+                  class="errorRed">Please enter your city</span>
         </div>
     </div>
 

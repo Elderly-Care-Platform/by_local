@@ -93,7 +93,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             $location.path('/users/housingRegistration/'+ facilityIdx);
         }
 
-        var initialize = function(){
+        $scope.initialize = function(){
             var metaTagParams = {
                 title: "Beautiful Years | Registration",
                 imageUrl: "",
@@ -109,6 +109,6 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             }
         };
 
-        initialize();
+
 
     }]);

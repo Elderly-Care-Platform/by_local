@@ -156,6 +156,7 @@ public class HousingController {
 		oldHousing.setSecondaryPhoneNos(newHousing.getSecondaryPhoneNos());
 		oldHousing.setWebsite(newHousing.getWebsite());
 		oldHousing.setUserId(newHousing.getUserId());
+		oldHousing.setCategoriesId(newHousing.getCategoriesId());
 		if(!Util.isEmpty(newHousing.getDescription())){
 			org.jsoup.nodes.Document doc = Jsoup.parse(newHousing.getDescription());
 			String domText = doc.text();

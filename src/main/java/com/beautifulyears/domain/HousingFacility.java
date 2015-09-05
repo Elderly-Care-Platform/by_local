@@ -48,6 +48,8 @@ public class HousingFacility {
 	private String shortDescription;
 	private String description;
 
+	private List<String> categoriesId;
+
 	private int status; // Unparroved, verified, etc.
 
 	@JsonIgnore
@@ -67,6 +69,14 @@ public class HousingFacility {
 	private boolean isFeatured;
 
 	private String website;
+
+	public List<String> getCategoriesId() {
+		return categoriesId;
+	}
+
+	public void setCategoriesId(List<String> categoriesId) {
+		this.categoriesId = categoriesId;
+	}
 
 	public String getWebsite() {
 		return website;

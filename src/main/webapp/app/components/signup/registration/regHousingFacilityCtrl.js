@@ -1,19 +1,38 @@
 byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope', '$http', '$location',
-    '$routeParams',
-    function ($scope, $rootScope, $http, $location, $routeParams) {
+    '$routeParams', 'ServiceTypeList',
+    function ($scope, $rootScope, $http, $location, $routeParams, ServiceTypeList) {
         $scope.profileImage = [];
         $scope.galleryImages = [];
         $scope.submitted = false;
+        $scope.categoryOptions = $rootScope.menuCategoryMapByName[BY.config.regConfig.housingConfig.fetchFromMenu].children;
         $scope.facility = $scope.$parent.facility;
+        $scope.selectedCategory = [];
 
-        var editorInitCallback = function(){
-            if(tinymce.get("facilityDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
-                tinymce.get("facilityDescription").setContent($scope.basicProfileInfo.description);
+        var editorInitCallback = function () {
+            if (tinymce.get("facilityDescription") && $scope.facility && $scope.facility.description) {
+                tinymce.get("facilityDescription").setContent($scope.facility.description);
             }
         }
 
-        $scope.addEditor = function(){
+        $scope.addEditor = function () {
             var tinyEditor = BY.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
+        };
+
+        var initialize = function () {
+            if (!$scope.facility.tier) {
+                $scope.facility.tier = $scope.regConfig.facilityType[0];
+            }
+            editorInitCallback();
+        };
+
+        initialize();
+
+        $scope.selectCategory = function (option) {
+            //if ($scope.facility.systemTags && $scope.facility.systemTags.indexOf(option.id)  > -1) {
+            //    $scope.facility.systemTags.splice($scope.selectedCategory.indexOf(option.id), 1);
+            //} else {
+            //    $scope.selectedHobbies.push(option.id);
+            //}
         };
 
         $scope.addressCallback = function (response) {
@@ -87,7 +106,7 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
                 $scope.facility.secondaryPhoneNos.push("");
             }
 
-            if ($scope.facility.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos){
+            if ($scope.facility.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
                 $(".add-phone").hide();
             }
         }
@@ -99,11 +118,10 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
                 $scope.facility.secondaryEmails.push("");
             }
 
-            if ($scope.facility.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId){
+            if ($scope.facility.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId) {
                 $(".add-email").hide();
             }
         }
-
 
 
         //Delete profile Image
@@ -124,6 +142,43 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             }
         };
 
+
+        $scope.postUserProfile = function (isValidForm, addAnotherFacility) {
+            $(".by_btn_submit").prop("disabled", true);
+            $scope.submitted = true;
+
+            $scope.facility.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.facility.profileImage;
+            $scope.facility.photoGalleryURLs = $scope.facility.photoGalleryURLs.concat($scope.galleryImages);
+            $scope.facility.description = tinymce.get("facilityDescription").getContent();
+
+            if (isValidForm.$invalid || $scope.minCategoryError) {
+                window.scrollTo(0, 0);
+                $(".by_btn_submit").prop('disabled', false);
+            } else {
+                $scope.facility.secondaryPhoneNos = $.map($scope.facility.secondaryPhoneNos, function (value, key) {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+
+                $scope.facility.secondaryEmails = $.map($scope.facility.secondaryEmails, function (value, key) {
+                    if (value && value !== "") {
+                        return value;
+                    }
+                });
+                $scope.$parent.postUserProfile(isValidForm, addAnotherFacility);
+                //var userProfile = new UserProfile();
+                //angular.extend(userProfile, $scope.profile);
+                //userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                //    console.log("success");
+                //    $scope.submitted = false;
+                //    $scope.$parent.exit();
+                //}, function (err) {
+                //    console.log(err);
+                //    $scope.$parent.exit();
+                //});
+            }
+        };
         ////Post individual form
         //$scope.postUserProfile = function (isValidForm) {
         //

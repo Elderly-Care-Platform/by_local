@@ -125,6 +125,11 @@ BY.config.regConfig.indvUserRegConfig = {
 
 
 }
+
+BY.config.regConfig.housingConfig = {
+    'fetchFromMenu' : "Housing"
+}
+
 BY.config.regConfig.housingFacility = {
 		'id' : "",
 		
@@ -143,6 +148,8 @@ BY.config.regConfig.housingFacility = {
 			'streetAddress': "",
 			'zip': ""
 		},
+		
+		'facilityType' : ["Luxury", "Moderate", "Basic", "Free"],
 		
 		'primaryPhoneNo' : "",
 		
@@ -170,6 +177,8 @@ BY.config.regConfig.housingFacility = {
 		
 		'isReviewedByUser': false,
 		
-        'isRatedByUser' : false
-		
+        'isRatedByUser' : false, 
+        
+        'website' : ""
+
 };

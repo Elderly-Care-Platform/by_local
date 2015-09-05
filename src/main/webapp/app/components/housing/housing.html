@@ -1,0 +1,67 @@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var options = {
+            beforeSend: function () {
+                //$("#progressbox").show();
+                // clear everything
+                //$("#progressbar").width('0%');
+                //$("#message").empty();
+                //$("#percent").html("0%");
+            },
+            uploadProgress: function (event, position, total, percentComplete) {
+                //$("#progressbar").width(percentComplete + '%');
+                //$("#percent").html(percentComplete + '%');
+
+                // change message text to red after 50%
+                //if (percentComplete > 50) {
+                //$("#message").html("<font color='red'>File Upload is in progress</font>");
+                // }
+            },
+            success: function () {
+                // $("#progressbar").width('100%');
+                // $("#percent").html('100%');
+            },
+            complete: function (response) {
+                //alert(response.responseText);
+                $("#articlePhotoFilename").val(response.responseText.substring(response.responseText.lastIndexOf('/') + 1));
+            },
+            error: function () {
+                $("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
+            }
+        };
+        
+        try {
+            $("#UploadForm").ajaxForm(options);
+        }
+        catch (e) {
+        }
+    });
+</script>
+
+<!--<div ng-controller="LoadCustomJSController"></div>-->
+
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+
+<!-- section headers -->
+<div class="by_section_header">
+	<div class="container">
+		<div class="by_section_header_title"></div>
+        <div class="clearfix"></div>
+		<div class="by_section_header_desc"></div>
+	</div>
+</div>
+<!--=== Content Part ===-->
+<div class="container by_home_content">
+    <div class="row">
+        <div class="col-md-3  md-margin-bottom-40" ng-include="housingViews.leftPanel"></div>
+        <div class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right " infinite-scroll="loadMore()"
+             ng-include="housingViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">
+    </div>
+</div>
+
+<!--/container-->
+
+<!-- we are hiring -->
+<!-- end we are hiring -->
+<!-- End Content Part -->

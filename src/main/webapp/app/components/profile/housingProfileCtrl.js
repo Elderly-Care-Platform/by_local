@@ -4,6 +4,8 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
      $scope.slideIndex = 1;
      //$scope.userName = $scope.$parent.userName;
      var reviewDetails = new ReviewRateProfile();
+     
+     $scope.facility = $scope.housingProfile.facilities[0];
 	 
 	 $scope.slideGallery = function(dir){
          if($scope.slideIndex<1){

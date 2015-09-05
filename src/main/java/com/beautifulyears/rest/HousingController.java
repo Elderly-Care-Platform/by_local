@@ -4,7 +4,6 @@
 package com.beautifulyears.rest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -128,8 +127,10 @@ public class HousingController {
 
 		for (HousingFacility addedFacility : newlyAdded) {
 			addedFacility.setUserId(user.getId());
-			staticMongoTemplate.save(addedFacility);
-			facilities.set(facilities.indexOf(addedFacility),addedFacility);
+			HousingFacility newFacility = new HousingFacility();
+			updateHousing(newFacility, addedFacility);
+			staticMongoTemplate.save(newFacility);
+			facilities.set(facilities.indexOf(addedFacility),newFacility);
 		}
 
 		for (HousingFacility updatedFacility : updated) {
@@ -153,6 +154,7 @@ public class HousingController {
 		oldHousing.setProfileImage(newHousing.getProfileImage());
 		oldHousing.setSecondaryEmails(newHousing.getSecondaryEmails());
 		oldHousing.setSecondaryPhoneNos(newHousing.getSecondaryPhoneNos());
+		oldHousing.setWebsite(newHousing.getWebsite());
 		if(!Util.isEmpty(newHousing.getDescription())){
 			org.jsoup.nodes.Document doc = Jsoup.parse(newHousing.getDescription());
 			String domText = doc.text();

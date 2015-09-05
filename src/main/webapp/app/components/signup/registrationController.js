@@ -9,6 +9,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         $scope.views = {};
         $scope.views.leftPanel = "";
         $scope.profile = null;
+        $scope.housingFacilityTabs = [];
 
         (function () {
             var metaTagParams = {
@@ -29,8 +30,6 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             $("."+elemClassName).addClass('active');
             $scope.views.contentPanel = "app/components/signup/login/modifyPassword.html?versionTimeStamp=%PROJECT_VERSION%";
         };
-        
-      
 
         $scope.editUserProfile = function (elemClassName) {
             if ($scope.profile && $scope.profile.userTypes && $scope.profile.userTypes.length) {
@@ -55,6 +54,25 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                     $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
                     $scope.views.leftPanel = $scope.userTypeConfig.leftPanel;
                     $scope.sectionLabel = $scope.userTypeConfig.label;
+
+                    if($scope.profile.userTypes[0]===3){
+                        $scope.sectionLabel = "";
+                        if($scope.profile.facilities && $scope.profile.facilities.length > 0){
+                            $scope.sectionLabel = null;
+                            for(var i=0; i<$scope.profile.facilities.length; i++){
+                                if($scope.profile.facilities[i].name && $scope.profile.facilities[i].name.trim().length > 0){
+                                    $scope.housingFacilityTabs.push("Facility"+(i+1));
+                                }
+                            }
+                        }
+
+                        if($routeParams.facilityIndex){
+                            if($scope.housingFacilityTabs.indexOf("Facility"+$routeParams.facilityIndex) === -1){
+                                $scope.housingFacilityTabs.push("Facility"+$routeParams.facilityIndex);
+                            }
+
+                        }
+                    }
                     if (!$scope.views.contentPanel || $scope.views.contentPanel == "") {
                         $scope.exit();
                     }
@@ -79,6 +97,10 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             else {
                 $location.path("/users/home");
             }
+        }
+
+        $scope.showFacility = function(facilityIdx){
+            $location.path('/users/housingRegistration/'+ facilityIdx);
         }
 
     }]);

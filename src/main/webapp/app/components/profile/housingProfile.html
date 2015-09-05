@@ -70,6 +70,14 @@
 						<div style="clear: both; height:6px;"></div>
 					</div>
 					<div class="clearfix"></div>
+					
+					<div class="no-padding" ng-if="facility.categoriesId.length > 0">
+						<i class="rounded-x"></i> 
+						<span	ng-repeat="category in facility.categoriesId" >
+						{{$root.menuCategoryMap[category].displayMenuName}}<span ng-if="$index<facility.categoriesId.length - 1">,</span> </span>
+						<div style="clear: both; height:12px;"></div>
+					</div>
+					<div class="clearfix"></div>
 
 					
 					

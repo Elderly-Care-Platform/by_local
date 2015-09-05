@@ -75,6 +75,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
 
+            
             if($scope.profile.facilities.length > 0){
             	for(var i=0; i < $scope.profile.facilities.length; i++){
                 	if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){

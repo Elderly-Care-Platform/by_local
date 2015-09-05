@@ -1,5 +1,5 @@
 <div ng-repeat="housing in housing" class="ng-scope" style="position:relative;">
-	<div ng-click="location($event, housing.userId, housing.userTypes)"
+	<div ng-click="location($event, housing.id, housing.userTypes)"
      class="margin-bottom-35 service-card" data-index="discussion-articles"
       ng-init="housing.showMoreServices=false;">
     <div class="serviceFeatured" ng-if="housing.featured == true && showFeaturedTag == true"></div>
@@ -32,6 +32,14 @@
                 </div>
 					<div class="no-padding" ng-if="housing.tier">
 						<i class="rounded-x"></i> {{housing.tier}}
+						<div style="clear: both; height:12px;"></div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="no-padding" ng-if="housing.categoriesId.length > 0">
+						<i class="rounded-x"></i> 
+						<span	ng-repeat="category in housing.categoriesId" >
+						{{$root.menuCategoryMap[category].displayMenuName}}<span ng-if="$index<housing.categoriesId.length - 1">,</span> </span>
+						<div style="clear: both; height:12px;"></div>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -74,6 +82,6 @@
 </div>
 
 <div class="animation_image" style="display: block" align="center"
-	 ng-if="showFeaturedTag && housing && housing.length > 0 && !pageInfo.lastPage || pageInfo.isQueryInProgress">
+	 ng-if=" housing && housing.length > 0 && !pageInfo.lastPage || pageInfo.isQueryInProgress">
 	<img src="assets/img/ajax_scroll_loading.gif" style="margin-bottom: 20px">
 </div>

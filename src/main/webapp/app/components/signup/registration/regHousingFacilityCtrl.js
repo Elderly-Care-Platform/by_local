@@ -22,6 +22,13 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             if (!$scope.facility.tier) {
                 $scope.facility.tier = $scope.regConfig.facilityType[0];
             }
+            
+            if($scope.facility.categoriesId && $scope.facility.categoriesId.length > 0){
+            	for(var i=0; i<$scope.facility.categoriesId.length; i++){
+                    var menuId = $scope.facility.categoriesId[i];
+                    $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
+                }
+            }
             editorInitCallback();
         };
 

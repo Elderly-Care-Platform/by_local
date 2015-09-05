@@ -1,6 +1,7 @@
 //DIscuss All
-byControllers.controller('HousingController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',  '$sce', '$window','broadCastMenuDetail', '$http',
-    function ($scope, $rootScope, $location, $route, $routeParams,  $sce, $window, broadCastMenuDetail, $http) {
+byControllers.controller('HousingController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',  
+                                               '$sce', 'broadCastMenuDetail', '$http','FindHousing',
+    function ($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing) {
 
         var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
@@ -35,17 +36,29 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
 
         $scope.getData = function () {
             $("#preloader").show();
-            $http.get("api/v1/housing/page")
-            .success(function (housing) {
-                if (housing) {
+            FindHousing.get(queryParams, function (housing) {
+            	if (housing) {
                     $scope.housing = housing.data.content;
                     $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
                     $scope.pageInfo.isQueryInProgress = false;
                     $("#preloader").hide();
                 }
-            }).error(function(error){
-                console.log(error);
+            },
+            function (error) {
+            	console.log(error);
             });
+            
+//            $http.get("api/v1/housing/page")
+//            .success(function (housing) {
+//                if (housing) {
+//                    $scope.housing = housing.data.content;
+//                    $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
+//                    $scope.pageInfo.isQueryInProgress = false;
+//                    $("#preloader").hide();
+//                }
+//            }).error(function(error){
+//                console.log(error);
+//            });
 
         };
 
@@ -72,10 +85,10 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         }
 
 
-        $scope.location = function ($event, userId, userType) {
+        $scope.location = function ($event, id, userType) {
             $event.stopPropagation();
-            if (userId) {
-                $location.path('/profile/3' + '/' + userId);
+            if (id) {
+                $location.path('/profile/3' + '/' + id);
             }
         }
 
@@ -110,23 +123,19 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
                 $scope.pageInfo.isQueryInProgress = true;
                 queryParams.page = $scope.pageInfo.number + 1;
                 queryParams.size = $scope.pageInfo.size;
-                
-                $http.get("api/v1/housing/page"+queryParams)
-                .success(function (housing) {
-                    if (housing) {
-                    	if (services.data.content.length > 0) {
-                            $scope.pageInfo.isQueryInProgress = false;
-                            $scope.housing = $scope.housing.concat(housing.data.content);
-                        }
+                queryParams = queryParams.toString();
+                FindHousing.get(queryParams, function (housing) {
+                	if (housing) {
+                		$scope.pageInfo.isQueryInProgress = false;
+                        $scope.housing = housing.data.content;
                         $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
                         $scope.pageInfo.isQueryInProgress = false;
                         $("#preloader").hide();
                     }
-                }).error( function (error) {
-                    console.log("Services on city not found");
+                },
+                function (error) {
+                	console.log(error);
                 });
-
-
             }
         }
         

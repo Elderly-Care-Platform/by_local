@@ -4,6 +4,7 @@
 package com.beautifulyears.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -129,6 +130,7 @@ public class HousingController {
 			addedFacility.setUserId(user.getId());
 			HousingFacility newFacility = new HousingFacility();
 			updateHousing(newFacility, addedFacility);
+			newFacility.setLastModifiedAt(new Date());
 			staticMongoTemplate.save(newFacility);
 			facilities.set(facilities.indexOf(addedFacility),newFacility);
 		}
@@ -137,6 +139,7 @@ public class HousingController {
 			HousingFacility old = existingFacilities.get(existingFacilities
 					.indexOf(updatedFacility));
 			updateHousing(old, updatedFacility);
+			old.setLastModifiedAt(new Date());
 			staticMongoTemplate.save(old);
 		}
 

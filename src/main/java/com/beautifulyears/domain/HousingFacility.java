@@ -4,6 +4,7 @@
 package com.beautifulyears.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +70,26 @@ public class HousingFacility {
 	private boolean isFeatured;
 
 	private String website;
+
+	private Date createdAt = new Date();
+
+	private Date lastModifiedAt = new Date();
+
+	public Date getLastModifiedAt() {
+		return lastModifiedAt;
+	}
+
+	public void setLastModifiedAt(Date lastModifiedAt) {
+		this.lastModifiedAt = lastModifiedAt;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
 	public List<String> getCategoriesId() {
 		return categoriesId;

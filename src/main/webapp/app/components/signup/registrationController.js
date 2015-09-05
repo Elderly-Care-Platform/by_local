@@ -92,6 +92,11 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         $scope.showFacility = function(facilityIdx){
             $location.path('/users/housingRegistration/'+ facilityIdx);
         }
+        
+        $scope.AddAcClFc = function(elemClass){
+        	 $(".list-group-item").removeClass('active');
+        	 $(".activeClass"+$routeParams.facilityIndex).addClass('active');
+        };
 
         $scope.initialize = function(){
             var metaTagParams = {

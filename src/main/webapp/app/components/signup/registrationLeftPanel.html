@@ -12,12 +12,12 @@
             <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length===0" ng-click="editUserProfile('reg-menu-1')">
                 <a>I AM...</a>
             </li>
-            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length > 0" ng-click="editUserProfile('reg-menu-1')">
+            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length > 0 && !sectionLabel == '' " ng-click="editUserProfile('reg-menu-1')">
                 <a>{{sectionLabel}}</a>
             </li>
-            <li style="border:0px;" class="list-group-item reg-menu-1"
+            <li style="border:0px;" class="list-group-item  reg-menu-1 activeClass{{$index+1}}" 
                 ng-if="profile && profile.userTypes && profile.userTypes.length > 0"
-                ng-click="showFacility($index+1)" ng-repeat="facilityTab in housingFacilityTabs">
+                ng-click="showFacility($index+1)" ng-repeat="facilityTab in housingFacilityTabs" ng-init="AddAcClFc('$index+1')">
                 <a>{{facilityTab}}</a>
             </li>
             <div class="clearfix" style="height:50px; background:#fff;"></div>

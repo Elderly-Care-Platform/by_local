@@ -17,11 +17,7 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         var queryParams = {p:0,s:10};
         
         
-        
-        $scope.profileImage = function (housing) {
-           housing.profileImage = BY.config.profile.userType[housing.userTypes[0]].profileImage;
-        }
-        
+    
 
         if($scope.selectedMenu){
             $(".selected-dropdown").removeClass("selected-dropdown");

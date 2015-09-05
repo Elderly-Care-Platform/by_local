@@ -1,20 +1,20 @@
 
 <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
-	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
+	href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
 	&amp; A ({{discuss_counts.q}})</a>
 
 
 <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
-	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
+	href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
 	({{discuss_counts.p}})</a>
 
 
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
-	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
+	href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
 	({{discuss_counts.z}})</a>
 	
 <a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
-	href="#/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
+	href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
 	({{discuss_counts.featured}})</a>	
 
 <div class="clearfix" style="height:15px;"></div>
@@ -35,7 +35,7 @@
                 <li>
                     <p ng-if="discuss.discussType == 'Q' || discuss.discussType == 'P'">
                         By <a validate-user-name="{{discuss.username}}" style="text-transform: capitalize;"
-                              href="#/profile/0/{{discuss.userId}}/{{discuss.username}}"> {{username}}</a> |
+                              href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"> {{username}}</a> |
                     </p>
                 </li>
 

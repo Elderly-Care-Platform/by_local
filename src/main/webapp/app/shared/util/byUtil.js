@@ -44,8 +44,8 @@ BY.byUtil.inValidateSession = function(){
     var pro = document.getElementById('profile_placeholder');
     if(pro){
     	pro.innerHTML = "Join us";
-        pro.href = apiPrefix+"#/users/login";
-       // window.location = "#/users/home";
+        pro.href = apiPrefix+"#!/users/login";
+       // window.location = "#!users/home";
     }
 }
 

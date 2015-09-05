@@ -37,24 +37,32 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
 
         $scope.updateLeftPanel = function(){
             if($scope.profile.userTypes[0]===3){
+                $scope.selectedHousingTab = 1;
                 $scope.sectionLabel = "";
                 if($scope.profile.facilities && $scope.profile.facilities.length > 0){
                     $scope.sectionLabel = null;
                     for(var i=0; i<$scope.profile.facilities.length; i++){
                         if($scope.profile.facilities[i].name && $scope.profile.facilities[i].name.trim().length > 0){
+                            $scope.housingFacilityTabs.push($scope.profile.facilities[i].name);
+                        } else{
                             $scope.housingFacilityTabs.push("Facility"+(i+1));
                         }
                     }
                 }
 
                 if($routeParams.facilityIndex){
-                    if($scope.housingFacilityTabs.indexOf("Facility"+$routeParams.facilityIndex) === -1){
+                    $scope.selectedHousingTab = $routeParams.facilityIndex;
+                    if($routeParams.facilityIndex > $$scope.profile.facilities.length){
                         $scope.housingFacilityTabs.push("Facility"+$routeParams.facilityIndex);
                     }
-
                 }
             }
         };
+
+        //$scope.AddAcClFc = function(elemClass){
+        //    $(".list-group-item").removeClass('active');
+        //    $(".housingTab"+ $scope.selectedHousingTab).addClass('active');
+        //};
 
         $scope.getUserProfile = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");
@@ -93,10 +101,6 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             $location.path('/users/housingRegistration/'+ facilityIdx);
         }
         
-        $scope.AddAcClFc = function(elemClass){
-        	 $(".list-group-item").removeClass('active');
-        	 $(".activeClass"+$routeParams.facilityIndex).addClass('active');
-        };
 
         $scope.initialize = function(){
             var metaTagParams = {

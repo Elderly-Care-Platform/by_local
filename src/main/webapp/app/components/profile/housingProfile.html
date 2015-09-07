@@ -26,7 +26,7 @@
                     <img class="padding-zero" ng-if="facility.profileImage.titleImage"
                          src="{{facility.profileImage.titleImage || ''}}" alt="">
                     <img class="padding-zero" ng-if="!facility.profileImage.titleImage"
-                         src="assets/img/by.png" alt="">
+                         src="assets/img/profile/Housing_inside.png?versionTimeStamp=%PROJECT_VERSION%" alt="">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
                      ng-if="facility.photoGalleryURLs.length > 0" style="padding-left:0px;">
@@ -65,19 +65,19 @@
                     </div>
 
                     <div class="no-padding" ng-if="facility.tier">
-                        <i class="rounded-x"></i> {{facility.tier}}
-                        <div style="clear: both; height:6px;"></div>
+                        <i class="rounded-x fa fa-home fa-bank" style="margin-right:10px;  margin-left:-5px;"></i> {{facility.tier}}
+                        <div style="clear: both; height:10px;"></div>
                     </div>
                     <div class="clearfix"></div>
 
-                    <div class="no-padding" ng-if="facility.categoriesId.length > 0">
-                        <i class="rounded-x"></i>
+                    <div class="no-padding profileRatingHP" ng-if="facility.categoriesId.length > 0">
+                  	  <div class="divLeft">
+                        <i class="rounded-x fa fa-home" style="margin-right:10px;  margin-left:-5px;"></i></div>
+                        <div class="divRight">
 						<span ng-repeat="category in facility.categoriesId">
-						    {{$root.menuCategoryMap[category].displayMenuName}}
-                            <span ng-if="$index<facility.categoriesId.length - 1">,</span>
-                        </span>
-
-                        <div style="clear: both; height:12px;"></div>
+						    {{$root.menuCategoryMap[category].displayMenuName}}<span ng-if="$index<facility.categoriesId.length - 1">,</span></span>
+						</div>
+                        <div style="clear: both; height:8px;"></div>
                     </div>
                     <div class="clearfix"></div>
 

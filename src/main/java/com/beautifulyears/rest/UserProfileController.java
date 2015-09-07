@@ -272,6 +272,7 @@ public class UserProfileController {
 							profile = new UserProfile();
 							profile.setUserId(currentUser.getId());
 							profile.setUserTypes(userProfile.getUserTypes());
+							profile.getBasicProfileInfo().setPrimaryEmail(currentUser.getEmail());
 							userProfileRepository.save(profile);
 							UpdateUserProfileHandler userProfileHandler = new UpdateUserProfileHandler(
 									mongoTemplate);

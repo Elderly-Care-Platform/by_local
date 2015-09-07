@@ -12,16 +12,18 @@
             </li>
         </ul>
 
-        <div ng-controller="housingProfileLeftCtrl">
-            <div>
-                <ul class="list-group sidebar-nav-v1 margin-bottom-40">
-                    <li ng-repeat="branch in otherBranches">{{branch.primaryAddress.locality}}</li>
+        <div ng-controller="housingProfileLeftCtrl" style="margin-top:-20px;">
+            <div class="housingCityWrap">
+            	<div class="housingCityHead">Branches in  same city</div>
+                <ul class="list-group  sidebar-nav-v1 ">
+                    <li class="housingCityHeadThumb" ng-repeat="branch in otherBranches">{{branch.primaryAddress.locality}}</li>
                 </ul>
             </div>
 
-            <div>
-                <ul class="list-group sidebar-nav-v1 margin-bottom-40" >
-                    <li ng-repeat="(key, value) in relatedFacilities">{{key}}</li>
+            <div class="housingCityWrap">
+            	<div class="housingCityHead">Branches in  other city</div>
+                <ul class="list-group  sidebar-nav-v1 " >
+                    <li class="housingCityHeadThumb" ng-repeat="(key, value) in relatedFacilities">{{key}}</li>
                 </ul>
             </div>
 

@@ -292,3 +292,33 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 {
 	width:calc(100% - 29px);
 }
+
+.housingCityWrap
+{
+	width:225px;
+	border:1px solid #6D6666;	
+	margin-bottom:20px
+}
+.housingCityWrap ul
+{
+	margin-bottom:0px !important;
+	padding-top:8px;
+	padding-bottom:12px;
+}
+.housingCityHead
+{	
+	width:100%;
+	padding:6px 5% 8px 5%;
+	background:#6D6666;
+	color:#fff;
+	font-size:15px;
+}
+.housingCityHeadThumb
+{
+	margin-bottom:0px;
+	width:100%;
+	padding:3px 5% 3px 5% !important;;
+	color:#6D6666;
+	font-size:15px;
+	line-height:18px;
+}

@@ -7,7 +7,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
         $scope.regConfig = BY.config.regConfig.housingFacility;
         $scope.views = {};
         $scope.addFacility = false;
-        $scope.facilityIndex = 1;
+        $scope.facilityIndex = 0;
        
     	$scope.showAddressButton = function(){
     		if ($(".showAddress").css('display')=='none') 
@@ -93,17 +93,20 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
                 $scope.profile.facilities.push(facilityObj);
                 $scope.facility = $scope.profile.facilities[0];
             } else if($routeParams.facilityIndex){
-                $scope.facilityIndex = $routeParams.facilityIndex;
-                if($scope.profile.facilities.length < $routeParams.facilityIndex){
+                $scope.facilityIndex = parseInt($routeParams.facilityIndex);
+                if($scope.profile.facilities.length < $scope.facilityIndex){
                     var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
                     $scope.profile.facilities.push(facilityObj);
+                    $scope.facility = $scope.profile.facilities[$scope.facilityIndex-1];
+                }else{
+                    $scope.facility = $scope.profile.facilities[$scope.facilityIndex];
                 }
-                $scope.facility = $scope.profile.facilities[$scope.facilityIndex - 1];
+
             } else{
                 $scope.facility = $scope.profile.facilities[0];
             }
 
-            if($scope.facilityIndex == 1){
+            if($scope.facilityIndex == 0){
                 $scope.views.corporateFormView = "app/components/signup/registration/regHousingCorp.html?versionTimeStamp=%PROJECT_VERSION%";
             }
 
@@ -183,37 +186,9 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
 
        
 
-        ////Delete profile Image
-        //$scope.deleteProfileImage = function () {
-        //    $scope.profileImage = [];
-        //    $scope.basicProfileInfo.profileImage = null;
-        //};
-        //
-        ////Delete gallery images
-        //$scope.deleteGalleryImage = function (img) {
-        //    var imgIndex = $scope.galleryImages.indexOf(img);
-        //    if (imgIndex > -1) {
-        //        $scope.galleryImages.splice(imgIndex, 1);
-        //    }
-        //    imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
-        //    if (imgIndex > -1) {
-        //        $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
-        //    }
-        //};
-        
         //Post individual form
         $scope.postUserProfile = function (isValidForm, addAnotherFacility) {
             $scope.addFacility = addAnotherFacility;
-            //$(".by_btn_submit").prop("disabled", true);
-            //$scope.submitted = true;
-            //$scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
-            //$scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
-            ////$scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
-            //
-            //var regex = /(?:[\w-]+\.)+[\w-]+/ ;
-            //if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-            //	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
-            //}
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
@@ -244,7 +219,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
 
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
-console.log(userProfile);
+
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;

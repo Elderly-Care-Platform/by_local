@@ -12,6 +12,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         $scope.housingFacilityTabs = [];
         $scope.sectionLabel = null;
         $scope.userType = null;
+        $scope.facilityIdx = $routeParams.facilityIndex ? parseInt($routeParams.facilityIndex) : 0;
 
         $scope.changeUsername = function (elemClassName) {
             $(".list-group-item").removeClass('active');
@@ -40,14 +41,13 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             $scope.userType  = $scope.profile.userTypes[0];
             if($scope.profile.userTypes[0]===3){
                 if($scope.profile.facilities && $scope.profile.facilities.length > 0){
-                    $scope.selectedHousingTab = 1;
                     for(var i=0; i<$scope.profile.facilities.length; i++){
                         if($scope.profile.facilities[i].name && $scope.profile.facilities[i].name.trim().length > 0){
                             $scope.housingFacilityTabs.push($scope.profile.facilities[i].name);
                         } else{
                             $scope.housingFacilityTabs.push("Facility"+(i+1));
                         }
-                        if($routeParams.facilityIndex && $routeParams.facilityIndex===i){
+                        if($scope.facilityIdx && $scope.facilityIdx===i){
                         	$scope.facilityId = $scope.profile.facilities[i].id;
                         }
                         
@@ -57,9 +57,9 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                 }
 
                 if($routeParams.facilityIndex){
-                    $scope.selectedHousingTab = $routeParams.facilityIndex;
-                    if($routeParams.facilityIndex > $scope.profile.facilities.length){
-                        $scope.housingFacilityTabs.push("Facility"+$routeParams.facilityIndex);
+                    if($scope.facilityIdx > $scope.profile.facilities.length){
+                        $scope.housingFacilityTabs.push("Facility"+$scope.facilityIdx);
+                        $scope.facilityIdx = $scope.facilityIdx - 1;
                     }
                 }
             } else {
@@ -67,10 +67,6 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             }
         };
 
-        $scope.AddAcClFc = function(elemClass){
-            $(".list-group-item").removeClass('active');
-           $(".housingTab"+ $scope.selectedHousingTab).addClass('active');
-        };
 
         $scope.getUserProfile = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");

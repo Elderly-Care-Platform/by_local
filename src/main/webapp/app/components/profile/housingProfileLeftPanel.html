@@ -13,17 +13,21 @@
         </ul>
 
         <div ng-controller="housingProfileLeftCtrl" style="margin-top:-20px;">
-            <div class="housingCityWrap">
+            <div class="housingCityWrap"  ng-if="otherBranches">
             	<div class="housingCityHead">Branches in  same city</div>
-                <ul class="list-group  sidebar-nav-v1 ">
-                    <li class="housingCityHeadThumb" ng-repeat="branch in otherBranches">{{branch.primaryAddress.locality}}</li>
+                <ul class="list-group  sidebar-nav-v1">
+                    <li class="housingCityHeadThumb" ng-repeat="branch in otherBranches"
+                        ng-click="location($event, '/housingProfile', [profileType,profileData.userId,branch.id])">
+                        {{branch.primaryAddress.locality}}
+                    </li>
                 </ul>
             </div>
 
-            <div class="housingCityWrap">
+            <div class="housingCityWrap" ng-if="relatedFacilities">
             	<div class="housingCityHead">Branches in  other city</div>
-                <ul class="list-group  sidebar-nav-v1 " >
-                    <li class="housingCityHeadThumb" ng-repeat="(key, value) in relatedFacilities">{{key}}</li>
+                <ul class="list-group  sidebar-nav-v1">
+                    <li class="housingCityHeadThumb" ng-repeat="(key, value) in relatedFacilities"
+                        ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])">{{key}}</li>
                 </ul>
             </div>
 

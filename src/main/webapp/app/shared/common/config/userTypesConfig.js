@@ -24,6 +24,7 @@ BY.config.profile.userType = {
     '3' : {
         'category':'1',
         'contentPanel':'app/components/profile/housingProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'reviewContentType':'6',
         'type':'HOUSING',
         'label':'Housing Info'
     },

@@ -5,7 +5,9 @@ package com.beautifulyears.rest;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -86,8 +88,8 @@ public class HousingController {
 
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
-			page = staticHousingRepository.getPage(city,tagIds, userId, isFeatured,
-					isPromotion, pageable);
+			page = staticHousingRepository.getPage(city, tagIds, userId,
+					isFeatured, isPromotion, pageable);
 			// housingPage = DiscussResponse.getPage(page, currentUser);
 		} catch (Exception e) {
 			Util.handleException(e);
@@ -95,11 +97,44 @@ public class HousingController {
 		return BYGenericResponseHandler.getResponse(page);
 	}
 
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/getRelated" }, produces = { "application/json" })
+	@ResponseBody
+	public Object getRelatedHousing(
+			@RequestParam(value = "id", required = true) String id) {
+		HousingFacility housingFacility = staticHousingRepository.findById(id);
+		List<HousingFacility> housingFacilities = staticHousingRepository
+				.findByUserId(housingFacility.getUserId());
+		Map<String, List<HousingFacility>> housingMap = new HashMap<String, List<HousingFacility>>();
+		for (HousingFacility housingFacility2 : housingFacilities) {
+			if (null != housingFacility2.getPrimaryAddress()
+					&& housingMap.get(housingFacility2.getPrimaryAddress()
+							.getCity()) != null) {
+				housingMap.get(housingFacility2.getPrimaryAddress()
+						.getCity()).add(housingFacility2);
+			}else if(null != housingFacility2.getPrimaryAddress()){
+				List<HousingFacility> cityList = new ArrayList<HousingFacility>();
+				cityList.add(housingFacility2);
+				housingMap.put(housingFacility2.getPrimaryAddress().getCity(), cityList);
+			}else{
+				List<HousingFacility> cityList = housingMap.get(null);
+				if(cityList != null){
+					cityList.add(housingFacility2);
+				}else{
+					cityList = new ArrayList<HousingFacility>();
+					cityList.add(housingFacility2);
+				}
+				housingMap.put(null, cityList);
+			}
+		}
+		return BYGenericResponseHandler.getResponse(housingMap);
+	};
+
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getHousingById(
 			@RequestParam(value = "id", required = true) String housingId) {
-		HousingFacility housingFacility = staticHousingRepository.findById(housingId);
+		HousingFacility housingFacility = staticHousingRepository
+				.findById(housingId);
 		if (null == housingFacility) {
 			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 		}
@@ -133,7 +168,7 @@ public class HousingController {
 			updateHousing(newFacility, addedFacility);
 			newFacility.setLastModifiedAt(new Date());
 			staticMongoTemplate.save(newFacility);
-			facilities.set(facilities.indexOf(addedFacility),newFacility);
+			facilities.set(facilities.indexOf(addedFacility), newFacility);
 		}
 
 		for (HousingFacility updatedFacility : updated) {
@@ -161,8 +196,9 @@ public class HousingController {
 		oldHousing.setWebsite(newHousing.getWebsite());
 		oldHousing.setUserId(newHousing.getUserId());
 		oldHousing.setCategoriesId(newHousing.getCategoriesId());
-		if(!Util.isEmpty(newHousing.getDescription())){
-			org.jsoup.nodes.Document doc = Jsoup.parse(newHousing.getDescription());
+		if (!Util.isEmpty(newHousing.getDescription())) {
+			org.jsoup.nodes.Document doc = Jsoup.parse(newHousing
+					.getDescription());
 			String domText = doc.text();
 			if (domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
 				oldHousing.setShortDescription(Util.truncateText(domText));

@@ -25,9 +25,9 @@ public class HousingRepositoryImpl implements HousingRepositoryCustom {
 	private MongoTemplate mongoTemplate;
 
 	@Override
-	public PageImpl<HousingFacility> getPage(List<ObjectId> tagIds,
-			String userId, Boolean isFeatured, Boolean isPromotion,
-			Pageable pageable) {
+	public PageImpl<HousingFacility> getPage(String city,
+			List<ObjectId> tagIds, String userId, Boolean isFeatured,
+			Boolean isPromotion, Pageable pageable) {
 		List<HousingFacility> housings = null;
 
 		Query query = new Query();
@@ -36,11 +36,16 @@ public class HousingRepositoryImpl implements HousingRepositoryCustom {
 		query.addCriteria(Criteria.where("status").is(
 				DiscussConstants.DISCUSS_STATUS_ACTIVE));
 
+		if (city != null) {
+			query.addCriteria(Criteria.where("primaryAddress.city").regex(city,
+					"i"));
+		}
+
 		housings = this.mongoTemplate.find(query, HousingFacility.class);
 
 		long total = this.mongoTemplate.count(query, HousingFacility.class);
-		PageImpl<HousingFacility> housingPage = new PageImpl<HousingFacility>(housings, pageable,
-				total);
+		PageImpl<HousingFacility> housingPage = new PageImpl<HousingFacility>(
+				housings, pageable, total);
 
 		return housingPage;
 	}

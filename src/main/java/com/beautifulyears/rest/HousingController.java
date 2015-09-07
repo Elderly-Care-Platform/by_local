@@ -64,6 +64,7 @@ public class HousingController {
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			@RequestParam(value = "p", required = false, defaultValue = "0") int pageIndex,
 			@RequestParam(value = "s", required = false, defaultValue = "10") int pageSize,
+			@RequestParam(value = "city", required = false) String city,
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
@@ -85,7 +86,7 @@ public class HousingController {
 
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
-			page = staticHousingRepository.getPage(tagIds, userId, isFeatured,
+			page = staticHousingRepository.getPage(city,tagIds, userId, isFeatured,
 					isPromotion, pageable);
 			// housingPage = DiscussResponse.getPage(page, currentUser);
 		} catch (Exception e) {

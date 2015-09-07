@@ -1,4 +1,3 @@
-<!--All classes from Unify start-->
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
@@ -11,10 +10,22 @@
             <li class="list-group-item" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')">
                 <a >Q&A ({{qaPagination.totalPosts}})</a>
             </li>
-            <!--<li class="list-group-item" ng-if="isAllowedToReview">-->
-                <!--<a ng-click="reviewContent()">REVIEW / RATE</a>-->
-            <!--</li>-->
         </ul>
+
+        <div ng-controller="housingProfileLeftCtrl">
+            <div>
+                <ul class="list-group sidebar-nav-v1 margin-bottom-40">
+                    <li ng-repeat="branch in otherBranches">{{branch.primaryAddress.locality}}</li>
+                </ul>
+            </div>
+
+            <div>
+                <ul class="list-group sidebar-nav-v1 margin-bottom-40" >
+                    <li ng-repeat="(key, value) in relatedFacilities">{{key}}</li>
+                </ul>
+            </div>
+
+        </div>
     </div>
+
 </div>
-<!--All classes from Unify end-->

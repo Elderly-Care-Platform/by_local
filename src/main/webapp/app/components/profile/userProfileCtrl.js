@@ -15,7 +15,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         //$scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
         //$scope.label = BY.config.profile.userType[$scope.profileType].label;
         //$scope.isShowPosts = true;
-        $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+
 
 
         var updateMetaTags = function(){
@@ -38,7 +38,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
                 $scope.label = BY.config.profile.userType[$scope.profileType].label;
 
-
+                $scope.profileViews.leftPanel = BY.config.profile.userType[$scope.profileType].leftPanel;
                 $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
 
                 if (BY.config.profile.userType[$scope.profileType].category === '0') {

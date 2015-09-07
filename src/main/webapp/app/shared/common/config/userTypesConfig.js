@@ -5,31 +5,36 @@ BY.config.profile = BY.config.profile || {};
 BY.config.profile.userType = {
     '0' : {
         'category':'0',
+        'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'CAREGIVER',
         'label':'Personal Story'
     },
     '1' : {
         'category':'0',
+        'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'ELDER',
         'label':'Personal Story'
     },
     '2' : {
         'category':'0',
+        'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'VOLUNTEER',
         'label':'Personal Story'
     },
     '3' : {
         'category':'1',
+        'leftPanel':'app/components/profile/housingProfileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/housingProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'reviewContentType':'6',
         'type':'HOUSING',
-        'label':'Housing Info'
+        'label':'Corporate'
     },
     '4' : {
         'category':'1',
+        'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/instProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'SERVICES',
@@ -49,6 +54,7 @@ BY.config.profile.userType = {
     },
     '7' : {
         'category':'0',
+        'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/profUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
         'type':'PROFESSIONAL',

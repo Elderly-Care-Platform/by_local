@@ -1,5 +1,5 @@
-byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile','$http',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $http) {
+byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile','$http','broadCastData',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $http, broadCastData) {
         $scope.housingProfile = $scope.$parent.profileData;
         $scope.housingFacilityId = $scope.$parent.housingFacilityId;
         $scope.slideIndex = 1;
@@ -10,6 +10,7 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
             $http.get('api/v1/housing?id=' + $scope.housingFacilityId).success(function(response){
                 $scope.facility = response.data;
                 $scope.profileData = $scope.facility;
+                broadCastData.update(response.data);
             }).error(function(errorResponse){
                 console.log(errorResponse);
             });
@@ -19,8 +20,7 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
         }else{
             $scope.facility = null;
         };
-        
-        
+
 
         $scope.slideGallery = function (dir) {
             if ($scope.slideIndex < 1) {

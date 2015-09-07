@@ -27,6 +27,7 @@ byApp.config(['$routeProvider',
             .when('/product/All/list/all', {templateUrl: 'app/components/product/product.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProductAllController'})
             .when('/profile/:profileType/:profileId/:userName', {templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProfileController'})
             .when('/profile/:profileType/:profileId/', {templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProfileController'})
+            .when('/housingProfile/:profileType/:profileId/:housingFacilityId', {templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProfileController'})
             .when('/users/resetPassword/:resetPasswordCode', {templateUrl: 'app/components/signup/login/resetPassword.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'LoginController'});
 
 

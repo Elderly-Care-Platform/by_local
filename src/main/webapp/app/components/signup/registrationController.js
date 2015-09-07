@@ -10,7 +10,8 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         $scope.views.leftPanel = "";
         $scope.profile = null;
         $scope.housingFacilityTabs = [];
-
+        $scope.sectionLabel = null;
+        $scope.userType = null;
 
         $scope.changeUsername = function (elemClassName) {
             $(".list-group-item").removeClass('active');
@@ -36,26 +37,30 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         };
 
         $scope.updateLeftPanel = function(){
+            $scope.userType  = $scope.profile.userTypes[0];
             if($scope.profile.userTypes[0]===3){
                 $scope.selectedHousingTab = 1;
-                $scope.sectionLabel = "";
                 if($scope.profile.facilities && $scope.profile.facilities.length > 0){
-                    $scope.sectionLabel = null;
                     for(var i=0; i<$scope.profile.facilities.length; i++){
                         if($scope.profile.facilities[i].name && $scope.profile.facilities[i].name.trim().length > 0){
                             $scope.housingFacilityTabs.push($scope.profile.facilities[i].name);
                         } else{
                             $scope.housingFacilityTabs.push("Facility"+(i+1));
                         }
+                        $scope.facilityId = $scope.profile.facilities[i].id;
                     }
+                }else{
+                    $scope.sectionLabel = $scope.userTypeConfig.label;
                 }
 
                 if($routeParams.facilityIndex){
                     $scope.selectedHousingTab = $routeParams.facilityIndex;
-                    if($routeParams.facilityIndex > $$scope.profile.facilities.length){
+                    if($routeParams.facilityIndex > $scope.profile.facilities.length){
                         $scope.housingFacilityTabs.push("Facility"+$routeParams.facilityIndex);
                     }
                 }
+            } else {
+                $scope.sectionLabel = $scope.userTypeConfig.label;
             }
         };
 
@@ -74,7 +79,6 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                     $scope.userTypeConfig = BY.config.regConfig.userTypeConfig[$scope.profile.userTypes[0]];
                     $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
                     $scope.views.leftPanel = $scope.userTypeConfig.leftPanel;
-                    $scope.sectionLabel = $scope.userTypeConfig.label;
 
                     $scope.updateLeftPanel();
                     if (!$scope.views.contentPanel || $scope.views.contentPanel == "") {

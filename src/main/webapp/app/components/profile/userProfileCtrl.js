@@ -6,6 +6,8 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
         $scope.userName = $routeParams.userName ? BY.validateUserName($routeParams.userName) : "Anonymous";
+        $scope.housingFacilityId = $routeParams.housingFacilityId ? $routeParams.housingFacilityId : null;
+
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
         var pageSize = 10;

@@ -29,10 +29,10 @@
             <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType!=3" >
                 <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
             </div>
-            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType==3 && facilityId" >
-                <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityId}}">View Profile</a>
+            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType==3 && facilityProfileId" >
+                <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View Profile</a>
             </div>
-            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType==3 && !facilityId" >
+            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType==3 && !facilityProfileId" >
                 <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
             </div>
         </ul>

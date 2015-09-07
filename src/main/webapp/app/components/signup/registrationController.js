@@ -47,8 +47,8 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                         } else{
                             $scope.housingFacilityTabs.push("Facility"+(i+1));
                         }
-                        if($scope.facilityIdx && $scope.facilityIdx===i){
-                        	$scope.facilityId = $scope.profile.facilities[i].id;
+                        if($scope.facilityIdx==i){
+                        	$scope.facilityProfileId = $scope.profile.facilities[i].id;
                         }
                         
                     }

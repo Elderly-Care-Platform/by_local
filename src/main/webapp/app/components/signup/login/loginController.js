@@ -23,6 +23,13 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         	verifyPasswordCode($routeParams.resetPasswordCode);
         }
         
+        var socialCallback = function(e){
+        		socialRegistration(e.data);
+        		$scope.resetError();
+        	  window.removeEventListener("message", socialCallback, false);
+        	}
+        	
+        
         function verifyPasswordCode(passCode){
             $(".by_resetPwd_btn").prop("disabled", true);
         	$http.get("api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
@@ -37,12 +44,15 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.fbLogin = function(){
         	$http.get("api/v1/users/getFbURL").success(function(res){
-        		window.getFbData = function(data){
-        			socialRegistration(data);
-        			delete(window.getFbData);
-                    $scope.resetError();
+        		window.addEventListener("message", socialCallback);
+        		var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
+        		var timer = setInterval(checkChild, 500);
+        		function checkChild() {
+        		    if (child.closed) {
+        		    	window.removeEventListener("message", socialCallback);
+        		        clearInterval(timer);
+        		    }
         		}
-        		window.open(res.data, 'Facebook Login','width=1000,height=650')
         	})
         };
 
@@ -85,12 +95,15 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         
         $scope.ggLogin = function(){
         	$http.get("api/v1/users/getGgURL").success(function(res){
-        		window.getGoogleData = function(data){
-        			socialRegistration(data);
-        			delete(window.getGoogleData);
+        		window.addEventListener("message", socialCallback);
+        		var child = window.open(res.data, 'Google Login','width=500,height=500');
+        		var timer = setInterval(checkChild, 500);
+        		function checkChild() {
+        		    if (child.closed) {
+        		    	window.removeEventListener("message", socialCallback);
+        		        clearInterval(timer);
+        		    }
         		}
-        		
-        		window.open(res.data, 'Google Login','width=500,height=500');
         	})
         };
         

@@ -70,6 +70,8 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===1){
                 $location.path("/services/list/"+menu.slug+"/"+menu.id+"/all/");
+            }else if(menu.module===2){
+                $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/all/");
             }else{
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }

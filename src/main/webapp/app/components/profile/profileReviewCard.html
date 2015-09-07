@@ -4,7 +4,7 @@
     <div class="article-info dp-inline-block">
         <ul class="list-inline posted-info">
             <li ng-if="review"> By <a validate-user-name="{{review.userName}}"
-             href="#/profile/0/{{review.userId}}/{{review.username}}"> {{username}} </a> &nbsp; |  </li>
+             href="#!/profile/0/{{review.userId}}/{{review.username}}"> {{username}} </a> &nbsp; |  </li>
             <li time-since="{{review.createdAt}}"></li>
             <li class="reviewCardRating list-inline" ng-if="review.userRatingPercentage && review.userRatingPercentage!=='0'">
                 &nbsp; | <i class="rounded-x" rate-calculator="{{review.userRatingPercentage}}"></i>

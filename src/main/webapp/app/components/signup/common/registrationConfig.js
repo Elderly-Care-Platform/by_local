@@ -42,8 +42,9 @@ BY.config.regConfig.userTypeConfig = {
     '3' : {
         'type':'3',
         'contentPanel':'',
+        'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'category':'HOUSING',
-        'label' : ""
+        'label' : "Housing"
     },
     '4' : {
         'type':'4',
@@ -125,3 +126,59 @@ BY.config.regConfig.indvUserRegConfig = {
 
 }
 
+BY.config.regConfig.housingConfig = {
+    'fetchFromMenu' : "Housing"
+}
+
+BY.config.regConfig.housingFacility = {
+		'id' : "",
+		
+		'userId' : "",
+		
+		'name' : "",
+		
+		'systemTags' : [],
+		
+		'tier' : "",
+		
+		'primaryAddress': {
+			'city': "",
+			'country': "",
+			'locality': "",
+			'streetAddress': "",
+			'zip': ""
+		},
+		
+		'facilityType' : ["Luxury", "Moderate", "Basic", "Free"],
+		
+		'primaryPhoneNo' : "",
+		
+		'secondaryPhoneNos' : [],
+		
+		'primaryEmail' : "",
+		
+		'secondaryEmails' : [],
+		
+		'profileImage': null,
+		
+		'photoGalleryURLs' : [],
+		
+		'shortDescription' : "",
+		
+		'description' : "",
+		
+		'status' : 0,
+		
+		'reviewedBy' : [],
+		
+		'ratedBy' : [],
+		
+		'aggrRatingPercentage' : 0,		
+		
+		'isReviewedByUser': false,
+		
+        'isRatedByUser' : false, 
+        
+        'website' : ""
+
+};

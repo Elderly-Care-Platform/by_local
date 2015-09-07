@@ -1,26 +1,37 @@
 byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
     function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
         $scope.userId = localStorage.getItem("USER_ID");
-        $scope.profileImage = [];
-        $scope.galleryImages = [];
+        //$scope.profileImage = [];
+        //$scope.galleryImages = [];
         $scope.submitted = false;
-        $scope.regConfig = BY.config.regConfig.indvUserRegConfig;
-
+        $scope.regConfig = BY.config.regConfig.housingFacility;
+        $scope.views = {};
+        $scope.addFacility = false;
+        $scope.facilityIndex = 1;
        
+    	$scope.showAddressButton = function(){
+    		if ($(".showAddress").css('display')=='none') 
+    		{
+    			$(".showAddress").show();
+    			$(".showAddressButton").val('- Remove Address');
+    		}
+    		else
+    		{
+    			$(".showAddress").hide();
+    			$(".showAddressButton").val('+ Add Address');
+    		}
+    	};
 
+        //var editorInitCallback = function(){
+        //    if(tinymce.get("facilityDescription") && $scope.facility && $scope.facility.description){
+        //        tinymce.get("facilityDescription").setContent($scope.facility.description);
+        //    }
+        //}
+        //
+        //$scope.addEditor = function(){
+        //	 var tinyEditor = BY.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
+        //};
 
-
-        var editorInitCallback = function(){
-            if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
-                tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
-            }
-        }
-        
-        $scope.addEditor = function(){
-        	 var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
-        };
-       
-        
 
         $scope.addressCallback = function (response) {
             $('#addressLocality').blur();
@@ -55,35 +66,48 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             $scope.address.streetAddress = response.formatted_address;
         };
 
-       
+
 
         //Prefill form with previously selected data
         var initializeRegForm = function () {
-            $scope.curiousUser = false;
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
 
-            if($scope.profile.userTypes && $scope.profile.userTypes.length > 0){
-                if($scope.profile.userTypes.length===1 && $scope.profile.userTypes[0]===2){
-                    $scope.curiousUser = true;
-                }
-
-                if($scope.profile.userTypes.indexOf(0) > -1){
-                    $scope.emotional_challenges = $scope.regConfig.emotional_challenges2;
+            
+            if($scope.profile.facilities.length > 0){
+            	for(var i=0; i < $scope.profile.facilities.length; i++){
+                	if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
+                		$scope.profile.facilities.splice(i, 1);
+                	}
                 }
             }
-
-
             
-
             if ($scope.basicProfileInfo.primaryUserAddress && $scope.basicProfileInfo.primaryUserAddress.country === null) {
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
             }
 
-           
-            editorInitCallback();
+            if($scope.profile.facilities.length===0){
+                var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
+                $scope.profile.facilities.push(facilityObj);
+                $scope.facility = $scope.profile.facilities[0];
+            } else if($routeParams.facilityIndex){
+                $scope.facilityIndex = $routeParams.facilityIndex;
+                if($scope.profile.facilities.length < $routeParams.facilityIndex){
+                    var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
+                    $scope.profile.facilities.push(facilityObj);
+                }
+                $scope.facility = $scope.profile.facilities[$scope.facilityIndex - 1];
+            } else{
+                $scope.facility = $scope.profile.facilities[0];
+            }
+
+            if($scope.facilityIndex == 1){
+                $scope.views.corporateFormView = "app/components/signup/registration/regHousingCorp.html?versionTimeStamp=%PROJECT_VERSION%";
+            }
+
+            $scope.views.facilityFormView = "app/components/signup/registration/regHousingFacility.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
 
@@ -159,37 +183,37 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
 
        
 
-        //Delete profile Image
-        $scope.deleteProfileImage = function () {
-            $scope.profileImage = [];
-            $scope.basicProfileInfo.profileImage = null;
-        };
-
-        //Delete gallery images
-        $scope.deleteGalleryImage = function (img) {
-            var imgIndex = $scope.galleryImages.indexOf(img);
-            if (imgIndex > -1) {
-                $scope.galleryImages.splice(imgIndex, 1);
-            }
-            imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
-            if (imgIndex > -1) {
-                $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
-            }
-        };
+        ////Delete profile Image
+        //$scope.deleteProfileImage = function () {
+        //    $scope.profileImage = [];
+        //    $scope.basicProfileInfo.profileImage = null;
+        //};
+        //
+        ////Delete gallery images
+        //$scope.deleteGalleryImage = function (img) {
+        //    var imgIndex = $scope.galleryImages.indexOf(img);
+        //    if (imgIndex > -1) {
+        //        $scope.galleryImages.splice(imgIndex, 1);
+        //    }
+        //    imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
+        //    if (imgIndex > -1) {
+        //        $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
+        //    }
+        //};
         
         //Post individual form
-        $scope.postUserProfile = function (isValidForm) {
-            $(".by_btn_submit").prop("disabled", true);
-            $scope.submitted = true;
-            $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
-            $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
-
-            $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
-
-            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
-            if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-            	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
-            }
+        $scope.postUserProfile = function (isValidForm, addAnotherFacility) {
+            $scope.addFacility = addAnotherFacility;
+            //$(".by_btn_submit").prop("disabled", true);
+            //$scope.submitted = true;
+            //$scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
+            //$scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
+            ////$scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
+            //
+            //var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            //if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
+            //	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+            //}
 
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
@@ -208,24 +232,51 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
                         return value;
                     }
                 });
+                
+                if($scope.profile.facilities.length > 0){
+                	for(var i=0; i < $scope.profile.facilities.length; i++){
+                    	if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
+                    		$scope.profile.facilities.splice(i, 1);
+                    	}
+                    }
+                }
+
 
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
-                /*userProfile.$update({userId: $scope.userId}, function (profileOld) {
+console.log(userProfile);
+                userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;
-                    $scope.$parent.exit();
+                    if($scope.addFacility){
+                        $location.path('/users/housingRegistration/'+ ($scope.profile.facilities.length + 1));
+                        //$templateCache.removeAll();
+                        ////$scope.views = {};
+                        //$scope.addNewFacilty();
+                    }else{
+                        $scope.$parent.exit();
+                    }
+
                 }, function (err) {
                     console.log(err);
                     $scope.$parent.exit();
-                });*/
+                });
             }
         }
         
-        // Adding another faciltiy
-        $scope.addingFacilty = function(){
-            $scope.views.contentPanel = "app/components/signup/registration/regHousingAddFacility.html?versionTimeStamp=%PROJECT_VERSION%";
-        };
+        //// Adding another faciltiy
+        //$scope.addNewFacilty = function(){
+        //    $scope.views.corporateFormView = "";
+        //    var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
+        //    $scope.profile.facilities.push(facilityObj);
+        //
+        //    $scope.facility = $scope.profile.facilities[$scope.profile.facilities.length-1];
+        //    $scope.views.corporateFormView = "";
+        //
+        //    var content=angular.element('#newFacility');
+        //    var scope=content.scope();
+        //    $compile(content)(scope);
+        //};
         
 
     }]);

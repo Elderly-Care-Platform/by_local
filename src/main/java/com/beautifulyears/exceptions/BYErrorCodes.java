@@ -13,6 +13,7 @@ public enum BYErrorCodes {
 	MISSING_PARAMETER(1002, "Required query parameter is missing"),
 	INTERNAL_SERVER_ERROR(1003, "Some unknown internal server error occured"),
 	ERROR_IN_SENDING_MAIL(1004,"Some unexpected error occured while sending the mail"),
+	NO_CONTENT_FOUND(1005,"No content was found with queries criteria"),
 
 	// discuss related error
 	DISCUSS_NOT_FOUND(2001, "Discuss content with provided discussId doesn't exist"),

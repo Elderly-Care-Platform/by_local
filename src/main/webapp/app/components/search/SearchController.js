@@ -37,6 +37,10 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                             }
                         )
                     }, 500);
+                
+                	if ($scope.discuss.length === 0) {
+                        $scope.isShowServices = false;
+                    }
             }, function (e) {
                 alert(e);
             });
@@ -50,6 +54,8 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                 $scope.servicePagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                 $scope.servicePagination.currentPage = value.data.number;
                 $scope.servicePagination.pageSize = $scope.pageSize;
+                
+                
                 
                 $scope.serviceTotal = value.data.total;
                 function regexCallback(p1, p2, p3, p4) {

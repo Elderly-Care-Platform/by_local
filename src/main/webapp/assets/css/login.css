@@ -332,3 +332,7 @@ input[type=checkbox] {
 	padding:9px 15px 9px 15px;
 	display:block;
 }
+.showAddress
+{
+	display:none;
+}

@@ -694,7 +694,7 @@ ngRouteModule.provider('$routeParams', $RouteParamsProvider);
  * @example
  * ```js
  *  // Given:
- *  // URL: http://server.com/index.html#/Chapter/1/Section/2?search=moby
+ *  // URL: http://server.com/index.html#!/Chapter/1/Section/2?search=moby
  *  // Route: /Chapter/:chapterId/Section/:sectionId
  *  //
  *  // Then

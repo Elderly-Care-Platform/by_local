@@ -136,6 +136,16 @@ var findServices = byServices.factory('FindServices', function($resource) {
     })
 });
 
+//Find Housing
+var findHousing = byServices.factory('FindHousing', function($resource) {
+    return $resource(apiPrefix +'api/v1/housing/page',{}, {
+        get: {method: 'GET', params: {city:'@city', tags: '@tags', page:'@page',size:'@size'}}
+
+    })
+});
+
+
+
 //New selected user profile
 var userProfile = byServices.factory('UserProfile', function($resource) {
     return $resource(apiPrefix +'api/v1/userProfile/:userId',{}, {

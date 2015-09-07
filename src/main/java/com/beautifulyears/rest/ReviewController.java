@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.DiscussReply;
+import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.UserRating;
@@ -34,6 +35,7 @@ import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussReplyRepository;
+import com.beautifulyears.repository.HousingRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.repository.UserRatingRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
@@ -48,6 +50,7 @@ public class ReviewController {
 	private Logger logger = Logger.getLogger(ReviewController.class);
 	private DiscussReplyRepository discussReplyRepository;
 	private UserRatingRepository userRatingRepository;
+	private HousingRepository housingRepository;
 	private MongoTemplate mongoTemplate;
 	private UserProfileRepository userProfileRepository;
 
@@ -55,10 +58,12 @@ public class ReviewController {
 	public ReviewController(DiscussReplyRepository discussReplyRepository,
 			UserRatingRepository userRatingRepository,
 			UserProfileRepository userProfileRepository,
+			HousingRepository housingRepository,
 			MongoTemplate mongoTemplate) {
 		this.discussReplyRepository = discussReplyRepository;
 		this.userRatingRepository = userRatingRepository;
 		this.userProfileRepository = userProfileRepository;
+		this.housingRepository = housingRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
 
@@ -204,10 +209,14 @@ public class ReviewController {
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 			updateInstitutionRating(rating);
 			break;
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
+			updateHousingRating(rating);
+			break;
 		default:
 			throw new BYException(BYErrorCodes.REVIEW_TYPE_INVALID);
 		}
 	}
+
 
 	private void updateAllDependantEntities(Integer contentType,
 			DiscussReply review) {
@@ -216,9 +225,46 @@ public class ReviewController {
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
 			updateInstitutionReviews(review);
 			break;
+		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
+			updateHousingReviews(review);
+			break;
 		default:
 			throw new BYException(BYErrorCodes.REVIEW_TYPE_INVALID);
 		}
+	}
+	
+
+
+	private void updateHousingRating(UserRating rating) {
+		HousingFacility housing = this.housingRepository.findOne(rating
+				.getAssociatedId());
+		if (null != housing) {
+			if (null == rating.getRatingPercentage()
+					|| 0 == rating.getRatingPercentage()) {
+				housing.getRatedBy().remove(rating.getUserId());
+			} else if (!housing.getRatedBy().contains(rating.getUserId())) {
+				housing.getRatedBy().add(rating.getUserId());
+			}
+			TypedAggregation<UserRating> aggregation = newAggregation(
+					UserRating.class,
+					match(Criteria.where("associatedId")
+							.is(rating.getAssociatedId())
+							.and("associatedContentType")
+							.is(rating.getAssociatedContentType())),
+					group("associatedId").avg("ratingPercentage").as(
+							"ratingPercentage"));
+
+			AggregationResults<UserRating> result = mongoTemplate.aggregate(
+					aggregation, UserRating.class);
+			List<UserRating> ratingAggregated = result.getMappedResults();
+			if (ratingAggregated.size() > 0) {
+				housing.setAggrRatingPercentage(ratingAggregated.get(0)
+						.getRatingPercentage());
+			}
+
+			this.housingRepository.save(housing);
+		}
+		
 	}
 
 	private void updateInstitutionRating(UserRating rating) {
@@ -249,6 +295,21 @@ public class ReviewController {
 			}
 
 			this.userProfileRepository.save(profile);
+		}
+	}
+	
+
+	private void updateHousingReviews(DiscussReply review) {
+		HousingFacility housing = this.housingRepository.findOne(review
+				.getDiscussId());
+		if (null != housing) {
+			if (Util.isEmpty(review.getText())) {
+				housing.getReviewedBy().remove(review.getUserId());
+			} else if (!housing.getReviewedBy().contains(review.getUserId())) {
+				housing.getReviewedBy().add(review.getUserId());
+			}
+			this.housingRepository.save(housing);
+
 		}
 	}
 

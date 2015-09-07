@@ -19,7 +19,7 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
         };
 
         var initialize = function () {
-            if (!$scope.facility.tier) {
+            if (!$scope.facility || !$scope.facility.tier) {
                 $scope.facility.tier = $scope.regConfig.facilityType[0];
             }
             

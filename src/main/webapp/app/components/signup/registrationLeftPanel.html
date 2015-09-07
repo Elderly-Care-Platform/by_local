@@ -21,8 +21,8 @@
             </li>
             <li style="border:0px;" class="list-group-item  reg-menu-1 housingTab{{$index+1}}"
                 ng-if="housingFacilityTabs.length > 0"
-                ng-click="showFacility($index+1)" ng-repeat="facilityTab in housingFacilityTabs track by $index"
-                ng-class="{'active':selectedHousingTab===($index+1)}" ng-init="AddAcClFc('$index+1')">
+                ng-click="showFacility($index)" ng-repeat="facilityTab in housingFacilityTabs track by $index"
+                ng-class="{'active':facilityIdx===$index}">
                 <a>{{facilityTab}}</a>
             </li>
             <div class="clearfix" style="height:50px; background:#fff;"></div>

@@ -17,6 +17,7 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
         }else if($scope.housingProfile.facilities && $scope.housingProfile.facilities.length > 0) {
             $scope.facility = $scope.housingProfile.facilities[0];
             $scope.profileData = $scope.facility;
+            broadCastData.update($scope.facility);
         }else{
             $scope.facility = null;
         };

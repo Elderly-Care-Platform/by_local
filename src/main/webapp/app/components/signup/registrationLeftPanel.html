@@ -21,9 +21,9 @@
             </li>
             <li style="border:0px;" class="list-group-item  reg-menu-1 housingTab{{$index+1}}"
                 ng-if="housingFacilityTabs.length > 0"
-                ng-click="showFacility($index)" ng-repeat="facilityTab in housingFacilityTabs track by $index"
+                ng-repeat="facilityTab in housingFacilityTabs track by $index"
                 ng-class="{'active':facilityIdx===$index}">
-                <a>{{facilityTab}}</a>
+                <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
             </li>
             <div class="clearfix" style="height:50px; background:#fff;"></div>
             <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType!=3" >

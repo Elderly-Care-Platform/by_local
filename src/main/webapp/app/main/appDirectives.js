@@ -29,7 +29,7 @@ byApp.directive('diHref', ['$location', '$route',
                     element.attr('href', attrs.diHref);
                     element.bind('click', function (event) {
                         scope.$apply(function () {
-                            if ($location.url() == attrs.diHref || "#" + $location.url() == attrs.diHref) $route.reload();
+                            if ($location.url() == attrs.diHref || "#!" + $location.url() == attrs.diHref) $route.reload();
                         });
                     });
                 }

@@ -39,8 +39,8 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         $scope.updateLeftPanel = function(){
             $scope.userType  = $scope.profile.userTypes[0];
             if($scope.profile.userTypes[0]===3){
-                $scope.selectedHousingTab = 1;
                 if($scope.profile.facilities && $scope.profile.facilities.length > 0){
+                    $scope.selectedHousingTab = 1;
                     for(var i=0; i<$scope.profile.facilities.length; i++){
                         if($scope.profile.facilities[i].name && $scope.profile.facilities[i].name.trim().length > 0){
                             $scope.housingFacilityTabs.push($scope.profile.facilities[i].name);
@@ -64,10 +64,10 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             }
         };
 
-        //$scope.AddAcClFc = function(elemClass){
-        //    $(".list-group-item").removeClass('active');
-        //    $(".housingTab"+ $scope.selectedHousingTab).addClass('active');
-        //};
+        $scope.AddAcClFc = function(elemClass){
+            $(".list-group-item").removeClass('active');
+           $(".housingTab"+ $scope.selectedHousingTab).addClass('active');
+        };
 
         $scope.getUserProfile = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");

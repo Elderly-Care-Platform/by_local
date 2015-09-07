@@ -15,7 +15,7 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
 
         var city = $routeParams.city;
         var tags = [];
-        var queryParams = {p:0,s:10};
+        var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
         
         
     

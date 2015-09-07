@@ -5,10 +5,10 @@
             <li class="list-group-item" ng-click="gotoHref('profileSection')">
                 <a>{{label}}</a>
             </li>
-            <li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')">
+            <li class="list-group-item" ng-if="postsUser.length > 0 &&  !housingFacilityId"  ng-click="gotoHref('userPosts')">
                 <a>Posts ({{postsPagination.totalPosts}})</a>
             </li>
-            <li class="list-group-item" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')">
+            <li class="list-group-item" ng-if="qaUser.length > 0 && !housingFacilityId"  ng-click="gotoHref('userQA')">
                 <a >Q&A ({{qaPagination.totalPosts}})</a>
             </li>
             <!--<li class="list-group-item" ng-if="isAllowedToReview">-->

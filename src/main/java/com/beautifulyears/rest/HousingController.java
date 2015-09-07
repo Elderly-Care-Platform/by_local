@@ -31,6 +31,7 @@ import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.repository.HousingRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
+import com.beautifulyears.rest.response.HousingResponse;
 import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
@@ -70,8 +71,9 @@ public class HousingController {
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
-		// User currentUser = Util.getSessionUser(request);
+		User currentUser = Util.getSessionUser(request);
 		PageImpl<HousingFacility> page = null;
+		HousingResponse.HousingPage housingPage = null;
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
 		try {
 
@@ -90,11 +92,11 @@ public class HousingController {
 					sortDirection, sort);
 			page = staticHousingRepository.getPage(city, tagIds, userId,
 					isFeatured, isPromotion, pageable);
-			// housingPage = DiscussResponse.getPage(page, currentUser);
+			housingPage = HousingResponse.getPage(page, currentUser);
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		return BYGenericResponseHandler.getResponse(page);
+		return BYGenericResponseHandler.getResponse(housingPage);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/getRelated" }, produces = { "application/json" })
@@ -109,17 +111,18 @@ public class HousingController {
 			if (null != housingFacility2.getPrimaryAddress()
 					&& housingMap.get(housingFacility2.getPrimaryAddress()
 							.getCity()) != null) {
-				housingMap.get(housingFacility2.getPrimaryAddress()
-						.getCity()).add(housingFacility2);
-			}else if(null != housingFacility2.getPrimaryAddress()){
+				housingMap.get(housingFacility2.getPrimaryAddress().getCity())
+						.add(housingFacility2);
+			} else if (null != housingFacility2.getPrimaryAddress()) {
 				List<HousingFacility> cityList = new ArrayList<HousingFacility>();
 				cityList.add(housingFacility2);
-				housingMap.put(housingFacility2.getPrimaryAddress().getCity(), cityList);
-			}else{
+				housingMap.put(housingFacility2.getPrimaryAddress().getCity(),
+						cityList);
+			} else {
 				List<HousingFacility> cityList = housingMap.get(null);
-				if(cityList != null){
+				if (cityList != null) {
 					cityList.add(housingFacility2);
-				}else{
+				} else {
 					cityList = new ArrayList<HousingFacility>();
 					cityList.add(housingFacility2);
 				}
@@ -132,13 +135,16 @@ public class HousingController {
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getHousingById(
-			@RequestParam(value = "id", required = true) String housingId) {
+			@RequestParam(value = "id", required = true) String housingId,
+			HttpServletRequest request) {
+		User currentUser = Util.getSessionUser(request);
 		HousingFacility housingFacility = staticHousingRepository
 				.findById(housingId);
 		if (null == housingFacility) {
 			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 		}
-		return BYGenericResponseHandler.getResponse(housingFacility);
+		return BYGenericResponseHandler.getResponse(HousingResponse
+				.getHousingEntity(housingFacility, currentUser));
 	}
 
 	public static List<HousingFacility> addFacilities(

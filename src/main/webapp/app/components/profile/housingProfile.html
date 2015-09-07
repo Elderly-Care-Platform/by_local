@@ -21,7 +21,7 @@
     </div>
     <div class="col-md-12 whiteBg by_discuss_detail  margin-bottom-35" style="border-radius:4px !important;">
         <div class="col-md-12 profileContainer  white-gray ">
-            <div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;">
+            <div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;" ng-if="housingFacilityId">
                 <div class="main-image white-gray " style="padding-left:0px;">
                     <img class="padding-zero" ng-if="facility.profileImage.titleImage"
                          src="{{facility.profileImage.titleImage || ''}}" alt="">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <div class="col-md-7 col-xs-7 by_services_full_width_right by_services_full_width_right_extra by-service-padding no-padding">
+            <div ng-if="housingFacilityId" class="col-md-7 col-xs-7 by_services_full_width_right by_services_full_width_right_extra by-service-padding no-padding">
                 <div class="profileMainContent">
                     <div class="profileContentTitle" ng-if="facility.name">
                         {{facility.name}}
@@ -176,7 +176,7 @@
             <div class="clearfix"></div>
             <div class="clearfix" style="height:20px;" ng-if="!facility.photoGalleryURLs.length > 0"></div>
 
-            <div class="col-md-12 no-padding" ng-if="facility.description">
+            <div class="col-md-12 no-padding" ng-if="facility.description && housingFacilityId">
                 <div class="col-md-12 no-padding  list-head dp-block fontIndv">
                     About us
                 </div>
@@ -207,9 +207,9 @@
                 </div>
             </div>
 
-			<span ng-if="housingProfile.basicProfileInfo.primaryUserAddress.streetAddress || housingProfile.basicProfileInfo.primaryUserAddress.locality ||
+			<span ng-if="!housingFacilityId && (housingProfile.basicProfileInfo.primaryUserAddress.streetAddress || housingProfile.basicProfileInfo.primaryUserAddress.locality ||
 						 housingProfile.basicProfileInfo.primaryUserAddress.city || housingProfile.basicProfileInfo.primaryUserAddress.country || housingProfile.basicProfileInfo.primaryUserAddress.zip
-						 || housingProfile.basicProfileInfo.firstName || housingProfile.basicProfileInfo.primaryPhoneNo || housingProfile.basicProfileInfo.primaryEmail">
+						 || housingProfile.basicProfileInfo.firstName || housingProfile.basicProfileInfo.primaryPhoneNo || housingProfile.basicProfileInfo.primaryEmail)">
 				<div class="col-md-12 no-padding  list-head dp-block fontIndv">
                     Corporate Details
                 </div>
@@ -272,7 +272,7 @@
 			</span>
         </div>
 
-
+		<div ng-if="housingFacilityId">
         <div style="clear:both;"></div>
         <div class="row" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'"
              ng-if="isAllowedToReview"></div>
@@ -303,8 +303,8 @@
         <div ng-if="reviews && reviews.length === 0">
             <div class="clearfix" style="height:20px;"></div>
         </div>
-
-        <div ng-include="'app/components/profile/contentByUser.html'"></div>
+		</div>
+        <div ng-include="'app/components/profile/contentByUser.html'" ng-if="!housingFacilityId"></div>
     </div>
     <!--/end profile details-->
 </div>

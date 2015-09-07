@@ -6,6 +6,7 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
 
 
         var reviewDetails = new ReviewRateProfile();
+        
         if($scope.housingFacilityId){
             $http.get('api/v1/housing?id=' + $scope.housingFacilityId).success(function(response){
                 $scope.facility = response.data;

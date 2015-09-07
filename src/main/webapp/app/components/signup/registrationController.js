@@ -47,7 +47,10 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                         } else{
                             $scope.housingFacilityTabs.push("Facility"+(i+1));
                         }
-                        $scope.facilityId = $scope.profile.facilities[i].id;
+                        if($routeParams.facilityIndex && $routeParams.facilityIndex===i){
+                        	$scope.facilityId = $scope.profile.facilities[i].id;
+                        }
+                        
                     }
                 }else{
                     $scope.sectionLabel = $scope.userTypeConfig.label;

@@ -1,7 +1,7 @@
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
-            <li class="list-group-item" ng-click="location($event, '/profile', [profileType,profileData.userId,userName])">
+            <li class="list-group-item" ng-click="location($event, '/profile', [profileType,profileData.userId, 'corp'])">
                 <a>{{label}}</a>
             </li>
             <li class="list-group-item" ng-if="postsUser.length > 0 && !housingFacilityId" ng-click="gotoHref('userPosts')" >
@@ -18,7 +18,7 @@
                 <ul class="list-group  sidebar-nav-v1">
                     <li class="housingCityHeadThumb" ng-repeat="branch in otherBranches"
                         ng-click="location($event, '/housingProfile', [profileType,profileData.userId,branch.id])"
-                        ng-class="{'active':facilityData.id===branch.id}">
+                        ng-class="{'active':facilityData.id===branch.id && userName!=='corp'}">
                         {{branch.primaryAddress.locality}}
                     </li>
                 </ul>
@@ -29,7 +29,7 @@
                 <ul class="list-group  sidebar-nav-v1">
                     <li class="housingCityHeadThumb" ng-repeat="(key, value) in relatedFacilities"
                         ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])"
-                        ng-class="{'active':facilityData.primaryAddress.city===key}">{{key}}</li>
+                        ng-class="{'active':facilityData.primaryAddress.city===key && userName!=='corp'}">{{key}}</li>
                 </ul>
             </div>
 

@@ -16,9 +16,9 @@ byControllers.controller('housingProfileLeftCtrl', ['$scope', '$rootScope', '$ro
                         $scope.otherBranches = null;
                     }
 
-                    if(Object.keys($scope.relatedFacilities).length <=1){
+                   /* if(Object.keys($scope.relatedFacilities).length <=1){
                         $scope.relatedFacilities = null;
-                    }
+                    }*/
                 }
             }).error(function(errorResponse){
                 console.log(errorResponse);

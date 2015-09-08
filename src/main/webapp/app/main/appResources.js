@@ -214,6 +214,13 @@ var ServicePageSearch = byServices.factory('ServicePageSearch', function($resour
     })
 });
 
+var HousingPageSearch = byServices.factory('HousingPageSearch', function($resource) {
+
+    return $resource(apiPrefix+'api/v1/search/housingPageSearch',{}, {
+    	 get: {method: 'GET'}
+    })
+});
+
 var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', function($resource) {
     return $resource(apiPrefix+'api/v1/search/:term/:discussType',{}, {
         get: {method: 'GET', params: {term: '@term', discussType: '@discussType'}}

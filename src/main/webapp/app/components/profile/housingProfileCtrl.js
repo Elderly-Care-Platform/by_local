@@ -1,5 +1,5 @@
-byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile','$http','broadCastData',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $http, broadCastData) {
+byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile','$http','broadCastData', '$sce',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $http, broadCastData, $sce) {
         $scope.housingProfile = $scope.$parent.profileData;
         $scope.housingFacilityId = $scope.$parent.housingFacilityId;
         $scope.slideIndex = 1;
@@ -61,6 +61,10 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
         $scope.showMore = function () {
             document.getElementById("profile-desc").style.display = "block";
             document.getElementById("profile-shortDesc").style.display = "none";
+        };
+        
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
         };
 
 

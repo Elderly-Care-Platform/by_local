@@ -1,6 +1,6 @@
 //DIscuss All
-byControllers.controller('ProfessionalUserProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
+byControllers.controller('ProfessionalUserProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile', '$sce',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $sce) {
         $scope.individualProfile = $scope.$parent.profileData;
         $scope.gender =  BY.config.profile.userGender[$scope.individualProfile.individualInfo.sex];
         $scope.slideIndex = 1;
@@ -44,6 +44,11 @@ byControllers.controller('ProfessionalUserProfileController', ['$scope', '$rootS
             document.getElementById("profile-desc").style.display = "block";
             document.getElementById("profile-shortDesc").style.display = "none";
         };
+        
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
+        };
+
         
 
         $scope.showReviews = function(){

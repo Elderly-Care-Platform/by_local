@@ -42,7 +42,7 @@
 					<div class="divLeft">
 						<i class="rounded-x fa fa-home"></i></div>
 					<div class="divRight">	<span	ng-repeat="category in housing.categoriesId" >
-						{{$root.menuCategoryMap[category].displayMenuName}}<span ng-if="$index<housing.categoriesId.length - 1">,</span> </span></div>
+						<a di-href="#!housing/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span ng-if="$index<housing.categoriesId.length - 1">,</span> </span></div>
 						<div style="clear: both; height:8px;" ng-if="housing.ratingCount > 0"></div>
 						<div style="clear: both; height:15px;" ng-if="housing.ratingCount == 0"></div>
 					</div>

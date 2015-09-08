@@ -1,6 +1,6 @@
 //DIscuss All
-byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile) {
+byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile', '$sce',
+    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $sce) {
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
 
@@ -38,6 +38,11 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
             document.getElementById("profile-desc").style.display = "block";
             document.getElementById("profile-shortDesc").style.display = "none";
         };
+        
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
+        };
+
         
 
         $scope.showReviews = function(){

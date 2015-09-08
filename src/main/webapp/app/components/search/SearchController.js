@@ -51,9 +51,7 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                 $scope.servicePagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                 $scope.servicePagination.currentPage = value.data.number;
                 $scope.servicePagination.pageSize = $scope.pageSize;
-                
-                
-                
+
                 $scope.serviceTotal = value.data.total;
                 function regexCallback(p1, p2, p3, p4) {
                     return ((p2 == undefined) || p2 == '') ? p1 : '<i class="highlighted-text" >' + p1 + '</i>';
@@ -167,7 +165,16 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
         };
 
         $scope.setSelectedTab = function (param) {
-            $scope.selectedTab = param;
+            if(param === 'd' && $scope.discussTotal > 0){
+                $scope.selectedTab = param;
+            } else if(param === 'd' && $scope.serviceTotal > 0){
+                $scope.selectedTab = 's';
+            } else if(param === 'd' && $scope.serviceTotal > 0){
+                $scope.selectedTab = 's';
+            } else{
+                $scope.selectedTab = param;
+            }
+
         };
 
         $scope.scrollTo = function (id) {

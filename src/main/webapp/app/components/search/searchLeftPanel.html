@@ -3,13 +3,16 @@
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 "
             id="sidebar-nav" >
-            <li class="list-group-item" ng-if="discussTotal>0" ng-click="setSelectedTab('d')">
+            <li class="list-group-item" ng-if="discussTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('d')" ng-class="{'active':selectedTab==='d'}" >
                 <a >Posts/Q &amp; A({{discussTotal}})</a>
             </li>
-            <li class="list-group-item" ng-if="serviceTotal>0" ng-click="setSelectedTab('s')">
+            <li class="list-group-item" ng-if="serviceTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('s')" ng-class="{'active':selectedTab==='s'}" >
                 <a >Services ({{serviceTotal}})</a>
             </li>
-             <li class="list-group-item" ng-if="housingTotal>0" ng-click="setSelectedTab('h')">
+             <li class="list-group-item" ng-if="housingTotal>0" ng-init="setSelectedTab('d')"
+                 ng-click="setSelectedTab('h')" ng-class="{'active':selectedTab==='h'}">
                 <a >Housing ({{housingTotal}})</a>
             </li>
         </ul>

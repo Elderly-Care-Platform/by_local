@@ -120,7 +120,7 @@ public class HousingResponse implements IResponse {
 			this.primaryAddress = housing.getPrimaryAddress();
 			this.primaryPhoneNo = housing.getPrimaryPhoneNo();
 			this.secondaryPhoneNos = housing.getSecondaryPhoneNos();
-			this.primaryAddress = housing.getPrimaryAddress();
+			this.primaryEmail = housing.getPrimaryEmail();
 			this.secondaryEmails = housing.getSecondaryEmails();
 			this.profileImage = housing.getProfileImage();
 			this.photoGalleryURLs = housing.getPhotoGalleryURLs();

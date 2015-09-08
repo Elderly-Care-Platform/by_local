@@ -108,7 +108,7 @@ public class SearchController {
 			@RequestParam(value = "s", required = false, defaultValue = "10") int pageSize,
 			HttpServletRequest request) throws Exception {
 		List<Integer> serviceTypes = new ArrayList<Integer>();
-		serviceTypes.add(UserTypes.INSTITUTION_HOUSING);
+		serviceTypes.add(UserTypes.INDIVIDUAL_PROFESSIONAL);
 		serviceTypes.add(UserTypes.INSTITUTION_NGO);
 		serviceTypes.add(UserTypes.INSTITUTION_SERVICES);
 

@@ -169,8 +169,8 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                 $scope.selectedTab = param;
             } else if(param === 'd' && $scope.serviceTotal > 0){
                 $scope.selectedTab = 's';
-            } else if(param === 'd' && $scope.serviceTotal > 0){
-                $scope.selectedTab = 's';
+            } else if(param === 'd' && $scope.housingTotal > 0){
+                $scope.selectedTab = 'h';
             } else{
                 $scope.selectedTab = param;
             }

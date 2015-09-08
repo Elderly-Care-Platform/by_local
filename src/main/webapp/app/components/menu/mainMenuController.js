@@ -133,7 +133,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
 
             //Set left panel's scrollable height below menu
             if (windowWidth > 991) {
-                var leftFixMenuHeight = window.innerHeight - $(".header").height() - submenuHeight - 10;
+                var leftFixMenuHeight = window.innerHeight - $(".header").height() - $(".footer-v1").height() - submenuHeight - 10;
                 $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
             }
         };

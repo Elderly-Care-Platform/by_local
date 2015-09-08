@@ -13,6 +13,8 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
 
                 }else if(sharedObj.linkInfo && sharedObj.linkInfo.mainImage){
                 	picture = sharedObj.linkInfo.mainImage;
+                }else if(sharedObj.linkInfo && sharedObj.linkInfo.otherImages && sharedObj.linkInfo.otherImages.length > 0){
+                	picture = sharedObj.linkInfo.otherImages[0];
                 }
                 
                 if((!description || description =="") && (sharedObj.linkInfo)){

@@ -50,7 +50,7 @@
                     <div class="profileContentTitle" ng-if="facility.name">
                         {{facility.name}}
                     </div>
-                     <div class="no-padding" ng-if="facility.reviewCount > 0 || facility.ratingCount > 0">
+                      <div class="no-padding" ng-if="facility.reviewCount > 0 || facility.ratingCount > 0">
                     <div class="serviceRating" ng-if="facility.ratingPercentage">
                         <i class="rounded-x" rate-calculator="{{facility.ratingPercentage}}"></i>
                         Rated by <a href="">{{facility.ratingCount}} user<xy ng-if="facility.ratingCount > 1">s</xy>
@@ -62,7 +62,6 @@
                     </div>
                     <div style="clear: both; height:12px;"></div>
                 </div><div class="clearfix"></div>
-                     <div class="clearfix"></div>
 
                     <div class="no-padding" ng-if="facility.tier">
                         <i class="rounded-x fa fa-home fa-bank" style="margin-right:10px;  margin-left:-2px;"></i> {{facility.tier}}
@@ -101,11 +100,11 @@
                             </li>
                             <li class="list-inline"
                                 ng-if="facility.primaryAddress.country">
-                                {{facility.primaryAddress.country}}&nbsp; - &nbsp;
+                                {{facility.primaryAddress.country}}&nbsp;
                             </li>
                             <li class="list-inline"
                                 ng-if="facility.primaryAddress.zip">
-                                {{facility.primaryAddress.zip}}
+                                 - &nbsp;{{facility.primaryAddress.zip}}
                             </li>
                         </ul>
                         <div style="clear: both; height: 6px;"></div>
@@ -164,7 +163,7 @@
                         <div class="divLeft">
                             <i class="fa fa-globe" style="margin-right: 9px;"></i>
                         </div>
-                        <div class="divRight">
+                        <div class="divRight" style="text-transform:lowercase;">
                             <a ng-href="http://{{facility.website}}" target="_blank">
                                 {{facility.website}} </a>
                         </div>
@@ -207,10 +206,8 @@
                 </div>
             </div>
 
-			<span ng-if="!housingFacilityId && (housingProfile.basicProfileInfo.primaryUserAddress.streetAddress || housingProfile.basicProfileInfo.primaryUserAddress.locality ||
-						 housingProfile.basicProfileInfo.primaryUserAddress.city || housingProfile.basicProfileInfo.primaryUserAddress.country || housingProfile.basicProfileInfo.primaryUserAddress.zip
-						 || housingProfile.basicProfileInfo.firstName || housingProfile.basicProfileInfo.primaryPhoneNo || housingProfile.basicProfileInfo.primaryEmail)">
-				<div class="col-md-12 no-padding  list-head dp-block fontIndv">
+			<span >
+			<div class="col-md-12 no-padding  list-head dp-block fontIndv">
                     Corporate Details
                 </div>
 
@@ -218,57 +215,73 @@
                     <div class="bg-green-h2" style="width: 176px;"></div>
                 </div>
 				<div style="clear: both; height: 22px;"></div>
-
-				<div class="profileContentTitle"
-                     ng-if="housingProfile.basicProfileInfo.firstName">
-                    {{housingProfile.basicProfileInfo.firstName}}
-                    <div style="clear: both; height: 6px;"></div>
-                </div>
-				<div class="no-padding articles-story"
-                     ng-if="housingProfile.basicProfileInfo.primaryUserAddress.streetAddress || housingProfile.basicProfileInfo.primaryUserAddress.locality ||
+			
+				<div class="col-md-5 col-xs-5 by_services_full_width"
+					style="margin-right: 20px;" >
+					<div class="main-image white-gray " style="padding-left: 0px;">
+						<img class="padding-zero"
+							src="assets/img/profile/Corporate_big.png?versionTimeStamp=%PROJECT_VERSION%"
+							alt="">
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div
+					class="col-md-7 col-xs-7 by_services_full_width_right by_services_full_width_right_extra by-service-padding no-padding">
+					<div class="profileContentTitle"
+						ng-if="housingProfile.basicProfileInfo.firstName">
+						{{housingProfile.basicProfileInfo.firstName}}
+						<div style="clear: both; height: 6px;"></div>
+					</div>
+					<div class="no-padding articles-story"
+						ng-if="housingProfile.basicProfileInfo.primaryUserAddress.streetAddress || housingProfile.basicProfileInfo.primaryUserAddress.locality ||
 						 housingProfile.basicProfileInfo.primaryUserAddress.city || housingProfile.basicProfileInfo.primaryUserAddress.country ||
 						 housingProfile.basicProfileInfo.primaryUserAddress.zip">
+						 <i class="fa fa-map-marker divLeft" style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>
+						 <div class="divRight" style="width:calc(100% - 35px);">
+						<span
+							ng-if="housingProfile.basicProfileInfo.primaryUserAddress.streetAddress">
+							{{housingProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
+						</span> <span
+							ng-if="housingProfile.basicProfileInfo.primaryUserAddress.locality">
+							{{housingProfile.basicProfileInfo.primaryUserAddress.locality}},
+							&nbsp; </span> <span
+							ng-if="housingProfile.basicProfileInfo.primaryUserAddress.city">
+							{{housingProfile.basicProfileInfo.primaryUserAddress.city}},
+							&nbsp; </span> <span
+							ng-if="housingProfile.basicProfileInfo.primaryUserAddress.country">
+							{{housingProfile.basicProfileInfo.primaryUserAddress.country}}&nbsp;
+							- &nbsp; </span> <span
+							ng-if="housingProfile.basicProfileInfo.primaryUserAddress.zip">
+							{{housingProfile.basicProfileInfo.primaryUserAddress.zip}} </span>
+						</div>
+						<div style="clear: both; height: 6px;"></div>
+					</div>
 
-					<span ng-if="housingProfile.basicProfileInfo.primaryUserAddress.streetAddress">
-						{{housingProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
-					</span>
-                    <span ng-if="housingProfile.basicProfileInfo.primaryUserAddress.locality">
-						{{housingProfile.basicProfileInfo.primaryUserAddress.locality}},
-						&nbsp;
-                    </span>
-                    <span ng-if="housingProfile.basicProfileInfo.primaryUserAddress.city">
-						{{housingProfile.basicProfileInfo.primaryUserAddress.city}},
-						&nbsp;
-                    </span>
-                    <span ng-if="housingProfile.basicProfileInfo.primaryUserAddress.country">
-						{{housingProfile.basicProfileInfo.primaryUserAddress.country}}&nbsp;
-						- &nbsp;
-                    </span>
-                    <span ng-if="housingProfile.basicProfileInfo.primaryUserAddress.zip">
-						{{housingProfile.basicProfileInfo.primaryUserAddress.zip}}
-                    </span>
+					<div class="no-padding"
+						ng-if="housingProfile.basicProfileInfo.primaryPhoneNo">
+						<i class="fa fa-phone" style="margin-right: 9px;"></i> <span>{{housingProfile.basicProfileInfo.primaryPhoneNo}}</span>
+						<span
+							ng-repeat="phoneNo in housingProfile.basicProfileInfo.secondaryPhoneNos"
+							ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
 
-                    <div style="clear: both; height: 6px;"></div>
-                </div>
+						<div style="clear: both; height: 16px;"></div>
+					</div>
 
-				<div class="no-padding"
-                     ng-if="housingProfile.basicProfileInfo.primaryPhoneNo">
-                    <i class="fa fa-phone" style="margin-right: 9px;"></i> <span>{{housingProfile.basicProfileInfo.primaryPhoneNo}}</span>
-					<span ng-repeat="phoneNo in housingProfile.basicProfileInfo.secondaryPhoneNos"
-                            ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
+					<div class="no-padding"
+						ng-if="housingProfile.basicProfileInfo.primaryEmail">
+						<i class="fa fa-envelope" style="margin-right: 9px;"></i> <a
+							href="mailto::{{housingProfile.basicProfileInfo.primaryEmail}}">{{housingProfile.basicProfileInfo.primaryEmail}}</a>
+						<span
+							ng-repeat="mail in housingProfile.basicProfileInfo.secondaryEmails"
+							ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
+						</span>
 
-                    <div style="clear: both; height: 16px;"></div>
-                </div>
+						<div style="clear: both; height: 26px;"></div>
+					</div>
+				</div>
+				<div style="clear: both; height: 26px;"></div>
 
-				<div class="no-padding" ng-if="housingProfile.basicProfileInfo.primaryEmail">
-                    <i class="fa fa-envelope" style="margin-right: 9px;"></i>
-                    <a href="mailto::{{housingProfile.basicProfileInfo.primaryEmail}}">{{housingProfile.basicProfileInfo.primaryEmail}}</a>
-					<span ng-repeat="mail in housingProfile.basicProfileInfo.secondaryEmails"
-                            ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
-					</span>
-
-                    <div style="clear: both; height: 26px;"></div>
-                </div>
 			</span>
         </div>
 
@@ -306,3 +319,4 @@
     </div>
     <!--/end profile details-->
 </div>
+<div class="clearfix"></div>

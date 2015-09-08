@@ -4,10 +4,10 @@
             <li class="list-group-item" ng-click="location($event, '/profile', [profileType,profileData.userId,userName])">
                 <a>{{label}}</a>
             </li>
-            <li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')">
+            <li class="list-group-item" ng-if="postsUser.length > 0"  >
                 <a>Posts ({{postsPagination.totalPosts}})</a>
             </li>
-            <li class="list-group-item" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')">
+            <li class="list-group-item" ng-if="qaUser.length > 0"  >
                 <a >Q&A ({{qaPagination.totalPosts}})</a>
             </li>
         </ul>

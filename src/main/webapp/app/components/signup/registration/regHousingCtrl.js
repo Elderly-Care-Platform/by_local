@@ -13,7 +13,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
     		if ($(".showAddress").css('display')=='none') 
     		{
     			$(".showAddress").show();
-    			$(".showAddressButton").val('- Remove Address');
+    			$(".showAddressButton").val('- Hide Address');
     		}
     		else
     		{

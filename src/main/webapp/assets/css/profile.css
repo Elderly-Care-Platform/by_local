@@ -326,3 +326,12 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	color:#fff;
 	background:#008a4b;
 }
+.add-comment23
+{
+	height: 28px;
+    font-size: 15px !important;
+    padding: 1px 5px 1px 5px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 2px !important;
+    background: url('../img/sprite/button-gray.jpg?versionTimeStamp=%PROJECT_VERSION%') !important;
+}

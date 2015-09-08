@@ -173,6 +173,8 @@
                 </div>
             </div>
             <div class="clearfix"></div>
+            
+            <div ng-if="!facility.description" style="height:10px;"></div>
            
 
             <div class="col-md-12 no-padding" ng-if="facility.description && housingFacilityId">
@@ -183,7 +185,7 @@
                 <div class="col-md-12 no-padding bg-gray-h1">
                     <div class="bg-green-h2" style="width: 176px;"></div>
                 </div>
-                <div style="clear: both; height: 10px;"></div>
+                <div style="clear: both; height: 20px;"></div>
 
                 <div class="articles-story" ng-if="facility.shortDescription">
                     <p id="profile-shortDesc">

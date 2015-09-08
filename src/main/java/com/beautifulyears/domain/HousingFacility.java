@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -28,6 +29,7 @@ public class HousingFacility {
 
 	private String userId;
 
+	@TextIndexed
 	private String name;
 
 	@DBRef
@@ -35,6 +37,7 @@ public class HousingFacility {
 
 	private String tier;
 
+	@TextIndexed
 	private UserAddress primaryAddress = new UserAddress();
 
 	private String primaryPhoneNo;
@@ -47,6 +50,7 @@ public class HousingFacility {
 	private List<Map<String, String>> photoGalleryURLs = new ArrayList<Map<String, String>>();
 
 	private String shortDescription;
+	@TextIndexed
 	private String description;
 
 	private List<String> categoriesId;

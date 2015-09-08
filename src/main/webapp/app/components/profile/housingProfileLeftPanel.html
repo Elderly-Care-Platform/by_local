@@ -4,10 +4,10 @@
             <li class="list-group-item" ng-click="location($event, '/profile', [profileType,profileData.userId,userName])">
                 <a>{{label}}</a>
             </li>
-            <li class="list-group-item" ng-if="postsUser.length > 0"  >
+            <li class="list-group-item" ng-if="postsUser.length > 0 && !housingFacilityId" ng-click="gotoHref('userPosts')" >
                 <a>Posts ({{postsPagination.totalPosts}})</a>
             </li>
-            <li class="list-group-item" ng-if="qaUser.length > 0"  >
+            <li class="list-group-item" ng-if="qaUser.length > 0 && !housingFacilityId"  ng-click="gotoHref('userQA')">
                 <a >Q&A ({{qaPagination.totalPosts}})</a>
             </li>
         </ul>
@@ -25,11 +25,11 @@
             </div>
 
             <div class="housingCityWrap" ng-if="relatedFacilities">
-            	<div class="housingCityHead">Branches in  other city</div>
+            	<div class="housingCityHead">Branches in  </div>
                 <ul class="list-group  sidebar-nav-v1">
                     <li class="housingCityHeadThumb" ng-repeat="(key, value) in relatedFacilities"
                         ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])"
-                        ng-if="facilityData.primaryAddress.city!==key">{{key}}</li>
+                        ng-class="{'active':facilityData.primaryAddress.city===key}">{{key}}</li>
                 </ul>
             </div>
 

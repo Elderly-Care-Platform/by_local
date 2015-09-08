@@ -1,5 +1,5 @@
-byControllers.controller('IndividualUserProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 
-    function ($scope, $rootScope, $location, $route, $routeParams) {
+byControllers.controller('IndividualUserProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', '$sce',
+    function ($scope, $rootScope, $location, $route, $routeParams, $sce) {
 	 $scope.individualProfile = $scope.$parent.profileData;
      $scope.slideIndex = 1;
      //$scope.userName = $scope.$parent.userName;
@@ -37,6 +37,11 @@ byControllers.controller('IndividualUserProfileController', ['$scope', '$rootSco
 
          });
      };
+     
+     $scope.trustForcefully = function (html) {
+         return $sce.trustAsHtml(html);
+     };
+
      
      
      

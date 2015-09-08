@@ -188,6 +188,11 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             });
 
             $scope.facility.systemTags = getSystemTagList($scope.selectedMenuList);
+            
+            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            if($scope.facility && $scope.facility.website && $scope.facility.website.length > 0){
+            	$scope.facility.website = regex.exec($scope.facility.website)[0];
+            }
 
             if ( $scope.facility.systemTags.length === 0) {
                 $scope.minCategoryError = true;

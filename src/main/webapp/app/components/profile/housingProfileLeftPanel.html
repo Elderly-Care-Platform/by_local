@@ -1,0 +1,39 @@
+<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
+    <div class="scrollableLeftPanelDiv by-filter-links">
+        <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
+            <li class="list-group-item" ng-click="location($event, '/profile', [profileType,profileData.userId,userName])">
+                <a>{{label}}</a>
+            </li>
+            <li class="list-group-item" ng-if="postsUser.length > 0"  >
+                <a>Posts ({{postsPagination.totalPosts}})</a>
+            </li>
+            <li class="list-group-item" ng-if="qaUser.length > 0"  >
+                <a >Q&A ({{qaPagination.totalPosts}})</a>
+            </li>
+        </ul>
+
+        <div ng-controller="housingProfileLeftCtrl" style="margin-top:-20px;">
+            <div class="housingCityWrap"  ng-if="otherBranches">
+            	<div class="housingCityHead">Branches in  {{facilityData.primaryAddress.city}}</div>
+                <ul class="list-group  sidebar-nav-v1">
+                    <li class="housingCityHeadThumb" ng-repeat="branch in otherBranches"
+                        ng-click="location($event, '/housingProfile', [profileType,profileData.userId,branch.id])"
+                        ng-class="{'active':facilityData.id===branch.id}">
+                        {{branch.primaryAddress.locality}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="housingCityWrap" ng-if="relatedFacilities">
+            	<div class="housingCityHead">Branches in  other city</div>
+                <ul class="list-group  sidebar-nav-v1">
+                    <li class="housingCityHeadThumb" ng-repeat="(key, value) in relatedFacilities"
+                        ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])"
+                        ng-if="facilityData.primaryAddress.city!==key">{{key}}</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>

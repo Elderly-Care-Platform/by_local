@@ -6,6 +6,8 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
         $scope.userName = $routeParams.userName ? BY.validateUserName($routeParams.userName) : "Anonymous";
+        $scope.housingFacilityId = $routeParams.housingFacilityId ? $routeParams.housingFacilityId : null;
+
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
         var pageSize = 10;
@@ -13,7 +15,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         //$scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
         //$scope.label = BY.config.profile.userType[$scope.profileType].label;
         //$scope.isShowPosts = true;
-        $scope.profileViews.leftPanel = "app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+
 
 
         var updateMetaTags = function(){
@@ -36,7 +38,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
                 $scope.label = BY.config.profile.userType[$scope.profileType].label;
 
-
+                $scope.profileViews.leftPanel = BY.config.profile.userType[$scope.profileType].leftPanel;
                 $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
 
                 if (BY.config.profile.userType[$scope.profileType].category === '0') {
@@ -149,23 +151,15 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         };
 
 
-        $scope.go = function ($event, type, id, discussType) {
+        $scope.location = function ($event, url, params) {
             $event.stopPropagation();
-            if (type === "id") {
-                $location.path('/discuss/' + id);
-            } else if (type === "menu") {
-                var menu = $rootScope.menuCategoryMap[id];
-                if (menu.module === 0) {
-                    $location.path("/discuss/list/" + menu.displayMenuName + "/" + menu.id + "/all/");
-                } else if (menu.module === 1) {
-                    $location.path("/services/list/" + menu.displayMenuName + "/" + menu.id + "/all/");
-                } else {
-                    //nothing as of now
+            if(url){
+                if(params && params.length > 0){
+                    for(var i=0; i < params.length; i++){
+                        url = url + "/" + params[i];
+                    }
                 }
-            } else if (type === "accordian") {
-                $($event.target).find('a').click();
-            } else if (type === "comment") {
-                $location.path('/discuss/' + id).search({comment: true});
+                $location.path(url);
             }
         }
 

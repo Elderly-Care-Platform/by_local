@@ -234,9 +234,9 @@ public class UserController {
 			Session session = createSession(req, res, newFbUser);
 
 			ServletOutputStream out = res.getOutputStream();
-			out.println("<script>parent.window.opener.getFbData("
+			out.println("<script>parent.window.opener.postMessage("
 					+ mapper.writeValueAsString(BYGenericResponseHandler
-							.getResponse(session)) + ");</script>");
+							.getResponse(session)) + ",'*');</script>");
 			out.println("<script>window.close();</script>");
 			logger.debug("returning response for fbRes");
 		} catch (Exception e) {
@@ -287,9 +287,9 @@ public class UserController {
 			Session session = createSession(req, res, newGoogleUser);
 
 			ServletOutputStream out = res.getOutputStream();
-			out.println("<script>parent.window.opener.getGoogleData("
+			out.println("<script>parent.window.opener.postMessage("
 					+ mapper.writeValueAsString(BYGenericResponseHandler
-							.getResponse(session)) + ");</script>");
+							.getResponse(session)) + ",'*');</script>");
 			out.println("<script>window.close();</script>");
 		} catch (Exception e) {
 			Util.handleException(e);

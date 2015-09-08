@@ -1,6 +1,6 @@
 <div ng-repeat="housing in housing" class="ng-scope" style="position:relative;">
-	<div ng-click="location($event, housing.userId, housing.id)"
-     class="margin-bottom-35 service-card" data-index="discussion-articles"
+	<div ng-click="housingLocation($event, housing.userId, housing.id)"
+     class="margin-bottom-35 service-card housing-card" data-index="discussion-articles"
       ng-init="housing.showMoreServices=false;">
     <div class="serviceFeatured" ng-if="housing.featured == true && showFeaturedTag == true"></div>
     <div class="col-md-12">
@@ -90,10 +90,10 @@
     <div style="clear: both"></div>
 </div>
 
-
 </div>
 
-<div class="animation_image" style="display: block" align="center"
-	 ng-if=" housing && housing.length > 0 && !pageInfo.lastPage || pageInfo.isQueryInProgress">
-	<img src="assets/img/ajax_scroll_loading.gif" style="margin-bottom: 20px">
+<div ng-if="housingPagination.noOfPages > 1">
+    <div class="text-left">
+        <by-pagination obj="housingPagination" callback="getHousingData"></by-pagination>
+    </div>
 </div>

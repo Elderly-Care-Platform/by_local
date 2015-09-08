@@ -292,3 +292,52 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 {
 	width:calc(100% - 29px);
 }
+
+.housingCityWrap
+{
+	width:225px;
+	border:1px solid #6D6666;	
+	margin-bottom:20px
+}
+.housingCityWrap ul
+{
+	margin-bottom:0px !important;
+	background:#fff;
+}
+.housingCityHead
+{	
+	width:100%;
+	padding:6px 5% 8px 5%;
+	background:#6D6666;
+	color:#fff;
+	font-size:15px;
+}
+.housingCityHeadThumb
+{
+	margin-bottom:0px;
+	width:100%;
+	padding:5px 5% 5px 5% !important;
+	color:#6D6666;
+	font-size:15px;
+	line-height:18px;
+	cursor: pointer;
+}
+.housingCityHeadThumb:hover
+{
+	color:#fff;
+	background:#008a4b;
+}
+.housingCityHeadThumb.active
+{
+	color:#fff;
+	background:#008a4b !important;
+}
+.add-comment23
+{
+	height: 28px;
+    font-size: 15px !important;
+    padding: 1px 5px 1px 5px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 2px !important;
+    background: url('../img/sprite/button-gray.jpg?versionTimeStamp=%PROJECT_VERSION%') !important;
+}

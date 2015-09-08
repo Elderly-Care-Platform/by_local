@@ -261,3 +261,19 @@
 	top: -4px;
     right: -5px;
 }
+
+.fa-home:before {
+	content:'';
+	background: url('../img/sprite/home.png?versionTimeStamp=%PROJECT_VERSION%');
+	width:20px;
+	height:20px;
+	margin-top:-4px;
+
+}
+.fa-bank:before {
+	content:'';
+	background: url('../img/sprite/rupee.png?versionTimeStamp=%PROJECT_VERSION%');
+	width:20px;
+	height:20px;	
+	margin-top:-1px;
+}

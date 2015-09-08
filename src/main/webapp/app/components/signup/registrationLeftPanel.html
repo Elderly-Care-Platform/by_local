@@ -15,22 +15,27 @@
                 <a>I AM...</a>
             </li>
             <li style="border:0px;" class="list-group-item reg-menu-1 active"
-                ng-if="profile && profile.userTypes && profile.userTypes.length > 0 && !sectionLabel == '' "
+                ng-if="sectionLabel"
                 ng-click="editUserProfile('reg-menu-1')">
                 <a>{{sectionLabel}}</a>
             </li>
             <li style="border:0px;" class="list-group-item  reg-menu-1 housingTab{{$index+1}}"
-                ng-if="profile && profile.userTypes && profile.userTypes.length > 0"
-                ng-click="showFacility($index+1)" ng-repeat="facilityTab in housingFacilityTabs"
-                ng-class="{'active':selectedHousingTab===($index+1)}">
-                <a>{{facilityTab}}</a>
+                ng-if="housingFacilityTabs.length > 0"
+                ng-repeat="facilityTab in housingFacilityTabs track by $index"
+                ng-class="{'active':facilityIdx===$index}">
+                <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
             </li>
             <div class="clearfix" style="height:50px; background:#fff;"></div>
-            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="profile.userTypes.length > 0" >
+            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType!=3" >
+                <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
+            </div>
+            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType==3 && facilityProfileId" >
+                <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View Profile</a>
+            </div>
+            <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType && userType==3 && !facilityProfileId" >
                 <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
             </div>
         </ul>
-       
     </div>
 </div>
 <!--All classes from Unify end-->

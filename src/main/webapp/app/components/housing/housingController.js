@@ -15,7 +15,7 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
 
         var city = $routeParams.city;
         var tags = [];
-        var queryParams = {p:0,s:10};
+        var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
         
         
     
@@ -85,10 +85,11 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         }
 
 
-        $scope.location = function ($event, id, userType) {
+        $scope.location = function ($event, userID, id) {
             $event.stopPropagation();
-            if (id) {
-                $location.path('/profile/3' + '/' + id);
+            if(id) {
+                //profilePageLocation = '/housingProfile/:profileType/:profileId/:userName/:housingFacilityId';
+                $location.path('/housingProfile/3/'+userID+'/'+id);
             }
         }
 
@@ -121,17 +122,17 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         $scope.loadMore = function ($event) {
             if ($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress) {
                 $scope.pageInfo.isQueryInProgress = true;
-                queryParams.page = $scope.pageInfo.number + 1;
-                queryParams.size = $scope.pageInfo.size;
-                queryParams = queryParams.toString();
+                queryParams.p = $scope.pageInfo.number + 1;
+                queryParams.s = $scope.pageInfo.size;
+
                 FindHousing.get(queryParams, function (housing) {
-                	if (housing) {
-                		$scope.pageInfo.isQueryInProgress = false;
-                        $scope.housing = housing.data.content;
-                        $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
-                        $scope.pageInfo.isQueryInProgress = false;
-                        $("#preloader").hide();
+                	if (housing.data.content.length > 0) {
+                        $scope.housing = $scope.housing.concat(housing.data.content);
+
                     }
+                    $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
+                    $scope.pageInfo.isQueryInProgress = false;
+                    $("#preloader").hide();
                 },
                 function (error) {
                 	console.log(error);

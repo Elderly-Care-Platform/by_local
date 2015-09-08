@@ -1,5 +1,5 @@
-byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', '$location', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'ServicePageSearch', '$sce',
-    function ($scope, $rootScope, $route, $location, $routeParams, DiscussSearchForDiscussType, DiscussSearch, ServiceSearch, $sce) {
+byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', '$location', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'ServicePageSearch', 'HousingPageSearch',  '$sce',
+    function ($scope, $rootScope, $route, $location, $routeParams, DiscussSearchForDiscussType, DiscussSearch, ServiceSearch, HousingSearch, $sce) {
         $rootScope.term = $routeParams.term;
 
         //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -11,7 +11,6 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
         $scope.discuss = "";
         $scope.pageInfo = {};
         $scope.pageInfo.lastPage = true;
-        $scope.isShowServices = true;
         $scope.pageSize = 10;
 
         $scope.getDiscussData = function(page, size){
@@ -38,9 +37,7 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                         )
                     }, 500);
                 
-                	if ($scope.discuss.length === 0) {
-                        $scope.isShowServices = false;
-                    }
+                	
             }, function (e) {
                 alert(e);
             });
@@ -54,9 +51,7 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                 $scope.servicePagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                 $scope.servicePagination.currentPage = value.data.number;
                 $scope.servicePagination.pageSize = $scope.pageSize;
-                
-                
-                
+
                 $scope.serviceTotal = value.data.total;
                 function regexCallback(p1, p2, p3, p4) {
                     return ((p2 == undefined) || p2 == '') ? p1 : '<i class="highlighted-text" >' + p1 + '</i>';
@@ -73,12 +68,42 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                     }, 500);
             });
         };
+        
+        
+        $scope.getHousingData = function(page, size){
+        	HousingSearch.get({term: $rootScope.term, 'p': page, 's': size}, function (value) {
+                $scope.housing = value.data.content;
+                $scope.housingPagination = {};
+                $scope.housingPagination.totalPosts = value.data.total;
+                $scope.housingPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
+                $scope.housingPagination.currentPage = value.data.number;
+                $scope.housingPagination.pageSize = $scope.pageSize;
+                
+                
+                
+                $scope.housingTotal = value.data.total;
+                function regexCallback(p1, p2, p3, p4) {
+                    return ((p2 == undefined) || p2 == '') ? p1 : '<i class="highlighted-text" >' + p1 + '</i>';
+                }
+                $scope.scrollTo("search-housing");
+                setTimeout(
+                    function () {
+                        $(".housing-card").each(function (a, b) {
+                                var myRegExp = new RegExp("<[^>]+>|(" + $rootScope.term + ")", "ig");
+                                var result = $(b).html().replace(myRegExp, regexCallback);
+                                $(b).html(result);
+                            }
+                        )
+                    }, 500);
+            });
+        };
 
 
         var initSearch = function(){
             if (disType == 'All') {
                 $scope.getDiscussData(0, $scope.pageSize);
                 $scope.getServicesData(0, $scope.pageSize);
+                $scope.getHousingData(0, $scope.pageSize);
             }
         };
         initSearch();
@@ -120,6 +145,13 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                 $location.path('/profile/' + userType[0] + '/' + userId);
             }
         };
+        
+        $scope.housingLocation = function ($event, userID, id) {
+            $event.stopPropagation();
+            if(id) {
+               $location.path('/housingProfile/3/'+userID+'/'+id);
+            }
+        }
 
         $scope.term = $rootScope.term;
 
@@ -132,8 +164,17 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
             $location.path("/search/" + $rootScope.term + "/" + disType + "/" + discussType);
         };
 
-        $scope.showServices = function (param) {
-            $scope.isShowServices = param;
+        $scope.setSelectedTab = function (param) {
+            if(param === 'd' && $scope.discussTotal > 0){
+                $scope.selectedTab = param;
+            } else if(param === 'd' && $scope.serviceTotal > 0){
+                $scope.selectedTab = 's';
+            } else if(param === 'd' && $scope.housingTotal > 0){
+                $scope.selectedTab = 'h';
+            } else{
+                $scope.selectedTab = param;
+            }
+
         };
 
         $scope.scrollTo = function (id) {

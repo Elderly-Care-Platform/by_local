@@ -302,6 +302,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .housingCityWrap ul
 {
 	margin-bottom:0px !important;
+	background:#fff;
 }
 .housingCityHead
 {	
@@ -325,6 +326,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 {
 	color:#fff;
 	background:#008a4b;
+}
+.housingCityHeadThumb.active
+{
+	color:#fff;
+	background:#008a4b !important;
 }
 .add-comment23
 {

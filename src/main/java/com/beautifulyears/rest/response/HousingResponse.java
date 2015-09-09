@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
+import com.beautifulyears.domain.menu.Tag;
 
 public class HousingResponse implements IResponse {
 
@@ -101,6 +102,7 @@ public class HousingResponse implements IResponse {
 		private String shortDescription;
 		private String description;
 		private List<String> categoriesId;
+		private List<Tag> systemTags;
 
 		private Float ratingPercentage = 0f;
 		private int ratingCount;
@@ -131,6 +133,7 @@ public class HousingResponse implements IResponse {
 			this.website = housing.getWebsite();
 			this.createdAt = housing.getCreatedAt();
 			this.lastModifiedAt = housing.getLastModifiedAt();
+			this.systemTags = housing.getSystemTags();
 
 			if (null != user && housing.getRatedBy().contains(user.getId())) {
 				this.isReviewedByUser = true;
@@ -140,6 +143,10 @@ public class HousingResponse implements IResponse {
 			}
 			ratingCount = housing.getRatedBy().size();
 			reviewCount = housing.getReviewedBy().size();
+		}
+
+		public List<Tag> getSystemTags() {
+			return systemTags;
 		}
 
 		public String getId() {
@@ -264,7 +271,7 @@ public class HousingResponse implements IResponse {
 	public HousingEntity getDiscussEntity(HousingFacility housing, User user) {
 		return new HousingEntity(housing, user);
 	}
-	
+
 	public static HousingEntity getHousingEntity(
 			HousingFacility housingFacility, User user) {
 		HousingEntity res = null;

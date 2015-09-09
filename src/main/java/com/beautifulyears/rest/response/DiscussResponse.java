@@ -13,6 +13,7 @@ import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
+import com.beautifulyears.domain.menu.Tag;
 import com.beautifulyears.util.Util;
 
 public class DiscussResponse implements IResponse {
@@ -109,6 +110,7 @@ public class DiscussResponse implements IResponse {
 		private boolean isFeatured;
 		private boolean isPromotion;
 		private UserProfile userProfile;
+		private List<Tag> systemTags = new ArrayList<Tag>();
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -129,6 +131,7 @@ public class DiscussResponse implements IResponse {
 			this.setAggrReplyCount(discuss.getAggrReplyCount());
 			this.setDirectReplyCount(discuss.getDirectReplyCount());
 			this.setCreatedAt(discuss.getCreatedAt());
+			this.setSystemTags(discuss.getSystemTags());
 			this.setTopicId(discuss.getTopicId());
 			this.setAggrLikeCount(discuss.getLikedBy().size());
 			this.setShareCount(discuss.getShareCount());
@@ -147,6 +150,14 @@ public class DiscussResponse implements IResponse {
 								.getProfileImage());
 				this.setUserProfile(userProfile);
 			}
+		}
+
+		public List<Tag> getSystemTags() {
+			return systemTags;
+		}
+
+		public void setSystemTags(List<Tag> systemTags) {
+			this.systemTags = systemTags;
 		}
 
 		public UserProfile getUserProfile() {

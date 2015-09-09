@@ -10,6 +10,7 @@ byApp.config(['$routeProvider',
 
             .when('/discuss/list/:slug/:menuId/:discussType', {templateUrl: 'app/components/discuss/discussion.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussAllController'})
             .when('/discuss/:discussId', {templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussDetailController'})
+            .when('/discuss/:discussId/:comment', {templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussDetailController'})
 
             .when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'SearchController'})
             .when('/search/:term/:disType/Discuss', {templateUrl: 'app/components/search/discussSearch.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'DiscussSearchController'})

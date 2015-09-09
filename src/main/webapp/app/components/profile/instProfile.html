@@ -88,7 +88,7 @@
                                   ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
-                        <div class="no-padding">
+                        <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryEmail">
                             <i class="fa fa-envelope" style="margin-right:9px;"></i>
                             <a href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
 							<span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails"

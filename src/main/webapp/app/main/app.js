@@ -18,7 +18,7 @@ byApp.config(function($locationProvider) {
 	});
 
 //Routing and Session Check for Login
-byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,$http, broadCastMenuDetail) {
+byApp.run(function($rootScope, $location,$window, SessionIdService, discussCategoryList,$http, broadCastMenuDetail) {
 	if(window.localStorage){
 		$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
 		$http.get("api/v1/users/validateSession").success(function (response) {
@@ -31,6 +31,7 @@ byApp.run(function($rootScope, $location, SessionIdService, discussCategoryList,
 
     // register listener to watch route changes
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
+    	$window.ga('send', 'pageview', { page: $location.url() });
     	window.scrollTo(0, 0);
         BY.removeEditor();
         BY.editorCategoryList.resetCategoryList();

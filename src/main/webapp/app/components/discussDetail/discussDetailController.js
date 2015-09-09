@@ -37,6 +37,9 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
                     description:    $scope.detailResponse.discuss.text,
                     keywords:[]
                 }
+                for(var i=0;i<$scope.detailResponse.discuss.systemTags.length ; i++){
+                	metaTagParams.keywords.push($scope.detailResponse.discuss.systemTags[i].name);
+                }
                 BY.byUtil.updateMetaTags(metaTagParams);
                 scrollToEditor();
             },

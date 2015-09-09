@@ -170,5 +170,7 @@ body a:hover
     z-index: 1;
     display: none;
 }
-
+.list-group-item a {
+	font-size:16px;
+}
 

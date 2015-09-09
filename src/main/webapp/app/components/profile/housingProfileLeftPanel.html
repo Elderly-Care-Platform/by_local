@@ -45,7 +45,7 @@
 				<div class="panel panel-default"
 					ng-repeat="(key, value) in relatedFacilities">
 					<div class="panel-heading housingCityHeadThumb" ng-if="value.length === 1" ng-class="{'active':facilityData.primaryAddress.city===key && userName!=='corp' && value.length === 1}">
-						<span class="panel-title" style="background:#fff; color:#000;" 
+						<span style="background:#fff;"
 							ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])" >{{key}}
 						</span>
 						<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse" data-parent="#userTypeaccord"

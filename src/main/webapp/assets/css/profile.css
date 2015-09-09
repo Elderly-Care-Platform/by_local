@@ -310,7 +310,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	padding:6px 5% 8px 5%;
 	background:#6D6666;
 	color:#fff;
-	font-size:15px;
+	font-size:16px;
 }
 .housingCityHeadThumb
 {
@@ -320,17 +320,20 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	font-size:15px;
 	line-height:18px;
 	cursor: pointer;
+	background:#fff;
 }
 .housingCityHeadThumb:hover
 {
 	font-weight:bold;
 	background:#e6e6e6;
+	color:#000;
 }
-.housingCityHeadThumb.active
+.housingCityHeadThumb.active, .housingCityHeadThumb.active span
 {
 	font-weight:bold;
 	text-decoration:underline;
 	color:#005326 ;
+	background:#fff;
 }
 .add-comment23
 {
@@ -372,12 +375,12 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .housingCityWrap .panel-body .housingCityHeadThumb
 {
 	padding:5px 5% 5px 9% !important;	
-	font-size:14px;
+	font-size:15px;
 }
 .housingCityWrap .panel-heading a
 {
 	padding: 5px 10px;
-	font-size:15px;
+	font-size:16px;
 }
 .housingCityWrap .panel
 {

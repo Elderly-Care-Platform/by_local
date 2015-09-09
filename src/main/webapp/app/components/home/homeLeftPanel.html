@@ -1,20 +1,26 @@
 <!--All classes from Unify start-->
+<style type="text/css">
+	.list-group-item a
+	{
+		font-size:15px;
+	}
+</style>
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 "
             id="sidebar-nav">
             
             <li class="list-group-item" data-index="discussion-posts" ng-if="promotionsCount.count > 0">
-                <a ng-click="switchToContentView('home_promotional')">NEWS & ANNOUNCEMENTS</a>
+                <a ng-click="switchToContentView('home_promotional')">News & Announcements</a>
             </li>
             <li class="list-group-item" data-index="discussion-QA">
-                <a ng-click="switchToContentView('home_featured_articles')">FEATURED POSTS</a>
+                <a ng-click="switchToContentView('home_featured_articles')">Featured Posts</a>
             </li>
             <li class="list-group-item" data-index="discussion-posts">
-                <a ng-click="switchToContentView('home_featured_qa')">FEATURED Q&A</a>
+                <a ng-click="switchToContentView('home_featured_qa')">Featured Q&A</a>
             </li>
             <li class="list-group-item" data-index="discussion-posts">
-                <a ng-click="switchToContentView('home_featured_services')">FEATURED SERVICES</a>
+                <a ng-click="switchToContentView('home_featured_services')">Featured Services</a>
             </li>
             
         </ul>

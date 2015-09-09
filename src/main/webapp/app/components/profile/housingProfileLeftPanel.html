@@ -13,7 +13,7 @@
         </ul>
 
         <div ng-controller="housingProfileLeftCtrl" style="margin-top:-20px;">
-            <div class="housingCityWrap"  ng-if="otherBranches">
+           <!--  <div class="housingCityWrap"  ng-if="otherBranches">
             	<div class="housingCityHead">Branches in  {{facilityData.primaryAddress.city}}</div>
                 <ul class="list-group  sidebar-nav-v1">
                     <li class="housingCityHeadThumb" ng-repeat="branch in otherBranches"
@@ -22,18 +22,62 @@
                         {{branch.primaryAddress.locality}}
                     </li>
                 </ul>
-            </div>
+            </div> -->
 
-            <div class="housingCityWrap" ng-if="relatedFacilities">
+           <!--<div class="housingCityWrap" ng-if="relatedFacilities">
             	<div class="housingCityHead">Branches in  </div>
-                <ul class="list-group  sidebar-nav-v1">
-                    <li class="housingCityHeadThumb" ng-repeat="(key, value) in relatedFacilities"
-                        ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])"
-                        ng-class="{'active':facilityData.primaryAddress.city===key && userName!=='corp'}">{{key}}</li>
-                </ul>
-            </div>
+				<div 
+					ng-repeat="(key, value) in relatedFacilities"
+					ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])">{{key}}
+					<div class="detailedAccordion" ng-if="value.length > 1">
+						<div
+							ng-repeat="branch in value"
+							ng-click="location($event, '/housingProfile', [profileType,profileData.userId,branch.id])"
+							ng-class="{'active':facilityData.id===branch.id && userName!=='corp'}">
+							{{branch.primaryAddress.locality}}</div>
+					</div>
+				</div>
+			</div>-->
 
-        </div>
+			<div class="panel-group acc-v1 housingCityWrap" id="accordion-1"
+				ng-if="relatedFacilities">
+				<div class="housingCityHead">Branches:</div>
+				<div class="panel panel-default"
+					ng-repeat="(key, value) in relatedFacilities">
+					<div class="panel-heading housingCityHeadThumb" ng-if="value.length === 1" ng-class="{'active':facilityData.primaryAddress.city===key && userName!=='corp' && value.length === 1}">
+						<span style="background:#fff;"
+							ng-click="location($event, '/housingProfile', [profileType,profileData.userId,value[0].id])" >{{key}}
+						</span>
+						<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse" data-parent="#userTypeaccord"
+							href={{"#collapse"+key}}></a>
+					</div>
+					<div class="panel-heading housingCityHeadThumb" ng-if="value.length > 1" >
+						<a href={{"#collapse"+key}}  data-toggle="collapse" data-parent="#userTypeaccord" 
+						style="position:relative; right:0px; width:100%; top:0px; color:#000;">{{key}} ({{value.length}})
+						</a>
+						<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse" data-parent="#userTypeaccord"
+							href={{"#collapse"+key}}></a>
+					</div>
+					<div id={{"collapse"+key}} class="panel-collapse collapse"
+						ng-class="{'in':value.length > 1 && facilityData.primaryAddress.city===key && userName!=='corp'}"
+						ng-if="value.length > 1">
+						<div class="panel-body" ng-repeat="branch in value">
+							<div class="housingCityHeadThumb"
+								ng-click="location($event, '/housingProfile', [profileType,profileData.userId,branch.id])"
+								ng-class="{'active':facilityData.id===branch.id && userName!=='corp'}">
+								{{branch.primaryAddress.locality}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+		</div>
     </div>
 
 </div>

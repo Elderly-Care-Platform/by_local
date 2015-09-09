@@ -8,7 +8,8 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
             var metaTagParams = {
                 title:  "About Us",
                 imageUrl:   "",
-                description:   ""
+                description:   "",
+                keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         })();

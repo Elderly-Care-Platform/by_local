@@ -16,7 +16,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 tinymce.get("reviewTextArea").setContent($scope.reviewText);
             }
         }
-        var tinyEditor = BY.addEditor({"editorTextArea": "reviewTextArea", "commentEditor": true}, editorInitCallback);
+        var tinyEditor = BY.addEditor({"editorTextArea": "reviewTextArea"}, editorInitCallback);
 
         if($scope.$parent.isIndividualProfile){
             $scope.gender =  BY.config.profile.userGender[$scope.userProfile.individualInfo.sex];

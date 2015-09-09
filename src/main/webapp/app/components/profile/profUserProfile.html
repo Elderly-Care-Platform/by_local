@@ -22,7 +22,7 @@
 	</div>
 	<div class="col-md-12 whiteBg by_discuss_detail margin-bottom-35" style="border-radius:4px !important;" ng-init="individualProfile.showMoreServices=false">
 		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
-			<div class="col-md-5 col-xs-5 by_services_full_width">
+			<div class="col-md-5 col-xs-5 by_fullWidth">
 				<div class="main-image white-gray " style="padding-left:0px;">
 					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
 						src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"
@@ -54,7 +54,7 @@
 				</div>
 				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-7 col-xs-7 by_services_full_width_right by-service-padding">
+			<div class="col-md-7 col-xs-7 by_fullWidthRight by-service-padding">
 				<div class="profileMainContent">
 					<div class="profileContentTitle">
 						<span ng-if="gender">{{gender}}</span> <span
@@ -83,34 +83,22 @@
 						</div>
 						<div style="clear: both; height:6px;"></div>
 					</div>
-					
-					
-					<div class="no-padding profileAddress"
-						ng-if="individualProfile.basicProfileInfo.primaryUserAddress.streetAddress || individualProfile.basicProfileInfo.primaryUserAddress.locality ||
-						 individualProfile.basicProfileInfo.primaryUserAddress.city || individualProfile.basicProfileInfo.primaryUserAddress.country || individualProfile.basicProfileInfo.primaryUserAddress.zip">
-						<i class="fa fa-map-marker divLeft" style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>
-						<ul class="list-inline divRight" style="width:calc(100% - 35px);">
-							<li class="list-inline"
-								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.streetAddress">
-								{{individualProfile.basicProfileInfo.primaryUserAddress.streetAddress}}
-							</li>
-							<li class="list-inline"
-								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.locality">
-								{{individualProfile.basicProfileInfo.primaryUserAddress.locality}}, &nbsp;
-							</li>
-							<li class="list-inline"
-								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city">
-								{{individualProfile.basicProfileInfo.primaryUserAddress.city}}, &nbsp;</li>
-							<li class="list-inline"
-								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.country">
-								{{individualProfile.basicProfileInfo.primaryUserAddress.country}}&nbsp;
-							</li>
-							<li class="list-inline"
-								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.zip">
-								- &nbsp;{{individualProfile.basicProfileInfo.primaryUserAddress.zip}}</li>
-						</ul><div class="clearfix"></div>
-					</div> 
-					
+
+					<div class="no-padding profileAddress" ng-if="individualProfile.basicProfileInfo.primaryUserAddress"
+						 ng-init="formatAddress(individualProfile.basicProfileInfo.primaryUserAddress)">
+						<div ng-if="formattedAddress">
+							<i class="fa fa-map-marker divLeft" style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>
+							<ul class="list-inline divRight" style="width:calc(100% - 35px);">
+								<li class="list-inline">
+									{{formattedAddress}}
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+					<div class="clearfix"></div>
+
 					<div class="no-padding">									
 						<div class="no-padding"
 							ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">
@@ -120,8 +108,8 @@
 								ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
 						</div>
 						<div style="clear: both; height: 5px;"></div>
-						<div class="no-padding">
-							<i class="fa fa-envelope" style="margin-right:9px;"></i> <a href="">{{individualProfile.basicProfileInfo.primaryEmail}}</a>
+						<div class="no-padding" ng-if="individualProfile.basicProfileInfo.primaryEmail">
+							<i class="fa fa-envelope"  style="margin-right:9px;"></i> <a href="">{{individualProfile.basicProfileInfo.primaryEmail}}</a>
 							<span
 								ng-repeat="mail in individualProfile.basicProfileInfo.secondaryEmails"
 								ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>

@@ -11,6 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing.">
+    <meta name="keywords" content="Beutifulyears , senior care, ageing">
     <meta name="robots" content="index, follow">
     
     <meta property="og:title" content="Beautiful Years"/>
@@ -377,7 +378,7 @@
 
                     //?????var img = "<img style = 'height:80px;width:80px' src = 'http://" + response.responseText + "' />";
                     //alert("img path = " + response.responseText.substring(response.responseText.lastIndexOf('/')+1));
-                    var img = "<img src = 'uploaded_files/" +  response.responseText.substring(response.responseText.lastIndexOf('/')+1) + "' />";
+                    var img = "<img src = '/uploaded_files/" +  response.responseText.substring(response.responseText.lastIndexOf('/')+1) + "' />";
                     tinyMCE.activeEditor.execCommand("mceInsertContent", true, img);
                     //$("#articlePhotoFilename").val(response.responseText);
                 },

@@ -54,3 +54,14 @@
 	overflow-wrap: break-word;
     margin: 10px;
 }
+.byModalFooter
+{
+	border:0px; 
+	font-size: 15px; 
+	text-align:center; 
+	background-color: #e7e7e7; 
+	border-bottom-right-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    padding-top: 8px; 
+    margin-top: -18px;
+}

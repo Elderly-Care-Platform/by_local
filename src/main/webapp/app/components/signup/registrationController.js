@@ -109,7 +109,8 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             var metaTagParams = {
                 title: "Beautiful Years | Registration",
                 imageUrl: "",
-                description: ""
+                description: "",
+                keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
 

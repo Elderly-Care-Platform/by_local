@@ -19,6 +19,7 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
                 
                 if((!description || description =="") && (sharedObj.linkInfo)){
                 	description = sharedObj.linkInfo.description || "";
+                	description = description.length>300 ? this.substr(0,300-1)+'&hellip;' : description;
                 	caption = caption || sharedObj.linkInfo.title || "BeautifulYears";
                 }
 

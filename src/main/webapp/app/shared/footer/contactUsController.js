@@ -19,7 +19,8 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
             var metaTagParams = {
                 title:  "Contact us",
                 imageUrl:   "",
-                description:   ""
+                description:   "",
+                keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         })();

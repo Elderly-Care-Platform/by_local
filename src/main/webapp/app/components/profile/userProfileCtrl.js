@@ -164,6 +164,29 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             }
         }
 
+        $scope.formatAddress = function(address){
+            $scope.formattedAddress = null;
+            if(address.streetAddress){
+                $scope.formattedAddress = address.streetAddress;
+            }
+
+            if(address.locality && $scope.formattedAddress.indexOf(address.locality)===-1){
+                $scope.formattedAddress = $scope.formattedAddress + ", " + address.locality;
+            }
+
+            if(address.city && $scope.formattedAddress.indexOf(address.city)===-1){
+                $scope.formattedAddress = $scope.formattedAddress + ", " + address.city;
+            }
+
+            if(address.country && $scope.formattedAddress.indexOf(address.country)===-1){
+                $scope.formattedAddress = $scope.formattedAddress + ", " + address.country;
+            }
+
+            if(address.zip && $scope.formattedAddress.indexOf(address.zip)===-1){
+                $scope.formattedAddress = $scope.formattedAddress + " - " + address.zip;
+            }
+        }
+
         //$scope.showPosts = function (param) {
         //    $scope.isShowPosts = param;
         //};

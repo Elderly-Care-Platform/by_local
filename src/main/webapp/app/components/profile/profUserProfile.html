@@ -83,8 +83,17 @@
 						</div>
 						<div style="clear: both; height:6px;"></div>
 					</div>
-					
-					
+
+					<!--<div class="no-padding profileAddress" ng-init="formatAddress(individualProfile.basicProfileInfo.primaryUserAddress)">-->
+						<!--<div ng-if="formattedAddress">-->
+							<!--<i class="fa fa-map-marker divLeft" style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>-->
+							<!--<ul class="list-inline divRight" style="width:calc(100% - 35px);">-->
+								<!--<li class="list-inline">-->
+									<!--{{formattedAddress}}-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</div>-->
+					<!--</div>-->
 					<div class="no-padding profileAddress"
 						ng-if="individualProfile.basicProfileInfo.primaryUserAddress.streetAddress || individualProfile.basicProfileInfo.primaryUserAddress.locality ||
 						 individualProfile.basicProfileInfo.primaryUserAddress.city || individualProfile.basicProfileInfo.primaryUserAddress.country || individualProfile.basicProfileInfo.primaryUserAddress.zip">
@@ -109,8 +118,8 @@
 								ng-if="individualProfile.basicProfileInfo.primaryUserAddress.zip">
 								- &nbsp;{{individualProfile.basicProfileInfo.primaryUserAddress.zip}}</li>
 						</ul><div class="clearfix"></div>
-					</div> 
-					
+					</div>
+
 					<div class="no-padding">									
 						<div class="no-padding"
 							ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">

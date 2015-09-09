@@ -12,7 +12,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
 
         var tags = [];
-        var queryParams = {p:0,s:10};
+        var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
         
       
         

@@ -316,7 +316,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 {
 	margin-bottom:0px;
 	width:100%;
-	padding:5px 5% 5px 5% !important;
 	color:#6D6666;
 	font-size:15px;
 	line-height:18px;
@@ -324,13 +323,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 .housingCityHeadThumb:hover
 {
-	color:#fff;
-	background:#008a4b;
+	font-weight:bold;
+	background:#e6e6e6;
 }
 .housingCityHeadThumb.active
 {
-	color:#fff;
-	background:#008a4b !important;
+	font-weight:bold;
+	text-decoration:underline;
+	color:#005326 ;
 }
 .add-comment23
 {
@@ -340,4 +340,55 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     border: 1px solid #ccc !important;
     border-radius: 2px !important;
     background: url('../img/sprite/button-gray.jpg?versionTimeStamp=%PROJECT_VERSION%') !important;
+}
+
+/*  9/9/2015 Aparna */
+
+.housingCityHeadThumb
+{
+	position:relative;
+}
+.housingCityHeadThumb .panel-title
+{
+	font-size:15px;
+}
+.housingCityHeadThumb span
+{
+	display:block;	
+	padding:5px 5% 5px 5% !important;
+}
+.housingCityHeadThumb a
+{
+	position:absolute;
+	right: -13px;
+    top: -1px;
+	z-index:5;
+}
+.housingCityWrap .panel-body
+{
+	padding:0px;
+	border-top:0px !important;
+}
+.housingCityWrap .panel-body .housingCityHeadThumb
+{
+	padding:5px 5% 5px 9% !important;	
+	font-size:14px;
+}
+.housingCityWrap .panel-heading a
+{
+	padding: 5px 10px;
+	font-size:15px;
+}
+.housingCityWrap .panel
+{
+	border:0px !important;
+}
+.housingCityWrap .panel+.panel
+{
+	margin-top:0px;
+}
+@media ( max-width : 992px) {
+	.housingCityWrap {
+		width: 100% !important;
+	}
 }

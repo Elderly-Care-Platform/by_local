@@ -336,3 +336,17 @@ input[type=checkbox] {
 {
 	display:none;
 }
+.list-group-item:hover, .list-group-item:hover a
+{
+	font-weight:bold;
+	background:#e6e6e6 !important;
+	color:#000 !important;
+}
+
+.list-group-item.active, .list-group-item.active a
+{
+	font-weight:bold !important;
+	text-decoration:underline !important;
+	color:#005326 !important;	
+	background:#fff !important;
+}

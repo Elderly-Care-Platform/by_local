@@ -60,7 +60,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             var metaTagParams = {
                 title:  "Home",
                 imageUrl:   "",
-                description:   ""
+                description:   "",
+                keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         })();

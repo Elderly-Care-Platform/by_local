@@ -60,7 +60,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             var metaTagParams = {
                 title:  "Beautiful Years | Login",
                 imageUrl:   "",
-                description:   ""
+                description:   "",
+                keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         })();

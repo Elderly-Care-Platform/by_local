@@ -22,7 +22,8 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             var metaTagParams = {
                 title: "Beautiful Years | Profile",
                 imageUrl: "",
-                description: ""
+                description: "",
+                keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         };

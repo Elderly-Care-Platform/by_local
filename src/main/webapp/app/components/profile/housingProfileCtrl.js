@@ -1,26 +1,27 @@
-byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile','$http','broadCastData', '$sce',
+byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile', '$http', 'broadCastData', '$sce',
     function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $http, broadCastData, $sce) {
         $scope.housingProfile = $scope.$parent.profileData;
         $scope.housingFacilityId = $scope.$parent.housingFacilityId;
         $scope.slideIndex = 1;
-        $scope.profileData = null ;
-        
-        
-        if($scope.housingFacilityId){
-            $http.get('api/v1/housing?id=' + $scope.housingFacilityId).success(function(response){
+        $scope.profileData = null;
+
+
+        if ($scope.housingFacilityId) {
+            $http.get('api/v1/housing?id=' + $scope.housingFacilityId).success(function (response) {
                 $scope.facility = response.data;
                 $scope.profileData = $scope.facility;
                 broadCastData.update(response.data);
-            }).error(function(errorResponse){
+            }).error(function (errorResponse) {
                 console.log(errorResponse);
             });
-        }else if($scope.housingProfile.facilities && $scope.housingProfile.facilities.length > 0) {
+        } else if ($scope.housingProfile.facilities && $scope.housingProfile.facilities.length > 0) {
             $scope.facility = $scope.housingProfile.facilities[0];
             $scope.profileData = $scope.facility;
             broadCastData.update($scope.facility);
-        }else{
+        } else {
             $scope.facility = null;
-        };
+        }
+        ;
 
 
         $scope.slideGallery = function (dir) {
@@ -62,23 +63,24 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
             document.getElementById("profile-desc").style.display = "block";
             document.getElementById("profile-shortDesc").style.display = "none";
         };
-        
+
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
 
         $scope.showReviews = function () {
-        	var reviewDetails = new ReviewRateProfile();
+            var reviewDetails = new ReviewRateProfile();
             //Get reviews by all user for this professional
-        	 $scope.reviews = reviewDetails.$get({associatedId:$scope.housingFacilityId, reviewContentType:$scope.$parent.reviewContentType}, function(response){
-                 $scope.reviews = response.data.replies;
-             }, function(error){
-                 console.log(error)
-             })
+            $scope.reviews = reviewDetails.$get({
+                associatedId: $scope.housingFacilityId,
+                reviewContentType: $scope.$parent.reviewContentType
+            }, function (response) {
+                $scope.reviews = response.data.replies;
+            }, function (error) {
+                console.log(error)
+            })
         };
-
-         $scope.showReviews();
-
+        $scope.showReviews();
 
     }]);

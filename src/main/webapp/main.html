@@ -11,12 +11,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing.">
+    <meta name="keywords" content="Beutifulyears , senior care, ageing">
     <meta name="robots" content="index, follow">
     
     <meta property="og:title" content="Beautiful Years"/>
+    <meta name="twitter:title" content="Beautiful Years" />
 	<meta property="og:image" content="http://www.beautifulyears.com/assets/img/logo-fb.jpg"/>
+	<meta name="twitter:image" content="http://www.beautifulyears.com/assets/img/logo-fb.jpg" />
 	<meta property="og:site_name" content="BeautifulYears.com"/>
 	<meta property="og:description" content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing."/>
+	<meta name="twitter:description" content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing." />
     
     <!-- copyrightInfo -->
 	<link rel="copyright" href="http://www.beautifulyears.com/main.html#!/users/termsCondition">
@@ -73,6 +77,7 @@
       <link rel="stylesheet" href="assets/css/by-modalLogin.css?versionTimeStamp=%PROJECT_VERSION%">
        <link rel="stylesheet" href="assets/css/by_userType.css?versionTimeStamp=%PROJECT_VERSION%">
         <link rel="stylesheet" href="assets/css/by_regIndvLogin.css?versionTimeStamp=%PROJECT_VERSION%">
+         <link rel="stylesheet" href="assets/css/by_sprite.css?versionTimeStamp=%PROJECT_VERSION%">
       
 	   <!-- unify libs and plugins start -->
     <script type="text/javascript" src="lib/unify/plugins/jquery/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -136,6 +141,7 @@
 
     <script type="text/javascript"  src="app/components/signup/login/loginController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/home/homeController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+     <script type="text/javascript"  src="app/components/home/homePromoController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/discuss/discussController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/aboutUs/aboutUsController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="app/components/discussDetail/discussDetailController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -149,20 +155,23 @@
     <script type="text/javascript"  src="app/components/signup/registration/regInstitutionCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
      <script type="text/javascript"  src="app/components/signup/registration/regProfessionalCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/signup/registration/regIndividualCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+     <script type="text/javascript"  src="app/components/signup/registration/regHousingCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/signup/login/modifySignupCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-
+    <script type="text/javascript"  src="app/components/signup/registration/regHousingFacilityCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/find/servicesController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+     <script type="text/javascript"  src="app/components/housing/housingController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
     <script type="text/javascript"  src="app/components/profile/userProfileCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/profile/instProfileCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/profile/profUserProfileCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/profile/indvUserProfileCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript"  src="app/components/profile/housingProfileCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/profile/reviewRateController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript"  src="app/components/profile/housingProfileLeftCtrl.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+
     <script type="text/javascript" src="app/shared/common/js/shareController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     
     <script type="text/javascript" src="app/components/search/SearchController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-    <script type="text/javascript" src="app/components/search/DiscussSearchController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-    <script type="text/javascript" src="app/components/search/ServiceSearchController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     
      <script type="text/javascript"  src="app/components/menu/sectionHeaderConfig.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 </head>
@@ -369,7 +378,7 @@
 
                     //?????var img = "<img style = 'height:80px;width:80px' src = 'http://" + response.responseText + "' />";
                     //alert("img path = " + response.responseText.substring(response.responseText.lastIndexOf('/')+1));
-                    var img = "<img src = 'uploaded_files/" +  response.responseText.substring(response.responseText.lastIndexOf('/')+1) + "' />";
+                    var img = "<img src = '/uploaded_files/" +  response.responseText.substring(response.responseText.lastIndexOf('/')+1) + "' />";
                     tinyMCE.activeEditor.execCommand("mceInsertContent", true, img);
                     //$("#articlePhotoFilename").val(response.responseText);
                 },

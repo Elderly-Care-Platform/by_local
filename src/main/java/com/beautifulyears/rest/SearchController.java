@@ -131,6 +131,9 @@ public class SearchController {
 			query.with(pageable);
 
 			query.addCriteria(Criteria.where("userTypes").in(serviceTypes));
+			query.addCriteria(Criteria.where("status")
+					.in(new Object[] { DiscussConstants.DISCUSS_STATUS_ACTIVE,
+							null }));
 
 			List<UserProfile> profiles = this.mongoTemplate.find(query,
 					UserProfile.class);
@@ -173,6 +176,9 @@ public class SearchController {
 
 			Query query = TextQuery.queryText(criteria);
 			query.with(pageable);
+			query.addCriteria(Criteria.where("status")
+					.in(new Object[] { DiscussConstants.DISCUSS_STATUS_ACTIVE,
+							null }));
 
 			List<HousingFacility> housings = this.mongoTemplate.find(query,
 					HousingFacility.class);

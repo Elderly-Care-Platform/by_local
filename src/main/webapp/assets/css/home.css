@@ -430,7 +430,7 @@ ul.loginbar.pull-right {
 .carousel-control .icon-next:before{
 	content:'';
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
 	.item1, .item2, .item3 {
 		background: none;
 	}

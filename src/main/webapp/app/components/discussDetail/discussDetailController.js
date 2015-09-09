@@ -34,7 +34,8 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
                 var metaTagParams = {
                     title:  $scope.detailResponse.discuss.title,
                     imageUrl:   $scope.detailResponse.discuss.articlePhotoFilename ? $scope.detailResponse.discuss.articlePhotoFilename.titleImage : "",
-                    description:    $scope.detailResponse.discuss.text
+                    description:    $scope.detailResponse.discuss.text,
+                    keywords:[]
                 }
                 BY.byUtil.updateMetaTags(metaTagParams);
                 scrollToEditor();

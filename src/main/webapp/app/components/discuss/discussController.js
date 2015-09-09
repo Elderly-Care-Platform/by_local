@@ -26,7 +26,8 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                 var metaTagParams = {
                     title:  $scope.selectedMenu.displayMenuName,
                     imageUrl:   "",
-                    description:   ""
+                    description:   "",
+                    keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
                 }
                 BY.byUtil.updateMetaTags(metaTagParams);
             })();

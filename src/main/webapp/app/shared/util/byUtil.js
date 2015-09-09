@@ -83,7 +83,14 @@ $(document).ready(function() {
 BY.byUtil.updateMetaTags = function(param){
 	 var title = param.title.trim(),
 		 imageUrl = param.imageUrl || $("meta[property='og:image']").attr('content'),
-		 description = $(param.description).text().trim();
+		 description = $(param.description).text().trim(),
+		 keywords = param.keywords;
+	 
+	 if(keywords && keywords.length > 0){
+		 keywords = keywords.join(", ");
+	 }else{
+		 keywords = "Beutifulyears , senior care, ageing";
+	 }
 
 	if(!description && description===""){
 		description = "Beautiful Years"
@@ -105,6 +112,7 @@ BY.byUtil.updateMetaTags = function(param){
 	$("meta[name='twitter\\:description']").attr("content", description);
 	$("meta[property='og\\:image']").attr("content", imageUrl);
 	$("meta[name='twitter\\:image']").attr("content", imageUrl);
+	$('meta[name=keywords]').attr('content', keywords);
 }
 
 function resizeIframe(obj) {

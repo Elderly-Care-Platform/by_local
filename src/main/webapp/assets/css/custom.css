@@ -487,6 +487,7 @@ button.register-btn {
     font-size: 14px;
     font-size: 13px;
     color: black;
+    border-radius:3px !important;
 }
 
 .register-page .textbox::-webkit-input-placeholder {

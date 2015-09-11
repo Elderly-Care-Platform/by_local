@@ -28,7 +28,7 @@ BY.addEditor = function(param, initCallback){
     if(isCommentEditor){
         toolbar = "bold italic | emoticons";
         plugins = [
-            "image link",
+            "image link autolink",
             "searchreplace visualblocks",
             "insertdatetime media paste emoticons"
         ];

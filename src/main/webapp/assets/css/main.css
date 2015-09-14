@@ -174,3 +174,11 @@ body a:hover
 	font-size:16px;
 }
 
+.footer-v1 a
+{
+	color:#00B955;
+}
+.footer-v1 a:hover
+{
+	color:#FF850F;
+}

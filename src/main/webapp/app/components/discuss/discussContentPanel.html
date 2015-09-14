@@ -56,8 +56,14 @@
         </div>
 
         <div style="clear: both"></div>
-        <div ng-if="discuss.promotion == true" style="height:15px;"></div>
-        <div class="article  col-md-12" ng-if="discuss.discussType == 'P'">
+        
+        <div class="article  col-md-12" ng-if="discuss.discussType == 'P' && discuss.promotion == false">
+            <div class="article-heading">
+                <p style="text-transform: uppercase;">
+                    {{discuss.title}}</p>
+            </div>
+        </div>
+         <div class="article  col-md-12" ng-if="discuss.discussType == 'P' && discuss.promotion == true && discuss.title" style="margin-top:15px;">
             <div class="article-heading">
                 <p style="text-transform: uppercase;">
                     {{discuss.title}}</p>
@@ -65,13 +71,20 @@
         </div>
         <div style="clear: both"></div>
         <div class="by-quad-image col-md-12">
-            <img ng-if="discuss.discussType == 'P'"
+            <img ng-if="discuss.discussType == 'P' && discuss.promotion == false"
                  src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
                  fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
         </div>
-        <div ng-if="discuss.promotion == true" class="clearfix" style="height:20px;"></div>
+        <div class="by-quad-image col-md-12 no-padding" style="margin-top:-1px;">
+            <img ng-if="discuss.discussType == 'P' && discuss.promotion == true"
+                 src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+                 fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
+
+            <div style="clear: both"></div>
+        </div>
+        
         <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="discuss.linkInfo"
              ng-init="linkInfo=discuss.linkInfo" ng-if="discuss.promotion == false"></div>
 

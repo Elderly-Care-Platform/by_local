@@ -15,9 +15,9 @@
 	width: 100%;
 	border-width: 1px;
 	border-style: solid;
-	border-color: #d5d5d5;
-	box-shadow: 10px 10px 6px -6px #f3f3f3;
-	-webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
+	border-color: #d8d8d8;
+	/*box-shadow: 10px 10px 6px -6px #f3f3f3;
+	-webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;*/
 	background: #fff;
 	border-radius: 4px !important;
 }
@@ -97,7 +97,7 @@
 
 .service-rating_p
 {
-	border:1px solid #d36e41;
+	
 	padding:0 5px 0 1px;
 	border-radius: 2px !important;
 }

@@ -78,8 +78,9 @@ a.accordion-toggle {
 }
 
 .by-editor-submit-btn {
-	background: #008a4b !important;
+	background: #004f24 !important;
 	color: #ffffff !important;
+	border-color: #004f24 !important;
 }
 
 .by-editor-submit-btn:disabled, .by_btn_submit:disabled {

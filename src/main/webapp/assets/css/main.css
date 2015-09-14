@@ -50,7 +50,7 @@ body p, body span, body div
 body a
 {
     /*color: #00A24A;*/
-    color: #189652;
+    color: #004f24 ;
     font-family: century_gothic !important;
 }
 
@@ -174,3 +174,11 @@ body a:hover
 	font-size:16px;
 }
 
+.footer-v1 a
+{
+	color:#00B955;
+}
+.footer-v1 a:hover
+{
+	color:#FF850F;
+}

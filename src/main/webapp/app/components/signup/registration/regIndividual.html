@@ -353,7 +353,7 @@
 
                     <input id="langField" type="text" class="name-textbox textbox " auto-complete
                            options="languages"
-                           on-select-callback="langSelectCallback" placeholder="type your language here, e.g. English"/>
+                           on-select-callback="langSelectCallback"    placeholder="type your language here, e.g. English"/>
 
                     <!--<input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"-->
                     <!--placeholder="Speciality" ng-model="selectedSpeciality" required on-select-callback="specialityCallback"/>-->
@@ -405,16 +405,49 @@
                                 </h4>
                             </div>
                             <div id="hobbies"
-                                 class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse">
-                                <div class="panel-body col-md-12" ng-repeat="option in hobbiesOptions">
+                                 class="col-md-12 whiteBg by_editor_SubCategories by_reg_SubCategories panel-collapse collapse" >
+                                <div class="panel-body col-md-12" ng-repeat="option in hobbiesOptions" ng-if="option.children.length === 0">
                                     <input type="checkbox" ng-click="selectHobbies(option)"
                                            ng-checked="selectedHobbies && selectedHobbies.indexOf(option.id) !== -1">
-                                    <span style="line-height: 23px;">{{option.displayMenuName}}</span>
+                                    <span style="line-height: 23px;">{{option.displayMenuName}} </span>
                                 </div>
-                            </div>
+                                <!--  
+                                <div class="panel-body col-md-12" ng-repeat="option in hobbiesOptions" ng-if="option.children.length > 0">
+                                    <span style="line-height: 23px;">{{option.displayMenuName}} </span>
+                                    <div ng-repeat="option in option.children">
+                                     <input type="checkbox" ng-click="selectHobbies(option)"
+                                           ng-checked="selectedHobbies && selectedHobbies.indexOf(option.id) !== -1">
+                                    <span style="line-height: 23px;">{{option.displayMenuName}}</span>
+                                    </div>
+                                </div>-->
+								<div class="panel-body col-md-12" style="padding:0px !important;" ng-repeat="option in hobbiesOptions" ng-if="option.children.length > 0">
+
+									<div  id="#accordion2">
+										
+											<div style="width:100%; line-height:23px; text-transform:none;  cursor:pointer;padding: 3px 10px 3px 10px;" data-toggle="collapse" data-parent="#accordion2"
+												data-target={{"#collapse"+option.id}}>{{option.displayMenuName}}
+												<a class="triangle-down" style="margin-top: 7px; margin-right: 0px;"></a>
+												</div>
+										
+										<div class="collapse" id={{"collapse"+option.id}}  style="margin-left:8px;">
+											<span ng-repeat="option in option.children">
+												<div class="clearfix" style="height:5px;"></div>
+											 <input
+												type="checkbox" ng-click="selectHobbies(option)"
+												ng-checked="selectedHobbies && selectedHobbies.indexOf(option.id) !== -1">
+												<span>{{option.displayMenuName}}</span>
+												<div class="clearfix" style="height:5px;"></div>
+											</span>
+										</div>
+										
+									</div>
+
+								</div>
+							</div>
                             <div style="clear:both"></div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="row margin-bottom-20  register-page">
@@ -613,7 +646,7 @@
         </div>
 
 
-        <div class="col-md-12 margin-top-0 margin-bottom-20">
+        <div class="col-md-12 no-padding margin-top-0 margin-bottom-20">
             <input type="button" value="Done" class="nextButton by_btn_submit"
                    ng-click="postUserProfile(individualForm)"/>
 

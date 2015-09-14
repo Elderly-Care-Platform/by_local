@@ -227,6 +227,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 "index": index, "city": "", "zip": "", "locality": "", "landmark": "", "address": ""
             }
         }
+       
 
         $scope.langSelectCallback = function(changedVal, actualValue){
             //{label:value.name, value:value.name, obj:value}
@@ -235,8 +236,11 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                     delete $scope.selectedLanguages[actualValue.name];
                 }
                 $scope.selectedLanguages[changedVal.label] = changedVal.obj;
+            }else if(changedVal == null){
+            	value = $("#langField").val();
+            	$scope.selectedLanguages[changedVal] = changedVal.obj;
             }else{
-                delete $scope.selectedLanguages[actualValue.name];
+            	delete $scope.selectedLanguages[actualValue.name];
             }
 
             $("#langField").val("");
@@ -249,6 +253,28 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.$apply();
             console.log($scope.selectedLanguages);
             //$scope.individualInfo.language.push(language.obj);
+        };
+        
+        $scope.langSelectCallbackChange = function(value){
+        	var language = $("#langField").val();
+        	
+        	var r  = $scope.languages ;
+        	
+        	for (var i = 0; i < r.length; i++) {
+        	    if (r[i].label === language) {
+        	    	$scope.selectedLanguages[r[i].label] = r[i].obj;
+        	    }
+        	}
+        	
+        	 $("#langField").val("");
+             if(Object.keys($scope.selectedLanguages).length > 0){
+                 $("#langField").hide();
+             }else{
+                 $("#langField").show();
+             }
+
+             $scope.$apply();
+             console.log($scope.selectedLanguages);
         };
 
         $scope.addLangField = function(){

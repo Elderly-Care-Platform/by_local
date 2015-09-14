@@ -1,11 +1,15 @@
 <form class="col-md-12 md-margin-bottom-40 margin-top-20 article-outer-wrapper" ng-controller="regUserTypeController"
       novalidate >
-     <div class="col-md-12  iconBg ">
-        <div class="col-md-11 col-xs-10 iconBgLeft">
-            Thank you for being with us! Please fill in your profile below,  so that we know you better and offer you information and services that are relevant for you.
-        </div>
-        <div class="col-md-1 col-xs-2 iconBgRight" >i</div><div style="clear:both;"></div>
-    </div>
+      <div class="col-md-12 margin-bottom-0 darkBgwithText register-page" style="font-size:15px; margin-left:0px;">
+	 Thank you for being with us! Please fill in your profile below,  so that we know you better and offer you information and services that are relevant for you.
+       
+	<div class="darkBgwithTextArrow">
+		<img
+			src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%"
+			alt="" />
+	</div>
+</div>
+     
   <div class="clearfix" style="height:30px;"></div>
 
 	<div class="panel-group" id="userTypeaccord">
@@ -73,7 +77,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-12 margin-top-10 margin-bottom-20">
+	<div class="col-md-12 no-padding margin-top-0 margin-bottom-20">
         <input type="button" value="Next" class="nextButton" ng-click="submit()"/>
         <input type="button" value="Return" class="returnButton" ng-click="cancel()"/>
 

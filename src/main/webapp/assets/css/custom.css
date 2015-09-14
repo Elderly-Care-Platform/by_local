@@ -435,7 +435,7 @@ button.register-btn {
     border-style: solid;
     border-width: 0px;
     border-bottom-width: 1px;
-    border-color: #d5d5d5;
+    border-color: #d8d8d8;
 }
 
 .discussion-QA, .discussion-posts, .discussion-articles {
@@ -482,7 +482,7 @@ button.register-btn {
     border-width: 1px;
     border-color: #E5E5E5;
     border-left-width: 2px;
-    border-left-color: #00af50;
+    border-left-color: #004f24 ;
     border-radius: 0;
     font-size: 14px;
     font-size: 13px;
@@ -675,9 +675,9 @@ button.register-btn {
     width: 100%;
     border-width: 1px;
     min-height: 151px;
-    /*max-height: 180px;*/
+    /*max-height: 180px;
     box-shadow: 10px 10px 6px -6px #f3f3f3;
-    -webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;
+    -webkit-box-shadow: 10px 10px 6px -6px #f3f3f3;*/
     margin-bottom: 20px !important;
 }
 
@@ -1033,7 +1033,7 @@ a {
 
 .bg-green-h2 {
     height: 2px;
-    background-color: #008044;
+    background-color: #004f24;
     position: absolute;
     top: -1px;
     z-index: 1;
@@ -1154,7 +1154,7 @@ textarea.textbox.about-dependent {
 
 .whitebg-graybdr {
     background: #fff;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #d8d8d8;
 
 }
 

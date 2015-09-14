@@ -1033,7 +1033,7 @@ a {
 
 .bg-green-h2 {
     height: 2px;
-    background-color: #008044;
+    background-color: #004f24;
     position: absolute;
     top: -1px;
     z-index: 1;
@@ -1154,7 +1154,7 @@ textarea.textbox.about-dependent {
 
 .whitebg-graybdr {
     background: #fff;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #d8d8d8;
 
 }
 

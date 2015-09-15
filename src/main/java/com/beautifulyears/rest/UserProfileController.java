@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
@@ -39,6 +40,8 @@ import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.UpdateUserProfileHandler;
 import com.beautifulyears.util.UserProfilePrivacyHandler;
 import com.beautifulyears.util.Util;
+import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.UserProfileLogHandler;
 
 /**
  * The REST based service for managing "user_profile"
@@ -53,7 +56,7 @@ public class UserProfileController {
 			.getLogger(UserProfileController.class);
 
 	private UserProfileRepository userProfileRepository;
-
+	private ActivityLogHandler<UserProfile> logHandler;
 	 private MongoTemplate mongoTemplate;
 
 	@Autowired
@@ -61,7 +64,7 @@ public class UserProfileController {
 			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
 		 this.mongoTemplate = mongoTemplate;
-		;
+		logHandler = new UserProfileLogHandler(mongoTemplate);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{userId}" }, produces = { "application/json" })
@@ -278,6 +281,7 @@ public class UserProfileController {
 									mongoTemplate);
 							userProfileHandler.setProfile(profile);
 							new Thread(userProfileHandler).start();
+							logHandler.addLog(profile, ActivityLogConstants.CRUD_TYPE_CREATE, req);
 						} else {
 							throw new BYException(
 									BYErrorCodes.USER_ALREADY_EXIST);
@@ -359,6 +363,7 @@ public class UserProfileController {
 							}
 
 							userProfileRepository.save(profile);
+							logHandler.addLog(profile, ActivityLogConstants.CRUD_TYPE_UPDATE, req);
 							logger.info("User Profile update with details: "
 									+ profile.toString());
 						} else {

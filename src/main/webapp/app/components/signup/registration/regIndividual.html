@@ -1,6 +1,6 @@
 <div class="row indvspacing" ng-controller="regIndividualController">
     <form class="third-register-page grayRegisterBgLight" name="individualForm" novalidate
-          style="background:transparent;">
+          style="background:transparent;"  ng-init="initIndvRegData()">
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20 indvBorderRadius"
              style="padding-bottom:15px;">
             <div class="addBasicInfo">Basic Info</div>
@@ -120,7 +120,7 @@
                     <div class="col-md-5 no-padding">Locality</div>
                     <div class="col-md-7 no-padding register-page">
                         <input type="text" ng-model="basicProfileInfo.primaryUserAddress.locality"
-                               class="name-textbox textbox" ng-google-location options="options" obj="address"
+                               class="name-textbox textbox" ng-google-location options="googleLocationOptions" obj="address"
                                callback="addressCallback" id="addressLocality"
                                placeholder="Locality"/>
                     </div>
@@ -345,25 +345,22 @@
                 </div>
                  <div class="col-md-7 no-padding-right register-page" ng-if="languages.length > 0">
                      <input type="text" class="name-textbox textbox  margin-bottom-20"
-                            obj="lang" auto-complete options="languages"
+                            obj="lang" auto-complete options="langAutoComOptions"
                             on-select-callback="langSelectCallback"
                             on-change-callback="langSelectCallback"
-                            ng-repeat="(key, lang) in selectedLanguages"
-                            ng-model="key"/>
+                            ng-repeat="lang in selectedLanguages"
+                            ng-model="lang"/>
 
-                    <input id="langField" type="text" class="name-textbox textbox " auto-complete
-                           options="languages"
-                           on-select-callback="langSelectCallback"    placeholder="type your language here, e.g. English"/>
+                    <input ng-if="showAddNewLang" id="langField" type="text" class="name-textbox textbox" auto-complete
+                           options="langAutoComOptions" ng-model="userText" obj="userText"
+                           on-select-callback="langSelectCallback"
+                           on-change-callback="langSelectCallback" placeholder="type your language here, e.g. English"/>
 
-                    <!--<input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"-->
-                    <!--placeholder="Speciality" ng-model="selectedSpeciality" required on-select-callback="specialityCallback"/>-->
                 </div>
             </div>
 
-            <div class="row margin-bottom-20  register-page">
-                <div class="col-md-5">
-
-                </div>
+            <div class="row margin-bottom-20 register-page" ng-if="!showAddNewLang">
+                <div class="col-md-5"></div>
                 <div class="col-md-7 no-padding-right register-page add-lang">
                     <a class="add-lang" ng-click="addLangField()">+ another language </a>
                 </div>

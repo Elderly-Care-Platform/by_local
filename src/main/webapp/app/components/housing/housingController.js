@@ -9,16 +9,12 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         $scope.housingViews.leftPanel = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.housingViews.contentPanel = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
-        $scope.showSpecialityFilter = false;
         $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
         $scope.showFeaturedTag = true;
 
         var city = $routeParams.city;
         var tags = [];
         var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
-        
-        
-    
 
         if($scope.selectedMenu){
             $(".selected-dropdown").removeClass("selected-dropdown");
@@ -47,19 +43,6 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
             function (error) {
             	console.log(error);
             });
-            
-//            $http.get("api/v1/housing/page")
-//            .success(function (housing) {
-//                if (housing) {
-//                    $scope.housing = housing.data.content;
-//                    $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
-//                    $scope.pageInfo.isQueryInProgress = false;
-//                    $("#preloader").hide();
-//                }
-//            }).error(function(error){
-//                console.log(error);
-//            });
-
         };
 
         $scope.fixedMenuInitialized = function(){
@@ -67,23 +50,12 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         };
 
 
-        $scope.showFilters = function () {
-            if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName!==null && $scope.selectedMenu.children.length > 0) {
-                $scope.showSpecialityFilter = true;
-                $scope.specialities = $.map($scope.selectedMenu.children, function (value, key) {
-                    return {label:value.displayMenuName, value:value.displayMenuName, obj:value};
-                });
-            }
-        }
 
         //$scope.showBreadcrums();
-        $scope.showFilters();
         $scope.getData(queryParams);
-
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
-        }
-
+        };
 
         $scope.location = function ($event, userID, id) {
             $event.stopPropagation();
@@ -91,7 +63,7 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
                 //profilePageLocation = '/housingProfile/:profileType/:profileId/:userName/:housingFacilityId';
                 $location.path('/housingProfile/3/'+userID+'/'+id);
             }
-        }
+        };
 
         $scope.add = function (type) {
             $scope.error = "";
@@ -108,16 +80,13 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         $scope.cityOptions = {
             types: "(cities)",
             resetOnFocusOut: false
-        }
+        };
 
         $scope.addressCallback = function (response) {
             $('#addressCity').blur();
             queryParams.city = response.name;
             $scope.getData(queryParams);
-        }
-
-       
-
+        };
 
         $scope.loadMore = function ($event) {
             if ($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress) {
@@ -138,10 +107,7 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
                 	console.log(error);
                 });
             }
-        }
-        
-       
-        
+        };
 
         $scope.isAllowedToReview = function(housing){
             if(localStorage.getItem("USER_ID") !== housing.userId){
@@ -149,5 +115,5 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
             }else{
                 return false;
             }
-        }
+        };
     }]);

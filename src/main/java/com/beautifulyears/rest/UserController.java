@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.constants.UserRolePermissions;
@@ -43,8 +44,9 @@ import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.UserNameHandler;
 import com.beautifulyears.util.Util;
+import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.UserActivityLogHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 @Controller
 @RequestMapping("/users")
@@ -53,12 +55,14 @@ public class UserController {
 	private static UserRepository userRepository;
 	private MongoTemplate mongoTemplate;
 	private static final Logger logger = Logger.getLogger(UserController.class);
+	ActivityLogHandler<User> logHandler;
 
 	@Autowired
 	public UserController(UserRepository userRepository,
 			MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
 		setUserRepository(userRepository);
+		logHandler = new UserActivityLogHandler(mongoTemplate);
 	}
 
 	private static void setUserRepository(UserRepository userRepository) {
@@ -143,6 +147,8 @@ public class UserController {
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userWithExtractedInformation = userRepository
 						.save(userWithExtractedInformation);
+				logHandler.addLog(userWithExtractedInformation,
+						ActivityLogConstants.CRUD_TYPE_CREATE, req);
 				req.getSession().setAttribute("user",
 						userWithExtractedInformation);
 				session = createSession(req, res, userWithExtractedInformation);
@@ -179,6 +185,8 @@ public class UserController {
 			}
 
 			editedUser = userRepository.save(editedUser);
+			logHandler.addLog(editedUser,
+					ActivityLogConstants.CRUD_TYPE_UPDATE, req);
 			if (isUserNameChanged) {
 				UserNameHandler userNameHandler = new UserNameHandler(
 						mongoTemplate);
@@ -230,6 +238,9 @@ public class UserController {
 						+ newFbUser.toString());
 				newFbUser = userRepository
 						.save(decorateWithInformation(newFbUser));
+				logHandler.addLog(newFbUser,
+						ActivityLogConstants.CRUD_TYPE_CREATE,
+						"new user with facebook social sign on", req);
 			}
 			Session session = createSession(req, res, newFbUser);
 
@@ -283,6 +294,9 @@ public class UserController {
 						+ newGoogleUser.toString());
 				newGoogleUser = userRepository
 						.save(decorateWithInformation(newGoogleUser));
+				logHandler.addLog(newGoogleUser,
+						ActivityLogConstants.CRUD_TYPE_CREATE,
+						"new user with facebook social sign on", req);
 			}
 			Session session = createSession(req, res, newGoogleUser);
 

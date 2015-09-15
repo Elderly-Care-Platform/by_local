@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
@@ -40,6 +41,9 @@ import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
 import com.beautifulyears.util.WebPageParser;
+import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.DiscussActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.SharedActivityLogHandler;
 
 /**
  * The REST based service for managing "discuss"
@@ -53,15 +57,17 @@ public class DiscussController {
 	private static final Logger logger = Logger
 			.getLogger(DiscussController.class);
 	private DiscussRepository discussRepository;
-	// private TopicRepository topicRepository;
 	private MongoTemplate mongoTemplate;
+	ActivityLogHandler<Discuss> logHandler;
+	ActivityLogHandler<Object> shareLogHandler;
 
 	@Autowired
 	public DiscussController(DiscussRepository discussRepository,
 			MongoTemplate mongoTemplate) {
 		this.discussRepository = discussRepository;
 		this.mongoTemplate = mongoTemplate;
-		// this.topicRepository = topicRepository;
+		logHandler = new DiscussActivityLogHandler(mongoTemplate);
+		shareLogHandler = new SharedActivityLogHandler(mongoTemplate);
 	}
 
 	@RequestMapping(consumes = { "application/json" }, value = { "/contactUs" })
@@ -83,6 +89,8 @@ public class DiscussController {
 		discuss.setDiscussType("F");
 
 		discuss = discussRepository.save(discuss);
+		logHandler.addLog(discuss, ActivityLogConstants.CRUD_TYPE_CREATE,
+				request);
 		logger.info("new feedback entity created with ID: " + discuss.getId());
 		return BYGenericResponseHandler.getResponse(discuss);
 	}
@@ -123,6 +131,8 @@ public class DiscussController {
 						.setDiscussBean(discuss);
 				discuss = discussRepository
 						.save(discussWithExtractedInformation);
+				logHandler.addLog(discuss,
+						ActivityLogConstants.CRUD_TYPE_CREATE, request);
 				logger.info("new discuss entity created with ID: "
 						+ discuss.getId() + " by User " + discuss.getUserId());
 
@@ -194,11 +204,15 @@ public class DiscussController {
 
 	@RequestMapping(consumes = { "application/json" }, value = "addShare")
 	@ResponseBody
-	public Object submitShare(@RequestBody Discuss discuss) {
+	public Object submitShare(@RequestBody Discuss discuss,
+			HttpServletRequest request) {
 		Discuss sharedDiscuss = this.discussRepository.findOne(discuss.getId());
 		if (null != sharedDiscuss) {
 			sharedDiscuss.setShareCount(sharedDiscuss.getShareCount() + 1);
 			this.discussRepository.save(sharedDiscuss);
+			shareLogHandler.addLog(sharedDiscuss,
+					ActivityLogConstants.CRUD_TYPE_CREATE, request);
+
 		}
 		return BYGenericResponseHandler.getResponse(sharedDiscuss);
 	}
@@ -280,10 +294,6 @@ public class DiscussController {
 			int discussStatus = discuss.getStatus();
 			List<String> topicId = discuss.getTopicId();
 			List<Tag> systemTags = new ArrayList<Tag>();
-			// List<String> systemTags = new ArrayList<String>();
-			// if (null != topicId && topicId.size() > 0) {
-			// systemTags = topicRepository.getTopicNames(topicId);
-			// }
 			for (Tag tag : discuss.getSystemTags()) {
 				Tag newTag = mongoTemplate.findById(tag.getId(), Tag.class);
 				systemTags.add(newTag);

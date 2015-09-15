@@ -220,19 +220,20 @@ byApp.directive('autoComplete', function ($timeout) {
             onChangeCallback: '=?'
         },
         link: function (scope, element, attrs) {
+            var oldVal = scope.obj;
             element.autocomplete({
                 source: scope.options,
                 select: function (event, item) {
                     $timeout(function () {
                         element.trigger(event, item);
                         item.item.selected = true;
-                        scope.onSelectCallback(item.item, scope.obj);
+                        scope.onSelectCallback(item.item, scope.obj, oldVal);
                     }, 0);
                 },
                 change: function(event, item){
-                    console.log(scope.obj);
+                    console.log(item);
                     if(scope.onChangeCallback){
-                        scope.onChangeCallback(item.item, scope.obj);
+                        scope.onChangeCallback(item.item, scope.obj, oldVal);
                     }
                 }
             });

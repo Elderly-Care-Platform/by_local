@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.User;
@@ -43,8 +45,8 @@ public class DiscussLikeController extends LikeController<Discuss> {
 
 	@Autowired
 	public DiscussLikeController(DiscussLikeRepository discussLikeRepository,
-			DiscussRepository discussRepository) {
-		super(discussLikeRepository);
+			DiscussRepository discussRepository, MongoTemplate mongoTemplate) {
+		super(discussLikeRepository,mongoTemplate);
 		this.discussRepository = discussRepository;
 	}
 
@@ -78,6 +80,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 						discuss.getLikedBy().add(user.getId());
 						sendMailForLike(discuss, user, url);
 						discussRepository.save(discuss);
+						logHandler.addLog(discuss, ActivityLogConstants.CRUD_TYPE_CREATE, req);
 						logger.debug("discuss content liked successfully");
 
 						response = BYGenericResponseHandler

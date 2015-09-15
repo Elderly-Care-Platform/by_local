@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
@@ -42,8 +44,10 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 
 	@Autowired
 	public DiscussReplyLikeController(
-			DiscussLikeRepository discussLikeRepository,DiscussReplyRepository discussReplyRepository) {
-		super(discussLikeRepository);
+			DiscussLikeRepository discussLikeRepository,
+			DiscussReplyRepository discussReplyRepository,
+			MongoTemplate mongoTemplate) {
+		super(discussLikeRepository, mongoTemplate);
 		this.discussReplyRepository = discussReplyRepository;
 	}
 
@@ -55,7 +59,8 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(likeContent(replyId,
-				String.valueOf(DiscussConstants.REPLY_TYPE_COMMENT),url, req, res));
+				String.valueOf(DiscussConstants.REPLY_TYPE_COMMENT), url, req,
+				res));
 
 	}
 
@@ -67,21 +72,21 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		return BYGenericResponseHandler.getResponse(likeContent(replyId,
-				String.valueOf(DiscussConstants.REPLY_TYPE_ANSWER),url, req, res));
+				String.valueOf(DiscussConstants.REPLY_TYPE_ANSWER), url, req,
+				res));
 
 	}
 
 	@Override
-	Object likeContent(String id, String type,String url, HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+	Object likeContent(String id, String type, String url,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		int replyType = Integer.parseInt(type);
 		DiscussReply reply = null;
 		try {
 			User user = Util.getSessionUser(req);
-			reply = (DiscussReply) discussReplyRepository
-					.findOne(id);
-			if(null != reply){
+			reply = (DiscussReply) discussReplyRepository.findOne(id);
+			if (null != reply) {
 				if (null == user) {
 					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 				} else {
@@ -90,10 +95,13 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 							throw new BYException(
 									BYErrorCodes.DISCUSS_ALREADY_LIKED_BY_USER);
 						} else {
-							submitLike(user, id, DiscussConstants.CONTENT_TYPE_DISCUSS);
+							submitLike(user, id,
+									DiscussConstants.CONTENT_TYPE_DISCUSS);
 							reply.getLikedBy().add(user.getId());
-							sendMailForLike(reply, user,url);
+							sendMailForLike(reply, user, url);
 							discussReplyRepository.save(reply);
+							logHandler.addLog(reply,
+									ActivityLogConstants.CRUD_TYPE_CREATE, req);
 
 						}
 					}
@@ -102,10 +110,10 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 				if (null != user && reply.getLikedBy().contains(user.getId())) {
 					reply.setLikedByUser(true);
 				}
-			}else{
+			} else {
 				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
-			
+
 		} catch (Exception e) {
 			Util.handleException(e);
 		}

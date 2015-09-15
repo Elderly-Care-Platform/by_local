@@ -1,6 +1,6 @@
 <div  ng-if="detailResponse.discuss" >
  <div class="blog-author margin-bottom-35 main-article by_blog_author" >
-        <div class="article-info dp-inline-block col-md-12">
+        <div class="article-info dp-inline-block col-md-12" ng-if="detailResponse.discuss.promotion == false">
             <ul class="list-inline posted-info" style="margin-left:0px;">
                 <li>
                     By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"
@@ -21,6 +21,8 @@
             </ul><div style="clear: both"></div>
         </div>
         <div style="clear: both"></div>
+        
+        <div style="clear: both; height:10px;" ng-if="detailResponse.discuss.promotion == true"></div>
 
         <div class="article col-md-12" >
             <div class="article-heading" style="text-transform: uppercase; padding-bottom:10px;">

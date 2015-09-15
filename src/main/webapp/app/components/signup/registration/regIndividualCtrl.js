@@ -11,12 +11,13 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         $scope.interestsOptions = $rootScope.mainMenu;
         $scope.emotional_challenges = $scope.regConfig.emotional_challenges1;
 
-        $scope.selectedLanguages = {};
+        $scope.selectedLanguages = [];
         $scope.selectedMedicalIssues = [];
         $scope.selectedHobbies = [];
         $scope.selectedInterests = [];
         $scope.showOtherHobbies = false;
         $scope.showOtherInterest = false;
+        $scope.showAddNewLang = false;
 
         $scope.showOtherHobby = function(){
             $scope.showOtherHobbies = true;
@@ -26,7 +27,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.showOtherInterest = true;
         };
 
-
+        $scope.googleLocationOptions = {
+            country: "in",
+            resetOnFocusOut: false
+        };
 
         var editorInitCallback = function(){
             if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
@@ -34,10 +38,9 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
         }
         var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
-        $(function() {
 
-        });
 
+        //Google location auto complete callback
         $scope.addressCallback = function (response) {
             $('#addressLocality').blur();
             $scope.address.city = "";
@@ -71,15 +74,22 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             $scope.address.streetAddress = response.formatted_address;
         };
 
+
+        //Get language options, create language map and create jquery auto complete specific language option array
         var getLanguages = function(){
+            $scope.languageMap = {};
             $http.get("api/v1/by/getLanguages/")
                 .success(function (response) {
                     if (response) {
                         $scope.languages = response.data;
+                        $.map($scope.languages, function (value, key) {
+                            return $scope.languageMap[value.name.toLowerCase()] =  value;
+                        });
 
-                        $scope.languages = $.map($scope.languages, function (value, key) {
+                        $scope.langAutoComOptions = $.map($scope.languages, function (value, key) {
                             return {label:value.name, value:value.name, obj:value};
                         });
+
                     }
                 }).error(function(errorRes){
                     console.log(errorRes);
@@ -87,7 +97,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
         }
 
         //Prefill form with previously selected data
-        var initializeRegForm = function () {
+        var initRegForm = function () {
             $scope.curiousUser = false;
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
@@ -153,8 +163,14 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
             if($scope.individualInfo.language && $scope.individualInfo.language.length > 0){
                 $.map($scope.individualInfo.language, function(value, key){
-                    return $scope.selectedLanguages[value.name] = value;
+                    return $scope.selectedLanguages.push(value.name);
                 });
+
+                if($scope.selectedLanguages.length > 0){
+                    $scope.showAddNewLang = false;
+                }
+            }else{
+                $scope.showAddNewLang = true;
             }
 
             if(!$scope.individualInfo.emotionalIssues) {
@@ -180,20 +196,22 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             getLanguages();
         };
 
+        //initialize data for individual registration
+        $scope.initIndvRegData = function () {
+            //Initialize individual registration
+            if ($scope.$parent.profile) {
+                $scope.profile = $scope.$parent.profile;
+                initRegForm();
+            } else {
+                $scope.profile = UserProfile.get({userId: $scope.userId}, function (profile) {
+                    $scope.profile = profile.data;
+                    initRegForm();
+                });
+            }
+        };
 
 
-
-        //Initialize individual registration
-        if ($scope.$parent.profile) {
-            $scope.profile = $scope.$parent.profile;
-            initializeRegForm();
-        } else {
-            $scope.profile = UserProfile.get({userId: $scope.userId}, function (profile) {
-                $scope.profile = profile.data;
-                initializeRegForm();
-            });
-        }
-
+        //Select gender based on salutation
         $scope.updateGenderOption = function(){
             $scope.individualInfo.gender =  $scope.regConfig.showGenderOptions[$scope.individualInfo.salutation][0];
         }
@@ -213,73 +231,47 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                         $scope.address.country = "India";
                     }
                 });
-        }
-
-        $scope.options = {
-            country: "in",
-            resetOnFocusOut: false
         };
 
 
-        $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();  //Apply bootstrap toggle for house visit option
-        function addressFormat(index) {
-            return {
-                "index": index, "city": "", "zip": "", "locality": "", "landmark": "", "address": ""
-            }
-        }
-       
-
-        $scope.langSelectCallback = function(changedVal, actualValue){
+        $scope.langSelectCallback = function(autoCompleteOption, userInput, oldVal){
             //{label:value.name, value:value.name, obj:value}
-            if(changedVal && changedVal!==""){
-                if(actualValue && changedVal.label!== actualValue.name){
-                    delete $scope.selectedLanguages[actualValue.name];
+            var selectedLang, selectedLangIdx, deletedLang, deletedLangIdx;
+            if(autoCompleteOption){
+                selectedLang = autoCompleteOption.label;
+                selectedLangIdx = $scope.selectedLanguages.indexOf(selectedLang);
+            } else if(userInput){
+                if($scope.languageMap[userInput.toLowerCase()]){
+                    selectedLang = $scope.languageMap[userInput.toLowerCase()].name;
+                    selectedLangIdx = $scope.selectedLanguages.indexOf(selectedLang);
                 }
-                $scope.selectedLanguages[changedVal.label] = changedVal.obj;
-            }else if(changedVal == null){
-            	value = $("#langField").val();
-            	$scope.selectedLanguages[changedVal] = changedVal.obj;
-            }else{
-            	delete $scope.selectedLanguages[actualValue.name];
+
+            }
+            if(oldVal){
+                if(!selectedLang || selectedLang!==oldVal){
+                    deletedLang = oldVal,
+                    deletedLangIdx = $scope.selectedLanguages.indexOf(deletedLang);
+                }
+                if(deletedLangIdx > -1){
+                    $scope.selectedLanguages.splice(deletedLangIdx, 1);
+                }
+            }
+
+            if(selectedLangIdx && selectedLangIdx===-1){
+                $scope.selectedLanguages.push(selectedLang);
             }
 
             $("#langField").val("");
-            if(Object.keys($scope.selectedLanguages).length > 0){
-                $("#langField").hide();
+            if($scope.selectedLanguages.length > 0){
+                $scope.showAddNewLang = false;
             }else{
-                $("#langField").show();
+                $scope.showAddNewLang = true;
             }
-
             $scope.$apply();
-            console.log($scope.selectedLanguages);
-            //$scope.individualInfo.language.push(language.obj);
         };
         
-        $scope.langSelectCallbackChange = function(value){
-        	var language = $("#langField").val();
-        	
-        	var r  = $scope.languages ;
-        	
-        	for (var i = 0; i < r.length; i++) {
-        	    if (r[i].label === language) {
-        	    	$scope.selectedLanguages[r[i].label] = r[i].obj;
-        	    }
-        	}
-        	
-        	 $("#langField").val("");
-             if(Object.keys($scope.selectedLanguages).length > 0){
-                 $("#langField").hide();
-             }else{
-                 $("#langField").show();
-             }
-
-             $scope.$apply();
-             console.log($scope.selectedLanguages);
-        };
-
         $scope.addLangField = function(){
-            $("#langField").show();
-            console.log($scope.selectedLanguages);
+            $scope.showAddNewLang = true;
         };
 
         //Add secondary phone numbers
@@ -336,7 +328,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.individualInfo.emotionalIssues.push(option);
             }
 
-            console.log($scope.individualInfo.emotionalIssues);
         };
 
 
@@ -384,10 +375,12 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
-            if(Object.keys($scope.selectedLanguages).length > 0){
+            if($scope.selectedLanguages.length > 0){
                 $scope.individualInfo.language = $.map($scope.selectedLanguages, function(value, key){
-                    return value;
+                    return $scope.languageMap[value.toLowerCase()];
                 });
+            }else{
+                $scope.individualInfo.language = [];
             }
 
             if(!$scope.individualInfo.otherInterests[0] || $scope.individualInfo.otherInterests[0].trim().length == 0){
@@ -397,11 +390,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if(!$scope.individualInfo.otherHobbies[0] || $scope.individualInfo.otherHobbies[0].trim().length == 0){
                 $scope.individualInfo.otherHobbies = [];
             }
-
-            //$scope.individualInfo.otherIssues = [$scope.individualInfo.otherIssues];
-            //$scope.individualInfo.otherInterests = [$scope.individualInfo.otherInterests];
-            //
-            //otherHobbies
 
             if($scope.individualInfo.dob){
                 $scope.individualInfo.dob = (new Date($scope.individualInfo.dob)).getTime();

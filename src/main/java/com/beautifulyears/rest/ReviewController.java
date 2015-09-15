@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.HousingFacility;
@@ -43,6 +44,8 @@ import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
+import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.ReplyActivityLogHandler;
 
 @Controller
 @RequestMapping("/reviewRate")
@@ -53,6 +56,7 @@ public class ReviewController {
 	private HousingRepository housingRepository;
 	private MongoTemplate mongoTemplate;
 	private UserProfileRepository userProfileRepository;
+	private ActivityLogHandler<DiscussReply> logHandler;
 
 	@Autowired
 	public ReviewController(DiscussReplyRepository discussReplyRepository,
@@ -65,6 +69,7 @@ public class ReviewController {
 		this.userProfileRepository = userProfileRepository;
 		this.housingRepository = housingRepository;
 		this.mongoTemplate = mongoTemplate;
+		logHandler = new ReplyActivityLogHandler(mongoTemplate);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "" }, produces = { "application/json" })
@@ -133,6 +138,7 @@ public class ReviewController {
 			DiscussReply newReviewRate, User user) {
 		DiscussReply review = null;
 		review = this.getReview(contentType, associatedId, user);
+		int operationType = ActivityLogConstants.CRUD_TYPE_CREATE;
 		if (null == review) {
 			review = new DiscussReply();
 			review.setDiscussId(associatedId);
@@ -149,10 +155,13 @@ public class ReviewController {
 					UserProfile.class);
 			review.setUserProfile(profile);
 			sendMailForReview(review,user);
+		}else{
+			operationType = ActivityLogConstants.CRUD_TYPE_UPDATE;
 		}
 		review.setText(newReviewRate.getText());
 		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage());
 		discussReplyRepository.save(review);
+		logHandler.addLog(review, operationType,"changing the review", user);
 		updateAllDependantEntities(contentType, review);
 		return review;
 	}
@@ -160,6 +169,7 @@ public class ReviewController {
 	private UserRating submitRating(Integer contentType, String associatedId,
 			DiscussReply reviewRate, User user) {
 		UserRating rating = null;
+		int operationType = ActivityLogConstants.CRUD_TYPE_CREATE;
 		if (null != contentType && null != reviewRate && null != user) {
 			rating = this.getRating(contentType, associatedId, user);
 			if (null == rating && null != reviewRate.getUserRatingPercentage()) {
@@ -168,6 +178,8 @@ public class ReviewController {
 				rating.setAssociatedContentType(contentType);
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
+			}else{
+				operationType = ActivityLogConstants.CRUD_TYPE_UPDATE;
 			}
 			if (null != reviewRate.getUserRatingPercentage()
 					&& (reviewRate.getUserRatingPercentage() < 0 || reviewRate
@@ -176,6 +188,7 @@ public class ReviewController {
 			}
 			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
 			userRatingRepository.save(rating);
+			logHandler.addLog(reviewRate, operationType,"changing the rating", user);
 			updateAllDependantEntities(contentType, rating);
 		} else {
 			logger.debug("not updating any rating");

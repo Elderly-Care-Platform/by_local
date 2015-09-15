@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.User;
@@ -37,8 +39,9 @@ public class UserProfileReviewLikeController extends
 	@Autowired
 	public UserProfileReviewLikeController(
 			DiscussLikeRepository discussLikeRepository,
-			DiscussReplyRepository discussReplyRepository) {
-		super(discussLikeRepository);
+			DiscussReplyRepository discussReplyRepository,
+			MongoTemplate mongoTemplate) {
+		super(discussLikeRepository,mongoTemplate);
 		this.discussReplyRepository = discussReplyRepository;
 		// TODO Auto-generated constructor stub
 	}
@@ -72,6 +75,7 @@ public class UserProfileReviewLikeController extends
 							reply.getLikedBy().add(user.getId());
 							sendMailForLike(reply, user, url);
 							discussReplyRepository.save(reply);
+							logHandler.addLog(reply, ActivityLogConstants.CRUD_TYPE_CREATE, req);
 						}
 					}
 				}

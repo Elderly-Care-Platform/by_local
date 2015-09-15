@@ -70,7 +70,7 @@ public class LikeActivityLogHandler extends ActivityLogHandler<Object> {
 			log.setCrudType(crudType);
 			log.setDetails("reply id = " + reply.getId() + "  "
 					+ (details == null ? "" : details));
-			log.setEntityId(reply.getId());
+			log.setEntityId(reply.getDiscussId());
 			log.setRead(false);
 			log.setTitleToDisplay(getReplyTitle(reply));
 			if (null != currentUser) {
@@ -87,6 +87,7 @@ public class LikeActivityLogHandler extends ActivityLogHandler<Object> {
 		if (!Util.isEmpty(reply.getText())) {
 			org.jsoup.nodes.Document doc = Jsoup.parse(reply.getText());
 			String domText = doc.text();
+			title = domText;
 			if (domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
 				title = domText;
 			}
@@ -109,6 +110,7 @@ public class LikeActivityLogHandler extends ActivityLogHandler<Object> {
 		} else if (!Util.isEmpty(discuss.getText())) {
 			org.jsoup.nodes.Document doc = Jsoup.parse(discuss.getText());
 			String domText = doc.text();
+			title = domText;
 			if (domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
 				title = domText;
 			}

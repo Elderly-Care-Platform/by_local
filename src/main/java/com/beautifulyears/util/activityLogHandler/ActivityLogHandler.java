@@ -36,6 +36,12 @@ public abstract class ActivityLogHandler<T> {
 		ActivityLog log = getEntityObject(entity, crudType, currentUser, null);
 		this.postActivity(log);
 	}
+	
+	public void addLog(T entity, int crudType,String detail, User user) {
+		User currentUser = user;
+		ActivityLog log = getEntityObject(entity, crudType, currentUser, null);
+		this.postActivity(log);
+	}
 
 	public void addLog(T entity, int crudType, String detail,
 			HttpServletRequest req) {

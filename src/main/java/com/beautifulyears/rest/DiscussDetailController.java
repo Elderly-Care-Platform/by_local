@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
@@ -34,12 +35,15 @@ import com.beautifulyears.rest.response.DiscussDetailResponse;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.ResourceUtil;
 import com.beautifulyears.util.Util;
+import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.ReplyActivityLogHandler;
 
 /**
  * Controller to handle all the discuss detail related API 1. getting full
  * discuss detail (discuss + replies) 2. Posting comment 3. Posting answer
  * 
  * @author Nitin
+ * 
  *
  */
 @Controller
@@ -50,6 +54,7 @@ public class DiscussDetailController {
 	private MongoTemplate mongoTemplate;
 	private DiscussRepository discussRepository;
 	private DiscussReplyRepository discussReplyRepository;
+	private ActivityLogHandler<DiscussReply> logHandler;
 
 	@Autowired
 	public DiscussDetailController(MongoTemplate mongoTemplate,
@@ -58,6 +63,7 @@ public class DiscussDetailController {
 		this.discussRepository = discussRepository;
 		this.mongoTemplate = mongoTemplate;
 		this.discussReplyRepository = discussReplyRepository;
+		logHandler = new ReplyActivityLogHandler(mongoTemplate);
 	}
 
 	/**
@@ -149,6 +155,8 @@ public class DiscussDetailController {
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(comment);
+				logHandler.addLog(comment, ActivityLogConstants.CRUD_TYPE_CREATE, req);
+				
 				logger.debug("new answer posted successfully with replyId = "
 						+ comment.getId());
 			} else {
@@ -201,6 +209,7 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
+				logHandler.addLog(answer, ActivityLogConstants.CRUD_TYPE_CREATE, req);
 				sendMailForReplyOnDiscuss(discuss, user, answer);
 				logger.debug("new answer posted successfully with replyId = "
 						+ answer.getId());

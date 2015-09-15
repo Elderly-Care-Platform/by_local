@@ -86,12 +86,10 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                             return $scope.languageMap[value.name.toLowerCase()] =  value;
                         });
 
-                        console.log($scope.languageMap);
                         $scope.langAutoComOptions = $.map($scope.languages, function (value, key) {
                             return {label:value.name, value:value.name, obj:value};
                         });
 
-                        console.log($scope.langAutoComOptions);
                     }
                 }).error(function(errorRes){
                     console.log(errorRes);
@@ -238,9 +236,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
 
         $scope.langSelectCallback = function(autoCompleteOption, userInput, oldVal){
             //{label:value.name, value:value.name, obj:value}
-            console.log(autoCompleteOption);
-            console.log(userInput);
-            console.log(oldVal);
             var selectedLang, selectedLangIdx, deletedLang, deletedLangIdx;
             if(autoCompleteOption){
                 selectedLang = autoCompleteOption.label;
@@ -265,8 +260,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if(selectedLangIdx && selectedLangIdx===-1){
                 $scope.selectedLanguages.push(selectedLang);
             }
-
-            console.log($scope.selectedLanguages);
 
             $("#langField").val("");
             if($scope.selectedLanguages.length > 0){
@@ -335,7 +328,6 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.individualInfo.emotionalIssues.push(option);
             }
 
-            console.log($scope.individualInfo.emotionalIssues);
         };
 
 

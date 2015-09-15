@@ -69,6 +69,7 @@ public class SharedActivityLogHandler extends ActivityLogHandler<Object> {
 		}else if(!Util.isEmpty(discuss.getText())){
 			org.jsoup.nodes.Document doc = Jsoup.parse(discuss.getText());
 			String domText = doc.text();
+			title = domText;
 			if (domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
 				title = domText;
 			}

@@ -1,33 +1,37 @@
-<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
-            <i class="sprite sprite-question"></i>
-             <span style="padding-top:7px;"><b>Ask</b> anything about elder care or health</span>
-        </div>
-        <div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
-            <i class="sprite sprite-story"></i>
-            <span style="padding-top:7px;"><b>Share</b> your stories, experiences, photos</span>
-        </div>
-        <div class="clearfix" style="height:10px;"></div>
+<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
+     ng-click="add('Question')">
+    <i class="sprite sprite-question"></i>
+    <span style="padding-top:7px;"><b>Ask</b> anything about elder care or health</span>
+</div>
+<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
+     ng-click="add('Article')">
+    <i class="sprite sprite-story"></i>
+    <span style="padding-top:7px;"><b>Share</b> your stories, experiences, photos</span>
+</div>
+<div class="clearfix" style="height:10px;"></div>
 <div ng-controller="BYHomePromoController">
-     	<div ng-if="contentType==='all' || contentType==='promo'"
-     ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
-     infinite-scroll="loadMore()"></div>
-     </div>
-     
-     <div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ></div>
-     
-     <div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
+    <div ng-if="contentType==='all' || contentType==='promo'"
+         ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
+         infinite-scroll="loadMore()"></div>
+</div>
+
+<div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+
+<div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-     infinite-scroll-disabled="contentType==='all' || postsPageInfo.lastPage || postsPageInfo.isQueryInProgress" infinite-scroll-distance="0"></div>
+     infinite-scroll-disabled="contentType==='all' || postsPageInfo.lastPage || postsPageInfo.isQueryInProgress"
+     infinite-scroll-distance="0"></div>
 
 <div ng-if="questions.length > 0 && (contentType==='all' || contentType==='Q')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homeQuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-     infinite-scroll-disabled="contentType==='all' || questionsPageInfo.lastPage || questionsPageInfo.isQueryInProgress" infinite-scroll-distance="0"></div>
-
+     infinite-scroll-disabled="contentType==='all' || questionsPageInfo.lastPage || questionsPageInfo.isQueryInProgress"
+     infinite-scroll-distance="0"></div>
 
 
 <div ng-if="services.length > 0 && (contentType==='all' || contentType==='S')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homeServicesCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-     infinite-scroll-disabled="contentType==='all' || servicesPageInfo.lastPage || servicesPageInfo.isQueryInProgress" infinite-scroll-distance="0">
+     infinite-scroll-disabled="contentType==='all' || servicesPageInfo.lastPage || servicesPageInfo.isQueryInProgress"
+     infinite-scroll-distance="0">
 </div>
 
 

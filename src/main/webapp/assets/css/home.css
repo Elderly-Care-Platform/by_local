@@ -470,7 +470,7 @@ ul.loginbar.pull-right {
 	height: 355px;
 	background-repeat: no-repeat;
 	background-position: left top;
-	padding-left: 50%;
+	padding-left: 60%;
 	margin-left:-10%;
 }
 
@@ -502,7 +502,7 @@ ul.loginbar.pull-right {
 	width:100%;
 	height:1px;
 	text-align:center;
-	background: url('../img/home/line.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat center center;
+	background: url('../img/home/line.png?versionTimeStamp=%PROJECT_VERSION%') no-repeat center center;
 }
 .homeSectionMore {
 	width: 150px;
@@ -526,9 +526,9 @@ ul.loginbar.pull-right {
 @media screen and (max-width: 900px) {
 	.homeSection:nth-child(odd) .homeSectionWrap,  .homeSection:nth-child(even) .homeSectionWrap{
 		width: 100%;
-		height: 337px;
+		height: 360px;
 		background-repeat: no-repeat;
-		background-position: center center;
+		background-position: center bottom;
 		padding-left: 0%;
 		text-align: center;
 		padding-right:0%;
@@ -539,5 +539,9 @@ ul.loginbar.pull-right {
 	{
 		margin-left:auto;
 		margin-right:auto;
+	}
+
+	.homeSectionHead {
+		padding-top: 25px;
 	}
 }

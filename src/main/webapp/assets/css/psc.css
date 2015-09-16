@@ -1142,15 +1142,26 @@
     .searchWrapper {
         /*position: absolute;*/
         z-index: 200;
-        width: 50%;
+        width: calc(100% - 60px);
         right: 16px;
-        margin-top:-48px;
+        margin-top:5px;
     }
 
     .searchLeft {
         width: calc(100% - 31px);
+        border: 1px solid #D87210;
+        height:32px;
     }
-
+    .searchLeft input 
+    {
+    	color:#000;
+    	padding-top:4px;
+    }
+	.searchRight
+	{
+		height:32px;
+		padding-top:5px;
+	}
     .comment-wrapper {
         margin-left: 0px !important;
     }
@@ -1274,6 +1285,10 @@
 	{
 		width: 100%;
 		margin-bottom: 3px;
+	}
+	.footer-v1 .copyright
+	{
+		background: url(../img/home/footer_bg_m.jpg?versionTimeStamp=%PROJECT_VERSION%);
 	}
 
 }

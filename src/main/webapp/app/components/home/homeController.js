@@ -141,15 +141,15 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
 
         if ($routeParams.type === "P" || $routeParams.type === "Q" || $routeParams.type === "S") {
             $scope.contentType = $routeParams.type;
-            $scope.contentSize = 10;
+            $scope.contentSize = 1;
             $scope.switchToContentView();
         } else if($routeParams.type === "promo") {
             $scope.contentType = $routeParams.type;
-            $scope.contentSize = 10;
+            $scope.contentSize = 1;
             $scope.switchToContentView();
         } else {
             $scope.contentType = "all";
-            $scope.contentSize = 8;
+            $scope.contentSize = 1;
             $scope.currentView = "";
             $scope.switchToContentView();
         }
@@ -280,6 +280,8 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
                 iconNode.addClass("fa-angle-down");
             }
         }
-
+        
+        $scope.homeSection = BY.config.home;
+        
     }]);
 

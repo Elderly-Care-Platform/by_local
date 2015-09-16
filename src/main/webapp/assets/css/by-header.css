@@ -174,6 +174,14 @@
 .header .mega-menu .equal-height-list h3 {
 	padding: 0px;
 }
+.mobileHeader
+{
+	display:none !important;
+}
+.searchToogle
+{
+	display:block;
+}
 @media ( min-width : 768px) {
 	.navbar-nav>li>a {
 		padding-top: 9px;
@@ -273,6 +281,7 @@
 	.header .navbar-toggle, .header .navbar-toggle:hover
 	{
 		background:#fff !important;
+		float:left;
 	}
 	.fa-navicon:before, .fa-reorder:before, .fa-bars:before
 	{
@@ -286,8 +295,36 @@
 
 		/*content: '';*/
 	/*}*/
-
-
+	
+	.homeSlider {
+		margin-top: 0px;
+	}
+	.mobileHeader
+	{
+		display:block !important;
+	}
+	.searchToogle
+	{
+		display:none;
+	}
+	.searchLeft input::-webkit-input-placeholder {
+		color: #000;
+	}
+	.searchLeft input:-moz-placeholder { /* Firefox 18- */
+		color: #000;
+	}
+	.searchLeft input::-moz-placeholder { /* Firefox 19+ */
+		color: #000;
+	}
+	.searchLeft input:-ms-input-placeholder {
+		color: #000;
+	}
+	.headerBg {
+		width: 100%;
+		background: url(../img/home/header_bg_m.jpg?versionTimeStamp=%PROJECT_VERSION%)
+			no-repeat bottom center;
+		background-size: cover;
+	}
 }
 
 
@@ -325,7 +362,7 @@
 	}
 
 	.header .logo img {
-		margin: 15px 0px 0px 0px;
+		margin: -3px 0px 0px 0px;
 	}
 }
 
@@ -335,11 +372,8 @@
 		width: 156px;
 	}
 	.searchWrapper {
-		margin-top: -40px !important;
-	}
-	.navbar-toggle {
-		margin-top: -6px !important;
-		margin-bottom: 4px !important;
+		margin-top: 8px !important;
+		margin-bottom:8px;
 	}
 }
 
@@ -347,12 +381,6 @@
 	.header .topbar ul.loginbar>li>a, .header .topbar ul.loginbar>li>a:hover
 		{
 		font-size: 10px !important;
-	}
-	.searchWrapper {
-		width: 176px !important;
-	}
-	.searchLeft {
-		width: 140px !important;
 	}
 }
 

@@ -20,7 +20,7 @@ public enum BYErrorCodes {
 	DISCUSS_ALREADY_LIKED_BY_USER(2002, "Discuss content already liked by the logged in user"),
 
 	// user error
-	USER_NOT_AUTHORIZED(3001, "User is not authorized to persform the selected operation"),
+	USER_NOT_AUTHORIZED(3001, "User is not authorized to perform the selected operation"),
 	USER_LOGIN_REQUIRED(3002, "User is required to login to perform such operation"),
 	USER_LOGIN_FAILED(3003,"User login failed. Invalid user/password combination."),
 	USER_ALREADY_EXIST(3004,"User with the same emailId already exists"),

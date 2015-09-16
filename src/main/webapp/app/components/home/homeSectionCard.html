@@ -1,14 +1,16 @@
-<div class="homeSecWrap">
+<div>
 	<div ng-repeat="section in homeSection" class="homeSection">
 		<div ng-if="$root.windowWidth > 900" class="homeSectionWrap" style="background-image: url('{{section.desktopImage}}')">
-			<div class="homeSectionHead">{{section.name}}</div>
-			<div class="homeSectionDesc">{{section.desc}}</div>
-			<div class="homeSectionMore">
-				<a href="#!{{section.listingPageUrl}}{{$root.menuCategoryMapByName[section.name].slug || $root.menuCategoryMapByName[section.name].displayMenuName}}/{{$root.menuCategoryMapByName[section.name].id}}/all/">
-				{{section.buttonText}}
-				</a>
+			<div class="homeSectionTextWrap">
+				<div class="homeSectionHead">{{section.name}}</div>
+				<div class="homeSectionDesc">{{section.desc}}</div>
+				<div class="homeSectionMore">
+					<a href="#!{{section.listingPageUrl}}{{$root.menuCategoryMapByName[section.name].slug || $root.menuCategoryMapByName[section.name].displayMenuName}}/{{$root.menuCategoryMapByName[section.name].id}}/all/">
+						{{section.buttonText}}
+					</a>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
 		<div ng-if="$root.windowWidth < 901" class="homeSectionWrap" style="background-image: url('{{section.mobileImage}}')">
 			<div style="height:80%">

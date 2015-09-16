@@ -526,7 +526,7 @@ ul.loginbar.pull-right {
 @media screen and (max-width: 900px) {
 	.homeSection:nth-child(odd) .homeSectionWrap,  .homeSection:nth-child(even) .homeSectionWrap{
 		width: 100%;
-		height: 360px;
+		height: 400px;
 		background-repeat: no-repeat;
 		background-position: center bottom;
 		padding-left: 0%;
@@ -543,5 +543,7 @@ ul.loginbar.pull-right {
 
 	.homeSectionHead {
 		padding-top: 25px;
+		padding-bottom: 20px;
 	}
+
 }

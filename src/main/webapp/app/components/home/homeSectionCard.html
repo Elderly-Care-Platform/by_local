@@ -11,12 +11,12 @@
 			<div class="clearfix"></div>
 		</div>
 		<div ng-if="$root.windowWidth < 991" class="homeSectionWrap" style="background-image: url('{{section.mobileImage}}')">
-			<div style="height:70%">
+			<div style="height:80%">
 				<div class="homeSectionHead">{{section.name}}</div>
 				<div class="homeSectionDesc">{{section.desc}}</div>
 				<div class="clearfix"></div>
 			</div>
-			<div style="height:27%">
+			<div style="height:15%">
 				<div class="homeSectionMore">
 					<a href="#!{{section.listingPageUrl}}{{$root.menuCategoryMapByName[section.name].slug || $root.menuCategoryMapByName[section.name].displayMenuName}}/{{$root.menuCategoryMapByName[section.name].id}}/all/">
 						{{section.buttonText}}
@@ -27,6 +27,5 @@
 			<div class="clearfix"></div>
 			<div class="homeSectionLine"></div>
 		</div>
-
 	</div>
 </div>

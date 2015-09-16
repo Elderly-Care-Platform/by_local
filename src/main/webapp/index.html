@@ -141,6 +141,7 @@
 
     <script type="text/javascript"  src="app/components/signup/login/loginController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/home/homeController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+     <script type="text/javascript"  src="app/components/home/homeConfig.js?versionTimeStamp=%PROJECT_VERSION%"></script>
      <script type="text/javascript"  src="app/components/home/homePromoController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/discuss/discussController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript"  src="app/components/aboutUs/aboutUsController.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -239,7 +240,7 @@
                         </div>
                         <div class="clearfix"></div>
                         <!-- End Topbar -->
-                        <div class="searchWrapper divRight">
+                        <div class="searchWrapper divRight searchToogle">
                             <div class="searchLeft">
                                 <input type="text" placeholder="Search" ng-model="term"
                                        onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
@@ -252,13 +253,28 @@
                         </div>
                         <div class="clearfix"></div>
                         <!-- Toggle get grouped for better mobile display -->
-                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                       
+                    </div><div class="clearfix"></div>
+                </div>
+                
+                <div class="container mobileHeader">
+                	 <button type="button" class="navbar-toggle" data-toggle="collapse"
                                 data-target=".navbar-responsive-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="fa fa-bars"></span>
                         </button>
-                        <div class="searchClearboth"></div>
-                    </div><div class="clearfix"></div>
+                         <div class="searchWrapper divRight">
+                            <div class="searchLeft">
+                                <input type="text" placeholder="Search" ng-model="term"
+                                       onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
+                                <a href="#!/search/{{term}}/All" id="search_link"></a>
+                            </div>
+                            <div class="searchRight" onclick="document.getElementById('search_link').click()">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->

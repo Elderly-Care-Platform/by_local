@@ -12,6 +12,11 @@
 .item {
 	height: 213px;
 }
+.list-head
+{
+	font-size:28px;
+	line-height:20px;
+}
 
 @media screen and (max-width: 900px) {
 	.item {
@@ -46,13 +51,34 @@
 		</a>
 	</div>
 </div>
-<div class="container by_home_content by-home-page">
-	<div class="row">
-		<div class="col-md-3 md-margin-bottom-40"
-			ng-include="homeViews.leftPanel"></div>
-		<div
-			class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper"
-			ng-include="homeViews.contentPanel"></div>
-
+<div class="by_home_content by-home-page">
+	<div class="clearfix" style="height: 20px;"></div>
+	<div class="discussion-page md-margin-bottom-40 container" style="">
+		<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
+			 ng-click="add('Question')">
+			<i class="sprite sprite-question"></i>
+			<span style="padding-top:7px;"><b>Ask</b> anything about elder care or health</span>
+		</div>
+		<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
+			 ng-click="add('Article')">
+			<i class="sprite sprite-story"></i>
+			<span style="padding-top:7px;"><b>Share</b> your stories, experiences, photos</span>
+		</div>
+		<div class="clearfix" style="height:10px;"></div>
+		<div ng-controller="BYHomePromoController">
+			<div ng-if="contentType==='all' || contentType==='promo'"
+				 ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
+				 infinite-scroll="loadMore()"></div>
+		</div>
 	</div>
+	<div class="discussion-page md-margin-bottom-40">
+		<div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+	</div>
+
+	<div class="margin-top-20" style="background-color: #e5e5e5;padding-top: 20px;">
+		<div class="discussion-page margin-top-20 md-margin-bottom-40 container" ng-include="homeViews.contentPanel"></div>
+	</div>
+
+
+	<div class="clearfix" style="height: 20px;background-color: #e5e5e5;"></div>
 </div>

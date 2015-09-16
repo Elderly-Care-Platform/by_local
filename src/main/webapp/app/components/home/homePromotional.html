@@ -1,4 +1,5 @@
-<div class="col-md-12 no-padding margin-bottom-35" ng-if="promo.length > 0">
+
+<!--  <div class="col-md-12 no-padding margin-bottom-35" ng-if="promo.length > 0">
 	<div id="home_promotional"
 		class="col-md-12 no-padding  list-head dp-block">
 		NEWS & ANNOUNCEMENTS
@@ -8,11 +9,11 @@
 		</div>
 	</div>
 	<div style="clear: both;"></div>
-</div>
+</div>-->
 <div ng-repeat="article in promo" ng-if="promo.length > 0"  data-index="discussion-articles" data-link="articles.html" ng-if="article">
     <!-- show if discuss is of type Article -->
     <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles"
-         class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;" ng-if="article.title || article.articlePhotoFilename.titleImage">
+         class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative; max-width:100%;" ng-if="article.title || article.articlePhotoFilename.titleImage">
         <!-- <img src="{{article.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
 
         <div class="article-info dp-inline-block">
@@ -133,4 +134,5 @@
      ng-if="!promoPageInfo.lastPage && contentType==='all' && promo.length > 0">
     <a ng-click="showMore('promo')">More...</a>
 </div>
- <div style="clear: both; height:50px;" ng-if=" promo.length > 0"></div>
+ <div style="clear: both; " ng-if=" promo.length > 0"></div>
+ 

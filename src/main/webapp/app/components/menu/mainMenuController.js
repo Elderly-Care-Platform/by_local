@@ -11,11 +11,12 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $rootScope.menuCategoryMapByName = {};
         $rootScope.discussCategoryMap = {};
         $rootScope.serviceCategoryMap = {};
-        var windowWidth, submenuHeight;
+        var submenuHeight;
         $scope.discussMenuCnt = 0;
         $scope.menuView = "";
         $rootScope.scrollableLeftPanel = false;
         $scope.hamburgerView = false;
+        $rootScope.windowWidth;
 
         $scope.createMenuCategoryMap = function(categories){
             angular.forEach(categories, function(category, index){
@@ -111,7 +112,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         //Show different section header based on screen size
         var resizeSectionHeader = function(){
             if($scope.sectionHeader){
-                if(windowWidth > 730){
+                if($rootScope.windowWidth > 730){
                     $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImage +')');
                 } else{
                     $(".by_section_header").css('background-image', 'url('+ $scope.sectionHeader.sectionImageMobile +')');
@@ -132,7 +133,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
             }
 
             //Set left panel's scrollable height below menu
-            if (windowWidth > 991) {
+            if ($rootScope.windowWidth > 991) {
                 var leftFixMenuHeight = window.innerHeight - $(".header").height() - $(".footer-v1").height() - submenuHeight - 10;
                 $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', leftFixMenuHeight);
             }
@@ -142,7 +143,7 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
         $scope.windowResize = function(height, width){
             console.log(width);
             var browserScrollBarWidth = 8; //Specified in psc.css, webkit-scrollbar width 8 px
-            windowWidth = width;
+            $rootScope.windowWidth = width;
 
             if((width + browserScrollBarWidth) > 991){
                 $scope.menuView = "app/components/menu/mainMenu.html";

@@ -1,27 +1,28 @@
-<div class="col-md-12 no-padding margin-bottom-35">
-    <div id="home_featured_services" class="col-md-12 no-padding  list-head dp-block">
-        FEATURED SERVICES
-    </div>
+<div class="homeCenter">
+    <div class="col-md-12 no-padding margin-bottom-35">
+        <div id="home_featured_services" class="col-md-12 no-padding  list-head dp-block">
+            Featured Services
+        </div>
 
-    <div class="col-md-12 no-padding bg-gray-h1">
-        <div class="bg-green-h2" style="width: 216px;">
+        <div class="col-md-12 no-padding bg-gray-h1">
+            <div class="bg-green-h2" style="width: 256px;">
+            </div>
         </div>
     </div>
+
+    <div ng-repeat="service in services" class="ng-scope">
+        <div ng-include="'app/components/find/servicesInstitutionContentPanel.html'"
+             ng-if="service.userTypes[0] == 4"></div>
+        <div ng-include="'app/components/find/servicesIndividualContentPanel.html'"
+             ng-if="service.userTypes[0] == 7"></div>
+
+    </div>
+
+    <div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"
+         ng-if="!servicesPageInfo.lastPage && contentType==='all'">
+        <a ng-click="showMore('S')">More...</a>
+    </div>
+
+
 </div>
-
-<div ng-repeat="service in services" class="ng-scope" >
-	<div ng-include="'app/components/find/servicesInstitutionContentPanel.html'"
-		ng-if="service.userTypes[0] == 4"></div>
-	<div ng-include="'app/components/find/servicesIndividualContentPanel.html'"
-		ng-if="service.userTypes[0] == 7"></div>
-
-</div>
-
-<div class="col-md-12 no-padding margin-bottom-30 more-link" data-link="articles.html"
-     ng-if="!servicesPageInfo.lastPage && contentType==='all'">
-    <a ng-click="showMore('S')">More...</a>
-</div>
-
-
-
 

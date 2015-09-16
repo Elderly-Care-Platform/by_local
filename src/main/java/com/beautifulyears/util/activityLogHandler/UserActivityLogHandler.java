@@ -36,10 +36,8 @@ public class UserActivityLogHandler extends ActivityLogHandler<User> {
 			log.setEntityId(user.getId());
 			log.setRead(false);
 			log.setTitleToDisplay(user.getUserName());
-			if (null != currentUser) {
-				log.setUserId(currentUser.getId());
-				log.setCurrentUserEmailId(currentUser.getEmail());
-			}
+			log.setUserId(user.getId());
+			log.setCurrentUserEmailId(user.getEmail());
 		}
 		return log;
 	}

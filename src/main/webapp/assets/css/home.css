@@ -1,5 +1,6 @@
 .by_home_content {
 	margin-top: 0px;
+	background-color: #fff;
 }
 
 .by_breadcrumbs_container {
@@ -466,22 +467,35 @@ ul.loginbar.pull-right {
 }
 
 .homeSection:nth-child(odd) .homeSectionWrap{
-	width: 110%;
+	width: 100%;
 	height: 355px;
 	background-repeat: no-repeat;
 	background-position: left top;
-	padding-left: 50%;
-	margin-left:-10%;
+	background-color: white;
+	background-size: auto 100%;
 }
 
 .homeSection:nth-child(even) .homeSectionWrap{
-	width: 110%;
+	width: 100%;
 	height: 355px;
 	background-repeat: no-repeat;
 	background-position: right top;
-	padding-right: 50%;
-	margin-right:-10%;
+	background-color: white;
+	background-size: auto 100%;
 }
+
+.homeSection:nth-child(odd) .homeSectionTextWrap{
+	padding-left: 45%;
+	padding-right: 15%;
+	/*margin-left:-10%;*/
+}
+
+.homeSection:nth-child(even) .homeSectionTextWrap{
+	padding-right: 50%;
+	padding-left: 15%;
+	/*margin-right:-10%;*/
+}
+
 
 .homeSectionHead {
 	width: 100%;
@@ -502,7 +516,7 @@ ul.loginbar.pull-right {
 	width:100%;
 	height:1px;
 	text-align:center;
-	background: url('../img/home/line.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat center center;
+	background: url('../img/home/section-line.png?versionTimeStamp=%PROJECT_VERSION%') no-repeat center center;
 }
 .homeSectionMore {
 	width: 150px;
@@ -524,11 +538,27 @@ ul.loginbar.pull-right {
 	text-decoration:none;
 }
 @media screen and (max-width: 900px) {
-	.homeSection:nth-child(odd) .homeSectionWrap,  .homeSection:nth-child(even) .homeSectionWrap{
+	.by_home_content {
+		margin-top: 0px;
+		background-color: #e5e5e5;
+	}
+
+	.homeSectionWrap-mob{
+		width: 100%;
+		height: 500px;
+		background-repeat: no-repeat;
+		background-position: center bottom;
+		padding-left: 0%;
+		text-align: center;
+		padding-right:0%;
+		margin-left:0;
+		margin-right:0;
+	}
+	.homeSectionImage-mob{
 		width: 100%;
 		height: 337px;
 		background-repeat: no-repeat;
-		background-position: center center;
+		background-position: center bottom;
 		padding-left: 0%;
 		text-align: center;
 		padding-right:0%;
@@ -540,4 +570,15 @@ ul.loginbar.pull-right {
 		margin-left:auto;
 		margin-right:auto;
 	}
+
+	.homeSectionHead {
+		padding-top: 25px;
+		padding-bottom: 20px;
+	}
+
+	.homeSectionDesc {
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+
 }

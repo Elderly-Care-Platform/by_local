@@ -1,6 +1,6 @@
 <div class="homeSecWrap">
 	<div ng-repeat="section in homeSection" class="homeSection">
-		<div ng-if="$root.windowWidth > 990" class="homeSectionWrap" style="background-image: url('{{section.desktopImage}}')">
+		<div ng-if="$root.windowWidth > 900" class="homeSectionWrap" style="background-image: url('{{section.desktopImage}}')">
 			<div class="homeSectionHead">{{section.name}}</div>
 			<div class="homeSectionDesc">{{section.desc}}</div>
 			<div class="homeSectionMore">
@@ -10,7 +10,7 @@
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		<div ng-if="$root.windowWidth < 991" class="homeSectionWrap" style="background-image: url('{{section.mobileImage}}')">
+		<div ng-if="$root.windowWidth < 901" class="homeSectionWrap" style="background-image: url('{{section.mobileImage}}')">
 			<div style="height:80%">
 				<div class="homeSectionHead">{{section.name}}</div>
 				<div class="homeSectionDesc">{{section.desc}}</div>

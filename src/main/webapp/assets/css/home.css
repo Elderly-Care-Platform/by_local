@@ -1,5 +1,6 @@
 .by_home_content {
 	margin-top: 0px;
+	background-color: #fff;
 }
 
 .by_breadcrumbs_container {
@@ -484,7 +485,8 @@ ul.loginbar.pull-right {
 }
 
 .homeSection:nth-child(odd) .homeSectionTextWrap{
-	padding-left: 60%;
+	padding-left: 45%;
+	padding-right: 15%;
 	/*margin-left:-10%;*/
 }
 
@@ -514,7 +516,7 @@ ul.loginbar.pull-right {
 	width:100%;
 	height:1px;
 	text-align:center;
-	background: url('../img/home/line.png?versionTimeStamp=%PROJECT_VERSION%') no-repeat center center;
+	background: url('../img/home/section-line.png?versionTimeStamp=%PROJECT_VERSION%') no-repeat center center;
 }
 .homeSectionMore {
 	width: 150px;
@@ -536,7 +538,23 @@ ul.loginbar.pull-right {
 	text-decoration:none;
 }
 @media screen and (max-width: 900px) {
-	.homeSection:nth-child(odd) .homeSectionWrap,  .homeSection:nth-child(even) .homeSectionWrap{
+	.by_home_content {
+		margin-top: 0px;
+		background-color: #e5e5e5;
+	}
+
+	.homeSectionWrap-mob{
+		width: 100%;
+		height: 500px;
+		background-repeat: no-repeat;
+		background-position: center bottom;
+		padding-left: 0%;
+		text-align: center;
+		padding-right:0%;
+		margin-left:0;
+		margin-right:0;
+	}
+	.homeSectionImage-mob{
 		width: 100%;
 		height: 337px;
 		background-repeat: no-repeat;
@@ -546,7 +564,6 @@ ul.loginbar.pull-right {
 		padding-right:0%;
 		margin-left:0;
 		margin-right:0;
-		background-color: rgba(0, 0, 0, 0);
 	}
 	.homeSectionMore
 	{
@@ -557,6 +574,11 @@ ul.loginbar.pull-right {
 	.homeSectionHead {
 		padding-top: 25px;
 		padding-bottom: 20px;
+	}
+
+	.homeSectionDesc {
+		padding-left: 3%;
+		padding-right: 3%;
 	}
 
 }

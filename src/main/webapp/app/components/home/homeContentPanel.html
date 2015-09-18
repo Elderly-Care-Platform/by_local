@@ -1,3 +1,4 @@
+
 <div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
      ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
      infinite-scroll-disabled="contentType==='all' || postsPageInfo.lastPage || postsPageInfo.isQueryInProgress"

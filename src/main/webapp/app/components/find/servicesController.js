@@ -25,6 +25,15 @@ byControllers.controller('ServicesController', ['$scope', '$rootScope', '$locati
         
 
         if($scope.selectedMenu){
+        	 (function(){
+                 var metaTagParams = {
+                     title:  $scope.selectedMenu.displayMenuName,
+                     imageUrl:   "",
+                     description:   "",
+                     keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
+                 }
+                 BY.byUtil.updateMetaTags(metaTagParams);
+             })();
             $(".selected-dropdown").removeClass("selected-dropdown");
             $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
 

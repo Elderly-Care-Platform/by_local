@@ -466,6 +466,15 @@ ul.loginbar.pull-right {
 	margin-right: auto;
 }
 
+.homeContainer{
+	background-color: #fff;
+	padding-top: 20px;
+}
+
+.homeAskShare{
+	padding-top: 20px;
+}
+
 .homeSection:nth-child(odd) .homeSectionWrap{
 	width: 100%;
 	height: 355px;
@@ -538,9 +547,9 @@ ul.loginbar.pull-right {
 	text-decoration:none;
 }
 @media screen and (max-width: 900px) {
-	.by_home_content {
-		margin-top: 0px;
+	.homeContainer{
 		background-color: #e5e5e5;
+		padding-top: 20px;
 	}
 
 	.homeSectionWrap-mob{

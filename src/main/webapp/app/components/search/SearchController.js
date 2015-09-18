@@ -14,6 +14,15 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
         $scope.pageSize = 10;
 
         $scope.getDiscussData = function(page, size){
+        	(function(){
+                var metaTagParams = {
+                    title:  $rootScope.term,
+                    imageUrl:   "",
+                    description:   "Search in beautifulYears.com",
+                    keywords:[$rootScope.term]
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+            })();
             DiscussSearch.get({'term': $rootScope.term, 'p': page, 's': size}, function (value) {
                 $scope.discuss = value.data.content;
                 $scope.discussPagination = {};

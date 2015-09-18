@@ -35,13 +35,13 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="item active item1 " >
-				<img width="100%" src="assets/img/home/banner-1-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
+				<img width="100%" src="assets/img/home/banner-4-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
 			</div>
 			<div class="item item2" >
-				<img width="100%" src="assets/img/home/banner-2-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
+				<img width="100%" src="assets/img/home/banner-5-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
 			</div>
 			<div class="item item3" >
-				<img width="100%" src="assets/img/home/banner-3-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
+				<img width="100%" src="assets/img/home/banner-6-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
 			</div>
 		</div>
 		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -52,33 +52,36 @@
 	</div>
 </div>
 <div class="by_home_content by-home-page">
-	<div class="clearfix" style="height: 20px;"></div>
-	<div class="discussion-page md-margin-bottom-40 container" style="">
-		<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
-			 ng-click="add('Question')">
-			<i class="sprite sprite-question"></i>
-			<span style="padding-top:7px;"><b>Ask</b> anything about elder care or health</span>
+	<div class="clearfix"></div>
+	<div id="homeContainer" class="homeContainer">
+		<div class="discussion-page md-margin-bottom-40 container homeAskShare">
+			<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
+				 ng-click="add('Question')">
+				<i class="sprite sprite-question"></i>
+				<span style="padding-top:7px;"><b>Ask</b> anything about elder care or health</span>
+			</div>
+			<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
+				 ng-click="add('Article')">
+				<i class="sprite sprite-story"></i>
+				<span style="padding-top:7px;"><b>Share</b> your stories, experiences, photos</span>
+			</div>
+			<div class="clearfix" style="height:30px;"></div>
+			<div ng-controller="BYHomePromoController">
+				<div ng-if="contentType==='all' || contentType==='promo'"
+					 ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
+					 infinite-scroll="loadMore()"></div>
+			</div>
 		</div>
-		<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
-			 ng-click="add('Article')">
-			<i class="sprite sprite-story"></i>
-			<span style="padding-top:7px;"><b>Share</b> your stories, experiences, photos</span>
+		<div class="discussion-page md-margin-bottom-40">
+			<div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 		</div>
-		<div class="clearfix" style="height:10px;"></div>
-		<div ng-controller="BYHomePromoController">
-			<div ng-if="contentType==='all' || contentType==='promo'"
-				 ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
-				 infinite-scroll="loadMore()"></div>
-		</div>
-	</div>
-	<div class="discussion-page md-margin-bottom-40">
-		<div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 	</div>
 
-	<div class="margin-top-20" style="background-color: #e5e5e5;padding-top: 20px;">
+
+	<div style="padding-top: 20px;" ng-controller="BYHomeContentCtrl">
 		<div class="discussion-page margin-top-20 md-margin-bottom-40 container" ng-include="homeViews.contentPanel"></div>
 	</div>
 
 
-	<div class="clearfix" style="height: 20px;background-color: #e5e5e5;"></div>
+	<div class="clearfix" style="height: 20px;"></div>
 </div>

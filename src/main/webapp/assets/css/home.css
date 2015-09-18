@@ -1,6 +1,6 @@
 .by_home_content {
 	margin-top: 0px;
-	background-color: #fff;
+	/*background-color: #fff;*/
 }
 
 .by_breadcrumbs_container {
@@ -342,19 +342,19 @@ ul.loginbar.pull-right {
 
 .item1 {
 	background:
-		url('../img/home/banner-1.jpg?versionTimeStamp=%PROJECT_VERSION%')
+		url('../img/home/banner-4.jpg?versionTimeStamp=%PROJECT_VERSION%')
 		center;
 }
 
 .item2 {
 	background:
-		url('../img/home/banner-2.jpg?versionTimeStamp=%PROJECT_VERSION%')
+		url('../img/home/banner-5.jpg?versionTimeStamp=%PROJECT_VERSION%')
 		center;
 }
 
 .item3 {
 	background:
-		url('../img/home/banner-3.jpg?versionTimeStamp=%PROJECT_VERSION%')
+		url('../img/home/banner-6.jpg?versionTimeStamp=%PROJECT_VERSION%')
 		center;
 }
 
@@ -466,6 +466,15 @@ ul.loginbar.pull-right {
 	margin-right: auto;
 }
 
+.homeContainer{
+	background-color: #fff;
+	padding-top: 20px;
+}
+
+.homeAskShare{
+	padding-top: 20px;
+}
+
 .homeSection:nth-child(odd) .homeSectionWrap{
 	width: 100%;
 	height: 355px;
@@ -538,9 +547,9 @@ ul.loginbar.pull-right {
 	text-decoration:none;
 }
 @media screen and (max-width: 900px) {
-	.by_home_content {
-		margin-top: 0px;
+	.homeContainer{
 		background-color: #e5e5e5;
+		padding-top: 20px;
 	}
 
 	.homeSectionWrap-mob{

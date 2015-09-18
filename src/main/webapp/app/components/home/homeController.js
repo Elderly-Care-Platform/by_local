@@ -47,6 +47,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.homeViews = {};
         $scope.add = function (type) {
             //BY.removeEditor();
+            $("#homeContainer").hide();
             $scope.currentView = "editor";
             $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             window.scrollTo(0, 0);
@@ -71,6 +72,7 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
             $rootScope.scrollableLeftPanel = true;
             $rootScope.setLeftScroll();
             $(".homeSlider").show();
+            $("#homeContainer").show();
             $scope.currentAcceleratorSelected = scrollTo || $scope.currentAcceleratorSelected;
             if($scope.currentAcceleratorSelected && $scope.currentAcceleratorSelected!=="" && $scope.contentType !== "all"){
                 $scope.contentType = "all";

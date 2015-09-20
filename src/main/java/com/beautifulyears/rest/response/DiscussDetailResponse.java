@@ -21,8 +21,6 @@ public class DiscussDetailResponse implements IResponse {
 
 	private List<DiscussReply> replies = new ArrayList<DiscussReply>();
 	private DiscussResponse.DiscussEntity discuss;
-	
-	
 
 	public DiscussResponse.DiscussEntity getDiscuss() {
 		return discuss;
@@ -45,19 +43,19 @@ public class DiscussDetailResponse implements IResponse {
 	public DiscussDetailResponse getResponse() {
 		return this;
 	}
-	
-	public void addDiscuss(Discuss discuss){
-		DiscussResponse	discussResponse = new DiscussResponse();
+
+	public void addDiscuss(Discuss discuss) {
+		DiscussResponse discussResponse = new DiscussResponse();
 		this.setDiscuss(discussResponse.getDiscussEntity(discuss, null));
 	}
-	
-	public void addDiscuss(Discuss discuss,User user){
-		DiscussResponse	discussResponse = new DiscussResponse();
-		this.setDiscuss(discussResponse.getDiscussEntity(discuss,user));
+
+	public void addDiscuss(Discuss discuss, User user) {
+		DiscussResponse discussResponse = new DiscussResponse();
+		this.setDiscuss(discussResponse.getDiscussEntity(discuss, user));
 	}
 
-	public void addReplies(List<DiscussReply> replies,User user) {
-		Map<String,DiscussReply> tempMap = new HashMap<String, DiscussReply>();
+	public void addReplies(List<DiscussReply> replies, User user) {
+		Map<String, DiscussReply> tempMap = new HashMap<String, DiscussReply>();
 		List<DiscussReply> repliesList = new ArrayList<DiscussReply>();
 		for (DiscussReply discussReply : replies) {
 			if (discussReply.getUserProfile() != null) {
@@ -68,16 +66,20 @@ public class DiscussDetailResponse implements IResponse {
 				discussReply.setUserProfile(userProfile);
 			}
 			discussReply.setLikeCount(discussReply.getLikedBy().size());
-			if (null != user && discussReply.getLikedBy().contains(user.getId())) {
+			if (null != user
+					&& discussReply.getLikedBy().contains(user.getId())) {
 				discussReply.setLikedByUser(true);
 			}
 			tempMap.put(discussReply.getId(), discussReply);
-			if(!Util.isEmpty(discussReply.getParentReplyId()) && null != tempMap.get(discussReply.getParentReplyId())){
-				tempMap.get(discussReply.getParentReplyId()).getReplies().add(discussReply);
-			}else {
+			if (!Util.isEmpty(discussReply.getParentReplyId())) {
+				if (null != tempMap.get(discussReply.getParentReplyId())) {
+					tempMap.get(discussReply.getParentReplyId()).getReplies()
+							.add(discussReply);
+				}
+			} else {
 				repliesList.add(0, discussReply);
 			}
-			
+
 		}
 		setReplies(repliesList);
 	}

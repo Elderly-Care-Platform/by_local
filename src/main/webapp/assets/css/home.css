@@ -335,24 +335,27 @@ ul.loginbar.pull-right {
 	width: 100%;
 	height: auto;
 }
-
+.sliderHeight
+{
+	height: 213px;
+}
 .item img {
 	display: none !important;
 }
 
-.item1 {
+.banner1 {
 	background:
 		url('../img/home/banner-4.jpg?versionTimeStamp=%PROJECT_VERSION%')
 		center;
 }
 
-.item2 {
+.banner2 {
 	background:
 		url('../img/home/banner-5.jpg?versionTimeStamp=%PROJECT_VERSION%')
 		center;
 }
 
-.item3 {
+.banner3 {
 	background:
 		url('../img/home/banner-6.jpg?versionTimeStamp=%PROJECT_VERSION%')
 		center;
@@ -432,13 +435,13 @@ ul.loginbar.pull-right {
 }
 
 @media screen and (max-width: 900px) {
-	.item1, .item2, .item3 {
+	.banner1, .banner2, .banner3 {
 		background: none;
 	}
 	.item img {
 		display: block !important;;
 	}
-	.item {
+	.item, .sliderHeight {
 		height: auto;
 	}
 	.carousel-indicators {

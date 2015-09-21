@@ -120,7 +120,9 @@ byControllers.controller('BYHomeController', ['$scope', '$rootScope', '$routePar
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
-
+        $scope.trustAsResourceUrl = function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
 
 
         $scope.go = function ($event, type, id, discussType) {

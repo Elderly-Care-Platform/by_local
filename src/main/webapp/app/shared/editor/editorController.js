@@ -82,6 +82,10 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $scope.discuss.title = $scope.editor.subject;
             if($scope.editor.articlePhotoFilename){
             	$scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
+            } else{
+                if($("#articleTitleImage") && $("#articleTitleImage").val()){
+                    $scope.discuss.articlePhotoFilename = JSON.parse($("#articleTitleImage").val());
+                }
             }
 
             $scope.discuss.systemTags = getSystemTagList($scope.selectedMenuList);

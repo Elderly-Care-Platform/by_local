@@ -71,6 +71,10 @@ public class SearchController {
 				sortDirection = Direction.ASC;
 			}
 
+			List<String> discussTypeArray = new ArrayList<String>();
+			discussTypeArray.add("Q");
+			discussTypeArray.add("P");
+
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
 
@@ -81,6 +85,8 @@ public class SearchController {
 			query.addCriteria(Criteria.where("status").is(
 					DiscussConstants.DISCUSS_STATUS_ACTIVE));
 			query.with(pageable);
+			query.addCriteria(Criteria.where((String) "discussType").in(
+					discussTypeArray));
 
 			System.out.println("search term  = " + term);
 

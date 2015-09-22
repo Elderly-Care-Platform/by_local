@@ -39,7 +39,7 @@ BY.config.home = {
         'name':'Stories',
         'desc':'Let’s talk about ageing and senior care! Let’s exchange opinions, share and discuss views. Let’s get inspired, and pay tribute to lives well lived. ',
         'desktopImage':'assets/img/home/stories-full.jpg?versionTimeStamp=%PROJECT_VERSION%',
-        'mobileImage':'assets/img/home/story_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
+        'mobileImage':'assets/img/home/stories_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'buttonText':'Share',
         'listingPageUrl':'/discuss/list/'
     },

@@ -18,7 +18,7 @@
 	
 	<div class="clearfix" style="height:15px;"></div>
 
-<div class="blog_masonry_3col">
+<div class="blog_masonry_3col" >
 	<div class="grid-boxes">
 		<div class="grid-boxes-in" ng-repeat="discuss in discussList">
 			<div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
@@ -192,7 +192,7 @@
 </div>
 -->
 
-
+<div style="clear: both"></div>
 <div ng-if="discussPagination.noOfPages > 1">
     <div class="text-left">
         <by-pagination obj="discussPagination" callback="getDiscussData"></by-pagination>

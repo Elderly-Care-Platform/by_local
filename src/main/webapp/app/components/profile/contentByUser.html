@@ -11,7 +11,7 @@
 	</div>
 
 	<div class="clearfix" style="height: 20px;"></div>
-	<div class="discussion-page" ng-repeat="data in postsUser" 	data-index="discussion-articles" data-link="articles.html"
+	<div class="discussion-page" ng-repeat="discuss in postsUser" 	data-index="discussion-articles" data-link="articles.html"
 		>
 		<div ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 	</div>
@@ -41,7 +41,7 @@
 	</div>
 
 	<div class="clearfix" style="height: 20px;"></div>
-	<div class="discussion-page" ng-repeat="data in qaUser" 	data-index="discussion-articles" data-link="articles.html">
+	<div class="discussion-page" ng-repeat="discuss in qaUser" 	data-index="discussion-articles" data-link="articles.html">
 		<div ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 	</div>
 

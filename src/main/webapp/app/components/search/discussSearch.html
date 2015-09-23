@@ -1,8 +1,8 @@
-<div class="col-md-12 discussion-page" ng-repeat="data in discuss" data-index="discussion-articles" data-link="articles.html" >
+<div class="col-md-12 discussion-page" ng-repeat="discuss in discuss" data-index="discussion-articles" data-link="articles.html" >
     <!-- show if discuss is of type Article -->
     
-    <div ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="data.discussType == 'P'"></div>
-    <div ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="data.discussType == 'Q'"></div>
+    <div ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="discuss.discussType == 'P'"></div>
+    <div ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="discuss.discussType == 'Q'"></div>
 </div>
 
 

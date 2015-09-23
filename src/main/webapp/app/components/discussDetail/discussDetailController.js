@@ -33,7 +33,7 @@ byControllers.controller('DiscussDetailController', ['$scope', '$rootScope', '$r
 
                 var metaTagParams = {
                     title:  $scope.detailResponse.discuss.title,
-                    imageUrl:   $scope.detailResponse.discuss.articlePhotoFilename ? $scope.detailResponse.discuss.articlePhotoFilename.titleImage : "",
+                    imageUrl:   BY.byUtil.getImage($scope.detailResponse.discuss),
                     description:    $scope.detailResponse.discuss.text,
                     keywords:[]
                 }

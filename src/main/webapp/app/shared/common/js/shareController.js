@@ -4,19 +4,9 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
         	$event.stopPropagation();
             if(FB && sharedObj){
                 var caption = sharedObj.title ? sharedObj.title: "BeautifulYears",
-                    picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "",
+                    picture = BY.byUtil.getImage(sharedObj),
                     description = sharedObj.text ? $(sharedObj.text).text() : "";
 
-                if(picture && picture!==""){
-                    picture = picture.substr(1);
-                    picture = window.location.origin + window.location.pathname + picture;
-
-                }else if(sharedObj.linkInfo && sharedObj.linkInfo.mainImage){
-                	picture = sharedObj.linkInfo.mainImage;
-                }else if(sharedObj.linkInfo && sharedObj.linkInfo.otherImages && sharedObj.linkInfo.otherImages.length > 0){
-                	picture = sharedObj.linkInfo.otherImages[0];
-                }
-                
                 if((!description || description =="") && (sharedObj.linkInfo)){
                 	description = sharedObj.linkInfo.description || "";
                 	description = description.length>300 ? this.substr(0,300-1)+'&hellip;' : description;

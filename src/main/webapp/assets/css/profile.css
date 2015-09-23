@@ -395,3 +395,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		width: 100% !important;
 	}
 }
+
+#profile-desc .container
+{
+	width:auto;
+	padding-left:0px;
+	padding-right:0px;
+}

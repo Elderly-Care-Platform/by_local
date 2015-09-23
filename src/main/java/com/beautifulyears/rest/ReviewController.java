@@ -188,7 +188,7 @@ public class ReviewController {
 			}
 			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
 			userRatingRepository.save(rating);
-			logHandler.addLog(reviewRate, operationType,"changing the rating", user);
+			//logHandler.addLog(reviewRate, operationType,"changing the rating", user);
 			updateAllDependantEntities(contentType, rating);
 		} else {
 			logger.debug("not updating any rating");

@@ -39,9 +39,17 @@ public class ReplyActivityLogHandler extends ActivityLogHandler<DiscussReply> {
 		} else if (DiscussConstants.REPLY_TYPE_ANSWER == reply.getReplyType()) {
 			log.setEntityId(reply.getDiscussId());
 			replyType = ActivityLogConstants.ACTIVITY_TYPE_REPLY_ANSWER;
-		} else if (DiscussConstants.REPLY_TYPE_REVIEW == reply.getReplyType()) {
+		} else if (DiscussConstants.REPLY_TYPE_REVIEW == reply.getReplyType()
+				&& DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING == reply
+						.getContentType()) {
 			log.setEntityId(reply.getDiscussId());
-			replyType = ActivityLogConstants.ACTIVITY_TYPE_REPLY_REVIEW;
+			replyType = ActivityLogConstants.ACTIVITY_TYPE_REPLY_HOUSING_REVIEW;
+		} else if (DiscussConstants.REPLY_TYPE_REVIEW == reply.getReplyType()
+				&& (DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES == reply
+						.getContentType() || DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL == reply
+						.getContentType())) {
+			log.setEntityId(reply.getDiscussId());
+			replyType = ActivityLogConstants.ACTIVITY_TYPE_REPLY_PROFILE_REVIEW;
 		}
 
 		log.setActivityType(replyType);

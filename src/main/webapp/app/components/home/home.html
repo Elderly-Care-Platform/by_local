@@ -8,24 +8,9 @@
 	<!--</div>-->
 	<!--<hr class="breadcrumb-divider" />-->
 <!--</div>-->
-<style type="text/css">
-.item {
-	height: 213px;
-}
-.list-head
-{
-	font-size:28px;
-	line-height:20px;
-}
 
-@media screen and (max-width: 900px) {
-	.item {
-		height: auto;
-	}
-}
-</style>
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-<div class="homeSlider">
+<div class="homeSlider" ng-if="$root.windowWidth > 780">
 	<div id="myCarousel" class="carousel slide">
 
 		<ol class="carousel-indicators">
@@ -33,15 +18,20 @@
 			<li data-target="#myCarousel" data-slide-to="1"></li>
 			<li data-target="#myCarousel" data-slide-to="2"></li>
 		</ol>
-		<div class="carousel-inner">
-			<div class="item active item1 " >
-				<img width="100%" src="assets/img/home/banner-4-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
+		<div class="carousel-inner" ng-if="$root.windowWidth > 900">
+			<div class="item sliderHeight active" ng-class="{'banner1':$root.windowWidth > 900}"></div>
+			<div class="item sliderHeight" ng-class="{'banner2':$root.windowWidth > 900}"></div>
+			<div class="item sliderHeight" ng-class="{'banner3':$root.windowWidth > 900}"></div>
+		</div>
+		<div class="carousel-inner" ng-if="$root.windowWidth < 900">
+			<div class="item sliderHeight active " >
+				<img width="100%" ng-src="assets/img/home/banner-4-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
 			</div>
-			<div class="item item2" >
-				<img width="100%" src="assets/img/home/banner-5-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
+			<div class="item sliderHeight " >
+				<img width="100%" ng-src="assets/img/home/banner-5-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
 			</div>
-			<div class="item item3" >
-				<img width="100%" src="assets/img/home/banner-6-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
+			<div class="item sliderHeight " >
+				<img width="100%" ng-src="assets/img/home/banner-6-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
 			</div>
 		</div>
 		<a class="left carousel-control" href="#myCarousel" data-slide="prev">

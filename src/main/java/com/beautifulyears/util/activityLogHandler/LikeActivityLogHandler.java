@@ -63,7 +63,7 @@ public class LikeActivityLogHandler extends ActivityLogHandler<Object> {
 				replyType = ActivityLogConstants.ACTIVITY_TYPE_LIKE_REPLY_ANSWER;
 			} else if (DiscussConstants.REPLY_TYPE_REVIEW == reply
 					.getReplyType()) {
-				replyType = ActivityLogConstants.ACTIVITY_TYPE_LIKE_REPLY_REVIEW;
+				replyType = ActivityLogConstants.ACTIVITY_TYPE_LIKE_REPLY_PROFILE_REVIEW;
 			}
 
 			log.setActivityType(replyType);

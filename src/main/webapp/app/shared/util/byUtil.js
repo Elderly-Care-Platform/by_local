@@ -113,7 +113,6 @@ BY.byUtil.updateMetaTags = function(param){
 	$("meta[property='og\\:image']").attr("content", imageUrl);
 	$("meta[name='twitter\\:image']").attr("content", imageUrl);
 	$('meta[name=keywords]').attr('content', keywords);
-	$("meta[property='og\\:url']").attr("content", window.location.href);
 	if(imageUrl != null && imageUrl !== ""){
 		var tmpImg = new Image();
 		tmpImg.src=imageUrl;

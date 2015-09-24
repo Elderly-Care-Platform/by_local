@@ -1,12 +1,12 @@
 <div class="by-card-shareInfo">
     <div class="row" ng-if="linkInfo.type===0">
-        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content">
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content by_fullWidth">
             <p ng-if="linkInfo.title" style="font-weight: bold">
                 <a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();">
                     {{linkInfo.title.substring(0, 70)}}
                 </a>
             </p>
-            <p ng-if="linkInfo.mainImage" class="shareInfo-generalImage">
+            <p ng-if="linkInfo.mainImage" class="shareInfo-generalImage by_fullWidth">
             	<img src="{{linkInfo.mainImage}}">
             </p>
             <p ng-if="linkInfo.mainImage===null && linkInfo.otherImages && linkInfo.otherImages.length > 0" class="shareInfo-generalImage">
@@ -27,13 +27,13 @@
         <img src="{{linkInfo.mainImage}}">
     </div>
     <div class="row shareInfo-image" ng-if="linkInfo.type===2">
-        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content">
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content by_fullWidth">
             <p ng-if="linkInfo.title" style="font-weight: bold">
                 <a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();">
                     {{linkInfo.title.substring(0, 70)}}
                 </a>
             </p>
-            <p class="shareInfo-generalImage">
+            <p class="shareInfo-generalImage by_fullWidth">
             	<iframe ng-src="{{trustAsResourceUrl(linkInfo.embeddedVideo)}}" frameborder="0" allowfullscreen onload='javascript:resizeIframe(this);'></iframe>
             </p>
             <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 120)}}</p>

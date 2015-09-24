@@ -19,7 +19,7 @@
 	<div class="clearfix" style="height:15px;"></div>
 
 <div class="blog_masonry_3col" >
-	<div class="grid-boxes">
+	<div class="grid-boxes by_discuss_listing">
 		
 		<div class="grid-boxes-in " ng-repeat="discuss in discussList"  ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''">
 		<div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
@@ -58,7 +58,7 @@
 					fallback-src='["assets/img/by.png"]' alt="image">
 
 				<div class="by_discuss_info" style="margin-right: 80px !important;">
-					<ul class="list-inline by_discuss_listing" style="">
+					<ul class="list-inline by_discuss_infoList" style="">
 						<li>
 							<p>
 								By <a validate-user-name="{{discuss.username}}"
@@ -70,14 +70,6 @@
 
 						<li time-since="{{discuss.createdAt}}"></li>
 
-						<!-- <li ng-if="discuss.topicId.length > 0">| In</li>
-
-						<li ng-repeat="topicId in discuss.topicId">
-							<p class="first-letter-uc by-systemTags">
-								<span ng-if="$index > 0">|</span> <a
-									ng-click="go($event,'menu', topicId)">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
-							</p>
-						</li>-->
 					</ul>
 					<div style="clear: both"></div>
 				</div>

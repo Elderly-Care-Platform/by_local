@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 whiteBg  margin-bottom-35"
+    <div class="col-md-12 whiteBg by_profileDetail  margin-bottom-35"
          ng-init="institutionProfile.showMoreServices=false">
         <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
             <div class="col-md-5 col-xs-5 by_profileWidth" style="padding-left:0px;">
@@ -83,9 +83,9 @@
                     <div class="no-padding">
                         <div style="clear: both; "></div>
                         <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryPhoneNo">
-                            <i class="fa fa-phone" style="margin-right:9px;"></i> <span>{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</span>
+                            <i class="fa fa-phone" style="margin-right:9px;"></i> <span><a href="tel:{{institutionProfile.basicProfileInfo.primaryPhoneNo}}">{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</a></span>
 							<span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos"
-                                  ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
+                                  ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
                         <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryEmail">

@@ -82,7 +82,7 @@ $(document).ready(function() {
 
 BY.byUtil.updateMetaTags = function(param){
 	 var title = param.title.trim(),
-		 imageUrl = param.imageUrl || $("meta[property='og:image']").attr('content'),
+		 imageUrl = param.imageUrl || "http://www.beautifulyears.com/assets/img/logo-fb.jpg",
 		 description = $(param.description).text().trim(),
 		 keywords = param.keywords;
 	 
@@ -113,6 +113,30 @@ BY.byUtil.updateMetaTags = function(param){
 	$("meta[property='og\\:image']").attr("content", imageUrl);
 	$("meta[name='twitter\\:image']").attr("content", imageUrl);
 	$('meta[name=keywords]').attr('content', keywords);
+	if(imageUrl != null && imageUrl !== ""){
+		var tmpImg = new Image();
+		tmpImg.src=imageUrl;
+		$(tmpImg).on('load',function(){
+			$("meta[property='og\\:image\\:width']").attr("content", tmpImg.width);
+			$("meta[property='og\\:image\\:height']").attr("content", tmpImg.height);
+		});
+		$("meta[property='og\\:image\\:width']").attr("content", imageUrl);
+	}
+}
+
+
+BY.byUtil.getImage = function(sharedObj){
+	var picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "";
+	if(picture && picture!==""){
+        picture = picture.substr(1);
+        picture = window.location.origin + window.location.pathname + picture;
+
+    }else if(sharedObj.linkInfo && sharedObj.linkInfo.mainImage){
+    	picture = sharedObj.linkInfo.mainImage;
+    }else if(sharedObj.linkInfo && sharedObj.linkInfo.otherImages && sharedObj.linkInfo.otherImages.length > 0){
+    	picture = sharedObj.linkInfo.otherImages[0];
+    }
+	return picture;
 }
 
 function resizeIframe(obj) {

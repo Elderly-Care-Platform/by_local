@@ -1,0 +1,93 @@
+.by-discuss-card
+{
+	position: relative;
+	min-height:60px;
+	cursor: pointer;
+	width: 100%;
+    border: 1px solid #d8d8d8;
+    margin-bottom: 20px;
+    padding:0px;
+    max-width: 720px;
+    border-radius: 2px !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    background:#fff;
+}
+.by_discuss_img
+{
+	margin-top: 15px;
+    margin-left: 21px;
+    border-radius: 2px;
+    width: 43px;
+    float: left;
+    height: auto;
+    margin-right: 20px
+}
+.by_discuss_info
+{
+	font-size: 13.963px;
+    font-weight: 400;
+    margin-top: 14px;
+    display: table;
+}
+.by_discuss_listing
+{
+	font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    line-height: 12px;
+}
+.by_discuss_title
+{
+	font-size: 16.181px;
+    font-weight: bold;
+    line-height: 25.901px;
+    margin-top: 2px;
+}
+.by_discuss_image img
+{
+	width: auto;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    float: none;
+}
+.by_discuss_desc
+{
+	font-weight: 400;
+    padding: 6px 15px 8px 15px;
+    color: #000;
+    font-size: 16px;
+    line-height: 26px;
+}
+.by_discuss_desciption {
+    padding-left: 0px;
+    padding-top: 5px;
+    overflow: hidden;
+    font-weight: 400;
+    color: #000 !important;
+    font-size: 16px !important;
+    line-height: 26px;
+    margin-bottom: 3px;
+}
+.by_discuss_desciption img
+{
+	max-width:100%;
+}
+.by_border
+{
+	border-top: 1px solid #ececec;
+    padding-top: 10px;
+    margin-top: 0px;
+}
+.by_discuss_share .post-shares
+{
+	padding:0px;
+	margin:0px;
+	width:100%;
+}
+.by_discuss_share .post-shares .add-comment
+{
+	list-style:none;
+}

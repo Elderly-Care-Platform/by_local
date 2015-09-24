@@ -43,6 +43,7 @@ var masonaryGridInit = function(){
             isAnimated: false,
               columnWidth: function( containerWidth ) {
                 var box_width = (((containerWidth - 2*gutter)/3) | 0) ;
+                var box_width_two = containerWidth ;
 
                 if (box_width < min_width) {
                     box_width = (((containerWidth - gutter)/2) | 0);
@@ -53,6 +54,8 @@ var masonaryGridInit = function(){
                 }
 
                 $('.grid-boxes-in').width(box_width);
+                $('.grid-boxes-in-two').width(box_width_two);
+                
 
                 return box_width;
               }

@@ -20,77 +20,87 @@
 
 <div class="blog_masonry_3col" >
 	<div class="grid-boxes">
-		<div class="grid-boxes-in" ng-repeat="discuss in discussList">
+		
+		<div class="grid-boxes-in " ng-repeat="discuss in discussList"  ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''">
+		<div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
+				class="by-discuss-card by_blog_author"  ng-if="discuss && discuss.promotion == true">
+				<div class="questionTag"
+					ng-if="discuss.discussType == 'Q' && discuss.featured == true">
+				</div>
+				<div class="questionTag postTag"
+					ng-if="discuss.discussType == 'P' && discuss.featured == true">
+				</div>
+				<div class="by_discuss_title col-md-12"
+					ng-if="discuss.discussType == 'P' && discuss.title"
+					style="margin-top: 15px;">
+					<div class="article-heading">
+						<p style="text-transform: uppercase;">{{discuss.title}}</p>
+					</div><div style="clear: both"></div>
+				</div>
+				<div class="by-quad-image col-md-12 no-padding"
+					style="margin-top: -1px;">
+					<img
+						ng-if="discuss.discussType == 'P'"
+						src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+						fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
+
+					<div style="clear: both"></div>
+				</div><div style="clear: both"></div>
+			</div>
 			<div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
-				class="by-discuss-card by_blog_author" ng-if="discuss">
+				class="by-discuss-card by_blog_author"  ng-if="discuss && discuss.promotion == false">
 				 <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true">
         </div>
         <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true">
         </div>
-				<img class="by_discuss_img" ng-if="discuss.promotion == false"
+				<img class="by_discuss_img"
 					src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
 					fallback-src='["assets/img/by.png"]' alt="image">
 
-				<div class="by_discuss_info" style="margin-right: 80px !important;"
-					ng-if="discuss.promotion == false">
+				<div class="by_discuss_info" style="margin-right: 80px !important;">
 					<ul class="list-inline by_discuss_listing" style="">
 						<li>
 							<p>
 								By <a validate-user-name="{{discuss.username}}"
 									class="text-capitalize"
 									href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
-									{{username}}</a> |
+									{{username}}</a> 
 							</p>
-						</li>
+						</li><br/>
 
 						<li time-since="{{discuss.createdAt}}"></li>
 
-						<li ng-if="discuss.topicId.length > 0">| In</li>
+						<!-- <li ng-if="discuss.topicId.length > 0">| In</li>
 
 						<li ng-repeat="topicId in discuss.topicId">
 							<p class="first-letter-uc by-systemTags">
 								<span ng-if="$index > 0">|</span> <a
 									ng-click="go($event,'menu', topicId)">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
 							</p>
-						</li>
+						</li>-->
 					</ul>
 					<div style="clear: both"></div>
 				</div>
 				<div style="clear: both"></div>
 
 				<div class="by_discuss_title col-md-12"
-					ng-if="discuss.discussType == 'P' && discuss.promotion == false">					
-						<p class="text-uppercase">{{discuss.title}}</p>
-				</div>
-				<div class="by_discuss_title  col-md-12"
-					ng-if="discuss.discussType == 'P' && discuss.promotion == true && discuss.title"
-					style="margin-top: 15px;">
+					ng-if="discuss.discussType == 'P'">					
 						<p class="text-uppercase">{{discuss.title}}</p>
 				</div>
 				<div style="clear: both"></div>
 				<div class="by_discuss_image col-md-12">
 					<img
-						ng-if="discuss.discussType == 'P' && discuss.promotion == false"
+						ng-if="discuss.discussType == 'P'"
 						src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
 						fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
 					<div style="clear: both"></div>
 				</div>
-				<div class="by_discuss_image col-md-12 no-padding"
-					style="margin-top: -1px;">
-					<img
-						ng-if="discuss.discussType == 'P' && discuss.promotion == true"
-						src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
-						fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
-
-					<div style="clear: both"></div>
-				</div>
-				<div ng-include="'app/shared/common/template/ShareLinkContent.html'"
+				<div ng-include="'app/shared/common/template/ShareLinkListing.html'"
 					ng-if="discuss.linkInfo" ng-init="linkInfo=discuss.linkInfo"
 					ng-if="discuss.promotion == false"></div>
 
-				<div class="by_discuss_desc  col-md-12"
-					ng-if="discuss.promotion == false" id="{{discuss.id}}">
+				<div class="by_discuss_desc  col-md-12"id="{{discuss.id}}">
 					<p class="by_discuss_desciption" ng-if="discuss.shortSynopsis">
 						{{discuss.shortSynopsis}}<a class="divRight by_readmore">Read
 							More <b style="font-size: 10px;">&#9002;</b>
@@ -102,8 +112,7 @@
 				</div>
 				<div style="clear: both; height: 1px;"></div>
 
-				<div class="article-share-links news-v3 by_border"
-					ng-if="discuss.promotion == false">
+				<div class="article-share-links news-v3 by_border">
 					<ul class="post-shares post-shares-lg">
 						<li class="add-comment"
 							ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
@@ -176,10 +185,10 @@
 				<div ng-if="$index===discussList.length-1">
 				</div>
 				<div style="clear: both"></div>
-			</div>
+			</div><div style="clear: both"></div>
 		</div>
 
-	</div>
+	</div><div style="clear: both"></div>
 	
 	<!--/container-->
 </div>

@@ -10,9 +10,10 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.selectedMenu = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
         $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
+        $scope.pageSize = 20;
 
         var tags = [];
-        var queryParams = {p:0,s:20,sort:"lastModifiedAt"};
+        var queryParams = {p:0,s:$scope.pageSize,sort:"lastModifiedAt"};
         
       $scope.initGrid = function(){
     	  console.log("initGrid");
@@ -72,21 +73,14 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                                $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                                $scope.discussPagination.currentPage = value.data.number;
                                $scope.discussPagination.pageSize = $scope.pageSize;
-                               if(queryParams.p === 0){
-                            	   if($rootScope.windowWidth>800){
-                                      	setTimeout(function(){$scope.initGrid();},10);
-                                      }  
-                                      if($rootScope.windowWidth<800){
-                                      	$(".grid-boxes-in").removeClass('grid-boxes-in');
-                                      }
-                               }else{
-                            	   if($rootScope.windowWidth>800){
-                                   	setTimeout(function(){$(".masonry").masonry("reload")},10);
-                                   }
-                                   if($rootScope.windowWidth<800){
-                                   	$(".grid-boxes-in").removeClass('grid-boxes-in');
-                                   }
-                               }
+                               
+                               if($rootScope.windowWidth>800){
+                                 	setTimeout(function(){$scope.initGrid();},100);
+                                 	setTimeout(function(){$(".masonry").masonry("reload")},100);
+                                 }  
+                                 if($rootScope.windowWidth<800){
+                                 	$(".grid-boxes-in").removeClass('grid-boxes-in');
+                                 }
                                window.scrollTo(0, 0);
                                
                            },
@@ -96,7 +90,7 @@ byControllers.controller('DiscussAllController', ['$scope', '$rootScope', '$loca
                            });
               }
 
-              $scope.getDiscussData(0, 20);
+              $scope.getDiscussData(0, $scope.pageSize);
              
           };
       }

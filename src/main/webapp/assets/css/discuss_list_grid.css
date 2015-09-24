@@ -30,7 +30,7 @@
 }
 .grid-boxes-in li.add-comment-FC
 {
-	max-width:117px;
+	max-width:123px;
 }
 .grid-boxes-in .add-comment-FC .text
 {
@@ -54,4 +54,28 @@
 .grid-boxes-in .blog-author
 {
 	margin-bottom:15px !important;
+}
+
+.grid-boxes-in .shareInfo-content
+{
+	height:auto;
+}
+.grid-boxes-in .linkUrl
+{
+	position:static;
+}
+.grid-boxes-in .by-card-shareInfo .shareInfo-generalImage
+{
+	height:auto;
+	background:transparent;
+	max-height:200px;
+}
+.grid-boxes-in .by-card-shareInfo .shareInfo-generalImage img
+{
+	max-height:200px;
+}
+.grid-boxes-in .shareInfo-generalImage iframe
+{
+	margin-top:0px;
+	margin-bottom:0px;
 }

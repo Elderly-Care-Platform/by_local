@@ -8,9 +8,9 @@
                 {{article.title}}</p>
             </div>
         </div>
-        
+
         <div class="by-quad-image col-md-12 no-padding">
-            <img ng-if="article.discussType == 'P'" src="{{article.articlePhotoFilename.original||''}}" alt="image"
+            <img ng-if="article.discussType == 'P'" ng-src="{{article.articlePhotoFilename.original||''}}" alt="image"
                  fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
@@ -19,4 +19,4 @@
     </div>
 </div>
 
- 
+

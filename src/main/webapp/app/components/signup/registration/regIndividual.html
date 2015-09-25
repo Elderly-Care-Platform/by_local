@@ -1,4 +1,4 @@
-<div class="row indvspacing" ng-controller="regIndividualController">
+<div class="row indvspacing" ng-controller="regIndividualCtrl">
     <form class="third-register-page grayRegisterBgLight" name="individualForm" novalidate
           style="background:transparent;"  ng-init="initIndvRegData()">
         <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20 indvBorderRadius"
@@ -588,7 +588,7 @@
                 <div class="col-md-2 col-xs-2 col-sm-2 profilePictureIndi"
                      ng-click="selectDefaultImage(avatar.detail)"
                         ng-repeat="avatar in regConfig.defaultAvatars[individualInfo.gender]">
-                    <img src="{{avatar.reg}}" width="100%" alt=""><br/>
+                    <img ng-src="{{avatar.reg}}" width="100%" alt=""><br/>
                     <input type="button" value="select" load-image="profileImage"/>
                 </div>
             </div>

@@ -1,6 +1,5 @@
-//DIscuss All
-byControllers.controller('ProfessionalUserProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile', '$sce',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $sce) {
+define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, reviewRateController) {
+    function ProfUserProfileCtrl($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $sce){
         $scope.individualProfile = $scope.$parent.profileData;
         $scope.gender =  BY.config.profile.userGender[$scope.individualProfile.individualInfo.sex];
         $scope.slideIndex = 1;
@@ -25,8 +24,8 @@ byControllers.controller('ProfessionalUserProfileController', ['$scope', '$rootS
         };
 
         $scope.galleryImage = function(){
-        	 var urlPopup = $(".by-imageGallery-item").eq(0).attr('data-popup');
-             console.log(urlPopup);
+            var urlPopup = $(".by-imageGallery-item").eq(0).attr('data-popup');
+            console.log(urlPopup);
         };
 
 
@@ -34,33 +33,40 @@ byControllers.controller('ProfessionalUserProfileController', ['$scope', '$rootS
             $(".by-imageGallery-item").css('cursor', 'pointer');
             $(".by-imageGallery-item").click(function(){
                 var urlPopup = $(this).attr('data-popup');
-                $(".by_modal_body").find('img').attr('src', urlPopup);              
+                $(".by_modal_body").find('img').attr('src', urlPopup);
                 $('#imagemodal').modal('show');
 
             });
         };
-        
+
         $scope.showMore = function(){
             document.getElementById("profile-desc").style.display = "block";
             document.getElementById("profile-shortDesc").style.display = "none";
         };
-        
+
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
-        
+
 
         $scope.showReviews = function(){
             //Get reviews by all user for this professional
             $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviews = response.data.replies;
+                if($scope.reviews.length > 0){
+                    require(['discussLikeController']);
+                    require(['shareController']);
+                }
             }, function(error){
                 console.log(error)
             })
         };
 
         $scope.showReviews();
-    }]);
+    }
 
-
+    ProfUserProfileCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile', '$sce'];
+    byApp.registerController('ProfUserProfileCtrl', ProfUserProfileCtrl);
+    return ProfUserProfileCtrl;
+});

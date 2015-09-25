@@ -1,22 +1,15 @@
-//DIscuss All
-byControllers.controller('ProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'UserProfile', '$sce', 'DiscussPage',
-    function ($scope, $rootScope, $location, $route, $routeParams, UserProfile, $sce, DiscussPage) {
-
+define(['byApp', 'byUtil', 'userTypeConfig'],
+    function(byApp, byUtil, userTypeConfig) {
+    function ProfileController($scope, $rootScope, $location, $routeParams, UserProfile, $sce, DiscussPage){
         $scope.profileViews = {};
         $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
-        $scope.userName = $routeParams.userName ? BY.validateUserName($routeParams.userName) : "Anonymous";
+        $scope.userName = $routeParams.userName ? BY.byUtil.validateUserName($routeParams.userName) : "Anonymous";
         $scope.housingFacilityId = $routeParams.housingFacilityId ? $routeParams.housingFacilityId : null;
 
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
         var pageSize = 10;
-
-        //$scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
-        //$scope.label = BY.config.profile.userType[$scope.profileType].label;
-        //$scope.isShowPosts = true;
-
-
 
         var updateMetaTags = function(){
             var metaTagParams = {
@@ -31,44 +24,61 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         var fetchProfileData = function(){
             $("#preloader").show();
             $scope.profileData = UserProfile.get({userId: $scope.profileId}, function (profile) {
-                $scope.profileData = profile.data;
-                if ($scope.profileData.userTypes.length > 0) {
-                    $scope.profileType = $scope.profileData.userTypes[0];
-                }
+                    $scope.profileData = profile.data;
+                    if ($scope.profileData.userTypes.length > 0) {
+                        $scope.profileType = $scope.profileData.userTypes[0];
+                    }
 
-                $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
-                $scope.label = BY.config.profile.userType[$scope.profileType].label;
+                    $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
+                    $scope.label = BY.config.profile.userType[$scope.profileType].label;
 
-                $scope.profileViews.leftPanel = BY.config.profile.userType[$scope.profileType].leftPanel;
-                $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
+                    if(BY.config.profile.userType[$scope.profileType].leftPanelCtrl){
+                        require([BY.config.profile.userType[$scope.profileType].leftPanelCtrl], function(leftPanelCtrl) {
+                            $scope.profileViews.leftPanel = BY.config.profile.userType[$scope.profileType].leftPanel;
+                            $scope.$apply();
+                        });
+                    }else{
+                        $scope.profileViews.leftPanel = BY.config.profile.userType[$scope.profileType].leftPanel;
+                    }
 
-                if (BY.config.profile.userType[$scope.profileType].category === '0') {
-                    $scope.isIndividualProfile = true;
-                }
 
-                if (localStorage.getItem("USER_ID") !== $scope.profileData.userId) {
-                    $scope.isAllowedToReview = true;
-                }
-                $("#preloader").hide();
-            },
-            function (error) {
-                console.log("institution profile error");
-                $("#preloader").hide();
-            });
+                    require([BY.config.profile.userType[$scope.profileType].controller], function(profileCtrl) {
+                        $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
+                        $scope.$apply();
+                    });
+
+                    if (BY.config.profile.userType[$scope.profileType].category === '0') {
+                        $scope.isIndividualProfile = true;
+                    }
+
+                    if (localStorage.getItem("USER_ID") !== $scope.profileData.userId) {
+                        $scope.isAllowedToReview = true;
+                    }
+                    $("#preloader").hide();
+                },
+                function (error) {
+                    console.log("institution profile error");
+                    $("#preloader").hide();
+                });
         };
 
 
         $scope.postsByUser = function (page, size) {
             var params = {p:page, s:size, discussType: "P", userId: $scope.profileId};
             DiscussPage.get(params, function (value) {
-                $scope.postsUser = value.data.content;
-                $scope.postsPagination = {};
-                $scope.postsPagination.totalPosts = value.data.total;
-                $scope.postsPagination.noOfPages = Math.ceil(value.data.total/value.data.size);
-                $scope.postsPagination.currentPage = value.data.number;
-                $scope.postsPagination.pageSize = pageSize;
+                if(value.data.content.length > 0){
+                    require(['discussLikeController']);
+                    require(['shareController']);
+                    $scope.postsUser = value.data.content;
+                    $scope.postsPagination = {};
+                    $scope.postsPagination.totalPosts = value.data.total;
+                    $scope.postsPagination.noOfPages = Math.ceil(value.data.total/value.data.size);
+                    $scope.postsPagination.currentPage = value.data.number;
+                    $scope.postsPagination.pageSize = pageSize;
+                    $scope.gotoHref("userPosts");
 
-                $scope.gotoHref("userPosts");
+                }
+
 
                 //$scope.postsPagination.loadMoreFunc = $scope.postsByUser;
                 //if ($scope.postsUser.length === 0) {
@@ -82,14 +92,17 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
         $scope.qaByUser = function (page, size) {
             var params = {p:page, s:size, discussType: "Q", userId: $scope.profileId};
             DiscussPage.get(params, function (value) {
-                $scope.qaUser = value.data.content;
-                $scope.qaPagination = {};
-                $scope.qaPagination.totalPosts = value.data.total;
-                $scope.qaPagination.noOfPages = Math.ceil(value.data.total/value.data.size);
-                $scope.qaPagination.currentPage = value.data.number;
-                $scope.qaPagination.pageSize = pageSize;
-
-                $scope.gotoHref("userQA");
+                if(value.data.content.length > 0){
+                    require(['discussLikeController']);
+                    require(['shareController']);
+                    $scope.qaUser = value.data.content;
+                    $scope.qaPagination = {};
+                    $scope.qaPagination.totalPosts = value.data.total;
+                    $scope.qaPagination.noOfPages = Math.ceil(value.data.total/value.data.size);
+                    $scope.qaPagination.currentPage = value.data.number;
+                    $scope.qaPagination.pageSize = pageSize;
+                    $scope.gotoHref("userQA");
+                }
 
             }, function (error) {
                 console.log(error);
@@ -103,13 +116,11 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
             $scope.qaByUser(pageNumber, pageSize);
         };
 
-        var initUserProfile = function(){
+        $scope.initUserProfile = function(){
             updateMetaTags();
             fetchProfileData();
             fetchUserPostedContent();
         };
-
-        initUserProfile();
 
         $scope.gotoHref = function (id) {
             if (id) {
@@ -119,15 +130,6 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 }
             }
         };
-
-
-        //$scope.reviewContent = function () {
-        //    // $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].reviewContentPanel;
-        //}
-        //
-        //$scope.displayProfile = function () {
-        //    $scope.profileViews.contentPanel = BY.config.profile.userType[$scope.profileType].contentPanel;
-        //}
 
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
@@ -163,7 +165,7 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 $location.path(url);
             }
         }
-        
+
         $scope.go = function($event, type, id, discussType){
             $event.stopPropagation();
             if(type === "detail"){
@@ -208,9 +210,9 @@ byControllers.controller('ProfileController', ['$scope', '$rootScope', '$locatio
                 $scope.formattedAddress = $scope.formattedAddress + " - " + address.zip;
             }
         }
+    }
 
-        //$scope.showPosts = function (param) {
-        //    $scope.isShowPosts = param;
-        //};
-
-    }]);
+    ProfileController.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'UserProfile', '$sce', 'DiscussPage'];
+    byApp.registerController('ProfileController', ProfileController);
+    return ProfileController;
+});

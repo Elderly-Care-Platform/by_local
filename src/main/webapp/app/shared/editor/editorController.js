@@ -1,5 +1,5 @@
-byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location',
-    function ($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail, $location) {
+define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
+    function EditorController($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail, $location){
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
@@ -25,9 +25,9 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
 
         //angular.element($window).bind("scroll", function() {
         //$(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-    		//$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
+        //$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
         //});
-        
+
 
         if($scope.$parent.selectedMenu){
             $scope.selectedMenuId = $scope.$parent.selectedMenu.id;
@@ -190,5 +190,9 @@ byControllers.controller('EditorController', ['$scope', '$rootScope','Discuss','
             $(".homeSlider").show();
             $scope.$parent.postSuccess();
         }
+    }
+    EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location'];
+    byApp.registerController('EditorController', EditorController);
 
-    }]);
+    return EditorController;
+});

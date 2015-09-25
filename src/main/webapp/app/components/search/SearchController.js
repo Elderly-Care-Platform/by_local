@@ -1,5 +1,6 @@
-byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', '$location', '$routeParams', 'DiscussSearchForDiscussType', 'DiscussSearch', 'ServicePageSearch', 'HousingPageSearch',  '$sce',
-    function ($scope, $rootScope, $route, $location, $routeParams, DiscussSearchForDiscussType, DiscussSearch, ServiceSearch, HousingSearch, $sce) {
+define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareController'],
+    function(byApp, byUtil, userTypeConfig, discussLikeController, shareController) {
+    function SearchController($scope, $rootScope, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce){
         $rootScope.term = $routeParams.term;
 
         //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -198,8 +199,10 @@ byControllers.controller('SearchController', ['$scope', '$rootScope', '$route', 
                 }
             }
         };
+    }
 
-    }]);
-
-
-
+    SearchController.$inject = ['$scope', '$rootScope', '$route', '$location', '$routeParams', 'DiscussSearch',
+        'ServicePageSearch', 'HousingPageSearch',  '$sce'];
+    byApp.registerController('SearchController', SearchController);
+    return SearchController;
+});

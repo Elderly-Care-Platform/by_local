@@ -1,11 +1,5 @@
- //$.ajax({url: apiPrefix +'api/v1/menu/getMenu?parentId=root', success: function(response){
- //             window.by_menu = response;
- //             angular.bootstrap(document, ["byApp"]);
- //         }});
-
-byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile',
-    function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
-
+define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(byApp, byUtil, LoginController, registrationConfig) {
+    function RegistrationController($scope, $rootScope, $http, $location, $routeParams, UserProfile){
         $scope.views = {};
         $scope.views.leftPanel = "";
         $scope.profile = null;
@@ -16,12 +10,14 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
 
         $scope.changeUsername = function (elemClassName) {
             $(".list-group-item").removeClass('active');
-            $("."+elemClassName).addClass('active');
+            $(".username").addClass('active');
+            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyUsername.html?versionTimeStamp=%PROJECT_VERSION%";
         };
         $scope.changePassword = function (elemClassName) {
             $(".list-group-item").removeClass('active');
-            $("."+elemClassName).addClass('active');
+            $(".password").addClass('active');
+            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyPassword.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
@@ -38,6 +34,7 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
         };
 
         $scope.updateLeftPanel = function(){
+            $scope.views.leftPanel = $scope.userTypeConfig.leftPanel;
             $scope.userType  = $scope.profile.userTypes[0];
             if($scope.profile.userTypes[0]===3){
                 if($scope.profile.facilities && $scope.profile.facilities.length > 0){
@@ -67,6 +64,29 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             }
         };
 
+        $scope.updateContentPanel = function(){
+            if($routeParams.changeUserName) {
+                require(["modifySignupCtrl"], function(regCtrl) {
+                    $scope.changeUsername();
+                    $scope.$apply();
+                });
+
+            } else if($routeParams.changeUserPwd){
+                require(["modifySignupCtrl"], function(regCtrl) {
+                    $scope.changePassword();
+                    $scope.$apply();
+                });
+            } else{
+                require([$scope.userTypeConfig.controller], function(regCtrl) {
+                    $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
+                    $scope.$apply();
+                    if (!$scope.views.contentPanel || $scope.views.contentPanel == "") {
+                        $scope.exit();
+                    }
+
+                });
+            }
+        };
 
         $scope.getUserProfile = function (regLevel) {
             $scope.userId = localStorage.getItem("USER_ID");
@@ -76,16 +96,15 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
                 $scope.profile = profile.data;
                 if ($scope.profile.userTypes.length > 0) {
                     $scope.userTypeConfig = BY.config.regConfig.userTypeConfig[$scope.profile.userTypes[0]];
-                    $scope.views.contentPanel = $scope.userTypeConfig.contentPanel;
-                    $scope.views.leftPanel = $scope.userTypeConfig.leftPanel;
-
                     $scope.updateLeftPanel();
-                    if (!$scope.views.contentPanel || $scope.views.contentPanel == "") {
-                        $scope.exit();
-                    }
+                    $scope.updateContentPanel();
                 } else {
-                    $scope.views.contentPanel = BY.config.regConfig.userTypeConfig[-1].contentPanel;
                     $scope.views.leftPanel = BY.config.regConfig.userTypeConfig[-1].leftPanel;
+                    require([BY.config.regConfig.userTypeConfig[-1].controller], function(regCtrl) {
+                        $scope.views.contentPanel = BY.config.regConfig.userTypeConfig[-1].contentPanel;
+                        $scope.$apply();
+                    });
+
                 }
             });
         }
@@ -117,11 +136,14 @@ byControllers.controller('RegistrationController', ['$scope', '$rootScope', '$ht
             if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
                 $scope.views.leftPanel = "app/components/signup/login/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 $scope.views.contentPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
-            } else {
+            } else{
                 $scope.getUserProfile();
             }
         };
+    }
 
+    RegistrationController.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile'];
+    byApp.registerController('RegistrationController', RegistrationController);
 
-
-    }]);
+    return RegistrationController;
+});

@@ -1,5 +1,5 @@
-byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
-    function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
+define(['byApp'], function(byApp){
+    function regIndividualCtrl($scope, $rootScope, $http, UserProfile){
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.profileImage = [];
         $scope.galleryImages = [];
@@ -37,7 +37,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
             }
         }
-        var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+        var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
 
 
         //Google location auto complete callback
@@ -250,7 +250,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             if(oldVal){
                 if(!selectedLang || selectedLang!==oldVal){
                     deletedLang = oldVal,
-                    deletedLangIdx = $scope.selectedLanguages.indexOf(deletedLang);
+                        deletedLangIdx = $scope.selectedLanguages.indexOf(deletedLang);
                 }
                 if(deletedLangIdx > -1){
                     $scope.selectedLanguages.splice(deletedLangIdx, 1);
@@ -269,7 +269,7 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
             }
             $scope.$apply();
         };
-        
+
         $scope.addLangField = function(){
             $scope.showAddNewLang = true;
         };
@@ -356,13 +356,13 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
             }
         };
-        
+
         // Default avatar
         $scope.selectDefaultImage = function(url){
             $scope.basicProfileInfo.profileImage = {}
-        	$scope.basicProfileInfo.profileImage.thumbnailImage = url;
+            $scope.basicProfileInfo.profileImage.thumbnailImage = url;
             $scope.basicProfileInfo.profileImage.titleImage = url;
-        	$scope.profileImage = [];
+            $scope.profileImage = [];
         };
 
 
@@ -438,5 +438,8 @@ byControllers.controller('regIndividualController', ['$scope', '$rootScope', '$h
                 });
             }
         }
-
-    }]);
+    }
+    regIndividualCtrl.$inject = ['$scope', '$rootScope', '$http', 'UserProfile'];
+    byApp.registerController('regIndividualCtrl', regIndividualCtrl);
+    return regIndividualCtrl;
+});

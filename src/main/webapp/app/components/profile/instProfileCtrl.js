@@ -1,6 +1,5 @@
-//DIscuss All
-byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile', '$sce',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $sce) {
+define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, reviewRateController) {
+    function InstProfileCtrl($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $sce){
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
 
@@ -28,32 +27,40 @@ byControllers.controller('InstitutionProfileController', ['$scope', '$rootScope'
             $(".by-imageGallery-item").css('cursor', 'pointer');
             $(".by-imageGallery-item").click(function(){
                 var urlPopup = $(this).attr('data-popup');
-                $(".by_modal_body").find('img').attr('src', urlPopup);              
+                $(".by_modal_body").find('img').attr('src', urlPopup);
                 $('#imagemodal').modal('show');
 
             });
         };
-        
+
         $scope.showMore = function(){
             document.getElementById("profile-desc").style.display = "block";
             document.getElementById("profile-shortDesc").style.display = "none";
         };
-        
+
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
 
-        
+
 
         $scope.showReviews = function(){
             //Get reviews by all user for this professional
             $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviews = response.data.replies;
+                if($scope.reviews.length > 0){
+                    require(['discussLikeController']);
+                    require(['shareController']);
+                }
             }, function(error){
                 console.log(error)
             })
         };
 
         $scope.showReviews();
+    }
 
-    }]);
+    InstProfileCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile', '$sce'];
+    byApp.registerController('InstProfileCtrl', InstProfileCtrl);
+    return InstProfileCtrl;
+});

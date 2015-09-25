@@ -1,5 +1,5 @@
-byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
-    function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
+define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
+    function regInstCtrl($scope, $rootScope, $http, UserProfile){
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.selectedServices = {};
         $scope.profileImage = [];
@@ -16,7 +16,7 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                 tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
             }
         }
-        var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+        var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
 
         $scope.addressCallback = function (response, addressObj) {
             $('#addressLocality').blur();
@@ -182,21 +182,6 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
         }
 
 
-        ////Get service list array out of selectedService object
-        //$scope.getServiceList = function () {
-        //    for (key in $scope.selectedServices) {
-        //        if ($scope.selectedServices[key] && $scope.selectedServices[key].parentId) {
-        //            $scope.selectedServices[$scope.selectedServices[key].parentId] = $scope.selectedServices[key];
-        //        }
-        //    }
-        //
-        //    var finalServiceList = $.map($scope.selectedServices, function (value, key) {
-        //        return key;
-        //    });
-        //
-        //    return finalServiceList;
-        //}
-
         var systemTagList = {};
         var getSystemTagList = function(data){
             function rec(data){
@@ -244,12 +229,12 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
             if ( $scope.profile.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
-            
+
             var regex = /(?:[\w-]+\.)+[\w-]+/ ;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-            	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+                $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
             }
-            
+
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
@@ -283,6 +268,8 @@ byControllers.controller('regInstitutionController', ['$scope', '$rootScope', '$
                 });
             }
         }
-
-
-    }]);
+    }
+    regInstCtrl.$inject = ['$scope', '$rootScope', '$http', 'UserProfile'];
+    byApp.registerController('regInstCtrl', regInstCtrl);
+    return regInstCtrl;
+});

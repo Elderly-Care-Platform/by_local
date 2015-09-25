@@ -1,5 +1,5 @@
-byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', '$sce',
-    function ($scope, $rootScope, $routeParams, $timeout, $location, $sce) {
+define(['byApp', 'byUtil'], function(byApp, byUtil) {
+    function BYAboutUsController($scope, $rootScope, $routeParams, $timeout, $location, $sce) {
         $scope.currentAcceleratorSelected = "";
         $scope.currentView = "aboutUs";
 
@@ -67,7 +67,10 @@ byControllers.controller('BYAboutUsController', ['$scope', '$rootScope', '$route
             document.getElementById("more").style.display = "none";
 
         }
+    }
 
+    BYAboutUsController.$inject = ['$scope', '$rootScope', '$routeParams', '$timeout', '$location', '$sce'];
+    byApp.registerController('BYAboutUsController', BYAboutUsController);
 
-
-    }]);
+    return BYAboutUsController;
+});

@@ -1,0 +1,47 @@
+<div class="by-card-shareInfo">
+    <div class="row" ng-if="linkInfo.type===0">
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content by_fullWidth">
+            <p ng-if="linkInfo.title" style="font-weight: bold">
+                <a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();">
+                    {{linkInfo.title.substring(0, 70)}}
+                </a>
+            </p>
+            <p ng-if="linkInfo.mainImage" class="shareInfo-generalImage by_fullWidth">
+            	<img ng-src="{{linkInfo.mainImage}}">
+            </p>
+            <p ng-if="linkInfo.mainImage===null && linkInfo.otherImages && linkInfo.otherImages.length > 0" class="shareInfo-generalImage">
+            	<img ng-src="{{linkInfo.otherImages[0]}}">
+            </p>
+            <p ng-if="linkInfo.description" ng-bind-html="trustForcefully(linkInfo.description.substring(0, 120))"></p>
+            <p class="linkUrl"><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
+        </div>
+        <!--  <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage" ng-if="linkInfo.mainImage">
+            <img src="{{linkInfo.mainImage}}">
+        </div>
+
+        <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage===null && linkInfo.otherImages && linkInfo.otherImages.length > 0">
+            <img src="{{linkInfo.otherImages[0]}}">
+        </div>-->
+    </div>
+    <div class="row shareInfo-image" ng-if="linkInfo.type===1">
+        <img ng-src="{{linkInfo.mainImage}}">
+    </div>
+    <div class="row shareInfo-image" ng-if="linkInfo.type===2">
+        <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content by_fullWidth">
+            <p ng-if="linkInfo.title" style="font-weight: bold">
+                <a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();">
+                    {{linkInfo.title.substring(0, 70)}}
+                </a>
+            </p>
+            <p class="shareInfo-generalImage by_fullWidth">
+            	<iframe ng-src="{{trustAsResourceUrl(linkInfo.embeddedVideo)}}" frameborder="0" allowfullscreen></iframe>
+            </p>
+            <p ng-if="linkInfo.description" ng-bind-html="trustForcefully(linkInfo.description.substring(0, 120))"></p>
+            <p class="linkUrl"><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
+        </div>
+       <!--  <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage">
+            <iframe ng-src="{{trustAsResourceUrl(linkInfo.embeddedVideo)}}" frameborder="0" allowfullscreen onload='javascript:resizeIframe(this);'>
+            </iframe>
+        </div>--> 
+    </div>
+</div>

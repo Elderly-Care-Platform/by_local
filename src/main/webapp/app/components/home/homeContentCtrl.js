@@ -1,6 +1,5 @@
-
-byControllers.controller('BYHomeContentCtrl', ['$scope', '$location', 'DiscussPage', '$sce', 'FindServices',
-    function ($scope,  $location, DiscussPage, $sce, FindServices) {
+define(['byApp'], function(byApp) {
+    function BYHomeContentCtrl($scope, DiscussPage, $sce, FindServices){
         var contentSize;
         $scope.contentType =  $scope.$parent.contentType;
         if($scope.$parent.contentType==="all"){
@@ -104,6 +103,17 @@ byControllers.controller('BYHomeContentCtrl', ['$scope', '$location', 'DiscussPa
             }
 
         };
+
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
+        };
+        $scope.trustAsResourceUrl = function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
     }
-]);
+
+    BYHomeContentCtrl.$inject = ['$scope', 'DiscussPage', '$sce', 'FindServices'];
+    byApp.registerController('BYHomeContentCtrl', BYHomeContentCtrl);
+    return BYHomeContentCtrl;
+});
 

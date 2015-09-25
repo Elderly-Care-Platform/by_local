@@ -15,6 +15,7 @@ BY.config.regConfig.userTypeConfig = {
         'type':'-1',
         'contentPanel':'app/components/signup/regUserType.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'controller' : 'regUserTypeController',
         'category':'NONE',
         'label' : "I am"
     },
@@ -22,6 +23,7 @@ BY.config.regConfig.userTypeConfig = {
         'type':'0',
         'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'controller' : 'regIndividualCtrl',
         'category':'CAREGIVER',
         'label' : "About Me"
     },
@@ -29,6 +31,7 @@ BY.config.regConfig.userTypeConfig = {
         'type':'1',
         'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'controller' : 'regIndividualCtrl',
         'category':'ELDER',
         'label' : "About Me"
     },
@@ -36,6 +39,7 @@ BY.config.regConfig.userTypeConfig = {
         'type':'2',
         'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'controller' : 'regIndividualCtrl',
         'category':'CURIOUS',
         'label' : "About Me"
     },
@@ -43,6 +47,7 @@ BY.config.regConfig.userTypeConfig = {
         'type':'3',
         'contentPanel':'app/components/signup/registration/regHousing.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'controller' : 'regHousingCtrl',
         'category':'HOUSING',
         'label' : "Housing"
     },
@@ -50,6 +55,7 @@ BY.config.regConfig.userTypeConfig = {
         'type':'4',
         'contentPanel':'app/components/signup/registration/regInstitution.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'controller' : 'regInstitutionCtrl',
         'category':'SERVICES',
         'label' : "Institution info"
     },
@@ -69,6 +75,7 @@ BY.config.regConfig.userTypeConfig = {
         'type':'7',
         'contentPanel':'app/components/signup/registration/regProfessional.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
+        'controller' : 'regProfessionalCtrl',
         'category':'PROFESSIONAL',
         'label' : "Professional Info"
     }

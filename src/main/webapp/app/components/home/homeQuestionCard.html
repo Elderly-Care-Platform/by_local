@@ -14,8 +14,12 @@
         <!-- show if discuss is of type Article -->
         <div ng-click="go($event, 'id', question.id, question.discussType)" data-index="discussion-articles"
              class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
-            <img src="{{question.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-                 fallback-src='["assets/img/by.png"]' alt="image">
+
+            <img ng-if="question.userProfile && question.userProfile.basicProfileInfo.profileImage"
+                 ng-src="{{question.userProfile.basicProfileInfo.profileImage.thumbnailImage|| ''}}"
+                 fallback-src='["assets/img/by.png"]' alt="profileImage">
+
+            <img ng-if="!article.userProfile || !question.userProfile.basicProfileInfo.profileImage" ng-src="assets/img/by.png" alt="profileImage">
 
             <div class="article-info dp-inline-block">
                 <ul class="list-inline posted-info" style="margin-right:80px !important;">
@@ -34,7 +38,13 @@
                     <li ng-repeat="topicId in question.topicId">
                         <p class="first-letter-uc by-systemTags">
                             <span ng-if="$index > 0">|</span>
-                            <a ng-click="go($event,'menu', topicId)">
+                            <a ng-if="$root.menuCategoryMap[topicId].module===0"
+                               ng-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">
+                                {{$root.menuCategoryMap[topicId].displayMenuName}}
+                            </a>
+
+                            <a ng-if="$root.menuCategoryMap[topicId].module===1"
+                               ng-href="#!/services/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">
                                 {{$root.menuCategoryMap[topicId].displayMenuName}}
                             </a>
                         </p>
@@ -61,7 +71,7 @@
             <div class="article-share-links news-v3 by-social-border" style="position: relative;top: 0px;">
                 <ul class="post-shares post-shares-lg">
                     <li class="add-comment" ng-if="question.directReplyCount > 0">
-                        <a>
+                        <a ng-href="#!/discuss/{{question.id}}/" ng-click="$event.stopPropagation();">
                             <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
                             <span>{{question.directReplyCount}}</span>
 
@@ -70,10 +80,9 @@
                     </li>
 
                     <li class="add-comment add-comment-FA" ng-if="question.directReplyCount == 0">
-                        <a>
+                        <a ng-href="#!/discuss/{{question.id}}/true;" ng-click="$event.stopPropagation();">
                             <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
-
-                            <div class="text" ng-click="go($event,'comment', question.id)">Be the first to answer</div>
+                            <div class="text">Be the first to answer</div>
                         </a>
                     </li>
 

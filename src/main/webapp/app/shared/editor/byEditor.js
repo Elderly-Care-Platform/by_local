@@ -1,8 +1,9 @@
 
 var BY = BY || {};
+BY.byEditor = {};
 BY.textAreas = [];
 
-BY.removeEditor = function(){
+BY.byEditor.removeEditor = function(){
     var textAreas = $("textarea");
     for (var i = 0; i < textAreas.length; i++) {
         //Check if element already has editor enabled
@@ -18,7 +19,7 @@ BY.removeEditor = function(){
     }
 }
 
-BY.addEditor = function(param, initCallback){
+BY.byEditor.addEditor = function(param, initCallback){
     if (tinymce.get(param.editorTextArea)){
         tinyMCE.execCommand("mceRemoveEditor", false, param.editorTextArea);
     }
@@ -130,7 +131,7 @@ BY.addEditor = function(param, initCallback){
 }
 
 
-BY.editorCategoryList = (function(){
+BY.byEditor.editorCategoryList = (function(){
     var selectedCategoryList = {};
     return {
         selectCategory:function(selectedInput){
@@ -170,10 +171,4 @@ BY.editorCategoryList = (function(){
     }
 })();
 
-BY.validateUserName = function(userName){
-    if(!userName || userName.trim()==="" ||  userName==="null"){
-        userName = "Anonymous";
-    }
-    return userName;
-}
 

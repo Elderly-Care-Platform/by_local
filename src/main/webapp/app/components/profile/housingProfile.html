@@ -1,4 +1,4 @@
-<div class="row  grayRegisterBgLight " style="background:transparent;" ng-controller="housingProfileController">
+<div class="row  grayRegisterBgLight " style="background:transparent;" ng-controller="housingProfileCtrl">
     <!-- Modal -->
     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 whiteBg   margin-bottom-35" style="border-radius:4px !important;">
+    <div class="col-md-12 whiteBg by_profileDetail   margin-bottom-35" style="border-radius:4px !important;">
         <div class="col-md-12 profileContainer  white-gray ">
             <div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;" ng-if="housingFacilityId">
                 <div class="main-image white-gray " style="padding-left:0px;">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <div ng-if="housingFacilityId" class="col-md-7 col-xs-7 by_fullWidthRight by_fullWidthRight_extra by-service-padding no-padding">
+            <div ng-if="housingFacilityId" class="col-md-7 col-xs-7 by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
                 <div class="profileMainContent">
                     <div class="profileContentTitle" ng-if="facility.name">
                         {{facility.name}}
@@ -132,8 +132,7 @@
                                rate-calculator="{{institutionProfile.ratingPercentage}}"></i>
                         </div>
                         <div class="divRight">
-                            Rated by <a href="">{{institutionProfile.ratingCount}} user
-                            <xy ng-if="institutionProfile.ratingCount > 1">s</xy>
+                            Rated by <a href="">{{institutionProfile.ratingCount}} user<xy ng-if="institutionProfile.ratingCount > 1">s</xy>
                         </a>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
@@ -155,9 +154,9 @@
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="divRight">
-                            <span>{{facility.primaryPhoneNo}}</span>
+                            <span><a href="tel:{{facility.primaryPhoneNo}}">{{facility.primaryPhoneNo}}</a></span>
                             <span ng-repeat="phoneNo in facility.secondaryPhoneNos"
-                                  ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
+                                  ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
                     </div>
@@ -235,7 +234,7 @@
                 </div>
 				<div style="clear: both; height: 22px;"></div>
 			
-				<div class="col-md-5 col-xs-5 by_fullWidth"
+				<div class="col-md-5 col-xs-5 by_profileWidth"
                      style="margin-right: 20px;">
                     <div class="main-image white-gray " style="padding-left: 0px;">
                         <img class="padding-zero"
@@ -247,7 +246,7 @@
 
 
 
-				<div class="col-md-7 col-xs-7 by_fullWidthRight by_fullWidthRight_extra by-service-padding no-padding">
+				<div class="col-md-7 col-xs-7 by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
                     <div class="profileContentTitle" ng-if="housingProfile.basicProfileInfo.firstName">
                         {{housingProfile.basicProfileInfo.firstName}}
                         <div style="clear: both; height: 6px;"></div>

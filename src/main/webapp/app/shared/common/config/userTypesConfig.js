@@ -7,6 +7,7 @@ BY.config.profile.userType = {
         'category':'0',
         'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'controller':'indvUserProfileCtrl',
         'type':'CAREGIVER',
         'label':'Personal Story'
     },
@@ -14,6 +15,7 @@ BY.config.profile.userType = {
         'category':'0',
         'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'controller':'indvUserProfileCtrl',
         'type':'ELDER',
         'label':'Personal Story'
     },
@@ -21,6 +23,7 @@ BY.config.profile.userType = {
         'category':'0',
         'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/indvUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'controller':'indvUserProfileCtrl',
         'type':'VOLUNTEER',
         'label':'Personal Story'
     },
@@ -28,6 +31,8 @@ BY.config.profile.userType = {
         'category':'1',
         'leftPanel':'app/components/profile/housingProfileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/housingProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'controller':'housingProfileCtrl',
+        'leftPanelCtrl':'housingProfileLeftCtrl',
         'reviewContentType':'6',
         'type':'HOUSING',
         'label':'Corporate'
@@ -36,7 +41,7 @@ BY.config.profile.userType = {
         'category':'1',
         'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/instProfile.html?versionTimeStamp=%PROJECT_VERSION%',
-        //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
+        'controller':'instProfileCtrl',
         'type':'SERVICES',
         'reviewContentType':'4',
         'profileImage':'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%',
@@ -56,7 +61,7 @@ BY.config.profile.userType = {
         'category':'0',
         'leftPanel':'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel':'app/components/profile/profUserProfile.html?versionTimeStamp=%PROJECT_VERSION%',
-        //'reviewContentPanel':'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%',
+        'controller':'profUserProfileCtrl',
         'type':'PROFESSIONAL',
         'reviewContentType':'5',
         'profileImage':'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%',

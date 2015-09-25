@@ -1,4 +1,4 @@
-<div ng-controller="ProfessionalUserProfileController">
+<div ng-controller="ProfUserProfileCtrl">
 	<!-- Modal -->
 	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
@@ -20,9 +20,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12 whiteBg  margin-bottom-35" style="border-radius:4px !important;" ng-init="individualProfile.showMoreServices=false">
+	<div class="col-md-12 whiteBg by_profileDetail  margin-bottom-35" style="border-radius:4px !important;" ng-init="individualProfile.showMoreServices=false">
 		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
-			<div class="col-md-5 col-xs-5 by_fullWidth">
+			<div class="col-md-5 col-xs-5 by_profileWidth">
 				<div class="main-image white-gray " style="padding-left:0px;">
 					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
 						src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"
@@ -54,7 +54,7 @@
 				</div>
 				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-7 col-xs-7 by_fullWidthRight by-service-padding">
+			<div class="col-md-7 col-xs-7 by_profileInfoWidth by-service-padding">
 				<div class="profileMainContent">
 					<div class="profileContentTitle">
 						<span ng-if="gender">{{gender}}</span> <span
@@ -102,10 +102,10 @@
 					<div class="no-padding">									
 						<div class="no-padding"
 							ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">
-							<i class="fa fa-phone" style="margin-right:9px;"></i> <span>{{individualProfile.basicProfileInfo.primaryPhoneNo}}</span>
+							<i class="fa fa-phone" style="margin-right:9px;"></i> <span><a href="tel:{{individualProfile.basicProfileInfo.primaryPhoneNo}}">{{individualProfile.basicProfileInfo.primaryPhoneNo}}</a></span>
 							<span
 								ng-repeat="phoneNo in individualProfile.basicProfileInfo.secondaryPhoneNos"
-								ng-if="phoneNo.trim()!==''"> , {{phoneNo}} </span>
+								ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
 						</div>
 						<div style="clear: both; height: 5px;"></div>
 						<div class="no-padding" ng-if="individualProfile.basicProfileInfo.primaryEmail">

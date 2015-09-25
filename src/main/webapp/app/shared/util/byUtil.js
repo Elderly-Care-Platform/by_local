@@ -125,6 +125,7 @@ BY.byUtil.updateMetaTags = function(param){
 }
 
 
+
 BY.byUtil.getImage = function(sharedObj){
 	var picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "";
 	if(picture && picture!==""){
@@ -139,10 +140,11 @@ BY.byUtil.getImage = function(sharedObj){
 	return picture;
 }
 
-function resizeIframe(obj) {
-   // obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-    //console.log(parent.obj);
-   // var iframeHeightA = $(".by-quad-image").innerWidth() / 2;
-	//$(".by-quad-image iframe").attr('height', iframeHeightA);
-  }
+BY.byUtil.validateUserName = function(userName){
+	if(!userName || userName.trim()==="" ||  userName==="null"){
+		userName = "Anonymous";
+	}
+	return userName;
+}
+
 

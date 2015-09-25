@@ -2,22 +2,21 @@
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1" id="sidebar-nav">
-        	
-            <li class="list-group-item  username" ng-click="changeUsername('username')" style="border:0px;">
-                <a>Change Username</a>
+            <li class="list-group-item  username" style="border:0px;">
+                <a href="#!/users/registration/changeCredential?changeUserName=true">Change Username</a>
             </li>
-            <li class="list-group-item password" ng-click="changePassword('password')" style="border:0px;">
-                <a>Change Password</a>
+            <li class="list-group-item password" style="border:0px;">
+                <a href="#!/users/registration/changeCredential?changeUserPwd=true">Change Password</a>
             </li>
+
             <li style="border:0px;" class="list-group-item reg-menu-1 active"
                 ng-if="profile && profile.userTypes && profile.userTypes.length===0"
                 ng-click="editUserProfile('reg-menu-1')">
                 <a>I am...</a>
             </li>
             <li style="border:0px;" class="list-group-item reg-menu-1 active"
-                ng-if="sectionLabel"
-                ng-click="editUserProfile('reg-menu-1')">
-                <a>{{sectionLabel}}</a>
+                ng-if="sectionLabel">
+                <a href="#!/users/registrationProfile">{{sectionLabel}}</a>
             </li>
             <li style="border:0px;" class="list-group-item  reg-menu-1 housingTab{{$index+1}}"
                 ng-if="housingFacilityTabs.length > 0"

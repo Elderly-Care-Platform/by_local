@@ -104,9 +104,13 @@ define(['byApp',
                             $scope.discussPagination.currentPage = value.data.number;
                             $scope.discussPagination.pageSize = $scope.pageSize;
 
+                            if($scope.discussList.length === 0){
+                                $("#preloader").hide();
+                            }
                         },
                         function (error) {
                             console.log("DiscussAllForDiscussType");
+                            $("#preloader").hide();
                             alert("error");
                         });
                 }

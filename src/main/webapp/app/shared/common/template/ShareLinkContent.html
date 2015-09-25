@@ -6,7 +6,7 @@
                     {{linkInfo.title.substring(0, 70)}}
                 </a>
             </p>
-            <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 120)}}</p>
+            <p ng-if="linkInfo.description" ng-bind-html="trustForcefully(linkInfo.description.substring(0, 120))"></p>
             <p class="linkUrl"><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage" ng-if="linkInfo.mainImage">
@@ -27,7 +27,7 @@
                     {{linkInfo.title.substring(0, 70)}}
                 </a>
             </p>
-            <p ng-if="linkInfo.description">{{linkInfo.description.substring(0, 120)}}</p>
+            <p ng-if="linkInfo.description" ng-bind-html="trustForcefully(linkInfo.description.substring(0, 120))"></p>
             <p class="linkUrl"><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage">

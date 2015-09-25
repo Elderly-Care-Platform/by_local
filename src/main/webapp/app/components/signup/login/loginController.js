@@ -67,6 +67,7 @@ define(['byUtil'], function(byApp, byUtil){
         })();
 
         $scope.modalLoginInit = function(){
+
             $scope.formState = 0;
             $rootScope.loginFormState=0;
             $('#myModalHorizontal').on('hidden.bs.modal', function () {
@@ -85,6 +86,8 @@ define(['byUtil'], function(byApp, byUtil){
 
                 $scope.resetError();
             })
+
+            $('#myModalHorizontal').modal('show');
         };
 
         $scope.showForm = function(formId){

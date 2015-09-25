@@ -1,5 +1,5 @@
-byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', 'SessionIdService',
-    function ($scope, $rootScope, $http, SessionIdService) {
+define(['byApp', 'byUtil'], function(byApp, byUtil) {
+    function modifySignUpCtrl($scope, $rootScope, $http, SessionIdService){
         $scope.userCredential = {};
         $scope.userCredential.userName = localStorage.getItem("USER_NAME");
         $scope.userCredential.password = "";
@@ -10,30 +10,30 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
             $scope.userCredential.userName = "";
         }
         $scope.modifyUserCredential = function(){
-        	$scope.userCredential.signUpErorr = "";
+            $scope.userCredential.signUpErorr = "";
             var newUserCredential = {
                 "id" : $scope.$parent.userId
             }
-            
+
             if($scope.changePwd){
-            	if(!$scope.userCredential.password){
-               	 	$scope.userCredential.signUpErorr = "Password can not be empty";
-            	} else if($scope.userCredential.password && $scope.userCredential.password.trim().length < 6){
-                   $scope.userCredential.signUpErorr = "Password must be at least 6 character";
-            	}  else{
+                if(!$scope.userCredential.password){
+                    $scope.userCredential.signUpErorr = "Password can not be empty";
+                } else if($scope.userCredential.password && $scope.userCredential.password.trim().length < 6){
+                    $scope.userCredential.signUpErorr = "Password must be at least 6 character";
+                }  else{
                     newUserCredential.password = $scope.userCredential.password;
-                   $scope.userCredential.signUpErorr = "";
-            	}
+                    $scope.userCredential.signUpErorr = "";
+                }
             }else{
                 newUserCredential.userName = $scope.userCredential.userName;
-            	$scope.userCredential.signUpErorr = "";
+                $scope.userCredential.signUpErorr = "";
             }
-            
+
 
             if($scope.userCredential.signUpErorr===""){
                 $http.post(apiPrefix +'api/v1/users/', newUserCredential)
                     .success(function (response) {
-                    	$scope.showSuccessMsg = true;                                            	
+                        $scope.showSuccessMsg = true;
                         $scope.setUserCredential(response.data);
                     }).error(function (error) {
                         console.log(error);
@@ -50,7 +50,7 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
                 localStorage.setItem("USER_NAME", login.userName);
 
                 var pro = document.getElementById('profile_placeholder');
-                pro.innerHTML = BY.validateUserName(login.userName);
+                pro.innerHTML = BY.byUtil.validateUserName(login.userName);
 
                 $scope.$parent.userName = login.userName;
             }
@@ -63,6 +63,9 @@ byControllers.controller('modifySignUpCtrl', ['$scope', '$rootScope', '$http', '
         $scope.exit = function(){
             $scope.$parent.exit();
         };
+    }
 
-    }]
-)
+    modifySignUpCtrl.$inject = ['$scope', '$rootScope', '$http', 'SessionIdService'];
+    byApp.registerController('modifySignUpCtrl', modifySignUpCtrl);
+    return modifySignUpCtrl;
+});

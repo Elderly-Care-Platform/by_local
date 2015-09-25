@@ -1,8 +1,8 @@
 /**
  * Created by sanjukta on 01-07-2015.
  */
-byControllers.controller('contactUsController', ['$scope', '$routeParams', '$location', 'ContactUs','$route',
-    function($scope, $routeParams, $location, ContactUs, $route) {
+define(['byApp', 'byUtil'], function(byApp, byUtil) {
+    function contactUsController($scope, $routeParams, $location, ContactUs){
         $scope.isLoggedIn = false;
         $scope.userEmail ='';
         $scope.username = '';
@@ -12,7 +12,7 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
         if(localStorage.getItem("USER_ID")){
             $scope.isLoggedIn = true;
             $scope.userEmail = localStorage.getItem("USER_ID");
-            $scope.username = BY.validateUserName(localStorage.getItem("USER_NAME"));
+            $scope.username = BY.byUtil.validateUserName(localStorage.getItem("USER_NAME"));
         }
 
         (function(){
@@ -48,19 +48,23 @@ byControllers.controller('contactUsController', ['$scope', '$routeParams', '$loc
             }else{
                 $scope.errorMsg = "";
             }
-            
+
             if($scope.errorMsg === ""){
                 $scope.errorMsg = "";
                 $scope.contactUs.$save( //success
-                		function (value) {
-                            $location.path("/users/home");
-                        },
-                        //error
-                        function( error ){
-                        	console.log("QUErY ERROR");
+                    function (value) {
+                        $location.path("/users/home");
+                    },
+                    //error
+                    function( error ){
+                        console.log("QUErY ERROR");
 //                        	alert("error2");
-                		});
+                    });
             }
         }
+    }
 
-    }]);
+    contactUsController.$inject = ['$scope', '$routeParams', '$location', 'ContactUs'];
+    byApp.registerController('contactUsController', contactUsController);
+    return contactUsController;
+});

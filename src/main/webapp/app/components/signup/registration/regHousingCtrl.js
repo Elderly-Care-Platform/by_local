@@ -1,5 +1,5 @@
-byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
-    function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
+define(['byApp', 'byUtil', 'regHousingFacilityCtrl'], function(byApp, byUtil, regHousingFacilityCtrl) {
+    function regHousingCtrl($scope, $rootScope, $http, $location, $routeParams, UserProfile){
         $scope.userId = localStorage.getItem("USER_ID");
         //$scope.profileImage = [];
         //$scope.galleryImages = [];
@@ -8,19 +8,19 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
         $scope.views = {};
         $scope.addFacility = false;
         $scope.facilityIndex = 0;
-       
-    	$scope.showAddressButton = function(){
-    		if ($(".showAddress").css('display')=='none') 
-    		{
-    			$(".showAddress").show();
-    			$(".showAddressButton").val('- Hide Address');
-    		}
-    		else
-    		{
-    			$(".showAddress").hide();
-    			$(".showAddressButton").val('+ Add Address');
-    		}
-    	};
+
+        $scope.showAddressButton = function(){
+            if ($(".showAddress").css('display')=='none')
+            {
+                $(".showAddress").show();
+                $(".showAddressButton").val('- Hide Address');
+            }
+            else
+            {
+                $(".showAddress").hide();
+                $(".showAddressButton").val('+ Add Address');
+            }
+        };
 
         //var editorInitCallback = function(){
         //    if(tinymce.get("facilityDescription") && $scope.facility && $scope.facility.description){
@@ -75,15 +75,15 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
 
-            
+
             if($scope.profile.facilities.length > 0){
-            	for(var i=0; i < $scope.profile.facilities.length; i++){
-                	if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
-                		$scope.profile.facilities.splice(i, 1);
-                	}
+                for(var i=0; i < $scope.profile.facilities.length; i++){
+                    if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
+                        $scope.profile.facilities.splice(i, 1);
+                    }
                 }
             }
-            
+
             if ($scope.basicProfileInfo.primaryUserAddress && $scope.basicProfileInfo.primaryUserAddress.country === null) {
                 $scope.basicProfileInfo.primaryUserAddress.country = "India";
             }
@@ -127,7 +127,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             });
         }
 
-      
+
 
         //Get location details based on pin code
         $scope.getLocationByPincode = function (element) {
@@ -152,13 +152,12 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
         };
 
 
-        $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();  //Apply bootstrap toggle for house visit option
         function addressFormat(index) {
             return {
                 "index": index, "city": "", "zip": "", "locality": "", "landmark": "", "address": ""
             }
         }
-        
+
 
         //Add secondary phone numbers
         $scope.addPhoneNumber = function () {
@@ -184,7 +183,7 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
             }
         }
 
-       
+
 
         //Post individual form
         $scope.postUserProfile = function (isValidForm, addAnotherFacility) {
@@ -207,12 +206,12 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
                         return value;
                     }
                 });
-                
+
                 if($scope.profile.facilities.length > 0){
-                	for(var i=0; i < $scope.profile.facilities.length; i++){
-                    	if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
-                    		$scope.profile.facilities.splice(i, 1);
-                    	}
+                    for(var i=0; i < $scope.profile.facilities.length; i++){
+                        if(!$scope.profile.facilities[i] || $scope.profile.facilities[i]==null){
+                            $scope.profile.facilities.splice(i, 1);
+                        }
                     }
                 }
 
@@ -238,20 +237,8 @@ byControllers.controller('regHousingController', ['$scope', '$rootScope', '$http
                 });
             }
         }
-        
-        //// Adding another faciltiy
-        //$scope.addNewFacilty = function(){
-        //    $scope.views.corporateFormView = "";
-        //    var facilityObj = (JSON.parse(JSON.stringify(BY.config.regConfig.housingFacility))) ;
-        //    $scope.profile.facilities.push(facilityObj);
-        //
-        //    $scope.facility = $scope.profile.facilities[$scope.profile.facilities.length-1];
-        //    $scope.views.corporateFormView = "";
-        //
-        //    var content=angular.element('#newFacility');
-        //    var scope=content.scope();
-        //    $compile(content)(scope);
-        //};
-        
-
-    }]);
+    }
+    regHousingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile'];
+    byApp.registerController('regHousingCtrl', regHousingCtrl);
+    return regHousingCtrl;
+});

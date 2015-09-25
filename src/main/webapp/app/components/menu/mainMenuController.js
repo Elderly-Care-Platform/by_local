@@ -1,8 +1,9 @@
 /**
  * Created by sanjukta on 08-07-2015.
  */
-byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$location', '$routeParams','BYMenu','broadCastMenuDetail','$window',
-    function ($scope, $rootScope, $location, $routeParams, BYMenu, broadCastMenuDetail, $window) {
+define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
+    'use strict';
+    function MainMenuController($scope, $rootScope, $location, $routeParams, BYMenu, broadCastMenuDetail, $window) {
         var categoryId = "", discussCategoryLevel = 0;
 
         $scope.mainMenu = window.by_menu;
@@ -297,5 +298,8 @@ byControllers.controller('MainMenuController', ['$scope', '$rootScope', '$locati
                 }
             }
         });
+    }
 
-    }]);
+    MainMenuController.$inject=['$scope', '$rootScope', '$location', '$routeParams','BYMenu','broadCastMenuDetail','$window'];
+    return MainMenuController;
+});

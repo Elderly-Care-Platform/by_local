@@ -1,6 +1,6 @@
-byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService','ValidateUserCredential',
-    function ($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
-		window.scrollTo(0, 0);
+define(['byUtil'], function(byApp, byUtil){
+    function LoginController($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
+        window.scrollTo(0, 0);
 
         $scope.user = {};
         $scope.user.email = '';
@@ -8,7 +8,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.newUser = new User();
         $scope.formState = 0;
-        
+
 
         $scope.resetPwd = {};
         $scope.resetPwd.email = '';
@@ -18,42 +18,42 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
         $scope.pwdError = "";
         $scope.emailError = "";
 
-        
+
         if($routeParams.resetPasswordCode){
-        	verifyPasswordCode($routeParams.resetPasswordCode);
+            verifyPasswordCode($routeParams.resetPasswordCode);
         }
-        
+
         var socialCallback = function(e){
-        		socialRegistration(e.data);
-        		$scope.resetError();
-        	  window.removeEventListener("message", socialCallback, false);
-        	}
-        	
-        
+            socialRegistration(e.data);
+            $scope.resetError();
+            window.removeEventListener("message", socialCallback, false);
+        }
+
+
         function verifyPasswordCode(passCode){
             $(".by_resetPwd_btn").prop("disabled", true);
-        	$http.get("api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
-        		$scope.resetPasswordCode = $routeParams.resetPasswordCode;
+            $http.get("api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
+                $scope.resetPasswordCode = $routeParams.resetPasswordCode;
                 $(".by_resetPwd_btn").prop("disabled", false);
-        	}).error(function(errorRes){
-        		console.log(errorRes);
+            }).error(function(errorRes){
+                console.log(errorRes);
                 $scope.resetPwd.error = errorRes.error.errorMsg;
                 $(".by_resetPwd_btn").prop("disabled", true);
-        	})
+            })
         }
 
         $scope.fbLogin = function(){
-        	$http.get("api/v1/users/getFbURL").success(function(res){
-        		window.addEventListener("message", socialCallback);
-        		var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
-        		var timer = setInterval(checkChild, 500);
-        		function checkChild() {
-        		    if (child.closed) {
-        		    	window.removeEventListener("message", socialCallback);
-        		        clearInterval(timer);
-        		    }
-        		}
-        	})
+            $http.get("api/v1/users/getFbURL").success(function(res){
+                window.addEventListener("message", socialCallback);
+                var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
+                var timer = setInterval(checkChild, 500);
+                function checkChild() {
+                    if (child.closed) {
+                        window.removeEventListener("message", socialCallback);
+                        clearInterval(timer);
+                    }
+                }
+            })
         };
 
         (function(){
@@ -93,24 +93,24 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             ValidateUserCredential.login();
         };
 
-        
+
         $scope.ggLogin = function(){
-        	$http.get("api/v1/users/getGgURL").success(function(res){
-        		window.addEventListener("message", socialCallback);
-        		var child = window.open(res.data, 'Google Login','width=500,height=500');
-        		var timer = setInterval(checkChild, 500);
-        		function checkChild() {
-        		    if (child.closed) {
-        		    	window.removeEventListener("message", socialCallback);
-        		        clearInterval(timer);
-        		    }
-        		}
-        	})
+            $http.get("api/v1/users/getGgURL").success(function(res){
+                window.addEventListener("message", socialCallback);
+                var child = window.open(res.data, 'Google Login','width=500,height=500');
+                var timer = setInterval(checkChild, 500);
+                function checkChild() {
+                    if (child.closed) {
+                        window.removeEventListener("message", socialCallback);
+                        clearInterval(timer);
+                    }
+                }
+            })
         };
-        
+
         var socialRegistration = function(loginReg){
             if (loginReg.body.data.sessionId === null) {
-            	$http.defaults.headers.common.sess = "";
+                $http.defaults.headers.common.sess = "";
                 $scope.setError(loginReg.body.data.status);
                 return;
             }
@@ -134,7 +134,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             $http.post(apiPrefix + 'api/v1/users/login', user).success(function (res) {
                 var login = res.data;
                 if (login.sessionId === null) {
-                	$http.defaults.headers.common.sess = "";
+                    $http.defaults.headers.common.sess = "";
                     $scope.setError(login.status);
                     return;
                 }
@@ -173,7 +173,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
             if($scope.pwdError==="" && $scope.emailError===""){
                 $(".register-btn").prop("disabled", true);
                 $scope.newUser.$save(function (response) {
-                	var login = response.data;
+                    var login = response.data;
                     $scope.createUserSuccess = "User registered successfully";
                     $scope.createUserError = '';
                     $scope.setUserCredential(login, "reg2");
@@ -211,7 +211,7 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
         $scope.setUserCredential = function(login, nextLocation){
             if ("localStorage" in window) {
-            	SessionIdService.setSessionId(login.sessionId);
+                SessionIdService.setSessionId(login.sessionId);
                 $http.defaults.headers.common.sess = login.sessionId;
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
@@ -223,8 +223,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
 
                 var pro = document.getElementById('profile_placeholder');
                 var userName = localStorage.getItem("USER_NAME");
-                pro.innerHTML = BY.validateUserName(userName);
-                pro.href = apiPrefix + "#!/users/login/"; //******************* to be removed*************//
+                pro.innerHTML = BY.byUtil.validateUserName(userName);
+                pro.href = apiPrefix + "#!/users/registrationProfile/"; //******************* to be removed*************//
             }
             else {
                 $scope.setError('Browser does not support cookies');
@@ -269,5 +269,8 @@ byControllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$
                 });
             }
         }
+    }
 
-    }]);
+    LoginController.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService','ValidateUserCredential'];
+    return LoginController;
+});

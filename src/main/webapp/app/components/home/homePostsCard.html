@@ -13,8 +13,11 @@
         <!-- show if discuss is of type Article -->
         <div ng-click="go($event, 'id', article.id, article.discussType)" data-index="discussion-articles"
              class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative;">
-            <img src="{{article.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
+            <img ng-if="article.userProfile && article.userProfile.basicProfileInfo.profileImage"
+                 ng-src="{{article.userProfile.basicProfileInfo.profileImage.thumbnailImage|| ''}}"
                  fallback-src='["assets/img/by.png"]' alt="image">
+
+            <img ng-if="!article.userProfile || !article.userProfile.basicProfileInfo.profileImage" ng-src="assets/img/by.png" alt="image">
 
             <div class="article-info dp-inline-block">
                 <ul class="list-inline posted-info">
@@ -34,7 +37,18 @@
                     <li ng-repeat="topicId in article.topicId">
                         <p class="first-letter-uc by-systemTags">
                             <span ng-if="$index > 0">|</span>
-                            <a ng-click="go($event,'menu', topicId)">
+                            <a ng-if="$root.menuCategoryMap[topicId].module===0"
+                               ng-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">
+                                {{$root.menuCategoryMap[topicId].displayMenuName}}
+                            </a>
+
+                            <a ng-if="$root.menuCategoryMap[topicId].module===1"
+                               ng-href="#!/services/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">
+                                {{$root.menuCategoryMap[topicId].displayMenuName}}
+                            </a>
+
+                            <a ng-if="$root.menuCategoryMap[topicId].module===2"
+                               ng-href="#!/housing/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">
                                 {{$root.menuCategoryMap[topicId].displayMenuName}}
                             </a>
                         </p>
@@ -49,11 +63,9 @@
                 </div>
             </div>
 
-            <div class="by-quad-image col-md-12">
-                <img ng-if="article.discussType == 'P'" src="{{article.articlePhotoFilename.titleImage||''}}"
-                     alt="image"
-                     fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
-
+            <div class="by-quad-image col-md-12" ng-if="article.articlePhotoFilename.original">
+                <img ng-if="article.discussType == 'P'" ng-src="{{article.articlePhotoFilename.titleImage||''}}"
+                     alt="image" fallback-src='["{{article.articlePhotoFilename.original||""}}"]'>
                 <div style="clear: both"></div>
             </div>
             <div style="clear: both"></div>
@@ -74,7 +86,7 @@
                 <ul class="post-shares post-shares-lg">
                     <li class="add-comment"
                         ng-if="article.aggrReplyCount > 0 && (article.discussType == 'P')">
-                        <a>
+                        <a ng-href="#!/discuss/{{article.id}}/" ng-click="$event.stopPropagation();">
                             <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                             <span>{{article.aggrReplyCount}}</span>
 
@@ -83,12 +95,9 @@
                     </li>
                     <li class="add-comment add-comment-FC"
                         ng-if="article.aggrReplyCount == 0 && (article.discussType == 'P')">
-                        <a>
+                        <a ng-href="#!/discuss/{{article.id}}/true" ng-click="$event.stopPropagation();">
                             <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-
-                            <div class="text"
-                                 ng-click="go($event,'comment', article.id)">Be the first to comment
-                            </div>
+                            <div class="text">Be the first to comment</div>
                         </a>
                     </li>
 
@@ -102,8 +111,9 @@
                                ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]"
                                title="Likes"></i>
                             <span ng-if="beforePost && article.aggrLikeCount > 0">{{article.aggrLikeCount}}</span>
-                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0"
-                                >{{aggrLikeCount}}</span>
+                            <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">
+                                {{aggrLikeCount}}
+                            </span>
                         </a>
 
                         <div class="post-text">

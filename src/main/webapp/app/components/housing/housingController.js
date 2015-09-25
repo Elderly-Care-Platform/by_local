@@ -1,8 +1,5 @@
-//DIscuss All
-byControllers.controller('HousingController', ['$scope', '$rootScope', '$location', '$route', '$routeParams',  
-                                               '$sce', 'broadCastMenuDetail', '$http','FindHousing',
-    function ($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing) {
-
+define(['byApp', 'byUtil'], function(byApp, byUtil) {
+    function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing){
         var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
         $scope.housingViews = {};
@@ -17,15 +14,15 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
 
         if($scope.selectedMenu){
-        	 (function(){
-                 var metaTagParams = {
-                     title:  $scope.selectedMenu.displayMenuName,
-                     imageUrl:   "",
-                     description:   "",
-                     keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
-                 }
-                 BY.byUtil.updateMetaTags(metaTagParams);
-             })();
+            (function(){
+                var metaTagParams = {
+                    title:  $scope.selectedMenu.displayMenuName,
+                    imageUrl:   "",
+                    description:   "",
+                    keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+            })();
             $(".selected-dropdown").removeClass("selected-dropdown");
             $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
 
@@ -42,16 +39,16 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
         $scope.getData = function () {
             $("#preloader").show();
             FindHousing.get(queryParams, function (housing) {
-            	if (housing) {
-                    $scope.housing = housing.data.content;
-                    $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
-                    $scope.pageInfo.isQueryInProgress = false;
-                    $("#preloader").hide();
-                }
-            },
-            function (error) {
-            	console.log(error);
-            });
+                    if (housing) {
+                        $scope.housing = housing.data.content;
+                        $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
+                        $scope.pageInfo.isQueryInProgress = false;
+                        $("#preloader").hide();
+                    }
+                },
+                function (error) {
+                    console.log(error);
+                });
         };
 
         $scope.fixedMenuInitialized = function(){
@@ -104,17 +101,17 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
                 queryParams.s = $scope.pageInfo.size;
 
                 FindHousing.get(queryParams, function (housing) {
-                	if (housing.data.content.length > 0) {
-                        $scope.housing = $scope.housing.concat(housing.data.content);
+                        if (housing.data.content.length > 0) {
+                            $scope.housing = $scope.housing.concat(housing.data.content);
 
-                    }
-                    $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
-                    $scope.pageInfo.isQueryInProgress = false;
-                    $("#preloader").hide();
-                },
-                function (error) {
-                	console.log(error);
-                });
+                        }
+                        $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
+                        $scope.pageInfo.isQueryInProgress = false;
+                        $("#preloader").hide();
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
             }
         };
 
@@ -125,4 +122,10 @@ byControllers.controller('HousingController', ['$scope', '$rootScope', '$locatio
                 return false;
             }
         };
-    }]);
+    }
+
+    HousingController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
+        '$sce', 'broadCastMenuDetail', '$http','FindHousing'];
+    byApp.registerController('HousingController', HousingController);
+    return HousingController;
+});

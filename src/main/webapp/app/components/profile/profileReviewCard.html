@@ -14,33 +14,6 @@
 
     <div class="articles-story" ng-bind-html="trustForcefully(review.text)" style="padding-left:21px;"></div>
 
-    <!--<div class="article-share-links news-v3">
-        <ul class="post-shares post-shares-lg">
-            <li class="add-comment">
-                <a ng-click="createNewComment(review.id)">
-                    <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span ng-if="review.childrenCount > 0">{{review.childrenCount}}</span>
-                </a>
-
-                <div class="post-text post_text-comment"
-                     ng-click="createNewComment(review.id)"><a>Comment</a>
-                </div>
-            </li>
-            <li>
-                <a ng-click="likeComment(review.id, review.replyType)">
-                    <i class="rounded-x icon-heart" title="Likes"></i>
-                    <span ng-if="beforePost && review.likeCount > 0">{{review.likeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
-                </a>
-
-                <div class="post-text">
-                    <a ng-click="likeComment(review.id, review.replyType)">
-                        Like
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>-->
     <div style="clear: both"></div>
     <div class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
 

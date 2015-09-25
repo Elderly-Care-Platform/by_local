@@ -1,5 +1,5 @@
-byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile', '$http', 'broadCastData', '$sce',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $http, broadCastData, $sce) {
+define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, reviewRateController) {
+    function housingProfileCtrl($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $http, broadCastData, $sce){
         $scope.housingProfile = $scope.$parent.profileData;
         $scope.housingFacilityId = $scope.$parent.housingFacilityId;
         $scope.slideIndex = 1;
@@ -20,8 +20,7 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
             broadCastData.update($scope.facility);
         } else {
             $scope.facility = null;
-        }
-        ;
+        };
 
 
         $scope.slideGallery = function (dir) {
@@ -77,10 +76,18 @@ byControllers.controller('housingProfileController', ['$scope', '$rootScope', '$
                 reviewContentType: $scope.$parent.reviewContentType
             }, function (response) {
                 $scope.reviews = response.data.replies;
+                if($scope.reviews.length > 0){
+                    require(['discussLikeController']);
+                    require(['shareController']);
+                }
             }, function (error) {
                 console.log(error)
             })
         };
         $scope.showReviews();
+    }
 
-    }]);
+    housingProfileCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile', '$http', 'broadCastData', '$sce'];
+    byApp.registerController('housingProfileCtrl', housingProfileCtrl);
+    return housingProfileCtrl;
+});

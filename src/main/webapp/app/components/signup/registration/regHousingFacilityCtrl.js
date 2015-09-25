@@ -1,6 +1,5 @@
-byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope', '$http', '$location',
-    '$routeParams', 'ServiceTypeList',
-    function ($scope, $rootScope, $http, $location, $routeParams, ServiceTypeList) {
+define(['byApp', 'byUtil'], function(byApp, byUtil){
+    function regHousingFacilityCtrl($scope, $rootScope, $http){
         $scope.profileImage = [];
         $scope.galleryImages = [];
         $scope.submitted = false;
@@ -15,16 +14,16 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
         }
 
         $scope.addEditor = function () {
-            var tinyEditor = BY.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
+            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
         };
 
         var initialize = function () {
             if (!$scope.facility || !$scope.facility.tier) {
                 $scope.facility.tier = $scope.regConfig.facilityType[0];
             }
-            
+
             if($scope.facility.categoriesId && $scope.facility.categoriesId.length > 0){
-            	for(var i=0; i<$scope.facility.categoriesId.length; i++){
+                for(var i=0; i<$scope.facility.categoriesId.length; i++){
                     var menuId = $scope.facility.categoriesId[i];
                     $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
                 }
@@ -101,7 +100,6 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
         };
 
 
-        $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();  //Apply bootstrap toggle for house visit option
         function addressFormat(index) {
             return {
                 "index": index, "city": "", "zip": "", "locality": "", "landmark": "", "address": ""
@@ -188,10 +186,10 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
             });
 
             $scope.facility.systemTags = getSystemTagList($scope.selectedMenuList);
-            
+
             var regex = /(?:[\w-]+\.)+[\w-]+/ ;
             if($scope.facility && $scope.facility.website && $scope.facility.website.length > 0){
-            	$scope.facility.website = regex.exec($scope.facility.website)[0];
+                $scope.facility.website = regex.exec($scope.facility.website)[0];
             }
 
             if ( $scope.facility.systemTags.length === 0) {
@@ -214,22 +212,10 @@ byControllers.controller('regHousingFacilityController', ['$scope', '$rootScope'
                     }
                 });
                 $scope.$parent.postUserProfile(isValidForm, addAnotherFacility);
-                //var userProfile = new UserProfile();
-                //angular.extend(userProfile, $scope.profile);
-                //userProfile.$update({userId: $scope.userId}, function (profileOld) {
-                //    console.log("success");
-                //    $scope.submitted = false;
-                //    $scope.$parent.exit();
-                //}, function (err) {
-                //    console.log(err);
-                //    $scope.$parent.exit();
-                //});
             }
         };
-        ////Post individual form
-        //$scope.postUserProfile = function (isValidForm) {
-        //
-        //}
-
-
-    }]);
+    }
+    regHousingFacilityCtrl.$inject = ['$scope', '$rootScope', '$http'];
+    byApp.registerController('regHousingFacilityCtrl', regHousingFacilityCtrl);
+    return regHousingFacilityCtrl;
+});

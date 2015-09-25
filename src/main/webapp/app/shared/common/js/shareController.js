@@ -1,5 +1,7 @@
-byControllers.controller('ShareController', ['$scope', '$rootScope', '$location','ValidateUserCredential','ShareDiscuss',
-    function ($scope, $rootScope, $location, ValidateUserCredential,ShareDiscuss) {
+define(["byApp"], function(byApp) {
+    'use strict';
+
+    function ShareController($scope, $rootScope, $location, ValidateUserCredential,ShareDiscuss) {
         $scope.shareComment = function(sharedObj, $event){
         	$event.stopPropagation();
             if(FB && sharedObj){
@@ -26,9 +28,9 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
                         var shareDiscuss = new ShareDiscuss();
                         shareDiscuss.id = sharedObj.id;
                         shareDiscuss.$post({},function(res){
-                        	$scope.$parent.updateShareCount(res.data.shareCount);
+                            $scope.$parent.updateShareCount(res.data.shareCount);
                         },function(err){
-                        	console.log("alert posting the share count");
+                            console.log("alert posting the share count");
                         });
                     } else {
                         console.log('Post was not published.');
@@ -36,4 +38,12 @@ byControllers.controller('ShareController', ['$scope', '$rootScope', '$location'
                 });
             }
         }
-    }]);
+    }
+    
+    ShareController.$inject=['$scope', '$rootScope', '$location','ValidateUserCredential','ShareDiscuss'];
+    byApp.registerController('ShareController', ShareController);
+    return ShareController;      
+
+});
+
+

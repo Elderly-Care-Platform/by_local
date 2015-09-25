@@ -1,5 +1,5 @@
-byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$http', '$location', '$routeParams','UserProfile',
-    function ($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
+define(['byApp', 'byUtil'], function(byApp, byUtil) {
+    function regUserTypeController($scope, $rootScope, $http, $location, $routeParams, UserProfile){
         $scope.userCategory = "";
         $scope.individualUserType = [
             {key:'0', value:"I take care of a senior in my family", category:"indv"},
@@ -7,13 +7,13 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
             {key:'2', value:"I am just curious", category:"indv"
             }];
         //        {key:'2', value:"I volunteer with senior people", category:"indv"},
-    
+
         $scope.profUserType =[{key:'7', value:"I am an elder care professional", category:"indv2"}];
 
         $scope.housingUserType = [
             {key:'3', value:"Senior living facilities", category:"inst"}];
         $scope.institutionUserType = [
-             {key:'4', value:"Services for seniors & elder care", category:"inst2"}];
+            {key:'4', value:"Services for seniors & elder care", category:"inst2"}];
 
         $scope.otherUserType = [
             {key:'-1', value:"None of the above!", category:"other"}];
@@ -35,17 +35,17 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
                 if($scope.userCategory === $scope.profUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
                     $scope.unSelectUserType($scope.housingUserType);
-                    $scope.unSelectUserType($scope.otherUserType); 
+                    $scope.unSelectUserType($scope.otherUserType);
                     $scope.unSelectUserType($scope.institutionUserType);
                 }
-                
+
                 if($scope.userCategory === $scope.housingUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
                     $scope.unSelectUserType($scope.profUserType);
                     $scope.unSelectUserType($scope.otherUserType);
                     $scope.unSelectUserType($scope.institutionUserType);
                 }
-                
+
                 if($scope.userCategory === $scope.institutionUserType[0].category){
                     $scope.unSelectUserType($scope.individualUserType);
                     $scope.unSelectUserType($scope.profUserType);
@@ -99,6 +99,9 @@ byControllers.controller('regUserTypeController', ['$scope', '$rootScope', '$htt
             console.log("return");
             $scope.$parent.exit();
         }
+    }
 
-
-    }]);
+    regUserTypeController.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams','UserProfile'];
+    byApp.registerController('regUserTypeController', regUserTypeController);
+    return regUserTypeController;
+});

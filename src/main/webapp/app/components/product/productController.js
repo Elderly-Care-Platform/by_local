@@ -108,7 +108,7 @@ byControllers.controller('ProductAllController', ['$scope', '$rootScope', '$loca
 //		}
         
         $scope.add = function (type) {
-            BY.removeEditor();
+            BY.byEditor.removeEditor();
         	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
 			{
 				$rootScope.nextLocation = $location.path();

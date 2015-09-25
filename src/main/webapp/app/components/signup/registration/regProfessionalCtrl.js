@@ -1,5 +1,5 @@
-byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'ServiceTypeList',
-    function ($scope, $rootScope, $http, $location, $routeParams, UserProfile, ServiceTypeList) {
+define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, byUtil){
+    function regProfCtrl($scope, $rootScope, $http, UserProfile){
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.selectedServices = {};
         $scope.profileImage = [];
@@ -8,7 +8,7 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
         $scope.minCategoryError = false;
         $scope.showSpeciality = false;
         $scope.selectedSpeciality = [];
-	    $scope.selectedMenuList = {};
+        $scope.selectedMenuList = {};
         $scope.filters = {};
 
         var editorInitCallback = function(){
@@ -16,7 +16,7 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
                 tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
             }
         }
-        var tinyEditor = BY.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+        var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
 
 
         $scope.addressCallback = function (response) {
@@ -125,9 +125,9 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
                 $scope.address.country = "India";
             }
             editorInitCallback();
-	        for(var i=0; i<$scope.serviceProviderInfo.services.length; i++){
+            for(var i=0; i<$scope.serviceProviderInfo.services.length; i++){
                 var menuId = $scope.serviceProviderInfo.services[i],
-                 category = $rootScope.menuCategoryMap[menuId];
+                    category = $rootScope.menuCategoryMap[menuId];
                 $scope.selectedMenuList[menuId] = category;
                 if(category.filterName && category.filterName!==null && category.children.length > 0) {
                     $scope.showSpecialityOptions(category);
@@ -185,7 +185,7 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             }
 
             if ($scope.basicProfileInfo.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos){
-            	$(".add-phone").hide();
+                $(".add-phone").hide();
             }
         }
 
@@ -197,7 +197,7 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             }
 
             if ($scope.basicProfileInfo.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId){
-            	$(".add-email").hide();
+                $(".add-email").hide();
             }
         }
 
@@ -252,8 +252,8 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
                 return value;
             });
         }
-        
-      
+
+
 
         //Post individual form
         $scope.postUserProfile = function (isValidForm) {
@@ -272,14 +272,14 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
             if ( $scope.profile.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
-            
+
             var regex = /(?:[\w-]+\.)+[\w-]+/ ;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-            	$scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+                $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
             }
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
-            
+
             if (isValidForm.$invalid || $scope.minCategoryError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
@@ -310,6 +310,9 @@ byControllers.controller('regProfessionalController', ['$scope', '$rootScope', '
                 });
             }
         }
-        
-       
-    }]);
+    }
+
+    regProfCtrl.$inject = ['$scope', '$rootScope', '$http', 'UserProfile'];
+    byApp.registerController('regProfCtrl', regProfCtrl);
+    return regProfCtrl;
+});

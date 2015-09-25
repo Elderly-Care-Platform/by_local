@@ -1,10 +1,8 @@
 /**
  * Created by sanjukta on 21-07-2015.
  */
-//DIscuss All
-byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile','ValidateUserCredential',
-    function ($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, ValidateUserCredential) {
-
+define(['byApp', 'byUtil'], function(byApp, byUtil) {
+    function ReviewRateController($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, ValidateUserCredential){
         $scope.userProfile = $scope.$parent.profileData;
         $scope.selectedRating = 0;
         $scope.reviewText = "";
@@ -16,7 +14,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 tinymce.get("reviewTextArea").setContent($scope.reviewText);
             }
         }
-        var tinyEditor = BY.addEditor({"editorTextArea": "reviewTextArea"}, editorInitCallback);
+        var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "reviewTextArea"}, editorInitCallback);
 
         if($scope.$parent.isIndividualProfile){
             $scope.gender =  BY.config.profile.userGender[$scope.userProfile.individualInfo.sex];
@@ -43,7 +41,7 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
         $scope.selectRating = function(value){
             $(".profileRatetext").removeClass("profileRate"+$scope.selectedRating);
             $(".by_btn_submit").removeAttr('disabled');
-        	value = parseInt(value);
+            value = parseInt(value);
             $(".by_rating_left .profileRatetext").css('color', '#000');
 
             $(".profileRate"+value).siblings(".profileRatetext").addClass("profileRate"+value);
@@ -91,15 +89,19 @@ byControllers.controller('ReviewRateController', ['$scope', '$rootScope', '$loca
                 $(".by_btn_submit").prop('disabled', false);
             }
         }
-        
+
         $scope.showRate = function(){
-        	document.getElementById("by_rate_hide").style.display = "block";
+            document.getElementById("by_rate_hide").style.display = "block";
             document.getElementById("by_rate_show").style.display = "none";
         };
         $scope.hideRate = function(){
-        	document.getElementById("by_rate_hide").style.display = "none";
+            document.getElementById("by_rate_hide").style.display = "none";
             document.getElementById("by_rate_show").style.display = "block";
         };
 
+    }
 
-    }]);
+    ReviewRateController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile','ValidateUserCredential'];
+    byApp.registerController('ReviewRateController', ReviewRateController);
+    return ReviewRateController;
+});

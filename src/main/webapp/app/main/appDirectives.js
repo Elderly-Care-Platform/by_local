@@ -226,7 +226,7 @@ define(["byApp", "angular"], function (byApp, angular) {
             },
             link: function (scope, element, attrs) {
                 var oldVal = scope.obj;
-                $(element).autocomplete({
+                element.autocomplete({
                     source: scope.options,
                     select: function (event, item) {
                         $timeout(function () {

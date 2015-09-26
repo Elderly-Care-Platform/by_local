@@ -97,7 +97,7 @@
 
                 <!-------------------------------Article image---------------------------------------->
                 <div class="by_discuss_image col-md-12">
-                    <img ng-if="discuss.discussType == 'P' && discuss.articlePhotoFilename"
+                    <img ng-if="discuss.discussType == 'P' && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
                          ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
                          fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 

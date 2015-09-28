@@ -65,6 +65,7 @@
 .by_discuss_listing  .by-card-shareInfo .shareInfo-generalImage img
 {
 	max-height:200px;
+	height:auto;
 }
 .by_discuss_listing  .shareInfo-generalImage iframe
 {

@@ -99,6 +99,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                     $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                     window.scrollTo(0, 0);
                     $(".service-filters").hide();
+                    $scope.$apply();
                 });
             };
 

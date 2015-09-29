@@ -106,6 +106,7 @@ define(['byApp',
             require(['editorController'], function(editorController){
                 $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 window.scrollTo(0, 0);
+                $scope.$apply();
             });
 
         };

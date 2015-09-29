@@ -39,6 +39,7 @@ define(['byApp', 'byUtil', 'homePromoController',
                 $scope.currentView = "editor";
                 $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 window.scrollTo(0, 0);
+                $scope.$apply();
             });
         }
 

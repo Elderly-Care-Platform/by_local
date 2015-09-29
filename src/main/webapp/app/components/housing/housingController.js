@@ -77,6 +77,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                 $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 window.scrollTo(0, 0);
                 $(".service-filters").hide();
+                $scope.$apply();
             });
         };
 

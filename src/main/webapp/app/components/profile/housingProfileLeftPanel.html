@@ -1,9 +1,11 @@
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
     <div class="scrollableLeftPanelDiv by-filter-links">
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
+        
             <li class="list-group-item" ng-click="location($event, '/profile', [profileType,profileData.userId, 'corp'])">
                 <a>{{label}}</a>
             </li>
+            
             <li class="list-group-item" ng-if="postsUser.length > 0 && !housingFacilityId" ng-click="gotoHref('userPosts')" >
                 <a>Posts ({{postsPagination.totalPosts}})</a>
             </li>
@@ -38,7 +40,8 @@
 					</div>
 				</div>
 			</div>-->
-
+			
+			
 			<div class="panel-group acc-v1 housingCityWrap" id="accordion-1"
 				ng-if="relatedFacilities">
 				<div class="housingCityHead">Branches:</div>
@@ -78,6 +81,15 @@
 
 
 		</div>
+		
+		 <ul class="list-group  margin-bottom-40 " id="sidebar-nav1">
+        	<li class="list-group-item" ng-if="isAllowedToReview && housingFacilityId" ng-click="gotoHref('userReviews')" style="padding: 7px 15px;">
+				<a>Rate & Review</a>
+			</li>
+        	
+        </ul>
+		
+		
     </div>
 
 </div>

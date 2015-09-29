@@ -149,9 +149,9 @@
         <div class="clearfix"></div>
 
         <div class="col-md-12" ng-if="institutionProfile.basicProfileInfo.description">
-            <div class="col-md-12 bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
+            <div class="row bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
 
-            <div class="articles-story" ng-if="institutionProfile.basicProfileInfo.shortDescription">
+            <!--  <div class="articles-story row" ng-if="institutionProfile.basicProfileInfo.shortDescription">
                 <p id="profile-shortDesc">
                     {{institutionProfile.basicProfileInfo.shortDescription}}<br/>
                     <a class="divRight by_readmore" ng-click="showMore()">Read More<i class="fa fa-angle-right"
@@ -161,8 +161,8 @@
                 <p id="profile-desc" style="display: none"
                    ng-bind-html="trustForcefully(institutionProfile.basicProfileInfo.description)">
                 </p>
-            </div>
-            <div class="articles-story" ng-if="!institutionProfile.basicProfileInfo.shortDescription">
+            </div>-->
+            <div class="articles-story row" ng-if="institutionProfile.basicProfileInfo.description">
                 <p id="profile-desc" ng-bind-html="trustForcefully(institutionProfile.basicProfileInfo.description)">
                 </p>
             </div>

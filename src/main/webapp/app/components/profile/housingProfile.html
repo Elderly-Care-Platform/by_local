@@ -202,7 +202,7 @@
                 </div>
                 <div style="clear: both; height: 20px;"></div>
 
-                <div class="articles-story" ng-if="facility.shortDescription">
+               <!--  <div class="articles-story" ng-if="facility.shortDescription">
                     <p id="profile-shortDesc">
                         {{facility.shortDescription}}<br/>
                         <a class="divRight by_readmore" ng-click="showMore()">
@@ -215,9 +215,9 @@
                     <p id="profile-desc" style="display: none"
                        ng-bind-html="trustForcefully(facility.description)">
                     </p>
-                </div>
-                <div class="articles-story"
-                     ng-if="!facility.shortDescription">
+                </div> -->
+                <div class="articles-story row"
+                     ng-if="facility.description">
                     <p id="profile-desc"
                        ng-bind-html="trustForcefully(facility.description)">
                     </p>

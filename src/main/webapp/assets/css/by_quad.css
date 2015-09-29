@@ -288,7 +288,7 @@
 	padding-right:10px !important;
 }
 
-#sidebar-nav {
+#sidebar-nav, #sidebar-nav1 {
 	width: 225px;
 }
 
@@ -307,7 +307,7 @@
 }
 
 @media ( max-width : 992px) {
-	.by_left_panel_fixed, #sidebar-nav {
+	.by_left_panel_fixed, #sidebar-nav, #sidebar-nav1 {
 		width: 100% !important;
 	}
 }

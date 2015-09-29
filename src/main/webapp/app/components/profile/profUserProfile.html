@@ -172,8 +172,8 @@
 
 		
 		<div class="col-md-12" ng-if="individualProfile.basicProfileInfo.description">
-			<div class="col-md-12 bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
-			<div class="articles-story" ng-if="individualProfile.basicProfileInfo.shortDescription">
+			<div class="row bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
+			<!-- <div class="articles-story" ng-if="individualProfile.basicProfileInfo.shortDescription">
 				<p id="profile-shortDesc">
 					{{individualProfile.basicProfileInfo.shortDescription}}<br/>
 					<a class="divRight by_readmore" ng-click="showMore()">Read More<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
@@ -182,8 +182,8 @@
 				<p id="profile-desc" style="display: none"
 					ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
 				</p>
-			</div>
-			<div class="articles-story" ng-if="!individualProfile.basicProfileInfo.shortDescription">
+			</div>-->
+			<div class="articles-story row" ng-if="individualProfile.basicProfileInfo.description">
 				<p id="profile-desc" ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
 				</p>
 			</div>

@@ -15,8 +15,8 @@ require.config({
 		angularResource : '../../lib/angular/angular-resource',
 		angularInfiniteScroll : '../../lib/angular/ng-infinite-scroll',
 		angularGoogleLocation : '../../lib/angular/ng-google-location',
-		blogMasonary : '../../lib/unify/js/pages/blog-masonry',
-		jqueryMasonaryGrid : '../../lib/unify/plugins/masonry/jquery.masonry.min',
+//		blogMasonary : '../../lib/unify/js/pages/blog-masonry',
+//		jqueryMasonaryGrid : '../../lib/unify/plugins/masonry/jquery.masonry.min',
 //		jqueryUiLib : '../../lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min',
 
 		bootstrapToggle: '../../lib/unify/plugins/bootstrap/js/bootstrap-toggle',

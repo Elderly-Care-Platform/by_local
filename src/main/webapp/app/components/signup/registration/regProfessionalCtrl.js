@@ -119,6 +119,7 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
+            $scope.serviceProviderInfo.specialities = [];
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
             if ($scope.address && $scope.address.country === null) {
@@ -242,6 +243,7 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             angular.forEach($scope.filters, function(filter, index){
                 if(filter.selectedSpecialityName && filter.selectedSpeciality){
                     systemTagList[filter.selectedSpeciality.id] = filter.selectedSpeciality.tags;
+                    $scope.serviceProviderInfo.specialities.push(filter.selectedSpeciality.tags[0]);
                 }else{
                     filter.selectedSpecialityName = null;
                     filter.specialityError = true;

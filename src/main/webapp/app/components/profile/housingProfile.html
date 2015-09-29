@@ -24,9 +24,9 @@
             <div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;" ng-if="housingFacilityId">
                 <div class="main-image white-gray " style="padding-left:0px;">
                     <img class="padding-zero" ng-if="facility.profileImage.titleImage"
-                         src="{{facility.profileImage.titleImage || ''}}" alt="">
+                         ng-src="{{facility.profileImage.titleImage || ''}}" alt="">
                     <img class="padding-zero" ng-if="!facility.profileImage.titleImage"
-                         src="assets/img/profile/Housing_inside.png?versionTimeStamp=%PROJECT_VERSION%" alt="">
+                         ng-src="assets/img/profile/Housing_inside.png?versionTimeStamp=%PROJECT_VERSION%" alt="">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
                      ng-if="facility.photoGalleryURLs.length > 0" style="padding-left:0px;">
@@ -36,7 +36,7 @@
                              class="by-imageGallery-item" data-popup="{{img.original || ''}}"
                              data-hover="{{img.thumbnailImage || ''}}"
                              ng-init="galleryClickHover()">
-                            <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                            <img ng-src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
                         </div>
                     </div>
                     <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
@@ -238,7 +238,7 @@
                      style="margin-right: 20px;">
                     <div class="main-image white-gray " style="padding-left: 0px;">
                         <img class="padding-zero"
-                             src="assets/img/profile/Corporate_big.png?versionTimeStamp=%PROJECT_VERSION%"
+                             ng-src="assets/img/profile/Corporate_big.png?versionTimeStamp=%PROJECT_VERSION%"
                              alt="">
                     </div>
                     <div class="clearfix"></div>

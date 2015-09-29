@@ -38,7 +38,7 @@
                              class="by-imageGallery-item" data-popup="{{img.original || ''}}"
                              data-hover="{{img.thumbnailImage || ''}}"
                              ng-init="galleryClickHover()">
-                            <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                            <img ng-src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
                         </div>
                     </div>
                     <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
@@ -154,7 +154,7 @@
                     <div class="bg-green-h2" style="width: 96px;"></div>
                 </div>
                 <div style="clear: both; height: 16px;"></div>
-                <div class="articles-story" style="margin-bottom:0px;"
+                <div class="articles-story row" style="margin-bottom:0px;"
                      ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
                 </div>
 			</span>

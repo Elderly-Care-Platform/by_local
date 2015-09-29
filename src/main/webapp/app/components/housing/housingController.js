@@ -1,4 +1,4 @@
-define(['byApp', 'byUtil'], function(byApp, byUtil) {
+define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
     function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing){
         var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 

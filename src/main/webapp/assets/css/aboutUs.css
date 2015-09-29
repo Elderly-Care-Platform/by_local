@@ -225,7 +225,7 @@
 }
 
 .aboutUsDiscuss {
-    background: url('../img/aboutUs/discuss.jpg?versionTimeStamp=%PROJECT_VERSION%');
+    /*background: url('../img/aboutUs/discuss.jpg?versionTimeStamp=%PROJECT_VERSION%');*/
     background-repeat: no-repeat;
     padding: 19px 15px 0px 15px;
     text-align: center;
@@ -259,7 +259,7 @@
     }
 
 .aboutUsShop {
-    background: url('../img/aboutUs/discuss.jpg?versionTimeStamp=%PROJECT_VERSION%');
+   /* background: url('../img/aboutUs/discuss.jpg?versionTimeStamp=%PROJECT_VERSION%');*/
     background-repeat: repeat-y;
     padding: 19px 15px 0px 15px;
     text-align: center;

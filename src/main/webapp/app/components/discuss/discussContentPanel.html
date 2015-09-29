@@ -28,7 +28,12 @@
         </div>
         <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true">
         </div>
-        <img ng-if="discuss.promotion == false" src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image">
+        <img ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+             ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
+             fallback-src='["assets/img/by.png"]' alt="image">
+
+        <img ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+             ng-src="assets/img/by.png" alt="image">
 
         <div class="article-info dp-inline-block " style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
             <ul class="list-inline posted-info" style="">
@@ -71,15 +76,15 @@
         </div>
         <div style="clear: both"></div>
         <div class="by-quad-image col-md-12">
-            <img ng-if="discuss.discussType == 'P' && discuss.promotion == false"
-                 src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
+            <img ng-if="discuss.discussType == 'P' && discuss.promotion == false && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
+                 ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
                  fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
         </div>
         <div class="by-quad-image col-md-12 no-padding" style="margin-top:-1px;">
-            <img ng-if="discuss.discussType == 'P' && discuss.promotion == true"
-                 src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+            <img ng-if="discuss.discussType == 'P' && discuss.promotion == true && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
+                 ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
                  fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>

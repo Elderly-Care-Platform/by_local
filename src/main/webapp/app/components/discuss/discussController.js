@@ -1,8 +1,7 @@
 define(['byApp',
     'discussLikeController',
     'shareController',
-    'editorController',
-    'byEditor'], function (byApp, discussLikeController, shareController, editorController, byEditor) {
+    'byEditor'], function (byApp, discussLikeController, shareController, byEditor) {
 
     'use strict';
 
@@ -104,8 +103,11 @@ define(['byApp',
         }
 
         $scope.add = function (type) {
-            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            window.scrollTo(0, 0);
+            require(['editorController'], function(editorController){
+                $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                window.scrollTo(0, 0);
+            });
+
         };
 
         $scope.postSuccess = function () {

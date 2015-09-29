@@ -72,10 +72,12 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         };
 
         $scope.add = function (type) {
-            $scope.error = "";
-            $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            window.scrollTo(0, 0);
-            $(".service-filters").hide();
+            require(['editorController'], function(editorController){
+                $scope.error = "";
+                $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                window.scrollTo(0, 0);
+                $(".service-filters").hide();
+            });
         };
 
         $scope.postSuccess = function () {

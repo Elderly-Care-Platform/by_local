@@ -31,11 +31,12 @@ define(['byApp', 'byUtil', 'homePromoController',
         }
 
         $scope.add = function (type) {
-            require(['editorController']);
-            $("#homeContainer").hide();
-            $scope.currentView = "editor";
-            $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            window.scrollTo(0, 0);
+            require(['editorController'], function(editorController){
+                $("#homeContainer").hide();
+                $scope.currentView = "editor";
+                $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                window.scrollTo(0, 0);
+            });
         }
 
         $scope.postSuccess = function () {

@@ -35,6 +35,7 @@ define(['byApp', 'byUtil', 'homePromoController',
 
         $scope.add = function (type) {
             require(['editorController'], function(editorController){
+                BY.byEditor.removeEditor();
                 $("#homeContainer").hide();
                 $scope.currentView = "editor";
                 $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";

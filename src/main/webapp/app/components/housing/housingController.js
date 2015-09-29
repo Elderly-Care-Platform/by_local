@@ -73,6 +73,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
 
         $scope.add = function (type) {
             require(['editorController'], function(editorController){
+                BY.byEditor.removeEditor();
                 $scope.error = "";
                 $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
                 window.scrollTo(0, 0);

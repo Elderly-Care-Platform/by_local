@@ -25,13 +25,13 @@
 			<div class="col-md-5 col-xs-5 by_profileWidth">
 				<div class="main-image white-gray " style="padding-left:0px;">
 					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
-						src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"
+						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"
 						 alt="">
 						 <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
-						src="assets/img/profile/individual-big.png"
+						ng-src="assets/img/profile/individual-big.png"
 						 alt="">
 						 <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 0"
-						src="assets/img/profile/individual_female_big.png"
+						ng-src="assets/img/profile/individual_female_big.png"
 						 alt="">
 				</div>
 				<div class="col-md-12 by-imageGallery margin-top-20 row"

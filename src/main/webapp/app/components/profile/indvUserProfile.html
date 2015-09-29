@@ -25,9 +25,9 @@
             <div class="col-md-5 col-xs-5 by_profileWidth" style="margin-right:20px;">
                 <div class="main-image white-gray " style="padding-left:0px;">
                     <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
-                         src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}" alt="">
+                         ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}" alt="">
                     <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage"
-                         src="assets/img/by.png" alt="">
+                         ng-src="assets/img/by.png" alt="">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
                      ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">

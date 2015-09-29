@@ -2,9 +2,11 @@ define([
 	'angular',
 	'angularRoute',
 	'../main/appRoute',
-	'../components/menu/mainMenuController', 'LoginController', 'angularResource',"byResource", "angularInfiniteScroll", "angularGoogleLocation", "byEditor",
-], function(angular, angularRoute, appRoute, MainMenuController, LoginController, angularResource, byResource, angularInfiniteScroll, angularGoogleLocation, byEditor) {
-	var byApp = angular.module('byApp', ["ngRoute", "ngResource","byServices", "infinite-scroll", "ngGoogleLocation"]);
+	'../components/menu/mainMenuController', 'LoginController', 'angularResource','byResource', 'angularInfiniteScroll',
+	'angularGoogleLocation', 'byEditor', 'productConfig', 'productResources','angularCache',
+], function(angular, angularRoute, appRoute, MainMenuController, LoginController, angularResource, byResource,
+			angularInfiniteScroll, angularGoogleLocation, byEditor, productConfig, productResources, angularCache) {
+	var byApp = angular.module('byApp', ["ngRoute", "ngResource","byServices", "byProductResources", "infinite-scroll", "ngGoogleLocation", "jmdobry.angular-cache"]);
 
 
 	byApp.config(['$controllerProvider', function($controllerProvider){
@@ -18,14 +20,24 @@ define([
 
 	byApp.controller('MainMenuController', MainMenuController);
 	byApp.controller('LoginController', LoginController);
-	
+	productConfig(byApp);
+
+	byApp.filter('encodeUri', function encodeUri($window) {
+		return function(value) {
+			try {
+				return $window.encodeURIComponent(JSON.stringify(value));
+			} catch (e) {
+				return $window.encodeURIComponent(value);
+			}
+		};
+	});
 
 	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http, broadCastMenuDetail) {
 		if(window.localStorage){
-			$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
+			//$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
 			$http.get("api/v1/users/validateSession").success(function (response) {
 			}).error(function(err){
-				$http.defaults.headers.common.sess = "";
+				//$http.defaults.headers.common.sess = "";
 				SessionIdService.setSessionId("");
 				BY.byUtil.inValidateSession();
 			})

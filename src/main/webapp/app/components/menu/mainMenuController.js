@@ -74,6 +74,8 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                 $location.path("/services/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===2){
                 $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/all/");
+            }else if(menu.module===3){
+                $location.path("/products/list/"+menu.slug+"/"+menu.id+"/all/");
             }else{
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }

@@ -113,7 +113,7 @@ define(['byUtil'], function(byApp, byUtil){
 
         var socialRegistration = function(loginReg){
             if (loginReg.body.data.sessionId === null) {
-                $http.defaults.headers.common.sess = "";
+                //$http.defaults.headers.common.sess = "";
                 $scope.setError(loginReg.body.data.status);
                 return;
             }
@@ -137,7 +137,7 @@ define(['byUtil'], function(byApp, byUtil){
             $http.post(apiPrefix + 'api/v1/users/login', user).success(function (res) {
                 var login = res.data;
                 if (login.sessionId === null) {
-                    $http.defaults.headers.common.sess = "";
+                    //$http.defaults.headers.common.sess = "";
                     $scope.setError(login.status);
                     return;
                 }
@@ -209,13 +209,13 @@ define(['byUtil'], function(byApp, byUtil){
         $scope.setError = function (message) {
             $scope.error = message;
             $scope.message = '';
-            $http.defaults.headers.common.sess = "";
+            //$http.defaults.headers.common.sess = "";
         }
 
         $scope.setUserCredential = function(login, nextLocation){
             if ("localStorage" in window) {
                 SessionIdService.setSessionId(login.sessionId);
-                $http.defaults.headers.common.sess = login.sessionId;
+                //$http.defaults.headers.common.sess = login.sessionId;
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
 

@@ -207,6 +207,17 @@ define([],function(){
                     }]
                 }})
 
+            .when('/products/list/:slug/:menuId/all', {templateUrl: 'app/components/product/products.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'ProductsController',
+                resolve:{
+                    load:['$q', function($q){
+                        var defered = $q.defer();
+                        require(['app/components/product/productController.js'], function(){
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }})
+
 
         //.when('/users/aboutUs', {templateUrl: 'app/components/aboutUs/aboutUs.html', controller: 'BYAboutUsController'})
             //.when('/users/new', {templateUrl: 'app/components/users/create.html', controller: 'UserCreateController'})

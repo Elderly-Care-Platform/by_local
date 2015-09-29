@@ -8,6 +8,21 @@ require.config({
 		byApp : '../main/app',
 		byResource : '../main/appResources',
 		byDirectives : '../main/appDirectives',
+		productConfig : '../components/product/productConfig',
+
+		DelegatorFactory : '../main/productResources/delegatorFactory',
+		productResources : '../main/productResources',
+		urlTemplateFactory : '../main/productResources/url-template.factory',
+		CachedRequestFactory : '../main/productResources/cached-request-handler.service',
+		ProductServiceFactory : '../main/productResources/productServiceFactory',
+		ErrorStoreFactory : '../main/productResources/error-store.service',
+		urlUtilsFactory : '../main/productResources/url-utils.factory',
+		CategoryServiceFactory : '../main/productResources/category-service',
+		CartServiceFactory : '../main/productResources/cart.service',
+		BreadcrumbServiceFactory : '../main/productResources/breadcrumb.service',
+		GlobalServiceFactory : '../main/productResources/global.service',
+		UtilFactory : '../main/productResources/utils.factory',
+		ProductDescFactory : '../main/productResources/product-description.service',
 
 		jquery : '../../lib/unify/plugins/jquery/jquery.min',
 		angular : '../../lib/angular/angular',
@@ -15,8 +30,10 @@ require.config({
 		angularResource : '../../lib/angular/angular-resource',
 		angularInfiniteScroll : '../../lib/angular/ng-infinite-scroll',
 		angularGoogleLocation : '../../lib/angular/ng-google-location',
+		angularCache : '../../lib/angular/angular-cache.min',
 		blogMasonary : '../../lib/unify/js/pages/blog-masonry',
 		jqueryMasonaryGrid : '../../lib/unify/plugins/masonry/jquery.masonry.min',
+		lodash : '../../lib/lodash.min',
 //		jqueryUiLib : '../../lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min',
 
 		bootstrapToggle: '../../lib/unify/plugins/bootstrap/js/bootstrap-toggle',
@@ -50,7 +67,9 @@ require.config({
 		regHousingCtrl : '../components/signup/registration/regHousingCtrl',
 		regHousingFacilityCtrl : '../components/signup/registration/regHousingFacilityCtrl',
 		regUserTypeController : '../components/signup/regUserTypeController',
-		modifySignupCtrl : '../components/signup/login/modifySignupCtrl'
+		modifySignupCtrl : '../components/signup/login/modifySignupCtrl',
+
+
 
 	},
 
@@ -71,13 +90,17 @@ require.config({
 			deps : [ "angular" ]
 		},
 
+		"angularCache" : {
+			deps : [ "angular" ]
+		},
+
 		'bootstrapToggle' : {
 			deps : [ "jquery" ]
 		}
 	},
 
 });
-require([ 'angular',"byApp","byUtil", "byDirectives"], function(angular, byApp, byUtil, byDirectives) {
+require([ 'angular',"byApp","byUtil", "byDirectives", "lodash"], function(angular, byApp, byUtil, byDirectives, lodash) {
 	$.ajax({
 		url : apiPrefix + 'api/v1/menu/getMenu?parentId=root',
 		success : function(response) {

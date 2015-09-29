@@ -1,167 +1,260 @@
-//DIscuss All
-byControllers.controller('ProductAllController', ['$scope', '$rootScope', '$location','$route', '$routeParams'
-                                                  ,'DiscussPage', 'DiscussCount','$sce','$timeout',
-                                                  function ($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
-                                                  		DiscussCount,$sce, $timeout) {
-	var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
-	$scope.preSelected = {};
-    $scope.article_story = "";
+define(['byApp', 'byUtil'], function(byApp, byUtil) {
+    function ProductsController( $scope,
+                                 $log,
+                                 $q,
+                                 $window,
+                                 $location,
+                                 $filter,
+                                 ProductService,
+                                 CategoryService,
+                                 CartService,
+                                 BreadcrumbService,
+                                 $routeParams,
+                                 PAGE_URL,
+                                 SERVERURL_IMAGE,
+                                 STATIC_IMAGE,
+                                 Utility,
+                                 PAGINATION){
+        $log.debug('Inside Product Controller');
 
-    $scope.discussionViews = {};
-        $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/product/productLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        $scope.discussionViews.contentPanel = "app/components/product/productContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        //Variables
+        var breadCrumb;
+        $scope.discuss                  = [];
+        $scope.discussCounts            = {};
+        $scope.discussCounts.z          = 1;
+        $scope.serverurl                = SERVERURL_IMAGE.hostUrl;
+        $scope.selectedTab              = '';
+        $scope.query                    = {};
+        $scope.query.name               = '';
+        $scope.page                     = 0;
+        $scope.pageSize                 = PAGINATION.pageSize;
+        $scope.products                 = [];
+        $scope.lastPage                 = false;
+        $scope.isQueryInprogress        = false;
+        $scope.isFreeSearch             = false;
 
-       $scope.editor = {};
-        $scope.editor.articlePhotoFilename = "";
-        $scope.error = "";
-        $scope.editor.subject = "";
-        var discussType = $routeParams.discussType;
-        
-        
-        var topicId = $routeParams.topicId;
-        var subTopicId = $routeParams.subTopicId;
+        //Functions
+        $scope.openProductDescription   = openProductDescription;
+        $scope.reloadRoute              = reloadRoute;
+        $scope.getProducts              = getProducts;
+        $scope.promise                  = getProducts();
+        $scope.setDepth                 = setDepth;
+        $scope.getNumber                = getNumber;
+        $scope.getSearchedResult        = getSearchedResult;
+        $scope.loadMoreRecords          = loadMoreRecords;
 
-        if (discussType == '' || discussType == 'undefined' || !discussType || discussType == null) {
-            discussType = 'All';
-        }
-
-//        //query to get the numbers
-//        DiscussOneTopicOneSubTopicListCount.get({
-//            discussType: "All",
-//            topicId: "list",
-//            subTopicId: "all"
-//        }).then(function (counts) {
-//            $scope.discuss_counts = counts.data;
-//        },
-//        function(error){
-//        	console.log("DiscussOneTopicOneSubTopicListCount");
-//        	alert("error");
-//        });
-        
-        
-        DiscussCount.get({},function (counts) {
-            $scope.discuss_counts = counts.data;
-        },
-        function(error){
-        	console.log("DiscussOneTopicOneSubTopicListCount");
-//        	alert("error");
-        });
-
-        $("#preloader").show();
-        
-        var params = {p:0,s:10};
-        if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
-        	params.discussType = discussType;;
-        }
-        
-        DiscussPage.get(params,
-        		function(value){
-			       	 $scope.discuss = value.data.content;
-			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
-			       	$scope.pageInfo.isQueryInProgress = false;
-			       	$("#preloader").hide();
-        		},
-        		function(error){
-			       	console.log("DiscussAllForDiscussType");
-			       	alert("error");
-        		});
-        $scope.loadMore = function($event){
-        	if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
-        		$scope.pageInfo.isQueryInProgress = true;
-        		var params = {p:$scope.pageInfo.number + 1,s:$scope.pageInfo.size};
-                if(discussType !=null && discussType != "" && discussType.toLowerCase() != "all"){
-                	params.discussType = discussType;;
+        function getProducts() {
+            var category;
+            $scope.isQueryInprogress=true;
+            $scope.isFreeSearch=false;
+            if ($location.search().q) {
+                try {
+                    category = JSON.parse($location.search().q);
+                } catch (e) {
+                    category = $location.search().q;
                 }
-            	DiscussPage.get(params,
-                		function(value){
-	            			if(value.data.content.length > 0){
-	        					$scope.pageInfo.isQueryInProgress = false;
-	        					$scope.discuss = $scope.discuss.concat(value.data.content);
-	        				}
-	    			       	 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
-	    			       	$scope.pageInfo.isQueryInProgress = false;
-                		},
-                		function(error){
-        			       	console.log("DiscussAllForDiscussType");
-                		});
-        	}
-        }
-        $rootScope.bc_topic = 'list';
-        $rootScope.bc_subTopic = 'all';
-        $rootScope.bc_discussType = discussType;
-
-//        //User Discuss Like method
-//        $scope.UserLike = function(userId, discussId, index) {
-//
-//			//only read-only allowed without login
-//			if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-//			{
-//				$rootScope.nextLocation = $location.path();
-//				$location.path('/users/login');
-//			}
-//			else
-//			{
-//	 			//Create the new discuss user like
-//	 			$scope.discuss[index] = DiscussUserLikes.get({userId:userId, discussId: discussId});
-//			}
-//		}
-        
-        $scope.add = function (type) {
-            BY.byEditor.removeEditor();
-        	if(localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined)
-			{
-				$rootScope.nextLocation = $location.path();
-				$location.path('/users/login');
-			}
-			else
-			{
-				$scope.error = "";
-	            $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-	            window.scrollTo(0, 0);
-			}
-            
-        };
-
-        $scope.postSuccess = function () {
-            $route.reload();
-        };
-        
-        $scope.trustForcefully = function(html) {
-            return $sce.trustAsHtml(html);
-        };
-
-        $scope.go = function($event, type, id, discussType){
-            $event.stopPropagation();
-            if(type === "id"){
-                $location.path('/discuss/'+id);
-                //if(discussType === "A"){
-                //
-                //}else{
-                //    $location.path('/comment/'+id);
-                //}
-
-            } else if(type === "name"){
-                var parentCategoryId = $rootScope.discussCategoryListMap[id].parentId;
-                parentCategoryName = parentCategoryId ? $rootScope.discussCategoryListMap[parentCategoryId].name : null;
-
-                if(parentCategoryName){
-                    $location.path('/discuss/All/'+ parentCategoryName + '/' + $rootScope.discussCategoryListMap[id].name);
-                }else{
-                    $location.path('/discuss/All/'+ $rootScope.discussCategoryListMap[id].name + '/all');
-                }
-            }else if(type = "accordian"){
-                $($event.target).find('a').click();
+                //delete $location.$$search.q;
             }
-
+            var productsPromise   = getProductPromise(category),
+                categoriesPromise = CategoryService.getAllCategories(),
+                loadPromise       = $q.all({ product: productsPromise, category: categoriesPromise});
+            return loadPromise.then(getProductPageSuccess, failure);
         }
 
-        $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-            $('p').each(function() {
-                var $this = $(this);
-                if($this.html().replace(/\s|&nbsp;/g, '').length == 0)
-                    $this.remove(); });
-            $('.by_story').dotdotdot();
-        });
- 	}]);
+        function getSearchedResult(isFromLoadMore) {
+            $scope.isFreeSearch=true;
+            $scope.isQueryInprogress=true;
+            if (!isFromLoadMore) {
+                $scope.products = [];
+                $scope.page = 0;
+            }
+            var params = {};
+            params.query = $scope.query.name;
+            $scope.page = $scope.page + 1;
+            params.page = $scope.page;
+            params.pageSize = $scope.pageSize;
+            var productsPromise   = ProductService.getSearchedProduct(params),
+                categoriesPromise = CategoryService.getAllCategories();
+            if ($scope.query.name === '') {
+                productsPromise = ProductService.getProducts(params);
+            }
+            if (!isFromLoadMore) {
+                $scope.promise = $q.all({ product: productsPromise, category: categoriesPromise});
+                return $scope.promise.then(getProductPageSuccess, failure);
+            } else {
+                $scope.lazyPromise = $q.all({ product: productsPromise, category: categoriesPromise});
+                return $scope.lazyPromise.then(getProductPageSuccess, failure);
+            }
+        }
+
+        /**
+         * Set the breadcrums
+         * @param  {object} category
+         * @return {promise} of product service
+         */
+        function getProductPromise(category) {
+            var params = {};
+            $scope.page = $scope.page + 1;
+            params.page = $scope.page;
+            params.pageSize = $scope.pageSize;
+            if (category) {
+                if (category === 'featured') {
+                    breadCrumb = { 'url': PAGE_URL.root + '?q=featured', 'displayName': 'FEATURED' };
+                    BreadcrumbService.setBreadCrumb(breadCrumb);
+                    return ProductService.getFeaturedProducts(params);
+                } else {
+                    var url           = PAGE_URL.root,
+                        categoryEnURI = $filter('encodeUri')(category),
+                        name          = category.name;
+                    breadCrumb = { 'url': url + '?q=' + categoryEnURI, 'displayName': name };
+                    BreadcrumbService.setBreadCrumb(breadCrumb);
+                    return getProductsByCategory(category);
+                }
+            } else {
+                BreadcrumbService.setBreadCrumb();
+                return ProductService.getProducts(params);
+            }
+        }
+
+        function getProductsByCategory(category) {
+            var params = {};
+            params.id = category.id;
+            params.page = $scope.page;
+            params.pageSize = $scope.pageSize;
+            params.q = '*';
+            return $q.all({ productByCategory: ProductService.getProductsByCategory(params)});
+        }
+
+        /**
+         * Add depth parameter for each object in json of category
+         * @param  {object} result categories
+         * @return {void}
+         */
+        function getProductPageSuccess(result) {
+            //Set Category
+            var category = result.category || {};
+            $scope.categories = category.category || category;
+            // Set depth for category
+            for (var i=0; i < $scope.categories.length; i=i + 1) {
+                setDepth($scope.categories[i]);
+            }
+            //Set products
+            var productList = extractProducts(result);
+            $scope.products = $scope.products.concat(productList);
+            $scope.length = $scope.products.length;
+            if (productList.length === 0) {
+                $scope.lastPage = true;
+            }
+            $scope.isQueryInprogress=false;
+            $log.debug('getProductPageSuccess: ' + result);
+        }
+
+        /**
+         * recursivly set depth for each object of json of category
+         * @param {object} category category
+         */
+        function setDepth(category) {
+            var depth = 0;
+            var insertDepth = function(category, depth) {
+                category.depth = depth;
+                if (category.subcategories) {
+                    insertDepth(category.subcategories, depth + 1);
+                    for (var i=0; i < category.subcategories.length; i=i + 1) {
+                        insertDepth(category.subcategories[i], depth + 1);
+                    }
+                }
+            };
+            insertDepth(category, depth + 1);
+        }
+
+        function extractProducts(result) {
+            if (result.product) {
+                if (result.product.products || result.product.productByCategory) {
+                    result = result.product.products || result.product.productByCategory;
+                } else {
+                    result = result.product;
+                }
+            }
+            var products = [];
+            if (Array.isArray(result)) {
+                products = result;
+            } else {
+                $log.debug('Root category tree structure');
+                products = Utility.grabProducts(result, products);
+            }
+            Utility.checkImages(products);
+            return products;
+        }
+
+        function failure() {
+            $log.debug('Failure');
+        }
+
+        /**
+         * Make search query as per click on category object
+         * @param  {integer} productId
+         * @param  {integer} categoryId
+         * @param  {integer} categoryName [description]
+         * @return {void}
+         */
+        function openProductDescription(productId, categoryId, categoryName) {
+            var path = PAGE_URL.productDescription + '/';
+            path += productId;
+            $location.path(path).search('q', JSON.stringify({'id': categoryId, 'name': categoryName }));
+        }
+
+        /**
+         * Refresh page
+         */
+        function reloadRoute() {
+            console.log('reloadRoute');
+            setTimeout(
+                function() {
+                    $window.location.reload();
+                }, 1);
+        }
+
+        /**
+         * Return the array with size passed to it of with num -2 length
+         * add span tag for adding padding to left in category menu
+         * @param  {integer} num
+         * @return {array}     if number passed less then 2 return null else num-2
+         */
+        function getNumber(num) {
+            if (num > 2) {
+                return new Array(num - 2);
+            } else {
+                return null;
+            }
+        }
+
+        function loadMoreRecords() {
+            $log.debug('Load more results');
+            if ($scope.isFreeSearch) {
+                $scope.lazyPromise = getSearchedResult(true);
+            } else {
+                $scope.lazyPromise = getProducts();
+            }
+        }
+    }
+
+    ProductsController.$inject = [ '$scope',
+        '$log',
+        '$q',
+        '$window',
+        '$location',
+        '$filter',
+        'ProductService',
+        'CategoryService',
+        'CartService',
+        'BreadcrumbService',
+        '$routeParams',
+        'PAGE_URL',
+        'SERVERURL_IMAGE',
+        'STATIC_IMAGE',
+        'Utility',
+        'PAGINATION'];
+    byApp.registerController('ProductsController', ProductsController);
+    return ProductsController;
+});
 

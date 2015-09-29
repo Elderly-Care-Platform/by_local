@@ -119,7 +119,7 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.individualInfo = $scope.profile.individualInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
-            $scope.serviceProviderInfo.specialities = [];
+            $scope.serviceProviderInfo.specialities = {};
             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
 
             if ($scope.address && $scope.address.country === null) {
@@ -243,7 +243,13 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             angular.forEach($scope.filters, function(filter, index){
                 if(filter.selectedSpecialityName && filter.selectedSpeciality){
                     systemTagList[filter.selectedSpeciality.id] = filter.selectedSpeciality.tags;
-                    $scope.serviceProviderInfo.specialities.push(filter.selectedSpeciality.tags[0]);
+                    if($scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId]){
+                        $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId].push(filter.selectedSpeciality.tags[0]);
+                    }else{
+                        $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId] = [];
+                        $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId].push(filter.selectedSpeciality.tags[0]);
+                    }
+
                 }else{
                     filter.selectedSpecialityName = null;
                     filter.specialityError = true;
@@ -302,6 +308,7 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
 
                 var userProfile = new UserProfile();
                 angular.extend(userProfile, $scope.profile);
+                console.log($scope.serviceProviderInfo.specialities);
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;

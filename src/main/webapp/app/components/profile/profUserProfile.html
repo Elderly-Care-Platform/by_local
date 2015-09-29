@@ -102,15 +102,13 @@
 						<div class="no-padding"
 							ng-if="individualProfile.basicProfileInfo.primaryPhoneNo">
 							<i class="fa fa-phone" style="margin-right:9px;"></i> <span><a href="tel:{{individualProfile.basicProfileInfo.primaryPhoneNo}}">{{individualProfile.basicProfileInfo.primaryPhoneNo}}</a></span>
-							<span
-								ng-repeat="phoneNo in individualProfile.basicProfileInfo.secondaryPhoneNos"
+							<span ng-repeat="phoneNo in individualProfile.basicProfileInfo.secondaryPhoneNos track by $index"
 								ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
 						</div>
 						<div style="clear: both; height: 5px;"></div>
 						<div class="no-padding" ng-if="individualProfile.basicProfileInfo.primaryEmail">
 							<i class="fa fa-envelope"  style="margin-right:9px;"></i> <a href="">{{individualProfile.basicProfileInfo.primaryEmail}}</a>
-							<span
-								ng-repeat="mail in individualProfile.basicProfileInfo.secondaryEmails"
+							<span ng-repeat="mail in individualProfile.basicProfileInfo.secondaryEmails track by $index"
 								ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
 							</span>
 						</div>

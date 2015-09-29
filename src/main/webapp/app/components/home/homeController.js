@@ -13,10 +13,13 @@ define(['byApp', 'byUtil', 'homePromoController',
              homeContentController, homeConfig) {
     function BYHomeController($scope, $rootScope, $routeParams, $location) {
         $scope.carousalType = "carousel";
-        $('.carousel').carousel({
-            interval: 8000
-        });
-        $('.carousel').carousel('cycle');
+        if($('.carousel').length > 0){
+            $('.carousel').carousel({
+                interval: 8000
+            });
+            $('.carousel').carousel('cycle');
+        }
+
         $scope.currentAcceleratorSelected = "";
         $scope.showFeaturedTag = false;
 

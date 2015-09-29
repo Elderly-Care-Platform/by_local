@@ -155,7 +155,7 @@
                         </div>
                         <div class="divRight">
                             <span><a href="tel:{{facility.primaryPhoneNo}}">{{facility.primaryPhoneNo}}</a></span>
-                            <span ng-repeat="phoneNo in facility.secondaryPhoneNos"
+                            <span ng-repeat="phoneNo in facility.secondaryPhoneNos track by $index"
                                   ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
@@ -167,7 +167,7 @@
                         </div>
                         <div class="divRight">
                             <a href="mailto::{{facility.primaryEmail}}">{{facility.primaryEmail}}</a>
-							<span ng-repeat="mail in facility.secondaryEmails"
+							<span ng-repeat="mail in facility.secondaryEmails track by $index"
                                   ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
 							</span>
                         </div>

@@ -86,14 +86,14 @@
                         <div style="clear: both; "></div>
                         <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryPhoneNo">
                             <i class="fa fa-phone" style="margin-right:9px;"></i> <span><a href="tel:{{institutionProfile.basicProfileInfo.primaryPhoneNo}}">{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</a></span>
-							<span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos"
+							<span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos track by $index"
                                   ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
                         <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryEmail">
                             <i class="fa fa-envelope" style="margin-right:9px;"></i>
                             <a href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
-							<span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails"
+							<span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails track by $index"
                                   ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
 							</span>
                         </div>

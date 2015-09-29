@@ -3,7 +3,7 @@ define(['byApp'], function(byApp) {
         var contentSize;
         $scope.contentType =  $scope.$parent.contentType;
         if($scope.$parent.contentType==="all"){
-            contentSize = 1;
+            contentSize = 3;
         }else{
             contentSize = 10;
         }

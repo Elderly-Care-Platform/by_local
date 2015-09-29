@@ -5,7 +5,18 @@
             <li class="list-group-item" ng-click="gotoHref('profileSection')" style="border:0px;">
                 <a>{{label}}</a>
             </li>
-            <li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')" style="border:0px;">
+			<!--  <div class="col-md-12 no-padding by_leftPanel_icons"
+				id="by_rate_show" data-link="articles.html"
+				ng-if="isAllowedToReview">
+				<div class="text add-comment23">
+					<i class="review-Icon_rate"></i> Rate & Review
+					<div class="clearfix"></div>
+				</div>
+			</div>-->
+			<li class="list-group-item" ng-if="isAllowedToReview" ng-click="gotoHref('userReviews')" style="border:0px;">
+				<a>Rate & Review</a>
+			</li>
+			<li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')" style="border:0px;">
                 <a>Posts ({{postsPagination.totalPosts}})</a>
             </li>
             <li class="list-group-item" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')" style="border:0px;">

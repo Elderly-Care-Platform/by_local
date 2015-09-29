@@ -13,10 +13,13 @@ define(['byApp', 'byUtil', 'homePromoController',
              homeContentController, homeConfig) {
     function BYHomeController($scope, $rootScope, $routeParams, $location) {
         $scope.carousalType = "carousel";
-        $('.carousel').carousel({
-            interval: 8000
-        });
-        $('.carousel').carousel('cycle');
+        if($('.carousel').length > 0){
+            $('.carousel').carousel({
+                interval: 8000
+            });
+            $('.carousel').carousel('cycle');
+        }
+
         $scope.currentAcceleratorSelected = "";
         $scope.showFeaturedTag = false;
 
@@ -31,11 +34,14 @@ define(['byApp', 'byUtil', 'homePromoController',
         }
 
         $scope.add = function (type) {
-            require(['editorController']);
-            $("#homeContainer").hide();
-            $scope.currentView = "editor";
-            $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            window.scrollTo(0, 0);
+            require(['editorController'], function(editorController){
+                BY.byEditor.removeEditor();
+                $("#homeContainer").hide();
+                $scope.currentView = "editor";
+                $scope.homeViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                window.scrollTo(0, 0);
+                $scope.$apply();
+            });
         }
 
         $scope.postSuccess = function () {

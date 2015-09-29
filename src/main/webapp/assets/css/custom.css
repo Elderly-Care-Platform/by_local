@@ -1234,3 +1234,7 @@ ul.social-ul {
 .pagination li a{
 	padding: 0px 9px;
 }
+#profile-desc img
+{
+	max-width:100%;
+}

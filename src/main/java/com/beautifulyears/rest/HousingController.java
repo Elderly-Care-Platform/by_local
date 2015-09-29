@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.User;
@@ -35,6 +36,8 @@ import com.beautifulyears.rest.response.HousingResponse;
 import com.beautifulyears.rest.response.PageImpl;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.Util;
+import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.HousingLogHandler;
 
 /**
  * @author Nitin
@@ -46,6 +49,7 @@ import com.beautifulyears.util.Util;
 public class HousingController {
 	private static HousingRepository staticHousingRepository;
 	private static MongoTemplate staticMongoTemplate;
+	private static ActivityLogHandler<HousingFacility> logHandler;
 
 	// private static final Logger logger =
 	// Logger.getLogger(HousingController.class);
@@ -55,6 +59,7 @@ public class HousingController {
 			MongoTemplate mongoTemplate) {
 		staticHousingRepository = housingRepository;
 		staticMongoTemplate = mongoTemplate;
+		logHandler = new HousingLogHandler(mongoTemplate);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/page" }, produces = { "application/json" })
@@ -166,6 +171,7 @@ public class HousingController {
 
 		for (HousingFacility removedFacility : removed) {
 			staticMongoTemplate.remove(removedFacility);
+			logHandler.addLog(removedFacility, ActivityLogConstants.CRUD_TYPE_DELETE,null, user);
 		}
 
 		for (HousingFacility addedFacility : newlyAdded) {
@@ -174,6 +180,7 @@ public class HousingController {
 			updateHousing(newFacility, addedFacility);
 			newFacility.setLastModifiedAt(new Date());
 			staticMongoTemplate.save(newFacility);
+			logHandler.addLog(newFacility, ActivityLogConstants.CRUD_TYPE_CREATE,null, user);
 			facilities.set(facilities.indexOf(addedFacility), newFacility);
 		}
 
@@ -183,6 +190,7 @@ public class HousingController {
 			updateHousing(old, updatedFacility);
 			old.setLastModifiedAt(new Date());
 			staticMongoTemplate.save(old);
+			logHandler.addLog(old, ActivityLogConstants.CRUD_TYPE_UPDATE,null, user);
 		}
 
 		return facilities;

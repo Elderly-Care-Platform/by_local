@@ -67,9 +67,15 @@ define(['byUtil'], function(byApp, byUtil){
         })();
 
         $scope.modalLoginInit = function(){
-
             $scope.formState = 0;
             $rootScope.loginFormState=0;
+
+
+            $('#myModalHorizontal').on('hide.bs.modal', function () {
+                $('body').removeClass("modal-open");
+            })
+
+
             $('#myModalHorizontal').on('hidden.bs.modal', function () {
                 $scope.user = {};
                 $scope.user.email = '';

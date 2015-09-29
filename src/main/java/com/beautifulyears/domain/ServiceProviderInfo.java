@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.mongodb.Tag;
+import com.beautifulyears.domain.menu.Tag;
 
 public class ServiceProviderInfo {
 

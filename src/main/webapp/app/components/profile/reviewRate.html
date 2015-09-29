@@ -1,15 +1,15 @@
 <div class="col-md-12 bg-color-grey2" style="margin-bottom: 18px; margin-top: 5px; height:1px;"></div>
 
-<div ng-controller="ReviewRateController">
-	<div class="col-md-12 no-padding by_leftPanel_icons" id="by_rate_show"
+<div ng-controller="ReviewRateController" id="userReviews">
+	<!--<div class="col-md-12 no-padding by_leftPanel_icons" id="by_rate_show"
 		data-link="articles.html" ng-if="isAllowedToReview" ng-click="showRate()">
 	 	<div class="text add-comment23">
 	 		<i class="review-Icon_rate"></i>
 	 	 Rate & Review
 	 	 	<div class="clearfix"></div>
 	 	 </div>
-	</div>
-    <form name="reviewRateForm" class="third-register-page grayRegisterBgLight by_editor_wrap" id="by_rate_hide"
+	</div>-->
+    <form name="reviewRateForm" class="third-register-page grayRegisterBgLight by_editor_wrap" 
 		  novalidate style="background:transparent;">
         <!--  <div class="row  margin-bottom-20 review-rate-header">
             <div class="col-md-12 no-padding dp-block">
@@ -86,10 +86,11 @@
 						<div class="col-md-12  margin-bottom-10">
 							<input style="font-size: 15px;" type="submit" value="Submit" id="reviewSubmit"
 								class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
-								ng-click="postReview(individualForm)" /> <input style="font-size: 15px;" type="submit"
+								ng-click="postReview(individualForm)" /> 
+								<!--  <input style="font-size: 15px;" type="submit"
 								value="Cancel"
 								class="btn btn-sm btn-success comment-submit by_btn_cancel "
-								ng-click="hideRate()" />
+								ng-click="hideRate()" />-->
 							<div class="clearfix"></div>
 						</div>
 					</div>

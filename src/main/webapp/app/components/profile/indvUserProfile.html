@@ -25,9 +25,9 @@
             <div class="col-md-5 col-xs-5 by_profileWidth" style="margin-right:20px;">
                 <div class="main-image white-gray " style="padding-left:0px;">
                     <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
-                         src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}" alt="">
+                         ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}" alt="">
                     <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage"
-                         src="assets/img/by.png" alt="">
+                         ng-src="assets/img/by.png" alt="">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
                      ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
@@ -38,7 +38,7 @@
                              class="by-imageGallery-item" data-popup="{{img.original || ''}}"
                              data-hover="{{img.thumbnailImage || ''}}"
                              ng-init="galleryClickHover()">
-                            <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                            <img ng-src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
                         </div>
                     </div>
                     <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
@@ -154,7 +154,7 @@
                     <div class="bg-green-h2" style="width: 96px;"></div>
                 </div>
                 <div style="clear: both; height: 16px;"></div>
-                <div class="articles-story" style="margin-bottom:0px;"
+                <div class="articles-story row" style="margin-bottom:0px;"
                      ng-bind-html="trustForcefully(individualProfile.basicProfileInfo.description)">
                 </div>
 			</span>

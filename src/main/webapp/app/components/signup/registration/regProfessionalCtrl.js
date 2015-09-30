@@ -244,10 +244,10 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
                 if(filter.selectedSpecialityName && filter.selectedSpeciality){
                     systemTagList[filter.selectedSpeciality.id] = filter.selectedSpeciality.tags;
                     if($scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId]){
-                        $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId].push(filter.selectedSpeciality.tags[0]);
+                        $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId].push(filter.selectedSpeciality);
                     }else{
                         $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId] = [];
-                        $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId].push(filter.selectedSpeciality.tags[0]);
+                        $scope.serviceProviderInfo.specialities[filter.selectedSpeciality.parentMenuId].push(filter.selectedSpeciality);
                     }
 
                 }else{

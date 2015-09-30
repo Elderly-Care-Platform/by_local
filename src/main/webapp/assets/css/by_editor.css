@@ -393,3 +393,7 @@ label input[type="file"] {
 		background:#F1F1F1;
 	}
 }
+.by_uploading_image_add .myLabel img
+{
+	max-width:100%;
+}

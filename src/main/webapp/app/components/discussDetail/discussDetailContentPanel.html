@@ -32,7 +32,7 @@
         <div style="clear: both"></div>
         <div class="by-quad-image col-md-12" ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
              <img class="articleTitleImage" ng-src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}"
-                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' width="100%">
+                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]'>
             <div style="clear: both"></div>
         </div>
 

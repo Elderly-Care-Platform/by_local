@@ -190,28 +190,6 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             }
         }
 
-        $scope.formatAddress = function(address){
-            $scope.formattedAddress = null;
-            if(address.streetAddress){
-                $scope.formattedAddress = address.streetAddress;
-            }
-
-            if(!$scope.formattedAddress || (address.locality && $scope.formattedAddress.indexOf(address.locality)===-1)){
-                $scope.formattedAddress = $scope.formattedAddress + ", " + address.locality;
-            }
-
-            if(!$scope.formattedAddress || (address.city && $scope.formattedAddress.indexOf(address.city)===-1)){
-                $scope.formattedAddress = $scope.formattedAddress + ", " + address.city;
-            }
-
-            if(!$scope.formattedAddress || (address.country && $scope.formattedAddress.indexOf(address.country)===-1)){
-                $scope.formattedAddress = $scope.formattedAddress + ", " + address.country;
-            }
-
-            if(!$scope.formattedAddress || (address.zip && $scope.formattedAddress.indexOf(address.zip)===-1)){
-                $scope.formattedAddress = $scope.formattedAddress + " - " + address.zip;
-            }
-        }
     }
 
     ProfileController.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'UserProfile', '$sce', 'DiscussPage'];

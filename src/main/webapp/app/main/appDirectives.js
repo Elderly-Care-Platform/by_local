@@ -423,51 +423,6 @@ define(["byApp", "angular"], function (byApp, angular) {
                         lastPageIndex = $scope.contentPagination.noOfPages;
                     }
                     setPageArray();
-                    //var startPage , lastPage;
-                    ////$scope.pageArray = [];
-                    //if($scope.contentPagination.noOfPages > $scope.maxPageNo){
-                    //    if($scope.selectedPageNo === 0){
-                    //        $scope.pageArray = [];
-                    //        startPage = $scope.selectedPageNo;
-                    //        lastPage = $scope.maxPageNo;
-                    //        for(var i=startPage; i<=lastPage-1; i++){
-                    //            $scope.pageArray.push(i);
-                    //        }
-                    //    } else{
-                    //
-                    //        if($scope.contentPagination.noOfPages - $scope.selectedPageNo >= $scope.maxPageNo){
-                    //            $scope.pageArray = [];
-                    //            // Visible pages are paginated with maxSize
-                    //            startPage = $scope.selectedPageNo;
-                    //
-                    //            // Adjust last page if limit is exceeded
-                    //            lastPage = Math.min(startPage + $scope.maxPageNo, $scope.contentPagination.noOfPages);
-                    //            for(var i=startPage; i<=lastPage-1; i++){
-                    //                $scope.pageArray.push(i);
-                    //            }
-                    //        }else{
-                    //            $scope.pageArray = [];
-                    //            startPage = $scope.contentPagination.noOfPages -  $scope.maxPageNo;
-                    //            lastPage = $scope.contentPagination.noOfPages;
-                    //
-                    //            for(var i=startPage; i<=lastPage-1; i++){
-                    //                $scope.pageArray.push(i);
-                    //            }
-                    //        }
-                    //
-                    //    }
-                    //
-                    //
-                    //    console.log($scope.pageArray);
-                    //}else{
-                    //    $scope.pageArray = [];
-                    //    startPage = 0;
-                    //    lastPage = $scope.contentPagination.noOfPages;
-                    //    for(var i=startPage; i<=lastPage-1; i++){
-                    //        $scope.pageArray.push(i);
-                    //    }
-                    //}
-
                 };
 
                 var updateNextPevLink = function(){
@@ -524,6 +479,58 @@ define(["byApp", "angular"], function (byApp, angular) {
                     }
 
                 };
+            }
+        };
+    });
+
+    byApp.directive('formatAddress', function () {
+        return {
+            scope: {
+                callback: '=?',
+                formatAddress: '='
+            },
+
+            link: function (scope, element) {
+                var formattedAddress = "", address = scope.formatAddress;
+
+                if(address.streetAddress && address.streetAddress.trim().length > 0){
+                   formattedAddress = address.streetAddress;
+                }
+
+                if(address.locality && address.locality.trim().length > 0 && formattedAddress.indexOf(address.locality)===-1){
+                    if(formattedAddress.trim().length > 0){
+                       formattedAddress = formattedAddress + ", "
+                    }
+                   formattedAddress = formattedAddress + address.locality;
+                }
+
+                if(address.city && address.city.trim().length > 0 && formattedAddress.indexOf(address.city)===-1){
+                    if(formattedAddress.trim().length > 0){
+                       formattedAddress = formattedAddress + ", "
+                    }
+                   formattedAddress = formattedAddress  + address.city;
+                }
+
+                if(address.country && address.country.trim().length > 0 && formattedAddress.indexOf(address.country)===-1){
+                    if(formattedAddress.trim().length > 0){
+                       formattedAddress = formattedAddress + ", "
+                    }
+                   formattedAddress = formattedAddress  + address.country;
+                }
+
+                if(address.zip && address.zip.trim().length > 0 && formattedAddress.indexOf(address.zip)===-1){
+                    if(formattedAddress.trim().length > 0){
+                       formattedAddress = formattedAddress + " - "
+                    }
+                   formattedAddress = formattedAddress  + address.zip;
+                }
+
+                if(formattedAddress.trim().length === 0){
+                    scope.formatAddress = null;
+                }else{
+                    scope.formatAddress = formattedAddress;
+                }
+
             }
         };
     });

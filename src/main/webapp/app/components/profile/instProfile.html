@@ -70,12 +70,12 @@
                     </div>
 
 
-                    <div class="no-padding profileAddress" ng-init="formatAddress(institutionProfile.basicProfileInfo.primaryUserAddress)">
-                        <div ng-if="formattedAddress">
+                    <div class="no-padding profileAddress" format-address="institutionProfile.basicProfileInfo.primaryUserAddress">
+                        <div ng-if="institutionProfile.basicProfileInfo.primaryUserAddress">
                             <i class="fa fa-map-marker divLeft" style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>
                             <ul class="list-inline divRight" style="width:calc(100% - 35px);">
                                 <li class="list-inline">
-                                    {{formattedAddress}}
+                                    {{institutionProfile.basicProfileInfo.primaryUserAddress}}
                                 </li>
                             </ul>
                         </div><div style="clear: both; "></div>

@@ -3,7 +3,7 @@ define(["byApp"], function(byApp) {
 
     function ShareController($scope, $rootScope, $location, ValidateUserCredential,ShareDiscuss) {
         $scope.shareComment = function(sharedObj, $event){
-            var caption = "", picture = "", description = "";
+            var caption = "", picture = Math.random() + ".jpg", description = "";
         	$event.stopPropagation();
             if(FB && sharedObj){
                 caption = sharedObj.title ? sharedObj.title: "BeautifulYears";
@@ -18,7 +18,7 @@ define(["byApp"], function(byApp) {
 
                 FB.ui({
                     method: 'feed',
-                    link: window.location.origin + "/#!/discuss/"+sharedObj.id,
+                    link: window.location.origin + "/#!/discuss/"+sharedObj.id+"?v="+Math.random(),
                     picture: picture,
                     caption: "Beautiful Years",
                     description: description,

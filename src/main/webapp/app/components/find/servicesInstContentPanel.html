@@ -36,9 +36,9 @@
                 <div class="clearfix"></div>
 
                 <div class="no-padding" style="margin-bottom:10px;" format-address="service.basicProfileInfo.primaryUserAddress">
-                    <div ng-if="service.basicProfileInfo.primaryUserAddress">
+                    <div ng-if="service.basicProfileInfo.primaryUserAddress.fullAddress">
                         <i class="fa fa-map-marker divLeft" style="margin-right:10px;color:#A9A9A9;font-size:20px;"></i>
-                        <span>  {{service.basicProfileInfo.primaryUserAddress}} </span>
+                        <span>  {{service.basicProfileInfo.primaryUserAddress.fullAddress}} </span>
                     </div><div style="clear: both; "></div>
                 </div>
 

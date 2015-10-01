@@ -526,9 +526,9 @@ define(["byApp", "angular"], function (byApp, angular) {
                 }
 
                 if(formattedAddress.trim().length === 0){
-                    scope.formatAddress = null;
+                    scope.formatAddress.fullAddress = null;
                 }else{
-                    scope.formatAddress = formattedAddress;
+                    scope.formatAddress.fullAddress = formattedAddress;
                 }
 
             }

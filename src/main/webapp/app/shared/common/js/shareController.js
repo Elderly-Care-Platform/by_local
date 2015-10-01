@@ -3,11 +3,12 @@ define(["byApp"], function(byApp) {
 
     function ShareController($scope, $rootScope, $location, ValidateUserCredential,ShareDiscuss) {
         $scope.shareComment = function(sharedObj, $event){
+            var caption = "", picture = "", description = "";
         	$event.stopPropagation();
             if(FB && sharedObj){
-                var caption = sharedObj.title ? sharedObj.title: "BeautifulYears",
-                    picture = BY.byUtil.getImage(sharedObj),
-                    description = sharedObj.text ? $(sharedObj.text).text() : "";
+                caption = sharedObj.title ? sharedObj.title: "BeautifulYears";
+                picture = BY.byUtil.getImage(sharedObj);
+                description = sharedObj.text ? $(sharedObj.text).text() : "";
 
                 if((!description || description =="") && (sharedObj.linkInfo)){
                 	description = sharedObj.linkInfo.description || "";

@@ -85,11 +85,11 @@
 
 					<div class="no-padding profileAddress" ng-if="individualProfile.basicProfileInfo.primaryUserAddress"
 						 format-address="individualProfile.basicProfileInfo.primaryUserAddress">
-						<div ng-if="individualProfile.basicProfileInfo.primaryUserAddress">
+						<div ng-if="individualProfile.basicProfileInfo.primaryUserAddress.fullAddress">
 							<i class="fa fa-map-marker divLeft" style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>
 							<ul class="list-inline divRight" style="width:calc(100% - 35px);">
 								<li class="list-inline">
-									{{individualProfile.basicProfileInfo.primaryUserAddress}}
+									{{individualProfile.basicProfileInfo.primaryUserAddress.fullAddress}}
 								</li>
 							</ul>
 						</div><div style="clear: both; "></div>

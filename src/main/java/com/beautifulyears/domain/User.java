@@ -101,7 +101,7 @@ public class User implements Serializable {
 		super();
 		this.userName = userName;
 		this.password = password;
-		this.email = email.toLowerCase();
+		this.email = email != null ? email.toLowerCase() : email;
 		this.regType = regType;
 		this.phoneNumber = phoneNumber;
 		this.verificationCode = verificationCode;
@@ -144,7 +144,7 @@ public class User implements Serializable {
 	}
 
 	public String getEmail() {
-		return email.toLowerCase();
+		return email != null ? email.toLowerCase() : email;
 	}
 
 	public void setEmail(String email) {

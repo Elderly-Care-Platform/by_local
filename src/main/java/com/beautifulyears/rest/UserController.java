@@ -113,7 +113,8 @@ public class UserController {
 				throw new BYException(BYErrorCodes.USER_LOGIN_FAILED);
 			} else {
 				logger.debug("User logged in success for user email = "
-						+ loginRequest.getEmail());
+						+ loginRequest.getEmail() != null ? loginRequest
+						.getEmail() : loginRequest.getPhoneNumber());
 				session = createSession(req, res, user);
 			}
 
@@ -377,7 +378,7 @@ public class UserController {
 					user1.setVerificationCodeExpiry(currentDate);
 					user1.setPassword(user.getPassword());
 					logger.debug("password changed successfuully for user "
-							+ user1.getEmail()+ " or " + user.getPhoneNumber());
+							+ user1.getEmail() + " or " + user.getPhoneNumber());
 					// send mail on successful changing the password
 					mongoTemplate.save(user1);
 				} else {
@@ -466,8 +467,8 @@ public class UserController {
 					socialSignOnPlatform, passwordCode, passwordCodeExpiry,
 					userRoleId, "In-Active");
 		} else {
-			return new User(userName, regType, password, email, phoneNumber, verificationCode,
-					verificationCodeExpiry, socialSignOnId,
+			return new User(userName, regType, password, email, phoneNumber,
+					verificationCode, verificationCodeExpiry, socialSignOnId,
 					socialSignOnPlatform, passwordCode, passwordCodeExpiry,
 					userRoleId, "In-Active");
 		}

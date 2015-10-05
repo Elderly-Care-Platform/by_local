@@ -41,7 +41,7 @@ public class LoginRequest {
 	}
 
 	public String getEmail() {
-		return email.toLowerCase();
+		return email != null ? email.toLowerCase() : email;
 	}
 
 	public void setEmail(String email) {

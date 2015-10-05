@@ -125,10 +125,6 @@
 {
 	margin-left:8px;
 }
-.also-by-head {
-	background: #696969 !important;
-	color: #fff !important;
-}
 
 .discussion-page .news-v3 .post-shares {
 	left: 0px;
@@ -202,11 +198,6 @@
 	margin-bottom: 20px !important;
 }
 
-.blog-author.margin-bottom-35.main-article.by_blog_author.by-commment-bg-gray
-	{
-	min-height: 50px !important;
-	margin-bottom: 0px !important;
-}
 
 .by-more-comment {
 	text-align: center;
@@ -322,16 +313,7 @@
 	padding-bottom: 0px !important;
 }
 
-.also-by-wrapper {
-	padding-bottom: 1px !important;
-	border:1px solid #ccc;
-	border-top:0px;
-}
 
-.also-by-content {
-	margin: 10px 10px 0px 10px;
-	padding-bottom: 0px !important;
-}
 
 .insideComments .blog-author {
 	background: #fff !important;
@@ -408,11 +390,7 @@
 	margin-bottom: 15px;
 }
 
-@media ( max-width : 992px) {
-	.also-by-wrapper {
-		border-right: 1px solid #ccc;
-	}
-}
+
 .discussRightCategory
 {
 	margin-right:15px;

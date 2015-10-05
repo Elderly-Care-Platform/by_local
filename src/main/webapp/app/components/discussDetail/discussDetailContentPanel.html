@@ -1,16 +1,16 @@
 <div  ng-if="detailResponse.discuss" >
- <div class="blog-author margin-bottom-35 main-article by_blog_author" >
-        <div class="article-info dp-inline-block col-md-12" ng-if="detailResponse.discuss.promotion == false">
-            <ul class="list-inline posted-info" style="margin-left:0px;">
+ <div class="by_discussDeatil_card" >
+        <div class="col-md-12 margin-top-10" ng-if="detailResponse.discuss.promotion == false">
+            <ul class="by_discussDeatil_cardList" >
                 <li>
-                    By <a validate-user-name="{{detailResponse.discuss.username}}" style="text-transform: capitalize;"
+                    By <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
                           href="#!/profile/0/{{detailResponse.discuss.userId}}/{{detailResponse.discuss.username}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
                 <li ng-if="detailResponse.discuss.topicId.length > 0"> | In  </li>
 
-                <li ng-repeat="topicId in detailResponse.discuss.topicId">
+                <li ng-repeat="topicId in detailResponse.discuss.topicId" class="by_discussDeatil_cardlineHeight20">
                     <p class="first-letter-uc by-systemTags">
                         <span ng-if="$index > 0">|</span>
                         <a di-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/{{$root.menuCategoryMap[topicId].id}}/all">
@@ -24,50 +24,48 @@
         
         <div style="clear: both; height:10px;" ng-if="detailResponse.discuss.promotion == true"></div>
 
-        <div class="article col-md-12" >
-            <div class="article-heading" style="text-transform: uppercase; padding-bottom:10px;">
+        <div class="by_discussDeatil_cardTitle col-md-12 margin-top-10" >
             	{{detailResponse.discuss.title}}
-            </div>
         </div>
         <div style="clear: both"></div>
-        <div class="by-quad-image col-md-12" ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
-             <img class="articleTitleImage" ng-src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}"
+        <div class="by_discussDeatil_cardImage col-md-12  margin-top-10" ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
+             <img  ng-src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}"
                   fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]'>
             <div style="clear: both"></div>
         </div>
 
-        <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
+        <div class="margin-top-10" ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
 
-        <div class="articles-story  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
+        <div class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
         <div style="clear: both; height:8px;"></div>
         
         
-         <div class="article-share-links news-v3 by-social-border" style="border-bottom:1px solid #ccc !important;">
-            <ul class="post-shares post-shares-lg">
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'">
+         <div class="by_discussDeatil_cardShare" style="border-bottom:1px solid #ccc !important;">
+            <ul class="by_discussDeatil_cardShareList col-md-12">
+            <li ng-if="detailResponse.discuss.discussType == 'P'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                     <span ng-if="detailResponse.discuss.aggrReplyCount > 0">{{detailResponse.discuss.aggrReplyCount}}</span>
                 </a>
 
-                <div class="post-text post_text-comment"
-                     ng-click="createNewComment(detailResponse.discuss.id)"><div class="text">Comment</div>
+                <div
+                     ng-click="createNewComment(detailResponse.discuss.id)">Comment
                 </div>
             </li>
 
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'Q'">
+            <li  ng-if="detailResponse.discuss.discussType == 'Q'">
                 <a ng-click="createNewComment(detailResponse.discuss.id)">
                     <i class="rounded-x icon-answer" title="Answers"></i>
                     <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
                 </a>
 
-                <div class="post-text post_text-comment"
-                     ng-click="createNewComment(detailResponse.discuss.id)"><div class="text">Answer</div>
+                <div 
+                     ng-click="createNewComment(detailResponse.discuss.id)">Answer
                 </div>
             </li>
 
-            <li class="add-comment" ng-controller="DiscussLikeController">
+            <li  ng-controller="DiscussLikeController">
                 <a ng-click="likeDiscuss(detailResponse.discuss.id)">
                     <i class="rounded-x" ng-if="beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[detailResponse.discuss.likedByUser===true]" title="Likes"></i>
                     <i class="rounded-x" ng-if="!beforePost" ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]" title="Likes"></i>
@@ -75,20 +73,17 @@
                     <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" >{{aggrLikeCount}}</span>
                 </a>
 
-                <div class="post-text">
-                    <div ng-click="likeDiscuss(detailResponse.discuss.id)" class="text text2">Like</div>
-                </div>
+                <div ng-click="likeDiscuss(detailResponse.discuss.id)" class="text text2">Like</div>
 
             </li>
             
-            <li class="add-comment" ng-if="detailResponse.discuss.discussType == 'P'" ng-controller="ShareController">
+            <li  ng-if="detailResponse.discuss.discussType == 'P'" ng-controller="ShareController">
                <a ng-click="shareComment(detailResponse.discuss, $event)">
                    <i class="rounded-x icon-share"></i>
                    <span ng-if="detailResponse.discuss.shareCount > 0">{{detailResponse.discuss.shareCount}}</span>
                </a>
 
-               <div class="post-text post_text-comment"><div ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</div>
-               </div>
+               <div ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</div>
            </li>
         </ul><div style="clear:both;"></div>
         </div>
@@ -96,12 +91,12 @@
         <!--  cooments -->
         <div style="clear:both; "></div>
         
-        <div class="article-comments-wrapper blog-author-comment-wrapper" id="article-comments-wrapper">
+        <div class="by_discussDeatil_cardCommentWrap" id="article-comments-wrapper">
 
     <!--Comment Editor for main article-->
-    <div class="col-md-12 no-padding  by_blog_author borderShadow noRadius enter-comment-wrap" id="replyEditor" style="margin-bottom: 0px; margin-top:-20px; border-top:0px;" ng-show="showEditor">
-   		   <img  src="assets/img/by.png" alt="image" style="width:43px  !important; margin-left:5px !important; float:left;">
-        <div class=" padding20SM  by_border-tb by_editor_wrap" style="width:calc(100% - 48px)!important; float:left;" id="answer_block">
+    <div class="col-md-12 by_discussDeatil_cardComment" id="replyEditor" ng-show="showEditor">
+   		   <img  src="assets/img/by.png" alt="image" class="by_discussDeatil_cardCommentImg" >
+        <div class="padding20SM   by_editor_wrap" style="width:calc(100% - 48px)!important; float:left;" id="answer_block">
            
               <textarea rows="3"  id={{detailResponse.discuss.id}} ></textarea>
             <div class="clearfix"></div>
@@ -121,7 +116,7 @@
      ng-init="initCommentEditor(detailResponse.discuss.id)"></div>
 
 <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:20px;">
-    <div ng-repeat="reply in detailResponse.replies" id="comment" data-index="discussion-articles"
+    <div ng-repeat="reply in detailResponse.replies" id="comment" 
           data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
 </div>
  <div style="clear: both; height:0px; background:#fff !important" ></div>

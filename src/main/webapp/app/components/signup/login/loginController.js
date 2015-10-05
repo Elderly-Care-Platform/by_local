@@ -182,10 +182,10 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 
 //     ************************   create new user start
         $scope.createNewUser = function(newUser) {  
-        	if($scope.uniqueId && !$scope.uniqueId.id || $scope.uniqueId.id ===""){
+        	if($scope.uniqueRegId && (!$scope.uniqueRegId.id || $scope.uniqueRegId.id ==="")){
         		$scope.emailError = "Please enter valid Email Id or 10 digit mobile number";
         	} else{              	
-            	var emailMobile = $scope.uniqueId.id;
+            	var emailMobile = $scope.uniqueRegId.id;
             	var isMobile = !isNaN(parseFloat(emailMobile)) && isFinite(emailMobile); 
             	if( isMobile == true)
              		{	            		
@@ -193,7 +193,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 						if (emailMobile.length === 10 && reg.test(emailMobile)) {
 							$scope.emailError = "";
 							$scope.newUser.regType = BY.config.regConfig.regType.mobile;
-							$scope.newUser.phoneNumber = $scope.uniqueId.id;
+							$scope.newUser.phoneNumber = $scope.uniqueRegId.id;
 							delete $scope.newUser.email;
 
 						} else {
@@ -207,7 +207,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                         }else{
                             $scope.emailError = "";
                             $scope.newUser.regType = BY.config.regConfig.regType.email;
-    						$scope.newUser.email = $scope.uniqueId.id;
+    						$scope.newUser.email = $scope.uniqueRegId.id;
     						delete $scope.newUser.phoneNumber;
                         }                       
                        

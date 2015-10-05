@@ -1,4 +1,4 @@
-define(['byUtil'], function(byApp, byUtil){
+define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
     function LoginController($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
         window.scrollTo(0, 0);
 
@@ -17,7 +17,7 @@ define(['byUtil'], function(byApp, byUtil){
 
         $scope.pwdError = "";
         $scope.emailError = "";
-
+        $scope.uniqueId = {};
 
         if($routeParams.resetPasswordCode){
             verifyPasswordCode($routeParams.resetPasswordCode);
@@ -69,7 +69,7 @@ define(['byUtil'], function(byApp, byUtil){
         $scope.modalLoginInit = function(){
             $scope.formState = 0;
             $rootScope.loginFormState=0;
-
+            
 
             $('#myModalHorizontal').on('hide.bs.modal', function () {
                 $('body').removeClass("modal-open");
@@ -165,21 +165,46 @@ define(['byUtil'], function(byApp, byUtil){
         }
 
 //     ************************   create new user start
-        $scope.createNewUser = function(newUser) {
-            var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if(!$scope.newUser.email || $scope.newUser.email==="" || !emailValidation.test($scope.newUser.email)){
-                $scope.emailError = "Please enter valid Email Id";
-            }else{
-                $scope.emailError = "";
-            }
+        $scope.createNewUser = function(newUser) {  
+        	if($scope.uniqueId && !$scope.uniqueId.id || $scope.uniqueId.id ===""){
+        		$scope.emailError = "Please enter valid Email Id or 10 digit mobile number";
+        	} else{              	
+            	var emailMobile = $scope.uniqueId.id;
+            	var isMobile = !isNaN(parseFloat(emailMobile)) && isFinite(emailMobile); 
+            	if( isMobile == true)
+             		{	            		
+	            		var reg = /^\d+$/;
+						if (emailMobile.length === 10 && reg.test(emailMobile)) {
+							$scope.emailError = "";
+							$scope.newUser.regType = BY.config.regConfig.regType.mobile;
+							$scope.newUser.phoneNumber = $scope.uniqueId.id;
+							delete $scope.newUser.email;
 
-            if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
+						} else {
+							$scope.emailError = "Please enter 10 digit mobile number";
+						}  
+						            		
+             		} else {
+            			var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                        if(!emailValidation.test(emailMobile)){
+                            $scope.emailError = "Please enter valid Email Id";
+                        }else{
+                            $scope.emailError = "";
+                            $scope.newUser.regType = BY.config.regConfig.regType.email;
+    						$scope.newUser.email = $scope.uniqueId.id;
+    						delete $scope.newUser.phoneNumber;
+                        }                       
+                       
+            		}
+        	}
+        	
+        	if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
                 $scope.pwdError = "Password must be at least 6 character";
             }else{
                 $scope.pwdError = "";
             }
-
-            if($scope.pwdError==="" && $scope.emailError===""){
+           
+           if($scope.pwdError==="" && $scope.emailError===""){
                 $(".register-btn").prop("disabled", true);
                 $scope.newUser.$save(function (response) {
                     var login = response.data;
@@ -283,3 +308,5 @@ define(['byUtil'], function(byApp, byUtil){
     LoginController.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'User','SessionIdService','ValidateUserCredential'];
     return LoginController;
 });
+
+

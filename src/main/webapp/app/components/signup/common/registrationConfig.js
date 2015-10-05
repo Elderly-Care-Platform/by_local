@@ -3,6 +3,11 @@ BY.config = BY.config || {};
 BY.config.regConfig = BY.config.regConfig || {};
 
 
+BY.config.regConfig.regType = {
+		'email' : '0',
+		'mobile' : '1'
+}
+
 BY.config.regConfig.formConfig = {
     "maxSecondaryPhoneNos":3,
     "maxSecondaryEmailId":2,

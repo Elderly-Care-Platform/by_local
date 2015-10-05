@@ -5,6 +5,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         $scope.user = {};
         $scope.user.email = '';
         $scope.user.password = '';
+        $scope.user.phoneNumber = '';
 
         $scope.newUser = new User();
         $scope.formState = 0;
@@ -17,7 +18,8 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 
         $scope.pwdError = "";
         $scope.emailError = "";
-        $scope.uniqueId = {};
+        $scope.uniqueRegId = {};
+        $scope.uniqueLoginId = {};
 
         if($routeParams.resetPasswordCode){
             verifyPasswordCode($routeParams.resetPasswordCode);
@@ -138,6 +140,19 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         };
 
         $scope.loginUser = function (user) {
+        	var loginUserValue = $scope.uniqueLoginId.id;
+        	//var isMobile = !isNaN(parseFloat(loginUserValue)) && isFinite(loginUserValue); 
+        	var reg = /^\d+$/;
+        	if(reg.test(loginUserValue))
+         		{	
+	        		$scope.user.regType = BY.config.regConfig.regType.mobile;
+					$scope.user.phoneNumber = loginUserValue;
+					delete $scope.user.email;					            		
+         		} else {
+         			$scope.user.regType = BY.config.regConfig.regType.email;
+					$scope.user.email = loginUserValue;
+					delete $scope.user.phoneNumber;
+        		}
             $scope.resetError();
             $(".login-btn").prop("disabled", true);
             $http.post(apiPrefix + 'api/v1/users/login', user).success(function (res) {
@@ -149,6 +164,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 }
                 $scope.user.email = '';
                 $scope.user.password = '';
+                $scope.user.phoneNumber = '';
                 $rootScope.bc_discussType = 'All'; //type for discuss list
                 $scope.setUserCredential(login);
 

@@ -481,7 +481,8 @@ public class UserController {
 		mongoTemplate.save(session);
 		req.getSession().setAttribute("session", session);
 		req.getSession().setAttribute("user", user);
-		logger.debug("returning existing session for user " + user.getEmail());
+		logger.debug("returning existing session for user " + user.getEmail() != null ? user
+				.getEmail() : user.getPhoneNumber());
 		return session;
 	}
 

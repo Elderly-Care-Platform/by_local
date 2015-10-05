@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.ActivityLogConstants;
+import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
@@ -57,13 +58,13 @@ public class UserProfileController {
 
 	private UserProfileRepository userProfileRepository;
 	private ActivityLogHandler<UserProfile> logHandler;
-	 private MongoTemplate mongoTemplate;
+	private MongoTemplate mongoTemplate;
 
 	@Autowired
 	public UserProfileController(UserProfileRepository userProfileRepository,
 			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
-		 this.mongoTemplate = mongoTemplate;
+		this.mongoTemplate = mongoTemplate;
 		logHandler = new UserProfileLogHandler(mongoTemplate);
 	}
 
@@ -81,10 +82,16 @@ public class UserProfileController {
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					if (user != null && user.getEmail() != null
+					if (user != null
+							&& user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL
+							&& user.getEmail() != null
 							&& user.getId().equals(userId)) {
 						userProfile.getBasicProfileInfo().setPrimaryEmail(
 								user.getEmail());
+					} else if (user.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE
+							&& user.getPhoneNumber() != null) {
+						userProfile.getBasicProfileInfo().setPrimaryPhoneNo(
+								user.getPhoneNumber());
 					}
 
 				} else {
@@ -275,13 +282,21 @@ public class UserProfileController {
 							profile = new UserProfile();
 							profile.setUserId(currentUser.getId());
 							profile.setUserTypes(userProfile.getUserTypes());
-							profile.getBasicProfileInfo().setPrimaryEmail(currentUser.getEmail());
+							if (currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL) {
+								profile.getBasicProfileInfo().setPrimaryEmail(
+										currentUser.getEmail());
+							} else if (currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE) {
+								profile.getBasicProfileInfo()
+										.setPrimaryPhoneNo(
+												currentUser.getPhoneNumber());
+							}
 							userProfileRepository.save(profile);
 							UpdateUserProfileHandler userProfileHandler = new UpdateUserProfileHandler(
 									mongoTemplate);
 							userProfileHandler.setProfile(profile);
 							new Thread(userProfileHandler).start();
-							logHandler.addLog(profile, ActivityLogConstants.CRUD_TYPE_CREATE, req);
+							logHandler.addLog(profile,
+									ActivityLogConstants.CRUD_TYPE_CREATE, req);
 						} else {
 							throw new BYException(
 									BYErrorCodes.USER_ALREADY_EXIST);
@@ -363,7 +378,8 @@ public class UserProfileController {
 							}
 
 							userProfileRepository.save(profile);
-							logHandler.addLog(profile, ActivityLogConstants.CRUD_TYPE_UPDATE, req);
+							logHandler.addLog(profile,
+									ActivityLogConstants.CRUD_TYPE_UPDATE, req);
 							logger.info("User Profile update with details: "
 									+ profile.toString());
 						} else {

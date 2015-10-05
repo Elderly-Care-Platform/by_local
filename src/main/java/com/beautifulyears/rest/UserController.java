@@ -84,26 +84,37 @@ public class UserController {
 		LoggerUtil.logEntry();
 		Session session = null;
 		try {
-			if (!Util.isEmpty(loginRequest.getEmail())
-					&& !Util.isEmpty(loginRequest.getPassword())) {
-				Query q = new Query();
-				q.addCriteria(Criteria.where("email")
-						.is(loginRequest.getEmail()).and("password")
-						.is(loginRequest.getPassword()));
-
-				User user = mongoTemplate.findOne(q, User.class);
-				if (null == user) {
-					logger.debug("User login failed with user email : "
-							+ loginRequest.getEmail());
-					session = killSession(req, res);
-					throw new BYException(BYErrorCodes.USER_LOGIN_FAILED);
+			Query q = new Query();
+			if (loginRequest.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL) {
+				if (!Util.isEmpty(loginRequest.getEmail())
+						&& !Util.isEmpty(loginRequest.getPassword())) {
+					q.addCriteria(Criteria.where("email")
+							.is(loginRequest.getEmail()).and("password")
+							.is(loginRequest.getPassword()));
 				} else {
-					logger.debug("User logged in success for user email = "
-							+ loginRequest.getEmail());
-					session = createSession(req, res, user);
+					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 				}
+			} else if (loginRequest.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE) {
+				if (!Util.isEmpty(loginRequest.getPhoneNumber())
+						&& !Util.isEmpty(loginRequest.getPassword())) {
+					q.addCriteria(Criteria.where("phoneNumber")
+							.is(loginRequest.getPhoneNumber()).and("password")
+							.is(loginRequest.getPassword()));
+				} else {
+					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+				}
+			}
+
+			User user = mongoTemplate.findOne(q, User.class);
+			if (null == user) {
+				logger.debug("User login failed with user email : "
+						+ loginRequest.getEmail());
+				session = killSession(req, res);
+				throw new BYException(BYErrorCodes.USER_LOGIN_FAILED);
 			} else {
-				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+				logger.debug("User logged in success for user email = "
+						+ loginRequest.getEmail());
+				session = createSession(req, res, user);
 			}
 
 		} catch (Exception e) {
@@ -138,10 +149,18 @@ public class UserController {
 		if (null != user && (Util.isEmpty(user.getId()))) {
 			try {
 				Query q = new Query();
-				q.addCriteria(Criteria.where("email").is(user.getEmail()));
+				if (user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL) {
+					q.addCriteria(Criteria.where("email").is(user.getEmail()));
+				} else if (user.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE) {
+					q.addCriteria(Criteria.where("phoneNumber").is(
+							user.getPhoneNumber()));
+				} else {
+					throw new BYException(BYErrorCodes.INVALID_REQUEST);
+				}
+
 				if (mongoTemplate.count(q, User.class) > 0) {
-					logger.debug("user with the same emailId already exist = "
-							+ user.getEmail());
+					logger.debug("user with the same credential already exist = "
+							+ user.getEmail() + " or " + user.getPhoneNumber());
 					throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
 				}
 				User userWithExtractedInformation = decorateWithInformation(user);
@@ -358,7 +377,7 @@ public class UserController {
 					user1.setVerificationCodeExpiry(currentDate);
 					user1.setPassword(user.getPassword());
 					logger.debug("password changed successfuully for user "
-							+ user1.getEmail());
+							+ user1.getEmail()+ " or " + user.getPhoneNumber());
 					// send mail on successful changing the password
 					mongoTemplate.save(user1);
 				} else {
@@ -426,6 +445,8 @@ public class UserController {
 		String userName = user.getUserName();
 		String password = user.getPassword();
 		String email = user.getEmail();
+		int regType = user.getRegType();
+		String phoneNumber = user.getPhoneNumber();
 		String verificationCode = user.getVerificationCode();
 		Date verificationCodeExpiry = user.getVerificationCodeExpiry();
 		String socialSignOnId = user.getSocialSignOnId();
@@ -440,12 +461,12 @@ public class UserController {
 		if (userRoleId != null
 				&& (userRoleId.equals(UserRolePermissions.USER) || userRoleId
 						.equals(UserRolePermissions.WRITER))) {
-			return new User(userName, password, email, verificationCode,
-					verificationCodeExpiry, socialSignOnId,
+			return new User(userName, regType, password, email, phoneNumber,
+					verificationCode, verificationCodeExpiry, socialSignOnId,
 					socialSignOnPlatform, passwordCode, passwordCodeExpiry,
 					userRoleId, "In-Active");
 		} else {
-			return new User(userName, password, email, verificationCode,
+			return new User(userName, regType, password, email, phoneNumber, verificationCode,
 					verificationCodeExpiry, socialSignOnId,
 					socialSignOnPlatform, passwordCode, passwordCodeExpiry,
 					userRoleId, "In-Active");

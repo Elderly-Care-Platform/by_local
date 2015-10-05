@@ -8,6 +8,7 @@ import java.util.Date;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.beautifulyears.constants.ActivityLogConstants;
+import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.domain.ActivityLog;
 import com.beautifulyears.domain.User;
 
@@ -37,7 +38,11 @@ public class UserActivityLogHandler extends ActivityLogHandler<User> {
 			log.setRead(false);
 			log.setTitleToDisplay(user.getUserName());
 			log.setUserId(user.getId());
-			log.setCurrentUserEmailId(user.getEmail());
+			if(currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL){
+				log.setCurrentUserEmailId(currentUser.getEmail());
+			}else if(currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE){
+				log.setCurrentUserEmailId(currentUser.getPhoneNumber());
+			}
 		}
 		return log;
 	}

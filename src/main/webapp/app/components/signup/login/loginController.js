@@ -165,21 +165,37 @@ define(['byUtil'], function(byApp, byUtil){
         }
 
 //     ************************   create new user start
-        $scope.createNewUser = function(newUser) {
-            var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if(!$scope.newUser.email || $scope.newUser.email==="" || !emailValidation.test($scope.newUser.email)){
-                $scope.emailError = "Please enter valid Email Id";
-            }else{
-                $scope.emailError = "";
-            }
-
-            if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
+        $scope.createNewUser = function(newUser) {  
+        	if(!$scope.newUser.email || $scope.newUser.email===""){
+        		$scope.emailError = "Please enter valid Email Id or 10 digit mobile number";
+        	} else{              	
+            	var emailMobile = $scope.newUser.email;
+            	var emailMobileCheck = !isNaN(parseFloat(emailMobile)) && isFinite(emailMobile); 
+            	if( emailMobileCheck == true)
+             		{	            		
+	            		var reg = /^\d+$/;
+						if (emailMobile.length === 10 && reg.test(emailMobile)) {
+							$scope.emailError = "";
+						} else {
+							$scope.emailError = "Please enter 10 digit mobile number";
+						}  		
+            		} else {
+            			var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                        if(!emailValidation.test(emailMobile)){
+                            $scope.emailError = "Please enter valid Email Id";
+                        }else{
+                            $scope.emailError = "";
+                        }
+            		}
+        	}
+        	
+        	if(!$scope.newUser.password || $scope.newUser.password.trim().length < 6){
                 $scope.pwdError = "Password must be at least 6 character";
             }else{
                 $scope.pwdError = "";
             }
-
-            if($scope.pwdError==="" && $scope.emailError===""){
+           
+           if($scope.pwdError==="" && $scope.emailError===""){
                 $(".register-btn").prop("disabled", true);
                 $scope.newUser.$save(function (response) {
                     var login = response.data;

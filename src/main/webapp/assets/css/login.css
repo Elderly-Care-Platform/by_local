@@ -364,3 +364,12 @@ input[type=checkbox] {
 	margin: -11px auto 20px auto;
 	vertical-align:top;
 }
+button.login-btn {
+	margin-top: 48px;
+}
+
+@media screen and (max-width: 991px) {
+	button.login-btn {
+		margin-top: 0px;
+	}
+}

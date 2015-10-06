@@ -47,13 +47,13 @@
                         </span>
 
                         <div class="no-padding form-header-content margin-bottom-10" >
-                            <button class="btn btn-success login-btn" ng-disabled="!loginForm.$valid"
+                            <button class="btn btn-success login-btn" ng-disabled="!loginForm.$valid" style="margin-top:0px;"
                                     type="submit">LOGIN
                             </button>
                         </div>
 
                         <div class="no-padding margin-bottom-10">
-                            Forgot your password? <a ng-click="showForm(2)">Click here</a>
+                            Forgot your password? <a ng-click="showForm(2)"><b><u>Click here</u></b></a>
                         </div>
                     </form>
                     <!----------------------Login Form End------------------------->
@@ -119,12 +119,17 @@
 
                         <div ng-if="resetPwd.status===0" class="no-padding form-header-content margin-bottom-10">
                             <button class="btn btn-success by_btn_submit"
-                                    type="submit">SUBMIT
+                                    type="submit" style=" padding: 6px 33px;">SUBMIT
                             </button>
                             <div class="clearfix"></div>
                         </div>
 
-                        <div ng-if="resetPwd.status===1">
+						<div>OR</div>
+						
+						Registered with your mobile?<br/>
+SMS &lt;BYFPW&gt; to +918904155456
+
+						<div ng-if="resetPwd.status===1">
                             We have emailed you a link to change the password
                         </div>
                     </form>
@@ -132,11 +137,14 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="no-padding signup-social" ng-if="resetPwd.status!=1" style=" margin-top: -5px;">
-                    <div>
+                    <div ng-if="formState===1 || formState===0">
                         OR
                     </div>
+                    <div class="loginSectionLine" ng-if="!(formState===1 || formState===0)">
+                    	<img src="assets/img/home/section-line.png?versionTimeStamp=%PROJECT_VERSION%" width="100%"/>
+                    </div>
                     <div class="no-padding form-header-content">
-                     You could use your social login to <span ng-if="formState===1">login</span>  <span ng-if="formState===0">sign up</span>
+                     You could use your social login to <span ng-if="formState===1" style="cursor:inherit;">login</span>  <span ng-if="formState===0" style="cursor:inherit;">sign up</span>
                     </div>
 
                     <div style="margin-top: 5px;">
@@ -164,10 +172,10 @@
         <!-- Modal Footer -->
         <div class="modal-footer byModalFooter"  ng-if="resetPwd.status!=1">
             <div class="no-padding" ng-if="formState===0 || formState===2">
-                Already a BeautifulYears member?<br/> <a ng-click="showForm(1)">Login Here</a>
+                Already a BeautifulYears member?<br/> <a ng-click="showForm(1)"><b><u>Login Here</u></b></a>
             </div>
             <div class="no-padding" ng-if="formState===1">
-                Not a BeautifulYears member?<br/> <a ng-click="showForm(0)">Register Now</a>
+                Not a BeautifulYears member?<br/> <a ng-click="showForm(0)"><b><u>Register Now</u></b></a>
             </div>
         </div>
     </div>

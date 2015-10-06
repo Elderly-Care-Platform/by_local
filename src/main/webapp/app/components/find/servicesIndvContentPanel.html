@@ -40,14 +40,13 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="no-padding" style="margin-bottom:10px;"
-                     format-address="service.basicProfileInfo.primaryUserAddress">
-                    <div ng-if="service.basicProfileInfo.primaryUserAddress.fullAddress">
-                        <i class="fa fa-map-marker divLeft"
-                           style="margin-right:10px;color:#A9A9A9;font-size: 20px; "></i>
-                        <span>  {{service.basicProfileInfo.primaryUserAddress.fullAddress}} </span>
-                    </div>
-                    <div style="clear: both; "></div>
+                <div class="no-padding" style="margin-bottom:10px;" ng-if="service.basicProfileInfo.primaryUserAddress.locality ||
+                 service.basicProfileInfo.primaryUserAddress.city">
+                    <div >
+                        <i class="fa fa-map-marker divLeft" style="margin-right:10px;color:#A9A9A9;font-size:20px;"></i>
+                        <span ng-if="service.basicProfileInfo.primaryUserAddress.locality">  {{service.basicProfileInfo.primaryUserAddress.locality}}, </span>
+                        <span ng-if="service.basicProfileInfo.primaryUserAddress.city">  {{service.basicProfileInfo.primaryUserAddress.city}} </span>
+                    </div><div style="clear: both; "></div>
                 </div>
 
                 <div class="no-padding" style="margin-bottom:10px;">
@@ -60,7 +59,7 @@
                 </div>
                 <div class="no-padding" ng-if="service.serviceProviderInfo.yearsExperience > 0" style="margin-bottom:10px;">
                     {{service.serviceProviderInfo.yearsExperience}} year<span
-                        ng-if="service.serviceProviderInfo.yearsExperience > 1">s</span>of experience
+                        ng-if="service.serviceProviderInfo.yearsExperience > 1">s</span> of experience
                     <div style="clear: both;"></div>
                 </div>
 
@@ -100,8 +99,8 @@
             </li>
         </ul>
     </div>
-    <div class="article col-md-12 col-sm-12 margin-bottom-20"> Speciality: <span
-				ng-repeat="spec in service.serviceProviderInfo.specialities"><span ng-repeat="name in spec" 
+    <div class="article col-md-12 col-sm-12" ng-if="service.serviceProviderInfo.specialities"> <span
+				ng-repeat="spec in service.serviceProviderInfo.specialities" class=" margin-bottom-20"><span ng-if="$first">Speciality:</span> <span ng-repeat="name in spec" 
 				class="profileSpeciality"><b>{{name.displayMenuName}}</b></span></span>
 		</div>
     <div class="clearfix"></div>

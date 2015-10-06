@@ -60,7 +60,7 @@
                 </div>
                 <div class="no-padding" ng-if="service.serviceProviderInfo.yearsExperience > 0" style="margin-bottom:10px;">
                     {{service.serviceProviderInfo.yearsExperience}} year<span
-                        ng-if="service.serviceProviderInfo.yearsExperience > 1">s</span>of experience
+                        ng-if="service.serviceProviderInfo.yearsExperience > 1">s</span> of experience
                     <div style="clear: both;"></div>
                 </div>
 
@@ -100,7 +100,7 @@
             </li>
         </ul>
     </div>
-    <div class="article col-md-12 col-sm-12 margin-bottom-20"> Speciality: <span
+    <div class="article col-md-12 col-sm-12 margin-bottom-20" ng-if="service.serviceProviderInfo.specialities"> Speciality: <span
 				ng-repeat="spec in service.serviceProviderInfo.specialities"><span ng-repeat="name in spec" 
 				class="profileSpeciality"><b>{{name.displayMenuName}}</b></span></span>
 		</div>

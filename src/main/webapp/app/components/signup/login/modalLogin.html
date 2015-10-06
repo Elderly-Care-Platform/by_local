@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="no-padding margin-bottom-10">
-                            Forgot your password? <a ng-click="showForm(2)">Click here</a>
+                            Forgot your password? <a ng-click="showForm(2)"><b><u>Click here</u></b></a>
                         </div>
                     </form>
                     <!----------------------Login Form End------------------------->
@@ -164,10 +164,10 @@
         <!-- Modal Footer -->
         <div class="modal-footer byModalFooter"  ng-if="resetPwd.status!=1">
             <div class="no-padding" ng-if="formState===0 || formState===2">
-                Already a BeautifulYears member?<br/> <a ng-click="showForm(1)">Login Here</a>
+                Already a BeautifulYears member?<br/> <a ng-click="showForm(1)"><b><u>Login Here</u></b></a>
             </div>
             <div class="no-padding" ng-if="formState===1">
-                Not a BeautifulYears member?<br/> <a ng-click="showForm(0)">Register Now</a>
+                Not a BeautifulYears member?<br/> <a ng-click="showForm(0)"><b><u>Register Now</u></b></a>
             </div>
         </div>
     </div>

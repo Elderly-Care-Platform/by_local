@@ -99,8 +99,8 @@
             </li>
         </ul>
     </div>
-    <div class="article col-md-12 col-sm-12 margin-bottom-20" ng-if="service.serviceProviderInfo.specialities"> Speciality: <span
-				ng-repeat="spec in service.serviceProviderInfo.specialities"><span ng-repeat="name in spec" 
+    <div class="article col-md-12 col-sm-12 margin-bottom-20" ng-if="service.serviceProviderInfo.specialities"> <span
+				ng-repeat="spec in service.serviceProviderInfo.specialities"><span ng-if="$first">Speciality:</span> <span ng-repeat="name in spec" 
 				class="profileSpeciality"><b>{{name.displayMenuName}}</b></span></span>
 		</div>
     <div class="clearfix"></div>

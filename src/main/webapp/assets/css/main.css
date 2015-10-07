@@ -186,3 +186,16 @@ body a:hover
 {
 	width:100%;
 }
+.tooltip-inner
+{
+	border-radius: 5px !important;
+	background-color:#525252;	
+}
+.tooltip.top
+{
+	top:18px;
+}
+.tooltip.top .tooltip-arrow
+{
+	border-top-color: #525252;
+}

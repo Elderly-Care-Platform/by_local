@@ -136,6 +136,7 @@ public class HousingResponse implements IResponse {
 			this.lastModifiedAt = housing.getLastModifiedAt();
 			this.systemTags = housing.getSystemTags();
 			this.isVerified = housing.isVerified();
+			this.isFeatured = housing.isFeatured();
 
 			if (null != user && housing.getRatedBy().contains(user.getId())) {
 				this.isReviewedByUser = true;

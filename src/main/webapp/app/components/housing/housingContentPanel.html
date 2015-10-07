@@ -2,14 +2,14 @@
 	<div ng-click="location($event, housing.userId, housing.id)"
      class="by_housingCard">
      <div class="housingFeatured" ng-if="housing.featured == true"></div>
-     <div class="by_housingCard_profileImage" ng-if="housing.profileImage.thumbnailImage" style="background-image:url('{{housing.profileImage.titleImage}}');">
-     	<!--  <img ng-if="housing.profileImage.thumbnailImage" ng-src="{{housing.profileImage.thumbnailImage || ''}}" alt="image"
-                        fallback-src='["assets/img/housing/Housing_card_04.jpg?versionTimeStamp=%PROJECT_VERSION%"]'>
+     <div class="by_housingCard_profileImage" ng-if="housing.profileImage != null" style="background-image:url('{{housing.profileImage.titleImage}}');">
+     	  <img  ng-src="{{housing.profileImage.titleImage || ''}}" alt="image"
+                        fallback-src='["assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%"]' style="visibility:hidden;">
 
-		 <img ng-if="!housing.profileImage.thumbnailImage" ng-src="assets/img/housing/Housing_card_04.jpg?versionTimeStamp=%PROJECT_VERSION%"
+		 <!--<img ng-if="!housing.profileImage.thumbnailImage" ng-src="assets/img/housing/Housing_card_04.jpg?versionTimeStamp=%PROJECT_VERSION%"
 					  alt="image">-->
      </div>
-     <div class="by_housingCard_profileImage" ng-if="!housing.profileImage.thumbnailImage" style="background-image:url('assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%');"></div>
+     <div class="by_housingCard_profileImage" ng-if="housing.profileImage == null" style="background-image:url('assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%');"></div>
      <div class="by_housingCard_content">
      	<p class="by_housingCard_contentHead">{{housing.name}}</p>
 			<div class="by_housingCard_contentLeft">
@@ -22,7 +22,7 @@
 						</div><div class="clearfix"></div>
 					</div>					
 				</div>
-				<div class="by_housingCard_contentVerified" ng-if="housing.verified == true" title="Verified"></div>
+				<div class="by_housingCard_contentVerified" ng-if="housing.verified == true" title="Verified" data-toggle="tooltip" ></div>
 			</div>
 			<div class="by_housingCard_contentRight">
 				<div class="by_housingCard_contentIconWrap" ng-if="housing.tier">

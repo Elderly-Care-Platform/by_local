@@ -50,7 +50,7 @@
                     <div class="profileContentTitle divLeft" ng-if="facility.name" style="width: calc(100% - 110px);">
                         {{facility.name}}
                     </div>
-                    <div class="by_profile_verified divRight" ng-if="facility.verified == true" title="Verified"></div>
+                    <div class="by_profile_verified divRight" ng-if="facility.verified == true" data-toggle="tooltip" title="Verified"></div>
                     <div class="no-padding" ng-if="facility.reviewCount > 0 || facility.ratingCount > 0">
                         <div class="serviceRating" ng-if="facility.ratingPercentage">
                             <i class="rounded-x" rate-calculator="{{facility.ratingPercentage}}"></i>

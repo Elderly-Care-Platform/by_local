@@ -1,99 +1,88 @@
-<div ng-repeat="housing in housing" class="ng-scope" style="position:relative;">
+<div ng-repeat="housing in housing">
 	<div ng-click="location($event, housing.userId, housing.id)"
-     class="margin-bottom-35 service-card" data-index="discussion-articles"
-      ng-init="housing.showMoreServices=false;">
-    <div class="serviceFeatured" ng-if="housing.featured == true && showFeaturedTag == true"></div>
-    <div class="col-md-12">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 service-card-info dp-inline-block">
-            <div class="service-card-image service-card-image-height divLeft">
-                <img ng-if="housing.profileImage.thumbnailImage" ng-src="{{housing.profileImage.thumbnailImage || ''}}" alt="image"
-                        fallback-src='["assets/img/profile/Housing_listing.png?versionTimeStamp=%PROJECT_VERSION%"]'>
+     class="by_housingCard">
+     <div class="housingFeatured" ng-if="housing.featured == true"></div>
+     <div class="by_housingCard_profileImage" ng-if="housing.profileImage.thumbnailImage" style="background-image:url('{{housing.profileImage.titleImage}}');">
+     	<!--  <img ng-if="housing.profileImage.thumbnailImage" ng-src="{{housing.profileImage.thumbnailImage || ''}}" alt="image"
+                        fallback-src='["assets/img/housing/Housing_card_04.jpg?versionTimeStamp=%PROJECT_VERSION%"]'>
 
-				<img ng-if="!housing.profileImage.thumbnailImage" ng-src="assets/img/profile/Housing_listing.png?versionTimeStamp=%PROJECT_VERSION%"
-					  alt="image">
-            </div>
-
-            <div class="by-service-inline divLeft">
-               <div class="article ng-scope" ng-if="housing.name">
-                    <div class="article-heading" style="padding-top:0px; ">
-                        <p style="text-transform: capitalize" >{{housing.name}}</p>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="no-padding" ng-if="housing.reviewCount > 0 || housing.ratingCount > 0">
-                    <div class="serviceRating" ng-if="housing.ratingPercentage">
-                        <i class="rounded-x" rate-calculator="{{housing.ratingPercentage}}"></i>
-                        Rated by <a href="">{{housing.ratingCount}} user<xy ng-if="housing.ratingCount > 1">s</xy>
-                    </a>
-                    </div>
-                    <div class="serviceReview" ng-if="housing.reviewCount > 0">
-                        <i class="rounded-x fa fa-review-icon"></i>
-                            {{housing.reviewCount}} review<span ng-if="housing.reviewCount > 1">s</span>
-                    </div>
-                    <div style="clear: both; height:9px;"></div>
-                </div><div class="clearfix"></div>
-					
-					<div class="no-padding profileRatingHP" ng-if="housing.tier">
-					<div class="divLeft">
-						<i class="rounded-x fa fa-home fa-bank"></i></div>
-						<div class="divRight"> {{housing.tier}}</div>
-						<div style="clear: both; height:8px;" ng-if="housing.ratingCount > 0"></div>
-						<div style="clear: both; height:15px;" ng-if="housing.ratingCount == 0"></div>
-					</div>
-					<div class="clearfix"></div>
-					<div class="no-padding profileRatingHP" ng-if="housing.categoriesId.length > 0">
-					<div class="divLeft">
-						<i class="rounded-x fa fa-home"></i></div>
-					<div class="divRight">	<span	ng-repeat="category in housing.categoriesId" >
-						<a di-href="#!housing/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span ng-if="$index<housing.categoriesId.length - 1">,</span> </span></div>
-						<div style="clear: both; height:8px;" ng-if="housing.ratingCount > 0"></div>
-						<div style="clear: both; height:15px;" ng-if="housing.ratingCount == 0"></div>
-					</div>
-					<div class="clearfix"></div>
+		 <img ng-if="!housing.profileImage.thumbnailImage" ng-src="assets/img/housing/Housing_card_04.jpg?versionTimeStamp=%PROJECT_VERSION%"
+					  alt="image">-->
+     </div>
+     <div class="by_housingCard_profileImage" ng-if="!housing.profileImage.thumbnailImage" style="background-image:url('assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%');"></div>
+     <div class="by_housingCard_content">
+     	<p class="by_housingCard_contentHead">{{housing.name}}</p>
+			<div class="by_housingCard_contentLeft">
+				<div class="by_housingCard_contentIconWrap"	ng-if="housing.primaryAddress.locality || housing.primaryAddress.city">
+					<div >
+						<i class="fa fa-map-marker divLeft"></i>
+						<div class="divRight by_housingCard_address">
+							<span ng-if="housing.primaryAddress.locality">{{housing.primaryAddress.locality}}, </span>
+							<span ng-if="housing.primaryAddress.city">{{housing.primaryAddress.city}}</span>
+						</div><div class="clearfix"></div>
+					</div>					
 				</div>
-        </div>
-    </div>
-    
-
-		<div class="col-md-12 profileAddress"
-			ng-if="housing.primaryAddress.streetAddress || housing.primaryAddress.locality ||
-						 housing.primaryAddress.city || housing.primaryAddress.country || housing.primaryAddress.zip">
-						 <div style="clear: both; height:1px;"></div>
-			<i class="fa fa-map-marker divLeft"
-				style="margin-right: 20px; color: #A9A9A9; font-size: 20px;"></i>
-			<ul class="list-inline divRight" style="width: calc(100% - 35px);">
-				<li class="list-inline"
-					ng-if="housing.primaryAddress.streetAddress">
-					{{housing.primaryAddress.streetAddress}}, &nbsp;</li>
-				<li class="list-inline" ng-if="housing.primaryAddress.locality">
-					{{housing.primaryAddress.locality}}, &nbsp;</li>
-				<li class="list-inline" ng-if="housing.primaryAddress.city">
-					{{housing.primaryAddress.city}}, &nbsp;</li>
-				<li class="list-inline" ng-if="housing.primaryAddress.country">
-					{{housing.primaryAddress.country}}&nbsp;</li>
-				<li class="list-inline" ng-if="housing.primaryAddress.zip">
-					 - &nbsp;{{housing.primaryAddress.zip}}</li>
-			</ul>
-			<div style="clear: both; height: 6px;"></div>
-		</div>
-
-		<div class="col-md-12 serviceCardMoreLinks" style="margin-top: -10px;">
-        <a class="divRight by_readmore">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
-			<div class="divRight" ng-if="housing.ratingCount == 0" style="margin-right:15px; margin-top:2px;">
-				<div class="no-padding  add-comment-FA "
-					style="width: 160px; margin-top: -2px;">
-					<div class="icon-rate divLeft" title="Rate"></div>
-					<div class="text divLeft">Be the first to rate</div>
-					<div class="clearfix"></div>
-				</div>
+				<div class="by_housingCard_contentVerified" ng-if="housing.verified == true" title="Verified"></div>
 			</div>
-			<div style="clear: both"></div>
-    </div>
-    <div style="clear: both; height:7px;"></div>
-    <div style="clear: both"></div>
-</div>
-
-
+			<div class="by_housingCard_contentRight">
+				<div class="by_housingCard_contentIconWrap" ng-if="housing.tier">
+					<div class="divLeft">
+						<i class="rounded-x fa fa-home fa-bank"></i>
+					</div>
+					<div class="divRight">{{housing.tier}}</div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div class="by_housingCard_contentIconWrap"
+					ng-if="housing.categoriesId.length > 0">
+					<div class="divLeft">
+						<i class="rounded-x fa fa-home"></i>
+					</div>
+					<div class="divRight">
+						<span ng-repeat="category in housing.categoriesId"> <a
+							di-href="#!housing/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span
+							ng-if="$index<housing.categoriesId.length - 1">,</span>
+						</span>
+					</div><div class="clearfix"></div>
+				</div>
+				
+				<div class="by_housingCard_contentIconWrap" ng-if="housing.ratingCount > 0">
+					<div class="divLeft" ng-if="housing.ratingPercentage">
+						<i class="rounded-x rateValue" rate-calculator="{{housing.ratingPercentage}}"></i>
+					</div>
+					<div class="divRight"> 
+                        Rated by <a href="">{{housing.ratingCount}} user<xy ng-if="housing.ratingCount > 1">s</xy>
+                    </a></div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div  class="by_housingCard_contentIconWrap"  ng-if="housing.ratingCount == 0" >
+					<div class="divLeft">
+						<div class="icon-rate" title="Rate"></div>
+					</div>
+					<div class="divRight"> 
+						Be the first to rate
+                     </div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div class="by_housingCard_contentIconWrap" ng-if="housing.reviewCount > 0">
+					<div class="divLeft">
+						<i class="rounded-x fa fa-review-icon"></i>
+					</div>
+					<div class="divRight"> 
+						{{housing.reviewCount}} review<span ng-if="housing.reviewCount > 1">s</span>
+                     </div>
+					<div class="clearfix"></div>
+				</div>
+				
+				
+				
+			</div>
+			<a class="divRight by_housingCard_readmore">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
+     </div>
+     <div class="clearfix"></div>
+     </div>
 </div>
 
 <div class="animation_image" style="display: block" align="center"

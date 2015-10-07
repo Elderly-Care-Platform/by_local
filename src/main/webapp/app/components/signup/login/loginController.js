@@ -8,7 +8,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         $scope.user.phoneNumber = '';
 
         $scope.newUser = new User();
-        $scope.formState = 0;
+        $scope.formState = $rootScope.loginFormState;
 
 
         $scope.resetPwd = {};
@@ -69,8 +69,10 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         })();
 
         $scope.modalLoginInit = function(){
-            $scope.formState = 0;
-            $rootScope.loginFormState=0;
+        	if($scope.formState === undefined){
+	            $scope.formState = 0;
+	            $rootScope.loginFormState=0;
+        	}
             
 
             $('#myModalHorizontal').on('hide.bs.modal', function () {

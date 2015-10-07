@@ -45,6 +45,7 @@ public class UserProfileResponse implements IResponse {
 		private List<Tag> systemTags = new ArrayList<Tag>();
 		private Date lastModifiedAt = new Date();
 		private boolean isFeatured;
+		private boolean verified;
 		private List<HousingFacility> facilities = new ArrayList<HousingFacility>();
 
 		public UserProfileEntity(UserProfile profile, User user) {
@@ -67,6 +68,7 @@ public class UserProfileResponse implements IResponse {
 			ratingCount = profile.getRatedBy().size();
 			reviewCount = profile.getReviewedBy().size();
 			this.isFeatured = profile.isFeatured();
+			this.verified = profile.isVerified();
 			this.facilities = profile.getFacilities();
 		}
 

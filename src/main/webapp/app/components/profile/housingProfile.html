@@ -47,10 +47,10 @@
             </div>
             <div ng-if="housingFacilityId" class="col-md-7 col-xs-7  by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
                 <div class="profileMainContent">
-                    <div class="profileContentTitle divLeft" ng-if="facility.name" style="width: calc(100% - 110px);">
+                    <div class="profileContentTitle divLeft" ng-if="facility.name" style="width: calc(100% - 92px);">
                         {{facility.name}}
                     </div>
-                    <div class="by_profile_verified divRight" ng-if="facility.verified == true" data-toggle="tooltip" title="Verified"></div>
+                    <div class="by_profile_verified divRight" ng-if="facility.verified == true" data-toggle="tooltip" ng-init="tooltipText();" ng-click="$event.stopPropagation();" title="Verified by Beautiful Years Team" ></div>
                     <div class="no-padding" ng-if="facility.reviewCount > 0 || facility.ratingCount > 0">
                         <div class="serviceRating" ng-if="facility.ratingPercentage">
                             <i class="rounded-x" rate-calculator="{{facility.ratingPercentage}}"></i>

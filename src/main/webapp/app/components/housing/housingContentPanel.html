@@ -22,7 +22,7 @@
 						</div><div class="clearfix"></div>
 					</div>					
 				</div>
-				<div class="by_housingCard_contentVerified" ng-if="housing.verified == true" title="Verified" data-toggle="tooltip" ></div>
+				<div class="by_housingCard_contentVerified" ng-if="housing.verified == true" ng-init="tooltipText();" ng-click="$event.stopPropagation();" title="Verified by Beautiful Years Team" data-toggle="tooltip" ></div>
 			</div>
 			<div class="by_housingCard_contentRight">
 				<div class="by_housingCard_contentIconWrap" ng-if="housing.tier">

@@ -63,7 +63,6 @@ $(window).scroll(function(){
 	
 	var footerv1Height = $(".footer-v1").height()+10;
 	$(".topScroll").css('bottom', footerv1Height +"px");
-	$('[data-toggle="tooltip"]').tooltip(); 
 	
 	
 });

@@ -250,6 +250,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	{
 		width:calc(100% - 2px);
 	}
+	.by_profileInfoWidth
+	{
+		margin-top:20px;
+	}
 }
 .verticalAlign
 {

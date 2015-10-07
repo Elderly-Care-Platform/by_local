@@ -21,7 +21,7 @@
     </div>
     <div class="col-md-12 whiteBg by_profileDetail   margin-bottom-35" style="border-radius:4px !important;">
         <div class="col-md-12 profileContainer  white-gray ">
-            <div class="col-md-5 col-xs-5 by_services_full_width" style="margin-right:20px;" ng-if="housingFacilityId">
+            <div class="col-md-5 col-xs-5 by_profileWidth" style="margin-right:20px;"  ng-if="housingFacilityId">
                 <div class="main-image white-gray " style="padding-left:0px;">
                     <img class="padding-zero" ng-if="facility.profileImage.titleImage"
                          ng-src="{{facility.profileImage.titleImage || ''}}" alt="">
@@ -45,11 +45,12 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <div ng-if="housingFacilityId" class="col-md-7 col-xs-7 by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
+            <div ng-if="housingFacilityId" class="col-md-7 col-xs-7  by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
                 <div class="profileMainContent">
-                    <div class="profileContentTitle" ng-if="facility.name">
+                    <div class="profileContentTitle divLeft" ng-if="facility.name" style="width: calc(100% - 110px);">
                         {{facility.name}}
                     </div>
+                    <div class="by_profile_verified divRight" ng-if="facility.verified == true" title="Verified"></div>
                     <div class="no-padding" ng-if="facility.reviewCount > 0 || facility.ratingCount > 0">
                         <div class="serviceRating" ng-if="facility.ratingPercentage">
                             <i class="rounded-x" rate-calculator="{{facility.ratingPercentage}}"></i>
@@ -194,7 +195,7 @@
 
 
             <div class="col-md-12 no-padding" ng-if="facility.description && housingFacilityId">
-                <div class="col-md-12 no-padding  list-head dp-block fontIndv">
+                <div class="col-md-12 no-padding margin-top-20  list-head dp-block fontIndv">
                     About us
                 </div>
 

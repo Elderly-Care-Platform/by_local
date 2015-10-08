@@ -1,0 +1,82 @@
+
+     <div class="housingFeatured" ng-if="housing.featured == true"></div>
+     <div class="by_housingCard_profileImage" aria-label="{{housing.name}}" ng-if="housing.profileImage != null" style="background-image:url('{{housing.profileImage.titleImage}}');">
+			<img background-fallback-src="assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%"
+				ng-src="{{housing.profileImage.titleImage}}" style="display: none;">
+		</div>
+     <div class="by_housingCard_profileImage" ng-if="housing.profileImage == null" style="background-image:url('assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%');"></div>
+     <div class="by_housingCard_content">
+     	<p class="by_housingCard_contentHead">{{housing.name}}</p>
+			<div class="by_housingCard_contentLeft">
+				<div class="by_housingCard_contentIconWrap by_housingCard_contentIconWrapAddHeight" 	ng-if="housing.primaryAddress.locality || housing.primaryAddress.city">
+					<div >
+						<i class="fa fa-map-marker divLeft"></i>
+						<div class="divRight by_housingCard_address">
+							<span ng-if="housing.primaryAddress.locality">{{housing.primaryAddress.locality}}, </span>
+							<span ng-if="housing.primaryAddress.city">{{housing.primaryAddress.city}}</span>
+						</div><div class="clearfix"></div>
+					</div>					
+				</div>
+				<div class="by_housingCard_contentVerified" ng-if="housing.verified == true" ng-init="tooltipText();" ng-click="$event.stopPropagation();" 
+				title="Information on service providers, professionals and senior living options has been verified by a BeautifulYears 
+				representative  at the time of registration on BeautifulYears.com. Verification details appear in the review section for the specific establishment as a BeautifulYears Team review." data-toggle="tooltip" ></div>
+			</div>
+			<div class="by_housingCard_contentRight">
+				<div class="by_housingCard_contentIconWrap" ng-if="housing.tier">
+					<div class="divLeft">
+						<i class="rounded-x fa fa-home fa-bank"></i>
+					</div>
+					<div class="divRight">{{housing.tier}}</div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div class="by_housingCard_contentIconWrap"
+					ng-if="housing.categoriesId.length > 0">
+					<div class="divLeft">
+						<i class="rounded-x fa fa-home"></i>
+					</div>
+					<div class="divRight">
+						<span ng-repeat="category in housing.categoriesId"> <a
+							di-href="#!housing/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span
+							ng-if="$index<housing.categoriesId.length - 1">,</span>
+						</span>
+					</div><div class="clearfix"></div>
+				</div>
+				
+				<div class="by_housingCard_contentIconWrap" ng-if="housing.ratingCount > 0">
+					<div class="divLeft" ng-if="housing.ratingPercentage">
+						<i class="rounded-x rateValue" rate-calculator="{{housing.ratingPercentage}}"></i>
+					</div>
+					<div class="divRight"> 
+                        Rated by <a href="#!/profile/0/{{housing.userId}}/{{housing.username}}">{{housing.ratingCount}} user<xy ng-if="housing.ratingCount > 1">s</xy>
+                    </a></div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div  class="by_housingCard_contentIconWrap"  ng-if="housing.ratingCount == 0" >
+					<div class="divLeft">
+						<div class="icon-rate" title="Rate"></div>
+					</div>
+					<div class="divRight"> 
+						Be the first to rate
+                     </div>
+					<div class="clearfix"></div>
+				</div>
+				
+				<div class="by_housingCard_contentIconWrap" ng-if="housing.reviewCount > 0">
+					<div class="divLeft">
+						<i class="rounded-x fa fa-review-icon"></i>
+					</div>
+					<div class="divRight"> 
+						{{housing.reviewCount}} review<span ng-if="housing.reviewCount > 1">s</span>
+                     </div>
+					<div class="clearfix"></div>
+				</div>
+				
+				
+				
+			</div><div class="clearfix"></div>
+			<a class="divRight by_housingCard_readmore" ng-href="#!/housingProfile/3/{{housing.userId}}/{{housing.id}}">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
+			<div class="clearfix"></div>
+     </div>
+     <div class="clearfix"></div>

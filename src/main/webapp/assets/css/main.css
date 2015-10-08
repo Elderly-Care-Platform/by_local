@@ -2,7 +2,7 @@ body
 {
     padding: 0px;
     margin: 0px;
-    font-family: century_gothic !important;
+    font-family: century_gothic !important;   
 }
 
 
@@ -185,4 +185,19 @@ body a:hover
 .by_fullWidth
 {
 	width:100%;
+}
+.tooltip-inner
+{
+	border-radius: 5px !important;
+	background-color:#525252;	
+	text-align:left;
+	max-width:980px;
+}
+.tooltip.top
+{
+	margin-top:5px;
+}
+.tooltip.top .tooltip-arrow
+{
+	border-top-color: #525252;
 }

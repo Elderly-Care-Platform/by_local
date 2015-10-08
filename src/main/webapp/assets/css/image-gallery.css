@@ -16,8 +16,6 @@
 .by-imageGallery-item {
     height: 70px;
     display:inline-block;
-    margin-right:2px;
-    border:1px solid #ccc;
 }
 
 .by-imageGallery-item img {
@@ -25,6 +23,8 @@
     width: auto !important;
     max-width: 135px;
     max-height: 168px;
+    margin-right:2px;
+    border:1px solid #ccc;
 
 }
 .by-gallery-container-width

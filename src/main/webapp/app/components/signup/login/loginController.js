@@ -293,7 +293,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
             }).error(function(errorRes){
                 console.log(errorRes);
                 $(".by_btn_submit").prop("disabled", false);
-                $scope.resetPwd.error = errorRes.error.errorMsg;
+                $scope.resetPwd.error = "Please enter valid Email ID";
             });
         };
 

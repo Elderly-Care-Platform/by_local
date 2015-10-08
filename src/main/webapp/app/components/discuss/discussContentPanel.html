@@ -30,10 +30,10 @@
         </div>
         <img ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
              ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-             fallback-src='["assets/img/by.png"]' alt="image">
+             fallback-src='["assets/img/by.png"]' alt="{{discuss.title}}">
 
         <img ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-             ng-src="assets/img/by.png" alt="image">
+             ng-src="assets/img/by.png" alt="{{discuss.title}}">
 
         <div class="article-info dp-inline-block " style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
             <ul class="list-inline posted-info" style="">
@@ -53,7 +53,7 @@
                 <li ng-repeat="topicId in discuss.topicId">
                     <p class="first-letter-uc by-systemTags">
                         <span ng-if="$index > 0">|</span>
-                        <a ng-click="go($event,'menu', topicId)">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
+                        <a   ng-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
                     </p>
                 </li>
             </ul>
@@ -77,14 +77,14 @@
         <div style="clear: both"></div>
         <div class="by-quad-image col-md-12">
             <img ng-if="discuss.discussType == 'P' && discuss.promotion == false && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
-                 ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
+                 ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="{{discuss.title}}"
                  fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
         </div>
         <div class="by-quad-image col-md-12 no-padding" style="margin-top:-1px;">
             <img ng-if="discuss.discussType == 'P' && discuss.promotion == true && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
-                 ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+                 ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="{{discuss.title}}"
                  fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
@@ -94,7 +94,7 @@
              ng-init="linkInfo=discuss.linkInfo" ng-if="discuss.promotion == false"></div>
 
         <div class="articles-story  col-md-12" ng-if="discuss.promotion == false" id="{{discuss.id}}">
-            <p class="discuss-card-desciption" ng-if="discuss.shortSynopsis">{{discuss.shortSynopsis}}<a
+            <p class="discuss-card-desciption" ng-if="discuss.shortSynopsis">{{discuss.shortSynopsis}}<a ng-href="#!/discuss/{{discuss.id}}/"
                     class="divRight by_readmore">Read More <b style="font-size:10px;">&#9002;</b></a></p>
 
             <p class="discuss-card-desciption" ng-if="!discuss.shortSynopsis"
@@ -106,7 +106,7 @@
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment"
                     ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
-                    <a>
+                    <a ng-href="#!/discuss/{{discuss.id}}/" ng-click="$event.stopPropagation();">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                         <span>{{discuss.aggrReplyCount}}</span>
 
@@ -116,17 +116,17 @@
 
                 <li class="add-comment add-comment-FC"
                     ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                    <a>
+                    <a  ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
 
-                        <div class="text" ng-click="go($event,'comment', discuss.id)">
+                        <div class="text" >
                             Be the first to comment
                         </div>
                     </a>
                 </li>
                 <li class="add-comment"
                     ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
-                    <a>
+                    <a ng-href="#!/discuss/{{discuss.id}}/" ng-click="$event.stopPropagation();">
                         <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
                         <span>{{discuss.directReplyCount}}</span>
 
@@ -136,7 +136,7 @@
 
                 <li class="add-comment add-comment-FA"
                     ng-if="discuss.directReplyCount == 0 && discuss.discussType == 'Q'">
-                    <a>
+                    <a ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
                         <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
 
                         <div class="text" ng-click="go($event,'comment', discuss.id)">

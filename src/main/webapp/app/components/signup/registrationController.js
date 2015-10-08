@@ -100,10 +100,23 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
                     $scope.updateContentPanel();
                 } else {
                     $scope.views.leftPanel = BY.config.regConfig.userTypeConfig[-1].leftPanel;
-                    require([BY.config.regConfig.userTypeConfig[-1].controller], function(regCtrl) {
-                        $scope.views.contentPanel = BY.config.regConfig.userTypeConfig[-1].contentPanel;
-                        $scope.$apply();
-                    });
+                    if($routeParams.changeUserName) {
+                        require(["modifySignupCtrl"], function(regCtrl) {
+                            $scope.changeUsername();
+                            $scope.$apply();
+                        });
+
+                    } else if($routeParams.changeUserPwd){
+                        require(["modifySignupCtrl"], function(regCtrl) {
+                            $scope.changePassword();
+                            $scope.$apply();
+                        });
+                    } else{
+	                    require([BY.config.regConfig.userTypeConfig[-1].controller], function(regCtrl) {
+	                        $scope.views.contentPanel = BY.config.regConfig.userTypeConfig[-1].contentPanel;
+	                        $scope.$apply();
+	                    });
+                    }
 
                 }
             });

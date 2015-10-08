@@ -128,6 +128,10 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         $scope.trustAsResourceUrl = function(url) {
             return $sce.trustAsResourceUrl(url);
         };
+        
+        $scope.tooltipText = function(){        	
+        	$('[data-toggle="tooltip"]').tooltip(); 
+        }
        
         
         $scope.go = function($event, type, id, discussType){

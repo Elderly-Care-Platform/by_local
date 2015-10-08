@@ -221,7 +221,7 @@ public class ReviewController {
 		switch (contentType) {
 		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
-			updateInstitutionRating(rating);
+			updateInstitutionRating(rating,user);
 			break;
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
 			updateHousingRating(rating, user);
@@ -236,7 +236,7 @@ public class ReviewController {
 		switch (contentType) {
 		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
-			updateInstitutionReviews(review);
+			updateInstitutionReviews(review,user);
 			break;
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
 			updateHousingReviews(review, user);
@@ -281,7 +281,7 @@ public class ReviewController {
 
 	}
 
-	private void updateInstitutionRating(UserRating rating) {
+	private void updateInstitutionRating(UserRating rating, User currentUser) {
 		UserProfile profile = this.userProfileRepository.findOne(rating
 				.getAssociatedId());
 		if (null != profile) {
@@ -307,6 +307,10 @@ public class ReviewController {
 				profile.setAggrRatingPercentage(ratingAggregated.get(0)
 						.getRatingPercentage());
 			}
+			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+				profile.setVerified(true);
+			}
 			this.userProfileRepository.save(profile);
 		}
 	}
@@ -329,7 +333,7 @@ public class ReviewController {
 		}
 	}
 
-	private void updateInstitutionReviews(DiscussReply review) {
+	private void updateInstitutionReviews(DiscussReply review, User currentUser) {
 		UserProfile profile = this.userProfileRepository.findOne(review
 				.getDiscussId());
 		if (null != profile) {
@@ -337,6 +341,10 @@ public class ReviewController {
 				profile.getReviewedBy().remove(review.getUserId());
 			} else if (!profile.getReviewedBy().contains(review.getUserId())) {
 				profile.getReviewedBy().add(review.getUserId());
+			}
+			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+				profile.setVerified(true);
 			}
 			this.userProfileRepository.save(profile);
 

@@ -24,8 +24,11 @@
 		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
 			<div class="col-md-5 col-xs-5 by_profileWidth">
 				<div class="main-image white-gray " style="padding-left:0px;">
-					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
-						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"
+					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && && individualProfile.individualInfo.gender == 1"
+						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual-big.png"]'
+						 alt="">
+						 <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && && individualProfile.individualInfo.gender == 0"
+						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual_female_big.png"]'
 						 alt="">
 						 <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
 						ng-src="assets/img/profile/individual-big.png"
@@ -44,7 +47,7 @@
 							data-hover="{{img.thumbnailImage || ''}}"
 							ng-init="galleryClickHover()">
 							<img ng-if="img.thumbnailImage || img.original" ng-src="{{img.thumbnailImage || ''}}"
-								fallback-src='["{{img.original||""}}"]' />
+								fallback-src='[""]' />
 						</div>
 					</div>
 					<div class="by-gallery-rightArrow" ng-click="slideGallery('r')">

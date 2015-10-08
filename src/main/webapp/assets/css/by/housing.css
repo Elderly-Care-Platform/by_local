@@ -17,13 +17,15 @@
 .by_housingCard_profileImage
 {
 	width:228px;
-	height:228px;
+	min-height:228px;
 	text-align:center;
 	line-height:228px;
 	float:left;
 	background-repeat:no-repeat;
 	background-size:cover;	
 	background-position:center;
+	max-height:100%;
+	height:30px;
 }
 .by_housingCard_content
 {
@@ -36,7 +38,7 @@
 }
 .by_housingCard_contentHead
 {
-	width:100%;
+	width:calc(100% - 80px);
 	height:auto;
 	font-size: 16.181px;
     font-weight: bold;
@@ -50,7 +52,7 @@
 	float:left;
 	margin-right:3%;
 	position:relative;
-	height:140px;
+	min-height:140px;
 }
 .by_housingCard_contentRight
 {
@@ -103,10 +105,7 @@
 .by_housingCard_readmore
 {
 	margin-right:15px;	
-	position:absolute;
-	bottom:-21px;
-	z-index:10;
-	right:0px;
+	padding-bottom:10px;
 }
  a.by_housingCard_readmore
 {

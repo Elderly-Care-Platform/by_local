@@ -256,7 +256,7 @@
 	content: url('../img/icons/place.png')
 }
 
-.serviceFeatured, .housingFeatured
+.serviceFeatured
 {
 	background-image:
 		url("../img/sprite/spritesheet.png?versionTimeStamp=%PROJECT_VERSION%");
@@ -265,6 +265,20 @@
 	width: 85px;
     height: 89px;
     background-position: -273px -5px;
+	position:absolute;
+	z-index:10;
+	top: -4px;
+    right: -5px;
+}
+.housingFeatured
+{
+	background-image:
+		url("../img/sprite/spritesheet.png?versionTimeStamp=%PROJECT_VERSION%");
+	background-repeat: no-repeat;
+	display: block;
+	width: 85px;
+    height: 89px;
+    background-position: -358px -9px;
 	position:absolute;
 	z-index:10;
 	top: -4px;

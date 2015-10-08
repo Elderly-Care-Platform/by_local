@@ -47,7 +47,7 @@
 							data-hover="{{img.thumbnailImage || ''}}"
 							ng-init="galleryClickHover()">
 							<img ng-if="img.thumbnailImage || img.original" ng-src="{{img.thumbnailImage || ''}}"
-								fallback-src='["{{img.original||""}}"]' />
+								fallback-src='[""]' />
 						</div>
 					</div>
 					<div class="by-gallery-rightArrow" ng-click="slideGallery('r')">

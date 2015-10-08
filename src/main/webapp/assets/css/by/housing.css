@@ -115,6 +115,10 @@
 {
 	margin-left:-10px;
 }
+.by_housingCard_contentIconWrapAddHeight
+{
+	min-height:70px;
+}
 @media screen and (max-width: 780px){
 	.by_housingCard_profileImage {
 		width: 30%;
@@ -158,5 +162,8 @@
 		z-index: 10;
 		right: 0px;
 		padding-bottom:10px;
+	}
+	.by_housingCard_contentIconWrapAddHeight, .by_housingCard_contentLeft {
+		min-height: 10px;
 	}
 }

@@ -24,9 +24,9 @@
             <div class="col-md-5 col-xs-5 by_profileWidth" style="margin-right:20px;"  ng-if="housingFacilityId">
                 <div class="main-image white-gray " style="padding-left:0px;">
                     <img class="padding-zero" ng-if="facility.profileImage.titleImage"
-                         ng-src="{{facility.profileImage.titleImage || ''}}" fallback-src='["assets/img/profile/Housing_inside.png"]' alt="">
+                         ng-src="{{facility.profileImage.titleImage || ''}}" fallback-src='["assets/img/profile/Housing_inside.png"]' alt="{{facility.name}}">
                     <img class="padding-zero" ng-if="!facility.profileImage.titleImage"
-                         ng-src="assets/img/profile/Housing_inside.png?versionTimeStamp=%PROJECT_VERSION%" alt="">
+                         ng-src="assets/img/profile/Housing_inside.png?versionTimeStamp=%PROJECT_VERSION%" alt="{{facility.name}}">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
                      ng-if="facility.photoGalleryURLs.length > 0" style="padding-left:0px;">

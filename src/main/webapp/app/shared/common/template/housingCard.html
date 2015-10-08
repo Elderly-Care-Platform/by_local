@@ -1,6 +1,6 @@
 
      <div class="housingFeatured" ng-if="housing.featured == true"></div>
-     <div class="by_housingCard_profileImage" ng-if="housing.profileImage != null" style="background-image:url('{{housing.profileImage.titleImage}}');">
+     <div class="by_housingCard_profileImage" aria-label="{{housing.name}}" ng-if="housing.profileImage != null" style="background-image:url('{{housing.profileImage.titleImage}}');">
 			<img background-fallback-src="assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%"
 				ng-src="{{housing.profileImage.titleImage}}" style="display: none;">
 		</div>
@@ -76,7 +76,7 @@
 				
 				
 			</div><div class="clearfix"></div>
-			<a class="divRight by_housingCard_readmore">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
+			<a class="divRight by_housingCard_readmore" ng-href="#!/housingProfile/3/{{housing.userId}}/{{housing.id}}">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
 			<div class="clearfix"></div>
      </div>
      <div class="clearfix"></div>

@@ -30,7 +30,7 @@
         <div style="clear: both"></div>
         <div class="by_discussDeatil_cardImage col-md-12  margin-top-10" ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
              <img  ng-src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}"
-                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]'>
+                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' title="{{detailResponse.discuss.title}}">
             <div style="clear: both"></div>
         </div>
 

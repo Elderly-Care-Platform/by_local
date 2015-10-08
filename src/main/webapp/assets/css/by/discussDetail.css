@@ -109,6 +109,10 @@
 	font-size: 16px;
 	line-height: 26px;
 }
+.by_discussDeatil_cardDesc img
+{
+	max-width:100%;
+}
 .by_discussDeatil_cardShare
 {
 	border-top: 1px solid #ececec;

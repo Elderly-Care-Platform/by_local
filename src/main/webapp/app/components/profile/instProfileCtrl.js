@@ -49,8 +49,9 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
             $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviews = response.data.replies;
                 if($scope.reviews.length > 0){
-                    require(['discussLikeController']);
-                    require(['shareController']);
+                    require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
+                        $scope.$apply();
+                    });
                 }
             }, function(error){
                 console.log(error)

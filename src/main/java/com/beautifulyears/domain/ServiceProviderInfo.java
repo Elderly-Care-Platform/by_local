@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.mongodb.Tag;
+import com.beautifulyears.domain.menu.Menu;
 
 public class ServiceProviderInfo {
 
@@ -25,7 +25,7 @@ public class ServiceProviderInfo {
 
 	private Date incorporationDate;
 
-	private Map<String, List<Tag>> specialities;
+	private Map<String, List<Menu>> specialities;
 
 	public ServiceProviderInfo() {
 		super();
@@ -34,7 +34,7 @@ public class ServiceProviderInfo {
 
 	public ServiceProviderInfo(List<String> services, boolean homeVisits,
 			String website, int yearsExperience, Date incorporationDate,
-			Map<String, List<Tag>> specialities) {
+			Map<String, List<Menu>> specialities) {
 		super();
 		this.services = services;
 		this.homeVisits = homeVisits;
@@ -44,11 +44,11 @@ public class ServiceProviderInfo {
 		this.specialities = specialities;
 	}
 
-	public Map<String, List<Tag>> getSpecialities() {
+	public Map<String, List<Menu>> getSpecialities() {
 		return specialities;
 	}
 
-	public void setSpecialities(Map<String, List<Tag>> specialities) {
+	public void setSpecialities(Map<String, List<Menu>> specialities) {
 		this.specialities = specialities;
 	}
 

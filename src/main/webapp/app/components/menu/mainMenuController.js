@@ -68,6 +68,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
 
         //Select menu and show relevant page
         $scope.selectMenu = function(menu){
+            $location.url($location.path());
             if(menu.module===0){
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===1){

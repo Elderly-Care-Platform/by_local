@@ -1,10 +1,11 @@
-define(['byApp', 'byUtil'], function(byApp, byUtil) {
+define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
     function ProductsController( $scope,
                                  $log,
                                  $q,
                                  $window,
                                  $location,
                                  $filter,
+                                 $sce,
                                  ProductService,
                                  CategoryService,
                                  CartService,
@@ -42,6 +43,8 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $scope.getNumber                = getNumber;
         $scope.getSearchedResult        = getSearchedResult;
         $scope.loadMoreRecords          = loadMoreRecords;
+        $scope.trustForcefully          = trustForcefully;
+
 
         function getProducts() {
             var category;
@@ -236,6 +239,11 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                 $scope.lazyPromise = getProducts();
             }
         }
+
+        function trustForcefully (html) {
+            return $sce.trustAsHtml(html);
+        }
+
     }
 
     ProductsController.$inject = [ '$scope',
@@ -244,6 +252,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         '$window',
         '$location',
         '$filter',
+        '$sce',
         'ProductService',
         'CategoryService',
         'CartService',
@@ -254,7 +263,8 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         'STATIC_IMAGE',
         'Utility',
         'PAGINATION'];
-    byApp.registerController('ProductsController', ProductsController);
+
+    byProductApp.registerController('ProductsController', ProductsController);
     return ProductsController;
 });
 

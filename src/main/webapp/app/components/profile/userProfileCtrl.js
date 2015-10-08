@@ -67,8 +67,9 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             var params = {p:page, s:size, discussType: "P", userId: $scope.profileId};
             DiscussPage.get(params, function (value) {
                 if(value.data.content.length > 0){
-                    require(['discussLikeController']);
-                    require(['shareController']);
+                    require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
+                        $scope.$apply();
+                    });
                     $scope.postsUser = value.data.content;
                     $scope.postsPagination = {};
                     $scope.postsPagination.totalPosts = value.data.total;
@@ -93,8 +94,9 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             var params = {p:page, s:size, discussType: "Q", userId: $scope.profileId};
             DiscussPage.get(params, function (value) {
                 if(value.data.content.length > 0){
-                    require(['discussLikeController']);
-                    require(['shareController']);
+                    require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
+                        $scope.$apply();
+                    });
                     $scope.qaUser = value.data.content;
                     $scope.qaPagination = {};
                     $scope.qaPagination.totalPosts = value.data.total;
@@ -188,28 +190,6 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             }
         }
 
-        $scope.formatAddress = function(address){
-            $scope.formattedAddress = null;
-            if(address.streetAddress){
-                $scope.formattedAddress = address.streetAddress;
-            }
-
-            if(address.locality && $scope.formattedAddress.indexOf(address.locality)===-1){
-                $scope.formattedAddress = $scope.formattedAddress + ", " + address.locality;
-            }
-
-            if(address.city && $scope.formattedAddress.indexOf(address.city)===-1){
-                $scope.formattedAddress = $scope.formattedAddress + ", " + address.city;
-            }
-
-            if(address.country && $scope.formattedAddress.indexOf(address.country)===-1){
-                $scope.formattedAddress = $scope.formattedAddress + ", " + address.country;
-            }
-
-            if(address.zip && $scope.formattedAddress.indexOf(address.zip)===-1){
-                $scope.formattedAddress = $scope.formattedAddress + " - " + address.zip;
-            }
-        }
     }
 
     ProfileController.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'UserProfile', '$sce', 'DiscussPage'];

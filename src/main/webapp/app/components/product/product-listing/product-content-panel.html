@@ -28,7 +28,8 @@
             </div>
         </div>
         </div>
-        <div class="articles-story by_story ng-binding" id="559554f83b82180c2987e56b" style="word-wrap: break-word;" ng-bind-html="product.longDescription"></div>
+        <div class="articles-story by_story ng-binding" id="559554f83b82180c2987e56b" style="word-wrap: break-word;"
+             ng-bind-html="trustForcefully(product.longDescription)"></div>
         <div style="clear: both"></div>
 
         <div ng-if="product.text &amp;&amp; product.text.length > 0" on-finish-render="559554f83b82180c2987e56b" class="ng-scope"></div>

@@ -1,15 +1,15 @@
 /**
  * Created by sanjukta on 02-07-2015.
  */
-define(['byApp', 'angular', 'DelegatorFactory', 'urlTemplateFactory', 'CachedRequestFactory',
+define(['angular', 'DelegatorFactory', 'urlTemplateFactory', 'CachedRequestFactory',
         'ProductServiceFactory', 'ErrorStoreFactory', 'urlUtilsFactory', 'CategoryServiceFactory',
         'CartServiceFactory', 'BreadcrumbServiceFactory', 'GlobalServiceFactory', 'UtilFactory',
-    'ProductDescFactory'],
+    'ProductDescFactory', 'stateParamValidatorFactory'],
 
-    function (byApp, angular, DelegatorFactory, urlTemplateFactory, CachedRequestFactory,
+    function (angular, DelegatorFactory, urlTemplateFactory, CachedRequestFactory,
               ProductServiceFactory, ErrorStoreFactory, urlUtilsFactory,
               CategoryServiceFactory, CartServiceFactory, BreadcrumbServiceFactory, GlobalServiceFactory,
-              UtilFactory, ProductDescFactory) {
+              UtilFactory, ProductDescFactory, stateParamValidatorFactory) {
 
     var byProductResources = angular.module('byProductResources', ['ngResource']);
 
@@ -37,6 +37,7 @@ define(['byApp', 'angular', 'DelegatorFactory', 'urlTemplateFactory', 'CachedReq
 
     var ProductDescriptionService = byProductResources.factory('ProductDescriptionService', ProductDescFactory);
 
+    var StateParamsValidator = byProductResources.factory('StateParamsValidator', stateParamValidatorFactory);
 
     var apiCache = byProductResources.factory('apiCache', function($angularCacheFactory,
                                                                                 paramCache,

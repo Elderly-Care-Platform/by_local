@@ -8,21 +8,26 @@ require.config({
 		byApp : '../main/app',
 		byResource : '../main/appResources',
 		byDirectives : '../main/appDirectives',
-		productConfig : '../components/product/productConfig',
+		byAppRoute : '../main/appRoute',
 
-		DelegatorFactory : '../main/productResources/delegatorFactory',
-		productResources : '../main/productResources',
-		urlTemplateFactory : '../main/productResources/url-template.factory',
-		CachedRequestFactory : '../main/productResources/cached-request-handler.service',
-		ProductServiceFactory : '../main/productResources/productServiceFactory',
-		ErrorStoreFactory : '../main/productResources/error-store.service',
-		urlUtilsFactory : '../main/productResources/url-utils.factory',
-		CategoryServiceFactory : '../main/productResources/category-service',
-		CartServiceFactory : '../main/productResources/cart.service',
-		BreadcrumbServiceFactory : '../main/productResources/breadcrumb.service',
-		GlobalServiceFactory : '../main/productResources/global.service',
-		UtilFactory : '../main/productResources/utils.factory',
-		ProductDescFactory : '../main/productResources/product-description.service',
+		byProductApp : '../main/product/productApp',
+		byProductResources : '../main/product/productResources',
+		byProductRoute : '../main/product/productRoute',
+		byProductConfig : '../components/product/productConfig',
+
+		DelegatorFactory : '../main/product/productResources/delegatorFactory',
+		urlTemplateFactory : '../main/product/productResources/url-template.factory',
+		CachedRequestFactory : '../main/product/productResources/cached-request-handler.service',
+		ProductServiceFactory : '../main/product/productResources/productServiceFactory',
+		ErrorStoreFactory : '../main/product/productResources/error-store.service',
+		urlUtilsFactory : '../main/product/productResources/url-utils.factory',
+		CategoryServiceFactory : '../main/product/productResources/category-service',
+		CartServiceFactory : '../main/product/productResources/cart.service',
+		BreadcrumbServiceFactory : '../main/product/productResources/breadcrumb.service',
+		GlobalServiceFactory : '../main/product/productResources/global.service',
+		UtilFactory : '../main/product/productResources/utils.factory',
+		ProductDescFactory : '../components/product/productDescription/product-description.service',
+		stateParamValidatorFactory : '../main/product/productResources/stateParamValidator',
 
 		jquery : '../../lib/unify/plugins/jquery/jquery.min',
 		angular : '../../lib/angular/angular',
@@ -31,6 +36,11 @@ require.config({
 		angularInfiniteScroll : '../../lib/angular/ng-infinite-scroll',
 		angularGoogleLocation : '../../lib/angular/ng-google-location',
 		angularCache : '../../lib/angular/angular-cache.min',
+		angularBootstrap : '../../lib/angular/ui-bootstrap.min',
+		angularBootstrapTmpl : '../../lib/angular/ui-bootstrap-tpls.min',
+		angularBusy : '../../lib/angular/angular-busy/angular-busy',
+		angularSanitize : '../../lib/angular/angular-sanitize.min',
+
 		blogMasonary : '../../lib/unify/js/pages/blog-masonry',
 		jqueryMasonaryGrid : '../../lib/unify/plugins/masonry/jquery.masonry.min',
 		lodash : '../../lib/lodash.min',
@@ -70,6 +80,9 @@ require.config({
 		modifySignupCtrl : '../components/signup/login/modifySignupCtrl',
 
 
+		productDescCtrl : '../components/product/productDescription/product-description.controller',
+		videoImageDirective : '../components/product/productDescription/video-image.directive',
+		videoModalController : '../components/product/productDescription/videoModal.controller'
 
 	},
 
@@ -96,6 +109,22 @@ require.config({
 
 		'bootstrapToggle' : {
 			deps : [ "jquery" ]
+		},
+
+		"angularBootstrap"  : {
+			deps : [ "angular" ]
+		},
+
+		"angularBootstrapTmpl"  : {
+			deps : [ "angular", "angularBootstrap" ]
+		},
+
+		"angularBusy"  :  {
+			deps : [ "angular" ]
+		},
+
+		"angularSanitize" : {
+			deps : [ "angular" ]
 		}
 	},
 

@@ -25,10 +25,14 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
 
         $scope.add = function (type) {
-            $scope.error = "";
-            $scope.currentView = "editor";
-            $scope.aboutUsViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            window.scrollTo(0, 0);
+            require(['editorController'], function(editorController){
+                BY.byEditor.removeEditor();
+                $scope.error = "";
+                $scope.currentView = "editor";
+                $scope.aboutUsViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                window.scrollTo(0, 0);
+                $scope.$apply();
+            });
         };
 
 

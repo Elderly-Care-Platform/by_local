@@ -1,6 +1,6 @@
 //DIscuss All
-define(['byApp', 'byUtil', 'userTypeConfig', 'editorController'],
-    function (byApp, byUtil, userTypeConfig, editorController) {
+define(['byApp', 'byUtil', 'userTypeConfig'],
+    function (byApp, byUtil, userTypeConfig) {
 
         function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, broadCastMenuDetail) {
             var a = $(".header .navbar-nav > li.dropdown");
@@ -94,10 +94,14 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'editorController'],
             }
 
             $scope.add = function (type) {
-                $scope.error = "";
-                $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                window.scrollTo(0, 0);
-                $(".service-filters").hide();
+                require(['editorController'], function(editorController){
+                    BY.byEditor.removeEditor();
+                    $scope.error = "";
+                    $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                    window.scrollTo(0, 0);
+                    $(".service-filters").hide();
+                    $scope.$apply();
+                });
             };
 
             $scope.postSuccess = function () {

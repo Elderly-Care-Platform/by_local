@@ -1,0 +1,22 @@
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/common/html/preloader.html'}">
+    <div class="topScroll" top-scroll></div>
+    <!--<div class="wrapper">-->
+    <!--&lt;!&ndash;=== Header ===&ndash;&gt;-->
+    <!--<div ng-include="'app/common/html/header.html'"></div>-->
+    <!--&lt;!&ndash;=== End Header ===&ndash;&gt;-->
+    <!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
+    <!--&lt;!&ndash;=== Breadcrumbs ===&ndash;&gt;-->
+    <!--<div ng-include="'app/common/html/breadcrumb.html'"></div>-->
+    <!--&lt;!&ndash;=== End Breadcrumbs ===&ndash;&gt;-->
+    <!--</div>-->
+    <!--=== Content Part ===-->
+    <div class="container by_home_content">
+        <div class="row">
+            <div class="col-md-3  md-margin-bottom-40 forward-display"
+                 ng-include="'app/components/product/product-listing/product-left-panel.html'"></div>
+            <div class="col-md-9  no-padding discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right "
+                 ng-include="'app/components/product/product-listing/product-content-panel.html'"></div>
+        </div>
+    </div>
+</div>

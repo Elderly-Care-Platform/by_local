@@ -1,36 +1,29 @@
 define([
 	'angular',
 	'angularRoute',
-	'../main/appRoute',
-	'../components/menu/mainMenuController', 'LoginController', 'angularResource','byResource', 'angularInfiniteScroll',
-	'angularGoogleLocation', 'byEditor', 'productConfig', 'productResources','angularCache',
-], function(angular, angularRoute, appRoute, MainMenuController, LoginController, angularResource, byResource,
-			angularInfiniteScroll, angularGoogleLocation, byEditor, productConfig, productResources, angularCache) {
-	var byApp = angular.module('byApp', ["ngRoute", "ngResource","byServices", "byProductResources", "infinite-scroll", "ngGoogleLocation", "jmdobry.angular-cache"]);
+	'byProductApp',
+	'byAppRoute',
+	'byResource',
+	'byEditor',
+	'../components/menu/mainMenuController', 'LoginController', 'angularResource',  'angularInfiniteScroll',
+	'angularGoogleLocation',
+], function(angular, angularRoute, byProductApp, byAppRoute, byResource, byEditor,
+			MainMenuController, LoginController, angularResource, angularInfiniteScroll, angularGoogleLocation) {
+
+	var byApp = angular.module('byApp', ["ngRoute", "ngResource", "byServices", "byProductApp", "infinite-scroll", "ngGoogleLocation"]);
 
 
 	byApp.config(['$controllerProvider', function($controllerProvider){
 		byApp.registerController = $controllerProvider.register;
 	}]);
 
-	byApp.config(appRoute);
+	byApp.config(byAppRoute);
 	byApp.config(function($locationProvider) {
 		$locationProvider.hashPrefix('!');
 	});
 
 	byApp.controller('MainMenuController', MainMenuController);
 	byApp.controller('LoginController', LoginController);
-	productConfig(byApp);
-
-	byApp.filter('encodeUri', function encodeUri($window) {
-		return function(value) {
-			try {
-				return $window.encodeURIComponent(JSON.stringify(value));
-			} catch (e) {
-				return $window.encodeURIComponent(value);
-			}
-		};
-	});
 
 	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http, broadCastMenuDetail) {
 		if(window.localStorage){

@@ -16,6 +16,7 @@ import javax.mail.internet.MimeMessage;
 import org.apache.log4j.Logger;
 
 import com.beautifulyears.config.ByWebAppInitializer;
+import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
@@ -90,7 +91,7 @@ public class MailHandler {
 	
 	public static void sendMailToUserId(String userId, String subject, String body) {
 		User  user = UserController.getUser(userId);
-		if(null != user){
+		if(null != user && user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL){
 			sendMail(user.getEmail(), subject, body);
 		}
 		

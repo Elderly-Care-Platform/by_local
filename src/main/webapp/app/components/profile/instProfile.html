@@ -24,9 +24,11 @@
         <div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
             <div class="col-md-5 col-xs-5 by_profileWidth" style="padding-left:0px;">
                 <div class="main-image white-gray " style="padding-left:0px;">
-                    <img class="full-width padding-zero"
-                         src="{{institutionProfile.basicProfileInfo.profileImage.titleImage || ''}}"
+                    <img class="full-width padding-zero" ng-if="institutionProfile.basicProfileInfo.profileImage.titleImage"
+                         ng-src="{{institutionProfile.basicProfileInfo.profileImage.titleImage || ''}}"
                          fallback-src='["assets/img/profile/instituation-big.png"]' alt="">
+                          <img class="full-width padding-zero" ng-if="!institutionProfile.basicProfileInfo.profileImage.titleImage"
+                         ng-src="assets/img/profile/instituation-big.png" alt="">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
                      ng-if="institutionProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
@@ -36,7 +38,7 @@
                                 class="by-imageGallery-item" data-popup="{{img.original || ''}}"
                                 data-hover="{{img.thumbnailImage || ''}}"
                                 ng-init="galleryClickHover()">
-                            <img src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
+                            <img ng-src="{{img.thumbnailImage || ''}}" fallback-src='["{{img.original||""}}"]'/>
                         </div>
                     </div>
                     <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
@@ -68,12 +70,12 @@
                     </div>
 
 
-                    <div class="no-padding profileAddress" ng-init="formatAddress(institutionProfile.basicProfileInfo.primaryUserAddress)">
-                        <div ng-if="formattedAddress">
+                    <div class="no-padding profileAddress" format-address="institutionProfile.basicProfileInfo.primaryUserAddress">
+                        <div ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.fullAddress">
                             <i class="fa fa-map-marker divLeft" style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>
                             <ul class="list-inline divRight" style="width:calc(100% - 35px);">
                                 <li class="list-inline">
-                                    {{formattedAddress}}
+                                    {{institutionProfile.basicProfileInfo.primaryUserAddress.fullAddress}}
                                 </li>
                             </ul>
                         </div><div style="clear: both; "></div>
@@ -84,14 +86,14 @@
                         <div style="clear: both; "></div>
                         <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryPhoneNo">
                             <i class="fa fa-phone" style="margin-right:9px;"></i> <span><a href="tel:{{institutionProfile.basicProfileInfo.primaryPhoneNo}}">{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</a></span>
-							<span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos"
+							<span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos track by $index"
                                   ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
                         <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryEmail">
                             <i class="fa fa-envelope" style="margin-right:9px;"></i>
                             <a href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
-							<span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails"
+							<span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails track by $index"
                                   ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
 							</span>
                         </div>
@@ -149,9 +151,9 @@
         <div class="clearfix"></div>
 
         <div class="col-md-12" ng-if="institutionProfile.basicProfileInfo.description">
-            <div class="col-md-12 bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
+            <div class="row bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
 
-            <div class="articles-story" ng-if="institutionProfile.basicProfileInfo.shortDescription">
+            <!--  <div class="articles-story row" ng-if="institutionProfile.basicProfileInfo.shortDescription">
                 <p id="profile-shortDesc">
                     {{institutionProfile.basicProfileInfo.shortDescription}}<br/>
                     <a class="divRight by_readmore" ng-click="showMore()">Read More<i class="fa fa-angle-right"
@@ -161,8 +163,8 @@
                 <p id="profile-desc" style="display: none"
                    ng-bind-html="trustForcefully(institutionProfile.basicProfileInfo.description)">
                 </p>
-            </div>
-            <div class="articles-story" ng-if="!institutionProfile.basicProfileInfo.shortDescription">
+            </div>-->
+            <div class="articles-story row" ng-if="institutionProfile.basicProfileInfo.description">
                 <p id="profile-desc" ng-bind-html="trustForcefully(institutionProfile.basicProfileInfo.description)">
                 </p>
             </div>

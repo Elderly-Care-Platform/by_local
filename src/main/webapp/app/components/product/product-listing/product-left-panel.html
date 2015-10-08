@@ -1,32 +1,33 @@
 <script type="text/ng-template" id="categorytpl">
-    <a tabindex="-1" ng-click="reloadRoute()" ng-href="#/products?q={{category|encodeUri}}"
+    <a tabindex="-1" ng-click="reloadRoute()"
+       ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q={{category|encodeUri}}"
        ng-class="{'last-child':!category.subcategories,'selected-list-item':((selectedTab === category.name) && !category.subcategories)}"
-       class="category-lh">{{category.name}} <span class="arrow" ng-if="category.subcategories"
-                                                   class="category-lh"></span></a>
+       class="category-lh">
+        {{category.name}}
+        <span class="arrow" ng-if="category.subcategories" class="category-lh"></span>
+    </a>
     <ul class="dropdown-menu no-border" ng-if="category.subcategories">
         <li class="dropdown-submenu list-group-item1 false list-div-inline register-page ng-scope category-lh"
-            ng-repeat="category in category.subcategories" ng-include="'categorytpl'" ng-if="discussCounts.z > 0"></li>
+            ng-repeat="category in category.subcategories" ng-include="'categorytpl'" ng-if="discussCounts.z > 0">
+        </li>
     </ul>
 </script>
 <!--All classes from Unify start-->
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed m-top-4">
     <div class="scrollableLeftPanelDiv by-filter-links show-overflow">
         <ul class="dropdown-menu sidebar-nav-v1 sidebar-nav-v3 ul-dropdown sidebar-nav-v2 hidden-sm hidden-xs full-width"
-            id="parentMenu"
-            role="menu" aria-labelledby="dropdownMenu">
+            id="parentMenu" role="menu" aria-labelledby="dropdownMenu">
             <!-- Child Menu -->
             <li class="dropdown-submenu list-group-item ml-list-group false list-div-inline register-page ng-scope"
                 ng-repeat="category in categories" ng-include="'categorytpl'" ng-if="discussCounts.z > 0">
             </li>
         </ul>
         <script type="text/ng-template" id="categorymobiletpl">
-            <a ng-href="#/products?q={{category|encodeUri}}" ng-click="reloadRoute()"
+            <a ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q={{category|encodeUri}}"
+               ng-click="reloadRoute()"
                ng-class="{'last-child':!category.subcategories}" style="width:100%;display:inline-block;">
                 <span ng-repeat="i in getNumber(category.depth) track by $index"></span>
-  
-  <span>
-    {{category.name}}
-  </span>
+                <span>{{category.name}}</span>
 
                 <div class="inline-b pull-right">
                     <i ng-class="{'fa fa-chevron-right':!category.isCollapsed,'fa fa-chevron-down':category.isCollapsed}"
@@ -45,21 +46,16 @@
             </ul>
         </script>
         <nav class="navbar navbar-default bg-white hidden-lg hidden-md" role="navigation" ng-if="categories">
-
             <ul class="nav no-padding-left left-gap full-width">
                 <li class="dropdown " ng-repeat="category in categories" ng-include="'categorymobiletpl'">
 
                 </li>
             </ul>
-
         </nav>
-        <ul class="list-group sidebar-nav-v1 margin-bottom-40 sidebar-nav-v2 full-width"
-            id="sidebar-nav">
-
-
+        <ul class="list-group sidebar-nav-v1 margin-bottom-40 sidebar-nav-v2 full-width" id="sidebar-nav">
             <li class="list-group-item false list-div-inline register-page" data-index="discussion-articles"
                 ng-if="discussCounts.z > 0">
-                <a href="#/products?q=featured" ng-click="reloadRoute()">FEATURED</a>
+                <a ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q=featured">FEATURED</a>
             </li>
             <li class="list-group-item false list-div-inline register-page" data-index="discussion-articles"
                 ng-if="discussCounts.z > 0">
@@ -73,29 +69,7 @@
                 ng-if="discussCounts.z > 0">
                 <a href="#">TOP RATED</a>
             </li>
-
-
         </ul>
-
-        <!--All classes from Unify end-->
-
-        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
-            <i class="icon-custom icon-sm icon_question"></i>
-            <span>Ask a Question</span>
-        </div>
-        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Tips')">
-            <i class="icon-custom icon-sm icon_tips"></i>
-            <span>Share Experiences</span>
-            </a>
-        </div>
-        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
-            <i class="icon-custom icon-sm icon_story"></i>
-            <span>Publish Your Story</span>
-        </div>
-        <div class="col-md-11 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Feedback')">
-            <i class="icon-custom icon-sm icon_feedback"></i>
-            <span>Feedback</span>
-        </div>
     </div>
 </div>
 <!-- <div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/common/html/preloader.html'}"> -->

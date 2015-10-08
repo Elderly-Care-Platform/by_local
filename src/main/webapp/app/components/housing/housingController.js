@@ -1,4 +1,4 @@
-define(['byApp', 'byUtil'], function(byApp, byUtil) {
+define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
     function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing){
         var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
 
@@ -72,10 +72,14 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         };
 
         $scope.add = function (type) {
-            $scope.error = "";
-            $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            window.scrollTo(0, 0);
-            $(".service-filters").hide();
+            require(['editorController'], function(editorController){
+                BY.byEditor.removeEditor();
+                $scope.error = "";
+                $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                window.scrollTo(0, 0);
+                $(".service-filters").hide();
+                $scope.$apply();
+            });
         };
 
         $scope.postSuccess = function () {

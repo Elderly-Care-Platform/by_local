@@ -63,7 +63,7 @@ define([], function () {
                 paymentFailure: '/paymentFailure'
             })
             .constant('TEMPLATE_URL', {
-                productList: 'app/productList/products.html',
+                productList: 'app/product/product-listing/products.html',
                 productDescription: 'app/productDescription/product-description.html',
                 cart: 'app/cart/cart.html',
                 selectAddress: 'app/cartCheckout/select-address/select-address.html',

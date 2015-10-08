@@ -190,10 +190,12 @@ body a:hover
 {
 	border-radius: 5px !important;
 	background-color:#525252;	
+	text-align:left;
+	max-width:980px;
 }
 .tooltip.top
 {
-	top:18px;
+	margin-top:5px;
 }
 .tooltip.top .tooltip-arrow
 {

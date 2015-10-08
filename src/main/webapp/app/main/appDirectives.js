@@ -68,7 +68,10 @@ define(["byApp", "angular"], function (byApp, angular) {
         }
         return fallbackSrc;
     });
+    
 
+ 
+  
 
     byApp.directive('timeSince', function($filter){
         var getTimeSince = {
@@ -482,7 +485,9 @@ define(["byApp", "angular"], function (byApp, angular) {
             }
         };
     });
-
+    
+ 
+    
     byApp.directive('formatAddress', function () {
         return {
             scope: {
@@ -534,6 +539,18 @@ define(["byApp", "angular"], function (byApp, angular) {
             }
         };
     });
+    
+    
+    byApp.directive('backgroundFallbackSrc', function(){
+        return {
+        	link : function postLink(scope, element, attrs) {
+        		element.bind('error', function() {
+        			element.parent().css('background-image', 'url("' + attrs.backgroundFallbackSrc + '")');
+   		      	});
+        	}
+        }
+    });
+    
 });
 
 

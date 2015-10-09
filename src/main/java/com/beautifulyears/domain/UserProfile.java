@@ -49,7 +49,7 @@ public class UserProfile {
 
 	private boolean isFeatured;
 
-	private boolean verified = false;
+	private boolean verified;
 
 	private final Date createdAt = new Date();
 

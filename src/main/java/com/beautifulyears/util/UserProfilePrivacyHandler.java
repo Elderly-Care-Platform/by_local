@@ -51,6 +51,7 @@ public class UserProfilePrivacyHandler {
 		fields.add("reviewedBy");
 		fields.add("ratedBy");
 		fields.add("aggrRatingPercentage");
+		fields.add("verified");
 		return fields;
 	}
 }

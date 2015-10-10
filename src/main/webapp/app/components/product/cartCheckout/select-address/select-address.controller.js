@@ -70,11 +70,13 @@ define(['byProductApp'], function (byProductApp) {
 
     }
 
-    SelectAddressController.$inject = ['$log', '$scope', '$location', '$rootScope',
+    SelectAddressController.$inject = ['$scope', '$log', '$location', '$rootScope',
         'SelectAddressService',
         'CartService',
         'BreadcrumbService',
         'PAGE_URL'];
+
+
     byProductApp.registerController('SelectAddressController', SelectAddressController);
     return SelectAddressController;
 });

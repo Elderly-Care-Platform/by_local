@@ -47,7 +47,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['selectAddressController'], function (ctrl) {
+                        require(['selectAddressController', 'cartController'], function (ctrl, cartController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -55,12 +55,12 @@ define([], function () {
                 }
             })
 
-            .when('/addAddress', {templateUrl: 'app/components/product/cartCheckout/add-address/add-address.html?versionTimeStamp=%PROJECT_VERSION%',
+            .when('/addAddress/', {templateUrl: 'app/components/product/cartCheckout/add-address/add-address.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'AddAddressController',
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['addAddressController'], function (ctrl) {
+                        require(['addAddressController', 'cartController'], function (ctrl, cartController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -68,12 +68,12 @@ define([], function () {
                 }
             })
 
-            .when('/editAddress', {templateUrl: 'app/components/product/cartCheckout/edit-address/edit-address.html?versionTimeStamp=%PROJECT_VERSION%',
+            .when('/editAddress/:id', {templateUrl: 'app/components/product/cartCheckout/edit-address/edit-address.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'EditAddressController',
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['editAddressController'], function (ctrl) {
+                        require(['editAddressController', 'cartController'], function (ctrl, cartController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -81,12 +81,12 @@ define([], function () {
                 }
             })
 
-            .when('/paymentGatway', {templateUrl: 'app/components/product/cartCheckout/payment-gateway/payment-gateway.html?versionTimeStamp=%PROJECT_VERSION%',
+            .when('/paymentGatway/:addressId', {templateUrl: 'app/components/product/cartCheckout/payment-gateway/payment-gateway.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'PaymentGatewayController',
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['paymentGatewayController'], function (ctrl) {
+                        require(['paymentGatewayController', 'cartController'], function (ctrl, cartController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -94,12 +94,12 @@ define([], function () {
                 }
             })
 
-            .when('/paymentFailure', {templateUrl: 'app/components/product/cartCheckout/payment-gateway/payment-failure.html?versionTimeStamp=%PROJECT_VERSION%',
+            .when('/paymentFailure/:addressId', {templateUrl: 'app/components/product/cartCheckout/payment-gateway/payment-failure.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'PaymentGatewayController',
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['paymentGatewayController'], function (ctrl) {
+                        require(['paymentGatewayController', 'cartController'], function (ctrl, cartController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -107,12 +107,12 @@ define([], function () {
                 }
             })
 
-            .when('/shoppingConfirmation', {templateUrl: 'app/components/product/cartCheckout/shopping-confirmation/shopping-confirmation.html?versionTimeStamp=%PROJECT_VERSION%',
+            .when('/shoppingConfirmation/:addressId/:gateway', {templateUrl: 'app/components/product/cartCheckout/shopping-confirmation/shopping-confirmation.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ShoppingConfirmationCtrl',
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['shoppingConfirmationCtrl'], function (ctrl) {
+                        require(['shoppingConfirmationCtrl', 'cartController'], function (ctrl, cartController) {
                             defered.resolve();
                         });
                         return defered.promise;

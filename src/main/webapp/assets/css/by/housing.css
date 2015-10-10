@@ -26,6 +26,7 @@
 	background-position:center;
 	max-height:100%;
 	height:30px;
+    background-color: #f9f9f9;
 }
 .by_housingCard_content
 {
@@ -48,7 +49,7 @@
 }
 .by_housingCard_contentLeft
 {
-	width:48%;
+	width:47%;
 	float:left;
 	margin-right:3%;
 	position:relative;
@@ -56,7 +57,8 @@
 }
 .by_housingCard_contentRight
 {
-	width:48%;
+	width:47%;
+	margin-right:3%;
 	float:left;
 	float:left;
 }
@@ -117,7 +119,7 @@
 }
 .by_housingCard_contentIconWrapAddHeight
 {
-	min-height:70px;
+	min-height:25px;
 }
 @media screen and (max-width: 780px){
 	.by_housingCard_profileImage {

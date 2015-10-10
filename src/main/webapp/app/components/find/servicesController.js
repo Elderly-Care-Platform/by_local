@@ -125,6 +125,10 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 queryParams.tags = tags.toString();
                 $scope.getData(queryParams);
             }
+            
+            $scope.tooltipText = function(){        	
+            	$('[data-toggle="tooltip"]').tooltip(); 
+            }
 
 
             $scope.loadMore = function ($event) {

@@ -17,7 +17,8 @@
             <div class="col-md-3  md-margin-bottom-40 forward-display"
                  ng-include="'app/components/product/product-listing/product-left-panel.html'"></div>
             <div class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right "
-                 ng-include="'app/components/product/product-listing/product-content-panel.html'"></div>
+                 ng-include="'app/components/product/product-listing/product-content-panel.html'"
+                 infinite-scroll="loadMoreRecords()" infinite-scroll-distance="0" infinite-scroll-disabled="lastPage || isQueryInprogress"></div>
         </div>
     </div>
 </div>

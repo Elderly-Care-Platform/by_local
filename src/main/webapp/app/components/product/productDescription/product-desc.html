@@ -1,3 +1,10 @@
+
+<style type="text/css">
+.product-description strong
+{
+	font-weight:normal;
+}
+</style>
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
@@ -127,9 +134,10 @@
                             <div class="personalStoryMainContentShare">
                                 <div class="productRating">
                                     <i class="rounded-x">4.2</i>Rated by <a href="">56 people</a>
-                                </div>
+                                </div><div style="clear:both; height:10px;"></div>
                                 <div class="productReview">
-                                    <i class="rounded-x icon-share padding4"></i><a href="">18 reviews</a>
+                                    <i class="rounded-x icon-share"></i>
+                                    <a href="" style="    vertical-align: top;">18 reviews</a>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +163,17 @@
                                 | Only {{quantityAvailable}} Left
                             </div>
                         </div>
-                        <div class="col-md-12  singleinline">
+                       
+                       
+                        
+                        <!--/end shop product ratings-->
+                        <!-- end pin code -->
+                        <!--/end shop product prices-->
+                        <!--/end product size-->
+                        <!--/end product color-->
+                        <!--/end product quantity-->
+                    </div>
+                     <div class="col-md-12  singleinline">
                             <div class=" dp-inline-block ">
                                 Cash on Delivery :
                             </div>
@@ -166,7 +184,7 @@
                                 Not Eligible
                             </div>
                         </div>
-                        <div class="col-md-12 pincode-available margin-top-10 margin-bottom-10">
+                     <div class="col-md-12 pincode-available margin-top-10 margin-bottom-10">
                             <div class="pincode-form-wrap pincode-availableContent">
                                 <div class="Cash-check-pin singleinline">
                                     <div class=" singleinline"><img class=" padding-zero"
@@ -174,15 +192,15 @@
                                     </div>
                                     Check Availability at
                                 </div>
-                                <div class="pincode-form width50prc  singleinline">
+                                <div class="pincode-form   singleinline">
                                     <form name="pincode-form" class="pinCheck">
                                         <input type="number" minlength="6" maxlength="6"
                                                placeholder="Enter your Pincode" autocomplete="off" name="pincode"
                                                id="pincode" ng-model="pincode"
-                                               class="pincode width75prc textbox-nowidth"
+                                               class="pincode  textbox-nowidth"
                                                ng-disabled="!uiData.cashOnDelivery" min="1">
                                         <input type="submit" href="javascript:void(0)"
-                                               class="btn btn-sm btn-default  pull-right  grayBg" value="Check"
+                                               class="btn btn-sm btn-default  pull-right  grayBg" value="Check" style="height:26px;"
                                                ng-disabled="!pincode-form.pincode.$valid"
                                                ng-click="checkProductCashOnDeliveryPincode(pincode)">
                                     </form>
@@ -206,21 +224,21 @@
                             <span class="font-bold "
                                   ng-show="rateServiceSeverity === 'ERROR'">{{rateServiceMessage}}</span>
                         </div>
-                        <div class="col-md-12 qty-cart-buy margin-bottom-20">
+                    <div class="col-md-12 qty-cart-buy margin-bottom-20">
                             <form name="f1"
-                                  class="product-quantity sm-margin-bottom-20 singleinline  margin-right-quantity-button">
+                                  class=" sm-margin-bottom-20 singleinline  margin-right-quantity-button" style="margin-right:20px;">
                                 <button type="button" class="quantity-button" name="add"
                                         ng-disabled="userRequiredQuantity === 1"
                                         ng-click="userRequiredQuantity = userRequiredQuantity - 1">-
                                 </button>
-                                <input type="number" min="1" class="quantity-field" name="qty" id="qty"
+                                <input type="number" min="1" class="quantity-field" name="qty" id="qty" style="width:40px;"
                                        value="{{userRequiredQuantity}}" ng-model="userRequiredQuantity" required
                                        ng-disabled="addToCartDisable || quantityAvailable === 0">
                                 <button type="button" class="quantity-button" name="add"
                                         ng-click="userRequiredQuantity = userRequiredQuantity + 1"
                                         ng-disabled="addToCartDisable || quantityAvailable === 0">+
                                 </button>
-                            </form>
+                            </form >
                             <button type="button" class="btn-u"
                                     ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
                                     ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid"
@@ -253,7 +271,7 @@
                 </span> Buy Now
                             </button>
                             <div ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null">
-                                <div class="error-message"
+                                <div class="error-message" style="color:red;"
                                      ng-if="userRequiredQuantity > quantityAvailable || inventoryType === 'UNAVAILABLE'">
                                     Sorry! We are Out Of Stock!
                                 </div>
@@ -265,13 +283,6 @@
                                 in cart!
                             </div>
                         </div>
-                        <!--/end shop product ratings-->
-                        <!-- end pin code -->
-                        <!--/end shop product prices-->
-                        <!--/end product size-->
-                        <!--/end product color-->
-                        <!--/end product quantity-->
-                    </div>
                 </div>
                 <div class="col-md-12 no-padding margin-bottom-25 margin-top-20" ng-if="uiData.longDescription">
                     <div class="col-md-12 no-padding  list-head dp-block">Description

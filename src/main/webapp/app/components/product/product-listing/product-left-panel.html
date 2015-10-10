@@ -1,3 +1,22 @@
+<style type="text/css">
+.list-group-item a {
+    font-size: 14px;
+}
+.personalStoryMainContentShareBg2 i {
+    padding: 5px 4px 4px 4px;
+}
+.personalStoryMainContentShareBg2
+{
+	margin-right:0px;
+}
+.article-info li{
+	margin-right:20px;
+}
+.productImage
+{
+	width:180px !important;
+}
+</style>
 <script type="text/ng-template" id="categorytpl">
     <a tabindex="-1" ng-click="reloadRoute()"
        ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q={{category|encodeUri}}"
@@ -13,7 +32,7 @@
     </ul>
 </script>
 <!--All classes from Unify start-->
-<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed m-top-4">
+<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed ">
     <div class="scrollableLeftPanelDiv by-filter-links show-overflow">
         <ul class="dropdown-menu sidebar-nav-v1 sidebar-nav-v3 ul-dropdown sidebar-nav-v2 hidden-sm hidden-xs full-width"
             id="parentMenu" role="menu" aria-labelledby="dropdownMenu">
@@ -23,7 +42,7 @@
             </li>
         </ul>
         <script type="text/ng-template" id="categorymobiletpl">
-            <a ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q={{category|encodeUri}}"
+            <a  ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q={{category|encodeUri}}"
                ng-click="reloadRoute()"
                ng-class="{'last-child':!category.subcategories}" style="width:100%;display:inline-block;">
                 <span ng-repeat="i in getNumber(category.depth) track by $index"></span>

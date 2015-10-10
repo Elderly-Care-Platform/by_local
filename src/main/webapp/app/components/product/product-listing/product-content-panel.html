@@ -1,8 +1,8 @@
 <div ng-repeat="product in products" data-index="discussion-articles" data-link="articles.html" class="ng-scope">
 
     <div class="blog-author margin-bottom-35 main-article by_blog_author margin-bottom-20">
-        <img class="cursor-pointer" ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)" ng-hide="serverurl+product.primaryMedia.url === serverurl" ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
-        <img class="cursor-pointer" ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)" ng-show="serverurl+product.primaryMedia.url === serverurl" ng-src="{{product.primaryMedia.url}}" alt="Image Not Available">
+        <img class="cursor-pointer productImage" ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)" ng-hide="serverurl+product.primaryMedia.url === serverurl" ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
+        <img class="cursor-pointer productImage" ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)" ng-show="serverurl+product.primaryMedia.url === serverurl" ng-src="{{product.primaryMedia.url}}" alt="Image Not Available">
         <div class="article-share-links news-v3" style="position: relative;top: -10px;">
             <ul class="post-shares post-shares-lg">
             </ul>

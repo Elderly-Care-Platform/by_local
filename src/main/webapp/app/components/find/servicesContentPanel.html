@@ -1,7 +1,7 @@
 <div ng-repeat="service in services" class="ng-scope" style="position:relative;">
-	<div ng-include="'app/components/find/servicesIndvContentPanel.html'"
+	<div ng-include="'app/components/find/servicesIndvContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"
 		ng-if="service.userTypes[0] == 7"></div>
-	<div ng-include="'app/components/find/servicesInstContentPanel.html'"
+	<div ng-include="'app/components/find/servicesInstContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"
 		ng-if="service.userTypes[0] == 4"></div>
 
 </div>

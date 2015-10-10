@@ -31,7 +31,7 @@
 
     <div ng-if="review.replies && review.replies.length > 0" class="noTopBorder">
         <hr/>
-        <div  ng-repeat="review in review.replies" ng-include="'app/components/profile/profileReviewCard.html'"></div>
+        <div  ng-repeat="review in review.replies" ng-include="'app/components/profile/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     </div>
 </div>
 

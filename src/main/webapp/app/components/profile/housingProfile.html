@@ -56,13 +56,14 @@
                     has been verified by a BeautifulYears 	representative  at the time of registration
                      on BeautifulYears.com. Verification details appear in the review section for the
                       specific establishment as a BeautifulYears Team review." ></div>
+                    <div style="clear:both;"></div>
                     <div class="no-padding" ng-if="facility.reviewCount > 0 || facility.ratingCount > 0">
-                        <div class="serviceRating" ng-if="facility.ratingPercentage">
+                        <div class="serviceRating profileRating " ng-if="facility.ratingPercentage">
                             <i class="rounded-x" rate-calculator="{{facility.ratingPercentage}}"></i>
                             Rated by <a href="">{{facility.ratingCount}} user
                             <xy ng-if="facility.ratingCount > 1">s</xy>
                         </a>
-                        </div>
+                        </div> <div style="clear:both; height:10px;"></div>
                         <div class="serviceReview" ng-if="facility.reviewCount > 0">
                             <i class="rounded-x fa fa-review-icon"></i>
                             {{facility.reviewCount}} review<span ng-if="facility.reviewCount > 1">s</span>

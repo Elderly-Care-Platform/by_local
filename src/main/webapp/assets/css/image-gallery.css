@@ -2,7 +2,7 @@
 .by-imageGallery{
     width: calc(100% - 2px);
     height: 92px;
-    margin: 0px 0px 15px 0px;
+    margin: 0px 0px 0px 0px;
     overflow: hidden;
     padding-left: 0px;
     border:1px solid #ccc;

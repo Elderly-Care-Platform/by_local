@@ -88,6 +88,14 @@ public class UserProfileResponse implements IResponse {
 			this.isFeatured = isFeatured;
 		}
 
+		public boolean isVerified() {
+			return verified;
+		}
+
+		public void setVerified(boolean verified) {
+			this.verified = verified;
+		}
+
 		public List<Tag> getSystemTags() {
 			return systemTags;
 		}

@@ -52,18 +52,24 @@
 					</div>
 					<div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
 					</div>
-					<div class="clearfix" style="height:10px;"></div>
+					<div class="clearfix" ></div>
 				</div>
-				<div class="clearfix"></div>
+				<div class="clearfix" style="height:10px;"></div>
 			</div>
 			<div class="col-md-7 col-xs-7 by_profileInfoWidth by-service-padding">
 				<div class="profileMainContent">
-					<div class="profileContentTitle">
+					<div class="profileContentTitle divLeft" style="width: calc(100% - 92px);">
 						<span ng-if="gender">{{gender}}</span> <span
 							ng-if="individualProfile.basicProfileInfo.firstName">{{individualProfile.basicProfileInfo.firstName}}</span>
 						<span ng-if="individualProfile.individualInfo.lastName">
 							{{individualProfile.individualInfo.lastName}}</span>
 					</div>
+					<div class="by_profile_verified divRight" ng-if="individualProfile.verified == true" data-toggle="tooltip" ng-init="tooltipText();" 
+                    ng-click="$event.stopPropagation();" 
+                    title="Information on service providers, professionals and senior living options 
+                    has been verified by a BeautifulYears 	representative  at the time of registration
+                     on BeautifulYears.com. Verification details appear in the review section for the
+                      specific establishment as a BeautifulYears Team review." ></div>
 					<div class="no-padding">
 						<div class="profileRating"
 							ng-if="individualProfile.ratingCount > 0">
@@ -138,6 +144,7 @@
 		<div class="clearfix"></div>
 
 		<div class="article col-md-12" ng-if="individualProfile.serviceProviderInfo.services.length > 0">
+		<div class="by_profile_devider"></div>
 			<ul class="list-inline categoryList" style="margin-left: 5px; margin-top: 5px; font-size:15px;">
 				<li class="list-inline" style="margin-right: 7px;">Service in</li>
 				<li class="list-inline" style="display: inline-block; margin-right: 7px;" ng-if="$index < 5"
@@ -194,7 +201,7 @@
 		</div>
 		<div style="clear:both;"></div>
 		
-		<div class="row" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
+		<div class="row margin-top-10" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
 
 		<div ng-if="reviews && reviews.length == 0" class="row">
 			<div class="col-md-12 bg-color-grey2"

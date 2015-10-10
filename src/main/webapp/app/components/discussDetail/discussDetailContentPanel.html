@@ -34,7 +34,7 @@
             <div style="clear: both"></div>
         </div>
 
-        <div class="margin-top-10" ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
+        <div class="margin-top-10" ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
 
         <div class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
@@ -117,7 +117,7 @@
 
 <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:20px;">
     <div ng-repeat="reply in detailResponse.replies" id="comment" 
-          data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html'"></div>
+          data-link="articles.html" ng-controller="DiscussReplyController" ng-include="'app/shared/common/template/replyCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 </div>
  <div style="clear: both; height:0px; background:#fff !important" ></div>
  

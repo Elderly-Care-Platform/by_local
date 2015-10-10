@@ -316,12 +316,12 @@
                     </div>
                 </div>
                 <div ng-repeat="review in reviews" data-index="discussion-articles" data-link="articles.html"
-                     ng-include="'app/components/profile/profileReviewCard.html'"
+                     ng-include="'app/components/profile/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
                      ng-if="review.text && review.text.trim().length > 0">
                 </div>
             </div>
         </div>
-        <div ng-include="'app/components/profile/contentByUser.html'" ng-if="!housingFacilityId"></div>
+        <div ng-include="'app/components/profile/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="!housingFacilityId"></div>
     </div>
     <!--/end profile details-->
 </div>

@@ -223,7 +223,7 @@
 			</div>
 			<div ng-repeat="review in reviews" data-index="discussion-articles"
 				data-link="articles.html"
-				ng-include="'app/components/profile/profileReviewCard.html'"
+				ng-include="'app/components/profile/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
 				ng-if="review.text && review.text.trim().length > 0">
 			</div>
 		</div>
@@ -232,7 +232,7 @@
 			<div class="clearfix" style="height:20px;"></div>
 		</div>
 
-		<div ng-include="'app/components/profile/contentByUser.html'"></div>
+		<div ng-include="'app/components/profile/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 	</div>
 	<!--/end profile details-->
 </div>

@@ -66,7 +66,7 @@
     <div ng-if="reply.replies && reply.replies.length > 0">
         <div class="insideComments" ng-repeat="reply in reply.replies"
              ng-controller="DiscussReplyController"
-             ng-include="'app/shared/common/template/replyCard.html'"></div>
+             ng-include="'app/shared/common/template/replyCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     </div>
 
 

@@ -90,7 +90,7 @@
             <div style="clear: both"></div>
         </div>
         
-        <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="discuss.linkInfo"
+        <div ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="discuss.linkInfo"
              ng-init="linkInfo=discuss.linkInfo" ng-if="discuss.promotion == false"></div>
 
         <div class="articles-story  col-md-12" ng-if="discuss.promotion == false" id="{{discuss.id}}">

@@ -27,7 +27,7 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
 
     // Variables
     var breadCrumb,
-    customerId = 700;
+        customerId = 700;
     $scope.constant = INVENTORY;
     $scope.serverurl = SERVERURL_IMAGE.hostUrl;
     $scope.productId = $routeParams.productId;
@@ -134,8 +134,8 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
        */
       function productDescriptionSuccess(result) {
         var params = {},
-          data = result.productDescription,
-          path = PAGE_URL.root;
+            data = result.productDescription,
+            path = PAGE_URL.root;
         if ($scope.category !== undefined) {
           path += '?q=' + $filter('encodeUri')($scope.category);
         }
@@ -143,7 +143,7 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
         BreadcrumbService.setBreadCrumb(breadCrumb, data.name);
         params.id = $scope.productId;
         $scope.promise = ProductDescriptionService.getProductSku(params)
-        .then(getProductSkuSuccess, failure);
+            .then(getProductSkuSuccess, failure);
         $scope.uiData = data;
         $scope.uiData.name = data.name;
         Utility.checkImages($scope.uiData);
@@ -182,7 +182,7 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
         params.id = data.defaultCategoryId;
         params.q = '*';
         $scope.promise = ProductDescriptionService.getProductListByCategory(params)
-          .then(similarProductSuccess, failure);
+            .then(similarProductSuccess, failure);
       }
 
       /**
@@ -226,7 +226,7 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
       function similarProductSuccess(result) {
         // var length = result.products.length;
         var products = [],
-          similarProductList = [];
+            similarProductList = [];
 
         if (Array.isArray(result)) {
           products = result;
@@ -284,10 +284,12 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
         Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity);
       } else {
         if ($scope.userRequiredQuantity >= 1 &&
-         $scope.userRequiredQuantity <= $scope.quantityAvailable) {
+            $scope.userRequiredQuantity <= $scope.quantityAvailable) {
           Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity);
         }
       }
+
+      $location.path('/cart/');
     }
 
     /**

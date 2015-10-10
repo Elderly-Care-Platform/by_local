@@ -312,7 +312,7 @@ div.refresh-icon::after {
 }
 
 input.captcha {
-	background-image: url(../assets/images/captcha-bg.jpg);
+	background-image: url(../../img/captcha-bg.jpg);
 	text-align: center;
 	border: none;
 	font-weight: bold;
@@ -323,7 +323,7 @@ input.captcha {
 }
 
 .lazyLoader {
-	background: url(../assets/images/ajax_scroll_loading.gif);
+	background: url(../../img/ajax_scroll_loading.gif);
 	height: 10px;
 	width: 42px;
 	left: 50% !important;

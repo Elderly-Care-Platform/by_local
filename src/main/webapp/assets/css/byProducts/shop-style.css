@@ -1272,7 +1272,7 @@ ul.shopping-cart	{
 }	
 
 .nav-sprite {
-	background-image: url(../assets/images/sprite.png);
+	background-image: url(../../img/sprite/productSprite.png);
 	background-position: 0 1000px;
 	background-repeat: repeat-x;
 }

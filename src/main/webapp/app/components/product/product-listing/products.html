@@ -1,6 +1,7 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-<div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/common/html/preloader.html'}">
+<div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
     <div class="topScroll" top-scroll></div>
+    <div ng-include="'app/shared/common/template/breadcrumb.html'"></div>
     <!--<div class="wrapper">-->
     <!--&lt;!&ndash;=== Header ===&ndash;&gt;-->
     <!--<div ng-include="'app/common/html/header.html'"></div>-->
@@ -11,7 +12,7 @@
     <!--&lt;!&ndash;=== End Breadcrumbs ===&ndash;&gt;-->
     <!--</div>-->
     <!--=== Content Part ===-->
-    <div class="container by_home_content">
+    <div class="container by_home_content" style="margin-top: 50px;">
         <div class="row">
             <div class="col-md-3  md-margin-bottom-40 forward-display"
                  ng-include="'app/components/product/product-listing/product-left-panel.html'"></div>

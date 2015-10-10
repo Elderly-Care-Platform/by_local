@@ -22,12 +22,19 @@ require.config({
 		ErrorStoreFactory : '../main/product/productResources/error-store.service',
 		urlUtilsFactory : '../main/product/productResources/url-utils.factory',
 		CategoryServiceFactory : '../main/product/productResources/category-service',
-		CartServiceFactory : '../main/product/productResources/cart.service',
 		BreadcrumbServiceFactory : '../main/product/productResources/breadcrumb.service',
 		GlobalServiceFactory : '../main/product/productResources/global.service',
 		UtilFactory : '../main/product/productResources/utils.factory',
 		ProductDescFactory : '../components/product/productDescription/product-description.service',
 		stateParamValidatorFactory : '../main/product/productResources/stateParamValidator',
+		CartServiceFactory : '../components/product/cart/cart.service',
+		CustomValidationFactory : '../main/product/productResources/custom-validation-directive',
+
+		AddAddressFactory : '../components/product/cartCheckout/add-address/add-address.service',
+		EditAddressFactory : '../components/product/cartCheckout/edit-address/edit-address.service',
+		SelectAddressFactory : '../components/product/cartCheckout/select-address/select-address.service',
+		PaymentGatewayFactory : '../components/product/cartCheckout/payment-gateway/payment-gateway.service',
+		ShoppingConfirmationFactory : '../components/product/cartCheckout/shopping-confirmation/shopping-confirmation.service',
 
 		jquery : '../../lib/unify/plugins/jquery/jquery.min',
 		angular : '../../lib/angular/angular',
@@ -79,10 +86,17 @@ require.config({
 		regUserTypeController : '../components/signup/regUserTypeController',
 		modifySignupCtrl : '../components/signup/login/modifySignupCtrl',
 
-
+		productController : '../components/product/product-listing/productController',
 		productDescCtrl : '../components/product/productDescription/product-description.controller',
 		videoImageDirective : '../components/product/productDescription/video-image.directive',
-		videoModalController : '../components/product/productDescription/videoModal.controller'
+		videoModalController : '../components/product/productDescription/videoModal.controller',
+
+		cartController : '../components/product/cart/cart.controller',
+		shoppingConfirmationCtrl : '../components/product/cartCheckout/shopping-confirmation/shopping-confirmation.controller',
+		selectAddressController : '../components/product/cartCheckout/select-address/select-address.controller',
+		paymentGatewayController : '../components/product/cartCheckout/payment-gateway/payment-gateway.controller',
+		editAddressController : '../components/product/cartCheckout/edit-address/edit-address.controller',
+		addAddressController : '../components/product/cartCheckout/add-address/add-address.controller'
 
 	},
 

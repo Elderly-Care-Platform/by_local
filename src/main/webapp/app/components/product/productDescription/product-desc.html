@@ -1,10 +1,12 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
-
+    <div class="wrapper">
+        <div ng-include="'app/shared/common/template/breadcrumb.html'"></div>
+    </div>
     <!--=== Content Part ===-->
     <div class="container content discussion-page breadCrumbMargin paddingTop0"
-         ng-controller="ProductDescriptionController as ProductDescriptionController" style="margin-top: 53px;">
+         ng-controller="ProductDescriptionController as ProductDescriptionController" style="margin-top: 60px;">
         <div class="ask-question-textarea ask-dimension textarea-label borderShadow">
             <textarea id="ask-question" rows="3" placeholder="Please enter your question"
                       class="question-text"></textarea>

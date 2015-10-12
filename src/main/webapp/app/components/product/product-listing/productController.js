@@ -1,5 +1,5 @@
 define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
-    function ProductsController( $scope,
+    function ProductsController($rootScope, $scope,
                                  $log,
                                  $q,
                                  $window,
@@ -15,7 +15,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
                                  SERVERURL_IMAGE,
                                  STATIC_IMAGE,
                                  Utility,
-                                 PAGINATION){
+                                 PAGINATION, broadCastMenuDetail){
         $log.debug('Inside Product Controller');
 
         //Variables
@@ -33,6 +33,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.lastPage                 = false;
         $scope.isQueryInprogress        = false;
         $scope.isFreeSearch             = false;
+        $scope.selectedMenu             = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
 
         //Functions
         $scope.openProductDescription   = openProductDescription;
@@ -44,6 +45,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.getSearchedResult        = getSearchedResult;
         $scope.loadMoreRecords          = loadMoreRecords;
         $scope.trustForcefully          = trustForcefully;
+        $scope.fixedMenuInitialized     = fixedMenuInitialized;
 
 
         function getProducts() {
@@ -244,9 +246,13 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             return $sce.trustAsHtml(html);
         }
 
+        function fixedMenuInitialized(){
+            broadCastMenuDetail.setMenuId($scope.selectedMenu);
+        }
+
     }
 
-    ProductsController.$inject = [ '$scope',
+    ProductsController.$inject = ['$rootScope', '$scope',
         '$log',
         '$q',
         '$window',
@@ -262,7 +268,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         'SERVERURL_IMAGE',
         'STATIC_IMAGE',
         'Utility',
-        'PAGINATION'];
+        'PAGINATION', 'broadCastMenuDetail'];
 
     byProductApp.registerController('ProductsController', ProductsController);
     return ProductsController;

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.ActivityLogConstants;
+import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.DiscussReply;
 import com.beautifulyears.domain.HousingFacility;
@@ -62,8 +63,7 @@ public class ReviewController {
 	public ReviewController(DiscussReplyRepository discussReplyRepository,
 			UserRatingRepository userRatingRepository,
 			UserProfileRepository userProfileRepository,
-			HousingRepository housingRepository,
-			MongoTemplate mongoTemplate) {
+			HousingRepository housingRepository, MongoTemplate mongoTemplate) {
 		this.discussReplyRepository = discussReplyRepository;
 		this.userRatingRepository = userRatingRepository;
 		this.userProfileRepository = userProfileRepository;
@@ -154,15 +154,15 @@ public class ReviewController {
 			UserProfile profile = mongoTemplate.findOne(query,
 					UserProfile.class);
 			review.setUserProfile(profile);
-			sendMailForReview(review,user);
-		}else{
+			sendMailForReview(review, user);
+		} else {
 			operationType = ActivityLogConstants.CRUD_TYPE_UPDATE;
 		}
 		review.setText(newReviewRate.getText());
 		review.setUserRatingPercentage(newReviewRate.getUserRatingPercentage());
 		discussReplyRepository.save(review);
-		logHandler.addLog(review, operationType,"changing the review", user);
-		updateAllDependantEntities(contentType, review);
+		logHandler.addLog(review, operationType, "changing the review", user);
+		updateAllDependantEntities(contentType, review, user);
 		return review;
 	}
 
@@ -178,7 +178,7 @@ public class ReviewController {
 				rating.setAssociatedContentType(contentType);
 				rating.setUserId(user.getId());
 				rating.setUserName(user.getUserName());
-			}else{
+			} else {
 				operationType = ActivityLogConstants.CRUD_TYPE_UPDATE;
 			}
 			if (null != reviewRate.getUserRatingPercentage()
@@ -188,8 +188,9 @@ public class ReviewController {
 			}
 			rating.setRatingPercentage(reviewRate.getUserRatingPercentage());
 			userRatingRepository.save(rating);
-			//logHandler.addLog(reviewRate, operationType,"changing the rating", user);
-			updateAllDependantEntities(contentType, rating);
+			// logHandler.addLog(reviewRate,
+			// operationType,"changing the rating", user);
+			updateAllDependantEntities(contentType, rating, user);
 		} else {
 			logger.debug("not updating any rating");
 		}
@@ -216,39 +217,36 @@ public class ReviewController {
 	}
 
 	private void updateAllDependantEntities(Integer contentType,
-			UserRating rating) {
+			UserRating rating, User user) {
 		switch (contentType) {
 		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
-			updateInstitutionRating(rating);
+			updateInstitutionRating(rating,user);
 			break;
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
-			updateHousingRating(rating);
+			updateHousingRating(rating, user);
 			break;
 		default:
 			throw new BYException(BYErrorCodes.REVIEW_TYPE_INVALID);
 		}
 	}
-
 
 	private void updateAllDependantEntities(Integer contentType,
-			DiscussReply review) {
+			DiscussReply review, User user) {
 		switch (contentType) {
 		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
-			updateInstitutionReviews(review);
+			updateInstitutionReviews(review,user);
 			break;
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
-			updateHousingReviews(review);
+			updateHousingReviews(review, user);
 			break;
 		default:
 			throw new BYException(BYErrorCodes.REVIEW_TYPE_INVALID);
 		}
 	}
-	
 
-
-	private void updateHousingRating(UserRating rating) {
+	private void updateHousingRating(UserRating rating, User currentUser) {
 		HousingFacility housing = this.housingRepository.findOne(rating
 				.getAssociatedId());
 		if (null != housing) {
@@ -274,13 +272,16 @@ public class ReviewController {
 				housing.setAggrRatingPercentage(ratingAggregated.get(0)
 						.getRatingPercentage());
 			}
-
+			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+				housing.setVerified(true);
+			}
 			this.housingRepository.save(housing);
 		}
-		
+
 	}
 
-	private void updateInstitutionRating(UserRating rating) {
+	private void updateInstitutionRating(UserRating rating, User currentUser) {
 		UserProfile profile = this.userProfileRepository.findOne(rating
 				.getAssociatedId());
 		if (null != profile) {
@@ -306,13 +307,15 @@ public class ReviewController {
 				profile.setAggrRatingPercentage(ratingAggregated.get(0)
 						.getRatingPercentage());
 			}
-
+			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+				profile.setVerified(true);
+			}
 			this.userProfileRepository.save(profile);
 		}
 	}
-	
 
-	private void updateHousingReviews(DiscussReply review) {
+	private void updateHousingReviews(DiscussReply review, User currentUser) {
 		HousingFacility housing = this.housingRepository.findOne(review
 				.getDiscussId());
 		if (null != housing) {
@@ -321,12 +324,16 @@ public class ReviewController {
 			} else if (!housing.getReviewedBy().contains(review.getUserId())) {
 				housing.getReviewedBy().add(review.getUserId());
 			}
+			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+				housing.setVerified(true);
+			}
 			this.housingRepository.save(housing);
 
 		}
 	}
 
-	private void updateInstitutionReviews(DiscussReply review) {
+	private void updateInstitutionReviews(DiscussReply review, User currentUser) {
 		UserProfile profile = this.userProfileRepository.findOne(review
 				.getDiscussId());
 		if (null != profile) {
@@ -334,6 +341,10 @@ public class ReviewController {
 				profile.getReviewedBy().remove(review.getUserId());
 			} else if (!profile.getReviewedBy().contains(review.getUserId())) {
 				profile.getReviewedBy().add(review.getUserId());
+			}
+			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+				profile.setVerified(true);
 			}
 			this.userProfileRepository.save(profile);
 
@@ -364,8 +375,8 @@ public class ReviewController {
 
 	void sendMailForReview(DiscussReply review, User user) {
 		try {
-			UserProfile reviewedEntity = this.userProfileRepository.findOne(review
-					.getDiscussId());
+			UserProfile reviewedEntity = this.userProfileRepository
+					.findOne(review.getDiscussId());
 			if (!reviewedEntity.getUserId().equals(user.getId())) {
 				ResourceUtil resourceUtil = new ResourceUtil(
 						"mailTemplate.properties");
@@ -376,7 +387,8 @@ public class ReviewController {
 				String replyTypeString = "profile";
 				String path = review.getUrl();
 				String body = MessageFormat.format(
-						resourceUtil.getResource("reviewOnProfile"), userName, path);
+						resourceUtil.getResource("reviewOnProfile"), userName,
+						path);
 				MailHandler.sendMailToUserId(reviewedEntity.getUserId(),
 						"Your " + replyTypeString
 								+ " was reviewed on beautifulYears.com", body);

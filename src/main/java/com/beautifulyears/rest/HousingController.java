@@ -171,7 +171,8 @@ public class HousingController {
 
 		for (HousingFacility removedFacility : removed) {
 			staticMongoTemplate.remove(removedFacility);
-			logHandler.addLog(removedFacility, ActivityLogConstants.CRUD_TYPE_DELETE,null, user);
+			logHandler.addLog(removedFacility,
+					ActivityLogConstants.CRUD_TYPE_DELETE, null, user);
 		}
 
 		for (HousingFacility addedFacility : newlyAdded) {
@@ -180,7 +181,8 @@ public class HousingController {
 			updateHousing(newFacility, addedFacility);
 			newFacility.setLastModifiedAt(new Date());
 			staticMongoTemplate.save(newFacility);
-			logHandler.addLog(newFacility, ActivityLogConstants.CRUD_TYPE_CREATE,null, user);
+			logHandler.addLog(newFacility,
+					ActivityLogConstants.CRUD_TYPE_CREATE, null, user);
 			facilities.set(facilities.indexOf(addedFacility), newFacility);
 		}
 
@@ -190,13 +192,25 @@ public class HousingController {
 			updateHousing(old, updatedFacility);
 			old.setLastModifiedAt(new Date());
 			staticMongoTemplate.save(old);
-			logHandler.addLog(old, ActivityLogConstants.CRUD_TYPE_UPDATE,null, user);
+			logHandler.addLog(old, ActivityLogConstants.CRUD_TYPE_UPDATE, null,
+					user);
 		}
 
 		return facilities;
 	}
 
-	public static void updateHousing(HousingFacility oldHousing,
+	public static void markVerified(String housingId, boolean isVerified) {
+		HousingFacility housing = HousingController.staticMongoTemplate
+				.findById(housingId, HousingFacility.class);
+		if (null != housing) {
+			housing.setVerified(isVerified);
+			HousingController.staticMongoTemplate.save(housing);
+		} else {
+			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
+		}
+	}
+
+	private static void updateHousing(HousingFacility oldHousing,
 			HousingFacility newHousing) {
 		oldHousing.setDescription(newHousing.getDescription());
 		oldHousing.setName(newHousing.getName());

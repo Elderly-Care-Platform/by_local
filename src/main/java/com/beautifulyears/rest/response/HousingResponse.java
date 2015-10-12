@@ -113,6 +113,7 @@ public class HousingResponse implements IResponse {
 		private String website;
 		private Date createdAt = new Date();
 		private Date lastModifiedAt = new Date();
+		private boolean isVerified = false;
 
 		public HousingEntity(HousingFacility housing, User user) {
 			this.id = housing.getId();
@@ -134,6 +135,8 @@ public class HousingResponse implements IResponse {
 			this.createdAt = housing.getCreatedAt();
 			this.lastModifiedAt = housing.getLastModifiedAt();
 			this.systemTags = housing.getSystemTags();
+			this.isVerified = housing.isVerified();
+			this.isFeatured = housing.isFeatured();
 
 			if (null != user && housing.getRatedBy().contains(user.getId())) {
 				this.isReviewedByUser = true;
@@ -143,6 +146,10 @@ public class HousingResponse implements IResponse {
 			}
 			ratingCount = housing.getRatedBy().size();
 			reviewCount = housing.getReviewedBy().size();
+		}
+
+		public boolean isVerified() {
+			return isVerified;
 		}
 
 		public List<Tag> getSystemTags() {

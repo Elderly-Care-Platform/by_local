@@ -20,6 +20,10 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         };
+        
+        $scope.tooltipText = function(){        	
+        	$('[data-toggle="tooltip"]').tooltip(); 
+        }
 
         var fetchProfileData = function(){
             $("#preloader").show();

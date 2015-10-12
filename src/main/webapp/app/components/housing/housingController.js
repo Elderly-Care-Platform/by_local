@@ -50,11 +50,17 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                     console.log(error);
                 });
         };
+        
+        $scope.tooltipText = function(){        	
+        	$('[data-toggle="tooltip"]').tooltip(); 
+        }
+        
 
         $scope.fixedMenuInitialized = function(){
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         };
-
+        
+        
 
 
         //$scope.showBreadcrums();

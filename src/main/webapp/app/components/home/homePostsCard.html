@@ -69,7 +69,7 @@
                 <div style="clear: both"></div>
             </div>
             <div style="clear: both"></div>
-            <div ng-include="'app/shared/common/template/ShareLinkContent.html'" ng-if="article.linkInfo"
+            <div ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="article.linkInfo"
                  ng-init="linkInfo=article.linkInfo"></div>
 
             <div class="articles-story  col-md-12" id="{{article.id}}">

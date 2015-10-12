@@ -356,3 +356,20 @@ input[type=checkbox] {
 	background: #004f24;
 	border-color: #004f24;
 }
+.loginSectionLine
+{
+	width:100%;
+	height:1px;
+	text-align:center;
+	margin: -11px auto 20px auto;
+	vertical-align:top;
+}
+button.login-btn {
+	margin-top: 48px;
+}
+
+@media screen and (max-width: 991px) {
+	button.login-btn {
+		margin-top: 0px;
+	}
+}

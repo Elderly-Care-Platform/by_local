@@ -38,6 +38,16 @@ define([],function(){
                     return defered.promise;
                 }]
             }})
+            
+            .when('/users/resetPassword/:resetPasswordCode', {templateUrl: 'app/components/signup/login/resetPassword.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'LoginController', resolve:{
+                load:['$q', function($q){
+                    var defered = $q.defer();
+                    require(['app/components/signup/login/loginController.js'], function(){
+                        defered.resolve();
+                    });
+                    return defered.promise;
+                }]
+            }})
 
             .when('/users/registrationProfile', {templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%', controller: 'RegistrationController', resolve:{
                 load:['$q', function($q){
@@ -206,6 +216,7 @@ define([],function(){
                         return defered.promise;
                     }]
                 }})
+
 
         //.when('/users/aboutUs', {templateUrl: 'app/components/aboutUs/aboutUs.html', controller: 'BYAboutUsController'})
             //.when('/users/new', {templateUrl: 'app/components/users/create.html', controller: 'UserCreateController'})

@@ -1,34 +1,51 @@
-<a class="productFiltering" ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q=featured">FEATURED</a>
- <a class="productFiltering" href="#">NEW </a>
- <a class="productFiltering" href="#">BEST SELLERS</a>
- <a class="productFiltering" href="#">TOP RATED</a>	
+<a class="productFiltering"
+ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q=featured">FEATURED</a>
+<a class="productFiltering" href="#">NEW </a>
+<a class="productFiltering" href="#">BEST SELLERS</a>
+<a class="productFiltering" href="#">TOP RATED</a>
 
-<div class="clearfix" style="height:15px;"></div>
+<div class="clearfix" style="height: 15px;"></div>
 
-<div ng-repeat="product in products" >
+<div ng-repeat="product in products">
 
-	<div class="by_productCard col-md-6">
-		<div class="by_productCard_Image">
-			<img ng-if="product.primaryMedia != null"
-             ng-src="{{product.primaryMedia.url || ''}}"
-             fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
-		</div>
-		<div class="by_productCard_divider"></div>
-		<div class="by_productCard_title ellipsisHead">{{product.name}}</div>
-		<div class="by_productCard_price">Our price: Rs {{product.salePrice.amount}} 
-		<small ng-if="product.retailPrice != null"><del>{{product.retailPrice.amount}}</del></small></div>		
-		<div class="by_productCard_divider"></div>
-		<div class="by_productCard_desc ellipsisDesc"  ng-bind-html="trustForcefully(product.longDescription)"></div>
-		
+	<div class="by_productCard col-md-6"
+	ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)">
+	<div class="by_productCard_Image">
+		<img ng-if="product.primaryMedia != null"
+		ng-src="{{product.primaryMedia.url || ''}}"
+		fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
+	</div>
+	<div class="by_productCard_divider"></div>
+	<div class="by_productCard_title ellipsisHead">{{product.name}}</div>
+	<div class="by_productCard_price">
+		Our price: <strong>Rs {{product.salePrice.amount}}</strong> <small
+		ng-if="product.retailPrice != null"><del>{{product.retailPrice.amount}}</del> </small> 
+		<span class="by_productCard_offer">5%</span>
+	</div>
+	<div class="by_productCard_divider"></div>
+	<div ng-if="$root.windowWidth > 990">
+		<span class="by_productCard_desc"
+		ng-bind-html="trustForcefully(product.longDescription.substring(0, 55))"></span>
+		<span class="by_productCard_descEllipse" ng-if="product.longDescription.length > 80">...</span>
+	</div>
+	<div ng-if="$root.windowWidth < 991">
+		<span class="by_productCard_desc"
+		ng-bind-html="trustForcefully(product.longDescription.substring(0, 120))"></span>
+		<span class="by_productCard_descEllipse" ng-if="product.longDescription.length > 120">...</span>
 	</div>
 
 </div>
+
+</div>
 <div ng-if="length === 0">
-    <div class="col-md-12 product-description margin-bottom-15 white-gray" style="margin-top: 10px;">
-        <div class="desc padding10 text-justify">
-            <p style="text-align: center; margin: 0;">No Product found</p>
-        </div>
-    </div>
+	<div class="col-md-12 product-description margin-bottom-15 white-gray"
+	style="margin-top: 10px;">
+	<div class="desc padding10 text-justify">
+		<p style="text-align: center; margin: 0;">No Product found</p>
+	</div>
 </div>
-<div cg-busy="{promise:lazyPromise,templateUrl:'app/shared/common/template/lazyLoader.html'}" style="height:50px">
 </div>
+<div class="clearfix"></div>
+<div
+cg-busy="{promise:lazyPromise,templateUrl:'app/shared/common/template/lazyLoader.html'}"
+style="height: 50px"></div>

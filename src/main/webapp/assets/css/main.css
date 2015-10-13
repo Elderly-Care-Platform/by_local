@@ -201,3 +201,31 @@ body a:hover
 {
 	border-top-color: #525252;
 }
+.by_ellipsis {
+  overflow: hidden;
+  position: relative;
+  height: 40px;
+  line-height: 20px;
+}
+
+.by_ellipsis:before {
+  content:"";
+  float: left;
+  width: 5px; 
+  height: 40px; 
+}
+
+.by_ellipsis > *:first-child {
+  float: right;
+  width: 100%;
+  margin-left: -5px; 
+}    
+
+.by_ellipsis:after {
+    content: "\02026"; 
+  float: right; position: relative;
+  top: 20px; left: 100%; 
+  width: 20px; margin-left: -20px;
+  padding-right: 5px;
+  background: #fff;  
+}

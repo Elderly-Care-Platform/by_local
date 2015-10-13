@@ -7,7 +7,7 @@
 {
   margin-bottom: 20px;
   font-family: century_gothic !important;
-  height: 450px;
+  height: 420px;
   border: 1px solid transparent;
   border-radius: 4px !important;
   padding:15px;
@@ -20,13 +20,13 @@
 }
 .by_productCard:hover
 {	
-  border: 1px solid #F7580C;
+  border: 1px solid #e5e430;
 }
 .by_productCard_Image
 {
 	width:100%;
-	height:250px;
-	line-height:250px;
+	height:219px;
+	line-height:219px;
 	text-align:center;
 }
 .by_productCard_Image img

@@ -22,7 +22,9 @@ BY.config.regConfig.userTypeConfig = {
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regUserTypeController',
         'category':'NONE',
-        'label' : "I am"
+        'label' : "I am",
+        'showOrderHistory' : false,
+        'orderHistoryLabel' : ""
     },
     '0' : {
         'type':'0',
@@ -30,7 +32,9 @@ BY.config.regConfig.userTypeConfig = {
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regIndividualCtrl',
         'category':'CAREGIVER',
-        'label' : "About Me"
+        'label' : "About Me",
+        'showOrderHistory' : true,
+        'orderHistoryLabel' : "Order history"
     },
     '1' : {
         'type':'1',
@@ -38,7 +42,9 @@ BY.config.regConfig.userTypeConfig = {
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regIndividualCtrl',
         'category':'ELDER',
-        'label' : "About Me"
+        'label' : "About Me",
+        'showOrderHistory' : true,
+        'orderHistoryLabel' : "Order history"
     },
     '2' : {
         'type':'2',
@@ -46,7 +52,9 @@ BY.config.regConfig.userTypeConfig = {
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regIndividualCtrl',
         'category':'CURIOUS',
-        'label' : "About Me"
+        'label' : "About Me",
+        'showOrderHistory' : true,
+        'orderHistoryLabel' : "Order history"
     },
     '3' : {
         'type':'3',
@@ -54,7 +62,9 @@ BY.config.regConfig.userTypeConfig = {
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regHousingCtrl',
         'category':'HOUSING',
-        'label' : "Housing"
+        'label' : "Housing",
+        'showOrderHistory' : true,
+        'orderHistoryLabel' : "Order history"
     },
     '4' : {
         'type':'4',
@@ -62,7 +72,9 @@ BY.config.regConfig.userTypeConfig = {
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regInstitutionCtrl',
         'category':'SERVICES',
-        'label' : "Institution info"
+        'label' : "Institution info",
+        'showOrderHistory' : true,
+        'orderHistoryLabel' : "Order history"
     },
     '5' : {
         'type':'5',
@@ -82,7 +94,9 @@ BY.config.regConfig.userTypeConfig = {
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regProfessionalCtrl',
         'category':'PROFESSIONAL',
-        'label' : "Professional Info"
+        'label' : "Professional Info",
+        'showOrderHistory' : true,
+        'orderHistoryLabel' : "Order history"
     }
 }
 

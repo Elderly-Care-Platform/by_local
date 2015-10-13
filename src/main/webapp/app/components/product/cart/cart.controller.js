@@ -352,6 +352,5 @@ define(['byProductApp'], function (byProductApp) {
         'CartService',
         'DISCOUNT_TYPE'];
 
-    byProductApp.registerController('CartController', CartController);
     return CartController;
 });

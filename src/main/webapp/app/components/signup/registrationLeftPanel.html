@@ -9,19 +9,17 @@
                 <a href="#!/users/registration/changeCredential?changeUserPwd=true">Change Password</a>
             </li>
 
-            <li style="border:0px;" class="list-group-item reg-menu-1 active"
-                ng-if="profile && profile.userTypes && profile.userTypes.length===0"
-                >
+            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
                 <a href="#!/users/registrationProfile">I am...</a>
             </li>
-            <li style="border:0px;" class="list-group-item reg-menu-1 active"
-                ng-if="sectionLabel">
-                <a href="#!/users/registrationProfile">{{sectionLabel}}</a>
+            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="userTypeConfig && userTypeConfig.label">
+                <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
             </li>
-            <li style="border:0px;" class="list-group-item  reg-menu-1 housingTab{{$index+1}}"
-                ng-if="housingFacilityTabs.length > 0"
-                ng-repeat="facilityTab in housingFacilityTabs track by $index"
-                ng-class="{'active':facilityIdx===$index}">
+            <li style="border:0px;" class="list-group-item orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
+                <a href="#!/users/registrationProfile/orderHistory?showOrderHistory=true">{{userTypeConfig.orderHistoryLabel}}</a>
+            </li>
+            <li style="border:0px;" class="list-group-item  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
+                ng-repeat="facilityTab in housingFacilityTabs track by $index" ng-class="{'active':facilityIdx===$index}">
                 <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
             </li>
             <div class="clearfix" style="height:50px; background:#fff;"></div>

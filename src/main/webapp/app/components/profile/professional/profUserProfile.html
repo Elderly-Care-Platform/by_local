@@ -24,10 +24,10 @@
 		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
 			<div class="col-md-5 col-xs-5 by_profileWidth">
 				<div class="main-image white-gray " style="padding-left:0px;">
-					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && && individualProfile.individualInfo.gender == 1"
+					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
 						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual-big.png"]'
 						 alt="">
-						 <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && && individualProfile.individualInfo.gender == 0"
+						 <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 0"
 						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual_female_big.png"]'
 						 alt="">
 						 <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
@@ -205,7 +205,7 @@
 		</div>
 		<div style="clear:both;"></div>
 		
-		<div class="row margin-top-10" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
+		<div class="row margin-top-10" ng-include="'app/components/profile/shared/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="isAllowedToReview"></div>
 
 		<div ng-if="reviews && reviews.length == 0" class="row">
 			<div class="col-md-12 bg-color-grey2"
@@ -226,7 +226,7 @@
 			</div>
 			<div ng-repeat="review in reviews" data-index="discussion-articles"
 				data-link="articles.html"
-				ng-include="'app/components/profile/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
+				ng-include="'app/components/profile/shared/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
 				ng-if="review.text && review.text.trim().length > 0">
 			</div>
 		</div>
@@ -235,7 +235,7 @@
 			<div class="clearfix" style="height:20px;"></div>
 		</div>
 
-		<div ng-include="'app/components/profile/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+		<div ng-include="'app/components/profile/shared/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 	</div>
 	<!--/end profile details-->
 </div>

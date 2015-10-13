@@ -1,0 +1,97 @@
+<div class="row indvspacing" infinite-scroll="loadMoreRecords()"
+     infinite-scroll-distance="0" infinite-scroll-disabled="lastPage || isQueryInprogress" ng-controller="orderHistoryCtrl">
+    <div class="col-md-12 no-padding margin-bottom-15">
+        <div class="col-md-12 no-padding  list-head dp-block"></div>
+        <span class="col-md-12 no-padding  list-head dp-block">Recent Orders </span>
+
+        <div class="col-md-12 no-padding bg-gray-h1">
+            <div class="bg-green-h2" style="
+          width: 150px;
+          "></div>
+        </div>
+    </div>
+    <div class="col-md-12 product-description margin-bottom-15 padding-top-10 ">
+        <div class="pull-right shortby">{{orderListLength}} orders placed in
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <div class="box">{{filterType}}</div>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="javascript:void(0)"
+                           ng-class="{'active-filter': filterType === orderHistoryType.pastThirtyDays}"
+                           ng-click="resetValues(orderHistoryType.pastThirtyDays)">Past 30 days</a></li>
+                    <li><a href="javascript:void(0)"
+                           ng-class="{'active-filter': filterType === orderHistoryType.pastSixMonths}"
+                           ng-click="resetValues(orderHistoryType.pastSixMonths)">Past 6 months</a></li>
+                    <li><a href="javascript:void(0)"
+                           ng-class="{'active-filter': filterType === orderHistoryType.all}"
+                           ng-click="resetValues(orderHistoryType.all)">All</a></li>
+                </ul>
+            </li>
+        </div>
+    </div>
+    <div class="col-md-12 no-padding white-gray order-box margin-bottom-15"
+         ng-repeat="orders in orderHistory">
+        <div class="col-md-12 product-description margin-bottom-15 padding-top-10"
+             ng-repeat="orderItem in orders.orderItems track by $index">
+            <div class="col-md-2 no-padding">
+                <img class="cart-product-image border-gray" ng-src="{{orderItem.imageUrl}}">
+            </div>
+            <div class="col-md-4 no-padding">
+                <p class=" margin-top-10">
+                    {{orderItem.name}}<br>
+                    Qty : <b>{{orderItem.quantity}}</b><br>
+                    Price : <b>Rs {{orderItem.salePrice.amount}}</b>
+                </p>
+            </div>
+            <div class="col-md-2 no-padding">Delivery by<br>
+                <b>{{orders.trackingInfo.deliveryDate | dateSuffix}}</b>
+            </div>
+            <div class="col-md-3 pull-right padding15R">
+                <ul class="shopping-cart-heading margin-left-5 font-bold list-inline"
+                    ng-if="orders.orderItems.length == $index + 1">
+                    <li class="list-inline">
+                        <div class="col-md-12 no-padding by_leftPanel_icons recent-work" id="by_rate_show">
+                            <a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=123456789012"
+                               target="_blank">
+                                <div class="text"><!-- {{orders.trackingInfo.trackingNumber}} -->
+                                    Track your order
+                                </div>
+                            </a>
+
+                            <div class="text_orng margin-top-10"
+                                 ng-click="cancelOrder(orders.trackingInfo.trackingNumber, orders.id)">
+                                Cancel order
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-12 margin-top-10 margin-bottom-15 height-1">
+            <div class="bg-gray-h1"></div>
+            <div class="col-md-12">
+                <div class="pull-left col-md-4 row">Order date : <b>{{orders.submittedDate |
+                    dateSuffix}}</b>
+                </div>
+                <div ng-if="orders.orderAdjustments.length" class="pull-left col-md-4 text-right row">
+                    Discount :
+                    <b> -
+                        <span ng-if="orders.orderAdjustments[0].discountType === discountType.amountOff">Rs.</span>
+                        {{orders.orderAdjustments[0].discountAmount}}
+                        <span ng-if="orders.orderAdjustments[0].discountType === discountType.percentOff"> %</span>
+                    </b>
+                </div>
+                <div class="pull-right col-md-4 text-right row">
+                    Order Total :
+                    <font class="order-cost">
+                        Rs {{orders.total.amount}}
+                    </font>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 prodocutdetail paddingZero  ">
+        <div class="line"></div>
+    </div>
+</div>

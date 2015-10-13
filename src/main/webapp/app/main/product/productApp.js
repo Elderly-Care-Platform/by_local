@@ -5,9 +5,9 @@ define([
     'byProductConfig',
     'byProductResources',
     'angularResource','angularInfiniteScroll',
-    'angularGoogleLocation',  'angularCache','angularBootstrap', 'angularBusy', 'angularSanitize'
+    'angularGoogleLocation',  'angularCache','angularBootstrap', 'angularBusy', 'angularSanitize', 'cartController'
 ], function(angular, angularRoute, byProductRoute, byProductConfig, byProductResources, angularResource,
-            angularInfiniteScroll, angularGoogleLocation, angularCache, angularBootstrap, angularBusy, angularSanitize) {
+            angularInfiniteScroll, angularGoogleLocation, angularCache, angularBootstrap, angularBusy, angularSanitize, cartController) {
 
     var byProductApp = angular.module('byProductApp', ["ngRoute", "ngResource",
                                                         "byProductResources",
@@ -23,6 +23,8 @@ define([
 
     byProductApp.config(byProductRoute);
     byProductConfig(byProductApp);
+
+    byProductApp.controller('CartController', cartController);
 
     byProductApp.filter('encodeUri', function encodeUri($window) {
         return function(value) {
@@ -40,7 +42,7 @@ define([
         };
     });
 
-    byProductApp.filter('dateSuffix', function($window) {
+    byProductApp.filter('dateSuffix', function($window, $filter) {
         var suffixes = ['th', 'st', 'nd', 'rd'];
         return function(input) {
             var dtfilter = $filter('date')(input, 'EEE.dd');

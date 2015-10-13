@@ -5,13 +5,13 @@ define(['angular', 'DelegatorFactory', 'urlTemplateFactory', 'CachedRequestFacto
         'ProductServiceFactory', 'ErrorStoreFactory', 'urlUtilsFactory', 'CategoryServiceFactory',
         'CartServiceFactory', 'BreadcrumbServiceFactory', 'GlobalServiceFactory', 'UtilFactory',
         'ProductDescFactory', 'stateParamValidatorFactory', 'CustomValidationFactory', 'AddAddressFactory', 'EditAddressFactory',
-    'SelectAddressFactory', 'PaymentGatewayFactory', 'ShoppingConfirmationFactory'],
+    'SelectAddressFactory', 'PaymentGatewayFactory', 'ShoppingConfirmationFactory', 'OrderHistoryFactory'],
 
     function (angular, DelegatorFactory, urlTemplateFactory, CachedRequestFactory,
               ProductServiceFactory, ErrorStoreFactory, urlUtilsFactory,
               CategoryServiceFactory, CartServiceFactory, BreadcrumbServiceFactory, GlobalServiceFactory,
               UtilFactory, ProductDescFactory, stateParamValidatorFactory, CustomValidationFactory, AddAddressFactory,
-              EditAddressFactory, SelectAddressFactory, PaymentGatewayFactory, ShoppingConfirmationFactory) {
+              EditAddressFactory, SelectAddressFactory, PaymentGatewayFactory, ShoppingConfirmationFactory, OrderHistoryFactory) {
 
         var byProductResources = angular.module('byProductResources', ['ngResource']);
 
@@ -52,6 +52,8 @@ define(['angular', 'DelegatorFactory', 'urlTemplateFactory', 'CachedRequestFacto
         var SelectAddressService = byProductResources.factory('SelectAddressService', SelectAddressFactory);
 
         var ShoppingConfirmationService = byProductResources.factory('ShoppingConfirmationService', ShoppingConfirmationFactory);
+
+        var OrderHistoryService = byProductResources.factory('OrderHistoryService', OrderHistoryFactory);
 
         var apiCache = byProductResources.factory('apiCache', function ($angularCacheFactory,
                                                                         paramCache,

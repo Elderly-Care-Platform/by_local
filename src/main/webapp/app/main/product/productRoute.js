@@ -7,7 +7,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['productController', 'cartController'], function (productController, cartController) {
+                        require(['productController'], function (productController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -21,7 +21,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['productDescCtrl', 'videoModalController', 'cartController'], function (productDescCtrl, videoModalController, cartController) {
+                        require(['productDescCtrl', 'videoModalController'], function (productDescCtrl, videoModalController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -47,7 +47,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['selectAddressController', 'cartController'], function (ctrl, cartController) {
+                        require(['selectAddressController'], function (ctrl) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -60,7 +60,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['addAddressController', 'cartController'], function (ctrl, cartController) {
+                        require(['addAddressController'], function (ctrl) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -73,7 +73,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['editAddressController', 'cartController'], function (ctrl, cartController) {
+                        require(['editAddressController'], function (ctrl) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -86,7 +86,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['paymentGatewayController', 'cartController'], function (ctrl, cartController) {
+                        require(['paymentGatewayController'], function (ctrl) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -99,7 +99,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['paymentGatewayController', 'cartController'], function (ctrl, cartController) {
+                        require(['paymentGatewayController'], function (ctrl) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -112,7 +112,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['shoppingConfirmationCtrl', 'cartController'], function (ctrl, cartController) {
+                        require(['shoppingConfirmationCtrl'], function (ctrl) {
                             defered.resolve();
                         });
                         return defered.promise;

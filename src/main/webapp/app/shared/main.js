@@ -35,6 +35,7 @@ require.config({
 		SelectAddressFactory : '../components/product/cartCheckout/select-address/select-address.service',
 		PaymentGatewayFactory : '../components/product/cartCheckout/payment-gateway/payment-gateway.service',
 		ShoppingConfirmationFactory : '../components/product/cartCheckout/shopping-confirmation/shopping-confirmation.service',
+		OrderHistoryFactory : '../components/product/orderHistory/order-history.service',
 
 		jquery : '../../lib/unify/plugins/jquery/jquery.min',
 		angular : '../../lib/angular/angular',
@@ -70,12 +71,12 @@ require.config({
 		LoginController : '../components/signup/login/loginController',
 		sectionHeaderConfig : '../components/menu/sectionHeaderConfig',
 
-		indvUserProfileCtrl : '../components/profile/indvUserProfileCtrl',
-		instProfileCtrl : '../components/profile/instProfileCtrl',
-		profUserProfileCtrl : '../components/profile/profUserProfileCtrl',
-		reviewRateController : '../components/profile/reviewRateController',
-		housingProfileCtrl : '../components/profile/housingProfileCtrl',
-		housingProfileLeftCtrl : '../components/profile/housingProfileLeftCtrl',
+		indvUserProfileCtrl : '../components/profile/individual/indvUserProfileCtrl',
+		instProfileCtrl : '../components/profile/institution/instProfileCtrl',
+		profUserProfileCtrl : '../components/profile/professional/profUserProfileCtrl',
+		reviewRateController : '../components/profile/shared/reviewRateController',
+		housingProfileCtrl : '../components/profile/housing/housingProfileCtrl',
+		housingProfileLeftCtrl : '../components/profile/housing/housingProfileLeftCtrl',
 
 		registrationConfig : '../components/signup/common/registrationConfig',
 		regIndividualCtrl : '../components/signup/registration/regIndividualCtrl',
@@ -96,7 +97,9 @@ require.config({
 		selectAddressController : '../components/product/cartCheckout/select-address/select-address.controller',
 		paymentGatewayController : '../components/product/cartCheckout/payment-gateway/payment-gateway.controller',
 		editAddressController : '../components/product/cartCheckout/edit-address/edit-address.controller',
-		addAddressController : '../components/product/cartCheckout/add-address/add-address.controller'
+		addAddressController : '../components/product/cartCheckout/add-address/add-address.controller',
+
+		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller'
 
 	},
 

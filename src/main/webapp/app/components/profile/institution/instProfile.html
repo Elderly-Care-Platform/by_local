@@ -181,7 +181,7 @@
 
         <div style="clear:both;"></div>
 
-        <div class="row margin-top-10" ng-include="'app/components/profile/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'"
+        <div class="row margin-top-10" ng-include="'app/components/profile/shared/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'"
              ng-if="isAllowedToReview"></div>
 
         <div ng-if="reviews && reviews.length == 0" class="row">
@@ -204,7 +204,7 @@
             </div>
             <div ng-repeat="review in reviews" data-index="discussion-articles"
                  data-link="articles.html"
-                 ng-include="'app/components/profile/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
+                 ng-include="'app/components/profile/shared/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
                  ng-if="review.text && review.text.trim().length > 0">
             </div>
         </div>
@@ -213,7 +213,7 @@
             <div class="clearfix" style="height:20px;"></div>
         </div>
 
-        <div ng-include="'app/components/profile/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+        <div ng-include="'app/components/profile/shared/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 
         <!--<a style="margin-left:15px; " class="discussRightCategory {{isShowPosts===true && 'selected active'}}"-->
         <!--ng-click="showPosts(true)" ng-if="postsUser.length > 0">-->

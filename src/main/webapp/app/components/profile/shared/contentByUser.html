@@ -1,0 +1,53 @@
+<div class="col-md-12" ng-if="postsUser.length > 0">
+    <div class="col-md-12 no-padding  list-head dp-block fontIndv" id="userPosts">Posts ({{postsPagination.totalPosts}})
+    </div>
+
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 96px;"></div>
+    </div>
+
+    <div class="clearfix" style="height: 20px;"></div>
+    <div class="discussion-page" ng-repeat="discuss in postsUser" data-index="discussion-articles"
+         data-link="articles.html">
+        <div ng-include="'app/shared/common/template/PostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+    </div>
+
+
+    <div ng-if="postsPagination.noOfPages > 1">
+        <div class="text-left">
+            <by-pagination obj="postsPagination" callback="postsByUser"></by-pagination>
+        </div>
+    </div>
+</div>
+
+
+<!--<a style="margin-left:15px;" class="discussRightCategory {{isShowPosts===false && 'selected active'}}"-->
+<!--ng-click="showPosts(false)" ng-if="qaUser.length > 0">-->
+<!--Q &amp; A({{qaPagination.totalPosts}})-->
+<!--</a>-->
+
+
+<div class="col-md-12  margin-bottom-35" ng-if="qaUser.length > 0">
+    <div class="col-md-12 no-padding  list-head dp-block fontIndv"
+         id="userQA">Q&amp;A ({{qaPagination.totalPosts}})
+    </div>
+
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 76px;"></div>
+    </div>
+
+    <div class="clearfix" style="height: 20px;"></div>
+    <div class="discussion-page" ng-repeat="discuss in qaUser" data-index="discussion-articles"
+         data-link="articles.html">
+        <div ng-include="'app/shared/common/template/QuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+    </div>
+
+
+    <div ng-if="qaPagination.noOfPages > 1">
+        <div class="text-left">
+            <by-pagination obj="qaPagination" callback="qaByUser"></by-pagination>
+        </div>
+    </div>
+</div>
+
+

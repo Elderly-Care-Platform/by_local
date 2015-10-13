@@ -1,39 +1,26 @@
-<div ng-repeat="product in products" data-index="discussion-articles" data-link="articles.html" class="ng-scope">
+<a class="productFiltering" ng-href="#!/products/list/{{$root.menuCategoryMapByName['Products'].slug}}/{{$root.menuCategoryMapByName['Products'].id}}/all?q=featured">FEATURED</a>
+ <a class="productFiltering" href="#">NEW </a>
+ <a class="productFiltering" href="#">BEST SELLERS</a>
+ <a class="productFiltering" href="#">TOP RATED</a>	
 
-    <div class="blog-author margin-bottom-35 main-article by_blog_author margin-bottom-20">
-        <img class="cursor-pointer productImage" ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)" ng-hide="serverurl+product.primaryMedia.url === serverurl" ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
-        <img class="cursor-pointer productImage" ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)" ng-show="serverurl+product.primaryMedia.url === serverurl" ng-src="{{product.primaryMedia.url}}" alt="Image Not Available">
-        <div class="article-share-links news-v3" style="position: relative;top: -10px;">
-            <ul class="post-shares post-shares-lg">
-            </ul>
-        </div>
-        <div class="article-info dp-inline-block">
-            <ul class="list-inline posted-info posted-info-li-remove posted-info-remove">
-                <li class="article-first-letter ng-scope">Product in <a ng-click="reloadRoute()" ng-href='#/products?q={"id":{{product.categoryId}}, "name": {{product.categoryName|encodeUri}}}' validate-user-name="nitin" class="ng-binding">{{product.categoryName}}</a></li>
-                <li class="personalStoryMainContentShareBg2"><i class="rounded-x green-bg white-color">4.2</i>Rated by <a href="">56 people</a></li>
-                <li class="personalStoryMainContentShareBg2"><i class="rounded-x fa fa-pencil-square-o padding7 font-20"></i><a href="" style="margin-left: -10px;">18 Review</a></li>
-            </ul>
-            <div class="new-banner"></div>
-           <div class="article ng-scope" >
-             <div class="articleProductSearch ng-scopeProductSearch" >
-            <div class="article-heading cursor-pointer" ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)">
-                <p style="text-transform: capitalize" class="ng-binding">{{product.name}}</p>
-            </div>
-            <div class="">
-            <ul class="productPrice posted-info posted-info-li-remove">
-                <li class="">Our Price <span class="bigboldfont font-green">Rs. {{product.salePrice.amount}}</span></li>
-                <li class="">Catalogue Price <span class="bigboldfont text-linethrough font-red ">Rs. {{product.retailPrice.amount}}</span></li>
-            </ul>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="articles-story by_story ng-binding" id="559554f83b82180c2987e56b" style="word-wrap: break-word;"
-             ng-bind-html="trustForcefully(product.longDescription)"></div>
-        <div style="clear: both"></div>
+<div class="clearfix" style="height:15px;"></div>
 
-        <div ng-if="product.text &amp;&amp; product.text.length > 0" on-finish-render="559554f83b82180c2987e56b" class="ng-scope"></div>
-    </div>
+<div ng-repeat="product in products" >
+
+	<div class="by_productCard col-md-6">
+		<div class="by_productCard_Image">
+			<img ng-if="product.primaryMedia != null"
+             ng-src="{{product.primaryMedia.url || ''}}"
+             fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
+		</div>
+		<div class="by_productCard_divider"></div>
+		<div class="by_productCard_title ellipsisHead">{{product.name}}</div>
+		<div class="by_productCard_price">Our price: Rs {{product.salePrice.amount}} 
+		<small ng-if="product.retailPrice != null"><del>{{product.retailPrice.amount}}</del></small></div>		
+		<div class="by_productCard_divider"></div>
+		<div class="by_productCard_desc ellipsisDesc"  ng-bind-html="trustForcefully(product.longDescription)"></div>
+		
+	</div>
 
 </div>
 <div ng-if="length === 0">

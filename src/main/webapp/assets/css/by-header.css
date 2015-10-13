@@ -339,7 +339,7 @@
 	.header {
 		position: relative;
 		height: auto;
-		z-index: 0;
+		z-index: 1;
 	}
 	.header .topbar ul.loginbar {
 		padding: 0px;

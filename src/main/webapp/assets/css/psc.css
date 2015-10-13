@@ -593,7 +593,8 @@
 }
 
 .searchWrapper {
-    width: 70%;
+    width: calc(70% - 100px);
+    margin-right:100px;
     margin-top:-41px;
     color: #fff;
     padding: 2px 0px 0px 5px;
@@ -1145,6 +1146,7 @@
         width: calc(100% - 60px);
         right: 16px;
         margin-top:5px;
+        margin-right:0px;
     }
 
     .searchLeft {

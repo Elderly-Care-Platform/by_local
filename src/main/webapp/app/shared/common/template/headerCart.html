@@ -1,20 +1,13 @@
-<div>
-    <ul class="list-inline shop-badge badge-lists badge-icons pull-right" ng-controller="CartController">
-        <li class="padding-bottom6">
-            <a id="nav-cart" class="nav_a nav-button-outer nav-menu-active" data-nav-tabindex="13"
-               tabindex="1">
-                <span class="nav-cart-divider  nav-sprite"></span>
-            </a>
-            <span class="nav-divider"></span>
-            <a id="nav-cart" class="nav_a nav-button-outer nav-menu-active" alt="Shopping Cart" data-nav-tabindex="13"
-               tabindex="1"><!-- href="/gp/cart/view.html/ref=nav_cart" -->
-                <span class="nav-button-title nav-button-line1"></span>
-                <span class="nav-button-title nav-button-line2">Cart<span class="nav-down-arrow"></span></span>
-                <span class="nav-cart-button nav-sprite"></span>
-                <span id="nav-cart-count" class="nav-cart-0">{{uiData.totalCartItem}}</span>
-            </a>
-            <span class="nav-divider"></span>
-            <ul class="list-unstyled badge-open padding-bottom-10 _mCS_1 mCS-autoHide mCS_no_scrollbar"
+<div >
+    <ul class="shop-badge" ng-controller="CartController">
+        <li class="padding-bottom6" style="padding-bottom:0px !important;">  
+        <div class="by_cart_iconWrap" >
+            <span><img src="assets/img/product/cart.png?versionTimeStamp=%PROJECT_VERSION%"/></span>
+            <span> Cart</span>
+            <span class="by_cart_count" >{{uiData.totalCartItem}}</span>
+        </div>
+           
+            <ul class="badge-open"
                 data-mcs-theme="minimal-dark" style="overflow: visible;" ng-show="uiData.cartItems.length">
                 <div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0">
                     <div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"

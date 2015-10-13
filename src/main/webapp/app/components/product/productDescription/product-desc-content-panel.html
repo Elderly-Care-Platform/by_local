@@ -1,0 +1,261 @@
+
+<div class="col-md-12 product-main margin-bottom-15 white-gray ">
+    <div class="new-banner">
+                        <!-- <a><img src="assets/img/icons/New-icon.png" width="55" height="24">
+                    </a> -->
+                </div>
+                <div class="col-md-5" style="padding:0px;">
+                    <div class=" col-md-12 main-image white-gray " style="padding: 0px;">
+                        <img class="full-width padding-zero" ng-src="{{uiData.primaryMedia.url}}">
+                    </div>
+                    <div class=" col-md-12 main-image padding-top-only-5  ">
+                        <div id=" col-md-12 padding-zero slideshow_border">
+                            <div id="dhtmlgoodies_slideshow">
+                                <div id="galleryContainer">
+                                    <div id="arrow_left"><img src="assets/img/icons/arrow_left.gif" style="
+                                        height: 70px;" usemap="#Map" border="0">
+                                        <map name="Map">
+                                            <area shape="poly" coords="20,29" href="#">
+                                        </map>
+                                    </div>
+                                    <div id="arrow_right"><img src="assets/img/icons/arrow_right.gif" style="
+                                        height: 70px;">
+                                    </div>
+                                    <div id="theImages" style="left: 40px;">
+                                        <!-- Thumbnails -->
+                                        <a ng-repeat="media in uiData.mediaItems"
+                                        on-finish-render="ngRepeatFinished">
+                                        <div ng-if="media.type === 'image'">
+                                            <img ng-src="{{media.url}}" style="opacity: 0.5;width:60px;">
+                                        </div>
+                                        <!-- Set image of video -->
+                                        <div ng-if="media.type === 'video'">
+                                            <img src="{{media.poster}}" style="opacity: 0.5;width:60px;"
+                                            ng-click="playVideo(media.url)" id="posterImage">
+                                            <video src="{{media.url | handleInterpolate}}"
+                                            crossorigin="anonymous" controls autoplay
+                                            class="set-video-frame" video-image id="video">
+                                        </video>
+                                        <canvas id="thecanvas"></canvas>
+                                    </div>
+                                    <!-- End image video -->
+                                    <div ng-if="media.type === 'notSupportedMedia'">
+                                        <img data-toggle="tooltip" data-placement="top"
+                                        title="Unsupported video file! Application supported only mp4, webm, ogg video files!"
+                                        ng-src="{{media.poster}}" style="opacity: 0.5;width:60px;">
+                                    </div>
+                                </a>
+                                <!-- End thumbnails -->
+                                <div id="slideEnd"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of SlideShow-->
+                <div id="hover-images">
+                    <img src="assets/img/product/image1.jpg" style="opacity:1;">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="col-md-12 productMainContent productMainContent-padding-left">
+                <div class="productMainContentTitle">
+                    {{uiData.name}}
+                </div>
+                <div class="manufacturerTitle">
+                    by {{uiData.manufacturer}}
+                </div>
+                <div class="personalStoryMainContentShare">
+                    <div class="productRating">
+                        <i class="rounded-x">4.2</i>Rated by <a href="">56 people</a>
+                    </div><div style="clear:both; height:10px;"></div>
+                    <div class="productReview">
+                        <i class="rounded-x icon-share"></i>
+                        <a href="" style="    vertical-align: top;">18 reviews</a>
+                    </div>
+                </div>
+            </div>
+            <!--/end shop product social-->
+            <div class="col-md-12 bg-color-grey margin-bottom-20 margin-top-10"></div>
+            <div class="col-md-12 price-availableContent">
+                <div class="width_50prc ">
+                    <div class="dp-inline-block">
+                        Our price : <span
+                        class="bigboldfont font-green">Rs. {{uiData.salePrice.amount}}</span>
+                    </div>
+                    <div class=" ">
+                        Catalog Price : <span class="bigboldfont text-linethrough font-red ">Rs. {{uiData.retailPrice.amount}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 width_50prc singleinline margin-bottom-10 margin-top-10">
+                <div class="avilabilty dp-inline-block ">
+                    Available in stock
+                </div>
+                <div class="avilabilty dp-inline-block font-bold"
+                ng-if="undefined !== inventoryType && inventoryType !== constant.alwaysAvailable">
+                | Only {{quantityAvailable}} Left
+            </div>
+        </div>
+        
+        
+        
+        <!--/end shop product ratings-->
+        <!-- end pin code -->
+        <!--/end shop product prices-->
+        <!--/end product size-->
+        <!--/end product color-->
+        <!--/end product quantity-->
+    </div>
+    <div class="col-md-12  singleinline">
+        <div class=" dp-inline-block ">
+            Cash on Delivery :
+        </div>
+        <div class=" dp-inline-block font-bold" ng-if="uiData.cashOnDelivery">
+            Eligible
+        </div>
+        <div class=" dp-inline-block font-bold" ng-if="!uiData.cashOnDelivery">
+            Not Eligible
+        </div>
+    </div>
+    <div class="col-md-12 pincode-available margin-top-10 margin-bottom-10">
+        <div class="pincode-form-wrap pincode-availableContent">
+            <div class="Cash-check-pin singleinline">
+                <div class=" singleinline"><img class=" padding-zero"
+                    src="assets/img/product/location.png">
+                </div>
+                Check Availability at
+            </div>
+            <div class="pincode-form   singleinline">
+                <form name="pincode-form" class="pinCheck">
+                    <input type="number" minlength="6" maxlength="6"
+                    placeholder="Enter your Pincode" autocomplete="off" name="pincode"
+                    id="pincode" ng-model="pincode"
+                    class="pincode  textbox-nowidth"
+                    ng-disabled="!uiData.cashOnDelivery" min="1">
+                    <input type="submit" href="javascript:void(0)"
+                    class="btn btn-sm btn-default  pull-right  grayBg" value="Check" style="height:26px;"
+                    ng-disabled="!pincode-form.pincode.$valid"
+                    ng-click="checkProductCashOnDeliveryPincode(pincode)">
+                </form>
+            </div>
+        </div>
+        <div>
+            <div ng-show="pincodeAvailablity === 1">
+                <div class="success-message">
+                    Available with Seller at {{availablePincode}}
+                </div>
+            </div>
+            <div ng-show="pincodeAvailablity === 0">
+                <div class="error-message">
+                    Not Available with any Seller at {{availablePincode}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 delivery padding-top-20 margin-bottom-20">
+        Delivered within: <span class="font-bold " ng-show="rateServiceSeverity === 'SUCCESS'">{{estimatedDays}} - {{estimatedDays + 2}}  business days</span>
+        <span class="font-bold "
+        ng-show="rateServiceSeverity === 'ERROR'">{{rateServiceMessage}}</span>
+    </div>
+    <div class="col-md-12 qty-cart-buy margin-bottom-20">
+        <form name="f1"
+        class=" sm-margin-bottom-20 singleinline  margin-right-quantity-button" style="margin-right:20px;">
+        <button type="button" class="quantity-button" name="add"
+        ng-disabled="userRequiredQuantity === 1"
+        ng-click="userRequiredQuantity = userRequiredQuantity - 1">-
+    </button>
+    <input type="number" min="1" class="quantity-field" name="qty" id="qty" style="width:40px;"
+    value="{{userRequiredQuantity}}" ng-model="userRequiredQuantity" required
+    ng-disabled="addToCartDisable || quantityAvailable === 0">
+    <button type="button" class="quantity-button" name="add"
+    ng-click="userRequiredQuantity = userRequiredQuantity + 1"
+    ng-disabled="addToCartDisable || quantityAvailable === 0">+
+</button>
+</form >
+<button type="button" class="btn-u"
+ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
+ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid"
+ng-click="addProductToCart(productId)">
+<span class="cart-icon">
+  <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13">
+</span> Add to Cart
+</button>
+<button type="button" class="btn-u buy-product "
+ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
+ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid"
+ui-sref="cart" ng-click="addProductToCart(productId)">
+<span class="cart-icon">
+  <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13">
+</span> Buy Now
+</button>
+<button type="button" class="btn-u" ng-if="inventoryType === 'ALWAYS_AVAILABLE'"
+ng-disabled="addToCartDisable || f1.qty.$invalid"
+ng-click="addProductToCart(productId)">
+<span class="cart-icon">
+  <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13">
+</span> Add to Cart
+</button>
+<button type="button" class="btn-u buy-product "
+ng-if="inventoryType === 'ALWAYS_AVAILABLE'"
+ng-disabled="addToCartDisable || f1.qty.$invalid" ui-sref="cart"
+ng-click="addProductToCart(productId)">
+<span class="cart-icon">
+  <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13">
+</span> Buy Now
+</button>
+<div ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null">
+    <div class="error-message" style="color:red;"
+    ng-if="userRequiredQuantity > quantityAvailable || inventoryType === 'UNAVAILABLE'">
+    Sorry! We are Out Of Stock!
+</div>
+</div>
+<div ng-show="f1.qty.$invalid">
+    <div class="error-message">Enter Proper Input</div>
+</div>
+<div class="added-to-cart-message" ng-show="addToCartDisable">The product is already added
+    in cart!
+</div>
+</div>
+</div>
+<div class="col-md-12 no-padding margin-bottom-25 margin-top-20" ng-if="uiData.longDescription">
+    <div class="col-md-12 no-padding  list-head dp-block">Description
+    </div>
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 135px;"></div>
+    </div>
+</div>
+<div class="col-md-12 product-description margin-bottom-15 white-gray" ng-if="uiData.longDescription">
+    <div class="desc padding10 text-justify">
+        <div ng-bind-html="uiData.longDescription"></div>
+    </div>
+</div>
+<div class="col-md-12 no-padding margin-bottom-25 margin-top-20" ng-if="uiData.productDetails">
+    <div class="col-md-12 no-padding  list-head dp-block">Specifications of sample
+    </div>
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 256px;"></div>
+    </div>
+</div>
+<div class="col-md-12 product-description margin-bottom-15 white-gray" ng-if="uiData.productDetails">
+    <div ng-bind-html="uiData.productDetails"></div>
+</div>
+<div class="col-md-12 prodocutdetail paddingZero  ">
+    <div class="line"></div>
+</div>
+<div class="col-md-12 no-padding margin-bottom-25 margin-top-20" ng-if="uiData.productDescription">
+    <div class="col-md-12 no-padding  list-head dp-block">Product Description</div>
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 216px;"></div>
+    </div>
+</div>
+<div class="col-md-12 prodocutdetail paddingZero white-gray" ng-if="uiData.productDescription">
+    <div ng-bind-html="uiData.productDescription"></div>
+</div>
+<div class="col-md-12 no-padding margin-bottom-25 margin-top-20">
+    <div class="col-md-12 no-padding  list-head dp-block">REVIEWS OF ELECTRIC WHEEL CHAIR (2)
+    </div>
+    <div class="col-md-12 no-padding bg-gray-h1">
+        <div class="bg-green-h2" style="width: 375px;"></div>
+    </div>
+</div>

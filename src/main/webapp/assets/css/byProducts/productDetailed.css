@@ -1,0 +1,53 @@
+.by_productDetail_leftSimilarTitle
+{
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom:10px;
+}
+.by_productDetail_leftSimilarThumb
+{
+  width:100%;
+  height:auto;
+  background:#fff;
+  margin-bottom:15px;
+  padding:10px;
+  cursor: pointer;
+}
+.by_productDetail_leftSimilarThumbImage
+{
+  width:70px;
+  height:auto;
+  float:left;
+  padding-right:10px;
+}
+.by_productDetail_leftSimilarThumbImage img
+{
+  max-width:100%;
+}
+.by_productDetail_leftSimilarThumbContent
+{
+  width:calc(100% - 80px);
+  height:auto;
+  float:left;
+  font-size: 14px;
+}
+.by_productDetail_leftSimilarThumbContentName
+{  
+  color: #000000;    
+  font-weight: 600;
+  padding-bottom:8px;
+}
+.by_productDetail_leftSimilarThumbContentPrice
+{
+  padding-bottom:4px;
+}
+.by_productDetail_leftSimilarThumbContentGreen
+{
+  font-weight: bold;
+  color: #00af50;
+}
+.by_productDetail_leftSimilarThumbContentRed
+{
+  color: #ff0000;
+  font-weight: bold;
+}

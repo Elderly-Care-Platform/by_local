@@ -1,5 +1,5 @@
 define([], function () {
-    function DelegatorFactory($q, $http, $log, APPLICATION) {
+    function DelegatorFactory($q, $http, $log, APPLICATION, SessionIdService) {
         var runningRequests = {},
             delayedRequests = {},
             requestCounter = 0,
@@ -33,9 +33,14 @@ define([], function () {
 
         function executeHttp(config) {
             config = prepareRequest(config || {});
-
             var alreadyResolved = false;
             var requestId = nextRequestId();
+
+
+            //----------------------To be added after switching from http://54.169.187.40:8080/ host---------------------------------------
+            //var bySessionId = SessionIdService.getSessionId();
+            //$http.defaults.headers.common.sess = bySessionId;
+
             var promise = httpizePromise(config, $http(config).then(finalize, httpReject));
             var tracker = {id: requestId, config: config, promise: promise};
 

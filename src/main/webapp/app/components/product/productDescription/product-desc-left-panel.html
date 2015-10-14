@@ -17,14 +17,13 @@
                     </div>
                     <div class="by_productDetail_leftSimilarThumbContent">
                         <div class="by_productDetail_leftSimilarThumbContentName">
-                            {{product.name}}
+                            {{product.name.substring(0, 25)}}<span ng-if="product.name.length > 25">...</span>
                         </div>
                         <div class="by_productDetail_leftSimilarThumbContentPrice">
-                            Our price : <strong class="by_productDetail_leftSimilarThumbContentGreen">Rs. {{product.salePrice.amount}}</strong>
+                            Our price : <strong>Rs. {{product.salePrice.amount}}</strong><br/>
+                            <del><small>Rs. {{product.retailPrice.amount}}</small></del>
                         </div>
-                         <div class="by_productDetail_leftSimilarThumbContentPrice">
-                            Cat. Price : <strong class="by_productDetail_leftSimilarThumbContentRed">Rs. {{product.retailPrice.amount}}</strong>
-                        </div>
+                        
                     </div><div class="clearfix"></div>
                 </div>
         </div>

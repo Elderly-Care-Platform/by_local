@@ -147,37 +147,46 @@ require.config({
 
 });
 require([ 'angular',"byApp","byUtil", "byDirectives", "lodash"], function(angular, byApp, byUtil, byDirectives, lodash) {
+	var getProdCategoriesSuccess = function(prodCategories){
+		window.by_prodCategories = prodCategories;
+
+		angular.bootstrap(document, [ "byApp" ]);
+
+		var sess = localStorage.getItem("SessionId");
+		//alert(sess);
+		if(sess != '' && sess != null)
+		{
+			var log = document.getElementById('login_placeholder');
+			log.innerHTML = "Logout";
+			log.href = apiPrefix+"#!/users/logout/" + sess;
+			document.getElementById("login_placeHolder_li").style.display = "inline";
+
+			var pro = document.getElementById('profile_placeholder');
+
+			var userName = localStorage.getItem("USER_NAME");
+			pro.innerHTML = BY.byUtil.validateUserName(userName);
+			pro.href = apiPrefix + "#!/users/registrationProfile/";
+
+
+			if(window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html"))
+			{
+				window.location = apiPrefix+"#!/users/home?type=home";
+			}
+		}
+		else
+		{
+			BY.byUtil.inValidateSession();
+		}
+	};
+
 	$.ajax({
 		url : apiPrefix + 'api/v1/menu/getMenu?parentId=root',
 		success : function(response) {
 			window.by_menu = response;
-			angular.bootstrap(document, [ "byApp" ]);
+			//var categoriesPromise = CategoryService.getAllCategories();
+			//categoriesPromise.then(getProdCategoriesSuccess);
 
-			var sess = localStorage.getItem("SessionId");
-			//alert(sess);
-			if(sess != '' && sess != null)
-			{
-				var log = document.getElementById('login_placeholder');
-				log.innerHTML = "Logout";
-				log.href = apiPrefix+"#!/users/logout/" + sess;
-				document.getElementById("login_placeHolder_li").style.display = "inline";
-
-				var pro = document.getElementById('profile_placeholder');
-
-				var userName = localStorage.getItem("USER_NAME");
-				pro.innerHTML = BY.byUtil.validateUserName(userName);
-				pro.href = apiPrefix + "#!/users/registrationProfile/";
-
-
-				if(window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html"))
-				{
-					window.location = apiPrefix+"#!/users/home?type=home";
-				}
-			}
-			else
-			{
-				BY.byUtil.inValidateSession();
-			}
+			$.ajax({url : 'http://54.169.187.40:8080/beautifulyears/api/v1/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
 		}
 	});
 });

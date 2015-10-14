@@ -59,6 +59,54 @@
     padding-top: 10px;
     border-top: 1px solid #dedede;
 }
+.by_cart_head
+{
+  width:100%; 
+  font-size:15px; 
+}
+.by_cart_head_product
+{
+  width:30%;
+  float:left;
+  margin-right:1%;
+}
+.by_cart_head_quantity
+{
+  width:15%;
+  float:left;
+  margin-right:1%;
+}
+.by_cart_head_pricce
+{
+  width:13%;
+  float:left;
+  margin-right:1%;
+}
+.by_cart_head_delivery
+{
+  width:22%;
+  float:left;
+  margin-right:1%;
+}
+.by_cart_head_subTotal
+{
+  width:11%;
+  float:left;
+  margin-right:1%;
+}
+.by_cart_head_delete
+{
+  width:3%;
+  float:left;
+  text-align:center;
+}
+.by_cart_desc
+{
+  width:100%; 
+  font-size:14px; 
+  border-top: 1px solid #ccc;
+  padding-top:10px;
+}
 @media screen and (max-width: 992px) {
   .by_cart_iconWrap
   {

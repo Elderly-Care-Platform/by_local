@@ -1,89 +1,55 @@
-
-<div class="col-md-12 no-padding white-gray">
-  <div class="col-md-12 product-description margin-bottom-15 padding-top-10">
-    <div class="col-md-2 no-padding">
-      <div class="col-md-12 no-padding ">
-        <div class="col-md-12 no-padding  list-head dp-block font-bold">PRODUCT</div>
-        <div class="col-md-12 no-padding bg-gray-h1"></div>
-      </div>
-    </div>
-    <div class="col-md-2 no-padding border-grey">
-      <div class="col-md-12 no-padding">
-        <div class="col-md-12 no-padding  list-head dp-block margin-left-10 font-bold">QUANTITY
-        </div>
-        <div class="col-md-12 no-padding bg-gray-h1"></div>
-      </div>
-    </div>
-    <div class="col-md-2 no-padding">
-      <div class="col-md-12 no-padding">
-        <div class="col-md-12 no-padding  list-head dp-block font-bold margin-left-20">PRICE
-        </div>
-        <div class="col-md-12 no-padding bg-gray-h1"></div>
-      </div>
-    </div>
-    <div class="col-md-3 no-padding">
-      <div class="col-md-12 no-padding">
-        <div class="col-md-12 no-padding  list-head dp-block font-bold">DELIVERY DETAILS
-        </div>
-        <div class="col-md-12 no-padding bg-gray-h1"></div>
-      </div>
-    </div>
-    <div class="col-md-2 no-padding">
-      <div class="col-md-12 no-padding">
-        <div class="col-md-12 no-padding  list-head dp-block font-bold">SUBTOTAL
-        </div>
-        <div class="col-md-12 no-padding bg-gray-h1"></div>
-      </div>
-    </div>
-    <div class="col-md-1 no-padding">
-      <div class="col-md-12 no-padding">
-        <div class="col-md-12 no-padding  list-head dp-block font-bold">
-        </div>
-        <div class="col-md-12 no-padding bg-gray-h1"></div>
-      </div>
-    </div>
+<div class="clearfix" style="height:20px;"></div>
+<div class="col-md-12 white-gray" style="border:0px;">
+  <div class="by_cart_head">
+    <div class="by_cart_head_product">Product</div>
+    <div class="by_cart_head_quantity">Quantity</div>
+    <div class="by_cart_head_pricce">Price</div>
+    <div class="by_cart_head_delivery">Delivery Details</div>
+    <div class="by_cart_head_subTotal">Sub Total</div>
+    <div class="by_cart_head_delete"></div>
+    <div class="clearfix"></div>
   </div>
-  <div class="col-md-12 product-description margin-bottom-15" ng-repeat="cartItem in uiData.cartItems">
-    <div class="col-md-2 no-padding">
+  <div class="by_cart_desc" ng-repeat="cartItem in uiData.cartItems">
+    <div class="by_cart_head_product">
       <img class="cart-product-image border-gray" ng-src="{{cartItem.primaryMedia.url}}">
+      <span>{{cartItem.name}}</span>
     </div>
-    <div class="col-md-2 no-padding border-grey">
-      <div class="col-md-12 qty-cart-buy margin-bottom-20">
-        <form name="f1" class="product-qty-cart sm-margin-bottom-20 singleinline">
-          <button type="button" class="quantity-button" name="add" value="-" ng-click="updateProductQuantity(cartItem, cartItem.quantity-1)">-</button>
-          <input type="number" min="1" ng-blur="updateProductQuantity(cartItem, $event)" class="quantity-field" name="qty" ng-model="cartItem.quantity" id="qty" required>
-          <button type="button" class="quantity-button" name="add" value="+" ng-click="updateProductQuantity(cartItem, cartItem.quantity+1)">+</button>
-        </form>
-        <div ng-show="cartItem.enterProperInput">
-          <div class="error-message error-message-width">Enter Proper Input</div>
-        </div>
-        <div ng-if="cartItem.inventoryType === 'CHECK_QUANTITY'">
-          <div class="error-message error-message-width" ng-if="cartItem.quantityAvailable === 0">Sorry! We are Out Of Stock!</div>
-          <div class="error-message error-message-width" ng-if="cartItem.quantityAvailable > 0 && cartItem.quantity > cartItem.quantityAvailable">Available quantity is {{cartItem.quantityAvailable}},<br>Enter less or equal quantity</div>
-        </div>
-        <div class="error-message error-message-width" ng-if="cartItem.outOfStock || cartItem.inventoryType === 'UNAVAILABLE' || cartItem.inventoryType === null">Sorry! We are Out Of Stock!</div>
+    <div class="by_cart_head_quantity">
+      <form name="f1" class="divLeft by_productDetail_contentQuantity">
+        <button type="button" class="by_productDetail_contentQuantityButton" name="add" value="-" ng-click="updateProductQuantity(cartItem, cartItem.quantity-1)">-</button>
+        <input type="number" min="1" ng-blur="updateProductQuantity(cartItem, $event)" class="by_productDetail_contentQuantityFeild" name="qty" ng-model="cartItem.quantity" id="qty" required>
+        <button type="button" class="by_productDetail_contentQuantityButton" name="add" value="+" ng-click="updateProductQuantity(cartItem, cartItem.quantity+1)">+</button>
+      </form><div class="clearfix"></div>
+
+      <div ng-show="cartItem.enterProperInput">
+        <div class="error-message error-message-width">Enter Proper Input</div>
       </div>
+      <div ng-if="cartItem.inventoryType === 'CHECK_QUANTITY'">
+        <div class="error-message error-message-width" ng-if="cartItem.quantityAvailable === 0">Sorry! We are Out Of Stock!</div>
+        <div class="error-message error-message-width" ng-if="cartItem.quantityAvailable > 0 && cartItem.quantity > cartItem.quantityAvailable">Available quantity is {{cartItem.quantityAvailable}},<br>Enter less or equal quantity</div>
+      </div>
+      <div class="error-message error-message-width" ng-if="cartItem.outOfStock || cartItem.inventoryType === 'UNAVAILABLE' || cartItem.inventoryType === null">Sorry! We are Out Of Stock!</div>
     </div>
-    <div class="col-md-2 no-padding"><span class="font-bold margin-left-20">Rs.{{cartItem.salePrice.amount}}</span> </div>
-    <div class="col-md-3 no-padding">
-      <span ng-show="rateServiceSeverity === 'SUCCESS'">by {{deliveryDate | date:"EEE, dd MMM"}} Delivery charge <b>Rs.{{cartItem.productDeliveryCharges}}</b></span>
-      <span ng-show="rateServiceSeverity === 'ERROR'">{{rateServiceMessage}}</span> </div>
-      <div class="col-md-2 no-padding">
-        <ul class="shopping-cart-heading margin-left-5 font-bold list-inline">
-          <li class="list-inline">Rs.{{cartItem.orderItemPriceDetails[0].totalAdjustedPrice.amount+cartItem.productDeliveryCharges}} 
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-1 no-padding">
-        <ul class="shopping-cart-heading margin-left-5 font-bold list-inline">
-          <li class="list-inline">
-            <div class="close-delete margin-left-40"><span class="close-delete-text" ng-click="removeItemFromCart(cartItem.id)">X</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-12 bg-gray-h1 margin-top-10"></div>
-    </div>
+    <div class="by_cart_head_pricce">
+     <strong>Rs.{{cartItem.salePrice.amount}}</strong>
+   </div>
+   <div class="by_cart_head_delivery">
+     <span ng-show="rateServiceSeverity === 'SUCCESS'">
+       <b>Rs.{{cartItem.productDeliveryCharges}}</b><br/>
+       by {{deliveryDate | date:"EEE, dd MMM"}} 
+     </span>
+     <span ng-show="rateServiceSeverity === 'ERROR'">
+      {{rateServiceMessage}}
+    </span>
+  </div>
+  <div class="by_cart_head_subTotal">
+   <b>Rs.{{cartItem.orderItemPriceDetails[0].totalAdjustedPrice.amount+cartItem.productDeliveryCharges}}</b> 
+ </div>
+ <div class="by_cart_head_delete">
+   <span class="close-delete-text" ng-click="removeItemFromCart(cartItem.id)">X</span>
+ </div>
+ <div class="clearfix"></div>
+</div>
     <div class="col-md-12 amount-payble margin-bottom-15" ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
       <ul class="pull-right list-inline aligned-list">
         <li class="margin-right-20">SubTotal </li>

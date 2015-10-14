@@ -45,7 +45,7 @@ require.config({
 		angularGoogleLocation : '../../lib/angular/ng-google-location',
 		angularCache : '../../lib/angular/angular-cache.min',
 		angularBootstrap : '../../lib/angular/ui-bootstrap.min',
-		//angularBootstrapTmpl : '../../lib/angular/ui-bootstrap-tpls.min',
+		angularBootstrapTmpl : '../../lib/angular/ui-bootstrap-tpls.min',
 		angularBusy : '../../lib/angular/angular-busy/angular-busy',
 		angularSanitize : '../../lib/angular/angular-sanitize.min',
 
@@ -128,13 +128,13 @@ require.config({
 			deps : [ "jquery" ]
 		},
 
-		//"angularBootstrap"  : {
-		//	deps : [ "angular" ]
-		//},
+		"angularBootstrap"  : {
+			deps : [ "angular" ]
+		},
 
-		//"angularBootstrapTmpl"  : {
-		//	deps : [ "angular", "angularBootstrap" ]
-		//},
+		"angularBootstrapTmpl"  : {
+			deps : [ "angular", "angularBootstrap" ]
+		},
 
 		"angularBusy"  :  {
 			deps : [ "angular" ]

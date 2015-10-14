@@ -5,15 +5,15 @@ define([
     'byProductConfig',
     'byProductResources',
     'angularResource','angularInfiniteScroll',
-    'angularGoogleLocation',  'angularCache', 'angularBusy', 'angularSanitize', 'cartController'
+    'angularGoogleLocation',  'angularCache', 'angularBusy', 'angularSanitize', 'cartController', 'angularBootstrap'
 ], function(angular, angularRoute, byProductRoute, byProductConfig, byProductResources, angularResource,
-            angularInfiniteScroll, angularGoogleLocation, angularCache,  angularBusy, angularSanitize, cartController) {
+            angularInfiniteScroll, angularGoogleLocation, angularCache,  angularBusy, angularSanitize, cartController, angularBootstrap) {
 
     var byProductApp = angular.module('byProductApp', ["ngRoute", "ngResource",
                                                         "byProductResources",
                                                         "infinite-scroll",
                                                         "jmdobry.angular-cache",
-                                                         "cgBusy", "ngSanitize"
+                                                         "cgBusy", "ngSanitize", "ui.bootstrap"
     ]);
 
 

@@ -1,17 +1,16 @@
 <div >
     <ul class="shop-badge" ng-controller="CartController">
         <li class="padding-bottom6" style="padding-bottom:0px !important;">  
-        <div class="by_cart_iconWrap" >
-            <span><img src="assets/img/product/cart.png?versionTimeStamp=%PROJECT_VERSION%"/></span>
-            <span> Cart</span>
-            <span class="by_cart_count" >{{uiData.totalCartItem}}</span>
-        </div>
-           
-            <ul class="badge-open"
-                data-mcs-theme="minimal-dark" style="overflow: visible;" ng-show="uiData.cartItems.length">
-                <div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0">
-                    <div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"
-                         style="position: relative; top: 0px; left: 0px;" dir="ltr">
+            <div class="by_cart_iconWrap" >
+                <span><img src="assets/img/product/cart.png?versionTimeStamp=%PROJECT_VERSION%"/></span>
+                <span> Cart</span>
+                <span class="by_cart_count" >{{uiData.totalCartItem}}</span>
+            </div>
+
+            <ul class="badge-open"  ng-show="uiData.cartItems.length">
+
+                <div>
+                    <div style="height:150px; overflow-y:auto; margin-right:-10px;">
                         <li ng-repeat="item in uiData.cartItems">
                             <img ng-src="{{item.primaryMedia.url}}" alt="" class="mCS_img_loaded">
                             <button type="button" class="close" ng-click="removeItemFromCart(item.id)">×</button>
@@ -20,39 +19,40 @@
                                 <small>{{item.quantity}} x Rs. {{item.salePrice.amount}}</small>
                             </div>
                         </li>
-                        <li class="subtotal">
-                            <div class="overflow-h " ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
-                                <span>Subtotal</span>
-                                <span class="pull-right subtotal-cost">Rs. {{uiData.subTotalAmount}}</span>
-                            </div>
-                            <div class="overflow-h" ng-repeat="discount in uiData.orderAdjustments"
-                                 ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
-                  <span class="max-width-180">Discount
-                    <span class="promo-text-cart">(Promo code : <span
-                            class="promo-text-cart subtotal-cost no-text-transform">{{uiData.orderAdjustments[0].promoCode}}</span>)</span>
-                  </span>
-                                <span class="pull-right subtotal-cost"
-                                      ng-if="discount.discountType === discountType.amountOff">- Rs. {{discount.discountAmount.toFixed(2)}}</span>
-                                <span class="pull-right subtotal-cost"
-                                      ng-if="discount.discountType === discountType.percentOff">-   {{discount.discountAmount.toFixed(2)}} %</span>
-                            </div>
-                            <div class="overflow-h margin-bottom-10">
-                                <span>Total</span>
-                                <span class="pull-right subtotal-cost">Rs. {{uiData.totalAmount}}</span>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <a href="#!/cart" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">
-                                        View Cart
-                                    </a>
-                                </div>
-                                <div class="col-xs-6">
-                                    <a ui-sref="selectAddress" class="btn-u full-width text-center">Checkout</a><!--  href="shop-ui-add-to-cart.html" -->
-                                </div>
-                            </div>
-                        </li>
                     </div>
+                    <li class="subtotal">
+                        <div class="overflow-h " ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
+                            <span>Subtotal</span>
+                            <span class="pull-right subtotal-cost">Rs. {{uiData.subTotalAmount}}</span>
+                        </div>
+                        <div class="overflow-h" ng-repeat="discount in uiData.orderAdjustments"
+                        ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
+                        <span class="max-width-180">Discount
+                            <span class="promo-text-cart">(Promo code : <span
+                                class="promo-text-cart subtotal-cost no-text-transform">{{uiData.orderAdjustments[0].promoCode}}</span>)</span>
+                            </span>
+                            <span class="pull-right subtotal-cost"
+                            ng-if="discount.discountType === discountType.amountOff">- Rs. {{discount.discountAmount.toFixed(2)}}</span>
+                            <span class="pull-right subtotal-cost"
+                            ng-if="discount.discountType === discountType.percentOff">-   {{discount.discountAmount.toFixed(2)}} %</span>
+                        </div>
+                        <div class="overflow-h margin-bottom-10">
+                            <span>Total</span>
+                            <span class="pull-right subtotal-cost">Rs. {{uiData.totalAmount}}</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="#!/cart" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">
+                                    View Cart
+                                </a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a ui-sref="selectAddress" class="btn-u full-width text-center">Checkout</a><!--  href="shop-ui-add-to-cart.html" -->
+                            </div>
+                        </div>
+                    </li>
                 </div>
+                <div class="clearfix" style="height:10px;"></div>
             </ul>
         </li>
     </ul>

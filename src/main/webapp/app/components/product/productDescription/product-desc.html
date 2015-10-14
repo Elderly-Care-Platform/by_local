@@ -2,12 +2,10 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
-    <div class="wrapper">
-        <div ng-include="'app/shared/common/template/breadcrumb.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-    </div>
+   
     <!--=== Content Part ===-->
     <div class="container content discussion-page breadCrumbMargin paddingTop0"
-         ng-controller="ProductDescriptionController as ProductDescriptionController" style="margin-top: 60px;">
+         ng-controller="ProductDescriptionController as ProductDescriptionController" >
        
         <div class="row both-container">
             <div class="col-md-3 md-margin-bottom-40">
@@ -15,7 +13,7 @@
                 <div ng-include="'app/components/product/productDescription/product-desc-left-panel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
                
             </div>
-            <div class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right">
+            <div class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right" style="margin-top:2px;">
                <div ng-include="'app/components/product/productDescription/product-desc-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
             </div>
         </div>

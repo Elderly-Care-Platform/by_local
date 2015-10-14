@@ -40,13 +40,24 @@
   top: 34px;
     right: 0;
     display: none;
-    padding: 0 20px;
+    padding: 0 10px;
     list-style: none;
     min-width: 300px;
     background: #fff;
     position: absolute;
     border-top: 2px solid #18ba9b;
     z-index: 1000;
+}
+.badge-open li:first-child
+{
+      margin-top: 0;
+    border-top: none;
+    padding-top: 9px;
+}
+.badge-open li {
+    margin-top: 3px;
+    padding-top: 10px;
+    border-top: 1px solid #dedede;
 }
 @media screen and (max-width: 992px) {
   .by_cart_iconWrap

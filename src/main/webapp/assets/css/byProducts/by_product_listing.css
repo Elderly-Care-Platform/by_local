@@ -9,7 +9,6 @@
   font-family: century_gothic !important;
   height: 420px;
   border: 1px solid transparent;
-  border-radius: 4px !important;
   padding:15px;
   margin-right:20px;
   width:calc(50%- 20px) !important;
@@ -21,7 +20,7 @@
 }
 .by_productCard:hover
 {	
-  border: 1px solid #e5e430;
+  border: 1px solid #db812e;
 }
 .by_productCard_Image
 {

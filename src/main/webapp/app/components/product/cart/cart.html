@@ -109,7 +109,7 @@
           </div>
           <div class="col-md-12 product-description margin-bottom-15" ng-repeat="cartItem in uiData.cartItems">
             <div class="col-md-2 no-padding">
-              <img class="cart-product-image border-gray" src="{{cartItem.primaryMedia.url}}">
+              <img class="cart-product-image border-gray" ng-src="{{cartItem.primaryMedia.url}}">
             </div>
             <div class="col-md-2 no-padding border-grey">
               <div class="col-md-12 qty-cart-buy margin-bottom-20">

@@ -558,7 +558,7 @@ define(["byApp", "angular"], function (byApp, angular) {
             link: function($scope, element, attrs) {
                 var rand = Math.floor((Math.random()*10)+1);
 
-                $(element).attr('src', '/assets/img/product/image_0'+rand+'.jpg?versionTimeStamp=%PROJECT_VERSION%');
+                $(element).attr('src', 'assets/img/product/image_0'+rand+'.jpg?versionTimeStamp=%PROJECT_VERSION%');
             }
         }
 

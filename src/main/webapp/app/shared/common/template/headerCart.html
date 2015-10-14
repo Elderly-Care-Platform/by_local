@@ -13,7 +13,7 @@
                     <div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"
                          style="position: relative; top: 0px; left: 0px;" dir="ltr">
                         <li ng-repeat="item in uiData.cartItems">
-                            <img src="{{item.primaryMedia.url}}" alt="" class="mCS_img_loaded">
+                            <img ng-src="{{item.primaryMedia.url}}" alt="" class="mCS_img_loaded">
                             <button type="button" class="close" ng-click="removeItemFromCart(item.id)">×</button>
                             <div class="overflow-h">
                                 <span>{{item.name}}</span>

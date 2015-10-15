@@ -2,17 +2,18 @@
 <div class="col-md-12 white-gray" style="border:0px;">
   <div class="by_cart_head">
     <div class="by_cart_head_product">Product</div>
-    <div class="by_cart_head_quantity">Quantity</div>
-    <div class="by_cart_head_pricce">Price</div>
-    <div class="by_cart_head_delivery">Delivery Details</div>
-    <div class="by_cart_head_subTotal">Sub Total</div>
-    <div class="by_cart_head_delete"></div>
+    <div class="by_cart_head_quantity by_cart_mobileHide">Quantity</div>
+    <div class="by_cart_head_pricce by_cart_mobileHide">Price</div>
+    <div class="by_cart_head_delivery by_cart_mobileHide">Delivery Details</div>
+    <div class="by_cart_head_subTotal by_cart_mobileHide">Sub Total</div>
+    <div class="by_cart_head_delete by_cart_mobileHide"></div>
     <div class="clearfix"></div>
   </div>
   <div class="by_cart_desc" ng-repeat="cartItem in uiData.cartItems">
     <div class="by_cart_head_product">
       <img class="cart-product-image border-gray" ng-src="{{cartItem.primaryMedia.url}}">
       <span>{{cartItem.name}}</span>
+      <div class="clearfix"></div>
     </div>
     <div class="by_cart_head_quantity">
       <form name="f1" class="divLeft by_productDetail_contentQuantity">
@@ -31,7 +32,7 @@
       <div class="error-message error-message-width" ng-if="cartItem.outOfStock || cartItem.inventoryType === 'UNAVAILABLE' || cartItem.inventoryType === null">Sorry! We are Out Of Stock!</div>
     </div>
     <div class="by_cart_head_pricce">
-     <strong>Rs.{{cartItem.salePrice.amount}}</strong>
+     Rs.{{cartItem.salePrice.amount}}
    </div>
    <div class="by_cart_head_delivery">
      <span ng-show="rateServiceSeverity === 'SUCCESS'">

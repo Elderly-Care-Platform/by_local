@@ -42,28 +42,7 @@
 {
 	margin-left:-3px;
 }
-.darkBgwithText
-{
-	margin-left:-5px;
-	border:1px solid #4d4d4d;
-	background:#7c7c7c;
-	padding:10px;
-	color:#fff;    
-	box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
-    -webkit-box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
-    -ms-box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
-	border-radius: 2px !important;
-    position:relative;
-}
-.darkBgwithTextArrow
-{
-	position:absolute;
-	width:16px;
-	height:14px;
-	bottom:-7px;
-	left:20%;
-	z-index:2;
-}
+
 .marginleftMinu4
 {
 	margin-left:-5px;

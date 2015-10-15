@@ -1,0 +1,11 @@
+.by_address
+{
+  width:48% !important;
+  height:auto;
+  margin-right:2%;
+  background:#fff;
+  padding:15px;
+}
+@media screen and (max-width: 992px) {
+
+}

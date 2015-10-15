@@ -1,0 +1,48 @@
+ <div class="clearfix" style="height:15px;"></div>
+<div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
+ Please select an address for the goods to be shipped, or
+ enter a new address below:
+
+ <div class="darkBgwithTextArrow">
+    <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
+</div>
+</div>
+<div class="clearfix"></div>
+<div class="by_address col-md-6" ng-repeat="address in address track by $index">
+    <div class="by_address_user">
+        {{address.address.firstName+' '+address.address.lastName}}
+    </div>
+    <div class="by_address_text">
+        {{address.address.addressLine1}}<br>
+        {{address.address.addressLine2}}
+        {{address.address.city}}, {{address.address.postalCode}}<br>
+        Tel {{address.address.phonePrimary.phoneNumber}} <br>
+        <span    ng-if="address.address.phoneSecondary">
+            Tel {{address.address.phoneSecondary.phoneNumber}}<br>
+        </span>
+        {{address.address.primaryEmail}}
+        <span ng-if="address.address.secondaryEmail"><br>
+           {{address.address.secondaryEmail}}
+       </span>
+    </div>
+    <div class="col-md-12 form-header-content margin-bottom-25">
+        <button class="btn btn-success pull-left register-btn"
+        ng-click="editAddress(address.address.id)">
+        EDIT
+    </button>
+    <button class="btn btn-success pull-right register-btn"
+    ng-click="shipToAddress(address.address.id)">
+    SHIP TO THIS ADDRESS
+</button>
+</div>
+</div>
+<div class="col-md-12 margin-top-10 cursor-pointer ship-address-margin"
+ng-click="shipToNewAddress()">
+<div class=" register-page font-form " style="
+float: right;
+">
+<button class="btn btn-success">
+    Enter new Address
+</button>
+</div>
+</div>

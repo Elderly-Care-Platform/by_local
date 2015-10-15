@@ -11,7 +11,7 @@
   border: 1px solid transparent;
   padding:15px;
   margin-right:20px;
-  width:calc(50%- 20px) !important;
+  width:calc(50% - 20px) !important;
   cursor: pointer;
 }
 .by_productCard img

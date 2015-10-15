@@ -70,6 +70,8 @@ define(['byProductApp'], function (byProductApp) {
 
     }
 
+    
+
     SelectAddressController.$inject = ['$scope', '$log', '$location', '$rootScope',
         'SelectAddressService',
         'CartService',

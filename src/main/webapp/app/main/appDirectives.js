@@ -550,6 +550,43 @@ define(["byApp", "angular"], function (byApp, angular) {
         	}
         }
     });
+
+
+    byApp.directive('validateByCategories', function($rootScope){
+        return {
+            scope: {
+                validateByCategories: '=',
+            },
+            link: function (scope) {
+                var categoryArr = [];
+                for(var i=0; i<scope.validateByCategories.length; i++){
+                    if($rootScope.menuCategoryMap[scope.validateByCategories[i]]){
+                        categoryArr.push(scope.validateByCategories[i]);
+                    }
+                }
+                scope.validateByCategories = categoryArr;
+
+
+                //var oldVal = scope.obj;
+                //element.autocomplete({
+                //    source: scope.options,
+                //    select: function (event, item) {
+                //        $timeout(function () {
+                //            element.trigger(event, item);
+                //            item.item.selected = true;
+                //            scope.onSelectCallback(item.item, scope.obj, oldVal);
+                //        }, 0);
+                //    },
+                //    change: function(event, item){
+                //        console.log(item);
+                //        if(scope.onChangeCallback){
+                //            scope.onChangeCallback(item.item, scope.obj, oldVal);
+                //        }
+                //    }
+                //});
+            }
+        };
+    });
     
 });
 

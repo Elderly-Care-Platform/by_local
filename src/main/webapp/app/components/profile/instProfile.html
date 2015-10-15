@@ -125,7 +125,7 @@
         <div class="clearfix"></div>
 
         <div class="article col-md-12" ng-if="institutionProfile.serviceProviderInfo.services.length > 0">
-        <div class="by_profile_devider"></div>
+        
             <ul class="list-inline categoryList" style="margin-left: 5px; margin-top: 5px; font-size:15px;">
                 <li class="list-inline" style="margin-right: 7px;">Service in</li>
                 <li class="list-inline" style="display: inline-block; margin-right: 7px;" ng-if="$index < 5"
@@ -156,10 +156,12 @@
             </ul>
         </div>
         <div class="clearfix"></div>
+        
+        
 
         <div class="col-md-12" ng-if="institutionProfile.basicProfileInfo.description">
             <div class="row bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
-
+			<div class="by_profile_devider "></div>
             <!--  <div class="articles-story row" ng-if="institutionProfile.basicProfileInfo.shortDescription">
                 <p id="profile-shortDesc">
                     {{institutionProfile.basicProfileInfo.shortDescription}}<br/>

@@ -24,10 +24,10 @@
 		<div class="col-md-12 profileContainer margin-bottom-15 white-gray ">
 			<div class="col-md-5 col-xs-5 by_profileWidth">
 				<div class="main-image white-gray " style="padding-left:0px;">
-					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && && individualProfile.individualInfo.gender == 1"
+					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
 						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual-big.png"]'
 						 alt="">
-						 <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && && individualProfile.individualInfo.gender == 0"
+						 <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 0"
 						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual_female_big.png"]'
 						 alt="">
 						 <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
@@ -144,9 +144,10 @@
 	
 		<div class="clearfix"></div>
 
-		<div class="article col-md-12" ng-if="individualProfile.serviceProviderInfo.services.length > 0">
+		<div class="article col-md-12" validate-by-categories="individualProfile.serviceProviderInfo.services">
 		
-			<ul class="list-inline categoryList" style="margin-left: 5px; margin-top: 5px; font-size:15px;">
+			<ul ng-if="individualProfile.serviceProviderInfo.services.length > 0"
+				class="list-inline categoryList" style="margin-left: 5px; margin-top: 5px; font-size:15px;">
 				<li class="list-inline" style="margin-right: 7px;">Service in</li>
 				<li class="list-inline" style="display: inline-block; margin-right: 7px;" ng-if="$index < 5"
 					ng-repeat="category in individualProfile.serviceProviderInfo.services">

@@ -129,9 +129,12 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             for(var i=0; i<$scope.serviceProviderInfo.services.length; i++){
                 var menuId = $scope.serviceProviderInfo.services[i],
                     category = $rootScope.menuCategoryMap[menuId];
-                $scope.selectedMenuList[menuId] = category;
-                if(category.filterName && category.filterName!==null && category.children.length > 0) {
-                    $scope.showSpecialityOptions(category);
+
+                if(category){
+                    $scope.selectedMenuList[menuId] = category;
+                    if(category.filterName && category.filterName!==null && category.children.length > 0) {
+                        $scope.showSpecialityOptions(category);
+                    }
                 }
             }
         }
@@ -226,12 +229,14 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             //For a selected menu category, Add tags of menu hierarchy recursively to system tags
             function rec(data){
                 angular.forEach(data, function(menu, index){
-                    systemTagList[menu.id] = menu.tags;
-                    if(menu.ancestorIds.length > 0){
-                        for(var j=0; j < menu.ancestorIds.length; j++){
-                            var ancestordata = {};
-                            ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
-                            rec(ancestordata);
+                    if(menu && $rootScope.menuCategoryMap[menu.id]){
+                        systemTagList[menu.id] = menu.tags;
+                        if(menu.ancestorIds.length > 0){
+                            for(var j=0; j < menu.ancestorIds.length; j++){
+                                var ancestordata = {};
+                                ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
+                                rec(ancestordata);
+                            }
                         }
                     }
                 })
@@ -269,7 +274,9 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             $scope.submitted = true;
             $scope.minCategoryError = false;
             $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
-                return value.id;
+                if(value && $rootScope.menuCategoryMap[value.id]){
+                    return value.id;
+                }
             });
 
             $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;

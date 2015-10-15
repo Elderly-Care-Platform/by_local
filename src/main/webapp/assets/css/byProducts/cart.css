@@ -133,6 +133,15 @@
 {
   display: block;
 }
+.by_cart_call
+{
+  width:100%;
+  height:52px;
+  background-image: url('../../img/product/call.jpg?versionTimeStamp=%PROJECT_VERSION%');
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+}
 @media screen and (max-width: 992px) {
   .by_cart_iconWrap
   {

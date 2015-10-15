@@ -53,8 +53,8 @@
 .by_addAdress_iconDelete
 {
 	float: right;
-    margin-right: 6px;
-    margin-top: -22px;
+	margin-right: 6px;
+	margin-top: -22px;
 }
 @media screen and (max-width: 990px) {
 	.by_address
@@ -65,5 +65,10 @@
 	.by_address_wrap
 	{
 		margin-right:0px;
+	}
+	.by_editAdress_wrap .marginRightMinus5
+	{
+		margin-right: 0px;
+		margin-left: -15px;
 	}
 }

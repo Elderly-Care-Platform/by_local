@@ -1,148 +1,157 @@
 <div class="clearfix" style="height:15px;"></div>
- <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
-     Please edit your  shipping address
+<div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
+   Please edit your  shipping address
 
-     <div class="darkBgwithTextArrow">
-        <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
-    </div>
+   <div class="darkBgwithTextArrow">
+    <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
+</div>
 </div>
 <div class="clearfix" style="height:10px;"></div>
 
-    <div class="by_editAdress_wrap">
-
-         <form name="editAddress">
-
-             <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-                <div class="col-md-5">
-                    First Name
-                </div>
-                <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.firstName.$invalid && editAddress.firstName.$dirty}">
-                    <input type="text" ng-model="address.address.firstName" class="name-textbox textbox"
-                    placeholder="First Name" name="firstName"
-                ng-pattern="/^[a-zA-Z]+$/" ng-trim="false" custom-validation required/>
-                </div>
-            </div>
-
-             <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-                <div class="col-md-5">
-                    Last Name
-                </div>
-                <div class="col-md-7 no-padding-right register-page" 
-            ng-class="{ error: editAddress.lastName.$invalid && editAddress.lastName.$dirty}">
-                    <input type="text" ng-model="address.address.lastName" class="name-textbox textbox"
-                    ng-pattern="/^[a-zA-Z]+$/"
-            placeholder="Last name" ng-trim="false" name="lastName" custom-validation
-            required/>
-                </div>
-            </div>
-
-            
-        
-           
-            <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-                <div class="col-md-5">
-                    Country
-                </div>
-                <div class="col-md-7 no-padding-right register-page">
-                    <input type="text" ng-model="address.address.country.name" class="name-textbox textbox"
-                    placeholder="Country"/>
-                </div>
-            </div>
-
-            <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-                <div class="col-md-5">
-                    Zip
-                </div>
-                <div class="col-md-7 no-padding-right register-page zipCodeWrapper" ng-class="{ error: editAddress.postalCode.$invalid && editAddress.postalCode.$dirty}">
-                    <input id="zipcode" type="text"  ng-model="address.address.postalCode" placeholder="Zip code" ng-trim="false"    ng-pattern="/^[0-9]+$/" name="postalCode" custom-validation required class="name-textbox textbox "
-                   style="width: 50%;"/>
-                    <input type="button" class="btn btn-success pull-right register-btn" value="Get address"
-                    >
-
-                </div>
-            </div>
 
 
-            <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-                <div class="col-md-5">
-                    City
-                </div>
-                <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.city.$invalid && editAddress.city.$dirty}">
-                    <input type="text"  ng-model="address.address.city" placeholder="City" ng-trim="false" name="city"    custom-validation required class="name-textbox textbox "/>
-                </div>
-            </div>
+<form name="editAddress">
 
+   <div class="by_editAdress_wrap">
 
-            
-
-            <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-                <div class="col-md-5">
-                    Address Line 1
-                </div>
-                <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.addressLine1.$invalid && editAddress.addressLine1.$dirty}">
-                    <textarea rows="3" ng-model="address.address.addressLine1" placeholder="Address line 1"
-                    ng-trim="false" name="addressLine1" custom-validation required class="name-textbox textbox "></textarea>
-                </div>
-         </div>
-
-   
-          <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-                <div class="col-md-5">
-                    Address Line 2
-                </div>
-                <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.addressLine2.$invalid && editAddress.addressLine2.$dirty}">
-                    <input type="text" class="name-textbox textbox " ng-model="address.address.addressLine2" placeholder="Address line 2"     ng-trim="false" name="addressLine2" custom-validation required/>
-                </div>
-         </div>
-
-         <div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
-            <div class="col-md-5">
-                Phone Number
-            </div>
-            <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.phoneNumber.$invalid && editAddress.phoneNumber.$dirty}">
-                <input type="text" class="username-textbox textbox"  ng-model="address.address.phonePrimary.phoneNumber" placeholder="Mobile number"   ng-trim="false" name="phoneNumber" custom-validation required>
-            </div>
-        </div>
-
-        <div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px" ng-if="address.address.phoneSecondary && address.address.phoneSecondary.phoneNumber">
-            <div class="col-md-5">
-                Phone Number
-            </div>
-            <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.phoneNumber.$invalid && editAddress.phoneNumber.$dirty}">
-                <input type="text" class="username-textbox textbox"  ng-model="address.address.phoneSecondary.phoneNumber" placeholder="Mobile number" ng-trim="false" name="phoneNumber" custom-validation required>
-            </div>
-        </div>
-
-        
-    <div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+       <div class="col-md-12 margin-bottom-20 marginRightMinus5">
         <div class="col-md-5">
-            Email ID
+            First Name
         </div>
-        <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.emailId.$invalid && editAddress.emailId.$dirty}">
-            <input type="email" class="username-textbox textbox" ng-model="address.address.primaryEmail" name="emailId" ng-trim="true"  ng-pattern="/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/"
-            placeholder="E-mail ID" custom-validation required/>
+        <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.firstName.$invalid && editAddress.firstName.$dirty}">
+            <input type="text" ng-model="address.address.firstName" class="name-textbox textbox"
+            placeholder="First Name" name="firstName"
+            ng-pattern="/^[a-zA-Z]+$/" ng-trim="false" custom-validation required/>
         </div>
     </div>
 
-    <div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px" ng-if="address.address.secondaryEmail && address.address.secondaryEmail">
+    <div class="col-md-12 margin-bottom-20 marginRightMinus5">
         <div class="col-md-5">
-            Email ID
+            Last Name
         </div>
-        <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.emailId.$invalid && editAddress.emailId.$dirty}">
-            <input type="email" class="username-textbox textbox" ng-model="address.address.secondaryEmail" name="emailId" ng-trim="true" ng-pattern="/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/"
-            placeholder="E-mail ID" custom-validation required/>
-        </div>
+        <div class="col-md-7 no-padding-right register-page" 
+        ng-class="{ error: editAddress.lastName.$invalid && editAddress.lastName.$dirty}">
+        <input type="text" ng-model="address.address.lastName" class="name-textbox textbox"
+        ng-pattern="/^[a-zA-Z]+$/"
+        placeholder="Last name" ng-trim="false" name="lastName" custom-validation
+        required/>
     </div>
+</div>
 
-    
-    <div class="col-md-12 form-header-content margin-bottom-25 margin-top-20">
-        <button class="btn btn-success pull-right register-btn disabled-color" disabled
-        ng-if="!editAddress.$valid">SHIP TO THIS ADDRESS
-    </button>
-    <button class="btn btn-success pull-right register-btn" ng-click="shipToAddress()"
-    ng-if="editAddress.$valid">SHIP TO THIS ADDRESS
+
+
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Country
+    </div>
+    <div class="col-md-7 no-padding-right register-page">
+        <input type="text" ng-model="address.address.country.name" class="name-textbox textbox"
+        placeholder="Country"/>
+    </div>
+</div>
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Zip
+    </div>
+    <div class="col-md-7 no-padding-right register-page zipCodeWrapper" ng-class="{ error: editAddress.postalCode.$invalid && editAddress.postalCode.$dirty}">
+        <input id="zipcode" type="text"  ng-model="address.address.postalCode" placeholder="Zip code" ng-trim="false"    ng-pattern="/^[0-9]+$/" name="postalCode" custom-validation required class="name-textbox textbox "
+        style="width: 50%;"/>
+        <input type="button" class="btn btn-success pull-right register-btn" value="Get address"
+        >
+
+    </div>
+</div>
+
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        City
+    </div>
+    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.city.$invalid && editAddress.city.$dirty}">
+        <input type="text"  ng-model="address.address.city" placeholder="City" ng-trim="false" name="city"    custom-validation required class="name-textbox textbox "/>
+    </div>
+</div>
+
+
+
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Address Line 1
+    </div>
+    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.addressLine1.$invalid && editAddress.addressLine1.$dirty}">
+        <textarea rows="3" ng-model="address.address.addressLine1" placeholder="Address line 1"
+        ng-trim="false" name="addressLine1" custom-validation required class="name-textbox textbox "></textarea>
+    </div>
+</div>
+
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5">
+    <div class="col-md-5">
+        Address Line 2
+    </div>
+    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.addressLine2.$invalid && editAddress.addressLine2.$dirty}">
+        <input type="text" class="name-textbox textbox " ng-model="address.address.addressLine2" placeholder="Address line 2"     ng-trim="false" name="addressLine2" custom-validation required/>
+    </div>
+</div>
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+    <div class="col-md-5">
+        Phone Number
+    </div>
+    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.phoneNumber.$invalid && editAddress.phoneNumber.$dirty}">
+        <input type="text" class="username-textbox textbox"  ng-model="address.address.phonePrimary.phoneNumber" placeholder="Mobile number"   ng-trim="false" name="phoneNumber" custom-validation required>
+    </div>
+</div>
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px" ng-if="address.address.phoneSecondary && address.address.phoneSecondary.phoneNumber">
+    <div class="col-md-5">
+        Phone Number
+    </div>
+    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.phoneNumber.$invalid && editAddress.phoneNumber.$dirty}">
+        <input type="text" class="username-textbox textbox"  ng-model="address.address.phoneSecondary.phoneNumber" placeholder="Mobile number" ng-trim="false" name="phoneNumber" custom-validation required>
+    </div>
+</div>
+
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+    <div class="col-md-5">
+        Email ID
+    </div>
+    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.emailId.$invalid && editAddress.emailId.$dirty}">
+        <input type="email" class="username-textbox textbox" ng-model="address.address.primaryEmail" name="emailId" ng-trim="true"  ng-pattern="/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/"
+        placeholder="E-mail ID" custom-validation required/>
+    </div>
+</div>
+
+<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px" ng-if="address.address.secondaryEmail && address.address.secondaryEmail">
+    <div class="col-md-5">
+        Email ID
+    </div>
+    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: editAddress.emailId.$invalid && editAddress.emailId.$dirty}">
+        <input type="email" class="username-textbox textbox" ng-model="address.address.secondaryEmail" name="emailId" ng-trim="true" ng-pattern="/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/"
+        placeholder="E-mail ID" custom-validation required/>
+    </div>
+</div>
+
+
+
+
+<div class="clearfix"></div>
+</div>
+
+<div class="col-md-12 form-header-content margin-bottom-25 margin-top-20">
+    <button class="btn btn-success pull-right register-btn disabled-color" disabled
+    ng-if="!editAddress.$valid">SHIP TO THIS ADDRESS
+</button>
+<button class="btn btn-success pull-right register-btn" ng-click="shipToAddress()"
+ng-if="editAddress.$valid">SHIP TO THIS ADDRESS
 </button>
 </div>
 </form>
+
 <div class="clearfix"></div>
-</div>
+
+<div class="by_cart_call"></div>

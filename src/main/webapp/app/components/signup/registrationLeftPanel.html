@@ -12,7 +12,7 @@
             <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
                 <a href="#!/users/registrationProfile">I am...</a>
             </li>
-            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="userTypeConfig && userTypeConfig.label">
+            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0">
                 <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
             </li>
             <li style="border:0px;" class="list-group-item orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">

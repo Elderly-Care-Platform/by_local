@@ -120,6 +120,10 @@
     font-weight: bold;
     color: #004f24;
     margin-bottom: 10px;
+    background: url("../../img/product/tick.png?versionTimeStamp=%PROJECT_VERSION%") no-repeat top left;
+    padding-left:55px;
+    min-height: 60px;    
+    padding-top: 6px;
 }
 .by_confirm_normalText
 {

@@ -10,7 +10,7 @@
             <ul class="badge-open"  ng-show="uiData.cartItems.length">
 
                 <div>
-                    <div style="height:150px; overflow-y:auto; margin-right:-10px;">
+                    <div style="max-height:150px; overflow-y:auto; margin-right:-10px;">
                         <li ng-repeat="item in uiData.cartItems">
                             <img ng-src="{{item.primaryMedia.url}}" alt="" class="mCS_img_loaded">
                             <button type="button" class="close" ng-click="removeItemFromCart(item.id)">×</button>

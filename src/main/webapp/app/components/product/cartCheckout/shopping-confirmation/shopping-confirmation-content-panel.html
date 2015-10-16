@@ -1,0 +1,33 @@
+ <div class="clearfix" style="height:15px;"></div>
+
+<div class="col-md-12 paddingZero">
+    <div class="col-md-12   by_confirm_wrap"
+    ng-hide="uiData.noCart || uiData.processingError">
+    <div class="by_confirm_text">Thank you, your order has been placed sucessfully</div>
+    <div class="clearfix" style="height:15px;"></div>
+    <div class="by_confirm_normalText">Your Order Number is <b>{{uiData.order.orderNumber}}</b></div>
+    <div class="by_confirm_normalText">Estimated delivery : <b>{{deliveryDate
+        | date:"dd MMM yyyy"}} - {{estimatedDate | date:"dd MMM yyyy"}}</b></div>
+    <div class="clearfix" style="height:15px;"></div>
+    <div class="by_confirm_normalText">We have sent you an email confirmation.</div>
+    <div class="by_confirm_normalText">You will recive sms alerts on your mobile No.: <b>{{uiData.order.fulfillmentGroups[0].address.phonePrimary.phoneNumber}}</b></div>
+   
+    <div class="clearfix" ></div>
+        <a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=123456789012"
+        target="_blank"><!-- {{trackingNumber}} -->
+        <div class="col-md-12 no-padding by_leftPanel_icons track-order-margin" id="by_rate_show">
+           
+            <button class="btn btn-success by_address_btn_orange">Track your order</button>
+        </div>
+    </a>
+</div>
+
+<div class="col-md-12 by_confirm_wrap" ng-show="uiData.noCart">
+    <span class="payment-text">Cart is empty</span>
+</div>
+
+<div class="col-md-12 by_confirm_wrap" ng-show="uiData.processingError">
+    <span class="payment-text">Error while processing order</span>
+</div>
+
+</div>

@@ -149,6 +149,12 @@
 <button class="btn btn-success pull-right register-btn" ng-click="shipToAddress()"
 ng-if="editAddress.$valid">SHIP TO THIS ADDRESS
 </button>
+<button class="btn btn-success pull-right register-btn" style="margin-right:10px;" ng-click="selectAddress()"
+ng-if="editAddress.$valid">SAVE
+</button>
+<button class="btn btn-success pull-right register-btn" style="margin-right:10px;" disabled
+ng-if="!editAddress.$valid">SAVE
+</button>
 </div>
 </form>
 

@@ -16,6 +16,7 @@ define(['byProductApp'], function (byProductApp) {
         $scope.getFilterAddress = getFilterAddress;
         $scope.address = {};
         $scope.shipToAddress = shipToAddress;
+        $scope.selectAddress = selectAddress;
         $scope.errorMessage = '';
         $scope.showError = showError;
         $scope.updateAddress = updateAddress;
@@ -73,6 +74,28 @@ define(['byProductApp'], function (byProductApp) {
                 // If no address id passed in query parameter,
                 // add new address and ship to this address
                 addAddress();
+            }
+        }
+
+        function selectAddress(){            
+            if (StateParamsValidator.isStateParamValid($scope.addressId)) {
+                var params = {}, putData = {};
+            params.addressId = $scope.addressId;
+            params.customerId = $scope.customerId;
+            // Todo remove following line
+            putData.address = angular.copy($scope.address.address);
+            // delete params.address.primaryEmail;
+            EditAddressService.updateAddress(params, putData).
+                then(addressUpdateSuccess, addressUpdateError);
+
+            function addressUpdateSuccess(result) {
+                $location.path('/selectAddress/');
+            }
+
+            function addressUpdateError(errorCode) {
+                $log.info(errorCode);
+            }
+                
             }
         }
 

@@ -1,6 +1,7 @@
-
+<div class="pull-right">
 <span class="active by_breadcrum_greenColor" ng-repeat="breadCrumb in varStack.breadcrumb.list"><a href="#{{breadCrumb.url}}" ng-click="reloadRoute()">{{breadCrumb.displayName}}</a> &gt; </span>
 <span class="by_breadcrum_greenColor">{{varStack.breadcrumb.last}}</span>
+</div>
 <div class="clearfix" style="height:10px;"></div>
 <div class="col-md-12 product-main margin-bottom-15 white-gray " style="border:0px;">
     <div class="new-banner">
@@ -16,13 +17,13 @@
                             <div id="dhtmlgoodies_slideshow">
                                 <div id="galleryContainer">
                                     <div id="arrow_left"><img src="assets/img/icons/arrow_left.gif" style="
-                                        height: 70px;" usemap="#Map" border="0">
+                                        height: 40px;  margin-top:10px;" usemap="#Map" border="0">
                                         <map name="Map">
                                             <area shape="poly" coords="20,29" href="#">
                                         </map>
                                     </div>
                                     <div id="arrow_right"><img src="assets/img/icons/arrow_right.gif" style="
-                                        height: 70px;">
+                                        height: 40px;  margin-top:10px;">
                                     </div>
                                     <div id="theImages" style="left: 40px;">
                                         <!-- Thumbnails -->
@@ -89,7 +90,7 @@
                 <span ng-if="!uiData.cashOnDelivery">
                     <strong>Not Eligible</strong>
                 </span>
-            </div>
+            </div><div class="clearfix" style="height:6px;"></div>
 
             <div class="pincode-available">
                 <div class="pincode-form-wrap pincode-availableContent">
@@ -102,10 +103,10 @@
                     <div class="pincode-form divLeft">
                         <form name="pincode-form" class="pinCheck">
                             <input type="number" minlength="6" maxlength="6"
-                            placeholder="Enter your Pincode" autocomplete="off" name="pincode"
+                            placeholder="Pincode" autocomplete="off" name="pincode"
                             id="pincode" ng-model="pincode"
                             class="pincode  textbox-nowidth"
-                            ng-disabled="!uiData.cashOnDelivery" min="1">
+                            ng-disabled="!uiData.cashOnDelivery" min="1" style="width:95px;">
                             <input type="submit" href="javascript:void(0)"
                             class="btn btn-sm btn-default  pull-right  grayBg" value="Check" style="height:26px; background:#4e4e4e; color:#fff;"
                             ng-disabled="!pincode-form.pincode.$valid"
@@ -170,18 +171,18 @@
           <span class="cart-icon">
               <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13"></span> 
               Buy Now
-          </button><div class="clearfix"></div>
-          <div ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null">
-              <div class="error-message" style="color:red;" ng-if="userRequiredQuantity > quantityAvailable || inventoryType === 'UNAVAILABLE'">
+          </button>
+          <span ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null">
+              <span class="error-message" style="color:red;" ng-if="userRequiredQuantity > quantityAvailable || inventoryType === 'UNAVAILABLE'">
                 Sorry! We are Out Of Stock!
-            </div>
-        </div>
-        <div ng-show="f1.qty.$invalid">
-            <div class="error-message">Enter Proper Input</div>
-        </div>
-        <div class="added-to-cart-message" ng-show="addToCartDisable">The product is already added
+            </span>
+        </span>
+        <span ng-show="f1.qty.$invalid">
+            <span class="error-message">Enter Proper Input</span>
+        </span>
+        <span class="added-to-cart-message" ng-show="addToCartDisable">The product is already added
             in cart!
-        </div>
+        </span>
     </div>
 </div>
 

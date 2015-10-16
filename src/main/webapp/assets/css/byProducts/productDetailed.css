@@ -20,7 +20,7 @@
   width:68px;
   height:85px;
   line-height: 85px;
-  border:1px solid #db812e;
+  border: 1px solid #db812e;
   float:left;
   margin-right:10px;
   text-align: center;
@@ -61,7 +61,7 @@
 /* content pnale */
 .by_productDetail_contentHead
 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
 }
 .by_productDetail_contentBg
@@ -82,7 +82,7 @@
   content:'-';
   border:1px solid #ccc;
   color:#ccc;
-  padding: 0px 5px 0px 5px;
+  padding: 0px 7px 0px 7px;
   border-radius: 4px !important;
   margin-right: 7px;
 }
@@ -120,6 +120,10 @@
    font-size:15px;
    margin-bottom: 6px;
 }
+.by_productDetail_contentPrice del small 
+{
+  color:#818181;
+}
 .by_productDetail_contentPriceOffer
 {
   color: red;
@@ -132,7 +136,7 @@
 .by_productDetail_contentQuantity
 {
   margin-right: 5px;
-  width:80px;
+  width:68px;
   border: 1px solid #ccc;
 }
 .by_productDetail_contentQuantityButton
@@ -140,7 +144,7 @@
   border:0px;
   height:26px;
   vertical-align: middle;
-  width:24px;
+  width:20px;
   float: left;
 }
 .by_productDetail_contentQuantityFeild
@@ -150,7 +154,7 @@
     border: 0px !important;
     text-align: center !important ;
     height: 26px !important;
-    width:30px !important;
+    width:26px !important;
   float: left;
   background: #fff;
 }

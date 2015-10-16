@@ -52,6 +52,10 @@
 	font-size: 16.181px;
   line-height: 25.901px;
 }
+.by_productCard_price small del
+{
+  color:#818181;
+}
 .by_productCard_divider
 {
 	width:100%;

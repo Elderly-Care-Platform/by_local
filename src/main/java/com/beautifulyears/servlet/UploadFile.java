@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.coobird.thumbnailator.Thumbnails;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
+import org.imgscalr.Scalr;
 
 import com.beautifulyears.constants.BYConstants;
 
@@ -181,15 +180,26 @@ public class UploadFile extends HttpServlet {
 			newWidth = 0;
 		}
 		if (newHeight != 0 && newWidth != 0) {
-			Thumbnails
-			.of(newFile)
-			.size(newWidth, newHeight)
-			.toFile(uploadDir + File.separator + fname + "_" + width + "_"
+			BufferedImage thumbnail =
+					  Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH,
+							  newWidth, newHeight, Scalr.OP_ANTIALIAS);
+			File f = new File(uploadDir + File.separator + fname + "_" + width + "_"
 					+ height + "." + extension);
+			ImageIO.write(thumbnail, extension, f);
+			
+			
+//			Thumbnails
+//			.of(newFile)
+//			.size(newWidth, newHeight)
+//			.toFile(uploadDir + File.separator + fname + "_" + width + "_"
+//					+ height + "." + extension);
 		}else{
-			ImageIO.write(image, "jpg", new File(
-					 uploadDir + File.separator + fname + "_" + width + "_"
-								+ height + "." + extension));
+			BufferedImage thumbnail =
+					  Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH,
+							  width, height, Scalr.OP_ANTIALIAS);
+			File f = new File(uploadDir + File.separator + fname + "_" + width + "_"
+					+ height + "." + extension);
+			ImageIO.write(thumbnail, extension, f);
 		}
 		
 	}

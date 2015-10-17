@@ -22,7 +22,7 @@
 {
 	margin-top:40px;
 	margin-bottom: 10px;
-	padding: 3px 8px;
+	padding: 3px 15px;
 	background: #004f24;
 	border-color: #004f24;
 }
@@ -45,13 +45,20 @@
     font-size: 25px;
     cursor: pointer;
 }
+.by_address_btn_orange_wrap
+{
+	width:100%;
+	border:1px solid #E87441;
+	padding:5px;
+	text-align: center;
+}
 .by_address_btn_orange
 {
-	margin-top:30px;
+	margin-top:10px;
 	margin-bottom: 10px;
-	padding: 3px 8px;
-	background: #E87441;
-	border-color: #E87441;
+	padding: 5px 8px;
+	background: #E87441 !important;
+	border-color: #E87441 !important;
 }
 .by_address_btn_orange:hover
 {

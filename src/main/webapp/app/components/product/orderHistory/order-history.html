@@ -34,7 +34,7 @@ infinite-scroll-distance="0" infinite-scroll-disabled="lastPage || isQueryInprog
      <div class="by_orderHistory_dataWrap">
          <div ng-repeat="orderItem in orders.orderItems track by $index">
              <div class="by_orderHistory_dataImage by_orderHistory_dataSpace">
-                 <img class="cart-product-image border-gray" ng-src="{{orderItem.imageUrl}}">
+                 <img  ng-src="{{orderItem.imageUrl}}">
              </div>
              <div class="by_orderHistory_dataDesc by_orderHistory_dataSpace">
                  {{orderItem.name}}<br>

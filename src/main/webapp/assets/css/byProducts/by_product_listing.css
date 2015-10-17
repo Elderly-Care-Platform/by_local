@@ -3,6 +3,14 @@
 	margin-right: 15px;
   padding-bottom: 5px;
 }
+.productFilteringActive
+{
+  border-bottom:1px solid #000;
+}
+.productFiltering a:hover
+{
+  text-decoration: none !important;
+}
 .by_productCard
 {
   margin-bottom: 20px;

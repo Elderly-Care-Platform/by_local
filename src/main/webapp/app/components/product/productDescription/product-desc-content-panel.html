@@ -1,20 +1,20 @@
-<div class="pull-right">
+<div>
 <span class="active by_breadcrum_greenColor" ng-repeat="breadCrumb in varStack.breadcrumb.list"><a href="#{{breadCrumb.url}}" ng-click="reloadRoute()">{{breadCrumb.displayName}}</a> &gt; </span>
 <span class="by_breadcrum_greenColor">{{varStack.breadcrumb.last}}</span>
 </div>
 <div class="clearfix" style="height:10px;"></div>
-<div class="col-md-12 product-main margin-bottom-15 white-gray " style="border:0px;">
+<div class="col-md-12 product-main margin-bottom-15 by_pruductDetailed_bgWhite" style="border:0px;">
     <div class="new-banner">
                         <!-- <a><img src="assets/img/icons/New-icon.png" width="55" height="24">
                     </a> -->
                 </div>
                 <div class="col-md-5" style="padding:0px;">
-                    <div class=" col-md-12 main-image white-gray " style="padding: 0px;">
+                    <div class=" col-md-12 main-image" style="padding: 0px;">
                         <img class="full-width padding-zero" ng-src="{{uiData.primaryMedia.url}}">
                     </div>
                     <div class=" col-md-12 main-image padding-top-only-5  ">
                         <div id=" col-md-12 padding-zero slideshow_border">
-                            <div id="dhtmlgoodies_slideshow">
+                            <div id="dhtmlgoodies_slideshow" style="border:0px;">
                                 <div id="galleryContainer">
                                     <div id="arrow_left"><img src="assets/img/icons/arrow_left.gif" style="
                                         height: 40px;  margin-top:10px;" usemap="#Map" border="0">
@@ -136,6 +136,14 @@
                      {{rateServiceMessage}}
                  </strong>
             </div>
+
+            <div class="by_productDetail_contentCall">
+                <b>Call for assistant 080-67818181</b>
+            </div>
+
+            <div class="by_productDetail_contentModelNumber">
+                Model No: {{uiData.id}}
+            </div>
             
     </div><div class="clearfix" style="height:8px;"></div>
     
@@ -205,4 +213,7 @@
         <div class="by_productDetail_contentDescText" ng-bind-html="uiData.productDescription"></div>
     </div>    
 </div>
+
+
+
 

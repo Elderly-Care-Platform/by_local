@@ -10,7 +10,7 @@
 {
   width:100%;
   height:auto;
-  background:#fff;
+  background:#f9f9f9;
   margin-bottom:15px;
   padding:10px;
   cursor: pointer;
@@ -48,6 +48,10 @@
 {
   line-height: 16px;
 }
+.by_productDetail_leftSimilarThumbContentPrice del small
+{
+  color:#818181;
+}
 @media screen and (max-width: 990px){
   .by_productDetail_leftSimilarThumbImage
   {
@@ -59,6 +63,11 @@
 /* left panel ends */
 
 /* content pnale */
+.by_pruductDetailed_bgWhite
+{
+  background:#f9f9f9;
+  padding-top: 20px;
+}
 .by_productDetail_contentHead
 {
   font-size: 17px;
@@ -66,7 +75,7 @@
 }
 .by_productDetail_contentBg
 {
-  background:#fff;
+  background:#f9f9f9;
   width:100%;
   padding:15px;
   margin-top: 5px;
@@ -128,7 +137,7 @@
 {
   color: red;
 }
-.by_productDetail_contentCOD, .by_productDetail_contentAvilable
+.by_productDetail_contentCOD, .by_productDetail_contentAvilable, .by_productDetail_contentCall, .by_productDetail_contentModelNumber
 {
   font-size:14px;
   margin-bottom: 6px;

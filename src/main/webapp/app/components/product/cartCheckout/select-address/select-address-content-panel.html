@@ -9,7 +9,7 @@
 </div>
 <div class="clearfix" style="height:10px;"></div>
 <div class="by_address_wrap">
-    <div class="by_address col-md-6" ng-repeat="address in address track by $index">
+    <div class="by_address col-md-6" ng-repeat="address in address track by $index" ng-if="$index<2">
         <div class="by_address_user">
             {{address.address.firstName+' '+address.address.lastName}}
         </div>
@@ -26,17 +26,20 @@
              E-mail: {{address.address.secondaryEmail}}
          </span>
      </div>
-     <button class="btn btn-success pull-left by_address_btn"  ng-click="editAddress(address.address.id)">
-        EDIT
-    </button>
-    <button class="btn btn-success pull-right by_address_btn"  ng-click="shipToAddress(address.address.id)">
-        SHIP TO THIS ADDRESS
+   
+    <button class="btn btn-success pull-right by_address_btn" style="margin-left:5px;"  ng-click="shipToAddress(address.address.id)">
+        Ship to thid address
+    </button>  
+    <button class="btn btn-success pull-right by_address_btn"  ng-click="editAddress(address.address.id)">
+        Edit
     </button><div class="clearfix"></div>
 </div>
-</div>
-<button class="btn btn-success pull-right by_address_btn_orange"  ng-click="shipToNewAddress()">
-     Enter new Address
-</button>
+</div><div class="clearfix" style="height:15px;"></div>
+<div class="by_address_btn_orange_wrap">
+    <button class="btn btn-success  by_address_btn_orange"  ng-click="shipToNewAddress()">
+       Enter new Address
+   </button>
+</div><div class="clearfix"></div>
 
 <div class="clearfix"></div>
 

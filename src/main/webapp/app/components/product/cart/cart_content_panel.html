@@ -11,11 +11,12 @@
   </div>
   <div class="by_cart_desc" ng-repeat="cartItem in uiData.cartItems">
     <div class="by_cart_head_product">
-      <img class="cart-product-image border-gray" ng-src="{{cartItem.primaryMedia.url}}">
+      <img ng-src="{{cartItem.primaryMedia.url}}">
       <span>{{cartItem.name}}</span>
       <div class="clearfix"></div>
     </div>
     <div class="by_cart_head_quantity">
+    <span class="by_cart_desc_mobile">Quantity: </span>
       <form name="f1" class="divLeft by_productDetail_contentQuantity">
         <button type="button" class="by_productDetail_contentQuantityButton" name="add" value="-" ng-click="updateProductQuantity(cartItem, cartItem.quantity-1)">-</button>
         <input type="number" min="1" ng-blur="updateProductQuantity(cartItem, $event)" class="by_productDetail_contentQuantityFeild" name="qty" ng-model="cartItem.quantity" id="qty" required>
@@ -32,18 +33,21 @@
       <div class="error-message error-message-width" ng-if="cartItem.outOfStock || cartItem.inventoryType === 'UNAVAILABLE' || cartItem.inventoryType === null">Sorry! We are Out Of Stock!</div>
     </div>
     <div class="by_cart_head_pricce">
-     Rs.{{cartItem.salePrice.amount}}
+    <span class="by_cart_desc_mobile">Price: </span>
+     <b>Rs.{{cartItem.salePrice.amount}}</b>
    </div>
    <div class="by_cart_head_delivery">
+   <span class="by_cart_desc_mobile">Delivery details: </span>
      <span ng-show="rateServiceSeverity === 'SUCCESS'">
        <b>Rs.{{cartItem.productDeliveryCharges}}</b><br/>
-       by {{deliveryDate | date:"EEE, dd MMM"}} 
+       <span class="color">Delivery by {{deliveryDate | date:"EEE, dd MMM"}} </span>
      </span>
      <span ng-show="rateServiceSeverity === 'ERROR'">
-      {{rateServiceMessage}}
+      <span class="color">{{rateServiceMessage}}</span>
     </span>
   </div>
   <div class="by_cart_head_subTotal">
+  <span class="by_cart_desc_mobile">Sub Total: </span>
    <b>Rs.{{cartItem.orderItemPriceDetails[0].totalAdjustedPrice.amount+cartItem.productDeliveryCharges}}</b> 
  </div>
  <div class="by_cart_head_delete">
@@ -51,13 +55,13 @@
  </div>
  <div class="clearfix"></div>
 </div>
-    <div class="col-md-12 amount-payble margin-bottom-15" ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
-      <ul class="pull-right list-inline aligned-list">
-        <li class="margin-right-20">SubTotal </li>
-        <li class="margin-right-20"><strong>Rs. {{uiData.subTotalAmount+uiData.totalProductDeliveryCharges}}</strong>
-        </li>
-      </ul>
-    </div>
+<div class="col-md-12 amount-payble margin-bottom-15" ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
+  <ul class="pull-right list-inline aligned-list">
+    <li class="margin-right-20">SubTotal </li>
+    <li class="margin-right-20"><strong>Rs. {{uiData.subTotalAmount+uiData.totalProductDeliveryCharges}}</strong>
+    </li>
+  </ul>
+</div>
     <div class="col-md-12 amount-payble margin-bottom-15" ng-if="uiData.orderAdjustments.length && uiData.cartItems.length">
       <ul class="pull-right list-inline aligned-list" ng-repeat="discount in uiData.orderAdjustments" ng-if="discount.discountType === discountType.amountOff">
         <li class="margin-right-20"><span style="">(<span style="color:rgb(0, 175, 80);">{{discount.promoCode}}</span> Promo Code Applied) </span>Discount</li>
@@ -70,27 +74,28 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-12 amount-payble margin-bottom-15">
-      <ul class="pull-right list-inline aligned-list">
-        <li class="margin-right-20">Amount Payble</li>
-        <li class="margin-right-20"><strong>Rs. {{uiData.totalAmount+uiData.totalProductDeliveryCharges}}</strong>
-        </li>
-      </ul>
+    <div class="col-md-12 by_cart_desc">
+      <div class="by_cart_desc_payble">
+        Payble : 
+      </div>
+      <div class="by_cart_desc_paybleRs">
+      <strong>Rs. {{uiData.totalAmount+uiData.totalProductDeliveryCharges}}</strong>   
+      </div><div class="clearfix"></div>
     </div>
-    <div class="col-md-12 margin-bottom-15 ">
+    <div class="col-md-12 no-padding by_cart_desc"  style="margin-top:0px; padding-top:10px !important;">
       <form name="promoCodeForm" class="pull-left edit-address" novalidate="novalidate" ng-show="uiData.cartItems.length">
-        <input type="text" name="promoCode" class="textbox textItalic width-31" ng-model="promoCode" required placeholder="PromoCode">
-        <button class="btn-u button-apply" ng-click="validatePromoCode()">
+        <input type="text" name="promoCode" class="textbox textItalic by_promoCode_width" ng-model="promoCode" required placeholder="PromoCode">
+        <button class="btn-u button-apply by_cart_button" ng-click="validatePromoCode()">
           Apply
         </button>
         <span class="error-message" ng-if="promoCodeIsValid === 'invalid'" role="alert">Entered promocode is invalid</span>
         <span class="error-message" ng-if="promoNotApplicable">This promoCode can not apply for this order</span>
       </form>
-      <button type="button" class="btn-u pull-right" ng-click="selectAddress()" ui-sref="selectAddress" style="width:100px;" ng-disabled="!uiData.cartItems.length">
-        NEXT
+      <button type="button" class="btn-u pull-right by_cart_button" ng-click="selectAddress()" ui-sref="selectAddress" ng-disabled="!uiData.cartItems.length" style="padding: 3px 30px;">
+        Next
       </button>
-    </div>
-  </div>
+    </div><div class="clearfix"></div>
+  </div><div class="clearfix"></div>
   <div class="col-md-12 prodocutdetail paddingZero  ">
     <div class="line"></div>
   </div><div class="clearfix"></div>

@@ -43,7 +43,8 @@ define(['byProductApp'], function (byProductApp) {
             AddAddressService.addAddress(params, postdata).then(addAddressSuccess, addAddressError);
 
             function addAddressSuccess(result) {
-                $location.path(PAGE_URL.paymentGateway + result.id);
+            //$location.path(PAGE_URL.paymentGateway + result.id);
+            $location.path('/selectAddress/'); 
             }
 
             function addAddressError(errorCode) {
@@ -52,26 +53,7 @@ define(['byProductApp'], function (byProductApp) {
         }
 
         function selectAddress(){            
-           
-                var params = {}, postdata = {};
-            params.customerId = $scope.customerId;
-            postdata.address = angular.copy($scope.address);
-            //Todo Delete following line
-            postdata.address.country = {};
-            postdata.address.country.name = 'United States';
-            postdata.address.country.abbreviation = 'US';
-            //End
-            AddAddressService.addAddress(params, postdata).then(addAddressSuccess, addAddressError);
-
-            function addAddressSuccess(result) {
-                $location.path('/selectAddress/');
-            }
-
-            function addAddressError(errorCode) {
-                $log.info(errorCode);
-            }
-                
-           
+           $location.path('/selectAddress/');           
         }
 
         /**

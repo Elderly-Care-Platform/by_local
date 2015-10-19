@@ -156,17 +156,14 @@ ng-if="secondaryEmail">
 <div class="col-md-12 form-header-content  margin-top-20">
 
     <button class="btn btn-success pull-right register-btn disabled-color" disabled
-    ng-if="!addAddress.$valid">Ship to this address
+    ng-if="!addAddress.$valid">Save
 </button>
 <button class="btn btn-success pull-right register-btn" ng-click="shipToAddress()"
-ng-if="addAddress.$valid">Ship to this address
+ng-if="addAddress.$valid">Save
 </button>
 
 <button class="btn btn-success pull-right by_address_btn_orange register-btn" style="margin-right:10px; margin-top:0px;" ng-click="selectAddress()"
-ng-if="addAddress.$valid">Back to address page
-</button>
-<button class="btn btn-success pull-right by_address_btn_orange register-btn" style="margin-right:10px; margin-top:0px;" disabled
-ng-if="!addAddress.$valid">Back to address page
+>Cancel
 </button>
 
 </div>

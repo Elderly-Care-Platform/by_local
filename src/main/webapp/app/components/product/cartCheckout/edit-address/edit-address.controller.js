@@ -78,25 +78,7 @@ define(['byProductApp'], function (byProductApp) {
         }
 
         function selectAddress(){            
-            if (StateParamsValidator.isStateParamValid($scope.addressId)) {
-                var params = {}, putData = {};
-            params.addressId = $scope.addressId;
-            params.customerId = $scope.customerId;
-            // Todo remove following line
-            putData.address = angular.copy($scope.address.address);
-            // delete params.address.primaryEmail;
-            EditAddressService.updateAddress(params, putData).
-                then(addressUpdateSuccess, addressUpdateError);
-
-            function addressUpdateSuccess(result) {
-                $location.path('/selectAddress/');
-            }
-
-            function addressUpdateError(errorCode) {
-                $log.info(errorCode);
-            }
-                
-            }
+           $location.path('/selectAddress/');
         }
 
         /**
@@ -114,7 +96,8 @@ define(['byProductApp'], function (byProductApp) {
                 then(addressUpdateSuccess, addressUpdateError);
 
             function addressUpdateSuccess(result) {
-                $location.path(PAGE_URL.paymentGateway + result.id);
+                //$location.path(PAGE_URL.paymentGateway + result.id);
+                $location.path('/selectAddress/');
             }
 
             function addressUpdateError(errorCode) {

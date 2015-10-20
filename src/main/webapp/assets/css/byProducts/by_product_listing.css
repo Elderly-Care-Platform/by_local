@@ -6,6 +6,7 @@
 .productFilteringActive
 {
   border-bottom:1px solid #000;
+  font-weight: bold;
 }
 .productFiltering a:hover
 {

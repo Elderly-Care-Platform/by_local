@@ -30,7 +30,7 @@
                                         <a ng-repeat="media in uiData.mediaItems"
                                         on-finish-render="ngRepeatFinished">
                                         <div ng-if="media.type === 'image'">
-                                            <img ng-src="{{media.url}}" style="opacity: 0.5;width:60px;">
+                                            <img ng-src="{{media.url}}" style="opacity: 0.5; width:60px;">
                                         </div>
                                         <!-- Set image of video -->
                                         <div ng-if="media.type === 'video'">
@@ -71,6 +71,12 @@
              <div class="by_productDetail_contentModelNumber">
                 ID: {{uiData.id}}
             </div>
+             <div class="by_productDetail_contentAvilable">
+                <span ng-if="quantityAvailable == 0">Not available in stock</span>
+                <span ng-if="undefined !== inventoryType && inventoryType !== constant.alwaysAvailable && quantityAvailable > 0">
+                    Available in stock  | Only <strong>{{quantityAvailable}}</strong> Left
+                </span>
+            </div>
             <div class="by_productDetail_devider"></div>
             <div class="by_productDetail_contentPrice">
                 Our price : 
@@ -79,12 +85,7 @@
                 <span class="by_productDetail_contentPriceOffer"><strong>5% Off</strong></span>
             </div>
             <div class="by_productDetail_devider"></div>
-            <div class="by_productDetail_contentAvilable">
-                <span ng-if="quantityAvailable == 0">Not available in stock</span>
-                <span ng-if="undefined !== inventoryType && inventoryType !== constant.alwaysAvailable && quantityAvailable > 0">
-                    Available in stock  | Only <strong>{{quantityAvailable}}</strong> Left
-                </span>
-            </div>
+           
             <div class="by_productDetail_contentCOD">
                 Cash on Delivery : 
                 <span ng-if="uiData.cashOnDelivery">

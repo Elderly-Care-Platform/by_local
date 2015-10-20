@@ -30,6 +30,18 @@
 {
 	background: #004f24;
 }
+.by_edit_btn
+{
+	margin-top:40px;
+	margin-bottom: 10px;
+	padding: 3px 15px;
+	background: #E87441 !important;
+	border-color: #E87441 !important;
+}
+.by_edit_btn:hover
+{
+	background: #E87441 !important;
+}
 .by_paymentGateway_btn
 {
 	padding: 3px 8px;

@@ -20,7 +20,7 @@ public class ApplicationConfig {
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception {
 		MongoClient mongo = new MongoClient("localhost", 27017);
-		String databaseName = "demo";
+		String databaseName = "demo1";
 		MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo,
 				databaseName);// userCredentials);
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);

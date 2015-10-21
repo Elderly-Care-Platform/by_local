@@ -78,7 +78,7 @@ public class ReviewController {
 			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestParam(value = "userId", required = false) String userId,
-			@RequestParam(value = "verified", required = false, defaultValue = "false") String verified,
+			@RequestParam(value = "verified", required = false, defaultValue = "false") boolean verified,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<DiscussReply> reviewsList = new ArrayList<DiscussReply>();
 		DiscussDetailResponse responseHandler = new DiscussDetailResponse();
@@ -86,7 +86,7 @@ public class ReviewController {
 			Query q = new Query();
 			q.addCriteria(Criteria.where("replyType")
 					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("verified")
-					.is(true).and("contentType")
+					.is(verified).and("contentType")
 					.is(contentType).and("discussId").is(associatedId));
 			if (null != userId) {
 				q.addCriteria(Criteria.where("userId").is(userId));
@@ -105,6 +105,7 @@ public class ReviewController {
 	@ResponseBody
 	public Object submitReviewRate(
 			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
+			@RequestParam(value = "verified", required = false, defaultValue = "false") boolean verified,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestBody DiscussReply reviewRate, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
@@ -121,12 +122,12 @@ public class ReviewController {
 					if (isSelfAccessment(associatedId, contentType, user)) {
 						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 					}
-					if (user.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
-							|| user.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+					if (BYConstants.USER_ROLE_EDITOR.equals(user.getUserRoleId())
+							|| BYConstants.USER_ROLE_SUPER_USER.equals(user.getUserRoleId())) {
 						newReview.setVerified(true);
 					}
 					submitRating(contentType, associatedId, newReview, user);
-					submitReview(contentType, associatedId, newReview, user);
+					submitReview(contentType, associatedId, newReview, verified, user);
 				} else {
 					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 				}
@@ -141,7 +142,7 @@ public class ReviewController {
 	}
 
 	private DiscussReply submitReview(Integer contentType, String associatedId,
-			DiscussReply newReviewRate, User user) {
+			DiscussReply newReviewRate, boolean verified, User user) {
 		DiscussReply review = null;
 		review = this.getReview(contentType, associatedId, user);
 		int operationType = ActivityLogConstants.CRUD_TYPE_CREATE;
@@ -150,6 +151,7 @@ public class ReviewController {
 			review.setDiscussId(associatedId);
 			review.setUrl(newReviewRate.getUrl());
 			review.setContentType(contentType);
+			review.setVerified(verified);
 			review.setUserRatingPercentage(newReviewRate
 					.getUserRatingPercentage());
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);

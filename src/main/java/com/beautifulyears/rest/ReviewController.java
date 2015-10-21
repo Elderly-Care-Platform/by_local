@@ -78,13 +78,15 @@ public class ReviewController {
 			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "verified", required = false, defaultValue = "false") boolean verified,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<DiscussReply> reviewsList = new ArrayList<DiscussReply>();
 		DiscussDetailResponse responseHandler = new DiscussDetailResponse();
 		if (null != contentType && null != associatedId) {
 			Query q = new Query();
 			q.addCriteria(Criteria.where("replyType")
-					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
+					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("verified")
+					.is(verified).and("contentType")
 					.is(contentType).and("discussId").is(associatedId));
 			if (null != userId) {
 				q.addCriteria(Criteria.where("userId").is(userId));
@@ -119,6 +121,10 @@ public class ReviewController {
 					if (isSelfAccessment(associatedId, contentType, user)) {
 						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 					}
+					if (BYConstants.USER_ROLE_EDITOR.equals(user.getUserRoleId())
+							|| BYConstants.USER_ROLE_SUPER_USER.equals(user.getUserRoleId())) {
+						newReview.setVerified(true);
+					}
 					submitRating(contentType, associatedId, newReview, user);
 					submitReview(contentType, associatedId, newReview, user);
 				} else {
@@ -144,6 +150,7 @@ public class ReviewController {
 			review.setDiscussId(associatedId);
 			review.setUrl(newReviewRate.getUrl());
 			review.setContentType(contentType);
+			review.setVerified(newReviewRate.isVerified());
 			review.setUserRatingPercentage(newReviewRate
 					.getUserRatingPercentage());
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);

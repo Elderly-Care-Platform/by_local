@@ -105,7 +105,6 @@ public class ReviewController {
 	@ResponseBody
 	public Object submitReviewRate(
 			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
-			@RequestParam(value = "verified", required = false, defaultValue = "false") boolean verified,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestBody DiscussReply reviewRate, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
@@ -127,7 +126,7 @@ public class ReviewController {
 						newReview.setVerified(true);
 					}
 					submitRating(contentType, associatedId, newReview, user);
-					submitReview(contentType, associatedId, newReview, verified, user);
+					submitReview(contentType, associatedId, newReview, user);
 				} else {
 					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 				}
@@ -142,7 +141,7 @@ public class ReviewController {
 	}
 
 	private DiscussReply submitReview(Integer contentType, String associatedId,
-			DiscussReply newReviewRate, boolean verified, User user) {
+			DiscussReply newReviewRate, User user) {
 		DiscussReply review = null;
 		review = this.getReview(contentType, associatedId, user);
 		int operationType = ActivityLogConstants.CRUD_TYPE_CREATE;
@@ -151,7 +150,7 @@ public class ReviewController {
 			review.setDiscussId(associatedId);
 			review.setUrl(newReviewRate.getUrl());
 			review.setContentType(contentType);
-			review.setVerified(verified);
+			review.setVerified(newReviewRate.isVerified());
 			review.setUserRatingPercentage(newReviewRate
 					.getUserRatingPercentage());
 			review.setReplyType(DiscussConstants.REPLY_TYPE_REVIEW);

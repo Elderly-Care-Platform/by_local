@@ -71,7 +71,6 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
             $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, verified : true, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviewsVerify = response.data.replies;
                 if($scope.reviewsVerify.length > 0){
-                    $scope.reviewVerifiedLeft = true;
                     require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
                         $scope.$apply();
                     });

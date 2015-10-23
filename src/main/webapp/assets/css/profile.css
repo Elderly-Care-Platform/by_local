@@ -430,3 +430,21 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	margin-top:-10px;
 	margin-bottom:10px;
 }
+#adminVerified
+{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 16px;
+	padding:10px 15px 15px 15px;
+	border:1px solid #ccc;
+	background-color: #f2f2f2;
+	font-size: 15px;
+}
+#adminVerified span
+{
+	display: inline-block;
+}
+#adminVerified img
+{
+	max-width: 100%;
+}

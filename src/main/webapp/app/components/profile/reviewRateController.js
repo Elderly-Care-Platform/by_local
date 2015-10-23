@@ -6,6 +6,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $scope.userProfile = $scope.$parent.profileData;
         $scope.selectedRating = 0;
         $scope.reviewText = "";
+
         $scope.blankReviewRateError = false;
         var postReview = new ReviewRateProfile();
 
@@ -22,7 +23,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
         $scope.getReview = function(){
             //Get review posted by currently logged in user
-            postReview.$get({associatedId:$scope.userProfile.id, userId:localStorage.getItem("USER_ID"), reviewContentType:$scope.$parent.reviewContentType}, function(response){
+            postReview.$get({associatedId:$scope.userProfile.id,  userId:localStorage.getItem("USER_ID"), reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 var response = response.data.replies[0];
                 if(response){
                     var ratingPercentage = BY.byUtil.getAverageRating(response.userRatingPercentage);

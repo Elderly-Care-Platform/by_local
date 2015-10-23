@@ -46,7 +46,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
 
         $scope.showReviews = function(){
             //Get reviews by all user for this professional
-            $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+            $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, verified : false, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviews = response.data.replies;
                 if($scope.reviews.length > 0){
                     require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
@@ -59,6 +59,22 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         };
 
         $scope.showReviews();
+
+        $scope.showReviewsVerified = function(){
+            //Get reviews by all user for this professional
+            $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, verified : true, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+                $scope.reviewsVerify = response.data.replies;
+                if($scope.reviewsVerify.length > 0){
+                    require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
+                        $scope.$apply();
+                    });
+                }
+            }, function(error){
+                console.log(error)
+            })
+        };
+
+        $scope.showReviewsVerified();
     }
 
     InstProfileCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile', '$sce'];

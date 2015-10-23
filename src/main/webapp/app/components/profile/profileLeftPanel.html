@@ -13,8 +13,11 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>-->
+            <li class="list-group-item"  ng-click="gotoHref('adminVerified')" style="border:0px;">
+                <a>BeautifulYears verified</a> 
+            </li>
 			<li class="list-group-item" ng-if="isAllowedToReview && (profileData.userTypes[0] == 7 || profileData.userTypes[0] == 4 )" ng-click="gotoHref('userReviews')" style="border:0px;">
-				<a>Rate & Review</a>
+				<a>{{isAllowedToReview}}  Rate & Review</a>
 			</li>
 			<li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')" style="border:0px;">
                 <a>Posts ({{postsPagination.totalPosts}})</a>

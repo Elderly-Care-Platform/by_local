@@ -115,6 +115,8 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             });
         };
 
+        
+
 
         var fetchUserPostedContent = function(){
             var pageNumber = 0;

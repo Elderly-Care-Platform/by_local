@@ -4,6 +4,14 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.slideIndex = 1;
         var reviewDetails = new ReviewRateProfile();
         
+        var metaTagParams = {
+                title: $scope.institutionProfile.basicProfileInfo.firstName ? $scope.institutionProfile.basicProfileInfo.firstName : "Institution Profile - Beautiful Years",
+                imageUrl: $scope.institutionProfile.basicProfileInfo.profileImage? $scope.institutionProfile.basicProfileInfo.profileImage.original : "",
+                description: $scope.institutionProfile.basicProfileInfo.description ? $scope.institutionProfile.basicProfileInfo.description : "",
+                keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){
                 $scope.slideIndex = 1;

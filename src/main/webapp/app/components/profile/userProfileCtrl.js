@@ -14,7 +14,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
         var pageSize = 10;
         var reviewDetails = new ReviewRateProfile();
 
-        var updateMetaTags = function(){
+        /*var updateMetaTags = function(){
             var metaTagParams = {
                 title: "Beautiful Years | Profile",
                 imageUrl: "",
@@ -22,7 +22,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                 keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
-        };
+        };*/
         
         $scope.tooltipText = function(){        	
         	$('[data-toggle="tooltip"]').tooltip(); 
@@ -61,13 +61,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                     if (localStorage.getItem("USER_ID") !== $scope.profileData.userId) {
                         $scope.isAllowedToReview = true;
                     }
-                    
-                    /*$scope.reviews = reviewDetails.$get({associatedId:profile.data.id, verified : true, reviewContentType:$scope.reviewContentType}, function(response){
-                        $scope.reviewsVerify = response.data.replies;
-                        if($scope.reviewsVerify.length > 0){
-                        	$scope.isByAdminVerified = true;
-                        }
-                    });*/
                     $("#preloader").hide();
                 },
                 function (error) {
@@ -138,7 +131,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
         };
 
         $scope.initUserProfile = function(){
-            updateMetaTags();
+           // updateMetaTags();
             fetchProfileData();
             fetchUserPostedContent();
         };

@@ -4,6 +4,14 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.gender =  BY.config.profile.userGender[$scope.individualProfile.individualInfo.sex];
         $scope.slideIndex = 1;
         var reviewDetails = new ReviewRateProfile();
+        
+        var metaTagParams = {
+        		title: $scope.individualProfile.basicProfileInfo.firstName ? $scope.individualProfile.basicProfileInfo.firstName : "Professional Profile - Beautiful Years",
+                imageUrl: $scope.individualProfile.basicProfileInfo.profileImage? $scope.individualProfile.basicProfileInfo.profileImage.original : "",
+                description: $scope.individualProfile.basicProfileInfo.description ? $scope.individualProfile.basicProfileInfo.description : "",
+                 keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
 
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){

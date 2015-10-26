@@ -72,7 +72,8 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                 $scope.unauthorizeUserError = false;
 
                 postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
-                    $scope.$parent.showReviews();
+                   $scope.$parent.showReviews();
+                   $scope.$parent.showReviewsVerified();
                     $scope.reviewText = "";
                     $("#by_rate_hide").hide();
                     $("#by_rate_show").show();

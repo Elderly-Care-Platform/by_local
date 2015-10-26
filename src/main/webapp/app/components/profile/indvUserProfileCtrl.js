@@ -4,8 +4,16 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $scope.slideIndex = 1;
         //$scope.userName = $scope.$parent.userName;
         
+        var title = "Individual Profile - Beautiful Years" ;
+    	if($scope.individualProfile.basicProfileInfo.firstName){
+    		title = $scope.individualProfile.basicProfileInfo.firstName;
+    		if($scope.individualProfile.individualInfo.lastName){
+    			title+= " "+$scope.individualProfile.individualInfo.lastName;
+    		}
+    	}
+        
         var metaTagParams = {
-        		title: $scope.individualProfile.basicProfileInfo.firstName ? $scope.individualProfile.basicProfileInfo.firstName : "Professional Profile - Beautiful Years",
+        		title: title,
                 imageUrl: $scope.individualProfile.basicProfileInfo.profileImage? $scope.individualProfile.basicProfileInfo.profileImage.original : "",
                 description: $scope.individualProfile.basicProfileInfo.description ? $scope.individualProfile.basicProfileInfo.description : "",
                 keywords:[]

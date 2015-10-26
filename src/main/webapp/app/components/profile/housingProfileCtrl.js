@@ -6,7 +6,13 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.profileData = null;
         
        
-        
+        var metaTagParams = {
+        		title: $scope.housingProfile.basicProfileInfo.firstName ? $scope.housingProfile.basicProfileInfo.firstName : "Corporation Profile - Beautiful Years",
+                imageUrl: $scope.housingProfile.basicProfileInfo.profileImage? $scope.housingProfile.basicProfileInfo.profileImage.original : "",
+                description: $scope.housingProfile.basicProfileInfo.description ? $scope.housingProfile.basicProfileInfo.description : "",
+                keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
 
 
         if ($scope.housingFacilityId) {

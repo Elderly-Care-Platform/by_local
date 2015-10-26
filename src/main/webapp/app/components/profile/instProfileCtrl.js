@@ -2,8 +2,8 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
     function InstProfileCtrl($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, $sce){
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
-
         var reviewDetails = new ReviewRateProfile();
+        
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){
                 $scope.slideIndex = 1;
@@ -65,6 +65,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
             $scope.reviews = reviewDetails.$get({associatedId:$scope.institutionProfile.id, verified : true, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviewsVerify = response.data.replies;
                 if($scope.reviewsVerify.length > 0){
+                	$scope.flags.isByAdminVerified = true;
                     require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
                         $scope.$apply();
                     });

@@ -1,9 +1,12 @@
 <div ng-click="go($event, 'detail', discuss.id, discuss.discussType)" class="by-discuss-card by_blog_author" ng-if="discuss">
     <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true"></div>
     <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
-    <img class="by_discuss_img" ng-if="discuss.promotion == false"
+    <img class="by_discuss_img" ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage"
          ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
          fallback-src='["assets/img/by.png"]' alt="image">
+         
+          <img class="by_discuss_img" ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage"
+        ng-src="assets/img/by.png" alt="image">
 
     <div class="by_discuss_info" style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
         <ul class="list-inline by_discuss_infoList" style="">

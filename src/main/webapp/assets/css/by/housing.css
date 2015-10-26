@@ -74,7 +74,7 @@
 }
 .by_housingCard_contentIconWrap .divRight
 {
-	width: calc(100%- 30px);
+	width: calc(100% - 30px);
 	height:auto;
 	float:left;
 }

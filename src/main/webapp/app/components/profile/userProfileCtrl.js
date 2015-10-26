@@ -1,6 +1,6 @@
-define(['byApp', 'byUtil', 'userTypeConfig'],
-    function(byApp, byUtil, userTypeConfig) {
-    function ProfileController($scope, $rootScope, $location, $routeParams, UserProfile, $sce, DiscussPage){
+define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
+    function(byApp, byUtil, userTypeConfig, reviewRateController) {
+    function ProfileController($scope, $rootScope, $location, $routeParams, ReviewRateProfile, UserProfile, $sce, DiscussPage){
         $scope.profileViews = {};
         $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
@@ -9,9 +9,12 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
 
         $scope.isIndividualProfile = false;
         $scope.isAllowedToReview = false;
+        $scope.flags = {};
+        $scope.flags.isByAdminVerified = false;
         var pageSize = 10;
+        var reviewDetails = new ReviewRateProfile();
 
-        var updateMetaTags = function(){
+        /*var updateMetaTags = function(){
             var metaTagParams = {
                 title: "Beautiful Years | Profile",
                 imageUrl: "",
@@ -19,7 +22,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 keywords:[]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
-        };
+        };*/
         
         $scope.tooltipText = function(){        	
         	$('[data-toggle="tooltip"]').tooltip(); 
@@ -114,6 +117,11 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 console.log(error);
             });
         };
+        
+       
+
+
+        
 
 
         var fetchUserPostedContent = function(){
@@ -123,7 +131,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
         };
 
         $scope.initUserProfile = function(){
-            updateMetaTags();
+           // updateMetaTags();
             fetchProfileData();
             fetchUserPostedContent();
         };
@@ -196,7 +204,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
 
     }
 
-    ProfileController.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'UserProfile', '$sce', 'DiscussPage'];
+    ProfileController.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'ReviewRateProfile', 'UserProfile', '$sce', 'DiscussPage'];
     byApp.registerController('ProfileController', ProfileController);
     return ProfileController;
 });

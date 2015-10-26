@@ -5,8 +5,18 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.slideIndex = 1;
         var reviewDetails = new ReviewRateProfile();
         
+        
+        
+        var title = "Professional Profile - Beautiful Years" ;
+        	if($scope.individualProfile.basicProfileInfo.firstName){
+        		title = $scope.individualProfile.basicProfileInfo.firstName;
+        		if($scope.individualProfile.individualInfo.lastName){
+        			title+= " "+$scope.individualProfile.individualInfo.lastName;
+        		}
+        	}
+        
         var metaTagParams = {
-        		title: $scope.individualProfile.basicProfileInfo.firstName ? $scope.individualProfile.basicProfileInfo.firstName : "Professional Profile - Beautiful Years",
+        		title:  title,
                 imageUrl: $scope.individualProfile.basicProfileInfo.profileImage? $scope.individualProfile.basicProfileInfo.profileImage.original : "",
                 description: $scope.individualProfile.basicProfileInfo.description ? $scope.individualProfile.basicProfileInfo.description : "",
                  keywords:[]

@@ -78,7 +78,7 @@ public class ReviewController {
 			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestParam(value = "userId", required = false) String userId,
-			@RequestParam(value = "verified", required = false) boolean verified,
+			@RequestParam(value = "verified", required = false) Boolean verified,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<DiscussReply> reviewsList = new ArrayList<DiscussReply>();
 		DiscussDetailResponse responseHandler = new DiscussDetailResponse();

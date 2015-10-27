@@ -127,12 +127,13 @@ BY.byUtil.updateMetaTags = function(param){
 
 
 
-BY.byUtil.getImage = function(sharedObj){
-	var picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "";
+BY.byUtil.getImage = function(sharedObj,needAbsolutePath){
+	var picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.original: "";
 	if(picture && picture!==""){
-        picture = picture.substr(1);
-        picture = window.location.origin + window.location.pathname + picture;
-
+       if(needAbsolutePath){
+    	   picture = picture.substr(1);
+           picture = window.location.origin + window.location.pathname + picture;
+       }
     }else if(sharedObj.linkInfo && sharedObj.linkInfo.mainImage){
     	picture = sharedObj.linkInfo.mainImage;
     }else if(sharedObj.linkInfo && sharedObj.linkInfo.otherImages && sharedObj.linkInfo.otherImages.length > 0){

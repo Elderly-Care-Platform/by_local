@@ -78,16 +78,18 @@ public class ReviewController {
 			@RequestParam(value = "reviewContentType", required = true) Integer contentType,
 			@RequestParam(value = "associatedId", required = true) String associatedId,
 			@RequestParam(value = "userId", required = false) String userId,
-			@RequestParam(value = "verified", required = false, defaultValue = "false") boolean verified,
+			@RequestParam(value = "verified", required = false) boolean verified,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<DiscussReply> reviewsList = new ArrayList<DiscussReply>();
 		DiscussDetailResponse responseHandler = new DiscussDetailResponse();
 		if (null != contentType && null != associatedId) {
 			Query q = new Query();
 			q.addCriteria(Criteria.where("replyType")
-					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("verified")
-					.is(verified).and("contentType")
+					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
 					.is(contentType).and("discussId").is(associatedId));
+			if(null != verified){
+				q.addCriteria(Criteria.where("verified").is(verified));
+			}
 			if (null != userId) {
 				q.addCriteria(Criteria.where("userId").is(userId));
 			}

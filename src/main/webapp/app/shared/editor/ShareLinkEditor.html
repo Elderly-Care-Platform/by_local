@@ -27,11 +27,14 @@
             <p class="linkUrl">{{linkInfo.domainName}}</p>
         </div>
         <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage">
-            <img src="{{linkInfo.mainImage}}">
+            <!--  <img src="{{linkInfo.mainImage}}">-->
+              <iframe ng-src="{{trustAsResourceUrl(linkInfo.embeddedVideo)}}" frameborder="0" allowfullscreen>
+            </iframe>
         </div>
 
         <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="!linkInfo.mainImage && linkInfo.otherImages && linkInfo.otherImages.length > 0">
-            <img src="{{linkInfo.otherImages[0]}}">
+             <img src="{{linkInfo.otherImages[0]}}">
+          
         </div>
     </div>
 

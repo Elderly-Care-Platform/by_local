@@ -53,6 +53,7 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
     $scope.promise                           = getProductDescription();
     $scope.fedexRateWebService               = getFedexRateWebService();
 
+    
     function getFedexRateWebService() {
       ProductDescriptionService.fedexRateWebService().then(getFedexRateWebServiceSuccess, failure);
     }
@@ -333,6 +334,13 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
       $location.path(path).search('q', JSON.stringify({'id': categoryId, 'name': categoryName}));
       $log.debug('sdfsdf');
     }
+    $scope.galleryClickHover = function(){
+            $(".small-width").click(function(){
+                var urlPopup = $(this).attr('src');                
+                $(".full-width").attr('src', urlPopup);
+            });
+        };
+
   }
   ProductDescriptionController.$inject = [ '$scope',
     '$rootScope',

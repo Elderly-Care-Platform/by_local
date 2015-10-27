@@ -30,7 +30,7 @@
                                         <a ng-repeat="media in uiData.mediaItems"
                                         on-finish-render="ngRepeatFinished">
                                         <div ng-if="media.type === 'image'">
-                                            <img ng-src="{{media.url}}" style="opacity: 0.5; width:60px;">
+                                            <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}" style="opacity: 0.5; width:60px;">
                                         </div>
                                         <!-- Set image of video -->
                                         <div ng-if="media.type === 'video'">

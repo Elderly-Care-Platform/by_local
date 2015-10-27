@@ -12,28 +12,21 @@
                     <div class=" col-md-12 main-image" style="padding: 0px;">
                         <img class="full-width padding-zero" ng-src="{{uiData.primaryMedia.url}}">
                     </div>
-                    <div class=" col-md-12 main-image padding-top-only-5  ">
-                        <div id=" col-md-12 padding-zero slideshow_border">
-                            <div id="dhtmlgoodies_slideshow" style="border:0px;">
-                                <div id="galleryContainer">
-                                    <div id="arrow_left"><img src="assets/img/icons/arrow_left.gif" style="
-                                        height: 40px;  margin-top:10px;" usemap="#Map" border="0">
-                                        <map name="Map">
-                                            <area shape="poly" coords="20,29" href="#">
-                                        </map>
-                                    </div>
-                                    <div id="arrow_right"><img src="assets/img/icons/arrow_right.gif" style="
-                                        height: 40px;  margin-top:10px;">
-                                    </div>
-                                    <div id="theImages" style="left: 40px;">
-                                        <!-- Thumbnails -->
+                    <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px;">
+                        <div id="arrow_left" ng-click="slideGallery('l')"><img src="assets/img/icons/arrow_left.gif" style=" height: 40px;  margin-top:10px;" usemap="#Map" border="0">
+                            <map name="Map">
+                                <area shape="poly" coords="20,29" href="#">
+                            </map>
+                        </div>
+                    <div class="by-gallery-container">
+                      
                                         <a ng-repeat="media in uiData.mediaItems"
                                         on-finish-render="ngRepeatFinished">
-                                        <div ng-if="media.type === 'image'">
+                                        <div ng-if="media.type === 'image'" class="by-imageGallery-item">
                                             <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}" style="opacity: 0.5; width:60px;">
                                         </div>
                                         <!-- Set image of video -->
-                                        <div ng-if="media.type === 'video'">
+                                        <div ng-if="media.type === 'video'" class="by-imageGallery-item">
                                             <img src="{{media.poster}}" style="opacity: 0.5;width:60px;"
                                             ng-click="playVideo(media.url)" id="posterImage">
                                             <video src="{{media.url | handleInterpolate}}"
@@ -43,23 +36,18 @@
                                         <canvas id="thecanvas"></canvas>
                                     </div>
                                     <!-- End image video -->
-                                    <div ng-if="media.type === 'notSupportedMedia'">
+                                    <div ng-if="media.type === 'notSupportedMedia'" class="by-imageGallery-item">
                                         <img data-toggle="tooltip" data-placement="top"
                                         title="Unsupported video file! Application supported only mp4, webm, ogg video files!"
                                         ng-src="{{media.poster}}" style="opacity: 0.5;width:60px;">
                                     </div>
                                 </a>
-                                <!-- End thumbnails -->
-                                <div id="slideEnd"></div>
-                            </div>
-                        </div>
                     </div>
+                    <div id="arrow_right" ng-click="slideGallery('r')"><img src="assets/img/icons/arrow_right.gif" style=" height: 40px;  margin-top:10px;">
+                    </div>
+                    <div class="clearfix" ></div>
                 </div>
-                <!--End of SlideShow-->
-                <div id="hover-images">
-                    <img src="assets/img/product/image1.jpg" style="opacity:1;">
-                </div>
-            </div>
+                   
         </div>
         <div class="col-md-7 by_productDetail_contentNoPadding">
             <div class="by_productDetail_contentHead by_productDetail_mobileSpace" ng-if="uiData.name">

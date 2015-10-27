@@ -128,10 +128,10 @@ BY.byUtil.updateMetaTags = function(param){
 
 
 BY.byUtil.getImage = function(sharedObj){
-	var picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.thumbnailImage: "";
+	var picture = sharedObj.articlePhotoFilename ? sharedObj.articlePhotoFilename.original: "";
 	if(picture && picture!==""){
-        picture = picture.substr(1);
-        picture = window.location.origin + window.location.pathname + picture;
+        //picture = picture.substr(1);
+        //picture = window.location.origin + window.location.pathname + picture;
 
     }else if(sharedObj.linkInfo && sharedObj.linkInfo.mainImage){
     	picture = sharedObj.linkInfo.mainImage;

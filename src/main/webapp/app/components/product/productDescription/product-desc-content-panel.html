@@ -4,51 +4,48 @@
 </div>
 <div class="clearfix" style="height:10px;"></div>
 <div class="col-md-12 product-main margin-bottom-15 by_pruductDetailed_bgWhite" style="border:0px;">
-    <div class="new-banner">
-                        <!-- <a><img src="assets/img/icons/New-icon.png" width="55" height="24">
-                    </a> -->
-                </div>
-                <div class="col-md-5" style="padding:0px;">
-                    <div class=" col-md-12 main-image" style="padding: 0px;">
-                        <img class="full-width padding-zero" ng-src="{{uiData.primaryMedia.url}}">
-                    </div>
-                    <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px;">
-                        <div id="arrow_left" ng-click="slideGallery('l')"><img src="assets/img/icons/arrow_left.gif" style=" height: 40px;  margin-top:10px;" usemap="#Map" border="0">
-                            <map name="Map">
-                                <area shape="poly" coords="20,29" href="#">
-                            </map>
-                        </div>
-                    <div class="by-gallery-container">
-                      
-                                        <a ng-repeat="media in uiData.mediaItems"
-                                        on-finish-render="ngRepeatFinished">
-                                        <div ng-if="media.type === 'image'" class="by-imageGallery-item">
-                                            <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}" style="opacity: 0.5; width:60px;">
-                                        </div>
-                                        <!-- Set image of video -->
-                                        <div ng-if="media.type === 'video'" class="by-imageGallery-item">
-                                            <img src="{{media.poster}}" style="opacity: 0.5;width:60px;"
-                                            ng-click="playVideo(media.url)" id="posterImage">
-                                            <video src="{{media.url | handleInterpolate}}"
-                                            crossorigin="anonymous" controls autoplay
-                                            class="set-video-frame" video-image id="video">
-                                        </video>
-                                        <canvas id="thecanvas"></canvas>
-                                    </div>
-                                    <!-- End image video -->
-                                    <div ng-if="media.type === 'notSupportedMedia'" class="by-imageGallery-item">
-                                        <img data-toggle="tooltip" data-placement="top"
-                                        title="Unsupported video file! Application supported only mp4, webm, ogg video files!"
-                                        ng-src="{{media.poster}}" style="opacity: 0.5;width:60px;">
-                                    </div>
-                                </a>
-                    </div>
-                    <div id="arrow_right" ng-click="slideGallery('r')"><img src="assets/img/icons/arrow_right.gif" style=" height: 40px;  margin-top:10px;">
-                    </div>
-                    <div class="clearfix" ></div>
-                </div>
-                   
+  
+    <div class="col-md-5" style="padding:0px;">
+        <div class=" col-md-12 main-image" style="padding: 0px;">
+            <img class="full-width padding-zero" ng-src="{{uiData.primaryMedia.url}}">
         </div>
+        <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px;">
+            <div id="arrow_left" ng-click="slideGallery('l')"><img src="assets/img/icons/arrow_left.gif" style=" height: 40px;  margin-top:10px;" usemap="#Map" border="0">
+                <map name="Map">
+                    <area shape="poly" coords="20,29" href="#">
+                </map>
+            </div>
+            <div class="by-gallery-container">
+              
+                <a ng-repeat="media in uiData.mediaItems"
+                on-finish-render="ngRepeatFinished">
+                <div ng-if="media.type === 'image'" class="by-imageGallery-item">
+                    <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}" style="opacity: 0.5; width:60px;">
+                </div>
+                <!-- Set image of video -->
+                <div ng-if="media.type === 'video'" class="by-imageGallery-item">
+                    <img src="{{media.poster}}" style="opacity: 0.5;width:60px;"
+                    ng-click="playVideo(media.url)" id="posterImage">
+                    <video src="{{media.url | handleInterpolate}}"
+                    crossorigin="anonymous" controls autoplay
+                    class="set-video-frame" video-image id="video">
+                </video>
+                <canvas id="thecanvas"></canvas>
+            </div>
+            <!-- End image video -->
+            <div ng-if="media.type === 'notSupportedMedia'" class="by-imageGallery-item">
+                <img data-toggle="tooltip" data-placement="top"
+                title="Unsupported video file! Application supported only mp4, webm, ogg video files!"
+                ng-src="{{media.poster}}" style="opacity: 0.5;width:60px;">
+            </div>
+        </a>
+    </div>
+    <div id="arrow_right" ng-click="slideGallery('r')"><img src="assets/img/icons/arrow_right.gif" style=" height: 40px;  margin-top:10px;">
+    </div>
+    <div class="clearfix" ></div>
+</div>
+
+</div>
         <div class="col-md-7 by_productDetail_contentNoPadding">
             <div class="by_productDetail_contentHead by_productDetail_mobileSpace" ng-if="uiData.name">
                 {{uiData.name}}

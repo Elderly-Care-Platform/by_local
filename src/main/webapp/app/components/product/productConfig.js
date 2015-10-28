@@ -83,10 +83,10 @@ define([], function () {
             alwaysAvailable: 'ALWAYS_AVAILABLE'
         })
         .constant('STATIC_IMAGE', {
-            imageNotAvailable: 'assets/images/noImageAvailable.jpg',
-            videoPoster: 'assets/images/video-play.png',
-            unsupportedMedia: 'assets/images/unsupported.png',
-            videoImage: 'assets/images/play-video.png'
+            //imageNotAvailable: 'assets/images/noImageAvailable.jpg',
+            //videoPoster: 'assets/images/video-play.png',
+            //unsupportedMedia: 'assets/images/unsupported.png',
+            //videoImage: 'assets/images/play-video.png'
         })
         .constant('MEDIATYPE', {
             mediaTypeImage: 'image',

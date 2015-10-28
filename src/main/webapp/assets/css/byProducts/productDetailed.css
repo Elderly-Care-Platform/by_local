@@ -1,5 +1,17 @@
 /* left pnael */
-
+.productMainImage
+{
+	height:290px;
+	line-height:290px;
+	text-align:center;
+	background:#ccc;
+	vertical-align: middle;
+}
+.productMainImage img
+{
+	max-height:100%;
+	max-width:100%;
+}
 .by_productDetail_leftSimilarTitle
 {
   font-size: 18px;

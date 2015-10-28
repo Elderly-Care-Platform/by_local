@@ -9,14 +9,14 @@
         
         
          <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkImages.length > 0">
-         	<div ng-repeat="image1 in  linkImages track by $index" ng-if="$index == linkImagesIdx">
+         	<div ng-repeat="image1 in  linkImages track by $index" ng-if="$index == linkImagesIdx" >
             	<input type="button" value="<" ng-click="selectPrevLinkImage()" ng-disabled="$index == 0" ng-if="linkImages.length > 1"
             	style="position: absolute;top:5px;color: white;"
             	ng-style="$index == 0 && {'background-color':'rgba(0, 0, 0, 0.54)'} || {'background-color': 'rgba(165, 165, 165, 0.82)'}">
         		<input type="button" value=">" ng-click="selectNextLinkImage()" ng-disabled="$index == linkImages.length - 1" ng-if="linkImages.length > 1"
         		style="position: absolute;top:5px;left: 40px;color: white;"
         		ng-style="$index == linkImages.length - 1 && {'background-color':'rgba(0, 0, 0, 0.54)'} || {'background-color': 'rgba(165, 165, 165, 0.82)'}">
-        		<img  src="{{image1}}">
+        		<img  src="{{image1}}" style="max-height:230px;">
          	</div>
             	
             

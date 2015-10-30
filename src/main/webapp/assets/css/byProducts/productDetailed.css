@@ -188,6 +188,28 @@
 {
   color:#004f24;
 }
+.by_productDetail_optionColor
+{
+	width:100%;
+	height:auto;
+}
+.by_productDetail_optionColor_size
+{
+	width:25px;
+	height:25px;
+	margin-left:10px;
+	cursor:pointer;
+	border:3px solid transparent;
+}
+.by_productDetail_optionSize_size
+{
+	width:25px;
+	height:25px;
+	margin-left:10px;
+	cursor:pointer;
+	text-align:center;
+	border:2px solid #ccc;
+}
 @media screen and (max-width: 990px){
   .by_productDetail_mobileSpace
   {

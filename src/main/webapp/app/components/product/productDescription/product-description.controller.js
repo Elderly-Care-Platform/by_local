@@ -279,6 +279,22 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
      * Add product to cart
      * @param {integer} productId
      */
+    $scope.activeProductColor = function(){
+    	$(".by_productDetail_optionColor_size").click(function(){
+    		$(".by_productDetail_optionColor_size").css('border-color', 'transparent');
+    		$(".by_productDetail_optionColor_size").css('opacity', '1');
+    		$(this).css('border-color', 'green');
+    		$(this).css('opacity', '0.5');
+    	});
+    };
+    
+    $scope.activeProductSize = function(){
+    	$(".by_productDetail_optionSize_size").click(function(){
+    		$(".by_productDetail_optionSize_size").css('border-color', '#ccc');
+    		$(this).css('border-color', 'green');
+    	});
+    }
+    
     function addProductToCart(productId) {
       $log.debug('Add product to cart');
       if ($scope.userRequiredQuantity >= 1 && $scope.inventoryType === INVENTORY.alwaysAvailable) {

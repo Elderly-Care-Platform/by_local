@@ -186,7 +186,7 @@ require([ 'angular',"byApp","byUtil", "byDirectives", "lodash"], function(angula
 			//var categoriesPromise = CategoryService.getAllCategories();
 			//categoriesPromise.then(getProdCategoriesSuccess);
 
-			$.ajax({url : 'http://54.169.187.40:8080/beautifulyears/api/v1/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
+			$.ajax({url : 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
 		}
 	});
 });

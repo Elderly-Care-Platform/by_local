@@ -123,6 +123,31 @@
                      {{rateServiceMessage}}
                  </strong>
             </div>
+            
+            <div class="by_productDetail_optionColor margin-bottom-10 margin-top-10">
+    			<div ng-repeat="productColor in uiData.productOptions" ng-if="productColor.label == 'Color'">
+    				<div class="divLeft">Color: </div>
+    	    		<span ng-repeat="color in productColor.allowedValues" ng-init="activeProductColor();">    			
+    					<div class="divLeft by_productDetail_optionColor_size" 
+    						title="{{color.attributeValue.substr(color.attributeValue.lastIndexOf('-') + 1)}}" 
+    						style="background: {{color.attributeValue.substring(0,7)}}">
+    					</div>
+    				</span>
+    				<div class="clearfix"></div>
+    			</div>
+   			</div>
+   			
+   			 <div class="by_productDetail_optionColor margin-bottom-10">
+    			<div ng-repeat="productSize in uiData.productOptions" ng-if="productSize.label == 'Size'">
+    				<div class="divLeft">Size: </div>
+    	    		<span ng-repeat="size in productSize.allowedValues" ng-init="activeProductSize();">    			
+    					<div class="divLeft by_productDetail_optionSize_size" >
+    						{{size.attributeValue}}
+    					</div>
+    				</span>
+    				<div class="clearfix"></div>
+    			</div>
+   			</div>
 
             <div class="by_productDetail_contentCall">
                 <b>Call for assistance 080-67818181</b>
@@ -177,6 +202,9 @@
             in cart!
         </span>
     </div>
+    
+    
+    
 </div>
 
 

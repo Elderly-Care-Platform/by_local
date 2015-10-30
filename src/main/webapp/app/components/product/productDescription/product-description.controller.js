@@ -36,6 +36,7 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
     $scope.inventoryType = null;
     $scope.pincodeAvailablity = '';
     $scope.addToCartDisable = false;
+    var productOptions = {};
 
     // uiData mapping
     $scope.uiData = {};
@@ -142,11 +143,14 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
         }
         breadCrumb = { 'url': path, 'displayName': data.categoryName };
         BreadcrumbService.setBreadCrumb(breadCrumb, data.name);
-        params.id = $scope.productId;
+        params.id = $scope.productId;        
         $scope.promise = ProductDescriptionService.getProductSku(params)
             .then(getProductSkuSuccess, failure);
         $scope.uiData = data;
-        $scope.uiData.name = data.name;
+       /* for(var i = 0; i<data.productOptions.length; i++ ){
+        	productOptions[data.productOptions[i].attributeName] = null;
+        };*/
+        $scope.uiData.name = data.name;        
         Utility.checkImages($scope.uiData);
         if (data.mediaItems) {
           angular.forEach(data.mediaItems, function(mediaItem) {
@@ -285,6 +289,8 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
     		$(".by_productDetail_optionColor_size").css('opacity', '1');
     		$(this).css('border-color', 'green');
     		$(this).css('opacity', '0.5');
+    		$scope.selectedColor = $(this).attr("data-color");
+    		
     	});
     };
     
@@ -292,21 +298,32 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
     	$(".by_productDetail_optionSize_size").click(function(){
     		$(".by_productDetail_optionSize_size").css('border-color', '#ccc');
     		$(this).css('border-color', 'green');
+    		$scope.selectedSize = $(this).attr("data-size");
     	});
     }
     
     function addProductToCart(productId) {
       $log.debug('Add product to cart');
+      for(var i = 0; i<$scope.uiData.productOptions.length; i++ ){
+    	  if($scope.selectedColor && $scope.uiData.productOptions[i].label == 'Color'){
+    		  productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedColor;
+    	  }
+    	  else if($scope.selectedSize && $scope.uiData.productOptions[i].label == 'Size'){
+    		  productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedSize;
+    	  }      	  
+      };
+     
+     
       if ($scope.userRequiredQuantity >= 1 && $scope.inventoryType === INVENTORY.alwaysAvailable) {
-        Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity);
+        Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity,productOptions);
       } else {
         if ($scope.userRequiredQuantity >= 1 &&
             $scope.userRequiredQuantity <= $scope.quantityAvailable) {
-          Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity);
+          Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity,productOptions);
         }
       }
 
-      $location.path('/cart/');
+      //$location.path('/cart/');
     }
 
     /**

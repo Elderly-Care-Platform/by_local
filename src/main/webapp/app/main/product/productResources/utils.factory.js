@@ -5,6 +5,7 @@ define([], function () {
     $log,
     $window,
     CartService,
+    $location,
     ProductDescriptionService,
     SERVERURL_IMAGE,
     STATIC_IMAGE,
@@ -19,7 +20,7 @@ define([], function () {
       getVideoExt: getVideoExt
     };
     // Check whether cart is created for user or not
-    function checkCartAvailability(customerId, productId, userRequiredQuantity) {
+    function checkCartAvailability(customerId, productId, userRequiredQuantity,productOptionParam) {
       $log.debug('Check cart availability');
       if (customerId === null) {
         // Guest user
@@ -41,7 +42,7 @@ define([], function () {
         $log.debug('Success in getting cart' + result);
         var customerId = result.customer.id;
         // Add product to cart
-        addToCart(productId, customerId);
+        addToCart(productId, customerId,productOptionParam);
       }
 
       // Failure in getting cart for customer
@@ -65,13 +66,18 @@ define([], function () {
         $log.debug('Success in creating Cart' + result);
         customerId = result.customer.id;
         // Add product to cart
-        addToCart(productId, customerId);
+        addToCart(productId, customerId,productOptionParam);
       }
 
-      function addToCart(productId, customerId) {
+      function addToCart(productId, customerId,productOptionParam) {
         var params = {};
         params.productId = productId;
         params.customerId = customerId;
+        var productOptionString = "";
+        for(productOption in productOptionParam){
+        	productOptionString += "&"+productOption +"="+ encodeURIComponent(productOptionParam[productOption]);
+        }
+        params["productOptions"] = productOptionString;
         CartService.addProductToCart(params)
         .then(addProductSuccess, failure);
       }
@@ -93,6 +99,7 @@ define([], function () {
       }
 
       function updateProductQuantitySuccess(result) {
+        $location.path('/cart/');
         console.log('updateProductQuantitySuccess JSON Data: ' + JSON.stringify(result));
         $window.location.reload();
       }
@@ -100,6 +107,7 @@ define([], function () {
       // Failure
       function failure() {
         $log.debug('Failure');
+        alert("Please select the color and size of the product");
       }
     }
 

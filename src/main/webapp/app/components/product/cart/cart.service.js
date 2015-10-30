@@ -14,11 +14,11 @@ define([], function () {
 
     urls = {
       forCartDetail:         urlTemplate(REST_URL.getCartDetail + '?customerId=:customerId'),
-      createCart:            urlTemplate(REST_URL.getCartDetail + '?customerId=:customerId', {},
+      createCart:            urlTemplate(REST_URL.getCartDetail + '?customerId=:customerId&:productOptions', {},
           {type: 'post'}),
       createCartForGuest:    urlTemplate(REST_URL.getCartDetail, {}, {type: 'post'}),
       forAddProductToCart:   urlTemplate(REST_URL.getCartDetail +
-          '/:productId?customerId=:customerId', {}, {type: 'post'}),
+          '/:productId?customerId=:customerId:productOptions', {}, {type: 'post'}),
       forRemoveItemFromCart: urlTemplate(REST_URL.removeItemFromCart + '/:id', {}, {type: 'delete'}),
       loadImage:             urlTemplate('/:image'),
       forPromoCodeApply:     urlTemplate(REST_URL.offerApply +

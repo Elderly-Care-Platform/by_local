@@ -129,19 +129,21 @@
     				<div class="divLeft">Color: </div>
     	    		<span ng-repeat="color in productColor.allowedValues" ng-init="activeProductColor();">    			
     					<div class="divLeft by_productDetail_optionColor_size" 
+    					data-color="{{color.attributeValue}}"
     						title="{{color.attributeValue.substr(color.attributeValue.lastIndexOf('-') + 1)}}" 
     						style="background: {{color.attributeValue.substring(0,7)}}">
     					</div>
     				</span>
     				<div class="clearfix"></div>
-    			</div>
+    			</div>    			
    			</div>
    			
    			 <div class="by_productDetail_optionColor margin-bottom-10">
     			<div ng-repeat="productSize in uiData.productOptions" ng-if="productSize.label == 'Size'">
     				<div class="divLeft">Size: </div>
     	    		<span ng-repeat="size in productSize.allowedValues" ng-init="activeProductSize();">    			
-    					<div class="divLeft by_productDetail_optionSize_size" >
+    					<div class="divLeft by_productDetail_optionSize_size" 
+    					data-size="{{size.attributeValue}}">
     						{{size.attributeValue}}
     					</div>
     				</span>

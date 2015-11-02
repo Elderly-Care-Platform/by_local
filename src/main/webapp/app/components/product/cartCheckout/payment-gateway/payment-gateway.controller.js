@@ -10,7 +10,7 @@ define(['byProductApp'], function (byProductApp) {
                                       ProductDescriptionService,
                                       CartService,
                                       PAGE_URL,
-                                      SERVERURL) {
+                                      SERVERURL, SessionIdService) {
 
         $log.debug('Inside PaymentGateway Controller');
 
@@ -18,9 +18,12 @@ define(['byProductApp'], function (byProductApp) {
         //  isNaN($routeParams.addressId)) {
         //   $location.path(PAGE_URL.cart);
         // }
-        var breadCrumb,
-            addressId = $routeParams.addressId;
-        $scope.customerId = 700;
+        var breadCrumb, addressId = $routeParams.addressId;
+
+        $scope.customerId = null;
+        if (sessionStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = sessionStorage.getItem("by_cust_id");
+        }
         $scope.tabId = 1;
         $scope.trimmedCaptchaCode = 0;
         $scope.uiData = {
@@ -183,7 +186,7 @@ define(['byProductApp'], function (byProductApp) {
         'ProductDescriptionService',
         'CartService',
         'PAGE_URL',
-        'SERVERURL'];
+        'SERVERURL', 'SessionIdService'];
     byProductApp.registerController('PaymentGatewayController', PaymentGatewayController);
     return PaymentGatewayController;
 });

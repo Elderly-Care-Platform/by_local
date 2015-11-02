@@ -5,7 +5,7 @@ define(['byProductApp'], function (byProductApp) {
                                   AddAddressService,
                                   ADDRESS_FIELDS,
                                   BreadcrumbService,
-                                  PAGE_URL) {
+                                  PAGE_URL, SessionIdService) {
 
         $log.debug('Inside AddAddress Controller');
         var breadCrumb;
@@ -16,8 +16,12 @@ define(['byProductApp'], function (byProductApp) {
         $scope.toggleMobileField = toggleMobileField;
         $scope.shipToAddress = shipToAddress;
         $scope.selectAddress = selectAddress;
-        $scope.customerId = 700;
+        $scope.customerId = null;
         $scope.addAddress = addAddress;
+
+        if (sessionStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = sessionStorage.getItem("by_cust_id");
+        }
 
         /**
          * Make request for adding shipping address
@@ -100,7 +104,7 @@ define(['byProductApp'], function (byProductApp) {
         'AddAddressService',
         'ADDRESS_FIELDS',
         'BreadcrumbService',
-        'PAGE_URL'];
+        'PAGE_URL', 'SessionIdService'];
     byProductApp.registerController('AddAddressController', AddAddressController);
     return AddAddressController;
 });

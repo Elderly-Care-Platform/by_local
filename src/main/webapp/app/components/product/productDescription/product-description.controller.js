@@ -26,8 +26,12 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
     $log.debug('Inside ProductDescriptionController');
 
     // Variables
-    var breadCrumb,
-        customerId = 700;
+    var breadCrumb, customerId = null;
+
+    if (sessionStorage.getItem("by_cust_id")) {
+      customerId = sessionStorage.getItem("by_cust_id")
+    }
+
     $scope.constant = INVENTORY;
     $scope.serverurl = SERVERURL_IMAGE.hostUrl;
     $scope.productId = $routeParams.productId;
@@ -304,14 +308,17 @@ define(['byProductApp', 'videoImageDirective'], function(byProductApp, videoImag
     
     function addProductToCart(productId) {
       $log.debug('Add product to cart');
-      for(var i = 0; i<$scope.uiData.productOptions.length; i++ ){
-    	  if($scope.selectedColor && $scope.uiData.productOptions[i].label == 'Color'){
-    		  productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedColor;
-    	  }
-    	  else if($scope.selectedSize && $scope.uiData.productOptions[i].label == 'Size'){
-    		  productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedSize;
-    	  }      	  
-      };
+      if($scope.uiData.productOptions && $scope.uiData.productOptions.length > 0){
+        for(var i = 0; i<$scope.uiData.productOptions.length; i++ ){
+          if($scope.selectedColor && $scope.uiData.productOptions[i].label == 'Color'){
+            productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedColor;
+          }
+          else if($scope.selectedSize && $scope.uiData.productOptions[i].label == 'Size'){
+            productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedSize;
+          }
+        };
+      }
+
      
      
       if ($scope.userRequiredQuantity >= 1 && $scope.inventoryType === INVENTORY.alwaysAvailable) {

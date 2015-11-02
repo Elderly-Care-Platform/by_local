@@ -8,11 +8,15 @@ define(['byProductApp'], function (byProductApp) {
                                    BreadcrumbService,
                                    StateParamsValidator,
                                    AddAddressService,
-                                   PAGE_URL) {
+                                   PAGE_URL, SessionIdService) {
 
         $log.debug('Inside SelectAddress Controller');
         var breadCrumb;
-        $scope.customerId = 700;
+        $scope.customerId = null;
+        if (sessionStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = sessionStorage.getItem("by_cust_id");
+        }
+
         $scope.getFilterAddress = getFilterAddress;
         $scope.address = {};
         $scope.shipToAddress = shipToAddress;
@@ -143,7 +147,7 @@ define(['byProductApp'], function (byProductApp) {
         'BreadcrumbService',
         'StateParamsValidator',
         'AddAddressService',
-        'PAGE_URL'];
+        'PAGE_URL', 'SessionIdService'];
 
     byProductApp.registerController('EditAddressController', EditAddressController);
     return EditAddressController;

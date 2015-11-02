@@ -1,7 +1,7 @@
 define([], function () {
 
   /* @ngInject */
-  function UtilFactory(
+  function UtilFactory($rootScope,
     $log,
     $window,
     CartService,
@@ -99,9 +99,10 @@ define([], function () {
       }
 
       function updateProductQuantitySuccess(result) {
-        $location.path('/cart/');
         console.log('updateProductQuantitySuccess JSON Data: ' + JSON.stringify(result));
-        $window.location.reload();
+        //$window.location.reload();
+        //CartService.updateCartDetail();
+        $rootScope.$broadcast('newItemAddedToCart', '');
       }
 
       // Failure

@@ -11,12 +11,17 @@ define(['byProductApp'], function (byProductApp) {
                             PAGE_URL,
                             SERVERURL_IMAGE,
                             CartService,
-                            DISCOUNT_TYPE) {
+                            DISCOUNT_TYPE, SessionIdService) {
 
         $log.debug('Inside CartController');
 
         // Variables
-        var customerId = 700;
+        var customerId = null;
+
+        if (sessionStorage.getItem("by_cust_id")) {
+            customerId = sessionStorage.getItem("by_cust_id");
+        }
+
         $scope.serverurl = SERVERURL_IMAGE.hostUrl;
         $scope.quantityAvailable = '';
         $scope.enterProperInput = false;
@@ -43,6 +48,7 @@ define(['byProductApp'], function (byProductApp) {
         $scope.selectAddress = selectAddress;
         $scope.promise = getCartDetails();
 
+
         function selectAddress(){
             $location.path('/selectAddress/');
         }
@@ -54,7 +60,7 @@ define(['byProductApp'], function (byProductApp) {
             if ($location.path() === PAGE_URL.cart) {
                 BreadcrumbService.setBreadCrumb(undefined, 'CART');
             }
-            checkCartAvailability(customerId);
+            checkCartAvailability();
             getFedexRateWebService();
         }
 
@@ -110,7 +116,7 @@ define(['byProductApp'], function (byProductApp) {
          * @param  {integer} customerId
          * @return {void}
          */
-        function checkCartAvailability(customerId) {
+        function checkCartAvailability() {
             $log.debug('Check cart availability');
             if (customerId === null) {
                 // Guest user
@@ -232,7 +238,10 @@ define(['byProductApp'], function (byProductApp) {
         function createCart(customerId) {
             $log.debug('Create a new Cart');
             var params = {};
-            params.customerId = customerId;
+            if (customerId && customerId !== null){
+                params.customerId = customerId;
+            }
+
             var createCartPromise = CartService.createCart(params)
                 .then(createCartSuccess, failure);
             $scope.promise = createCartPromise;
@@ -245,6 +254,10 @@ define(['byProductApp'], function (byProductApp) {
          */
         function createCartSuccess(result) {
             $log.debug('Success in creating Cart');
+            if(result && result.customer && result.customer.id){
+                sessionStorage.setItem("by_cust_id", result.customer.id);
+                customerId = result.customer.id;
+            }
             $scope.uiData.cartItems = result.orderItems;
             if (result.orderItems) {
                 $scope.uiData.totalCartItem = result.orderItems.length;
@@ -336,6 +349,30 @@ define(['byProductApp'], function (byProductApp) {
         $scope.$on('uiDataChanged', function (event, data) {
             $scope.uiData = data;
         });
+
+        $scope.$on('newItemAddedToCart', function (event, args) {
+            $scope.promise = getCartDetails();
+        });
+
+        $scope.$on('byUserLogin', function (event, args) {
+            customerId = null;
+            //$scope.promise = getCartDetails();
+
+            var params = {};
+            //params.customerId = customerId;
+            CartService.getCartDetail(params)
+                .then(cartAvailabilitySuccess, cartAvailabilityFailure);
+        });
+
+        $scope.$on('byUserLogout', function (event, args) {
+            customerId = null;
+            //$scope.promise = getCartDetails();
+
+            var params = {};
+            //params.customerId = customerId;
+            CartService.getCartDetail(params)
+                .then(cartAvailabilitySuccess, cartAvailabilityFailure);
+        });
     }
 
     CartController.$inject = ['$scope',
@@ -350,7 +387,7 @@ define(['byProductApp'], function (byProductApp) {
         'PAGE_URL',
         'SERVERURL_IMAGE',
         'CartService',
-        'DISCOUNT_TYPE'];
+        'DISCOUNT_TYPE', 'SessionIdService'];
 
     return CartController;
 });

@@ -49,7 +49,12 @@ define([], function () {
     return cartService;
 
     function getCartDetail(params) {
-      return this.$get(urls.forCartDetail(params));
+        if(params && params.customerId){
+            return this.$get(urls.forCartDetail(params));
+        }else{
+            return this.$get(urls.createCartForGuest(params));
+        }
+
     }
     function createCart(params) {
       if (params.customerId) {

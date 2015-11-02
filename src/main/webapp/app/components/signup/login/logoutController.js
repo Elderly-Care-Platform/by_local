@@ -1,5 +1,5 @@
 define(['byApp', 'byUtil'], function(byApp, byUtil) {
-    function LogoutController($scope,$location, $rootScope, $http, SessionIdService) {
+    function LogoutController($rootScope, $scope,$location, $rootScope, $http, SessionIdService) {
         if($rootScope.sessionId != '') {
             $location.path("/users/login");
         }
@@ -14,9 +14,12 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $http.defaults.headers.common.sess = "";
 
         $location.path("/users/login");
+        sessionStorage.removeItem("by_cust_id");
+        $rootScope.$broadcast('byUserLogout', '');
+
     }
 
-    LogoutController.$inject = ['$scope', '$location', '$rootScope' ,'$http','SessionIdService'];
+    LogoutController.$inject = ['$rootScope', '$scope', '$location', '$rootScope' ,'$http','SessionIdService'];
     byApp.registerController('LogoutController', LogoutController);
 
     return LogoutController;

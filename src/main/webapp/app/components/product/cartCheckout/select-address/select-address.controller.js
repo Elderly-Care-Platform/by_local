@@ -6,12 +6,15 @@ define(['byProductApp'], function (byProductApp) {
                                      SelectAddressService,
                                      CartService,
                                      BreadcrumbService,
-                                     PAGE_URL) {
+                                     PAGE_URL, SessionIdService) {
 
         $log.debug('Inside SelectAddress Controller');
 
         var breadCrumb;
-        $scope.customerId = 700;
+        $scope.customerId = null;
+        if (sessionStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = sessionStorage.getItem("by_cust_id");
+        }
         $scope.editAddress = editAddress;
         $scope.shipToAddress = shipToAddress;
         $scope.shipToNewAddress = shipToNewAddress;
@@ -76,7 +79,7 @@ define(['byProductApp'], function (byProductApp) {
         'SelectAddressService',
         'CartService',
         'BreadcrumbService',
-        'PAGE_URL'];
+        'PAGE_URL', 'SessionIdService'];
 
 
     byProductApp.registerController('SelectAddressController', SelectAddressController);

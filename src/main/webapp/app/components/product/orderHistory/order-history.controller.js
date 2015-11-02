@@ -19,7 +19,11 @@ define(['byProductApp'], function (byProductApp) {
         /**
          * TODO remove static customerId
          */
-        var breadCrumb, customerId = 700;
+        var breadCrumb, customerId = null;
+
+        if (sessionStorage.getItem("by_cust_id")) {
+            customerId = sessionStorage.getItem("by_cust_id")
+        }
         $scope.orderHistoryType = ORDER_HISTORY_TYPE;
         $scope.getOrderHistory = getOrderHistory;
         $scope.discountType = DISCOUNT_TYPE;

@@ -9,7 +9,7 @@ define(['byProductApp'], function (byProductApp) {
                                             PAGE_URL,
                                             CartService,
                                             AddAddressService,
-                                            ShoppingConfirmationService) {
+                                            ShoppingConfirmationService, SessionIdService) {
 
         $log.debug('Inside ShoppingConfirmation Controller');
 
@@ -37,7 +37,11 @@ define(['byProductApp'], function (byProductApp) {
             noCart: false,
             processingError: false
         };
-        $scope.customerId = 700;
+
+        $scope.customerId = null;
+        if (sessionStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = sessionStorage.getItem("by_cust_id");
+        }
         $scope.tabId = 1;
 
         //Functions
@@ -208,7 +212,7 @@ define(['byProductApp'], function (byProductApp) {
         'PAGE_URL',
         'CartService',
         'AddAddressService',
-        'ShoppingConfirmationService'];
+        'ShoppingConfirmationService', 'SessionIdService'];
     byProductApp.registerController('ShoppingConfirmationCtrl', ShoppingConfirmationCtrl);
     return ShoppingConfirmationCtrl;
 });

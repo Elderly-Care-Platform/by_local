@@ -77,7 +77,10 @@ define([], function () {
         for(productOption in productOptionParam){
         	productOptionString += "&"+productOption +"="+ encodeURIComponent(productOptionParam[productOption]);
         }
-        params["productOptions"] = productOptionString;
+        if(productOptionString.length > 0){
+          params["productOptions"] = productOptionString;
+        }
+
         CartService.addProductToCart(params)
         .then(addProductSuccess, failure);
       }
@@ -106,9 +109,11 @@ define([], function () {
       }
 
       // Failure
-      function failure() {
+      function failure(failError) {
         $log.debug('Failure');
-        alert("Please select the color and size of the product");
+        $rootScope.$broadcast('addToCartFailed', failError);
+        //console.log(failError);
+        //alert("Please select the color and size of the product");
       }
     }
 

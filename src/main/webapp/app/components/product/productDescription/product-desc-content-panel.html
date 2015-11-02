@@ -123,15 +123,17 @@
                      {{rateServiceMessage}}
                  </strong>
             </div>
-            
+            <div ng-if="addToCartFailedMsg.length > 0">
+                <font color="red">{{addToCartFailedMsg}}</font>
+            </div>
             <div class="by_productDetail_optionColor margin-bottom-10 margin-top-10">
-    			<div ng-repeat="productColor in uiData.productOptions" ng-if="productColor.label == 'Color'">
+    			<div ng-repeat="productColor in uiData.productOptions" ng-if="productColor.label.toLowerCase() == 'color'">
     				<div class="divLeft">Color: </div>
     	    		<span ng-repeat="color in productColor.allowedValues" ng-init="activeProductColor();">    			
     					<div class="divLeft by_productDetail_optionColor_size" 
     					data-color="{{color.attributeValue}}"
     						title="{{color.attributeValue.substr(color.attributeValue.lastIndexOf('-') + 1)}}" 
-    						style="background: {{color.attributeValue.substring(0,7)}}">
+    						style="background: {{color.attributeValue.substring(0,7)}}"  ng-click="productOptionSelected()">
     					</div>
     				</span>
     				<div class="clearfix"></div>
@@ -139,11 +141,11 @@
    			</div>
    			
    			 <div class="by_productDetail_optionColor margin-bottom-10">
-    			<div ng-repeat="productSize in uiData.productOptions" ng-if="productSize.label == 'Size'">
+    			<div ng-repeat="productSize in uiData.productOptions" ng-if="productSize.label.toLowerCase() == 'size'">
     				<div class="divLeft">Size: </div>
     	    		<span ng-repeat="size in productSize.allowedValues" ng-init="activeProductSize();">    			
     					<div class="divLeft by_productDetail_optionSize_size" 
-    					data-size="{{size.attributeValue}}">
+    					data-size="{{size.attributeValue}}" ng-click="productOptionSelected()">
     						{{size.attributeValue}}
     					</div>
     				</span>

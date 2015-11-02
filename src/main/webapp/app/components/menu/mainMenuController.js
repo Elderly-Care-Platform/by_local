@@ -66,7 +66,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
             function editCategoryOptions(categories, ancestorIdArr){
                 angular.forEach(categories, function(category, index){
                     $rootScope.menuCategoryMap[category.id] = category;
-                    category.displayMenuName = category.name;
+                    category.displayMenuName = category.name.replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
                     category.slug = category.urlKey;
                     category.module = 3;
                     category.ancestorIds = ancestorIdArr;

@@ -61,11 +61,16 @@
                 </span>
             </div>
             <div class="by_productDetail_devider"></div>
-            <div class="by_productDetail_contentPrice">
+            <div class="by_productDetail_contentPrice" ng-if="!adjustedPrice">
                 Our price : 
                 <strong>Rs. {{uiData.salePrice.amount}}</strong> 
                 <del><small>Rs. {{uiData.retailPrice.amount}}</small></del>
-                <span class="by_productDetail_contentPriceOffer"><strong>5% Off</strong></span>
+                <!--<span class="by_productDetail_contentPriceOffer"><strong>5% Off</strong></span>-->
+            </div>
+
+            <div class="by_productDetail_contentPrice" ng-if="adjustedPrice">
+                Our price :
+                <strong>Rs. {{adjustedPrice}}</strong>
             </div>
             <div class="by_productDetail_devider"></div>
            
@@ -133,7 +138,7 @@
     					<div class="divLeft by_productDetail_optionColor_size" 
     					data-color="{{color.attributeValue}}"
     						title="{{color.attributeValue.substr(color.attributeValue.lastIndexOf('-') + 1)}}" 
-    						style="background: {{color.attributeValue.substring(0,7)}}"  ng-click="productOptionSelected()">
+    						style="background: {{color.attributeValue.substring(0,7)}}"  ng-click="productOptionSelected(productColor, color)">
     					</div>
     				</span>
     				<div class="clearfix"></div>
@@ -145,7 +150,7 @@
     				<div class="divLeft">Size: </div>
     	    		<span ng-repeat="size in productSize.allowedValues" ng-init="activeProductSize();">    			
     					<div class="divLeft by_productDetail_optionSize_size" 
-    					data-size="{{size.attributeValue}}" ng-click="productOptionSelected()">
+    					data-size="{{size.attributeValue}}" ng-click="productOptionSelected(productSize, size)">
     						{{size.attributeValue}}
     					</div>
     				</span>

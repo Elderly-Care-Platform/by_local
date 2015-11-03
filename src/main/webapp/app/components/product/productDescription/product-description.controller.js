@@ -40,6 +40,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.pincodeAvailablity = '';
         $scope.addToCartDisable = false;
         $scope.addToCartFailedMsg = "";
+        $scope.adjustedPrice = null;
         var productOptions = {};
 
         // uiData mapping
@@ -263,8 +264,11 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         }
 
 
-        function productOptionSelected() {
+        function productOptionSelected(prodOption, selectedVal) {
             $scope.addToCartFailedMsg = "";
+            if(prodOption.attributeName === "productOption.SIZE"){
+                $scope.adjustedPrice = parseFloat($scope.uiData.salePrice.amount) + parseFloat(selectedVal.priceAdjustment.amount);
+            }
         }
         /**
          * Checking the Cash on delivery pincodes if available or not

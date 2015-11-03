@@ -21,8 +21,8 @@ define(['byProductApp'], function (byProductApp) {
          */
         var breadCrumb, customerId = null;
 
-        if (sessionStorage.getItem("by_cust_id")) {
-            customerId = sessionStorage.getItem("by_cust_id")
+        if (localStorage.getItem("by_cust_id")) {
+            customerId = localStorage.getItem("by_cust_id")
         }
         $scope.orderHistoryType = ORDER_HISTORY_TYPE;
         $scope.getOrderHistory = getOrderHistory;

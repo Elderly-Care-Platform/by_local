@@ -19,8 +19,8 @@ define(['byProductApp'], function (byProductApp) {
         $scope.customerId = null;
         $scope.addAddress = addAddress;
 
-        if (sessionStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
-            $scope.customerId = sessionStorage.getItem("by_cust_id");
+        if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = localStorage.getItem("by_cust_id");
         }
 
         /**

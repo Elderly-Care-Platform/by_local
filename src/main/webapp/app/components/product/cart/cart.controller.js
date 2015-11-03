@@ -18,8 +18,8 @@ define(['byProductApp'], function (byProductApp) {
         // Variables
         var customerId = null;
 
-        if (sessionStorage.getItem("by_cust_id")) {
-            customerId = sessionStorage.getItem("by_cust_id");
+        if (localStorage.getItem("by_cust_id")) {
+            customerId = localStorage.getItem("by_cust_id");
         }
 
         $scope.serverurl = SERVERURL_IMAGE.hostUrl;
@@ -61,7 +61,7 @@ define(['byProductApp'], function (byProductApp) {
                 BreadcrumbService.setBreadCrumb(undefined, 'CART');
             }
             checkCartAvailability();
-            getFedexRateWebService();
+            //getFedexRateWebService();
         }
 
         function getFedexRateWebService() {
@@ -255,7 +255,7 @@ define(['byProductApp'], function (byProductApp) {
         function createCartSuccess(result) {
             $log.debug('Success in creating Cart');
             if(result && result.customer && result.customer.id){
-                sessionStorage.setItem("by_cust_id", result.customer.id);
+                localStorage.setItem("by_cust_id", result.customer.id);
                 customerId = result.customer.id;
             }
             $scope.uiData.cartItems = result.orderItems;

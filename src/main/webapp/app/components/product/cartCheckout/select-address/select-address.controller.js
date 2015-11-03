@@ -12,8 +12,8 @@ define(['byProductApp'], function (byProductApp) {
 
         var breadCrumb;
         $scope.customerId = null;
-        if (sessionStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
-            $scope.customerId = sessionStorage.getItem("by_cust_id");
+        if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = localStorage.getItem("by_cust_id");
         }
         $scope.editAddress = editAddress;
         $scope.shipToAddress = shipToAddress;

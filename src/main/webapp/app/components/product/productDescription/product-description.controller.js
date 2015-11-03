@@ -27,8 +27,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         // Variables
         var breadCrumb, customerId = null;
 
-        if (sessionStorage.getItem("by_cust_id")) {
-            customerId = sessionStorage.getItem("by_cust_id")
+        if (localStorage.getItem("by_cust_id")) {
+            customerId = localStorage.getItem("by_cust_id")
         }
 
         $scope.constant = INVENTORY;

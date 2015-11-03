@@ -225,7 +225,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 $scope.selectedTab = 's';
             } else if(param === 'd' && $scope.housingTotal > 0){
                 $scope.selectedTab = 'h';
-            }  else if(param === 'd' && $scope.productTotal > 0){
+            }  else if(param === 'd' && $scope.productsTotal > 0){
                 $scope.selectedTab = 'p';
             }else{
                 $scope.selectedTab = param;

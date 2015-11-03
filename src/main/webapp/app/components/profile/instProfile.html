@@ -53,7 +53,7 @@
                 <div class="profileMainContent">
                     <div class="profileContentTitle divLeft" style="width: calc(100% - 92px);"
                          ng-if="institutionProfile.basicProfileInfo.firstName">
-                        {{institutionProfile.basicProfileInfo.firstName}}
+                        {{institutionProfile.basicProfileInfo.firstName.toLowerCase()}}
                     </div>
                     <div class="by_profile_verified divRight" ng-if="institutionProfile.verified == true"
                          data-toggle="tooltip" ng-init="tooltipText();"

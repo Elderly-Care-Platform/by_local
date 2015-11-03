@@ -19,7 +19,7 @@
 	font-weight: 600;
 	line-height: 25px;
 	text-align: left;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	word-wrap: break-word;
 }
 

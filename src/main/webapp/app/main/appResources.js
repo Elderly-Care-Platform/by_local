@@ -229,6 +229,12 @@ define(["byApp", "angular"], function (byApp, angular) {
             get: {method: 'GET'}
         })
     });
+    
+    /*var ProductsPageSearch = byServices.factory('ProductsPageSearch', function ($resource) {
+    	 return $resource('http://qa.beautifulyears.com:8083/beautifulyears/api/v1/catalog/products', {}, {
+    	      query: {method:'GET'}
+    	    });
+    });*/
 
     var searchByDiscussType = byServices.factory('DiscussSearchForDiscussType', function ($resource) {
         return $resource(apiPrefix + 'api/v1/search/:term/:discussType', {}, {

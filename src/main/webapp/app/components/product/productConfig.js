@@ -2,8 +2,8 @@ define([], function () {
     function BYProductConfig(byapp) {
         byapp.constant('APPLICATION', {
             // host: 'http://aspiresoftware.co.in:8080/beautifulyears/api/v1',
-            host: 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1',
-            //host: 'http://localhost:8080/beautifulyears/api/v1',
+//            host: 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1',
+            host: 'http://localhost:8080/beautifulyears/api/v1',
             // host: 'http://192.168.1.36:8080/api/v1',
             cache: 'byCache',
             paramCache: 'byParamCache',

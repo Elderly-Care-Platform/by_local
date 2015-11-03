@@ -109,15 +109,18 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         };
         
         $scope.getProductsData = function(page, size){
-        	$http({method:'GET', url:'http://qa.beautifulyears.com:8083/beautifulyears/api/v1/catalog/search/products', params:{q: $rootScope.term, 'page': page, 'pageSize': size}}).then(function(response) {
+        	page = page + 1;
+        	$http({method:'GET', url:'http://localhost:8080/beautifulyears/api/v1/catalog/search/products', params:{q: $rootScope.term, 'page': page, 'pageSize': size}}).then(function(response) {
                 console.log(response);
                 $scope.products = response.data;
-                $scope.productsTotal = response.data.totalResults;
                 $scope.productPagination = {};
                 $scope.productPagination.totalPosts = response.data.totalResults;
                 $scope.productPagination.noOfPages = Math.ceil(response.data.totalResults / response.data.pageSize);
                 $scope.productPagination.currentPage = response.data.page;
                 $scope.productPagination.pageSize = $scope.pageSize;
+                
+
+                $scope.productsTotal = response.data.totalResults;
                 function regexCallback(p1, p2, p3, p4) {
                     return ((p2 == undefined) || p2 == '') ? p1 : '<i class="highlighted-text" >' + p1 + '</i>';
                 }
@@ -141,7 +144,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 $scope.getDiscussData(0, $scope.pageSize);
                 $scope.getServicesData(0, $scope.pageSize);
                 $scope.getHousingData(0, $scope.pageSize);
-                $scope.getProductsData(1, $scope.pageSize);
+                $scope.getProductsData(0, $scope.pageSize);
             }
         };
         initSearch();

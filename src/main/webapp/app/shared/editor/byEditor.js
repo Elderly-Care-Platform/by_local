@@ -53,6 +53,7 @@ BY.byEditor.addEditor = function(param, initCallback){
                       {title: 'New page', value: '_blank'}
                 ],
         toolbar: toolbar,
+        inline_styles : false,
         setup : function(ed) {
             var placeholder = $('#' + ed.id).attr('placeholder');
             if (typeof placeholder !== 'undefined' && placeholder !== false) {

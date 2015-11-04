@@ -19,7 +19,7 @@
 	font-weight: 600;
 	line-height: 25px;
 	text-align: left;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	word-wrap: break-word;
 }
 
@@ -429,4 +429,29 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	background:#ccc;
 	margin-top:-10px;
 	margin-bottom:10px;
+}
+#profile-desc p, #profile-desc span
+{
+	font-size:16px !important;
+	font-family: century_gothic !important;
+}
+#adminVerified
+{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 16px;
+	padding:10px 15px 15px 15px;
+	border:1px solid #ccc;
+	background-color: #f2f2f2;
+	font-size: 15px;
+}
+#adminVerified span, #adminVerified p
+{
+	display: inline-block;
+	font-size:15px !important;
+	font-family: century_gothic !important;
+}
+#adminVerified img
+{
+	max-width: 100%;
 }

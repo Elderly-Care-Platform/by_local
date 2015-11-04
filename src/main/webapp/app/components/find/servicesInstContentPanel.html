@@ -3,113 +3,117 @@
      ng-if="service.systemTags.length > 0" ng-init="service.showMoreServices=false;">
     <div class="serviceFeatured" ng-if="service.featured == true"></div>
 
-	<div class="by_serviceCard_profileImage"
-		aria-label="{{service.basicProfileInfo.firstName}}"
-		ng-if="service.basicProfileInfo.profileImage != null"
-		style="background-image: url('{{service.basicProfileInfo.profileImage.titleImage}}');">
-		<img
-			background-fallback-src="assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%"
-			ng-src="{{service.basicProfileInfo.profileImage.titleImage}}"
-			style="display: none;">
-	</div>
-	<div class="by_serviceCard_profileImage"
-		aria-label="{{service.basicProfileInfo.firstName}}"
-		ng-if="service.basicProfileInfo.profileImage == null"
-		style="background-image: url('assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%');">
-	</div>
-	
-	<div class="by_serviceCard_content">
-		<p class="by_serviceCard_contentHead"> {{service.basicProfileInfo.firstName}}</p>
-		<div class="by_serviceCard_contentLeft">
-			<div 
-				class="by_serviceCard_contentIconWrap by_serviceCard_contentIconWrapAddHeight"
-				ng-if="service.basicProfileInfo.primaryUserAddress.locality ||
+    <div class="by_serviceCard_profileImage"
+         aria-label="{{service.basicProfileInfo.firstName}}"
+         ng-if="service.basicProfileInfo.profileImage != null"
+         style="background-image: url('{{service.basicProfileInfo.profileImage.titleImage}}');">
+        <img
+                background-fallback-src="assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%"
+                ng-src="{{service.basicProfileInfo.profileImage.titleImage}}"
+                style="display: none;">
+    </div>
+    <div class="by_serviceCard_profileImage"
+         aria-label="{{service.basicProfileInfo.firstName}}"
+         ng-if="service.basicProfileInfo.profileImage == null"
+         style="background-image: url('assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%');">
+    </div>
+
+    <div class="by_serviceCard_content">
+        <p class="by_serviceCard_contentHead text-capitalize"> {{service.basicProfileInfo.firstName.toLowerCase()}}</p>
+
+        <div class="by_serviceCard_contentLeft">
+            <div
+                    class="by_serviceCard_contentIconWrap by_serviceCard_contentIconWrapAddHeight"
+                    ng-if="service.basicProfileInfo.primaryUserAddress.locality ||
                  service.basicProfileInfo.primaryUserAddress.city">
-				<div>
-					<i class="fa fa-map-marker divLeft"></i>
-					<div class="divRight by_serviceCard_address">
-						<span ng-if="service.basicProfileInfo.primaryUserAddress.locality">  {{service.basicProfileInfo.primaryUserAddress.locality}},<br/></span>
+                <div>
+                    <i class="fa fa-map-marker divLeft"></i>
+
+                    <div class="divRight by_serviceCard_address">
+                        <span ng-if="service.basicProfileInfo.primaryUserAddress.locality">  {{service.basicProfileInfo.primaryUserAddress.locality}},<br/></span>
                         <span ng-if="service.basicProfileInfo.primaryUserAddress.city">  {{service.basicProfileInfo.primaryUserAddress.city}} </span>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
 
-			<div class="by_serviceCard_contentIconWrap">
+            <div class="by_serviceCard_contentIconWrap">
 				<span ng-if="service.serviceProviderInfo.homeVisits"><b>Available
-				</b>for home visit</span> 
+                </b>for home visit</span>
 				<span ng-if="!service.serviceProviderInfo.homeVisits"><b>Not
-						available</b> for home visit</span>
-				<div class="clearfix"></div>
-			</div>
+                    available</b> for home visit</span>
 
-			<div class="by_serviceCard_contentVerified"
-				ng-if="service.verified == true" ng-init="tooltipText();"
-				ng-click="$event.stopPropagation();"
-				title="Information on service providers, professionals and senior living options has been 
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="by_serviceCard_contentVerified" ng-if="service.verified == true" ng-init="tooltipText();" ng-click="$event.stopPropagation();"
+                 title="Information on service providers, professionals and senior living options has been
 				verified by a BeautifulYears representative  at the time of registration on BeautifulYears.com.
 				 Verification details appear in the review section for the specific establishment as a 
 				 BeautifulYears Team review."
-				data-toggle="tooltip"></div>
-		</div>
-		<div class="by_serviceCard_contentRight">
-			<div class="by_serviceCard_contentIconWrap">				
-					<span>Service in</span>
-					<span
-						ng-repeat="category in service.serviceProviderInfo.services track by $index"
-						ng-if="$index < 3"><a class="ng-binding"
-						di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
-							{{$root.menuCategoryMap[category].displayMenuName}}</a><span ng-if="$index<service.serviceProviderInfo.services.length - 1">,</span></span>
-					<span
-						ng-repeat="category in service.serviceProviderInfo.services track by $index"
-						ng-if="$index >= 3 && service.showMoreServices===true"><a
-						class="ng-binding"
-						di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
-							{{$root.menuCategoryMap[category].displayMenuName}}</a><span ng-if="$index<service.serviceProviderInfo.services.length - 1">,</span></span>
-					<span class="list-inline serviceCardMoreLinks"
-						ng-if="service.serviceProviderInfo.services.length > 3"><span
-						ng-if="service.showMoreServices===false">...</span></span>				
-			</div>
-			
+                 data-toggle="tooltip"></div>
+        </div>
+        <div class="by_serviceCard_contentRight" validate-by-categories="service.serviceProviderInfo.services">
+            <div class="by_serviceCard_contentIconWrap">
+                <span ng-if="service.serviceProviderInfo.services.length > 0">Service in</span>
+                <span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index < 3">
+                    <a class="ng-binding" di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+                        {{$root.menuCategoryMap[category].displayMenuName}}
+                    </a>
+                    <span ng-if="$index < service.serviceProviderInfo.services.length - 1">,</span>
+                </span>
+                <!--<span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index >= 3 && service.showMoreServices===true">-->
+                    <!--<a class="ng-binding"-->
+                       <!--di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">-->
+                        <!--{{$root.menuCategoryMap[category].displayMenuName}}-->
+                    <!--</a>-->
+                    <!--<span ng-if="$index<service.serviceProviderInfo.services.length - 1">,</span>-->
+                <!--</span>-->
+                <span class="list-inline serviceCardMoreLinks" ng-if="service.serviceProviderInfo.services.length >= 3">
+                    <span ng-if="service.showMoreServices===false">...</span>
+                </span>
+            </div>
 
-			<div class="by_serviceCard_contentIconWrap"
-				ng-if="service.ratingCount > 0">
-				<div class="divLeft" ng-if="service.ratingPercentage">
-					<i class="rounded-x rateValue"
-						rate-calculator="{{service.ratingPercentage}}"></i>
-				</div>
-				<div class="divRight">
-					Rated by <a>{{service.ratingCount}}
-						user<xy ng-if="service.ratingCount > 1">s</xy>
-					</a>
-				</div>
-				<div class="clearfix"></div>
-			</div>
 
-			<div class="by_serviceCard_contentIconWrap"
-				ng-if="service.ratingCount == 0">
-				<div class="divLeft">
-					<div class="icon-rate" title="Rate"></div>
-				</div>
-				<div class="divRight">Be the first to rate</div>
-				<div class="clearfix"></div>
-			</div>
+            <div class="by_serviceCard_contentIconWrap" ng-if="service.ratingCount > 0">
+                <div class="divLeft" ng-if="service.ratingPercentage">
+                    <i class="rounded-x rateValue"
+                       rate-calculator="{{service.ratingPercentage}}"></i>
+                </div>
+                <div class="divRight">
+                    Rated by <a>{{service.ratingCount}}
+                    user
+                    <xy ng-if="service.ratingCount > 1">s</xy>
+                </a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
 
-			<div class="by_serviceCard_contentIconWrap"
-				ng-if="service.reviewCount > 0">
-				<div class="divLeft">
-					<i class="rounded-x fa fa-review-icon"></i>
-				</div>
-				<div class="divRight">
-					{{service.reviewCount}} review<span ng-if="service.reviewCount > 1">s</span>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		<div class="clearfix"></div>
-		 <a ng-href="#!/profile/4/{{service.userId}}" class="divRight by_serviceCard_readmore">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
-	</div>
+            <div class="by_serviceCard_contentIconWrap"
+                 ng-if="service.ratingCount == 0">
+                <div class="divLeft">
+                    <div class="icon-rate" title="Rate"></div>
+                </div>
+                <div class="divRight">Be the first to rate</div>
+                <div class="clearfix"></div>
+            </div>
 
-	<div class="clearfix"></div>
+            <div class="by_serviceCard_contentIconWrap"
+                 ng-if="service.reviewCount > 0">
+                <div class="divLeft">
+                    <i class="rounded-x fa fa-review-icon"></i>
+                </div>
+                <div class="divRight">
+                    {{service.reviewCount}} review<span ng-if="service.reviewCount > 1">s</span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <a ng-href="#!/profile/4/{{service.userId}}" class="divRight by_serviceCard_readmore">Details<i
+                class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
+    </div>
+
+    <div class="clearfix"></div>
 
 </div>

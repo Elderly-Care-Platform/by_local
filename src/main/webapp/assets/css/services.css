@@ -29,14 +29,13 @@
 }
 .by_serviceCard_content
 {
-	width:calc(100% - 229px);
+	width:calc(100% - 228px);
 	float:left;
 	height:auto;
 	padding-left:2%;
 	padding-top:15px;
 	position:relative;
 	background-color:#fff;
-    border-left:1px solid #E6E6E6;
 }
 .by_serviceCard_contentHead
 {

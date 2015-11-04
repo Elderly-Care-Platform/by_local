@@ -7,7 +7,7 @@ define(["byApp"], function(byApp) {
         	$event.stopPropagation();
             if(FB && sharedObj){
                 caption = sharedObj.title ? sharedObj.title: "BeautifulYears";
-                picture = BY.byUtil.getImage(sharedObj);
+                picture = BY.byUtil.getImage(sharedObj,true);
                 description = sharedObj.text ? $(sharedObj.text).text() : "";
 
                 if((!description || description =="") && (sharedObj.linkInfo)){

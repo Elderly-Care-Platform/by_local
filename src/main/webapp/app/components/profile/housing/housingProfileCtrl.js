@@ -4,6 +4,15 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.housingFacilityId = $scope.$parent.housingFacilityId;
         $scope.slideIndex = 1;
         $scope.profileData = null;
+        
+       
+        var metaTagParams = {
+        		title: $scope.housingProfile.basicProfileInfo.firstName ? $scope.housingProfile.basicProfileInfo.firstName : "Corporation Profile - Beautiful Years",
+                imageUrl: $scope.housingProfile.basicProfileInfo.profileImage? $scope.housingProfile.basicProfileInfo.profileImage.original : "",
+                description: $scope.housingProfile.basicProfileInfo.description ? $scope.housingProfile.basicProfileInfo.description : "",
+                keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
 
 
         if ($scope.housingFacilityId) {
@@ -11,6 +20,13 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
                 $scope.facility = response.data;
                 $scope.profileData = $scope.facility;
                 broadCastData.update(response.data);
+                var metaTagParams = {
+                		title: $scope.facility.name ? $scope.facility.name : "Housing Profile - Beautiful Years",
+                        imageUrl: $scope.facility.profileImage? $scope.facility.profileImage.original : "",
+                        description: $scope.facility.description ? $scope.facility.description : "",
+                        keywords:[]
+                    }
+                    BY.byUtil.updateMetaTags(metaTagParams);
             }).error(function (errorResponse) {
                 console.log(errorResponse);
             });

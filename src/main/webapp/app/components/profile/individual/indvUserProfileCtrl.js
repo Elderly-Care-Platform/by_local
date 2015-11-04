@@ -3,6 +3,22 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $scope.individualProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
         //$scope.userName = $scope.$parent.userName;
+        
+        var title = "Individual Profile - Beautiful Years" ;
+    	if($scope.individualProfile.basicProfileInfo.firstName){
+    		title = $scope.individualProfile.basicProfileInfo.firstName;
+    		if($scope.individualProfile.individualInfo.lastName){
+    			title+= " "+$scope.individualProfile.individualInfo.lastName;
+    		}
+    	}
+        
+        var metaTagParams = {
+        		title: title,
+                imageUrl: $scope.individualProfile.basicProfileInfo.profileImage? $scope.individualProfile.basicProfileInfo.profileImage.original : "",
+                description: $scope.individualProfile.basicProfileInfo.description ? $scope.individualProfile.basicProfileInfo.description : "",
+                keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
 
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){

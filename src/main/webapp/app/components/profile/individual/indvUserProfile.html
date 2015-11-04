@@ -52,10 +52,10 @@
                 <div class="profileMainContent">
                     <div class="profileContentTitle">
 						<span>
-							{{individualProfile.basicProfileInfo.firstName}}
-							{{individualProfile.individualInfo.lastName}}
+							{{individualProfile.basicProfileInfo.firstName.toLowerCase()}}
+							{{individualProfile.individualInfo.lastName.toLowerCase()}}
                             <span style="font-weight: normal;">
-                                <span validate-user-name="{{discuss.username}}">({{userName}})</span>
+                                <span validate-user-name="{{discuss.username}}">({{userName.toLowerCase()}})</span>
                             </span>
 						</span>
                         <div style="clear: both; height: 6px;"></div>

@@ -33,7 +33,7 @@
 	</div>
 	
 	<div class="by_serviceCard_content">
-		<p class="by_serviceCard_contentHead"> {{service.basicProfileInfo.firstName}}</p>
+		<p class="by_serviceCard_contentHead text-capitalize"> {{service.basicProfileInfo.firstName.toLowerCase()}}</p>
 		<div class="by_serviceCard_contentLeft">
 			<div 
 				class="by_serviceCard_contentIconWrap by_serviceCard_contentIconWrapAddHeight"
@@ -72,30 +72,32 @@
 				 BeautifulYears Team review."
 				data-toggle="tooltip"></div>
 		</div>
-		<div class="by_serviceCard_contentRight">
+		<div class="by_serviceCard_contentRight" validate-by-categories="service.serviceProviderInfo.services">
 			<div class="by_serviceCard_contentIconWrap">				
-					<span>Service in</span>
-					<span
-						ng-repeat="category in service.serviceProviderInfo.services track by $index"
-						ng-if="$index < 3"><a class="ng-binding"
-						di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
-							{{$root.menuCategoryMap[category].displayMenuName}}</a><span ng-if="$index<service.serviceProviderInfo.services.length - 1">,</span></span>
-					<span
-						ng-repeat="category in service.serviceProviderInfo.services track by $index"
-						ng-if="$index >= 3 && service.showMoreServices===true"><a
-						class="ng-binding"
-						di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
-							{{$root.menuCategoryMap[category].displayMenuName}}</a><span ng-if="$index<service.serviceProviderInfo.services.length - 1">,</span></span>
-					<span class="list-inline serviceCardMoreLinks"
-						ng-if="service.serviceProviderInfo.services.length > 3"><span
-						ng-if="service.showMoreServices===false">...</span></span>				
+				<span ng-if="service.serviceProviderInfo.services.length > 0">Service in</span>
+				<span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index < 3">
+					<a class="ng-binding"
+					   di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+						{{$root.menuCategoryMap[category].displayMenuName}}
+					</a><span ng-if="$index < service.serviceProviderInfo.services.length - 1">,</span>
+				</span>
+
+				<span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index >= 3 && service.showMoreServices===true">
+					<a class="ng-binding"
+					   di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+						{{$root.menuCategoryMap[category].displayMenuName}}</a>
+					<span ng-if="$index < service.serviceProviderInfo.services.length - 1">,</span>
+				</span>
+				<span class="list-inline serviceCardMoreLinks" ng-if="service.serviceProviderInfo.services.length > 3">
+					<span ng-if="service.showMoreServices===false">...</span>
+				</span>
 			</div>
 
-			<div class="by_serviceCard_contentIconWrap"
-				ng-if="service.serviceProviderInfo.specialities">
-				<span ng-repeat="spec in service.serviceProviderInfo.specialities"
-					class=" margin-bottom-20"><span ng-if="$first">Speciality:</span>
-					<span ng-repeat="name in spec" ><b>{{name.displayMenuName}}</b></span></span>
+			<div class="by_serviceCard_contentIconWrap" ng-if="service.serviceProviderInfo.specialities">
+				<span ng-repeat="spec in service.serviceProviderInfo.specialities" class=" margin-bottom-20">
+					<span ng-if="$first">Speciality:</span>
+					<span ng-repeat="name in spec" ><b>{{name.displayMenuName}}</b></span>
+				</span>
 			</div>
 
 			<div class="by_serviceCard_contentIconWrap"

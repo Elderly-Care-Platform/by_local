@@ -551,19 +551,56 @@ define(["byApp", "angular"], function (byApp, angular) {
         }
     });
 
-    byApp.directive('randomImage', [
-    function() {
+
+    byApp.directive('validateByCategories', function($rootScope){
         return {
-            restrict: 'A',
-            link: function($scope, element, attrs) {
-                var rand = Math.floor((Math.random()*10)+1);
+            scope: {
+                validateByCategories: '=',
+            },
+            link: function (scope) {
+                var categoryArr = [];
+                for(var i=0; i<scope.validateByCategories.length; i++){
+                    if($rootScope.menuCategoryMap[scope.validateByCategories[i]]){
+                        categoryArr.push(scope.validateByCategories[i]);
+                    }
+                }
+                scope.validateByCategories = categoryArr;
 
-                $(element).attr('src', 'assets/img/product/image_0'+rand+'.jpg?versionTimeStamp=%PROJECT_VERSION%');
+
+                //var oldVal = scope.obj;
+                //element.autocomplete({
+                //    source: scope.options,
+                //    select: function (event, item) {
+                //        $timeout(function () {
+                //            element.trigger(event, item);
+                //            item.item.selected = true;
+                //            scope.onSelectCallback(item.item, scope.obj, oldVal);
+                //        }, 0);
+                //    },
+                //    change: function(event, item){
+                //        console.log(item);
+                //        if(scope.onChangeCallback){
+                //            scope.onChangeCallback(item.item, scope.obj, oldVal);
+                //        }
+                //    }
+                //});
             }
-        }
+        };
+    });
 
-    }
-]);
+    byApp.directive('randomImage', [
+        function () {
+            return {
+                restrict: 'A',
+                link: function ($scope, element, attrs) {
+                    var rand = Math.floor((Math.random() * 10) + 1);
+
+                    $(element).attr('src', 'assets/img/product/image_0' + rand + '.jpg?versionTimeStamp=%PROJECT_VERSION%');
+                }
+            }
+
+        }
+    ]);
     
 });
 

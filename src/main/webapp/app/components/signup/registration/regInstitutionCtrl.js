@@ -186,12 +186,14 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
         var getSystemTagList = function(data){
             function rec(data){
                 angular.forEach(data, function(menu, index){
-                    systemTagList[menu.id] = menu.tags;
-                    if(menu.ancestorIds.length > 0){
-                        for(var j=0; j < menu.ancestorIds.length; j++){
-                            var ancestordata = {};
-                            ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
-                            rec(ancestordata);
+                    if(menu && $rootScope.menuCategoryMap[menu.id]){
+                        systemTagList[menu.id] = menu.tags;
+                        if(menu.ancestorIds.length > 0){
+                            for(var j=0; j < menu.ancestorIds.length; j++){
+                                var ancestordata = {};
+                                ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
+                                rec(ancestordata);
+                            }
                         }
                     }
                 })
@@ -210,7 +212,9 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
             $scope.submitted = true;
             $scope.minCategoryError = false;
             $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
-                return value.id;
+                if(value && $rootScope.menuCategoryMap[value.id]){
+                    return value.id;
+                }
             });
 
 

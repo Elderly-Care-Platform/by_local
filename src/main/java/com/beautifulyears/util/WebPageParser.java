@@ -218,7 +218,9 @@ public class WebPageParser {
 		int imgAdded = 0;
 		// Document doc = Jsoup.connect(url).get();
 		Elements images = doc.select("img");
-		Map<Long, String> map = new TreeMap<Long, String>();
+		List<String> ret = new ArrayList<String>();
+		List<String> smallImagesList = new ArrayList<String>();
+		
 		int count = 0;
 		for (Element el : images) {
 
@@ -228,14 +230,19 @@ public class WebPageParser {
 			long size = getImageSize(el.attr("src"));
 			if (size > 5000) {
 				System.out.println("adding");
-				map.put(size, el.attr("src"));
+				ret.add(el.attr("src"));
 				imgAdded++;
+			}else{
+				smallImagesList.add(el.attr("src"));
 			}
 			count++;
 
 		}
-		List<String> ret = new ArrayList<>(map.values());
-		Collections.reverse(ret);
+		while(ret.size() < imageQuantity && smallImagesList.size() > 0){
+			ret.add(smallImagesList.get(0));
+			smallImagesList.remove(0);
+		}
+		
 		return ret;
 	}
 
@@ -244,7 +251,7 @@ public class WebPageParser {
 		try {
 			URL src = new URL(url);
 			size = src.openConnection().getContentLength();
-			System.out.println(size);
+			System.out.println(url+"->"+size);
 		} catch (Exception e) {
 
 		}

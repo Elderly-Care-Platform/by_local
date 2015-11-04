@@ -4,6 +4,24 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.gender =  BY.config.profile.userGender[$scope.individualProfile.individualInfo.sex];
         $scope.slideIndex = 1;
         var reviewDetails = new ReviewRateProfile();
+        
+        
+        
+        var title = "Professional Profile - Beautiful Years" ;
+        	if($scope.individualProfile.basicProfileInfo.firstName){
+        		title = $scope.individualProfile.basicProfileInfo.firstName;
+        		if($scope.individualProfile.individualInfo.lastName){
+        			title+= " "+$scope.individualProfile.individualInfo.lastName;
+        		}
+        	}
+        
+        var metaTagParams = {
+        		title:  title,
+                imageUrl: $scope.individualProfile.basicProfileInfo.profileImage? $scope.individualProfile.basicProfileInfo.profileImage.original : "",
+                description: $scope.individualProfile.basicProfileInfo.description ? $scope.individualProfile.basicProfileInfo.description : "",
+                 keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
 
         $scope.slideGallery = function(dir){
             if($scope.slideIndex<1){
@@ -52,7 +70,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
 
         $scope.showReviews = function(){
             //Get reviews by all user for this professional
-            $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+            $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, verified : false, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviews = response.data.replies;
                 if($scope.reviews.length > 0){
                     require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
@@ -65,6 +83,23 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         };
 
         $scope.showReviews();
+
+        $scope.showReviewsVerified = function(){
+            //Get reviews by all user for this professional
+            $scope.reviews = reviewDetails.$get({associatedId:$scope.individualProfile.id, verified : true, reviewContentType:$scope.$parent.reviewContentType}, function(response){
+                $scope.reviewsVerify = response.data.replies;
+                if($scope.reviewsVerify.length > 0){
+                	$scope.flags.isByAdminVerified = true;
+                    require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl){
+                        $scope.$apply();
+                    });
+                }
+            }, function(error){
+                console.log(error)
+            })
+        };
+
+        $scope.showReviewsVerified();
     }
 
     ProfUserProfileCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams', 'ReviewRateProfile', '$sce'];

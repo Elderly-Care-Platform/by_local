@@ -48,7 +48,7 @@
             <div ng-if="housingFacilityId" class="col-md-7 col-xs-7  by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
                 <div class="profileMainContent">
                     <div class="profileContentTitle divLeft" ng-if="facility.name" style="width: calc(100% - 92px);">
-                        {{facility.name}}
+                        {{facility.name.toLowerCase()}}
                     </div>
                     <div class="by_profile_verified divRight" ng-if="facility.verified == true" data-toggle="tooltip" ng-init="tooltipText();" 
                     ng-click="$event.stopPropagation();" 
@@ -256,7 +256,7 @@
 
 				<div class="col-md-7 col-xs-7 by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
                     <div class="profileContentTitle" ng-if="housingProfile.basicProfileInfo.firstName">
-                        {{housingProfile.basicProfileInfo.firstName}}
+                        {{housingProfile.basicProfileInfo.firstName.toLowerCase()}}
                         <div style="clear: both; height: 6px;"></div>
                     </div>
 
@@ -303,7 +303,7 @@
                 <div class="col-md-12 bg-color-grey2" style=" margin-top: 12px; "></div>
             </div>
 
-            <div ng-if="reviews && reviews.length > 0 " class="row">
+            <div ng-if="reviews && reviews.length > 0" class="row">
                 <div class="col-md-12 bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
                 <div class="col-md-12  margin-bottom-20 review-rate-header"
                      style="padding-left:21px; padding-right:21px;">

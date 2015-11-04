@@ -14,7 +14,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $http.defaults.headers.common.sess = "";
 
         $location.path("/users/login");
-        sessionStorage.removeItem("by_cust_id");
+        localStorage.removeItem("by_cust_id");
         $rootScope.$broadcast('byUserLogout', '');
 
     }

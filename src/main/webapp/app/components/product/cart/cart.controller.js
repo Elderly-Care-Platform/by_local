@@ -143,6 +143,7 @@ define(['byProductApp'], function (byProductApp) {
         function cartAvailabilitySuccess(result) {
             $log.debug('Success in getting cart');
             $scope.uiData.orderAdjustments = result.orderAdjustments;
+
             if (!result.orderItems && result.orderAdjustments) {
                 var params = {};
                 params.customerId = customerId;
@@ -256,6 +257,7 @@ define(['byProductApp'], function (byProductApp) {
             $log.debug('Success in creating Cart');
             if(result && result.customer && result.customer.id){
                 localStorage.setItem("by_cust_id", result.customer.id);
+                localStorage.setItem("by_cust_cart_id", result.id);
                 customerId = result.customer.id;
             }
             $scope.uiData.cartItems = result.orderItems;
@@ -340,6 +342,17 @@ define(['byProductApp'], function (byProductApp) {
             }
         }
 
+
+        function mergeCartSuccess(){
+            CartService.getCartDetail()
+                .then(cartAvailabilitySuccess, cartAvailabilityFailure);
+        }
+
+
+        function mergeCartFailure(){
+            CartService.getCartDetail()
+                .then(cartAvailabilitySuccess, cartAvailabilityFailure);
+        }
         /**
          * To update cart detail when cartDetail chaned in one instance of CartController
          * @param  {object} event
@@ -357,11 +370,11 @@ define(['byProductApp'], function (byProductApp) {
         $scope.$on('byUserLogin', function (event, args) {
             customerId = null;
             //$scope.promise = getCartDetails();
-
+            //console.log(args);
             var params = {};
-            //params.customerId = customerId;
-            CartService.getCartDetail(params)
-                .then(cartAvailabilitySuccess, cartAvailabilityFailure);
+            params.guestOrderId = args;
+            CartService.mergeCart(params).then(mergeCartSuccess, mergeCartFailure);
+
         });
 
         $scope.$on('byUserLogout', function (event, args) {

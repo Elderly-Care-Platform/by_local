@@ -99,7 +99,8 @@ require.config({
 		editAddressController : '../components/product/cartCheckout/edit-address/edit-address.controller',
 		addAddressController : '../components/product/cartCheckout/add-address/add-address.controller',
 
-		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller'
+		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller',
+		headerCtrl : '../components/header/headerCtrl'
 
 	},
 
@@ -152,6 +153,7 @@ require([ 'angular',"byApp","byUtil", "byDirectives", "lodash"], function(angula
 
 		angular.bootstrap(document, [ "byApp" ]);
 
+//		require(['headerCtrl']);
 		var sess = localStorage.getItem("SessionId");
 		//alert(sess);
 		if(sess != '' && sess != null)

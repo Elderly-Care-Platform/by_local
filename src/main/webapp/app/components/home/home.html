@@ -9,8 +9,8 @@
 	<!--<hr class="breadcrumb-divider" />-->
 <!--</div>-->
 
-<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-<div class="homeSlider" ng-if="$root.windowWidth > 780">
+<!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+	<div class="homeSlider" ng-if="$root.windowWidth > 780">
 	<div id="myCarousel" class="carousel slide">
 
 		<ol class="carousel-indicators">
@@ -40,12 +40,79 @@
 			data-slide="next"> <span class="icon-next"></span>
 		</a>
 	</div>
+</div>-->
+<div class="by_home_header_menu">
+	<div class="by_home_header_menu_tag">Senior Care and Ageing in India</div>
+	<div class="by_home_header_menu_search">
+		<div class="by_home_header_menu_search_left divLeft">
+			<input type="text" placeholder="Find info, tips, products, serivces, senior living facilites, etc" ng-model="term"
+			onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
+			<a href="#!/search/{{term}}/All" id="search_link"></a>
+		</div>
+		<div class="by_home_header_menu_search_right divRight" onclick="document.getElementById('search_link').click()">
+			<i class="fa fa-search"></i> Search
+		</div><div class="clearfix"></div>
+	</div>
+	<div class="by_home_header_menu_content">		
+		<div class="by_home_header_menu_content_item">
+			<a>
+				<div class="by_home_header_menu_content_item_first">
+					<div class="by_home_header_menu_content_item_first_image">
+						<img src="assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%" >
+					</div>
+					<div class="by_home_header_menu_content_item_first_text">Communities</div>
+				</div>
+				<div class="by_home_header_menu_content_item_second">
+					Get informed &amp; inspired	Share experiences 
+				</div>
+			</a>
+		</div>
+		<div class="by_home_header_menu_content_item">
+			<a>
+				<div class="by_home_header_menu_content_item_first">
+					<div class="by_home_header_menu_content_item_first_image">
+						<img src="assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%" >
+					</div>
+					<div class="by_home_header_menu_content_item_first_text">Find</div>
+				</div>
+				<div class="by_home_header_menu_content_item_second">
+					<b>663</b> Services for seniors <b>123</b> Senior living facilities
+				</div>
+			</a>
+		</div>
+		<div class="by_home_header_menu_content_item">
+			<a>
+				<div class="by_home_header_menu_content_item_first">
+					<div class="by_home_header_menu_content_item_first_image">
+						<img src="assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%" >
+					</div>
+					<div class="by_home_header_menu_content_item_first_text">Shop</div>
+				</div>
+				<div class="by_home_header_menu_content_item_second">
+					<b>345</b> Senior care products in our shop
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
 </div>
+<div class="by_home_call_wrap" ng-if="$root.windowWidth < 720">
+	<div class="by_container">
+		<div class="divLeft">
+			<a href="#!/users/login" >Join us</a>
+		</div>
+		<div class="divRight">
+			Need help? <a href="tel:080-67818181"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
+		</div>
+	</div>
+</div>
+
 <div class="by_home_content by-home-page">
 	<div class="clearfix"></div>
 	<div id="homeContainer" class="homeContainer">
 		<div class="discussion-page md-margin-bottom-40 container homeAskShare">
-			<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
+			<!--<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
 				 ng-click="add('Question')">
 				<i class="sprite sprite-question"></i>
 				<span style="padding-top:7px;"><b>Ask</b> anything about elder care or health</span>
@@ -55,23 +122,22 @@
 				<i class="sprite sprite-story"></i>
 				<span style="padding-top:7px;"><b>Share</b> your stories, experiences, photos</span>
 			</div>
-			<div class="clearfix" style="height:30px;"></div>
+			<div class="clearfix" style="height:30px;"></div>-->
 			<div ng-controller="BYHomePromoController">
 				<div ng-if="contentType==='all' || contentType==='promo'"
 					 ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
 					 infinite-scroll="loadMore()"></div>
 			</div>
 		</div>
-		<div class="discussion-page md-margin-bottom-40">
+		<!--<div class="discussion-page md-margin-bottom-40">
 			<div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-		</div>
+		</div>-->
 	</div>
 
 
 	<div style="padding-top: 20px;" ng-controller="BYHomeContentCtrl">
-		<div class="discussion-page margin-top-20 md-margin-bottom-40 container" ng-include="homeViews.contentPanel"></div>
+		<div ng-include="homeViews.contentPanel"></div>
 	</div>
 
-
-	<div class="clearfix" style="height: 20px;"></div>
+	<div class="clearfix" ></div>
 </div>

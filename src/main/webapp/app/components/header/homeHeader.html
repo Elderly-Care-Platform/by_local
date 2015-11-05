@@ -1,0 +1,35 @@
+<div class="by_header">
+    <div class="by_logo  divLeft">
+        <a  di-href="#!/users/home?type=home">
+            <img src="assets/img/home/logo.png?versionTimeStamp=%PROJECT_VERSION%" alt="Logo" width="100%">
+        </a>
+    </div>
+    <div class="by_header_right divRight" ng-if="$root.windowWidth > 720">
+        <a di-href="#!/users/aboutUs" id="aboutUs_placeholder">About us</a>
+        <span class="by_header_right_divider">|</span>
+        <a href="#!/users/login" id="login_placeholder">Join us</a>
+        <div class="by_header_contact">
+            <span><img src="assets/img/home/phone.png?versionTimeStamp=%PROJECT_VERSION%"/></span>
+            <b>080-67818181</b>
+        </div>
+    </div>
+    <div class="by_header_right_s divRight" ng-if="$root.windowWidth < 720">
+        <div class="by_header_right_search divLeft">
+            <input type="text" placeholder="Search" ng-model="term"
+            onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
+            <a href="#!/search/{{term}}/All" id="search_link"></a>
+        </div>
+        <div class="by_header_right_search_image divRight" ng-click="searchInputShow();">
+            <i class="fa fa-search"></i> 
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div ng-controller="MainMenuController">
+    <div window-resize callback="windowResize"
+    class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+   <!-- <div class="container-fluid" style="max-width: 960px;" ng-include="menuView"></div>-->
+</div>
+</div>

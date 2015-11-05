@@ -6,9 +6,10 @@ define([
 	'byResource',
 	'byEditor',
 	'../components/menu/mainMenuController', 'LoginController', 'angularResource',  'angularInfiniteScroll',
-	'angularGoogleLocation',
+	'angularGoogleLocation', 'headerCtrl',
 ], function(angular, angularRoute, byProductApp, byAppRoute, byResource, byEditor,
-			MainMenuController, LoginController, angularResource, angularInfiniteScroll, angularGoogleLocation) {
+			MainMenuController, LoginController, angularResource, 
+			angularInfiniteScroll, angularGoogleLocation, headerCtrl) {
 
 	var byApp = angular.module('byApp', ["ngRoute", "ngResource", "byServices", "byProductApp", "infinite-scroll", "ngGoogleLocation"]);
 
@@ -24,7 +25,8 @@ define([
 
 	byApp.controller('MainMenuController', MainMenuController);
 	byApp.controller('LoginController', LoginController);
-
+	byApp.controller('BYHeaderCtrl', headerCtrl);
+	
 	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http, broadCastMenuDetail) {
 		if(window.localStorage){
 			//$http.defaults.headers.common.sess = localStorage.getItem("SessionId");

@@ -267,7 +267,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 $http.defaults.headers.common.sess = login.sessionId;
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
-                sessionStorage.removeItem("by_cust_id");
+                localStorage.removeItem("by_cust_id");
                 document.getElementById("login_placeHolder_li").style.display = "inline";
                 var element = document.getElementById("login_placeholder");
                 element.innerHTML = "Logout";
@@ -278,7 +278,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 pro.innerHTML = BY.byUtil.validateUserName(userName);
                 pro.href = apiPrefix + "#!/users/registrationProfile/"; //******************* to be removed*************//
 
-                $rootScope.$broadcast('byUserLogin', '');
+                $rootScope.$broadcast('byUserLogin', localStorage.getItem("by_cust_cart_id"));
             }
             else {
                 $scope.setError('Browser does not support cookies');

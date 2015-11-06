@@ -290,7 +290,9 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
 
             var regex = /(?:[\w-]+\.)+[\w-]+/ ;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-                $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+                if(regex.exec($scope.serviceProviderInfo.website)){
+                    $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+                }
             }
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();

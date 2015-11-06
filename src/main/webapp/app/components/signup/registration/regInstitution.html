@@ -103,7 +103,7 @@
                             <input type="text" class="username-textbox textbox" name="primaryTel"
                                    ng-model="basicProfileInfo.primaryPhoneNo"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10">
-                            <span ng-show="(individualForm.primaryTel.$invalid || individualForm.primaryTel.$error.pattern) && submitted"
+                            <span ng-show="(institutionForm.primaryTel.$invalid || institutionForm.primaryTel.$error.pattern) && submitted"
                                   class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                    ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10"/>
 
-						    <span ng-show="(individualForm.{{'tel'+$index}}.$invalid || individualForm.{{'tel'+$index}}.$error.pattern) && submitted"
+						    <span ng-show="(institutionForm.{{'tel'+$index}}.$invalid || institutionForm.{{'tel'+$index}}.$error.pattern) && submitted"
                                 class="errorRed">Not a valid number!</span>
                         </div>
                     </div>

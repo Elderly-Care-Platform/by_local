@@ -41,7 +41,7 @@ public class UserProfileReviewLikeController extends
 			DiscussLikeRepository discussLikeRepository,
 			DiscussReplyRepository discussReplyRepository,
 			MongoTemplate mongoTemplate) {
-		super(discussLikeRepository,mongoTemplate);
+		super(discussLikeRepository, mongoTemplate);
 		this.discussReplyRepository = discussReplyRepository;
 		// TODO Auto-generated constructor stub
 	}
@@ -75,7 +75,8 @@ public class UserProfileReviewLikeController extends
 							reply.getLikedBy().add(user.getId());
 							sendMailForLike(reply, user, url);
 							discussReplyRepository.save(reply);
-							logHandler.addLog(reply, ActivityLogConstants.CRUD_TYPE_CREATE, req);
+							logHandler.addLog(reply,
+									ActivityLogConstants.CRUD_TYPE_CREATE, req);
 						}
 					}
 				}
@@ -101,9 +102,11 @@ public class UserProfileReviewLikeController extends
 				String userName = !Util.isEmpty(likedEntity.getUserName()) ? likedEntity
 						.getUserName() : "Anonymous User";
 				String replyTypeString = "review";
+				String likedBy = !Util.isEmpty(user.getUserName()) ? user
+						.getUserName() : "Anonymous User";
 				String body = MessageFormat.format(
 						resourceUtil.getResource("likedBy"), userName,
-						replyTypeString, title, user.getUserName(), url, url);
+						replyTypeString, title, likedBy, url, url);
 				MailHandler.sendMailToUserId(likedEntity.getUserId(), "Your "
 						+ replyTypeString + " was liked on beautifulYears.com",
 						body);

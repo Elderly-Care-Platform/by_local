@@ -121,9 +121,11 @@ public class DiscussLikeController extends LikeController<Discuss> {
 				}
 				String userName = !Util.isEmpty(LikedEntity.getUsername()) ? LikedEntity
 						.getUsername() : "Anonymous User";
+						String likingUser = !Util.isEmpty(user.getUserName()) ? user
+								.getUserName() : "Anonymous User";		
 				String body = MessageFormat.format(
 						resourceUtil.getResource("likedBy"), userName,
-						"content", title, user.getUserName(), url, url);
+						"content", title, likingUser, url, url);
 				MailHandler.sendMailToUserId(LikedEntity.getUserId(),
 						"Your content was liked on beautifulYears.com", body);
 			}

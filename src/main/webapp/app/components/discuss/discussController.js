@@ -146,6 +146,26 @@ define(['byApp',
             }
         }
 
+        $scope.subMenuTab = function(){
+            $(".by_sub_menu_head_thumb").eq(0).addClass("by_sub_menu_head_thumb_active");
+            $(".by_sub_menu_content_thumb").eq(0).show();
+            $(".by_sub_menu_content_item").eq(0).addClass("by_sub_menu_content_item_active");
+            $(".by_sub_menu_head_thumb").click(function(){
+                var byIndex = $(this).index();
+                $(".by_sub_menu_head_thumb").removeClass("by_sub_menu_head_thumb_active");
+                $(".by_sub_menu_content_thumb").hide();
+                $(".by_sub_menu_head_thumb").eq(byIndex).addClass("by_sub_menu_head_thumb_active");
+                $(".by_sub_menu_content_thumb").eq(byIndex).show();    
+                $(".by_sub_menu_content_item").removeClass("by_sub_menu_content_item_active");
+                $(".by_sub_menu_content_thumb").eq(byIndex).children(".by_sub_menu_content_item").eq(0).addClass("by_sub_menu_content_item_active");
+            });
+            $(".by_sub_menu_content_item").click(function(){
+                $(".by_sub_menu_content_item").removeClass("by_sub_menu_content_item_active");
+                $(this).addClass("by_sub_menu_content_item_active");
+            });
+
+        }
+
     }
 
 

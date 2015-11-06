@@ -1,7 +1,7 @@
 .by_header
 {
 	width: 100%;
-	padding:6px 3% 9px 3%;
+	padding:5px 3% 5px 3%;
 	position: fixed;
 	z-index: 2;
 	top: 0px;
@@ -14,7 +14,7 @@
 }
 .by_logo
 {
-	width:auto;
+	width:180px;
 	height:auto;
 }
 .by_header_right
@@ -88,9 +88,122 @@
 {
 	display: none;
 }
+.by_header_right_other
+{
+	width:auto;
+	height:auto;
+	margin-top: 0px;
+	text-align: right;
+	font-size: 14px;
+	margin-top: -4px;
+}
+.by_header_right_other a, .by_header_right_other a:hover
+{
+	color: #fff;
+}
+.by_header_right_search_other
+{
+	width: 210px;
+	height: 25px;
+	margin-top: 4px;
+	margin-right: 10px;
+}
+.by_header_right_search_other_left
+{
+	width: 160px;
+	height: 23px;
+	border: 1px solid #ccc;
+	border-right:0px;
+}
+.by_header_right_search_other_left input
+{
+	border: 0px;
+	outline: none;
+	font-family: century_gothic !important;
+	font-style: italic;
+	font-size: 13px;
+	color: #fff;
+	width: 150px;
+	line-height: 23px;
+	padding:0px 5px 5px;
+	background: transparent;
+}
+.by_header_right_search_other_image
+{
+	width: 50px;
+	height: 23px;
+	line-height: 10px;
+	padding:5px;
+	background-color: #FF850F;
+	cursor: pointer;
+	color: #fff;
+	font-size: 10px;
+	text-align: center;
+	border:1px solid #FF850F;
+	border-left: 0px;
+}
+.by_mobile_header
+{
+	margin-top: 54px;
+	width: 100%;
+	padding: 5px 2%;
+	height: 50px;
+}
+.by_header_right_mobile
+{
+	height: 30px;
+	width: 30%;
+	border-bottom:1px solid #999;
+}
+.by_header_right_mobile_search
+{
+	width: calc(100% - 15px);
+	height: auto;
+	margin-top: 5px;
+}
+.by_header_right_mobile_search input
+{
+	border: 0px;
+	outline: none;
+	font-family: century_gothic !important;
+	font-size: 15px;
+	color: #999;
+	width: 100%;
+	background: transparent;
+}
+.by_header_right_mobile_search_image
+{
+	color: #FF850F;
+	margin-top: 6px;
+}
+.by_mobile_header_profile
+{
+	margin-right: 10px;
+	margin-top: 5px;
+	font-size: 15px;
+}
 @media ( max-width : 720px){
 	.by_logo
 	{
 		width: 150px;
+	}
+	.by_mobile_left_hide_panel
+	{
+		width: 90%;
+		height: 100%;
+		left: 0%;
+		top: 0px;
+		position: fixed;
+		z-index: 1;
+		overflow-y:auto;
+		background: #fff;
+	}
+	.by_header_right_divider
+	{
+		color: #000;
+	}
+	.by_header
+	{
+		height: 54px;
 	}
 }

@@ -40,10 +40,9 @@
 			data-slide="next"> <span class="icon-next"></span>
 		</a>
 	</div>
-</div>-->
-<div class="by_home_header_menu">
-	<div class="by_home_header_menu_tag">Senior Care and Ageing in India</div>
-	<div class="by_home_header_menu_search">
+</div>
+new search
+<div class="by_home_header_menu_search">
 		<div class="by_home_header_menu_search_left divLeft">
 			<input type="text" placeholder="Find info, tips, products, serivces, senior living facilites, etc" ng-model="term"
 			onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
@@ -52,7 +51,13 @@
 		<div class="by_home_header_menu_search_right divRight" onclick="document.getElementById('search_link').click()">
 			<i class="fa fa-search"></i> Search
 		</div><div class="clearfix"></div>
+	</div>-->
+<div class="by_home_header_menu">
+	<div class="by_home_header_menu_tag">
+		Taking better care of parents.<br/>
+		Living longer and happier.
 	</div>
+	
 	<div class="by_home_header_menu_content">		
 		<div class="by_home_header_menu_content_item">
 			<a>
@@ -73,7 +78,7 @@
 					<div class="by_home_header_menu_content_item_first_image">
 						<img src="assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%" >
 					</div>
-					<div class="by_home_header_menu_content_item_first_text">Find</div>
+					<div class="by_home_header_menu_content_item_first_text">Directory</div>
 				</div>
 				<div class="by_home_header_menu_content_item_second">
 					<b>663</b> Services for seniors <b>123</b> Senior living facilities
@@ -135,7 +140,7 @@
 	</div>
 
 
-	<div style="padding-top: 20px;" ng-controller="BYHomeContentCtrl">
+	<div ng-controller="BYHomeContentCtrl">
 		<div ng-include="homeViews.contentPanel"></div>
 	</div>
 

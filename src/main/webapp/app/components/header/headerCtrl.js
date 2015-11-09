@@ -8,22 +8,9 @@ define([], function() {
           var headerHeight = $(".by_header").height();
           if((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= headerHeight){
             $(".by_header").addClass("by_header_image");
-            if($rootScope.windowWidth > 720){        
-              $(".by_logo").css('width', '180px');    
-              $(".by_header_contact").addClass("by_header_rightScroll");
-              $(".by_header_right").css('margin-top', '6px');
-            }  else{
-              $(".by_logo").css('width', '150px');  
-            }
+           
           } else{
             $(".by_header").removeClass("by_header_image");
-            if($rootScope.windowWidth > 720){
-              $(".by_logo").css('width', '180px');
-              $(".by_header_contact").removeClass("by_header_rightScroll");
-              $(".by_header_right").css('margin-top', '0px');
-            } else{
-              $(".by_logo").css('width', '150px');  
-            }
           }
       });///////////////////////
        } else{

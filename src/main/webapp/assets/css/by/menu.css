@@ -111,25 +111,99 @@
 	top: 54px;
 	z-index: 2;
 	position: fixed;
-	overflow-y:auto;
-	left: 0px;
+	left: -90%;
 }
 .by_mobile_leftPanel
 {
 	width: 90%;
-	min-height: 100%;
+	height: 100%;
 	float: left;
 	background: #fff;
+	overflow: hidden;
+	overflow-y:auto;
 }
 .by_mobile_leftPanel_image
 {
-	width: 5%;
-	height: 30px;
-	background: url('../../img/product/tick.png?versionTimeStamp=%PROJECT_VERSION%');
+	width: 49px;
+	height: 121px;
+	background: url('../../img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%');
 	float: left;
-	margin-top: 48%;
+	margin-top: calc(50% - 120px);
 	position: fixed;
-	left: 90%;
+	left: 0;
+}
+.by_sub_menu_head_mobile
+{
+	width: 90%;
+	height: auto;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+}
+.by_sub_menu_head_mobile_thumb
+{
+	width: 32%;
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+	border: 1px solid #004f24;
+	border-bottom: 0px;
+	border-top-right-radius: 4px !important;
+	border-top-left-radius: 4px !important;
+	text-align: center;
+	height: 60px;
+	line-height: 20px;
+	padding: 10px 0px;
+	color: #004f24;
+	cursor: pointer;
+	float: left;
+	font-size: 16px;
+	font-weight: bold;
+}
+.by_sub_menu_head_mobile_thumb_active
+{
+	background: #004f24;
+	color: #fff;
+	cursor: inherit;
+}
+.by_sub_menu_content_mobile
+{
+	width: 100%;
+	height: auto;
+	padding: 0px 3%;
+	border-top: 2px solid #004f24;
+}
+.by_sub_menu_content_mobile_thumb
+{
+	width: 96%;
+	margin-left: auto;
+	margin-right: auto;
+	height: auto;
+	margin-bottom: 20px;
+	display: none;
+	padding-top: 20px;
+}
+.by_sub_menu_content_mobile_item
+{
+	width: 31%;
+	height: 100px;
+	margin-right: 1%;
+	margin-left: 1%;
+	float: left;
+	text-align: center;
+	line-height: 18px;
+}
+.by_sub_menu_content_mobile_item_active
+{
+	font-weight: bold;
+}
+.by_sub_menu_content_mobile_item a
+{
+	font-size: 15px;
+	color: #004f24;
+}
+.by_sub_menu_content_mobile_item a:hover
+{
+	text-decoration: none;
 }
 @media ( max-width : 1000px){
 	.by_sub_menu_content_item

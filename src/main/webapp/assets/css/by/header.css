@@ -182,6 +182,26 @@
 	margin-top: 5px;
 	font-size: 15px;
 }
+.by_mobile_call_wrap
+{
+	width: 100%;
+	height: 41px;
+	padding: 7px 10px 10px;
+	font-size: 18px;
+	background:url('../../img/community/mobile/Callnow.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat center center;
+	color: #fff ;
+}
+.by_mobile_call_wrap  a
+{
+	background-color: #004f24;
+	border-radius: 10px !important;
+	color: #fff;
+	padding: 5px 10px;
+}
+.by_mobile_call_wrap  a:hover
+{
+	text-decoration: none;
+}
 @media ( max-width : 720px){
 	.by_logo
 	{

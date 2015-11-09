@@ -112,6 +112,36 @@ define(['byApp', 'byUtil', 'homePromoController',
             $location.path($location.$$path).search({type: discussType});
         };
 
+        $scope.HomeSevicesNum = function(){
+            $({someValue: 0}).animate({someValue: 663}, {
+              duration: 3000,
+              easing:'swing',
+             step: function() { 
+              $('#HomeSevices').text(Math.round(this.someValue));
+             }
+        });
+        };
+
+        $scope.HomeHousingNum = function(){
+             $({someValue: 0}).animate({someValue: 163}, {
+              duration: 3000,
+              easing:'swing',
+             step: function() { 
+              $('#HomeHousing').text(Math.round(this.someValue));
+             }
+            });
+        }
+
+         $scope.HomeProductNum = function(){
+             $({someValue: 0}).animate({someValue: 163}, {
+              duration: 3000,
+              easing:'swing',
+             step: function() { 
+              $('#HomeProduct').text(Math.round(this.someValue));
+             }
+            });
+        }
+
         $scope.showAllServices = function($event, service){
             var parentNode = $($event.target.parentElement),
                 linkNode = parentNode.find(".serviceShowMoreLink"),

@@ -1,6 +1,6 @@
 define([], function() {
     function BYHeaderCtrl($scope, $window, $rootScope){
-       var isHome = false;
+       var isHome = true;
        if(isHome == true){
     	   $scope.templateUrl= 'app/components/header/homeHeader.html?versionTimeStamp=%PROJECT_VERSION%';
          // on scrolling adding header background

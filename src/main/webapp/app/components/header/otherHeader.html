@@ -16,7 +16,8 @@
         <span><img src="assets/img/home/phone.png?versionTimeStamp=%PROJECT_VERSION%" width="20" /></span>
         <b><a href="tel:080-67818181">080-67818181</a></b>
         <div class="clearfix"></div>
-         <div class="by_header_right_search_other divLeft">
+         <div class="divRight" ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+         <div class="by_header_right_search_other divRight">
             <div class="by_header_right_search_other_left divLeft">
                 <input type="text" placeholder="Search" ng-model="term"
                 onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
@@ -27,7 +28,7 @@
             </div>
             <div class="clearfix"></div>
         </div>
-        <div class="divRight" ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+       
        
     </div>
     <div class="clearfix"></div>

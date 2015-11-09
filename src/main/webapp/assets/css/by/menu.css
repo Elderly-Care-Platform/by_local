@@ -205,14 +205,16 @@
 {
 	text-decoration: none;
 }
+
 .by_sub_menu_plus
 {
 	width: 250px;
-	min-height: calc(100% - 57px);
+	height: calc(100% - 57px);
 	background: #fff;
 	left: 0px;
 	position: fixed;
 	top: 57px;
+	overflow-y: hidden;
 	z-index: 1;
 }
 .by_sub_menu_plus_head

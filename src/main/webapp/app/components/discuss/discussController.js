@@ -187,11 +187,13 @@ define(['byApp',
 
         $scope.subMenuTabMobileShow = function(){
             $(".by_mobile_leftPanel_image").click(function(){
-                if($(".by_mobile_leftPanel_hide").css('left') == '0%'){
+                if($(".by_mobile_leftPanel_hide").css('left') == '0px'){
                     $(".by_mobile_leftPanel_image").animate({left: "0%"},{duration : 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%')");
                     $(".by_mobile_leftPanel_hide").animate({left: "-90%"},{duration : 400});
                 } else{
                     $(".by_mobile_leftPanel_image").animate({left: "90%"},{duration : 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
                     $(".by_mobile_leftPanel_hide").animate({left: "0%"},{duration : 400});
                 }
             });

@@ -205,6 +205,37 @@
 {
 	text-decoration: none;
 }
+.by_sub_menu_plus
+{
+	width: 250px;
+	min-height: calc(100% - 57px);
+	background: #fff;
+	left: 0px;
+	position: fixed;
+	top: 57px;
+	z-index: 1;
+}
+.by_sub_menu_plus_head
+{
+	width: 90%;
+	padding: 3px 5%;
+	font-size: 15px;
+}
+.by_sub_menu_plus_head .divRight
+{
+	cursor: pointer;
+}
+.by_sub_menu_plus_content
+{
+	width: 100%;
+	height: auto;
+	display: none;
+}
+.by_sub_menu_plus_content a
+{
+	display: block;
+	padding: 3px;
+}
 @media ( max-width : 1000px){
 	.by_sub_menu_content_item
 	{

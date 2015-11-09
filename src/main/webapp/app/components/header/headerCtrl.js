@@ -32,8 +32,7 @@ define([], function() {
        }
 
 
-       
-
+     
       
        $scope.searchInputShow = function(){
         if($(".by_header_right_search").css('display') == 'none'){

@@ -18,9 +18,13 @@
 	<div class="by_productCard_divider"></div>
 	<div class="by_productCard_title ellipsisHead">{{product.name}}</div>
 	<div class="by_productCard_price">
-		Our price: <strong>Rs {{product.salePrice.amount}}</strong> <small
-		ng-if="product.retailPrice != null"><del>Rs {{product.retailPrice.amount}}</del> </small> 
-		<span class="by_productCard_offer">5% Off</span>
+		<span ng-if="product.salePrice && product.salePrice.amount">Our price: <strong>Rs {{product.salePrice.amount}}</strong></span>
+		<span ng-if="!product.salePrice || !product.salePrice.amount">Our price: <strong>Rs {{product.retailPrice.amount}}</strong></span>
+
+		<small ng-if="product.retailPrice != null && product.salePrice != null && product.retailPrice.amount != product.salePrice.amount">
+			<del>Rs {{product.retailPrice.amount}}</del>
+		</small>
+		<!--<span class="by_productCard_offer">5% Off</span>-->
 	</div>
 	<div class="by_productCard_divider"></div>
 	<div ng-if="$root.windowWidth > 990">

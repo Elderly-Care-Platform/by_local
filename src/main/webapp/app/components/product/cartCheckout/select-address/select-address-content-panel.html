@@ -1,46 +1,67 @@
- <div class="clearfix" style="height:15px;"></div>
- <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
-     Please select an address for the goods to be shipped, or
-     enter a new address below:
+<div class="clearfix" style="height:15px;"></div>
+<div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
+    Please select an address for the goods to be shipped, or
+    enter a new address below:
 
-     <div class="darkBgwithTextArrow">
+    <div class="darkBgwithTextArrow">
         <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
     </div>
 </div>
 <div class="clearfix" style="height:10px;"></div>
 <div class="by_address_wrap">
-    <div class="by_address col-md-6" ng-repeat="address in address track by $index" ng-if="$index<2">
+    <div class="by_address col-md-6" ng-repeat="address in customerAddress track by $index" ng-if="$index<2"
+         format-address="address">
+
         <div class="by_address_user">
-            {{address.address.firstName+' '+address.address.lastName}}
+            {{userProfile.basicProfileInfo.firstName}}
+            <span ng-if="userProfile.individualInfo.lastName">{{' '+ userProfile.individualInfo.lastName}}</span>
         </div>
         <div class="by_address_text">
-            {{address.address.addressLine1}}<br>
-            {{address.address.addressLine2}}
-            {{address.address.city}}, {{address.address.country.name}} - {{address.address.postalCode}}<br>
-            Mobile: {{address.address.phonePrimary.phoneNumber}} <br>
-            <span    ng-if="address.address.phoneSecondary">
-                Mobile: {{address.address.phoneSecondary.phoneNumber}}<br>
+            <span ng-if="address.fullAddress">
+                <strong>Address:&nbsp;</strong>
+                <span>{{address.fullAddress}}</span>
+                <!--<span ng-if="address.streetAddress">{{address.streetAddress}}</span><br/>-->
+                <!--<span ng-if="address.locality">{{address.locality}}</span><br/>-->
+                <!--<span ng-if="address.city">{{address.city}},</span><span ng-if="address.country">{{address.country}} -</span>-->
+                <!--<span ng-if="address.zip"> {{address.zip}}</span>-->
+            </span><br/>
+            <span ng-if="!address.zip" ng-init="address.shipToAddressDisabled=true"></span>
+            <span ng-if="userProfile.basicProfileInfo.primaryPhoneNo">
+                <strong>Mobile:&nbsp;</strong> {{userProfile.basicProfileInfo.primaryPhoneNo}}
+            </span><br>
+            <!--<span ng-if="userProfile.basicProfileInfo.secondaryPhoneNos">-->
+                <!--Mobile: {{userProfile.basicProfileInfo.secondaryPhoneNos[0]}}<br>-->
+            <!--</span>-->
+            <span ng-if="userProfile.basicProfileInfo.primaryEmail">
+                <strong>E-mail:&nbsp;</strong> {{userProfile.basicProfileInfo.primaryEmail}}
+            </span><br/>
+
+            <!--<span ng-if="address.address.secondaryEmail"><br>-->
+                 <!--E-mail: {{address.address.secondaryEmail}}-->
+            <!--</span>-->
+            <span ng-if="shipToAddressDisabled || address.shipToAddressDisabled">
+                <br/><font color="red">*Please edit to add mandatory address fields</font>
             </span>
-            E-mail: {{address.address.primaryEmail}}
-            <span ng-if="address.address.secondaryEmail"><br>
-             E-mail: {{address.address.secondaryEmail}}
-         </span>
-     </div>
-   
-    <button class="btn btn-success pull-right by_address_btn" style="margin-left:5px;"  ng-click="shipToAddress(address.address.id)">
-        Ship to this address
-    </button>  
-    <button class="btn btn-success pull-right by_address_btn by_edit_btn"  ng-click="editAddress(address.address.id)">
-        Edit
-    </button><div class="clearfix"></div>
+        </div>
+
+        <button class="btn btn-success pull-right by_address_btn" style="margin-left:5px;" ng-click="shipToAddress($index)" ng-disabled="shipToAddressDisabled || address.shipToAddressDisabled">
+            Ship to this address
+        </button>
+
+        <button class="btn btn-success pull-right by_address_btn by_edit_btn" ng-click="editAddress($index)">
+            Edit
+        </button>
+        <div class="clearfix"></div>
+    </div>
 </div>
-</div><div class="clearfix" style="height:15px;"></div>
+<div class="clearfix" style="height:15px;"></div>
 <div class="by_address_btn_orange_wrap">
-    <button class="btn btn-success  by_address_btn_orange"  ng-click="shipToNewAddress()">
-       Enter new Address
-   </button>
-</div><div class="clearfix"></div>
+    <button class="btn btn-success  by_address_btn_orange" ng-click="shipToNewAddress()">
+        Enter new Address
+    </button>
+</div>
+<div class="clearfix"></div>
 
 <div class="clearfix"></div>
 
-  <div class="by_cart_call"></div>
+<div class="by_cart_call"></div>

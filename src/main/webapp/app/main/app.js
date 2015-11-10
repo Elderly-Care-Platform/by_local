@@ -29,10 +29,10 @@ define([
 	
 	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http, broadCastMenuDetail) {
 		if(window.localStorage){
-			//$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
+			$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
 			$http.get("api/v1/users/validateSession").success(function (response) {
 			}).error(function(err){
-				//$http.defaults.headers.common.sess = "";
+				$http.defaults.headers.common.sess = "";
 				SessionIdService.setSessionId("");
 				BY.byUtil.inValidateSession();
 			})

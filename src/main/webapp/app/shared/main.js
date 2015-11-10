@@ -9,7 +9,7 @@ require.config({
 		byResource : '../main/appResources',
 		byDirectives : '../main/appDirectives',
 		byAppRoute : '../main/appRoute',
-
+		byApplicationConfig : '../shared/common/config/byApplicationConfig',
 		byProductApp : '../main/product/productApp',
 		byProductResources : '../main/product/productResources',
 		byProductRoute : '../main/product/productRoute',
@@ -147,13 +147,12 @@ require.config({
 	},
 
 });
-require([ 'angular',"byApp","byUtil", "byDirectives", "lodash"], function(angular, byApp, byUtil, byDirectives, lodash) {
+require([ 'angular',"byApp","byUtil", "byDirectives", "lodash", "byApplicationConfig"], function(angular, byApp, byUtil, byDirectives, lodash, byApplicationConfig) {
 	var getProdCategoriesSuccess = function(prodCategories){
 		window.by_prodCategories = prodCategories;
 
 		angular.bootstrap(document, [ "byApp" ]);
 
-//		require(['headerCtrl']);
 		var sess = localStorage.getItem("SessionId");
 		//alert(sess);
 		if(sess != '' && sess != null)
@@ -185,10 +184,7 @@ require([ 'angular',"byApp","byUtil", "byDirectives", "lodash"], function(angula
 		url : apiPrefix + 'api/v1/menu/getMenu?parentId=root',
 		success : function(response) {
 			window.by_menu = response;
-			//var categoriesPromise = CategoryService.getAllCategories();
-			//categoriesPromise.then(getProdCategoriesSuccess);
-
-			$.ajax({url : 'http://54.169.187.40:8080/beautifulyears/api/v1/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
+			$.ajax({url : BY.config.constants.productHost+'/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
 		}
 	});
 });

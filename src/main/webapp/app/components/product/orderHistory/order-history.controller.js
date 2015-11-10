@@ -80,9 +80,9 @@ define(['byProductApp'], function (byProductApp) {
             $scope.orderListLength = result.totalResult;
             var allOrderHistory = result.orders;
             $scope.allOrderHistory = $scope.allOrderHistory.concat(angular.copy(allOrderHistory));
-            angular.forEach($scope.allOrderHistory, function (order) {
-                order.trackingInfo.deliveryDate = new Date(order.trackingInfo.deliveryDate);
-            });
+            //angular.forEach($scope.allOrderHistory, function (order) {
+            //    order.trackingInfo.deliveryDate = new Date(order.trackingInfo.deliveryDate);
+            //});
             setImageUrl($scope.allOrderHistory);
             $scope.orderHistory = angular.copy($scope.allOrderHistory);
             if (allOrderHistory.length === 0) {

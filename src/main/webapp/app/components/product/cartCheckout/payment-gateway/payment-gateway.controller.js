@@ -6,7 +6,7 @@ define(['byProductApp'], function (byProductApp) {
                                       $http,
                                       $q,
                                       BreadcrumbService,
-                                      AddAddressService,
+                                      SelectAddressService,
                                       ProductDescriptionService,
                                       CartService,
                                       PAGE_URL,
@@ -18,10 +18,10 @@ define(['byProductApp'], function (byProductApp) {
         //  isNaN($routeParams.addressId)) {
         //   $location.path(PAGE_URL.cart);
         // }
-        var breadCrumb, addressId = $routeParams.addressId;
+        var breadCrumb, addressId = $routeParams.addressId, addressIndex = $routeParams.addressId;
 
         $scope.customerId = null;
-        if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+        if (localStorage.getItem("by_cust_id")) {
             $scope.customerId = localStorage.getItem("by_cust_id");
         }
         $scope.tabId = 1;
@@ -40,6 +40,7 @@ define(['byProductApp'], function (byProductApp) {
         $scope.checkOut = checkOut;
         $scope.drawCaptcha = drawCaptcha();
         $scope.drawCaptcha = drawCaptcha;
+        $scope.isCODavailable = false;
 
         // payUMoney
 
@@ -73,21 +74,51 @@ define(['byProductApp'], function (byProductApp) {
         function getOrder() {
             var params = {};
             params.customerId = $scope.customerId;
-            params.addressId = addressId;
-            var orderPromise = CartService.getCartDetail(params.customerId),
-                addressPromise = AddAddressService.getAddress(params.addressId);
-            $scope.promise = $q.all({order: orderPromise, address: addressPromise});
+            params.addressIndex = addressIndex;
+            var orderPromise = CartService.getCartDetail(params),
+                custProfilePromise = SelectAddressService.getCustomerProfile();
+            $scope.promise = $q.all({order: orderPromise, custProfile: custProfilePromise});
             return $scope.promise.then(getOrderSuccess, failure);
+        }
+
+        function validateCODzip(userProfile){
+            var userAddress = [], userBasicProfile = userProfile.basicProfileInfo,
+                selectedPincode, str1 = "bangalore", str2 = "bengaluru";
+            userAddress.push(userBasicProfile.primaryUserAddress);
+            if(userBasicProfile.otherAddresses.length > 0){
+                userAddress = userAddress.concat(userBasicProfile.otherAddresses);
+            }
+            selectedPincode = userAddress[addressIndex].zip;
+
+            if(selectedPincode){
+                $http.get("api/v1/location/getLocationByPincode?pincode=" + selectedPincode)
+                    .success(function (response) {
+                        if (response) {
+                            if (response.districtname.toLowerCase().indexOf(str1) > -1 || response.districtname.toLowerCase().indexOf(str2) > -1)
+                                $scope.isCODavailable = true;
+
+                            if (response.regionname.toLowerCase().indexOf(str1) > -1 || response.regionname.toLowerCase().indexOf(str2) > -1)
+                                $scope.isCODavailable = true;
+
+                            if (response.taluk.toLowerCase().indexOf(str1) > -1 || response.taluk.toLowerCase().indexOf(str2) > -1)
+                                $scope.isCODavailable = true;
+
+                        }
+                    });
+            }
+
         }
 
         function getOrderSuccess(result) {
             $log.debug('Success in getting order' + JSON.stringify(result));
+
             var order = result.order || {},
-                address = result.address || {};
-            if (address) {
-                $scope.payu.email = address.primaryEmail;
-                $scope.payu.phone = address.phonePrimary.phoneNumber;
-                $scope.payu.firstname = address.firstName;
+                userProfile = result.custProfile.data.data || {};
+            if (userProfile) {
+                validateCODzip(userProfile);
+                $scope.payu.email = userProfile.basicProfileInfo.primaryEmail;
+                $scope.payu.phone = userProfile.basicProfileInfo.primaryPhoneNo;
+                $scope.payu.firstname = userProfile.basicProfileInfo.firstName;
             }
             if (order) {
                 if (order.orderItems) {
@@ -182,7 +213,7 @@ define(['byProductApp'], function (byProductApp) {
         '$http',
         '$q',
         'BreadcrumbService',
-        'AddAddressService',
+        'SelectAddressService',
         'ProductDescriptionService',
         'CartService',
         'PAGE_URL',

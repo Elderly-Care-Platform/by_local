@@ -8,15 +8,15 @@ define(['byProductApp'], function (byProductApp) {
                                             BreadcrumbService,
                                             PAGE_URL,
                                             CartService,
-                                            AddAddressService,
+                                            SelectAddressService,
                                             ShoppingConfirmationService, SessionIdService) {
 
         $log.debug('Inside ShoppingConfirmation Controller');
 
         //Variables
         var breadCrumb,
-            addressId = $routeParams.addressId,
-            address = {},
+            addressIndex = $routeParams.addressId,
+            address = {}, userBasicProfile,
             paymentInfo = {
                 orderId: 0,
                 type: 'THIRD_PARTY_ACCOUNT',
@@ -39,7 +39,7 @@ define(['byProductApp'], function (byProductApp) {
         };
 
         $scope.customerId = null;
-        if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+        if (localStorage.getItem("by_cust_id")) {
             $scope.customerId = localStorage.getItem("by_cust_id");
         }
         $scope.tabId = 1;
@@ -68,21 +68,26 @@ define(['byProductApp'], function (byProductApp) {
             $log.debug('Make payment through rest');
             var params = {};
             params.customerId = $scope.customerId;
-            params.addressId = addressId;
-            $scope.promise = CartService.getCartDetail(params.customerId)
+            $scope.promise = CartService.getCartDetail(params)
                 .then(getCartSuccess, cartfailure);
-            $scope.promise = AddAddressService.getAddress(params.addressId)
-                .then(getAddressSuccess, addressfailure);
+            $scope.promise = SelectAddressService.getCustomerProfile()
+                .then(getProfileSuccess, getProfileFailure);
         }
 
         /**
-         * [getAddressSuccess description]
+         * [getProfileSuccess description]
          * @param  {[type]} result [description]
          * @return {[type]}        [description]
          */
-        function getAddressSuccess(result) {
+        function getProfileSuccess(result) {
             $log.debug('Success in getting shipping address');
-            address = result;
+            var userAddress = [];
+            userBasicProfile = result.data.data.basicProfileInfo;
+            userAddress.push(userBasicProfile.primaryUserAddress);
+            if(userBasicProfile.otherAddresses.length > 0){
+                userAddress = userAddress.concat(userBasicProfile.otherAddresses);
+            }
+            address = userAddress[addressIndex];
         }
 
         /**
@@ -129,7 +134,18 @@ define(['byProductApp'], function (byProductApp) {
         function getOrderSuccess(result) {
             $log.debug('Success in getting order');
             var order = result;
-            order.fulfillmentGroups[0].address = address;
+            order.fulfillmentGroups[0].address = {};
+            order.fulfillmentGroups[0].address.addressLine1 = address.streetAddress;
+            order.fulfillmentGroups[0].address.addressLine2 = address.locality;
+            order.fulfillmentGroups[0].address.city = address.city;
+            order.fulfillmentGroups[0].address.country = {};
+            order.fulfillmentGroups[0].address.country.name= address.country;
+            order.fulfillmentGroups[0].address.country.abbreviation= "IN";
+            order.fulfillmentGroups[0].address.postalCode = address.zip;
+
+            order.fulfillmentGroups[0].address.primaryEmail = userBasicProfile.primaryEmail;
+//            order.fulfillmentGroups[0].address.phonePrimary = userBasicProfile.primaryPhoneNo;
+            
             var postData = {},
                 params = {};
             params.customerId = $scope.customerId;
@@ -145,11 +161,11 @@ define(['byProductApp'], function (byProductApp) {
          */
         function checkoutSuccess(result) {
             $log.debug('Success in checkout' + JSON.stringify(result));
-            $scope.deliveryDate = new Date(result.trackingInfo.deliveryDate);
-            $scope.trackingNumber = result.trackingInfo.trackingNumber;
-            var estiDate = new Date(result.trackingInfo.deliveryDate);
-            $scope.estimatedDate = estiDate.setDate($scope.deliveryDate.getDate() + 2);
             $scope.uiData.order = result;
+            $scope.deliveryDate = new Date(result.submittedDate);
+            //$scope.trackingNumber = result.trackingInfo.trackingNumber;
+            var estiDate = new Date();
+            $scope.estimatedDate = estiDate.setDate($scope.deliveryDate.getDate() + 10);
             if ($scope.uiData.order.status === 'SUBMITTED') {
                 $scope.uiData.cartItems = [];
                 $scope.uiData.totalCartItem = 0;
@@ -167,7 +183,7 @@ define(['byProductApp'], function (byProductApp) {
             $scope.uiData.processingError = true;
         }
 
-        function addressfailure(result) {
+        function getProfileFailure(result) {
             $log.debug('Failure JSON Data: ' + JSON.stringify(result));
             $scope.uiData.processingError = true;
         }
@@ -191,14 +207,14 @@ define(['byProductApp'], function (byProductApp) {
         /*
          Watch for changes in location
          */
-        $rootScope.$watch(function () {
-            return $location.path();
-        }, function (newLocation) {
-            //if the new location is equal to previousLocation then borowsers back button is clicked
-            if ($rootScope.actualLocation === newLocation) {
-                $location.path(PAGE_URL.root);
-            }
-        });
+        //$rootScope.$watch(function () {
+        //    return $location.path();
+        //}, function (newLocation) {
+        //    //if the new location is equal to previousLocation then borowsers back button is clicked
+        //    if ($rootScope.actualLocation === newLocation) {
+        //        $location.path(PAGE_URL.root);
+        //    }
+        //});
 
     }
 
@@ -211,7 +227,7 @@ define(['byProductApp'], function (byProductApp) {
         'BreadcrumbService',
         'PAGE_URL',
         'CartService',
-        'AddAddressService',
+        'SelectAddressService',
         'ShoppingConfirmationService', 'SessionIdService'];
     byProductApp.registerController('ShoppingConfirmationCtrl', ShoppingConfirmationCtrl);
     return ShoppingConfirmationCtrl;

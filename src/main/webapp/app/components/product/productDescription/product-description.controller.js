@@ -41,6 +41,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.addToCartDisable = false;
         $scope.addToCartFailedMsg = "";
         $scope.adjustedPrice = null;
+        $scope.ByContactNo = BY.config.constants.byContactNumber;
+        $scope.productAddSuccess = false;
         var productOptions = {};
 
         // uiData mapping
@@ -266,7 +268,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
         function productOptionSelected(prodOption, selectedVal) {
             $scope.addToCartFailedMsg = "";
-            if(prodOption.attributeName === "productOption.SIZE"){
+            if(prodOption.attributeName.toLowerCase() === "productoption.size"){
                 $scope.adjustedPrice = parseFloat($scope.uiData.salePrice.amount) + parseFloat(selectedVal.priceAdjustment.amount);
             }
         }
@@ -315,14 +317,19 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             });
         }
 
-        function addProductToCart(productId) {
+        $scope.updateRequiredQuantity = function(val){
+            $scope.userRequiredQuantity = val;
+        }
+
+
+        function addProductToCart(productId, nextLocation) {
             $log.debug('Add product to cart');
             if ($scope.uiData.productOptions && $scope.uiData.productOptions.length > 0) {
                 for (var i = 0; i < $scope.uiData.productOptions.length; i++) {
-                    if ($scope.selectedColor && $scope.uiData.productOptions[i].label.toLowerCase() == 'color') {
+                    if ($scope.selectedColor && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.color") {
                         productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedColor;
                     }
-                    else if ($scope.selectedSize && $scope.uiData.productOptions[i].label.toLowerCase() == 'size') {
+                    else if ($scope.selectedSize && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.size") {
                         productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedSize;
                     }
                 };
@@ -330,11 +337,11 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
 
             if ($scope.userRequiredQuantity >= 1 && $scope.inventoryType === INVENTORY.alwaysAvailable) {
-                Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions);
+                Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions, nextLocation);
             } else {
                 if ($scope.userRequiredQuantity >= 1 &&
                     $scope.userRequiredQuantity <= $scope.quantityAvailable) {
-                    Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions);
+                    Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions, nextLocation);
                 }
             }
 
@@ -372,6 +379,17 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.$on('addToCartFailed', function (event, args) {
             $scope.addToCartFailedMsg = "Please select size/color";
         });
+
+        $scope.$on('newItemAddedToCart', function (event, args) {
+            $scope.productAddSuccess = true;
+            $window.setTimeout(function(){
+                $scope.productAddSuccess = false;
+                $scope.$apply();
+            }, 2000);
+
+        });
+
+
 
         /**
          * Open productDescription page

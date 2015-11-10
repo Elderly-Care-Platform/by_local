@@ -1,8 +1,8 @@
 <div class="clearfix" style="height:15px;"></div>
- <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
-     Please enter your new shipping address
+<div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
+    Please enter your new shipping address
 
-     <div class="darkBgwithTextArrow">
+    <div class="darkBgwithTextArrow">
         <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
     </div>
 </div>
@@ -10,170 +10,119 @@
 <div class="clearfix" style="height:10px;"></div>
 
 
-
-  <form name="addAddress">
-
-  <div class="by_editAdress_wrap">
-
-     <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-        <div class="col-md-5">
-            First Name
+<form name="addAddressForm" novalidate>
+    <div class="by_editAdress_wrap">
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5">
+            <div class="col-md-5 required">
+                First Name
+            </div>
+            <div class="col-md-7 no-padding-right register-page">
+                <input type="text" ng-model="userProfile.basicProfileInfo.firstName" class="username-textbox textbox" name="firstName"
+                       placeholder="Please enter your first name"
+                       required/>
+                <span ng-show="addAddressForm.firstName.$invalid && submitted" class="errorRed">Please enter your name</span>
+            </div>
         </div>
-        <div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.firstName.$invalid && addAddress.firstName.$dirty}">
-            <input type="text"  class="name-textbox textbox"   placeholder="First name"
-            ng-model="address.firstName" name="firstName" ng-pattern="/^[a-zA-Z]+$/"  ng-trim="false" custom-validation required/>
+
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5">
+            <div class="col-md-5">
+                Last Name
+            </div>
+            <div class="col-md-7 no-padding-right register-page">
+                <input type="text" class="username-textbox textbox name-textbox" ng-model="userProfile.individualInfo.lastName"
+                       name="lastName"/>
+            </div>
         </div>
-    </div>
 
-    <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-        <div class="col-md-5">
-            Last Name
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5">
+            <div class="col-md-5">
+                Country
+            </div>
+            <div class="col-md-7 no-padding-right register-page">
+                <input type="text" ng-model="address.country" class="name-textbox textbox"
+                       placeholder="Country"/>
+            </div>
         </div>
-        <div class="col-md-7 no-padding-right register-page" 
-        ng-class="{ error: addAddress.lastName.$invalid && addAddress.lastName.$dirty}">
-        <input type="text" class="name-textbox textbox" ng-model="address.lastName" ng-pattern="/^[a-zA-Z]+$/" placeholder="Last name" ng-trim="false" name="lastName" custom-validation required/>
+
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5">
+            <div class="col-md-5 required">
+                Zip
+            </div>
+            <div class="col-md-7 no-padding-right register-page zipCodeWrapper">
+                <input type="text" class="username-textbox textbox" name="zipcode"
+                       ng-model="address.zip" style="width:50%;" required/>
+                <input type="button" class="btn btn-success pull-right register-btn"
+                       value="Get address" style="padding:4px 12px;"
+                       ng-click="getLocationByPincode($event, address)"><br/>
+                <span ng-show="addAddressForm.zipcode.$invalid && submitted" class="errorRed">Please enter your zip code</span>
+            </div>
+        </div>
+
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5">
+            <div class="col-md-5">
+                City
+            </div>
+            <div class="col-md-7 no-padding-right register-page">
+                <input type="text" class="username-textbox textbox"
+                       ng-model="address.city"/>
+            </div>
+        </div>
+
+        <div class="col-md-12  margin-bottom-20 marginRightMinus5">
+            <div class="col-md-5">Locality</div>
+            <div class="col-md-7 no-padding-right register-page">
+                <input type="text" ng-model="address.locality"
+                       class="name-textbox textbox" ng-google-location options="googleLocationOptions" obj="address"
+                       callback="addressCallback" id="addressLocality"
+                       placeholder="Locality"/>
+            </div>
+        </div>
+
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5">
+            <div class="col-md-5">Address detail</div>
+            <div class="col-md-7 no-padding-right register-page">
+                <textarea class="textbox " rows="3" ng-model="address.streetAddress"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+            <div class="col-md-5 required">
+                Phone Number
+            </div>
+            <div class="col-md-7 no-padding-right register-page">
+                <input type="text" class="username-textbox textbox" name="primaryTel"
+                       ng-model="userProfile.basicProfileInfo.primaryPhoneNo"
+                       placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10" required>
+                <span ng-show="(addAddressForm.primaryTel.$invalid || addAddressForm.primaryTel.$error.pattern) && submitted" class="errorRed">Not a valid number!</span>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
+            <div class="col-md-5 required">
+                Email ID
+            </div>
+            <div class="col-md-7 no-padding-right register-page">
+                <input type="email" class="username-textbox textbox" name="primaryEmail" ng-model="userProfile.basicProfileInfo.primaryEmail"
+                       placeholder="Email" required/>
+                <span ng-show="addAddressForm.primaryEmail.$invalid && submitted" class="errorRed">
+                    Not valid Email!
+                </span>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
     </div>
-</div>
 
-<div class="col-md-12 margin-bottom-20 marginRightMinus5">
-    <div class="col-md-5">
-        Country
+
+    <div class="col-md-12 form-header-content  margin-top-20">
+        <button class="btn btn-success pull-right register-btn by_btn_submit" ng-click="saveAddress(addAddressForm)" style="padding:5px 40px;">Save
+        </button>
+        <button class="btn btn-success pull-right by_address_btn_orange register-btn"
+                style="margin-right:10px; padding:5px 30px; margin-top:0px;" ng-click="selectAddress()">Cancel
+        </button>
     </div>
-    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.country.name.$invalid && addAddress.country.name.$dirty}">
-        <input type="text" ng-model="address.country.name" class="name-textbox textbox"
-        placeholder="Country"/>
-    </div>
-</div>
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5">
-    <div class="col-md-5">
-        Zip
-    </div>
-    <div class="col-md-7 no-padding-right register-page zipCodeWrapper"  ng-class="{ error: addAddress.postalCode.$invalid && addAddress.postalCode.$dirty}">
-        <input id="zipcode" type="text"  ng-model="address.postalCode" placeholder="Zip code" ng-trim="false"    name="postalCode" custom-validation required class="name-textbox textbox "
-        style="width: 50%;"/>
-        <input type="button" class="btn btn-success pull-right register-btn" value="Get address"
-        >
-
-    </div>
-</div>
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5">
-    <div class="col-md-5">
-        City
-    </div>
-    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.city.$invalid && addAddress.city.$dirty}">
-        <input type="text"   placeholder="City"    ng-trim="false" name="city" custom-validation required ng-model="address.city" class="name-textbox textbox "/>
-    </div>
-</div>
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5">
-    <div class="col-md-5">
-        Address Line 1
-    </div>
-    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.addressLine1.$invalid && addAddress.addressLine1.$dirty}">
-        <textarea rows="3" ng-model="address.addressLine1" placeholder="Address line 1" ng-trim="false"
-        name="addressLine1" custom-validation required class="name-textbox textbox "></textarea>
-    </div>
-</div>
-
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5">
-    <div class="col-md-5">
-        Address Line 2
-    </div>
-    <div class="col-md-7 no-padding-right register-page"  ng-class="{ error: addAddress.addressLine2.$invalid && addAddress.addressLine2.$dirty}">
-        <input type="text" class="name-textbox textbox " ng-model="address.addressLine2" placeholder="Address line 2" ng-trim="false"    name="addressLine2" custom-validation required/>
-    </div>
-</div>
-
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
-    <div class="col-md-5">
-        Phone Number
-    </div>
-    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.phoneNumber.$invalid && addAddress.phoneNumber.$dirty}">
-        <input type="text" class="username-textbox textbox"  ng-model="address.phonePrimary.phoneNumber" placeholder="Phone number"    ng-trim="false" name="phoneNumber" custom-validation required>
-    </div>
-</div>
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px" ng-if="secondaryMobile">
-    <div class="col-md-5">
-        Additional Phone Number
-    </div>
-    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.phoneNumber.$invalid && addAddress.phoneNumber.$dirty}">
-        <input type="text" class="username-textbox textbox" ng-model="address.phoneSecondary.phoneNumber" placeholder="Phone number"    ng-trim="false" name="phoneNumber" custom-validation required />
-        <i class="fa fa-times cursor-pointer delete-icon-size middle-align-v by_addAdress_iconDelete"
-        ng-click="toggleMobileField(ADDRESS_FIELDS.phoneNumber,secondaryMobile)"></i>    
-    </div>
-</div>
-
-<div class="col-md-12 add-phone-wrap margin-bottom-20" style="margin-top:-10px;">
-    <div class="col-md-5"></div>
-    <div class="col-md-7 no-padding-right register-page" ng-show="!secondaryMobile">
-        <a class="add-phone" ng-click="toggleMobileField(ADDRESS_FIELDS.phoneNumber,secondaryMobile)">+ add another phone no</a>
-    </div>
-</div>
-
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px">
-    <div class="col-md-5">
-        Email ID
-    </div>
-    <div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.emailId.$invalid && addAddress.emailId.$dirty}">
-        <input type="email" class="username-textbox textbox" ng-model="address.primaryEmail" placeholder="E-mail ID" ng-trim="false"  name="emailId" ng-pattern="/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" custom-validation required/>
-    </div>
-</div>
-
-
-
-<div class="col-md-12 margin-bottom-20 marginRightMinus5" style="padding-left: 15px"
-ng-if="secondaryEmail">
-<div class="col-md-5">
-    Additional Email ID
-</div>
-<div class="col-md-7 no-padding-right register-page" ng-class="{ error: addAddress.emailId.$invalid && addAddress.emailId.$dirty}">
-    <input type="email" class="username-textbox textbox" ng-model="address.secondaryEmail" placeholder="E-mail ID" ng-trim="false"    name="emailId" ng-pattern="/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/"     custom-validation required/>
-    <i class="fa fa-times cursor-pointer delete-icon-size middle-align-v by_addAdress_iconDelete"
-    ng-click="toggleMobileField(ADDRESS_FIELDS.emailId,secondaryEmail)"></i>
-</div>
-</div>
-
-
-<div class="col-md-12 add-email-wrap margin-bottom-20" style="margin-top:-10px;" ng-show="!secondaryEmail">
-    <div class="col-md-5"></div>
-    <div class="col-md-7 no-padding-right register-page">
-        <a class="add-email" ng-click="toggleMobileField(ADDRESS_FIELDS.emailId,secondaryEmail)">+ add another email id</a>
-    </div>
-</div>
-
-  <div class="clearfix"></div>
-</div>
-
-
-
-   
-<div class="col-md-12 form-header-content  margin-top-20">
-
-    <button class="btn btn-success pull-right register-btn disabled-color" disabled
-    ng-if="!addAddress.$valid" style="padding:5px 40px;">Save
-</button>
-<button class="btn btn-success pull-right register-btn" ng-click="shipToAddress()"
-ng-if="addAddress.$valid" style="padding:5px 40px;">Save
-</button>
-
-<button class="btn btn-success pull-right by_address_btn_orange register-btn" style="margin-right:10px; padding:5px 30px; margin-top:0px;" ng-click="selectAddress()"
->Cancel
-</button>
-
-</div>
-
 </form>
-
-
-</div>
-</div>
-
 <div class="clearfix"></div>
 
-  <div class="by_cart_call"></div>
+<div class="by_cart_call"></div>

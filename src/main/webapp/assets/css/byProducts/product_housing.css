@@ -346,7 +346,7 @@ button.quantity-button {
 
 .close-delete-text {
     position: relative;
-    top: -4px;
+    top: 0px;
     left: 5px;
 }
 

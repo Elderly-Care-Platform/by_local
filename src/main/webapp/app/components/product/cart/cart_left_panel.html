@@ -1,22 +1,25 @@
 <div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
     <div class="scrollableLeftPanelDiv by-filter-links">
-  <ul class="list-group sidebar-nav-v1" id="sidebar-nav">
-    <li class="list-group-item active" style="border:0px;">
-      <a>Shopping Cart ({{uiData.totalCartItem}}) 
-      </a><!-- href="shopping_cart.html" -->
-    </li>
-    <li class="list-group-item" style="border:0px;">
-      <a>Logging In</a><!-- href="shopping_login.html" -->
-    </li>
-    <li class="list-group-item" style="border:0px;">
-      <a>Shipping Address</a><!-- href="shopping_shipping_address.html" -->
-    </li>
-    <li class="list-group-item" style="border:0px;">
-      <a>Payment Options </a><!--  href="shopping_payment.html" -->
-    </li>
-    <li class="list-group-item" style="border:0px;" >
-      <a>Confirmation </a>
-    </li>
-  </ul>
-  </div>
+        <ul class="list-group sidebar-nav-v1" id="sidebar-nav">
+            <li class="list-group-item active" style="border:0px;">
+                <a di-href="#!cart/">Shopping Cart ({{uiData.totalCartItem}})
+                </a><!-- href="shopping_cart.html" -->
+            </li>
+            <li class="list-group-item" style="border:0px;" ng-if="!isLoggedinUser" ng-click="login()">
+                <a>Logging In</a><!-- href="shopping_login.html" -->
+            </li>
+            <li class="list-group-item" style="border:0px;">
+                <a di-href="#!selectAddress/">Shipping Address</a><!-- href="shopping_shipping_address.html" -->
+            </li>
+            <li class="list-group-item" style="border:0px;">
+                <a>Payment Options </a><!--  href="shopping_payment.html" -->
+            </li>
+            <li class="list-group-item" style="border:0px;">
+                <a>Confirmation </a>
+            </li>
+        </ul>
+    </div>
 </div>
+
+
+

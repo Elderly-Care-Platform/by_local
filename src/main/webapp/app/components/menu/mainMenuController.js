@@ -83,7 +83,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                 })
             }
 
-            editCategoryOptions(prod_categories.category, [$rootScope.menuCategoryMapByName["Products"].id]);
+            editCategoryOptions(prod_categories.category, [$rootScope.menuCategoryMapByName["Shop"].id]);
             angular.forEach($scope.mainMenu, function(menu, index){
                 if(menu.module==3){
                     console.log(menu.displayMenuName);

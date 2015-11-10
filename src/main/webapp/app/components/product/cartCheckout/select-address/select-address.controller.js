@@ -12,9 +12,11 @@ define(['byProductApp'], function (byProductApp) {
 
         var breadCrumb;
         $scope.customerId = null;
+        $scope.shipToAddressDisabled = false;
         if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
             $scope.customerId = localStorage.getItem("by_cust_id");
         }
+        $scope.userProfile = null;
         $scope.editAddress = editAddress;
         $scope.shipToAddress = shipToAddress;
         $scope.shipToNewAddress = shipToNewAddress;
@@ -25,7 +27,10 @@ define(['byProductApp'], function (byProductApp) {
         /**
          * Retrieve the list of address
          */
-        SelectAddressService.getAddress($scope.customerId).then(successCallBack, errorCallBack);
+        var getProfilePromise = SelectAddressService.getCustomerProfile();
+        if(getProfilePromise){
+            getProfilePromise.then(successCallBack, errorCallBack);
+        }
 
         /**
          * Stored thelist of address in address object
@@ -33,7 +38,18 @@ define(['byProductApp'], function (byProductApp) {
          * @return {void}
          */
         function successCallBack(result) {
-            $scope.address = result;
+            var userAddress = [];
+            $scope.userProfile = result.data.data;
+            var userBasicProfile = result.data.data.basicProfileInfo;
+            userAddress.push(userBasicProfile.primaryUserAddress);
+            if(userBasicProfile.otherAddresses.length > 0){
+                userAddress = userAddress.concat(userBasicProfile.otherAddresses);
+            }
+            $scope.customerAddress = userAddress;
+
+            if(!userBasicProfile.primaryEmail || !userBasicProfile.primaryPhoneNo){
+                $scope.shipToAddressDisabled = true;
+            }
         }
 
         function errorCallBack() {
@@ -54,8 +70,12 @@ define(['byProductApp'], function (byProductApp) {
          * @param  {integer} id id of address
          * @return {void}
          */
-        function shipToAddress(id) {
-            $location.path(PAGE_URL.paymentGateway + id);
+        function shipToAddress(addressIndex) {
+            var selectedAddress = $scope.customerAddress[addressIndex];
+            if(!$scope.userProfile.basicProfileInfo.primaryEmail || !$scope.userProfile.basicProfileInfo.primaryPhoneNo){
+                $scope.mandatoryFieldsError = "Please edit to add Email and Mobile number"
+            }
+            $location.path(PAGE_URL.paymentGateway + addressIndex);
         }
 
         /**

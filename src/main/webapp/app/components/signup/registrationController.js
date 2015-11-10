@@ -134,6 +134,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         $scope.exit = function () {
             if ($rootScope.nextLocation) {
                 $location.path($rootScope.nextLocation);
+                $rootScope.nextLocation = null;
             }
             else {
                 $location.path("/users/home");

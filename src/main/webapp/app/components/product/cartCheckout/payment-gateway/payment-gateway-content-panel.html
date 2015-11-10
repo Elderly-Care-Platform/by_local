@@ -1,122 +1,111 @@
 <div class="clearfix" style="height:15px;"></div>
-
 <div class="by_paymentGateway_wrap">
-  <div class="tab-v1" ng-hide="uiData.noCart">
+    <div class="tab-v1" ng-hide="uiData.noCart">
+        <div class="col-md-3 no-padding">
+            <ul class="sidebar-nav-v1 by_paymentGateway_tab">
+                <li class="active"><a ng-click="setTabId(1)" data-toggle="tab" aria-expanded="false">PayUMoney</a></li>
+                <li class=""><a ng-click="setTabId(2)" data-toggle="tab">Cash On Delivery</a></li>
 
-   <div class="col-md-3 no-padding">
-     <ul class="sidebar-nav-v1 by_paymentGateway_tab">
-      <li class="active"><a ng-click="setTabId(1)" data-toggle="tab" aria-expanded="false">PayUMoney</a></li>
-      <li class=""><a ng-click="setTabId(2)" data-toggle="tab">Cash On Delivery</a></li>
-
-    </ul>
-  </div>
-
-  <div class="by_paymentGateway_tab_expand col-md-9">
-    
-    <div class="col-md-8 paddingZero">
-      <div class="tab-content">
-        <div class="" id="debit-card" ng-show="tabId == 1">
-        <div class="col-md-12 padding-zero-only">
-
-          <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
-           Pay through payUMoney
-
-           <div class="darkBgwithTextArrow" style="bottom:-9px;">
-            <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
-          </div>
-          </div>        
-
-            
-            <div class="col-md-12  padding-zero-only light-gray margin-bottom-20">
-              <div class="form-header-content margin-bottom-25 zindexhigh">
-
-                <!-- payu form -->
-
-                <form action="https://secure.payu.in/_payment" name="payuForm" method="post">
-                  <input type="hidden" name="key" value="{{payu.key}}" />
-                  <input type="hidden" name="hash" value="{{payu.hash}}" />
-                  <input type="hidden" name="txnid" value="{{payu.txnid}}" />
-                  <input type="hidden" name="udf2" value="{{payu.txnid}}" />
-                  <input type="hidden" name="service_provider" value="{{payu.serviceProvider}}" />
-                  <input type="hidden" name="amount" value="{{payu.amount}}" />
-                  <input type="hidden" name="firstname" id="firstname" value="{{payu.firstname}}" />
-                  <input type="hidden" name="email" id="email" value="{{payu.email}}" />
-                  <input type="hidden" name="phone" value="{{payu.phone}}" />
-                  <input type="hidden" name="productinfo" value="{{payu.productinfo}}" />
-                  <input type="hidden" name="surl" value="{{payu.surl}}" />
-                  <input type="hidden" name="furl" value="{{payu.furl}}" />
-                  <input type="submit" class="btn btn-success pull-right zindexhigh register-btn" id="submit" value="Pay Now"/>
-                </form>
-
-              </div> 
-            </div>
-
-          </div>
-
-          <br>
+            </ul>
         </div>
 
+        <div class="by_paymentGateway_tab_expand col-md-9">
+            <div class="col-md-8 paddingZero">
+                <div class="tab-content">
+                    <div class="" id="debit-card" ng-show="tabId == 1">
+                        <div class="col-md-12 padding-zero-only">
+                            <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
+                                Pay through payUMoney
 
-        <div id="cash-on-deliver" ng-show="tabId == 2">
-          <div class="col-md-12 padding-zero-only">
+                                <div class="darkBgwithTextArrow" style="bottom:-9px;">
+                                    <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
+                                </div>
+                            </div>
 
-          <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
-           Pay cash while the product deliver
+                            <div class="col-md-12  padding-zero-only light-gray margin-bottom-20">
+                                <div class="form-header-content margin-bottom-25 zindexhigh">
+                                    <!-- payu form -->
 
-           <div class="darkBgwithTextArrow" style="bottom:-9px;">
-            <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
-          </div>
-          </div>  
-
-          
-
-              <div class="col-md-12   margin-bottom-20 margin-top-20" style="background:#E4E4E4;">
-                <div class=" col-md-12 margin-top-10 zindexhigh register-page">
-                  <div class="pure-u-4-5 fk-text-center">
-
-                    <!-- Captcha -->
-                    <div >
-                      <div class=" col-md-9 padding-zero-only dp-inline-block">
-                        <input type="text"  name="txtCaptcha" class="captcha" value="{{uiData.captchaCode}}" readonly/>
-                      </div>
-                      <div class="input-text col-md-3" style="margin-top:8px;">
-                      <i class="fa fa-refresh" ng-click="drawCaptcha()"></i>
-                        
-                      </div>
-                    </div><div class="clearfix"></div>
-                    <div class="margin-bottom-10 margin-top-10 register-page">
-                      <input type="text" class="username-textbox textbox textItalic" value="Enter captcha code" name="txtInput" ng-model="captchaInput" ng-trim="false"/>
+                                    <form action="https://secure.payu.in/_payment" name="payuForm" method="post">
+                                        <input type="hidden" name="key" value="{{payu.key}}"/>
+                                        <input type="hidden" name="hash" value="{{payu.hash}}"/>
+                                        <input type="hidden" name="txnid" value="{{payu.txnid}}"/>
+                                        <input type="hidden" name="udf2" value="{{payu.txnid}}"/>
+                                        <input type="hidden" name="service_provider" value="{{payu.serviceProvider}}"/>
+                                        <input type="hidden" name="amount" value="{{payu.amount}}"/>
+                                        <input type="hidden" name="firstname" id="firstname"
+                                               value="{{payu.firstname}}"/>
+                                        <input type="hidden" name="email" id="email" value="{{payu.email}}"/>
+                                        <input type="hidden" name="phone" value="{{payu.phone}}"/>
+                                        <input type="hidden" name="productinfo" value="{{payu.productinfo}}"/>
+                                        <input type="hidden" name="surl" value="{{payu.surl}}"/>
+                                        <input type="hidden" name="furl" value="{{payu.furl}}"/>
+                                        <input type="submit" class="btn btn-success pull-right zindexhigh register-btn"
+                                               id="submit" value="Pay Now"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
                     </div>
-                    <!-- End Captcha -->
-                  </div> 
-                </div> 
+                    <div id="cash-on-deliver" ng-show="tabId == 2 && !isCODavailable">
+                        COD not available in your location
+                    </div>
+                    <div id="cash-on-deliver" ng-show="tabId == 2 && isCODavailable">
+                        <div class="col-md-12 padding-zero-only">
+                            <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
+                                Pay cash while the product deliver
+                                <div class="darkBgwithTextArrow" style="bottom:-9px;">
+                                    <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
+                                </div>
+                            </div>
 
-                <div class="col-md-12 margin-bottom-25">
-                  <button class="btn btn-success pull-right by_paymentGateway_btn" ng-click="checkOut()" ng-disabled="captchaInput!==trimmedCaptchaCode">Confirm</button>
-                </div> 
-              </div>
+                            <div class="col-md-12   margin-bottom-20 margin-top-20" style="background:#E4E4E4;">
+                                <div class=" col-md-12 margin-top-10 zindexhigh register-page">
+                                    <div class="pure-u-4-5 fk-text-center">
+                                        <!-- Captcha -->
+                                        <div>
+                                            <div class=" col-md-9 padding-zero-only dp-inline-block">
+                                                <input type="text" name="txtCaptcha" class="captcha"
+                                                       value="{{uiData.captchaCode}}" readonly/>
+                                            </div>
+                                            <div class="input-text col-md-3" style="margin-top:8px;">
+                                                <i class="fa fa-refresh" ng-click="drawCaptcha()"></i>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="margin-bottom-10 margin-top-10 register-page">
+                                            <input type="text" class="username-textbox textbox textItalic"
+                                                   value="Enter captcha code" name="txtInput" ng-model="captchaInput"
+                                                   ng-trim="false"/>
+                                        </div>
+                                        <!-- End Captcha -->
+                                    </div>
+                                </div>
 
+                                <div class="col-md-12 margin-bottom-25">
+                                    <button class="btn btn-success pull-right by_paymentGateway_btn"
+                                            ng-click="checkOut()" ng-disabled="captchaInput!==trimmedCaptchaCode">
+                                        Confirm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>   
+
+            <div class="col-md-4 text-center">
+                <br/>
+                Amount
+                Payble<br/>
+                <strong>Rs.{{uiData.amount + uiData.totalShipping}}</strong>
+            </div>
         </div>
-
-      </div>
-
-      <div class="col-md-4 text-center">
-        <br/>
-        Amount
-        Payble<br/>
-        <strong>Rs.{{uiData.amount + uiData.totalShipping}}</strong>
-      </div>
-  
-  </div>
-
-
-</div>
-
-<div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
 </div>
 
 <div class="clearfix"></div>
 
-  <div class="by_cart_call"></div>
+<div class="by_cart_call"></div>

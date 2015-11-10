@@ -26,11 +26,13 @@ define(['byProductApp'], function (byProductApp) {
         $scope.quantityAvailable = '';
         $scope.enterProperInput = false;
         $scope.discountType = DISCOUNT_TYPE;
+        $scope.isLoggedinUser = false;
 
         // uiData mapping
         $scope.uiData = {
             cartItems: [],
             totalCartItem: 0,
+            productDeliveryCharges:0,
             totalProductDeliveryCharges: 0,
             totalAmount: 0,
             subTotalAmount: 0,
@@ -47,6 +49,7 @@ define(['byProductApp'], function (byProductApp) {
         $scope.getFedexRateWebService = getFedexRateWebService;
         $scope.selectAddress = selectAddress;
         $scope.promise = getCartDetails();
+        $scope.login = login;
 
 
         function selectAddress(){
@@ -57,6 +60,7 @@ define(['byProductApp'], function (byProductApp) {
          * @return {void}
          */
         function getCartDetails() {
+            $scope.isLoggedinUser = localStorage.getItem("USER_ID") ? true : false;
             if ($location.path() === PAGE_URL.cart) {
                 BreadcrumbService.setBreadCrumb(undefined, 'CART');
             }
@@ -106,6 +110,7 @@ define(['byProductApp'], function (byProductApp) {
                 $scope.uiData.totalCartItem = 0;
             }
             $rootScope.$broadcast('getCartItemCount', $scope.uiData.totalCartItem);
+            $rootScope.totalCartItem = $scope.uiData.totalCartItem;
             $scope.uiData.totalAmount = parseFloat(result.total.amount);
             $scope.uiData.subTotalAmount = parseFloat(result.subTotal.amount);
             $window.location.reload();
@@ -142,6 +147,13 @@ define(['byProductApp'], function (byProductApp) {
          */
         function cartAvailabilitySuccess(result) {
             $log.debug('Success in getting cart');
+
+            if(result && result.customer && result.customer.id){
+                localStorage.setItem("by_cust_id", result.customer.id);
+                localStorage.setItem("by_cust_cart_id", result.id);
+                customerId = result.customer.id;
+            }
+
             $scope.uiData.orderAdjustments = result.orderAdjustments;
 
             if (!result.orderItems && result.orderAdjustments) {
@@ -170,6 +182,7 @@ define(['byProductApp'], function (byProductApp) {
                 $scope.uiData.subTotalAmount = parseFloat(result.subTotal.amount);
             }
             $rootScope.$broadcast('getCartItemCount', $scope.uiData.totalCartItem);
+            $rootScope.totalCartItem = $scope.uiData.totalCartItem;
             $rootScope.$broadcast('uiDataChanged', $scope.uiData);
             if (result.orderItems) {
                 angular.forEach(result.orderItems, function (orderItem) {
@@ -267,6 +280,7 @@ define(['byProductApp'], function (byProductApp) {
                 $scope.uiData.totalCartItem = 0;
             }
             $rootScope.$broadcast('getCartItemCount', $scope.uiData.totalCartItem);
+            $rootScope.totalCartItem = $scope.uiData.totalCartItem;
             if (undefined === result.total) {
                 $scope.uiData.totalAmount = 0;
                 $scope.uiData.subTotalAmount = 0;
@@ -353,6 +367,11 @@ define(['byProductApp'], function (byProductApp) {
             CartService.getCartDetail()
                 .then(cartAvailabilitySuccess, cartAvailabilityFailure);
         }
+
+        function login(){
+            $rootScope.nextLocation = "/selectAddress"
+            $location.path('/users/login');
+        }
         /**
          * To update cart detail when cartDetail chaned in one instance of CartController
          * @param  {object} event
@@ -386,6 +405,8 @@ define(['byProductApp'], function (byProductApp) {
             CartService.getCartDetail(params)
                 .then(cartAvailabilitySuccess, cartAvailabilityFailure);
         });
+
+
     }
 
     CartController.$inject = ['$scope',

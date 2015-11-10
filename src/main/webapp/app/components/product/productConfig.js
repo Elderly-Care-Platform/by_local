@@ -1,27 +1,22 @@
 define([], function () {
     function BYProductConfig(byapp) {
         byapp.constant('APPLICATION', {
-            // host: 'http://aspiresoftware.co.in:8080/beautifulyears/api/v1',
-            host: 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1',
-            //    host: 'http://localhost:8080/beautifulyears/api/v1',
-            // host: 'http://192.168.1.36:8080/api/v1',
+//            host: 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1',
+            host: BY.config.constants.productHost,
             cache: 'byCache',
             paramCache: 'byParamCache',
             pageSize: 100000
         })
             .constant('SERVERURL_IMAGE', {
-                // hostUrl: 'http://aspiresoftware.co.in:8080',
-                hostUrl: 'http://54.169.187.40:8080',
-                //hostUrl: 'http://192.168.1.82:8088',
-                // host: 'http://192.168.1.36:8080',
+                hostUrl: BY.config.constants.selfHost,
                 forwardslash: '/'
             })
             .constant('SERVERURL', {
-                // hostUrl: 'http://aspiresoftware.co.in:8080',
-                hostUrl: 'http://54.169.187.40:8080',
+                hostUrl: BY.config.constants.selfHost,
                 //hostUrl: 'http://192.168.1.82:8088',
                 // host: 'http://192.168.1.36:8080',
-                siteName: '/by/#',
+                // hostUrl: 'http://aspiresoftware.co.in:8080',
+                siteName: '/#!',
                 forwardslash: '/'
             })
             .constant('REST_URL', {
@@ -50,7 +45,8 @@ define([], function () {
                 checkout: '/cart/checkout',
                 fedexRateWebService: '/fedex/rate',
                 orderFeedback: '/orders/feedback',
-                mergeCart: '/cart/merge'
+                mergeCart: '/cart/merge',
+                getCustomerProfile: '/userProfile/'
             })
             .constant('PAGE_URL', {
                 root: '/products',

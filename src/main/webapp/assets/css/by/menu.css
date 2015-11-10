@@ -25,8 +25,9 @@
 	width: 100%;
 	height: auto;
 	padding: 100px 0px 0px 0px;
-	background:url('../../img/home/HomePage_28.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
+	background: #000 url('../../img/home/HomePage_28.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
 	background-size: cover;
+	opacity: 0.8;
 }
 .by_sub_menu_head
 {
@@ -209,13 +210,9 @@
 .by_sub_menu_plus
 {
 	width: 250px;
-	height: calc(100% - 57px);
 	background: #fff;
-	left: 0px;
-	position: fixed;
-	top: 57px;
-	overflow-y: hidden;
-	z-index: 1;
+	min-height: calc(100vh - 57px);
+	padding-bottom: 57px;
 }
 .by_sub_menu_plus_head
 {

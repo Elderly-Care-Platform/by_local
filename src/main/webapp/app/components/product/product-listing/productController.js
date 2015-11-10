@@ -278,6 +278,28 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             });
         };
 
+        $scope.smartScroll = function(){
+            $scope.subMenuPlus();
+            var ul = $('.by_sub_menu_plus');
+            var heightD = $(window).height() - $(".by_section_header").height() - $(".footer-v1").height() - $(".header").height();
+            var heightS = $('.by_sub_menu_plus').height() - heightD;
+            
+            angular.element($window).bind("scroll", function() {
+                var scroller_anchor = ul.offset().top;
+                if ($(this).scrollTop() >= heightS){
+                    ul.css({                       
+                        'position': 'fixed',
+                        'marginTop': - ( heightS + 67 )
+                    });
+                }else if($(this).scrollTop() < heightS){
+                    ul.css({                       
+                        'position': 'static',
+                        'marginTop': 0
+                    });
+                }
+            });
+        };
+
 
     }
 

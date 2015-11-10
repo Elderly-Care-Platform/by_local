@@ -268,17 +268,17 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
                 localStorage.removeItem("by_cust_id");
-                document.getElementById("login_placeHolder_li").style.display = "inline";
-                var element = document.getElementById("login_placeholder");
-                element.innerHTML = "Logout";
-                element.href = apiPrefix + "#!/users/logout/" + login.sessionId;
+                //document.getElementById("login_placeHolder_li").style.display = "inline";
+                //var element = document.getElementById("login_placeholder");
+                //element.innerHTML = "Logout";
+                //element.href = apiPrefix + "#!/users/logout/" + login.sessionId;
+                //
+                //var pro = document.getElementById('profile_placeholder');
+                //var userName = localStorage.getItem("USER_NAME");
+                //pro.innerHTML = BY.byUtil.validateUserName(userName);
+                //pro.href = apiPrefix + "#!/users/registrationProfile/"; //******************* to be removed*************//
 
-                var pro = document.getElementById('profile_placeholder');
-                var userName = localStorage.getItem("USER_NAME");
-                pro.innerHTML = BY.byUtil.validateUserName(userName);
-                pro.href = apiPrefix + "#!/users/registrationProfile/"; //******************* to be removed*************//
-
-                $rootScope.$broadcast('byUserLogin', localStorage.getItem("by_cust_cart_id"));
+                $rootScope.$broadcast('byUserLogin', login);
             }
             else {
                 $scope.setError('Browser does not support cookies');

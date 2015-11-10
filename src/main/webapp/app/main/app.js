@@ -28,22 +28,13 @@ define([
 	byApp.controller('BYHeaderCtrl', headerCtrl);
 	
 	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http, broadCastMenuDetail) {
-		if(window.localStorage){
-			$http.defaults.headers.common.sess = localStorage.getItem("SessionId");
-			$http.get("api/v1/users/validateSession").success(function (response) {
-			}).error(function(err){
-				$http.defaults.headers.common.sess = "";
-				SessionIdService.setSessionId("");
-				BY.byUtil.inValidateSession();
-			})
-		}
-
 		// register listener to watch route changes
 		$rootScope.$on("$routeChangeStart", function(event, next, current) {
-                        $window.ga('send', 'pageview', { page: $location.url() });
+			$window.ga('send', 'pageview', { page: $location.url() });
 			window.scrollTo(0, 0);
 			BY.byEditor.removeEditor();
-			BY.byEditor.editorCategoryList.resetCategoryList();
+			$rootScope.$broadcast('currentLocation', $location.path());
+			//BY.byEditor.editorCategoryList.resetCategoryList();
 			//For any location other than search, wipe out the search term
 			if($location.path().indexOf('/search/') == -1)
 				$rootScope.term = '';
@@ -54,20 +45,16 @@ define([
 			}else{
 				broadCastMenuDetail.setMenuId(0);
 			}
-
 		});
 
 		window.fbAsyncInit = function() {
 			// Executed when the SDK is loaded
-
 			FB.init({
-
 				appId: '475153235986093',
 				//appId: 1503191563249716,
 				xfbml: true,
 				version    : 'v2.3'
 			});
-
 			//sAuth.watchAuthenticationStatusChange();
 
 		};

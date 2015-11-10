@@ -31,22 +31,22 @@ BY.byUtil.getAverageRating = function(value){
 
 
 BY.byUtil.inValidateSession = function(){
-	localStorage.setItem("SessionId", "");
-	localStorage.setItem("USER_ID", "");
-	localStorage.setItem("USER_NAME", "");
-	
-	var element = document.getElementById("login_placeholder");
-	if(element){
-		element.innerHTML = "";
-	    element.href = "";
-	    document.getElementById("login_placeHolder_li").style.display = "none";
-	}
-    var pro = document.getElementById('profile_placeholder');
-    if(pro){
-    	pro.innerHTML = "Join us";
-        pro.href = apiPrefix+"#!/users/login";
-       // window.location = "#!users/home";
-    }
+    //localStorage.setItem("SessionId", "");
+    //localStorage.setItem("USER_ID", "");
+    //localStorage.setItem("USER_NAME", "");
+    //
+    //var element = document.getElementById("login_placeholder");
+    //if(element){
+		//element.innerHTML = "";
+	 //   element.href = "";
+	 //   document.getElementById("login_placeHolder_li").style.display = "none";
+    //}
+    //var pro = document.getElementById('profile_placeholder');
+    //if(pro){
+    //	pro.innerHTML = "Join us";
+    //    pro.href = apiPrefix+"#!/users/login";
+    //   // window.location = "#!users/home";
+    //}
 }
 
 $(window).scroll(function(){

@@ -388,10 +388,8 @@ define(['byProductApp'], function (byProductApp) {
 
         $scope.$on('byUserLogin', function (event, args) {
             customerId = null;
-            //$scope.promise = getCartDetails();
-            //console.log(args);
             var params = {};
-            params.guestOrderId = args;
+            params.guestOrderId = localStorage.getItem("by_cust_cart_id");
             CartService.mergeCart(params).then(mergeCartSuccess, mergeCartFailure);
 
         });

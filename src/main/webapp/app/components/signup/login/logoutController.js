@@ -8,13 +8,12 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $rootScope.bc_discussType = '';
         $rootScope.bc_username = '';
         $rootScope.bc_userId = '';
-
-        SessionIdService.setSessionId("");
-        BY.byUtil.inValidateSession();
-        $http.defaults.headers.common.sess = "";
+        localStorage.removeItem("by_cust_id");
+        //SessionIdService.setSessionId("");
+        //BY.byUtil.inValidateSession();
+        //$http.defaults.headers.common.sess = "";
 
         $location.path("/users/login");
-        localStorage.removeItem("by_cust_id");
         $rootScope.$broadcast('byUserLogout', '');
 
     }

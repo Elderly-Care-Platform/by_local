@@ -6,8 +6,14 @@ define(['byApp'], function(byApp){
         $scope.submitted = false;
         $scope.regConfig = BY.config.regConfig.indvUserRegConfig;
 
-        $scope.medicalIssuesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu].children;
-        $scope.hobbiesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.hobbies.fetchFromMenu].children;
+        if($rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu]){
+            $scope.medicalIssuesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.medical_issues.fetchFromMenu].children;
+        }
+
+        if($rootScope.menuCategoryMapByName[$scope.regConfig.hobbies.fetchFromMenu]){
+            $scope.hobbiesOptions = $rootScope.menuCategoryMapByName[$scope.regConfig.hobbies.fetchFromMenu].children;
+        }
+
         $scope.interestsOptions = $rootScope.mainMenu;
         $scope.emotional_challenges = $scope.regConfig.emotional_challenges1;
 

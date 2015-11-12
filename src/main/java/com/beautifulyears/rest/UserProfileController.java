@@ -30,6 +30,7 @@ import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserAddress;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
@@ -404,6 +405,121 @@ public class UserProfileController {
 
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
 				.getUserProfileEntity(profile, currentUser));
+	}
+
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/address/{userId}" }, params = { "addressIndex" }, produces = { "application/json" })
+	@ResponseBody
+	public Object getAddress(
+			@PathVariable(value = "userId") String userId,
+			@RequestParam(value = "addressIndex", defaultValue = "0") int addressIndex,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		LoggerUtil.logEntry();
+		UserProfile userProfile = null;
+		UserAddress userAddress = null;
+		try {
+			if (userId != null) {
+				userProfile = this.userProfileRepository.findByUserId(userId);
+				if (userProfile == null) {
+					logger.error("did not find any profile matching ID");
+				} else {
+					if (addressIndex == 0
+							&& null != userProfile.getBasicProfileInfo()) {
+						userAddress = userProfile.getBasicProfileInfo()
+								.getPrimaryUserAddress();
+					} else {
+						List<UserAddress> addressArray = userProfile
+								.getBasicProfileInfo().getOtherAddresses();
+						if (addressArray.size() > addressIndex - 1) {
+							userAddress = userProfile.getBasicProfileInfo()
+									.getOtherAddresses().get(addressIndex - 1);
+						} else {
+							throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
+						}
+					}
+				}
+			} else {
+				logger.error("invalid parameter");
+				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+			}
+
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(userAddress);
+	}
+
+	@RequestMapping(method = { RequestMethod.PUT }, value = { "/address/{userId}" }, consumes = { "application/json" })
+	@ResponseBody
+	public Object updateAddress(
+			@RequestBody UserAddress userAddress,
+			@PathVariable(value = "userId") String userId,
+			@RequestParam(value = "addressIndex", required = true) int addressIndex,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		LoggerUtil.logEntry();
+		UserProfile userProfile = null;
+		try {
+			if (userId != null) {
+				userProfile = this.userProfileRepository.findByUserId(userId);
+				if (userProfile == null) {
+					logger.error("did not find any profile matching ID");
+				} else {
+					if (addressIndex == 0
+							&& null != userProfile.getBasicProfileInfo()) {
+						userProfile.getBasicProfileInfo()
+								.setPrimaryUserAddress(userAddress);
+						mongoTemplate.save(userProfile);
+					} else {
+						List<UserAddress> addressArray = userProfile
+								.getBasicProfileInfo().getOtherAddresses();
+						if (addressArray.size() > addressIndex - 1) {
+							userProfile.getBasicProfileInfo()
+									.getOtherAddresses()
+									.set(addressIndex - 1, userAddress);
+							mongoTemplate.save(userProfile);
+						} else {
+							throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
+						}
+					}
+				}
+			} else {
+				logger.error("invalid parameter");
+				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+			}
+
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(userAddress);
+	}
+
+	@RequestMapping(method = { RequestMethod.POST }, value = { "/address/{userId}" }, consumes = { "application/json" })
+	@ResponseBody
+	public Object addAddress(@RequestBody UserAddress userAddress,
+			@PathVariable(value = "userId") String userId,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		LoggerUtil.logEntry();
+		UserProfile userProfile = null;
+		try {
+			if (userId != null) {
+				userProfile = this.userProfileRepository.findByUserId(userId);
+				if (userProfile == null) {
+					logger.error("did not find any profile matching ID");
+				} else {
+					userProfile.getBasicProfileInfo().getOtherAddresses()
+							.add(userAddress);
+					mongoTemplate.save(userProfile);
+				}
+			} else {
+				logger.error("invalid parameter");
+				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+			}
+
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 
 	private String getShortDescription(UserProfile profile) {

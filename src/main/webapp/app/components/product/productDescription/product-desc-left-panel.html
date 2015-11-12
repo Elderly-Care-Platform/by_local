@@ -1,0 +1,34 @@
+
+
+<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
+    <div class="scrollableLeftPanelDiv">
+        
+        <div class="by_productDetail_leftSimilarTitle col-md-12 no-padding">
+            <span ng-if="uiData.similarProductLength > 0">Similar Products</span>
+            <span ng-if="uiData.similarProductLength === 0">No Similar Products Available</span>
+        </div>
+
+        <div class="col-md-12 no-padding" ng-repeat="product in uiData.similarProduct">
+            <div ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)">
+
+                <div class="by_productDetail_leftSimilarThumb">
+                    <div class="by_productDetail_leftSimilarThumbImage">
+                        <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
+                    </div>
+                    <div class="by_productDetail_leftSimilarThumbContent">
+                        <div class="by_productDetail_leftSimilarThumbContentName">
+                            {{product.name.substring(0, 25)}}<span ng-if="product.name.length > 25">...</span>
+                        </div>
+                        <div class="by_productDetail_leftSimilarThumbContentPrice">
+                            <strong>Rs. {{product.salePrice.amount}}</strong><br/>
+                            <del><small>Rs. {{product.retailPrice.amount}}</small></del>
+                        </div>
+                        
+                    </div><div class="clearfix"></div>
+                </div>
+        </div>
+
+    </div>
+    
+    
+</div>

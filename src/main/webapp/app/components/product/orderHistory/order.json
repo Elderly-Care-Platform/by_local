@@ -1,0 +1,138 @@
+{
+    "id": 4202,
+    "status": "SUBMITTED",
+    "totalTax": {
+        "amount": "0.00",
+        "currency": "INR"
+    },
+    "totalShipping": {
+        "amount": "0.00",
+        "currency": "INR"
+    },
+    "subTotal": {
+        "amount": "430.00",
+        "currency": "INR"
+    },
+    "total": {
+        "amount": "430.00",
+        "currency": "INR"
+    },
+    "customer": {
+        "id": 700
+    },
+    "orderItems": [
+        {
+            "id": 4353,
+            "name": "Rib Belt Universal",
+            "quantity": 1,
+            "retailPrice": {
+                "amount": "430.00",
+                "currency": "INR"
+            },
+            "salePrice": {
+                "amount": "430.00",
+                "currency": "INR"
+            },
+            "orderId": 4202,
+            "categoryId": 10300,
+            "skuId": 10212,
+            "productId": 10212,
+            "isBundle": false,
+            "orderItemPriceDetails": [
+                {
+                    "id": 4353,
+                    "totalAdjustmentValue": {
+                        "amount": "0.00",
+                        "currency": "INR"
+                    },
+                    "totalAdjustedPrice": {
+                        "amount": "430.00",
+                        "currency": "INR"
+                    },
+                    "quantity": 1,
+                    "adjustments": []
+                }
+            ],
+            "isDiscountingAllowed": true
+        }
+    ],
+    "fulfillmentGroups": [
+        {
+            "id": 4103,
+            "orderId": 4202,
+            "total": {
+                "amount": "430.00",
+                "currency": "INR"
+            },
+            "address": {
+                "id": 151,
+                "firstName": "user",
+                "lastName": "user",
+                "addressLine1": "user",
+                "addressLine2": "user",
+                "city": "user",
+                "country": {
+                    "name": "United States",
+                    "abbreviation": "US"
+                },
+                "postalCode": "380027",
+                "phonePrimary": {
+                    "id": 151,
+                    "phoneNumber": "9876543210",
+                    "isActive": true,
+                    "isDefault": false
+                },
+                "isBusiness": false,
+                "isDefault": true,
+                "primaryEmail": "chintan.pandya@aspiresoftware.in"
+            },
+            "fulfillmentGroupItems": [
+                {
+                    "id": 4353,
+                    "fulfillmentGroupId": 4103,
+                    "orderItemId": 4353,
+                    "totalTax": {
+                        "amount": "0.00",
+                        "currency": "INR"
+                    },
+                    "quantity": 1,
+                    "totalItemAmount": {
+                        "amount": "430.00",
+                        "currency": "INR"
+                    }
+                }
+            ]
+        }
+    ],
+    "payments": [
+        {
+            "id": 3353,
+            "orderId": 4202,
+            "type": "COD",
+            "amount": "430.00",
+            "currency": "INR",
+            "gatewayType": "Passthrough",
+            "transactions": [
+                {
+                    "id": 3353,
+                    "orderPaymentId": 3353,
+                    "type": "AUTHORIZE_AND_CAPTURE",
+                    "success": true,
+                    "amount": "430.00",
+                    "currency": "INR"
+                }
+            ]
+        }
+    ],
+    "orderNumber": "201509281839216154202",
+    "submittedDate": 1443445761000,
+    "trackingInfo": {
+        "orderId": 4202,
+        "trackingNumber": "794657457362",
+        "shippingSeverity": "SUCCESS",
+        "shippingMessage": "Success",
+        "deliveryDate": "9/29/2015",
+        "rateServiceSeverity": "SUCCESS",
+        "rateServiceMessage": "Request was successfully processed. "
+    }
+}

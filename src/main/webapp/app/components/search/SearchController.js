@@ -1,6 +1,6 @@
 define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareController'],
     function(byApp, byUtil, userTypeConfig, discussLikeController, shareController) {
-    function SearchController($scope, $rootScope, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce){
+    function SearchController($scope, $rootScope, $http, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce){
         $rootScope.term = $routeParams.term;
 
         //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -107,6 +107,36 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     }, 500);
             });
         };
+        
+        $scope.getProductsData = function(page, size){
+        	page = page + 1;
+        	$http({method:'GET', url: BY.config.constants.productHost + '/catalog/search/products', params:{q: $rootScope.term, 'page': page, 'pageSize': size}}).then(function(response) {
+                console.log(response);
+                $scope.products = response.data;
+                $scope.productPagination = {};
+                $scope.productPagination.totalPosts = response.data.totalResults;
+                $scope.productPagination.noOfPages = Math.ceil(response.data.totalResults / response.data.pageSize);
+                $scope.productPagination.currentPage = response.data.page;
+                $scope.productPagination.pageSize = $scope.pageSize;
+                
+
+                $scope.productsTotal = response.data.totalResults;
+                function regexCallback(p1, p2, p3, p4) {
+                    return ((p2 == undefined) || p2 == '') ? p1 : '<i class="highlighted-text" >' + p1 + '</i>';
+                }
+                $scope.scrollTo("search-product");
+                setTimeout(
+                    function () {
+                        $(".by_productCard").each(function (a, b) {
+                                var myRegExp = new RegExp("<[^>]+>|(" + $rootScope.term + ")", "ig");
+                                var result = $(b).html().replace(myRegExp, regexCallback);
+                                $(b).html(result);
+                            }
+                        )
+                    }, 500);
+              });
+        };
+        
 
 
         var initSearch = function(){
@@ -114,6 +144,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 $scope.getDiscussData(0, $scope.pageSize);
                 $scope.getServicesData(0, $scope.pageSize);
                 $scope.getHousingData(0, $scope.pageSize);
+                $scope.getProductsData(0, $scope.pageSize);
             }
         };
         initSearch();
@@ -170,6 +201,14 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                $location.path('/housingProfile/3/'+userID+'/'+id);
             }
         }
+        
+        $scope.openProductDescription = function($event, productId) {
+        	$event.stopPropagation();
+        	if(productId) {
+                $location.path('/productDescription/'+productId);
+             }
+        }
+
 
         $scope.term = $rootScope.term;
 
@@ -189,7 +228,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 $scope.selectedTab = 's';
             } else if(param === 'd' && $scope.housingTotal > 0){
                 $scope.selectedTab = 'h';
-            } else{
+            }  else if(param === 'd' && $scope.productsTotal > 0){
+                $scope.selectedTab = 'p';
+            }else{
                 $scope.selectedTab = param;
             }
 
@@ -205,7 +246,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         };
     }
 
-    SearchController.$inject = ['$scope', '$rootScope', '$route', '$location', '$routeParams', 'DiscussSearch',
+    SearchController.$inject = ['$scope', '$rootScope', '$http', '$route', '$location', '$routeParams', 'DiscussSearch',
         'ServicePageSearch', 'HousingPageSearch',  '$sce'];
     byApp.registerController('SearchController', SearchController);
     return SearchController;

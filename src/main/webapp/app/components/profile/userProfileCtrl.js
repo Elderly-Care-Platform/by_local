@@ -148,6 +148,10 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
+        
+        $scope.trustAsResourceUrl = function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
 
         $scope.showAllServices = function ($event, service) {
             var parentNode = $($event.target.parentElement),

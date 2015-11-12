@@ -119,7 +119,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 $scope.productPagination.noOfPages = Math.ceil(response.data.totalResults / response.data.pageSize);
                 $scope.productPagination.currentPage = response.data.page;
                 $scope.productPagination.pageSize = $scope.pageSize;
-                Utility.checkImages($scope.products);
+                Utility.checkImages($scope.products.products);
 
                 $scope.productsTotal = response.data.totalResults;
                 function regexCallback(p1, p2, p3, p4) {

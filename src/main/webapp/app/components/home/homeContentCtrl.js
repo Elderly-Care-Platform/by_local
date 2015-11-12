@@ -44,6 +44,7 @@ define(['byApp'], function(byApp) {
                 });
         }
 
+       
         $scope.loadMore = function($event){
             if($scope.contentType !=="all"){
                 if($scope.contentType === "P"){

@@ -58,9 +58,10 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                 if(category.children.length > 0){
                     createMenuCategoryMap(category.children);
                 }
-            });
+            });       
 
         };
+        
 
         var mergeProdCategories = function(prod_categories){
             function editCategoryOptions(categories, ancestorIdArr){

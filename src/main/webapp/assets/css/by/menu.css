@@ -66,7 +66,8 @@
 	width: 100%;
 	height: auto;
 	padding: 0px 3%;
-	border-top: 1px solid #fff;
+	border-top: 1px solid #fff;	
+	background: rgba(6, 10, 7, 0.72);
 }
 .by_sub_menu_content_thumb
 {

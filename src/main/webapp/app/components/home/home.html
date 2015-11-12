@@ -58,7 +58,8 @@ new search
 		Living longer and happier
 	</div>
 	
-	<div class="by_home_header_menu_content">		
+	<div class="by_home_header_menu_content">	
+		<!--	
 		<div class="by_home_header_menu_content_item">
 			<a>
 				<div class="by_home_header_menu_content_item_first">
@@ -97,6 +98,32 @@ new search
 					 Improving lives: <br/><b id="HomeProduct" ng-init="HomeProductNum();">0</b> products for seniors 
 				</div>
 			</a>
+		</div>-->
+		<div ng-repeat="menu in $root.mainMenu">
+			<div class="by_home_header_menu_content_item">
+			<a href="{{homeSection[$index].url}}{{menu.slug}}/{{menu.id}}/all">			
+				<div class="by_home_header_menu_content_item_first">
+					<div class="by_home_header_menu_content_item_first_image">
+						<img src="{{homeSection[$index].image}}" >
+					</div>
+					<div class="by_home_header_menu_content_item_first_text">{{menu.displayMenuName}}</div>
+				</div>
+				<div class="by_home_header_menu_content_item_second">
+				 <span ng-if="menu.displayMenuName == 'Communities'">	
+				 	{{homeSection[$index].desc1}}<br/>
+					 {{homeSection[$index].desc2}}
+				</span>	 
+				<span ng-if="menu.displayMenuName == 'Directory'">
+					 <b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> {{homeSection[$index].desc1}}<br/>
+					 <b id="HomeHousing" ng-init="HomeHousingNum();">0</b>{{homeSection[$index].desc2}}
+				</span>
+				<span ng-if="menu.displayMenuName == 'Shop'">
+					{{homeSection[$index].desc1}}<br/>
+					<b id="HomeProduct" ng-init="HomeProductNum();">0</b>  {{homeSection[$index].desc2}}
+				</span>
+				</div>
+			</a>
+		</div>
 		</div>
 	</div>
 
@@ -137,7 +164,7 @@ new search
 		<!--<div class="discussion-page md-margin-bottom-40">
 			<div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 		</div>-->
-	</div>
+	</div><div class="clearfix"></div>
 
 
 	<div ng-controller="BYHomeContentCtrl">

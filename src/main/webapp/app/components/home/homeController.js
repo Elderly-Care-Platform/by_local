@@ -74,6 +74,9 @@ define(['byApp', 'byUtil', 'homePromoController',
             }
         }
 
+        $scope.homeSection = BY.config.home;
+        $scope.homeimage = BY.config.homeIcon;
+
 
 
         $scope.go = function ($event, type, id, discussType) {
@@ -141,6 +144,7 @@ define(['byApp', 'byUtil', 'homePromoController',
              }
             });
         }
+
 
         $scope.showAllServices = function($event, service){
             var parentNode = $($event.target.parentElement),

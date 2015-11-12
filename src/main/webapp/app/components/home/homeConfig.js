@@ -3,7 +3,61 @@ BY.config = BY.config || {};
 
 
 BY.config.home = {
-    '0' : {
+   '0' : {
+        'name':'Communities',
+        'desc1':'Get informed & inspired ',
+        'desc2':'Share experiences ',
+        'image':'assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%',
+        'url': '#!/discuss/list/'
+    },
+    '1' : {
+        'name':'Directory',
+        'desc1':'services for seniors',
+        'desc2':' senior living facilities',
+        'image':'assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%',
+        'url': '#!/services/list/'
+    },
+    '2' : {
+        'name':'Shop',
+        'desc1':' Improving lives:',
+        'desc2':'products for seniors ',
+        'image':'assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%',
+        'url': '#!/products/list/'
+    },
+}
+
+BY.config.homeIcon = {
+   '564072883e60f5b66f62df2d' : {        
+        'image':'assets/img/home/caring-for-parents.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '564072373e60f5b66f62df2b' : {        
+        'image':'assets/img/home/beautiful-ageing.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '5640726c3e60f5b66f62df2c' : {        
+        'image':'assets/img/home/active-leisure.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befb69e4b07cedaa26780d' : {        
+        'image':'assets/img/home/caregivers-nurses.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befb86e4b07cedaa26780e' : {        
+        'image':'assets/img/home/physiotherapy.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc45e4b07cedaa26781a' : {        
+        'image':'assets/img/home/home-diagnostics.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befb1ae4b07cedaa26780b' : {        
+        'image':'assets/img/home/medical-equipment-supply.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befaeee4b07cedaa26780a' : {        
+        'image':'assets/img/home/emergency-services.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55bcadaee4b08970a736784c' : {        
+        'image':'assets/img/home/housing.png?versionTimeStamp=%PROJECT_VERSION%'
+    }
+}
+
+/*
+ '0' : {
         'name':'Services',
         'desc':'Need a doctor on call? Or a nursing aide? Or even a yoga instructor at home? Check out our services directory with reviews and overviews, to find a solution.',
         'desktopImage':'assets/img/home/services-full.jpg?versionTimeStamp=%PROJECT_VERSION%',
@@ -60,13 +114,11 @@ BY.config.home = {
         'listingPageUrl': '/discuss/list/'
     },
     '7' : {
-    	'name':'News',
+        'name':'News',
         'desc':'Want to delay ageing? Read the news about ground breaking research in immortality and more! Keep track of local events. Get the latest news about seniors and their lives!',
         'desktopImage':'assets/img/home/news-full.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'mobileImage':'assets/img/home/news_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'buttonText':'Read Now',
         'listingPageUrl': '/discuss/list/' 
     },
-}
-
-
+*/

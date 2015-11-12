@@ -31,13 +31,26 @@
 				</div>		
 			</div>
 			<div class="by_home_community_image divLeft">
-				<img src="assets/img/home/share.jpg?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+				<img src="assets/img/home/community.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
 			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="by_home_community_text_menu by_home_community_text_menu_desktop">
 
-			<div class="by_home_community_text_menu_item">
+			<div ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
+				<div class="by_home_community_text_menu_item">
+					<a href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all">
+						<div class="by_home_community_text_menu_item_image">
+							<img src="{{homeimage[menu.id].image}}" alt="{{menu.displayMenuName}}">
+						</div>
+						<div class="by_home_community_text_menu_item_text">
+							{{menu.displayMenuName}}
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<!--<div class="by_home_community_text_menu_item">
 				<a>
 					<div class="by_home_community_text_menu_item_image">
 						<img src="assets/img/home/3.png?versionTimeStamp=%PROJECT_VERSION%" >
@@ -66,7 +79,7 @@
 						Active leisure
 					</div>
 				</a>
-			</div>
+			</div>-->
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -83,12 +96,24 @@
 				</div>
 			</div>
 			<div class="by_home_community_image divRight">
-				<img src="assets/img/home/directory.jpg?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+				<img src="assets/img/home/directoryHome.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
 			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="by_home_community_text_menu">
-			<div class="by_home_find_text_menu_item">
+			<div ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="$index < 6">
+				<div class="by_home_find_text_menu_item">
+					<a href="#!/services/list/{{menu.slug}}/{{menu.id}}/all">
+						<div class="by_home_community_text_menu_item_image">
+							<img src="{{homeimage[menu.id].image}}" alt="{{menu.displayMenuName}}">
+						</div>
+						<div class="by_home_community_text_menu_item_text">
+							{{menu.displayMenuName}}
+						</div>
+					</a>
+				</div>
+			</div>
+			<!--<div class="by_home_find_text_menu_item">
 				<a>
 					<div class="by_home_community_text_menu_item_image">
 						<img src="assets/img/home/4.png?versionTimeStamp=%PROJECT_VERSION%" >
@@ -147,7 +172,7 @@
 						Senior living 
 					</div>
 				</a>
-			</div>
+			</div>-->
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -164,12 +189,21 @@
 				</div>
 			</div>
 			<div class="by_home_community_image divLeft">
-				<img src="assets/img/home/shop.jpg?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+				<img src="assets/img/home/shop.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
 			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="by_home_shop_text_menu">
-			<div class="by_home_shop_text_menu_item by_home_shop_text_menu_item_active">
+			<div ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children">
+				<div class="by_home_shop_text_menu_item" ng-class="$index < 1 ? 'by_home_shop_text_menu_item_active' : ''">
+					<a href="#!/products/list/{{menu.urlKey}}/{{menu.id}}/all">
+						<div class="by_home_community_text_menu_item_text">
+							{{menu.displayMenuName}}
+						</div>
+					</a>
+				</div>
+			</div>
+			<!--<div class="by_home_shop_text_menu_item by_home_shop_text_menu_item_active">
 				<a>
 					<div class="by_home_community_text_menu_item_text">
 						By Health Condition
@@ -203,12 +237,24 @@
 						Staying Young
 					</div>
 				</a>
-			</div>
+			</div>-->
 			<div class="clearfix"></div>
 		</div>
 		<div class="by_home_shop_text_menu_border"></div>
 		<div class="by_home_product_text_menu">
-			<div class="by_home_product_text_menu_item">
+			<div ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children">
+				<div ng-repeat="menuN in menu.subcategories" ng-if="menu.name == 'BY THE CONDITION'">
+					<div class="by_home_product_text_menu_item">
+						<a  href="#!/products/list/{{menuN.urlKey}}/{{menuN.id}}/all">
+							<div class="by_home_product_image{{$index+1}} by_home_product_image"></div>
+							<div class="by_home_community_text_menu_item_text">
+								{{menuN.name}}
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!--<div class="by_home_product_text_menu_item">
 				<a>
 					<div class="by_home_product_image1 by_home_product_image"></div>
 					<div class="by_home_community_text_menu_item_text">
@@ -287,7 +333,7 @@
 						By Category
 					</div>
 				</a>
-			</div>
+			</div>-->
 			<div class="clearfix"></div>
 		</div>
 	</div>

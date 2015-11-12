@@ -108,13 +108,13 @@
                     Sleep Disorders
                 </a>
             </div>
-            <!--<div class="by_sub_menu_content_item">
+            <div class="by_sub_menu_content_item">
                 <a href="">
                     <img src="assets/img/community/desktop/14.png?versionTimeStamp=%PROJECT_VERSION%" >
                     <br/>
                     Lungs & Respiratory 
                 </a>
-            </div>-->
+            </div>
             <div class="by_sub_menu_content_item">
                 <a href="">
                     <img src="assets/img/community/desktop/23.png?versionTimeStamp=%PROJECT_VERSION%" >
@@ -163,7 +163,8 @@
                     <br/>
                     Caregivers' Challenges  
                 </a>
-            </div><div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
         </div>
         <div class="by_sub_menu_content_thumb">            
             <div class="by_sub_menu_content_item">
@@ -474,7 +475,7 @@
     <!--</div>-->
     <!--<hr class="breadcrumb-divider"/>-->
 <!--</div>-->
-<!-- section headers -->
+<!-- section headers
 <div class="by_section_header" >
 	<div class="container">
 		<div class="by_section_header_title"></div>
@@ -482,7 +483,7 @@
 		<div class="by_section_header_desc"></div>
 	</div>
 </div>
-
+ -->
 <div class="by_mobile_call_wrap" ng-if="$root.windowWidth < 720">
     <div class="by_container" style="color: #fff ; text-align:center;">     
         Need help? <a href="tel:080-67818181"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
@@ -491,8 +492,8 @@
 <!--=== Content Part ===-->
 <div class="container by_home_content">
     <div class="row">
-         <div class="col-md-3  md-margin-bottom-40" ng-include="discussionViews.leftPanel"></div>
-        <div infinite-scroll="loadMore()" class="col-md-9 discussion-page md-margin-bottom-40 article-outer-wrapper"
+         <!--<div class="col-md-3  md-margin-bottom-40" ng-include="discussionViews.leftPanel"></div>-->
+        <div infinite-scroll="loadMore()" class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper"
              ng-include="discussionViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">
         </div>
     </div>

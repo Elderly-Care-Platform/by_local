@@ -1,4 +1,12 @@
-
+<div class="col-md-12 col-xs-12 col-sm-12 no-padding margin-top-40 by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
+            <i class="sprite sprite-question"></i>
+            <span><b>Ask</b> anything about elder care or health</span>
+        </div>
+        <div class="col-md-12 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
+            <i class="sprite sprite-story"></i>
+            <span><b>Share</b> your stories, experiences, photos</span>
+        </div>
+        <div class="clearfix"></div>
 <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
 	href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
 	&amp; A ({{discuss_counts.q}})</a>

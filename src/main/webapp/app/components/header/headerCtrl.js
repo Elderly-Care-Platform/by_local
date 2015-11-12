@@ -32,7 +32,7 @@ define([], function () {
                 });
             } else {
                 $scope.templateUrl = 'app/components/header/otherHeader.html?versionTimeStamp=%PROJECT_VERSION%';
-
+                 angular.element($window).unbind('scroll');
             }
         }
 
@@ -114,6 +114,7 @@ define([], function () {
                 document.getElementById('search_link').click()
             }
         };
+        
 
     }
 

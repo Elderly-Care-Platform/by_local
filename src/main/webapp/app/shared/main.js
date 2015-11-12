@@ -70,6 +70,7 @@ require.config({
 		discussReplyController : '../components/discussDetail/DiscussReplyCtrl',
 		LoginController : '../components/signup/login/loginController',
 		sectionHeaderConfig : '../components/menu/sectionHeaderConfig',
+		menuConfig : '../components/menu/menuConfig',
 
 		indvUserProfileCtrl : '../components/profile/individual/indvUserProfileCtrl',
 		instProfileCtrl : '../components/profile/institution/instProfileCtrl',

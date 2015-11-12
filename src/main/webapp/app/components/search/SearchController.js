@@ -1,6 +1,6 @@
 define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareController'],
     function(byApp, byUtil, userTypeConfig, discussLikeController, shareController) {
-    function SearchController($scope, $rootScope, $http, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce){
+    function SearchController($scope, $rootScope, $http, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce, SERVERURL_IMAGE){
         $rootScope.term = $routeParams.term;
 
         //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
@@ -13,6 +13,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         $scope.pageInfo = {};
         $scope.pageInfo.lastPage = true;
         $scope.pageSize = 10;
+        $scope.serverurl = SERVERURL_IMAGE.hostUrl;
 
         $scope.getDiscussData = function(page, size){
         	(function(){
@@ -247,7 +248,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
     }
 
     SearchController.$inject = ['$scope', '$rootScope', '$http', '$route', '$location', '$routeParams', 'DiscussSearch',
-        'ServicePageSearch', 'HousingPageSearch',  '$sce'];
+        'ServicePageSearch', 'HousingPageSearch',  '$sce', 'SERVERURL_IMAGE'];
     byApp.registerController('SearchController', SearchController);
     return SearchController;
 });

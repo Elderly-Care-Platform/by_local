@@ -144,6 +144,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                     if($(this).find(".by-leafMenu li").length > 0){
                         $("#mask").css("display", "block");
                     }
+                    $scope.subMenuResize();
 
                 }, function() {
                     $("#mask").css("display", "none");
@@ -204,7 +205,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
         $scope.subMenuResize = function(height, width){
             submenuHeight = $(".by-left-menu").height();
             resizeLeftMenu();
-            $(".by-leafMenu").css('min-height', submenuHeight - 21);
+            $(".by-leafMenu").css('min-height', submenuHeight);
         };
 
 
@@ -220,6 +221,11 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                     } else if (menu.ancestorIds.length===2){
                         var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
                         $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+
+                        if(!$scope.sectionHeader){
+                            rootMenu = $rootScope.menuCategoryMap[rootMenu.ancestorIds[0]];
+                            $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                        }
                     }
 
                     if($scope.sectionHeader && $scope.sectionHeader[menuName]){

@@ -127,7 +127,7 @@
                   role="alert">Entered promocode is invalid</span>
             <span class="error-message" ng-if="promoNotApplicable">This promoCode can not apply for this order</span>
         </form>
-        <button type="button" class="btn-u pull-right by_cart_button" ng-click="selectAddress()" ui-sref="selectAddress"
+        <button type="button" class="btn-u pull-right by_cart_button" ng-click="selectAddress()" di-href="#!selectAddress/"
                 ng-disabled="!uiData.cartItems.length" style="padding: 3px 30px;">
             Next
         </button>

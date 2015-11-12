@@ -18,8 +18,8 @@ define(['byProductApp'], function (byProductApp) {
         //  isNaN($routeParams.addressId)) {
         //   $location.path(PAGE_URL.cart);
         // }
-        var breadCrumb, addressId = $routeParams.addressId, addressIndex = $routeParams.addressId;
 
+        $scope.addressId = $routeParams.addressId;
         $scope.customerId = null;
         if (localStorage.getItem("by_cust_id")) {
             $scope.customerId = localStorage.getItem("by_cust_id");
@@ -66,17 +66,12 @@ define(['byProductApp'], function (byProductApp) {
         $scope.payu.txnid = sha256(random).substring(0, 20);
         $scope.payu.udf2 = $scope.payu.txnid;
 
-        // End payUMoney
-
-        breadCrumb = {'url': PAGE_URL.cart, 'displayName': 'CART'};
-        BreadcrumbService.setBreadCrumb(breadCrumb, 'PAYMENT OPTION');
-
         function getOrder() {
             var params = {};
             params.customerId = $scope.customerId;
-            params.addressIndex = addressIndex;
+            params.addressIndex = $scope.addressId;
             var orderPromise = CartService.getCartDetail(params),
-                custAddressPromise = SelectAddressService.getAddress(addressIndex);
+                custAddressPromise = SelectAddressService.getAddress($scope.addressId);
             $scope.promise = $q.all({order: orderPromise, custAddress: custAddressPromise});
             return $scope.promise.then(getOrderSuccess, failure);
         }
@@ -175,7 +170,7 @@ define(['byProductApp'], function (byProductApp) {
 
         function checkOut() {
             $log.debug('checkOut');
-            $location.path(PAGE_URL.shoppingConfirmation + SERVERURL.forwardslash + addressId +
+            $location.path(PAGE_URL.shoppingConfirmation + SERVERURL.forwardslash + $scope.addressId +
                 SERVERURL.forwardslash + 'cod');
         }
 

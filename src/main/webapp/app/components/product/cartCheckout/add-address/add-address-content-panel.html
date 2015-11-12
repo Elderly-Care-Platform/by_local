@@ -17,7 +17,7 @@
                 First Name
             </div>
             <div class="col-md-7 no-padding-right register-page">
-                <input type="text" ng-model="userProfile.basicProfileInfo.firstName" class="username-textbox textbox" name="firstName"
+                <input type="text" ng-model="address.firstName" class="username-textbox textbox" name="firstName"
                        placeholder="Please enter your first name"
                        required/>
                 <span ng-show="addAddressForm.firstName.$invalid && submitted" class="errorRed">Please enter your name</span>
@@ -29,7 +29,7 @@
                 Last Name
             </div>
             <div class="col-md-7 no-padding-right register-page">
-                <input type="text" class="username-textbox textbox name-textbox" ng-model="userProfile.individualInfo.lastName"
+                <input type="text" class="username-textbox textbox name-textbox" ng-model="address.lastName"
                        name="lastName"/>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 Country
             </div>
             <div class="col-md-7 no-padding-right register-page">
-                <input type="text" ng-model="address.country" class="name-textbox textbox"
+                <input type="text" ng-model="address.address.country" class="name-textbox textbox"
                        placeholder="Country"/>
             </div>
         </div>
@@ -50,38 +50,41 @@
             </div>
             <div class="col-md-7 no-padding-right register-page zipCodeWrapper">
                 <input type="text" class="username-textbox textbox" name="zipcode"
-                       ng-model="address.zip" style="width:50%;" required/>
+                       ng-model="address.address.zip" style="width:50%;" required/>
                 <input type="button" class="btn btn-success pull-right register-btn"
                        value="Get address" style="padding:4px 12px;"
-                       ng-click="getLocationByPincode($event, address)"><br/>
+                       ng-click="getLocationByPincode($event)"><br/>
                 <span ng-show="addAddressForm.zipcode.$invalid && submitted" class="errorRed">Please enter your zip code</span>
             </div>
         </div>
 
         <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-            <div class="col-md-5">
+            <div class="col-md-5 required">
                 City
             </div>
             <div class="col-md-7 no-padding-right register-page">
                 <input type="text" class="username-textbox textbox"
-                       ng-model="address.city"/>
+                       ng-model="address.address.city" name="city" required/>
+                <span ng-show="addAddressForm.city.$invalid && submitted" class="errorRed">Please enter your city</span>
             </div>
         </div>
 
         <div class="col-md-12  margin-bottom-20 marginRightMinus5">
-            <div class="col-md-5">Locality</div>
+            <div class="col-md-5 required">Locality</div>
             <div class="col-md-7 no-padding-right register-page">
-                <input type="text" ng-model="address.locality"
+                <input type="text" ng-model="address.address.locality" name="locality"
                        class="name-textbox textbox" ng-google-location options="googleLocationOptions" obj="address"
                        callback="addressCallback" id="addressLocality"
-                       placeholder="Locality"/>
+                       placeholder="Locality" required/>
+                <span ng-show="addAddressForm.locality.$invalid && submitted" class="errorRed">Please enter your locality</span>
             </div>
         </div>
 
         <div class="col-md-12 margin-bottom-20 marginRightMinus5">
-            <div class="col-md-5">Address detail</div>
+            <div class="col-md-5 required">Address detail</div>
             <div class="col-md-7 no-padding-right register-page">
-                <textarea class="textbox " rows="3" ng-model="address.streetAddress"></textarea>
+                <textarea class="textbox " rows="3" ng-model="address.address.streetAddress" name="streetAddress" required></textarea>
+                <span ng-show="addAddressForm.streetAddress.$invalid && submitted" class="errorRed">Please enter your streetAddress</span>
             </div>
         </div>
 
@@ -90,10 +93,10 @@
                 Phone Number
             </div>
             <div class="col-md-7 no-padding-right register-page">
-                <input type="text" class="username-textbox textbox" name="primaryTel"
-                       ng-model="userProfile.basicProfileInfo.primaryPhoneNo"
+                <input type="text" class="username-textbox textbox" name="phoneNumber"
+                       ng-model="address.phoneNumber"
                        placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10" required>
-                <span ng-show="(addAddressForm.primaryTel.$invalid || addAddressForm.primaryTel.$error.pattern) && submitted" class="errorRed">Not a valid number!</span>
+                <span ng-show="(addAddressForm.phoneNumber.$invalid || addAddressForm.phoneNumber.$error.pattern) && submitted" class="errorRed">Not a valid number!</span>
             </div>
         </div>
 
@@ -103,9 +106,9 @@
                 Email ID
             </div>
             <div class="col-md-7 no-padding-right register-page">
-                <input type="email" class="username-textbox textbox" name="primaryEmail" ng-model="userProfile.basicProfileInfo.primaryEmail"
+                <input type="email" class="username-textbox textbox" name="email" ng-model="address.email"
                        placeholder="Email" required/>
-                <span ng-show="addAddressForm.primaryEmail.$invalid && submitted" class="errorRed">
+                <span ng-show="addAddressForm.email.$invalid && submitted" class="errorRed">
                     Not valid Email!
                 </span>
             </div>

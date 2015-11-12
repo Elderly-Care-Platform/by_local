@@ -27,9 +27,9 @@ define(['byProductApp'], function (byProductApp) {
         /**
          * Retrieve the list of address
          */
-        var getProfilePromise = SelectAddressService.getCustomerProfile();
-        if(getProfilePromise){
-            getProfilePromise.then(successCallBack, errorCallBack);
+        var getAddressPromise = SelectAddressService.getAddress();
+        if(getAddressPromise){
+            getAddressPromise.then(successCallBack, errorCallBack);
         }
 
         /**
@@ -38,18 +38,7 @@ define(['byProductApp'], function (byProductApp) {
          * @return {void}
          */
         function successCallBack(result) {
-            var userAddress = [];
-            $scope.userProfile = result.data.data;
-            var userBasicProfile = result.data.data.basicProfileInfo;
-            userAddress.push(userBasicProfile.primaryUserAddress);
-            if(userBasicProfile.otherAddresses.length > 0){
-                userAddress = userAddress.concat(userBasicProfile.otherAddresses);
-            }
-            $scope.customerAddress = userAddress;
-
-            if(!userBasicProfile.primaryEmail || !userBasicProfile.primaryPhoneNo){
-                $scope.shipToAddressDisabled = true;
-            }
+            $scope.customerAddress = result.data.data;
         }
 
         function errorCallBack() {
@@ -72,9 +61,6 @@ define(['byProductApp'], function (byProductApp) {
          */
         function shipToAddress(addressIndex) {
             var selectedAddress = $scope.customerAddress[addressIndex];
-            if(!$scope.userProfile.basicProfileInfo.primaryEmail || !$scope.userProfile.basicProfileInfo.primaryPhoneNo){
-                $scope.mandatoryFieldsError = "Please edit to add Email and Mobile number"
-            }
             $location.path(PAGE_URL.paymentGateway + addressIndex);
         }
 

@@ -8,7 +8,7 @@ define([], function () {
             pageSize: 100000
         })
             .constant('SERVERURL_IMAGE', {
-                hostUrl: BY.config.constants.selfHost,
+                hostUrl: BY.config.constants.productImageHost,
                 forwardslash: '/'
             })
             .constant('SERVERURL', {

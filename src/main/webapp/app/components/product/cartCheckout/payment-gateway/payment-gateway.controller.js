@@ -76,21 +76,14 @@ define(['byProductApp'], function (byProductApp) {
             params.customerId = $scope.customerId;
             params.addressIndex = addressIndex;
             var orderPromise = CartService.getCartDetail(params),
-                custProfilePromise = SelectAddressService.getCustomerProfile();
-            $scope.promise = $q.all({order: orderPromise, custProfile: custProfilePromise});
+                custAddressPromise = SelectAddressService.getAddress(addressIndex);
+            $scope.promise = $q.all({order: orderPromise, custAddress: custAddressPromise});
             return $scope.promise.then(getOrderSuccess, failure);
         }
 
-        function validateCODzip(userProfile){
-            var userAddress = [], userBasicProfile = userProfile.basicProfileInfo,
-                selectedPincode, str1 = "bangalore", str2 = "bengaluru";
-            userAddress.push(userBasicProfile.primaryUserAddress);
-            if(userBasicProfile.otherAddresses.length > 0){
-                userAddress = userAddress.concat(userBasicProfile.otherAddresses);
-            }
-            selectedPincode = userAddress[addressIndex].zip;
-
-            if(selectedPincode){
+        function validateCODzip(userAddress) {
+            var selectedPincode = userAddress.address.zip, str1 = "bangalore", str2 = "bengaluru";
+            if (selectedPincode) {
                 $http.get("api/v1/location/getLocationByPincode?pincode=" + selectedPincode)
                     .success(function (response) {
                         if (response) {
@@ -113,12 +106,12 @@ define(['byProductApp'], function (byProductApp) {
             $log.debug('Success in getting order' + JSON.stringify(result));
 
             var order = result.order || {},
-                userProfile = result.custProfile.data.data || {};
-            if (userProfile) {
-                validateCODzip(userProfile);
-                $scope.payu.email = userProfile.basicProfileInfo.primaryEmail;
-                $scope.payu.phone = userProfile.basicProfileInfo.primaryPhoneNo;
-                $scope.payu.firstname = userProfile.basicProfileInfo.firstName;
+                userAddress = result.custAddress.data.data[0] || {};
+            if (userAddress) {
+                validateCODzip(userAddress);
+                $scope.payu.email = userAddress.email;
+                $scope.payu.phone = userAddress.phoneNumber;
+                $scope.payu.firstname = userAddress.firstName;
             }
             if (order) {
                 if (order.orderItems) {
@@ -194,8 +187,8 @@ define(['byProductApp'], function (byProductApp) {
                 e = Math.ceil(Math.random() * 10) + '',
                 f = Math.ceil(Math.random() * 10) + '',
                 g = Math.ceil(Math.random() * 10) + '',
-                code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' ' + f + ' ' + g;
-            $scope.trimmedCaptchaCode = a + b + c + d + e + f + g;
+                code = a + ' ' + b + ' ' + ' ' + c + ' ' + d;
+            $scope.trimmedCaptchaCode = a + b + c + d;
             $scope.uiData.captchaCode = code;
         }
 

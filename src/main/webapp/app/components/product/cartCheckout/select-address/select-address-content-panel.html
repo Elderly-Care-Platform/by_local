@@ -10,45 +10,42 @@
 <div class="clearfix" style="height:10px;"></div>
 <div class="by_address_wrap">
     <div class="by_address col-md-6" ng-repeat="address in customerAddress track by $index" ng-if="$index<2"
-         format-address="address">
+         format-address="address.address">
 
         <div class="by_address_user">
-            {{userProfile.basicProfileInfo.firstName}}
-            <span ng-if="userProfile.individualInfo.lastName">{{' '+ userProfile.individualInfo.lastName}}</span>
+            {{address.firstName}}
+            <span ng-if="address.lastName">{{' '+ address.lastName}}</span>
         </div>
         <div class="by_address_text">
-            <span ng-if="address.fullAddress">
+            <span ng-if="address.address.fullAddress">
                 <strong>Address:&nbsp;</strong>
-                <span>{{address.fullAddress}}</span>
+                <span>{{address.address.fullAddress}}</span>
                 <!--<span ng-if="address.streetAddress">{{address.streetAddress}}</span><br/>-->
                 <!--<span ng-if="address.locality">{{address.locality}}</span><br/>-->
                 <!--<span ng-if="address.city">{{address.city}},</span><span ng-if="address.country">{{address.country}} -</span>-->
                 <!--<span ng-if="address.zip"> {{address.zip}}</span>-->
             </span><br/>
-            <span ng-if="!address.zip" ng-init="address.shipToAddressDisabled=true"></span>
-            <span ng-if="userProfile.basicProfileInfo.primaryPhoneNo">
-                <strong>Mobile:&nbsp;</strong> {{userProfile.basicProfileInfo.primaryPhoneNo}}
+            <span ng-if="!address.email || !address.address.zip || !address.phoneNumber || !address.firstName"
+                  ng-init="address.shipToAddressDisabled=true"></span>
+            <span ng-if="address.phoneNumber">
+                <strong>Mobile:&nbsp;</strong> {{address.phoneNumber}}
             </span><br>
-            <!--<span ng-if="userProfile.basicProfileInfo.secondaryPhoneNos">-->
-                <!--Mobile: {{userProfile.basicProfileInfo.secondaryPhoneNos[0]}}<br>-->
-            <!--</span>-->
-            <span ng-if="userProfile.basicProfileInfo.primaryEmail">
-                <strong>E-mail:&nbsp;</strong> {{userProfile.basicProfileInfo.primaryEmail}}
+
+            <span ng-if="address.email">
+                <strong>E-mail:&nbsp;</strong> {{address.email}}
             </span><br/>
 
-            <!--<span ng-if="address.address.secondaryEmail"><br>-->
-                 <!--E-mail: {{address.address.secondaryEmail}}-->
-            <!--</span>-->
+
             <span ng-if="shipToAddressDisabled || address.shipToAddressDisabled">
                 <br/><font color="red">*Please edit to add mandatory address fields</font>
             </span>
         </div>
 
-        <button class="btn btn-success pull-right by_address_btn" style="margin-left:5px;" ng-click="shipToAddress($index)" ng-disabled="shipToAddressDisabled || address.shipToAddressDisabled">
+        <button class="btn btn-success pull-right by_address_btn" style="margin-left:5px;" ng-click="shipToAddress(address.id)" ng-disabled="shipToAddressDisabled || address.shipToAddressDisabled">
             Ship to this address
         </button>
 
-        <button class="btn btn-success pull-right by_address_btn by_edit_btn" ng-click="editAddress($index)">
+        <button class="btn btn-success pull-right by_address_btn by_edit_btn" ng-click="editAddress(address.id)">
             Edit
         </button>
         <div class="clearfix"></div>

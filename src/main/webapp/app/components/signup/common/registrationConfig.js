@@ -23,8 +23,8 @@ BY.config.regConfig.userTypeConfig = {
         'controller' : 'regUserTypeController',
         'category':'NONE',
         'label' : "I am",
-        'showOrderHistory' : false,
-        'orderHistoryLabel' : ""
+        'showOrderHistory' : true,
+        'orderHistoryLabel' : "Order history"
     },
     '0' : {
         'type':'0',

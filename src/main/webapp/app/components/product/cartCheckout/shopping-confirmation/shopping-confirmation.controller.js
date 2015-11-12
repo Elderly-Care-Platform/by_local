@@ -16,7 +16,7 @@ define(['byProductApp'], function (byProductApp) {
         //Variables
         var breadCrumb,
             addressIndex = $routeParams.addressId,
-            address = {}, userBasicProfile,
+            address = {}, 
             paymentInfo = {
                 orderId: 0,
                 type: 'THIRD_PARTY_ACCOUNT',
@@ -70,24 +70,17 @@ define(['byProductApp'], function (byProductApp) {
             params.customerId = $scope.customerId;
             $scope.promise = CartService.getCartDetail(params)
                 .then(getCartSuccess, cartfailure);
-            $scope.promise = SelectAddressService.getCustomerProfile()
-                .then(getProfileSuccess, getProfileFailure);
+            $scope.promise = SelectAddressService.getAddress(addressIndex).then(getAddressSuccess, getAddressFailure);
         }
 
         /**
-         * [getProfileSuccess description]
+         * [getAddressSuccess description]
          * @param  {[type]} result [description]
          * @return {[type]}        [description]
          */
-        function getProfileSuccess(result) {
+        function getAddressSuccess(result) {
             $log.debug('Success in getting shipping address');
-            var userAddress = [];
-            userBasicProfile = result.data.data.basicProfileInfo;
-            userAddress.push(userBasicProfile.primaryUserAddress);
-            if(userBasicProfile.otherAddresses.length > 0){
-                userAddress = userAddress.concat(userBasicProfile.otherAddresses);
-            }
-            address = userAddress[addressIndex];
+            address = result.data.data[0];
         }
 
         /**
@@ -135,16 +128,20 @@ define(['byProductApp'], function (byProductApp) {
             $log.debug('Success in getting order');
             var order = result;
             order.fulfillmentGroups[0].address = {};
-            order.fulfillmentGroups[0].address.addressLine1 = address.streetAddress;
-            order.fulfillmentGroups[0].address.addressLine2 = address.locality;
-            order.fulfillmentGroups[0].address.city = address.city;
+            order.fulfillmentGroups[0].address.addressLine1 = address.address.streetAddress;
+            order.fulfillmentGroups[0].address.addressLine2 = address.address.locality;
+            order.fulfillmentGroups[0].address.city = address.address.city;
             order.fulfillmentGroups[0].address.country = {};
-            order.fulfillmentGroups[0].address.country.name= address.country;
+            order.fulfillmentGroups[0].address.country.name= address.address.country;
             order.fulfillmentGroups[0].address.country.abbreviation= "IN";
-            order.fulfillmentGroups[0].address.postalCode = address.zip;
+            order.fulfillmentGroups[0].address.postalCode = address.address.zip;
+            order.fulfillmentGroups[0].address.firstName = address.firstName;
+            order.fulfillmentGroups[0].address.lastName = address.lastName;
 
-            order.fulfillmentGroups[0].address.primaryEmail = userBasicProfile.primaryEmail;
-//            order.fulfillmentGroups[0].address.phonePrimary = userBasicProfile.primaryPhoneNo;
+            order.fulfillmentGroups[0].address.primaryEmail = address.email;
+            order.fulfillmentGroups[0].address.phonePrimary = {};
+            order.fulfillmentGroups[0].address.phonePrimary.phoneNumber = address.phoneNumber;
+            
             
             var postData = {},
                 params = {};
@@ -183,7 +180,7 @@ define(['byProductApp'], function (byProductApp) {
             $scope.uiData.processingError = true;
         }
 
-        function getProfileFailure(result) {
+        function getAddressFailure(result) {
             $log.debug('Failure JSON Data: ' + JSON.stringify(result));
             $scope.uiData.processingError = true;
         }

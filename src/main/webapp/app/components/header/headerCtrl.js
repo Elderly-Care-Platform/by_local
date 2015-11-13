@@ -32,7 +32,7 @@ define(['menuConfig'], function (menuConfig) {
                 });
             } else {
                 $scope.templateUrl = 'app/components/header/otherHeader.html?versionTimeStamp=%PROJECT_VERSION%';
-                 angular.element($window).unbind('scroll');
+                 $(".by_header").addClass("by_header_image");
             }
         }
 

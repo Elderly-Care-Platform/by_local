@@ -211,7 +211,7 @@
         <button type="button" class="btn-u buy-product by_productDetail_buttonBg"
                 ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
                 ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid"
-                ui-sref="cart" ng-click="addProductToCart(productId, 'selectAddress')">
+                di-href="#!cart/" ng-click="addProductToCart(productId, 'selectAddress')">
             <span class="cart-icon">
                 <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13"/></span>
             Buy Now
@@ -224,7 +224,7 @@
         </button>
         <button type="button" class="btn-u buy-product by_productDetail_buttonBg"
                 ng-if="inventoryType === 'ALWAYS_AVAILABLE'"
-                ng-disabled="addToCartDisable || f1.qty.$invalid" ui-sref="cart"
+                ng-disabled="addToCartDisable || f1.qty.$invalid" di-href="#!cart/"
                 ng-click="addProductToCart(productId, 'selectAddress')">
           <span class="cart-icon">
               <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13"></span>

@@ -587,21 +587,6 @@ define(["byApp", "angular"], function (byApp, angular) {
             }
         };
     });
-
-    byApp.directive('randomImage', [
-        function () {
-            return {
-                restrict: 'A',
-                link: function ($scope, element, attrs) {
-                    var rand = Math.floor((Math.random() * 10) + 1);
-
-                    $(element).attr('src', 'assets/img/product/image_0' + rand + '.jpg?versionTimeStamp=%PROJECT_VERSION%');
-                }
-            }
-
-        }
-    ]);
-    
 });
 
 

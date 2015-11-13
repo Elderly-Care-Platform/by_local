@@ -34,7 +34,15 @@ define(['menuConfig'], function (menuConfig) {
                 });
             } else {
                 $scope.templateUrl = 'app/components/header/otherHeader.html?versionTimeStamp=%PROJECT_VERSION%';
-                 $(".by_header").addClass("by_header_image");
+                angular.element($window).bind("scroll", function () {
+                    var headerHeight = $(".by_header").height();
+                    if ((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= headerHeight) {
+                        $(".by_header").addClass("by_header_image");
+
+                    } else {
+                        $(".by_header").addClass("by_header_image");
+                    }
+                });
             }
         }
 

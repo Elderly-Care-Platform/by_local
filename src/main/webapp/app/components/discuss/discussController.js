@@ -13,12 +13,14 @@ define(['byApp',
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        $scope.selectedMenu = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
+
         $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
 
-        $scope.setTabId = $routeParams.menuId;
+        $scope.selectedMenu = $scope.$parent.menuLevel2;
 
-        
+
+
+        console.log($scope.selectedMenu);
 
         var tags = [];
         var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
@@ -150,73 +152,10 @@ define(['byApp',
             }
         }
 
-        $scope.communityIcon = BY.config.communityIcon;
-        $scope.communityIconMobile = BY.config.communityIconMobile;
+
 
         
 
-        $scope.subMenuTabMobileShow = function(){
-            $(".by_mobile_leftPanel_image").click(function(){
-                if($(".by_mobile_leftPanel_hide").css('left') == '0px'){
-                    $(".by_mobile_leftPanel_image").animate({left: "0%"},{duration : 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%')");
-                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"},{duration : 400});
-                } else{
-                    $(".by_mobile_leftPanel_image").animate({left: "90%"},{duration : 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
-                    $(".by_mobile_leftPanel_hide").animate({left: "0%"},{duration : 400});
-                }
-            });
-        };
-
-       
-
-
-
-       $scope.setActiveLink = function(){            
-           /*$("#" + $scope.setTabId).addClass('by_subMenu_contentItem_active');
-           var index = $("#" + $scope.setTabId).parents().parents().index();*/
-       };
-
-       var getLeafMenu = function(menu){
-            var ret = null;
-            if(menu.children.length > 0){
-                ret = getLeafMenu(menu.children[0]);
-            } else {
-                ret = menu;
-            }
-
-            return ret;
-        }
-
-
-      $scope.menuLevel = function(){
-        $scope.dmId = $routeParams.menuId;
-        var selectedTabLink = $rootScope.menuCategoryMap[$scope.dmId];
-        console.log(selectedTabLink);
-        if(selectedTabLink.ancestorIds.length == 0){
-            $scope.dml1 = selectedTabLink.children[0];
-            console.log($scope.dml1);
-            var l2 = getLeafMenu($scope.dml1);
-            console.log(l2);
-            //$scope.dml3 = $scope.dml2.children;
-
-        } else if(selectedTabLink.ancestorIds.length == 1){
-            $scope.dml1 = selectedTabLink;
-            console.log($scope.dml1)
-            $scope.dml2 = $scope.dml1.children[0];
-            console.log($scope.dml2)
-        } else if(selectedTabLink.children.length == 0){
-            $scope.dml2 = selectedTabLink;
-            $scope.dml1 = $rootScope.menuCategoryMap[$scope.dml2.ancestorIds[$scope.dml2.ancestorIds.length - 1]];
-             console.log($scope.dml2)
-             console.log($scope.dml1)
-        }
-       
-       
-      };
-
-      $scope.menuLevel();
 
 
         

@@ -100,7 +100,10 @@ require.config({
 		addAddressController : '../components/product/cartCheckout/add-address/add-address.controller',
 
 		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller',
-		headerCtrl : '../components/header/headerCtrl'
+		headerCtrl : '../components/header/headerCtrl',
+		discussCtrl : '../components/discuss/discussController'
+
+
 
 	},
 

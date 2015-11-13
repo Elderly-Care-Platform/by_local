@@ -1,8 +1,8 @@
 define([], function () {
     function BYProductConfig(byapp) {
         byapp.constant('APPLICATION', {
-            host: 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1',
-            //         host: BY.config.constants.productHost,
+            //host: 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1',
+            host: BY.config.constants.productHost,
             cache: 'byCache',
             paramCache: 'byParamCache',
             pageSize: 100000

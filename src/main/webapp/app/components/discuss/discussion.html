@@ -45,18 +45,18 @@
 
 
 
-<div class="by_sub_menu" ng-if="$root.windowWidth > 720">
-    <div class="by_sub_menu_head"  >
-        <div class="by_sub_menu_head_thumb" id="{{menu.id}}" 
-        ng-class="{'by_sub_menu_head_thumb_active': menu.id == setTabId }"  ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children"  >
+<div class="by_subMenu" ng-if="$root.windowWidth > 720">
+    <div class="by_subMenu_head"  >
+        <div class="by_subMenu_headThumb" id="{{menu.id}}" 
+        ng-class="{'by_subMenu_headThumb_active': menu.id == setTabId }"  ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children"  >
             <a href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all"  >{{menu.displayMenuName}}</a>
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="by_sub_menu_content">        
-        <div class="by_sub_menu_content_thumb" id="{{menu.id}}" ng-show="menu.id == setTabId" ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
+    <div class="by_subMenu_content">        
+        <div class="by_subMenu_contentThumb" id="{{menu.id}}" ng-show="menu.id == setTabId" ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
             <span ng-repeat="menuN in menu.children" ng-if="menuN.children.length > 0" >  
-                <div class="by_sub_menu_content_item" ng-init="setActiveLink();" id="{{menuNN.id}}" ng-repeat="menuNN in menuN.children">
+                <div class="by_subMenu_contentItem" ng-init="setActiveLink();" id="{{menuNN.id}}" ng-repeat="menuNN in menuN.children">
                     <a href="#!/discuss/list/{{menuNN.slug}}/{{menuNN.id}}/all" >
                         <img src="{{communityIcon[menuNN.id].image}}" >
                         <br/>
@@ -65,7 +65,7 @@
                 </div>
             </span>
             <span>
-            <div class="by_sub_menu_content_item" id="{{menuN.id}}" ng-init="setActiveLink();" ng-repeat="menuN in menu.children" ng-if="menuN.children.length < 1">  
+            <div class="by_subMenu_contentItem" id="{{menuN.id}}" ng-init="setActiveLink();" ng-repeat="menuN in menu.children" ng-if="menuN.children.length < 1">  
                 <a href="#!/discuss/list/{{menuN.slug}}/{{menuN.id}}/all" >
                     <img src="{{communityIcon[menuN.id].image}}" >
                     <br/>
@@ -84,17 +84,17 @@
 
 <div class="by_mobile_leftPanel_hide" ng-init="subMenuTabMobile();" ng-if="$root.windowWidth < 720">
     <div class="by_mobile_leftPanel">
-        <div class="by_sub_menu_head_mobile">
-            <div class="by_sub_menu_head_mobile_thumb" id="{{menu.id}}" 
-            ng-class="{'by_sub_menu_head_mobile_thumb_active': menu.id == setTabId }"  ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children"  >
+        <div class="by_subMenu_headMobile">
+            <div class="by_subMenu_headMobileThumb" id="{{menu.id}}" 
+            ng-class="{'by_subMenu_headMobileThumb_active': menu.id == setTabId }"  ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children"  >
             <a href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all"  >{{menu.displayMenuName}}</a>
         </div>
             <div class="clearfix"></div>
         </div>
-        <div class="by_sub_menu_content_mobile">
-           <div class="by_sub_menu_content_mobile_thumb" id="{{menu.id}}" ng-show="menu.id == setTabId" ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
+        <div class="by_subMenu_contentMobile">
+           <div class="by_subMenu_contentMobileThumb" id="{{menu.id}}" ng-show="menu.id == setTabId" ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
             <span ng-repeat="menuN in menu.children" ng-if="menuN.children.length > 0" >  
-                <div class="by_sub_menu_content_mobile_item" ng-init="setActiveLink();" id="{{menuNN.id}}" ng-repeat="menuNN in menuN.children">
+                <div class="by_subMenu_contentMobileItem" ng-init="setActiveLink();" id="{{menuNN.id}}" ng-repeat="menuNN in menuN.children">
                     <a href="#!/discuss/list/{{menuNN.slug}}/{{menuNN.id}}/all" >
                     <img src="{{communityIconMobile[menuNN.id].image}}" >
                         <br/>
@@ -103,7 +103,7 @@
                 </div>
             </span>
             <span>
-                <div class="by_sub_menu_content_mobile_item" id="{{menuN.id}}" ng-init="setActiveLink();" ng-repeat="menuN in menu.children" ng-if="menuN.children.length < 1">  
+                <div class="by_subMenu_contentMobileItem" id="{{menuN.id}}" ng-init="setActiveLink();" ng-repeat="menuN in menu.children" ng-if="menuN.children.length < 1">  
                     <a href="#!/discuss/list/{{menuN.slug}}/{{menuN.id}}/all" >
                         <img src="{{communityIconMobile[menuN.id].image}}" >
                         <br/>

@@ -251,15 +251,15 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         }
 
         $scope.subMenuPlus = function(){
-            $(".by_sub_menu_plus_head .divRight").click(function(){
+            $(".by_subMenuPlus_head .divRight").click(function(){
                  var indexM = $(this).parent().index();
-                 if($(".by_sub_menu_plus_content").eq(indexM).css('display') == 'block'){
-                    $(".by_sub_menu_plus_content").slideUp();
-                    $(".by_sub_menu_plus_head .divRight").text("+");
+                 if($(".by_subMenuPlus_content").eq(indexM).css('display') == 'block'){
+                    $(".by_subMenuPlus_content").slideUp();
+                    $(".by_subMenuPlus_head .divRight").text("+");
                 } else{
-                  $(".by_sub_menu_plus_content").slideUp();
-                  $(".by_sub_menu_plus_head .divRight").text("+");
-                  $(".by_sub_menu_plus_content").eq(indexM).slideDown();
+                  $(".by_subMenuPlus_content").slideUp();
+                  $(".by_subMenuPlus_head .divRight").text("+");
+                  $(".by_subMenuPlus_content").eq(indexM).slideDown();
                   $(this).text("-");
               }
           });
@@ -279,10 +279,9 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         };
 
         $scope.smartScroll = function(){
-            $scope.subMenuPlus();
-            var ul = $('.by_sub_menu_plus');
-            var heightD = $(window).height() - $(".by_section_header").height() - $(".footer-v1").height() - $(".header").height();
-            var heightS = $('.by_sub_menu_plus').height() - heightD;
+            var ul = $('.by_subMenuPlus');
+            var heightD = $(window).height()  - $(".footer-v1").height() - $(".header").height();
+            var heightS = $('.by_subMenuPlus').height() - heightD;
             
             angular.element($window).bind("scroll", function() {
                 var scroller_anchor = ul.offset().top;

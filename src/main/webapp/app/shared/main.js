@@ -158,7 +158,7 @@ require([ 'angular',"byApp","byUtil", "byDirectives", "lodash", "byApplicationCo
 		url : apiPrefix + 'api/v1/menu/getMenu?parentId=root',
 		success : function(response) {
 			window.by_menu = response;
-			$.ajax({url : BY.config.constants.productHost+'/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
+			$.ajax({url : 'http://54.169.187.40:8080/beautifulyears/api/v1/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
 		}
 	});
 });

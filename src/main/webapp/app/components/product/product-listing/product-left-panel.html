@@ -7,12 +7,23 @@
 <!--</div>-->
 
 
-<div class="by_sub_menu_plus" ng-init="smartScroll();" ng-if="$root.windowWidth > 720">
-	<div class="by_sub_menu_plus_head">
+<div class="by_subMenuPlus" ng-init="smartScroll();"  ng-if="$root.windowWidth > 720">
+	<div class="by_subMenuPlus_head" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children">
+		<div class="divLeft"><a href="#!/products/list/{{menu.slug}}/{{menu.id}}/all" >{{menu.displayMenuName}}</a></div>
+		<div class="divRight" ng-if="menu.children.length > 0" >+</div>
+		<div class="clearfix"></div>
+		<div class="by_subMenuPlus_content" >
+			<a href="#!/products/list/{{menuN.slug}}/{{menuN.id}}/all" ng-repeat="menuN in menu.subcategories">{{menuN.displayMenuName}}</a>
+		</div>
+	</div>
+
+
+
+	<!--<div class="by_subMenuPlus_head">
 		<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 		<div class="divRight">+</div>
 		<div class="clearfix"></div>
-		<div class="by_sub_menu_plus_content">
+		<div class="by_subMenuPlus_content">
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
@@ -22,11 +33,11 @@
 			<a href="">bbbbbbbbb</a>
 		</div>
 	</div>
-	<div class="by_sub_menu_plus_head">
+	<div class="by_subMenuPlus_head">
 		<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 		<div class="divRight">+</div>
 		<div class="clearfix"></div>
-		<div class="by_sub_menu_plus_content">
+		<div class="by_subMenuPlus_content">
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
@@ -36,11 +47,11 @@
 			<a href="">bbbbbbbbb</a>
 		</div>
 	</div>
-	<div class="by_sub_menu_plus_head">
+	<div class="by_subMenuPlus_head">
 		<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 		<div class="divRight">+</div>
 		<div class="clearfix"></div>
-		<div class="by_sub_menu_plus_content">
+		<div class="by_subMenuPlus_content">
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
@@ -50,11 +61,11 @@
 			<a href="">bbbbbbbbb</a>
 		</div>
 	</div>
-	<div class="by_sub_menu_plus_head">
+	<div class="by_subMenuPlus_head">
 		<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 		<div class="divRight">+</div>
 		<div class="clearfix"></div>
-		<div class="by_sub_menu_plus_content">
+		<div class="by_subMenuPlus_content">
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
@@ -64,11 +75,11 @@
 			<a href="">bbbbbbbbb</a>
 		</div>
 	</div>
-	<div class="by_sub_menu_plus_head">
+	<div class="by_subMenuPlus_head">
 		<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 		<div class="divRight">+</div>
 		<div class="clearfix"></div>
-		<div class="by_sub_menu_plus_content">
+		<div class="by_subMenuPlus_content">
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
@@ -157,11 +168,11 @@
 		<a href="">bbbbbbbbb</a><br/>
 		<a href="">bbbbbbbbb</a><br/>
 		
-	<div class="by_sub_menu_plus_head">
+	<div class="by_subMenuPlus_head">
 		<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 		<div class="divRight">+</div>
 		<div class="clearfix"></div>
-		<div class="by_sub_menu_plus_content">
+		<div class="by_subMenuPlus_content">
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
@@ -170,18 +181,18 @@
 			<a href="">bbbbbbbbb</a>
 			<a href="">bbbbbbbbb</a>
 		</div>
-	</div>
+	</div>-->
 </div>
 
 
 <div class="by_mobile_leftPanel_hide" ng-init="subMenuTabMobile();" ng-if="$root.windowWidth < 720">
 	<div class="by_mobile_leftPanel" ng-init="subMenuPlus();"> 
 
-		<div class="by_sub_menu_plus_head">
+		<div class="by_subMenuPlus_head">
 			<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 			<div class="divRight">+</div>
 			<div class="clearfix"></div>
-			<div class="by_sub_menu_plus_content">
+			<div class="by_subMenuPlus_content">
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
@@ -191,11 +202,11 @@
 				<a href="">bbbbbbbbb</a>
 			</div>
 		</div>
-		<div class="by_sub_menu_plus_head">
+		<div class="by_subMenuPlus_head">
 			<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 			<div class="divRight">+</div>
 			<div class="clearfix"></div>
-			<div class="by_sub_menu_plus_content">
+			<div class="by_subMenuPlus_content">
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
@@ -205,11 +216,11 @@
 				<a href="">bbbbbbbbb</a>
 			</div>
 		</div>
-		<div class="by_sub_menu_plus_head">
+		<div class="by_subMenuPlus_head">
 			<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 			<div class="divRight">+</div>
 			<div class="clearfix"></div>
-			<div class="by_sub_menu_plus_content">
+			<div class="by_subMenuPlus_content">
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
@@ -219,11 +230,11 @@
 				<a href="">bbbbbbbbb</a>
 			</div>
 		</div>
-		<div class="by_sub_menu_plus_head">
+		<div class="by_subMenuPlus_head">
 			<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 			<div class="divRight">+</div>
 			<div class="clearfix"></div>
-			<div class="by_sub_menu_plus_content">
+			<div class="by_subMenuPlus_content">
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
@@ -233,11 +244,11 @@
 				<a href="">bbbbbbbbb</a>
 			</div>
 		</div>
-		<div class="by_sub_menu_plus_head">
+		<div class="by_subMenuPlus_head">
 			<div class="divLeft"><a>aaaaaaaaaaaa</a></div>
 			<div class="divRight">+</div>
 			<div class="clearfix"></div>
-			<div class="by_sub_menu_plus_content">
+			<div class="by_subMenuPlus_content">
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>
 				<a href="">bbbbbbbbb</a>

@@ -174,7 +174,7 @@ define(['byApp',
 
 
        $scope.setActiveLink = function(){            
-           /*$("#" + $scope.setTabId).addClass('by_sub_menu_content_item_active');
+           /*$("#" + $scope.setTabId).addClass('by_subMenu_contentItem_active');
            var index = $("#" + $scope.setTabId).parents().parents().index();*/
        };
 

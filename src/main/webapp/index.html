@@ -93,6 +93,15 @@
     <link rel="stylesheet" href="assets/css/by_sprite.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/by/by_discussCard.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/by/housing.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/product-style.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/product.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/product_housing.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/shop-style.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/by_product_listing.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/cart.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/cartCheckout.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/productDetailed.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/order_history.css?versionTimeStamp=%PROJECT_VERSION%">
 
     <!-- unify libs and plugins start -->
     <script type="text/javascript" src="lib/unify/plugins/jquery/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -100,6 +109,8 @@
     <script type="text/javascript" src="lib/unify/unify_app.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/unify/plugins/back-to-top.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/unify/plugins/smoothScroll.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/payment/sha256.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/payment/sha512.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
 
     <script type="text/javascript" src="lib/tinymce/tinymce.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -120,7 +131,11 @@
     <!--<script type="text/javascript" src="lib/unify/plugins/jquery.mixitup.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>-->
     <!--<script type="text/javascript" src="lib/unify/plugins/masonry/jquery.masonry.min.js"></script>-->
 
- 
+    <!--[if lt IE 9]>
+    <!--<script src="lib/unify/plugins/respond.js?versionTimeStamp=%PROJECT_VERSION%"></script>-->
+    <!--<script src="lib/unify/plugins/html5shiv.js?versionTimeStamp=%PROJECT_VERSION%"></script>-->
+    <!--<script src="lib/unify/plugins/placeholder-IE-fixes.js?versionTimeStamp=%PROJECT_VERSION%"></script>-->
+    <!--<![endif]&ndash;&gt;-->
     <!-- unify libs and plugins end -->
 
 
@@ -253,6 +268,7 @@
                         <li id="login_placeHolder_li" class="topbar-devider"></li>
                         <li><a href="#!/users/login" id="login_placeholder">Join us</a></li>
                     </ul>
+                    <div ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
                 </div>
                 <div class="clearfix"></div>
                 <!-- End Topbar -->

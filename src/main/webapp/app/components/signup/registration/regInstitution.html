@@ -103,7 +103,7 @@
                             <input type="text" class="username-textbox textbox" name="primaryTel"
                                    ng-model="basicProfileInfo.primaryPhoneNo"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10">
-                            <span ng-show="(individualForm.primaryTel.$invalid || individualForm.primaryTel.$error.pattern) && submitted"
+                            <span ng-show="(institutionForm.primaryTel.$invalid || institutionForm.primaryTel.$error.pattern) && submitted"
                                   class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                    ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
                                    placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10"/>
 
-						    <span ng-show="(individualForm.{{'tel'+$index}}.$invalid || individualForm.{{'tel'+$index}}.$error.pattern) && submitted"
+						    <span ng-show="(institutionForm.{{'tel'+$index}}.$invalid || institutionForm.{{'tel'+$index}}.$error.pattern) && submitted"
                                 class="errorRed">Not a valid number!</span>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                 </div>
             </div>
 
-            <div class="row margin-bottom-20 darkBgwithText register-page">
+            <div class="row margin-bottom-20 darkBgwithText ">
                 Please upload your profile picture 
                 <div class="darkBgwithTextArrow">
                     <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
@@ -248,7 +248,7 @@
                 </div>
             </div>
 
-            <div class="row margin-bottom-20 darkBgwithText register-page">
+            <div class="row margin-bottom-20 darkBgwithText ">
                 Please upload pictures from your photo gallery
                 <div class="darkBgwithTextArrow">
                     <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt=""/>
@@ -290,7 +290,7 @@
 
           
             
-            <div class="row margin-bottom-20 darkBgwithText register-page">
+            <div class="row margin-bottom-20 darkBgwithText ">
                  Please write us more about your company and about services you provides. How
                                 different are you from others? What makes you stand out? Are you ready to go for
                                 an extra mile for your customers?

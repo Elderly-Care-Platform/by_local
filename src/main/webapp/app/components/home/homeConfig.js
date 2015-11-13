@@ -49,7 +49,7 @@ BY.config.home = {
         'desktopImage':'assets/img/home/product-full.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'mobileImage':'assets/img/home/product_m.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'buttonText':'Find Products',
-        'listingPageUrl': '/discuss/list/'
+        'listingPageUrl': '/products/list/'
     },
     '6' : {
        'name':'Activities',

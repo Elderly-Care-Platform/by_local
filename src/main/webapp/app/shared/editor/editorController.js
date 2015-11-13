@@ -10,6 +10,9 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         $scope.showLinkView = false;
         $scope.sharedLinkUrl = "";
         $scope.selectedMenuCount = 0;
+        $scope.linkImages = [];
+        $scope.linkImagesIdx = 0;
+        
 
         broadCastMenuDetail.setMenuId(0);
         $scope.showCategoryList = function(){
@@ -171,7 +174,20 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                 $scope.linkInfoLoading = true;
                 $http.get('api/v1/discuss/getLinkInfo?url='+encodeURIComponent($scope.sharedLinkUrl)).
                     then(function(response) {
+                    	$scope.linkImages = [];
+                    	$scope.linkImagesIdx = 0;
+                    	
                         $scope.linkInfo = response.data.data;
+                        if($scope.linkInfo.mainImage){
+                        	$scope.linkImages.push($scope.linkInfo.mainImage);
+                        }
+                        if($scope.linkInfo.otherImages && $scope.linkInfo.otherImages.length > 0){
+                        	$scope.linkImages = $scope.linkImages.concat($scope.linkInfo.otherImages);
+                        }
+                        if($scope.linkImages.length > 1){
+                        	$scope.linkInfo.mainImage = $scope.linkImages[$scope.linkImagesIdx];
+                        }
+                        
                         $scope.linkInfoLoading = false;
                         $scope.sharedLinkUrl = "";
                         $(".by_btn_submit").prop("disabled", false);
@@ -184,6 +200,16 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                         // or server returns response with an error status.
                     });
             }
+        }
+        
+        $scope.selectPrevLinkImage = function(){
+        	$scope.linkImagesIdx--;
+        	$scope.linkInfo.mainImage = $scope.linkImages[$scope.linkImagesIdx];
+        }
+        
+        $scope.selectNextLinkImage = function(){
+        	$scope.linkImagesIdx++;
+        	$scope.linkInfo.mainImage = $scope.linkImages[$scope.linkImagesIdx];
         }
 
         $scope.exitEditor = function(){

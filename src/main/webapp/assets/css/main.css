@@ -201,3 +201,54 @@ body a:hover
 {
 	border-top-color: #525252;
 }
+.by_ellipsis {
+  overflow: hidden;
+  position: relative;
+  height: 40px;
+  line-height: 20px;
+}
+
+.by_ellipsis:before {
+  content:"";
+  float: left;
+  width: 5px; 
+  height: 40px; 
+}
+
+.by_ellipsis > *:first-child {
+  float: right;
+  width: 100%;
+  margin-left: -5px; 
+}    
+
+.by_ellipsis:after {
+    content: "\02026"; 
+  float: right; position: relative;
+  top: 20px; left: 100%; 
+  width: 20px; margin-left: -20px;
+  padding-right: 5px;
+  background: #fff;  
+}
+
+.darkBgwithText
+{
+    margin-left:-5px;
+    border:1px solid #4d4d4d;
+    background:#7c7c7c;
+    padding:10px;
+    color:#fff;    
+    box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
+    -webkit-box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
+    -ms-box-shadow: 2px 2px 3px 1px rgba(4, 4, 4, 0.16);
+    border-radius: 2px !important;
+    position:relative;
+}
+.darkBgwithTextArrow
+{
+    position:absolute;
+    width:16px;
+    height:14px;
+    bottom:-7px;
+    left:20%;
+    z-index:2;
+}

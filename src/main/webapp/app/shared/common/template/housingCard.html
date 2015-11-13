@@ -6,7 +6,7 @@
 		</div>
      <div class="by_housingCard_profileImage" ng-if="housing.profileImage == null" style="background-image:url('assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%');"></div>
      <div class="by_housingCard_content">
-     	<p class="by_housingCard_contentHead">{{housing.name}}</p>
+     	<p class="by_housingCard_contentHead text-capitalize">{{housing.name.toLowerCase()}}</p>
 			<div class="by_housingCard_contentLeft">
 				<div class="by_housingCard_contentIconWrap by_housingCard_contentIconWrapAddHeight" 	ng-if="housing.primaryAddress.locality || housing.primaryAddress.city">
 					<div >

@@ -587,7 +587,6 @@ define(["byApp", "angular"], function (byApp, angular) {
             }
         };
     });
-    
 });
 
 

@@ -68,6 +68,23 @@ public class UserController {
 	private static void setUserRepository(UserRepository userRepository) {
 		UserController.userRepository = userRepository;
 	}
+	
+	@RequestMapping(value = "/getUserInfoByIdForProducts", method = RequestMethod.GET)
+	public @ResponseBody Object getUserInfoByIdForProducts(
+			@RequestParam(value = "id", required = true) String id,
+			HttpServletRequest req,
+			HttpServletResponse res) {
+		Query q = new Query();
+		q.addCriteria(Criteria.where("sessionId").is(id));
+		q.addCriteria(Criteria.where("status").is(
+				DiscussConstants.SESSION_STATUS_ACTIVE));
+		Session session = mongoTemplate.findOne(q, Session.class);
+		User user = null;
+		if (null != session) {
+			user = userRepository.findOne(session.getUserId());
+		}
+		return BYGenericResponseHandler.getResponse(user);
+	}
 
 	@RequestMapping(value = "/validateSession", method = RequestMethod.GET)
 	public @ResponseBody Object validateSession(HttpServletRequest req,

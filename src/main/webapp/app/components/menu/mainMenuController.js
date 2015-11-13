@@ -19,7 +19,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
         $scope.hamburgerView = false;
         $rootScope.windowWidth;
 
-        $scope.createMenuCategoryMap = function(categories){
+        var createMenuCategoryMap = function(categories){
             angular.forEach(categories, function(category, index){
                 $rootScope.menuCategoryMap[category.id] = category;
                 $rootScope.menuCategoryMapByName[category.displayMenuName] = category;
@@ -56,30 +56,71 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                 }
 
                 if(category.children.length > 0){
-                    $scope.createMenuCategoryMap(category.children);
+                    createMenuCategoryMap(category.children);
                 }
             });
 
         };
 
-        $scope.createMenuCategoryMap($scope.mainMenu);
+        var mergeProdCategories = function(prod_categories){
+            function editCategoryOptions(categories, ancestorIdArr){
+                angular.forEach(categories, function(category, index){
+                    $rootScope.menuCategoryMap[category.id] = category;
+                    category.displayMenuName = category.name.replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+                    category.slug = category.urlKey;
+                    category.module = 3;
+                    category.ancestorIds = ancestorIdArr;
+                    if(category.subcategories){
+                        var newAncestorArr = ancestorIdArr.slice();
+                        newAncestorArr.push(category.id.toString())
+                        category.children = category.subcategories;
+                        editCategoryOptions(category.children, newAncestorArr);
+
+                    }else{
+                        category.children = [];
+                    }
+
+                })
+            }
+
+            editCategoryOptions(prod_categories.category, [$rootScope.menuCategoryMapByName["Products"].id]);
+            angular.forEach($scope.mainMenu, function(menu, index){
+                if(menu.module==3){
+                    console.log(menu.displayMenuName);
+                    menu.children = prod_categories.category;
+                }
+            })
+        };
+
+        createMenuCategoryMap($scope.mainMenu);
+        mergeProdCategories(window.by_prodCategories);
         window.by_menu = null;
         delete window.by_menu;
+        delete window.by_prodCategories;
 
         //Select menu and show relevant page
         $scope.selectMenu = function(menu){
+            $location.url($location.path());
             if(menu.module===0){
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===1){
                 $location.path("/services/list/"+menu.slug+"/"+menu.id+"/all/");
             }else if(menu.module===2){
                 $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/all/");
+            }else if(menu.module===3){
+                $location.path("/products/list/"+menu.slug+"/"+menu.id+"/all/");
+                if(menu.ancestorIds.length > 0){
+                    $location.search('q', JSON.stringify(menu));
+                }
+
+                console.log($location);
+
             }else{
                 $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
             }
 
             //Reset top menu, to dismiss hover menu - ipad fix
-            if(menu.ancestorIds.length >= 2){
+            if(menu.ancestorIds && menu.ancestorIds.length >= 2){
                 $scope.selectedTopMenu = null;
             }
         };
@@ -103,6 +144,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                     if($(this).find(".by-leafMenu li").length > 0){
                         $("#mask").css("display", "block");
                     }
+                    $scope.subMenuResize();
 
                 }, function() {
                     $("#mask").css("display", "none");
@@ -163,7 +205,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
         $scope.subMenuResize = function(height, width){
             submenuHeight = $(".by-left-menu").height();
             resizeLeftMenu();
-            $(".by-leafMenu").css('min-height', submenuHeight - 21);
+            $(".by-leafMenu").css('min-height', submenuHeight);
         };
 
 
@@ -179,9 +221,14 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                     } else if (menu.ancestorIds.length===2){
                         var rootMenu = $rootScope.menuCategoryMap[menu.ancestorIds[1]];
                         $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+
+                        if(!$scope.sectionHeader){
+                            rootMenu = $rootScope.menuCategoryMap[rootMenu.ancestorIds[0]];
+                            $scope.sectionHeader = BY.config.sectionHeader[rootMenu.displayMenuName.toLowerCase().trim()];
+                        }
                     }
 
-                    if($scope.sectionHeader[menuName]){
+                    if($scope.sectionHeader && $scope.sectionHeader[menuName]){
                         $scope.sectionHeader = $scope.sectionHeader[menuName];
                     }
                 }

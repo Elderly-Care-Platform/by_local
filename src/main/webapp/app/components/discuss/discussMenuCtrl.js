@@ -9,6 +9,8 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
         $scope.communityIconMobile = BY.config.communityIconMobile;
 
         var initialize = getMenuLevels();
+        
+        $scope.telNo = BY.config.constants.byContactNumber;
 
         $scope.subMenuTabMobileShow = function () {
             $(".by_mobile_leftPanel_image").click(function () {

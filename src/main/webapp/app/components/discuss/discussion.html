@@ -47,7 +47,7 @@
 <div ng-include="'app/components/discuss/discussMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 <div class="by_mobile_call_wrap" ng-if="$root.windowWidth < 720">
     <div class="by_container" style="color: #fff ; text-align:center;">     
-        Need help? <a href="tel:080-67818181"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
+        Need help? <a ng-href="{{'tel:'+telNo}}"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
     </div>
 </div>
 <!--=== Content Part ===-->

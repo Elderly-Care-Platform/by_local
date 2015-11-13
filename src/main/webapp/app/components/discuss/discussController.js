@@ -17,6 +17,8 @@ define(['byApp',
         $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
 
         $scope.selectedMenu = $scope.$parent.menuLevel2;
+        
+        
 
 
 

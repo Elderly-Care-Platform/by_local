@@ -1,12 +1,84 @@
+<div class="by_home_bg">
+	<!--------------------------Home title--------------------------------->
+    <div class="by_home_title1">
+        Taking better care of parents<br/>
+        Living longer and happier
+    </div>
+
+	<!--------------------------Home Top Menu----------------------------->
+    <div class="by_home_content">
+        <div ng-repeat="menu in $root.mainMenu">
+            <div class="by_home_content_item">
+                <a href="{{homeSection[$index].url}}{{menu.slug}}/{{menu.id}}/all">
+                    <div class="by_home_content_item_first">
+                        <div class="by_home_content_item_first_image">
+                            <img src="{{homeSection[$index].image}}">
+                        </div>
+                        <div class="by_home_content_item_first_text">{{menu.displayMenuName}}</div>
+                    </div>
+                    <div class="by_home_content_item_second">
+						<span ng-if="menu.displayMenuName == 'Communities'">
+							{{homeSection[$index].desc1}}<br/>
+						 	{{homeSection[$index].desc2}}
+						</span>
+						<span ng-if="menu.displayMenuName == 'Directory'">
+							 <b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> {{homeSection[$index].desc1}}<br/>
+							 <b id="HomeHousing" ng-init="HomeHousingNum();">0</b>{{homeSection[$index].desc2}}
+						</span>
+						<span ng-if="menu.displayMenuName == 'Shop'">
+							{{homeSection[$index].desc1}}<br/>
+							<b id="HomeProduct" ng-init="HomeProductNum();">0</b>  {{homeSection[$index].desc2}}
+						</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<!--------------------------Home Mobile section ----------------------------->
+<div class="by_home_call_wrap" ng-if="$root.windowWidth < 720">
+    <div class="by_container">
+        <div class="divLeft">
+            <a href="#!/users/login">Join us</a>
+        </div>
+        <div class="divRight">
+            Need help? <a href="tel:080-67818181"> <img
+                src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
+        </div>
+    </div>
+</div>
+
+
+<!--------------------------Home Promotions ----------------------------->
+<div class="by_home_content by-home-page">
+    <div class="clearfix"></div>
+    <div id="homeContainer" class="homeContainer">
+        <div class="discussion-page md-margin-bottom-40 container homeAskShare">
+            <div ng-controller="BYHomePromoController">
+                <div ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
+                     infinite-scroll="loadMore()"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+
+	<!-------------------------- Home main section ----------------------------->
+	<div ng-include="homeViews.contentPanel"></div>
+    <div class="clearfix"></div>
+</div>
+
 <!--<div ng-controller="LoadCustomJSController"></div>-->
 <!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
 <!--<div class="breadcrumbs">-->
-	<!--<div class="container by_breadcrumbs_container">-->
-		<!--<ul class="pull-right breadcrumb">-->
-			<!--<li class="active"><a>HOME</a></li>-->
-		<!--</ul>-->
-	<!--</div>-->
-	<!--<hr class="breadcrumb-divider" />-->
+<!--<div class="container by_breadcrumbs_container">-->
+<!--<ul class="pull-right breadcrumb">-->
+<!--<li class="active"><a>HOME</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<hr class="breadcrumb-divider" />-->
 <!--</div>-->
 
 <!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
@@ -42,134 +114,55 @@
 	</div>
 </div>
 new search
-<div class="by_home_header_menu_search">
-		<div class="by_home_header_menu_search_left divLeft">
+<div class="by_home_search">
+		<div class="by_home_search_left divLeft">
 			<input type="text" placeholder="Find info, tips, products, serivces, senior living facilites, etc" ng-model="term"
 			onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
 			<a href="#!/search/{{term}}/All" id="search_link"></a>
 		</div>
-		<div class="by_home_header_menu_search_right divRight" onclick="document.getElementById('search_link').click()">
+		<div class="by_home_search_right divRight" onclick="document.getElementById('search_link').click()">
 			<i class="fa fa-search"></i> Search
 		</div><div class="clearfix"></div>
 	</div>-->
-<div class="by_home_header_menu">
-	<div class="by_home_header_menu_tag">
-		Taking better care of parents<br/>
-		Living longer and happier
-	</div>
-	
-	<div class="by_home_header_menu_content">	
-		<!--	
-		<div class="by_home_header_menu_content_item">
+
+
+<!--
+		<div class="by_home_content_item">
 			<a>
-				<div class="by_home_header_menu_content_item_first">
-					<div class="by_home_header_menu_content_item_first_image">
+				<div class="by_home_content_item_first">
+					<div class="by_home_content_item_first_image">
 						<img src="assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%" >
 					</div>
-					<div class="by_home_header_menu_content_item_first_text">Communities</div>
+					<div class="by_home_content_item_first_text">Communities</div>
 				</div>
-				<div class="by_home_header_menu_content_item_second">
-					Get informed &amp; inspired<br/>	Share experiences 
+				<div class="by_home_content_item_second">
+					Get informed &amp; inspired<br/>	Share experiences
 				</div>
 			</a>
 		</div>
-		<div class="by_home_header_menu_content_item">
+		<div class="by_home_content_item">
 			<a>
-				<div class="by_home_header_menu_content_item_first">
-					<div class="by_home_header_menu_content_item_first_image">
+				<div class="by_home_content_item_first">
+					<div class="by_home_content_item_first_image">
 						<img src="assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%" >
 					</div>
-					<div class="by_home_header_menu_content_item_first_text">Directory</div>
+					<div class="by_home_content_item_first_text">Directory</div>
 				</div>
-				<div class="by_home_header_menu_content_item_second">
+				<div class="by_home_content_item_second">
 					<b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> services for seniors <br/><b id="HomeHousing" ng-init="HomeHousingNum();">0</b> senior living facilities
 				</div>
 			</a>
 		</div>
-		<div class="by_home_header_menu_content_item">
+		<div class="by_home_content_item">
 			<a>
-				<div class="by_home_header_menu_content_item_first">
-					<div class="by_home_header_menu_content_item_first_image">
+				<div class="by_home_content_item_first">
+					<div class="by_home_content_item_first_image">
 						<img src="assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%" >
 					</div>
-					<div class="by_home_header_menu_content_item_first_text">Shop</div>
+					<div class="by_home_content_item_first_text">Shop</div>
 				</div>
-				<div class="by_home_header_menu_content_item_second">
-					 Improving lives: <br/><b id="HomeProduct" ng-init="HomeProductNum();">0</b> products for seniors 
+				<div class="by_home_content_item_second">
+					 Improving lives: <br/><b id="HomeProduct" ng-init="HomeProductNum();">0</b> products for seniors
 				</div>
 			</a>
 		</div>-->
-		<div ng-repeat="menu in $root.mainMenu">
-			<div class="by_home_header_menu_content_item">
-			<a href="{{homeSection[$index].url}}{{menu.slug}}/{{menu.id}}/all">			
-				<div class="by_home_header_menu_content_item_first">
-					<div class="by_home_header_menu_content_item_first_image">
-						<img src="{{homeSection[$index].image}}" >
-					</div>
-					<div class="by_home_header_menu_content_item_first_text">{{menu.displayMenuName}}</div>
-				</div>
-				<div class="by_home_header_menu_content_item_second">
-				 <span ng-if="menu.displayMenuName == 'Communities'">	
-				 	{{homeSection[$index].desc1}}<br/>
-					 {{homeSection[$index].desc2}}
-				</span>	 
-				<span ng-if="menu.displayMenuName == 'Directory'">
-					 <b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> {{homeSection[$index].desc1}}<br/>
-					 <b id="HomeHousing" ng-init="HomeHousingNum();">0</b>{{homeSection[$index].desc2}}
-				</span>
-				<span ng-if="menu.displayMenuName == 'Shop'">
-					{{homeSection[$index].desc1}}<br/>
-					<b id="HomeProduct" ng-init="HomeProductNum();">0</b>  {{homeSection[$index].desc2}}
-				</span>
-				</div>
-			</a>
-		</div>
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-</div>
-<div class="by_home_call_wrap" ng-if="$root.windowWidth < 720">
-	<div class="by_container">
-		<div class="divLeft">
-			<a href="#!/users/login" >Join us</a>
-		</div>
-		<div class="divRight">
-			Need help? <a href="tel:080-67818181"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
-		</div>
-	</div>
-</div>
-
-<div class="by_home_content by-home-page">
-	<div class="clearfix"></div>
-	<div id="homeContainer" class="homeContainer">
-		<div class="discussion-page md-margin-bottom-40 container homeAskShare">
-			<!--<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
-				 ng-click="add('Question')">
-				<i class="sprite sprite-question"></i>
-				<span style="padding-top:7px;"><b>Ask</b> anything about elder care or health</span>
-			</div>
-			<div class="col-md-6 col-xs-12 col-sm-12 no-padding by_leftPanel_icons" data-link="articles.html"
-				 ng-click="add('Article')">
-				<i class="sprite sprite-story"></i>
-				<span style="padding-top:7px;"><b>Share</b> your stories, experiences, photos</span>
-			</div>
-			<div class="clearfix" style="height:30px;"></div>-->
-			<div ng-controller="BYHomePromoController">
-				<div ng-if="contentType==='all' || contentType==='promo'"
-					 ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
-					 infinite-scroll="loadMore()"></div>
-			</div>
-		</div>
-		<!--<div class="discussion-page md-margin-bottom-40">
-			<div ng-include="'app/components/home/homeSectionCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-		</div>-->
-	</div><div class="clearfix"></div>
-
-
-	<div ng-controller="BYHomeContentCtrl">
-		<div ng-include="homeViews.contentPanel"></div>
-	</div>
-
-	<div class="clearfix" ></div>
-</div>

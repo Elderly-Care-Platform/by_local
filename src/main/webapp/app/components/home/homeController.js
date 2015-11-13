@@ -81,7 +81,7 @@ define(['byApp', 'byUtil', 'homePromoController',
 
 
 
-        $scope.go = function ($event, type, id, discussType) {
+        /*$scope.go = function ($event, type, id, discussType) {
             $event.stopPropagation();
             if (type === "id") {
                 $location.path('/discuss/' + id);
@@ -99,7 +99,7 @@ define(['byApp', 'byUtil', 'homePromoController',
            } else if(type === "comment") {
                 $location.path('/discuss/' + id).search({comment: true});
             }
-        }
+        }*/
 
         ////for featured services
         //$scope.location = function ($event, userId, userType) {

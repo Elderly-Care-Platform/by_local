@@ -230,7 +230,9 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                     $scope.createUserError = '';
                     $scope.setUserCredential(login, "reg2");
 
-                    if($rootScope.inContextLogin){
+                    if ($rootScope.nextLocation){
+                        $scope.$parent.exit();
+                    } else if($rootScope.inContextLogin){
                         ValidateUserCredential.loginCallback();
                     } else{
                         $scope.$parent.getUserProfile();

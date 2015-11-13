@@ -10,10 +10,9 @@
 	<div class="by_productCard col-md-6"
 	ng-click="openProductDescription(product.id, product.categoryId, product.categoryName)">
 	<div class="by_productCard_Image">
-		<!--<img ng-if="product.primaryMedia != null"
-		ng-src="{{product.primaryMedia.url || ''}}"
-		fallback-src='["assets/img/by.png"]' alt="{{product.name}}">-->
-		<img random-image=""> 
+		<img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
+			 fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
+		<!--<img random-image=""> -->
 	</div>
 	<div class="by_productCard_divider"></div>
 	<div class="by_productCard_title ellipsisHead">{{product.name}}</div>

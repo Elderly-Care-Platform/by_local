@@ -206,6 +206,10 @@
 {
 	text-decoration: none;
 }
+.headerHeightNoBreadCrumb 
+{
+	height: 57px;
+}
 @media ( max-width : 720px){
 	.by_logo
 	{
@@ -229,5 +233,9 @@
 	.by_header
 	{
 		height: 54px;
+	}
+	.headerHeightNoBreadCrumb 
+	{
+		height: 0px;
 	}
 }

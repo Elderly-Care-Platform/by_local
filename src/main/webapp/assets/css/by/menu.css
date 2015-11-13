@@ -226,10 +226,11 @@
 
 .by_sub_menu_plus
 {
-	width: 250px;
+	width: 100%;
 	background: #fff;
 	min-height: calc(100vh - 57px);
 	padding-bottom: 57px;
+	max-width: 250px;
 }
 .by_sub_menu_plus_head
 {
@@ -245,7 +246,6 @@
 {
 	width: 100%;
 	height: auto;
-	display: none;
 }
 .by_sub_menu_plus_content a
 {

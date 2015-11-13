@@ -1,6 +1,6 @@
-.by_home_content {
+/*.by_home_content {
 	margin-top: 0px;
-	/*background-color: #fff;*/
+	
 }
 
 .by_breadcrumbs_container {
@@ -78,9 +78,9 @@
 
 .by_leftPanel_icons span {
 	color: #001f0e;
-	font-size: 16px; /* Approximation due to font substitution */
+	font-size: 16px; 
 	font-weight: 400;
-	line-height: 18px; /* Approximation due to font substitution */
+	line-height: 18px; 
 	padding-left: 6px;
 }
 
@@ -141,7 +141,7 @@
 .by_card_info {
 	display: inline-block;
 	padding: 5px 15px 0px 0px;
-	/*margin-left: 10px;*/
+	
 }
 
 .by_card_info ul {
@@ -156,20 +156,20 @@
 }
 
 .by_captilize_first_letter:first-letter {
-	/*color: #00d16f;*/
+	
 	font-size: 20px;
 }
 
 .by_card_content {
-	/*color: #2A2A2A;*/
+	
 	font-size: 15px;
 	font-weight: 400;
 	line-height: 25px;
-	/*margin-left: 10px;*/
+	
 	padding: 5px 15px 0px 0px;
 	font-family: century_gothic !important;
 	color: #0A0A0A !important;
-	/* text-align: justify;*/
+	
 }
 
 .by_card_content>p {
@@ -193,8 +193,7 @@
 
 .by_discuss_card_info {
 	display: inline-block;
-	/*padding: 5px 15px 0px 0px;*/
-	/*margin-left: 10px;*/
+	
 	margin-top: 4px;
 }
 
@@ -208,23 +207,14 @@
 	padding: 0px !important;
 }
 
-/*new css************************************************/
 
-/*.by_blog_author > img{*/
-/*width: 135px !important;*/
-/*max-height: 168px !important;*/
-/*margin-top: 9px !important;*/
-/*margin-left: 9px !important;*/
-/*}*/
+
+
 .by_blog_author .article-heading {
 	font-family: century_gothic !important;
 }
 
-/*.by_blog_author .articles-story p{*/
-/*color: #000  !important;*/
-/*font-size: 15px !important;*/
-/*line-height: 25px;*/
-/*}*/
+
 .by_blog_author .news-v3 .post-shares li {
 	margin-left: 0px !important;
 }
@@ -499,13 +489,13 @@ ul.loginbar.pull-right {
 .homeSection:nth-child(odd) .homeSectionTextWrap{
 	padding-left: 45%;
 	padding-right: 15%;
-	/*margin-left:-10%;*/
+	
 }
 
 .homeSection:nth-child(even) .homeSectionTextWrap{
 	padding-right: 50%;
 	padding-left: 15%;
-	/*margin-right:-10%;*/
+	
 }
 
 
@@ -592,4 +582,4 @@ ul.loginbar.pull-right {
 		padding-right: 3%;
 	}
 
-}
+}*/

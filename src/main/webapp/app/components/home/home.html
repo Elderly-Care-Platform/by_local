@@ -1,20 +1,20 @@
 <div class="by_home_bg">
-	<!--------------------------Home title--------------------------------->
+	<!--          Home title            -->
     <div class="by_home_title1">
         Taking better care of parents<br/>
         Living longer and happier
     </div>
 
-	<!--------------------------Home Top Menu----------------------------->
+	<!--            Home Top Menu           -->
     <div class="by_home_content">
         <div ng-repeat="menu in $root.mainMenu">
             <div class="by_home_content_item">
                 <a href="{{homeSection[$index].url}}{{menu.slug}}/{{menu.id}}/all">
-                    <div class="by_home_content_item_first">
-                        <div class="by_home_content_item_first_image">
+                    <div class="by_homeContent_first">
+                        <div class="by_homeContent_first_image">
                             <img src="{{homeSection[$index].image}}">
                         </div>
-                        <div class="by_home_content_item_first_text">{{menu.displayMenuName}}</div>
+                        <div class="by_homeContent_first_text">{{menu.displayMenuName}}</div>
                     </div>
                     <div class="by_home_content_item_second">
 						<span ng-if="menu.displayMenuName == 'Communities'">
@@ -37,22 +37,22 @@
     <div class="clearfix"></div>
 </div>
 
-<!--------------------------Home Mobile section ----------------------------->
+<!--              Home Mobile section                      -->
 <div class="by_home_call_wrap" ng-if="$root.windowWidth < 720">
     <div class="by_container">
         <div class="divLeft">
             <a href="#!/users/login">Join us</a>
         </div>
         <div class="divRight">
-            Need help? <a href="tel:080-67818181"> <img
+            Need help? <a href="{{'tel:'+telNo}}"> <img
                 src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
         </div>
     </div>
 </div>
 
 
-<!--------------------------Home Promotions ----------------------------->
-<div class="by_home_content by-home-page">
+<!--                  Home Promotions                    -->
+<div class="by-home-page margin-top-20">
     <div class="clearfix"></div>
     <div id="homeContainer" class="homeContainer">
         <div class="discussion-page md-margin-bottom-40 container homeAskShare">
@@ -65,7 +65,7 @@
     <div class="clearfix"></div>
 
 
-	<!-------------------------- Home main section ----------------------------->
+	<!--  Home main section             -->
 	<div ng-include="homeViews.contentPanel"></div>
     <div class="clearfix"></div>
 </div>
@@ -129,11 +129,11 @@ new search
 <!--
 		<div class="by_home_content_item">
 			<a>
-				<div class="by_home_content_item_first">
-					<div class="by_home_content_item_first_image">
+				<div class="by_homeContent_first">
+					<div class="by_homeContent_first_image">
 						<img src="assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%" >
 					</div>
-					<div class="by_home_content_item_first_text">Communities</div>
+					<div class="by_homeContent_first_text">Communities</div>
 				</div>
 				<div class="by_home_content_item_second">
 					Get informed &amp; inspired<br/>	Share experiences
@@ -142,11 +142,11 @@ new search
 		</div>
 		<div class="by_home_content_item">
 			<a>
-				<div class="by_home_content_item_first">
-					<div class="by_home_content_item_first_image">
+				<div class="by_homeContent_first">
+					<div class="by_homeContent_first_image">
 						<img src="assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%" >
 					</div>
-					<div class="by_home_content_item_first_text">Directory</div>
+					<div class="by_homeContent_first_text">Directory</div>
 				</div>
 				<div class="by_home_content_item_second">
 					<b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> services for seniors <br/><b id="HomeHousing" ng-init="HomeHousingNum();">0</b> senior living facilities
@@ -155,11 +155,11 @@ new search
 		</div>
 		<div class="by_home_content_item">
 			<a>
-				<div class="by_home_content_item_first">
-					<div class="by_home_content_item_first_image">
+				<div class="by_homeContent_first">
+					<div class="by_homeContent_first_image">
 						<img src="assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%" >
 					</div>
-					<div class="by_home_content_item_first_text">Shop</div>
+					<div class="by_homeContent_first_text">Shop</div>
 				</div>
 				<div class="by_home_content_item_second">
 					 Improving lives: <br/><b id="HomeProduct" ng-init="HomeProductNum();">0</b> products for seniors

@@ -23,6 +23,8 @@ define(['byApp', 'byUtil', 'homePromoController',
         //$scope.currentAcceleratorSelected = "";
         //$scope.showFeaturedTag = false;
 
+        $scope.telNo = BY.config.constants.byContactNumber;
+
         $scope.homeViews = {};
         $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 

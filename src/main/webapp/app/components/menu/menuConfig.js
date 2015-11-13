@@ -56,6 +56,168 @@ BY.config.homeIcon = {
     }
 }
 
+BY.config.communityIcon = {
+    '55bcae5ee4b08970a736784e' : {        
+        'image':'assets/img/community/desktop/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55bcaef5e4b08970a736784f' : {        
+        'image':'assets/img/community/desktop/parkinsons.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befbd8e4b07cedaa267813' : {        
+        'image':'assets/img/community/desktop/stroke-bedridden.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc42e4b07cedaa267819' : {        
+        'image':'assets/img/community/desktop/incontinence-personal-hygiene.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befbf1e4b07cedaa267814' : {        
+        'image':'assets/img/community/desktop/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '56407c073e60f5b66f62df35' : {        
+        'image':'assets/img/community/desktop/joints-bones-issues.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc97e4b07cedaa26781c' : {        
+        'image':'assets/img/community/desktop/cancer.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc2ce4b07cedaa267818' : {        
+        'image':'assets/img/community/desktop/diabetes.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc86e4b07cedaa26781b' : {        
+        'image':'assets/img/community/desktop/blood-pressure-heart-issues.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befdfbe4b07cedaa267820' : {        
+        'image':'assets/img/community/desktop/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befe3be4b07cedaa267823' : {        
+        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bcac92e4b08970a7367848' : {        
+        'image':'assets/img/community/desktop/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca92ae4b08970a7367842' : {        
+        'image':'assets/img/community/desktop/mobility-falls.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '56407d743e60f5b66f62df36' : {        
+        'image':'assets/img/community/desktop/senior-friendly-home.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca7b8e4b08970a736783c' : {        
+        'image':'assets/img/community/desktop/caregivers-challenges.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '5640746b3e60f5b66f62df31' : {        
+        'image':'assets/img/community/desktop/scientific-breakthroughs.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc847be4b0083957500663' : {        
+        'image':'assets/img/community/desktop/yoga-fitness.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bcac54e4b08970a7367846' : {        
+        'image':'assets/img/community/desktop/food-nutrition.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca766e4b08970a736783b' : {        
+        'image':'assets/img/community/desktop/beautiful-lives.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca819e4b08970a736783e' : {        
+        'image':'assets/img/community/desktop/challenges-of-ageing.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc8418e4b0083957500660' : {        
+        'image':'assets/img/community/desktop/photography.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55cc8440e4b0083957500661' : {        
+        'image':'assets/img/community/desktop/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc845ce4b0083957500662' : {        
+        'image':'assets/img/community/desktop/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc860be4b008395750066f' : {        
+        'image':'assets/img/community/desktop/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '564076aa3e60f5b66f62df33' : {        
+        'image':'assets/img/community/desktop/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '564083353e60f5b66f62df39' : {        
+        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    }
+}
+
+BY.config.communityIconMobile = {
+    '55bcae5ee4b08970a736784e' : {        
+        'image':'assets/img/community/mobile/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55bcaef5e4b08970a736784f' : {        
+        'image':'assets/img/community/mobile/parkinsons.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befbd8e4b07cedaa267813' : {        
+        'image':'assets/img/community/mobile/stroke-bedridden.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc42e4b07cedaa267819' : {        
+        'image':'assets/img/community/mobile/incontinence-personal-hygiene.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befbf1e4b07cedaa267814' : {        
+        'image':'assets/img/community/mobile/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '56407c073e60f5b66f62df35' : {        
+        'image':'assets/img/community/mobile/joints-bones-issues.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc97e4b07cedaa26781c' : {        
+        'image':'assets/img/community/mobile/cancer.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc2ce4b07cedaa267818' : {        
+        'image':'assets/img/community/mobile/diabetes.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befc86e4b07cedaa26781b' : {        
+        'image':'assets/img/community/mobile/blood-pressure-heart-issues.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befdfbe4b07cedaa267820' : {        
+        'image':'assets/img/community/mobile/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befe3be4b07cedaa267823' : {        
+        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bcac92e4b08970a7367848' : {        
+        'image':'assets/img/community/mobile/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca92ae4b08970a7367842' : {        
+        'image':'assets/img/community/mobile/mobility-falls.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '56407d743e60f5b66f62df36' : {        
+        'image':'assets/img/community/mobile/senior-friendly-home.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca7b8e4b08970a736783c' : {        
+        'image':'assets/img/community/mobile/caregivers-challenges.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '5640746b3e60f5b66f62df31' : {        
+        'image':'assets/img/community/mobile/scientific-breakthroughs.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc847be4b0083957500663' : {        
+        'image':'assets/img/community/mobile/yoga-fitness.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bcac54e4b08970a7367846' : {        
+        'image':'assets/img/community/mobile/food-nutrition.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca766e4b08970a736783b' : {        
+        'image':'assets/img/community/mobile/beautiful-lives.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55bca819e4b08970a736783e' : {        
+        'image':'assets/img/community/mobile/challenges-of-ageing.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc8418e4b0083957500660' : {        
+        'image':'assets/img/community/mobile/photography.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55cc8440e4b0083957500661' : {        
+        'image':'assets/img/community/mobile/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc845ce4b0083957500662' : {        
+        'image':'assets/img/community/mobile/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '55cc860be4b008395750066f' : {        
+        'image':'assets/img/community/mobile/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '564076aa3e60f5b66f62df33' : {        
+        'image':'assets/img/community/mobile/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+     '564083353e60f5b66f62df39' : {        
+        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    }
+}
+
 /*
  '0' : {
         'name':'Services',

@@ -43,418 +43,75 @@
 
 <!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
 
-<div class="by_sub_menu" ng-init="subMenuTab();" ng-if="$root.windowWidth > 720">
-    <div class="by_sub_menu_head">
-        <div class="by_sub_menu_head_thumb">Caring for parents</div>
-        <div class="by_sub_menu_head_thumb">Beautiful Ageing</div>
-        <div class="by_sub_menu_head_thumb">Active Leisure</div>
+
+
+<div class="by_sub_menu" ng-if="$root.windowWidth > 720">
+    <div class="by_sub_menu_head"  >
+        <div class="by_sub_menu_head_thumb" id="{{menu.id}}" 
+        ng-class="{'by_sub_menu_head_thumb_active': menu.id == setTabId }"  ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children"  >
+            <a href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all"  >{{menu.displayMenuName}}</a>
+        </div>
         <div class="clearfix"></div>
     </div>
-    <div class="by_sub_menu_content">
-        <div class="by_sub_menu_content_thumb">
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/11.png?versionTimeStamp=%PROJECT_VERSION%" >
+    <div class="by_sub_menu_content">        
+        <div class="by_sub_menu_content_thumb" id="{{menu.id}}" ng-show="menu.id == setTabId" ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
+            <span ng-repeat="menuN in menu.children" ng-if="menuN.children.length > 0" >  
+                <div class="by_sub_menu_content_item" ng-init="setActiveLink();" id="{{menuNN.id}}" ng-repeat="menuNN in menuN.children">
+                    <a href="#!/discuss/list/{{menuNN.slug}}/{{menuNN.id}}/all" >
+                        <img src="{{communityIcon[menuNN.id].image}}" >
+                        <br/>
+                        {{menuNN.displayMenuName}}
+                    </a>
+                </div>
+            </span>
+            <span>
+            <div class="by_sub_menu_content_item" id="{{menuN.id}}" ng-init="setActiveLink();" ng-repeat="menuN in menu.children" ng-if="menuN.children.length < 1">  
+                <a href="#!/discuss/list/{{menuN.slug}}/{{menuN.id}}/all" >
+                    <img src="{{communityIcon[menuN.id].image}}" >
                     <br/>
-                    Alzheimers &amp; Mental Decay 
+                    {{menuN.displayMenuName}}
                 </a>
             </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/12.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Parkinson's 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/15.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Stroke / Bedridden  
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/16.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Joints &amp; Bones
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/24.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Incontinence / Personal Hygiene 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/22.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Diabetes  
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/13.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    BP &amp; Heart
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/17.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Sleep Disorders
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/14.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Lungs & Respiratory 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/23.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Cancer  
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/25.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Vision & Hearing 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/more.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Other health issues 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/18.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Mobility and Falls  
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/21.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Senior-friendly home
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/20.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    NRIs / Remote care
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/19.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Caregivers' Challenges  
-                </a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="by_sub_menu_content_thumb">            
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/5.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Scientific breakthroughs 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/1.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Yoga &amp; Fitness   
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/2.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Nutrition
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/3.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Beautiful Lives   
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item">
-                <a href="">
-                    <img src="assets/img/community/desktop/4.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Challenges of ageing  
-                </a>
-            </div><div class="clearfix"></div>
-        </div>
-        <div class="by_sub_menu_content_thumb">
-            <div class="by_sub_menu_content_item by_sub_menu_content_item2">
-                <a href="">
-                    <img src="assets/img/community/desktop/6.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Photography 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item by_sub_menu_content_item2">
-                <a href="">
-                    <img src="assets/img/community/desktop/10.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Cooking &amp; recipes 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item by_sub_menu_content_item2">
-                <a href="">
-                    <img src="assets/img/community/desktop/7.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Painting &amp; drawing 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item by_sub_menu_content_item2">
-                <a href="">
-                    <img src="assets/img/community/desktop/8.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Creative writing 
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item by_sub_menu_content_item2">
-                <a href="">
-                    <img src="assets/img/community/desktop/9.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Tourism and Pilgrimages  
-                </a>
-            </div>
-            <div class="by_sub_menu_content_item by_sub_menu_content_item2">
-                <a href="">
-                    <img src="assets/img/community/desktop/more.png?versionTimeStamp=%PROJECT_VERSION%" >
-                    <br/>
-                    Other
-                </a>
-            </div><div class="clearfix"></div>
+            </span><div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
 
+
+
+
+
 <div class="by_mobile_leftPanel_hide" ng-init="subMenuTabMobile();" ng-if="$root.windowWidth < 720">
     <div class="by_mobile_leftPanel">
         <div class="by_sub_menu_head_mobile">
-            <div class="by_sub_menu_head_mobile_thumb">Caring for<br/> parents</div>
-            <div class="by_sub_menu_head_mobile_thumb">Beautiful<br/> Ageing</div>
-            <div class="by_sub_menu_head_mobile_thumb">Active<br/> Leisure</div>
+            <div class="by_sub_menu_head_mobile_thumb" id="{{menu.id}}" 
+            ng-class="{'by_sub_menu_head_mobile_thumb_active': menu.id == setTabId }"  ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children"  >
+            <a href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all"  >{{menu.displayMenuName}}</a>
+        </div>
             <div class="clearfix"></div>
         </div>
         <div class="by_sub_menu_content_mobile">
-            <div class="by_sub_menu_content_mobile_thumb">
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/11.png?versionTimeStamp=%PROJECT_VERSION%" >
+           <div class="by_sub_menu_content_mobile_thumb" id="{{menu.id}}" ng-show="menu.id == setTabId" ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
+            <span ng-repeat="menuN in menu.children" ng-if="menuN.children.length > 0" >  
+                <div class="by_sub_menu_content_mobile_item" ng-init="setActiveLink();" id="{{menuNN.id}}" ng-repeat="menuNN in menuN.children">
+                    <a href="#!/discuss/list/{{menuNN.slug}}/{{menuNN.id}}/all" >
+                    <img src="{{communityIconMobile[menuNN.id].image}}" >
                         <br/>
-                        Alzheimers &amp; Mental Decay 
+                        {{menuNN.displayMenuName}}
                     </a>
                 </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/12.png?versionTimeStamp=%PROJECT_VERSION%" >
+            </span>
+            <span>
+                <div class="by_sub_menu_content_mobile_item" id="{{menuN.id}}" ng-init="setActiveLink();" ng-repeat="menuN in menu.children" ng-if="menuN.children.length < 1">  
+                    <a href="#!/discuss/list/{{menuN.slug}}/{{menuN.id}}/all" >
+                        <img src="{{communityIconMobile[menuN.id].image}}" >
                         <br/>
-                        Parkinson's 
+                        {{menuN.displayMenuName}}
                     </a>
                 </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/15.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Stroke / Bedridden  
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/16.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Joints &amp; Bones
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/24.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Incontinence / Personal Hygiene 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/22.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Diabetes  
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/13.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        BP &amp; Heart
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/17.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Sleep Disorders
-                    </a>
-                </div>
-                <!--<div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/14.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Lungs & Respiratory 
-                    </a>
-                </div>-->
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/23.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Cancer  
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/25.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Vision & Hearing 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/more.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Other health issues 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/18.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Mobility and Falls  
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/21.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Senior-friendly home
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/20.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        NRIs / Remote care
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/19.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Caregivers' Challenges  
-                    </a>
-                </div><div class="clearfix"></div>
-            </div>
-            <div class="by_sub_menu_content_mobile_thumb">            
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/5.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Scientific breakthroughs 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/1.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Yoga &amp; Fitness   
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/2.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Nutrition
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/3.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Beautiful Lives   
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/4.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Challenges of ageing  
-                    </a>
-                </div><div class="clearfix"></div>
-            </div>
-            <div class="by_sub_menu_content_mobile_thumb">
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/6.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Photography 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/10.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Cooking &amp; recipes 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/7.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Painting &amp; drawing 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/8.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Creative writing 
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/9.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Tourism and Pilgrimages  
-                    </a>
-                </div>
-                <div class="by_sub_menu_content_mobile_item">
-                    <a href="">
-                        <img src="assets/img/community/mobile/more.png?versionTimeStamp=%PROJECT_VERSION%" >
-                        <br/>
-                        Other
-                    </a>
-                </div><div class="clearfix"></div>
-            </div>
+            </span><div class="clearfix"></div>
+        </div>
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
@@ -462,28 +119,6 @@
     <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
 </div>
 
-<!--<div class="breadcrumbs">-->
-    <!--<div class="container by_breadcrumbs_container">-->
-        <!--<ul class="pull-right breadcrumb">-->
-            <!--<li class="active"><a href="#!discuss/All/list/all">Discuss</a></li>-->
-            <!--<li class="active"><a href="#!discuss/{{bc_discussType}}/{{bc_topic}}/all">{{{true:-->
-                <!--$root.discussCategoryListMap[bc_topic].name, false:-->
-                <!--bc_topic}[$root.discussCategoryListMap[bc_topic]!==undefined]}}</a>-->
-            <!--</li>-->
-            <!--<li>{{bc_subTopic}}</li>-->
-        <!--</ul>-->
-    <!--</div>-->
-    <!--<hr class="breadcrumb-divider"/>-->
-<!--</div>-->
-<!-- section headers
-<div class="by_section_header" >
-	<div class="container">
-		<div class="by_section_header_title"></div>
-        <div class="clearfix"></div>
-		<div class="by_section_header_desc"></div>
-	</div>
-</div>
- -->
 <div class="by_mobile_call_wrap" ng-if="$root.windowWidth < 720">
     <div class="by_container" style="color: #fff ; text-align:center;">     
         Need help? <a href="tel:080-67818181"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>

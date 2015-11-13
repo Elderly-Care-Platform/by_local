@@ -1,4 +1,4 @@
-define([], function () {
+define(['menuConfig'], function (menuConfig) {
     function BYHeaderCtrl($scope, $window, $http, SessionIdService) {
         $scope.loginDetails = {
             "text": "",
@@ -98,7 +98,7 @@ define([], function () {
         });
 
         $scope.$on('currentLocation', function (event, args) {
-            console.log(args);
+            //console.log(args);
             if (args.indexOf('/home') == -1) {
                 isHomePage = false;
             } else {
@@ -114,6 +114,8 @@ define([], function () {
                 document.getElementById('search_link').click()
             }
         };
+
+         $scope.homeSection = BY.config.home;
         
 
     }

@@ -1,7 +1,7 @@
 define(['byApp',
     'discussLikeController',
     'shareController',
-    'byEditor'], function (byApp, discussLikeController, shareController, byEditor) {
+    'byEditor', 'menuConfig'], function (byApp, discussLikeController, shareController, byEditor, menuConfig) {
 
     'use strict';
 
@@ -15,6 +15,10 @@ define(['byApp',
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.selectedMenu = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
         $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
+
+        $scope.setTabId = $routeParams.menuId;
+
+        
 
         var tags = [];
         var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
@@ -146,44 +150,10 @@ define(['byApp',
             }
         }
 
-        $scope.subMenuTab = function(){
-            $(".by_sub_menu_head_thumb").eq(0).addClass("by_sub_menu_head_thumb_active");
-            $(".by_sub_menu_content_thumb").eq(0).show();
-            $(".by_sub_menu_content_item").eq(0).addClass("by_sub_menu_content_item_active");
-            $(".by_sub_menu_head_thumb").click(function(){
-                var byIndex = $(this).index();
-                $(".by_sub_menu_head_thumb").removeClass("by_sub_menu_head_thumb_active");
-                $(".by_sub_menu_content_thumb").hide();
-                $(".by_sub_menu_head_thumb").eq(byIndex).addClass("by_sub_menu_head_thumb_active");
-                $(".by_sub_menu_content_thumb").eq(byIndex).show();    
-                $(".by_sub_menu_content_item").removeClass("by_sub_menu_content_item_active");
-                $(".by_sub_menu_content_thumb").eq(byIndex).children(".by_sub_menu_content_item").eq(0).addClass("by_sub_menu_content_item_active");
-            });
-            $(".by_sub_menu_content_item").click(function(){
-                $(".by_sub_menu_content_item").removeClass("by_sub_menu_content_item_active");
-                $(this).addClass("by_sub_menu_content_item_active");
-            });
+        $scope.communityIcon = BY.config.communityIcon;
+        $scope.communityIconMobile = BY.config.communityIconMobile;
 
-        }
-         $scope.subMenuTabMobile = function(){
-            $(".by_sub_menu_head_mobile_thumb").eq(0).addClass("by_sub_menu_head_mobile_thumb_active");
-            $(".by_sub_menu_content_mobile_thumb").eq(0).show();
-            $(".by_sub_menu_content_mobile_item").eq(0).addClass("by_sub_menu_content_mobile_item_active");
-            $(".by_sub_menu_head_mobile_thumb").click(function(){
-                var byIndex = $(this).index();
-                $(".by_sub_menu_head_mobile_thumb").removeClass("by_sub_menu_head_mobile_thumb_active");
-                $(".by_sub_menu_content_mobile_thumb").hide();
-                $(".by_sub_menu_head_mobile_thumb").eq(byIndex).addClass("by_sub_menu_head_mobile_thumb_active");
-                $(".by_sub_menu_content_mobile_thumb").eq(byIndex).show();    
-                $(".by_sub_menu_content_mobile_item").removeClass("by_sub_menu_content_mobile_item_active");
-                $(".by_sub_menu_content_mobile_thumb").eq(byIndex).children(".by_sub_menu_content_mobile_item").eq(0).addClass("by_sub_menu_content_item_active");
-            });
-            $(".by_sub_menu_content_mobile_item").click(function(){
-                $(".by_sub_menu_content_mobile_item").removeClass("by_sub_menu_content_mobile_item_active");
-                $(this).addClass("by_sub_menu_content_mobile_item_active");
-            });
-
-        }
+        
 
         $scope.subMenuTabMobileShow = function(){
             $(".by_mobile_leftPanel_image").click(function(){
@@ -199,6 +169,57 @@ define(['byApp',
             });
         };
 
+       
+
+
+
+       $scope.setActiveLink = function(){            
+           /*$("#" + $scope.setTabId).addClass('by_sub_menu_content_item_active');
+           var index = $("#" + $scope.setTabId).parents().parents().index();*/
+       };
+
+       var getLeafMenu = function(menu){
+            var ret = null;
+            if(menu.children.length > 0){
+                ret = getLeafMenu(menu.children[0]);
+            } else {
+                ret = menu;
+            }
+
+            return ret;
+        }
+
+
+      $scope.menuLevel = function(){
+        $scope.dmId = $routeParams.menuId;
+        var selectedTabLink = $rootScope.menuCategoryMap[$scope.dmId];
+        console.log(selectedTabLink);
+        if(selectedTabLink.ancestorIds.length == 0){
+            $scope.dml1 = selectedTabLink.children[0];
+            console.log($scope.dml1);
+            var l2 = getLeafMenu($scope.dml1);
+            console.log(l2);
+            //$scope.dml3 = $scope.dml2.children;
+
+        } else if(selectedTabLink.ancestorIds.length == 1){
+            $scope.dml1 = selectedTabLink;
+            console.log($scope.dml1)
+            $scope.dml2 = $scope.dml1.children[0];
+            console.log($scope.dml2)
+        } else if(selectedTabLink.children.length == 0){
+            $scope.dml2 = selectedTabLink;
+            $scope.dml1 = $rootScope.menuCategoryMap[$scope.dml2.ancestorIds[$scope.dml2.ancestorIds.length - 1]];
+             console.log($scope.dml2)
+             console.log($scope.dml1)
+        }
+       
+       
+      };
+
+      $scope.menuLevel();
+
+
+        
     }
 
 

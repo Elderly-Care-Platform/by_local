@@ -36,9 +36,10 @@
     </div>
     <div class="clearfix"></div>
      <div class="by_menu" >        
-        <a href="" >Communities</a>
+        <!--<a href="" >Communities</a>
         <a href="">Find</a>
-        <a href="">Shop</a>
+        <a href="">Shop</a>-->
+         <a href="{{homeSection[$index].url}}{{menu.slug}}/{{menu.id}}/all" ng-repeat="menu in $root.mainMenu">{{menu.displayMenuName}}</a>
     </div>
     <div class="clearfix"></div>
 </div>

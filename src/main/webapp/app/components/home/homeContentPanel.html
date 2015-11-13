@@ -84,7 +84,7 @@
 		<div class="by_home_shop_text_menu">
 			<div ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children">
 				<div class="by_home_shop_menu" ng-class="$index < 1 ? 'by_home_shop_menu_active' : ''">
-					<a href="#!/products/list/{{menu.urlKey}}/{{menu.id}}/all">
+					<a href="#!/products/list/{{menu.slug}}/{{menu.id}}/all">
 						<div class="by_homeSection_item_text">
 							{{menu.displayMenuName}}
 						</div>
@@ -98,7 +98,7 @@
 			<div ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children">
 				<div ng-repeat="menuN in menu.subcategories" ng-if="menu.name == 'BY THE CONDITION'">
 					<div class="by_home_product_menu">
-						<a  href="#!/products/list/{{menuN.urlKey}}/{{menuN.id}}/all">
+						<a  href="#!/products/list/{{menuN.slug}}/{{menuN.id}}/all">
 							<div class="by_home_product_image{{$index+1}} by_home_product_image"></div>
 							<div class="by_homeSection_item_text">
 								{{menuN.name}}

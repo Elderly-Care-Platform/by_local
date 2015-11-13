@@ -3,26 +3,26 @@ BY.config = BY.config || {};
 
 
 BY.config.home = {
-   '0' : {
+   '564071623e60f5b66f62df27' : {
         'name':'Communities',
         'desc1':'Get informed & inspired ',
         'desc2':'Share experiences ',
-        'image':'assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%',
-        'url': '#!/discuss/list/'
+        'imageSmall':'assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%',
+        'url': '#!/discuss/list'
     },
-    '1' : {
+    '56406cd03e60f5b66f62df26' : {
         'name':'Directory',
         'desc1':'services for seniors',
         'desc2':' senior living facilities',
-        'image':'assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%',
-        'url': '#!/services/list/'
+        'imageSmall':'assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%',
+        'url': '#!/services/list'
     },
-    '2' : {
+    '55bcad7be4b08970a736784b' : {
         'name':'Shop',
         'desc1':' Improving lives:',
         'desc2':'products for seniors ',
-        'image':'assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%',
-        'url': '#!/products/list/'
+        'imageSmall':'assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%',
+        'url': '#!/products/list'
     },
 }
 

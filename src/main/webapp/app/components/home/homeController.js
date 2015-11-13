@@ -3,14 +3,9 @@
  */
 //home
 define(['byApp', 'byUtil', 'homePromoController',
-    'discussLikeController',
-    'shareController',
     'userTypeConfig',
-    'byEditor',
-    'homeContentController', 'menuConfig'],
-    function(byApp, byUtil, homePromoController, discussLikeController,
-             shareController, userTypeConfig, byEditor,
-             homeContentController, menuConfig) {
+    'byEditor', 'menuConfig'],
+    function(byApp, byUtil, homePromoController,  userTypeConfig, byEditor, menuConfig) {
     function BYHomeController($scope, $rootScope, $routeParams, $location) {
         //$scope.carousalType = "carousel";
         //if($('.carousel').length > 0){

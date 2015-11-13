@@ -6,28 +6,28 @@
     </div>
 
 	<!--            Home Top Menu           -->
-    <div class="by_home_content">
+    <div class="by_home_topMenu">
         <div ng-repeat="menu in $root.mainMenu">
-            <div class="by_home_content_item">
-                <a href="{{homeSection[$index].url}}{{menu.slug}}/{{menu.id}}/all">
-                    <div class="by_homeContent_first">
-                        <div class="by_homeContent_first_image">
-                            <img src="{{homeSection[$index].image}}">
+            <div class="by_home_topMenu_item">
+                <a ng-href="{{homeSection[menu.id].url}}/{{menu.slug}}/{{menu.id}}/all">
+                    <div class="by_home_topMenuText">
+                        <div class="by_home_topMenuImage">
+                            <img ng-src="{{homeSection[menu.id].imageSmall}}">
                         </div>
-                        <div class="by_homeContent_first_text">{{menu.displayMenuName}}</div>
+                        <div class="by_home_topMenuTitle">{{menu.displayMenuName}}</div>
                     </div>
-                    <div class="by_home_content_item_second">
+                    <div class="by_home_topMenuDesc">
 						<span ng-if="menu.displayMenuName == 'Communities'">
-							{{homeSection[$index].desc1}}<br/>
-						 	{{homeSection[$index].desc2}}
+							{{homeSection[menu.id].desc1}}<br/>
+						 	{{homeSection[menu.id].desc2}}
 						</span>
 						<span ng-if="menu.displayMenuName == 'Directory'">
-							 <b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> {{homeSection[$index].desc1}}<br/>
-							 <b id="HomeHousing" ng-init="HomeHousingNum();">0</b>{{homeSection[$index].desc2}}
+							 <b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> {{homeSection[menu.id].desc1}}<br/>
+							 <b id="HomeHousing" ng-init="HomeHousingNum();">0</b>{{homeSection[menu.id].desc2}}
 						</span>
 						<span ng-if="menu.displayMenuName == 'Shop'">
-							{{homeSection[$index].desc1}}<br/>
-							<b id="HomeProduct" ng-init="HomeProductNum();">0</b>  {{homeSection[$index].desc2}}
+							{{homeSection[menu.id].desc1}}<br/>
+							<b id="HomeProduct" ng-init="HomeProductNum();">0</b>  {{homeSection[menu.id].desc2}}
 						</span>
                     </div>
                 </a>
@@ -38,7 +38,7 @@
 </div>
 
 <!--              Home Mobile section                      -->
-<div class="by_home_call_wrap" ng-if="$root.windowWidth < 720">
+<div class="by_homeCallWrap" ng-if="$root.windowWidth < 720">
     <div class="by_container">
         <div class="divLeft">
             <a href="#!/users/login">Join us</a>
@@ -70,99 +70,3 @@
     <div class="clearfix"></div>
 </div>
 
-<!--<div ng-controller="LoadCustomJSController"></div>-->
-<!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
-<!--<div class="breadcrumbs">-->
-<!--<div class="container by_breadcrumbs_container">-->
-<!--<ul class="pull-right breadcrumb">-->
-<!--<li class="active"><a>HOME</a></li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--<hr class="breadcrumb-divider" />-->
-<!--</div>-->
-
-<!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-	<div class="homeSlider" ng-if="$root.windowWidth > 780">
-	<div id="myCarousel" class="carousel slide">
-
-		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1"></li>
-			<li data-target="#myCarousel" data-slide-to="2"></li>
-		</ol>
-		<div class="carousel-inner" ng-if="$root.windowWidth > 900">
-			<div class="item sliderHeight active" ng-class="{'banner1':$root.windowWidth > 900}"></div>
-			<div class="item sliderHeight" ng-class="{'banner2':$root.windowWidth > 900}"></div>
-			<div class="item sliderHeight" ng-class="{'banner3':$root.windowWidth > 900}"></div>
-		</div>
-		<div class="carousel-inner" ng-if="$root.windowWidth < 900">
-			<div class="item sliderHeight active " >
-				<img width="100%" ng-src="assets/img/home/banner-4-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
-			</div>
-			<div class="item sliderHeight " >
-				<img width="100%" ng-src="assets/img/home/banner-5-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
-			</div>
-			<div class="item sliderHeight " >
-				<img width="100%" ng-src="assets/img/home/banner-6-800.jpg?versionTimeStamp=%PROJECT_VERSION%"/>
-			</div>
-		</div>
-		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-			<span class="icon-prev"></span>
-		</a> <a class="right carousel-control" href="#myCarousel"
-			data-slide="next"> <span class="icon-next"></span>
-		</a>
-	</div>
-</div>
-new search
-<div class="by_home_search">
-		<div class="by_home_search_left divLeft">
-			<input type="text" placeholder="Find info, tips, products, serivces, senior living facilites, etc" ng-model="term"
-			onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
-			<a href="#!/search/{{term}}/All" id="search_link"></a>
-		</div>
-		<div class="by_home_search_right divRight" onclick="document.getElementById('search_link').click()">
-			<i class="fa fa-search"></i> Search
-		</div><div class="clearfix"></div>
-	</div>-->
-
-
-<!--
-		<div class="by_home_content_item">
-			<a>
-				<div class="by_homeContent_first">
-					<div class="by_homeContent_first_image">
-						<img src="assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%" >
-					</div>
-					<div class="by_homeContent_first_text">Communities</div>
-				</div>
-				<div class="by_home_content_item_second">
-					Get informed &amp; inspired<br/>	Share experiences
-				</div>
-			</a>
-		</div>
-		<div class="by_home_content_item">
-			<a>
-				<div class="by_homeContent_first">
-					<div class="by_homeContent_first_image">
-						<img src="assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%" >
-					</div>
-					<div class="by_homeContent_first_text">Directory</div>
-				</div>
-				<div class="by_home_content_item_second">
-					<b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> services for seniors <br/><b id="HomeHousing" ng-init="HomeHousingNum();">0</b> senior living facilities
-				</div>
-			</a>
-		</div>
-		<div class="by_home_content_item">
-			<a>
-				<div class="by_homeContent_first">
-					<div class="by_homeContent_first_image">
-						<img src="assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%" >
-					</div>
-					<div class="by_homeContent_first_text">Shop</div>
-				</div>
-				<div class="by_home_content_item_second">
-					 Improving lives: <br/><b id="HomeProduct" ng-init="HomeProductNum();">0</b> products for seniors
-				</div>
-			</a>
-		</div>-->

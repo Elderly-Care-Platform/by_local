@@ -62,8 +62,7 @@ require.config({
 		userTypeConfig : '../shared/common/config/userTypesConfig',
 		editorController : '../shared/editor/editorController',
 
-		homePromoController : '../components/home/homeContentCtrl',
-		homeContentController : '../components/home/homePromoController',
+		homePromoController : '../components/home/homePromoController',
 		homeConfig : '../components/home/homeConfig',
 		discussLikeController : '../components/discussDetail/discussLikeCtrl',
 		discussDetailLeftController : '../components/discussDetail/discussDetailLeftCtrl',

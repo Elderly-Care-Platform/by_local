@@ -214,11 +214,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
 
         $scope.term = $rootScope.term;
 
-
-        $rootScope.bc_topic = 'list';
-        $rootScope.bc_subTopic = 'all';
-        $rootScope.bc_discussType = disType;
-
         $scope.showMore = function (discussType) {
             $location.path("/search/" + $rootScope.term + "/" + disType + "/" + discussType);
         };

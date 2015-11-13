@@ -129,7 +129,6 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
             }
             $scope.user.email = '';
             $scope.user.password = '';
-            $rootScope.bc_discussType = 'All'; //type for discuss list
             $scope.setUserCredential(loginReg.body.data);
 
             if($rootScope.inContextLogin){
@@ -167,7 +166,6 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 $scope.user.email = '';
                 $scope.user.password = '';
                 $scope.user.phoneNumber = '';
-                $rootScope.bc_discussType = 'All'; //type for discuss list
                 $scope.setUserCredential(login);
 
                 if($rootScope.inContextLogin){
@@ -270,16 +268,6 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
                 localStorage.removeItem("by_cust_id");
-                //document.getElementById("login_placeHolder_li").style.display = "inline";
-                //var element = document.getElementById("login_placeholder");
-                //element.innerHTML = "Logout";
-                //element.href = apiPrefix + "#!/users/logout/" + login.sessionId;
-                //
-                //var pro = document.getElementById('profile_placeholder');
-                //var userName = localStorage.getItem("USER_NAME");
-                //pro.innerHTML = BY.byUtil.validateUserName(userName);
-                //pro.href = apiPrefix + "#!/users/registrationProfile/"; //******************* to be removed*************//
-
                 $rootScope.$broadcast('byUserLogin', login);
             }
             else {

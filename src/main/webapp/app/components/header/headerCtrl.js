@@ -9,6 +9,8 @@ define(['menuConfig'], function (menuConfig) {
             "link": ""
         }
 
+        $scope.telNo = BY.config.constants.byContactNumber;
+
         var isHomePage = false,
             initialize = initHeader();
 
@@ -99,10 +101,10 @@ define(['menuConfig'], function (menuConfig) {
 
         $scope.$on('currentLocation', function (event, args) {
             //console.log(args);
-            if (args.indexOf('/home') == -1) {
-                isHomePage = false;
-            } else {
+            if (args === '/' || args.indexOf('/users/home') > -1) {
                 isHomePage = true;
+            } else {
+                isHomePage = false;
             }
             updateHeaderTemplate();
         });
@@ -115,9 +117,7 @@ define(['menuConfig'], function (menuConfig) {
             }
         };
 
-         $scope.homeSection = BY.config.home;
-        
-
+        $scope.homeSection = BY.config.home;
     }
 
     BYHeaderCtrl.$inject = ['$scope', '$window', '$http', 'SessionIdService'];

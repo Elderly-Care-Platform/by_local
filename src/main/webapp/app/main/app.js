@@ -31,7 +31,7 @@ define([
 		// register listener to watch route changes
 		$rootScope.$on("$routeChangeStart", function(event, next, current) {
 			$window.ga('send', 'pageview', { page: $location.url() });
-			window.scrollTo(0, 0);
+			//window.scrollTo(0, 0);
 			BY.byEditor.removeEditor();
 			$rootScope.$broadcast('currentLocation', $location.path());
 			//BY.byEditor.editorCategoryList.resetCategoryList();

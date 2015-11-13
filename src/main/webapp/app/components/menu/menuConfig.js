@@ -90,7 +90,13 @@ BY.config.communityIcon = {
     '55befe3be4b07cedaa267823' : {        
         'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
     },
+    '5645fe1c3e60e958ec2d3d31' : {
+        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
      '55bcac92e4b08970a7367848' : {        
+        'image':'assets/img/community/desktop/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '5645fc4a3e60e958ec2d3d30' : {
         'image':'assets/img/community/desktop/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
     },
      '55bca92ae4b08970a7367842' : {        
@@ -171,7 +177,13 @@ BY.config.communityIconMobile = {
     '55befe3be4b07cedaa267823' : {        
         'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
     },
+    '5645fe1c3e60e958ec2d3d31' : {
+        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
      '55bcac92e4b08970a7367848' : {        
+        'image':'assets/img/community/mobile/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '5645fc4a3e60e958ec2d3d30' : {
         'image':'assets/img/community/mobile/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
     },
      '55bca92ae4b08970a7367842' : {        

@@ -81,25 +81,25 @@ define(['byApp', 'byUtil', 'homePromoController',
 
 
 
-        //$scope.go = function ($event, type, id, discussType) {
-        //    $event.stopPropagation();
-        //    if (type === "id") {
-        //        $location.path('/discuss/' + id);
-        //    } else if (type === "menu") {
-        //        var menu = $rootScope.menuCategoryMap[id];
-        //        if(menu.module===0){
-        //            $location.path("/discuss/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
-        //        }else if(menu.module===1){
-        //            $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
-        //        }else{
-        //            //nothing as of now
-        //        }
-        //    } else if (type === "accordian") {
-        //        $($event.target).find('a').click();
-        //    } else if(type === "comment") {
-        //        $location.path('/discuss/' + id).search({comment: true});
-        //    }
-        //}
+        $scope.go = function ($event, type, id, discussType) {
+            $event.stopPropagation();
+            if (type === "id") {
+                $location.path('/discuss/' + id);
+            } else if (type === "menu") {
+                var menu = $rootScope.menuCategoryMap[id];
+                if(menu.module===0){
+                    $location.path("/discuss/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
+                }else if(menu.module===1){
+                    $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
+                }else{
+                    //nothing as of now
+               }
+            } else if (type === "accordian") {
+                $($event.target).find('a').click();
+           } else if(type === "comment") {
+                $location.path('/discuss/' + id).search({comment: true});
+            }
+        }
 
         ////for featured services
         //$scope.location = function ($event, userId, userType) {

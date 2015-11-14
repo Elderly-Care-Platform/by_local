@@ -8,34 +8,26 @@ define(['byApp'], function (byApp) {
 
 
         $scope.smartScroll = function(){
-            var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId],selectedParent, selectedParentNode;
-            selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
-            selectedParentNode = $("#"+selectedParent.id);
-            console.log(selectedParentNode);
-            if(selectedParentNode){
-                selectedParentNode.addClass("open");
-            }
-
-
-
+            var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
+            $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
             var ul = $('.smartScroll-wrapper');
             var heightD = $(window).height()  - $(".footer-v1").height() - $(".header").height();
             var heightS = $('.smartScroll-wrapper').height() - heightD;
 
-            angular.element($window).bind("scroll", function() {
-                var scroller_anchor = ul.offset().top;
-                if ($(this).scrollTop() >= heightS){
-                    ul.css({
-                        'position': 'fixed',
-                        'marginTop': - ( heightS + 67 )
-                    });
-                }else if($(this).scrollTop() < heightS){
-                    ul.css({
-                        'position': 'static',
-                        'marginTop': 0
-                    });
-                }
-            });
+            //angular.element($window).bind("scroll", function() {
+            //    var scroller_anchor = ul.offset().top;
+            //    if ($(this).scrollTop() >= heightS){
+            //        ul.css({
+            //            'position': 'fixed',
+            //            'marginTop': - ( heightS + 67 )
+            //        });
+            //    }else if($(this).scrollTop() < heightS){
+            //        ul.css({
+            //            'position': 'static',
+            //            'marginTop': 0
+            //        });
+            //    }
+            //});
         };
 
     }

@@ -5,7 +5,8 @@
         <div class="collapse navbar-collapse navbar-responsive-collapse">
             <div class="menu-container">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown active" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}">
+                    <li class="dropdown active" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
+                        id="{{menu.id}}" ng-class="{'open': menu.id == selectedParent.id}">
                         <a href="#!/products/list/{{menu.slug}}/{{menu.id}}/all" style="display: inline-block">
                             {{menu.displayMenuName}}
                         </a>

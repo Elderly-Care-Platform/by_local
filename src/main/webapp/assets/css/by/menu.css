@@ -25,9 +25,8 @@
 	width: 100%;
 	height: auto;
 	padding: 80px 0px 0px 0px;
-	background: #000 url('../../img/home/HomePage_28.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
+	background: #000 url('../../img/community/desktop/communitiesBg.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
 	background-size: cover;
-	opacity: 0.8;
 }
 .by_subMenu_head
 {
@@ -78,7 +77,6 @@
 	height: auto;
 	padding: 0px 3%;
 	border-top: 1px solid #fff;	
-	background: rgba(6, 10, 7, 0.72);
 }
 .by_subMenu_contentThumb
 {
@@ -99,8 +97,9 @@
 	text-align: center;
 	line-height: 18px;
 	opacity: 0.6;
+	text-transform: capitalize;
 }
-.by_subMenu_contentItem_active
+.by_subMenu_contentItem_active, .by_subMenu_contentItem:hover
 {
 	opacity:1;
 }
@@ -121,6 +120,7 @@
 .by_subMenu_contentItem a:hover, .by_subMenu_contentItem2 a:hover
 {
 	text-decoration: none;
+	color: #fff;
 }
 .by_mobile_leftPanel_hide
 {
@@ -215,7 +215,7 @@
 	line-height: 18px;
 	opacity:0.6;
 }
-.by_subMenu_contentMobileItem_active
+.by_subMenu_contentMobileItem_active, .by_subMenu_contentMobileItem:hover
 {
 	font-weight: bold;
 	opacity:1;

@@ -27,9 +27,11 @@ define(['menuConfig'], function (menuConfig) {
                     var headerHeight = $(".by_header").height();
                     if ((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= headerHeight) {
                         $(".by_header").addClass("by_header_image");
+                        $("#homeMenuScroll").show();
 
                     } else {
                         $(".by_header").removeClass("by_header_image");
+                         $("#homeMenuScroll").hide();
                     }
                 });
             } else {

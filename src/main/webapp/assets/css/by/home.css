@@ -201,7 +201,7 @@
 }
 
 .by_homeShop_menu1 {
-    width: 517px;
+    width: 585px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -223,7 +223,7 @@
 
 .by_homeSection_menuText {
     text-transform: capitalize;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .by_homeSection a:hover {
@@ -388,15 +388,15 @@
 }
 
 .by_home_comm_bg {
-    background: #E4ECE1;
+    background: #e3ede4;
 }
 
 .by_home_find_bg {
-    background: #DCDCD6;
+    background: #dcdcdc;
 }
 
 .by_home_shop_bg {
-    background: #FFE9E5;
+    background: #fee8ea;
 }
 
 .by_home_comm_bg .by_homeSection {
@@ -477,7 +477,7 @@
         opacity: 0.5;
     }
 
-    .by_homeShop_menu_active {
+    .by_homeShop_menuActive {
         opacity: 1;
     }
 
@@ -606,9 +606,9 @@
     }
 }
 
-@media ( max-width: 455px) {
-    .by_home_find_menu {
-        height: 140px;
+@media ( max-width: 520px) {
+    .by_home_find_menu, .by_homeSection_menu {
+        height: 160px;
     }
 }
 
@@ -616,4 +616,8 @@
     .by_homeShop_menu {
         height: 66px;
     }
+}
+#homeMenuScroll
+{
+    display: none;
 }

@@ -115,7 +115,7 @@ define(['byApp', 'byUtil', 'homePromoController',
 
         $scope.HomeSevicesNum = function(){
             $({someValue: 0}).animate({someValue: 663}, {
-              duration: 3000,
+              duration: 1000,
               easing:'swing',
              step: function() { 
               $('#HomeSevices').text(Math.round(this.someValue));
@@ -125,7 +125,7 @@ define(['byApp', 'byUtil', 'homePromoController',
 
         $scope.HomeHousingNum = function(){
              $({someValue: 0}).animate({someValue: 163}, {
-              duration: 3000,
+              duration: 1000,
               easing:'swing',
              step: function() { 
               $('#HomeHousing').text(Math.round(this.someValue));
@@ -135,7 +135,7 @@ define(['byApp', 'byUtil', 'homePromoController',
 
          $scope.HomeProductNum = function(){
              $({someValue: 0}).animate({someValue: 163}, {
-              duration: 3000,
+              duration: 1000,
               easing:'swing',
              step: function() { 
               $('#HomeProduct').text(Math.round(this.someValue));

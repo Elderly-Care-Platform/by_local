@@ -116,7 +116,7 @@
     right: 10px;
     color: #444;
     font-size: 14px;
-    /*content: "\f105";*/
+   content: "+";
     position: absolute;
     font-weight: normal;
     display: inline-block;
@@ -124,7 +124,7 @@
 }
 
 .header-v7 .navbar-default .navbar-nav > li.open > a:after {
-    /*content: "\f107";*/
+    content: "-";
 }
 
 .header-v7 .navbar-default .navbar-nav > li > a:hover,

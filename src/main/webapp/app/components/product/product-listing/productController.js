@@ -253,54 +253,9 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.telNo = BY.config.constants.byContactNumber;
 
 
-        $scope.subMenuPlus = function(){
-            $(".by_subMenuPlus_head .divRight").click(function(){
-                 var indexM = $(this).parent().index();
-                 if($(".by_subMenuPlus_content").eq(indexM).css('display') == 'block'){
-                    $(".by_subMenuPlus_content").slideUp();
-                    $(".by_subMenuPlus_head .divRight").text("+");
-                } else{
-                  $(".by_subMenuPlus_content").slideUp();
-                  $(".by_subMenuPlus_head .divRight").text("+");
-                  $(".by_subMenuPlus_content").eq(indexM).slideDown();
-                  $(this).text("-");
-              }
-          });
-        };
-         $scope.subMenuTabMobileShow = function(){
-            $(".by_mobile_leftPanel_image").click(function(){
-                if($(".by_mobile_leftPanel_hide").css('left') == '0px'){
-                    $(".by_mobile_leftPanel_image").animate({left: "0%"},{duration : 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%')");
-                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"},{duration : 400});
-                } else{
-                    $(".by_mobile_leftPanel_image").animate({left: "90%"},{duration : 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
-                    $(".by_mobile_leftPanel_hide").animate({left: "0%"},{duration : 400});
-                }
-            });
-        };
-
-        $scope.smartScroll = function(){
-            var ul = $('.by_subMenuPlus');
-            var heightD = $(window).height()  - $(".footer-v1").height() - $(".header").height();
-            var heightS = $('.by_subMenuPlus').height() - heightD;
-            
-            angular.element($window).bind("scroll", function() {
-                var scroller_anchor = ul.offset().top;
-                if ($(this).scrollTop() >= heightS){
-                    ul.css({                       
-                        'position': 'fixed',
-                        'marginTop': - ( heightS + 67 )
-                    });
-                }else if($(this).scrollTop() < heightS){
-                    ul.css({                       
-                        'position': 'static',
-                        'marginTop': 0
-                    });
-                }
-            });
-        };
+      
+        
+        
 
 
     }

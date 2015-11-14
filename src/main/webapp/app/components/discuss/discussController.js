@@ -8,27 +8,28 @@ define(['byApp',
     function DiscussAllController($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
                                   DiscussCount,$sce, $timeout, $window, broadCastMenuDetail) {
 
-        var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
         window.scrollTo(0, 0);
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
         $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
-
         $scope.selectedMenu = $scope.$parent.menuLevel2;
-        
-        
 
-
-
-        console.log($scope.selectedMenu);
+        $scope.initScroll= function(){
+            //if($scope.$parent.isLeafMenuSelected){
+            //    $timeout(
+            //        function () {
+            //            var tag = $("#discussList");
+            //            if (tag.length > 0) {
+            //                $('html,body').animate({scrollTop: tag.offset().top - $(".by_subMenu").height()}, 'fast');
+            //            }
+            //        }, 100);
+            //}
+        }
 
         var tags = [];
         var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
-
-
-
         if($scope.selectedMenu){
             //Set page title and FB og tags
             (function(){

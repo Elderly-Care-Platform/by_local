@@ -1,4 +1,4 @@
-<div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParent()">
+<div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParentMenu()">
     <!--=== Header v7 Left ===-->
     <div class="header-v7 header-left-v7" ng-init="smartScroll()">
         <nav class="navbar navbar-default" role="navigation" data-mcs-theme="minimal-dark"
@@ -7,10 +7,10 @@
             <div class="collapse navbar-collapse navbar-responsive-collapse" style="margin:0px;">
                 <div class="menu-container">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
+                        <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
                             id="{{menu.id}}"
                             ng-class="{'open': menu.id == selectedParent.id, 'active': menu.id == selectedMenuId}">
-                            <a class="by_treeMenuText" href="#!/products/list/{{menu.slug}}/{{menu.id}}/all"
+                            <a class="by_treeMenuText" href="#!/services/list/{{menu.slug}}/{{menu.id}}/all"
                                style="display: inline-block; width:calc(100% - 40px);">
                                 {{menu.displayMenuName}}
                             </a>
@@ -21,7 +21,7 @@
                                     id="{{submenu1.id}}">
                                     <a class="by_treeSubMenu"
                                        ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                                       href="#!/products/list/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                                       href="#!/services/list/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
                                 </li>
                             </ul>
                         </li>
@@ -34,33 +34,32 @@
 
 </div>
 
-<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720" >
     <div class="by_mobile_leftPanel">
         <div class="by_subMenuPlus" style="max-width:100%;">
-
             <!--=== Header v7 Left ===-->
-            <div class="header-v7 header-left-v7">
+            <div class="header-v7 header-left-v7" ng-init="expandParentMenu()">
                 <nav class="navbar navbar-default" role="navigation" data-mcs-theme="minimal-dark"
                      style="max-width:100%; padding-top:0px;">
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-responsive-collapse" style="margin:0px;">
                         <div class="menu-container" style="max-width:100%;">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
+                                <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
                                     id="{{menu.id}}"
                                     ng-class="{'open': menu.id == selectedParent.id, 'active': menu.id == selectedMenuId}">
-                                    <a class="by_treeMenuText" href="#!/products/list/{{menu.slug}}/{{menu.id}}/all"
+                                    <a class="by_treeMenuText" href="#!/services/list/{{menu.slug}}/{{menu.id}}/all"
                                        style="display: inline-block; width:calc(100% - 40px);">
                                         {{menu.displayMenuName}}
                                     </a>
-                                    <a class="dropdown-toggle by_treeMenuIcon" data-toggle="dropdown"
+                                    <a ng-if="menu.children.length > 0" class="dropdown-toggle by_treeMenuIcon" data-toggle="dropdown"
                                        style="display: inline-block; width:30px;"></a>
-                                    <ul class="dropdown-menu">
+                                    <ul ng-if="menu.children.length > 0" class="dropdown-menu">
                                         <li ng-if="menu.children.length > 0" ng-repeat="submenu1 in menu.children"
                                             id="{{submenu1.id}}">
                                             <a class="by_treeSubMenu"
                                                ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                                               href="#!/products/list/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                                               href="#!/services/list/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
                                         </li>
                                     </ul>
                                 </li>

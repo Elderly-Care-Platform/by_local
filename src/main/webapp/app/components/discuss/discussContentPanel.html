@@ -1,32 +1,33 @@
 <div class="clearfix margin-top-20"></div>
-<div class="col-md-6 col-xs-6 col-sm-6 no-padding  by_leftPanel_icons" data-link="articles.html" ng-click="add('Question')">
+<div class="col-md-6 col-xs-6 col-sm-6 no-padding  by_leftPanel_icons" data-link="articles.html"
+     ng-click="add('Question')"
+     id="discussList" ng-init="initScroll()">
     <i class="sprite sprite-question"></i>
     <span><b>Ask</b> anything about elder care or health</span>
 </div>
-<div class="col-md-6 col-xs-6 col-sm-6 no-padding by_leftPanel_icons" data-link="articles.html" ng-click="add('Article')">
+<div class="col-md-6 col-xs-6 col-sm-6 no-padding by_leftPanel_icons" data-link="articles.html"
+     ng-click="add('Article')">
     <i class="sprite sprite-story"></i>
     <span><b>Share</b> your stories, experiences, photos</span>
 </div>
+
 <div class="clearfix margin-top-20">&nbsp;</div>
 
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
-    href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
+   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
     ({{discuss_counts.z}})</a>
-    
+
 <a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
-    href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
-    ({{discuss_counts.featured}})</a> 
-     
+   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
+    ({{discuss_counts.featured}})</a>
+
 <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
-    href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
+   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
     &amp; A ({{discuss_counts.q}})</a>
 
 <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
-	href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
-	({{discuss_counts.p}})</a>
-
-
-
+   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
+    ({{discuss_counts.p}})</a>
 
 
 <div class="clearfix" style="height:15px;"></div>
@@ -47,7 +48,8 @@
         <img ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
              ng-src="assets/img/by.png" alt="{{discuss.title}}">
 
-        <div class="article-info dp-inline-block " style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
+        <div class="article-info dp-inline-block " style="margin-right: 80px !important;"
+             ng-if="discuss.promotion == false">
             <ul class="list-inline posted-info" style="">
                 <li>
                     <p ng-if="discuss.discussType == 'Q' || discuss.discussType == 'P'">
@@ -65,7 +67,7 @@
                 <li ng-repeat="topicId in discuss.topicId">
                     <p class="first-letter-uc by-systemTags">
                         <span ng-if="$index > 0">|</span>
-                        <a   ng-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
+                        <a ng-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].slug}}/{{topicId}}/all/">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
                     </p>
                 </li>
             </ul>
@@ -73,14 +75,15 @@
         </div>
 
         <div style="clear: both"></div>
-        
+
         <div class="article  col-md-12" ng-if="discuss.discussType == 'P' && discuss.promotion == false">
             <div class="article-heading">
                 <p style="text-transform: uppercase;">
                     {{discuss.title}}</p>
             </div>
         </div>
-         <div class="article  col-md-12" ng-if="discuss.discussType == 'P' && discuss.promotion == true && discuss.title" style="margin-top:15px;">
+        <div class="article  col-md-12" ng-if="discuss.discussType == 'P' && discuss.promotion == true && discuss.title"
+             style="margin-top:15px;">
             <div class="article-heading">
                 <p style="text-transform: uppercase;">
                     {{discuss.title}}</p>
@@ -101,12 +104,14 @@
 
             <div style="clear: both"></div>
         </div>
-        
-        <div ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="discuss.linkInfo"
+
+        <div ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'"
+             ng-if="discuss.linkInfo"
              ng-init="linkInfo=discuss.linkInfo" ng-if="discuss.promotion == false"></div>
 
         <div class="articles-story  col-md-12" ng-if="discuss.promotion == false" id="{{discuss.id}}">
-            <p class="discuss-card-desciption" ng-if="discuss.shortSynopsis">{{discuss.shortSynopsis}}<a ng-href="#!/discuss/{{discuss.id}}/"
+            <p class="discuss-card-desciption" ng-if="discuss.shortSynopsis">{{discuss.shortSynopsis}}<a
+                    ng-href="#!/discuss/{{discuss.id}}/"
                     class="divRight by_readmore">Read More <b style="font-size:10px;">&#9002;</b></a></p>
 
             <p class="discuss-card-desciption" ng-if="!discuss.shortSynopsis"
@@ -114,7 +119,8 @@
         </div>
         <div style="clear: both; height: 1px;"></div>
 
-        <div class="article-share-links news-v3 by-social-border" style="position: relative; top: 0px;" ng-if="discuss.promotion == false">
+        <div class="article-share-links news-v3 by-social-border" style="position: relative; top: 0px;"
+             ng-if="discuss.promotion == false">
             <ul class="post-shares post-shares-lg">
                 <li class="add-comment"
                     ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
@@ -128,10 +134,10 @@
 
                 <li class="add-comment add-comment-FC"
                     ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                    <a  ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
+                    <a ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
 
-                        <div class="text" >
+                        <div class="text">
                             Be the first to comment
                         </div>
                     </a>

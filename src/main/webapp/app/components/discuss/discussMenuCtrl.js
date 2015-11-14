@@ -7,6 +7,7 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
 
         $scope.communityIcon = BY.config.communityIcon;
         $scope.communityIconMobile = BY.config.communityIconMobile;
+        $scope.isLeafMenuSelected = false;
 
         var initialize = getMenuLevels();
         
@@ -64,6 +65,7 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
                 $scope.menuLevel1 = selectedMenu;
                 $scope.menuLevel2 = getLeafMenu($scope.menuLevel1);
             } else if (selectedMenu.children.length == 0) {
+                $scope.isLeafMenuSelected = true;
                 $scope.menuLevel2 = selectedMenu;
                 $scope.menuLevel1 = getTabMenu($scope.menuLevel2);
             }

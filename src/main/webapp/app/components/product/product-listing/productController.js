@@ -250,6 +250,9 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         }
 
+        $scope.telNo = BY.config.constants.byContactNumber;
+
+
         $scope.subMenuPlus = function(){
             $(".by_subMenuPlus_head .divRight").click(function(){
                  var indexM = $(this).parent().index();

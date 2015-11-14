@@ -88,7 +88,9 @@ require.config({
 		regUserTypeController : '../components/signup/regUserTypeController',
 		modifySignupCtrl : '../components/signup/login/modifySignupCtrl',
 
+
 		productController : '../components/product/product-listing/productController',
+		productMenuCtrl :  '../components/product/product-menu/productMenuCtrl',
 		productDescCtrl : '../components/product/productDescription/product-description.controller',
 		videoImageDirective : '../components/product/productDescription/video-image.directive',
 		videoModalController : '../components/product/productDescription/videoModal.controller',

@@ -342,3 +342,7 @@
 		padding:10px 2%;
 	}
 }
+
+.smartScroll-wrapper{
+	position: static;
+}

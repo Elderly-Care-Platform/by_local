@@ -836,6 +836,7 @@
 
 .wrapper {
     position: relative;
+	z-index: 10;
 }
 
 /* aparna 21-04-2015 */

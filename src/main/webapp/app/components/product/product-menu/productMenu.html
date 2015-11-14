@@ -1,0 +1,24 @@
+<!--=== Header v7 Left ===-->
+<div class="header-v7 header-left-v7 smartScroll-wrapper" ng-init="smartScroll()">
+    <nav class="navbar navbar-default mCustomScrollbar" role="navigation" data-mcs-theme="minimal-dark">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-responsive-collapse">
+            <div class="menu-container">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown active" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}">
+                        <a href="#!/products/list/{{menu.slug}}/{{menu.id}}/all" style="display: inline-block">
+                            {{menu.displayMenuName}}
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="display: inline-block">+</a>
+                        <ul class="dropdown-menu">
+                            <li ng-if="menu.children.length > 0" ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}">
+                                <a href="#!/products/list/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- End Navbar Collapse -->
+    </nav>
+</div>

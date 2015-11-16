@@ -262,7 +262,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/housing/housingController.js'], function () {
+                        require(['app/components/housing/housingController.js', 'housingMenuCtrl'], function () {
                             defered.resolve();
                         });
                         return defered.promise;

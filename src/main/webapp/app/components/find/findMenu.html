@@ -9,8 +9,12 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
                             id="{{menu.id}}"
-                            ng-class="{'open': menu.id == selectedParent.id, 'active': menu.id == selectedMenuId}">
-                            <a class="by_treeMenuText" href="#!/services/list/{{menu.slug}}/{{menu.id}}/all"
+                            ng-class="{'open': menu.id == selectedParent.id, 'active open': menu.id == selectedMenuId}">
+                            <a class="by_treeMenuText" ng-if="menu.children.length === 0" href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all"
+                               style="display: inline-block; width:100%;">
+                                {{menu.displayMenuName}}
+                            </a>
+                            <a class="by_treeMenuText dropdown-toggle" data-toggle="dropdown" ng-if="menu.children.length > 0" 
                                style="display: inline-block; width:calc(100% - 40px);">
                                 {{menu.displayMenuName}}
                             </a>
@@ -47,8 +51,12 @@
                             <ul class="nav navbar-nav">
                                 <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
                                     id="{{menu.id}}"
-                                    ng-class="{'open': menu.id == selectedParent.id, 'active': menu.id == selectedMenuId}">
-                                    <a class="by_treeMenuText" href="#!/services/list/{{menu.slug}}/{{menu.id}}/all"
+                                    ng-class="{'open': menu.id == selectedParent.id, 'active open': menu.id == selectedMenuId}">
+                                     <a class="by_treeMenuText" ng-if="menu.children.length === 0" href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all"
+                                       style="display: inline-block; width:100%;">
+                                        {{menu.displayMenuName}}
+                                    </a>
+                                    <a class="by_treeMenuText dropdown-toggle" data-toggle="dropdown" ng-if="menu.children.length > 0" 
                                        style="display: inline-block; width:calc(100% - 40px);">
                                         {{menu.displayMenuName}}
                                     </a>

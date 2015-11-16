@@ -104,7 +104,8 @@ require.config({
 
 		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller',
 		headerCtrl : '../components/header/headerCtrl',
-		discussCtrl : '../components/discuss/discussController'
+		discussCtrl : '../components/discuss/discussController',
+		housingMenuCtrl : '../components/housing/housingMenuCtrl'
 
 
 

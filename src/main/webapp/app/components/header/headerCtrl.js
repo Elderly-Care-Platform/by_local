@@ -27,12 +27,16 @@ define(['menuConfig'], function (menuConfig) {
                     var headerHeight = $(".by_header").height();
                     if ((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= headerHeight) {
                         $(".by_header").addClass("by_header_image");
-                        $("#homeMenuScroll").show();
-
                     } else {
                         $(".by_header").removeClass("by_header_image");
+                    }
+                    if ((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= 300) {
+                        $("#homeMenuScroll").show();
+                    } else {                        
                          $("#homeMenuScroll").hide();
                     }
+
+                        
                 });
             } else {
                 $scope.templateUrl = 'app/components/header/otherHeader.html?versionTimeStamp=%PROJECT_VERSION%';
@@ -127,7 +131,8 @@ define(['menuConfig'], function (menuConfig) {
             }
         };
 
-        $scope.homeSection = BY.config.home;
+        $scope.homeSection = BY.config.menu.home;        
+        $scope.menuUrl= BY.config.menu.menuUrl;
     }
 
     BYHeaderCtrl.$inject = ['$scope', '$window', '$http', 'SessionIdService'];

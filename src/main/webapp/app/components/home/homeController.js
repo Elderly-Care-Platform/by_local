@@ -71,8 +71,10 @@ define(['byApp', 'byUtil', 'homePromoController',
         //    }
         //}
 
-        $scope.homeSection = BY.config.home;
-        $scope.homeimage = BY.config.homeIcon;
+        $scope.homeSection = BY.config.menu.home;
+        $scope.homeimage = BY.config.menu.homeIcon;
+        $scope.menuUrl= BY.config.menu.menuUrl;
+        $scope.menuMap = $rootScope.menuCategoryMap;
 
 
 

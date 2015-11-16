@@ -1,32 +1,32 @@
 var BY = BY || {};
 BY.config = BY.config || {};
+BY.config.menu = BY.config.menu || {};
 
-
-BY.config.home = {
+BY.config.menu.home = {
    '564071623e60f5b66f62df27' : {
+        'orderId': '0',
         'name':'Communities',
         'desc1':'Get informed & inspired ',
         'desc2':'Share experiences ',
-        'imageSmall':'assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%',
-        'url': '#!/discuss/list'
+        'imageSmall':'assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '56406cd03e60f5b66f62df26' : {
+        'orderId': '1',
         'name':'Directory',
         'desc1':'services for seniors',
         'desc2':' senior living facilities',
-        'imageSmall':'assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%',
-        'url': '#!/services/list'
+        'imageSmall':'assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '55bcad7be4b08970a736784b' : {
+        'orderId': '2',
         'name':'Shop',
         'desc1':' Improving lives:',
         'desc2':'products for seniors ',
-        'imageSmall':'assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%',
-        'url': '#!/products/list'
-    },
+        'imageSmall':'assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%'
+    }
 }
 
-BY.config.homeIcon = {
+BY.config.menu.homeIcon = {
    '564072883e60f5b66f62df2d' : {        
         'image':'assets/img/home/caring-for-parents.png?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -56,7 +56,7 @@ BY.config.homeIcon = {
     }
 }
 
-BY.config.communityIcon = {
+BY.config.menu.communityIcon = {
     '55bcae5ee4b08970a736784e' : {        
         'image':'assets/img/community/desktop/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -91,10 +91,10 @@ BY.config.communityIcon = {
         'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '5645fe1c3e60e958ec2d3d31' : {
-        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
+        'image':'assets/img/community/desktop/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%'
     },
      '55bcac92e4b08970a7367848' : {        
-        'image':'assets/img/community/desktop/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
+        'image':'assets/img/community/desktop/relation.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '5645fc4a3e60e958ec2d3d30' : {
         'image':'assets/img/community/desktop/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
@@ -143,7 +143,7 @@ BY.config.communityIcon = {
     }
 }
 
-BY.config.communityIconMobile = {
+BY.config.menu.communityIconMobile = {
     '55bcae5ee4b08970a736784e' : {        
         'image':'assets/img/community/mobile/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%'
     },
@@ -178,10 +178,10 @@ BY.config.communityIconMobile = {
         'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '5645fe1c3e60e958ec2d3d31' : {
-        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
+        'image':'assets/img/community/mobile/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%'
     },
      '55bcac92e4b08970a7367848' : {        
-        'image':'assets/img/community/mobile/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
+        'image':'assets/img/community/mobile/relation.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '5645fc4a3e60e958ec2d3d30' : {
         'image':'assets/img/community/mobile/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
@@ -229,6 +229,23 @@ BY.config.communityIconMobile = {
         'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
     }
 }
+
+BY.config.menu.menuUrl = {
+    '0' : {        
+        'baseUrl':'#!/discuss/list'
+    },
+    '1' : {        
+        'baseUrl':'#!/services/list'
+    },
+    '2' : {        
+        'baseUrl':'#!/housing/list'
+    },
+    '3' : {        
+        'baseUrl':'#!/products/list'
+    }
+}
+
+
 
 /*
  '0' : {

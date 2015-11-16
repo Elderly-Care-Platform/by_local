@@ -9,7 +9,7 @@
     <div class="by_home_topMenu">
         <div ng-repeat="menu in $root.mainMenu">
             <div class="by_home_topMenu_item">
-                <a ng-href="{{homeSection[menu.id].url}}/{{menu.slug}}/{{menu.id}}/all">
+                <a ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
                     <div class="by_home_topMenuText">
                         <div class="by_home_topMenuImage">
                             <img ng-src="{{homeSection[menu.id].imageSmall}}">
@@ -17,15 +17,15 @@
                         <div class="by_home_topMenuTitle">{{menu.displayMenuName}}</div>
                     </div>
                     <div class="by_home_topMenuDesc">
-						<span ng-if="menu.displayMenuName == 'Communities'">
+						<span ng-if="homeSection[menu.id].orderId==='0'">
 							{{homeSection[menu.id].desc1}}<br/>
 						 	{{homeSection[menu.id].desc2}}
 						</span>
-						<span ng-if="menu.displayMenuName == 'Directory'">
+						<span ng-if="homeSection[menu.id].orderId==='1'">
 							 <b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> {{homeSection[menu.id].desc1}}<br/>
 							 <b id="HomeHousing" ng-init="HomeHousingNum();">0</b>{{homeSection[menu.id].desc2}}
 						</span>
-						<span ng-if="menu.displayMenuName == 'Shop'">
+						<span ng-if="homeSection[menu.id].orderId==='2'">
 							{{homeSection[menu.id].desc1}}<br/>
 							<b id="HomeProduct" ng-init="HomeProductNum();">0</b>  {{homeSection[menu.id].desc2}}
 						</span>

@@ -4,6 +4,8 @@ define(['byApp'], function (byApp) {
     function FindMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
 
         $scope.selectedMenuId = $routeParams.menuId;
+        $scope.menuUrl= BY.config.menu.menuUrl;
+        
         $scope.expandParentMenu = function(){
             var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
             $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];

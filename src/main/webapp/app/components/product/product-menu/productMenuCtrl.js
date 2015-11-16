@@ -3,6 +3,7 @@ define(['byApp'], function (byApp) {
 
     function ProductMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
         $scope.selectedMenuId = $routeParams.menuId;
+        $scope.menuUrl= BY.config.menu.menuUrl;
 
         $scope.expandParent = function(){
             var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];

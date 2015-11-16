@@ -370,7 +370,7 @@ BY.config.menu.communitySectionHeader = {
     },
      '5640726c3e60f5b66f62df2c' : { 
         'name':'Active leisure',        
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
     }
 }
 

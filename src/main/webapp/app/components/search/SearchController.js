@@ -40,7 +40,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 $scope.scrollTo("search-post");
                 setTimeout(
                     function () {
-                        $(".blog-author").each(function (a, b) {
+                        $(".by-discuss-card").each(function (a, b) {
                                 var myRegExp = new RegExp("<[^>]+>|(" + $rootScope.term + ")", "ig");
                                 var result = $(b).html().replace(myRegExp, regexCallback);
                                 $(b).html(result);

@@ -1,8 +1,7 @@
 define([], function () {
     function BYProductConfig(byapp) {
         byapp.constant('APPLICATION', {
-            host: 'http://qa.beautifulyears.com:8083/beautifulyears/api/v1',
-            //host: BY.config.constants.productHost,
+            host: BY.config.constants.productHost,
             cache: 'byCache',
             paramCache: 'byParamCache',
             pageSize: 100000
@@ -13,9 +12,6 @@ define([], function () {
             })
             .constant('SERVERURL', {
                 hostUrl: BY.config.constants.selfHost,
-                //hostUrl: 'http://192.168.1.82:8088',
-                // host: 'http://192.168.1.36:8080',
-                // hostUrl: 'http://aspiresoftware.co.in:8080',
                 siteName: '/#!',
                 forwardslash: '/'
             })

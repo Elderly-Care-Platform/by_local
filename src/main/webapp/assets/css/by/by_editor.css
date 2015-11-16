@@ -145,8 +145,8 @@ a.accordion-toggle {
 	border-width: 0px;
 	border-color: #ccc;
 	border-top-width:1px;
-	    font-weight: bold;
-    font-size: 14px;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 .by_editor_post_divider {
@@ -240,7 +240,7 @@ textarea.by_editorModalTextArea {
 }
 
 .by-editor-view-buttons{
-    padding-top:20px;
+	padding-top:20px;
 }
 
 .by-linkEditor-view-close {
@@ -266,7 +266,7 @@ textarea.by_editorModalTextArea {
 }
 
 .by-editor-cancel-btn, .by-editor-cancel-btn:hover,
-	.by-editor-cancel-btn a, .by-editor-cancel-btn a:hover {
+.by-editor-cancel-btn a, .by-editor-cancel-btn a:hover {
 	margin-right: 10px;
 	background: #e87441;
 	border-color: #e87441;
@@ -439,4 +439,11 @@ label input[type="file"] {
 .by_editorButtonViews a:hover
 {
 	color: #fff;
+}
+@media ( max-width : 720px){
+	.by_mobile_leftPanel .by_editorButtonWrap{
+		width: 94%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }

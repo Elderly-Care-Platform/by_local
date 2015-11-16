@@ -127,7 +127,7 @@
 	width: 100%;
 	height: calc(100% - 54px);
 	top: 54px;
-	z-index: 2;
+	z-index: 90;
 	position: fixed;
 	left: -90%;
 }

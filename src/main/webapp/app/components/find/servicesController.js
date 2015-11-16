@@ -12,7 +12,8 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             $scope.findViews = {};
             $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-
+            $scope.telNo = BY.config.constants.byContactNumber;
+            
             $scope.showSpecialityFilter = false;
             $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
             $scope.showFeaturedTag = true;

@@ -245,6 +245,134 @@ BY.config.menu.menuUrl = {
     }
 }
 
+BY.config.menu.communitySectionHeader = {
+    '55bcae5ee4b08970a736784e' : {     
+        'name':'Alzheimer’s & Mental Disorders' ,  
+        'desc':'Caring for elders with memory loss, Alzheimer’s, mental disorders, depression, loneliness, insecurity, etc.'
+    },
+    '55bcaef5e4b08970a736784f' : {     
+        'name':'Parkinson’s',   
+        'desc':'Taking care of elders with Parkinson’s, shaking, shivering, etc.'
+    },
+    '55befbd8e4b07cedaa267813' : {    
+        'name':'Stroke / Bedridden',     
+        'desc':'Caring for bedridden elders (stroke, paralysis, etc.)'
+    },
+    '55befc42e4b07cedaa267819' : {  
+        'name':'Incontinence / Personal Hygiene',       
+        'desc':'Caring for elders with incontinence (bedwetting) and other personal hygiene problems.'
+    },
+    '55befbf1e4b07cedaa267814' : {  
+        'name':'',       
+        'desc':'assets/img/community/mobile/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '56407c073e60f5b66f62df35' : {  
+        'name':'Joints & Bones Problems',       
+        'desc':'Caring for elders with arthritis, osteoporosis, muscle degradation, and chronic joints or bones pains.'
+    },
+    '55befc97e4b07cedaa26781c' : {   
+        'name':'Cancer',      
+        'desc':'Coping with cancer.'
+    },
+    '55befc2ce4b07cedaa267818' : { 
+        'name':'Diabetes',        
+        'desc':'Caring for elders with blood sugar problems.'
+    },
+    '55befc86e4b07cedaa26781b' : { 
+        'name':'Blood Pressure & Heart Problems',        
+        'desc':'Caring for elders with high blood pressure and heart conditions.'
+    },
+    '55befdfbe4b07cedaa267820' : {  
+        'name':'',       
+        'desc':'assets/img/community/mobile/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '55befe3be4b07cedaa267823' : {  
+        'name':'Other Health Issues',       
+        'desc':'Caring for elders with other chronic conditions (???)'
+    },
+     '55bcac92e4b08970a7367848' : {        
+        'name':'Family Relationships', 
+        'desc':'Discussing relationships in the family, maids, attendants, etc.'
+    },
+    '5645fc4a3e60e958ec2d3d30' : {    
+        'name':'NRIs / Remote Care', 
+        'desc':'How to take better care of our parents, while living in another city - or overseas.'
+    },
+     '55bca92ae4b08970a7367842' : { 
+        'name':'Mobility & Falls',  
+        'desc':'Discussing seniors’ moving around, falls prevention, etc.'
+    },
+     '56407d743e60f5b66f62df36' : {  
+        'name':'Senior-Friendly Home',       
+        'desc':'How to make home a better place for aging people.'
+    },
+     '55bca7b8e4b08970a736783c' : { 
+        'name':'Caretakers Challenges',        
+        'desc':'Discussing challenges of caring for elders: caretaking stories, burnout, etc.'
+    },    
+     '55bca766e4b08970a736783b' : {
+        'name':'Beautiful Lives',         
+        'desc':'Stories about your parents and grandparents - celebrating lives well lived.'
+    },
+     '55bca819e4b08970a736783e' : {   
+        'name':'Challenges Of Ageing',      
+        'desc':'What does it really mean to grow old? How does aging affect you… or does it really?'
+    },
+    '5645fe1c3e60e958ec2d3d31' : {
+        'name':'Legal & Finance', 
+        'desc':'How to write a proper will – or a living will. What are senior citizens’ rights, and how to use them, and more !'
+    },
+    '5640746b3e60f5b66f62df31' : {  
+        'name':'Scientific Breakthroughs',       
+        'desc':'want to live longer - much longer? Read about scientific breakthroughs in anti-aging, longevity, and… immortality!'
+    },
+     '55cc847be4b0083957500663' : { 
+        'name':'Yoga & Fitness',        
+        'desc':'Staying fit, active, calm, and good-looking  – in any age!'
+    },
+     '55bcac54e4b08970a7367846' : { 
+        'name':'Nutrition',        
+        'desc':'What are foods a diabetic should avoid? What is a healthy diet for a heart patient? Food that keeps us younger for longer.'
+    }
+    /*,
+     '55cc8418e4b0083957500660' : {  
+        'name':'Photography',       
+        'desc':''
+    },
+    '55cc8440e4b0083957500661' : {  
+        'name':'Cooking & Recipes',       
+        'desc':''
+    },
+     '55cc845ce4b0083957500662' : { 
+        'name':'Painting & Drawing',        
+        'desc':''
+    },
+     '55cc860be4b008395750066f' : { 
+        'name':'Creative Writing',        
+        'desc':''
+    },
+     '564076aa3e60f5b66f62df33' : { 
+        'name':'Travel & Pilgrimages',        
+        'desc':''
+    },
+     '564083353e60f5b66f62df39' : {  
+        'name':'Other',       
+        'desc':''
+    }*/
+    ,
+    '564072883e60f5b66f62df2d' : {  
+        'name':'Caring for parents',       
+        'desc':'We are taking care of aging parents. Sharing questions, answers, tips, stories, emotions, diaries of caretakers – and more.'
+    },
+     '564072373e60f5b66f62df2b' : { 
+        'name':'Beautiful ageing',        
+        'desc':'Challenging stigmas of aging. Living longer – and happier. Celebrating lives.'
+    },
+     '5640726c3e60f5b66f62df2c' : { 
+        'name':'Active leisure',        
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!
+    }
+}
 
 
 /*

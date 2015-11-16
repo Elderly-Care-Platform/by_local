@@ -1,16 +1,26 @@
 <div class="clearfix margin-top-20"></div>
-<div class="col-md-6 col-xs-6 col-sm-6 no-padding  by_leftPanel_icons" data-link="articles.html"
-     ng-click="add('Question')"
-     id="discussList" ng-init="initScroll()">
-    <i class="sprite sprite-question"></i>
-    <span><b>Ask</b> anything about elder care or health</span>
+<div class="by_editorButtonWrap">
+    <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb"
+    ng-click="add('Question')"
+    id="discussList" ng-init="initScroll()">
+    <i class="sprite sprite-question divLeft"></i> 
+    <span class="divLeft by_editorButtonHead">Ask our experts</span>
+    <div class="clearfix"></div>
+    <div class="by_editorButtonText col-md-12">
+        Type any question of about {{selectedMenu.displayMenuName}}
+    </div>
+   
 </div>
-<div class="col-md-6 col-xs-6 col-sm-6 no-padding by_leftPanel_icons" data-link="articles.html"
-     ng-click="add('Article')">
-    <i class="sprite sprite-story"></i>
-    <span><b>Share</b> your stories, experiences, photos</span>
+<div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb" 
+ng-click="add('Article')">
+<i class="sprite sprite-story divLeft"></i>
+ <span class="divLeft by_editorButtonHead">Share</span>
+ <div class="clearfix"></div>
+ <div class="by_editorButtonText col-md-12">
+     Post your tips and stories of about {{selectedMenu.displayMenuName}}
+ </div>
+</div><div class="clearfix"></div>
 </div>
-
 <div class="clearfix margin-top-20">&nbsp;</div>
 
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"

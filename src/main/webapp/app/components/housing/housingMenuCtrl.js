@@ -1,7 +1,7 @@
 define(['byApp'], function (byApp) {
     'use strict';
 
-    function FindMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
+    function HousingMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
 
         $scope.selectedMenuId = $routeParams.menuId;
         $scope.menuUrl= BY.config.menu.menuUrl;
@@ -56,8 +56,8 @@ define(['byApp'], function (byApp) {
     }
 
 
-    FindMenuCtrl.$inject = ['$scope', '$rootScope', '$window', '$location', '$route', '$routeParams'];
-    byApp.registerController('FindMenuCtrl', FindMenuCtrl);
-    return FindMenuCtrl;
+    HousingMenuCtrl.$inject = ['$scope', '$rootScope', '$window', '$location', '$route', '$routeParams'];
+    byApp.registerController('HousingMenuCtrl', HousingMenuCtrl);
+    return HousingMenuCtrl;
 
 });

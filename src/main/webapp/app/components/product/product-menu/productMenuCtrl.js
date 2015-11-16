@@ -15,7 +15,7 @@ define(['byApp'], function (byApp) {
                 var winTop = $(this).scrollTop(),
                     winBottom = winTop + $(this).height(),
                     left = $('.by_subMenuPlus'),
-                    leftBottom = left.height() + 161;
+                    leftBottom = left.height() + 261;
 
                 //when the user reached the bottom of '#leftShort' set its position to fixed to prevent it from moving on scroll
                 if (winBottom >= leftBottom) {

@@ -398,3 +398,45 @@ label input[type="file"] {
 {
 	max-width:100%;
 }
+
+.by_editorButtonWrap
+{
+	width: 100%;
+	height: auto;
+	background: #ccc;
+}
+.by_editorButtonWrap_thumb
+{
+	padding: 15px;
+}
+.by_editorButtonHead
+{
+	font-size: 18px;
+	margin-left: 10px;
+}
+.by_editorButtonText
+{
+	background: #fff;
+	padding: 8px 10px 20px;
+	font-style: italic;
+}
+
+.by_editorButtonViews
+{
+	color: #fff;
+	background: #004f24;
+	margin:0px 15px 20px;
+	width: calc(100% - 30px);
+	text-align: center;
+	padding-top: 6px;
+	padding-bottom: 9px;
+}
+.by_editorButtonViews a
+{
+	color: #fff;
+	display: block;
+}
+.by_editorButtonViews a:hover
+{
+	color: #fff;
+}

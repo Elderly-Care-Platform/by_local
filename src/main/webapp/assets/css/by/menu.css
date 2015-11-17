@@ -242,6 +242,7 @@
 	min-height: calc(100vh - 57px);
 	padding-bottom: 57px;
 	max-width: 250px;
+	box-shadow: 5px 0px 5px #888888;
 }
 /*
 .by_subMenuPlus_head

@@ -13,6 +13,7 @@ define(['byApp',
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
+        $rootScope.byTopMenuId = $rootScope.mainMenu[0].id ;
         $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.menuLevel2;
 

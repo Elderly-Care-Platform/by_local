@@ -6,6 +6,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
         $scope.housingViews.leftPanel = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.housingViews.contentPanel = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
+        $rootScope.byTopMenuId = $rootScope.mainMenu[1].id ;
         $scope.telNo = BY.config.constants.byContactNumber;
         $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
         $scope.showFeaturedTag = true;

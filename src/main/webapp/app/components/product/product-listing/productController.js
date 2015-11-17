@@ -250,6 +250,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         }
 
+        $rootScope.byTopMenuId = $rootScope.mainMenu[2].id ;
         $scope.telNo = BY.config.constants.byContactNumber;
 
 

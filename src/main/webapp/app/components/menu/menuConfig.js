@@ -248,7 +248,7 @@ BY.config.menu.menuUrl = {
 BY.config.menu.communitySectionHeader = {
     '55bcae5ee4b08970a736784e' : {     
         'name':'Alzheimer’s & Mental Disorders' ,  
-        'desc':'Caring for elders with memory loss, Alzheimer’s, mental disorders, depression, loneliness, insecurity, etc.'
+        'desc':'Caring for elders with memory loss, Alzheimer’s, depression, loneliness, insecurity, and other mental conditions.'
     },
     '55bcaef5e4b08970a736784f' : {     
         'name':'Parkinson’s',   

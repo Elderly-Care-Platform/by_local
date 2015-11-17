@@ -259,28 +259,51 @@
 	display: block;
 	padding: 3px;
 }*/
-.byTreeMenu-wrapper > a.by_treeMenuText
+.nav>li> a.by_treeMenuText, .nav>li> a.by_treeMenuText:hover
 {
 	color: #000 !important;
 	font-size: 15px;
+	background: transparent;
+	text-transform: uppercase;
+	padding: 6px 15px;
+	font-weight: normal;
 }
-.byTreeMenu-wrapper > a.by_treeMenuText:after, .byTreeMenu-wrapper > a.by_treeMenuText:before
+.nav>li> a.by_treeMenuIcon:after
 {
-	content : '';
-}
-.byTreeMenu-wrapper > a.by_treeMenuIcon:after, .byTreeMenu-wrapper > a.by_treeMenuIcon:before
-{
+	content : '+';
 	top: 4px;
 }
-.by_subMenuPlus .open a.by_treeMenuText, .by_subMenuPlus .active a.by_treeMenuText
+.nav>li> a.by_treeMenuIconMinus:after
+{
+	content : '-';
+	top: 4px;
+}
+.nav>li> a.by_treeMenuIcon
+{
+	font-size: 15px;
+	color: #999 !important;
+	padding: 6px 15px;
+}
+.nav>li> a.by_treeMenuIcon:hover
+{
+	background: transparent;
+}
+.by_treeMenuTextActive
 {
 	font-weight: bold !important;
 }
-.byTreeMenu-wrapper > a.by_treeSubMenu
+.nav>li> a.by_treeSubMenu
+{
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.nav>li> a.by_treeSubMenu, .nav>li> a.by_treeSubMenu:hover
 {
 	color: #000;
+	background: transparent;
+	padding: 3px 15px;
 }
-.byTreeMenu-wrapper > a.by_treeSubMenu_active
+.nav>li> a.by_treeSubMenu_active
 {
 	font-weight: bold;
 }

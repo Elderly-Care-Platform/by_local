@@ -3,13 +3,22 @@ define(['byApp'], function (byApp) {
 
     function ProductMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
         $scope.selectedMenuId = $routeParams.menuId;
+        var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
+                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
         $scope.menuUrl= BY.config.menu.menuUrl;
 
         $scope.expandParent = function(menuId){
-            if(menuId.toString()==$scope.selectedMenuId){
+            if(menuId && menuId.toString()==$scope.selectedMenuId){
                 var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
-                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
-                $("#"+$scope.selectedParent.id).children('ul.tree').toggle(200);
+                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];                
+                var target = $("#"+$scope.selectedParent.id).children('ul.tree');
+                target.toggle(200, function(){
+                   if(target.is(':visible')){
+                        $("#"+$scope.selectedParent.id).children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
+                    } else {
+                        $("#"+$scope.selectedParent.id).children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
+                    }
+                });
             }
         };
 
@@ -39,7 +48,16 @@ define(['byApp'], function (byApp) {
 
         $scope.toggleMenu = function($event){
             //console.log($($event.target).parent().children('ul.tree'));
-            $($event.target).parent().children('ul.tree').toggle(200);
+            var target = $($event.target).parent().children('ul.tree');
+            target.toggle(200, function(){
+               if(target.is(':visible')){
+                    $($event.target).parent().children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
+                } else {
+                    $($event.target).parent().children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
+                 }
+            });
+           
+            
         }
 
          $scope.subMenuTabMobileShow = function(){
@@ -49,19 +67,14 @@ define(['byApp'], function (byApp) {
                     $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%')");
                     $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, 400, function(){
                         $scope.expandParent();
-                        $scope.$apply();
-                         console.log('open');
                     });
                 } else{
                     $(".by_mobile_leftPanel_image").animate({left: "90%"},{duration : 400});
                     $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
                     $(".by_mobile_leftPanel_hide").animate({left: "0%"}, 400, function(){
                         $scope.expandParent();
-                        $scope.$apply();
-                        console.log('close');
                     });
                 }
-                $scope.$apply();
                 
            
         };

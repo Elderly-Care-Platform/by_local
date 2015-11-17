@@ -1,40 +1,34 @@
 <div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParentMenu()">
     <!--=== Header v7 Left ===-->
-    <div class="header-v7 header-left-v7" ng-init="smartScroll()">
-        <nav class="navbar navbar-default" role="navigation" data-mcs-theme="minimal-dark"
-             style="max-width:250px; padding-top:0px;">
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-responsive-collapse" style="margin:0px;">
-                <div class="menu-container">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
-                            id="{{menu.id}}"
-                            ng-class="{'open': menu.id == selectedParent.id, 'active open': menu.id == selectedMenuId}">
-                            <a class="by_treeMenuText" ng-if="menu.children.length === 0" href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all"
-                               style="display: inline-block; width:100%;">
-                                {{menu.displayMenuName}}
-                            </a>
-                            <a class="by_treeMenuText dropdown-toggle" data-toggle="dropdown" ng-if="menu.children.length > 0" 
-                               style="display: inline-block; width:calc(100% - 40px);">
-                                {{menu.displayMenuName}}
-                            </a>
-                            <a ng-if="menu.children.length > 0" class="dropdown-toggle by_treeMenuIcon" data-toggle="dropdown"
-                               style="display: inline-block; width:30px;"></a>
-                            <ul ng-if="menu.children.length > 0" class="dropdown-menu">
-                                <li ng-if="menu.children.length > 0" ng-repeat="submenu1 in menu.children"
-                                    id="{{submenu1.id}}">
-                                    <a class="by_treeSubMenu"
-                                       ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                                       href="#!/services/list/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- End Navbar Collapse -->
-        </nav>
-    </div>
+    <ul class="nav nav-list" ng-init="smartScroll();">
+        <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}" class="byTreeMenu-wrapper">
+            <a ng-if="menu.children.length === 0" 
+               ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
+               style="display: inline-block; width:100%;" 
+            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                {{menu.displayMenuName}}
+            </a>
+
+            <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
+               ng-click="toggleMenu($event)"
+               style="display: inline-block; width:calc(100% - 40px);" 
+            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                {{menu.displayMenuName}}
+            </a>
+            <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
+               ng-click="toggleMenu($event)"
+               style="display: inline-block; width:30px;"></a>
+
+            <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper"
+                ng-init="expandParent(menu.id)">
+                <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
+                    <a class="by_treeSubMenu"
+                       ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
+                       href="{{menuUrl[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
 
      <div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
@@ -44,7 +38,7 @@
         <span class="divLeft by_editorButtonHead">Ask our experts</span>
         <div class="clearfix"></div>
         <div class="by_editorButtonText col-md-12">
-            Type any question of about <!--{{selectedMenu.displayMenuName}}-->elder care services or senior living 
+            Type any question  about <!--{{selectedMenu.displayMenuName}}-->elder care services or senior living 
         </div>
 
     </div><div class="clearfix"></div>
@@ -60,41 +54,35 @@
     <div class="by_mobile_leftPanel">
         <div class="by_subMenuPlus" style="max-width:100%;">
             <!--=== Header v7 Left ===-->
-            <div class="header-v7 header-left-v7" ng-init="expandParentMenu()">
-                <nav class="navbar navbar-default" role="navigation" data-mcs-theme="minimal-dark"
-                     style="max-width:100%; padding-top:0px;">
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse navbar-responsive-collapse" style="margin:0px;">
-                        <div class="menu-container" style="max-width:100%;">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown " ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
-                                    id="{{menu.id}}"
-                                    ng-class="{'open': menu.id == selectedParent.id, 'active open': menu.id == selectedMenuId}">
-                                     <a class="by_treeMenuText" ng-if="menu.children.length === 0" href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all"
-                                       style="display: inline-block; width:100%;">
-                                        {{menu.displayMenuName}}
-                                    </a>
-                                    <a class="by_treeMenuText dropdown-toggle" data-toggle="dropdown" ng-if="menu.children.length > 0" 
-                                       style="display: inline-block; width:calc(100% - 40px);">
-                                        {{menu.displayMenuName}}
-                                    </a>
-                                    <a ng-if="menu.children.length > 0" class="dropdown-toggle by_treeMenuIcon" data-toggle="dropdown"
-                                       style="display: inline-block; width:30px;"></a>
-                                    <ul ng-if="menu.children.length > 0" class="dropdown-menu">
-                                        <li ng-if="menu.children.length > 0" ng-repeat="submenu1 in menu.children"
-                                            id="{{submenu1.id}}">
-                                            <a class="by_treeSubMenu"
-                                               ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                                               href="#!/services/list/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Navbar Collapse -->
-                </nav>
-            </div>
+             <ul class="nav nav-list" >
+        <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}" class="byTreeMenu-wrapper">
+            <a ng-if="menu.children.length === 0" 
+               ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
+               style="display: inline-block; width:100%;" 
+            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                {{menu.displayMenuName}}
+            </a>
+
+            <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
+               ng-click="toggleMenu($event)"
+               style="display: inline-block; width:calc(100% - 40px);" 
+            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                {{menu.displayMenuName}}
+            </a>
+            <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
+               ng-click="toggleMenu($event)"
+               style="display: inline-block; width:30px;"></a>
+
+            <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper"
+                ng-init="expandParent(menu.id)">
+                <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
+                    <a class="by_treeSubMenu"
+                       ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
+                       href="{{menuUrl[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
 
             <div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
@@ -104,7 +92,7 @@
         <span class="divLeft by_editorButtonHead">Ask our experts</span>
         <div class="clearfix"></div>
         <div class="by_editorButtonText col-md-12">
-            Type any question of about <!--{{selectedMenu.displayMenuName}}-->elder care services or senior living 
+            Type any question  about <!--{{selectedMenu.displayMenuName}}-->elder care services or senior living 
         </div>
 
     </div><div class="clearfix"></div>

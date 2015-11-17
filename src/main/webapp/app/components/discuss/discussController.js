@@ -21,15 +21,15 @@ define(['byApp',
         $scope.isGridInitialized = false;
 
         $scope.initScroll= function(){
-            //if($scope.$parent.isLeafMenuSelected){
-            //    $timeout(
-            //        function () {
-            //            var tag = $("#discussList");
-            //            if (tag.length > 0) {
-            //                $('html,body').animate({scrollTop: tag.offset().top - $(".by_subMenu").height()}, 'fast');
-            //            }
-            //        }, 100);
-            //}
+            if($scope.$parent.isLeafMenuSelected){
+                $timeout(
+                    function () {
+                        var tag = $("#discussListContainer");
+                        if (tag.length > 0) {
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, 'fast');
+                        }
+                    }, 100);
+            }
         }
 
         var tags = [];

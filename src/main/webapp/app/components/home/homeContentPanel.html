@@ -99,7 +99,7 @@
 			<div class="by_homeShop_menu2">
 				<div ng-repeat="menu in menuMap[menu.id].children">
 					<div ng-repeat="leaf in menu.subcategories" ng-if="menu.name == 'BY THE CONDITION'">
-						<div class="by_home_product_menu">
+						<div class="by_home_product_menu" ng-if="$index != 1">
 							<a  href="{{menuUrl[menu.module].baseUrl}}/{{leaf.slug}}/{{leaf.id}}/all">
 								<div class="by_home_product_image{{$index+1}} by_home_product_image"></div>
 								<div class="by_homeSection_menuText">

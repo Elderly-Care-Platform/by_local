@@ -3,7 +3,7 @@
         <div class="by_subMenu_headThumb" id="{{menu.id}}"
         ng-class="{'by_subMenu_headThumb_active': menu.id == menuLevel1.id}"
         ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
-        <a href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all">{{menu.displayMenuName}}</a>
+        <a ng-href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all">{{menu.displayMenuName}}</a>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -12,8 +12,8 @@
         <span ng-repeat="subMenu in menuLevel1.children" id="{{subMenu.id}}">
             <div ng-if="subMenu.children.length > 0" class="by_subMenu_contentItem" id="{{leafMenu.id}}" ng-repeat="leafMenu in subMenu.children"
              ng-class="{'by_subMenu_contentItem_active': leafMenu.id == menuLevel2.id}">
-             <a href="{{menuUrl[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
-                <img src="{{communityIcon[leafMenu.id].image}}">
+             <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
+                <img ng-src="{{communityIcon[leafMenu.id].image}}">
                 <br/>
                 {{leafMenu.displayMenuName}}
             </a>
@@ -21,8 +21,8 @@
 
         <div ng-if="subMenu.children.length === 0" class="by_subMenu_contentItem" id="{{subMenu.id}}"
         ng-class="{'by_subMenu_contentItem_active': subMenu.id == menuLevel2.id}">
-        <a href="{{menuUrl[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
-            <img src="{{communityIcon[subMenu.id].image}}">
+        <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
+            <img ng-src="{{communityIcon[subMenu.id].image}}">
             <br/>
             {{subMenu.displayMenuName}}
         </a>
@@ -41,7 +41,7 @@
         <div class="by_subMenu_headMobileThumb" id="{{menu.id}}"
         ng-class="{'by_subMenu_headMobileThumb_active': menu.id == menuLevel1.id}"
         ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
-        <a href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all">{{menu.displayMenuName}}</a>
+        <a ng-href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all">{{menu.displayMenuName}}</a>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -50,8 +50,8 @@
         <span ng-repeat="subMenu in menuLevel1.children" id="{{subMenu.id}}">
             <div ng-if="subMenu.children.length > 0" class="by_subMenu_contentMobileItem" id="{{leafMenu.id}}" ng-repeat="leafMenu in subMenu.children"
                ng-class="{'by_subMenu_contentMobileItem_active': leafMenu.id == menuLevel2.id}">
-               <a href="{{menuUrl[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
-                <img src="{{communityIconMobile[leafMenu.id].image}}">
+               <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
+                <img ng-src="{{communityIconMobile[leafMenu.id].image}}">
                 <br/>
                 {{leafMenu.displayMenuName}}
             </a>
@@ -59,8 +59,8 @@
 
         <div ng-if="subMenu.children.length === 0" class="by_subMenu_contentMobileItem" id="{{subMenu.id}}"
         ng-class="{'by_subMenu_contentMobileItem_active': subMenu.id == menuLevel2.id}">
-        <a href="{{menuUrl[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
-            <img src="{{communityIconMobile[subMenu.id].image}}">
+        <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
+            <img ng-src="{{communityIconMobile[subMenu.id].image}}">
             <br/>
             {{subMenu.displayMenuName}}
         </a>

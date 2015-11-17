@@ -54,8 +54,8 @@
 <div class="container" ng-if="menuLevel1 && menuLevel2">
     <div class="row" ng-controller="DiscussAllController">
          <!--<div class="col-md-3  md-margin-bottom-40" ng-include="discussionViews.leftPanel"></div>-->
-        <div infinite-scroll="loadMore()" class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper"
-             ng-include="discussionViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">
+        <div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper"
+             ng-include="discussionViews.contentPanel" ng-init="initDiscussListing()">
         </div>
     </div>
 </div>

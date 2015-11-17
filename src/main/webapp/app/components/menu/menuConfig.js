@@ -252,11 +252,11 @@ BY.config.menu.communitySectionHeader = {
     },
     '55bcaef5e4b08970a736784f' : {     
         'name':'Parkinson’s',   
-        'desc':'Taking care of elders with Parkinson’s, shaking, shivering, etc.'
+        'desc':'Caring for elders with Parkinson’s (shaking, shivering, balance problems).'
     },
     '55befbd8e4b07cedaa267813' : {    
         'name':'Stroke / Bedridden',     
-        'desc':'Caring for bedridden elders (stroke, paralysis, etc.)'
+        'desc':'Caring for bedridden elders with stroke, paralysis, and other problems.'
     },
     '55befc42e4b07cedaa267819' : {  
         'name':'Incontinence / Personal Hygiene',       
@@ -268,19 +268,19 @@ BY.config.menu.communitySectionHeader = {
     },
     '56407c073e60f5b66f62df35' : {  
         'name':'Joints & Bones Problems',       
-        'desc':'Caring for elders with arthritis, osteoporosis, muscle degradation, and chronic joints or bones pains.'
+        'desc':'Caring for elders with arthritis, osteoporosis, muscle degradation, broken hips, and chronic joints or bones pains.'
     },
     '55befc97e4b07cedaa26781c' : {   
         'name':'Cancer',      
-        'desc':'Coping with cancer.'
+        'desc':'Coping with cancer – survivors’ stories, treatment tips and more.'
     },
     '55befc2ce4b07cedaa267818' : { 
         'name':'Diabetes',        
-        'desc':'Caring for elders with blood sugar problems.'
+        'desc':'Coping with blood sugar problems – everything from symptoms to recipes!'
     },
     '55befc86e4b07cedaa26781b' : { 
         'name':'Blood Pressure & Heart Problems',        
-        'desc':'Caring for elders with high blood pressure and heart conditions.'
+        'desc':'Coping with high blood pressure and heart conditions.'
     },
     '55befdfbe4b07cedaa267820' : {  
         'name':'',       
@@ -288,11 +288,11 @@ BY.config.menu.communitySectionHeader = {
     },
     '55befe3be4b07cedaa267823' : {  
         'name':'Other Health Issues',       
-        'desc':'Caring for elders with other chronic conditions (???)'
+        'desc':'Caring for elders with other chronic conditions (such as sleep disorders, lung& respiratory problems, and others)'
     },
      '55bcac92e4b08970a7367848' : {        
         'name':'Family Relationships', 
-        'desc':'Discussing relationships in the family, maids, attendants, etc.'
+        'desc':'Talking about relationships in families with aging parents – both positives and negatives…'
     },
     '5645fc4a3e60e958ec2d3d30' : {    
         'name':'NRIs / Remote Care', 
@@ -300,15 +300,15 @@ BY.config.menu.communitySectionHeader = {
     },
      '55bca92ae4b08970a7367842' : { 
         'name':'Mobility & Falls',  
-        'desc':'Discussing seniors’ moving around, falls prevention, etc.'
+        'desc':'Preventing elders from falling. Assisting with moving around.'
     },
      '56407d743e60f5b66f62df36' : {  
         'name':'Senior-Friendly Home',       
-        'desc':'How to make home a better place for aging people.'
+        'desc':'How to make your home a better place for aging people.'
     },
      '55bca7b8e4b08970a736783c' : { 
         'name':'Caretakers Challenges',        
-        'desc':'Discussing challenges of caring for elders: caretaking stories, burnout, etc.'
+        'desc':'Discussing challenges of caring for elders: caregiving stories, difficulties, burnout, etc.'
     },    
      '55bca766e4b08970a736783b' : {
         'name':'Beautiful Lives',         
@@ -316,15 +316,15 @@ BY.config.menu.communitySectionHeader = {
     },
      '55bca819e4b08970a736783e' : {   
         'name':'Challenges Of Ageing',      
-        'desc':'What does it really mean to grow old? How does aging affect you… or does it really?'
+        'desc':'How does aging affect you… or does it really? Questioning stigmas and stereotypes – redefining aging.'
     },
     '5645fe1c3e60e958ec2d3d31' : {
         'name':'Legal & Finance', 
-        'desc':'How to write a proper will – or a living will. What are senior citizens’ rights, and how to use them, and more !'
+        'desc':'How to write a proper will – or a living will. What are senior citizens’ rights, and how to use them - and more !'
     },
     '5640746b3e60f5b66f62df31' : {  
-        'name':'Scientific Breakthroughs',       
-        'desc':'want to live longer - much longer? Read about scientific breakthroughs in anti-aging, longevity, and… immortality!'
+        'name':'Anti-aging Research',       
+        'desc':'want to live longer - much longer? Read about scientific breakthroughs in anti- aging, longevity, and… immortality!'
     },
      '55cc847be4b0083957500663' : { 
         'name':'Yoga & Fitness',        

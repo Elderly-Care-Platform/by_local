@@ -1,11 +1,11 @@
 <div ng-repeat="menu in $root.mainMenu">
 <span>{{val.orderId}}</span>
-	<div class="by_container by_home_comm_bg" ng-if="homeSection[menu.id].orderId==='0'">
+	<div class="by_container by_home_comm_bg" ng-if="homeSectionConfig[menu.id].orderId==='0'">
 		<div class="by_homeSection">
 			<div class="by_homeSectionInside">
 				<div class="by_homeSection_text divRight">
 					<div class="by_homeSection_title">
-						<a href="{{menuUrl[menu.module].baseUrl}}/{{menuMap[menu.id].slug}}/{{menuMap[menu.id].id}}/all">Communities</a>
+						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Communities</a>
 					</div>
 					<div class="by_homeSection_desc">
 						We help each other take better care of parents. We would like to age happier, and to live longer. <br/>Join our communities  - get informed, show your talents, and share your experience. 
@@ -18,11 +18,11 @@
 			</div>
 			<div class="by_homeSection_menuWrap by_homeComm_menuWrap">
 
-				<div ng-repeat="menu in menuMap[menu.id].children">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children">
 					<div class="by_homeSection_menu">
-						<a href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
 							<div class="by_homeSection_menuImage">
-								<img ng-src="{{homeimage[menu.id].image}}" alt="{{menu.displayMenuName}}">
+								<img ng-src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">
 							</div>
 							<div class="by_homeSection_menuText">
 								{{menu.displayMenuName}}
@@ -34,12 +34,12 @@
 			</div>
 		</div>
 	</div>	
-	<div class="by_container by_home_find_bg" ng-if="homeSection[menu.id].orderId==='1'">	
+	<div class="by_container by_home_find_bg" ng-if="homeSectionConfig[menu.id].orderId==='1'">	
 		<div class="by_homeSection">
 			<div class="by_homeSectionInside">
 				<div class="by_homeSection_text divLeft">
 					<div class="by_homeSection_title">
-						<a href="{{menuUrl[menu.module].baseUrl}}/{{menuMap[menu.id].slug}}/{{menuMap[menu.id].id}}/all">Directory</a>
+						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Directory</a>
 					</div>
 					<div class="by_homeSection_desc">
 						Are you looking for a caregiver or a nurse for your relatives? Considering a retirement home? Looking for a good lawyer to prepare a will? Find whatever you need in our directory. 
@@ -51,11 +51,11 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="by_homeSection_menuWrap">
-				<div ng-repeat="menu in menuMap[menu.id].children" ng-if="$index < 6">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children" ng-if="$index < 6">
 					<div class="by_home_find_menu">
-						<a href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
 							<div class="by_homeSection_menuImage">
-								<img src="{{homeimage[menu.id].image}}" alt="{{menu.displayMenuName}}">
+								<img src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">
 							</div>
 							<div class="by_homeSection_menuText">
 								{{menu.displayMenuName}}
@@ -67,12 +67,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="by_container by_home_shop_bg" ng-if="homeSection[menu.id].orderId==='2'">	
+	<div class="by_container by_home_shop_bg" ng-if="homeSectionConfig[menu.id].orderId==='2'">	
 		<div class="by_homeSection">
 			<div class="by_homeSectionInside">
 				<div class="by_homeSection_text divRight">
 					<div class="by_homeSection_title">
-						<a href="{{menuUrl[menu.module].baseUrl}}/{{menuMap[menu.id].slug}}/{{menuMap[menu.id].id}}/all">Shop</a>
+						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Shop</a>
 					</div>
 					<div class="by_homeSection_desc">
 						Products that improve lives of seniors - select from our catalogue of 453 items (and growing).
@@ -84,9 +84,9 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="by_homeShop_menu1">
-				<div ng-repeat="menu in menuMap[menu.id].children">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children">
 					<div class="by_homeShop_menu" ng-class="$index === 0 ? 'by_homeShop_menuActive' : ''">
-						<a href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
 							<div class="by_homeSection_menuText">
 								{{menu.displayMenuName}}
 							</div>
@@ -97,10 +97,10 @@
 			</div>
 			<div class="by_homeShop_border"></div>
 			<div class="by_homeShop_menu2">
-				<div ng-repeat="menu in menuMap[menu.id].children">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children">
 					<div ng-repeat="leaf in menu.subcategories" ng-if="menu.name == 'BY THE CONDITION'">
 						<div class="by_home_product_menu" ng-if="leaf.id != 10203">
-							<a  href="{{menuUrl[menu.module].baseUrl}}/{{leaf.slug}}/{{leaf.id}}/all">
+							<a  href="{{menuUrlConfig[menu.module].baseUrl}}/{{leaf.slug}}/{{leaf.id}}/all">
 								<div class="by_home_product_image{{$index+1}} by_home_product_image"></div>
 								<div class="by_homeSection_menuText">
 									{{leaf.name}}

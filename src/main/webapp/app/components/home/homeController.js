@@ -10,10 +10,10 @@ define(['byApp', 'byUtil', 'homePromoController',
             $scope.homeViews = {};
             $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
-            $scope.homeSection = BY.config.menu.home;
-            $scope.homeimage = BY.config.menu.homeIcon;
-            $scope.menuUrl = BY.config.menu.menuUrl;
-            $scope.menuMap = $rootScope.menuCategoryMap;
+            $scope.homeSectionConfig = BY.config.menu.home;
+            $scope.homeimageConfig = BY.config.menu.homeIcon;
+            $scope.menuUrlConfig = BY.config.menu.menuUrl;
+            $scope.menuMapConfig = $rootScope.menuCategoryMap;
 
             $scope.telNo = BY.config.constants.byContactNumber;
 

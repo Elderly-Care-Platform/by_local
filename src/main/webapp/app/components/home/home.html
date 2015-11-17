@@ -9,28 +9,28 @@
     <div class="by_home_topMenu">
         <div ng-repeat="menu in $root.mainMenu">
             <div class="by_home_topMenu_item">
-                <a ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+                <a ng-href="{{menuUrlConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
                     <div class="by_home_topMenuText">
                         <div class="by_home_topMenuImage">
-                            <img ng-src="{{homeSection[menu.id].imageSmall}}">
+                            <img ng-src="{{homeSectionConfig[menu.id].imageSmall}}">
                         </div>
                         <div class="by_home_topMenuTitle">{{menu.displayMenuName}}</div>
                     </div>
                     <div class="by_home_topMenuDesc">
-						<span ng-if="homeSection[menu.id].orderId==='0'">
-							{{homeSection[menu.id].desc1}}<br/>
-						 	{{homeSection[menu.id].desc2}}
+						<span ng-if="homeSectionConfig[menu.id].orderId==='0'">
+							{{homeSectionConfig[menu.id].desc1}}<br/>
+						 	{{homeSectionConfig[menu.id].desc2}}
 						</span>
-						<span ng-if="homeSection[menu.id].orderId==='1'">
-							 <b id="HomeSevices" ng-if="$root.totalServiceCount" ng-init="animateCounter($root.totalServiceCount, 'HomeSevices');">0</b> {{homeSection[menu.id].desc1}}<br/>
-							 <b id="HomeHousing" ng-if="$root.totalHousingCount" ng-init="animateCounter($root.totalHousingCount, 'HomeHousing');">0</b>{{homeSection[menu.id].desc2}}
+						<span ng-if="homeSectionConfig[menu.id].orderId==='1'">
+							 <b id="HomeSevices" ng-if="$root.totalServiceCount" ng-init="animateCounter($root.totalServiceCount, 'HomeSevices');">0</b> {{homeSectionConfig[menu.id].desc1}}<br/>
+							 <b id="HomeHousing" ng-if="$root.totalHousingCount" ng-init="animateCounter($root.totalHousingCount, 'HomeHousing');">0</b>{{homeSectionConfig[menu.id].desc2}}
 						</span>
-						<span ng-if="homeSection[menu.id].orderId==='2'">
-							{{homeSection[menu.id].desc1}}<br/>
+						<span ng-if="homeSectionConfig[menu.id].orderId==='2'">
+							{{homeSectionConfig[menu.id].desc1}}<br/>
 							<b id="HomeProduct" ng-if="$root.totalProductCount" ng-init="animateCounter($root.totalProductCount, 'HomeProduct');">
                                 0
                             </b>
-                            {{homeSection[menu.id].desc2}}
+                            {{homeSectionConfig[menu.id].desc2}}
 						</span>
                     </div>
                 </a>

@@ -3,12 +3,6 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
     function (byApp, byUtil, userTypeConfig) {
 
         function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, broadCastMenuDetail) {
-            var a = $(".header .navbar-nav > li.dropdown");
-            a.removeClass("dropdown");
-            setTimeout(function () {
-                a.addClass("dropdown")
-            }, 200);
-
             $scope.findViews = {};
             $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -18,40 +12,23 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
             $scope.showFeaturedTag = true;
 
-            var city = $routeParams.city;
-            var tags = [];
-            var queryParams = {p: 0, s: 10};
+            $rootScope.byTopMenuId = $rootScope.mainMenu[1].id ;
 
+            var city = $routeParams.city, tags = [], queryParams = {p: 0, s: 10};
+            $scope.showFilters = showFilters;
+            $scope.getData = $scope.getData;
+            var init = initialize();
 
-            $scope.profileImage = function (service) {
-                service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
-            }
+            function showFilters() {
+                if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName !== null && $scope.selectedMenu.children.length > 0) {
+                    $scope.showSpecialityFilter = true;
+                    $scope.specialities = $.map($scope.selectedMenu.children, function (value, key) {
+                        return {label: value.displayMenuName, value: value.displayMenuName, obj: value};
+                    });
+                }
+            };
 
-
-            if ($scope.selectedMenu) {
-                (function () {
-                    var metaTagParams = {
-                        title: $scope.selectedMenu.displayMenuName,
-                        imageUrl: "",
-                        description: "",
-                        keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
-                    }
-                    BY.byUtil.updateMetaTags(metaTagParams);
-                })();
-                $(".selected-dropdown").removeClass("selected-dropdown");
-                $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
-
-                tags = $.map($scope.selectedMenu.tags, function (value, key) {
-                    return value.id;
-                })
-                queryParams.tags = tags.toString();  //to create comma separated tags list
-            }
-
-            if (city && city !== "" && city !== "all") {
-                queryParams.city = city;
-            }
-
-            $scope.getData = function (queryParams) {
+            function getData(queryParams) {
                 $("#preloader").show();
                 $scope.services = FindServices.get(queryParams, function (services) {
                         $scope.services = services.data.content;
@@ -66,26 +43,41 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
 
             };
 
-            $scope.fixedMenuInitialized = function () {
-                broadCastMenuDetail.setMenuId($scope.selectedMenu);
-            };
+            function initialize(){
+                if ($scope.selectedMenu) {
+                    updateMetaTags();
+                    tags = $.map($scope.selectedMenu.tags, function (value, key) {
+                        return value.id;
+                    })
+                    queryParams.tags = tags.toString();  //to create comma separated tags list
 
-            $scope.showFilters = function () {
-                if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName !== null && $scope.selectedMenu.children.length > 0) {
-                    $scope.showSpecialityFilter = true;
-                    $scope.specialities = $.map($scope.selectedMenu.children, function (value, key) {
-                        return {label: value.displayMenuName, value: value.displayMenuName, obj: value};
-                    });
                 }
+
+                if (city && city !== "" && city !== "all") {
+                    queryParams.city = city;
+                }
+
+                showFilters();
+                getData(queryParams);
             }
 
-            $scope.showFilters();
-            $scope.getData(queryParams);
+            function updateMetaTags(){
+                var metaTagParams = {
+                    title: $scope.selectedMenu.displayMenuName,
+                    imageUrl: "",
+                    description: "",
+                    keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+            }
+
+            $scope.profileImage = function (service) {
+                service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
+            }
 
             $scope.trustForcefully = function (html) {
                 return $sce.trustAsHtml(html);
             }
-
 
             $scope.location = function ($event, userId, userType) {
                 $event.stopPropagation();

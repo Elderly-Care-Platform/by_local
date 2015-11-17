@@ -172,7 +172,7 @@ define([], function () {
                 }
             })
 
-            .when('/search/:term/:disType', {
+            .when('/search/:term/:searchType', {
                 templateUrl: 'app/components/search/search.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'SearchController',
                 resolve: {
@@ -210,6 +210,21 @@ define([], function () {
                             function (servicesController, findMenuCtrl) {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }]
+                }
+            })
+
+            .when('/services/overview/list/:slug/:menuId/:discussType', {
+                templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'ServicesController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js'],
+                            function (servicesController, findMenuCtrl) {
+                                defered.resolve();
+                            });
                         return defered.promise;
                     }]
                 }

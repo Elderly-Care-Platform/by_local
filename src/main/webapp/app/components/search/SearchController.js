@@ -6,8 +6,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
         //For now Discuss cannot be created from the search page.
         $scope.showme = false;
-
-        var disType = $routeParams.disType;
+        $scope.searchType = $routeParams.searchType;
 
         $scope.discuss = "";
         $scope.pageInfo = {};
@@ -142,13 +141,31 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
 
 
         var initSearch = function(){
-            if (disType == 'All') {
-                $scope.getDiscussData(0, $scope.pageSize);
+            var pageIndex = $routeParams.pageIndex || 0;
+            if ($scope.searchType == 'All' || $scope.searchType == 'discuss') {
+                $scope.getDiscussData(pageIndex, $scope.pageSize);
                 $scope.getServicesData(0, $scope.pageSize);
                 $scope.getHousingData(0, $scope.pageSize);
                 $scope.getProductsData(0, $scope.pageSize);
+            }else if($scope.searchType == 'services'){
+                $scope.getDiscussData(pageIndex, $scope.pageSize);
+                $scope.getServicesData(pageIndex, $scope.pageSize);
+                $scope.getHousingData(0, $scope.pageSize);
+                $scope.getProductsData(0, $scope.pageSize);
+            }else if($scope.searchType == 'housing'){
+                $scope.getDiscussData(pageIndex, $scope.pageSize);
+                $scope.getServicesData(0, $scope.pageSize);
+                $scope.getHousingData(pageIndex, $scope.pageSize);
+                $scope.getProductsData(0, $scope.pageSize);
+            }else if($scope.searchType == 'products'){
+                $scope.getDiscussData(pageIndex, $scope.pageSize);
+                $scope.getServicesData(0, $scope.pageSize);
+                $scope.getHousingData(0, $scope.pageSize);
+                $scope.getProductsData(pageIndex, $scope.pageSize);
             }
         };
+
+
         initSearch();
         $scope.profileImage = function (service) {
             service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
@@ -212,22 +229,22 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         }
 
 
-        $scope.term = $rootScope.term;
-
-        $scope.showMore = function (discussType) {
-            $location.path("/search/" + $rootScope.term + "/" + disType + "/" + discussType);
-        };
+        //$scope.term = $rootScope.term;
+        //
+        //$scope.showMore = function (discussType) {
+        //    $location.path("/search/" + $rootScope.term + "/" + disType + "/" + discussType);
+        //};
 
         $scope.setSelectedTab = function (param) {
-            if(param === 'd' && $scope.discussTotal > 0){
+            if($scope.searchType == 'discuss' && $scope.discussTotal > 0){
                 $scope.selectedTab = param;
-            } else if(param === 'd' && $scope.serviceTotal > 0){
+            } else if($scope.searchType == 'services' && $scope.serviceTotal > 0){
                 $scope.selectedTab = 's';
-            } else if(param === 'd' && $scope.housingTotal > 0){
+            } else if($scope.searchType == 'housing' && $scope.housingTotal > 0){
                 $scope.selectedTab = 'h';
-            }  else if(param === 'd' && $scope.productsTotal > 0){
+            }  else if($scope.searchType == 'products' && $scope.productsTotal > 0){
                 $scope.selectedTab = 'p';
-            }else{
+            } else{
                 $scope.selectedTab = param;
             }
 

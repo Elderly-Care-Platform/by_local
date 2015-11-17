@@ -4,20 +4,20 @@
         <ul class="list-group sidebar-nav-v1 margin-bottom-40 "
             id="sidebar-nav" >
             <li class="list-group-item" ng-if="discussTotal>0" ng-init="setSelectedTab('d')"
-                ng-click="setSelectedTab('d')" ng-class="{'active':selectedTab==='d'}" >
-                <a >Posts/Q &amp; A({{discussTotal}})</a>
+                 ng-class="{'active':selectedTab==='d'}" >
+                <a ng-href="#!/search/{{term}}/discuss">Posts/Q &amp; A({{discussTotal}})</a>
             </li>
             <li class="list-group-item" ng-if="serviceTotal>0" ng-init="setSelectedTab('d')"
-                ng-click="setSelectedTab('s')" ng-class="{'active':selectedTab==='s'}" >
-                <a >Services ({{serviceTotal}})</a>
+                 ng-class="{'active':selectedTab==='s'}" >
+                <a ng-href="#!/search/{{term}}/services">Services ({{serviceTotal}})</a>
             </li>
              <li class="list-group-item" ng-if="housingTotal>0" ng-init="setSelectedTab('d')"
-                 ng-click="setSelectedTab('h')" ng-class="{'active':selectedTab==='h'}">
-                <a >Housing ({{housingTotal}})</a>
+                  ng-class="{'active':selectedTab==='h'}">
+                <a ng-href="#!/search/{{term}}/housing">Housing ({{housingTotal}})</a>
             </li>
              <li class="list-group-item" ng-if="productsTotal>0" ng-init="setSelectedTab('d')"
-                 ng-click="setSelectedTab('p')" ng-class="{'active':selectedTab==='p'}">
-                <a >Products ({{productsTotal}})</a>
+                  ng-class="{'active':selectedTab==='p'}">
+                <a ng-href="#!/search/{{term}}/products">Products ({{productsTotal}})</a>
             </li>
         </ul>
     </div>

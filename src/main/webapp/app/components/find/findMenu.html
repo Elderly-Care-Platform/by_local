@@ -1,18 +1,19 @@
 <div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParentMenu()">
     <!--=== Header v7 Left ===-->
-     <ul class="nav nav-list" ng-init="smartScroll();">
-        <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}" class="byTreeMenu-wrapper">
-            <a ng-if="menu.children.length === 0" 
+    <ul class="nav nav-list" ng-init="smartScroll();">
+        <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
+            class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
+            <a ng-if="menu.children.length === 0"
                ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
-               style="display: inline-block; width:100%;" 
-            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+               style="display: inline-block; width:100%;"
+               ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                 {{menu.displayMenuName}}
             </a>
 
             <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
                ng-click="toggleMenu($event)"
-               style="display: inline-block; width:calc(100% - 40px);" 
-            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+               style="display: inline-block; width:calc(100% - 40px);"
+               ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                 {{menu.displayMenuName}}
             </a>
             <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
@@ -30,77 +31,86 @@
         </li>
     </ul>
 
-     <div class="by_editorButtonWrap">
+    <div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
-        ng-click="add('Question')"
-        id="discussList" ng-init="initScroll()">
-        <i class="sprite sprite-question divLeft"></i> 
-        <span class="divLeft by_editorButtonHead">Ask our experts</span>
-        <div class="clearfix"></div>
-        <div class="by_editorButtonText col-md-12">
-            Type any question about <!--{{selectedMenu.displayMenuName}}--> elder care services or senior living 
+             ng-click="add('Question')"
+             id="discussList" ng-init="initScroll()">
+            <i class="sprite sprite-question divLeft"></i>
+            <span class="divLeft by_editorButtonHead">Ask our experts</span>
+
+            <div class="clearfix"></div>
+            <div class="by_editorButtonText col-md-12">
+                Type any question about <!--{{selectedMenu.displayMenuName}}--> elder care services or senior living
+            </div>
+
         </div>
+        <div class="clearfix"></div>
 
-    </div><div class="clearfix"></div>
+        <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module==0">
+            <a href="#!/services/overview/list/{{menu.slug}}/{{menu.id}}/all">View previous<br/> question &amp; overviews</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 
-    <div class="col-md-12 by_editorButtonViews">
-        <a href="">View previous<br/> question &amp; overviews</a>
-    </div><div class="clearfix"></div>
 </div>
 
-</div>
-
-<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720" >
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
     <div class="by_mobile_leftPanel">
         <div class="by_subMenuPlus" style="max-width:100%;">
             <!--=== Header v7 Left ===-->
-            <ul class="nav nav-list" >
-        <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}" class="byTreeMenu-wrapper">
-            <a ng-if="menu.children.length === 0" 
-               ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
-               style="display: inline-block; width:100%;" 
-            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
-                {{menu.displayMenuName}}
-            </a>
+            <ul class="nav nav-list">
+                <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
+                    class="byTreeMenu-wrapper">
+                    <a ng-if="menu.children.length === 0"
+                       ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
+                       style="display: inline-block; width:100%;"
+                       ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                        {{menu.displayMenuName}}
+                    </a>
 
-            <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
-               ng-click="toggleMenu($event)"
-               style="display: inline-block; width:calc(100% - 40px);" 
-            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
-                {{menu.displayMenuName}}
-            </a>
-            <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
-               ng-click="toggleMenu($event)"
-               style="display: inline-block; width:30px;"></a>
+                    <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
+                       ng-click="toggleMenu($event)"
+                       style="display: inline-block; width:calc(100% - 40px);"
+                       ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                        {{menu.displayMenuName}}
+                    </a>
+                    <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
+                       ng-click="toggleMenu($event)"
+                       style="display: inline-block; width:30px;"></a>
 
-            <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper"
-                ng-init="expandParent(menu.id)">
-                <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
-                    <a class="by_treeSubMenu"
-                       ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                       href="{{menuUrl[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                    <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper"
+                        ng-init="expandParent(menu.id)">
+                        <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}"
+                            ng-init="expandParent(submenu1.id)">
+                            <a class="by_treeSubMenu"
+                               ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
+                               href="{{menuUrl[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </li>
-    </ul>
 
             <div class="by_editorButtonWrap">
-        <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
-        ng-click="add('Question')"
-        id="discussList" ng-init="initScroll()">
-        <i class="sprite sprite-question divLeft"></i> 
-        <span class="divLeft by_editorButtonHead">Ask our experts</span>
-        <div class="clearfix"></div>
-        <div class="by_editorButtonText col-md-12">
-            Type any question about <!--{{selectedMenu.displayMenuName}}-->elder care services or senior living 
-        </div>
+                <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
+                     ng-click="add('Question')"
+                     id="discussList" ng-init="initScroll()">
+                    <i class="sprite sprite-question divLeft"></i>
+                    <span class="divLeft by_editorButtonHead">Ask our experts</span>
 
-    </div><div class="clearfix"></div>
+                    <div class="clearfix"></div>
+                    <div class="by_editorButtonText col-md-12">
+                        Type any question about <!--{{selectedMenu.displayMenuName}}-->elder care services or senior
+                        living
+                    </div>
 
-    <div class="col-md-12 by_editorButtonViews">
-        <a href="">View previous<br/> question &amp; overviews</a>
-    </div><div class="clearfix"></div>
-</div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-md-12 by_editorButtonViews">
+                    <a href="">View previous<br/> question &amp; overviews</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
 
         </div>
     </div>

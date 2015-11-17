@@ -1,53 +1,23 @@
-<div class="by_commSectionHeader" ng-if="commSectionHeader[selectedMenu.id]">
-    {{commSectionHeader[selectedMenu.id].desc}}
-</div>
-
-<div class="clearfix margin-top-20"></div>
-<div class="by_editorButtonWrap">
-    <div class="col-md-6 col-xs-6  col-sm-6  by_editorButtonWrap_thumb"
-         ng-click="add('Question')" ng-init="initScroll()">
-        <i class="sprite sprite-question divLeft"></i>
-        <span class="divLeft by_editorButtonHead">Ask our experts</span>
-
-        <div class="clearfix"></div>
-        <div class="by_editorButtonText col-md-12">
-            Type any question about {{selectedMenu.displayMenuName}} &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-    </div>
-    <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb"
-         ng-click="add('Article')">
-        <i class="sprite sprite-story divLeft"></i>
-        <span class="divLeft by_editorButtonHead">Share</span>
-
-        <div class="clearfix"></div>
-        <div class="by_editorButtonText col-md-12">
-            Post your tips and stories about {{selectedMenu.displayMenuName}}
-        </div>
-    </div>
-    <div class="clearfix"></div>
-</div>
-<div class="clearfix margin-top-20">&nbsp;</div>
-
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
+   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
     ({{discuss_counts.z}})</a>
 
 <a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
+   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
     ({{discuss_counts.featured}})</a>
 
 <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
+   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
     &amp; A ({{discuss_counts.q}})</a>
 
 <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
+   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
     ({{discuss_counts.p}})</a>
 
 
 <div class="clearfix" style="height:15px;"></div>
 
-<div class="blog_masonry_3col">
+<div class="blog_masonry_3col" ng-init="initDiscussListing()">
     <div class="grid-boxes by_discuss_listing">
         <div class="grid-boxes-in " ng-repeat="discuss in discussList"
              ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''">

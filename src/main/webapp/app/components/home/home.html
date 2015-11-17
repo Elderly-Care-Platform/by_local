@@ -22,12 +22,15 @@
 						 	{{homeSection[menu.id].desc2}}
 						</span>
 						<span ng-if="homeSection[menu.id].orderId==='1'">
-							 <b id="HomeSevices" ng-init="HomeSevicesNum();">0</b> {{homeSection[menu.id].desc1}}<br/>
-							 <b id="HomeHousing" ng-init="HomeHousingNum();">0</b>{{homeSection[menu.id].desc2}}
+							 <b id="HomeSevices" ng-if="$root.totalServiceCount" ng-init="animateCounter($root.totalServiceCount, 'HomeSevices');">0</b> {{homeSection[menu.id].desc1}}<br/>
+							 <b id="HomeHousing" ng-if="$root.totalHousingCount" ng-init="animateCounter($root.totalHousingCount, 'HomeHousing');">0</b>{{homeSection[menu.id].desc2}}
 						</span>
 						<span ng-if="homeSection[menu.id].orderId==='2'">
 							{{homeSection[menu.id].desc1}}<br/>
-							<b id="HomeProduct" ng-init="HomeProductNum();">0</b>  {{homeSection[menu.id].desc2}}
+							<b id="HomeProduct" ng-if="$root.totalProductCount" ng-init="animateCounter($root.totalProductCount, 'HomeProduct');">
+                                0
+                            </b>
+                            {{homeSection[menu.id].desc2}}
 						</span>
                     </div>
                 </a>

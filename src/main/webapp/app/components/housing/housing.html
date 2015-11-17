@@ -46,7 +46,7 @@
 <!--  banner -->
 <div class="by_directoryBanner">
     <div class="by_directoryBanner_title">
-       Directory of XXX services for seniors across India.  Listing of XXX senior living facilities.
+        Directory of {{$root.totalServiceCount}} services for seniors across India.  Listing of {{$root.totalHousingCount}} senior living facilities.
     </div>
     <div class="by_directoryBanner_desc">
         <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <a ng-href="{{'tel:'+telNo}}">{{telNo}}</a>
@@ -55,7 +55,6 @@
 
 <!--=== Content Part ===-->
 <div  ng-init="fixedMenuInitialized()">
- 
     <div class="leftPanel" ng-include="'app/components/housing/housingMenu.html'" ng-controller="HousingMenuCtrl"></div>
     <div class="contentPanel" infinite-scroll="loadMore()"
     ng-include="housingViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">    </div>

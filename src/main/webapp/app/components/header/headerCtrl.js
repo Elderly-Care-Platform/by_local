@@ -17,25 +17,29 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         function initHeader() {
             updateHeaderTemplate();
             validateSession();
-            $http.get("api/v1/userProfile/getCount").success(function (response) {
+            getProductCount();
+            getServicesCount();
+        }
 
-                $rootScope.totalServiceCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_SERVICES']])
-                                                + parseInt(response.data[BY.config.profile.userTypeMap['INDIVIDUAL_PROFESSIONAL']]);
-
-                $rootScope.totalHousingCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_HOUSING']]);
-
-                console.log($rootScope.totalServiceCount);
-            }).error(function (err) {
-                console.log("services count not available");
-            })
-
+        function getProductCount(){
             $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
-
-                console.log(response);
+                $rootScope.totalProductCount = response;
             }).error(function (err) {
                 console.log("products count not available");
             })
+        }
 
+        function getServicesCount(){
+            $http.get("api/v1/userProfile/getCount").success(function (response) {
+
+                $rootScope.totalServiceCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_SERVICES']])
+                    + parseInt(response.data[BY.config.profile.userTypeMap['INDIVIDUAL_PROFESSIONAL']]);
+
+                $rootScope.totalHousingCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_HOUSING']]);
+
+            }).error(function (err) {
+                console.log("services count not available");
+            })
         }
 
         function updateHeaderTemplate() {

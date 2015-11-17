@@ -49,7 +49,7 @@
         Directory of {{$root.totalServiceCount}} services for seniors across India.  Listing of {{$root.totalHousingCount}} senior living facilities.
     </div>
     <div class="by_directoryBanner_desc">
-        <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <a ng-href="{{'tel:'+telNo}}">{{telNo}}</a>
+        <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span ng-if="$root.windowWidth > 720">{{telNo}}</span>
     </div>
 </div>
 

@@ -6,7 +6,7 @@
             Products for seniors
         </div>
         <div class="by_productBanner_desc">
-            <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <a ng-href="{{'tel:'+telNo}}">{{telNo}}</a>
+            <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span ng-if="$root.windowWidth > 720">{{telNo}}</span>
         </div>
     </div>
 	

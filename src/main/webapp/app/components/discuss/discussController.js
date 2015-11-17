@@ -27,7 +27,7 @@ define(['byApp',
                     function () {
                         var tag = $("#discussListContainer");
                         if (tag.length > 0) {
-                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, 'fast');
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, '2000');
                         }
                     }, 100);
             }

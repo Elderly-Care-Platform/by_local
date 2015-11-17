@@ -258,11 +258,11 @@ BY.config.menu.communitySectionHeader = {
     },
     '55bcaef5e4b08970a736784f' : {     
         'name':'Parkinson’s',   
-        'desc':'Caring for elders with Parkinson’s (shaking, shivering, balance problems).'
+        'desc':'Caring for elders with Parkinson’s and related issues of shaking, shivering, and balance problems.'
     },
     '55befbd8e4b07cedaa267813' : {    
         'name':'Stroke / Bedridden',     
-        'desc':'Caring for bedridden elders with stroke, paralysis, and other problems.'
+        'desc':'Caring for bedridden elders affected by stroke, paralysis, and other problems.'
     },
     '55befc42e4b07cedaa267819' : {  
         'name':'Incontinence / Personal Hygiene',       
@@ -294,11 +294,11 @@ BY.config.menu.communitySectionHeader = {
     },
     '55befe3be4b07cedaa267823' : {  
         'name':'Other Health Issues',       
-        'desc':'Caring for elders with other chronic conditions (such as sleep disorders, lung& respiratory problems, and others)'
+        'desc':'Caring for elders with other chronic conditions such as sleep disorders,  respiratory  and other problems'
     },
      '55bcac92e4b08970a7367848' : {        
         'name':'Family Relationships', 
-        'desc':'Talking about relationships in families with aging parents – both positives and negatives…'
+        'desc':'All about relationships in families with aging parents – the good and the not-so-good.'
     },
     '5645fc4a3e60e958ec2d3d30' : {    
         'name':'NRIs / Remote Care', 
@@ -310,11 +310,11 @@ BY.config.menu.communitySectionHeader = {
     },
      '56407d743e60f5b66f62df36' : {  
         'name':'Senior-Friendly Home',       
-        'desc':'How to make your home a better place for aging people.'
+        'desc':'How to make your home a better and safer place for seniors.'
     },
      '55bca7b8e4b08970a736783c' : { 
         'name':'Caretakers Challenges',        
-        'desc':'Discussing challenges of caring for elders: caregiving stories, difficulties, burnout, etc.'
+        'desc':'Talking about  challenges of caring for elders: caregiving stories, problems, caregiver burnout, and more.'
     },    
      '55bca766e4b08970a736783b' : {
         'name':'Beautiful Lives',         
@@ -326,19 +326,19 @@ BY.config.menu.communitySectionHeader = {
     },
     '5645fe1c3e60e958ec2d3d31' : {
         'name':'Legal & Finance', 
-        'desc':'How to write a proper will – or a living will. What are senior citizens’ rights, and how to use them - and more !'
+        'desc':'How to write a proper will? What is a living will? What are senior citizens’ rights, and how to benefit from them. And more !'
     },
     '5640746b3e60f5b66f62df31' : {  
         'name':'Anti-aging Research',       
-        'desc':'want to live longer - much longer? Read about scientific breakthroughs in anti- aging, longevity, and… immortality!'
+        'desc':'Do you want to live longer - much longer? Read about scientific breakthroughs in anti-aging, longevity, and… immortality!'
     },
      '55cc847be4b0083957500663' : { 
         'name':'Yoga & Fitness',        
-        'desc':'Staying fit, active, calm, and good-looking  – in any age!'
+        'desc':'Staying fit, active, calm, and good-looking  – at any age!'
     },
      '55bcac54e4b08970a7367846' : { 
         'name':'Nutrition',        
-        'desc':'What are foods a diabetic should avoid? What is a healthy diet for a heart patient? Food that keeps us younger for longer.'
+        'desc':'What  food should a diabetic  avoid? What is a heart healthy diet? Food that keeps us younger, for longer.'
     },
      '55cc8418e4b0083957500660' : {  
         'name':'Photography',       

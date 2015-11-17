@@ -51,6 +51,10 @@
 	}
 }
 */
+#discussListContainer
+{
+	margin-top: 30px;
+}
 
 .by_productBanner
 {
@@ -81,7 +85,7 @@
 {
 	width: 100%;
 	height:auto;
-	font-size: 18px;
+	font-size: 20px;
 	text-align: center;
 }
 
@@ -111,7 +115,7 @@
   line-height: 30px;
   padding-top: 15px;
 }
-.by_productBanner_desc a, .by_directoryBanner_desc a, .by_productBanner_desc a:hover, .by_directoryBanner_desc a:hover
+.by_productBanner_desc a, .by_directoryBanner_desc a, .by_productBanner_desc a:hover, .by_directoryBanner_desc a:hover, .by_productBanner_desc span, .by_directoryBanner_desc span
 {
 	color: #fff;
 	text-decoration: none;

@@ -3,7 +3,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
         $scope.profileImage = [];
         $scope.galleryImages = [];
         $scope.submitted = false;
-        $scope.categoryOptions = $rootScope.menuCategoryMapByName[BY.config.regConfig.housingConfig.fetchFromMenu].children;
+        //$scope.categoryOptions = $rootScope.menuCategoryMapByName[BY.config.regConfig.housingConfig.fetchFromMenu].children;
         $scope.facility = $scope.$parent.facility;
         $scope.selectedMenuList = {};
 
@@ -27,6 +27,9 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
                     var menuId = $scope.facility.categoriesId[i];
                     $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
                 }
+            } else{
+                // hard coding senior living id as facility category
+                 $scope.selectedMenuList['55bcadaee4b08970a736784c'] =  $rootScope.menuCategoryMap['55bcadaee4b08970a736784c'];
             }
             editorInitCallback();
         };

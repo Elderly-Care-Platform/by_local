@@ -5,9 +5,12 @@ define(['byApp'], function (byApp) {
         $scope.selectedMenuId = $routeParams.menuId;
         $scope.menuUrl= BY.config.menu.menuUrl;
 
-        $scope.expandParent = function(){
-            var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
-            $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
+        $scope.expandParent = function(menuId){
+            if(menuId.toString()==$scope.selectedMenuId){
+                var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
+                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
+                $("#"+$scope.selectedParent.id).children('ul.tree').toggle(200);
+            }
         };
 
         $scope.smartScroll = function(){
@@ -33,6 +36,11 @@ define(['byApp'], function (byApp) {
                 }
             });
         };
+
+        $scope.toggleMenu = function($event){
+            //console.log($($event.target).parent().children('ul.tree'));
+            $($event.target).parent().children('ul.tree').toggle(200);
+        }
 
          $scope.subMenuTabMobileShow = function(){
            

@@ -1,7 +1,5 @@
 define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
     function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing){
-        var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
-
         $scope.housingViews = {};
         $scope.housingViews.leftPanel = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.housingViews.contentPanel = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -15,30 +13,10 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
         var tags = [];
         var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
 
-        if($scope.selectedMenu){
-            (function(){
-                var metaTagParams = {
-                    title:  $scope.selectedMenu.displayMenuName,
-                    imageUrl:   "",
-                    description:   "",
-                    keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
-                }
-                BY.byUtil.updateMetaTags(metaTagParams);
-            })();
-            $(".selected-dropdown").removeClass("selected-dropdown");
-            $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
+        $scope.getData = $scope.getData;
+        var init = initialize();
 
-            tags = $.map($scope.selectedMenu.tags, function(value, key){
-                return value.id;
-            })
-            queryParams.tags = tags.toString();  //to create comma separated tags list
-        }
-
-        if (city && city !== "" && city !== "all") {
-            queryParams.city = city;
-        }
-
-        $scope.getData = function () {
+        function getData() {
             $("#preloader").show();
             FindHousing.get(queryParams, function (housing) {
                     if (housing) {
@@ -52,21 +30,38 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                     console.log(error);
                 });
         };
-        
+
+        function updateMetaTags(){
+            var metaTagParams = {
+                title:  $scope.selectedMenu.displayMenuName,
+                imageUrl:   "",
+                description:   "",
+                keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        }
+
+        function initialize(){
+            if($scope.selectedMenu){
+                tags = $.map($scope.selectedMenu.tags, function(value, key){
+                    return value.id;
+                })
+                queryParams.tags = tags.toString();  //to create comma separated tags list
+            }
+
+            if (city && city !== "" && city !== "all") {
+                queryParams.city = city;
+            }
+
+            getData(queryParams);
+        }
+
+
         $scope.tooltipText = function(){        	
         	$('[data-toggle="tooltip"]').tooltip(); 
         }
         
 
-        $scope.fixedMenuInitialized = function(){
-            broadCastMenuDetail.setMenuId($scope.selectedMenu);
-        };
-        
-        
-
-
-        //$scope.showBreadcrums();
-        $scope.getData(queryParams);
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };

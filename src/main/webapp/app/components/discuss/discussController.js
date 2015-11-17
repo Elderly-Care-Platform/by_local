@@ -8,7 +8,6 @@ define(['byApp',
     function DiscussAllController($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
                                   DiscussCount,$sce, $timeout, $window, broadCastMenuDetail) {
 
-        window.scrollTo(0, 0);
         $scope.discussionViews = {};
         $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";

@@ -1,4 +1,4 @@
-<div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParentMenu()">
+<div class="by_subMenuPlus" ng-if="$root.windowWidth > 720">
     <!--=== Header v7 Left ===-->
     <ul class="nav nav-list" ng-init="smartScroll();">
         <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
@@ -60,7 +60,7 @@
             <!--=== Header v7 Left ===-->
             <ul class="nav nav-list">
                 <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
-                    class="byTreeMenu-wrapper">
+                    class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
                     <a ng-if="menu.children.length === 0"
                        ng-href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
                        style="display: inline-block; width:100%;"
@@ -106,8 +106,8 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="col-md-12 by_editorButtonViews">
-                    <a href="">View previous<br/> question &amp; overviews</a>
+                <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module==0">
+                    <a href="#!/services/overview/list/{{menu.slug}}/{{menu.id}}/all">View previous<br/> question &amp; overviews</a>
                 </div>
                 <div class="clearfix"></div>
             </div>

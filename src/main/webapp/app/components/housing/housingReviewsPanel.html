@@ -1,17 +1,17 @@
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
-   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
+   href="#!/housing/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
     ({{discuss_counts.z}})</a>
 
 <a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
-   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
+   href="#!/housing/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
     ({{discuss_counts.featured}})</a>
 
 <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
-   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
+   href="#!/housing/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
     &amp; A ({{discuss_counts.q}})</a>
 
 <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
-   href="#!/services/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
+   href="#!/housing/overview/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
     ({{discuss_counts.p}})</a>
 
 
@@ -24,8 +24,8 @@
             <div ng-if="$last" ng-init="initGrid($index)"></div>
 
             <!--Promotion/announcement cards start ----------------------------------------------->
-            <div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
-                 class="by-discuss-card by_blog_author" ng-if="discuss && discuss.promotion == true">
+            <div ng-if="discuss && discuss.promotion == true"
+                 ng-click="nextLocation(discuss.id)" class="by-discuss-card by_blog_author" >
 
                 <div class="questionTag postTag"
                      ng-if="discuss.discussType == 'P' && discuss.featured == true">
@@ -51,8 +51,8 @@
 
 
             <!------------ Post/question cards start ----------------------------------------------->
-            <div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
-                 class="by-discuss-card by_blog_author" ng-if="discuss && discuss.promotion == false">
+            <div ng-if="discuss && discuss.promotion == false"
+                 ng-click="nextLocation(discuss.id)" class="by-discuss-card by_blog_author">
                 <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true"></div>
                 <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
 

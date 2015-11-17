@@ -285,6 +285,19 @@ define([], function () {
                 }
             })
 
+            .when('/housing/overview/list/:slug/:menuId/:discussType', {
+                templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'HousingController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/housing/housingController.js', 'housingMenuCtrl'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
 
             .when('/users/privacyPolicy', {
                 templateUrl: 'app/shared/footer/privacyPolicy.html?versionTimeStamp=%PROJECT_VERSION%',

@@ -1,66 +1,32 @@
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        var options = {
-            beforeSend: function () {
-                //$("#progressbox").show();
-                // clear everything
-                //$("#progressbar").width('0%');
-                //$("#message").empty();
-                //$("#percent").html("0%");
-            },
-            uploadProgress: function (event, position, total, percentComplete) {
-                //$("#progressbar").width(percentComplete + '%');
-                //$("#percent").html(percentComplete + '%');
-
-                // change message text to red after 50%
-                //if (percentComplete > 50) {
-                //$("#message").html("<font color='red'>File Upload is in progress</font>");
-                // }
-            },
-            success: function () {
-                // $("#progressbar").width('100%');
-                // $("#percent").html('100%');
-            },
-            complete: function (response) {
-                //alert(response.responseText);
-                $("#articlePhotoFilename").val(response.responseText.substring(response.responseText.lastIndexOf('/') + 1));
-            },
-            error: function () {
-                $("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
-            }
-        };
-        
-        try {
-            $("#UploadForm").ajaxForm(options);
-        }
-        catch (e) {
-        }
-    });
-</script>
-
-<!--<div ng-controller="LoadCustomJSController"></div>-->
-
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <!--  banner -->
 <div class="by_directoryBanner">
     <div class="by_directoryBanner_title">
-        Directory of {{$root.totalServiceCount}} services for seniors across India.  Listing of {{$root.totalHousingCount}} senior living facilities.
+        Directory of {{$root.totalServiceCount}} services for seniors across India. Listing of
+        {{$root.totalHousingCount}} senior living facilities.
     </div>
     <div class="by_directoryBanner_desc">
-        <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span ng-if="$root.windowWidth > 720">{{telNo}}</span>
+        <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span
+            ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span
+            ng-if="$root.windowWidth > 720">{{telNo}}</span>
     </div>
 </div>
 
 <!--=== Content Part ===-->
-<div  ng-init="fixedMenuInitialized()">
+<div>
     <div class="leftPanel" ng-include="'app/components/housing/housingMenu.html'" ng-controller="HousingMenuCtrl"></div>
-    <div class="contentPanel" infinite-scroll="loadMore()"
-    ng-include="housingViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">    </div>
+    <div ng-if="selectedMenu.module===1 || selectedMenu.module===2" class="contentPanel" infinite-scroll="loadMore()"
+         ng-include="housingViews.contentPanel"
+         infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"
+         infinite-scroll-distance="0"></div>
+
+    <div ng-if="selectedMenu.module===0" class="contentPanel article-outer-wrapper"
+         ng-controller="HousingReviewsCtrl"
+         ng-include="'app/components/housing/housingReviewsPanel.html'">
+    </div>
 </div>
 
-</div>
 
 <!--/container-->
 

@@ -5,7 +5,7 @@ define(['byApp',
 
     'use strict';
 
-    function ServiceOverviewCtrl($scope, $rootScope, $location, $route, $routeParams, DiscussPage,
+    function HousingReviewsCtrl($scope, $rootScope, $location, $route, $routeParams, DiscussPage,
                                  DiscussCount, $sce, $timeout) {
 
         window.scrollTo(0, 0);
@@ -23,11 +23,6 @@ define(['byApp',
                 window.setTimeout(function () {
                     masonaryGridInit();
                     $(".masonry").masonry("reload");
-                    /*if (gridMasonary.length === 0) {
-                     masonaryGridInit();
-                     } else {
-                     $(".masonry").masonry("reload");
-                     }*/
                     $("#preloader").hide();
                 }, 100);
 
@@ -53,13 +48,12 @@ define(['byApp',
         $scope.initDiscussListing = function () {
             if ($scope.selectedMenu) {
                 updateMetaTags();
-
                 //tags = $.map($scope.selectedMenu.tags, function (value, key) {
                 //    return value.id;
                 //})
                 //queryParams.tags = tags.toString();  //to create comma separated tags list
 
-                queryParams.tags = "55befec6e4b07cedaa267825";
+                queryParams.tags = "55beff0ee4b07cedaa267829";
 
                 DiscussCount.get({tags: queryParams.tags, contentTypes: "f,total,p,q"}, function (counts) {
                         $scope.discuss_counts = counts.data;
@@ -113,13 +107,17 @@ define(['byApp',
         $scope.trustAsResourceUrl = function (url) {
             return $sce.trustAsResourceUrl(url);
         };
+
+        $scope.nextLocation = function(discussId){
+            $location.path("/discuss/"+ discussId);
+        }
     }
 
 
-    ServiceOverviewCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
+    HousingReviewsCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
         'DiscussPage', 'DiscussCount', '$sce', '$timeout'];
 
-    byApp.registerController('ServiceOverviewCtrl', ServiceOverviewCtrl);
-    return ServiceOverviewCtrl;
+    byApp.registerController('HousingReviewsCtrl', HousingReviewsCtrl);
+    return HousingReviewsCtrl;
 
 });

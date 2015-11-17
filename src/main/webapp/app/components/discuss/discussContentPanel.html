@@ -8,7 +8,7 @@
     <div class="col-md-6 col-xs-6  col-sm-6  by_editorButtonWrap_thumb"
          ng-click="add('Question')" ng-init="initScroll()">
         <i class="sprite sprite-question divLeft"></i>
-        <span class="divLeft by_editorButtonHead">Ask our experts</span>
+        <span class="divLeft by_editorButtonHead">Ask <span ng-if="$root.windowWidth > 720">our experts</span></span>
 
         <div class="clearfix"></div>
         <div class="by_editorButtonText col-md-12">
@@ -38,8 +38,7 @@
     ({{discuss_counts.featured}})</a>
 
 <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q
-    &amp; A ({{discuss_counts.q}})</a>
+   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q&amp;A ({{discuss_counts.q}})</a>
 
 <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
    href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts

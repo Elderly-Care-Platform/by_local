@@ -1,30 +1,30 @@
-define(['byApp'], function (byApp) {
+define(['byApp','housingReviewsCtrl'], function (byApp, housingReviewsCtrl) {
     'use strict';
 
     function HousingMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
 
         $scope.selectedMenuId = $routeParams.menuId;
         var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
-                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
-        $scope.menuUrl= BY.config.menu.menuUrl;
+        $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
+        $scope.menuUrl = BY.config.menu.menuUrl;
 
-        $scope.expandParent = function(menuId){
-            if(menuId && menuId.toString()==$scope.selectedMenuId){
+        $scope.expandParent = function (menuId) {
+            if (menuId && menuId.toString() == $scope.selectedMenuId) {
                 var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
-                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];                
-                var target = $("#"+$scope.selectedParent.id).children('ul.tree');
-                target.toggle(200, function(){
-                   if(target.is(':visible')){
-                        $("#"+$scope.selectedParent.id).children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
+                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
+                var target = $("#" + $scope.selectedParent.id).children('ul.tree');
+                target.toggle(200, function () {
+                    if (target.is(':visible')) {
+                        $("#" + $scope.selectedParent.id).children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
                     } else {
-                        $("#"+$scope.selectedParent.id).children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
+                        $("#" + $scope.selectedParent.id).children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
                     }
                 });
             }
         };
 
-        $scope.smartScroll = function(){
-            angular.element($window).bind("scroll", function() {
+        $scope.smartScroll = function () {
+            angular.element($window).bind("scroll", function () {
                 var winTop = $(this).scrollTop(),
                     winBottom = winTop + $(this).height(),
                     left = $('.by_subMenuPlus'),
@@ -47,37 +47,36 @@ define(['byApp'], function (byApp) {
             });
         };
 
-        $scope.toggleMenu = function($event){
+        $scope.toggleMenu = function ($event) {
             //console.log($($event.target).parent().children('ul.tree'));
             var target = $($event.target).parent().children('ul.tree');
-            target.toggle(200, function(){
-               if(target.is(':visible')){
+            target.toggle(200, function () {
+                if (target.is(':visible')) {
                     $($event.target).parent().children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
                 } else {
                     $($event.target).parent().children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
-                 }
+                }
             });
-           
-            
+
+
         }
 
-         $scope.subMenuTabMobileShow = function(){
-           
-                if($(".by_mobile_leftPanel_hide").css('left') == '0px'){
-                    $(".by_mobile_leftPanel_image").animate({left: "0%"},{duration : 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%')");
-                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, 400, function(){
-                        $scope.expandParent();
-                    });
-                } else{
-                    $(".by_mobile_leftPanel_image").animate({left: "90%"},{duration : 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
-                    $(".by_mobile_leftPanel_hide").animate({left: "0%"}, 400, function(){
-                        $scope.expandParent();
-                    });
-                }
-                
-           
+        $scope.subMenuTabMobileShow = function () {
+            if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
+                $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%')");
+                $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, 400, function () {
+                    $scope.expandParent();
+                });
+            } else {
+                $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
+                $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
+                $(".by_mobile_leftPanel_hide").animate({left: "0%"}, 400, function () {
+                    $scope.expandParent();
+                });
+            }
+
+
         };
 
     }

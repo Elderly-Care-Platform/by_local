@@ -107,7 +107,8 @@ require.config({
 		discussCtrl : '../components/discuss/discussController',
 		housingMenuCtrl : '../components/housing/housingMenuCtrl',
 
-		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl'
+		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl',
+		housingReviewsCtrl: '../components/housing/housingReviewsCtrl'
 
 	},
 

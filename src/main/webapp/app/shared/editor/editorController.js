@@ -141,12 +141,11 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             $scope.discuss.$save(function (discuss, headers) {
                 $scope.editor.subject = "";
                 if(discuss && discuss.data && discuss.data.discussType!="F"){
-                    $location.path('/discuss/'+discuss.data.id);
+                    //$location.path('/discuss/'+discuss.data.id);
+                    $scope.$parent.postSuccess();
                 }else{
                     $scope.$parent.postSuccess();
                 }
-
-
             },
             function (errorResponse) {
                 console.log(errorResponse);

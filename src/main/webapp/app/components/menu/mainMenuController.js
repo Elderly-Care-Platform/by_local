@@ -88,7 +88,7 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
             angular.forEach($scope.mainMenu, function(menu, index){
                 if(menu.module==3){
                     console.log(menu.displayMenuName);
-                    menu.children = prod_categories.category;
+                    menu.children = menu.children.concat(prod_categories.category);
                 }
             })
         };

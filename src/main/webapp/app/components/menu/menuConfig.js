@@ -140,6 +140,9 @@ BY.config.menu.communityIcon = {
     },
      '564083353e60f5b66f62df39' : {        
         'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '5649bc993b82e3a4e249dadd' : {        
+        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
     }
 }
 
@@ -226,6 +229,9 @@ BY.config.menu.communityIconMobile = {
         'image':'assets/img/community/mobile/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%'
     },
      '564083353e60f5b66f62df39' : {        
+        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '5649bc993b82e3a4e249dadd' : {        
         'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
     }
 }
@@ -333,33 +339,31 @@ BY.config.menu.communitySectionHeader = {
      '55bcac54e4b08970a7367846' : { 
         'name':'Nutrition',        
         'desc':'What are foods a diabetic should avoid? What is a healthy diet for a heart patient? Food that keeps us younger for longer.'
-    }
-    /*,
+    },
      '55cc8418e4b0083957500660' : {  
         'name':'Photography',       
-        'desc':''
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
     },
     '55cc8440e4b0083957500661' : {  
         'name':'Cooking & Recipes',       
-        'desc':''
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
     },
      '55cc845ce4b0083957500662' : { 
         'name':'Painting & Drawing',        
-        'desc':''
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
     },
      '55cc860be4b008395750066f' : { 
         'name':'Creative Writing',        
-        'desc':''
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
     },
      '564076aa3e60f5b66f62df33' : { 
         'name':'Travel & Pilgrimages',        
-        'desc':''
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
     },
      '564083353e60f5b66f62df39' : {  
         'name':'Other',       
-        'desc':''
-    }*/
-    ,
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+    },
     '564072883e60f5b66f62df2d' : {  
         'name':'Caring for parents',       
         'desc':'We are taking care of aging parents. Sharing questions, answers, tips, stories, emotions, diaries of caretakers – and more.'

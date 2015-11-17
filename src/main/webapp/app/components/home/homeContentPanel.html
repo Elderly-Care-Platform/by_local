@@ -51,8 +51,8 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="by_homeSection_menuWrap">
-				<div ng-repeat="menu in menuMapConfig[menu.id].children" ng-if="$index < 6">
-					<div class="by_home_find_menu">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children" ng-if="menu.module != 0 && menu.id != '5640801e3e60f5b66f62df37'">
+					<div class="by_home_find_menu" >
 						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
 							<div class="by_homeSection_menuImage">
 								<img src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">
@@ -84,8 +84,8 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="by_homeShop_menu1">
-				<div ng-repeat="menu in menuMapConfig[menu.id].children">
-					<div class="by_homeShop_menu" ng-class="$index === 0 ? 'by_homeShop_menuActive' : ''">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children" ng-if="menu.module != 0">
+					<div class="by_homeShop_menu" ng-class="menu.id == 10200 ? 'by_homeShop_menuActive' : ''">
 						<a href="{{menuUrlConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
 							<div class="by_homeSection_menuText">
 								{{menu.displayMenuName}}

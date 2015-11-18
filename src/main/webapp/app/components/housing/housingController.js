@@ -98,7 +98,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
         $scope.addressCallback = function (response) {
             $('#addressCity').blur();
             queryParams.city = response.name;
-            $scope.getData(queryParams);
+            getData(queryParams);
         };
 
         $scope.loadMore = function ($event) {

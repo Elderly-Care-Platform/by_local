@@ -110,13 +110,13 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             $scope.addressCallback = function (response) {
                 $('#addressCity').blur();
                 queryParams.city = response.name;
-                $scope.getData(queryParams);
+                getData(queryParams);
             }
 
             $scope.specialityCallback = function (speciality) {
                 tags = speciality.obj.tags[0].id;
                 queryParams.tags = tags.toString();
-                $scope.getData(queryParams);
+                getData(queryParams);
             }
             
             $scope.tooltipText = function(){        	

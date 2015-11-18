@@ -3,6 +3,7 @@
     <ul class="nav nav-list" ng-init="smartScroll();">
         <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
             class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
+            <div ng-if="menu.module==2" class="by_menuHousingBorderTop"></div>
             <a ng-if="menu.children.length === 0"
                ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
                style="display: inline-block; width:100%;"
@@ -28,8 +29,19 @@
                        href="{{moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
                 </li>
             </ul>
+            <div ng-if="menu.module==2" class="by_menuHousingBorderBottom"></div>
         </li>
     </ul>
+
+    <div class="by_menu_cityFilter">
+        <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft" ng-click="addressCallback({'name':address.city})"></i>        
+        <div class="divRight by_menu_cityFilterRight">
+           <input type="text"  class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
+           placeholder="Type your city name" ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
+       </div>
+       <div class="clearfix"></div>
+   </div>
+    
 
     <div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
@@ -63,6 +75,7 @@
             <ul class="nav nav-list">
                 <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
                     class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
+                    <div ng-if="menu.module==2" class="by_menuHousingBorderTop"></div>
                     <a ng-if="menu.children.length === 0"
                        ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
                        style="display: inline-block; width:100%;"
@@ -89,8 +102,18 @@
                                href="{{moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
                         </li>
                     </ul>
+                    <div ng-if="menu.module==2" class="by_menuHousingBorderBottom"></div>
                 </li>
             </ul>
+
+            <div class="by_menu_cityFilter">
+                <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft" ng-click="addressCallback({'name':address.city})"></i>        
+                <div class="divRight by_menu_cityFilterRight">
+                   <input type="text"  class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
+                   placeholder="Type your city name" ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
+               </div>
+               <div class="clearfix"></div>
+           </div>
 
             <div class="by_editorButtonWrap">
                 <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"

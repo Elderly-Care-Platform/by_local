@@ -23,7 +23,6 @@ define(['byApp',
                 window.setTimeout(function () {
                     masonaryGridInit();
                     $(".masonry").masonry("reload");
-                    $("#preloader").hide();
                 }, 100);
 
             }
@@ -81,9 +80,10 @@ define(['byApp',
                             $scope.discussPagination.currentPage = value.data.number;
                             $scope.discussPagination.pageSize = $scope.pageSize;
 
-                            if ($scope.discussList.length === 0) {
+                           /* if ($scope.discussList.length === 0) {
                                 $("#preloader").hide();
-                            }
+                            }*/
+                            $("#preloader").hide();
                         },
                         function (error) {
                             console.log("DiscussAllForDiscussType");

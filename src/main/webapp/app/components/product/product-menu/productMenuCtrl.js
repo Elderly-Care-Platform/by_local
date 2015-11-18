@@ -33,7 +33,7 @@ define(['byApp'], function (byApp) {
                 if (winBottom >= leftBottom) {
 
                     left.css({
-                        'position': 'fixed',
+                        'position': 'absolute',
                         'bottom': '0px'
                     });
                 } else {

@@ -54,7 +54,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             $scope.isFreeSearch=false;
             if ($location.search().q) {
                 try {
-                    category = JSON.parse($location.search().q);
+                    category = $rootScope.menuCategoryMap[$location.search().q];
                 } catch (e) {
                     category = $location.search().q;
                 }

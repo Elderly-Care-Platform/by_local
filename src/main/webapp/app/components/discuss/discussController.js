@@ -142,7 +142,7 @@ define(['byApp',
             $location.search('showEditor', 'true');
             $location.search('showEditorType', type);
             BY.byEditor.removeEditor();
-            $location.path("/discuss/list/service_review/"+$scope.selectedMenu.id+"/all");
+            $location.path("/discuss/list/"+$scope.selectedMenu.slug+"/"+$scope.selectedMenu.id+"/all");
         }
 
         //$scope.add = function (type) {

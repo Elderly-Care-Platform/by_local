@@ -2,10 +2,10 @@
     <!--=== Header v7 Left ===-->
     <ul class="nav nav-list" ng-init="smartScroll();">
         <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
-            class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
-            <div ng-if="menu.module==2" class="by_menuHousingBorderTop"></div>
+            class="byTreeMenu-wrapper" ng-if="menu.module == menuConfig.modules['service'].moduleId || menu.module == menuConfig.modules['housing'].moduleId">
+            <div ng-if="menu.module == menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderTop"></div>
             <a ng-if="menu.children.length === 0"
-               ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
+               ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
                style="display: inline-block; width:100%;"
                ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                 {{menu.displayMenuName}}
@@ -26,10 +26,10 @@
                 <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
                     <a class="by_treeSubMenu"
                        ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                       href="{{moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                       href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
                 </li>
             </ul>
-            <div ng-if="menu.module==2" class="by_menuHousingBorderBottom"></div>
+            <div ng-if="menu.module == menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderBottom"></div>
         </li>
     </ul>
 
@@ -59,7 +59,7 @@
         <div class="clearfix"></div>
 
         <div class="col-md-12 by_editorButtonViews"
-             ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module==0">
+             ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
             <a href="#!/housing/overview/list/{{menu.slug}}/{{menu.id}}/all">View previous<br/> question &amp;
                 overviews</a>
         </div>
@@ -74,10 +74,10 @@
             <!--=== Header v7 Left ===-->
             <ul class="nav nav-list">
                 <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
-                    class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
-                    <div ng-if="menu.module==2" class="by_menuHousingBorderTop"></div>
+                    class="byTreeMenu-wrapper" ng-if="menu.module == menuConfig.modules['service'].moduleId || menu.module == menuConfig.modules['housing'].moduleId">
+                    <div ng-if="menu.module == menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderTop"></div>
                     <a ng-if="menu.children.length === 0"
-                       ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
+                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
                        style="display: inline-block; width:100%;"
                        ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                         {{menu.displayMenuName}}
@@ -99,10 +99,10 @@
                             ng-init="expandParent(submenu1.id)">
                             <a class="by_treeSubMenu"
                                ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                               href="{{moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                               href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
                         </li>
                     </ul>
-                    <div ng-if="menu.module==2" class="by_menuHousingBorderBottom"></div>
+                    <div ng-if="menu.module == menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderBottom"></div>
                 </li>
             </ul>
 
@@ -132,7 +132,7 @@
                 <div class="clearfix"></div>
 
                 <div class="col-md-12 by_editorButtonViews"
-                     ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module==0">
+                     ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
                     <a href="#!/housing/overview/list/{{menu.slug}}/{{menu.id}}/all">View previous<br/> question &amp;
                         overviews</a>
                 </div>

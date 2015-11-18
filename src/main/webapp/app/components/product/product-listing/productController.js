@@ -34,12 +34,13 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.isQueryInprogress        = false;
         $scope.isFreeSearch             = false;
         $scope.selectedMenu             = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
+        $scope.menuConfig               = BY.config.menu;
 
         //Functions
         $scope.openProductDescription   = openProductDescription;
         $scope.reloadRoute              = reloadRoute;
         $scope.getProducts              = getProducts;
-        $scope.promise                  = getProducts();
+        $scope.promise                  = initialize();
         $scope.setDepth                 = setDepth;
         $scope.getNumber                = getNumber;
         $scope.getSearchedResult        = getSearchedResult;
@@ -47,6 +48,11 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.trustForcefully          = trustForcefully;
         $scope.fixedMenuInitialized     = fixedMenuInitialized;
 
+        function initialize(){
+            if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId){
+                $scope.promise = getProducts();
+            }
+        }
 
         function getProducts() {
             var category;

@@ -3,21 +3,23 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
     function (byApp, byUtil, userTypeConfig) {
 
         function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, broadCastMenuDetail) {
-            $scope.findViews = {};
-            $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            $scope.telNo = BY.config.constants.byContactNumber;
-            
-            $scope.showSpecialityFilter = false;
-            $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
-            $scope.showFeaturedTag = true;
+            $scope.findViews                = {};
+            $scope.findViews.leftPanel      = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.findViews.contentPanel   = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.telNo                    = BY.config.constants.byContactNumber;
+            $scope.showSpecialityFilter     = false;
+            $scope.selectedMenu             = $rootScope.menuCategoryMap[$routeParams.menuId];
+            $scope.showFeaturedTag          = true;
+            $scope.menuConfig               = BY.config.menu;
+            $rootScope.byTopMenuId          = $rootScope.mainMenu[1].id ;
+            $scope.showFilters              = showFilters;
+            $scope.getData                  = $scope.getData;
 
-            $rootScope.byTopMenuId = $rootScope.mainMenu[1].id ;
+            var city                        = $routeParams.city,
+                tags                        = [],
+                queryParams                 = {p: 0, s: 10};
 
-            var city = $routeParams.city, tags = [], queryParams = {p: 0, s: 10};
-            $scope.showFilters = showFilters;
-            $scope.getData = $scope.getData;
-            var init = initialize();
+            var init                        = initialize();
 
             function showFilters() {
                 if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName !== null && $scope.selectedMenu.children.length > 0) {

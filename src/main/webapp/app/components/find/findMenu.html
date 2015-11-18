@@ -2,10 +2,11 @@
     <!--=== Header v7 Left ===-->
     <ul class="nav nav-list" ng-init="smartScroll();">
         <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
-            class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
-            <div ng-if="menu.module==2" class="by_menuHousingBorderTop"></div>
+            class="byTreeMenu-wrapper"
+            ng-if="menu.module == menuConfig.modules['service'].moduleId || menu.module == menuConfig.modules['housing'].moduleId">
+            <div ng-if="menu.module==menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderTop"></div>
             <a ng-if="menu.children.length === 0"
-               ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
+               ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
                style="display: inline-block; width:100%;"
                ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                 {{menu.displayMenuName}}
@@ -26,41 +27,45 @@
                 <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
                     <a class="by_treeSubMenu"
                        ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                       href="{{moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                       href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
                 </li>
             </ul>
-            <div ng-if="menu.module==2" class="by_menuHousingBorderBottom"></div>
+            <div ng-if="menu.module == menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderBottom"></div>
         </li>
     </ul>
 
     <div class="by_menu_cityFilter">
-        <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft" ng-click="addressCallback({'name':address.city})"></i>        
+        <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft"
+           ng-click="addressCallback({'name':address.city})"></i>
+
         <div class="divRight by_menu_cityFilterRight">
-           <input type="text"  class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
-           placeholder="Type your city name" ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
-       </div>
-       <div class="clearfix"></div>
+            <input type="text" class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched"
+                   id="addressCity"
+                   placeholder="Type your city name" ng-model="address.city" ng-google-location
+                   callback="addressCallback" options="cityOptions">
+        </div>
+        <div class="clearfix"></div>
     </div>
 
-   
-            <!-- ngIf: discuss_counts.z > 0 -->
-           
 
-            <!--<li class="row list-group-item ng-scope" data-index="discussion-articles" style="margin: 0px; margin-top: 10px;" ng-if="showSpecialityFilter">
-              <div class="col-md-12 col-sm-12 searchWrapper-find-in" style="margin: 0px; padding:0px; padding-top: 3px;">
-                    <div class="row no-padding register-page" style="margin: 0px 0px 6px 2px;">
-                        <div class="col-md-10 col-sm-10 no-padding">
-                            <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
-                                   placeholder="Speciality" ng-model="selectedSpeciality" required on-select-callback="specialityCallback"/>
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            <i class="fa fa-search"></i>
-                        </div>
-                    </div>
+    <!-- ngIf: discuss_counts.z > 0 -->
+
+
+    <!--<li class="row list-group-item ng-scope" data-index="discussion-articles" style="margin: 0px; margin-top: 10px;" ng-if="showSpecialityFilter">
+      <div class="col-md-12 col-sm-12 searchWrapper-find-in" style="margin: 0px; padding:0px; padding-top: 3px;">
+            <div class="row no-padding register-page" style="margin: 0px 0px 6px 2px;">
+                <div class="col-md-10 col-sm-10 no-padding">
+                    <input type="text" class="name-textbox textbox " auto-complete options="specialities" name="speciality"
+                           placeholder="Speciality" ng-model="selectedSpeciality" required on-select-callback="specialityCallback"/>
                 </div>
-            </li>-->
-            <!-- end ngIf: discuss_counts.z > 0 -->
-        
+                <div class="col-md-2 col-sm-2">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+        </div>
+    </li>-->
+    <!-- end ngIf: discuss_counts.z > 0 -->
+
 
     <div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
@@ -77,8 +82,11 @@
         </div>
         <div class="clearfix"></div>
 
-        <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module==0">
-            <a href="#!/services/overview/list/{{menu.slug}}/{{menu.id}}/all">View previous<br/> question &amp; overviews</a>
+        <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
+             ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
+            <a href="#!/services/overview/list/{{menu.slug}}/{{menu.id}}/all">
+                View previous<br/> question &amp; overviews
+            </a>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -90,52 +98,56 @@
         <div class="by_subMenuPlus" style="max-width:100%;">
             <!--=== Header v7 Left ===-->
             <ul class="nav nav-list">
-                <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
-                    class="byTreeMenu-wrapper" ng-if="menu.module==1 || menu.module==2">
-                     <div ng-if="menu.module==2" class="by_menuHousingBorderTop"></div>
-                    <a ng-if="menu.children.length === 0"
-                       ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
-                       style="display: inline-block; width:100%;"
-                       ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
-                        {{menu.displayMenuName}}
-                    </a>
+                <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}" class="byTreeMenu-wrapper"
+                    ng-if="menu.module == menuConfig.modules['service'].moduleId || menu.module == menuConfig.modules['housing'].moduleId">
+                    <div ng-if="menu.module == menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderTop"></div>
+                        <a ng-if="menu.children.length === 0"
+                           ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all"
+                           class="by_treeMenuText"
+                           style="display: inline-block; width:100%;"
+                           ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                            {{menu.displayMenuName}}
+                        </a>
 
-                    <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
-                       ng-click="toggleMenu($event)"
-                       style="display: inline-block; width:calc(100% - 40px);"
-                       ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
-                        {{menu.displayMenuName}}
-                    </a>
-                    <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
-                       ng-click="toggleMenu($event)"
-                       style="display: inline-block; width:30px;"></a>
+                        <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
+                           ng-click="toggleMenu($event)"
+                           style="display: inline-block; width:calc(100% - 40px);"
+                           ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                            {{menu.displayMenuName}}
+                        </a>
+                        <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
+                           ng-click="toggleMenu($event)"
+                           style="display: inline-block; width:30px;"></a>
 
-                    <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper"
-                        ng-init="expandParent(menu.id)">
-                        <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}"
-                            ng-init="expandParent(submenu1.id)">
-                            <a class="by_treeSubMenu"
-                               ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                               href="{{moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
-                        </li>
-                    </ul>
-                     <div ng-if="menu.module==2" class="by_menuHousingBorderBottom"></div>
+                        <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper"
+                            ng-init="expandParent(menu.id)">
+                            <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}"
+                                ng-init="expandParent(submenu1.id)">
+                                <a class="by_treeSubMenu"
+                                   ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
+                                   href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                            </li>
+                        </ul>
+                    <div ng-if="menu.module == menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderBottom"></div>
                 </li>
             </ul>
 
             <div class="by_menu_cityFilter">
-                <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft" ng-click="addressCallback({'name':address.city})"></i>        
+                <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft"
+                   ng-click="addressCallback({'name':address.city})"></i>
+
                 <div class="divRight by_menu_cityFilterRight">
-                 <input type="text"  class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
-                 placeholder="Type your city name" ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
-             </div>
-             <div class="clearfix"></div>
-         </div>
+                    <input type="text" class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched"
+                           id="addressCity"
+                           placeholder="Type your city name" ng-model="address.city" ng-google-location
+                           callback="addressCallback" options="cityOptions">
+                </div>
+                <div class="clearfix"></div>
+            </div>
 
             <div class="by_editorButtonWrap">
                 <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
-                     ng-click="add('Question')"
-                     id="discussList" ng-init="initScroll()">
+                     ng-click="add('Question')" ng-init="initScroll()">
                     <i class="sprite sprite-question divLeft"></i>
                     <span class="divLeft by_editorButtonHead">Ask our experts</span>
 
@@ -148,8 +160,10 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module==0">
-                    <a href="#!/services/overview/list/{{menu.slug}}/{{menu.id}}/all">View previous<br/> question &amp; overviews</a>
+                <div class="col-md-12 by_editorButtonViews"
+                     ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
+                    <a href="#!/services/overview/list/{{menu.slug}}/{{menu.id}}/all">View previous<br/> question &amp;
+                        overviews</a>
                 </div>
                 <div class="clearfix"></div>
             </div>

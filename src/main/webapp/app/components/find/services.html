@@ -2,10 +2,13 @@
 <!--  banner -->
 <div class="by_directoryBanner">
     <div class="by_directoryBanner_title">
-        Directory of {{$root.totalServiceCount}} services for seniors across India.  Listing of {{$root.totalHousingCount}} senior living facilities.
+        Directory of {{$root.totalServiceCount}} services for seniors across India. Listing of
+        {{$root.totalHousingCount}} senior living facilities.
     </div>
     <div class="by_directoryBanner_desc">
-        <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span ng-if="$root.windowWidth > 720">{{telNo}}</span>
+        <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span
+            ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span
+            ng-if="$root.windowWidth > 720">{{telNo}}</span>
     </div>
 </div>
 
@@ -13,15 +16,16 @@
 
 <div>
     <div class="leftPanel" ng-include="'app/components/find/findMenu.html'" ng-controller="FindMenuCtrl"></div>
-    <div ng-if="selectedMenu.module===1 || selectedMenu.module===2" class="contentPanel" infinite-scroll="loadMore()"
-        ng-include="findViews.contentPanel"
-        infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"
-        infinite-scroll-distance="0">
+    <div ng-if="selectedMenu.module == menuConfig.modules['service'].moduleId || selectedMenu.module == menuConfig.modules['housing'].moduleId"
+         class="contentPanel" infinite-scroll="loadMore()"
+         ng-include="findViews.contentPanel"
+         infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"
+         infinite-scroll-distance="0">
     </div>
 
-    <div ng-if="selectedMenu.module===0" class="contentPanel article-outer-wrapper"
+    <div ng-if="selectedMenu.module === menuConfig.modules['discuss'].moduleId"
+         class="contentPanel article-outer-wrapper"
          ng-controller="ServiceOverviewCtrl"
          ng-include="'app/components/find/serviceOverviewPanel.html'">
     </div>
-</div>
 </div>

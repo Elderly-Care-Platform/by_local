@@ -6,15 +6,24 @@
             Products for seniors
         </div>
         <div class="by_productBanner_desc">
-            <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span ng-if="$root.windowWidth > 720">{{telNo}}</span>
+            <img src="assets/img/product/phone.png?versionTimeStamp=%PROJECT_VERSION%"/> Need Help? Call <span
+                ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span
+                ng-if="$root.windowWidth > 720">{{telNo}}</span>
         </div>
     </div>
-	
-	<!--=== Content Part ===-->
-    <div  ng-init="fixedMenuInitialized()">
-        <div class="leftPanel" ng-include="'app/components/product/product-menu/productMenu.html'" ng-controller="ProductMenuCtrl"></div>
-            <div class="contentPanel"
-                 ng-include="'app/components/product/product-listing/product-content-panel.html'"
-                 infinite-scroll="loadMoreRecords()" infinite-scroll-distance="0" infinite-scroll-disabled="lastPage || isQueryInprogress"></div>
+
+    <!--=== Content Part ===-->
+    <div>
+        <div class="leftPanel" ng-include="'app/components/product/product-menu/productMenu.html'"
+             ng-controller="ProductMenuCtrl"></div>
+        <div class="contentPanel" ng-if="selectedMenu.module == menuConfig.modules['product'].moduleId"
+             ng-include="'app/components/product/product-listing/product-content-panel.html'"
+             infinite-scroll="loadMoreRecords()" infinite-scroll-distance="0"
+             infinite-scroll-disabled="lastPage || isQueryInprogress"></div>
+
+        <div ng-if="selectedMenu.module ===  menuConfig.modules['discuss'].moduleId" class="contentPanel article-outer-wrapper"
+             ng-controller="ProductReviewsCtrl"
+             ng-include="'app/components/product/product-reviews/productReviewsPanel.html'">
+        </div>
     </div>
 </div>

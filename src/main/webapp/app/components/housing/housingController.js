@@ -1,20 +1,20 @@
 define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
     function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing){
-        $scope.housingViews = {};
-        $scope.housingViews.leftPanel = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        $scope.housingViews.contentPanel = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.housingViews                 = {};
+        $scope.housingViews.leftPanel       = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.housingViews.contentPanel    = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
-        $rootScope.byTopMenuId = $rootScope.mainMenu[1].id ;
-        $scope.telNo = BY.config.constants.byContactNumber;
-        $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
-        $scope.showFeaturedTag = true;
+        $rootScope.byTopMenuId              = $rootScope.mainMenu[1].id ;
+        $scope.telNo                        = BY.config.constants.byContactNumber;
+        $scope.selectedMenu                 = $rootScope.menuCategoryMap[$routeParams.menuId];
+        $scope.showFeaturedTag              = true;
+        $scope.menuConfig                   = BY.config.menu;
+        $scope.getData                      = $scope.getData;
 
-        var city = $routeParams.city;
-        var tags = [];
-        var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
-
-        $scope.getData = $scope.getData;
-        var init = initialize();
+        var city                            = $routeParams.city;
+        var tags                            = [];
+        var queryParams                     = {p:0,s:10,sort:"lastModifiedAt"};
+        var init                            = initialize();
 
         function getData() {
             $("#preloader").show();

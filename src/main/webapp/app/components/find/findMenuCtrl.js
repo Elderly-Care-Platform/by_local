@@ -6,7 +6,7 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
         $scope.selectedMenuId = $routeParams.menuId;
         var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
         $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
-        $scope.moduleConfig = BY.config.menu.moduleConfig;
+        $scope.menuConfig   = BY.config.menu;
 
         $scope.expandParent = function (menuId) {
             if (menuId && menuId.toString() == $scope.selectedMenuId) {

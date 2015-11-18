@@ -16,12 +16,13 @@
 <!--=== Content Part ===-->
 <div>
     <div class="leftPanel" ng-include="'app/components/housing/housingMenu.html'" ng-controller="HousingMenuCtrl"></div>
-    <div ng-if="selectedMenu.module===1 || selectedMenu.module===2" class="contentPanel" infinite-scroll="loadMore()"
+    <div ng-if="selectedMenu.module == menuConfig.modules['service'].moduleId || selectedMenu.module == menuConfig.modules['housing'].moduleId"
+         class="contentPanel" infinite-scroll="loadMore()"
          ng-include="housingViews.contentPanel"
          infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"
          infinite-scroll-distance="0"></div>
 
-    <div ng-if="selectedMenu.module===0" class="contentPanel article-outer-wrapper"
+    <div ng-if="selectedMenu.module === menuConfig.modules['discuss'].moduleId" class="contentPanel article-outer-wrapper"
          ng-controller="HousingReviewsCtrl"
          ng-include="'app/components/housing/housingReviewsPanel.html'">
     </div>

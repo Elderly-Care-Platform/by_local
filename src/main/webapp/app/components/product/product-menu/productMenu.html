@@ -1,7 +1,8 @@
 <!--Desktop Menu-->
 <div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParent()">
     <ul class="nav nav-list" ng-init="smartScroll();">
-        <li ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}" class="byTreeMenu-wrapper">
+        <li ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}" class="byTreeMenu-wrapper"
+            ng-if="menu.module == menuModules['product'].moduleId">
             <a ng-if="menu.children.length === 0" class="by_treeMenuText"
                ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all?q={{menu.id}}"
                style="display: inline-block; width:100%;"
@@ -44,8 +45,11 @@
         </div>
         <div class="clearfix"></div>
 
-        <div class="col-md-12 by_editorButtonViews">
-            <a href="">View previous<br/> question &amp; overviews</a>
+        <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
+             ng-if="menu.module == menuModules['discuss'].moduleId">
+            <a href="#!/products/overview/list/{{menu.slug}}/{{menu.id}}/all">
+                View previous<br/> question &amp; overviews
+            </a>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -58,7 +62,7 @@
         <div class="by_subMenuPlus" style="max-width:100%;">
             <ul class="nav nav-list">
                 <li ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}"
-                    class="byTreeMenu-wrapper">
+                    class="byTreeMenu-wrapper" ng-if="menu.module == menuModules['product'].moduleId">
                     <a ng-if="menu.children.length === 0"
                        ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
                        style="display: inline-block; width:100%;"
@@ -101,8 +105,11 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="col-md-12 by_editorButtonViews">
-                    <a href="">View previous<br/> question &amp; overviews</a>
+                <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
+                     ng-if="menu.module == menuModules['discuss'].moduleId">
+                    <a href="#!/products/overview/list/{{menu.slug}}/{{menu.id}}/all">
+                        View previous<br/> question &amp; overviews
+                    </a>
                 </div>
                 <div class="clearfix"></div>
             </div>

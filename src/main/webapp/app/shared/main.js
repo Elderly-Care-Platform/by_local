@@ -108,8 +108,8 @@ require.config({
 		housingMenuCtrl : '../components/housing/housingMenuCtrl',
 
 		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl',
-		housingReviewsCtrl: '../components/housing/housingReviewsCtrl'
-
+		housingReviewsCtrl: '../components/housing/housingReviewsCtrl',
+		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl'
 	},
 
 	shim : {

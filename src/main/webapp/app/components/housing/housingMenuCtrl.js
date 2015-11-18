@@ -81,7 +81,7 @@ define(['byApp','housingReviewsCtrl'], function (byApp, housingReviewsCtrl) {
 
         $scope.showEditor = function(){
             $location.search('showEditor', 'true');
-            $location.search('noTagHierarchy', 'false');
+            $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
             BY.byEditor.removeEditor();
             var menuId = $scope.menuConfig.reveiwsMenuConfig['housing_review'].id;
             $location.path("/housing/overview/list/housing_review/"+menuId+"/all");

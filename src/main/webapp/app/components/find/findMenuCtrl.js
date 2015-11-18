@@ -77,8 +77,9 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
         };
 
         $scope.showEditor = function(){
+            var serviceReviewTag = $rootScope.menuCategoryMap[$scope.menuConfig.reveiwsMenuConfig['service_review'].id].tags[0];
             $location.search('showEditor', 'true');
-            $location.search('noTagHierarchy', 'false');
+            $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
             BY.byEditor.removeEditor();
             var menuId = $scope.menuConfig.reveiwsMenuConfig['service_review'].id;
             $location.path("/services/overview/list/service_review/"+menuId+"/all");

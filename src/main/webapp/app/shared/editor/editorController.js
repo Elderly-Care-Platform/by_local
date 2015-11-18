@@ -13,7 +13,7 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         $scope.linkImagesIdx = 0;
 
         $scope.selectedMenuId = $routeParams.menuId;
-        $scope.noTagHierarchy = $routeParams.noTagHierarchy ? true : false;
+        $scope.postCategoryTag = $routeParams.postCategoryTag ? JSON.parse($routeParams.postCategoryTag) : null;
         $scope.selectedMenu   =   $rootScope.menuCategoryMap[$scope.selectedMenuId];
         
 
@@ -96,8 +96,8 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                 }
             }
 
-            if($scope.noTagHierarchy){
-                $scope.discuss.systemTags = $scope.selectedMenu.tags;
+            if($scope.postCategoryTag){
+                $scope.discuss.systemTags = [$scope.postCategoryTag];
             }else{
                 $scope.discuss.systemTags = getSystemTagList($scope.selectedMenuList);
             }

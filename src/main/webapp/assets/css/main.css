@@ -266,7 +266,7 @@ body a:hover
     margin-right: 10%;
     height: auto;
     margin-top: 20px;
-    min-height: 100vh;
+   /* min-height: 100vh;*/
 }
 @media ( max-width : 1200px){
     .contentPanel

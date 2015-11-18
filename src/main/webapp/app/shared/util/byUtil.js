@@ -76,6 +76,11 @@ $(document).ready(function() {
 		
 	});
 	
+	var clientHeight = $( window ).height();
+	$(".by_subMenuPlus").css('min-height', (clientHeight - 57)+"px");
+	$("ng-view").css('min-height', clientHeight+"px");
+	$(".contentPanel").css('min-height', clientHeight+"px");
+	
 	
 });
 

@@ -403,9 +403,13 @@ define(['byProductApp'], function (byProductApp) {
             CartService.getCartDetail(params)
                 .then(cartAvailabilitySuccess, cartAvailabilityFailure);
         });
-        $scope.showCart = function(){
-        	$(".badge-open").toogle(200);
+        $scope.showCart = function(e){
+        	e.stopPropagation();
+        	$(".badge-open").slideDown();
         };
+        $scope.hideCart = function(){
+        	$(".badge-open").slideUp();
+        }
 
 
     }

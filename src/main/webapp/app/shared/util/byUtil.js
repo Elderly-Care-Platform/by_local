@@ -76,10 +76,7 @@ $(document).ready(function() {
 		
 	});
 	
-	var clientHeight = $( window ).height();
-	$(".by_subMenuPlus").css('min-height', (clientHeight - 57)+"px");
-	$("ng-view").css('min-height', clientHeight+"px");
-	$(".contentPanel").css('min-height', clientHeight+"px");
+
 	
 	
 });
@@ -151,6 +148,7 @@ BY.byUtil.validateUserName = function(userName){
 	if(!userName || userName.trim()==="" ||  userName==="null"){
 		userName = "Anonymous";
 	}
+	
 	return userName;
 }
 

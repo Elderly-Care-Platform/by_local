@@ -24,6 +24,8 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
         };
 
         $scope.smartScroll = function () {
+            var clientHeight = $( window ).height();
+            $(".by_subMenuPlus").css('min-height', (clientHeight - 57)+"px");
             angular.element($window).bind("scroll", function () {
                 var winTop = $(this).scrollTop(),
                     winBottom = winTop + $(this).height(),

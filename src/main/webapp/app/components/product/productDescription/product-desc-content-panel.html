@@ -194,7 +194,7 @@
                 <input type="number" min="1" class="by_productDetail_contentQuantityFeild" name="qty" id="qty"
                        value="{{userRequiredQuantity}}" ng-model="userRequiredQuantity" required
                        ng-disabled="addToCartDisable || quantityAvailable === 0">
-                <button class="by_productDetail_contentQuantityButton" type="button" name="add"
+                <button class="by_productDetail_contentQuantityButton" style="float:right !important;" type="button" name="add"
                         ng-click="updateRequiredQuantity(userRequiredQuantity + 1)"
                         ng-disabled="addToCartDisable || quantityAvailable === 0">
                     +
@@ -252,11 +252,11 @@
 </div>
 <div class="by_productDetail_contentBg">
     <div ng-if="uiData.longDescription">
-        <div class="by_productDetail_contentDescHead">Description</div>
+        <div class="by_productDetail_contentDescHead">Usage</div>
         <div class="by_productDetail_contentDescText" ng-bind-html="uiData.longDescription"></div>
     </div>
     <div ng-if="uiData.productDetails">
-        <div class="by_productDetail_contentDescHead">Specifications of sample</div>
+        <div class="by_productDetail_contentDescHead">Specifications</div>
         <div class="by_productDetail_contentDescText" ng-bind-html="uiData.productDetails"></div>
     </div>
     <div ng-if="uiData.productDescription">

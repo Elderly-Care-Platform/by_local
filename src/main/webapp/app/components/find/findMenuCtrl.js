@@ -76,7 +76,7 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
             }
         };
 
-        $scope.showEditor = function(){
+        $scope.showEditorPage = function(){
             var serviceReviewTag = $rootScope.menuCategoryMap[$scope.menuConfig.reveiwsMenuConfig['service_review'].id].tags[0];
             $location.search('showEditor', 'true');
             $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));

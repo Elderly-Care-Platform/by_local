@@ -35,6 +35,18 @@ define([], function () {
                 }
             })
 
+            .when('/discuss/list/:slug/:menuId/:discussType', {
+                templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/discuss/discussMenuCtrl.js', 'editorController'], function (discussMenuCtrl, editorController) {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
             .when('/users/login', {
                 templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'RegistrationController',

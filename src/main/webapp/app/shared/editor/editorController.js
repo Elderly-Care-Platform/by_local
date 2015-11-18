@@ -151,7 +151,9 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             $scope.errorMsg = "";
             $scope.discuss.$save(function (discuss, headers) {
                 $scope.editor.subject = "";
-                $location.search('showEditor', 'false');
+                $location.search('showEditor', null);
+                $location.search('showEditorType', null);
+                $location.search('postCategoryTag', null);
                 $route.reload();
                 //if(discuss && discuss.data && discuss.data.discussType!="F"){
                 //    //$location.path('/discuss/'+discuss.data.id);
@@ -226,7 +228,9 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
 
         $scope.exitEditor = function(){
             $scope.editor.subject = "";
-            $location.search('showEditor', 'false');
+            $location.search('showEditor', null);
+            $location.search('showEditorType', null);
+            $location.search('postCategoryTag', null);
             $route.reload();
         }
     }

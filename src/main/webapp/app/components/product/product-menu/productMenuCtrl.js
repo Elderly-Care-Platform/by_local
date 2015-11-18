@@ -81,7 +81,7 @@ define(['byApp', 'productReviewsCtrl'], function (byApp, productReviewsCtrl) {
 
         };
 
-        $scope.showEditor = function(){
+        $scope.showEditorPage = function(){
             $location.search('showEditor', 'true');
             BY.byEditor.removeEditor();
             var menuId = $scope.menuConfig.reveiwsMenuConfig['product_review'].id;

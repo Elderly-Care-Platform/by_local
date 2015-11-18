@@ -8,17 +8,29 @@ define(['byApp',
     function DiscussAllController($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
                                   DiscussCount,$sce, $timeout, $window, broadCastMenuDetail) {
 
-        $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.discussionViews              = {};
+        $scope.discussionViews.leftPanel    = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
-        $rootScope.byTopMenuId = $rootScope.mainMenu[0].id ;
-        $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
-        $scope.selectedMenu = $scope.$parent.menuLevel2;
+        $rootScope.byTopMenuId              = $rootScope.mainMenu[0].id ;
+        $scope.discussType                  = $routeParams.discussType; //Needed for left side Q/A/P filters
+        $scope.showEditor                   = $routeParams.showEditor==='true' ? true : false;
+        $scope.showEditorType               = $routeParams.showEditorType ? $routeParams.showEditorType : null;
+        $scope.selectedMenu                 = $scope.$parent.menuLevel2;
+        $scope.pageSize                     = 20;
+        $scope.isGridInitialized            = false;
+        $scope.initDiscussListing           = initDiscussListing;
 
-        $scope.pageSize = 20;
+        var tags                            = [];
+        var queryParams                     = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
+        var init                            = initialize();
 
-        $scope.isGridInitialized = false;
+
+        function initialize(){
+            if(!$scope.showEditor){
+                initDiscussListing();
+            }
+        }
 
         $scope.initScroll= function(){
             if($scope.$parent.isLeafMenuSelected){
@@ -32,11 +44,7 @@ define(['byApp',
             }
         }
 
-        var tags = [];
-        var queryParams = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
-
         $scope.initGrid = function (index) {
-            console.log(index);
             if ($rootScope.windowWidth > 800) {
                 var gridMasonary = $(".masonry");
                 window.setTimeout(function(){
@@ -59,10 +67,8 @@ define(['byApp',
             //masonaryGridInit();
         };
 
-        $scope.initDiscussListing = function () {
+        function initDiscussListing() {
             if ($scope.selectedMenu) {
-                //console.log($scope.selectedMenu.displayMenuName);
-
                 //Set page title and FB og tags
                 (function () {
                     var metaTagParams = {
@@ -132,16 +138,22 @@ define(['byApp',
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         };
 
-        
-        $scope.add = function (type) {
-            require(['editorController'], function(editorController){
-                BY.byEditor.removeEditor();
-                $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                window.scrollTo(0, 0);
-                $scope.$apply();
-            });
+        $scope.showEditorPage = function(type){
+            $location.search('showEditor', 'true');
+            $location.search('showEditorType', type);
+            BY.byEditor.removeEditor();
+            $location.path("/discuss/list/service_review/"+$scope.selectedMenu.id+"/all");
+        }
 
-        };
+        //$scope.add = function (type) {
+        //    require(['editorController'], function(editorController){
+        //        BY.byEditor.removeEditor();
+        //        $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        //        window.scrollTo(0, 0);
+        //        $scope.$apply();
+        //    });
+        //
+        //};
 
         $scope.postSuccess = function () {
             $route.reload();

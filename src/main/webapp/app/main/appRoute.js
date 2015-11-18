@@ -221,7 +221,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js'],
+                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js', 'editorController'],
                             function (servicesController, findMenuCtrl) {
                                 defered.resolve();
                             });
@@ -291,7 +291,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/housing/housingController.js', 'housingMenuCtrl'], function () {
+                        require(['app/components/housing/housingController.js', 'housingMenuCtrl', 'editorController'], function () {
                             defered.resolve();
                         });
                         return defered.promise;

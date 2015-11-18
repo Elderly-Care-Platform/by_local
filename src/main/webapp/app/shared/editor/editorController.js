@@ -1,30 +1,33 @@
 define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
-    function EditorController($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail, $location){
+    function EditorController($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail, $location, $route, $routeParams){
         $scope.editor = {};
         $scope.errorMsg = "";
         $scope.editor.subject = "";
         $scope.editor.articlePhotoFilename = "";
         $scope.showCategory = false;
-        $scope.selectedMenuId = "";
         $scope.selectedMenuList = {};
         $scope.showLinkView = false;
         $scope.sharedLinkUrl = "";
         $scope.selectedMenuCount = 0;
         $scope.linkImages = [];
         $scope.linkImagesIdx = 0;
+
+        $scope.selectedMenuId = $routeParams.menuId;
+        $scope.noTagHierarchy = $routeParams.noTagHierarchy ? true : false;
+        $scope.selectedMenu   =   $rootScope.menuCategoryMap[$scope.selectedMenuId];
         
 
-        broadCastMenuDetail.setMenuId(0);
-        $scope.showCategoryList = function(){
-            $scope.showCategory = ($scope.showCategory === false) ? true : false;
-        }
-        $(".by_section_header").hide();
-        $(".homeSlider").hide();     
-        $(".by_left_panel_fixed").css('margin-top', 'auto');
-        $(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - 10);
+        //broadCastMenuDetail.setMenuId(0);
+        //$scope.showCategoryList = function(){
+        //    $scope.showCategory = ($scope.showCategory === false) ? true : false;
+        //}
+        //$(".by_section_header").hide();
+        //$(".homeSlider").hide();
+        //$(".by_left_panel_fixed").css('margin-top', 'auto');
+        //$(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - 10);
 
-        $rootScope.scrollableLeftPanel = false;
-        $rootScope.setLeftScroll();
+        //$rootScope.scrollableLeftPanel = false;
+        //$rootScope.setLeftScroll();
 
         //angular.element($window).bind("scroll", function() {
         //$(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
@@ -32,28 +35,30 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         //});
 
 
-        if($scope.$parent.selectedMenu){
-            $scope.selectedMenuId = $scope.$parent.selectedMenu.id;
+        if(!$scope.selectedMenu && $scope.$parent.selectedMenu){
+            $scope.selectedMenu = $scope.$parent.selectedMenu;
+        }
+
+        if($scope.selectedMenu){
+            $scope.selectedMenuId = $scope.selectedMenu.id;
             $scope.selectedMenuList[$scope.selectedMenuId] = $scope.$parent.selectedMenu;
             $scope.selectedMenuCount++;
-        }else{
-            $scope.showCategory = true;
         }
 
-        $scope.selectTag = function(event, category){
-            if(event.target.checked){
-                $scope.selectedMenuList[category.id] = category;
-                //Add only Leaf category and not any parent category
-                if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
-                    delete $scope.selectedMenuList[category.parentMenuId];
-                }
-                $scope.selectedMenuCount++;
-            }else{
-                $scope.selectedMenuCount--;
-                delete $scope.selectedMenuList[category.id];
-            }
-
-        }
+        //$scope.selectTag = function(event, category){
+        //    if(event.target.checked){
+        //        $scope.selectedMenuList[category.id] = category;
+        //        //Add only Leaf category and not any parent category
+        //        if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
+        //            delete $scope.selectedMenuList[category.parentMenuId];
+        //        }
+        //        $scope.selectedMenuCount++;
+        //    }else{
+        //        $scope.selectedMenuCount--;
+        //        delete $scope.selectedMenuList[category.id];
+        //    }
+        //
+        //}
 
         var systemTagList = {};
         var getSystemTagList = function(data){
@@ -91,7 +96,11 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                 }
             }
 
-            $scope.discuss.systemTags = getSystemTagList($scope.selectedMenuList);
+            if($scope.noTagHierarchy){
+                $scope.discuss.systemTags = $scope.selectedMenu.tags;
+            }else{
+                $scope.discuss.systemTags = getSystemTagList($scope.selectedMenuList);
+            }
 
             $scope.discuss.topicId = $.map($scope.selectedMenuList, function(value, key){
                 return value.id;
@@ -140,12 +149,14 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             $scope.errorMsg = "";
             $scope.discuss.$save(function (discuss, headers) {
                 $scope.editor.subject = "";
-                if(discuss && discuss.data && discuss.data.discussType!="F"){
-                    //$location.path('/discuss/'+discuss.data.id);
-                    $scope.$parent.postSuccess();
-                }else{
-                    $scope.$parent.postSuccess();
-                }
+                $location.search('showEditor', 'false');
+                $route.reload();
+                //if(discuss && discuss.data && discuss.data.discussType!="F"){
+                //    //$location.path('/discuss/'+discuss.data.id);
+                //    $scope.$parent.postSuccess();
+                //} else{
+                //    $scope.$parent.postSuccess();
+                //}
             },
             function (errorResponse) {
                 console.log(errorResponse);
@@ -212,11 +223,12 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         }
 
         $scope.exitEditor = function(){
-            $(".homeSlider").show();
-            $scope.$parent.postSuccess();
+            $scope.editor.subject = "";
+            $location.search('showEditor', 'false');
+            $route.reload();
         }
     }
-    EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location'];
+    EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location', '$route', '$routeParams'];
     byApp.registerController('EditorController', EditorController);
 
     return EditorController;

@@ -7,6 +7,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
         $rootScope.byTopMenuId              = $rootScope.mainMenu[1].id ;
         $scope.telNo                        = BY.config.constants.byContactNumber;
         $scope.selectedMenu                 = $rootScope.menuCategoryMap[$routeParams.menuId];
+        $scope.showEditor                   = $routeParams.showEditor==='true' ? true : false;
         $scope.showFeaturedTag              = true;
         $scope.menuConfig                   = BY.config.menu;
         $scope.getData                      = $scope.getData;
@@ -53,7 +54,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                 queryParams.city = city;
             }
 
-            if($scope.selectedMenu.module===BY.config.menu.modules['housing'].moduleId){
+            if(!$scope.showEditor && $scope.selectedMenu.module===BY.config.menu.modules['housing'].moduleId){
                 getData(queryParams);
             }
         }

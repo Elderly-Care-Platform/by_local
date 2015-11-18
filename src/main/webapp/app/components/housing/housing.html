@@ -15,16 +15,26 @@
 
 <!--=== Content Part ===-->
 <div>
+    <!--Housing Menu-->
     <div class="leftPanel" ng-include="'app/components/housing/housingMenu.html'" ng-controller="HousingMenuCtrl"></div>
-    <div ng-if="selectedMenu.module == menuConfig.modules['service'].moduleId || selectedMenu.module == menuConfig.modules['housing'].moduleId"
+
+
+    <!--Housing Content-->
+    <div ng-if="!showEditor && selectedMenu.module == menuConfig.modules['service'].moduleId || selectedMenu.module == menuConfig.modules['housing'].moduleId"
          class="contentPanel" infinite-scroll="loadMore()"
          ng-include="housingViews.contentPanel"
          infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"
          infinite-scroll-distance="0"></div>
 
-    <div ng-if="selectedMenu.module === menuConfig.modules['discuss'].moduleId" class="contentPanel article-outer-wrapper"
+    <!--Housing reviews-->
+    <div ng-if="!showEditor && selectedMenu.module === menuConfig.modules['discuss'].moduleId" class="contentPanel article-outer-wrapper"
          ng-controller="HousingReviewsCtrl"
          ng-include="'app/components/housing/housingReviewsPanel.html'">
+    </div>
+
+    <!--Housing Review Editor-->
+    <div class="contentPanel" ng-if="showEditor" >
+        <div ng-include="'app/shared/editor/QuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
     </div>
 </div>
 

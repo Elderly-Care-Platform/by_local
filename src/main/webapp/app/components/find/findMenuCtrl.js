@@ -2,11 +2,10 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
     'use strict';
 
     function FindMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
-
-        $scope.selectedMenuId = $routeParams.menuId;
-        var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
-        $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
-        $scope.menuConfig   = BY.config.menu;
+        $scope.selectedMenuId       = $routeParams.menuId;
+        var selectedNode            = $rootScope.menuCategoryMap[$scope.selectedMenuId];
+        $scope.selectedParent       = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
+        $scope.menuConfig           = BY.config.menu;
 
         $scope.expandParent = function (menuId) {
             if (menuId && menuId.toString() == $scope.selectedMenuId) {
@@ -76,6 +75,14 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
                 });
             }
         };
+
+        $scope.showEditor = function(){
+            $location.search('showEditor', 'true');
+            $location.search('noTagHierarchy', 'false');
+            BY.byEditor.removeEditor();
+            var menuId = $scope.menuConfig.reveiwsMenuConfig['service_review'].id;
+            $location.path("/services/overview/list/service_review/"+menuId+"/all");
+        }
 
     }
 

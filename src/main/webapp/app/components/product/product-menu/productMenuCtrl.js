@@ -2,11 +2,10 @@ define(['byApp', 'productReviewsCtrl'], function (byApp, productReviewsCtrl) {
     'use strict';
 
     function ProductMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
-        $scope.selectedMenuId = $routeParams.menuId;
-        var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
-        $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
-        $scope.moduleConfig = BY.config.menu.moduleConfig;
-        $scope.menuModules = BY.config.menu.modules;
+        $scope.selectedMenuId       = $routeParams.menuId;
+        var selectedNode            = $rootScope.menuCategoryMap[$scope.selectedMenuId];
+        $scope.selectedParent       = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
+        $scope.menuConfig          = BY.config.menu;
 
         $scope.expandParent = function (menuId) {
             if (menuId && menuId.toString() == $scope.selectedMenuId) {
@@ -82,7 +81,12 @@ define(['byApp', 'productReviewsCtrl'], function (byApp, productReviewsCtrl) {
 
         };
 
-
+        $scope.showEditor = function(){
+            $location.search('showEditor', 'true');
+            BY.byEditor.removeEditor();
+            var menuId = $scope.menuConfig.reveiwsMenuConfig['product_review'].id;
+            $location.path("/products/overview/list/product_review/"+menuId+"/all");
+        }
     }
 
 

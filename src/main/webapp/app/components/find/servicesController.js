@@ -9,6 +9,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             $scope.telNo                    = BY.config.constants.byContactNumber;
             $scope.showSpecialityFilter     = false;
             $scope.selectedMenu             = $rootScope.menuCategoryMap[$routeParams.menuId];
+            $scope.showEditor               = $routeParams.showEditor==='true' ? true : false;
             $scope.showFeaturedTag          = true;
             $scope.menuConfig               = BY.config.menu;
             $rootScope.byTopMenuId          = $rootScope.mainMenu[1].id ;
@@ -59,7 +60,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                     queryParams.city = city;
                 }
 
-                if($scope.selectedMenu.module===BY.config.menu.modules['service'].moduleId){
+                if(!$scope.showEditor && $scope.selectedMenu.module===BY.config.menu.modules['service'].moduleId){
                     showFilters();
                     getData(queryParams);
                 }

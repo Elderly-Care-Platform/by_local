@@ -21,7 +21,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['productController', 'productMenuCtrl'], function (productController, productMenuCtrl) {
+                        require(['productController', 'productMenuCtrl', 'editorController'], function (productController, productMenuCtrl, editorController) {
                             defered.resolve();
                         });
                         return defered.promise;

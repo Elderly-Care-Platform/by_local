@@ -14,16 +14,25 @@
 
     <!--=== Content Part ===-->
     <div>
+        <!--Product Menu-->
         <div class="leftPanel" ng-include="'app/components/product/product-menu/productMenu.html'"
              ng-controller="ProductMenuCtrl"></div>
-        <div class="contentPanel" ng-if="selectedMenu.module == menuConfig.modules['product'].moduleId"
+
+        <!--Product Content-->
+        <div class="contentPanel" ng-if="!showEditor && selectedMenu.module == menuConfig.modules['product'].moduleId"
              ng-include="'app/components/product/product-listing/product-content-panel.html'"
              infinite-scroll="loadMoreRecords()" infinite-scroll-distance="0"
              infinite-scroll-disabled="lastPage || isQueryInprogress"></div>
 
-        <div ng-if="selectedMenu.module ===  menuConfig.modules['discuss'].moduleId" class="contentPanel article-outer-wrapper"
+        <!--Product reviews-->
+        <div ng-if="!showEditor && selectedMenu.module ===  menuConfig.modules['discuss'].moduleId" class="contentPanel article-outer-wrapper"
              ng-controller="ProductReviewsCtrl"
              ng-include="'app/components/product/product-reviews/productReviewsPanel.html'">
         </div>
+        <!--Product Review Editor-->
+        <div class="contentPanel" ng-if="showEditor" >
+            <div ng-include="'app/shared/editor/QuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
+        </div>
+
     </div>
 </div>

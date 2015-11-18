@@ -34,6 +34,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.isQueryInprogress        = false;
         $scope.isFreeSearch             = false;
         $scope.selectedMenu             = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
+        $scope.showEditor               = $routeParams.showEditor==='true' ? true : false;
         $scope.menuConfig               = BY.config.menu;
 
         //Functions
@@ -49,7 +50,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.fixedMenuInitialized     = fixedMenuInitialized;
 
         function initialize(){
-            if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId){
+            if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor){
                 $scope.promise = getProducts();
             }
         }

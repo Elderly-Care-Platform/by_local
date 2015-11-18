@@ -59,6 +59,7 @@
         </div>
 
         <div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper" ng-if="showEditor" >
+            <div id="discussListContainer"></div>
             <div ng-if="showEditorType==='Question'" ng-include="'app/shared/editor/QuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
             <div ng-if="showEditorType==='Article'" ng-include="'app/shared/editor/ArticleEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
         </div>

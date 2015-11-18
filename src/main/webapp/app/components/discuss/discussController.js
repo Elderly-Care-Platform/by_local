@@ -35,7 +35,15 @@ define(['byApp',
         }
 
         function initScroll(){
-            if($scope.$parent.isLeafMenuSelected || $scope.showEditor){
+            if($scope.showEditor){
+                $timeout(
+                    function () {
+                        var tag = $("#discussListContainer");
+                        if (tag.length > 0) {
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, '2000');
+                        }
+                    }, 100);
+            }else if($scope.discussList && $scope.discussList.length > 0 && $scope.$parent.isLeafMenuSelected ){
                 $timeout(
                     function () {
                         var tag = $("#discussListContainer");
@@ -63,7 +71,7 @@ define(['byApp',
             }
             else if ($rootScope.windowWidth < 800) {
                 $(".grid-boxes-in").removeClass('grid-boxes-in');
-                $("#preloader").hide();
+                //$("#preloader").hide();
             }
             window.scrollTo(0, 0);
             //masonaryGridInit();
@@ -123,6 +131,7 @@ define(['byApp',
                                 $("#preloader").hide();
                             }*/
                             $("#preloader").hide();
+                            initScroll();
                         },
                         function (error) {
                             console.log("DiscussAllForDiscussType");

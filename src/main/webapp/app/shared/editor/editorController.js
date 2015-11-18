@@ -40,6 +40,8 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         }
 
         if($scope.selectedMenu){
+            var tag = $("#discussListContainer");
+            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, '2000');
             $scope.selectedMenuId = $scope.selectedMenu.id;
             $scope.selectedMenuList[$scope.selectedMenuId] = $scope.$parent.selectedMenu;
             $scope.selectedMenuCount++;

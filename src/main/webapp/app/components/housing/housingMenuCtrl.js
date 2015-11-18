@@ -80,6 +80,7 @@ define(['byApp','housingReviewsCtrl'], function (byApp, housingReviewsCtrl) {
         };
 
         $scope.showEditor = function(){
+            var serviceReviewTag = $rootScope.menuCategoryMap[$scope.menuConfig.reveiwsMenuConfig['housing_review'].id].tags[1];
             $location.search('showEditor', 'true');
             $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
             BY.byEditor.removeEditor();

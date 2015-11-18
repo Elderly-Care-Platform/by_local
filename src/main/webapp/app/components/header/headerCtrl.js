@@ -155,7 +155,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         };
 
         $scope.homeSection = BY.config.menu.home;        
-        $scope.menuUrl= BY.config.menu.menuUrl;
+        $scope.moduleConfig= BY.config.menu.moduleConfig;
     }
 
     BYHeaderCtrl.$inject = ['$rootScope', '$scope', '$window', '$http', 'SessionIdService'];

@@ -12,7 +12,7 @@ define(['byApp', 'byUtil', 'homePromoController',
 
             $scope.homeSectionConfig = BY.config.menu.home;
             $scope.homeimageConfig = BY.config.menu.homeIcon;
-            $scope.menuUrlConfig = BY.config.menu.menuUrl;
+            $scope.moduleConfig = BY.config.menu.moduleConfig;
             $scope.menuMapConfig = $rootScope.menuCategoryMap;
 
             $scope.telNo = BY.config.constants.byContactNumber;

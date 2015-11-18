@@ -5,7 +5,7 @@ define(['byApp'], function (byApp) {
         $scope.selectedMenuId = $routeParams.menuId;
         var selectedNode = $rootScope.menuCategoryMap[$scope.selectedMenuId];
                 $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length -1]];
-        $scope.menuUrl= BY.config.menu.menuUrl;
+        $scope.moduleConfig= BY.config.menu.moduleConfig;
 
         $scope.expandParent = function(menuId){
             if(menuId && menuId.toString()==$scope.selectedMenuId){

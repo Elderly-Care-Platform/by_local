@@ -13,7 +13,7 @@
                 <div ng-if="subMenu.children.length > 0" class="by_subMenu_contentItem" id="{{leafMenu.id}}"
                      ng-repeat="leafMenu in subMenu.children"
                      ng-class="{'by_subMenu_contentItem_active': leafMenu.id == menuLevel2.id}">
-                    <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
+                    <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
                         <img ng-src="{{communityIcon[leafMenu.id].image}}">
                         <br/>
                         {{leafMenu.displayMenuName}}
@@ -22,7 +22,7 @@
 
                 <div ng-if="subMenu.children.length === 0" class="by_subMenu_contentItem" id="{{subMenu.id}}"
                      ng-class="{'by_subMenu_contentItem_active': subMenu.id == menuLevel2.id}">
-                    <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
+                    <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
                         <img ng-src="{{communityIcon[subMenu.id].image}}">
                         <br/>
                         {{subMenu.displayMenuName}}
@@ -53,7 +53,7 @@
                     <div ng-if="subMenu.children.length > 0" class="by_subMenu_contentMobileItem" id="{{leafMenu.id}}"
                          ng-repeat="leafMenu in subMenu.children"
                          ng-class="{'by_subMenu_contentMobileItem_active': leafMenu.id == menuLevel2.id}">
-                        <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
+                        <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
                             <img ng-src="{{communityIconMobile[leafMenu.id].image}}">
                             <br/>
                             {{leafMenu.displayMenuName}}
@@ -61,7 +61,7 @@
                     </div>
                     <div ng-if="subMenu.children.length === 0" class="by_subMenu_contentMobileItem" id="{{subMenu.id}}"
                          ng-class="{'by_subMenu_contentMobileItem_active': subMenu.id == menuLevel2.id}">
-                        <a ng-href="{{menuUrl[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
+                        <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
                             <img ng-src="{{communityIconMobile[subMenu.id].image}}">
                             <br/>
                             {{subMenu.displayMenuName}}

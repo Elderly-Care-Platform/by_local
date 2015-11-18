@@ -36,7 +36,7 @@
     </div>
     <div class="clearfix" ng-if="$root.windowWidth > 720"></div>
     <div class="by_menu" ng-if="$root.windowWidth > 720" id="homeMenuScroll">
-        <a href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" ng-repeat="menu in $root.mainMenu">{{menu.displayMenuName}}</a>
+        <a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" ng-repeat="menu in $root.mainMenu">{{menu.displayMenuName}}</a>
     </div>
     <div class="clearfix" ng-if="$root.windowWidth > 720"></div>
 

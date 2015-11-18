@@ -23,11 +23,6 @@ define(['byApp',
                 window.setTimeout(function () {
                     masonaryGridInit();
                     $(".masonry").masonry("reload");
-                    /*if (gridMasonary.length === 0) {
-                     masonaryGridInit();
-                     } else {
-                     $(".masonry").masonry("reload");
-                     }*/
                     $("#preloader").hide();
                 }, 100);
 
@@ -53,13 +48,7 @@ define(['byApp',
         $scope.initDiscussListing = function () {
             if ($scope.selectedMenu) {
                 updateMetaTags();
-
-                //tags = $.map($scope.selectedMenu.tags, function (value, key) {
-                //    return value.id;
-                //})
-                //queryParams.tags = tags.toString();  //to create comma separated tags list
-
-                queryParams.tags = "55befec6e4b07cedaa267825";
+                queryParams.tags = BY.config.menu.reveiwsMenuConfig['service_review'];
 
                 DiscussCount.get({tags: queryParams.tags, contentTypes: "f,total,p,q"}, function (counts) {
                         $scope.discuss_counts = counts.data;

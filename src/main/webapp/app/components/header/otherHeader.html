@@ -37,7 +37,7 @@
     </div>
     <div class="clearfix"></div>
     <div class="by_menu">
-        <a  href="{{menuUrl[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" ng-repeat="menu in $root.mainMenu" ng-class="{'by_menu_Active': menu.id == $root.byTopMenuId }">{{menu.displayMenuName}}</a>
+        <a  href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" ng-repeat="menu in $root.mainMenu" ng-class="{'by_menu_Active': menu.id == $root.byTopMenuId }">{{menu.displayMenuName}}</a>
     </div>
     <div class="clearfix"></div>
 </div>

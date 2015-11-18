@@ -2,6 +2,44 @@ var BY = BY || {};
 BY.config = BY.config || {};
 BY.config.menu = BY.config.menu || {};
 
+
+BY.config.menu.moduleConfig = {
+    '0' : {
+        'baseUrl':'#!/discuss/list',
+        'module' : 'discuss'
+    },
+    '1' : {
+        'baseUrl':'#!/services/list',
+        'module' : 'service'
+    },
+    '2' : {
+        'baseUrl':'#!/housing/list',
+        'module' : 'housing'
+    },
+    '3' : {
+        'baseUrl':'#!/products/list',
+        'module' : 'product'
+    }
+}
+
+BY.config.menu.reveiwsMenuConfig = {
+    'service_review':{
+        'id':'564b04983b82f7f39e132749',
+        'tag':'55befec6e4b07cedaa267825',
+        'menuName':'Overviews & reviews'
+    },
+    'housing_review':{
+        'id':'564b04983b82f7f39e132749',
+        'tag':'55beff0ee4b07cedaa267829',
+        'menuName':'Overviews & reviews'
+    },
+    'product_review' : {
+        'id':'564b33583b82f7f39e13274a',
+        'tag' : '55beff3ae4b07cedaa26782d',
+        'menuName':'PRODUCTS_REVIEWS'
+    }
+}
+
 BY.config.menu.home = {
    '564071623e60f5b66f62df27' : {
         'orderId': '0',
@@ -233,21 +271,6 @@ BY.config.menu.communityIconMobile = {
     },
     '5649bc993b82e3a4e249dadd' : {        
         'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
-    }
-}
-
-BY.config.menu.menuUrl = {
-    '0' : {        
-        'baseUrl':'#!/discuss/list'
-    },
-    '1' : {        
-        'baseUrl':'#!/services/list'
-    },
-    '2' : {        
-        'baseUrl':'#!/housing/list'
-    },
-    '3' : {        
-        'baseUrl':'#!/products/list'
     }
 }
 

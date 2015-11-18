@@ -9,7 +9,7 @@
     <div class="by_home_topMenu">
         <div ng-repeat="menu in $root.mainMenu">
             <div class="by_home_topMenu_item">
-                <a ng-href="{{menuUrlConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+                <a ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
                     <div class="by_home_topMenuText">
                         <div class="by_home_topMenuImage">
                             <img ng-src="{{homeSectionConfig[menu.id].imageSmall}}">

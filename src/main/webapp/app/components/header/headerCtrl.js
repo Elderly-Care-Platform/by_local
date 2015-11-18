@@ -1,5 +1,6 @@
 define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
     function BYHeaderCtrl($rootScope, $scope, $window, $http, SessionIdService) {
+        $rootScope.screenHeight = $(window).height();
         $scope.loginDetails = {
             "text": "",
             "link": "",

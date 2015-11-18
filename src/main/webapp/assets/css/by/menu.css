@@ -58,6 +58,11 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+.by_subMenu_headThumb:hover
+{
+	background: #FF850F;
+	border-color: #FF850F;
+}
 .by_subMenu_headThumb a
 {
 	color: #fff;
@@ -66,13 +71,18 @@
 	width: 100%;
 	height: 100%;
 }
+.by_subMenu_headThumb a:hover
+{
+	color: #fff;
+	text-decoration: none;
+}
 .by_subMenu_headThumb_active
 {
 	background: #fff;
 	color: #004f24;
 	cursor: inherit;
 }
-.by_subMenu_headThumb_active a
+.by_subMenu_headThumb_active a, .by_subMenu_headThumb_active a:hover
 {
 	color: #004f24; 
 }

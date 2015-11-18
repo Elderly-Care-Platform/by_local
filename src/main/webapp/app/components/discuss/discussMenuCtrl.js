@@ -16,6 +16,11 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
         $scope.telNo = BY.config.constants.byContactNumber;
 
         $scope.subMenuTabMobileShow = function () {
+            if($scope.isLeafMenuSelected == false){
+                $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
+                $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
+                $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
+            } 
             $(".by_mobile_leftPanel_image").click(function () {
                 if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
                     $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
@@ -74,8 +79,9 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
 
             //console.log($scope.menuLevel1);
             //console.log($scope.menuLevel2);
-        };
 
+            
+        };
 
 
 

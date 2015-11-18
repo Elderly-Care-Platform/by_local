@@ -53,7 +53,10 @@ define(['byApp',
                 //})
                 //queryParams.tags = tags.toString();  //to create comma separated tags list
 
-                queryParams.tags = "55beff0ee4b07cedaa267829";
+                queryParams.tags = BY.config.menu.reveiwsMenuConfig['housing_review'].tag;
+                if ($scope.discussType && $scope.discussType.toLowerCase().trim() !== "all") {
+                    queryParams.discussType = $routeParams.discussType;
+                }
 
                 DiscussCount.get({tags: queryParams.tags, contentTypes: "f,total,p,q"}, function (counts) {
                         $scope.discuss_counts = counts.data;

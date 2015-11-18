@@ -866,7 +866,7 @@
 
 .article-outer-wrapper {
     margin-top: 19px;
-    min-height: calc(100vh - 173px);
+    /*min-height: calc(100vh - 173px);*/
 }
 
 /*.no-padding input

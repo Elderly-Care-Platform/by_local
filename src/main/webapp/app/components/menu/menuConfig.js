@@ -2,7 +2,20 @@ var BY = BY || {};
 BY.config = BY.config || {};
 BY.config.menu = BY.config.menu || {};
 
-
+BY.config.menu.modules = {
+    'discuss' : {
+        'moduleId' : 0
+    },
+    'service' : {
+        'moduleId' : 1
+    },
+    'housing' : {
+        'moduleId' : 2
+    },
+    'product' : {
+        'moduleId' : 3
+    }
+}
 BY.config.menu.moduleConfig = {
     '0' : {
         'baseUrl':'#!/discuss/list',

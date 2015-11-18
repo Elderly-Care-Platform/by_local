@@ -53,7 +53,9 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                 queryParams.city = city;
             }
 
-            getData(queryParams);
+            if($scope.selectedMenu.module===BY.config.menu.modules['housing'].moduleId){
+                getData(queryParams);
+            }
         }
 
 

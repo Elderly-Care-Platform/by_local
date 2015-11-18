@@ -57,8 +57,11 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                     queryParams.city = city;
                 }
 
-                showFilters();
-                getData(queryParams);
+                if($scope.selectedMenu.module===BY.config.menu.modules['service'].moduleId){
+                    showFilters();
+                    getData(queryParams);
+                }
+
             }
 
             function updateMetaTags(){

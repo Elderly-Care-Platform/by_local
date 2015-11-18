@@ -49,6 +49,9 @@ define(['byApp',
             if ($scope.selectedMenu) {
                 updateMetaTags();
                 queryParams.tags = BY.config.menu.reveiwsMenuConfig['service_review'].tag;
+                if ($scope.discussType && $scope.discussType.toLowerCase().trim() !== "all") {
+                    queryParams.discussType = $routeParams.discussType;
+                }
 
                 DiscussCount.get({tags: queryParams.tags, contentTypes: "f,total,p,q"}, function (counts) {
                         $scope.discuss_counts = counts.data;

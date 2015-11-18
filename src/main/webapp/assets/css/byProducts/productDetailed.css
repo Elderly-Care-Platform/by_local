@@ -157,7 +157,7 @@
 .by_productDetail_contentQuantity
 {
   margin-right: 5px;
-  width:70px;
+  width:auto;
   border: 1px solid #ccc;
 }
 .by_productDetail_contentQuantityButton

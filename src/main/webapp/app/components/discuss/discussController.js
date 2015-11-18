@@ -20,7 +20,7 @@ define(['byApp',
         $scope.pageSize                     = 20;
         $scope.isGridInitialized            = false;
         $scope.initDiscussListing           = initDiscussListing;
-
+        $scope.initScroll                   = initScroll;
         var tags                            = [];
         var queryParams                     = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
         var init                            = initialize();
@@ -29,11 +29,13 @@ define(['byApp',
         function initialize(){
             if(!$scope.showEditor){
                 initDiscussListing();
+            }else{
+                initScroll();
             }
         }
 
-        $scope.initScroll= function(){
-            if($scope.$parent.isLeafMenuSelected){
+        function initScroll(){
+            if($scope.$parent.isLeafMenuSelected || $scope.showEditor){
                 $timeout(
                     function () {
                         var tag = $("#discussListContainer");

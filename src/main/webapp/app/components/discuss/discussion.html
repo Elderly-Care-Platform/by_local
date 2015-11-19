@@ -41,35 +41,27 @@
 
 <!--<div ng-controller="LoadCustomJSController"></div>-->
 
-<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
 
-<!--<div class="breadcrumbs">-->
-    <!--<div class="container by_breadcrumbs_container">-->
-        <!--<ul class="pull-right breadcrumb">-->
-            <!--<li class="active"><a href="#!discuss/All/list/all">Discuss</a></li>-->
-            <!--<li class="active"><a href="#!discuss/{{bc_discussType}}/{{bc_topic}}/all">{{{true:-->
-                <!--$root.discussCategoryListMap[bc_topic].name, false:-->
-                <!--bc_topic}[$root.discussCategoryListMap[bc_topic]!==undefined]}}</a>-->
-            <!--</li>-->
-            <!--<li>{{bc_subTopic}}</li>-->
-        <!--</ul>-->
-    <!--</div>-->
-    <!--<hr class="breadcrumb-divider"/>-->
-<!--</div>-->
-<!-- section headers -->
-<div class="by_section_header" >
-	<div class="container">
-		<div class="by_section_header_title"></div>
-        <div class="clearfix"></div>
-		<div class="by_section_header_desc"></div>
-	</div>
+
+<div ng-include="'app/components/discuss/discussMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+<div class="by_mobile_call_wrap" ng-if="$root.windowWidth < 720">
+    <div class="by_container" style="color: #fff ; text-align:center;">     
+        Need help? <a ng-href="{{'tel:'+telNo}}"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
+    </div>
 </div>
 <!--=== Content Part ===-->
-<div class="container by_home_content">
-    <div class="row">
-         <div class="col-md-3  md-margin-bottom-40" ng-include="discussionViews.leftPanel"></div>
-        <div infinite-scroll="loadMore()" class="col-md-9 discussion-page md-margin-bottom-40 article-outer-wrapper"
-             ng-include="discussionViews.contentPanel" infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress" infinite-scroll-distance="0">
+<div class="container" ng-if="menuLevel1 && menuLevel2" >
+    <div class="row" ng-controller="DiscussAllController">
+         <!--<div class="col-md-3  md-margin-bottom-40" ng-include="discussionViews.leftPanel"></div>-->
+        <div ng-if="!showEditor" class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper"
+             ng-include="discussionViews.contentPanel">
+        </div>
+
+        <div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper" ng-if="showEditor" >
+            <div id="discussListContainer"></div>
+            <div ng-if="showEditorType==='Question'" ng-include="'app/shared/editor/QuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
+            <div ng-if="showEditorType==='Article'" ng-include="'app/shared/editor/ArticleEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
         </div>
     </div>
 </div>

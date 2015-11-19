@@ -34,12 +34,14 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.isQueryInprogress        = false;
         $scope.isFreeSearch             = false;
         $scope.selectedMenu             = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
+        $scope.showEditor               = $routeParams.showEditor==='true' ? true : false;
+        $scope.menuConfig               = BY.config.menu;
 
         //Functions
         $scope.openProductDescription   = openProductDescription;
         $scope.reloadRoute              = reloadRoute;
         $scope.getProducts              = getProducts;
-        $scope.promise                  = getProducts();
+        $scope.promise                  = initialize();
         $scope.setDepth                 = setDepth;
         $scope.getNumber                = getNumber;
         $scope.getSearchedResult        = getSearchedResult;
@@ -47,6 +49,11 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.trustForcefully          = trustForcefully;
         $scope.fixedMenuInitialized     = fixedMenuInitialized;
 
+        function initialize(){
+            if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor){
+                $scope.promise = getProducts();
+            }
+        }
 
         function getProducts() {
             var category;
@@ -54,7 +61,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             $scope.isFreeSearch=false;
             if ($location.search().q) {
                 try {
-                    category = JSON.parse($location.search().q);
+                    category = $rootScope.menuCategoryMap[$location.search().q];
                 } catch (e) {
                     category = $location.search().q;
                 }
@@ -249,6 +256,15 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         function fixedMenuInitialized(){
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         }
+
+        $rootScope.byTopMenuId = $rootScope.mainMenu[2].id ;
+        $scope.telNo = BY.config.constants.byContactNumber;
+
+
+      
+        
+        
+
 
     }
 

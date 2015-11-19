@@ -3,54 +3,35 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
     function (byApp, byUtil, userTypeConfig) {
 
         function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, broadCastMenuDetail) {
-            var a = $(".header .navbar-nav > li.dropdown");
-            a.removeClass("dropdown");
-            setTimeout(function () {
-                a.addClass("dropdown")
-            }, 200);
+            $scope.findViews                = {};
+            $scope.findViews.leftPanel      = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.findViews.contentPanel   = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.telNo                    = BY.config.constants.byContactNumber;
+            $scope.showSpecialityFilter     = false;
+            $scope.selectedMenu             = $rootScope.menuCategoryMap[$routeParams.menuId];
+            $scope.showEditor               = $routeParams.showEditor==='true' ? true : false;
+            $scope.showFeaturedTag          = true;
+            $scope.menuConfig               = BY.config.menu;
+            $rootScope.byTopMenuId          = $rootScope.mainMenu[1].id ;
+            $scope.showFilters              = showFilters;
+            $scope.getData                  = $scope.getData;
 
-            $scope.findViews = {};
-            $scope.findViews.leftPanel = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-            $scope.findViews.contentPanel = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            var city                        = $routeParams.city,
+                tags                        = [],
+                queryParams                 = {p: 0, s: 10};
 
-            $scope.showSpecialityFilter = false;
-            $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
-            $scope.showFeaturedTag = true;
+            var init                        = initialize();
 
-            var city = $routeParams.city;
-            var tags = [];
-            var queryParams = {p: 0, s: 10};
+            function showFilters() {
+                if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName !== null && $scope.selectedMenu.children.length > 0) {
+                    $scope.showSpecialityFilter = true;
+                    $scope.specialities = $.map($scope.selectedMenu.children, function (value, key) {
+                        return {label: value.displayMenuName, value: value.displayMenuName, obj: value};
+                    });
+                }
+            };
 
-
-            $scope.profileImage = function (service) {
-                service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
-            }
-
-
-            if ($scope.selectedMenu) {
-                (function () {
-                    var metaTagParams = {
-                        title: $scope.selectedMenu.displayMenuName,
-                        imageUrl: "",
-                        description: "",
-                        keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
-                    }
-                    BY.byUtil.updateMetaTags(metaTagParams);
-                })();
-                $(".selected-dropdown").removeClass("selected-dropdown");
-                $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
-
-                tags = $.map($scope.selectedMenu.tags, function (value, key) {
-                    return value.id;
-                })
-                queryParams.tags = tags.toString();  //to create comma separated tags list
-            }
-
-            if (city && city !== "" && city !== "all") {
-                queryParams.city = city;
-            }
-
-            $scope.getData = function (queryParams) {
+            function getData(queryParams) {
                 $("#preloader").show();
                 $scope.services = FindServices.get(queryParams, function (services) {
                         $scope.services = services.data.content;
@@ -65,26 +46,44 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
 
             };
 
-            $scope.fixedMenuInitialized = function () {
-                broadCastMenuDetail.setMenuId($scope.selectedMenu);
-            };
+            function initialize(){
+                if ($scope.selectedMenu) {
+                    updateMetaTags();
+                    tags = $.map($scope.selectedMenu.tags, function (value, key) {
+                        return value.id;
+                    })
+                    queryParams.tags = tags.toString();  //to create comma separated tags list
 
-            $scope.showFilters = function () {
-                if ($scope.selectedMenu && $scope.selectedMenu.filterName && $scope.selectedMenu.filterName !== null && $scope.selectedMenu.children.length > 0) {
-                    $scope.showSpecialityFilter = true;
-                    $scope.specialities = $.map($scope.selectedMenu.children, function (value, key) {
-                        return {label: value.displayMenuName, value: value.displayMenuName, obj: value};
-                    });
                 }
+
+                if (city && city !== "" && city !== "all") {
+                    queryParams.city = city;
+                }
+
+                if(!$scope.showEditor && $scope.selectedMenu.module===BY.config.menu.modules['service'].moduleId){
+                    showFilters();
+                    getData(queryParams);
+                }
+
             }
 
-            $scope.showFilters();
-            $scope.getData(queryParams);
+            function updateMetaTags(){
+                var metaTagParams = {
+                    title: $scope.selectedMenu.displayMenuName,
+                    imageUrl: "",
+                    description: "",
+                    keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+            }
+
+            $scope.profileImage = function (service) {
+                service.profileImage = BY.config.profile.userType[service.userTypes[0]].profileImage;
+            }
 
             $scope.trustForcefully = function (html) {
                 return $sce.trustAsHtml(html);
             }
-
 
             $scope.location = function ($event, userId, userType) {
                 $event.stopPropagation();
@@ -93,37 +92,27 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 }
             }
 
-            $scope.add = function (type) {
-                require(['editorController'], function(editorController){
-                    BY.byEditor.removeEditor();
-                    $scope.error = "";
-                    $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                    window.scrollTo(0, 0);
-                    $(".service-filters").hide();
-                    $scope.$apply();
-                });
-            };
-
-            $scope.postSuccess = function () {
-                $(".service-filters").show();
-                $route.reload();
-            };
-
+           
             $scope.cityOptions = {
                 types: "(cities)",
                 resetOnFocusOut: false
             }
 
             $scope.addressCallback = function (response) {
-                $('#addressCity').blur();
-                queryParams.city = response.name;
-                $scope.getData(queryParams);
+                var menu = $scope.selectedMenu;
+                $location.search('showEditor', null);
+                $location.search('showEditorType', null);
+                $location.search('postCategoryTag', null);
+                if(menu.module == $scope.menuConfig.modules['discuss'].moduleId){
+                    menu = $rootScope.menuCategoryMap['56406cd03e60f5b66f62df26'];
+                }
+                $location.path("/services/list/"+menu.slug+"/"+menu.id+"/"+response.name);
             }
 
             $scope.specialityCallback = function (speciality) {
                 tags = speciality.obj.tags[0].id;
                 queryParams.tags = tags.toString();
-                $scope.getData(queryParams);
+                getData(queryParams);
             }
             
             $scope.tooltipText = function(){        	

@@ -69,4 +69,13 @@ public class HousingRepositoryImpl implements HousingRepositoryCustom {
 		return q;
 	}
 
+	@Override
+	public Long getCount() {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("status").is(
+				DiscussConstants.DISCUSS_STATUS_ACTIVE));
+		long total = this.mongoTemplate.count(query, HousingFacility.class);
+		return total;
+	}
+
 }

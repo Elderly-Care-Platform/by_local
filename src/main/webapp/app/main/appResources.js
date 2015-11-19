@@ -13,7 +13,6 @@ define(["byApp", "angular"], function (byApp, angular) {
 
                     if ("localStorage" in window) {
                         sessionID = localStorage.getItem("SessionId");
-                        $rootScope.bc_userId = localStorage.getItem("USER_ID");
                     }
                     else {
                         alert("No local storage");

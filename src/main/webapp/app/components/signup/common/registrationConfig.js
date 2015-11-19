@@ -128,11 +128,11 @@ BY.config.regConfig.indvUserRegConfig = {
 
     'medical_issues' : {
         'userType' : [0, 1],
-        'fetchFromMenu' : "Medical Conditions"
+        'fetchFromMenu' : "Elder's Health"
     },
 
     'hobbies' : {
-        'fetchFromMenu' : "Activities"
+        'fetchFromMenu' : "Active Leisure"
     },
 
     'countries' : ["India"],

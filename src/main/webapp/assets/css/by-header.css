@@ -55,10 +55,6 @@
 	width: 100%;
 }
 
-.headerHeightNoBreadCrumb {
-	height: 111px;
-}
-
 .header .topbar {
 	padding-top: 1px;
 }
@@ -246,9 +242,6 @@
 	}
 	.header {
 		position: relative;
-	}
-	.headerHeightNoBreadCrumb {
-		height: 0px;
 	}
 
 	/*.header .navbar-toggle {*/

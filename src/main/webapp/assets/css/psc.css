@@ -836,6 +836,7 @@
 
 .wrapper {
     position: relative;
+	z-index: 10;
 }
 
 /* aparna 21-04-2015 */
@@ -865,7 +866,7 @@
 
 .article-outer-wrapper {
     margin-top: 19px;
-    min-height: calc(100vh - 173px);
+    /*min-height: calc(100vh - 173px);*/
 }
 
 /*.no-padding input

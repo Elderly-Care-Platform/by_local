@@ -1,22 +1,138 @@
+<div ng-repeat="menu in $root.mainMenu">
+<span>{{val.orderId}}</span>
+	<div class="by_container by_home_comm_bg" ng-if="homeSectionConfig[menu.id].orderId==='0'">
+		<div class="by_homeSection">
+			<div class="by_homeSectionInside">
+				<div class="by_homeSection_text divRight">
+					<div class="by_homeSection_title">
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Communities</a>
+					</div>
+					<div class="by_homeSection_desc">
+						We help each other take better care of parents. We would like to age happier, and to live longer. <br/>Join our communities  - get informed, show your talents, and share your experience. 
+					</div>		
+				</div>
+				<div class="by_homeSection_image divLeft">
+					<img src="assets/img/home/community.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="by_homeSection_menuWrap by_homeComm_menuWrap">
 
-<div ng-if="posts.length > 0 && (contentType==='all' || contentType==='P')" infinite-scroll="loadMore()"
-     ng-include="'app/components/home/homePostsCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-     infinite-scroll-disabled="contentType==='all' || postsPageInfo.lastPage || postsPageInfo.isQueryInProgress"
-     infinite-scroll-distance="0"></div>
-
-<div ng-if="questions.length > 0 && (contentType==='all' || contentType==='Q')" infinite-scroll="loadMore()"
-     ng-include="'app/components/home/homeQuestionCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-     infinite-scroll-disabled="contentType==='all' || questionsPageInfo.lastPage || questionsPageInfo.isQueryInProgress"
-     infinite-scroll-distance="0"></div>
-
-
-<div ng-if="services.length > 0 && (contentType==='all' || contentType==='S')" infinite-scroll="loadMore()"
-     ng-include="'app/components/home/homeServicesCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-     infinite-scroll-disabled="contentType==='all' || servicesPageInfo.lastPage || servicesPageInfo.isQueryInProgress"
-     infinite-scroll-distance="0">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children">
+					<div class="by_homeSection_menu">
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+							<div class="by_homeSection_menuImage">
+								<img ng-src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">
+							</div>
+							<div class="by_homeSection_menuText">
+								{{menu.displayMenuName}}
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>	
+	<div class="by_container by_home_find_bg" ng-if="homeSectionConfig[menu.id].orderId==='1'">	
+		<div class="by_homeSection">
+			<div class="by_homeSectionInside">
+				<div class="by_homeSection_text divLeft">
+					<div class="by_homeSection_title">
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Directory</a>
+					</div>
+					<div class="by_homeSection_desc">
+						Are you looking for a caregiver or a nurse for your relatives? Considering a retirement home? Looking for a good lawyer to prepare a will? Find whatever you need in our directory. 
+					</div>
+				</div>
+				<div class="by_homeSection_image divRight">
+					<img src="assets/img/home/directoryHome.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="by_homeSection_menuWrap">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children" ng-if="menu.module != 0 && menu.id != '5640801e3e60f5b66f62df37'">
+					<div class="by_home_find_menu" >
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+							<div class="by_homeSection_menuImage">
+								<img src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">
+							</div>
+							<div class="by_homeSection_menuText">
+								{{menu.displayMenuName}}
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="by_container by_home_shop_bg" ng-if="homeSectionConfig[menu.id].orderId==='2'">	
+		<div class="by_homeSection">
+			<div class="by_homeSectionInside">
+				<div class="by_homeSection_text divRight">
+					<div class="by_homeSection_title">
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Shop</a>
+					</div>
+					<div class="by_homeSection_desc">
+						Products that improve lives of seniors - select from our catalogue of 453 items (and growing).
+					</div>
+				</div>
+				<div class="by_homeSection_image divLeft">
+					<img src="assets/img/home/shop.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="by_homeShop_menu1">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children" ng-if="menu.module != 0">
+					<div class="by_homeShop_menu" ng-class="menu.id == 10200 ? 'by_homeShop_menuActive' : ''">
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
+							<div class="by_homeSection_menuText">
+								{{menu.displayMenuName}}
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="by_homeShop_border"></div>
+			<div class="by_homeShop_menu2">
+				<div ng-repeat="menu in menuMapConfig[menu.id].children">
+					<div ng-repeat="leaf in menu.subcategories" ng-if="menu.name == 'BY THE CONDITION'">
+						<div class="by_home_product_menu" ng-if="leaf.id != 10203">
+							<a  href="{{moduleConfig[menu.module].baseUrl}}/{{leaf.slug}}/{{leaf.id}}/all">
+								<div class="by_home_product_image{{$index+1}} by_home_product_image"></div>
+								<div class="by_homeSection_menuText">
+									{{leaf.name}}
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	
 </div>
 
-
+<div class="by_container by_home_feed_bg">
+	<div class="by_home_reg_feed">
+		<div class="by_home_reg">
+			<img src="assets/img/home/business.jpg?versionTimeStamp=%PROJECT_VERSION%" >
+			<div class="by_home_reg_line"></div>
+			Do you provide services or products for seniors? Please 
+			<a href="#!/users/login">register</a>  with us, or <a href="#!/users/contactUs?subject=3">contact us</a>. 
+			
+		</div>
+		<div class="by_home_reg">
+			<img src="assets/img/home/contact.jpg?versionTimeStamp=%PROJECT_VERSION%" >	
+			<div class="by_home_reg_line"></div>
+				Want to provide us <a href="#!/users/contactUs?subject=0">feedback</a> or to <a href="#!/users/contactUs?subject=2">help us</a>? Please <a href="#!/users/contactUs">contact us</a>, we would love to hear from you!
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
 
 
 

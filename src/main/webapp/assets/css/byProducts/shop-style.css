@@ -1392,7 +1392,7 @@ ul.shopping-cart	{
 }
 
 ul.shop-badge > li:hover .badge-open {
-    display: block;
+    /*display: block;*/
 }
 
  .badge-open {

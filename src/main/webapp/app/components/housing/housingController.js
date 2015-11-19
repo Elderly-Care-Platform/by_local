@@ -1,42 +1,23 @@
 define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
     function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing){
-        var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
+        $scope.housingViews                 = {};
+        $scope.housingViews.leftPanel       = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.housingViews.contentPanel    = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
 
-        $scope.housingViews = {};
-        $scope.housingViews.leftPanel = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        $scope.housingViews.contentPanel = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $rootScope.byTopMenuId              = $rootScope.mainMenu[1].id ;
+        $scope.telNo                        = BY.config.constants.byContactNumber;
+        $scope.selectedMenu                 = $rootScope.menuCategoryMap[$routeParams.menuId];
+        $scope.showEditor                   = $routeParams.showEditor==='true' ? true : false;
+        $scope.showFeaturedTag              = true;
+        $scope.menuConfig                   = BY.config.menu;
+        $scope.getData                      = $scope.getData;
 
-        $scope.selectedMenu = $rootScope.menuCategoryMap[$routeParams.menuId];
-        $scope.showFeaturedTag = true;
+        var city                            = $routeParams.city;
+        var tags                            = [];
+        var queryParams                     = {p:0,s:10,sort:"lastModifiedAt"};
+        var init                            = initialize();
 
-        var city = $routeParams.city;
-        var tags = [];
-        var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
-
-        if($scope.selectedMenu){
-            (function(){
-                var metaTagParams = {
-                    title:  $scope.selectedMenu.displayMenuName,
-                    imageUrl:   "",
-                    description:   "",
-                    keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
-                }
-                BY.byUtil.updateMetaTags(metaTagParams);
-            })();
-            $(".selected-dropdown").removeClass("selected-dropdown");
-            $("#" + $scope.selectedMenu.id).parents(".by-menu").addClass("selected-dropdown");
-
-            tags = $.map($scope.selectedMenu.tags, function(value, key){
-                return value.id;
-            })
-            queryParams.tags = tags.toString();  //to create comma separated tags list
-        }
-
-        if (city && city !== "" && city !== "all") {
-            queryParams.city = city;
-        }
-
-        $scope.getData = function () {
+        function getData() {
             $("#preloader").show();
             FindHousing.get(queryParams, function (housing) {
                     if (housing) {
@@ -50,21 +31,40 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                     console.log(error);
                 });
         };
-        
+
+        function updateMetaTags(){
+            var metaTagParams = {
+                title:  $scope.selectedMenu.displayMenuName,
+                imageUrl:   "",
+                description:   "",
+                keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        }
+
+        function initialize(){
+            if($scope.selectedMenu){
+                tags = $.map($scope.selectedMenu.tags, function(value, key){
+                    return value.id;
+                })
+                queryParams.tags = tags.toString();  //to create comma separated tags list
+            }
+
+            if (city && city !== "" && city !== "all") {
+                queryParams.city = city;
+            }
+
+            if(!$scope.showEditor && $scope.selectedMenu.module===BY.config.menu.modules['housing'].moduleId){
+                getData(queryParams);
+            }
+        }
+
+
         $scope.tooltipText = function(){        	
         	$('[data-toggle="tooltip"]').tooltip(); 
         }
         
 
-        $scope.fixedMenuInitialized = function(){
-            broadCastMenuDetail.setMenuId($scope.selectedMenu);
-        };
-        
-        
-
-
-        //$scope.showBreadcrums();
-        $scope.getData(queryParams);
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
@@ -77,31 +77,21 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
             }
         };
 
-        $scope.add = function (type) {
-            require(['editorController'], function(editorController){
-                BY.byEditor.removeEditor();
-                $scope.error = "";
-                $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                window.scrollTo(0, 0);
-                $(".service-filters").hide();
-                $scope.$apply();
-            });
-        };
-
-        $scope.postSuccess = function () {
-            $(".service-filters").show();
-            $route.reload();
-        };
-
+       
         $scope.cityOptions = {
             types: "(cities)",
             resetOnFocusOut: false
         };
 
         $scope.addressCallback = function (response) {
-            $('#addressCity').blur();
-            queryParams.city = response.name;
-            $scope.getData(queryParams);
+            var menu = $scope.selectedMenu;
+                $location.search('showEditor', null);
+                $location.search('showEditorType', null);
+                $location.search('postCategoryTag', null);
+                if(menu.module == $scope.menuConfig.modules['discuss'].moduleId){
+                    menu = $rootScope.menuCategoryMap['55bcadaee4b08970a736784c'];
+                }
+                $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/"+response.name);
         };
 
         $scope.loadMore = function ($event) {

@@ -1,0 +1,78 @@
+<div class="by_subMenu" ng-if="$root.windowWidth > 720">
+    <div class="by_subMenu_head">
+        <div class="by_subMenu_headThumb" id="{{menu.id}}"
+             ng-class="{'by_subMenu_headThumb_active': menu.id == menuLevel1.id}"
+             ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
+            <a ng-href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all">{{menu.displayMenuName}}</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_subMenu_content">
+        <div class="by_subMenu_contentThumb">
+            <span ng-repeat="subMenu in menuLevel1.children" id="{{subMenu.id}}">
+                <div ng-if="subMenu.children.length > 0" class="by_subMenu_contentItem" id="{{leafMenu.id}}"
+                     ng-repeat="leafMenu in subMenu.children"
+                     ng-class="{'by_subMenu_contentItem_active': leafMenu.id == menuLevel2.id}">
+                    <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
+                        <img ng-src="{{communityIcon[leafMenu.id].image}}">
+                        <br/>
+                        {{leafMenu.displayMenuName}}
+                    </a>
+                </div>
+
+                <div ng-if="subMenu.children.length === 0" class="by_subMenu_contentItem" id="{{subMenu.id}}"
+                     ng-class="{'by_subMenu_contentItem_active': subMenu.id == menuLevel2.id}">
+                    <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
+                        <img ng-src="{{communityIcon[subMenu.id].image}}">
+                        <br/>
+                        {{subMenu.displayMenuName}}
+                    </a>
+                </div>
+            </span>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+    <div class="by_mobile_leftPanel">
+        <div class="by_subMenu_headMobile">
+            <div class="by_subMenu_headMobileThumb" id="{{menu.id}}"
+                 ng-class="{'by_subMenu_headMobileThumb_active': menu.id == menuLevel1.id}"
+                 ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children">
+                <a ng-href="#!/discuss/list/{{menu.slug}}/{{menu.id}}/all">{{menu.displayMenuName}}</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="by_subMenu_contentMobile">
+            <div class="by_subMenu_contentMobileThumb">
+                <span ng-repeat="subMenu in menuLevel1.children" id="{{subMenu.id}}">
+                    <div ng-if="subMenu.children.length > 0" class="by_subMenu_contentMobileItem" id="{{leafMenu.id}}"
+                         ng-repeat="leafMenu in subMenu.children"
+                         ng-class="{'by_subMenu_contentMobileItem_active': leafMenu.id == menuLevel2.id}">
+                        <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{leafMenu.slug}}/{{leafMenu.id}}/all">
+                            <img ng-src="{{communityIconMobile[leafMenu.id].image}}">
+                            <br/>
+                            {{leafMenu.displayMenuName}}
+                        </a>
+                    </div>
+                    <div ng-if="subMenu.children.length === 0" class="by_subMenu_contentMobileItem" id="{{subMenu.id}}"
+                         ng-class="{'by_subMenu_contentMobileItem_active': subMenu.id == menuLevel2.id}">
+                        <a ng-href="{{moduleConfig[subMenu.module].baseUrl}}/{{subMenu.slug}}/{{subMenu.id}}/all">
+                            <img ng-src="{{communityIconMobile[subMenu.id].image}}">
+                            <br/>
+                            {{subMenu.displayMenuName}}
+                        </a>
+                    </div>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
+</div>

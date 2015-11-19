@@ -2,6 +2,17 @@ var BY = BY || {};
 BY.config = BY.config || {};
 BY.config.menu = BY.config.menu || {};
 
+BY.config.menu.homeProduct = {
+    'by_the_condition':
+    {
+        'id': 10200
+    },
+    'heart_bp':
+    {
+        'id': 10203
+    }
+}
+
 BY.config.menu.modules = {
     'discuss' : {
         'moduleId' : 0

@@ -288,7 +288,8 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
                 $scope.minCategoryError = true;
             }
 
-            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            //var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            var regex = /((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/i;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
                 if(regex.exec($scope.serviceProviderInfo.website)){
                     $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];

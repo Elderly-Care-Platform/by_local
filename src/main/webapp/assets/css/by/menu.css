@@ -140,7 +140,7 @@
 .by_mobile_leftPanel_hide
 {
 	width: 100%;
-	height: calc(100% - 54px);
+	height: calc(100% - 28px);
 	top: 54px;
 	z-index: 90;
 	position: fixed;
@@ -157,11 +157,11 @@
 }
 .by_mobile_leftPanel_image
 {
-	width: 49px;
-	height: 121px;
-	background: url('../../img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%');
+	width: 28px;
+	height: 80px;
+	background: url('../../img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%');
 	float: left;
-	margin-top: calc(50% - 120px);
+	margin-top: calc(50% - 40px);
 	position: fixed;
 	left: 0;
 }

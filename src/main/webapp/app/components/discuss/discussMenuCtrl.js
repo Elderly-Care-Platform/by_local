@@ -16,19 +16,19 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
         $scope.telNo = BY.config.constants.byContactNumber;
 
         $scope.subMenuTabMobileShow = function () {
-            if($scope.isLeafMenuSelected == false){
+            /*if($scope.isLeafMenuSelected == false){
                 $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
                 $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
                 $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
-            } 
+            } */
             $(".by_mobile_leftPanel_image").click(function () {
                 if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
                     $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
                     $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
                 } else {
                     $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
-                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-min.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-minG.png?versionTimeStamp=%PROJECT_VERSION%')");
                     $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
                 }
             });
@@ -67,10 +67,12 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
 
             if (selectedMenu.ancestorIds.length == 0) {
                 $scope.menuLevel1 = selectedMenu.children[0];
-                $scope.menuLevel2 = getLeafMenu($scope.menuLevel1);
+                //$scope.menuLevel2 = getLeafMenu($scope.menuLevel1);
+                $scope.menuLevel2 = $scope.menuLevel1;
             } else if (selectedMenu.ancestorIds.length == 1) {
                 $scope.menuLevel1 = selectedMenu;
-                $scope.menuLevel2 = getLeafMenu($scope.menuLevel1);
+               // $scope.menuLevel2 = getLeafMenu($scope.menuLevel1);
+                $scope.menuLevel2 = selectedMenu;
             } else if (selectedMenu.children.length == 0) {
                 $scope.isLeafMenuSelected = true;
                 $scope.menuLevel2 = selectedMenu;

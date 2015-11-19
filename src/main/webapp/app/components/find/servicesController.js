@@ -92,31 +92,21 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 }
             }
 
-            $scope.add = function (type) {
-                require(['editorController'], function(editorController){
-                    BY.byEditor.removeEditor();
-                    $scope.error = "";
-                    $scope.findViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                    window.scrollTo(0, 0);
-                    $(".service-filters").hide();
-                    $scope.$apply();
-                });
-            };
-
-            $scope.postSuccess = function () {
-                $(".service-filters").show();
-                $route.reload();
-            };
-
+           
             $scope.cityOptions = {
                 types: "(cities)",
                 resetOnFocusOut: false
             }
 
             $scope.addressCallback = function (response) {
-                $('#addressCity').blur();
-                queryParams.city = response.name;
-                getData(queryParams);
+                var menu = $scope.selectedMenu;
+                $location.search('showEditor', null);
+                $location.search('showEditorType', null);
+                $location.search('postCategoryTag', null);
+                if(menu.module == $scope.menuConfig.modules['discuss'].moduleId){
+                    menu = $rootScope.menuCategoryMap['56406cd03e60f5b66f62df26'];
+                }
+                $location.path("/services/list/"+menu.slug+"/"+menu.id+"/"+response.name);
             }
 
             $scope.specialityCallback = function (speciality) {

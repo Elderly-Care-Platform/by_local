@@ -79,13 +79,15 @@ define(['byApp','housingReviewsCtrl'], function (byApp, housingReviewsCtrl) {
 
         };
 
-        $scope.showEditorPage = function(){
-            var serviceReviewTag = $rootScope.menuCategoryMap[$scope.menuConfig.reveiwsMenuConfig['housing_review'].id].tags[1];
-            $location.search('showEditor', 'true');
-            $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
-            BY.byEditor.removeEditor();
-            var menuId = $scope.menuConfig.reveiwsMenuConfig['housing_review'].id;
-            $location.path("/housing/overview/list/housing_review/"+menuId+"/all");
+        if($scope.showEditor == false){
+            $scope.showEditorPage = function(){
+                var serviceReviewTag = $rootScope.menuCategoryMap[$scope.menuConfig.reveiwsMenuConfig['housing_review'].id].tags[1];
+                $location.search('showEditor', 'true');
+                $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
+                BY.byEditor.removeEditor();
+                var menuId = $scope.menuConfig.reveiwsMenuConfig['housing_review'].id;
+                $location.path("/housing/overview/list/housing_review/"+menuId+"/all");
+            }
         }
 
     }

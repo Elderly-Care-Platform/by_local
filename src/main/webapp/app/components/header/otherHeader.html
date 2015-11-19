@@ -62,8 +62,8 @@
     <div class="divRight by_mobile_header_profile">
        <span id="profile_placeHolder_li">
                 <a ng-href="{{profileDetails.link}}" id="profile_placeholder">
-                    <span ng-if="profileDetails.text.length < 9" >{{profileDetails.text}}</span>
-                    <span ng-if="profileDetails.text.length >= 9">{{profileDetails.text.substring(0, 9)}}...</span>
+                    <span ng-if="profileDetails.text.length < 9" style="color:#004f24">{{profileDetails.text}}</span>
+                    <span ng-if="profileDetails.text.length >= 9" style="color:#004f24">{{profileDetails.text.substring(0, 9)}}...</span>
                 </a>
             </span>
             <span id="login_placeHolder_li" class="by_header_right_divider" ng-show="loginDetails.text.length > 0">|</span>

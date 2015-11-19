@@ -24,7 +24,7 @@
                 <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
                     <a class="by_treeSubMenu"
                        ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                       href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all?q={{submenu1.id}}">{{submenu1.displayMenuName}}</a>
+                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all?q={{submenu1.id}}">{{submenu1.displayMenuName}}</a>
                 </li>
             </ul>
         </li>
@@ -33,7 +33,7 @@
     <div class="clearfix"></div>
     <div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
-             ng-click="showEditorPage()" ng-init="initScroll()">
+             ng-click="showEditorPage()" ng-init="initScroll()" >
             <i class="sprite sprite-question divLeft"></i>
             <span class="divLeft by_editorButtonHead">Ask our experts</span>
 
@@ -64,7 +64,7 @@
                 <li ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}"
                     class="byTreeMenu-wrapper" ng-if="menu.module == menuConfig.modules['product'].moduleId">
                     <a ng-if="menu.children.length === 0"
-                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" class="by_treeMenuText"
+                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all?q={{menu.id}}" class="by_treeMenuText"
                        style="display: inline-block; width:100%;"
                        ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                         {{menu.displayMenuName}}
@@ -86,7 +86,7 @@
                             ng-init="expandParent(submenu1.id)">
                             <a class="by_treeSubMenu"
                                ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                               href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}}</a>
+                               ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{submenu1.slug}}/{{submenu1.id}}/all?q={{submenu1.id}}">{{submenu1.displayMenuName}}</a>
                         </li>
                     </ul>
                 </li>

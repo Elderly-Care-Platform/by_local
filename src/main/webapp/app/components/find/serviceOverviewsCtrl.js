@@ -105,6 +105,10 @@ define(['byApp',
         $scope.trustAsResourceUrl = function (url) {
             return $sce.trustAsResourceUrl(url);
         };
+
+        $scope.nextLocation = function(discussId){
+            $location.path("/discuss/"+ discussId);
+        }
     }
 
 

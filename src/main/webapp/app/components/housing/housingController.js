@@ -77,31 +77,21 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
             }
         };
 
-        $scope.add = function (type) {
-            require(['editorController'], function(editorController){
-                BY.byEditor.removeEditor();
-                $scope.error = "";
-                $scope.housingViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                window.scrollTo(0, 0);
-                $(".service-filters").hide();
-                $scope.$apply();
-            });
-        };
-
-        $scope.postSuccess = function () {
-            $(".service-filters").show();
-            $route.reload();
-        };
-
+       
         $scope.cityOptions = {
             types: "(cities)",
             resetOnFocusOut: false
         };
 
         $scope.addressCallback = function (response) {
-            $('#addressCity').blur();
-            queryParams.city = response.name;
-            getData(queryParams);
+            var menu = $scope.selectedMenu;
+                $location.search('showEditor', null);
+                $location.search('showEditorType', null);
+                $location.search('postCategoryTag', null);
+                if(menu.module == $scope.menuConfig.modules['discuss'].moduleId){
+                    menu = $rootScope.menuCategoryMap['55bcadaee4b08970a736784c'];
+                }
+                $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/"+response.name);
         };
 
         $scope.loadMore = function ($event) {

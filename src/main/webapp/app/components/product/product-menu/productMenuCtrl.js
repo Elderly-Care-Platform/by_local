@@ -81,12 +81,16 @@ define(['byApp', 'productReviewsCtrl'], function (byApp, productReviewsCtrl) {
 
         };
 
-        $scope.showEditorPage = function(){
-            $location.search('showEditor', 'true');
-            BY.byEditor.removeEditor();
-            var menuId = $scope.menuConfig.reveiwsMenuConfig['product_review'].id;
-            $location.path("/products/overview/list/product_review/"+menuId+"/all");
+        if($scope.showEditor == false){
+            $scope.showEditorPage = function(){
+                $location.search('showEditor', 'true');
+                BY.byEditor.removeEditor();
+                var menuId = $scope.menuConfig.reveiwsMenuConfig['product_review'].id;
+                $location.path("/products/overview/list/product_review/"+menuId+"/all");
+            }
         }
+
+        
     }
 
 

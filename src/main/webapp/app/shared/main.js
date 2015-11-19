@@ -4,7 +4,7 @@ var reloadDone = false;
 require.config({
 	// baseUrl: '../',
 	urlArgs: "versionTimeStamp=%PROJECT_VERSION%",
-	waitSeconds : 10,
+	waitSeconds : 0,
 	paths : {
 		byApp : '../main/app',
 		byResource : '../main/appResources',

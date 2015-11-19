@@ -23,8 +23,8 @@
              ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''">
             <div ng-if="$last" ng-init="initGrid($index)"></div>
 
-            <!--Promotion/announcement cards start ----------------------------------------------->
-            <div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
+            <!--Promotion/announcement cards start -->
+            <div ng-click="nextLocation(discuss.id)"
                  class="by-discuss-card by_blog_author" ng-if="discuss && discuss.promotion == true">
 
                 <div class="questionTag postTag"
@@ -50,13 +50,13 @@
             </div>
 
 
-            <!------------ Post/question cards start ----------------------------------------------->
-            <div ng-click="go($event, 'detail', discuss.id, discuss.discussType)"
+            <!-- Post/question cards start -->
+            <div ng-click="nextLocation(discuss.id)"
                  class="by-discuss-card by_blog_author" ng-if="discuss && discuss.promotion == false">
                 <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true"></div>
                 <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
 
-                <!------------------Card author profile image---------------------------------------->
+                <!--Card author profile image-->
                 <img class="by_discuss_img" ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
                      ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
                      fallback-src='["assets/img/by.png"]' alt="profileImage">
@@ -65,7 +65,7 @@
                      ng-src="assets/img/by.png" alt="profileImage">
 
 
-                <!-------------Author name and created at------------------------------------------------------------->
+                <!--Author name and created at-->
                 <div class="by_discuss_info" style="margin-right: 80px !important;">
                     <ul class="list-inline by_discuss_infoList" style="">
                         <li>
@@ -85,14 +85,14 @@
                 </div>
                 <div style="clear: both"></div>
 
-                <!-------------------------------Article title---------------------------------------->
+                <!--Article title-->
                 <div class="by_discuss_title col-md-12"
                      ng-if="discuss.discussType == 'P'">
                     <p class="text-uppercase">{{discuss.title}}</p>
                 </div>
                 <div style="clear: both"></div>
 
-                <!-------------------------------Article image---------------------------------------->
+                <!--Article image-->
                 <div class="by_discuss_image col-md-12">
                     <img ng-if="discuss.discussType == 'P' && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
                          ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
@@ -101,7 +101,7 @@
                     <div style="clear: both"></div>
                 </div>
 
-                <!-------------------------------external shared article ---------------------------------------->
+                <!--external shared article -->
                 <div ng-include="'app/shared/common/template/ShareLinkListing.html'"
                      ng-if="discuss.linkInfo" ng-init="linkInfo=discuss.linkInfo"
                      ng-if="discuss.promotion == false"></div>
@@ -120,7 +120,7 @@
                 <div style="clear: both; height: 1px;"></div>
 
 
-                <!------------------------Comment, like, share buttons start------------------------>
+                <!--Comment, like, share buttons start-->
                 <div class="article-share-links news-v3 by_border">
                     <ul class="post-shares post-shares-lg">
                         <li class="add-comment" ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
@@ -197,7 +197,7 @@
                     </ul>
                 </div>
 
-                <!------------------------Comment, like, share buttons end------------------------>
+                <!--Comment, like, share buttons end-->
 
                 <div style="clear: both"></div>
             </div>

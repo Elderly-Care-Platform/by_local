@@ -8,7 +8,7 @@
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
-                <li ng-if="detailResponse.discuss.topicId.length > 0"> | In  </li>
+                <!--<li ng-if="detailResponse.discuss.topicId.length > 0"> | In  </li>
 
                 <li ng-repeat="topicId in detailResponse.discuss.topicId" class="by_discussDeatil_cardlineHeight20">
                     <p class="first-letter-uc by-systemTags">
@@ -17,7 +17,7 @@
                             {{$root.menuCategoryMap[topicId].displayMenuName}}
                         </a>
                     </p>
-                </li>
+                </li>-->
             </ul><div style="clear: both"></div>
         </div>
         <div style="clear: both"></div>
@@ -98,7 +98,7 @@
    		   <img  src="assets/img/by.png" alt="image" class="by_discussDeatil_cardCommentImg" >
         <div class="padding20SM   by_editor_wrap" style="width:calc(100% - 48px)!important; float:left;" id="answer_block">
            
-              <textarea rows="3"  id={{detailResponse.discuss.id}} ></textarea>
+              <textarea rows="3"  id="{{detailResponse.discuss.id}} "></textarea>
             <div class="clearfix"></div>
             <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit" disabled
                     ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">SUBMIT

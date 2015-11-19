@@ -41,6 +41,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                         //broadCastMenuDetail.setMenuId($scope.selectedMenu);
                     },
                     function (error) {
+                        $("#preloader").hide();
                         console.log(error);
                     });
 
@@ -136,6 +137,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                             $("#preloader").hide();
                         },
                         function (error) {
+                            $("#preloader").hide();
                             console.log("Services on city not found");
                         });
                 }

@@ -1,5 +1,5 @@
 <!--Desktop Menu-->
-<div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParent()">
+<div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParent()" element-resize callback="setContentHeight">
     <ul class="nav nav-list" ng-init="smartScroll();">
         <li ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}" class="byTreeMenu-wrapper"
             ng-if="menu.module == menuConfig.modules['product'].moduleId">

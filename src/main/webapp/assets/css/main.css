@@ -1,3 +1,9 @@
+html, body
+{
+    height: 100%;
+    margin: 0px;
+    width: 100%;
+}
 body
 {
     padding: 0px;
@@ -266,7 +272,15 @@ body a:hover
     margin-right: 10%;
     height: auto;
     margin-top: 20px;
-   /* min-height: 100vh;*/
+    /* min-height: 100vh;*/
+}
+.footerMobile
+{
+    display: none;
+}
+.footerDesktop
+{
+    display: block;
 }
 @media ( max-width : 1200px){
     .contentPanel
@@ -288,5 +302,13 @@ body a:hover
         margin-right: 2%;
         height: auto;
         margin-top: 20px;
+    }
+    .footerMobile
+    {
+        display: block;
+    }
+    .footerDesktop
+    {
+        display: none;
     }
 }

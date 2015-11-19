@@ -40,7 +40,7 @@ define(['byApp',
                     function () {
                         var tag = $("#discussListContainer");
                         if (tag.length > 0) {
-                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, '2000');
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 100}, '2000');
                         }
                     }, 100);
             }else if($scope.discussList && $scope.discussList.length > 0 && $scope.$parent.isLeafMenuSelected ){
@@ -48,7 +48,7 @@ define(['byApp',
                     function () {
                         var tag = $("#discussListContainer");
                         if (tag.length > 0) {
-                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, '2000');
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 100}, '2000');
                         }
                     }, 100);
             }

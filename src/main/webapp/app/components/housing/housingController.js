@@ -28,6 +28,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                     }
                 },
                 function (error) {
+                    $("#preloader").hide();
                     console.log(error);
                 });
         };
@@ -110,6 +111,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                         $("#preloader").hide();
                     },
                     function (error) {
+                        $("#preloader").hide();
                         console.log(error);
                     });
             }

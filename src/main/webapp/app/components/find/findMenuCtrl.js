@@ -22,6 +22,10 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
             }
         };
 
+        $scope.setContentHeight = function(cH, cW){
+            $(".contentPanel").css('min-height', cH);  
+        }
+
         $scope.smartScroll = function () {
             var clientHeight = $( window ).height();
             $(".by_subMenuPlus").css('min-height', (clientHeight - 57)+"px");

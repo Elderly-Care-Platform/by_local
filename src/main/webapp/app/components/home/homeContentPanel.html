@@ -98,8 +98,8 @@
 			<div class="by_homeShop_border"></div>
 			<div class="by_homeShop_menu2">
 				<div ng-repeat="menu in menuMapConfig[menu.id].children">
-					<div ng-repeat="leaf in menu.subcategories" ng-if="menu.name == 'BY THE CONDITION'">
-						<div class="by_home_product_menu" ng-if="leaf.id != 10203">
+					<div ng-repeat="leaf in menu.subcategories" ng-if="menu.id == menuConfig.homeProduct['by_the_condition'].id">
+						<div class="by_home_product_menu" ng-if="leaf.id != menuConfig.homeProduct['heart_bp'].id">
 							<a  href="{{moduleConfig[menu.module].baseUrl}}/{{leaf.slug}}/{{leaf.id}}/all">
 								<div class="by_home_product_image{{$index+1}} by_home_product_image"></div>
 								<div class="by_homeSection_menuText">

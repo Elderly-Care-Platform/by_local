@@ -209,6 +209,10 @@ public class HousingController {
 			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 		}
 	}
+	
+	public static Long getHousingCount(){
+		return staticHousingRepository.getCount();
+	}
 
 	private static void updateHousing(HousingFacility oldHousing,
 			HousingFacility newHousing) {

@@ -18,4 +18,6 @@ import com.beautifulyears.rest.response.PageImpl;
 public interface HousingRepositoryCustom {
 	public PageImpl<HousingFacility> getPage(String city, List<ObjectId> tagIds, String userId,
 			Boolean isFeatured, Boolean isPromotion, Pageable pageable);
+	
+	public Long getCount();
 }

@@ -58,9 +58,10 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                 if(category.children.length > 0){
                     createMenuCategoryMap(category.children);
                 }
-            });
+            });       
 
         };
+        
 
         var mergeProdCategories = function(prod_categories){
             function editCategoryOptions(categories, ancestorIdArr){
@@ -83,11 +84,11 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
                 })
             }
 
-            editCategoryOptions(prod_categories.category, [$rootScope.menuCategoryMapByName["Products"].id]);
+            editCategoryOptions(prod_categories.category, [$rootScope.menuCategoryMapByName["Shop"].id]);
             angular.forEach($scope.mainMenu, function(menu, index){
                 if(menu.module==3){
                     console.log(menu.displayMenuName);
-                    menu.children = prod_categories.category;
+                    menu.children = menu.children.concat(prod_categories.category);
                 }
             })
         };

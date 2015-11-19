@@ -4,6 +4,7 @@ var reloadDone = false;
 require.config({
 	// baseUrl: '../',
 	urlArgs: "versionTimeStamp=%PROJECT_VERSION%",
+	waitSeconds : 0,
 	paths : {
 		byApp : '../main/app',
 		byResource : '../main/appResources',
@@ -62,14 +63,14 @@ require.config({
 		userTypeConfig : '../shared/common/config/userTypesConfig',
 		editorController : '../shared/editor/editorController',
 
-		homePromoController : '../components/home/homeContentCtrl',
-		homeContentController : '../components/home/homePromoController',
+		homePromoController : '../components/home/homePromoController',
 		homeConfig : '../components/home/homeConfig',
 		discussLikeController : '../components/discussDetail/discussLikeCtrl',
 		discussDetailLeftController : '../components/discussDetail/discussDetailLeftCtrl',
 		discussReplyController : '../components/discussDetail/DiscussReplyCtrl',
 		LoginController : '../components/signup/login/loginController',
 		sectionHeaderConfig : '../components/menu/sectionHeaderConfig',
+		menuConfig : '../components/menu/menuConfig',
 
 		indvUserProfileCtrl : '../components/profile/individual/indvUserProfileCtrl',
 		instProfileCtrl : '../components/profile/institution/instProfileCtrl',
@@ -87,7 +88,9 @@ require.config({
 		regUserTypeController : '../components/signup/regUserTypeController',
 		modifySignupCtrl : '../components/signup/login/modifySignupCtrl',
 
+
 		productController : '../components/product/product-listing/productController',
+		productMenuCtrl :  '../components/product/product-menu/productMenuCtrl',
 		productDescCtrl : '../components/product/productDescription/product-description.controller',
 		videoImageDirective : '../components/product/productDescription/video-image.directive',
 		videoModalController : '../components/product/productDescription/videoModal.controller',
@@ -99,8 +102,14 @@ require.config({
 		editAddressController : '../components/product/cartCheckout/edit-address/edit-address.controller',
 		addAddressController : '../components/product/cartCheckout/add-address/add-address.controller',
 
-		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller'
+		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller',
+		headerCtrl : '../components/header/headerCtrl',
+		discussCtrl : '../components/discuss/discussController',
+		housingMenuCtrl : '../components/housing/housingMenuCtrl',
 
+		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl',
+		housingReviewsCtrl: '../components/housing/housingReviewsCtrl',
+		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl'
 	},
 
 	shim : {
@@ -149,34 +158,7 @@ require.config({
 require([ 'angular',"byApp","byUtil", "byDirectives", "lodash", "byApplicationConfig"], function(angular, byApp, byUtil, byDirectives, lodash, byApplicationConfig) {
 	var getProdCategoriesSuccess = function(prodCategories){
 		window.by_prodCategories = prodCategories;
-
 		angular.bootstrap(document, [ "byApp" ]);
-
-		var sess = localStorage.getItem("SessionId");
-		//alert(sess);
-		if(sess != '' && sess != null)
-		{
-			var log = document.getElementById('login_placeholder');
-			log.innerHTML = "Logout";
-			log.href = apiPrefix+"#!/users/logout/" + sess;
-			document.getElementById("login_placeHolder_li").style.display = "inline";
-
-			var pro = document.getElementById('profile_placeholder');
-
-			var userName = localStorage.getItem("USER_NAME");
-			pro.innerHTML = BY.byUtil.validateUserName(userName);
-			pro.href = apiPrefix + "#!/users/registrationProfile/";
-
-
-			if(window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html"))
-			{
-				window.location = apiPrefix+"#!/users/home?type=home";
-			}
-		}
-		else
-		{
-			BY.byUtil.inValidateSession();
-		}
 	};
 
 	$.ajax({

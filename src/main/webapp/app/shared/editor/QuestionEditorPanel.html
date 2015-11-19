@@ -1,4 +1,5 @@
 <div ng-controller="EditorController" class="by_editor_wrap">
+	
     <div class="col-md-12 by_editor_wrap_bg_head"> 
 
         <div class="col-md-12 no-padding  list-head dp-block">ASK
@@ -7,16 +8,11 @@
         <div class="col-md-12 no-padding bg-gray-h1">
             <div class="bg-green-h2" style="width: 70px;"></div>
         </div>
-
-		<div class="col-md-12 no-padding discuss-card-desciption dp-block">
-			Got a question about any aspect of caregiving or ageing? Just ask - someone in our community has already got an answer for you!
-		</div>
     </div>
     
     <div class="clearfix"></div>
 
 	<div class="by_editor_wrap_bg">
-
 		<div class="byEditorBg">
 			<div class="col-md-12 no-padding margin-bottom-20 byEditor">
 				<textarea id="question_textArea" class="textbox about-dependent"
@@ -26,62 +22,62 @@
 		</div>
 
 		<div class="col-md-12  form-header-content margin-bottom-15">
-			<a ng-click="showCategoryList()" ng-if="selectedMenuCount == 0">
-				Please click to select the category in which your question will appear
-				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
-			</a>
+			<!--<a ng-click="showCategoryList()" ng-if="selectedMenuCount == 0">-->
+				<!--Please click to select the category in which your question will appear-->
+				<!--<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>-->
+			<!--</a>-->
 			<div ng-if="selectedMenuCount > 0">
 				Your post will appear under the
 				<a ng-repeat="(key, value) in selectedMenuList">
 					<span ng-if="$index > 0"> | </span>
 					{{'"'+value.displayMenuName+'"'}}
 				</a> &nbsp;category.
-				<a ng-click="showCategoryList()">Please select additional categories (optional)</a>
-				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
+				<!--<a ng-click="showCategoryList()">Please select additional categories (optional)</a>-->
+				<!--<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>-->
 			</div>
 		</div>
 
-		<div class="col-md-12  margin-bottom-20" ng-if="showCategory">
-			<div class="panel-group acc-v1" id="accordion-1">
-				<div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryMap">
-					<div class="panel-heading">
-						<h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length <= 0">
-							<label ng-if="category.parentMenuId">
-								{{$root.menuCategoryMap[category.parentMenuId].displayMenuName +" >> " + category.displayMenuName}}
-								<input type="checkbox"  ng-click="selectTag($event, category)" value="{{category.id}}" ng-checked="{{selectedMenuId === category.id}}">
-							</label>
-							<label ng-if="!category.parentMenuId">
-								{{category.displayMenuName}}
-								<input type="checkbox"ng-click="selectTag($event, category)" value="{{category.id}}" ng-checked="{{selectedMenuId === category.id}}">
-						</label>
-						</h4>
-						<h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length > 0">
-							<a ng-if="!category.parentMenuId" class="accordion-toggle collapsed" data-toggle="collapse"
-							   data-parent="#accordion-1"
-							   href={{"#accord_"+category.id}} onclick="return false;">
-								{{category.displayMenuName}}
-							</a>
-							<a ng-if="category.parentMenuId" class="accordion-toggle collapsed"  data-toggle="collapse"
-							   data-parent="#accordion-1" href={{"#accord_"+category.id}} onclick="return false;">
-								{{$root.menuCategoryMap[category.parentMenuId].displayMenuName + " >> " + category.displayMenuName}}
-							</a>
-							<a class="triangle-down accordion-toggle collapsed" style="width: auto;"
-							   data-toggle="collapse" data-parent="#accordion-1"
-							   href={{"#accord_"+category.id}} onclick="return false;"></a>
-						</h4>
-					</div>
-					<div id={{"accord_"+category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel-collapse collapse">
-						<div class="panel-body col-md-12" ng-repeat="subCategory in category.children" ng-if="subCategory.module===0">
-							<input type="checkbox" ng-click="selectTag($event, subCategory)"
-								value={{subCategory.id}}
-								ng-checked="{{selectedMenuId === subCategory.id}}">
-							<span>{{subCategory.displayMenuName}}</span>
-						</div>
-					</div>
-					<div style="clear: both"></div>
-				</div>
-			</div>
-		</div>
+		<!--<div class="col-md-12  margin-bottom-20" ng-if="showCategory">-->
+			<!--<div class="panel-group acc-v1" id="accordion-1">-->
+				<!--<div class="panel panel-default by_accordian" ng-repeat="category in $root.discussCategoryMap">-->
+					<!--<div class="panel-heading">-->
+						<!--<h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length <= 0">-->
+							<!--<label ng-if="category.parentMenuId">-->
+								<!--{{$root.menuCategoryMap[category.parentMenuId].displayMenuName +" >> " + category.displayMenuName}}-->
+								<!--<input type="checkbox"  ng-click="selectTag($event, category)" value="{{category.id}}" ng-checked="{{selectedMenuId === category.id}}">-->
+							<!--</label>-->
+							<!--<label ng-if="!category.parentMenuId">-->
+								<!--{{category.displayMenuName}}-->
+								<!--<input type="checkbox"ng-click="selectTag($event, category)" value="{{category.id}}" ng-checked="{{selectedMenuId === category.id}}">-->
+						<!--</label>-->
+						<!--</h4>-->
+						<!--<h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length > 0">-->
+							<!--<a ng-if="!category.parentMenuId" class="accordion-toggle collapsed" data-toggle="collapse"-->
+							   <!--data-parent="#accordion-1"-->
+							   <!--href={{"#accord_"+category.id}} onclick="return false;">-->
+								<!--{{category.displayMenuName}}-->
+							<!--</a>-->
+							<!--<a ng-if="category.parentMenuId" class="accordion-toggle collapsed"  data-toggle="collapse"-->
+							   <!--data-parent="#accordion-1" href={{"#accord_"+category.id}} onclick="return false;">-->
+								<!--{{$root.menuCategoryMap[category.parentMenuId].displayMenuName + " >> " + category.displayMenuName}}-->
+							<!--</a>-->
+							<!--<a class="triangle-down accordion-toggle collapsed" style="width: auto;"-->
+							   <!--data-toggle="collapse" data-parent="#accordion-1"-->
+							   <!--href={{"#accord_"+category.id}} onclick="return false;"></a>-->
+						<!--</h4>-->
+					<!--</div>-->
+					<!--<div id={{"accord_"+category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel-collapse collapse">-->
+						<!--<div class="panel-body col-md-12" ng-repeat="subCategory in category.children" ng-if="subCategory.module===0">-->
+							<!--<input type="checkbox" ng-click="selectTag($event, subCategory)"-->
+								<!--value={{subCategory.id}}-->
+								<!--ng-checked="{{selectedMenuId === subCategory.id}}">-->
+							<!--<span>{{subCategory.displayMenuName}}</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div style="clear: both"></div>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
 
 		<div ng-show="errorMsg">
 			<font color="red">{{errorMsg}}</font>

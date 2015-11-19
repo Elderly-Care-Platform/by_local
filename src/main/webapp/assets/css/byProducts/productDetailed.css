@@ -157,7 +157,7 @@
 .by_productDetail_contentQuantity
 {
   margin-right: 5px;
-  width:68px;
+  width:auto;
   border: 1px solid #ccc;
 }
 .by_productDetail_contentQuantityButton
@@ -183,7 +183,6 @@
 {
   background: #004f24;  
   padding: 3px 10px;
-  margin-bottom: 5px;
 }
 .by_breadcrum_greenColor
 {
@@ -204,12 +203,13 @@
 }
 .by_productDetail_optionSize_size
 {
-	width:25px;
+	width:auto;
 	height:25px;
 	margin-left:10px;
 	cursor:pointer;
 	text-align:center;
 	border:2px solid #ccc;
+	padding: 0px 5px;
 }
 @media screen and (max-width: 990px){
   .by_productDetail_mobileSpace

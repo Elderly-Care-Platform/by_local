@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+import static org.springframework.data.mongodb.core.query.Criteria.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +23,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.BYConstants;
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
@@ -44,6 +53,7 @@ import com.beautifulyears.util.UserProfilePrivacyHandler;
 import com.beautifulyears.util.Util;
 import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
 import com.beautifulyears.util.activityLogHandler.UserProfileLogHandler;
+import com.mongodb.util.Hash;
 
 /**
  * The REST based service for managing "user_profile"
@@ -535,6 +545,52 @@ public class UserProfileController {
 			}
 		}
 		return shortDescription;
+	}
+
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/getCount" }, produces = { "application/json" })
+	@ResponseBody
+	private Object getProfileCount() {
+
+		Aggregation aggregation = newAggregation(
+				match(where("status")
+						.is(DiscussConstants.DISCUSS_STATUS_ACTIVE)),
+				unwind("userTypes"), group("userTypes").count().as("total"),
+				project("total").and("_id").as("userTypes"));
+
+		AggregationResults<UserProfileController.ProfileCount> groupResults = mongoTemplate
+				.aggregate(aggregation, UserProfile.class,
+						UserProfileController.ProfileCount.class);
+		Map<String, Integer> countMap = new HashMap<String, Integer>();
+		for (UserProfileController.ProfileCount profileCount : groupResults
+				.getMappedResults()) {
+			countMap.put(profileCount.getUserTypes(), profileCount.getTotal());
+		}
+		Long housing = HousingController.getHousingCount();
+		countMap.put("" + UserTypes.INSTITUTION_HOUSING,
+				(Integer) housing.intValue());
+		return BYGenericResponseHandler.getResponse(countMap);
+	}
+
+	class ProfileCount {
+		private String userTypes;
+		private Integer total;
+
+		public String getUserTypes() {
+			return userTypes;
+		}
+
+		public void setUserTypes(String userTypes) {
+			this.userTypes = userTypes;
+		}
+
+		public Integer getTotal() {
+			return total;
+		}
+
+		public void setTotal(Integer total) {
+			this.total = total;
+		}
+
 	}
 
 }

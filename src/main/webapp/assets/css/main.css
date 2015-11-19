@@ -223,11 +223,11 @@ body a:hover
 
 .by_ellipsis:after {
     content: "\02026"; 
-  float: right; position: relative;
-  top: 20px; left: 100%; 
-  width: 20px; margin-left: -20px;
-  padding-right: 5px;
-  background: #fff;  
+    float: right; position: relative;
+    top: 20px; left: 100%; 
+    width: 20px; margin-left: -20px;
+    padding-right: 5px;
+    background: #fff;  
 }
 
 .darkBgwithText
@@ -251,4 +251,42 @@ body a:hover
     bottom:-7px;
     left:20%;
     z-index:2;
+}
+.leftPanel
+{
+    width: 250px;
+    height: auto;
+    float: left;
+}
+.contentPanel
+{
+    width: calc(80% - 250px);
+    float: right;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: auto;
+    margin-top: 20px;
+   /* min-height: 100vh;*/
+}
+@media ( max-width : 1200px){
+    .contentPanel
+    {
+        width: calc(90% - 250px);
+        float: right;
+        margin-left: 5%;
+        margin-right: 5%;
+        height: auto;
+        margin-top: 20px;
+    }
+}
+@media ( max-width : 720px){
+    .contentPanel
+    {
+        width: 96%;
+        float: none;
+        margin-left: 2%;
+        margin-right: 2%;
+        height: auto;
+        margin-top: 20px;
+    }
 }

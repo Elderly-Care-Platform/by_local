@@ -1,116 +1,170 @@
 define(['byApp',
     'discussLikeController',
     'shareController',
-    'byEditor'], function (byApp, discussLikeController, shareController, byEditor) {
+    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid'], function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid) {
 
     'use strict';
 
     function DiscussAllController($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
                                   DiscussCount,$sce, $timeout, $window, broadCastMenuDetail) {
 
-        var a = $(".header .navbar-nav > li.dropdown");a.removeClass("dropdown"); setTimeout(function(){a.addClass("dropdown")},200);
-
-        $scope.discussionViews = {};
-        $scope.discussionViews.leftPanel = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        $scope.discussionViews              = {};
+        $scope.discussionViews.leftPanel    = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.discussionViews.contentPanel = "app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        $scope.selectedMenu = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
-        $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
 
-        var tags = [];
-        var queryParams = {p:0,s:10,sort:"lastModifiedAt"};
-
-
-
-        if($scope.selectedMenu){
-            //Set page title and FB og tags
-            (function(){
-                var metaTagParams = {
-                    title:  $scope.selectedMenu.displayMenuName,
-                    imageUrl:   "",
-                    description:   "",
-                    keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
-                }
-                BY.byUtil.updateMetaTags(metaTagParams);
-            })();
+        $rootScope.byTopMenuId              = $rootScope.mainMenu[0].id ;
+        $scope.discussType                  = $routeParams.discussType; //Needed for left side Q/A/P filters
+        $scope.showEditor                   = $routeParams.showEditor==='true' ? true : false;
+        $scope.showEditorType               = $routeParams.showEditorType ? $routeParams.showEditorType : null;
+        $scope.selectedMenu                 = $scope.$parent.menuLevel2;
+        $scope.pageSize                     = 20;
+        $scope.isGridInitialized            = false;
+        $scope.initDiscussListing           = initDiscussListing;
+        $scope.initScroll                   = initScroll;
+        var tags                            = [];
+        var queryParams                     = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
+        var init                            = initialize();
 
 
-            tags = $.map($scope.selectedMenu.tags, function(value, key){
-                return value.id;
-            })
-
-            queryParams.tags = tags.toString();  //to create comma separated tags list
-            if($scope.discussType && $scope.discussType.toLowerCase().trim()!=="all"){
-                queryParams.discussType = $routeParams.discussType;
+        function initialize(){
+            if(!$scope.showEditor){
+                initDiscussListing();
+            }else{
+                initScroll();
             }
+        }
 
-            $("#preloader").show();
-            DiscussCount.get({tags:tags, contentTypes:"f,total,p,q"}, function (counts) {
-                    $scope.discuss_counts = counts.data;
-                },
-                function (error) {
-                    console.log(error);
-                });
-
-            if(queryParams.discussType === 'f'){
-                queryParams.isFeatured=true;
-                delete queryParams.discussType;
+        function initScroll(){
+            if($scope.showEditor){
+                $timeout(
+                    function () {
+                        var tag = $("#discussListContainer");
+                        if (tag.length > 0) {
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, '2000');
+                        }
+                    }, 100);
+            }else if($scope.discussList && $scope.discussList.length > 0 && $scope.$parent.isLeafMenuSelected ){
+                $timeout(
+                    function () {
+                        var tag = $("#discussListContainer");
+                        if (tag.length > 0) {
+                            $('html,body').animate({scrollTop: tag.offset().top - $(".by_header").height() - 60}, '2000');
+                        }
+                    }, 100);
             }
+        }
 
-            DiscussPage.get(queryParams,
-                function (value) {
+        $scope.initGrid = function (index) {
+            if ($rootScope.windowWidth > 800) {
+                var gridMasonary = $(".masonry");
+                window.setTimeout(function(){
+                     masonaryGridInit();
+                     $(".masonry").masonry("reload");
+                    /*if (gridMasonary.length === 0) {
+                        masonaryGridInit();
+                    } else {
+                        $(".masonry").masonry("reload");
+                    }*/
+                   
+                }, 100);
 
-                    $scope.discuss = value.data.content;
-                    $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
-                    $scope.pageInfo.isQueryInProgress = false;
-                    $("#preloader").hide();
-                },
-                function (error) {
-                    console.log("DiscussAllForDiscussType");
-                    alert("error");
-                });
-
+            }
+            else if ($rootScope.windowWidth < 800) {
+                $(".grid-boxes-in").removeClass('grid-boxes-in');
+                //$("#preloader").hide();
+            }
+            window.scrollTo(0, 0);
+            //masonaryGridInit();
         };
+
+        function initDiscussListing() {
+            if ($scope.selectedMenu) {
+                //Set page title and FB og tags
+                (function () {
+                    var metaTagParams = {
+                        title: $scope.selectedMenu.displayMenuName,
+                        imageUrl: "",
+                        description: "",
+                        keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                    }
+                    BY.byUtil.updateMetaTags(metaTagParams);
+                })();
+
+
+                tags = $.map($scope.selectedMenu.tags, function (value, key) {
+                    return value.id;
+                })
+
+                queryParams.tags = tags.toString();  //to create comma separated tags list
+                if ($scope.discussType && $scope.discussType.toLowerCase().trim() !== "all") {
+                    queryParams.discussType = $routeParams.discussType;
+                }
+
+
+                DiscussCount.get({tags: tags, contentTypes: "f,total,p,q"}, function (counts) {
+                        $scope.discuss_counts = counts.data;
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
+
+                if (queryParams.discussType === 'f') {
+                    queryParams.isFeatured = true;
+                    delete queryParams.discussType;
+                }
+                $scope.getDiscussData = function (page, size) {
+                    $("#preloader").show();
+                    queryParams.p = page;
+                    queryParams.s = size;
+                    DiscussPage.get(queryParams,
+                        function (value) {
+                            $scope.discussList = value.data.content;
+                            $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
+                            $scope.pageInfo.isQueryInProgress = false;
+                            $scope.discussPagination = {};
+                            $scope.discussPagination.totalPosts = value.data.total;
+                            $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
+                            $scope.discussPagination.currentPage = value.data.number;
+                            $scope.discussPagination.pageSize = $scope.pageSize;
+
+                           /* if($scope.discussList.length === 0){
+                                $("#preloader").hide();
+                            }*/
+                            $("#preloader").hide();
+                            initScroll();
+                        },
+                        function (error) {
+                            console.log("DiscussAllForDiscussType");
+                            $("#preloader").hide();
+                            alert("error");
+                        });
+                }
+
+                $scope.getDiscussData(0, $scope.pageSize);
+
+            };
+        }
 
         $scope.fixedMenuInitialized = function(){
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         };
 
-        $scope.loadMore = function($event){
-            if($scope.pageInfo && !$scope.pageInfo.lastPage && !$scope.pageInfo.isQueryInProgress ){
-                $scope.pageInfo.isQueryInProgress = true;
-                queryParams.p = $scope.pageInfo.number + 1;
-                queryParams.s = $scope.pageInfo.size;
-
-                if(queryParams.discussType === 'f'){
-                    queryParams.isFeatured=true;
-                    delete queryParams[discussType];
-                }
-
-                DiscussPage.get(queryParams,
-                    function(value){
-
-                        if(value.data.content.length > 0){
-                            $scope.pageInfo.isQueryInProgress = false;
-                            $scope.discuss = $scope.discuss.concat(value.data.content);
-                        }
-                        $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
-                        $scope.pageInfo.isQueryInProgress = false;
-                    },
-                    function(error){
-                        console.log("DiscussAllForDiscussType");
-                    });
-            }
+        $scope.showEditorPage = function(type){
+            $location.search('showEditor', 'true');
+            $location.search('showEditorType', type);
+            BY.byEditor.removeEditor();
+            $location.path("/discuss/list/"+$scope.selectedMenu.slug+"/"+$scope.selectedMenu.id+"/all");
         }
 
-        $scope.add = function (type) {
-            require(['editorController'], function(editorController){
-                BY.byEditor.removeEditor();
-                $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                window.scrollTo(0, 0);
-                $scope.$apply();
-            });
-
-        };
+        //$scope.add = function (type) {
+        //    require(['editorController'], function(editorController){
+        //        BY.byEditor.removeEditor();
+        //        $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+        //        window.scrollTo(0, 0);
+        //        $scope.$apply();
+        //    });
+        //
+        //};
 
         $scope.postSuccess = function () {
             $route.reload();
@@ -146,6 +200,13 @@ define(['byApp',
             }
         }
 
+
+
+        
+
+
+
+        
     }
 
 

@@ -11,12 +11,12 @@
                 ng-click="setSelectedTab('s')" ng-class="{'active':selectedTab==='s'}" >
                 <a >Services ({{serviceTotal}})</a>
             </li>
-             <li class="list-group-item" ng-if="housingTotal>0" ng-init="setSelectedTab('d')"
-                 ng-click="setSelectedTab('h')" ng-class="{'active':selectedTab==='h'}">
+            <li class="list-group-item" ng-if="housingTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('h')" ng-class="{'active':selectedTab==='h'}">
                 <a >Housing ({{housingTotal}})</a>
             </li>
-             <li class="list-group-item" ng-if="productsTotal>0" ng-init="setSelectedTab('d')"
-                 ng-click="setSelectedTab('p')" ng-class="{'active':selectedTab==='p'}">
+            <li class="list-group-item" ng-if="productsTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('p')" ng-class="{'active':selectedTab==='p'}">
                 <a >Products ({{productsTotal}})</a>
             </li>
         </ul>

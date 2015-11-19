@@ -40,7 +40,7 @@ BY.config.sectionHeader = {
         'sectionImage':'assets/img/section_headers/News.jpg?versionTimeStamp=%PROJECT_VERSION%',
         'sectionImageMobile':'assets/img/section_headers/News_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
     },
-    'products' : {
+    'shop' : {
         'sectionHead':'Products',
         'sectionDesc':'Want to know how innovative products can improve lives of your loved ones? You can find everything from knee braces to adult diapers reviews and more in this section. ',
         'sectionImage':'assets/img/section_headers/product.jpg?versionTimeStamp=%PROJECT_VERSION%',

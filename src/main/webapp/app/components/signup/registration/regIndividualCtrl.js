@@ -139,7 +139,9 @@ define(['byApp'], function(byApp){
 
             if($scope.individualInfo.medicalIssues && $scope.individualInfo.medicalIssues.length > 0){
                 $scope.selectedMedicalIssues =  $.map($scope.individualInfo.medicalIssues, function(value, key){
-                    return value.id;
+                    if(value){
+                        return value.id;
+                    }
                 });
             }
 
@@ -157,13 +159,17 @@ define(['byApp'], function(byApp){
 
             if($scope.individualInfo.interests && $scope.individualInfo.interests.length > 0){
                 $scope.selectedInterests =  $.map($scope.individualInfo.interests, function(value, key){
-                    return value.id;
+                    if(value){
+                        return value.id;
+                    }
                 });
             }
 
             if($scope.individualInfo.hobbies && $scope.individualInfo.hobbies.length > 0){
                 $scope.selectedHobbies =  $.map($scope.individualInfo.hobbies, function(value, key){
-                    return value.id;
+                    if(value){
+                        return value.id;
+                    }
                 });
             }
 

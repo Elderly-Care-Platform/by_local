@@ -24,10 +24,22 @@ define([], function () {
                 }
             })
             .when('/discuss/list/:slug/:menuId/:discussType', {
-                templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussAllController', resolve: {
+                templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/discuss/discussController.js'], function () {
+                        require(['app/components/discuss/discussMenuCtrl.js'], function (discussMenuCtrl) {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
+            .when('/discuss/list/:slug/:menuId/:discussType', {
+                templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/discuss/discussMenuCtrl.js', 'editorController'], function (discussMenuCtrl, editorController) {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -172,7 +184,7 @@ define([], function () {
                 }
             })
 
-            .when('/search/:term/:disType', {
+            .when('/search/:term/:searchType', {
                 templateUrl: 'app/components/search/search.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'SearchController',
                 resolve: {
@@ -206,9 +218,25 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/find/servicesController.js'], function () {
+                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js'],
+                            function (servicesController, findMenuCtrl) {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }]
+                }
+            })
+
+            .when('/services/overview/list/:slug/:menuId/:discussType', {
+                templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'ServicesController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js', 'editorController'],
+                            function (servicesController, findMenuCtrl) {
+                                defered.resolve();
+                            });
                         return defered.promise;
                     }]
                 }
@@ -261,7 +289,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/housing/housingController.js'], function () {
+                        require(['app/components/housing/housingController.js', 'housingMenuCtrl'], function () {
                             defered.resolve();
                         });
                         return defered.promise;
@@ -269,6 +297,19 @@ define([], function () {
                 }
             })
 
+            .when('/housing/overview/list/:slug/:menuId/:discussType', {
+                templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'HousingController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/housing/housingController.js', 'housingMenuCtrl', 'editorController'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
 
             .when('/users/privacyPolicy', {
                 templateUrl: 'app/shared/footer/privacyPolicy.html?versionTimeStamp=%PROJECT_VERSION%',
@@ -292,26 +333,6 @@ define([], function () {
                 }
             })
 
-
-        //.when('/users/aboutUs', {templateUrl: 'app/components/aboutUs/aboutUs.html', controller: 'BYAboutUsController'})
-        //.when('/users/new', {templateUrl: 'app/components/users/create.html', controller: 'UserCreateController'})
-        //.when('/users/login', {templateUrl: 'app/components/login/registration.html', controller: 'RegistrationController'})
-        //.when('/users/logout/:sessionId', {templateUrl: 'app/components/users/home.html', controller: 'LogoutController'})
-        //
-        //.when('/discuss/:topicId/all', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussCategoryController'})
-        //.when('/discuss/:discussType/:topicId/:subTopicId', {templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussSubCategoryController'})
-        //
-        //.when('/search/:term/:disType', {templateUrl: 'app/components/search/search.html', controller: 'DiscussSearchController'})
-        //.when('/discuss/:discussId', {templateUrl: 'app/components/discussDetail/discussDetail.html', controller: 'DiscussDetailController'})
-        //
-        //.when('/users/privacyPolicy', {templateUrl: 'app/shared/footer/privacyPolicy.html', controller: ''})
-        //.when('/users/termsCondition', {templateUrl: 'app/shared/footer/termsConditions.html', controller: ''})
-        //.when('/users/contactUs', {templateUrl: 'app/shared/footer/contactUs.html', controller: 'contactUsController'})
-        //.when('/find/:slug/:services/:city', {templateUrl: 'app/components/find/services.html', controller: 'ServicesController'})
-        //.when('/find/:services/:city', {templateUrl: 'app/components/find/services.html', controller: 'ServicesController'})
-        //.when('/services/list/:slug/:menuId/:city', {templateUrl: 'app/components/find/services.html', controller: 'ServicesController'})
-        //.when('/product/All/list/all', {templateUrl: 'app/components/product/product.html', controller: 'ProductAllController'})
-        //.when('/profile/:profileType/:profileId', {templateUrl: 'app/components/profile/profile.html', controller: 'ProfileController'});
     }
 
     config.$inject = ['$routeProvider'];

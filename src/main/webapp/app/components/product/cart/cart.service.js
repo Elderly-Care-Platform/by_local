@@ -52,7 +52,8 @@ define([], function () {
         return cartService;
 
         function getCartDetail(params) {
-            if (params && params.customerId) {
+            var sessId = localStorage.getItem("SessionId");
+            if ((params && params.customerId) || sessId) {
                 return this.$get(urls.forCartDetail(params));
             } else {
                 return this.$get(urls.createCartForGuest());

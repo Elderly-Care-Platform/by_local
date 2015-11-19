@@ -203,12 +203,13 @@
 }
 .by_productDetail_optionSize_size
 {
-	width:25px;
+	width:auto;
 	height:25px;
 	margin-left:10px;
 	cursor:pointer;
 	text-align:center;
 	border:2px solid #ccc;
+	padding: 0px 5px;
 }
 @media screen and (max-width: 990px){
   .by_productDetail_mobileSpace

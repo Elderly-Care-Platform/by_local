@@ -1,3 +1,7 @@
+<div class="by_sectionHeader" ng-if="selectedMenu" >
+    {{selectedMenu.displayMenuName}}
+</div>
+
 <!--
 <div class="by_productList_banner">
 	<img src="assets/img/product/banner_placeHolder.jpg?versionTimeStamp=%PROJECT_VERSION%" width="100%" />
@@ -20,8 +24,8 @@
 		<img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
 			 fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
 	</div>
-	<div class="by_productCard_divider"></div>
-	<div class="by_productCard_title ellipsisHead">{{product.name}}</div>
+	<!--<div class="by_productCard_divider"></div>-->
+	<div class="by_productCard_title ellipsisHead margin-top-20" >{{product.name}}</div>
 	<div class="by_productCard_price">
 		<span ng-if="product.salePrice && product.salePrice.amount">Our price: <strong>Rs {{product.salePrice.amount}}</strong></span>
 		<span ng-if="!product.salePrice || !product.salePrice.amount">Our price: <strong>Rs {{product.retailPrice.amount}}</strong></span>

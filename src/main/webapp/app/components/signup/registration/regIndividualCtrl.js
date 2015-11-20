@@ -202,7 +202,8 @@ define(['byApp'], function(byApp){
                 buttonText: "Select date",
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1900:2015"
+                yearRange: "1900:2015",
+                maxDate: "0D" 
             });
             editorInitCallback();
             getLanguages();

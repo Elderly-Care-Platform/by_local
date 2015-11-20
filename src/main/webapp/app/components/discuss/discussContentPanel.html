@@ -1,10 +1,10 @@
 <div class="clearfix"></div>
-<div class="by_commSectionHeader" ng-if="commSectionHeader[selectedMenu.id]" >
-    {{commSectionHeader[selectedMenu.id].desc}}
+<div class="by_commSectionHeader" ng-if="menuConfig.community[selectedMenu.id]" >
+    {{menuConfig.community[selectedMenu.id].desc}}
 </div>
 
 <div class="clearfix"></div>
-<div class="by_editorButtonWrap">
+<div class="by_editorButtonWrap" ng-if="menuConfig.community[selectedMenu.id].askEditor != false">
     <div class="col-md-6 col-xs-6  col-sm-6  by_editorButtonWrap_thumb"
          ng-click="showEditorPage('Question')" ng-init="initScroll()">
         <i class="sprite sprite-question divLeft"></i>
@@ -16,6 +16,20 @@
         </div>
     </div>
     <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb"
+         ng-click="showEditorPage('Article')">
+        <i class="sprite sprite-story divLeft"></i>
+        <span class="divLeft by_editorButtonHead">Share</span>
+
+        <div class="clearfix"></div>
+        <div class="by_editorButtonText col-md-12">
+            Post your tips and stories about {{selectedMenu.displayMenuName}}
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="by_editorButtonWrap"  ng-if="menuConfig.community[selectedMenu.id].askEditor == false">
+    <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
          ng-click="showEditorPage('Article')">
         <i class="sprite sprite-story divLeft"></i>
         <span class="divLeft by_editorButtonHead">Share</span>

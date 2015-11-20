@@ -1,9 +1,13 @@
 <div class="by_home_bg">
 	<!--          Home title            -->
-    <div class="by_home_title1">
+    <div class="by_home_title1 divLeft">
         Taking better care of parents<br/>
         Living longer and happier
     </div>
+    <div class="divRight by_home_agingImage" ng-if="$root.windowWidth < 721">
+        <img src="assets/img/home/ageing_people.png?versionTimeStamp=%PROJECT_VERSION%" width="100%" />
+    </div>
+    <div class="clearfix"></div>
 
 	<!--            Home Top Menu           -->
     <div class="by_home_topMenu">
@@ -55,11 +59,11 @@
 
 
 <!--                  Home Promotions                    -->
-<div class="by-home-page margin-top-20">
+<div class="by-home-page">
     <div class="clearfix"></div>
     <div id="homeContainer" class="homeContainer">
         <div class="discussion-page md-margin-bottom-40 container homeAskShare">
-            <div ng-controller="BYHomePromoController">
+            <div ng-controller="BYHomePromoController" class=" margin-top-20">
                 <div ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
                      infinite-scroll="loadMore()"></div>
             </div>

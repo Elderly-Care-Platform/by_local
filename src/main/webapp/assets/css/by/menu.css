@@ -57,11 +57,11 @@
 	float: left;
 	font-size: 20px;
 	font-weight: bold;
+	background: rgba(5, 48, 14, 0.7);
 }
 .by_subMenu_headThumb:hover
 {
-	background: #FF850F;
-	border-color: #FF850F;
+	background: #12852d;
 }
 .by_subMenu_headThumb a
 {
@@ -76,7 +76,7 @@
 	color: #fff;
 	text-decoration: none;
 }
-.by_subMenu_headThumb_active
+.by_subMenu_headThumb_active, .by_subMenu_headThumb_active:hover
 {
 	background: #fff;
 	color: #004f24;
@@ -85,6 +85,7 @@
 .by_subMenu_headThumb_active a, .by_subMenu_headThumb_active a:hover
 {
 	color: #004f24; 
+	background: #fff;
 }
 .by_subMenu_content
 {

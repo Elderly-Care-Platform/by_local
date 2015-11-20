@@ -1,3 +1,7 @@
+<div class="by_sectionHeader" ng-if="selectedMenu" >
+    {{selectedMenu.displayMenuName}}
+</div>
+
 <div ng-repeat="service in services" class="ng-scope" style="position:relative;">
 	<div ng-include="'app/components/find/servicesIndvContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"
 		ng-if="service.userTypes[0] == 7"></div>

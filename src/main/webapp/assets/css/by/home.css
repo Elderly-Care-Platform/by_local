@@ -6,9 +6,10 @@
 }
 
 .by_home_title1 {
-    width: auto;
+    width: 100%;
     height: auto;
     text-align: center;
+    padding: 0px 3%;
     color: #fff;
     font-size: 28px;
     padding-top: 110px;
@@ -92,13 +93,12 @@
         line-height: 30px;
         padding: 10px;
         border: 1px solid #fff;
-        font-size: 20px;
+        font-size: 25px;
         text-transform: uppercase;
         margin-top: 9px;
         color: #fff;
         border-radius: 2px !important;
-        font-weight: bold;
-        background: #174F00;
+        background: rgba(5, 48, 14, 0.7);
     }
 
     .by_home_topMenu_item:hover .by_home_topMenuTitle {
@@ -129,7 +129,7 @@
     .by_homeSection {
         max-width: 70%;
         height: auto;
-        padding: 30px 0px 30px 0px;
+        padding: 40px 0px 45px 0px;
         margin-left: auto;
         margin-right: auto;
         min-width: 690px;
@@ -389,17 +389,17 @@
 
     .by_home_comm_bg {
         background:#e3ede4 url('../../img/home/community.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat right bottom;
-        background-size: 40% 100%;
+        background-size: 32%;
     }
 
     .by_home_find_bg {
         background:#dcdcdc url('../../img/home/service.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat left bottom;
-        background-size: 40% 100%;
+        background-size: 35%;
     }
 
     .by_home_shop_bg {
         background: #fee8ea  url('../../img/home/product-right.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat right top;
-        background-size: 40% 100%;
+        background-size: 35%;
     }
     .by_homeSectionInside {
         width: 680px;
@@ -407,7 +407,12 @@
         margin-right: auto;
         margin-left: auto;
     }
-
+    @media ( max-width: 920px){        
+        .by_home_title1
+        {
+            text-align: left;
+        }
+    }
     @media ( max-width: 720px) {
         .by_container, .by_homeSectionInside {
             width: 100%;
@@ -523,7 +528,7 @@
             color: #fff;
             border-radius: 2px !important;
             text-align: center;
-            background: #174F00;
+            background: rgba(5, 48, 14, 0.7);
         }
 
         .by_home_topMenuImage {
@@ -544,6 +549,7 @@
             display: inline-block;
             padding-top: 4px;
             padding-left: 10px;
+            background: transparent;
         }
 
         .by_home_title1 {
@@ -555,7 +561,12 @@
             padding-top: 110px;
             margin-left: 5%;
         }
-
+        .by_home_agingImage
+        {
+            width: 27%;
+            padding-top: 42px;
+            margin-right: 10%;
+        }
         .by_home_topMenu_item:hover .by_home_topMenuText {
             background-color: #FF850F;
             border: 1px solid #FF850F;
@@ -607,16 +618,69 @@
             background-image:none;
         }
     }
-
+    @media ( max-width: 590px){
+        .by_home_agingImage
+        {
+         width: 31%;
+         padding-top: 30px;
+         margin-right: 10%;
+        }
+        .by_home_title1{
+            padding-top: 75px;
+        }
+        .by_home_topMenu
+        {
+            margin-top: -10px;
+        }
+        .by_home_topMenu_item 
+        {
+            margin-bottom: 15px;
+        }
+        .by_home_topMenuDesc
+        {
+            line-height: 20px;
+        }
+        .by_home_topMenuImage img
+        {
+            width: 25px;
+        }
+        .by_home_topMenuText
+        {
+            height: 40px;
+            line-height: 27px;
+            padding: 1px;
+        }
+        .by_home_topMenuTitle
+        {
+            padding-top: 2px;
+        }
+    }
     @media ( max-width: 520px) {
         .by_home_find_menu, .by_homeSection_menu {
             height: 160px;
+        }
+    }
+    @media ( max-width: 490px) {
+        .by_home_agingImage
+        {
+            padding-top: 51px; 
         }
     }
 
     @media ( max-width: 425px) {
         .by_homeShop_menu {
             height: 66px;
+        }
+        .by_home_title1
+        {
+            padding-top: 65px;
+        }
+    }
+    @media ( max-width: 380px){
+        .by_home_agingImage
+        {
+            width: 40%;
+            margin-right: 5%;
         }
     }
     #homeMenuScroll

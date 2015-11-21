@@ -6,6 +6,7 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
         $scope.galleryImages = [];
         $scope.submitted = false;
         $scope.minCategoryError = false;
+        $scope.websiteError = false;
         $scope.otherLocations = [];
         $scope.selectedMenuList = {};
 
@@ -211,6 +212,7 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.minCategoryError = false;
+            $scope.websiteError = false;
             $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
                 if(value && $rootScope.menuCategoryMap[value.id]){
                     return value.id;
@@ -234,17 +236,19 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
                 $scope.minCategoryError = true;
             }
 
-            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            var regex = /(?:[\w-]+\.)+[\w-]+([.(\w-)]{2,63}$)+/ ;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
                 if(regex.exec($scope.serviceProviderInfo.website)){
                     $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+                }else{
+                    $scope.websiteError = true;
                 }
             }
 
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
-            if (isValidForm.$invalid || $scope.minCategoryError) {
+            if (isValidForm.$invalid || $scope.minCategoryError || $scope.websiteError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {

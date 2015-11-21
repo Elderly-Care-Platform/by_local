@@ -482,3 +482,10 @@
 .smartScroll-wrapper{
 	position: static;
 }
+
+@media ( max-width : 720px) and (orientation:landscape){
+	.by_mobile_leftPanel_image
+	{	
+		margin-top: calc(15% - 40px);
+	}
+}

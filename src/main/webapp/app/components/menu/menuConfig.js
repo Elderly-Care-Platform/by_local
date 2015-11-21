@@ -264,42 +264,42 @@ BY.config.menu.community = {
         'name':'Photography',    
         'menuIconImageDesktop':'assets/img/community/desktop/photography.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/photography.png?versionTimeStamp=%PROJECT_VERSION%',       
-        'desc':'Photography : Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!',
+        'desc':'Photography',
         'askEditor': false
     },
     '55cc8440e4b0083957500661' : {  
         'name':'Cooking & Recipes',  
         'menuIconImageDesktop':'assets/img/community/desktop/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%',         
-        'desc':'Cooking & Recipes : Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!',
+        'desc':'Cooking & Recipes',
         'askEditor': false
     },
      '55cc845ce4b0083957500662' : { 
         'name':'Painting & Drawing', 
         'menuIconImageDesktop':'assets/img/community/desktop/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%',           
-        'desc':'Painting & Drawing : Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!',
+        'desc':'Painting & Drawing',
         'askEditor': false
     },
      '55cc860be4b008395750066f' : { 
         'name':'Creative Writing',  
         'menuIconImageDesktop':'assets/img/community/desktop/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%',          
-        'desc':'Creative Writing : Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!',
+        'desc':'Creative Writing',
         'askEditor': false
     },
      '564076aa3e60f5b66f62df33' : { 
         'name':'Travel & Pilgrimages',  
         'menuIconImageDesktop':'assets/img/community/desktop/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%',          
-        'desc':'Travel & Pilgrimages : Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!',
+        'desc':'Travel & Pilgrimages',
         'askEditor': false
     },
      '564083353e60f5b66f62df39' : {  
         'name':'Active LeisureOther', 
         'menuIconImageDesktop':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%',         
-        'desc':'Other : Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!',
+        'desc':'Other',
         'askEditor': false
     },
     '564072883e60f5b66f62df2d' : {  

@@ -259,6 +259,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
 
         $rootScope.byTopMenuId = $rootScope.mainMenu[2].id ;
         $scope.telNo = BY.config.constants.byContactNumber;
+        $scope.selectedMenuId           = $routeParams.menuId;
 
 
       

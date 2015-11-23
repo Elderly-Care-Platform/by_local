@@ -290,8 +290,8 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
                 $scope.minCategoryError = true;
             }
 
-            var regex = /(?:[\w-]+\.)+[\w-]+([.(\w-)]{2,63}$)+/ ;
-
+            //var regex = /(?:[\w-]+\.)+[\w-]+([.(\w-)]{2,63}$)+/ ;
+            var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&//=]*))+/ ;
             //var regex = /((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/i........... /(?:[\w-]+\.)+[\w-]+([.(com|.in|.org|.co.in)]{2,63}$)+;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
                 if(regex.exec($scope.serviceProviderInfo.website)){

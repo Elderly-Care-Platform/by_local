@@ -236,7 +236,7 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
                 $scope.minCategoryError = true;
             }
 
-            var regex = /(?:[\w-]+\.)+[\w-]+([.(\w-)]{2,63}$)+/ ;
+            var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&//=]*))+/ ;
             if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
                 if(regex.exec($scope.serviceProviderInfo.website)){
                     $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];

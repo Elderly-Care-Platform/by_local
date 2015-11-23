@@ -195,7 +195,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
 
             $scope.facility.systemTags = getSystemTagList($scope.selectedMenuList);
 
-            var regex = /(?:[\w-]+\.)+[\w-]+([.(\w-)]{2,63}$)+/ ;
+            var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&//=]*))+/ ;
             if($scope.facility && $scope.facility.website && $scope.facility.website.length > 0){
                 if(regex.exec($scope.facility.website)){
                     $scope.facility.website = regex.exec($scope.facility.website)[0];

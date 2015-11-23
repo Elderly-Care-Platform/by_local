@@ -1,8 +1,11 @@
 <div class="by_home_bg">
 	<!--          Home title            -->
     <div class="by_home_title1 divLeft">
-        Taking better care of parents<br/>
-        Living longer and happier
+        Taking better care of parents
+        <div class="by_home_title1_bg">
+            Living longer and happier
+            <div class="clearfix"></div>
+        </div>
     </div>
     <div class="divRight by_home_agingImage" ng-if="$root.windowWidth < 721">
         <img src="assets/img/home/ageing_people.png?versionTimeStamp=%PROJECT_VERSION%" width="100%" />
@@ -14,11 +17,9 @@
         <div ng-repeat="menu in $root.mainMenu">
             <div class="by_home_topMenu_item">
                 <a ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
-                    <div class="by_home_topMenuText">
-                        <div class="by_home_topMenuImage">
-                            <img ng-src="{{homeSectionConfig[menu.id].imageSmall}}">
-                        </div>
-                        <div class="by_home_topMenuTitle">{{menu.displayMenuName}}</div>
+                    <div class="by_home_topMenuText">                       
+                        <img ng-src="{{homeSectionConfig[menu.id].imageSmall}}">
+                        {{menu.displayMenuName}}
                     </div>
                     <div class="by_home_topMenuDesc">
 						<span ng-if="homeSectionConfig[menu.id].orderId==='0'">
@@ -61,7 +62,7 @@
 <!--                  Home Promotions                    -->
 <div class="by-home-page">
     <div class="clearfix"></div>
-    <div id="homeContainer" class="homeContainer">
+    <!--<div id="homeContainer" class="homeContainer">
         <div class="discussion-page md-margin-bottom-40 container homeAskShare">
             <div ng-controller="BYHomePromoController" class=" margin-top-20">
                 <div ng-include="'app/components/home/homePromotional.html?versionTimeStamp=%PROJECT_VERSION%'"
@@ -69,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div class="clearfix"></div>
+    <div class="clearfix"></div>-->
 
 
 	<!--  Home main section             -->

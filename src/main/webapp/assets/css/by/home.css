@@ -239,6 +239,9 @@
     width: 100%;
     height: 1px;
     background-color: #666;
+    max-width: 690px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .by_homeSection_divider {

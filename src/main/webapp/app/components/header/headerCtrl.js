@@ -96,10 +96,13 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                         var userName = localStorage.getItem("USER_NAME");
                         $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
                         $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
-
+                       
                         if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
                             window.location = apiPrefix + "#!/users/home?type=home";
                         }
+                        $("#profile_placeholder").text(userName);
+                        $("#login_placeholder").text($scope.loginDetails.text);
+                        $("#login_placeholder").attr('href', $scope.loginDetails.link);
                     }
 
                 }).error(function (err) {
@@ -128,6 +131,9 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
             $scope.profileDetails.text = "Join us";
             $scope.profileDetails.link = apiPrefix + "#!/users/login";
+            $("#profile_placeholder").text(userName);
+            $("#login_placeholder").text($scope.loginDetails.text);
+            $("#login_placeholder").attr('href', $scope.loginDetails.link);
 
             $http.defaults.headers.common.sess = "";
             SessionIdService.setSessionId("");

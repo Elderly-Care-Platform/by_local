@@ -435,6 +435,13 @@
     margin-right: auto;
     margin-left: auto;
 }
+.mobileSite
+{
+    display: none;
+}
+.desktopSite{
+    display: block;
+}
 @media ( max-width: 1160px){
     .by_home_topMenu
     {
@@ -484,6 +491,13 @@
 
 }
 @media ( max-width: 720px) {
+    .mobileSite
+    {
+        display: block;
+    }
+    .desktopSite{
+        display: none;
+    }
     .by_home_title1_bg{
         background-size: contain;
         font-size: 75%;

@@ -120,6 +120,8 @@
     <script type="text/javascript" src="lib/jqueryPlugins/jquery.form.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type='text/javascript' src="lib/require.js" data-main="app/shared/main.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type='text/javascript' src="app/components/menu/menuConfig.js" ></script>
+    
     
 
 
@@ -128,6 +130,14 @@
     <link rel="stylesheet" href="assets/css/by/home.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/by/menu.css?versionTimeStamp=%PROJECT_VERSION%">
     <!-- new styles to new design ends -->
+
+    <script> 
+        $(function(){
+            $("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%"); 
+
+            $("#homeHeader").load("app/components/header/homeHeader.html?versionTimeStamp=%PROJECT_VERSION%"); 
+      });
+    </script> 
 
        
 </head>
@@ -178,7 +188,8 @@
 <div class="wrapper">
     <!--=== Header ===-->
     <div ng-controller="BYHeaderCtrl">
-    	<div ng-include="templateUrl"></div>
+    	<div id="homeHeader"></div>
+        <div ng-include="templateUrl"></div>
     </div>
     <div ng-controller="MainMenuController">
         <div window-resize callback="windowResize"
@@ -190,6 +201,12 @@
     <div id="mask"></div>
     <ng-view></ng-view>
     <div class="clearfix"></div>
+
+    <!-- home page starts -->
+
+         <div id="home"></div>
+
+    <!-- home page ends -->
 
     <!--=== Footer Version 1 ===-->
     <div class="footer-v1 footerDesktop" >

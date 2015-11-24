@@ -3,7 +3,7 @@
  */
 
 define(['byApp', 'byUtil'], function(byApp, byUtil) {
-	function discussDetailLeftController($scope, $rootScope, $routeParams, broadCastData, DiscussPage, $sce){
+	function discussDetailLeftController($scope, $rootScope, $window, $routeParams, broadCastData, DiscussPage, $sce){
 		var discussId = $routeParams.discussId;
 
 		$scope.$on('handleBroadcast', function() {
@@ -31,6 +31,35 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
 		});
 
+		$scope.smartScroll = function () {
+            var clientHeight = $( window ).height();
+            $(".by_subMenuPlus").css('min-height', (clientHeight - 57)+"px");
+            angular.element($window).bind("scroll", function () {
+                var winTop = $(this).scrollTop(),
+                    winBottom = winTop + $(this).height(),
+                    left = $('.by_subMenuPlus'),
+                    leftBottom = left.height();
+
+                //when the user reached the bottom of '#leftShort' set its position to fixed to prevent it from moving on scroll
+                if (winBottom >= leftBottom) {
+
+                    left.css({
+                        'position': 'fixed',
+                        'bottom': '0px'
+                    });
+                } else {
+                    //when the user scrolls back up revert its position to relative
+                    left.css({
+                        'position': 'relative',
+                        'bottom': 'auto'
+                    });
+                }
+            });
+        };
+
+        $scope.setContentHeight = function(cH, cW){
+            $(".contentPanel").css('min-height', cH);  
+        }
 
 		$scope.getTagBasedArticle = function(){
 			var systemTags = [];
@@ -70,7 +99,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 		};
 	}
 
-	discussDetailLeftController.$inject = ['$scope', '$rootScope', '$routeParams','broadCastData','DiscussPage','$sce'];
+	discussDetailLeftController.$inject = ['$scope', '$rootScope', '$window', '$routeParams','broadCastData','DiscussPage','$sce'];
 	byApp.registerController('discussDetailLeftController', discussDetailLeftController);
 	return discussDetailLeftController;
 });

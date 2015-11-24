@@ -1,9 +1,7 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-<div class="container ">
-    <div class="row">
-        <div class="col-md-3 md-margin-bottom-40" ng-include="discussDetailViews.leftPanel" ng-controller="discussDetailLeftController"></div>
-        <div class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper" ng-include="discussDetailViews.contentPanel" ng-controller="DiscussReplyController"></div>
-    </div>
+<div>
+	<div class="leftPanel" ng-include="discussDetailViews.leftPanel" ng-controller="discussDetailLeftController"></div>
+	<div class="contentPanel" ng-include="discussDetailViews.contentPanel" ng-controller="DiscussReplyController"></div>
 </div>
 
 

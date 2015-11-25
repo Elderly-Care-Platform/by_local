@@ -92,9 +92,8 @@ define(['byApp',
                             $("#preloader").hide();
                         },
                         function (error) {
-                            console.log("DiscussAllForDiscussType");
                             $("#preloader").hide();
-                            alert("error");
+                            console.log(error);
                         });
                 }
 

@@ -49,8 +49,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                         }, 500);
 
 
-                }, function (e) {
-                    alert(e);
+                }, function (error) {
+                    console.log(error);
                 });
             };
 

@@ -51,7 +51,6 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
                 var pro = document.getElementById('profile_placeholder');
                 pro.innerHTML = BY.byUtil.validateUserName(login.userName);
-
                 $scope.$parent.userName = login.userName;
             }
             else {

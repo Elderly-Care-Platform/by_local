@@ -23,7 +23,6 @@
                 // $("#percent").html('100%');
             },
             complete: function (response) {
-                //alert(response.responseText);
                 $("#articlePhotoFilename").val(response.responseText.substring(response.responseText.lastIndexOf('/') + 1));
             },
             error: function () {

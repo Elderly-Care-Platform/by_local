@@ -98,27 +98,10 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                 $http.get("api/v1/users/validateSession").success(function (response) {
                     var sess = localStorage.getItem("SessionId");
                     if (sess != '' && sess != null) {
-                        //var log = document.getElementById('login_placeholder');
-                        $scope.loginDetails.text = "Logout";
-                        $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + sess;
-                        //document.getElementById("login_placeHolder_li").style.display = "inline";
-
-                        //var pro = document.getElementById('profile_placeholder');
-
-                        var userName = localStorage.getItem("USER_NAME");
-                        $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
-                        $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
-                       
+                        setValidSession({'sessionId':sess});
                         if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
                             window.location = apiPrefix + "#!/users/home?type=home";
                         }
-                        
-                        if(userName.length > 9){
-                            userName = localStorage.getItem("USER_NAME").substring(0, 9)+'...';
-                        }
-                       $("#profile_placeholder").text(userName);
-                        $("#login_placeholder").text($scope.loginDetails.text);
-                        $("#login_placeholder").attr('href', $scope.loginDetails.link);
                     }
 
                 }).error(function (err) {
@@ -130,11 +113,20 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function setValidSession(params) {
             var userName = localStorage.getItem("USER_NAME");
+            if(userName.length > 9){
+                userName = localStorage.getItem("USER_NAME").substring(0, 9)+'...';
+            }
+
             $scope.loginDetails.text = "Logout";
             $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + params.sessionId;
 
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
             $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
+
+            $("#profile_placeholder").show();
+            $("#profile_placeholder").text(userName);
+            $("#login_placeholder").text($scope.loginDetails.text);
+            $("#login_placeholder").attr('href', $scope.loginDetails.link);
         }
 
         function inValidateSession() {

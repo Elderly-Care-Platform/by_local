@@ -31,14 +31,15 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
 		});
 
+
 		$scope.smartScroll = function () {
             var clientHeight = $( window ).height();
-            $(".by_subMenuPlus").css('min-height', (clientHeight - 57)+"px");
+            $(".by_subMenuPlus").css('min-height', (clientHeight - 40)+"px");
             angular.element($window).bind("scroll", function () {
-                var winTop = $(this).scrollTop(),
+                 var winTop = $(this).scrollTop(),
                     winBottom = winTop + $(this).height(),
                     left = $('.by_subMenuPlus'),
-                    leftBottom = left.height() + 50;
+                    leftBottom = left.outerHeight() + 43;
 
                 //when the user reached the bottom of '#leftShort' set its position to fixed to prevent it from moving on scroll
                 if (winBottom >= leftBottom) {
@@ -54,6 +55,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                         'bottom': 'auto'
                     });
                 }
+                //console.log("winBottom"+winBottom+"::"+"leftBottom"+leftBottom);
             });
         };
 

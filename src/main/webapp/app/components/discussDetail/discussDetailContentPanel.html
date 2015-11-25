@@ -133,11 +133,11 @@
        fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;">
 
        <img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-       ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 20px;">
+       ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;">
       
        <div class="by_discDetail_userName" ng-if="discuss">
         <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
-            {{username}}
+            <b>{{username}}</b>
         </a>
     </div>
     <div ng-if="articlesByUser.length > 0 " class="by_discDetail_alsoWrap left-container-img-wrapper" >
@@ -156,12 +156,12 @@
             </li>
 
             <li ng-repeat="topicId in article.topicId">
-                <p class="first-letter-uc by-systemTags">
+                <span class="first-letter-uc by-systemTags">
                     <a di-href="#!discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/{{$root.menuCategoryMap[topicId].id}}/all">
                         {{$root.menuCategoryMap[topicId].displayMenuName}}
                     </a>
                     <span ng-if="$index < article.topicId.length-1">,</span>
-                </p>
+                </span>
             </li>
             <div style="clear:both;"></div>
         </ul>

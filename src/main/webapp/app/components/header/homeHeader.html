@@ -8,21 +8,20 @@
     <!--  Desktop version -->
     <div class="by_header_right_other divRight desktopSite"  style="width:272px;">
        <div style="margin-left:-111px; text-align:right;">
-            <a di-href="#!/users/aboutUs" id="aboutUs_placeholder">About us</a>
-            <span class="by_header_right_divider">|</span>
+            <a di-href="#!/users/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
+            
             <span id="profile_placeHolder_li">
-                <a href="#!/users/registrationProfile" id="profile_placeholder">User</a>
+                <a href="#!/users/registrationProfile" class="menuPipeline" id="profile_placeholder">User</a>
             </span>
-            <span id="login_placeHolder_li" class="by_header_right_divider">|</span>
-            <a href="" id="login_placeholder">Login</a>
-            <span class="by_header_right_divider">|</span>
+           
+            <a href="" id="login_placeholder" class="menuPipeline">Login</a>
             <span><img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%" width="20"/></span>
             <b><a href="tel:080-6940-0333">080-6940-0333</a></b>
 
             <div class="clearfix"></div>
         </div>
 
-        <div class="divRight" ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+        <!--<div class="divRight" ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>-->
         <div class="by_header_right_search_other divRight" id="BySearch">
             <div class="by_header_right_search_other_left divLeft">
                 <input type="text" placeholder="Search" ng-model="term"

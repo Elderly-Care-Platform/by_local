@@ -6,9 +6,12 @@
 }
 
 .sprite-question {
-	width: 39px;
-	height: 39px;
-	background-position: -160px -186px;
+	width: 24px;
+	height: 27px;
+	/*background-position: -160px -186px;*/
+	background:
+		url("../img/sprite/ask.png?versionTimeStamp=%PROJECT_VERSION%");
+	margin: 3px 0px;
 }
 
 .by_leftPanel_icons:hover .sprite-question {
@@ -18,9 +21,14 @@
 }
 
 .sprite-story {
-	width: 39px;
+	/*width: 39px;
 	height: 39px;
-	background-position: -269px -104px;
+	background-position: -269px -104px;*/
+	width: 24px;
+	height: 27px;
+	background:
+		url("../img/sprite/share_new.png?versionTimeStamp=%PROJECT_VERSION%");
+	margin: 3px 0px;
 }
 
 .by_leftPanel_icons:hover .sprite-story {

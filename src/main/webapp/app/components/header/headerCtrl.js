@@ -112,7 +112,11 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                         if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
                             window.location = apiPrefix + "#!/users/home?type=home";
                         }
-                        $("#profile_placeholder").text(userName);
+                        
+                        if(userName.length > 9){
+                            userName = localStorage.getItem("USER_NAME").substring(0, 9)+'...';
+                        }
+                       $("#profile_placeholder").text(userName);
                         $("#login_placeholder").text($scope.loginDetails.text);
                         $("#login_placeholder").attr('href', $scope.loginDetails.link);
                     }

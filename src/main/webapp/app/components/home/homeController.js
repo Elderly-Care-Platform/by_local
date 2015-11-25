@@ -18,8 +18,6 @@ define(['byApp', 'byUtil', 'homePromoController',
 
             $scope.telNo = BY.config.constants.byContactNumber;
 
-            var cntAnimDuration = 1000;
-
             (function () {
                 var metaTagParams = {
                     title: "Home",
@@ -30,20 +28,6 @@ define(['byApp', 'byUtil', 'homePromoController',
                 BY.byUtil.updateMetaTags(metaTagParams);
             })();
 
-
-
-
-
-
-            $scope.animateCounter = function (count, target) {
-                $({someValue: 0}).animate({someValue: count}, {
-                    duration: cntAnimDuration,
-                    easing: 'swing',
-                    step: function () {
-                        $('#'+target).text(Math.round(this.someValue));
-                    }
-                });
-            };
         }
 
         BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location'];

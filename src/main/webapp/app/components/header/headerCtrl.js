@@ -14,6 +14,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         var isHomePage = false,
             initialize = initHeader();
+        var cntAnimDuration = 1000;
 
         function initHeader() {
             updateHeaderTemplate();
@@ -25,6 +26,9 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         function getProductCount(){
             $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
                 $rootScope.totalProductCount = response;
+                if($rootScope.totalProductCount > 0){
+                    $scope.animateCounter($rootScope.totalProductCount, $('.HomeProductCnt'));
+                }
             }).error(function (err) {
                 console.log("products count not available");
             })
@@ -38,6 +42,14 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
                 $rootScope.totalHousingCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_HOUSING']]);
 
+
+                if($rootScope.totalServiceCount > 0){
+                    $scope.animateCounter($rootScope.totalServiceCount, $("#HomeSevicesCnt"));
+                }
+
+                if($rootScope.totalHousingCount > 0){
+                    $scope.animateCounter($rootScope.totalHousingCount, $("#HomeHousingCnt"));
+                }
             }).error(function (err) {
                 console.log("services count not available");
             })
@@ -126,12 +138,12 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             localStorage.setItem("USER_ID", "");
             localStorage.setItem("USER_NAME", "");
 
-            $scope.loginDetails.text = "";
-            $scope.loginDetails.link = "";
+            $scope.profileDetails.text = "";
+            $scope.profileDetails.link = "";
 
-            $scope.profileDetails.text = "Join us";
-            $scope.profileDetails.link = apiPrefix + "#!/users/login";
-            $("#profile_placeholder").text(userName);
+            $scope.loginDetails.text = "Join us";
+            $scope.loginDetails.link = apiPrefix + "#!/users/login";
+            $("#profile_placeholder").hide();
             $("#login_placeholder").text($scope.loginDetails.text);
             $("#login_placeholder").attr('href', $scope.loginDetails.link);
 
@@ -163,6 +175,16 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             } else {
                 document.getElementById('search_link').click()
             }
+        };
+
+        $scope.animateCounter = function (count, target) {
+            $({someValue: 0}).animate({someValue: count}, {
+                duration: cntAnimDuration,
+                easing: 'swing',
+                step: function () {
+                    target.text(Math.round(this.someValue));
+                }
+            });
         };
 
         $scope.homeSection = BY.config.menu.home;        

@@ -96,21 +96,14 @@
 }
 
 .by_homeSection_text {
-    width: calc(70% - 200px);
+    width: calc(70% - 180px);
     height: auto;
     line-height: 25px;
-}
-.desktopHomeSpace
-{
     margin-right: 28%;
 }
-.desktopHomeSpaceLeft
-{
-    margin-left: 28%;
-}
 .by_homeSection_image {
-    width: 180px;
-    margin: 20px 0px;
+    width: 182px;
+    margin: 25px 0px 20px 0px;
     height: auto;
     display: block;
 }
@@ -133,10 +126,11 @@
 {
     width: 100%;
     height: auto;
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 24px;
     margin-bottom: 20px;
+    padding: 0px 15px;
 }
 .by_homeSection_menuWrap {
     width: 100%;
@@ -145,12 +139,9 @@
     z-index: 1;
     position: relative;
     font-size: 15px;
-    max-width: 720px;
-    margin-right: auto;
-    margin-left: auto;
 }
 .by_homeSection_menu {
-    width: 220px;
+    min-width: 220px;
     float: left;
     text-align: center;
     height: auto;
@@ -158,6 +149,7 @@
     margin-right: 10px;
     background: #004f24;
     border-radius: 3px !important;
+    width: calc(33.3% - 67px);
 }
 .by_homeSection_menu a
 {
@@ -232,11 +224,12 @@
     text-align: center;
     height: 43px;
     font-size: 15px;
-    margin: 0px 20px;
+    margin: 0px 20px 0px 5px;
 }
 
 .by_homeShop_menuActive {
     border-bottom: 5px solid #666;
+    font-weight: bold;
 }
 
 .by_homeSection_menuText {
@@ -252,7 +245,6 @@
     width: 100%;
     height: 1px;
     background-color: #666;
-    max-width: 85%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -271,11 +263,10 @@
     font-size: 15px;
     margin-right: auto;
     margin-left: auto;
-    max-width: 704px;
 }
 
 .by_home_product_menu {
-    width: 175px;
+    min-width: 175px;
     height: auto;
     float: left;
     text-align: center;
@@ -283,6 +274,7 @@
     position: relative;   
     background: #feeef0; 
     z-index: 1;
+    width: calc(25% - 2px);
 }
 .by_home_product_menu a
 {
@@ -319,6 +311,17 @@
     margin-top: 30px;
     line-height: 35px;
 }
+.by_homeSection_shopMore_find
+{
+    float: left;
+    margin-top: 0px;
+    height: 47px;
+    margin-left: 10px;
+}
+.by_homeSection_shopMore_find a
+{
+    padding-top: 5px !important;
+}
 .by_homeSection_shopMore:hover
 {
     background:#00A24A;
@@ -351,7 +354,7 @@
 }
 
 .by_home_reg_feed {
-    max-width: 70%;
+    max-width: 72%;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -363,12 +366,12 @@
 }
 
 .by_home_reg {
-    width: 40%;
+    width: 46%;
     height: auto;
     float: left;
     font-size: 18px;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
     text-align: center;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -441,7 +444,7 @@
 }
 .by_home_find_bgImage
 {
-    background:url('../../img/home/service.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat left top;
+    background:url('../../img/home/service.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat right top;
     background-size: 35%;
 }
 .by_home_shop_bg {
@@ -458,6 +461,12 @@
     margin-right: auto;
     margin-left: auto;
 }
+.by_home_center
+{
+    width: 85%;
+    margin-right: auto;
+    margin-left: auto;
+}
 .mobileSite
 {
     display: none;
@@ -465,12 +474,34 @@
 .desktopSite{
     display: block;
 }
+.by_homeSection_shopMore_findBottom
+{
+    display: none;
+}
+.by_homeSection_shopMore_find
+{
+    display: block;
+}
+@media (max-width: 1280px){
+    .by_homeSection_menu
+    {
+        width: calc(33.3% - 20px);
+    }
+    .by_homeSection_shopMore_find
+    {
+      display: none;
+    }
+    .by_homeSection_shopMore_findBottom
+    {
+        display: block;
+    }
+}
 @media ( max-width: 1160px){
     .by_home_topMenu
     {
         width:79%;
     }
-    .by_homeSectionInside
+    .by_homeSectionInside, .by_home_center
     {
         width: 100%;
     }
@@ -523,14 +554,7 @@
 
 }
 @media ( max-width: 720px) {
-    .desktopHomeSpace
-    {
-        margin-right: 0%;
-    }
-    .desktopHomeSpaceLeft
-    {
-        margin-left: 0%;
-    }
+    
     .mobileSite
     {
         display: block;
@@ -546,6 +570,10 @@
     .by_home_title1_bg{
         background-size: contain;
         font-size: 75%;
+    }
+    .by_homeSection_menuTitle
+    {
+        text-align: center;
     }
     .by_container, .by_homeSectionInside {
         width: 100%;
@@ -571,7 +599,10 @@
     .by_homeSection_image {
         display: none;
     }
-
+    .by_homeSection_text
+    {
+        margin-right: 0;
+    }
     .by_homeSection_text, .by_homeShop_menu1 {
         width: 100%;
     }

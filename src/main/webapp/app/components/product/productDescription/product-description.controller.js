@@ -409,7 +409,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.galleryClickHover = function () {
             $(".small-width").click(function () {
                 var urlPopup = $(this).attr('src');
-                $(".full-width").attr('src', urlPopup);
+                $(".by_productMainImage").attr('src', urlPopup);
             });
         };
 

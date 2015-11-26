@@ -125,14 +125,14 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             params.id = $scope.productId;
             var productDescriptionPromise = ProductDescriptionService.getProductDescription(params),
                 loadPromise = $q.all({productDescription: productDescriptionPromise});
-            if ($location.search().q) {
-                try {
-                    $scope.category = JSON.parse($location.search().q);
-                } catch (e) {
-                    $scope.category = $location.search().q;
-                }
-                delete $location.$$search.q;
-            }
+            //if ($location.search().q) {
+            //    try {
+            //        $scope.category = JSON.parse($location.search().q);
+            //    } catch (e) {
+            //        $scope.category = $location.search().q;
+            //    }
+            //    delete $location.$$search.q;
+            //}
 
             return loadPromise.then(productDescriptionSuccess, failure);
 
@@ -145,11 +145,11 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                 var params = {},
                     data = result.productDescription,
                     path = PAGE_URL.root;
-                if ($scope.category !== undefined) {
-                    path += '?q=' + $filter('encodeUri')($scope.category);
-                }
-                breadCrumb = {'url': path, 'displayName': data.categoryName};
-                BreadcrumbService.setBreadCrumb(breadCrumb, data.name);
+                //if ($scope.category !== undefined) {
+                //    path += '?q=' + $filter('encodeUri')($scope.category);
+                //}
+                //breadCrumb = {'url': path, 'displayName': data.categoryName};
+                //BreadcrumbService.setBreadCrumb(breadCrumb, data.name);
                 params.id = $scope.productId;
                 $scope.promise = ProductDescriptionService.getProductSku(params)
                     .then(getProductSkuSuccess, failure);
@@ -398,17 +398,18 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
          * @param  {object} categoryName
          * @return {void}
          */
-        function openProductDescription(productId, categoryId, categoryName) {
-            var path = PAGE_URL.productDescription + '/';
-            path += productId;
-            $location.path(path).search('q', JSON.stringify({'id': categoryId, 'name': categoryName}));
-            $log.debug('sdfsdf');
+        function openProductDescription(productId, productName, categoryId, categoryName) {
+            var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+                prodCategorName = categoryName.replace(/\s+/g, '-').toLowerCase();
+
+            var path = PAGE_URL.productDescription + '/' + prodName + "-for-" + prodCategorName + "/"+ categoryId+ "/" + productId;
+            $location.path(path);
         }
 
         $scope.galleryClickHover = function () {
             $(".small-width").click(function () {
                 var urlPopup = $(this).attr('src');
-                $(".full-width").attr('src', urlPopup);
+                $(".by_productMainImage").attr('src', urlPopup);
             });
         };
 

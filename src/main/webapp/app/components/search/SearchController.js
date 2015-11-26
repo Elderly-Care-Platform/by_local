@@ -49,8 +49,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                         }, 500);
 
 
-                }, function (e) {
-                    alert(e);
+                }, function (error) {
+                    console.log(error);
                 });
             };
 
@@ -204,10 +204,14 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 }
             }
 
-            $scope.openProductDescription = function($event, productId) {
+            $scope.openProductDescription = function($event, productId, productName, categoryId, categoryName) {
                 $event.stopPropagation();
                 if(productId) {
-                    $location.path('/productDescription/'+productId);
+                    var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+                        prodCategorName = categoryName.replace(/\s+/g, '-').toLowerCase();
+
+                    var path = '/productDescription/' + prodName + "-for-" + prodCategorName + "/"+ categoryId+ "/" + productId;
+                    $location.path(path);
                 }
             }
 

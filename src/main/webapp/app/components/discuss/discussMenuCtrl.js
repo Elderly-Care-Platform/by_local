@@ -5,15 +5,15 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
 
         $scope.selectedMenuId = $routeParams.menuId;
 
-        $scope.communityIcon = BY.config.menu.communityIcon;
-        $scope.communityIconMobile = BY.config.menu.communityIconMobile;
+        
         $scope.moduleConfig = BY.config.menu.moduleConfig;
-        $scope.commSectionHeader = BY.config.menu.communitySectionHeader;
+        $scope.menuConfig = BY.config.menu;
         $scope.isLeafMenuSelected = false;
 
         var initialize = getMenuLevels();
         
         $scope.telNo = BY.config.constants.byContactNumber;
+        $scope.showMoreMenu =  false;
 
         $scope.subMenuTabMobileShow = function () {
             /*if($scope.isLeafMenuSelected == false){
@@ -80,11 +80,21 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
             }
 
             //console.log($scope.menuLevel1);
-            //console.log($scope.menuLevel2);
-
-            
+            //console.log($scope.menuLevel2);    
+            $scope.categoryLists = [];
+            var array = $scope.menuLevel1.children;            
+            for (var i = 0; i < array.length; i++) {                   
+                if(array[i].children == null || array[i].children.length == 0){
+                    $scope.categoryLists.push(array[i]);
+                }else{
+                    $scope.categoryLists = $scope.categoryLists.concat(array[i].children);
+                }              
+            } 
         };
 
+        $scope.showAllMenu = function ($event, menu) {               
+                $scope.showMoreMenu = ($scope.showMoreMenu === false) ? true : false;
+            }
 
 
     }

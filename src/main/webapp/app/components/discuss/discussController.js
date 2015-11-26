@@ -136,7 +136,7 @@ define(['byApp',
                         function (error) {
                             console.log("DiscussAllForDiscussType");
                             $("#preloader").hide();
-                            alert("error");
+                            console.log(error);
                         });
                 }
 

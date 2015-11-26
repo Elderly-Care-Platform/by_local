@@ -175,6 +175,9 @@
                             <input type="text" class="username-textbox textbox"
                                    ng-model="serviceProviderInfo.website"
                                    placeholder="Website"/>
+                                   <span ng-show="websiteError && submitted" class="errorRed">
+                                    Please enter proper website url
+                                </span>
                         </div>
                     </div>
 

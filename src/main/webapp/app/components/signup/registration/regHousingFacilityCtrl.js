@@ -3,6 +3,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
         $scope.profileImage = [];
         $scope.galleryImages = [];
         $scope.submitted = false;
+        $scope.websiteError = false;
         //$scope.categoryOptions = $rootScope.menuCategoryMapByName[BY.config.regConfig.housingConfig.fetchFromMenu].children;
         $scope.facility = $scope.$parent.facility;
         $scope.selectedMenuList = {};
@@ -181,6 +182,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.minCategoryError = false;
+            $scope.websiteError = false;
             $scope.facility.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.facility.profileImage;
             $scope.facility.photoGalleryURLs = $scope.facility.photoGalleryURLs.concat($scope.galleryImages);
             $scope.facility.description = tinymce.get("facilityDescription").getContent();
@@ -193,16 +195,20 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
 
             $scope.facility.systemTags = getSystemTagList($scope.selectedMenuList);
 
-            var regex = /(?:[\w-]+\.)+[\w-]+/ ;
+            var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&!//=]*))+/ ;
             if($scope.facility && $scope.facility.website && $scope.facility.website.length > 0){
-                $scope.facility.website = regex.exec($scope.facility.website)[0];
+                if(regex.exec($scope.facility.website)){
+                    $scope.facility.website = regex.exec($scope.facility.website)[0];
+                } else{
+                    $scope.websiteError = true;
+                }
             }
 
             if ( $scope.facility.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
 
-            if (isValidForm.$invalid || $scope.minCategoryError) {
+            if (isValidForm.$invalid || $scope.minCategoryError || $scope.websiteError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {

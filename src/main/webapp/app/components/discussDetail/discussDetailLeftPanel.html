@@ -1,43 +1,43 @@
-<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
-    <div class="scrollableLeftPanelDiv">
-        <img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-             ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-             fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;">
+<div class="by_subMenuPlus col-md-12" ng-if="$root.windowWidth > 720" element-resize callback="setContentHeight" >
+<div ng-init="smartScroll();"></div>
+    <img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+    ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
+    fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;">
 
-        <img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-             ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 20px;">
+    <img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+    ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;">
+    <div class="clearfix"></div>
 
-        <div class="by_discDetail_userName" ng-if="discuss">
-            <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
-                {{username}}
-            </a>
-        </div>
-        <div ng-if="articlesByUser.length > 0" class="by_discDetail_alsoWrap left-container-img-wrapper no-padding">
-            <div class="by_discDetail_alsoHead col-md-12">{{header1}}<span class="by_discDetail_alsoHead">{{header2}}</span></div>
-            <div style="clear:both;"></div>
-            <div class="by_discDetail_alsoContent" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id && !article.linkInfo">
-                <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:16px; text-transform:capitalize;" href="#!discuss/{{article.id}}" >
-                {{article.title}}
-                </a></div>
-                <a href="#!discuss/{{article.id}}">
-                   <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div>
-                </a>
-                <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
-                    <li ng-if="article.topicId.length > 0">
-                        In
-                    </li>
-
-                    <li ng-repeat="topicId in article.topicId">
-                        <p class="first-letter-uc by-systemTags">
-                            <a di-href="#!discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/{{$root.menuCategoryMap[topicId].id}}/all">
-                                {{$root.menuCategoryMap[topicId].displayMenuName}}
-                            </a>
-                            <span ng-if="$index < article.topicId.length-1">,</span>
-                        </p>
-                    </li>
-                    <div style="clear:both;"></div>
-                </ul>
-            </div>
-        </div>
+    <div class="by_discDetail_userName" ng-if="discuss">
+        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
+           <b> {{username}}</b>
+        </a>
     </div>
+    <div ng-if="articlesByUser.length > 0" class="by_discDetail_alsoWrap left-container-img-wrapper no-padding">
+        <div class="by_discDetail_alsoHead col-md-12">{{header1}}<span>{{header2}}</span></div>
+        <div style="clear:both;"></div>
+        <div class="by_discDetail_alsoContent" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id && !article.linkInfo">
+            <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:15px; font-weight:bold; text-transform:capitalize;" href="#!discuss/{{article.id}}" >
+                {{article.title}}
+            </a></div>
+            <a href="#!discuss/{{article.id}}">
+             <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div>
+         </a>
+         <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
+            <li ng-if="article.topicId.length > 0">
+                In
+            </li>
+
+            <li ng-repeat="topicId in article.topicId">
+                <span class="first-letter-uc by-systemTags">
+                    <a di-href="#!discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/{{$root.menuCategoryMap[topicId].id}}/all">
+                        {{$root.menuCategoryMap[topicId].displayMenuName}}
+                    </a>
+                    <span ng-if="$index < article.topicId.length-1">,</span>
+                </span>
+            </li>
+            <div style="clear:both;"></div>
+        </ul>
+    </div>
+</div>
 </div>

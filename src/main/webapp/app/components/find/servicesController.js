@@ -15,6 +15,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             $rootScope.byTopMenuId          = $rootScope.mainMenu[1].id ;
             $scope.showFilters              = showFilters;
             $scope.getData                  = $scope.getData;
+            $scope.selectedMenuId           = $routeParams.menuId;
 
             var city                        = $routeParams.city,
                 tags                        = [],

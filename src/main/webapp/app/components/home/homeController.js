@@ -17,6 +17,7 @@ define(['byApp', 'byUtil', 'homePromoController',
             $scope.menuConfig = BY.config.menu;
 
             $scope.telNo = BY.config.constants.byContactNumber;
+            var cntAnimDuration = 1000;
 
             (function () {
                 var metaTagParams = {
@@ -28,6 +29,39 @@ define(['byApp', 'byUtil', 'homePromoController',
                 BY.byUtil.updateMetaTags(metaTagParams);
             })();
 
+
+
+            $scope.animateCounter = function (count, target) {
+                $({someValue: 0}).animate({someValue: count}, {
+                    duration: cntAnimDuration,
+                    easing: 'swing',
+                    step: function () {
+                        target.text(Math.round(this.someValue));
+                    }
+                });
+            };
+
+            $scope.$on('directoryCountAvailable', function (event, args) {
+                $scope.animateCounter($rootScope.totalServiceCount, $("#HomeSevicesCnt"));
+                $scope.animateCounter($rootScope.totalHousingCount, $("#HomeHousingCnt"));
+            });
+
+            $scope.$on('productCountAvailable', function (event, args) {
+                $scope.animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
+            });
+
+
+            if($rootScope.totalServiceCount){
+                $scope.animateCounter($rootScope.totalServiceCount, $("#HomeSevicesCnt"));
+            }
+
+            if($rootScope.totalHousingCount){
+                $scope.animateCounter($rootScope.totalHousingCount, $("#HomeHousingCnt"));
+            }
+
+            if($rootScope.totalProductCount){
+                $scope.animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
+            }
         }
 
         BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location'];

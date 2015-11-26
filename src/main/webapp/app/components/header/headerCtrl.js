@@ -14,10 +14,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         var isHomePage = false,
             initialize = initHeader();
-        var cntAnimDuration = 1000;
 
         function initHeader() {
-            //updateHeaderTemplate();
             validateSession();
             getProductCount();
             getServicesCount();
@@ -26,9 +24,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         function getProductCount(){
             $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
                 $rootScope.totalProductCount = response;
-                if($rootScope.totalProductCount > 0){
-                    $scope.animateCounter($rootScope.totalProductCount, $('.HomeProductCnt'));
-                }
+                $rootScope.$broadcast('productCountAvailable');
             }).error(function (err) {
                 console.log("products count not available");
             })
@@ -42,29 +38,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
                 $rootScope.totalHousingCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_HOUSING']]);
 
-
-                if($rootScope.totalServiceCount > 0){
-                    
-                    $({someValue: 0}).animate({someValue: $rootScope.totalServiceCount}, {
-                        duration: 2000,
-                        easing: 'swing',
-                        step: function () {
-                            $("#HomeSevicesCnt").text(Math.round(this.someValue));
-                        }
-                    });
-                    //$scope.animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
-                }
-
-                if($rootScope.totalHousingCount > 0){
-                    $({someValue: 0}).animate({someValue: $rootScope.totalHousingCount}, {
-                        duration: 2000,
-                        easing: 'swing',
-                        step: function () {
-                            $("#HomeHousingCnt").text(Math.round(this.someValue));
-                        }
-                    });
-                    //$scope.animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
-                }
+                $rootScope.$broadcast('directoryCountAvailable');
             }).error(function (err) {
                 console.log("services count not available");
             })
@@ -166,11 +140,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         });
 
         $scope.$on('currentLocation', function (event, args) {
-            //console.log(args);
             if (args === '/' || args.indexOf('/users/home') > -1) {
                 isHomePage = true;
-                getProductCount();
-            getServicesCount();
             } else {
                 isHomePage = false;
             }

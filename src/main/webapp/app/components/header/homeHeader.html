@@ -8,15 +8,18 @@
     <!--  Desktop version -->
     <div class="by_header_right_other divRight desktopSite"  style="width:272px;">
        <div style="margin-left:-111px; text-align:right;">
-            <a di-href="#!/users/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
+             <a di-href="#!/users/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
             
-            <span id="profile_placeHolder_li">
-                <a href="#!/users/registrationProfile" class="menuPipeline" id="profile_placeholder">User</a>
-            </span>
+           <span ng-if="profileDetails.text">
+                <a ng-href="{{profileDetails.link}}" class="menuPipeline" id="profile_placeholder" style="color:#fff;">
+                    {{profileDetails.text}}
+                </a>
+           </span>
            
-            <a href="" id="login_placeholder" class="menuPipeline">Login</a>
+            <a ng-href="{{loginDetails.link}}" class="menuPipeline" id="login_placeholder">{{loginDetails.text}}</a>
+            
             <span><img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%" width="20"/></span>
-            <b><a href="tel:080-6940-0333">080-6940-0333</a></b>
+            <b><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></b>
 
             <div class="clearfix"></div>
         </div>

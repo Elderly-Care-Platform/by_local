@@ -17,7 +17,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         var cntAnimDuration = 1000;
 
         function initHeader() {
-            updateHeaderTemplate();
+            //updateHeaderTemplate();
             validateSession();
             getProductCount();
             getServicesCount();
@@ -44,11 +44,26 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
 
                 if($rootScope.totalServiceCount > 0){
-                    $scope.animateCounter($rootScope.totalServiceCount, $("#HomeSevicesCnt"));
+                    
+                    $({someValue: 0}).animate({someValue: $rootScope.totalServiceCount}, {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function () {
+                            $("#HomeSevicesCnt").text(Math.round(this.someValue));
+                        }
+                    });
+                    //$scope.animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
                 }
 
                 if($rootScope.totalHousingCount > 0){
-                    $scope.animateCounter($rootScope.totalHousingCount, $("#HomeHousingCnt"));
+                    $({someValue: 0}).animate({someValue: $rootScope.totalHousingCount}, {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function () {
+                            $("#HomeHousingCnt").text(Math.round(this.someValue));
+                        }
+                    });
+                    //$scope.animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
                 }
             }).error(function (err) {
                 console.log("services count not available");
@@ -121,10 +136,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
             $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
 
-            $("#profile_placeholder").show();
-            $("#profile_placeholder").text(userName);
-            $("#login_placeholder").text($scope.loginDetails.text);
-            $("#login_placeholder").attr('href', $scope.loginDetails.link);
+            //$("#profile_placeholder").show();
+            
         }
 
         function inValidateSession() {
@@ -137,9 +150,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
             $scope.loginDetails.text = "Join us";
             $scope.loginDetails.link = apiPrefix + "#!/users/login";
-            $("#profile_placeholder").hide();
-            $("#login_placeholder").text($scope.loginDetails.text);
-            $("#login_placeholder").attr('href', $scope.loginDetails.link);
+            //$("#profile_placeholder").hide();
+            
 
             $http.defaults.headers.common.sess = "";
             SessionIdService.setSessionId("");
@@ -157,9 +169,12 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             //console.log(args);
             if (args === '/' || args.indexOf('/users/home') > -1) {
                 isHomePage = true;
+                getProductCount();
+            getServicesCount();
             } else {
                 isHomePage = false;
             }
+
             updateHeaderTemplate();
         });
 

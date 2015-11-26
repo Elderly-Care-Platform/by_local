@@ -25,7 +25,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,11 +37,13 @@ import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.constants.UserTypes;
+import com.beautifulyears.domain.ServiceBranch;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserAddress;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.repository.ServiceBranchRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.UserProfileResponse;
@@ -52,8 +53,8 @@ import com.beautifulyears.util.UpdateUserProfileHandler;
 import com.beautifulyears.util.UserProfilePrivacyHandler;
 import com.beautifulyears.util.Util;
 import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.ServiceBranchLogHandler;
 import com.beautifulyears.util.activityLogHandler.UserProfileLogHandler;
-import com.mongodb.util.Hash;
 
 /**
  * The REST based service for managing "user_profile"
@@ -68,15 +69,20 @@ public class UserProfileController {
 			.getLogger(UserProfileController.class);
 
 	private UserProfileRepository userProfileRepository;
+	private ServiceBranchRepository serviceBranchRepository;
 	private ActivityLogHandler<UserProfile> logHandler;
+	private ActivityLogHandler<ServiceBranch> branchLogHandler;
 	private MongoTemplate mongoTemplate;
 
 	@Autowired
-	public UserProfileController(UserProfileRepository userProfileRepository,
+	public UserProfileController(ServiceBranchRepository serviceBranchRepository,
+			UserProfileRepository userProfileRepository,
 			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
+		this.serviceBranchRepository = serviceBranchRepository;
 		this.mongoTemplate = mongoTemplate;
 		logHandler = new UserProfileLogHandler(mongoTemplate);
+		branchLogHandler = new ServiceBranchLogHandler(mongoTemplate);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{userId}" }, produces = { "application/json" })
@@ -372,10 +378,22 @@ public class UserProfileController {
 											profile.getUserTypes(),
 											new ArrayList<>(
 													Arrays.asList(
-															UserTypes.INSTITUTION_SERVICES,
 															UserTypes.INDIVIDUAL_PROFESSIONAL)))) {
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
+							}
+							if (!Collections
+									.disjoint(
+											profile.getUserTypes(),
+											new ArrayList<>(
+													Arrays.asList(
+															UserTypes.INSTITUTION_SERVICES)))) {
+								profile.setServiceProviderInfo(userProfile
+										.getServiceProviderInfo());
+								profile.setServiceBranches(
+										addServiceBranches(
+												userProfile.getServiceBranches(),
+												currentUser));
 							}
 							if (!Collections
 									.disjoint(
@@ -530,6 +548,68 @@ public class UserProfileController {
 			Util.handleException(e);
 		}
 		return BYGenericResponseHandler.getResponse(userAddress);
+	}
+	
+	public List<ServiceBranch> addServiceBranches(
+			List<ServiceBranch> serviceBranches, User user) {
+		List<ServiceBranch> existingBranches = serviceBranchRepository
+				.findByUserId(user.getId());
+
+		ArrayList<ServiceBranch> newlyAdded = new ArrayList<ServiceBranch>(
+				serviceBranches);
+		newlyAdded.removeAll(existingBranches);
+
+		ArrayList<ServiceBranch> removed = new ArrayList<ServiceBranch>(
+				existingBranches);
+		removed.removeAll(serviceBranches);
+
+		ArrayList<ServiceBranch> updated = new ArrayList<ServiceBranch>(
+				serviceBranches);
+		updated.retainAll(existingBranches);
+
+		for (ServiceBranch removedBranches : removed) {
+			mongoTemplate.remove(removedBranches);
+			branchLogHandler.addLog(removedBranches,
+					ActivityLogConstants.CRUD_TYPE_DELETE, null, user);
+		}
+
+		for (ServiceBranch addedBranches : newlyAdded) {
+			addedBranches.setUserId(user.getId());
+			ServiceBranch newBranch = new ServiceBranch();
+			updateService(newBranch, addedBranches);
+			mongoTemplate.save(newBranch);
+			branchLogHandler.addLog(newBranch,
+					ActivityLogConstants.CRUD_TYPE_CREATE, null, user);
+			serviceBranches.set(serviceBranches.indexOf(addedBranches), newBranch);
+		}
+
+		for (ServiceBranch updatedBranch : updated) {
+			ServiceBranch old = existingBranches.get(existingBranches
+					.indexOf(updatedBranch));
+			updateService(old, updatedBranch);
+			old.setLastModifiedAt(new Date());
+			mongoTemplate.save(old);
+			branchLogHandler.addLog(old, ActivityLogConstants.CRUD_TYPE_UPDATE, null,
+					user);
+		}
+		
+		return serviceBranches;
+	}
+	
+	private void updateService(ServiceBranch oldService,
+			ServiceBranch newService) {
+		
+		oldService.getBasicProfileInfo().setFirstName(newService.getBasicProfileInfo().getFirstName());
+		oldService.getBasicProfileInfo().setPrimaryUserAddress(newService.getBasicProfileInfo().getPrimaryUserAddress());
+		
+		oldService.getBasicProfileInfo().setPrimaryEmail(newService.getBasicProfileInfo().getPrimaryEmail());
+		oldService.getBasicProfileInfo().setPrimaryPhoneNo(newService.getBasicProfileInfo().getPrimaryPhoneNo());
+		
+		oldService.getBasicProfileInfo().setSecondaryEmails(newService.getBasicProfileInfo().getSecondaryEmails());
+		oldService.getBasicProfileInfo().setSecondaryPhoneNos(newService.getBasicProfileInfo().getSecondaryPhoneNos());
+		
+		oldService.setUserId(newService.getUserId());
+
 	}
 
 	private String getShortDescription(UserProfile profile) {

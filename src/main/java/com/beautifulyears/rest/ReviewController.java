@@ -270,6 +270,7 @@ public class ReviewController {
 					match(Criteria.where("associatedId")
 							.is(rating.getAssociatedId())
 							.and("associatedContentType")
+							.and("ratingPercentage").gt(0)
 							.is(rating.getAssociatedContentType())),
 					group("associatedId").avg("ratingPercentage").as(
 							"ratingPercentage"));
@@ -305,6 +306,7 @@ public class ReviewController {
 					match(Criteria.where("associatedId")
 							.is(rating.getAssociatedId())
 							.and("associatedContentType")
+							.and("ratingPercentage").gt(0)
 							.is(rating.getAssociatedContentType())),
 					group("associatedId").avg("ratingPercentage").as(
 							"ratingPercentage"));

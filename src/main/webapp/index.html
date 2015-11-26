@@ -33,7 +33,7 @@
     <meta property="og:image:width" content="158"/>
     <meta property="og:image:height" content="158"/>
     <style>
-        [ng-cloak].splash {
+        [ng-cloak].home {
             display: block !important;
         }
         [ng-cloak] {display: none;}
@@ -42,15 +42,12 @@
     <script>
         $(function(){
             $("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%");
-            $("#homeHeader").load("app/components/header/homeHeader.html?versionTimeStamp=%PROJECT_VERSION%");
         });
     </script>
 </head>
 
 <body ng-cloak>
-    <div id="homeHeader" ng-cloak></div>
-    <div id="home" ng-cloak></div>
-
+    <div id="home"></div>
     <!-- copyrightInfo -->
     <link rel="copyright" href="http://www.beautifulyears.com/index.html#!/users/termsCondition">
 
@@ -140,9 +137,6 @@
     <script type='text/javascript' src="lib/require.js" data-main="app/shared/main.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
 
-
-
-
     <!-- new styles to new design -->
     <link rel="stylesheet" href="assets/css/by/header.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/by/home.css?versionTimeStamp=%PROJECT_VERSION%">
@@ -204,7 +198,7 @@
     </div>
 
     <div id="mask"></div>
-    <ng-view></ng-view>
+    <ng-view ng-cloak></ng-view>
     <div class="clearfix"></div>
 
     <!-- home page starts -->

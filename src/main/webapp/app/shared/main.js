@@ -39,7 +39,7 @@ require.config({
 		OrderHistoryFactory : '../components/product/orderHistory/order-history.service',
 
 		jquery : '../../lib/unify/plugins/jquery/jquery.min',
-		angular : '../../lib/angular/angular',
+		angular : '../../lib/angular/angular.min',
 		angularRoute : '../../lib/angular/angular-route',
 		angularResource : '../../lib/angular/angular-resource',
 		angularInfiniteScroll : '../../lib/angular/ng-infinite-scroll',

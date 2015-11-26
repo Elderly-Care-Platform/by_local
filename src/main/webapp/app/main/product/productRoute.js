@@ -29,7 +29,7 @@ define([], function () {
                 }
             })
 
-            .when('/productDescription/:productId', {
+            .when('/productDescription/:productSlug/:categoryId/:productId', {
                 templateUrl: 'app/components/product/productDescription/product-desc.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ProductDescriptionController',
                 resolve: {

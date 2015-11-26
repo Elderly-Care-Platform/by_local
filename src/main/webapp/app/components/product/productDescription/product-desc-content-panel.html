@@ -1,15 +1,9 @@
-<div>
-    <span class="active by_breadcrum_greenColor" ng-repeat="breadCrumb in varStack.breadcrumb.list"><a
-            href="#{{breadCrumb.url}}" ng-click="reloadRoute()">{{breadCrumb.displayName}}</a> &gt; </span>
-    <span class="by_breadcrum_greenColor">{{varStack.breadcrumb.last}}</span>
-</div>
 <div class="clearfix" style="height:10px;"></div>
 <div class="col-md-12 product-main margin-bottom-15 by_pruductDetailed_bgWhite" style="border:0px;">
 
     <div class="col-md-5" style="padding:0px;">
         <div class="main-image">
-            <img class="full-width padding-zero" ng-src="{{uiData.primaryMedia.url}}">
-
+            <img class="full-width padding-zero" ng-src="{{uiData.primaryMedia.url}}" alt="{{uiData.name}}">
             <div class="clearfix"></div>
         </div>
         <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px; border:0px;">

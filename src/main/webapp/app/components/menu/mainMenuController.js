@@ -101,29 +101,29 @@ define(['sectionHeaderConfig'], function(sectionHeaderConfig) {
 
         //Select menu and show relevant page
         $scope.selectMenu = function(menu){
-            $location.url($location.path());
-            if(menu.module===0){
-                $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
-            }else if(menu.module===1){
-                $location.path("/services/list/"+menu.slug+"/"+menu.id+"/all/");
-            }else if(menu.module===2){
-                $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/all/");
-            }else if(menu.module===3){
-                $location.path("/products/list/"+menu.slug+"/"+menu.id+"/all/");
-                if(menu.ancestorIds.length > 0){
-                    $location.search('q', JSON.stringify(menu));
-                }
-
-                console.log($location);
-
-            }else{
-                $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
-            }
-
-            //Reset top menu, to dismiss hover menu - ipad fix
-            if(menu.ancestorIds && menu.ancestorIds.length >= 2){
-                $scope.selectedTopMenu = null;
-            }
+            //$location.url($location.path());
+            //if(menu.module===0){
+            //    $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
+            //}else if(menu.module===1){
+            //    $location.path("/services/list/"+menu.slug+"/"+menu.id+"/all/");
+            //}else if(menu.module===2){
+            //    $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/all/");
+            //}else if(menu.module===3){
+            //    $location.path("/products/list/"+menu.slug+"/"+menu.id+"/all/");
+            //    if(menu.ancestorIds.length > 0){
+            //        $location.search('q', JSON.stringify(menu));
+            //    }
+            //
+            //    console.log($location);
+            //
+            //}else{
+            //    $location.path("/discuss/list/"+menu.slug+"/"+menu.id+"/all/");
+            //}
+            //
+            ////Reset top menu, to dismiss hover menu - ipad fix
+            //if(menu.ancestorIds && menu.ancestorIds.length >= 2){
+            //    $scope.selectedTopMenu = null;
+            //}
         };
 
         //

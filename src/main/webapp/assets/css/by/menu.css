@@ -114,8 +114,24 @@
 	float: left;
 	text-align: center;
 	line-height: 18px;
-	opacity: 0.6;
+	opacity: 0.5;
 	text-transform: capitalize;
+}
+.by_subMenu_contentItemMore
+{
+	opacity:1;
+	color:#FF850F;
+	cursor: pointer;
+	margin-top: 30px;
+	font-size: 16px;
+}
+.by_subMenu_contentItemMore:hover
+{
+	color:#FFB70F;
+}
+.by_subMenu_contentItemMore img
+{
+	margin-bottom: 10px;
 }
 .by_subMenu_contentItem_active, .by_subMenu_contentItem:hover
 {

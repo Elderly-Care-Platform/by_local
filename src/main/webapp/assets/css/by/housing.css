@@ -122,6 +122,17 @@
 {
 	min-height:25px;
 }
+.by_housingCard_contentIconWrap i.profileStar
+{
+	width: 29px !important;
+    height: 29px !important;
+    border-radius: 0% !important;
+    padding: 5px 2px 0px 1px;   
+    font-size: 12px;
+    margin-left: -6px;
+    margin-top: -3px;
+    background-image: url('../../img/profile/blank_star.png?versionTimeStamp=%PROJECT_VERSION%');
+}
 @media screen and (max-width: 780px){
 	.by_housingCard_profileImage {
 		width: 30%;

@@ -1,5 +1,4 @@
-<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
-    <div class="scrollableLeftPanelDiv">
+<div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720"  style="position:fixed; bottom:0px; padding-top:10px;"  ng-init="leftPanelHeight();">
         <div class="by_productDetail_leftSimilarTitle col-md-12 no-padding">
             <span ng-if="uiData.similarProductLength > 0">Similar Products</span>
             <span ng-if="uiData.similarProductLength === 0">No Similar Products Available</span>
@@ -29,5 +28,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>

@@ -179,7 +179,7 @@
   font-size: 11px;
   color: #818181;
 }
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 980px) {
   .by_cart_desc_mobile
   {
     display: block;

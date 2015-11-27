@@ -1,4 +1,4 @@
-<div class="clearfix" style="height:32px;"></div>
+<div class="clearfix" ></div>
 <div class="col-md-12 product-main margin-bottom-15 by_pruductDetailed_bgWhite" style="border:0px;">
 
     <div class="col-md-5" style="padding:0px;">
@@ -171,10 +171,9 @@
 
         <div class="by_productDetail_contentCall">
             <b>Call for assistance {{ByContactNo}}</b><br/>
-        </div>
-    </div>
-    <div class="clearfix" style="height:8px;"></div>
-    <div class="qty-cart-buy margin-bottom-20">
+        </div><div class="clearfix" ></div>
+
+        <div class="qty-cart-buy margin-bottom-20">
         <span class="added-to-cart-message" ng-show="productAddSuccess">
                 <font color="green">Product is successfully added to cart!</font>
         </span> <br/>
@@ -238,6 +237,9 @@
         </span>
         <div class="clearfix" style="height:20px;"></div>
     </div>
+    </div>
+    
+    
 </div>
 
 
@@ -260,6 +262,39 @@
     </div>
 </div>
 
+<div ng-if="$root.windowWidth < 720" >
+    <div class="by_productDetail_leftSimilarTitle col-md-12 no-padding margin-top-20">
+        <span ng-if="uiData.similarProductLength > 0">Similar Products</span>
+        <span ng-if="uiData.similarProductLength === 0">No Similar Products Available</span>
+    </div>
+
+    <div class="col-md-12 no-padding" ng-repeat="product in uiData.similarProduct">
+        <div ng-click="openProductDescription(product.id, product.name, product.categoryId, product.categoryName)">
+            <div class="by_productDetail_leftSimilarThumb">
+                <div class="by_productDetail_leftSimilarThumbImage">
+                    <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
+                </div>
+                <div class="by_productDetail_leftSimilarThumbContent">
+                    <div class="by_productDetail_leftSimilarThumbContentName">
+                        {{product.name.substring(0, 25)}}<span ng-if="product.name.length > 25">...</span>
+                    </div>
+                    <div class="by_productDetail_leftSimilarThumbContentPrice">
+                        <strong ng-if="product.salePrice && product.salePrice.amount">Rs. {{product.salePrice.amount}}</strong><br/>
+                        <strong ng-if="!product.salePrice || !product.salePrice.amount">Rs. {{product.retailPrice.amount}}</strong><br/>
+
+                        <small ng-if="product.retailPrice != null && product.salePrice != null && product.retailPrice.amount != product.salePrice.amount">
+                            <del>Rs {{product.retailPrice.amount}}</del>
+                        </small>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
+
+<div class="clearfix" style="height:20px;"></div>

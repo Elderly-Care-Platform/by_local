@@ -62,6 +62,11 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.fedexRateWebService = getFedexRateWebService();
         $scope.productOptionSelected = productOptionSelected;
 
+        $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+        }
+
         function getFedexRateWebService() {
             ProductDescriptionService.fedexRateWebService().then(getFedexRateWebServiceSuccess, failure);
         }

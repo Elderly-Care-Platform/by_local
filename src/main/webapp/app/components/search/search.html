@@ -1,12 +1,10 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-<div class="container ">
-	<div class="row">
-		<div class="col-md-3 md-margin-bottom-40" ng-include="'app/components/search/searchLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
+<div >
+		<div class="leftPanel" ng-include="'app/components/search/searchLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
 		</div>
 
-		<div class="col-md-9  discussion-page md-margin-bottom-40 article-outer-wrapper"
+		<div class="contentPanel"
 			 ng-include="'app/components/search/searchContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
 		</div>
-	</div>
 </div>
 <div class="clearfix"></div>

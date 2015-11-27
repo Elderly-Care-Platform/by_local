@@ -8,9 +8,7 @@
     <!--</div>-->
     <!--<hr class="breadcrumb-divider"/>-->
 <!--</div>-->
-<div class="container " ng-init="initialize()">
-    <div class="row">
-        <div class="col-md-3 md-margin-bottom-40" ng-include="views.leftPanel"></div>
-        <div class="col-md-9  no-padding by_right_panel ng-scope" ng-include="views.contentPanel"></div>
-    </div>
+<div  ng-init="initialize()">
+        <div class="leftPanel" ng-include="views.leftPanel"></div>
+        <div class="contentPanel" ng-include="views.contentPanel" style="overflow-x:hidden;"></div>
 </div>

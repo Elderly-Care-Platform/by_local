@@ -76,7 +76,7 @@
 	cursor: pointer;
 	opacity: 1;
 }
-.profileRating i.profileStar
+.profileRating i.profileStar, .reviewCardRating i.profileStar
 {
 	width: 29px !important;
     height: 29px !important;

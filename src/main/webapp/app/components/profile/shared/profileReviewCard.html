@@ -7,7 +7,7 @@
              href="#!/profile/0/{{review.userId}}/{{review.username}}"> {{username}} </a> &nbsp; |  </li>
             <li time-since="{{review.createdAt}}"></li>
             <li class="reviewCardRating list-inline" ng-if="review.userRatingPercentage && review.userRatingPercentage!=='0'">
-                &nbsp; | <i class="rounded-x" rate-calculator="{{review.userRatingPercentage}}"></i>
+                &nbsp; | <i class="rounded-x profileStar " rate-calculator="{{review.userRatingPercentage}}"></i>
             </li>
         </ul>
     </div>

@@ -128,12 +128,12 @@
 <!-- mobile bottom -->
 <div ng-controller="discussDetailLeftController" ng-if="$root.windowWidth < 720">
     <div class=" by_discussDeatil_card" style="padding:0px 15px;">
-       <img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"><img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
        ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-       fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;">
+       fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;"></a>
 
-       <img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-       ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;">
+        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"><img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+       ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;"></a>
       
        <div class="by_discDetail_userName" ng-if="discuss">
         <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">

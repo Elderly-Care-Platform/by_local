@@ -24,10 +24,10 @@
         <div class="col-md-12 profileContainer margin-bottom-15  ">
             <div class="col-md-5 col-xs-5 by_profileWidth" style="padding-left:0px;">
                 <div class="main-image  " style="padding-left:0px;">
-                    <img class="full-width padding-zero" ng-if="institutionProfile.basicProfileInfo.profileImage.titleImage"
+                    <img class="padding-zero" ng-if="institutionProfile.basicProfileInfo.profileImage.titleImage"
                          ng-src="{{institutionProfile.basicProfileInfo.profileImage.titleImage || ''}}"
                          fallback-src='["assets/img/profile/instituation-big.png"]' alt="">
-                    <img class="full-width padding-zero"
+                    <img class="padding-zero"
                          ng-if="!institutionProfile.basicProfileInfo.profileImage.titleImage"
                          ng-src="assets/img/profile/instituation-big.png" alt="">
                 </div>
@@ -62,15 +62,15 @@
                      on BeautifulYears.com. Verification details appear in the review section for the
                       specific establishment as a BeautifulYears Team review."></div>
                     <div style="clear:both;"></div>
-                    <div class="no-padding">
+                    <div class="no-padding" ng-if="institutionProfile.ratingCount > 0 || institutionProfile.reviewCount > 0">
                         <div class="profileRating" ng-if="institutionProfile.ratingCount > 0">
-                            <i class="rounded-x" rate-calculator="{{institutionProfile.ratingPercentage}}"></i>Rated
+                            <i class="rounded-x profileStar" rate-calculator="{{institutionProfile.ratingPercentage}}"></i>Rated
                             by <a href="">{{institutionProfile.ratingCount}} user<xy
                                     ng-if="institutionProfile.ratingCount > 1">s
                             </xy>
                         </a>
                         </div>
-                        <div style="clear:both; height:10px;"></div>
+                        <div style="clear:both; height:16px;"></div>
                         <div class="profileReview" ng-if="institutionProfile.reviewCount > 0">
                             <i class="rounded-x fa fa-review-icon padding42" style="margin-left:0px; margin-right:9px;"></i>{{institutionProfile.reviewCount}}
                             review<span ng-if="institutionProfile.reviewCount > 1">s</span>

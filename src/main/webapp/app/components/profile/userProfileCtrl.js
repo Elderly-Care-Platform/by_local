@@ -1,6 +1,6 @@
 define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
     function(byApp, byUtil, userTypeConfig, reviewRateController) {
-    function ProfileController($scope, $rootScope, $location, $routeParams, ReviewRateProfile, UserProfile, $sce, DiscussPage){
+    function ProfileController($scope, $rootScope, $window, $location, $routeParams, ReviewRateProfile, UserProfile, $sce, DiscussPage){
         $scope.profileViews = {};
         $scope.profileType = $routeParams.profileType;
         $scope.profileId = $routeParams.profileId;
@@ -136,11 +136,21 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             fetchUserPostedContent();
         };
 
+        $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+        }
+
         $scope.gotoHref = function (id) {
             if (id) {
+                if($rootScope.windowWidth < 720){
+                    $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
+                }                
                 var tag = $("#" + id + ":visible");
                 if (tag.length > 0) {
-                    $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, 'slow');
+                    $('html,body').animate({scrollTop: tag.offset().top - 57}, 'slow');
                 }
             }
         };
@@ -206,9 +216,28 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             }
         }
 
+         $scope.subMenuTabMobileShow = function () {
+            $(".by_mobile_leftPanel_image").click(function () {
+                if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
+                    $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
+                } else {
+                    $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-minG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
+                }
+            });
+        };
+
+       
+      
+
+       
+
     }
 
-    ProfileController.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'ReviewRateProfile', 'UserProfile', '$sce', 'DiscussPage'];
+    ProfileController.$inject = ['$scope', '$rootScope', '$window', '$location', '$routeParams', 'ReviewRateProfile', 'UserProfile', '$sce', 'DiscussPage'];
     byApp.registerController('ProfileController', ProfileController);
     return ProfileController;
 });

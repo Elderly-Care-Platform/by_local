@@ -1,34 +1,50 @@
 <!--All classes from Unify start-->
-<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed  by_left_panel_homeSlider_position">
-    <div class="scrollableLeftPanelDiv by-filter-links">
-        <ul class="list-group sidebar-nav-v1 margin-bottom-40 " id="sidebar-nav">
-            <li class="list-group-item" ng-click="gotoHref('profileSection')" style="border:0px;">
-                <a>{{label}}</a>
-            </li>
-			<!--  <div class="col-md-12 no-padding by_leftPanel_icons"
-				id="by_rate_show" data-link="articles.html"
-				ng-if="isAllowedToReview">
-				<div class="text add-comment23">
-					<i class="review-Icon_rate"></i> Rate & Review
-					<div class="clearfix"></div>
-				</div>
-			</div>-->
-            <li class="list-group-item" ng-if="flags.isByAdminVerified && (profileData.userTypes[0] == 7 || profileData.userTypes[0] == 4 )"  ng-click="gotoHref('adminVerified')" style="border:0px;">
-                <a>Verification</a> 
-            </li>
-			<li class="list-group-item" ng-if="isAllowedToReview && (profileData.userTypes[0] == 7 || profileData.userTypes[0] == 4 )" ng-click="gotoHref('userReviews')" style="border:0px;">
-				<a> Rate & Review</a>
-			</li>
-			<li class="list-group-item" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')" style="border:0px;">
-                <a>Posts ({{postsPagination.totalPosts}})</a>
-            </li>
-            <li class="list-group-item" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')" style="border:0px;">
-                <a >Q&A ({{qaPagination.totalPosts}})</a>
-            </li>
-            <!--<li class="list-group-item" ng-if="isAllowedToReview">-->
-                <!--<a ng-click="reviewContent()">REVIEW / RATE</a>-->
-            <!--</li>-->
-        </ul>
+<div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720"  style="position:fixed; bottom:0px;"  ng-init="leftPanelHeight();">
+   
+        <div class="by_profileDetailed_menu" ng-click="gotoHref('profileSection')">
+            {{label}}
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="flags.isByAdminVerified && (profileData.userTypes[0] == 7 || profileData.userTypes[0] == 4 )"  ng-click="gotoHref('adminVerified')">
+            <i class="fa fa-pencil-square-o by_faAlign"></i><span>BY Verified</span>
+            <div class="clearfix"></div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="isAllowedToReview && (profileData.userTypes[0] == 7 || profileData.userTypes[0] == 4 )" ng-click="gotoHref('userReviews')">
+            <i class="review-Icon_rate"></i> <span>Rate & Review</span>
+            <div class="clearfix"></div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')">
+           <span>Posts ({{postsPagination.totalPosts}})</span>
+           <div class="clearfix"></div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')">
+           <span>Q&A ({{qaPagination.totalPosts}})</span>
+           <div class="clearfix"></div>
+        </div>
     </div>
+    <!--All classes from Unify end-->
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+    <div class="by_mobile_leftPanel" style="padding:0px 15px;">
+       
+        <div class="by_profileDetailed_menu" ng-click="gotoHref('profileSection')">
+            {{label}}
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="flags.isByAdminVerified && (profileData.userTypes[0] == 7 || profileData.userTypes[0] == 4 )"  ng-click="gotoHref('adminVerified')">
+            <i class="fa fa-pencil-square-o by_faAlign"></i><span>BY Verified</span>
+            <div class="clearfix"></div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="isAllowedToReview && (profileData.userTypes[0] == 7 || profileData.userTypes[0] == 4 )" ng-click="gotoHref('userReviews')">
+            <i class="review-Icon_rate"></i> <span>Rate & Review</span>
+            <div class="clearfix"></div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0"  ng-click="gotoHref('userPosts')">
+           <span>Posts ({{postsPagination.totalPosts}})</span>
+           <div class="clearfix"></div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0"  ng-click="gotoHref('userQA')">
+           <span>Q&A ({{qaPagination.totalPosts}})</span>
+           <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
 </div>
-<!--All classes from Unify end-->

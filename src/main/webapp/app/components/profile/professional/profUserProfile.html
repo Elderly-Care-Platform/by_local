@@ -71,27 +71,28 @@
                      on BeautifulYears.com. Verification details appear in the review section for the
                       specific establishment as a BeautifulYears Team review." ></div>
 					<div style="clear:both;"></div>
-					<div class="no-padding">
+					<div class="no-padding" ng-if="individualProfile.ratingCount > 0 || individualProfile.reviewCount > 0 ">
 						<div class="profileRating"
 							ng-if="individualProfile.ratingCount > 0">
-							<i class="rounded-x"
+							<i class="rounded-x profileStar"
 								rate-calculator="{{individualProfile.ratingPercentage}}"></i>Rated
 							by <a href="">{{individualProfile.ratingCount}} user<xy
 									ng-if="individualProfile.ratingCount > 1">s</xy></a>
-						</div><div style="clear:both; height:10px;"></div>
+						</div><div style="clear:both; height:16px;"></div>
 						<div class="profileReview"
 							ng-if="individualProfile.reviewCount > 0">
 							<i class="rounded-x fa fa-review-icon padding42" style="margin-left:0px; margin-right:9px;"></i>{{individualProfile.reviewCount}}
 							review<span ng-if="individualProfile.reviewCount > 1">s</span>
 						</div>
 						<div class="clearfix" style="height: 6px;"></div>
+						</div>
 						<div class="profileRating"
 							ng-if="individualProfile.serviceProviderInfo.yearsExperience > 0">
 							{{individualProfile.serviceProviderInfo.yearsExperience}} year<span ng-if="individualProfile.serviceProviderInfo.yearsExperience > 1">s</span>
-							of experience</a>
+							of experience</a><div style="clear: both; height:6px;"></div>
 						</div>
-						<div style="clear: both; height:6px;"></div>
-					</div>
+						
+					
 
 					<div class="no-padding profileAddress" ng-if="individualProfile.basicProfileInfo.primaryUserAddress"
 						 format-address="individualProfile.basicProfileInfo.primaryUserAddress">

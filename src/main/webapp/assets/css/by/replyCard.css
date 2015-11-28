@@ -52,6 +52,10 @@
 	padding:0px 15px;
 	text-align:right;
 }
+#reviewTextArea_ifr
+{
+    height: 80px !important;
+}
 .replyCardShareList li
 {
 	list-style:none;

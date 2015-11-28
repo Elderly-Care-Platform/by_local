@@ -1,5 +1,4 @@
-<div class="by_subMenuPlus col-md-12" ng-if="$root.windowWidth > 720" element-resize callback="setContentHeight" >
-<div ng-init="smartScroll();"></div>
+<div class=" by_menuDetailed col-md-12" style="position:fixed; overflow-x:hidden; bottom:0px;"  ng-init="leftPanelHeight();" ng-if="$root.windowWidth > 720" >
      <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"><img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
     ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
     fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;"></a>

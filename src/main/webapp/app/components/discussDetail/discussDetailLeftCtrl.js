@@ -32,7 +32,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 		});
 
 
-		$scope.smartScroll = function () {
+		/*$scope.smartScroll = function () {
             var clientHeight = $( window ).height();
             $(".by_subMenuPlus").css('min-height', (clientHeight - 40)+"px");
             angular.element($window).bind("scroll", function () {
@@ -41,7 +41,6 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                     left = $('.by_subMenuPlus'),
                     leftBottom = left.outerHeight() + 43;
 
-                //when the user reached the bottom of '#leftShort' set its position to fixed to prevent it from moving on scroll
                 if (winBottom >= leftBottom) {
 
                     left.css({
@@ -49,18 +48,22 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                         'bottom': '0px'
                     });
                 } else {
-                    //when the user scrolls back up revert its position to relative
                     left.css({
                         'position': 'relative',
                         'bottom': 'auto'
                     });
                 }
-                //console.log("winBottom"+winBottom+"::"+"leftBottom"+leftBottom);
+                
             });
         };
 
         $scope.setContentHeight = function(cH, cW){
             $(".contentPanel").css('min-height', cH);  
+        }*/
+
+        $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('min-height', clientHeight+"px");
         }
 
 		$scope.getTagBasedArticle = function(){

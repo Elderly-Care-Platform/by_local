@@ -323,7 +323,7 @@ BY.config.menu.community = {
         'name':'Caring for parents',    
         'menuIconImageDesktop':'',
         'menuIconImageMobile':'',    
-        'desc':'We are taking care of aging parents. Sharing questions, answers, tips, stories, emotions, diaries of caretakers – and more.'
+        'desc':'Taking care of aging parents. Sharing questions,  tips, stories,  diaries  – and more.'
     },
      '564072373e60f5b66f62df2b' : { 
         'name':'Beautiful ageing',  

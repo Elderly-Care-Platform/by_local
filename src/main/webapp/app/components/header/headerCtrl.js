@@ -63,7 +63,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     } else {                        
                          $("#homeMenuScroll").hide();
                     }
-                    $("#ng-scope").css('min-height', $scope.minimumHeight+"px");
+                    $("#ng-scope").css('min-height', 0+"px");
                         
                 });
             } else {

@@ -20,7 +20,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             getProductCount();
             getServicesCount();
         }
-        $scope.minimumHeight = $( window ).height() - 46;
+        var minimumHeight = $( window ).height() - 46;
 
         function getProductCount(){
             $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
@@ -63,7 +63,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     } else {                        
                          $("#homeMenuScroll").hide();
                     }
-                    $("#ng-scope").css('min-height', 0+"px");
+                    $("#ng-scope").css('min-height', "0px");
                         
                 });
             } else {
@@ -79,7 +79,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                         $(".by_header").addClass("by_header_image");
                     }
                 });
-                $("#ng-scope").css('min-height', $scope.minimumHeight+"px");
+                $("#ng-scope").css('min-height', minimumHeight+"px");
             }
         }
 

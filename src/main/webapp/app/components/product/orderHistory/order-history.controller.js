@@ -112,8 +112,6 @@ define(['byProductApp'], function (byProductApp) {
                 });
             });
 
-            awbList = [705588399, 705588401, 705588407, 705588408];
-
             if(awbList.length > 0){
                 var promise = LogisticService.trackOrderItem(awbList);
                 if(promise){

@@ -40,20 +40,29 @@
                         Qty : <b>{{orderItem.quantity}}</b><br>
                         <b>Rs : Rs {{orderItem.salePrice.amount}}</b>
                     </div>
-                    <!--<div class="by_orderHistory_dataDelivery by_orderHistory_dataSpace">-->
-                    <!--Delivery by -->
-                    <!--<b>{{orders.trackingInfo.deliveryDate | dateSuffix}}</b>-->
-                    <!--</div>-->
+                    <div class="by_orderHistory_dataDelivery by_orderHistory_dataSpace">
+                        Status -
+                        <b>{{itemAwbMap[orderItem.awbNumber][prodEcomConfig.status].value}}</b>
+                    </div>
+                    <div class="by_orderHistory_dataDelivery by_orderHistory_dataSpace" ng-if="itemAwbMap[orderItem.awbNumber][prodEcomConfig.delivery_date].value">
+                        Delivery by
+                        <b>{{itemAwbMap[orderItem.awbNumber][prodEcomConfig.delivery_date].value}}</b>
+                    </div>
+                    <div class="by_orderHistory_dataDelivery by_orderHistory_dataSpace" ng-if="itemAwbMap[orderItem.awbNumber][prodEcomConfig.expected_date].value">
+                        Expected Delivery by
+                        <b>{{itemAwbMap[orderItem.awbNumber][prodEcomConfig.expected_date].value}}</b>
+                    </div>
                     <!--<div class="by_orderHistory_dataOrder by_orderHistory_dataSpace">-->
-                    <!--<div class="by_orderHistory_dataOrderTrack">-->
-                    <!--<a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=123456789012"-->
-                    <!--target="_blank">-->
-                    <!--Track your order&lt;!&ndash; {{orders.trackingInfo.trackingNumber}} &ndash;&gt;-->
-                    <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="by_orderHistory_dataOrderCancel" ng-click="cancelOrder(orders.trackingInfo.trackingNumber, orders.id)">-->
-                    <!--Cancel order-->
-                    <!--</div>-->
+                        <!--<div class="by_orderHistory_dataOrderTrack">-->
+                            <!--<a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=123456789012"-->
+                               <!--target="_blank">-->
+                                <!--Track your order&lt;!&ndash; {{orders.trackingInfo.trackingNumber}} &ndash;&gt;-->
+                            <!--</a>-->
+                        <!--</div>-->
+                        <!--<div class="by_orderHistory_dataOrderCancel"-->
+                             <!--ng-click="cancelOrder(orders.trackingInfo.trackingNumber, orders.id)">-->
+                            <!--Cancel order-->
+                        <!--</div>-->
                     <!--</div>-->
                     <div class="clearfix"></div>
                     <div style="height:15px;" ng-if="orders.orderItems.length > 1"></div>

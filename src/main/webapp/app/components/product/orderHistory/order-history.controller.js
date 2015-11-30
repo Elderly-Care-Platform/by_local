@@ -21,6 +21,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
          */
         var breadCrumb, customerId = null;
 
+
         if (localStorage.getItem("by_cust_id")) {
             customerId = localStorage.getItem("by_cust_id")
         }
@@ -36,7 +37,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
         $scope.allOrderHistory = [];
         $scope.lastPage = false;
         $scope.isQueryInprogress = false;
-
+        $scope.prodEcomConfig = BY.config.product.ecomTrackOrderConfig;
         /**
          * During controller initialiization get the orderHistory detail,
          * store in promise to show loading icon untill promise fullfilled
@@ -105,11 +106,11 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             $scope.itemAwbMap = {};
             angular.forEach($scope.allOrderHistory, function (order) {
                 angular.forEach(order.orderItems, function (orderItem) {
-                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr, orderItem) {
+                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr) {
                         if(orderItemAttr.name==="awbNumber"){
                             awbList.push(orderItemAttr.value);
                             orderItem.awbNumber = orderItemAttr.value;
-                            $scope.itemAwbMap[orderItemAttr.value] = orderItem;
+                            $scope.itemAwbMap[orderItemAttr.value] = null;
                         }
                     });
                 });
@@ -124,10 +125,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
 
             function logisticSuccessRes(data){
                 $scope.orderItemLogisticInfo = angular.forEach(data.data.object, function(data){
-                    console.log(data);
-                    console.log(data.field[BY.config.product.ecomTrackOrderConfig.awb_number]);
-                    var awbOrder = $scope.itemAwbMap[data.field[BY.config.product.ecomTrackOrderConfig.awb_number].value];
-                    awbOrder.awbDetail = data.field;
+                    $scope.itemAwbMap[data.field[$scope.prodEcomConfig.awb_number].value] = data.field;
                 })
 
                 console.log($scope.itemAwbMap);

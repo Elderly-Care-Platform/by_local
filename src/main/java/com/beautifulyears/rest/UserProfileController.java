@@ -69,9 +69,9 @@ public class UserProfileController {
 			.getLogger(UserProfileController.class);
 
 	private UserProfileRepository userProfileRepository;
-	private ServiceBranchRepository serviceBranchRepository;
+	//private ServiceBranchRepository serviceBranchRepository;
 	private ActivityLogHandler<UserProfile> logHandler;
-	private ActivityLogHandler<ServiceBranch> branchLogHandler;
+	//private ActivityLogHandler<ServiceBranch> branchLogHandler;
 	private MongoTemplate mongoTemplate;
 
 	@Autowired
@@ -79,10 +79,10 @@ public class UserProfileController {
 			UserProfileRepository userProfileRepository,
 			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
-		this.serviceBranchRepository = serviceBranchRepository;
+		//this.serviceBranchRepository = serviceBranchRepository;
 		this.mongoTemplate = mongoTemplate;
 		logHandler = new UserProfileLogHandler(mongoTemplate);
-		branchLogHandler = new ServiceBranchLogHandler(mongoTemplate);
+		//branchLogHandler = new ServiceBranchLogHandler(mongoTemplate);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/{userId}" }, produces = { "application/json" })
@@ -373,7 +373,25 @@ public class UserProfileController {
 								profile.setIndividualInfo(userProfile
 										.getIndividualInfo());
 							}
-							if (!Collections
+							else if(profile.getUserTypes().contains(UserTypes.INDIVIDUAL_PROFESSIONAL)){
+								profile.setServiceProviderInfo(userProfile
+										.getServiceProviderInfo());
+							}
+							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES)){
+								profile.setServiceProviderInfo(userProfile
+										.getServiceProviderInfo());
+								profile.setServiceBranches(ServiceBranchController.
+										addServiceBranches(
+												userProfile.getServiceBranches(),
+												currentUser));
+							}
+							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_HOUSING)){
+								profile.setFacilities(HousingController
+										.addFacilities(
+												userProfile.getFacilities(),
+												currentUser));
+							}
+							/*else if (!Collections
 									.disjoint(
 											profile.getUserTypes(),
 											new ArrayList<>(
@@ -382,7 +400,7 @@ public class UserProfileController {
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
 							}
-							if (!Collections
+							else if (!Collections
 									.disjoint(
 											profile.getUserTypes(),
 											new ArrayList<>(
@@ -395,7 +413,7 @@ public class UserProfileController {
 												userProfile.getServiceBranches(),
 												currentUser));
 							}
-							if (!Collections
+							else if (!Collections
 									.disjoint(
 											profile.getUserTypes(),
 											new ArrayList<>(
@@ -404,7 +422,7 @@ public class UserProfileController {
 										.addFacilities(
 												userProfile.getFacilities(),
 												currentUser));
-							}
+							}*/
 
 							userProfileRepository.save(profile);
 							logHandler.addLog(profile,
@@ -550,7 +568,7 @@ public class UserProfileController {
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 	
-	public List<ServiceBranch> addServiceBranches(
+	/*public List<ServiceBranch> addServiceBranches(
 			List<ServiceBranch> serviceBranches, User user) {
 		List<ServiceBranch> existingBranches = serviceBranchRepository
 				.findByUserId(user.getId());
@@ -576,7 +594,7 @@ public class UserProfileController {
 		for (ServiceBranch addedBranches : newlyAdded) {
 			addedBranches.setUserId(user.getId());
 			ServiceBranch newBranch = new ServiceBranch();
-			updateService(newBranch, addedBranches);
+			updateServiceBranch(newBranch, addedBranches);
 			mongoTemplate.save(newBranch);
 			branchLogHandler.addLog(newBranch,
 					ActivityLogConstants.CRUD_TYPE_CREATE, null, user);
@@ -586,7 +604,7 @@ public class UserProfileController {
 		for (ServiceBranch updatedBranch : updated) {
 			ServiceBranch old = existingBranches.get(existingBranches
 					.indexOf(updatedBranch));
-			updateService(old, updatedBranch);
+			updateServiceBranch(old, updatedBranch);
 			old.setLastModifiedAt(new Date());
 			mongoTemplate.save(old);
 			branchLogHandler.addLog(old, ActivityLogConstants.CRUD_TYPE_UPDATE, null,
@@ -596,7 +614,7 @@ public class UserProfileController {
 		return serviceBranches;
 	}
 	
-	private void updateService(ServiceBranch oldService,
+	private void updateServiceBranch(ServiceBranch oldService,
 			ServiceBranch newService) {
 		
 		oldService.getBasicProfileInfo().setFirstName(newService.getBasicProfileInfo().getFirstName());
@@ -610,7 +628,7 @@ public class UserProfileController {
 		
 		oldService.setUserId(newService.getUserId());
 
-	}
+	}*/
 
 	private String getShortDescription(UserProfile profile) {
 		String shortDescription = null;

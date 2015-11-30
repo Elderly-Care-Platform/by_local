@@ -28,32 +28,37 @@ public class ServiceBranchRepositoryImpl implements ServiceBranchRepositoryCusto
 	public PageImpl<ServiceBranch> getPage(String city,
 			List<ObjectId> tagIds, String userId, Boolean isFeatured,
 			Boolean isPromotion, Pageable pageable) {
-		List<ServiceBranch> housings = null;
+		List<ServiceBranch> services = null;
 
 		Query query = new Query();
 		query = getQuery(query, tagIds, userId, isFeatured, isPromotion);
-		query.with(pageable);
+		if(pageable == null){
+			
+		}else{
+			query.with(pageable);
+		}
+		
 		query.addCriteria(Criteria.where("status").is(
 				DiscussConstants.DISCUSS_STATUS_ACTIVE));
 		
 		if (city != null) {
 			Criteria criteria = new Criteria();
 			criteria.orOperator(
-					Criteria.where("basicProfileInfo.primaryUserAddress.city")
+					Criteria.where("basicBranchInfo.primaryUserAddress.city")
 							.regex(city, "i"),
-					Criteria.where("basicProfileInfo.otherAddresses")
+					Criteria.where("basicBranchInfo.otherAddresses")
 							.elemMatch(Criteria.where("city").regex(city, "i")));
 
 			query.addCriteria(criteria);
 		}
 
-		housings = this.mongoTemplate.find(query, ServiceBranch.class);
+		services = this.mongoTemplate.find(query, ServiceBranch.class);
 
 		long total = this.mongoTemplate.count(query, ServiceBranch.class);
-		PageImpl<ServiceBranch> housingPage = new PageImpl<ServiceBranch>(
-				housings, pageable, total);
+		PageImpl<ServiceBranch> servicePage = new PageImpl<ServiceBranch>(
+				services, pageable, total);
 
-		return housingPage;
+		return servicePage;
 	}
 
 	private Query getQuery(Query q, List<ObjectId> tagIds, String userId,

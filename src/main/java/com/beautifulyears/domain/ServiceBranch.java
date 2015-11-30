@@ -22,12 +22,10 @@ public class ServiceBranch {
 	private String userId;
 	
 	// contains all common user profile information.
-	private BasicProfileInfo basicProfileInfo = new BasicProfileInfo();
+	private BasicProfileInfo basicBranchInfo = new BasicProfileInfo();
 	
 	// contains information about service provider
 	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
-	
-	private String tags;
 
 	private boolean isFeatured;
 
@@ -73,14 +71,13 @@ public class ServiceBranch {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
 
-	public BasicProfileInfo getBasicProfileInfo() {
-		return basicProfileInfo;
+	public BasicProfileInfo getBasicBranchInfo() {
+		return basicBranchInfo;
 	}
 
-	public void setBasicProfileInfo(BasicProfileInfo basicProfileInfo) {
-		this.basicProfileInfo = basicProfileInfo;
+	public void setBasicBranchInfo(BasicProfileInfo basicBranchInfo) {
+		this.basicBranchInfo = basicBranchInfo;
 	}
 
 	public ServiceProviderInfo getServiceProviderInfo() {
@@ -89,14 +86,6 @@ public class ServiceBranch {
 
 	public void setServiceProviderInfo(ServiceProviderInfo serviceProviderInfo) {
 		this.serviceProviderInfo = serviceProviderInfo;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
 	}
 
 	public boolean isFeatured() {

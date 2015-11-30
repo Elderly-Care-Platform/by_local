@@ -1,4 +1,4 @@
-define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomConfig) {
+define(['byProductApp'], function (byProductApp) {
     function orderHistoryCtrl($scope,
                               $routeParams,
                               $log,
@@ -21,7 +21,6 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
          */
         var breadCrumb, customerId = null;
 
-
         if (localStorage.getItem("by_cust_id")) {
             customerId = localStorage.getItem("by_cust_id")
         }
@@ -37,7 +36,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
         $scope.allOrderHistory = [];
         $scope.lastPage = false;
         $scope.isQueryInprogress = false;
-        $scope.prodEcomConfig = BY.config.product.ecomTrackOrderConfig;
+
         /**
          * During controller initialiization get the orderHistory detail,
          * store in promise to show loading icon untill promise fullfilled
@@ -106,11 +105,11 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             $scope.itemAwbMap = {};
             angular.forEach($scope.allOrderHistory, function (order) {
                 angular.forEach(order.orderItems, function (orderItem) {
-                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr) {
+                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr, orderItem) {
                         if(orderItemAttr.name==="awbNumber"){
                             awbList.push(orderItemAttr.value);
                             orderItem.awbNumber = orderItemAttr.value;
-                            $scope.itemAwbMap[orderItemAttr.value] = null;
+                            $scope.itemAwbMap[orderItemAttr.value] = orderItem;
                         }
                     });
                 });
@@ -124,11 +123,11 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             }
 
             function logisticSuccessRes(data){
-                $scope.orderItemLogisticInfo = angular.forEach(data.data.object, function(data){
-                    $scope.itemAwbMap[data.field[$scope.prodEcomConfig.awb_number].value] = data.field;
-                })
-
                 console.log($scope.itemAwbMap);
+                $scope.orderItemLogisticInfo = angular.forEach(data.data.object, function(data){
+                    console.log(data);
+                    //console.log(data[BY.config.product.ecomTrackOrderConfig.awb_number]);
+                })
             }
 
             function logisticErrorRes(data){

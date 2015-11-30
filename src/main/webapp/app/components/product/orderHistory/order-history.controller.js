@@ -12,7 +12,7 @@ define(['byProductApp'], function (byProductApp) {
                               STATIC_IMAGE,
                               DISCOUNT_TYPE,
                               ORDER_HISTORY_TYPE,
-                              PAGINATION) {
+                              PAGINATION, LogisticService) {
 
         $log.debug('Inside OrderHistory Controller');
 
@@ -24,6 +24,7 @@ define(['byProductApp'], function (byProductApp) {
         if (localStorage.getItem("by_cust_id")) {
             customerId = localStorage.getItem("by_cust_id")
         }
+
         $scope.orderHistoryType = ORDER_HISTORY_TYPE;
         $scope.getOrderHistory = getOrderHistory;
         $scope.discountType = DISCOUNT_TYPE;
@@ -83,19 +84,54 @@ define(['byProductApp'], function (byProductApp) {
             //angular.forEach($scope.allOrderHistory, function (order) {
             //    order.trackingInfo.deliveryDate = new Date(order.trackingInfo.deliveryDate);
             //});
-            setImageUrl($scope.allOrderHistory);
+            //setImageUrl($scope.allOrderHistory);
             $scope.orderHistory = angular.copy($scope.allOrderHistory);
             if (allOrderHistory.length === 0) {
                 $scope.lastPage = true;
             }
             $scope.isQueryInprogress = false;
             setImageUrl($scope.orderHistory);
+
+            trackLogistic();
         }
 
         function failureCallBack(response) {
             $log.info('failed to get order history' + response);
         }
 
+
+        function trackLogistic(){
+            var awbList = [];
+            angular.forEach($scope.allOrderHistory, function (order) {
+                angular.forEach(order.orderItems, function (orderItem) {
+                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr) {
+                        if(orderItemAttr.name==="awbNumber"){
+                            awbList.push(orderItemAttr.value);
+                        }
+                    });
+                });
+            });
+
+            awbList = [705588399, 705588401, 705588407, 705588408];
+
+            if(awbList.length > 0){
+                var promise = LogisticService.trackOrderItem(awbList);
+                if(promise){
+                    promise.then(logisticSuccessRes, logisticErrorRes);
+                }
+            }
+
+            function logisticSuccessRes(data){
+                console.log(data);
+                $scope.orderItemLogisticInfo = angular.forEach(data, function(data){
+
+                })
+            }
+
+            function logisticErrorRes(data){
+                console.log(data);
+            }
+        }
         /**
          * Iterate through each orderItem in each Order and
          * call addImageUrl method to add imageurl into each orderItem
@@ -193,7 +229,7 @@ define(['byProductApp'], function (byProductApp) {
         'STATIC_IMAGE',
         'DISCOUNT_TYPE',
         'ORDER_HISTORY_TYPE',
-        'PAGINATION'];
+        'PAGINATION', 'LogisticService'];
 
     byProductApp.registerController('orderHistoryCtrl', orderHistoryCtrl);
     return orderHistoryCtrl;

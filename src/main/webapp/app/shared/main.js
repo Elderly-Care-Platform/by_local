@@ -30,6 +30,7 @@ require.config({
 		stateParamValidatorFactory : '../main/product/productResources/stateParamValidator',
 		CartServiceFactory : '../components/product/cart/cart.service',
 		CustomValidationFactory : '../main/product/productResources/custom-validation-directive',
+		LogisticServiceFactory : '../main/product/productResources/logistic-service',
 
 		AddAddressFactory : '../components/product/cartCheckout/add-address/add-address.service',
 		EditAddressFactory : '../components/product/cartCheckout/edit-address/edit-address.service',

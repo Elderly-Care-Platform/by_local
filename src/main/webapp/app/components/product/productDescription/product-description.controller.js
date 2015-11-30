@@ -20,7 +20,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                                           MEDIATYPE,
                                           STATIC_IMAGE,
                                           TEMPLATE_URL,
-                                          Utility) {
+                                          Utility, LogisticService) {
 
         $log.debug('Inside ProductDescriptionController');
 
@@ -47,6 +47,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
         // uiData mapping
         $scope.uiData = {};
+        $scope.logisticInfo = {};
+
         $scope.$on('ngRepeatFinished', function () {
             $window.initSlideShow();
         });
@@ -61,6 +63,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.promise = getProductDescription();
         $scope.fedexRateWebService = getFedexRateWebService();
         $scope.productOptionSelected = productOptionSelected;
+	$scope.checkLogisticAvailability = checkLogisticAvailability;
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
@@ -327,28 +330,60 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         }
 
 
-        function addProductToCart(productId, nextLocation) {
-            $log.debug('Add product to cart');
-            if ($scope.uiData.productOptions && $scope.uiData.productOptions.length > 0) {
-                for (var i = 0; i < $scope.uiData.productOptions.length; i++) {
-                    if ($scope.selectedColor && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.color") {
-                        productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedColor;
-                    }
-                    else if ($scope.selectedSize && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.size") {
-                        productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedSize;
-                    }
-                };
+        function checkLogisticAvailability(pincode){
+            var checkLogistic = LogisticService.checkLogisticAvailability(pincode);
+            if(checkLogistic){
+                checkLogistic.then(logisticSuccessRes, logisticErrorRes);
             }
 
+            function logisticSuccessRes(data){
+                console.log(data);
+                if(data.data === "" || data.status === 240){
+                    $scope.logisticInfo.cashOnDelivery = "NA";
+                    $scope.logisticInfo.deliveryDetail = "NA";
+                }else{
+                    $scope.logisticInfo.cashOnDelivery = "eligible";
+                    $scope.logisticInfo.deliveryDetail = "standard";
+                }
 
-            if ($scope.userRequiredQuantity >= 1 && $scope.inventoryType === INVENTORY.alwaysAvailable) {
-                Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions, nextLocation);
-            } else {
-                if ($scope.userRequiredQuantity >= 1 &&
-                    $scope.userRequiredQuantity <= $scope.quantityAvailable) {
+            }
+
+            function logisticErrorRes(data){
+                console.log(data);
+                $scope.logisticInfo.cashOnDelivery = "NA";
+                $scope.logisticInfo.deliveryDetail = "NA";
+            }
+        }
+
+        function addProductToCart(productId, nextLocation) {
+            if($scope.logisticInfo && $scope.logisticInfo.deliveryDetail && $scope.logisticInfo.deliveryDetail==="standard"){
+                $log.debug('Add product to cart');
+                if ($scope.uiData.productOptions && $scope.uiData.productOptions.length > 0) {
+                    for (var i = 0; i < $scope.uiData.productOptions.length; i++) {
+                        if ($scope.selectedColor && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.color") {
+                            productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedColor;
+                        }
+                        else if ($scope.selectedSize && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.size") {
+                            productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedSize;
+                        }
+                    };
+                }
+
+
+                if ($scope.userRequiredQuantity >= 1 && $scope.inventoryType === INVENTORY.alwaysAvailable) {
                     Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions, nextLocation);
+                } else {
+                    if ($scope.userRequiredQuantity >= 1 &&
+                        $scope.userRequiredQuantity <= $scope.quantityAvailable) {
+                        Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions, nextLocation);
+                    }
+                }
+            } else{
+                if($scope.logisticInfo && !$scope.logisticInfo.deliveryDetail){
+                    $scope.checkLogisticDetail = true;
                 }
             }
+
 
             //$location.path('/cart/');
         }
@@ -462,7 +497,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         'MEDIATYPE',
         'STATIC_IMAGE',
         'TEMPLATE_URL',
-        'Utility'];
+        'Utility', 'LogisticService'];
 
     byProductApp.registerController('ProductDescriptionController', ProductDescriptionController);
     return ProductDescriptionController;

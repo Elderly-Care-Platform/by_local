@@ -70,6 +70,7 @@ public class ServiceBranchController {
 		
 		oldService.setBasicBranchInfo(newService.getBasicBranchInfo());
 		oldService.setServiceProviderInfo(newService.getServiceProviderInfo());
+		oldService.setUserId(newService.getUserId());
 
 	}
 }

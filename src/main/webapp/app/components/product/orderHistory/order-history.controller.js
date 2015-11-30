@@ -123,11 +123,14 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             }
 
             function logisticSuccessRes(data){
-                console.log($scope.itemAwbMap);
                 $scope.orderItemLogisticInfo = angular.forEach(data.data.object, function(data){
                     console.log(data);
-                    console.log(data[BY.config.product.ecomTrackOrderConfig.awb_number]);
+                    console.log(data.field[BY.config.product.ecomTrackOrderConfig.awb_number]);
+                    var awbOrder = $scope.itemAwbMap[data.field[BY.config.product.ecomTrackOrderConfig.awb_number].value];
+                    awbOrder.awbDetail = data.field;
                 })
+
+                console.log($scope.itemAwbMap);
             }
 
             function logisticErrorRes(data){

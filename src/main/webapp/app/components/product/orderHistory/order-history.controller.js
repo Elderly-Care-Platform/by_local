@@ -102,11 +102,14 @@ define(['byProductApp'], function (byProductApp) {
 
         function trackLogistic(){
             var awbList = [];
+            $scope.itemAwbMap = {};
             angular.forEach($scope.allOrderHistory, function (order) {
                 angular.forEach(order.orderItems, function (orderItem) {
-                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr) {
+                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr, orderItem) {
                         if(orderItemAttr.name==="awbNumber"){
                             awbList.push(orderItemAttr.value);
+                            orderItem.awbNumber = orderItemAttr.value;
+                            $scope.itemAwbMap[orderItemAttr.value] = orderItem;
                         }
                     });
                 });
@@ -120,9 +123,10 @@ define(['byProductApp'], function (byProductApp) {
             }
 
             function logisticSuccessRes(data){
-                console.log(data);
-                $scope.orderItemLogisticInfo = angular.forEach(data, function(data){
-
+                console.log($scope.itemAwbMap);
+                $scope.orderItemLogisticInfo = angular.forEach(data.data.object, function(data){
+                    console.log(data);
+                    console.log(data[BY.config.product.ecomTrackOrderConfig.awb_number]);
                 })
             }
 

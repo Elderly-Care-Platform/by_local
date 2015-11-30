@@ -1,4 +1,4 @@
-define(['byProductApp'], function (byProductApp) {
+define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomConfig) {
     function orderHistoryCtrl($scope,
                               $routeParams,
                               $log,

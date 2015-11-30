@@ -11,6 +11,7 @@ require.config({
 		byDirectives : '../main/appDirectives',
 		byAppRoute : '../main/appRoute',
 		byApplicationConfig : '../shared/common/config/byApplicationConfig',
+		byProdEcomConfig : '../shared/common/config/byProductEcomConfig',
 		byProductApp : '../main/product/productApp',
 		byProductResources : '../main/product/productResources',
 		byProductRoute : '../main/product/productRoute',

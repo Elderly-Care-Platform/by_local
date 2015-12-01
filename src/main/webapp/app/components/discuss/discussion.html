@@ -10,13 +10,13 @@
      <div id="discussListContainer"></div>
     <div class="row" ng-controller="DiscussAllController">
          <!--<div class="col-md-3  md-margin-bottom-40" ng-include="discussionViews.leftPanel"></div>-->
-        <div ng-if="!showEditor" class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper"
+        <div ng-if="showEditor" class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper"
              ng-include="discussionViews.contentPanel">
         </div>
 
-        <div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper" ng-if="showEditor" >           
+        <!--<div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper" ng-if="showEditor" >           
             <div ng-if="showEditorType==='Question'" ng-include="'app/shared/editor/QuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
             <div ng-if="showEditorType==='Article'" ng-include="'app/shared/editor/ArticleEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
-        </div>
+        </div>-->
     </div>
 </div>

@@ -24,6 +24,7 @@ define(['byApp',
         var tags                            = [];
         var queryParams                     = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
         var init                            = initialize();
+        $scope.showEditor                   = true;
 
 
         function initialize(){
@@ -150,10 +151,22 @@ define(['byApp',
         };
 
         $scope.showEditorPage = function(type){
-            $location.search('showEditor', 'true');
-            $location.search('showEditorType', type);
-            BY.byEditor.removeEditor();
-            $location.path("/discuss/list/"+$scope.selectedMenu.slug+"/"+$scope.selectedMenu.id+"/all");
+            $scope.showEditorType = type;
+            $(".by_editorButtonWrap_thumb").animate({width: '100%', borderRight: '0px'}, "500");
+            $("."+type+"hidePanel").hide();
+            $("."+type+"by_editorButtonWrap_thumb").hide();
+            $("."+type+"showPanel").slideDown("500"); 
+        }
+
+        $scope.exitEditorDiscuss = function(type, event){
+            event.stopPropagation();
+            $(".by_editorButtonWrap_thumb").animate({width: '50%', borderRight: '1px'}, "500");
+            $("."+type+"hidePanel").show();
+            $("."+type+"by_editorButtonWrap_thumb").show();
+            $("."+type+"showPanel").slideUp("1000", function  () {
+                $route.reload();
+            });
+
         }
 
         //$scope.add = function (type) {

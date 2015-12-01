@@ -11,6 +11,10 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         $scope.selectedMenuCount = 0;
         $scope.linkImages = [];
         $scope.linkImagesIdx = 0;
+        if($scope.$parent.categoryLists){
+            $scope.categoryLists = $scope.$parent.categoryLists;
+        }
+        
 
         $scope.selectedMenuId = $routeParams.menuId;
         $scope.postCategoryTag = $routeParams.postCategoryTag ? JSON.parse($routeParams.postCategoryTag) : null;
@@ -18,9 +22,9 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         
 
         //broadCastMenuDetail.setMenuId(0);
-        //$scope.showCategoryList = function(){
-        //    $scope.showCategory = ($scope.showCategory === false) ? true : false;
-        //}
+        $scope.showCategoryList = function(){
+           $scope.showCategory = ($scope.showCategory === false) ? true : false;
+        }
         //$(".by_section_header").hide();
         //$(".homeSlider").hide();
         //$(".by_left_panel_fixed").css('margin-top', 'auto');
@@ -45,20 +49,20 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             $scope.selectedMenuCount++;
         }
 
-        //$scope.selectTag = function(event, category){
-        //    if(event.target.checked){
-        //        $scope.selectedMenuList[category.id] = category;
-        //        //Add only Leaf category and not any parent category
-        //        if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
-        //            delete $scope.selectedMenuList[category.parentMenuId];
-        //        }
-        //        $scope.selectedMenuCount++;
-        //    }else{
-        //        $scope.selectedMenuCount--;
-        //        delete $scope.selectedMenuList[category.id];
-        //    }
-        //
-        //}
+        $scope.selectTag = function(event, category){
+           if(event.target.checked){
+               $scope.selectedMenuList[category.id] = category;
+               //Add only Leaf category and not any parent category
+               if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
+                   delete $scope.selectedMenuList[category.parentMenuId];
+               }
+               $scope.selectedMenuCount++;
+           }else{
+               $scope.selectedMenuCount--;
+               delete $scope.selectedMenuList[category.id];
+           }
+        
+        }
 
         var systemTagList = {};
         var getSystemTagList = function(data){
@@ -145,6 +149,7 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             }
         }
 
+        
         $scope.submitContent = function(){
             $scope.errorMsg = "";
             $scope.discuss.$save(function (discuss, headers) {
@@ -165,10 +170,18 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                 $(".by_btn_submit").prop("disabled", false);
                 if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
                     ValidateUserCredential.login();
-                }
+                    $scope.dataSubmissionPending = true;
+                } 
             });
         };
-        
+
+        $scope.$on('byUserLogin', function (event, args) {
+            if( $scope.dataSubmissionPending == true){
+                $scope.submitContent();
+                $scope.dataSubmissionPending = false;
+            }           
+            
+        });
 
         $scope.resetEditorView = function(){
             $scope.showLinkView = false;
@@ -231,6 +244,10 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             $location.search('postCategoryTag', null);
             $route.reload();
         }
+
+       
+
+
     }
     EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location', '$route', '$routeParams'];
     byApp.registerController('EditorController', EditorController);

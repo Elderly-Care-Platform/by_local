@@ -1,14 +1,10 @@
 <div ng-controller="EditorController" class="by_editor_wrap">
 	
-	<i class="sprite sprite-question divLeft"></i>
-	<span class="divLeft by_editorButtonHead">Ask <span ng-if="$root.windowWidth > 720">our experts</span></span>
+	
 
-	<div class="clearfix"></div>
-    <div class="clearfix"></div>
-
-	<div class="by_editor_wrap_bg">
+	<div >
 		<div class="byEditorBg">
-			<div class="col-md-12 no-padding margin-bottom-20 byEditor">
+			<div class="col-md-12 no-padding margin-bottom-20 byEditor" >
 				<textarea id="question_textArea" class="textbox about-dependent"
 					rows="3"></textarea>
 			</div>
@@ -91,7 +87,7 @@
 				disabled ng-click="postContent('Q')">Submit</button>
 			<button
 				class="btn btn-big btn-default pull-right by-editor-cancel-btn"
-				ng-click="exitEditor()">Cancel</button>
+				ng-click="exitEditorDiscuss('Question', $event)">Cancel</button>
 			<div class="clearfix"></div>
 		</div>
 

@@ -5,10 +5,9 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
 
         $scope.selectedMenuId = $routeParams.menuId;
 
-        $scope.communityIcon = BY.config.menu.communityIcon;
-        $scope.communityIconMobile = BY.config.menu.communityIconMobile;
+        
         $scope.moduleConfig = BY.config.menu.moduleConfig;
-        $scope.commSectionHeader = BY.config.menu.communitySectionHeader;
+        $scope.menuConfig = BY.config.menu;
         $scope.isLeafMenuSelected = false;
 
         var initialize = getMenuLevels();

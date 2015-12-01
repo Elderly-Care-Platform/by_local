@@ -118,310 +118,208 @@ BY.config.menu.homeIcon = {
     }
 }
 
-BY.config.menu.communityIcon = {
-    '55bcae5ee4b08970a736784e' : {        
-        'image':'assets/img/community/desktop/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55bcaef5e4b08970a736784f' : {        
-        'image':'assets/img/community/desktop/parkinsons.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befbd8e4b07cedaa267813' : {        
-        'image':'assets/img/community/desktop/stroke-bedridden.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc42e4b07cedaa267819' : {        
-        'image':'assets/img/community/desktop/incontinence-personal-hygiene.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befbf1e4b07cedaa267814' : {        
-        'image':'assets/img/community/desktop/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '56407c073e60f5b66f62df35' : {        
-        'image':'assets/img/community/desktop/joints-bones-issues.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc97e4b07cedaa26781c' : {        
-        'image':'assets/img/community/desktop/cancer.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc2ce4b07cedaa267818' : {        
-        'image':'assets/img/community/desktop/diabetes.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc86e4b07cedaa26781b' : {        
-        'image':'assets/img/community/desktop/blood-pressure-heart-issues.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befdfbe4b07cedaa267820' : {        
-        'image':'assets/img/community/desktop/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befe3be4b07cedaa267823' : {        
-        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5645fe1c3e60e958ec2d3d31' : {
-        'image':'assets/img/community/desktop/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bcac92e4b08970a7367848' : {        
-        'image':'assets/img/community/desktop/relation.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5645fc4a3e60e958ec2d3d30' : {
-        'image':'assets/img/community/desktop/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca92ae4b08970a7367842' : {        
-        'image':'assets/img/community/desktop/mobility-falls.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '56407d743e60f5b66f62df36' : {        
-        'image':'assets/img/community/desktop/senior-friendly-home.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca7b8e4b08970a736783c' : {        
-        'image':'assets/img/community/desktop/caregivers-challenges.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5640746b3e60f5b66f62df31' : {        
-        'image':'assets/img/community/desktop/scientific-breakthroughs.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc847be4b0083957500663' : {        
-        'image':'assets/img/community/desktop/yoga-fitness.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bcac54e4b08970a7367846' : {        
-        'image':'assets/img/community/desktop/food-nutrition.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca766e4b08970a736783b' : {        
-        'image':'assets/img/community/desktop/beautiful-lives.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca819e4b08970a736783e' : {        
-        'image':'assets/img/community/desktop/challenges-of-ageing.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc8418e4b0083957500660' : {        
-        'image':'assets/img/community/desktop/photography.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55cc8440e4b0083957500661' : {        
-        'image':'assets/img/community/desktop/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc845ce4b0083957500662' : {        
-        'image':'assets/img/community/desktop/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc860be4b008395750066f' : {        
-        'image':'assets/img/community/desktop/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '564076aa3e60f5b66f62df33' : {        
-        'image':'assets/img/community/desktop/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '564083353e60f5b66f62df39' : {        
-        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5649bc993b82e3a4e249dadd' : {        
-        'image':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%'
-    }
-}
 
-BY.config.menu.communityIconMobile = {
-    '55bcae5ee4b08970a736784e' : {        
-        'image':'assets/img/community/mobile/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55bcaef5e4b08970a736784f' : {        
-        'image':'assets/img/community/mobile/parkinsons.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befbd8e4b07cedaa267813' : {        
-        'image':'assets/img/community/mobile/stroke-bedridden.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc42e4b07cedaa267819' : {        
-        'image':'assets/img/community/mobile/incontinence-personal-hygiene.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befbf1e4b07cedaa267814' : {        
-        'image':'assets/img/community/mobile/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '56407c073e60f5b66f62df35' : {        
-        'image':'assets/img/community/mobile/joints-bones-issues.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc97e4b07cedaa26781c' : {        
-        'image':'assets/img/community/mobile/cancer.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc2ce4b07cedaa267818' : {        
-        'image':'assets/img/community/mobile/diabetes.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befc86e4b07cedaa26781b' : {        
-        'image':'assets/img/community/mobile/blood-pressure-heart-issues.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befdfbe4b07cedaa267820' : {        
-        'image':'assets/img/community/mobile/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55befe3be4b07cedaa267823' : {        
-        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5645fe1c3e60e958ec2d3d31' : {
-        'image':'assets/img/community/mobile/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bcac92e4b08970a7367848' : {        
-        'image':'assets/img/community/mobile/relation.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5645fc4a3e60e958ec2d3d30' : {
-        'image':'assets/img/community/mobile/wellness.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca92ae4b08970a7367842' : {        
-        'image':'assets/img/community/mobile/mobility-falls.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '56407d743e60f5b66f62df36' : {        
-        'image':'assets/img/community/mobile/senior-friendly-home.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca7b8e4b08970a736783c' : {        
-        'image':'assets/img/community/mobile/caregivers-challenges.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5640746b3e60f5b66f62df31' : {        
-        'image':'assets/img/community/mobile/scientific-breakthroughs.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc847be4b0083957500663' : {        
-        'image':'assets/img/community/mobile/yoga-fitness.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bcac54e4b08970a7367846' : {        
-        'image':'assets/img/community/mobile/food-nutrition.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca766e4b08970a736783b' : {        
-        'image':'assets/img/community/mobile/beautiful-lives.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55bca819e4b08970a736783e' : {        
-        'image':'assets/img/community/mobile/challenges-of-ageing.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc8418e4b0083957500660' : {        
-        'image':'assets/img/community/mobile/photography.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '55cc8440e4b0083957500661' : {        
-        'image':'assets/img/community/mobile/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc845ce4b0083957500662' : {        
-        'image':'assets/img/community/mobile/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '55cc860be4b008395750066f' : {        
-        'image':'assets/img/community/mobile/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '564076aa3e60f5b66f62df33' : {        
-        'image':'assets/img/community/mobile/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-     '564083353e60f5b66f62df39' : {        
-        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
-    },
-    '5649bc993b82e3a4e249dadd' : {        
-        'image':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%'
-    }
-}
-
-BY.config.menu.communitySectionHeader = {
+BY.config.menu.community = {
     '55bcae5ee4b08970a736784e' : {     
-        'name':'Alzheimer’s & Mental Disorders' ,  
+        'name':'Alzheimer’s & Mental Disorders' , 
+        'menuIconImageDesktop':'assets/img/community/desktop/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%',
         'desc':'Caring for elders with memory loss, Alzheimer’s, depression, loneliness, insecurity, and other mental conditions.'
     },
     '55bcaef5e4b08970a736784f' : {     
-        'name':'Parkinson’s',   
+        'name':'Parkinson’s',  
+        'menuIconImageDesktop':'assets/img/community/desktop/parkinsons.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/parkinsons.png?versionTimeStamp=%PROJECT_VERSION%',
         'desc':'Caring for elders with Parkinson’s and related issues of shaking, shivering, and balance problems.'
     },
     '55befbd8e4b07cedaa267813' : {    
-        'name':'Stroke / Bedridden',     
+        'name':'Stroke / Bedridden', 
+        'menuIconImageDesktop':'assets/img/community/desktop/stroke-bedridden.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/stroke-bedridden.png?versionTimeStamp=%PROJECT_VERSION%',
         'desc':'Caring for bedridden elders affected by stroke, paralysis, and other problems.'
     },
     '55befc42e4b07cedaa267819' : {  
-        'name':'Incontinence / Personal Hygiene',       
+        'name':'Incontinence / Personal Hygiene', 
+        'menuIconImageDesktop':'assets/img/community/desktop/incontinence-personal-hygiene.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/incontinence-personal-hygiene.png?versionTimeStamp=%PROJECT_VERSION%',
         'desc':'Caring for elders with incontinence (bedwetting) and other personal hygiene problems.'
     },
     '55befbf1e4b07cedaa267814' : {  
-        'name':'',       
+        'name':'vision-hearing-loss', 
+        'menuIconImageDesktop':'assets/img/community/desktop/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%',
         'desc':'assets/img/community/mobile/vision-hearing-loss.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '56407c073e60f5b66f62df35' : {  
-        'name':'Joints & Bones Problems',       
+        'name':'Joints & Bones Problems', 
+        'menuIconImageDesktop':'assets/img/community/desktop/joints-bones-issues.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/joints-bones-issues.png?versionTimeStamp=%PROJECT_VERSION%',
         'desc':'Caring for elders with arthritis, osteoporosis, muscle degradation, broken hips, and chronic joints or bones pains.'
     },
     '55befc97e4b07cedaa26781c' : {   
-        'name':'Cancer',      
+        'name':'Cancer', 
+        'menuIconImageDesktop':'assets/img/community/desktop/cancer.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/cancer.png?versionTimeStamp=%PROJECT_VERSION%',         
         'desc':'Coping with cancer – survivors’ stories, treatment tips and more.'
     },
     '55befc2ce4b07cedaa267818' : { 
-        'name':'Diabetes',        
+        'name':'Diabetes',   
+        'menuIconImageDesktop':'assets/img/community/desktop/diabetes.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/diabetes.png?versionTimeStamp=%PROJECT_VERSION%',         
         'desc':'Coping with blood sugar problems – everything from symptoms to recipes!'
     },
     '55befc86e4b07cedaa26781b' : { 
-        'name':'Blood Pressure & Heart Problems',        
+        'name':'Blood Pressure & Heart Problems', 
+        'menuIconImageDesktop':'assets/img/community/desktop/blood-pressure-heart-issues.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/blood-pressure-heart-issues.png?versionTimeStamp=%PROJECT_VERSION%',           
         'desc':'Coping with high blood pressure and heart conditions.'
     },
     '55befdfbe4b07cedaa267820' : {  
-        'name':'',       
+        'name':'sleep disorders',
+        'menuIconImageDesktop':'assets/img/community/desktop/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%',           
         'desc':'assets/img/community/mobile/sleep-disorders.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '55befe3be4b07cedaa267823' : {  
-        'name':'Other Health Issues',       
+        'name':'Other Health Issues',  
+        'menuIconImageDesktop':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%',         
         'desc':'Caring for elders with other chronic conditions such as sleep disorders,  respiratory  and other problems'
     },
      '55bcac92e4b08970a7367848' : {        
         'name':'Family Relationships', 
+        'menuIconImageDesktop':'assets/img/community/desktop/relation.png?versionTimeStamp=%PROJECT_VERSION%',
+         'menuIconImageMobile':'assets/img/community/mobile/relation.png?versionTimeStamp=%PROJECT_VERSION%',    
         'desc':'All about relationships in families with aging parents – the good and the not-so-good.'
     },
     '5645fc4a3e60e958ec2d3d30' : {    
         'name':'NRIs / Remote Care', 
+        'menuIconImageDesktop':'assets/img/community/desktop/wellness.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/wellness.png?versionTimeStamp=%PROJECT_VERSION%',    
         'desc':'How to take better care of our parents, while living in another city - or overseas.'
     },
      '55bca92ae4b08970a7367842' : { 
         'name':'Mobility & Falls',  
+        'menuIconImageDesktop':'assets/img/community/desktop/mobility-falls.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/mobility-falls.png?versionTimeStamp=%PROJECT_VERSION%',    
         'desc':'Preventing elders from falling. Assisting with moving around.'
     },
      '56407d743e60f5b66f62df36' : {  
-        'name':'Senior-Friendly Home',       
+        'name':'Senior-Friendly Home', 
+        'menuIconImageDesktop':'assets/img/community/desktop/senior-friendly-home.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/senior-friendly-home.png?versionTimeStamp=%PROJECT_VERSION%',          
         'desc':'How to make your home a better and safer place for seniors.'
     },
      '55bca7b8e4b08970a736783c' : { 
-        'name':'Caretakers Challenges',        
+        'name':'Caretakers Challenges',   
+        'menuIconImageDesktop':'assets/img/community/desktop/caregivers-challenges.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/caregivers-challenges.png?versionTimeStamp=%PROJECT_VERSION%',         
         'desc':'Talking about  challenges of caring for elders: caregiving stories, problems, caregiver burnout, and more.'
     },    
      '55bca766e4b08970a736783b' : {
-        'name':'Beautiful Lives',         
-        'desc':'Stories about your parents and grandparents - celebrating lives well lived.'
+        'name':'Beautiful Lives',     
+        'menuIconImageDesktop':'assets/img/community/desktop/beautiful-lives.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/beautiful-lives.png?versionTimeStamp=%PROJECT_VERSION%',    
+        'desc':'Stories about your parents and grandparents - celebrating lives well lived.',
+        'askEditor': false
     },
      '55bca819e4b08970a736783e' : {   
-        'name':'Challenges Of Ageing',      
+        'name':'Challenges Of Ageing',  
+        'menuIconImageDesktop':'assets/img/community/desktop/challenges-of-ageing.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/challenges-of-ageing.png?versionTimeStamp=%PROJECT_VERSION%',        
         'desc':'How does aging affect you… or does it really? Questioning stigmas and stereotypes – redefining aging.'
     },
     '5645fe1c3e60e958ec2d3d31' : {
-        'name':'Legal & Finance', 
+        'name':'Legal & Finance',
+        'menuIconImageDesktop':'assets/img/community/desktop/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%',     
         'desc':'How to write a proper will? What is a living will? What are senior citizens’ rights, and how to benefit from them. And more !'
     },
     '5640746b3e60f5b66f62df31' : {  
-        'name':'Anti-aging Research',       
+        'name':'Anti-aging Research', 
+        'menuIconImageDesktop':'assets/img/community/desktop/scientific-breakthroughs.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/scientific-breakthroughs.png?versionTimeStamp=%PROJECT_VERSION%',          
         'desc':'Do you want to live longer - much longer? Read about scientific breakthroughs in anti-aging, longevity, and… immortality!'
     },
      '55cc847be4b0083957500663' : { 
-        'name':'Yoga & Fitness',        
+        'name':'Yoga & Fitness',     
+        'menuIconImageDesktop':'assets/img/community/desktop/yoga-fitness.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/yoga-fitness.png?versionTimeStamp=%PROJECT_VERSION%',       
         'desc':'Staying fit, active, calm, and good-looking  – at any age!'
     },
      '55bcac54e4b08970a7367846' : { 
-        'name':'Nutrition',        
+        'name':'Nutrition',
+        'menuIconImageDesktop':'assets/img/community/desktop/food-nutrition.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/food-nutrition.png?versionTimeStamp=%PROJECT_VERSION%',            
         'desc':'What  food should a diabetic  avoid? What is a heart healthy diet? Food that keeps us younger, for longer.'
     },
+    '5649bc993b82e3a4e249dadd' : { 
+        'name':'Beautiful ageing other',  
+        'menuIconImageDesktop':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%',      
+        'desc':'',
+        'askEditor': false
+    },
      '55cc8418e4b0083957500660' : {  
-        'name':'Photography',       
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+        'name':'Photography',    
+        'menuIconImageDesktop':'assets/img/community/desktop/photography.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/photography.png?versionTimeStamp=%PROJECT_VERSION%',       
+        'desc':'Photography',
+        'askEditor': false
     },
     '55cc8440e4b0083957500661' : {  
-        'name':'Cooking & Recipes',       
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+        'name':'Cooking & Recipes',  
+        'menuIconImageDesktop':'assets/img/community/desktop/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/cooking-recipes.png?versionTimeStamp=%PROJECT_VERSION%',         
+        'desc':'Cooking & Recipes',
+        'askEditor': false
     },
      '55cc845ce4b0083957500662' : { 
-        'name':'Painting & Drawing',        
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+        'name':'Painting & Drawing', 
+        'menuIconImageDesktop':'assets/img/community/desktop/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/painting-drawing.png?versionTimeStamp=%PROJECT_VERSION%',           
+        'desc':'Painting & Drawing',
+        'askEditor': false
     },
      '55cc860be4b008395750066f' : { 
-        'name':'Creative Writing',        
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+        'name':'Creative Writing',  
+        'menuIconImageDesktop':'assets/img/community/desktop/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%',          
+        'desc':'Creative Writing',
+        'askEditor': false
     },
      '564076aa3e60f5b66f62df33' : { 
-        'name':'Travel & Pilgrimages',        
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+        'name':'Travel & Pilgrimages',  
+        'menuIconImageDesktop':'assets/img/community/desktop/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/tourism-pilgrimages.png?versionTimeStamp=%PROJECT_VERSION%',          
+        'desc':'Travel & Pilgrimages',
+        'askEditor': false
     },
      '564083353e60f5b66f62df39' : {  
-        'name':'Other',       
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+        'name':'Active LeisureOther', 
+        'menuIconImageDesktop':'assets/img/community/desktop/other.png?versionTimeStamp=%PROJECT_VERSION%',
+        'menuIconImageMobile':'assets/img/community/mobile/other.png?versionTimeStamp=%PROJECT_VERSION%',         
+        'desc':'Other',
+        'askEditor': false
     },
     '564072883e60f5b66f62df2d' : {  
-        'name':'Caring for parents',       
+        'name':'Caring for parents',    
+        'menuIconImageDesktop':'',
+        'menuIconImageMobile':'',    
         'desc':'We are taking care of aging parents. Sharing questions, answers, tips, stories, emotions, diaries of caretakers – and more.'
     },
      '564072373e60f5b66f62df2b' : { 
-        'name':'Beautiful ageing',        
+        'name':'Beautiful ageing',  
+        'menuIconImageDesktop':'',
+        'menuIconImageMobile':'',       
         'desc':'Challenging stigmas of aging. Living longer – and happier. Celebrating lives.'
     },
      '5640726c3e60f5b66f62df2c' : { 
-        'name':'Active leisure',        
-        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!'
+        'name':'Active leisure',   
+        'menuIconImageDesktop':'',
+        'menuIconImageMobile':'',      
+        'desc':'Activity and creativity – from cooking to painting, from photography to travel. Join us and show your talent!',
+        'askEditor': false
     }
 }
 

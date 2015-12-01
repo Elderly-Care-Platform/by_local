@@ -63,7 +63,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.promise = getProductDescription();
         $scope.fedexRateWebService = getFedexRateWebService();
         $scope.productOptionSelected = productOptionSelected;
-	$scope.checkLogisticAvailability = checkLogisticAvailability;
+	    $scope.checkLogisticAvailability = checkLogisticAvailability;
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
@@ -337,7 +337,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             }
 
             function logisticSuccessRes(data){
-                console.log(data);
+                console.log("Logistic Available");
                 if(data.data === "" || data.status === 240){
                     $scope.logisticInfo.cashOnDelivery = "NA";
                     $scope.logisticInfo.deliveryDetail = "NA";
@@ -349,7 +349,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             }
 
             function logisticErrorRes(data){
-                console.log(data);
+                console.log("Logistic Unavailable");
                 $scope.logisticInfo.cashOnDelivery = "NA";
                 $scope.logisticInfo.deliveryDetail = "NA";
             }

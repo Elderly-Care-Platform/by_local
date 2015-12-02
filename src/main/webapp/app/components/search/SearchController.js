@@ -223,13 +223,12 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 }
             }
 
-            $scope.openProductDescription = function($event, productId, productName, categoryId, categoryName) {
+            $scope.openProductDescription = function($event, productId, productName) {
                 $event.stopPropagation();
                 if(productId) {
                     var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
-                        prodCategorName = categoryName.replace(/\s+/g, '-').toLowerCase();
+                        path = '/' + prodName + '/pd/' + productId;
 
-                    var path = '/productDescription/' + prodName + "-for-" + prodCategorName + "/"+ categoryId+ "/" + productId;
                     $location.path(path);
                 }
             }

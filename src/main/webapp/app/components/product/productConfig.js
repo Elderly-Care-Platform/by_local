@@ -46,7 +46,7 @@ define([], function () {
             })
             .constant('PAGE_URL', {
                 root: '/products',
-                productDescription: '/productDescription',
+                productDescription: '/pd',
                 cart: '/cart',
                 selectAddress: '/selectAddress',
                 addAddress: '/addAddress',

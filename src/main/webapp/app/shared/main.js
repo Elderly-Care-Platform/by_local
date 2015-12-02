@@ -40,7 +40,7 @@ require.config({
 		ShoppingConfirmationFactory : '../components/product/cartCheckout/shopping-confirmation/shopping-confirmation.service',
 		OrderHistoryFactory : '../components/product/orderHistory/order-history.service',
 
-		jquery : '../../lib/unify/plugins/jquery/jquery.min',
+		jquery : '../../lib/jqueryPlugins/jquery.min',
 		angular : '../../lib/angular/angular.min',
 		angularRoute : '../../lib/angular/angular-route',
 		angularResource : '../../lib/angular/angular-resource',
@@ -52,11 +52,10 @@ require.config({
 		angularBusy : '../../lib/angular/angular-busy/angular-busy',
 		angularSanitize : '../../lib/angular/angular-sanitize.min',
 
-		blogMasonary : '../../lib/unify/js/pages/blog-masonry',
-		jqueryMasonaryGrid : '../../lib/unify/plugins/masonry/jquery.masonry.min',
+		blogMasonary : '../../lib/jqueryPlugins/blog-masonry',
+		jqueryMasonaryGrid : '../../lib/jqueryPlugins/jquery.masonry.min',
 		lodash : '../../lib/lodash.min',
 //		jqueryUiLib : '../../lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min',
-
 		bootstrapToggle: '../../lib/unify/plugins/bootstrap/js/bootstrap-toggle',
 
 		byUtil : '../shared/util/byUtil',

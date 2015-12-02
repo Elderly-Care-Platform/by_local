@@ -17,6 +17,11 @@ BY.config.menu.modules = {
         'moduleId' : 3
     }
 }
+
+BY.config.menu.seniorLiving = {
+    'id' : '55bcadaee4b08970a736784c'
+}
+
 BY.config.menu.moduleConfig = {
     '0' : {
         'baseUrl':'#!/discuss/list',

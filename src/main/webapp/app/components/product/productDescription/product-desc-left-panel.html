@@ -5,7 +5,7 @@
         </div>
 
         <div class="col-md-12 no-padding" ng-repeat="product in uiData.similarProduct">
-            <div ng-click="openProductDescription(product.id, product.name, product.categoryId, product.categoryName)">
+            <div ng-click="openProductDescription(product.id, product.name)">
                 <div class="by_productDetail_leftSimilarThumb">
                     <div class="by_productDetail_leftSimilarThumbImage">
                         <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">

@@ -1,7 +1,7 @@
 
 <div ng-repeat="product in products.products">
 	<div class="by_productCard col-md-6"
-	ng-click="openProductDescription($event, product.id, product.name, product.categoryId, product.categoryName)">
+	ng-click="openProductDescription($event, product.id, product.name)">
 	<div class="by_productCard_Image">
 		<img ng-if="product.primaryMedia != null"
 		ng-src="{{product.primaryMedia.url || ''}}"

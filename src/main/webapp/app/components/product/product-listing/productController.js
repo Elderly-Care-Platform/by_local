@@ -209,14 +209,10 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * @param  {integer} categoryName [description]
          * @return {void}
          */
-        function openProductDescription(productId, productName, categoryId, categoryName) {
+        function openProductDescription(productId, productName) {
             var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
-                prodCategorName = categoryName.replace(/\s+/g, '-').toLowerCase();
-
-            var path = PAGE_URL.productDescription + '/' + prodName + "-for-" + prodCategorName + "/"+ categoryId+ "/" + productId;
+                path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
             $location.path(path);
-
-            //$location.path(path).search('q', JSON.stringify({'id': categoryId, 'name': categoryName }));
         }
 
         $scope.getSlug = function(slug){

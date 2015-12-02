@@ -438,11 +438,9 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
          * @param  {object} categoryName
          * @return {void}
          */
-        function openProductDescription(productId, productName, categoryId, categoryName) {
+        function openProductDescription(productId, productName) {
             var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
-                prodCategorName = categoryName.replace(/\s+/g, '-').toLowerCase();
-
-            var path = PAGE_URL.productDescription + '/' + prodName + "-for-" + prodCategorName + "/"+ categoryId+ "/" + productId;
+                path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
             $location.path(path);
         }
 

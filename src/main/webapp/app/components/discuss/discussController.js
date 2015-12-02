@@ -14,8 +14,6 @@ define(['byApp',
 
         $rootScope.byTopMenuId              = $rootScope.mainMenu[0].id ;
         $scope.discussType                  = $routeParams.discussType; //Needed for left side Q/A/P filters
-        $scope.showEditor                   = $routeParams.showEditor==='true' ? true : false;
-        $scope.showEditorType               = $routeParams.showEditorType ? $routeParams.showEditorType : null;
         $scope.selectedMenu                 = $scope.$parent.menuLevel2;
         $scope.pageSize                     = 20;
         $scope.isGridInitialized            = false;
@@ -24,7 +22,6 @@ define(['byApp',
         var tags                            = [];
         var queryParams                     = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
         var init                            = initialize();
-        $scope.showEditor                   = true;
 
 
         function initialize(){
@@ -150,12 +147,23 @@ define(['byApp',
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         };
 
-        $scope.showEditorPage = function(type){
+        $scope.showEditorPage = function(event, type){
+            event.stopPropagation();
             $scope.showEditorType = type;
             $(".by_editorButtonWrap_thumb").animate({width: '100%', borderRight: '0px'}, "500");
             $("."+type+"hidePanel").hide();
             $("."+type+"by_editorButtonWrap_thumb").hide();
-            $("."+type+"showPanel").slideDown("500"); 
+            $("."+type+"showPanel").slideDown("500");
+
+            if($scope.showEditorType==='Question'){
+                var tinyEditor = BY.byEditor.addEditor({"editorTextArea":"question_textArea"});
+            }
+
+            if($scope.showEditorType==='Article'){
+                var tinyEditor = BY.byEditor.addEditor({
+                    "editorTextArea" : "article_textArea"
+                });
+            }
         }
 
         $scope.exitEditorDiscuss = function(type, event){
@@ -163,8 +171,9 @@ define(['byApp',
             $(".by_editorButtonWrap_thumb").animate({width: '50%', borderRight: '1px'}, "500");
             $("."+type+"hidePanel").show();
             $("."+type+"by_editorButtonWrap_thumb").show();
-            $("."+type+"showPanel").slideUp("1000", function  () {
-                $route.reload();
+            $("."+type+"showPanel").slideUp("100", function  () {
+                BY.byEditor.removeEditor();
+                //$route.reload();
             });
 
         }

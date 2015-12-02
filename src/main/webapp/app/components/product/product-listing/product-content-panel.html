@@ -19,7 +19,7 @@
     <div ng-repeat="product in products">
 
         <div class="by_productCard col-md-6"
-             ng-click="openProductDescription(product.id, product.name, product.categoryId, product.categoryName)">
+             ng-click="openProductDescription(product.id, product.name)">
             <div class="by_productCard_Image">
                 <img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
                      fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
@@ -32,9 +32,9 @@
             <span ng-if="!product.salePrice || !product.salePrice.amount">Our price: <strong>Rs
                 {{product.retailPrice.amount}}</strong></span><br/>
 
-                <small ng-if="product.retailPrice != null && product.salePrice != null && product.retailPrice.amount != product.salePrice.amount">
+                <span ng-if="product.retailPrice != null && product.salePrice != null && product.retailPrice.amount != product.salePrice.amount">
                     <del>Rs {{product.retailPrice.amount}}</del>
-                </small>
+                </span>
                 <!--<span class="by_productCard_offer">5% Off</span>-->
             </div>
             <!--<div class="by_productCard_divider"></div>

@@ -1,4 +1,4 @@
-define(['byProductApp'], function (byProductApp) {
+define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomConfig) {
     function orderHistoryCtrl($scope,
                               $routeParams,
                               $log,
@@ -12,7 +12,7 @@ define(['byProductApp'], function (byProductApp) {
                               STATIC_IMAGE,
                               DISCOUNT_TYPE,
                               ORDER_HISTORY_TYPE,
-                              PAGINATION) {
+                              PAGINATION, LogisticService) {
 
         $log.debug('Inside OrderHistory Controller');
 
@@ -21,9 +21,11 @@ define(['byProductApp'], function (byProductApp) {
          */
         var breadCrumb, customerId = null;
 
+
         if (localStorage.getItem("by_cust_id")) {
             customerId = localStorage.getItem("by_cust_id")
         }
+
         $scope.orderHistoryType = ORDER_HISTORY_TYPE;
         $scope.getOrderHistory = getOrderHistory;
         $scope.discountType = DISCOUNT_TYPE;
@@ -35,7 +37,7 @@ define(['byProductApp'], function (byProductApp) {
         $scope.allOrderHistory = [];
         $scope.lastPage = false;
         $scope.isQueryInprogress = false;
-
+        $scope.prodEcomConfig = BY.config.product.ecomTrackOrderConfig;
         /**
          * During controller initialiization get the orderHistory detail,
          * store in promise to show loading icon untill promise fullfilled
@@ -83,19 +85,56 @@ define(['byProductApp'], function (byProductApp) {
             //angular.forEach($scope.allOrderHistory, function (order) {
             //    order.trackingInfo.deliveryDate = new Date(order.trackingInfo.deliveryDate);
             //});
-            setImageUrl($scope.allOrderHistory);
+            //setImageUrl($scope.allOrderHistory);
             $scope.orderHistory = angular.copy($scope.allOrderHistory);
             if (allOrderHistory.length === 0) {
                 $scope.lastPage = true;
             }
             $scope.isQueryInprogress = false;
             setImageUrl($scope.orderHistory);
+
+            trackLogistic();
         }
 
         function failureCallBack(response) {
             $log.info('failed to get order history' + response);
         }
 
+
+        function trackLogistic(){
+            var awbList = [];
+            $scope.itemAwbMap = {};
+            angular.forEach($scope.allOrderHistory, function (order) {
+                angular.forEach(order.orderItems, function (orderItem) {
+                    angular.forEach(orderItem.orderItemAttributes, function (orderItemAttr) {
+                        if(orderItemAttr.name==="awbNumber"){
+                            awbList.push(orderItemAttr.value);
+                            orderItem.awbNumber = orderItemAttr.value;
+                            $scope.itemAwbMap[orderItemAttr.value] = null;
+                        }
+                    });
+                });
+            });
+
+            if(awbList.length > 0){
+                var promise = LogisticService.trackOrderItem(awbList);
+                if(promise){
+                    promise.then(logisticSuccessRes, logisticErrorRes);
+                }
+            }
+
+            function logisticSuccessRes(data){
+                $scope.orderItemLogisticInfo = angular.forEach(data.data.object, function(data){
+                    $scope.itemAwbMap[data.field[$scope.prodEcomConfig.awb_number].value] = data.field;
+                })
+
+                console.log($scope.itemAwbMap);
+            }
+
+            function logisticErrorRes(data){
+                console.log(data);
+            }
+        }
         /**
          * Iterate through each orderItem in each Order and
          * call addImageUrl method to add imageurl into each orderItem
@@ -193,7 +232,7 @@ define(['byProductApp'], function (byProductApp) {
         'STATIC_IMAGE',
         'DISCOUNT_TYPE',
         'ORDER_HISTORY_TYPE',
-        'PAGINATION'];
+        'PAGINATION', 'LogisticService'];
 
     byProductApp.registerController('orderHistoryCtrl', orderHistoryCtrl);
     return orderHistoryCtrl;

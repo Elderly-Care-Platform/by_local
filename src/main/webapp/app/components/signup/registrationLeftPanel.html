@@ -1,40 +1,76 @@
 <!--All classes from Unify start-->
-<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
-    <div class="scrollableLeftPanelDiv by-filter-links">
-        <ul class="list-group sidebar-nav-v1" id="sidebar-nav">
-            <li class="list-group-item  username" style="border:0px;">
+<div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720"  style="position:fixed; bottom:0px;"  ng-init="leftPanelHeight();">
+       
+            <div class="by_profileDetailed_menu  username" style="border:0px;">
                 <a href="#!/users/registration/changeCredential?changeUserName=true">Change Username</a>
-            </li>
-            <li class="list-group-item password" style="border:0px;">
+            </div>
+            <div class="by_profileDetailed_menu password" style="border:0px;">
                 <a href="#!/users/registration/changeCredential?changeUserPwd=true">Change Password</a>
-            </li>
+            </div>
 
-            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
                 <a href="#!/users/registrationProfile">I am...</a>
-            </li>
-            <li style="border:0px;" class="list-group-item reg-menu-1 active" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0">
+            </div>
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0">
                 <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
-            </li>
-            <li style="border:0px;" class="list-group-item orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
+            </div>
+            <div class="by_profileDetailed_menu orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
                 <a href="#!/users/registrationProfile/orderHistory?showOrderHistory=true">{{userTypeConfig.orderHistoryLabel}}</a>
-            </li>
-            <li style="border:0px;" class="list-group-item  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
+            </div>
+            <div class="by_profileDetailed_menu  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
                 ng-repeat="facilityTab in housingFacilityTabs track by $index" ng-class="{'active':facilityIdx===$index}">
                 <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
-            </li>
+            </div>
             <div class="clearfix" style="height:50px; background:#fff;"></div>
             <div ng-if="profile && profile.userTypes && profile.userTypes.length > 0">
-                <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType!=3" >
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType!=3" >
                     <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
                 </div>
-                <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType==3 && facilityProfileId" >
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && facilityProfileId" >
                     <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View Profile</a>
                 </div>
-                <div class="viewProfile list-group-item  margin-bottom-40 " ng-if="userType==3 && !facilityProfileId" >
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && !facilityProfileId" >
                     <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
                 </div>
             </div>
-        </ul>
-    </div>
 </div>
 <!--All classes from Unify end-->
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+    <div class="by_mobile_leftPanel" style="padding:0px 15px;">
+       
+         <div class="by_profileDetailed_menu  username" style="border:0px;">
+                <a href="#!/users/registration/changeCredential?changeUserName=true">Change Username</a>
+            </div>
+            <div class="by_profileDetailed_menu password" style="border:0px;">
+                <a href="#!/users/registration/changeCredential?changeUserPwd=true">Change Password</a>
+            </div>
+
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
+                <a href="#!/users/registrationProfile">I am...</a>
+            </div>
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0">
+                <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
+            </div>
+            <div class="by_profileDetailed_menu orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
+                <a href="#!/users/registrationProfile/orderHistory?showOrderHistory=true">{{userTypeConfig.orderHistoryLabel}}</a>
+            </div>
+            <div class="by_profileDetailed_menu  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
+                ng-repeat="facilityTab in housingFacilityTabs track by $index" ng-class="{'active':facilityIdx===$index}">
+                <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
+            </div>
+            <div class="clearfix" style="height:50px; background:#fff;"></div>
+            <div ng-if="profile && profile.userTypes && profile.userTypes.length > 0">
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType!=3" >
+                    <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
+                </div>
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && facilityProfileId" >
+                    <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View Profile</a>
+                </div>
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && !facilityProfileId" >
+                    <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
+                </div>
+            </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
+</div>

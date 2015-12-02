@@ -42,8 +42,8 @@ define(['byApp', 'byUtil', 'homePromoController',
             };
 
             $scope.$on('directoryCountAvailable', function (event, args) {
-                $scope.animateCounter($rootScope.totalServiceCount, $("#HomeSevicesCnt"));
-                $scope.animateCounter($rootScope.totalHousingCount, $("#HomeHousingCnt"));
+                $scope.animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
+                $scope.animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
             });
 
             $scope.$on('productCountAvailable', function (event, args) {
@@ -52,11 +52,11 @@ define(['byApp', 'byUtil', 'homePromoController',
 
 
             if($rootScope.totalServiceCount){
-                $scope.animateCounter($rootScope.totalServiceCount, $("#HomeSevicesCnt"));
+                $scope.animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
             }
 
             if($rootScope.totalHousingCount){
-                $scope.animateCounter($rootScope.totalHousingCount, $("#HomeHousingCnt"));
+                $scope.animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
             }
 
             if($rootScope.totalProductCount){

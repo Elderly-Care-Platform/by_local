@@ -1,4 +1,4 @@
-<div class="clearfix" style="height:32px;"></div>
+<div class="clearfix" ></div>
 <div class="col-md-12 product-main margin-bottom-15 by_pruductDetailed_bgWhite" style="border:0px;">
 
     <div class="col-md-5" style="padding:0px;">
@@ -77,37 +77,29 @@
         </div>
         <div class="by_productDetail_devider"></div>
 
-        <div class="by_productDetail_contentCOD">
-            Cash on Delivery : Available only in Bangalore
-            <!-----------------------------------Code to be added once COD available in other location------------------>
-                <!--<span ng-if="uiData.cashOnDelivery">-->
-                    <!--<strong>Eligible</strong>-->
-                <!--</span>-->
-                <!--<span ng-if="!uiData.cashOnDelivery">-->
-                    <!--<strong>Not Eligible</strong>-->
-                <!--</span>-->
-        </div>
+
         <div class="clearfix" style="height:6px;"></div>
-        <!-----------------------------------Code to be added once pincode validation available------------------>
-        <!--<div class="pincode-available">
+
+        <div class="pincode-available">
             <div class="pincode-form-wrap pincode-availableContent">
                 <div class="Cash-check-pin divLeft">
-                    <div class=" singleinline"><img
-                        src="assets/img/product/location.png" width="12">
+                    <div class="singleinline"><img
+                            src="assets/img/product/location.png" width="12">
                     </div>
                     Check Availability at
                 </div>
                 <div class="pincode-form divLeft">
                     <form name="pincode-form" class="pinCheck">
                         <input type="number" minlength="6" maxlength="6"
-                        placeholder="Pincode" autocomplete="off" name="pincode"
-                        id="pincode" ng-model="pincode"
-                        class="pincode  textbox-nowidth"
-                        ng-disabled="!uiData.cashOnDelivery" min="1" style="width:95px;">
+                               placeholder="Pincode" autocomplete="off" name="pincode"
+                               id="pincode" ng-model="pincode"
+                               class="pincode  textbox-nowidth"
+                               min="1" style="width:95px;">
                         <input type="submit" href="javascript:void(0)"
-                        class="btn btn-sm btn-default  pull-right  grayBg" value="Check" style="height:26px; background:#4e4e4e; color:#fff;"
-                        ng-disabled="!pincode-form.pincode.$valid"
-                        ng-click="checkProductCashOnDeliveryPincode(pincode)">
+                               class="btn btn-sm btn-default  pull-right  grayBg" value="Check"
+                               style="height:26px; background:#4e4e4e; color:#fff;"
+                               ng-disabled="!pincode-form.pincode.$valid"
+                               ng-click="checkLogisticAvailability(pincode)">
                     </form>
                 </div>
             </div>
@@ -122,17 +114,32 @@
                         Not Available with any Seller at {{availablePincode}}
                     </div>
                 </div>
-            </div><div class="clearfix" style="height:8px;"></div>
-        </div>-->
-        <div class="by_productDetail_contentCOD">
+            </div>
+        </div>
+        <div class="clearfix" style="height:6px;"></div>
+        <div ng-if="logisticInfo.deliveryDetail === 'NA'">
+            <font color="red">Sorry! we do not deliver to this pincode.</font>
+        </div>
+
+        <div class="by_productDetail_contentCOD" ng-if="logisticInfo.deliveryDetail && logisticInfo.deliveryDetail==='standard'">
+            <div class="clearfix" style="height:8px;"></div>
             Delivered within: 7 - 10 business days
             <!-----------------------------------Code to be added once integrated with Ecom Express ------------------>
             <!--<strong ng-show="rateServiceSeverity === 'SUCCESS'">-->
-                <!--{{estimatedDays}} - {{estimatedDays + 2}} business days-->
+            <!--{{estimatedDays}} - {{estimatedDays + 2}} business days-->
             <!--</strong>-->
             <!--<strong ng-show="rateServiceSeverity === 'ERROR'">-->
-                <!--{{rateServiceMessage}}-->
+            <!--{{rateServiceMessage}}-->
             <!--</strong>-->
+        </div>
+        <div class="by_productDetail_contentCOD" ng-if="logisticInfo.cashOnDelivery && logisticInfo.cashOnDelivery==='eligible'">
+            Cash on Delivery : Eligible
+            <!--<span ng-if="logisticInfo.cashOnDelivery  === 'eligible'">-->
+                <!--<strong>Eligible</strong>-->
+            <!--</span>-->
+            <!--<span ng-if="logisticInfo.cashOnDelivery === 'NA'">-->
+                <!--<strong>Not Eligible</strong>-->
+            <!--</span>-->
         </div>
         <div ng-if="addToCartFailedMsg.length > 0">
             <font color="red">{{addToCartFailedMsg}}</font>
@@ -171,62 +178,69 @@
 
         <div class="by_productDetail_contentCall">
             <b>Call for assistance {{ByContactNo}}</b><br/>
-        </div>
-    </div>
-    <div class="clearfix" style="height:8px;"></div>
+        </div><div class="clearfix"></div>
     <div class="qty-cart-buy margin-bottom-20">
+        <span class="added-to-cart-message" ng-show="checkLogisticDetail">
+            <!--<font color="red" ng-if="logisticInfo.deliveryDetail === 'NA'">Please enter your pincode to check availabiity of the product</font>-->
+            <font color="red" ng-if="!logisticInfo.deliveryDetail">Please enter your pincode to check availabiity of the product</font>
+        </span> <br/>
+
         <span class="added-to-cart-message" ng-show="productAddSuccess">
-                <font color="green">Product is successfully added to cart!</font>
+            <font color="green">Product is successfully added to cart!</font>
         </span> <br/>
 
         <form name="f1" class="divLeft by_productDetail_contentQuantity">
-                <button class="by_productDetail_contentQuantityButton" type="button" name="add"
-                        ng-disabled="userRequiredQuantity === 1"
-                        ng-click="updateRequiredQuantity(userRequiredQuantity - 1)">
-                    -
-                </button>
-                <input type="number" min="1" class="by_productDetail_contentQuantityFeild" name="qty" id="qty"
-                       value="{{userRequiredQuantity}}" ng-model="userRequiredQuantity" required
-                       ng-disabled="addToCartDisable || quantityAvailable === 0">
-                <button class="by_productDetail_contentQuantityButton" style="float:right !important;" type="button" name="add"
-                        ng-click="updateRequiredQuantity(userRequiredQuantity + 1)"
-                        ng-disabled="addToCartDisable || quantityAvailable === 0">
-                    +
-                </button>
+            <button class="by_productDetail_contentQuantityButton" type="button" name="add"
+                    ng-disabled="userRequiredQuantity === 1"
+                    ng-click="updateRequiredQuantity(userRequiredQuantity - 1)">
+                -
+            </button>
+            <input type="number" min="1" class="by_productDetail_contentQuantityFeild" name="qty" id="qty"
+                   value="{{userRequiredQuantity}}" ng-model="userRequiredQuantity" required
+                   ng-disabled="addToCartDisable || quantityAvailable === 0">
+            <button class="by_productDetail_contentQuantityButton" style="float:right !important;" type="button"
+                    name="add"
+                    ng-click="updateRequiredQuantity(userRequiredQuantity + 1)"
+                    ng-disabled="addToCartDisable || quantityAvailable === 0">
+                +
+            </button>
         </form>
         <button type="button" class="btn-u by_productDetail_buttonBg"
-                ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
-                ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid"
-                ng-click="addProductToCart(productId)">
+            ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
+            ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'"
+            ng-click="addProductToCart(productId)">
             <span class="cart-icon">
-              <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13"/></span>
+                <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13"/>
+            </span>
             Add to Cart
         </button>
         <button type="button" class="btn-u buy-product by_productDetail_buttonBg"
-                ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
-                ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid"
-                di-href="#!cart/" ng-click="addProductToCart(productId, 'selectAddress')">
+            ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null"
+            ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'"
+            di-href="#!cart/" ng-click="addProductToCart(productId, 'selectAddress')">
             <span class="cart-icon">
                 <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13"/></span>
             Buy Now
         </button>
         <button type="button" class="btn-u by_productDetail_buttonBg" ng-if="inventoryType === 'ALWAYS_AVAILABLE'"
-                ng-disabled="addToCartDisable || f1.qty.$invalid" ng-click="addProductToCart(productId)">
-          <span class="cart-icon">
-              <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13"></span>
+            ng-disabled="addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'" ng-click="addProductToCart(productId)">
+            <span class="cart-icon">
+                <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13">
+            </span>
             Add to Cart
         </button>
         <button type="button" class="btn-u buy-product by_productDetail_buttonBg"
-                ng-if="inventoryType === 'ALWAYS_AVAILABLE'"
-                ng-disabled="addToCartDisable || f1.qty.$invalid" di-href="#!cart/"
-                ng-click="addProductToCart(productId, 'selectAddress')">
-          <span class="cart-icon">
-              <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13"></span>
+            ng-if="inventoryType === 'ALWAYS_AVAILABLE'"
+            ng-disabled="addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'" di-href="#!cart/"
+            ng-click="addProductToCart(productId, 'selectAddress')">
+            <span class="cart-icon">
+                <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13">
+            </span>
             Buy Now
         </button>
         <span ng-if="inventoryType === 'CHECK_QUANTITY' || inventoryType === 'UNAVAILABLE' || inventoryType === null">
-              <span class="error-message" style="color:red;"
-                    ng-if="userRequiredQuantity > quantityAvailable || inventoryType === 'UNAVAILABLE'">
+            <span class="error-message" style="color:red;"
+                ng-if="userRequiredQuantity > quantityAvailable || inventoryType === 'UNAVAILABLE'">
                 Sorry! We are Out Of Stock!
             </span>
         </span>
@@ -236,8 +250,11 @@
         <span class="added-to-cart-message" ng-show="addToCartDisable">The product is already added
             in cart!
         </span>
+
         <div class="clearfix" style="height:20px;"></div>
     </div>
+    </div>
+    
 </div>
 
 
@@ -260,6 +277,39 @@
     </div>
 </div>
 
+<div ng-if="$root.windowWidth < 720" >
+    <div class="by_productDetail_leftSimilarTitle col-md-12 no-padding margin-top-20">
+        <span ng-if="uiData.similarProductLength > 0">Similar Products</span>
+        <span ng-if="uiData.similarProductLength === 0">No Similar Products Available</span>
+    </div>
+
+    <div class="col-md-12 no-padding" ng-repeat="product in uiData.similarProduct">
+        <div ng-click="openProductDescription(product.id, product.name)">
+            <div class="by_productDetail_leftSimilarThumb">
+                <div class="by_productDetail_leftSimilarThumbImage">
+                    <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
+                </div>
+                <div class="by_productDetail_leftSimilarThumbContent">
+                    <div class="by_productDetail_leftSimilarThumbContentName">
+                        {{product.name.substring(0, 25)}}<span ng-if="product.name.length > 25">...</span>
+                    </div>
+                    <div class="by_productDetail_leftSimilarThumbContentPrice">
+                        <strong ng-if="product.salePrice && product.salePrice.amount">Rs. {{product.salePrice.amount}}</strong><br/>
+                        <strong ng-if="!product.salePrice || !product.salePrice.amount">Rs. {{product.retailPrice.amount}}</strong><br/>
+
+                        <small ng-if="product.retailPrice != null && product.salePrice != null && product.retailPrice.amount != product.salePrice.amount">
+                            <del>Rs {{product.retailPrice.amount}}</del>
+                        </small>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
+
+<div class="clearfix" style="height:20px;"></div>

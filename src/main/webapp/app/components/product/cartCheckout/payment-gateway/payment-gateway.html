@@ -1,14 +1,10 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
-<div class="container content   paddingTop0" >
-    <div class="row both-container" >
-       <div class="col-md-3 md-margin-bottom-40">
-        <div ng-include="'app/components/product/cartCheckout/payment-gateway/payment-gateway-left-panel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+<div >
+       <div class="leftPanel" ng-include="'app/components/product/cartCheckout/payment-gateway/payment-gateway-left-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
       </div>
-      <div class="col-md-9   md-margin-bottom-40 article-outer-wrapper no-padding-right" style="margin-top:2px; padding-right:0px;">
-        <div ng-include="'app/components/product/cartCheckout/payment-gateway/payment-gateway-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+      <div class="contentPanel" ng-include="'app/components/product/cartCheckout/payment-gateway/payment-gateway-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
       </div>
-    </div>
 </div>
 
 

@@ -1,14 +1,12 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-<div class="container " id="profileSection">
-    <div class="row">
-        <div class="col-md-3  md-margin-bottom-40" ng-include="profileViews.leftPanel"></div>
-        <div class="col-md-9   discussion-page md-margin-bottom-40 article-outer-wrapper no-padding-right "
-             ng-include="profileViews.contentPanel" ng-init="initUserProfile()" style="padding-right:0px;">
-        </div><div class="clearfix"></div>
-    </div>
+<div   > 
+    <div class="leftPanel" ng-include="profileViews.leftPanel" ></div>
+    <div class="contentPanel" style="overflow-x:hidden; min-height:540px;" 
+    ng-include="profileViews.contentPanel" ng-init="initUserProfile()"  id="profileSection"></div>
+<div class="clearfix"></div>
 </div>
-    <!--/container-->
+<!--/container-->
 
-    <!-- we are hiring -->
-    <!-- end we are hiring -->
-    <!-- End Content Part -->
+<!-- we are hiring -->
+<!-- end we are hiring -->
+<!-- End Content Part -->

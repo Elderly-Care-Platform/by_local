@@ -11,6 +11,7 @@ require.config({
 		byDirectives : '../main/appDirectives',
 		byAppRoute : '../main/appRoute',
 		byApplicationConfig : '../shared/common/config/byApplicationConfig',
+		byProdEcomConfig : '../shared/common/config/byProductEcomConfig',
 		byProductApp : '../main/product/productApp',
 		byProductResources : '../main/product/productResources',
 		byProductRoute : '../main/product/productRoute',
@@ -30,6 +31,7 @@ require.config({
 		stateParamValidatorFactory : '../main/product/productResources/stateParamValidator',
 		CartServiceFactory : '../components/product/cart/cart.service',
 		CustomValidationFactory : '../main/product/productResources/custom-validation-directive',
+		LogisticServiceFactory : '../main/product/productResources/logistic-service',
 
 		AddAddressFactory : '../components/product/cartCheckout/add-address/add-address.service',
 		EditAddressFactory : '../components/product/cartCheckout/edit-address/edit-address.service',
@@ -38,7 +40,7 @@ require.config({
 		ShoppingConfirmationFactory : '../components/product/cartCheckout/shopping-confirmation/shopping-confirmation.service',
 		OrderHistoryFactory : '../components/product/orderHistory/order-history.service',
 
-		jquery : '../../lib/unify/plugins/jquery/jquery.min',
+		jquery : '../../lib/jqueryPlugins/jquery.min',
 		angular : '../../lib/angular/angular.min',
 		angularRoute : '../../lib/angular/angular-route',
 		angularResource : '../../lib/angular/angular-resource',
@@ -50,11 +52,10 @@ require.config({
 		angularBusy : '../../lib/angular/angular-busy/angular-busy',
 		angularSanitize : '../../lib/angular/angular-sanitize.min',
 
-		blogMasonary : '../../lib/unify/js/pages/blog-masonry',
-		jqueryMasonaryGrid : '../../lib/unify/plugins/masonry/jquery.masonry.min',
+		blogMasonary : '../../lib/jqueryPlugins/blog-masonry',
+		jqueryMasonaryGrid : '../../lib/jqueryPlugins/jquery.masonry.min',
 		lodash : '../../lib/lodash.min',
 //		jqueryUiLib : '../../lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min',
-
 		bootstrapToggle: '../../lib/unify/plugins/bootstrap/js/bootstrap-toggle',
 
 		byUtil : '../shared/util/byUtil',

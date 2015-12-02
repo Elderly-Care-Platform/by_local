@@ -106,7 +106,7 @@ BY.byUtil.updateMetaTags = function(param){
 	if(title.indexOf("Beautiful Years") == -1){
 		title += " - Beautiful Years";
 	}
-
+	
 	document.title = title;
 	$("meta[property='og\\:title']").attr("content", title);
 	$("meta[name='twitter\\:title']").attr("content", title);

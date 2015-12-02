@@ -24,6 +24,7 @@
     <meta name="twitter:title" content="Beautiful Years"/>
     <meta property="og:image" content="http://www.beautifulyears.com/assets/img/logo-fb.jpg"/>
     <meta name="twitter:image" content="http://www.beautifulyears.com/assets/img/logo-fb.jpg"/>
+    <meta property="og:url" content="http://www.beautifulyears.com"/>
     <meta property="og:site_name" content="BeautifulYears.com"/>
     <meta property="og:description"
           content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing."/>
@@ -38,7 +39,7 @@
         }
         [ng-cloak] {display: none;}
     </style>
-    <script type="text/javascript" src="lib/unify/plugins/jquery/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/jqueryPlugins/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
 </head>
 
@@ -70,12 +71,10 @@
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="lib/unify/plugins/animate.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="lib/unify/plugins/line-icons/line-icons.css?versionTimeStamp=%PROJECT_VERSION%">
-    <link rel="stylesheet"
-          href="lib/unify/plugins/font-awesome/css/font-awesome.min.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="lib/unify/plugins/font-awesome/css/font-awesome.min.css?versionTimeStamp=%PROJECT_VERSION%">
 
     <link rel="stylesheet" href="lib/unify/plugins/flexslider/flexslider.css?versionTimeStamp=%PROJECT_VERSION%">
-    <link rel="stylesheet"
-          href="lib/unify/plugins/parallax-slider/css/parallax-slider.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="lib/unify/plugins/parallax-slider/css/parallax-slider.css?versionTimeStamp=%PROJECT_VERSION%">
 
     <!-- CSS Page Style -->
     <!--<link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css?versionTimeStamp=%PROJECT_VERSION%">-->
@@ -199,7 +198,9 @@
     </div>
 
     <div id="mask"></div>
+    <div id="ng-scope">
     <ng-view ng-cloak></ng-view>
+    </div>
     <div class="clearfix"></div>
 
     <!-- home page starts -->
@@ -314,7 +315,7 @@
             }
         };
 
-//        $("#UploadImage").ajaxForm(options1);
+        $("#UploadImage").ajaxForm(options1);
 
     });
 </script>

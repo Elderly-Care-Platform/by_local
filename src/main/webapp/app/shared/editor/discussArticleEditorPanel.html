@@ -1,0 +1,306 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		var options = {
+			beforeSend: function () {
+			},
+			uploadProgress: function (event, position, total, percentComplete) {
+			},
+			success: function () {
+			},
+			complete: function (response) {
+				$("#articlePhotoFilename").val(response.responseText.substring(response.responseText.lastIndexOf('/') + 1));
+			},
+			error: function () {
+				$("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
+			}
+		};
+
+		try {
+			$("#UploadForm").ajaxForm(options);
+		}
+		catch (e) {
+		}
+	});
+</script>
+
+<div ng-controller="EditorController" class="by_editor_wrap">
+	<!--Upload Video Modal popup-->
+	<div id="editorVideoModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Insert Video</h4>
+				</div>
+				<div class="modal-body">
+					<p style="margin-bottom: 2px;">Paste your video embedded code</p>
+					<div class="clearfix"></div>
+					<img src="assets/img/icons/dailymotion.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<img src="assets/img/icons/vimeo.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<img src="assets/img/icons/metacafe.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<img src="assets/img/icons/youtube.png?versionTimeStamp=%PROJECT_VERSION%" />
+					<div class="clearfix" style="height: 10px;"></div>
+					<textarea rows="" cols="" class="by_editorModalTextArea"
+						ng-model="sharedLinkUrl"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="submit"
+						class="btn btn-sm btn-success comment-submit by_share_btn_submit"
+						data-dismiss="modal" ng-click="postLink()">Submit</button>
+					<button type="button"
+						class="btn btn-sm btn-success comment-submit by_btn_cancel"
+						data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!--Upload Share link Modal popup-->
+	<div id="editorLinkModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Insert Link</h4>
+				</div>
+				<div class="modal-body">
+					<p>Paste link you would like to share</p>
+					<textarea rows="" cols="" class="by_editorModalTextArea"
+						ng-model="sharedLinkUrl"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="submit"
+						class="btn btn-sm btn-success comment-submit by_share_btn_submit"
+						data-dismiss="modal" ng-click="postLink()">Submit</button>
+					<button type="button"
+						class="btn btn-sm btn-success comment-submit by_btn_cancel"
+						data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="by_editor_wrap_bg" style="background:none; border:0px;">
+
+		<div class="col-md-12 no-padding register-page">
+			<input type="text" class="username-textbox textbox "
+				placeholder="Please enter a title of your post" name="username"
+				ng-model="editor.subject">
+		</div>
+		<div class="clearfix"></div>
+		<div class="by-editor-view-buttons">
+			<div
+				class="col-md-4 col-xs-4 no-padding register-page by_editor_post_divider">
+				<form id="UploadImage12" action="UploadFile" method="post"
+					enctype="multipart/form-data">
+					<label ng-click="resetEditorView()"> <input name="sp"
+						id="sp" type="file" required
+						onchange="javascript:uploadImage(this)" /> <img
+						src="assets/img/icons/photo.png" width="100%" /> <span
+						style="float: right; min-width: 50px; max-width: 80px; margin-left: 10px; text-align: left;">
+							Upload<br /> your photo
+					</span>
+					</label>
+				</form>
+				<input type="text" id="articleTitleImage"
+					ng-model="editor.articlePhotoFilename" value=""
+					style="display: none" />
+			</div>
+			<div
+				class="col-md-4 col-xs-4 no-padding  register-page by_editor_post_divider">
+				<label data-toggle="modal" data-target="#editorLinkModal"
+					ng-click="resetEditorView()"> <img
+					src="assets/img/icons/link.png" width="100%" /> <span
+					style="float: right; min-width: 50px; max-width: 80px; margin-left: 10px; text-align: left;">
+						Share<br /> a link
+				</span>
+				</label>
+			</div>
+			<div
+				class="col-md-4 col-xs-4 no-padding register-page by_editor_post_divider">
+				<label data-toggle="modal" data-target="#editorVideoModal"
+					ng-click="resetEditorView()"> <img
+					src="assets/img/icons/video.png" width="100%" /> <span
+					style="float: right; min-width: 50px; max-width: 80px; margin-left: 10px; text-align: left;">
+						Share<br /> a video
+				</span>
+				</label>
+				<!--<label class="by_call_submit_video">-->
+				<!--<img src="assets/img/icons/video.png" width="100%"/>-->
+				<!--<span style="float: right;    min-width: 50px;    max-width: 80px;    margin-left: 10px;    text-align: left;"> Share<br/> a video </span>-->
+				<!--</label>-->
+			</div>
+			<div class="clearfix" style="height: 20px;"></div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="by_uploading_image">
+			<div class="col-md-6 by_uploading_image_add">
+				<div class="myLabel" style="padding: 0px; width: 100%;">
+					<img ng-src="" alt="" style="border: 1px solid #fff;" />
+				</div>
+				<div class="clearfix"></div>
+				<div class="by-imageEditor-view-close" ng-click="resetEditorView()"></div>
+			</div>
+			<div class="col-md-6">
+				This is an original photo and belongs to me
+				<input type="checkbox" checked data-toggle="toggle" data-offstyle="info" data-size="mini">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="by_editor_wrap_bg" ng-include="'app/shared/editor/ShareLinkEditor.html?versionTimeStamp=%PROJECT_VERSION%'"
+			ng-if="showLinkView"></div>
+		<!--<div class="by_uploading_video">-->
+		<!--<div class="col-md-12 by_uploading_video_add">-->
+		<!--<div class="by_uploading_video_add_inside">-->
+		<!--<iframe width="500" height="200" src="https://www.youtube.com/embed/ZtqzeYooMw4" frameborder="0" allowfullscreen>-->
+		<!--</iframe>-->
+		<!--</div>-->
+		<!--<div class="clearfix"></div>-->
+		<!--<div class="by_uploading_video_add_close"></div>-->
+		<!--</div>-->
+		<!--<div class="clearfix"></div>-->
+		<!--</div>-->
+
+
+		<div class="byEditorBg">
+			<div class="col-md-12 no-padding margin-bottom-35 byEditor">
+				<textarea id="article_textArea" class="textbox about-dependent"
+					rows="3"></textarea>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="col-md-12  form-header-content margin-bottom-15">
+			<!--<a ng-click="showCategoryList()" ng-if="selectedMenuCount == 0">
+				Please click to select the category in which your post  will appear
+				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
+			</a>-->
+			<div ng-if="selectedMenuCount > 0">
+				Your post will appear under the
+				<a ng-repeat="(key, value) in selectedMenuList">
+					<span ng-if="$index > 0"> | </span>
+					{{'"'+value.displayMenuName+'"'}}
+				</a> &nbsp;category.
+				<a ng-click="showCategoryList()" ng-if="categoryLists">Please select additional categories (optional)</a>
+				<span ng-click="showCategoryList()" ng-if="categoryLists" class="triangle-down by-arrow-float-none"></span>
+				
+			</div>
+		</div>
+
+		<div class="col-md-12  margin-bottom-20" ng-if="showCategory">
+			<div class="panel-group acc-v1" id="accordion-1">
+				<div class="panel panel-default by_accordian"
+					ng-repeat="category in categoryLists">
+					<div class="panel-heading">
+						<h4 class="panel-title by_editor_ParentCategories">
+							<label>
+								{{category.displayMenuName}}
+								<input type="checkbox"ng-click="selectTag($event, category)" value="{{category.id}}" ng-checked="{{selectedMenuId === category.id}}">
+							</label>
+						</h4>
+					</div>
+					<!--<div class="panel-heading">
+						<h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length <= 0">
+							<label ng-if="category.parentMenuId">
+								{{$root.menuCategoryMap[category.parentMenuId].displayMenuName + " >> " +category.displayMenuName}}
+								<input type="checkbox" ng-click="selectTag($event, category)" value="{{category.id}}"
+								ng-checked="{{selectedMenuId === category.id}}">
+							</label>
+							<label ng-if="!category.parentMenuId">
+								{{category.displayMenuName}}
+								<input type="checkbox" ng-click="selectTag($event, category)" value="{{category.id}}"
+								ng-checked="{{selectedMenuId === category.id}}">
+							</label>
+						</h4>
+						<h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length > 0">
+							<a ng-if="!category.parentMenuId" class="accordion-toggle collapsed"  data-toggle="collapse"
+								data-parent="#accordion-1" href={{"#accord_"+category.id}} onclick="return false;">
+								{{category.displayMenuName}}
+							</a>
+							<a ng-if="category.parentMenuId" class="accordion-toggle collapsed"  data-toggle="collapse"
+								data-parent="#accordion-1" href={{"#accord_"+category.id}} onclick="return false;">
+								{{$root.menuCategoryMap[category.parentMenuId].displayMenuName +" >> " + category.displayMenuName}} </a>
+							<a class="triangle-down accordion-toggle collapsed" style="width: auto;"
+								data-toggle="collapse" data-parent="#accordion-1" href={{"#accord_"+category.id}} onclick="return false;">
+
+							</a>
+						</h4>
+					</div>
+					<div id={{"accord_"+category.id}} class="col-md-12 whiteBg by_editor_SubCategories panel-collapse collapse">
+						<div class="panel-body col-md-12"
+							ng-repeat="subCategory in category.children"
+							ng-if="subCategory.module===0">
+							<input type="checkbox" ng-click="selectTag($event, subCategory)"
+								value={{subCategory.id}} ng-checked="{{selectedMenuId === subCategory.id}}">
+							<span>{{subCategory.displayMenuName}}</span>
+						</div>
+					</div>-->
+					<div style="clear: both"></div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+
+		<div class="col-md-12 margin-bottom-20">
+			<div ng-show="errorMsg">
+				<font color="red">{{errorMsg}}</font>
+			</div>
+			<button
+				class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn"
+				disabled ng-click="postContent('P')">Submit</button>
+			<button
+				class="btn btn-big btn-default pull-right by-editor-cancel-btn"
+				ng-click="exitEditorDiscuss('Article', $event)">Cancel</button>
+			<div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	
+	$("#UploadImage12").bind('submit', function(e) {
+		var postData = new FormData(jQuery('#UploadImage12')[0]);
+		$.ajax({
+			url : 'UploadFile?transcoding=true',
+			type : "POST",
+			enctype : "multipart/form-data",
+			data : postData,
+			//  contentType: "application/json",
+			cache : false,
+			contentType : false,
+			processData : false,
+			success : function(data, textStatus, jqXHR) {
+				$("#articleTitleImage").val(JSON.stringify(data));
+				$("#articleTitleImage").trigger('input');
+				$(".by_uploading_image").show();
+				$(".by-editor-view-buttons").hide();
+				$(".by_btn_submit").prop("disabled", false);
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+				alert("Image upload failed");
+			}
+		});
+		e.preventDefault();
+	});
+	function uploadImage(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('.myLabel img').attr('src', e.target.result)
+			}
+
+			reader.readAsDataURL(input.files[0]);
+			$('#UploadImage12').submit();
+
+			//input.form.submit();
+		}
+	}
+</script>

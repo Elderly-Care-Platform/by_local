@@ -21,7 +21,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 								$scope.getTagBasedArticle();
 							}
 						}
-						$scope.header1 = "Also by";
+						$scope.header1 = "Also by ";
 						$scope.header2 = BY.byUtil.validateUserName($scope.discuss.username);
 					},
 					function(error){

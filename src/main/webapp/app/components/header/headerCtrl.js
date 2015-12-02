@@ -63,7 +63,6 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     } else {                        
                          $("#homeMenuScroll").hide();
                     }
-                    $("#ng-scope").css('min-height', "0px");
                         
                 });
             } else {
@@ -79,7 +78,6 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                         $(".by_header").addClass("by_header_image");
                     }
                 });
-                $("#ng-scope").css('min-height', minimumHeight+"px");
             }
         }
 
@@ -145,9 +143,11 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         $scope.$on('currentLocation', function (event, args) {
             if (args === '/' || args.indexOf('/users/home') > -1) {
-                isHomePage = true;
+                isHomePage = true;                
+                $("#ng-scope").css('min-height', "0px");
             } else {
                 isHomePage = false;
+                $("#ng-scope").css('min-height', minimumHeight+"px");
             }
 
             updateHeaderTemplate();

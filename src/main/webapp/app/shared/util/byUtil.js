@@ -63,6 +63,9 @@ $(window).scroll(function(){
 	
 	var footerv1Height = $(".footer-v1").height()+10;
 	$(".topScroll").css('bottom',  "8px");
+	if($(window).width()<830){
+		$(".topScroll").css('bottom',  "37px");
+	}
 	
 	
 });

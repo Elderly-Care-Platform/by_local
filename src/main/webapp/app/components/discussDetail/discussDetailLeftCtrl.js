@@ -21,7 +21,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 								$scope.getTagBasedArticle();
 							}
 						}
-						$scope.header1 = "Also by";
+						$scope.header1 = "Also by ";
 						$scope.header2 = BY.byUtil.validateUserName($scope.discuss.username);
 					},
 					function(error){
@@ -63,7 +63,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
-            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+            $(".by_menuDetailed").css('height', clientHeight+"px");
         }
 
 		$scope.getTagBasedArticle = function(){

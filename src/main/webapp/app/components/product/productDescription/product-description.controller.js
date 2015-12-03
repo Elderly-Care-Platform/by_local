@@ -67,7 +67,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
-            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+            $(".by_menuDetailed").css('height', clientHeight+"px");
         }
 
         function getFedexRateWebService() {

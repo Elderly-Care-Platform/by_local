@@ -15,7 +15,7 @@
         </div>
         <div  class="QuestionshowPanel" ng-include="'app/shared/editor/discussQuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
     </div>
-    <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb Questionby_editorButtonWrap_thumb" style="border-right:0px solid #fff; !important;">
+    <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb Questionby_editorButtonWrap_thumb" style="border-right:1px solid transparent;">
         <i class="sprite sprite-story divLeft"></i>
         <span class="divLeft by_editorButtonHead">Share</span>
 
@@ -119,7 +119,7 @@
                             <p>
                                 By <a validate-user-name="{{discuss.username}}"
                                       class="text-capitalize"
-                                      href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
+                                      ng-href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}" ng-click="$event.stopPropagation();">
                                 {{username}}</a>
                             </p>
                         </li>

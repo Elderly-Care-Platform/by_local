@@ -1,24 +1,26 @@
+<!--
 <div class="by_home_bg">
-	<!--          Home title            -->
+	
     <div class="by_home_title1 divLeft">
-        Taking better care of parents<br/>
-        Living longer and happier
+        Taking better care of parents
+        <div class="by_home_title1_bg">
+            Living longer and happier
+            <div class="clearfix"></div>
+        </div>
     </div>
-    <div class="divRight by_home_agingImage" ng-if="$root.windowWidth < 721">
+    <div class="divRight by_home_agingImage mobileSite" >
         <img src="assets/img/home/ageing_people.png?versionTimeStamp=%PROJECT_VERSION%" width="100%" />
     </div>
     <div class="clearfix"></div>
 
-	<!--            Home Top Menu           -->
+	
     <div class="by_home_topMenu">
         <div ng-repeat="menu in $root.mainMenu">
             <div class="by_home_topMenu_item">
                 <a ng-href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
-                    <div class="by_home_topMenuText">
-                        <div class="by_home_topMenuImage">
-                            <img ng-src="{{homeSectionConfig[menu.id].imageSmall}}">
-                        </div>
-                        <div class="by_home_topMenuTitle">{{menu.displayMenuName}}</div>
+                    <div class="by_home_topMenuText">                       
+                        <img ng-src="{{homeSectionConfig[menu.id].imageSmall}}">
+                        {{menu.displayMenuName}}
                     </div>
                     <div class="by_home_topMenuDesc">
 						<span ng-if="homeSectionConfig[menu.id].orderId==='0'">
@@ -44,7 +46,7 @@
     <div class="clearfix"></div>
 </div>
 
-<!--              Home Mobile section                      -->
+
 <div class="by_homeCallWrap" ng-if="$root.windowWidth < 720">
     <div class="by_container">
         <div class="divLeft">
@@ -58,7 +60,7 @@
 </div>
 
 
-<!--                  Home Promotions                    -->
+
 <div class="by-home-page">
     <div class="clearfix"></div>
     <div id="homeContainer" class="homeContainer">
@@ -72,8 +74,9 @@
     <div class="clearfix"></div>
 
 
-	<!--  Home main section             -->
+	
 	<div ng-include="homeViews.contentPanel"></div>
     <div class="clearfix"></div>
 </div>
 
+-->

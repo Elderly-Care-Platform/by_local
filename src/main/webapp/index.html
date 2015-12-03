@@ -12,7 +12,7 @@
     <!-- Meta -->
     <meta http-equiv="expires" content="0">
     <meta charset="utf-8">
-    <meta name="fragment" content="!">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
           content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing.">
@@ -24,15 +24,32 @@
     <meta name="twitter:title" content="Beautiful Years"/>
     <meta property="og:image" content="http://www.beautifulyears.com/assets/img/logo-fb.jpg"/>
     <meta name="twitter:image" content="http://www.beautifulyears.com/assets/img/logo-fb.jpg"/>
+
     <meta property="og:site_name" content="BeautifulYears.com"/>
     <meta property="og:description"
           content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing."/>
     <meta name="twitter:description"
           content="Caring for your parents? Coping with challenges of ageing? Welcome to the BeautifulYears Community! Ageing. Caring. Sharing."/>
-
+	<meta property="og:url" content="http://www.beautifulyears.com"/>
     <meta property="og:image:width" content="158"/>
     <meta property="og:image:height" content="158"/>
+    <style>
+        [ng-cloak].home {
+            display: block !important;
+        }
+        [ng-cloak] {display: none;}
+    </style>
+    <script type="text/javascript" src="lib/jqueryPlugins/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
+</head>
+
+<body ng-cloak>
+    <div id="home"></div>
+    <script>
+        $(function(){
+            $("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%");
+        });
+    </script>
     <!-- copyrightInfo -->
     <link rel="copyright" href="http://www.beautifulyears.com/index.html#!/users/termsCondition">
 
@@ -54,15 +71,13 @@
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="lib/unify/plugins/animate.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="lib/unify/plugins/line-icons/line-icons.css?versionTimeStamp=%PROJECT_VERSION%">
-    <link rel="stylesheet"
-          href="lib/unify/plugins/font-awesome/css/font-awesome.min.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="lib/unify/plugins/font-awesome/css/font-awesome.min.css?versionTimeStamp=%PROJECT_VERSION%">
 
     <link rel="stylesheet" href="lib/unify/plugins/flexslider/flexslider.css?versionTimeStamp=%PROJECT_VERSION%">
-    <link rel="stylesheet"
-          href="lib/unify/plugins/parallax-slider/css/parallax-slider.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="lib/unify/plugins/parallax-slider/css/parallax-slider.css?versionTimeStamp=%PROJECT_VERSION%">
 
     <!-- CSS Page Style -->
-    <link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css?versionTimeStamp=%PROJECT_VERSION%">
+    <!--<link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css?versionTimeStamp=%PROJECT_VERSION%">-->
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="assets/css/main.css?versionTimeStamp=%PROJECT_VERSION%">
@@ -103,11 +118,11 @@
     <link rel="stylesheet" href="assets/css/byProducts/cartCheckout.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/byProducts/productDetailed.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/byProducts/order_history.css?versionTimeStamp=%PROJECT_VERSION%">
-    <link rel="stylesheet" href="assets/css/headers/header-v7.css?versionTimeStamp=%PROJECT_VERSION%">
+    <!--<link rel="stylesheet" href="assets/css/headers/header-v7.css?versionTimeStamp=%PROJECT_VERSION%">-->
 
 
     <!-- unify libs and plugins start -->
-    <script type="text/javascript" src="lib/unify/plugins/jquery/jquery.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+
     <script type="text/javascript" src="lib/unify/plugins/bootstrap/js/bootstrap.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/unify/unify_app.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/unify/plugins/back-to-top.js?versionTimeStamp=%PROJECT_VERSION%"></script>
@@ -120,65 +135,60 @@
     <script type="text/javascript" src="lib/jqueryPlugins/jquery.form.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type="text/javascript" src="lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
     <script type='text/javascript' src="lib/require.js" data-main="app/shared/main.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-    
 
 
     <!-- new styles to new design -->
     <link rel="stylesheet" href="assets/css/by/header.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/by/home.css?versionTimeStamp=%PROJECT_VERSION%">
     <link rel="stylesheet" href="assets/css/by/menu.css?versionTimeStamp=%PROJECT_VERSION%">
-    <!-- new styles to new design ends -->
 
-       
-</head>
-
-<body>
-<div id="fb-root"></div>
-<div class="preloader" id="preloader" style="display: none;">
-    <div class="preloaderImage"></div>
-</div>
-
-<div class="modal fade by-login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="myModalHorizontal"
-     ng-include="'app/components/signup/login/modalLogin.html'" ng-if="$root.inContextLogin">
-</div>
-
-
-<div class="tnymcePopUpwrapper">
-    <div class="tnymcePopUpwrapperInside">
-        <div class="imagebgNew">
-            <div class="tnymcePopUpwrapperInsideTitle divLeft">
-                Insert Image
-            </div>
-            <div class="tnymcePopUpwrapperInsideClose tnymceCloseImage divRight">
-                X
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
-        <!-- insert image in tinymce -->
-        <form id="UploadImage" action="UploadFile?type=editor&transcoding=false" method="post"
-              enctype="multipart/form-data">
-            <!-- insert image in tinymce -->
-
-            <div class="tnymcePopUpwrapperInsideLabel divLeft">Image URL</div>
-            <div class="tnymcePopUpwrapperInsideUrl divRight">
-                <input type="file" name="sp" id="sp" size="100">
-            </div>
-            <div class="clearfix"></div>
-            <div>
-                <button type="submit" class="tnymceCloseImageAdd">Ok</button>
-                <button type="button" class="tnymceCloseImage tnymceCloseImageButton">Cancel</button>
-            </div>
-            <div class="clearfix"></div>
-        </form>
+    <div id="fb-root"></div>
+    <div class="preloader" id="preloader" style="display: none;">
+        <div class="preloaderImage"></div>
     </div>
-</div>
 
-<div class="topScroll"></div>
-<div class="wrapper">
+    <div class="modal fade by-login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="myModalHorizontal"
+         ng-include="'app/components/signup/login/modalLogin.html'" ng-if="$root.inContextLogin">
+    </div>
+
+
+    <div class="tnymcePopUpwrapper">
+        <div class="tnymcePopUpwrapperInside">
+            <div class="imagebgNew">
+                <div class="tnymcePopUpwrapperInsideTitle divLeft">
+                    Insert Image
+                </div>
+                <div class="tnymcePopUpwrapperInsideClose tnymceCloseImage divRight">
+                    X
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- insert image in tinymce -->
+            <form id="UploadImage" action="UploadFile?type=editor&transcoding=false" method="post"
+                  enctype="multipart/form-data">
+                <!-- insert image in tinymce -->
+
+                <div class="tnymcePopUpwrapperInsideLabel divLeft">Image URL</div>
+                <div class="tnymcePopUpwrapperInsideUrl divRight">
+                    <input type="file" name="sp" id="sp" size="100">
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <button type="submit" class="tnymceCloseImageAdd">Ok</button>
+                    <button type="button" class="tnymceCloseImage tnymceCloseImageButton">Cancel</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="topScroll"></div>
+    <div class="wrapper">
     <!--=== Header ===-->
     <div ng-controller="BYHeaderCtrl">
-    	<div ng-include="templateUrl"></div>
+
+        <div ng-include="templateUrl"></div>
     </div>
     <div ng-controller="MainMenuController">
         <div window-resize callback="windowResize"
@@ -188,8 +198,16 @@
     </div>
 
     <div id="mask"></div>
-    <ng-view></ng-view>
+    <div id="ng-scope">
+    <ng-view ng-cloak></ng-view>
+    </div>
     <div class="clearfix"></div>
+
+    <!-- home page starts -->
+
+
+
+    <!-- home page ends -->
 
     <!--=== Footer Version 1 ===-->
     <div class="footer-v1 footerDesktop" >

@@ -3,7 +3,7 @@
  */
 
 define(['byApp', 'byUtil'], function(byApp, byUtil) {
-	function discussDetailLeftController($scope, $rootScope, $routeParams, broadCastData, DiscussPage, $sce){
+	function discussDetailLeftController($scope, $rootScope, $window, $routeParams, broadCastData, DiscussPage, $sce){
 		var discussId = $routeParams.discussId;
 
 		$scope.$on('handleBroadcast', function() {
@@ -31,6 +31,40 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
 		});
 
+
+		/*$scope.smartScroll = function () {
+            var clientHeight = $( window ).height();
+            $(".by_subMenuPlus").css('min-height', (clientHeight - 40)+"px");
+            angular.element($window).bind("scroll", function () {
+                 var winTop = $(this).scrollTop(),
+                    winBottom = winTop + $(this).height(),
+                    left = $('.by_subMenuPlus'),
+                    leftBottom = left.outerHeight() + 43;
+
+                if (winBottom >= leftBottom) {
+
+                    left.css({
+                        'position': 'fixed',
+                        'bottom': '0px'
+                    });
+                } else {
+                    left.css({
+                        'position': 'relative',
+                        'bottom': 'auto'
+                    });
+                }
+                
+            });
+        };
+
+        $scope.setContentHeight = function(cH, cW){
+            $(".contentPanel").css('min-height', cH);  
+        }*/
+
+        $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+        }
 
 		$scope.getTagBasedArticle = function(){
 			var systemTags = [];
@@ -70,7 +104,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 		};
 	}
 
-	discussDetailLeftController.$inject = ['$scope', '$rootScope', '$routeParams','broadCastData','DiscussPage','$sce'];
+	discussDetailLeftController.$inject = ['$scope', '$rootScope', '$window', '$routeParams','broadCastData','DiscussPage','$sce'];
 	byApp.registerController('discussDetailLeftController', discussDetailLeftController);
 	return discussDetailLeftController;
 });

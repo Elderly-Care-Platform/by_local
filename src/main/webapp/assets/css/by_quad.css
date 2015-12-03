@@ -58,7 +58,7 @@
 }
 
 .by_blog_author {
-	max-width: 720px;
+	/*max-width: 720px;*/
 	min-height: auto !important;
 	border-radius: 2px !important;
 	overflow-wrap: break-word;

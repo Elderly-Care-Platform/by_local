@@ -16,15 +16,16 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             initialize = initHeader();
 
         function initHeader() {
-            updateHeaderTemplate();
             validateSession();
             getProductCount();
             getServicesCount();
         }
+        var minimumHeight = $( window ).height() - 46;
 
         function getProductCount(){
             $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
                 $rootScope.totalProductCount = response;
+                $rootScope.$broadcast('productCountAvailable');
             }).error(function (err) {
                 console.log("products count not available");
             })
@@ -38,6 +39,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
                 $rootScope.totalHousingCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_HOUSING']]);
 
+                $rootScope.$broadcast('directoryCountAvailable');
             }).error(function (err) {
                 console.log("services count not available");
             })
@@ -45,6 +47,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function updateHeaderTemplate() {
             if (isHomePage == true) {
+                $("#home").show();
+                //$("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%");
                 $scope.templateUrl = 'app/components/header/homeHeader.html?versionTimeStamp=%PROJECT_VERSION%';
                 // on scrolling adding header background
                 angular.element($window).bind("scroll", function () {
@@ -59,10 +63,12 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     } else {                        
                          $("#homeMenuScroll").hide();
                     }
-
+                    $("#ng-scope").css('min-height', "0px");
                         
                 });
             } else {
+                $("#home").hide();
+                //$("#home").html('');
                 $scope.templateUrl = 'app/components/header/otherHeader.html?versionTimeStamp=%PROJECT_VERSION%';
                 angular.element($window).bind("scroll", function () {
                     var headerHeight = $(".by_header").height();
@@ -73,6 +79,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                         $(".by_header").addClass("by_header_image");
                     }
                 });
+                $("#ng-scope").css('min-height', minimumHeight+"px");
             }
         }
 
@@ -82,17 +89,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                 $http.get("api/v1/users/validateSession").success(function (response) {
                     var sess = localStorage.getItem("SessionId");
                     if (sess != '' && sess != null) {
-                        //var log = document.getElementById('login_placeholder');
-                        $scope.loginDetails.text = "Logout";
-                        $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + sess;
-                        //document.getElementById("login_placeHolder_li").style.display = "inline";
-
-                        //var pro = document.getElementById('profile_placeholder');
-
-                        var userName = localStorage.getItem("USER_NAME");
-                        $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
-                        $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
-
+                        setValidSession({'sessionId':sess});
                         if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
                             window.location = apiPrefix + "#!/users/home?type=home";
                         }
@@ -107,11 +104,18 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function setValidSession(params) {
             var userName = localStorage.getItem("USER_NAME");
+            if(userName.length > 9){
+                userName = localStorage.getItem("USER_NAME").substring(0, 9)+'...';
+            }
+
             $scope.loginDetails.text = "Logout";
             $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + params.sessionId;
 
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
             $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
+
+            //$("#profile_placeholder").show();
+            
         }
 
         function inValidateSession() {
@@ -119,11 +123,13 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             localStorage.setItem("USER_ID", "");
             localStorage.setItem("USER_NAME", "");
 
-            $scope.loginDetails.text = "";
-            $scope.loginDetails.link = "";
+            $scope.profileDetails.text = "";
+            $scope.profileDetails.link = "";
 
-            $scope.profileDetails.text = "Join us";
-            $scope.profileDetails.link = apiPrefix + "#!/users/login";
+            $scope.loginDetails.text = "Join us";
+            $scope.loginDetails.link = apiPrefix + "#!/users/login";
+            //$("#profile_placeholder").hide();
+            
 
             $http.defaults.headers.common.sess = "";
             SessionIdService.setSessionId("");
@@ -138,12 +144,12 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         });
 
         $scope.$on('currentLocation', function (event, args) {
-            //console.log(args);
             if (args === '/' || args.indexOf('/users/home') > -1) {
                 isHomePage = true;
             } else {
                 isHomePage = false;
             }
+
             updateHeaderTemplate();
         });
 
@@ -153,6 +159,16 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             } else {
                 document.getElementById('search_link').click()
             }
+        };
+
+        $scope.animateCounter = function (count, target) {
+            $({someValue: 0}).animate({someValue: count}, {
+                duration: cntAnimDuration,
+                easing: 'swing',
+                step: function () {
+                    target.text(Math.round(this.someValue));
+                }
+            });
         };
 
         $scope.homeSection = BY.config.menu.home;        

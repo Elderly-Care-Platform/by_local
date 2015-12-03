@@ -106,7 +106,9 @@ BY.byUtil.updateMetaTags = function(param){
 	if(title.indexOf("Beautiful Years") == -1){
 		title += " - Beautiful Years";
 	}
-
+	
+	url = location.origin+"/"+location.hash;
+	
 	document.title = title;
 	$("meta[property='og\\:title']").attr("content", title);
 	$("meta[name='twitter\\:title']").attr("content", title);
@@ -115,6 +117,7 @@ BY.byUtil.updateMetaTags = function(param){
 	$("meta[name='twitter\\:description']").attr("content", description);
 	$("meta[property='og\\:image']").attr("content", imageUrl);
 	$("meta[name='twitter\\:image']").attr("content", imageUrl);
+	$("meta[property='og\\:url']").attr("content", url);
 	$('meta[name=keywords]').attr('content', keywords);
 	if(imageUrl != null && imageUrl !== ""){
 		var tmpImg = new Image();

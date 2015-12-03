@@ -42,7 +42,6 @@ import com.beautifulyears.domain.UserAddress;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
-import com.beautifulyears.repository.ServiceBranchRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.UserProfileResponse;
@@ -71,8 +70,7 @@ public class UserProfileController {
 	private MongoTemplate mongoTemplate;
 
 	@Autowired
-	public UserProfileController(ServiceBranchRepository serviceBranchRepository,
-			UserProfileRepository userProfileRepository,
+	public UserProfileController(UserProfileRepository userProfileRepository,
 			MongoTemplate mongoTemplate) {
 		this.userProfileRepository = userProfileRepository;
 		this.mongoTemplate = mongoTemplate;
@@ -85,7 +83,8 @@ public class UserProfileController {
 			@PathVariable(value = "userId") String userId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		User user = Util.getSessionUser(req);
+		User sessionUser = Util.getSessionUser(req);
+		User userInfo = UserController.getUser(userId);
 		UserProfile userProfile = null;
 		try {
 			if (userId != null) {
@@ -93,17 +92,31 @@ public class UserProfileController {
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					if (user != null
-							&& user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL
-							&& user.getEmail() != null
-							&& user.getId().equals(userId)) {
-						userProfile.getBasicProfileInfo().setPrimaryEmail(
-								user.getEmail());
-					} else if (user.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE
-							&& user.getPhoneNumber() != null) {
-						userProfile.getBasicProfileInfo().setPrimaryPhoneNo(
-								user.getPhoneNumber());
+					if(sessionUser == null){
+						if (userInfo != null
+								&& userInfo.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL
+								&& userInfo.getEmail() != null
+								&& userInfo.getId().equals(userId)) {
+							userProfile.getBasicProfileInfo().setPrimaryEmail(
+									userInfo.getEmail());
+						} else if (userInfo.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE
+								&& userInfo.getPhoneNumber() != null) {
+							userProfile.getBasicProfileInfo().setPrimaryPhoneNo(
+									userInfo.getPhoneNumber());
+						}
+					}else{
+						if (sessionUser.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL
+								&& sessionUser.getEmail() != null
+								&& sessionUser.getId().equals(userId)) {
+							userProfile.getBasicProfileInfo().setPrimaryEmail(
+									sessionUser.getEmail());
+						} else if (sessionUser.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE
+								&& sessionUser.getPhoneNumber() != null) {
+							userProfile.getBasicProfileInfo().setPrimaryPhoneNo(
+									sessionUser.getPhoneNumber());
+						}
 					}
+					
 
 				} else {
 					logger.debug(userProfile.toString());
@@ -117,7 +130,7 @@ public class UserProfileController {
 			Util.handleException(e);
 		}
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
-				.getUserProfileEntity(userProfile, user));
+				.getUserProfileEntity(userProfile, userInfo));
 	}
 
 	/*
@@ -367,19 +380,21 @@ public class UserProfileController {
 								profile.setIndividualInfo(userProfile
 										.getIndividualInfo());
 							}
-							else if(profile.getUserTypes().contains(UserTypes.INDIVIDUAL_PROFESSIONAL)){
+							if (!Collections
+									.disjoint(
+											profile.getUserTypes(),
+											new ArrayList<>(
+													Arrays.asList(
+															UserTypes.INSTITUTION_SERVICES,
+															UserTypes.INDIVIDUAL_PROFESSIONAL)))) {
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
 							}
-							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES)){
-								profile.setServiceProviderInfo(userProfile
-										.getServiceProviderInfo());
-								profile.setServiceBranches(ServiceBranchController.
-										addServiceBranches(
-												userProfile.getServiceBranches(),
-												currentUser));
-							}
-							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_HOUSING)){
+							if (!Collections
+									.disjoint(
+											profile.getUserTypes(),
+											new ArrayList<>(
+													Arrays.asList(UserTypes.INSTITUTION_HOUSING)))) {
 								profile.setFacilities(HousingController
 										.addFacilities(
 												userProfile.getFacilities(),

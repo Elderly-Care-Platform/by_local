@@ -43,6 +43,7 @@ BY.byEditor.addEditor = function(param, initCallback){
     }
     tinymce.init({
         selector: "#"+param.editorTextArea,
+        //auto_focus:true,
         theme: "modern",
         skin: 'light',
         statusbar: false,
@@ -118,7 +119,12 @@ BY.byEditor.addEditor = function(param, initCallback){
             });
 
             ed.on('blur', function(e) {
-                console.log('reset event', e);
+                console.log('reset event', e);  
+                $(".byEditor").removeClass('byEditorShadow');                
+            });
+
+            ed.on('focus', function(e) {
+                $(".byEditor").addClass('byEditorShadow');             
             });
 
             ed.on('remove', function(e) {

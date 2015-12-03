@@ -8,23 +8,45 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         $scope.facilityIdx = $routeParams.facilityIndex ? parseInt($routeParams.facilityIndex) : 0;
 
         var changeUsername = function () {
-            $(".list-group-item").removeClass('active');
-            $(".username").addClass('active');
+            window.scrollTo(0, 0);
+            $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
+            $(".username").addClass('by_profileDetailed_menuActive');
             $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyUsername.html?versionTimeStamp=%PROJECT_VERSION%";
         };
         var changePassword = function () {
-            $(".list-group-item").removeClass('active');
-            $(".password").addClass('active');
+            window.scrollTo(0, 0);
+            $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
+            $(".password").addClass('by_profileDetailed_menuActive');
             $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyPassword.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
         var showOrderHistory = function () {
-            $(".list-group-item").removeClass('active');
-            $(".orderHistory").addClass('active');
+            window.scrollTo(0, 0);
+            $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
+            $(".orderHistory").addClass('by_profileDetailed_menuActive');
             $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/product/orderHistory/order-history.html?versionTimeStamp=%PROJECT_VERSION%";
+        };
+
+        $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+        }
+
+        $scope.subMenuTabMobileShow = function () {
+            $(".by_mobile_leftPanel_image").click(function () {
+                if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
+                    $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
+                } else {
+                    $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-minG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
+                }
+            });
         };
 
 

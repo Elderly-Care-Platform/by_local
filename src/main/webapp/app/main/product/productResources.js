@@ -5,13 +5,14 @@ define(['angular', 'DelegatorFactory', 'urlTemplateFactory', 'CachedRequestFacto
         'ProductServiceFactory', 'ErrorStoreFactory', 'urlUtilsFactory', 'CategoryServiceFactory',
         'CartServiceFactory', 'BreadcrumbServiceFactory', 'GlobalServiceFactory', 'UtilFactory',
         'ProductDescFactory', 'stateParamValidatorFactory', 'CustomValidationFactory', 'AddAddressFactory', 'EditAddressFactory',
-    'SelectAddressFactory', 'PaymentGatewayFactory', 'ShoppingConfirmationFactory', 'OrderHistoryFactory'],
+        'SelectAddressFactory', 'PaymentGatewayFactory', 'ShoppingConfirmationFactory', 'OrderHistoryFactory', 'LogisticServiceFactory'],
 
     function (angular, DelegatorFactory, urlTemplateFactory, CachedRequestFactory,
               ProductServiceFactory, ErrorStoreFactory, urlUtilsFactory,
               CategoryServiceFactory, CartServiceFactory, BreadcrumbServiceFactory, GlobalServiceFactory,
               UtilFactory, ProductDescFactory, stateParamValidatorFactory, CustomValidationFactory, AddAddressFactory,
-              EditAddressFactory, SelectAddressFactory, PaymentGatewayFactory, ShoppingConfirmationFactory, OrderHistoryFactory) {
+              EditAddressFactory, SelectAddressFactory, PaymentGatewayFactory, ShoppingConfirmationFactory, OrderHistoryFactory,
+              LogisticServiceFactory) {
 
         var byProductResources = angular.module('byProductResources', ['ngResource']);
 
@@ -54,6 +55,8 @@ define(['angular', 'DelegatorFactory', 'urlTemplateFactory', 'CachedRequestFacto
         var ShoppingConfirmationService = byProductResources.factory('ShoppingConfirmationService', ShoppingConfirmationFactory);
 
         var OrderHistoryService = byProductResources.factory('OrderHistoryService', OrderHistoryFactory);
+
+        var logisticService = byProductResources.factory('LogisticService', LogisticServiceFactory);
 
         var apiCache = byProductResources.factory('apiCache', function ($angularCacheFactory,
                                                                         paramCache,

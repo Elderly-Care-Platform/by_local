@@ -101,6 +101,10 @@
 {
 	color: #fff;
 }
+.menuPipeline:after
+{
+	content:' |';
+}
 .by_header_right_search_other
 {
 	width: 100%;

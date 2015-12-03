@@ -23,15 +23,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
                 $scope.facility.tier = $scope.regConfig.facilityType[0];
             }
 
-            if($scope.facility.categoriesId && $scope.facility.categoriesId.length > 0){
-                for(var i=0; i<$scope.facility.categoriesId.length; i++){
-                    var menuId = $scope.facility.categoriesId[i];
-                    $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
-                }
-            } else{
-                // hard coding senior living id as facility category
-                 $scope.selectedMenuList['55bcadaee4b08970a736784c'] =  $rootScope.menuCategoryMap['55bcadaee4b08970a736784c'];
-            }
+            $scope.selectedMenuList[BY.config.menu.seniorLiving.id] =  $rootScope.menuCategoryMap[BY.config.menu.seniorLiving.id];
             editorInitCallback();
         };
 

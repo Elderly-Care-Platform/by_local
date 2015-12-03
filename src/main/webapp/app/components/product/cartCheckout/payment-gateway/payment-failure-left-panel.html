@@ -1,22 +1,39 @@
-<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
-    <div class="scrollableLeftPanelDiv by-filter-links">
-  <ul class="list-group sidebar-nav-v1" id="sidebar-nav">
-    <li class="list-group-item" style="border:0px;">
-      <a>Shopping Cart ({{cartItemCount}}) 
-      </a><!-- href="shopping_cart.html" -->
-    </li>
-    <li class="list-group-item" style="border:0px;">
-      <a>Logging In</a><!-- href="shopping_login.html" -->
-    </li>
-    <li class="list-group-item" style="border:0px;">
-      <a>Shipping Address</a><!-- href="shopping_shipping_address.html" -->
-    </li>
-    <li class="list-group-item   active" style="border:0px;">
-      <a>Payment Options </a><!--  href="shopping_payment.html" -->
-    </li>
-    <li class="list-group-item" style="border:0px;" >
-      <a>Confirmation </a>
-    </li>
-  </ul>
-  </div>
+<div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720"  style="position:fixed; bottom:0px;"  ng-init="leftPanelHeight();">
+    
+<div class="by_profileDetailed_menu">
+       <a di-href="#!cart/">Shopping Cart ({{$root.totalCartItem}})
+       </a>
+   </div>
+<div class="by_profileDetailed_menu ">
+    <a di-href="#!selectAddress/">Shipping Address</a><!-- href="shopping_shipping_address.html" -->
 </div>
+<div class="by_profileDetailed_menu  by_profileDetailed_menuActive">
+    <a>Payment Options </a><!--  href="shopping_payment.html" -->
+</div>
+<div class="by_profileDetailed_menu">
+    <a>Confirmation </a>
+</div>
+</div>
+
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+    <div class="by_mobile_leftPanel" style="padding:0px 15px;">
+       
+        <div class="by_profileDetailed_menu">
+       <a >Shopping Cart ({{$root.totalCartItem}})
+       </a>
+   </div>
+<div class="by_profileDetailed_menu">
+    <a >Shipping Address</a><!-- href="shopping_shipping_address.html" -->
+</div>
+<div class="by_profileDetailed_menu   by_profileDetailed_menuActive">
+    <a>Payment Options </a><!--  href="shopping_payment.html" -->
+</div>
+<div class="by_profileDetailed_menu">
+    <a>Confirmation </a>
+</div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
+</div>
+
+

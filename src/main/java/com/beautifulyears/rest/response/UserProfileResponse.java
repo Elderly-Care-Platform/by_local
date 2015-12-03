@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import com.beautifulyears.domain.BasicProfileInfo;
 import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.IndividualProfileInfo;
-import com.beautifulyears.domain.ServiceBranch;
 import com.beautifulyears.domain.ServiceProviderInfo;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.domain.UserProfile;
@@ -49,7 +47,6 @@ public class UserProfileResponse implements IResponse {
 		private boolean isFeatured;
 		private boolean verified;
 		private List<HousingFacility> facilities = new ArrayList<HousingFacility>();
-		private List<ServiceBranch> serviceBranches = new ArrayList<ServiceBranch>();
 
 		public UserProfileEntity(UserProfile profile, User user) {
 			this.setId(profile.getId());
@@ -73,15 +70,6 @@ public class UserProfileResponse implements IResponse {
 			this.isFeatured = profile.isFeatured();
 			this.verified = profile.isVerified();
 			this.facilities = profile.getFacilities();
-			this.serviceBranches = profile.getServiceBranches();
-		}
-
-		public List<ServiceBranch> getServiceBranches() {
-			return serviceBranches;
-		}
-
-		public void setServiceBranches(List<ServiceBranch> serviceBranches) {
-			this.serviceBranches = serviceBranches;
 		}
 
 		public List<HousingFacility> getFacilities() {

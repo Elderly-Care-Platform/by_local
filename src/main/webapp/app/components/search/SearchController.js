@@ -49,8 +49,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                         }, 500);
 
 
-                }, function (e) {
-                    alert(e);
+                }, function (error) {
+                    console.log(error);
                 });
             };
 
@@ -139,6 +139,25 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 });
             };
 
+             $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+        }
+
+        $scope.subMenuTabMobileShow = function () {
+            $(".by_mobile_leftPanel_image").click(function () {
+                if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
+                    $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
+                } else {
+                    $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-minG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
+                }
+            });
+        };
+
 
 
             var initSearch = function(){
@@ -204,10 +223,13 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 }
             }
 
-            $scope.openProductDescription = function($event, productId) {
+            $scope.openProductDescription = function($event, productId, productName) {
                 $event.stopPropagation();
                 if(productId) {
-                    $location.path('/productDescription/'+productId);
+                    var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+                        path = '/' + prodName + '/pd/' + productId;
+
+                    $location.path(path);
                 }
             }
 
@@ -219,6 +241,11 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
             };
 
             $scope.setSelectedTab = function (param) {
+                if($rootScope.windowWidth < 720){
+                    $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
+                } 
                 if(param === 'd' && $scope.discussTotal > 0){
                     $scope.selectedTab = param;
                 } else if(param === 'd' && $scope.serviceTotal > 0){
@@ -237,7 +264,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 if (id) {
                     var tag = $("#" + id + ":visible");
                     if (tag.length > 0) {
-                        $('html,body').animate({scrollTop: tag.offset().top - $(".breadcrumbs").height() - $(".header").height()}, '0');
+                        $('html,body').animate({scrollTop: tag.offset().top - 57}, '0');
                     }
                 }
             };

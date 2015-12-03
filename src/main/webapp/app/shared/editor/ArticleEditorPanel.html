@@ -1,14 +1,48 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		var options = {
+			beforeSend: function () {
+				//$("#progressbox").show();
+				// clear everything
+				//$("#progressbar").width('0%');
+				//$("#message").empty();
+				//$("#percent").html("0%");
+			},
+			uploadProgress: function (event, position, total, percentComplete) {
+				//$("#progressbar").width(percentComplete + '%');
+				//$("#percent").html(percentComplete + '%');
+
+				// change message text to red after 50%
+				//if (percentComplete > 50) {
+				//$("#message").html("<font color='red'>File Upload is in progress</font>");
+				// }
+			},
+			success: function () {
+				// $("#progressbar").width('100%');
+				// $("#percent").html('100%');
+			},
+			complete: function (response) {
+				$("#articlePhotoFilename").val(response.responseText.substring(response.responseText.lastIndexOf('/') + 1));
+			},
+			error: function () {
+				$("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
+			}
+		};
+
+		try {
+			$("#UploadForm").ajaxForm(options);
+		}
+		catch (e) {
+		}
+	});
+</script>
+
 <div ng-controller="EditorController" class="by_editor_wrap">
 	
-	<div class="col-md-12  by_editor_wrap_bg_head">
-		<div class="col-md-12  no-padding list-head dp-block">POST</div>
+	<i class="sprite sprite-story divLeft"></i>
+	<span class="divLeft by_editorButtonHead">Share</span>
 
-		<div class="col-md-12 no-padding bg-gray-h1">
-			<div class="bg-green-h2" style="width: 70px;"></div>
-		</div>
-		
-
-	</div>
+	<div class="clearfix"></div>
 
 	<!--Upload Video Modal popup-->
 	<div id="editorVideoModal" class="modal fade" role="dialog">
@@ -161,17 +195,18 @@
 		</div>
 
 		<div class="col-md-12  form-header-content margin-bottom-15">
-			<a ng-click="showCategoryList()" ng-if="selectedMenuCount == 0">
+			<!--<a ng-click="showCategoryList()" ng-if="selectedMenuCount == 0">
 				Please click to select the category in which your post  will appear
 				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
-			</a>
+			</a>-->
 			<div ng-if="selectedMenuCount > 0">
 				Your post will appear under the
 				<a ng-repeat="(key, value) in selectedMenuList">
 					<span ng-if="$index > 0"> | </span>
 					{{'"'+value.displayMenuName+'"'}}
 				</a> &nbsp;category.
-				
+				<a ng-click="showCategoryList()" ng-if="categoryLists">Please select additional categories (optional)</a>
+				<span ng-click="showCategoryList()" ng-if="categoryLists" class="triangle-down by-arrow-float-none"></span>
 				
 			</div>
 		</div>
@@ -179,8 +214,16 @@
 		<div class="col-md-12  margin-bottom-20" ng-if="showCategory">
 			<div class="panel-group acc-v1" id="accordion-1">
 				<div class="panel panel-default by_accordian"
-					ng-repeat="category in $root.discussCategoryMap">
+					ng-repeat="category in categoryLists">
 					<div class="panel-heading">
+						<h4 class="panel-title by_editor_ParentCategories">
+							<label>
+								{{category.displayMenuName}}
+								<input type="checkbox"ng-click="selectTag($event, category)" value="{{category.id}}" ng-checked="{{selectedMenuId === category.id}}">
+							</label>
+						</h4>
+					</div>
+					<!--<div class="panel-heading">
 						<h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length <= 0">
 							<label ng-if="category.parentMenuId">
 								{{$root.menuCategoryMap[category.parentMenuId].displayMenuName + " >> " +category.displayMenuName}}
@@ -215,14 +258,14 @@
 								value={{subCategory.id}} ng-checked="{{selectedMenuId === subCategory.id}}">
 							<span>{{subCategory.displayMenuName}}</span>
 						</div>
-					</div>
+					</div>-->
 					<div style="clear: both"></div>
 				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 
-		<div class="col-md-12 by_editor_white_bg">
+		<div class="col-md-12 margin-bottom-20">
 			<div ng-show="errorMsg">
 				<font color="red">{{errorMsg}}</font>
 			</div>

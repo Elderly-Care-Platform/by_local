@@ -6,7 +6,6 @@
     margin-top:20px;
     width:225px;
     padding-bottom: 1px !important;
-	border:1px solid #ccc;
 	border-top:0px;
 }
 
@@ -34,8 +33,9 @@
     padding: 5px;
     padding-left: 10px;
     margin-bottom: 10px;
-    background: #696969 !important;
-	color: #fff !important;
+    border-top:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+	color: #000 !important;
 }
 .by_discDetail_alsoWrap .by_discDetail_alsoContent{
     color:  #848484;
@@ -49,7 +49,7 @@
     border-bottom-width:1px;
     padding-left:10px;
     padding-right:5px;
-    margin: 10px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
 	padding-bottom: 0px !important;
 }
 .by_discDetail_alsoWrap .by_discDetail_alsoContent:last-child{
@@ -63,7 +63,7 @@
     border: 1px solid #d8d8d8;
     margin-bottom: 20px;
     padding: 0px;
-    max-width: 720px;
+    /*max-width: 720px;*/
     border-radius: 2px !important;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -167,7 +167,7 @@
 	margin-top: -20px;
     border-top: 0px;
     border-radius: 0px !important;
-    max-width: 720px;
+    /*max-width: 720px;*/
     min-height: 60px ;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -186,6 +186,5 @@
 .by_discDetail_alsoWrap
 {	
 	width: 100% !important;
-	border-right: 1px solid #ccc;
 }
 }

@@ -3,6 +3,8 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.institutionProfile = $scope.$parent.profileData;
         $scope.slideIndex = 1;
         var reviewDetails = new ReviewRateProfile();
+
+
         
         var metaTagParams = {
                 title: $scope.institutionProfile.basicProfileInfo.firstName ? $scope.institutionProfile.basicProfileInfo.firstName : "Institution Profile - Beautiful Years",
@@ -30,6 +32,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
             }
 
         };
+        
 
         $scope.galleryClickHover = function(){
             $(".by-imageGallery-item").css('cursor', 'pointer');

@@ -8,7 +8,7 @@
     margin-bottom: 20px;
     border-radius: 0px !important;
     border:1px solid #ccc;
-    max-width: 720px;
+    /*max-width: 720px;*/
 }
 .replyCard .replyCard
 {
@@ -51,6 +51,10 @@
 {
 	padding:0px 15px;
 	text-align:right;
+}
+#reviewTextArea_ifr
+{
+    height: 80px !important;
 }
 .replyCardShareList li
 {

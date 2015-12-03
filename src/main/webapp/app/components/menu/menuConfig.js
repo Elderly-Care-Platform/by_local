@@ -2,16 +2,6 @@ var BY = BY || {};
 BY.config = BY.config || {};
 BY.config.menu = BY.config.menu || {};
 
-BY.config.menu.homeProduct = {
-    'by_the_condition':
-    {
-        'id': 10200
-    },
-    'heart_bp':
-    {
-        'id': 10203
-    }
-}
 
 BY.config.menu.modules = {
     'discuss' : {
@@ -27,6 +17,11 @@ BY.config.menu.modules = {
         'moduleId' : 3
     }
 }
+
+BY.config.menu.seniorLiving = {
+    'id' : '55bcadaee4b08970a736784c'
+}
+
 BY.config.menu.moduleConfig = {
     '0' : {
         'baseUrl':'#!/discuss/list',
@@ -68,56 +63,83 @@ BY.config.menu.home = {
    '564071623e60f5b66f62df27' : {
         'orderId': '0',
         'name':'Communities',
-        'desc1':'Get informed & inspired ',
+        'desc1':'Get support. Ask questions.',
         'desc2':'Share experiences ',
-        'imageSmall':'assets/img/home/share.png?versionTimeStamp=%PROJECT_VERSION%'
+        'imageSmall':'assets/img/home/share_btn.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '56406cd03e60f5b66f62df26' : {
         'orderId': '1',
         'name':'Directory',
         'desc1':'services for seniors',
         'desc2':' senior living facilities',
-        'imageSmall':'assets/img/home/directory.png?versionTimeStamp=%PROJECT_VERSION%'
+        'imageSmall':'assets/img/home/directory_btn.png?versionTimeStamp=%PROJECT_VERSION%'
     },
     '55bcad7be4b08970a736784b' : {
         'orderId': '2',
         'name':'Shop',
         'desc1':' Improving lives:',
         'desc2':'products for seniors ',
-        'imageSmall':'assets/img/home/product.png?versionTimeStamp=%PROJECT_VERSION%'
+        'imageSmall':'assets/img/home/shop_btn.png?versionTimeStamp=%PROJECT_VERSION%'
     }
 }
 
 BY.config.menu.homeIcon = {
-   '564072883e60f5b66f62df2d' : {        
+   '564072883e60f5b66f62df2d' : { 
+        'name': 'caring for parents',       
         'image':'assets/img/home/caring-for-parents.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '564072373e60f5b66f62df2b' : {        
+    '564072373e60f5b66f62df2b' : {  
+        'name': 'beautiful ageing',             
         'image':'assets/img/home/beautiful-ageing.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '5640726c3e60f5b66f62df2c' : {        
+    '5640726c3e60f5b66f62df2c' : {  
+        'name': 'active leisure',             
         'image':'assets/img/home/active-leisure.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '55befb69e4b07cedaa26780d' : {        
-        'image':'assets/img/home/caregivers-nurses.png?versionTimeStamp=%PROJECT_VERSION%'
+    '55befb69e4b07cedaa26780d' : {  
+        'name': 'caregivers and nurses',             
+        'image':'assets/img/home/caregivers-and-nurses.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '55befb86e4b07cedaa26780e' : {        
+    '55befb86e4b07cedaa26780e' : {  
+        'name': 'physiotherapy',             
         'image':'assets/img/home/physiotherapy.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '55befc45e4b07cedaa26781a' : {        
+    '55befc45e4b07cedaa26781a' : { 
+        'name': 'home diagnostics',              
         'image':'assets/img/home/home-diagnostics.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '55befb1ae4b07cedaa26780b' : {        
-        'image':'assets/img/home/medical-equipment-supply.png?versionTimeStamp=%PROJECT_VERSION%'
+    '10201' : {     
+        'name': 'diabetes',      
+        'image':'assets/img/home/diabetes.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '55befaeee4b07cedaa26780a' : {        
-        'image':'assets/img/home/emergency-services.png?versionTimeStamp=%PROJECT_VERSION%'
+    '10203' : {   
+        'name': 'heart and Blood Pressure',            
+        'image':'assets/img/home/heart-blood-pressure.png?versionTimeStamp=%PROJECT_VERSION%'
     },
-    '55bcadaee4b08970a736784c' : {        
-        'image':'assets/img/home/housing.png?versionTimeStamp=%PROJECT_VERSION%'
+    '10208' : { 
+        'name': 'stroke Paralytic',              
+        'image':'assets/img/home/stroke-paralytic.png?versionTimeStamp=%PROJECT_VERSION%'
+    },
+    '10450' : { 
+        'name': 'respiratory',              
+        'image':'assets/img/home/respiratory.png?versionTimeStamp=%PROJECT_VERSION%'
     }
 }
 
+BY.config.menu.leafProduct = {
+    '10201' : {
+        'id': 10201
+    },
+    '10203' : {
+        'id': 10203
+    },
+    '10208' : {
+        'id': 10208
+    },
+    '10450' : {
+        'id': 10450
+    }
+}
 
 BY.config.menu.community = {
     '55bcae5ee4b08970a736784e' : {     
@@ -306,7 +328,7 @@ BY.config.menu.community = {
         'name':'Caring for parents',    
         'menuIconImageDesktop':'',
         'menuIconImageMobile':'',    
-        'desc':'We are taking care of aging parents. Sharing questions, answers, tips, stories, emotions, diaries of caretakers – and more.'
+        'desc':'Taking care of aging parents. Sharing questions,  tips, stories,  diaries  – and more.'
     },
      '564072373e60f5b66f62df2b' : { 
         'name':'Beautiful ageing',  

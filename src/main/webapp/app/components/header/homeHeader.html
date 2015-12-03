@@ -6,19 +6,18 @@
     </div>
 
     <!--  Desktop version -->
-    <div class="by_header_right_other divRight" ng-if="$root.windowWidth > 720" style="width:272px;">
+    <div class="by_header_right_other divRight desktopSite"  style="width:272px;">
        <div style="margin-left:-111px; text-align:right;">
-            <a di-href="#!/users/aboutUs" id="aboutUs_placeholder">About us</a>
-            <span class="by_header_right_divider">|</span>
-            <span id="profile_placeHolder_li">
-                <a ng-href="{{profileDetails.link}}" id="profile_placeholder">
-                    <span ng-if="profileDetails.text.length < 9" style="color:#fff;">{{profileDetails.text}}</span>
-                    <span ng-if="profileDetails.text.length >= 9" style="color:#fff;">{{profileDetails.text.substring(0, 9)}}...</span>
+             <a di-href="#!/users/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
+            
+           <span ng-if="profileDetails.text">
+                <a ng-href="{{profileDetails.link}}" class="menuPipeline" id="profile_placeholder" style="color:#fff;">
+                    {{profileDetails.text}}
                 </a>
-            </span>
-            <span id="login_placeHolder_li" class="by_header_right_divider" ng-show="loginDetails.text.length > 0">|</span>
-            <a ng-href="{{loginDetails.link}}" id="login_placeholder">{{loginDetails.text}}</a>
-            <span class="by_header_right_divider">|</span>
+           </span>
+           
+            <a ng-href="{{loginDetails.link}}" class="menuPipeline" id="login_placeholder">{{loginDetails.text}}</a>
+            
             <span><img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%" width="20"/></span>
             <b><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></b>
 
@@ -26,7 +25,8 @@
         </div>
 
         <div class="divRight" ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-        <div class="by_header_right_search_other divRight" ng-class="$root.totalCartItem > 0 ? 'by_header_right_search_other_cart' : '' ">
+        <div class="by_header_right_search_other divRight" id="BySearch"
+             ng-class="$root.totalCartItem > 0 ? 'by_header_right_search_other_cart' : '' ">
             <div class="by_header_right_search_other_left divLeft">
                 <input type="text" placeholder="Search" ng-model="term"
                        onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
@@ -39,14 +39,16 @@
             <div class="clearfix"></div>
         </div>
     </div>
-    <div class="clearfix" ng-if="$root.windowWidth > 720"></div>
-    <div class="by_menu" ng-if="$root.windowWidth > 720" id="homeMenuScroll">
-        <a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all" ng-repeat="menu in $root.mainMenu">{{menu.displayMenuName}}</a>
+    <div class="clearfix desktopSite" ></div>
+    <div class="by_menu" id="homeMenuScroll">
+        <a href="#!/discuss/list/Stories_&_Opinions_Caregiving_Health_Activities_/564071623e60f5b66f62df27/all">Communities</a>
+        <a href="#!/services/list/Services_Housing_/56406cd03e60f5b66f62df26/all">Directory</a>
+        <a href="#!/products/list/Elder-care-products/55bcad7be4b08970a736784b/all">Shop</a>
     </div>
-    <div class="clearfix" ng-if="$root.windowWidth > 720"></div>
+    <div class="clearfix desktopSite"></div>
 
     <!--           Mobile version                -->
-    <div class="by_header_right_s divRight" ng-if="$root.windowWidth < 720">
+    <div class="by_header_right_s divRight mobileSite">
         <div class="by_header_right_search divLeft">
             <input type="text" placeholder="Search" ng-model="term"
                    onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">

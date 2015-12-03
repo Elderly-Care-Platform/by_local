@@ -51,7 +51,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
 
         function initialize(){
             if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor){
-                $scope.promise = getProducts();
+                return getProducts();
             }
         }
 
@@ -209,10 +209,15 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * @param  {integer} categoryName [description]
          * @return {void}
          */
-        function openProductDescription(productId, categoryId, categoryName) {
-            var path = PAGE_URL.productDescription + '/';
-            path += productId;
-            $location.path(path).search('q', JSON.stringify({'id': categoryId, 'name': categoryName }));
+        function openProductDescription(productId, productName) {
+            var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+                path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
+            $location.path(path);
+        }
+
+        $scope.getSlug = function(slug){
+            var newSlug = slug.replace(/\s+/g, '-').toLowerCase();
+            return 'Elder-care-products-for-' + newSlug;
         }
 
         /**
@@ -259,6 +264,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
 
         $rootScope.byTopMenuId = $rootScope.mainMenu[2].id ;
         $scope.telNo = BY.config.constants.byContactNumber;
+        $scope.selectedMenuId           = $routeParams.menuId;
 
 
       

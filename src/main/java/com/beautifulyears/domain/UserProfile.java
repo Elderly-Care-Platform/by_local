@@ -44,9 +44,6 @@ public class UserProfile {
 
 	@DBRef
 	private List<HousingFacility> facilities = new ArrayList<HousingFacility>();
-	
-	@DBRef
-	private List<ServiceBranch> serviceBranches = new ArrayList<ServiceBranch>();
 
 	private String tags;
 
@@ -138,14 +135,6 @@ public class UserProfile {
 
 	public void setUserTypes(List<Integer> userTypes) {
 		this.userTypes = userTypes;
-	}
-
-	public List<ServiceBranch> getServiceBranches() {
-		return serviceBranches;
-	}
-
-	public void setServiceBranches(List<ServiceBranch> serviceBranches) {
-		this.serviceBranches = serviceBranches;
 	}
 
 	public BasicProfileInfo getBasicProfileInfo() {
@@ -247,17 +236,21 @@ public class UserProfile {
 	public void setFacilities(List<HousingFacility> facilities) {
 		this.facilities = facilities;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "UserProfile [id=" + id + ", userId=" + userId + ", userTypes=" + userTypes + ", basicProfileInfo="
-				+ basicProfileInfo + ", individualInfo=" + individualInfo + ", serviceProviderInfo="
-				+ serviceProviderInfo + ", facilities=" + facilities + ", serviceBranches=" + serviceBranches
-				+ ", tags=" + tags + ", isFeatured=" + isFeatured + ", verified=" + verified + ", createdAt="
-				+ createdAt + ", lastModifiedAt=" + lastModifiedAt + ", systemTags=" + systemTags + ", userTags="
-				+ userTags + ", status=" + status + ", reviewedBy=" + reviewedBy + ", ratedBy=" + ratedBy
-				+ ", aggrRatingPercentage=" + aggrRatingPercentage + ", isReviewedByUser=" + isReviewedByUser
-				+ ", isRatedByUser=" + isRatedByUser + "]";
+		return "UserProfile [id=" + id + ", userId=" + userId + ", userTypes="
+				+ userTypes + ", basicProfileInfo=" + basicProfileInfo
+				+ ", individualInfo=" + individualInfo
+				+ ", serviceProviderInfo=" + serviceProviderInfo
+				+ ", facilities=" + facilities + ", tags=" + tags
+				+ ", isFeatured=" + isFeatured + ", createdAt=" + createdAt
+				+ ", lastModifiedAt=" + lastModifiedAt + ", systemTags="
+				+ systemTags + ", userTags=" + userTags + ", status=" + status
+				+ ", reviewedBy=" + reviewedBy + ", ratedBy=" + ratedBy
+				+ ", aggrRatingPercentage=" + aggrRatingPercentage
+				+ ", isReviewedByUser=" + isReviewedByUser + ", isRatedByUser="
+				+ isRatedByUser + "]";
 	}
 
 }

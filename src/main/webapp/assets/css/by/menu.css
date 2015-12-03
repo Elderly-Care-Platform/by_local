@@ -1,6 +1,6 @@
 .by_menu
 {
-	width: 310px;
+	width: 320px;
 	margin-top: 10px;
 	height: auto;
 	font-size: 18px;
@@ -13,8 +13,8 @@
 .by_menu a
 {
 	color: #fff;
-	margin-left: 17px;
-	margin-right: 17px;
+	margin-left: 11px;
+	margin-right: 10px;
 }
 .by_menu a:hover
 {
@@ -39,6 +39,7 @@
 	height: auto;
 	margin-right: auto;
 	margin-left: auto;
+	max-width: 960px;
 }
 .by_subMenu_headThumb
 {
@@ -96,12 +97,13 @@
 }
 .by_subMenu_contentThumb
 {
-	width: 85%;
+	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 	height: auto;
 	margin-bottom: 10px;
 	padding-top: 10px;
+	max-width: 1000px;
 }
 .by_subMenu_contentItem
 {
@@ -112,8 +114,25 @@
 	float: left;
 	text-align: center;
 	line-height: 18px;
-	opacity: 0.6;
+	opacity: 0.5;
 	text-transform: capitalize;
+}
+.by_subMenu_contentItemMore
+{
+	opacity:1;
+	color:#FF850F;
+	cursor: pointer;
+	margin-top: 30px;
+	font-size: 16px;
+	height: 75px !important;
+}
+.by_subMenu_contentItemMore:hover
+{
+	color:#FFB70F;
+}
+.by_subMenu_contentItemMore img
+{
+	margin-bottom: 10px;
 }
 .by_subMenu_contentItem_active, .by_subMenu_contentItem:hover
 {
@@ -246,13 +265,16 @@
 	text-decoration: none;
 }
 
-.by_subMenuPlus
+.by_subMenuPlus, .by_menuDetailed
 {
 	width: 100%;
 	background: #fff;
 	padding-bottom: 57px;
 	max-width: 250px;
 	box-shadow: 5px 0px 5px #888888;
+}
+.by_menuDetailed{
+	overflow-y:auto;
 }
 /*
 .by_subMenuPlus_head
@@ -367,6 +389,48 @@
 	outline: none;
 	background: transparent;
 }
+.by_profileDetailed_menu
+{
+	font-size: 16px;
+	margin-top: 10px;
+	color: #000;
+	width: 100%;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+.by_profileDetailed_menu:hover
+{	
+	
+}
+.by_profileDetailed_menuActive a
+{
+	color:#005326;
+	text-decoration: underline;
+}
+.by_profileDetailed_menuIcon
+{
+	font-size: 16px;
+	margin-top: 10px;
+	color: #000;
+	width: 100%;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	padding: 4px 10px 4px 10px;
+	cursor: pointer;
+}
+.by_profileDetailed_menuIcon i 
+{
+	display: block;
+	float: left;
+}
+.by_profileDetailed_menuIcon span{
+	display: block;
+	float: left;
+}
+.by_faAlign
+{
+    margin: 4px 10px 0px 3px;
+}
 @media ( max-width : 1000px){
 	.by_subMenu_contentItem
 	{
@@ -381,8 +445,9 @@
 	}
 	.by_menu
 	{		
-		margin-left: 30%;
-		width: 235px;
+		margin-left: 27%;
+		width: 259px;
+		font-size: 16px;
 	}	
 	.by_menu a
 	{
@@ -429,6 +494,10 @@
 	}
 }
 @media ( max-width : 720px){
+	#homeMenuScroll
+	{
+		display: none !important;
+	}
 	.by_menu
 	{
 		float: right;

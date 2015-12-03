@@ -1,5 +1,5 @@
-<div class="by_sectionHeader" ng-if="selectedMenu" >
-    {{selectedMenu.displayMenuName}}
+<div class="by_sectionHeader" ng-if="selectedMenu && $root.byTopMenuId != selectedMenuId" >
+    {{selectedMenu.displayMenuName}} 
 </div>
 
 <div ng-repeat="service in services" class="ng-scope" style="position:relative;">

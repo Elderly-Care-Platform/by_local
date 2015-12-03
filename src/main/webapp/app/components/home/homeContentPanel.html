@@ -8,26 +8,21 @@
 						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Communities</a>
 					</div>
 					<div class="by_homeSection_desc">
-						We help each other take better care of parents. We would like to age happier, and to live longer. <br/>Join our communities  - get informed, show your talents, and share your experience. 
+						We help each other take better care of parents. We would like to age happier, and to live longer. <!--<br/>Join our communities  - get informed, show your talents, and share your experience. -->
 					</div>		
 				</div>
 				<div class="by_homeSection_image divLeft">
-					<img src="assets/img/home/community.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+					<img src="assets/img/home/community_low.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
 				</div>
 				<div class="clearfix"></div>
 			</div>
-			<div class="by_homeSection_menuWrap by_homeComm_menuWrap">
-
+			<div class="by_homeSection_menuTitle">
+				Ask anything about senior care or aging. Share your experiences.
+			</div><div class="clearfix"></div>
+			<div class="by_homeSection_menuWrap">
 				<div ng-repeat="menu in menuMapConfig[menu.id].children">
 					<div class="by_homeSection_menu">
-						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
-							<div class="by_homeSection_menuImage">
-								<img ng-src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">
-							</div>
-							<div class="by_homeSection_menuText">
-								{{menu.displayMenuName}}
-							</div>
-						</a>
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all"><img ng-src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">{{menu.displayMenuName}}</a>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -42,28 +37,32 @@
 						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">Directory</a>
 					</div>
 					<div class="by_homeSection_desc">
-						Are you looking for a caregiver or a nurse for your relatives? Considering a retirement home? Looking for a good lawyer to prepare a will? Find whatever you need in our directory. 
+						Are you looking for a caregiver or a nurse for your relatives? Considering a retirement home? Looking for a good lawyer to prepare a will? <!--Find whatever you need in our directory. -->
 					</div>
 				</div>
 				<div class="by_homeSection_image divRight">
-					<img src="assets/img/home/directoryHome.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+					<img src="assets/img/home/directory_low.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
 				</div>
 				<div class="clearfix"></div>
 			</div>
+			<div class="by_homeSection_menuTitle">
+				Find any service for seniors or senior living facilities
+			</div><div class="clearfix"></div>
 			<div class="by_homeSection_menuWrap">
-				<div ng-repeat="menu in menuMapConfig[menu.id].children" ng-if="menu.module != 0 && menu.id != '5640801e3e60f5b66f62df37'">
-					<div class="by_home_find_menu" >
-						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all">
-							<div class="by_homeSection_menuImage">
-								<img src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">
-							</div>
-							<div class="by_homeSection_menuText">
-								{{menu.displayMenuName}}
-							</div>
+				<div ng-repeat="menu in menuMapConfig[menu.id].children" >
+					<div class="by_homeSection_menu" ng-if="$index < 3">
+						<a href="{{moduleConfig[menu.module].baseUrl}}/{{menu.slug}}/{{menu.id}}/all"><img src="{{homeimageConfig[menu.id].image}}" alt="{{menu.displayMenuName}}">	{{menu.displayMenuName}}
 						</a>
 					</div>
 				</div>
 				<div class="clearfix"></div>
+			</div>
+			<div class="by_homeSection_menuMore">
+				<a href="{{moduleConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">
+				<div class="divLeft">More </div>
+				<div class="divLeft by_homeSection_menuMoreImg"></div>
+				<div class="clearfix"></div>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -79,7 +78,7 @@
 					</div>
 				</div>
 				<div class="by_homeSection_image divLeft">
-					<img src="assets/img/home/shop.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
+					<img src="assets/img/home/shop_low.png?versionTimeStamp=%PROJECT_VERSION%" width="100%">
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -98,18 +97,27 @@
 			<div class="by_homeShop_border"></div>
 			<div class="by_homeShop_menu2">
 				<div ng-repeat="menu in menuMapConfig[menu.id].children">
-					<div ng-repeat="leaf in menu.subcategories" ng-if="menu.id == menuConfig.homeProduct['by_the_condition'].id">
-						<div class="by_home_product_menu" ng-if="leaf.id != menuConfig.homeProduct['heart_bp'].id">
+					<div ng-repeat="leaf in menu.subcategories" ng-if="menuConfig.leafProduct[leaf.id]">
+						<div class="by_home_product_menu">
 							<a  href="{{moduleConfig[menu.module].baseUrl}}/{{leaf.slug}}/{{leaf.id}}/all">
-								<div class="by_home_product_image{{$index+1}} by_home_product_image"></div>
-								<div class="by_homeSection_menuText">
-									{{leaf.name}}
-								</div>
+								<div class="by_home_product_image">
+									<img src="{{homeimageConfig[leaf.id].image}}" width="100%">
+								</div>{{leaf.name}}
+								<div class="clearfix" style="height:10px;"></div>
 							</a>
 						</div>
+
 					</div>
 				</div>
 				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="by_homeSection_shopMore">
+				<a href="{{moduleConfig[menu.module].baseUrl}}/{{menuMapConfig[menu.id].slug}}/{{menuMapConfig[menu.id].id}}/all">
+				<div class="divLeft">More </div>
+				<div class="divLeft by_homeSection_shopMoreImg"></div>
+				<div class="clearfix"></div>
+				</a>
 			</div>
 		</div>
 	</div>

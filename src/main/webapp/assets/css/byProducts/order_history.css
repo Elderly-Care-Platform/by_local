@@ -59,7 +59,7 @@
 .by_orderHistory_dataSpace
 {
   float: left;
-  margin-right:1%;
+  margin-right:2%;
 }
 .by_orderHistory_dataImage
 {  
@@ -72,11 +72,11 @@
 }
 .by_orderHistory_dataDesc
 {
-  width: 30%;
+  width: 34%;
 }
 .by_orderHistory_dataDelivery
 {
-  width:25%;
+  width:40%;
 }
 .by_orderHistory_dataOrder
 {
@@ -92,7 +92,7 @@
 }
 .by_orderHistory_dataOrderTotal
 {
-  width:30%;
+  width:50%;
   float: right;
   text-align: right;
 }
@@ -130,6 +130,7 @@
   {
     width: calc(97% - 102px);
     margin-left: 1%;
+    float:right;
   }
   .by_orderHistory_dataDelivery
   {

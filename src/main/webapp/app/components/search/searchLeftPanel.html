@@ -1,24 +1,46 @@
 <!--All classes from Unify start-->
-<div class="col-md-12 left-container-img-wrapper no-padding by_left_panel_fixed">
-    <div class="scrollableLeftPanelDiv by-filter-links">
-        <ul class="list-group sidebar-nav-v1 margin-bottom-40 "
-            id="sidebar-nav" >
-            <li class="list-group-item" ng-if="discussTotal>0" ng-init="setSelectedTab('d')"
+<div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720"  style="position:fixed; bottom:0px;"  ng-init="leftPanelHeight();">
+      
+            <div class="by_profileDetailed_menu" ng-if="discussTotal>0" ng-init="setSelectedTab('d')"
                 ng-click="setSelectedTab('d')" ng-class="{'active':selectedTab==='d'}" >
                 <a >Posts/Q &amp; A({{discussTotal}})</a>
-            </li>
-            <li class="list-group-item" ng-if="serviceTotal>0" ng-init="setSelectedTab('d')"
+            </div>
+            <div class="by_profileDetailed_menu" ng-if="serviceTotal>0" ng-init="setSelectedTab('d')"
                 ng-click="setSelectedTab('s')" ng-class="{'active':selectedTab==='s'}" >
                 <a >Services ({{serviceTotal}})</a>
-            </li>
-            <li class="list-group-item" ng-if="housingTotal>0" ng-init="setSelectedTab('d')"
+            </div>
+            <div class="by_profileDetailed_menu" ng-if="housingTotal>0" ng-init="setSelectedTab('d')"
                 ng-click="setSelectedTab('h')" ng-class="{'active':selectedTab==='h'}">
                 <a >Housing ({{housingTotal}})</a>
-            </li>
-            <li class="list-group-item" ng-if="productsTotal>0" ng-init="setSelectedTab('d')"
+            </div>
+            <div class="by_profileDetailed_menu" ng-if="productsTotal>0" ng-init="setSelectedTab('d')"
                 ng-click="setSelectedTab('p')" ng-class="{'active':selectedTab==='p'}">
                 <a >Products ({{productsTotal}})</a>
-            </li>
-        </ul>
-    </div>
+            </div>
 </div>
+
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+    <div class="by_mobile_leftPanel" style="padding:0px 15px;">
+       
+       <div class="by_profileDetailed_menu" ng-if="discussTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('d')" ng-class="{'active':selectedTab==='d'}" >
+                <a >Posts/Q &amp; A({{discussTotal}})</a>
+            </div>
+            <div class="by_profileDetailed_menu" ng-if="serviceTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('s')" ng-class="{'active':selectedTab==='s'}" >
+                <a >Services ({{serviceTotal}})</a>
+            </div>
+            <div class="by_profileDetailed_menu" ng-if="housingTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('h')" ng-class="{'active':selectedTab==='h'}">
+                <a >Housing ({{housingTotal}})</a>
+            </div>
+            <div class="by_profileDetailed_menu" ng-if="productsTotal>0" ng-init="setSelectedTab('d')"
+                ng-click="setSelectedTab('p')" ng-class="{'active':selectedTab==='p'}">
+                <a >Products ({{productsTotal}})</a>
+            </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
+</div>
+
+

@@ -6,43 +6,46 @@ define(['byProductApp'], function (byProductApp) {
                                      SelectAddressService,
                                      CartService,
                                      BreadcrumbService,
-                                     PAGE_URL, SessionIdService) {
+                                     PAGE_URL, SessionIdService, LogisticService) {
 
         $log.debug('Inside SelectAddress Controller');
 
         var breadCrumb;
         $scope.customerId = null;
         $scope.shipToAddressDisabled = false;
-        if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
-            $scope.customerId = localStorage.getItem("by_cust_id");
-        }
         $scope.userProfile = null;
+        $scope.selectedAddress = null;
         $scope.editAddress = editAddress;
         $scope.shipToAddress = shipToAddress;
         $scope.shipToNewAddress = shipToNewAddress;
-        breadCrumb = {'url': PAGE_URL.cart, 'displayName': 'CART'};
-        BreadcrumbService.setBreadCrumb(breadCrumb, 'SHIPPING ADDRESS');
-        //Todo:Show message if cart is empty,and user directly open this url
 
-        /**
-         * Retrieve the list of address
-         */
-        var getAddressPromise = SelectAddressService.getAddress();
-        if(getAddressPromise){
-            getAddressPromise.then(successCallBack, errorCallBack);
+        if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
+            $scope.customerId = localStorage.getItem("by_cust_id");
         }
 
-        /**
-         * Stored thelist of address in address object
-         * @param  {object} result contains list of address
-         * @return {void}
-         */
-        function successCallBack(result) {
-            $scope.customerAddress = result.data.data;
-        }
+        var init = initialize();
 
-        function errorCallBack() {
-            console.log('can\'t get the data');
+        function initialize(){
+            /**
+             * Retrieve the list of address
+             */
+            var getAddressPromise = SelectAddressService.getAddress();
+            if(getAddressPromise){
+                getAddressPromise.then(successCallBack, errorCallBack);
+            }
+
+            /**
+             * Store the list of address in address object
+             * @param  {object} result contains list of address
+             * @return {void}
+             */
+            function successCallBack(result) {
+                $scope.customerAddress = result.data.data;
+            }
+
+            function errorCallBack() {
+                console.log('can\'t get the data');
+            }
         }
 
         /**
@@ -60,8 +63,37 @@ define(['byProductApp'], function (byProductApp) {
          * @return {void}
          */
         function shipToAddress(addressIndex) {
-            var selectedAddress = $scope.customerAddress[addressIndex];
-            $location.path(PAGE_URL.paymentGateway + addressIndex);
+            $scope.selectedAddress = $scope.customerAddress[addressIndex];
+            var pinCode = $scope.selectedAddress.address.zip;
+            if(pinCode){
+                checkLogisticAvailability(pinCode);
+            }else{
+                $scope.selectedAddress.shipToAddressDisabled = true;
+            }
+        }
+
+        function checkLogisticAvailability(pincode){
+            var checkLogistic = LogisticService.checkLogisticAvailability(pincode);
+            if(checkLogistic){
+                checkLogistic.then(logisticSuccessRes, logisticErrorRes);
+            }
+
+            function logisticSuccessRes(data){
+                console.log("Logistic Available");
+                if(data.data === "" || data.status === 240){
+                    console.log("Logistic Unavailable");
+                    $scope.selectedAddress.logisticError = true;
+                }else{
+                    console.log("Logistic Available");
+                    $location.path(PAGE_URL.paymentGateway + $scope.selectedAddress.id);
+                }
+
+            }
+
+            function logisticErrorRes(data){
+                console.log("Logistic Unavailable");
+                $scope.selectedAddress.logisticError = true;
+            }
         }
 
         /**
@@ -76,16 +108,32 @@ define(['byProductApp'], function (byProductApp) {
             $scope.cartItemCount = args;
         });
 
+        $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+        }
+
+        $scope.subMenuTabMobileShow = function () {
+            $(".by_mobile_leftPanel_image").click(function () {
+                if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
+                    $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
+                } else {
+                    $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-minG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
+                }
+            });
+        };
 
     }
-
-    
 
     SelectAddressController.$inject = ['$scope', '$log', '$location', '$rootScope',
         'SelectAddressService',
         'CartService',
         'BreadcrumbService',
-        'PAGE_URL', 'SessionIdService'];
+        'PAGE_URL', 'SessionIdService', 'LogisticService'];
 
 
     byProductApp.registerController('SelectAddressController', SelectAddressController);

@@ -10,7 +10,7 @@
 	height: 27px;
 	/*background-position: -160px -186px;*/
 	background:
-		url("../img/sprite/ask.png?versionTimeStamp=%PROJECT_VERSION%");
+		url("../img/sprite/ask.png?versionTimeStamp=%PROJECT_VERSION%") no-repeat;
 	margin: 3px 0px;
 }
 
@@ -27,7 +27,7 @@
 	width: 24px;
 	height: 27px;
 	background:
-		url("../img/sprite/share_new.png?versionTimeStamp=%PROJECT_VERSION%");
+		url("../img/sprite/share_new.png?versionTimeStamp=%PROJECT_VERSION%") no-repeat;
 	margin: 3px 0px;
 }
 

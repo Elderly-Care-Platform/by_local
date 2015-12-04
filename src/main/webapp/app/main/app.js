@@ -50,7 +50,7 @@ define([
 		window.fbAsyncInit = function() {
 			// Executed when the SDK is loaded
 			FB.init({
-				appId: '475153235986093',
+				appId: '515424301943282',
 				//appId: 1503191563249716,
 				xfbml: true,
 				version    : 'v2.3'

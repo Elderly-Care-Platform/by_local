@@ -62,6 +62,42 @@ define(['byApp', 'byUtil', 'homePromoController',
             if($rootScope.totalProductCount){
                 $scope.animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
             }
+
+            $(".by_ourExpertTop .by_ourExpertThumb").click(function(){
+                var index = $(this).index();
+                $(".by_ourExpertDesc").hide();
+                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
+                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
+                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
+                $(this).find(".by_ourExpertThumbArrow").css('visibility','visible');
+                $(this).find(".by_ourExpertThumbImg").addClass('by_ourExpertThumbImgActive');
+                $(this).addClass('by_ourExpertThumbColor');
+                $(".by_ourExpertTop .by_ourExpertDesc").eq(index).show();
+            });
+
+             $(".by_ourExpertTop .by_ourExpertThumb").hover(function(){
+                var index = $(this).index();
+                $(".by_ourExpertDesc").hide();
+                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
+                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
+                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
+                $(this).find(".by_ourExpertThumbArrow").css('visibility','visible');
+                $(this).find(".by_ourExpertThumbImg").addClass('by_ourExpertThumbImgActive');
+                $(this).addClass('by_ourExpertThumbColor');
+                $(".by_ourExpertTop .by_ourExpertDesc").eq(index).show();
+            });
+
+            $(".by_ourExpertTop2 .by_ourExpertThumb").click(function(){
+                var index = $(this).index();
+                $(".by_ourExpertDesc").hide();
+                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
+                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
+                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
+                $(this).find(".by_ourExpertThumbArrow").css('visibility','visible');
+                $(this).find(".by_ourExpertThumbImg").addClass('by_ourExpertThumbImgActive');
+                $(this).addClass('by_ourExpertThumbColor');
+                $(".by_ourExpertTop2 .by_ourExpertDesc").eq(index).show();
+            });
         }
 
         BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location'];

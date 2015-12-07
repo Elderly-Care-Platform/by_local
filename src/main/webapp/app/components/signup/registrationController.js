@@ -32,7 +32,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
-            $(".by_menuDetailed").css('min-height', clientHeight+"px");
+            $(".by_menuDetailed").css('height', clientHeight+"px");
         }
 
         $scope.subMenuTabMobileShow = function () {

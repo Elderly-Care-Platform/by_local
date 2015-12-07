@@ -63,6 +63,9 @@ $(window).scroll(function(){
 	
 	var footerv1Height = $(".footer-v1").height()+10;
 	$(".topScroll").css('bottom',  "8px");
+	if($(window).width()<830){
+		$(".topScroll").css('bottom',  "37px");
+	}
 	
 	
 });
@@ -106,8 +109,11 @@ BY.byUtil.updateMetaTags = function(param){
 	if(title.indexOf("Beautiful Years") == -1){
 		title += " - Beautiful Years";
 	}
-	
+
+	var url = location.origin+"/"+location.hash;
 	document.title = title;
+
+	$("meta[property='og\\:url']").attr("content", url);
 	$("meta[property='og\\:title']").attr("content", title);
 	$("meta[name='twitter\\:title']").attr("content", title);
 	$("meta[property='og\\:description']").attr("content", description);
@@ -124,6 +130,14 @@ BY.byUtil.updateMetaTags = function(param){
 			$("meta[property='og\\:image\\:height']").attr("content", tmpImg.height);
 		});
 		$("meta[property='og\\:image\\:width']").attr("content", imageUrl);
+	}
+
+	var links = document.getElementsByTagName("link");
+	//var canonical = "";
+	for (var i = 0; i < links.length; i ++) {
+		if (links[i].getAttribute("rel") === "canonical") {
+			links[i].setAttribute("href", url);
+		}
 	}
 }
 

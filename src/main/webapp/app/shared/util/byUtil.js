@@ -109,8 +109,12 @@ BY.byUtil.updateMetaTags = function(param){
 	if(title.indexOf("Beautiful Years") == -1){
 		title += " - Beautiful Years";
 	}
-	
+
+	var url = location.origin+"/"+location.hash;
 	document.title = title;
+	description = description.length>300 ? description.substring(0,300)+'...' : description;
+
+	$("meta[property='og\\:url']").attr("content", url);
 	$("meta[property='og\\:title']").attr("content", title);
 	$("meta[name='twitter\\:title']").attr("content", title);
 	$("meta[property='og\\:description']").attr("content", description);
@@ -126,7 +130,15 @@ BY.byUtil.updateMetaTags = function(param){
 			$("meta[property='og\\:image\\:width']").attr("content", tmpImg.width);
 			$("meta[property='og\\:image\\:height']").attr("content", tmpImg.height);
 		});
-		$("meta[property='og\\:image\\:width']").attr("content", imageUrl);
+
+	}
+
+	var links = document.getElementsByTagName("link");
+	//var canonical = "";
+	for (var i = 0; i < links.length; i ++) {
+		if (links[i].getAttribute("rel") === "canonical") {
+			links[i].setAttribute("href", url);
+		}
 	}
 }
 

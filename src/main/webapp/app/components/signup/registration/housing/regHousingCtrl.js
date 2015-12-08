@@ -107,10 +107,10 @@ define(['byApp', 'byUtil', 'regHousingFacilityCtrl'], function(byApp, byUtil, re
             }
 
             if($scope.facilityIndex == 0){
-                $scope.views.corporateFormView = "app/components/signup/registration/regHousingCorp.html?versionTimeStamp=%PROJECT_VERSION%";
+                $scope.views.corporateFormView = "app/components/signup/registration/housing/regHousingCorp.html?versionTimeStamp=%PROJECT_VERSION%";
             }
 
-            $scope.views.facilityFormView = "app/components/signup/registration/regHousingFacility.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.views.facilityFormView = "app/components/signup/registration/housing/regHousingFacility.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
 

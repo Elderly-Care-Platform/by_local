@@ -130,7 +130,7 @@ BY.byUtil.updateMetaTags = function(param){
 			$("meta[property='og\\:image\\:width']").attr("content", tmpImg.width);
 			$("meta[property='og\\:image\\:height']").attr("content", tmpImg.height);
 		});
-		$("meta[property='og\\:image\\:width']").attr("content", imageUrl);
+
 	}
 
 	var links = document.getElementsByTagName("link");

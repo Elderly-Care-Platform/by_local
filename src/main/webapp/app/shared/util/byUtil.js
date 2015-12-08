@@ -112,6 +112,7 @@ BY.byUtil.updateMetaTags = function(param){
 
 	var url = location.origin+"/"+location.hash;
 	document.title = title;
+	description = description.length>300 ? description.substring(0,300)+'...' : description;
 
 	$("meta[property='og\\:url']").attr("content", url);
 	$("meta[property='og\\:title']").attr("content", title);

@@ -28,7 +28,7 @@ BY.config.regConfig.userTypeConfig = {
     },
     '0' : {
         'type':'0',
-        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/signup/registration/individual/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regIndividualCtrl',
         'category':'CAREGIVER',
@@ -38,7 +38,7 @@ BY.config.regConfig.userTypeConfig = {
     },
     '1' : {
         'type':'1',
-        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/signup/registration/individual/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regIndividualCtrl',
         'category':'ELDER',
@@ -48,7 +48,7 @@ BY.config.regConfig.userTypeConfig = {
     },
     '2' : {
         'type':'2',
-        'contentPanel':'app/components/signup/registration/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/signup/registration/individual/regIndividual.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regIndividualCtrl',
         'category':'CURIOUS',
@@ -58,7 +58,7 @@ BY.config.regConfig.userTypeConfig = {
     },
     '3' : {
         'type':'3',
-        'contentPanel':'app/components/signup/registration/regHousing.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/signup/registration/housing/regHousing.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regHousingCtrl',
         'category':'HOUSING',
@@ -68,7 +68,7 @@ BY.config.regConfig.userTypeConfig = {
     },
     '4' : {
         'type':'4',
-        'contentPanel':'app/components/signup/registration/regInstitution.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/signup/registration/institution/regInstitution.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regInstitutionCtrl',
         'category':'SERVICES',
@@ -90,7 +90,7 @@ BY.config.regConfig.userTypeConfig = {
     },
     '7' : {
         'type':'7',
-        'contentPanel':'app/components/signup/registration/regProfessional.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel':'app/components/signup/registration/professional/regProfessional.html?versionTimeStamp=%PROJECT_VERSION%',
         'leftPanel' : "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%",
         'controller' : 'regProfessionalCtrl',
         'category':'PROFESSIONAL',
@@ -206,5 +206,55 @@ BY.config.regConfig.housingFacility = {
         'isRatedByUser' : false, 
         
         'website' : ""
+
+};
+
+BY.config.regConfig.institutionBranch = {
+        'id' : "",
+        
+        'userId' : "",
+
+        'basicBranchInfo' : {
+            "firstName":"",
+               "profileImage":{  
+                  "original":"",
+                  "titleImage":"",
+                  "thumbnailImage":""
+               },
+               "primaryEmail":"",
+               "secondaryEmails":[],
+               "primaryPhoneNo":"",
+               "secondaryPhoneNos":[ ],
+               "description":"",
+               "photoGalleryURLs":[],
+               "primaryUserAddress":{  
+                  "streetAddress":"",
+                  "city":"",
+                  "zip":"",
+                  "locality":"",
+                  "country":""
+               },
+               "otherAddresses":[],
+               "shortDescription":""
+        },
+        "serviceProviderInfo":{  
+               "services":[ ],
+               "homeVisits":false,
+               "website":"",
+               "yearsExperience":0,
+               "incorporationDate":null,
+               "specialities":null
+            },
+        "verified":false,
+            "createdAt":1449474215743,
+            "lastModifiedAt":1449474215743,
+            "systemTags":[  ],
+            "userTags":[  ],
+            "status":0,
+            "aggrRatingPercentage":0.0,
+            "reviewedByUser":false,
+            "ratedByUser":false,
+            "featured":false
+
 
 };

@@ -55,7 +55,7 @@ body p, body span, body div
     color: #000000;
 }
 
-body a
+body a, body h1
 {
     /*color: #00A24A;*/
     color: #004f24 ;

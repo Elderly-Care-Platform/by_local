@@ -26,6 +26,7 @@ BY.byEditor.addEditor = function(param, initCallback){
 
     var textAreas = $("textarea");
     var isCommentEditor = param.commentEditor ? param.commentEditor : false, toolbar, plugins;
+    var autoFocus = (param.autoFocus && param.autoFocus==="false") ? false : true;
     if(isCommentEditor){
         toolbar = "bold italic | emoticons";
         plugins = [
@@ -43,7 +44,7 @@ BY.byEditor.addEditor = function(param, initCallback){
     }
     tinymce.init({
         selector: "#"+param.editorTextArea,
-        //auto_focus:true,
+        auto_focus:autoFocus,
         theme: "modern",
         skin: 'light',
         statusbar: false,

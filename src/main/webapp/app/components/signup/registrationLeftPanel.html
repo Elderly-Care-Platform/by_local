@@ -8,19 +8,51 @@
                 <a href="#!/users/registration/changeCredential?changeUserPwd=true">Change Password</a>
             </div>
 
+            <!-- profile types i am -->
             <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
                 <a href="#!/users/registrationProfile">I am...</a>
             </div>
-            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0">
+            <!-- profile types i am ends -->
+
+            <!-- profile types  -->
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] != 3 && profile.userTypes[0] != 4 ">
                 <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
             </div>
+            <!-- profile types  ends -->
+
+
+            <!-- profile types with housing -->
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] == 3 && housingFacilityTabs.length == 0">
+                <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
+            </div>
+
+
+            <div class="by_profileDetailed_menu  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
+                ng-repeat="facilityTab in housingFacilityTabs track by $index" ng-class="{'by_profileDetailed_menuActive':facilityIdx===$index}">
+                <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
+            </div>   
+            <!-- profile types with housing -->
+
+            <!-- profile types with institution -->
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] == 4 && institutionBranchTabs.length == 0">
+                <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
+            </div>
+
+
+            <div class="by_profileDetailed_menu  reg-menu-1 serviceTab{{$index+1}}" ng-if="institutionBranchTabs.length > 0"
+                ng-repeat="serviceTab in institutionBranchTabs track by $index" ng-class="{'by_profileDetailed_menuActive':branchIdx===$index}">
+                <a di-href="#!/users/institutionRegistration/{{$index}}">{{serviceTab}}</a>
+            </div>   
+            <!-- profile types with institution -->
+
+            <!-- order history -->     
             <div class="by_profileDetailed_menu orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
                 <a href="#!/users/registrationProfile/orderHistory?showOrderHistory=true">{{userTypeConfig.orderHistoryLabel}}</a>
             </div>
-            <div class="by_profileDetailed_menu  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
-                ng-repeat="facilityTab in housingFacilityTabs track by $index" ng-class="{'active':facilityIdx===$index}">
-                <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
-            </div>
+            <!-- order history ends --> 
+
+
+
             <div class="clearfix" style="height:50px; background:#fff;"></div>
             <div ng-if="profile && profile.userTypes && profile.userTypes.length > 0">
                 <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType!=3" >
@@ -45,19 +77,36 @@
                 <a href="#!/users/registration/changeCredential?changeUserPwd=true">Change Password</a>
             </div>
 
+             <!-- profile types i am -->
             <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="profile && profile.userTypes && profile.userTypes.length===0">
                 <a href="#!/users/registrationProfile">I am...</a>
             </div>
-            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0">
+            <!-- profile types i am ends -->
+
+            <!-- profile types without housing -->
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] != 3">
                 <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
             </div>
+            <!-- profile types without housing ends -->
+
+
+            <!-- profile types with housing -->
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] == 3 && housingFacilityTabs.length == 0">
+                <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
+            </div>
+
+
+            <div class="by_profileDetailed_menu  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
+                ng-repeat="facilityTab in housingFacilityTabs track by $index" ng-class="{'by_profileDetailed_menuActive':facilityIdx===$index}">
+                <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
+            </div>   
+            <!-- profile types with housing -->
+
+            <!-- order history -->     
             <div class="by_profileDetailed_menu orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
                 <a href="#!/users/registrationProfile/orderHistory?showOrderHistory=true">{{userTypeConfig.orderHistoryLabel}}</a>
             </div>
-            <div class="by_profileDetailed_menu  reg-menu-1 housingTab{{$index+1}}" ng-if="housingFacilityTabs.length > 0"
-                ng-repeat="facilityTab in housingFacilityTabs track by $index" ng-class="{'active':facilityIdx===$index}">
-                <a di-href="#!/users/housingRegistration/{{$index}}">{{facilityTab}}</a>
-            </div>
+            <!-- order history ends --> 
             <div class="clearfix" style="height:50px; background:#fff;"></div>
             <div ng-if="profile && profile.userTypes && profile.userTypes.length > 0">
                 <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType!=3" >

@@ -84,6 +84,7 @@ require.config({
 		regIndividualCtrl : '../components/signup/registration/individual/regIndividualCtrl',
 		regProfessionalCtrl : '../components/signup/registration/professional/regProfessionalCtrl',
 		regInstitutionCtrl : '../components/signup/registration/institution/regInstitutionCtrl',
+		regInstBranchCtrl : '../components/signup/registration/institution/regInstBranchCtrl',
 		regHousingCtrl : '../components/signup/registration/housing/regHousingCtrl',
 		regHousingFacilityCtrl : '../components/signup/registration/housing/regHousingFacilityCtrl',
 		regUserTypeController : '../components/signup/regUserTypeController',

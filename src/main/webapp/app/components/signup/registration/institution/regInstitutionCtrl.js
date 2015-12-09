@@ -1,5 +1,5 @@
-define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
-    function regInstCtrl($scope, $rootScope, $http, UserProfile){
+define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function(byApp, bootstrapToggle, regInstBranchCtrl){
+    function regInstCtrl($scope, $rootScope, $http, $location, $routeParams, UserProfile){
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.selectedServices = {};
         $scope.profileImage = [];
@@ -9,8 +9,9 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
         $scope.websiteError = false;
         $scope.otherLocations = [];
         $scope.selectedMenuList = {};
-
-
+        $scope.addBranch = false;
+        $scope.branchIndex = 0;
+        $scope.views = {};
 
         var editorInitCallback = function(){
             if(tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description){
@@ -72,7 +73,7 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
             $scope.otherLocations = $scope.basicProfileInfo.otherAddresses;
-            $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
+           
 
             if ($scope.address && $scope.address.country === null) {
                 $scope.address.country = "India";
@@ -83,6 +84,40 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
                 var menuId = $scope.serviceProviderInfo.services[i];
                 $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
             }
+
+            if($scope.profile.serviceBranches.length > 0){
+                for(var i=0; i < $scope.profile.serviceBranches.length; i++){
+                    if(!$scope.profile.serviceBranches[i] || $scope.profile.serviceBranches[i]==null){
+                        $scope.profile.serviceBranches.splice(i, 1);
+                    }
+                }
+            }
+
+           if($scope.profile.serviceBranches.length===0){
+                var branchObj = (JSON.parse(JSON.stringify(BY.config.regConfig.institutionBranch))) ;
+                $scope.profile.serviceBranches.push(branchObj);
+                $scope.serviceBranches = $scope.profile.serviceBranches[0];
+            } else if($routeParams.branchIndex){
+                $scope.branchIndex = parseInt($routeParams.branchIndex);
+                if($scope.profile.serviceBranches.length < $scope.branchIndex){
+                    var branchObj = (JSON.parse(JSON.stringify(BY.config.regConfig.institutionBranch))) ;
+                    $scope.profile.serviceBranches.push(branchObj);
+                    $scope.serviceBranches = $scope.profile.serviceBranches[$scope.branchIndex-1];
+                }else{
+                    $scope.serviceBranches = $scope.profile.serviceBranches[$scope.branchIndex];
+                }
+
+            } else{
+                $scope.serviceBranches = $scope.profile.serviceBranches[0];
+            }
+           
+           if($scope.branchIndex == 0){
+                $scope.views.formView = "app/components/signup/registration/institution/regInstitutionPrimary.html?versionTimeStamp=%PROJECT_VERSION%";
+           }
+           if($scope.branchIndex != 0){
+                $scope.views.formView = "app/components/signup/registration/institution/regInstitutionBranch.html?versionTimeStamp=%PROJECT_VERSION%";
+           }
+
         }
 
         if ($scope.$parent.profile) {
@@ -93,6 +128,12 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
                 $scope.profile = profile.data;
                 $scope.extractData();
             });
+        }
+
+        $scope.showHomeVisit = function(){
+             $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
+             $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
+             var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
         }
 
 
@@ -208,46 +249,51 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
         }
 
         //Post institution form
-        $scope.postUserProfile = function (isValidForm) {
+        $scope.postUserProfile = function (isValidForm, addAnotherBranch) {
+            $scope.addBranch = addAnotherBranch;
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.minCategoryError = false;
             $scope.websiteError = false;
-            $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
-                if(value && $rootScope.menuCategoryMap[value.id]){
-                    return value.id;
-                }
-            });
 
+            if($scope.branchIndex == 0){
 
-            $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
-
-            $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
-            $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
-
-            if($scope.otherLocations.length > 0){
-                $scope.basicProfileInfo.otherAddresses =  $.map($scope.otherLocations, function (value, key) {
-                    return value;
+                $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function(value, key){
+                    if(value && $rootScope.menuCategoryMap[value.id]){
+                        return value.id;
+                    }
                 });
-            }
+                $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
-            $scope.profile.systemTags = getSystemTagList($scope.selectedMenuList);
-            if ( $scope.profile.systemTags.length === 0) {
-                $scope.minCategoryError = true;
-            }
+                $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage ;
+                $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
 
-            var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&!//=]*))+/ ;
-            if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
-                if(regex.exec($scope.serviceProviderInfo.website)){
-                    $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
-                }else{
-                    $scope.websiteError = true;
+                if($scope.otherLocations.length > 0){
+                    $scope.basicProfileInfo.otherAddresses =  $.map($scope.otherLocations, function (value, key) {
+                        return value;
+                    });
                 }
-            }
+
+                $scope.profile.systemTags = getSystemTagList($scope.selectedMenuList);
+                if ( $scope.profile.systemTags.length === 0) {
+                    $scope.minCategoryError = true;
+                }
+
+                var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&!//=]*))+/ ;
+                if($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0){
+                    if(regex.exec($scope.serviceProviderInfo.website)){
+                        $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+                    }else{
+                        $scope.websiteError = true;
+                    }
+                }
 
 
             $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
 
+            }
+
+           
             if (isValidForm.$invalid || $scope.minCategoryError || $scope.websiteError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
@@ -271,7 +317,14 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
                 userProfile.$update({userId: $scope.userId}, function (profileOld) {
                     console.log("success");
                     $scope.submitted = false;
-                    $scope.$parent.exit();
+                     if($scope.addBranch){
+                        $location.path('/users/institutionRegistration/'+ ($scope.profile.serviceBranches.length + 1));
+                        //$templateCache.removeAll();
+                        ////$scope.views = {};
+                        //$scope.addNewFacilty();
+                    }else{
+                        $scope.$parent.exit();
+                    }
                 }, function (err) {
                     console.log(err);
                     $scope.$parent.exit();
@@ -279,7 +332,7 @@ define(['byApp', 'bootstrapToggle'], function(byApp, bootstrapToggle){
             }
         }
     }
-    regInstCtrl.$inject = ['$scope', '$rootScope', '$http', 'UserProfile'];
+    regInstCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile'];
     byApp.registerController('regInstCtrl', regInstCtrl);
     return regInstCtrl;
 });

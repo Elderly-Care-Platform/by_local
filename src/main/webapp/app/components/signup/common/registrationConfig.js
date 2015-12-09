@@ -208,3 +208,53 @@ BY.config.regConfig.housingFacility = {
         'website' : ""
 
 };
+
+BY.config.regConfig.institutionBranch = {
+        'id' : "",
+        
+        'userId' : "",
+
+        'basicBranchInfo' : {
+            "firstName":"",
+               "profileImage":{  
+                  "original":"",
+                  "titleImage":"",
+                  "thumbnailImage":""
+               },
+               "primaryEmail":"",
+               "secondaryEmails":[],
+               "primaryPhoneNo":"",
+               "secondaryPhoneNos":[ ],
+               "description":"",
+               "photoGalleryURLs":[],
+               "primaryUserAddress":{  
+                  "streetAddress":"",
+                  "city":"",
+                  "zip":"",
+                  "locality":"",
+                  "country":""
+               },
+               "otherAddresses":[],
+               "shortDescription":""
+        },
+        "serviceProviderInfo":{  
+               "services":[ ],
+               "homeVisits":false,
+               "website":"",
+               "yearsExperience":0,
+               "incorporationDate":null,
+               "specialities":null
+            },
+        "verified":false,
+            "createdAt":1449474215743,
+            "lastModifiedAt":1449474215743,
+            "systemTags":[  ],
+            "userTags":[  ],
+            "status":0,
+            "aggrRatingPercentage":0.0,
+            "reviewedByUser":false,
+            "ratedByUser":false,
+            "featured":false
+
+
+};

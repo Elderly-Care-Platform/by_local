@@ -33,7 +33,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.lastPage                 = false;
         $scope.isQueryInprogress        = false;
         $scope.isFreeSearch             = false;
-        $scope.selectedMenu             = $rootScope.menuCategoryMap ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
+        $scope.selectedMenu             = ($rootScope.menuCategoryMap && $routeParams.menuId) ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
         $scope.showEditor               = $routeParams.showEditor==='true' ? true : false;
         $scope.menuConfig               = BY.config.menu;
 
@@ -47,26 +47,30 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         $scope.getSearchedResult        = getSearchedResult;
         $scope.loadMoreRecords          = loadMoreRecords;
         $scope.trustForcefully          = trustForcefully;
-        $scope.fixedMenuInitialized     = fixedMenuInitialized;
+        $rootScope.byTopMenuId          = $rootScope.mainMenu[2].id ;
+        $scope.telNo                    = BY.config.constants.byContactNumber;
 
         function initialize(){
-            if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor){
-                return getProducts();
+            if($scope.selectedMenu){
+                var metaTagParams = {
+                    title: $scope.selectedMenu.displayMenuName,
+                    imageUrl: "",
+                    description: "",
+                    keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+                if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor){
+                    return getProducts();
+                }
             }
+
         }
 
         function getProducts() {
-            var category;
+            var category = $scope.selectedMenu.ancestorIds.length > 0 ? $scope.selectedMenu : null;
             $scope.isQueryInprogress=true;
             $scope.isFreeSearch=false;
-            if ($location.search().q) {
-                try {
-                    category = $rootScope.menuCategoryMap[$location.search().q];
-                } catch (e) {
-                    category = $location.search().q;
-                }
-                //delete $location.$$search.q;
-            }
+
             var productsPromise   = getProductPromise(category),
                 categoriesPromise = CategoryService.getAllCategories(),
                 loadPromise       = $q.all({ product: productsPromise, category: categoriesPromise});
@@ -111,19 +115,14 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             params.pageSize = $scope.pageSize;
             if (category) {
                 if (category === 'featured') {
-                    breadCrumb = { 'url': PAGE_URL.root + '?q=featured', 'displayName': 'FEATURED' };
-                    BreadcrumbService.setBreadCrumb(breadCrumb);
                     return ProductService.getFeaturedProducts(params);
                 } else {
                     var url           = PAGE_URL.root,
                         categoryEnURI = $filter('encodeUri')(category),
                         name          = category.name;
-                    breadCrumb = { 'url': url + '?q=' + categoryEnURI, 'displayName': name };
-                    BreadcrumbService.setBreadCrumb(breadCrumb);
                     return getProductsByCategory(category);
                 }
             } else {
-                BreadcrumbService.setBreadCrumb();
                 return ProductService.getProducts(params);
             }
         }
@@ -210,14 +209,9 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * @return {void}
          */
         function openProductDescription(productId, productName) {
-            var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+            var prodName = productName.replace(/[,/\s]+/g, '-').toLowerCase(),
                 path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
             $location.path(path);
-        }
-
-        $scope.getSlug = function(slug){
-            var newSlug = slug.replace(/\s+/g, '-').toLowerCase();
-            return 'Elder-care-products-for-' + newSlug;
         }
 
         /**
@@ -258,18 +252,15 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             return $sce.trustAsHtml(html);
         }
 
-        function fixedMenuInitialized(){
-            broadCastMenuDetail.setMenuId($scope.selectedMenu);
-        }
 
-        $rootScope.byTopMenuId = $rootScope.mainMenu[2].id ;
-        $scope.telNo = BY.config.constants.byContactNumber;
+
+
         $scope.selectedMenuId           = $routeParams.menuId;
 
 
-      
-        
-        
+
+
+
 
 
     }

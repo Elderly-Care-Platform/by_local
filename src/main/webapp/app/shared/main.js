@@ -81,11 +81,12 @@ require.config({
 		housingProfileLeftCtrl : '../components/profile/housing/housingProfileLeftCtrl',
 
 		registrationConfig : '../components/signup/common/registrationConfig',
-		regIndividualCtrl : '../components/signup/registration/regIndividualCtrl',
-		regProfessionalCtrl : '../components/signup/registration/regProfessionalCtrl',
-		regInstitutionCtrl : '../components/signup/registration/regInstitutionCtrl',
-		regHousingCtrl : '../components/signup/registration/regHousingCtrl',
-		regHousingFacilityCtrl : '../components/signup/registration/regHousingFacilityCtrl',
+		regIndividualCtrl : '../components/signup/registration/individual/regIndividualCtrl',
+		regProfessionalCtrl : '../components/signup/registration/professional/regProfessionalCtrl',
+		regInstitutionCtrl : '../components/signup/registration/institution/regInstitutionCtrl',
+		regInstBranchCtrl : '../components/signup/registration/institution/regInstBranchCtrl',
+		regHousingCtrl : '../components/signup/registration/housing/regHousingCtrl',
+		regHousingFacilityCtrl : '../components/signup/registration/housing/regHousingFacilityCtrl',
 		regUserTypeController : '../components/signup/regUserTypeController',
 		modifySignupCtrl : '../components/signup/login/modifySignupCtrl',
 

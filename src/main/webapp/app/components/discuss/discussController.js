@@ -150,7 +150,7 @@ define(['byApp',
         $scope.showEditorPage = function(event, type){
             event.stopPropagation();
             $scope.showEditorType = type;
-            $(".by_editorButtonWrap_thumb").animate({width: '100%', borderRight: '0px'}, "500");
+            $(".by_editorButtonWrap_thumb").animate({width: '100%', borderRightWidth: '0px'}, "500");
             $("."+type+"hidePanel").hide();
             $("."+type+"by_editorButtonWrap_thumb").hide();
             $("."+type+"showPanel").slideDown("500");
@@ -161,14 +161,17 @@ define(['byApp',
 
             if($scope.showEditorType==='Article'){
                 var tinyEditor = BY.byEditor.addEditor({
-                    "editorTextArea" : "article_textArea"
+                    "editorTextArea" : "article_textArea",
+                    "autoFocus" : "false"
                 });
+
             }
+            $("#shareInputFeild").focus();
         }
 
         $scope.exitEditorDiscuss = function(type, event){
             event.stopPropagation();
-            $(".by_editorButtonWrap_thumb").animate({width: '50%', borderRight: '1px'}, "500");
+            $(".by_editorButtonWrap_thumb").animate({width: '50%', borderRightWidth: '1px'}, "500");
             $("."+type+"hidePanel").show();
             $("."+type+"by_editorButtonWrap_thumb").show();
             $("."+type+"showPanel").slideUp("100", function  () {

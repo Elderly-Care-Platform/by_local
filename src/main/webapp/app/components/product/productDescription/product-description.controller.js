@@ -9,11 +9,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                                           $routeParams,
                                           $modal,
                                           $location,
-                                          $filter,
-                                          $timeout,
                                           ProductDescriptionService,
                                           CartService,
-                                          BreadcrumbService,
                                           PAGE_URL,
                                           INVENTORY,
                                           SERVERURL_IMAGE,
@@ -25,8 +22,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $log.debug('Inside ProductDescriptionController');
 
         // Variables
-        var breadCrumb, customerId = null;
-
+        var customerId = null;
         if (localStorage.getItem("by_cust_id")) {
             customerId = localStorage.getItem("by_cust_id")
         }
@@ -49,10 +45,6 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.uiData = {};
         $scope.logisticInfo = {};
 
-        $scope.$on('ngRepeatFinished', function () {
-            $window.initSlideShow();
-        });
-
         // Function Declaration
         $scope.disableAddToCartButton = disableAddToCartButton();
         $scope.openProductDescription = openProductDescription;
@@ -61,34 +53,13 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.closeModelInstance = closeModelInstance;
         $scope.playVideo = playVideo;
         $scope.promise = getProductDescription();
-        $scope.fedexRateWebService = getFedexRateWebService();
         $scope.productOptionSelected = productOptionSelected;
 	    $scope.checkLogisticAvailability = checkLogisticAvailability;
+
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
             $(".by_menuDetailed").css('height', clientHeight+"px");
-        }
-
-        function getFedexRateWebService() {
-            ProductDescriptionService.fedexRateWebService().then(getFedexRateWebServiceSuccess, failure);
-        }
-
-        function getFedexRateWebServiceSuccess(result) {
-            if (result.rateServiceSeverity === 'SUCCESS') {
-                $scope.rateServiceSeverity = result.rateServiceSeverity;
-                var deliveryDate = new Date(result.deliveryDate);
-                var todayDate = new Date();
-                var miliseconds = deliveryDate - todayDate;
-                var seconds = miliseconds / 1000;
-                var minutes = seconds / 60;
-                var hours = minutes / 60;
-                var days = hours / 24;
-                $scope.estimatedDays = Math.ceil(days);
-            } else {
-                $scope.rateServiceSeverity = result.rateServiceSeverity;
-                $scope.rateServiceMessage = result.rateServiceMessage;
-            }
         }
 
         /**
@@ -133,15 +104,6 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             params.id = $scope.productId;
             var productDescriptionPromise = ProductDescriptionService.getProductDescription(params),
                 loadPromise = $q.all({productDescription: productDescriptionPromise});
-            //if ($location.search().q) {
-            //    try {
-            //        $scope.category = JSON.parse($location.search().q);
-            //    } catch (e) {
-            //        $scope.category = $location.search().q;
-            //    }
-            //    delete $location.$$search.q;
-            //}
-
             return loadPromise.then(productDescriptionSuccess, failure);
 
             /**
@@ -153,18 +115,10 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                 var params = {},
                     data = result.productDescription,
                     path = PAGE_URL.root;
-                //if ($scope.category !== undefined) {
-                //    path += '?q=' + $filter('encodeUri')($scope.category);
-                //}
-                //breadCrumb = {'url': path, 'displayName': data.categoryName};
-                //BreadcrumbService.setBreadCrumb(breadCrumb, data.name);
                 params.id = $scope.productId;
                 $scope.promise = ProductDescriptionService.getProductSku(params)
                     .then(getProductSkuSuccess, failure);
                 $scope.uiData = data;
-                /* for(var i = 0; i<data.productOptions.length; i++ ){
-                 productOptions[data.productOptions[i].attributeName] = null;
-                 };*/
                 $scope.uiData.name = data.name;
                 Utility.checkImages($scope.uiData);
                 if (data.mediaItems) {
@@ -199,6 +153,15 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                         mediaItem.poster = STATIC_IMAGE.unsupportedMedia;
                     }
                 });
+
+                var metaTagParams = {
+                    title:  $scope.uiData.name,
+                    imageUrl:   $scope.uiData.media[0].url,
+                    description:    $scope.uiData.productDescription,
+                    keywords:[]
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+
                 params = {};
                 params.id = data.defaultCategoryId;
                 params.q = '*';
@@ -484,11 +447,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         '$routeParams',
         '$modal',
         '$location',
-        '$filter',
-        '$timeout',
         'ProductDescriptionService',
         'CartService',
-        'BreadcrumbService',
         'PAGE_URL',
         'INVENTORY',
         'SERVERURL_IMAGE',

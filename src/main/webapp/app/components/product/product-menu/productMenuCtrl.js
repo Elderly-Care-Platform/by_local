@@ -94,7 +94,13 @@ define(['byApp', 'productReviewsCtrl'], function (byApp, productReviewsCtrl) {
             }
         }
 
-        
+        $scope.getSlug = function(slug){
+            //var newSlug = slug.replace(/\s+/g, '-').toLowerCase();
+            var newSlug = slug.replace(/[,/\s]+/g, '-').toLowerCase();
+            newSlug = newSlug.replace(/[-]+/g, '-');
+            return newSlug;
+        }
+
     }
 
 

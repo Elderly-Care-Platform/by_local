@@ -6,6 +6,8 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         $scope.housingFacilityTabs = [];
         $scope.userType = null;
         $scope.facilityIdx = $routeParams.facilityIndex ? parseInt($routeParams.facilityIndex) : 0;
+        $scope.institutionBranchTabs = [];
+        $scope.branchIdx = $routeParams.branchIndex ? parseInt($routeParams.branchIndex) : 0;
 
         var changeUsername = function () {
             window.scrollTo(0, 0);
@@ -84,6 +86,28 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
             }
         };
 
+        var showInstitutionLeftPanel = function(){
+            if($scope.profile.serviceBranches && $scope.profile.serviceBranches.length > 0){
+                for(var i=0; i<$scope.profile.serviceBranches.length; i++){
+                    if($scope.profile.serviceBranches[i].name && $scope.profile.serviceBranches[i].name.trim().length > 0){
+                        $scope.institutionBranchTabs.push($scope.profile.serviceBranches[i].name);
+                    } else{
+                        $scope.institutionBranchTabs.push("serviceBranches"+(i+1));
+                    }
+                    if($scope.branchIdx==i){
+                        $scope.branchProfileId = $scope.profile.serviceBranches[i].id;
+                    }
+                }
+            }
+
+            if($routeParams.branchIndex){
+                if($scope.branchIdx > $scope.profile.serviceBranches.length){
+                    $scope.institutionBranchTabs.push("serviceBranches"+$scope.branchIdx);
+                    $scope.branchIdx = $scope.branchIdx - 1;
+                }
+            }
+        };
+
         var updateContentPanel = function(){
             if($routeParams.changeUserName) {
                 require(["modifySignupCtrl"], function(regCtrl) {
@@ -129,6 +153,9 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
                 updateContentPanel();
                 if($scope.profile.userTypes[0]===3){
                     showHousingLeftPanel();
+                }
+                if($scope.profile.userTypes[0]===4){
+                    showInstitutionLeftPanel();
                 }
 
 

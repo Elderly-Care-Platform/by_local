@@ -36,7 +36,7 @@ BY.config.menu.moduleConfig = {
         'module' : 'housing'
     },
     '3' : {
-        'baseUrl':'#!/products/list',
+        'baseUrl':'#!/products',
         'module' : 'product'
     }
 }

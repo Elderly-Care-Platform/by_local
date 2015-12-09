@@ -1,17 +1,15 @@
-
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
-   
+
     <!--=== Content Part ===-->
-    <div >
-            <div class="leftPanel" ng-include="'app/components/product/productDescription/product-desc-left-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
-           
-               
-            </div>
-            <div class="contentPanel" style="overflow-x:hidden;"  ng-include="'app/components/product/productDescription/product-desc-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
-              
-            </div>
+    <div>
+        <div class="leftPanel" ng-include="'app/components/product/productDescription/product-desc-left-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
+        </div>
+        <div class="contentPanel" style="overflow-x:hidden;"
+             ng-include="'app/components/product/productDescription/product-desc-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
+
+        </div>
     </div>
     <!--/container-->
 

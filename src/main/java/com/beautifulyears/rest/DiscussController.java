@@ -33,6 +33,7 @@ import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.menu.Tag;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
@@ -279,7 +280,25 @@ public class DiscussController {
 		}
 		return BYGenericResponseHandler.getResponse(obj);
 	}
-
+	
+	@RequestMapping(value = "/email/share", method = RequestMethod.POST)
+	@ResponseBody
+	public void shareWithEmail(@RequestBody ArrayList<String> emailParams,
+			HttpServletRequest request) throws Exception {
+		try {
+			String emailId = emailParams.get(0);
+			List<String> emailIds = Arrays.asList(emailId.split(","));
+			
+			String subject = emailParams.get(1);
+			String body = emailParams.get(2);
+		
+			MailHandler.shareInMail(emailIds, subject, body);
+			
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
+	}
+	
 	private Discuss setDiscussBean(Discuss discuss) throws Exception {
 		LoggerUtil.logEntry();
 		Discuss newDiscuss = null;

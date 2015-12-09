@@ -11,7 +11,7 @@ define([
 			MainMenuController, LoginController, angularResource, 
 			angularInfiniteScroll, angularGoogleLocation, headerCtrl) {
 
-	var byApp = angular.module('byApp', ["ngRoute", "ngResource", "byServices", "byProductApp", "infinite-scroll", "ngGoogleLocation"]);
+	var byApp = angular.module('byApp', ["ngRoute", "ngResource", "byServices", "byProductApp", "infinite-scroll", "ngSanitize", "ngGoogleLocation"]);
 
 
 	byApp.config(['$controllerProvider', function($controllerProvider){

@@ -6,8 +6,8 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         $scope.housingFacilityTabs = [];
         $scope.userType = null;
         $scope.facilityIdx = $routeParams.facilityIndex ? parseInt($routeParams.facilityIndex) : 0;
-        $scope.institutionBranchTabs = [];
-        $scope.branchIdx = $routeParams.branchIndex ? parseInt($routeParams.branchIndex) : 0;
+        $scope.serviceBranchTabs = [];
+        $scope.branchIdx = $routeParams.branchIndex ? parseInt($routeParams.branchIndex) : null;
 
         var changeUsername = function () {
             window.scrollTo(0, 0);
@@ -89,10 +89,10 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         var showInstitutionLeftPanel = function(){
             if($scope.profile.serviceBranches && $scope.profile.serviceBranches.length > 0){
                 for(var i=0; i<$scope.profile.serviceBranches.length; i++){
-                    if($scope.profile.serviceBranches[i].name && $scope.profile.serviceBranches[i].name.trim().length > 0){
-                        $scope.institutionBranchTabs.push($scope.profile.serviceBranches[i].name);
+                    if($scope.profile.serviceBranches[i].basicBranchInfo.firstName && $scope.profile.serviceBranches[i].basicBranchInfo.firstName.trim().length > 0){
+                        $scope.serviceBranchTabs.push($scope.profile.serviceBranches[i].basicBranchInfo.firstName);
                     } else{
-                        $scope.institutionBranchTabs.push("serviceBranches"+(i+1));
+                        $scope.serviceBranchTabs.push("serviceBranches"+(i+1));
                     }
                     if($scope.branchIdx==i){
                         $scope.branchProfileId = $scope.profile.serviceBranches[i].id;
@@ -102,7 +102,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
 
             if($routeParams.branchIndex){
                 if($scope.branchIdx > $scope.profile.serviceBranches.length){
-                    $scope.institutionBranchTabs.push("serviceBranches"+$scope.branchIdx);
+                    $scope.serviceBranchTabs.push("serviceBranches"+$scope.branchIdx);
                     $scope.branchIdx = $scope.branchIdx - 1;
                 }
             }
@@ -151,10 +151,11 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
 
                 $scope.views.leftPanel = $scope.userTypeConfig.leftPanel;
                 updateContentPanel();
-                if($scope.profile.userTypes[0]===3){
+
+                if($scope.profile.userTypes[0]===BY.config.profile.userTypeMap.INSTITUTION_HOUSING){
                     showHousingLeftPanel();
                 }
-                if($scope.profile.userTypes[0]===4){
+                if($scope.profile.userTypes[0]===BY.config.profile.userTypeMap.INSTITUTION_SERVICES){
                     showInstitutionLeftPanel();
                 }
 

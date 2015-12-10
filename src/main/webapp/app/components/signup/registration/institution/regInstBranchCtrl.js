@@ -1,45 +1,10 @@
-define(['byApp', 'byUtil'], function(byApp, byUtil){
-    function regInstBranchCtrl($scope, $rootScope, $http, $location, $routeParams, UserProfile){
+define(['byApp', 'byUtil'], function (byApp, byUtil) {
+    function regInstBranchCtrl($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
         $scope.submitted = false;
         $scope.websiteError = false;
-        $scope.serviceBranches =  $scope.$parent.serviceBranches;
+        $scope.profile = $scope.$parent.profile;
+        $scope.serviceBranches = $scope.$parent.serviceBranches;
 
-       /* $scope.addressCallback = function (response, addressObj) {
-            $('#addressLocality').blur();
-            addressObj.city = "";
-            addressObj.locality = response.name;
-            addressObj.country = "";
-            addressObj.zip = "";
-
-            for (var i = 0; i < response.address_components.length; i++) {
-                if (response.address_components[i].types.length > 0) {
-                    if (response.address_components[i].types[0] == "locality") {
-                        addressObj.city += response.address_components[i].long_name;
-                    }
-
-                    else if (response.address_components[i].types[0].indexOf("administrative_area_level_3") != -1) {
-                        addressObj.city = response.address_components[i].long_name;
-                    }
-                    else if (response.address_components[i].types[0] == "country") {
-                        //this is the object you are looking for
-                        addressObj.country = response.address_components[i].long_name;
-                    }
-                    else if (response.address_components[i].types[0] == "postal_code") {
-                        //this is the object you are looking for
-                        addressObj.zip = response.address_components[i].long_name;
-                    }
-                    else if (response.address_components[i].types.indexOf("sublocality") != -1 && response.address_components[i].types.indexOf("political") != -1) {
-                        $scope.address.locality = response.address_components[i].long_name;
-                    }
-                }
-
-            }
-            addressObj.streetAddress = response.formatted_address;
-
-
-        }*/
-
-        
         $scope.addressCallback = function (response) {
             $('#addressLocality').blur();
             $scope.serviceBranches.basicBranchInfo.primaryUserAddress.city = "";
@@ -96,29 +61,27 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
         };
 
 
-
         /*$scope.getLocationByPincode = function (event, addressObj) {
-            var element = document.getElementById("zipcode");
-            addressObj.city = "";
-            addressObj.locality = "";
-            addressObj.country = "";
-            $http.get("api/v1/location/getLocationByPincode?pincode=" + addressObj.zip)
-                .success(function (response) {
-                    if (response) {
-                        addressObj.city = response.districtname;
-                        addressObj.locality = response.officename;
-                        addressObj.streetAddress = response.officename + ", Distt: " + response.districtname + " , State: " + response.statename;
-                        addressObj.country = "India";
-                    }
-                });
-        }
+         var element = document.getElementById("zipcode");
+         addressObj.city = "";
+         addressObj.locality = "";
+         addressObj.country = "";
+         $http.get("api/v1/location/getLocationByPincode?pincode=" + addressObj.zip)
+         .success(function (response) {
+         if (response) {
+         addressObj.city = response.districtname;
+         addressObj.locality = response.officename;
+         addressObj.streetAddress = response.officename + ", Distt: " + response.districtname + " , State: " + response.statename;
+         addressObj.country = "India";
+         }
+         });
+         }
 
-        $scope.options = {
-            country: "in",
-            resetOnFocusOut: false
+         $scope.options = {
+         country: "in",
+         resetOnFocusOut: false
 
-        };*/
-
+         };*/
 
 
         function addressFormat(index) {
@@ -154,21 +117,21 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
 
 
         $scope.postUserProfile = function (isValidForm, addAnotherBranch) {
+            $scope.addBranch = addAnotherBranch;
             $(".by_btn_submit").prop("disabled", true);
             $scope.submitted = true;
             $scope.websiteError = false;
-            
-            var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&!//=]*))+/ ;
-           if($scope.serviceBranches.serviceProviderInfo && $scope.serviceBranches.serviceProviderInfo.website && $scope.serviceBranches.serviceProviderInfo.website.length > 0){
-                if(regex.exec($scope.serviceBranches.serviceProviderInfo.website)){
+
+            var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&!//=]*))+/;
+            if ($scope.serviceBranches.serviceProviderInfo && $scope.serviceBranches.serviceProviderInfo.website && $scope.serviceBranches.serviceProviderInfo.website.length > 0) {
+                if (regex.exec($scope.serviceBranches.serviceProviderInfo.website)) {
                     $scope.serviceBranches.serviceProviderInfo.website = regex.exec($scope.serviceBranches.serviceProviderInfo.website)[0];
-                } else{
+                } else {
                     $scope.websiteError = true;
                 }
             }
 
-
-            if (isValidForm.$invalid  || $scope.websiteError) {
+            if (isValidForm.$invalid || $scope.websiteError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {
@@ -183,10 +146,24 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
                         return value;
                     }
                 });
-                $scope.$parent.postUserProfile(isValidForm, addAnotherBranch);
+                var userProfile = new UserProfile();
+                angular.extend(userProfile, $scope.profile);
+                userProfile.$update({userId: $scope.userId}, function (profileOld) {
+                    console.log("success");
+                    $scope.submitted = false;
+                    if ($scope.addBranch) {
+                        $location.path('/users/institutionRegistration/' + ($scope.profile.serviceBranches.length + 1));
+                    } else {
+                        $scope.$parent.exit();
+                    }
+                }, function (err) {
+                    console.log(err);
+                    $scope.$parent.exit();
+                });
             }
         };
     }
+
     regInstBranchCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile'];
     byApp.registerController('regInstBranchCtrl', regInstBranchCtrl);
     return regInstBranchCtrl;

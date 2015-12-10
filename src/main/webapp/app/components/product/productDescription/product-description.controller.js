@@ -96,6 +96,29 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         }
 
         /**
+         * update social media meta tags
+         *
+         */
+        function updateMetaTags(){
+            // to eliminate html tags from product description
+            var descDiv1 = document.createElement('div');
+            if($scope.uiData.productDescription){
+                descDiv1.innerHTML = $scope.uiData.productDescription;
+            }else{
+                descDiv1.innerHTML = $scope.uiData.longDescription;
+            }
+
+            var descText = $.parseHTML(descDiv1.innerText);
+            var metaTagParams = {
+                title:  $scope.uiData.name,
+                imageUrl:   $scope.uiData.media[0].url,
+                description:    descText,
+                keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        }
+
+        /**
          * Request to get Product Description
          * @return {object} if all promise fullfilled then call productDescriptionSuccess
          */
@@ -154,14 +177,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                     }
                 });
 
-                var metaTagParams = {
-                    title:  $scope.uiData.name,
-                    imageUrl:   $scope.uiData.media[0].url,
-                    description:    $scope.uiData.productDescription,
-                    keywords:[]
-                }
-                BY.byUtil.updateMetaTags(metaTagParams);
-
+                updateMetaTags();
                 params = {};
                 params.id = data.defaultCategoryId;
                 params.q = '*';

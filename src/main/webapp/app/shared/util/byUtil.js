@@ -72,16 +72,10 @@ $(window).scroll(function(){
 
 $(document).ready(function() {
 	$(".topScroll").click(function(){
-		
 		$('html, body').animate({
             scrollTop: 0
         }, 800);
-		
 	});
-	
-
-	
-	
 });
 
 
@@ -98,7 +92,7 @@ BY.byUtil.updateMetaTags = function(param){
 		 keywords = "Beutifulyears , senior care, ageing";
 	 }
 
-	if(!description && description===""){
+	if(!description || description==="" || description==="undefined"){
 		description = "Beautiful Years"
 	}
 

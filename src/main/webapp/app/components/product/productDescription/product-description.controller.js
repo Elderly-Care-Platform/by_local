@@ -17,7 +17,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                                           MEDIATYPE,
                                           STATIC_IMAGE,
                                           TEMPLATE_URL,
-                                          Utility, LogisticService, $sce) {
+                                          Utility, LogisticService) {
 
         $log.debug('Inside ProductDescriptionController');
 
@@ -471,7 +471,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         'MEDIATYPE',
         'STATIC_IMAGE',
         'TEMPLATE_URL',
-        'Utility', 'LogisticService', '$sce'];
+        'Utility', 'LogisticService'];
 
     byProductApp.registerController('ProductDescriptionController', ProductDescriptionController);
     return ProductDescriptionController;

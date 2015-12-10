@@ -1,97 +1,110 @@
 define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
     function EditorController($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail, $location, $route, $routeParams){
-        $scope.editor = {};
-        $scope.errorMsg = "";
-        $scope.editor.subject = "";
-        $scope.editor.articlePhotoFilename = "";
-        $scope.showCategory = false;
-        $scope.selectedMenuList = {};
-        $scope.showLinkView = false;
-        $scope.sharedLinkUrl = "";
-        $scope.selectedMenuCount = 0;
-        $scope.linkImages = [];
-        $scope.linkImagesIdx = 0;
-        if($scope.$parent.categoryLists){
-            $scope.categoryLists = $scope.$parent.categoryLists;
+        $scope.editor                           = {};
+        $scope.errorMsg                         = "";
+        $scope.editor.subject                   = "";
+        $scope.editor.articlePhotoFilename      = "";
+        $scope.showCategory                     = false;
+        $scope.selectedMenuList                 = {};
+        $scope.selectedMenuCount                = 0;
+        $scope.showLinkView                     = false;
+        $scope.sharedLinkUrl                    = "";
+        $scope.linkImages                       = [];
+        $scope.linkImagesIdx                    = 0;
+        $scope.categoryLists                    = null;
+        var init                                = initialize();
+        var systemTagList                       = {};
+
+
+        function initialize(){
+            //set accordion category list
+            if($scope.$parent.categoryLists){
+                $scope.categoryLists = $scope.$parent.categoryLists;
+            }
+            $scope.selectedMenuId   = $routeParams.menuId;
+            $scope.postCategoryTag  = $routeParams.postCategoryTag ? JSON.parse($routeParams.postCategoryTag) : null;
+            $scope.selectedMenu     =   $rootScope.menuCategoryMap[$scope.selectedMenuId];
+
+            if(!$scope.selectedMenu && $scope.$parent.selectedMenu){
+                $scope.selectedMenu = $scope.$parent.selectedMenu;
+            }
+
+            if($scope.selectedMenu){
+                $scope.selectedMenuId = $scope.selectedMenu.id;
+                $scope.selectedMenuList[$scope.selectedMenuId] = $scope.selectedMenu;
+                $scope.selectedMenuCount++;
+            }
         }
-        
 
-        $scope.selectedMenuId = $routeParams.menuId;
-        $scope.postCategoryTag = $routeParams.postCategoryTag ? JSON.parse($routeParams.postCategoryTag) : null;
-        $scope.selectedMenu   =   $rootScope.menuCategoryMap[$scope.selectedMenuId];
-        
-
-        //broadCastMenuDetail.setMenuId(0);
+        //Toggle category accordion
         $scope.showCategoryList = function(){
            $scope.showCategory = ($scope.showCategory === false) ? true : false;
         }
-        //$(".by_section_header").hide();
-        //$(".homeSlider").hide();
-        //$(".by_left_panel_fixed").css('margin-top', 'auto');
-        //$(".by_left_panel_fixed .scrollableLeftPanelDiv").css('height', window.innerHeight - $(".header").height() - 10);
-
-        //$rootScope.scrollableLeftPanel = false;
-        //$rootScope.setLeftScroll();
-
-        //angular.element($window).bind("scroll", function() {
-        //$(".by_left_panel_fixed").removeClass('by_left_panel_homeSlider');
-        //$(".by_left_panel_homeSlider_position").css('margin-top', '0px');
-        //});
 
 
-        if(!$scope.selectedMenu && $scope.$parent.selectedMenu){
-            $scope.selectedMenu = $scope.$parent.selectedMenu;
-        }
-
-        if($scope.selectedMenu){          
-            $scope.selectedMenuId = $scope.selectedMenu.id;
-            $scope.selectedMenuList[$scope.selectedMenuId] = $scope.$parent.selectedMenu;
-            $scope.selectedMenuCount++;
-        }
-
+        //select category from accordion
         $scope.selectTag = function(event, category){
            if(event.target.checked){
                $scope.selectedMenuList[category.id] = category;
-               //Add only Leaf category and not any parent category
-               if(category.parentMenuId && $scope.selectedMenuList[category.parentMenuId]){
-                   delete $scope.selectedMenuList[category.parentMenuId];
-               }
                $scope.selectedMenuCount++;
            }else{
                $scope.selectedMenuCount--;
                delete $scope.selectedMenuList[category.id];
            }
-        
-        }
+        };
 
-        var systemTagList = {};
-        var getSystemTagList = function(data){
-            function rec(data){
+
+        function selectParentHierArchy(category) {
+            if (category.ancestorIds.length > 0) {
+                for (var i = 0; i < category.ancestorIds.length; i++) {
+                    if (!$scope.selectedMenuList[category.ancestorIds[i]]) {
+                        $scope.selectedMenuList[category.ancestorIds[i]] = $rootScope.menuCategoryMap[category.ancestorIds[i]];
+                        $scope.selectedMenuCount++;
+                    }
+                }
+            }
+        };
+
+        function getSystemTagList(data){
+            //function to include all parent tags into discuss system tags
+            function selectAllParentTags(data){
                 angular.forEach(data, function(menu, index){
                     systemTagList[menu.id] = menu.tags;
                     if(menu.ancestorIds.length > 0){
                         for(var j=0; j < menu.ancestorIds.length; j++){
                             var ancestordata = {};
                             ancestordata[menu.ancestorIds[j]] =  $rootScope.menuCategoryMap[menu.ancestorIds[j]];
-                            rec(ancestordata);
+                            selectAllParentTags(ancestordata);
                         }
                     }
                 })
             }
 
-            rec(data);
+            //function to include selected menu tags into discuss system tags
+            function selectMenuTags(data){
+                angular.forEach(data, function (menu, index) {
+                    systemTagList[menu.id] = menu.tags;
+                })
+            }
+
+            //If selectedMenuList does not include parent hierarchy then add all parent tags
+            //selectAllParentTags(data);
+
+            //If selectedMenuList already included parent hierarchy then add selected menu tags
+            selectMenuTags(data);
 
             return  $.map(systemTagList, function(value, key){
                 return value;
             });
-        }
+        };
+
 
         $scope.postContent = function (discussType) {
             $(".by_btn_submit").prop("disabled", true);
-            $scope.discuss = new Discuss();
-            $scope.discuss.discussType = discussType;
-            $scope.discuss.text = tinyMCE.activeEditor.getContent();
-            $scope.discuss.title = $scope.editor.subject;
+            $scope.discuss              = new Discuss();
+            $scope.discuss.discussType  = discussType;
+            $scope.discuss.text         = tinyMCE.activeEditor.getContent();
+            $scope.discuss.title        = $scope.editor.subject;
             if($scope.editor.articlePhotoFilename){
             	$scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
             } else{
@@ -99,6 +112,12 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                     $scope.discuss.articlePhotoFilename = JSON.parse($("#articleTitleImage").val());
                 }
             }
+
+            //Add parent hierarchy of the selected menu
+            angular.forEach($scope.selectedMenuList, function (menu, index) {
+                selectParentHierArchy(menu);
+            })
+
 
             if($scope.postCategoryTag){
                 $scope.discuss.systemTags = [$scope.postCategoryTag];
@@ -158,12 +177,6 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                 $location.search('showEditorType', null);
                 $location.search('postCategoryTag', null);
                 $route.reload();
-                //if(discuss && discuss.data && discuss.data.discussType!="F"){
-                //    //$location.path('/discuss/'+discuss.data.id);
-                //    $scope.$parent.postSuccess();
-                //} else{
-                //    $scope.$parent.postSuccess();
-                //}
             },
             function (errorResponse) {
                 console.log(errorResponse);
@@ -244,9 +257,6 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             $location.search('postCategoryTag', null);
             $route.reload();
         }
-
-       
-
 
     }
     EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location', '$route', '$routeParams'];

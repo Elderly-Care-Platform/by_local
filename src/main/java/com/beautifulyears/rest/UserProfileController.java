@@ -361,7 +361,7 @@ public class UserProfileController {
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
 								List<UserProfile> branchInfo = userProfile.getServiceBranches();
-								saveBranches(branchInfo, userId, req, res);
+								saveBranches(branchInfo, userId);
 								profile.setServiceBranches(userProfile
 										.getServiceBranches());
 								
@@ -521,19 +521,14 @@ public class UserProfileController {
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 	
-	private void saveBranches(List<UserProfile> branchInfo,String userId, HttpServletRequest req, HttpServletResponse res) {
+	private void saveBranches(List<UserProfile> branchInfo,String userId) {
 		for(UserProfile branch: branchInfo){
 			if(!branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
 				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 			}
 		}
 		for(UserProfile branch: branchInfo){
-			try {
-				mongoTemplate.save(branch);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			mongoTemplate.save(branch);
 		}
 		
 	}

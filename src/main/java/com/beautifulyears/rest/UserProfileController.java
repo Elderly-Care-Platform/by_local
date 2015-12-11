@@ -86,9 +86,10 @@ public class UserProfileController {
 		//User sessionUser = Util.getSessionUser(req);
 		User userInfo = UserController.getUser(userId);
 		UserProfile userProfile = null;
+	
 		try {
 			if (userId != null) {
-				userProfile = this.userProfileRepository.findByUserId(userId);
+				userProfile = userProfileRepository.findAllProfileByUserId(userId).get(0);
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
@@ -175,7 +176,7 @@ public class UserProfileController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
-				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
+				UserTypes.INSTITUTION_BRANCH, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
 		LoggerUtil.logEntry();
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();

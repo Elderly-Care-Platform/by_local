@@ -357,16 +357,14 @@ public class UserProfileController {
 								profile.setIndividualInfo(userProfile
 										.getIndividualInfo());
 							}
-							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES)){
+							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES) || profile.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
 								List<UserProfile> branchInfo = userProfile.getServiceBranches();
-								for(UserProfile branch: branchInfo){
-									if(branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
-										profile.setServiceBranches(userProfile
-												.getServiceBranches());
-									}
-								}
+								saveBranches(branchInfo, userId, req, res);
+								profile.setServiceBranches(userProfile
+										.getServiceBranches());
+								
 							}
 							else if (profile.getUserTypes().contains(UserTypes.INDIVIDUAL_PROFESSIONAL)){
 								profile.setServiceProviderInfo(userProfile
@@ -521,6 +519,23 @@ public class UserProfileController {
 			Util.handleException(e);
 		}
 		return BYGenericResponseHandler.getResponse(userAddress);
+	}
+	
+	private void saveBranches(List<UserProfile> branchInfo,String userId, HttpServletRequest req, HttpServletResponse res) {
+		for(UserProfile branch: branchInfo){
+			if(!branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
+				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+			}
+		}
+		for(UserProfile branch: branchInfo){
+			try {
+				updateUserProfile(branch, userId, req, res);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	private String getShortDescription(UserProfile profile) {

@@ -43,7 +43,7 @@ public class UserProfile {
 	private ServiceProviderInfo serviceProviderInfo = new ServiceProviderInfo();
 	
 	@DBRef
-	private List<ServiceBranch> serviceBranches = new ArrayList<ServiceBranch>();
+	private List<UserProfile> serviceBranches = new ArrayList<UserProfile>();
 
 	@DBRef
 	private List<HousingFacility> facilities = new ArrayList<HousingFacility>();
@@ -156,11 +156,11 @@ public class UserProfile {
 		this.individualInfo = individualInfo;
 	}
 	
-	public List<ServiceBranch> getServiceBranches() {
+	public List<UserProfile> getServiceBranches() {
 		return serviceBranches;
 	}
 
-	public void setServiceBranches(List<ServiceBranch> serviceBranches) {
+	public void setServiceBranches(List<UserProfile> serviceBranches) {
 		this.serviceBranches = serviceBranches;
 	}
 

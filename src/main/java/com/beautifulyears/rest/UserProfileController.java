@@ -342,14 +342,11 @@ public class UserProfileController {
 							userProfile.getBasicProfileInfo()
 									.setShortDescription(
 											getShortDescription(userProfile));
-							profile.setStatus(userProfile.getStatus());
-							profile.setUserTypes(userProfile.getUserTypes());
 							profile.setLastModifiedAt(new Date());
 							profile.setSystemTags(userProfile.getSystemTags());
 
 							profile.setBasicProfileInfo(userProfile
 									.getBasicProfileInfo());
-							profile.setFeatured(userProfile.isFeatured());
 							if (!Collections.disjoint(
 									profile.getUserTypes(),
 									new ArrayList<>(Arrays.asList(
@@ -363,10 +360,13 @@ public class UserProfileController {
 							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES)){
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
-								profile.setServiceBranches(ServiceBranchController
-										.addServiceBranches(
-												userProfile.getServiceBranches(),
-												currentUser));
+								List<UserProfile> branchInfo = userProfile.getServiceBranches();
+								for(UserProfile branch: branchInfo){
+									if(branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
+										profile.setServiceBranches(userProfile
+												.getServiceBranches());
+									}
+								}
 							}
 							else if (profile.getUserTypes().contains(UserTypes.INDIVIDUAL_PROFESSIONAL)){
 								profile.setServiceProviderInfo(userProfile

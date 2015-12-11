@@ -55,7 +55,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.promise = getProductDescription();
         $scope.productOptionSelected = productOptionSelected;
 	    $scope.checkLogisticAvailability = checkLogisticAvailability;
-
+        $scope.slideIndex       = 1;
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
@@ -93,6 +93,29 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                     }
                 });
             }
+        }
+
+        /**
+         * update social media meta tags
+         *
+         */
+        function updateMetaTags(){
+            // to eliminate html tags from product description
+            var descDiv1 = document.createElement('div');
+            if($scope.uiData.productDescription){
+                descDiv1.innerHTML = $scope.uiData.productDescription;
+            }else{
+                descDiv1.innerHTML = $scope.uiData.longDescription;
+            }
+
+            var descText = $.parseHTML(descDiv1.innerText);
+            var metaTagParams = {
+                title:  $scope.uiData.name,
+                imageUrl:   BY.config.constants.productImageHost + $scope.uiData.media[0].url,
+                description:    descText,
+                keywords:[]
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
         }
 
         /**
@@ -154,14 +177,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                     }
                 });
 
-                var metaTagParams = {
-                    title:  $scope.uiData.name,
-                    imageUrl:   $scope.uiData.media[0].url,
-                    description:    $scope.uiData.productDescription,
-                    keywords:[]
-                }
-                BY.byUtil.updateMetaTags(metaTagParams);
-
+                updateMetaTags();
                 params = {};
                 params.id = data.defaultCategoryId;
                 params.q = '*';
@@ -402,7 +418,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
          * @return {void}
          */
         function openProductDescription(productId, productName) {
-            var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+            var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
+                prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
                 path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
             $location.path(path);
         }
@@ -414,7 +431,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             });
         };
 
-        $scope.slideIndex = 1;
+
 
 
         $scope.slideGallery = function (dir) {

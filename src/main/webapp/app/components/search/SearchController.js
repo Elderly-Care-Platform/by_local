@@ -226,7 +226,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
             $scope.openProductDescription = function($event, productId, productName) {
                 $event.stopPropagation();
                 if(productId) {
-                    var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+                    var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
+                        prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
                         path = '/' + prodName + '/pd/' + productId;
 
                     $location.path(path);

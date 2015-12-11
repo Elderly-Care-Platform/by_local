@@ -18,10 +18,10 @@
 			</a>-->
 			<div ng-if="selectedMenuCount > 0">
 				Your post will appear under the
-				<a ng-repeat="(key, value) in selectedMenuList">
+				<span ng-repeat="(key, value) in selectedMenuList">
 					<span ng-if="$index > 0"> | </span>
 					{{'"'+value.displayMenuName+'"'}}
-				</a> &nbsp;category.
+				</span> &nbsp;category.
 				<a ng-click="showCategoryList()" ng-if="categoryLists">Please select additional categories (optional)</a>
 				<span ng-click="showCategoryList()" ng-if="categoryLists" class="triangle-down by-arrow-float-none"></span>
 			</div>

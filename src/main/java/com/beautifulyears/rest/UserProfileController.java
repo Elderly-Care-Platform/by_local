@@ -169,7 +169,7 @@ public class UserProfileController {
 			@RequestParam(value = "city", required = false) String city,
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(value = "size", required = false, defaultValue = "100") int size,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
@@ -529,6 +529,7 @@ public class UserProfileController {
 			}
 		}
 		for(UserProfile branch: branchInfo){
+			branch.setUserId(userId);
 			mongoTemplate.save(branch);
 		}
 		

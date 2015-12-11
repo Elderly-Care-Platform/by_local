@@ -86,9 +86,10 @@ public class UserProfileController {
 		//User sessionUser = Util.getSessionUser(req);
 		User userInfo = UserController.getUser(userId);
 		UserProfile userProfile = null;
+	
 		try {
 			if (userId != null) {
-				userProfile = this.userProfileRepository.findByUserId(userId);
+				userProfile = userProfileRepository.findAllProfileByUserId(userId).get(0);
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();

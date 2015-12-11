@@ -529,7 +529,7 @@ public class UserProfileController {
 		}
 		for(UserProfile branch: branchInfo){
 			try {
-				updateUserProfile(branch, userId, req, res);
+				mongoTemplate.save(branch);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

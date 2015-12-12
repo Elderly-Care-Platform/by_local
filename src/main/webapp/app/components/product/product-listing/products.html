@@ -1,7 +1,7 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
 
 <!-- product banner -->
-<div class="by_productBanner">
+<!--<div class="by_productBanner">
     <div class="by_productBanner_title">
         Products for seniors
     </div>
@@ -10,7 +10,7 @@
             ng-if="$root.windowWidth < 720"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span> <span
             ng-if="$root.windowWidth > 720">{{telNo}}</span>
     </div>
-</div>
+</div>-->
 
 <!--=== Content Part ===-->
 <div>
@@ -19,7 +19,7 @@
          ng-controller="ProductMenuCtrl"></div>
 
      <!--Product Home-->
-    <div class="contentPanel" ng-if="!showEditor && selectedMenu.ancestorIds.length == 0"
+    <div class="contentPanel contentPanelProduct" ng-if="!showEditor && selectedMenu.ancestorIds.length == 0"
          ng-include="'app/components/product/productHome/product-home-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>     
 
     <!--Product Content-->

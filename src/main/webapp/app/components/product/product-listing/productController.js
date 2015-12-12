@@ -303,16 +303,16 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
 
     $scope.feWidth = function(){
         if($rootScope.windowWidth > 850){
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 4) - 20;
+             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 4) - 10;
             $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 4;
         } else if($rootScope.windowWidth > 720){
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 3) - 20;
+             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 3) - 10;
             $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 3;
         } else if($rootScope.windowWidth > 400){
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 2) - 20;
+             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 2) - 10;
             $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 2;
         } else{
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 1) - 20;
+             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 1) - 10;
             $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 1;
         }       
         $(".by_featuredProductCard").css('width', $scope.byFeaWid +"px");

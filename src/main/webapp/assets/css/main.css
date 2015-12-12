@@ -277,6 +277,12 @@ body a:hover
     margin-top: 20px;
     /* min-height: 100vh;*/
 }
+.contentPanelProduct
+{
+    width: calc(90% - 250px);
+    margin-left: 5%;
+    margin-right: 5%;
+}
 .footerMobile
 {
     display: none;
@@ -294,6 +300,12 @@ body a:hover
         margin-right: 5%;
         height: auto;
         margin-top: 20px;
+    }
+    .contentPanelProduct
+    {
+        width: calc(96% - 250px);
+        margin-left: 2%;
+        margin-right: 2%;
     }
 }
 @media ( max-width : 720px){

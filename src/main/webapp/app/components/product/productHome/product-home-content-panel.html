@@ -22,7 +22,7 @@
       </div><!-- End Carousel Inner -->
 
         <ul class="nav nav-pills nav-justified" ng-if="$root.windowWidth > 850">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"><a>Diabetic Stock</a></li>
+          <li data-target="#myCarousel" data-slide-to="0" class="active"><a>Diabetic Socks</a></li>
           <li data-target="#myCarousel" data-slide-to="1"><a>Hot & Cold Pack</a></li>
           <li data-target="#myCarousel" data-slide-to="2"><a>Tablet Organizer</a></li>
         </ul>
@@ -35,7 +35,10 @@
     </div><!-- End Carousel -->
 </div>
 
-<div class="by_callHome" ></div>
+<div class="by_callHome" >
+  <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%" width="20"/>
+  Need Help? <span ng-if="$root.windowWidth > 720">{{telNo}}</span> <span ng-if="$root.windowWidth < 721"><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></span>
+</div>
 
 <div class="by_productHome_title">Featured Products</div>
 
@@ -58,7 +61,7 @@
         <div class="clearfix"></div>
         <div class="by_productCard_ImageOffer" ng-if="product.salePrice.amount && (product.retailPrice.amount - product.salePrice.amount) > 0">{{((product.retailPrice.amount - product.salePrice.amount)/product.retailPrice.amount * 100).toFixed(0)}}% <br/><small>off</small></div>
       </div>
-      <div class="by_productCard_title ellipsisHead margin-top-20" style="height:50px;">{{product.name}}</div>
+      <div class="by_productCard_title ellipsisHead" style="height:50px;">{{product.name}}</div>
     </div>
   </div>
   <div class="clearfix"></div>

@@ -194,7 +194,7 @@
 		border-bottom: none;
 		bottom: 0px;
 	}
-	.header .navbar-nav>li:hover, .header .navbar-nav>li:active, .nav>li>a:focus,
+	.header .navbar-nav>li:hover, .header .navbar-nav>li:active,
 		.nav>li>a:hover
 		{
 		background-color: #008a4b;

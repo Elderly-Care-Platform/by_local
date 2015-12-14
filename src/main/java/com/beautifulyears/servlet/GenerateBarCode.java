@@ -62,7 +62,7 @@ public class GenerateBarCode extends HttpServlet {
 //			OutputStream outputStream = new FileOutputStream(f);
 //			out.writeTo(outputStream);
 			
-			path =  "barcodes/"+ dataString +"_"+(new Date()).toString() + "." + "jpeg";
+			path =  "barcodes/"+ dataString +"_"+(new Date()).getTime() + "." + "jpeg";
 			File f = new File(uploadDir + File.separator + path);
 			ImageIO.write(barImage, "jpeg", f);
 			

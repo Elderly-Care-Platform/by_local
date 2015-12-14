@@ -55,7 +55,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.promise = getProductDescription();
         $scope.productOptionSelected = productOptionSelected;
 	    $scope.checkLogisticAvailability = checkLogisticAvailability;
-
+        $scope.slideIndex       = 1;
 
         $scope.leftPanelHeight = function(){            
             var clientHeight = $( window ).height() - 57;
@@ -111,7 +111,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             var descText = $.parseHTML(descDiv1.innerText);
             var metaTagParams = {
                 title:  $scope.uiData.name,
-                imageUrl:   $scope.uiData.media[0].url,
+                imageUrl:   BY.config.constants.productImageHost + $scope.uiData.media[0].url,
                 description:    descText,
                 keywords:[]
             }
@@ -418,7 +418,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
          * @return {void}
          */
         function openProductDescription(productId, productName) {
-            var prodName = productName.replace(/\s+/g, '-').toLowerCase(),
+            var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
+                prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
                 path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
             $location.path(path);
         }
@@ -430,7 +431,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             });
         };
 
-        $scope.slideIndex = 1;
+
 
 
         $scope.slideGallery = function (dir) {

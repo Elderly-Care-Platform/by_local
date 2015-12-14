@@ -33,20 +33,7 @@
             </div>   
             <!-- profile types with housing -->
 
-            <!-- profile types with institution -->
-            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive"
-                 ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] == 4">
-                <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
-            </div>
-
-
-            <div class="by_profileDetailed_menu  reg-menu-1 serviceTab{{$index+1}}" ng-if="serviceBranchTabs.length > 0"
-                ng-repeat="serviceTab in serviceBranchTabs track by $index" ng-class="{'by_profileDetailed_menuActive':branchIdx===$index}">
-                <a di-href="#!/users/institutionRegistration/{{$index}}">{{serviceTab}}</a>
-            </div>   
-            <!-- profile types with institution -->
-
-            <!-- order history -->     
+            <!-- order history -->
             <div class="by_profileDetailed_menu orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
                 <a href="#!/users/registrationProfile/orderHistory?showOrderHistory=true">{{userTypeConfig.orderHistoryLabel}}</a>
             </div>

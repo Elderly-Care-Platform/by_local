@@ -209,7 +209,8 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * @return {void}
          */
         function openProductDescription(productId, productName) {
-            var prodName = productName.replace(/[,/\s]+/g, '-').toLowerCase(),
+            var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
+                prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
                 path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
             $location.path(path);
         }
@@ -251,18 +252,6 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         function trustForcefully (html) {
             return $sce.trustAsHtml(html);
         }
-
-
-
-
-        $scope.selectedMenuId           = $routeParams.menuId;
-
-
-
-
-
-
-
     }
 
     ProductsController.$inject = ['$rootScope', '$scope',

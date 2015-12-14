@@ -90,7 +90,7 @@ BY.config.profile.userType = {
         'type': 'SERVICE BRANCH',
         'reviewContentType': '4',
         'profileImage': 'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%',
-        'label': 'Institution Info'
+        'label': 'Corporate'
     }
 
 }

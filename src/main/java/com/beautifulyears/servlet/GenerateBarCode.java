@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -61,8 +62,8 @@ public class GenerateBarCode extends HttpServlet {
 //			OutputStream outputStream = new FileOutputStream(f);
 //			out.writeTo(outputStream);
 			
-			path =  uploadDir + File.separator +"barcodes/"+ dataString +  "." + "jpeg";
-			File f = new File(uploadDir + File.separator +"barcodes/"+ dataString +  "." + "jpeg");
+			path =  "barcodes/"+ dataString +"_"+(new Date()).toString() + "." + "jpeg";
+			File f = new File(uploadDir + File.separator + path);
 			ImageIO.write(barImage, "jpeg", f);
 			
 		} catch (BarcodeException e) {
@@ -70,7 +71,7 @@ public class GenerateBarCode extends HttpServlet {
 		} catch (OutputException e) {
 			e.printStackTrace();
 		}
-		response.getWriter().write(path);
+		response.getWriter().write("/uploaded_files/"+path);
 	}
 
 }

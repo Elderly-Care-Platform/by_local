@@ -115,6 +115,19 @@ define([], function () {
                     }]
                 }
             })
+            
+            .when('/users/institutionRegistration/:branchIndex', {
+                templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'RegistrationController', resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/signup/registrationController.js'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
 
             .when('/users/registrationProfile/orderHistory', {
                 templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%',

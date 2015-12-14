@@ -79,6 +79,7 @@ require.config({
 		reviewRateController : '../components/profile/shared/reviewRateController',
 		housingProfileCtrl : '../components/profile/housing/housingProfileCtrl',
 		housingProfileLeftCtrl : '../components/profile/housing/housingProfileLeftCtrl',
+		instProfileLeftCtrl : '../components/profile/institution/instProfileLeftCtrl',
 
 		registrationConfig : '../components/signup/common/registrationConfig',
 		regIndividualCtrl : '../components/signup/registration/individual/regIndividualCtrl',

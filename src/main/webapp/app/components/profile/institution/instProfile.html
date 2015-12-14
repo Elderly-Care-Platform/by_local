@@ -19,23 +19,22 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 whiteBg by_profileDetail  margin-bottom-35"
-         ng-init="institutionProfile.showMoreServices=false">
+    <div class="col-md-12 whiteBg by_profileDetail  margin-bottom-35" ng-init="branchProfile.showMoreServices=false">
         <div class="col-md-12 profileContainer margin-bottom-15  ">
             <div class="col-md-5 col-xs-5 by_profileWidth" style="padding-left:0px;">
                 <div class="main-image  " style="padding-left:0px;">
-                    <img class="padding-zero" ng-if="institutionProfile.basicProfileInfo.profileImage.titleImage"
-                         ng-src="{{institutionProfile.basicProfileInfo.profileImage.titleImage || ''}}"
+                    <img class="padding-zero" ng-if="branchProfile.basicProfileInfo.profileImage.titleImage"
+                         ng-src="{{branchProfile.basicProfileInfo.profileImage.titleImage || ''}}"
                          fallback-src='["assets/img/profile/instituation-big.png"]' alt="">
                     <img class="padding-zero"
-                         ng-if="!institutionProfile.basicProfileInfo.profileImage.titleImage"
+                         ng-if="!branchProfile.basicProfileInfo.profileImage.titleImage"
                          ng-src="assets/img/profile/instituation-big.png" alt="">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
-                     ng-if="institutionProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
+                     ng-if="branchProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
                     <div class="by-gallery-leftArrow" ng-click="slideGallery('l')"></div>
                     <div class="by-gallery-container">
-                        <div ng-repeat="img in institutionProfile.basicProfileInfo.photoGalleryURLs"
+                        <div ng-repeat="img in branchProfile.basicProfileInfo.photoGalleryURLs"
                              class="by-imageGallery-item" data-popup="{{img.original || ''}}"
                              data-hover="{{img.thumbnailImage || ''}}"
                              ng-init="galleryClickHover()">
@@ -51,42 +50,42 @@
             <div class="col-md-7 col-xs-7 by_profileInfoWidth by-service-padding">
                 <div class="profileMainContent">
                     <div class="profileContentTitle divLeft" style="width: calc(100% - 92px);"
-                         ng-if="institutionProfile.basicProfileInfo.firstName">
-                        {{institutionProfile.basicProfileInfo.firstName.toLowerCase()}}
+                         ng-if="branchProfile.basicProfileInfo.firstName">
+                        {{branchProfile.basicProfileInfo.firstName.toLowerCase()}}
                     </div>
-                    <div class="by_profile_verified divRight" ng-if="institutionProfile.verified == true"
+                    <div class="by_profile_verified divRight" ng-if="branchProfile.verified == true"
                          data-toggle="tooltip" ng-init="tooltipText();"
                          ng-click="$event.stopPropagation();"
                          title="Information on service providers, professionals and senior living options
-                    has been verified by a BeautifulYears 	representative  at the time of registration
-                     on BeautifulYears.com. Verification details appear in the review section for the
-                      specific establishment as a BeautifulYears Team review."></div>
+                        has been verified by a BeautifulYears 	representative  at the time of registration
+                        on BeautifulYears.com. Verification details appear in the review section for the
+                        specific establishment as a BeautifulYears Team review."></div>
                     <div style="clear:both;"></div>
-                    <div class="no-padding" ng-if="institutionProfile.ratingCount > 0 || institutionProfile.reviewCount > 0">
-                        <div class="profileRating" ng-if="institutionProfile.ratingCount > 0">
-                            <i class="rounded-x profileStar" rate-calculator="{{institutionProfile.ratingPercentage}}"></i>Rated
-                            by <a href="">{{institutionProfile.ratingCount}} user<xy
-                                    ng-if="institutionProfile.ratingCount > 1">s
+                    <div class="no-padding" ng-if="branchProfile.ratingCount > 0 || branchProfile.reviewCount > 0">
+                        <div class="profileRating" ng-if="branchProfile.ratingCount > 0">
+                            <i class="rounded-x profileStar" rate-calculator="{{branchProfile.ratingPercentage}}"></i>Rated
+                            by <a href="">{{branchProfile.ratingCount}} user<xy
+                                    ng-if="branchProfile.ratingCount > 1">s
                             </xy>
                         </a>
                         </div>
                         <div style="clear:both; height:16px;"></div>
-                        <div class="profileReview" ng-if="institutionProfile.reviewCount > 0">
-                            <i class="rounded-x fa fa-review-icon padding42" style="margin-left:0px; margin-right:9px;"></i>{{institutionProfile.reviewCount}}
-                            review<span ng-if="institutionProfile.reviewCount > 1">s</span>
+                        <div class="profileReview" ng-if="branchProfile.reviewCount > 0">
+                            <i class="rounded-x fa fa-review-icon padding42" style="margin-left:0px; margin-right:9px;"></i>{{branchProfile.reviewCount}}
+                            review<span ng-if="branchProfile.reviewCount > 1">s</span>
                         </div>
                         <div style="clear: both; height:6px;"></div>
                     </div>
 
 
                     <div class="no-padding profileAddress"
-                         format-address="institutionProfile.basicProfileInfo.primaryUserAddress">
-                        <div ng-if="institutionProfile.basicProfileInfo.primaryUserAddress.fullAddress">
+                         format-address="branchProfile.basicProfileInfo.primaryUserAddress">
+                        <div ng-if="branchProfile.basicProfileInfo.primaryUserAddress.fullAddress">
                             <i class="fa fa-map-marker divLeft"
                                style="margin-right:20px;  color:#A9A9A9;  font-size: 20px; "></i>
                             <ul class="list-inline divRight" style="width:calc(100% - 35px);">
                                 <li class="list-inline">
-                                    {{institutionProfile.basicProfileInfo.primaryUserAddress.fullAddress}}
+                                    {{branchProfile.basicProfileInfo.primaryUserAddress.fullAddress}}
                                 </li>
                             </ul>
                         </div>
@@ -96,33 +95,33 @@
 
                     <div class="no-padding">
                         <div style="clear: both; "></div>
-                        <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryPhoneNo">
+                        <div class="no-padding" ng-if="branchProfile.basicProfileInfo.primaryPhoneNo">
                             <i class="fa fa-phone" style="margin-right:9px;"></i> <span><a
-                                href="tel:{{institutionProfile.basicProfileInfo.primaryPhoneNo}}">{{institutionProfile.basicProfileInfo.primaryPhoneNo}}</a></span>
-							<span ng-repeat="phoneNo in institutionProfile.basicProfileInfo.secondaryPhoneNos track by $index"
+                                href="tel:{{branchProfile.basicProfileInfo.primaryPhoneNo}}">{{branchProfile.basicProfileInfo.primaryPhoneNo}}</a></span>
+							<span ng-repeat="phoneNo in branchProfile.basicProfileInfo.secondaryPhoneNos track by $index"
                                   ng-if="phoneNo.trim()!==''"> , <a href="tel:{{phoneNo}}">{{phoneNo}}</a> </span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
-                        <div class="no-padding" ng-if="institutionProfile.basicProfileInfo.primaryEmail">
+                        <div class="no-padding" ng-if="branchProfile.basicProfileInfo.primaryEmail">
                             <i class="fa fa-envelope" style="margin-right:9px;"></i>
-                            <a href="mailto::{{institutionProfile.basicProfileInfo.primaryEmail}}">{{institutionProfile.basicProfileInfo.primaryEmail}}</a>
-							<span ng-repeat="mail in institutionProfile.basicProfileInfo.secondaryEmails track by $index"
+                            <a href="mailto::{{branchProfile.basicProfileInfo.primaryEmail}}">{{branchProfile.basicProfileInfo.primaryEmail}}</a>
+							<span ng-repeat="mail in branchProfile.basicProfileInfo.secondaryEmails track by $index"
                                   ng-if="mail.trim()!==''"> / <a href="mailto:{{mail}}">{{mail}}</a>
 							</span>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
-                        <div class="no-padding" ng-if="institutionProfile.serviceProviderInfo.website">
+                        <div class="no-padding" ng-if="branchProfile.serviceProviderInfo.website">
                             <i class="fa fa-globe" style="margin-right:9px;"></i>
-                            <a ng-href="http://{{institutionProfile.serviceProviderInfo.website}}" target="_blank">
-                                {{institutionProfile.serviceProviderInfo.website}}
+                            <a ng-href="http://{{branchProfile.serviceProviderInfo.website}}" target="_blank">
+                                {{branchProfile.serviceProviderInfo.website}}
                             </a>
                         </div>
                         <div style="clear: both; height: 6px;"></div>
                     </div>
 
                     <div class=" profile-home-visit by-service-border" style="margin-top:0px;">
-                        <span ng-if="institutionProfile.serviceProviderInfo.homeVisits"><b>Available</b> for home visit</span>
-                        <span ng-if="!institutionProfile.serviceProviderInfo.homeVisits"><b>Not available</b> for home visit</span>
+                        <span ng-if="branchProfile.serviceProviderInfo.homeVisits"><b>Available</b> for home visit</span>
+                        <span ng-if="!branchProfile.serviceProviderInfo.homeVisits"><b>Not available</b> for home visit</span>
                     </div>
                 </div>
             </div>
@@ -131,35 +130,35 @@
 
         <div class="clearfix"></div>
 
-        <div class="article col-md-12" validate-by-categories="institutionProfile.serviceProviderInfo.services">
+        <div class="article col-md-12" validate-by-categories="branchProfile.serviceProviderInfo.services">
             <ul class="list-inline categoryList" style="margin-left: 5px; margin-top: 5px; font-size:15px;"
-                ng-if="institutionProfile.serviceProviderInfo.services.length > 0">
+                ng-if="branchProfile.serviceProviderInfo.services.length > 0">
                 <li class="list-inline" style="margin-right: 7px;">Service in</li>
                 <li class="list-inline" style="display: inline-block; margin-right: 7px;" ng-if="$index < 5"
-                    ng-repeat="category in institutionProfile.serviceProviderInfo.services">
+                    ng-repeat="category in branchProfile.serviceProviderInfo.services">
                     <a class="ng-binding"
                        di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
                         {{$root.menuCategoryMap[category].displayMenuName}}</a><span
-                        ng-if="$index<institutionProfile.serviceProviderInfo.services.length - 1">,&nbsp;</span>
+                        ng-if="$index<branchProfile.serviceProviderInfo.services.length - 1">,&nbsp;</span>
                 </li>
                 <li class="list-inline" style="display: inline-block; margin-right: 7px;"
-                    ng-if="$index >= 5 && institutionProfile.showMoreServices===true"
-                    ng-repeat="category in institutionProfile.serviceProviderInfo.services">
+                    ng-if="$index >= 5 && branchProfile.showMoreServices===true"
+                    ng-repeat="category in branchProfile.serviceProviderInfo.services">
                     <a class="ng-binding"
                        di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
                         {{$root.menuCategoryMap[category].displayMenuName}}</a><span
-                        ng-if="$index<institutionProfile.serviceProviderInfo.services.length - 1">,&nbsp;</span>
+                        ng-if="$index<branchProfile.serviceProviderInfo.services.length - 1">,&nbsp;</span>
                 </li>
                 <li class="list-inline serviceCardMoreLinks"
-                    ng-if="institutionProfile.serviceProviderInfo.services.length > 5">
-                    <span ng-if="institutionProfile.showMoreServices===false">...</span>
+                    ng-if="branchProfile.serviceProviderInfo.services.length > 5">
+                    <span ng-if="branchProfile.showMoreServices===false">...</span>
                     <a class="diveLeft by_readmore serviceShowMoreLink"
-                       ng-click="showAllServices($event, institutionProfile);$event.stopPropagation();"
+                       ng-click="showAllServices($event, branchProfile);$event.stopPropagation();"
                        style="display: inline">
                         Show all
                     </a>
                     <i class="fa fa-angle-down serviceShowMoreIcon"
-                       ng-click="showAllServices($event, institutionProfile);$event.stopPropagation();"
+                       ng-click="showAllServices($event, branchProfile);$event.stopPropagation();"
                        style="margin-left: 2px; font-size: 16px;"></i>
                 </li>
             </ul>
@@ -167,22 +166,22 @@
         <div class="clearfix"></div>
 
 
-        <div class="col-md-12" ng-if="institutionProfile.basicProfileInfo.description">
+        <div class="col-md-12" ng-if="branchProfile.basicProfileInfo.description">
             <div class="row bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
             <div class="by_profile_devider "></div>
-            <!--  <div class="articles-story row" ng-if="institutionProfile.basicProfileInfo.shortDescription">
+            <!--  <div class="articles-story row" ng-if="branchProfile.basicProfileInfo.shortDescription">
                 <p id="profile-shortDesc">
-                    {{institutionProfile.basicProfileInfo.shortDescription}}<br/>
+                    {{branchProfile.basicProfileInfo.shortDescription}}<br/>
                     <a class="divRight by_readmore" ng-click="showMore()">Read More<i class="fa fa-angle-right"
                                                                                       style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
                 </p>
 
                 <p id="profile-desc" style="display: none"
-                   ng-bind-html="trustForcefully(institutionProfile.basicProfileInfo.description)">
+                   ng-bind-html="trustForcefully(branchProfile.basicProfileInfo.description)">
                 </p>
             </div>-->
-            <div class="articles-story row" ng-if="institutionProfile.basicProfileInfo.description">
-                <p id="profile-desc" ng-bind-html="trustForcefully(institutionProfile.basicProfileInfo.description)">
+            <div class="articles-story row" ng-if="branchProfile.basicProfileInfo.description">
+                <p id="profile-desc" ng-bind-html="trustForcefully(branchProfile.basicProfileInfo.description)">
                 </p>
             </div>
         </div>

@@ -6,19 +6,21 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         $scope.housingFacilityTabs = [];
         $scope.userType = null;
         $scope.facilityIdx = $routeParams.facilityIndex ? parseInt($routeParams.facilityIndex) : 0;
+        $scope.serviceBranchTabs = [];
+        $scope.branchIdx = $routeParams.branchIndex ? parseInt($routeParams.branchIndex) : 0;
 
         var changeUsername = function () {
             window.scrollTo(0, 0);
             $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
             $(".username").addClass('by_profileDetailed_menuActive');
-            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            //$scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyUsername.html?versionTimeStamp=%PROJECT_VERSION%";
         };
         var changePassword = function () {
             window.scrollTo(0, 0);
             $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
             $(".password").addClass('by_profileDetailed_menuActive');
-            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            //$scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyPassword.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
@@ -26,7 +28,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
             window.scrollTo(0, 0);
             $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
             $(".orderHistory").addClass('by_profileDetailed_menuActive');
-            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            //$scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/product/orderHistory/order-history.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
@@ -84,6 +86,28 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
             }
         };
 
+        var showInstitutionLeftPanel = function(){
+            if($scope.profile.serviceBranches && $scope.profile.serviceBranches.length > 0){
+                for(var i=0; i<$scope.profile.serviceBranches.length; i++){
+                    if($scope.profile.serviceBranches[i].basicProfileInfo.firstName && $scope.profile.serviceBranches[i].basicProfileInfo.firstName.trim().length > 0){
+                        $scope.serviceBranchTabs.push($scope.profile.serviceBranches[i].basicProfileInfo.firstName);
+                    } else{
+                        $scope.serviceBranchTabs.push("serviceBranches"+(i+1));
+                    }
+                    if($scope.branchIdx==i){
+                        $scope.branchProfileId = $scope.profile.serviceBranches[i].id;
+                    }
+                }
+            }
+
+            if($routeParams.branchIndex){
+                if($scope.branchIdx >= $scope.profile.serviceBranches.length){
+                    $scope.serviceBranchTabs.push("branch "+$scope.branchIdx);
+                    //$scope.branchIdx = $scope.branchIdx - 1;
+                }
+            }
+        };
+
         var updateContentPanel = function(){
             if($routeParams.changeUserName) {
                 require(["modifySignupCtrl"], function(regCtrl) {
@@ -127,8 +151,12 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
 
                 $scope.views.leftPanel = $scope.userTypeConfig.leftPanel;
                 updateContentPanel();
-                if($scope.profile.userTypes[0]===3){
+
+                if($scope.profile.userTypes[0]===BY.config.profile.userTypeMap.INSTITUTION_HOUSING){
                     showHousingLeftPanel();
+                }
+                if($scope.profile.userTypes[0]===BY.config.profile.userTypeMap.INSTITUTION_SERVICES){
+                    showInstitutionLeftPanel();
                 }
 
 

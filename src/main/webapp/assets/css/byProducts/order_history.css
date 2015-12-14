@@ -94,8 +94,18 @@
 {
   width:50%;
   float: right;
-  text-align: right;
+  /*text-align: right;*/
 }
+
+.by_orderHistory_dataOrderTotal .orderLabel{
+  width:50%;
+}
+.by_orderHistory_dataOrderTotal .orderAmount{
+  width:50%;
+  float: right;
+
+}
+
 .by_orderHistory_dataOrderTrack
 {
   width:100%;

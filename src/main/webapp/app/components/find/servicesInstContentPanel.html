@@ -1,4 +1,4 @@
-<div ng-click="location($event, service.userId, service.userTypes)"
+<div ng-click="location($event, service.userId, service.userTypes, service.id)"
      class="by_serviceCard" data-index="discussion-articles"
      ng-if="service.systemTags.length > 0" ng-init="service.showMoreServices=false;">
     <div class="serviceFeatured" ng-if="service.featured == true"></div>
@@ -7,10 +7,9 @@
          aria-label="{{service.basicProfileInfo.firstName}}"
          ng-if="service.basicProfileInfo.profileImage != null"
          style="background-image: url('{{service.basicProfileInfo.profileImage.titleImage}}');">
-        <img
-                background-fallback-src="assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%"
-                ng-src="{{service.basicProfileInfo.profileImage.titleImage}}"
-                style="display: none;">
+        <img background-fallback-src="assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%"
+             ng-src="{{service.basicProfileInfo.profileImage.titleImage}}"
+             style="display: none;">
     </div>
     <div class="by_serviceCard_profileImage"
          aria-label="{{service.basicProfileInfo.firstName}}"
@@ -22,9 +21,8 @@
         <p class="by_serviceCard_contentHead text-capitalize"> {{service.basicProfileInfo.firstName.toLowerCase()}} {{service.individualInfo.lastName.toLowerCase()}}</p>
 
         <div class="by_serviceCard_contentLeft">
-            <div
-                    class="by_serviceCard_contentIconWrap by_serviceCard_contentIconWrapAddHeight"
-                    ng-if="service.basicProfileInfo.primaryUserAddress.locality ||
+            <div class="by_serviceCard_contentIconWrap by_serviceCard_contentIconWrapAddHeight"
+                 ng-if="service.basicProfileInfo.primaryUserAddress.locality ||
                  service.basicProfileInfo.primaryUserAddress.city">
                 <div>
                     <i class="fa fa-map-marker divLeft"></i>
@@ -40,17 +38,17 @@
             <div class="by_serviceCard_contentIconWrap">
 				<span ng-if="service.serviceProviderInfo.homeVisits"><b>Available
                 </b>for home visit</span>
-				<span ng-if="!service.serviceProviderInfo.homeVisits"><b>Not
-                    available</b> for home visit</span>
-
+				<span ng-if="!service.serviceProviderInfo.homeVisits">
+                    <b>Not available</b> for home visit
+                </span>
                 <div class="clearfix"></div>
             </div>
 
             <div class="by_serviceCard_contentVerified" ng-if="service.verified == true" ng-init="tooltipText();" ng-click="$event.stopPropagation();"
                  title="Information on service providers, professionals and senior living options has been
-				verified by a BeautifulYears representative  at the time of registration on BeautifulYears.com.
-				 Verification details appear in the review section for the specific establishment as a 
-				 BeautifulYears Team review."
+				    verified by a BeautifulYears representative  at the time of registration on BeautifulYears.com.
+				    Verification details appear in the review section for the specific establishment as a
+				    BeautifulYears Team review."
                  data-toggle="tooltip"></div>
         </div>
         <div class="by_serviceCard_contentRight" validate-by-categories="service.serviceProviderInfo.services">
@@ -115,5 +113,4 @@
     </div>
 
     <div class="clearfix"></div>
-
 </div>

@@ -14,11 +14,11 @@
             </div>
             <!-- profile types i am ends -->
 
-            <!-- profile types without housing -->
-            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] != 3">
+            <!-- profile types  -->
+            <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="userTypeConfig && userTypeConfig.label && profile.userTypes.length > 0 && profile.userTypes[0] != 3 && profile.userTypes[0] != 4 ">
                 <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
             </div>
-            <!-- profile types without housing ends -->
+            <!-- profile types  ends -->
 
 
             <!-- profile types with housing -->
@@ -33,7 +33,7 @@
             </div>   
             <!-- profile types with housing -->
 
-            <!-- order history -->     
+            <!-- order history -->
             <div class="by_profileDetailed_menu orderHistory" ng-if="userTypeConfig && userTypeConfig.showOrderHistory">
                 <a href="#!/users/registrationProfile/orderHistory?showOrderHistory=true">{{userTypeConfig.orderHistoryLabel}}</a>
             </div>

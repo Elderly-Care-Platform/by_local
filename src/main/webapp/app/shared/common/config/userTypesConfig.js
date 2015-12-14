@@ -11,7 +11,8 @@ BY.config.profile.userTypeMap = {
     'INSTITUTION_SERVICES': 4,
     'INSTITUTION_PRODUCTS': 5,
     'INSTITUTION_NGO': 6,
-    'INDIVIDUAL_PROFESSIONAL': 7
+    'INDIVIDUAL_PROFESSIONAL': 7,
+    'INSTITUTION_BRANCH': 8
 }
 
 BY.config.profile.userType = {
@@ -51,9 +52,10 @@ BY.config.profile.userType = {
     },
     '4': {
         'category': '1',
-        'leftPanel': 'app/components/profile/profileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
+        'leftPanel': 'app/components/profile/institution/instProfileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
         'contentPanel': 'app/components/profile/institution/instProfile.html?versionTimeStamp=%PROJECT_VERSION%',
         'controller': 'instProfileCtrl',
+        'leftPanelCtrl': 'instProfileLeftCtrl',
         'type': 'SERVICES',
         'reviewContentType': '4',
         'profileImage': 'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%',
@@ -78,6 +80,17 @@ BY.config.profile.userType = {
         'reviewContentType': '5',
         'profileImage': 'assets/img/profile/individual.png?versionTimeStamp=%PROJECT_VERSION%',
         'label': 'Professional Info'
+    },
+    '8': {
+        'category': '1',
+        'leftPanel': 'app/components/profile/institution/instProfileLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%',
+        'contentPanel': 'app/components/profile/institution/instProfile.html?versionTimeStamp=%PROJECT_VERSION%',
+        'controller': 'instProfileCtrl',
+        'leftPanelCtrl': 'instProfileLeftCtrl',
+        'type': 'SERVICE BRANCH',
+        'reviewContentType': '4',
+        'profileImage': 'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%',
+        'label': 'Corporate'
     }
 
 }

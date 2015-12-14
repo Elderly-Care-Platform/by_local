@@ -296,7 +296,7 @@
 @media screen and (max-width: 720px){
 	.by_featuredProduct_nextBtn
 	{
-		left: calc(100% - 58px);
+		left: calc(100% - 48px);
 	}
 	.by_productHome_newArrivalThumb
 	{

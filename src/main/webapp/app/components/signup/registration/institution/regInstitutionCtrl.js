@@ -112,11 +112,11 @@ define(['byApp', 'bootstrapToggle'], function (byApp, bootstrapToggle) {
         };
 
         $scope.initEditor = function(){
-            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription", "autoFocus" : "false"}, editorInitCallback);
         };
 
         $scope.initHomeVisit = function(){
-            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription", "autoFocus" : "false"}, editorInitCallback);
         };
 
         $scope.addressCallback = function (response, addressObj) {

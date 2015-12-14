@@ -15,7 +15,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
         }
 
         $scope.addEditor = function () {
-            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "facilityDescription"}, editorInitCallback);
+            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "facilityDescription", "autoFocus" : "false"}, editorInitCallback);
         };
 
         var initialize = function () {

@@ -85,10 +85,20 @@
                     </b>
                 </div>
                 <div class="by_orderHistory_dataOrderTotal by_orderHistory_dataSpace">
-                    Order No. : <b> {{orders.orderNumber}}</b>
+                    <span class="orderLabel">Order No. :</span>
+                    <span class="orderAmount"> <b> {{orders.orderNumber}}</b> </span>
                 </div>
                 <div class="by_orderHistory_dataOrderTotal by_orderHistory_dataSpace">
-                    Order Total : <b> Rs {{orders.total.amount}}</b>
+                    <span class="orderLabel">Sub Total : </span>
+                    <span class="orderAmount"> <b> Rs {{orders.subTotal.amount}}</b> </span>
+                </div>
+                <div class="by_orderHistory_dataOrderTotal by_orderHistory_dataSpace">
+                    <span class="orderLabel">Total Shipping Charges :</span>
+                    <span class="orderAmount"><b> Rs {{orders.totalShipping.amount}}</b></span>
+                </div>
+                <div class="by_orderHistory_dataOrderTotal by_orderHistory_dataSpace">
+                    <span class="orderLabel">Order Total :</span>
+                    <span class="orderAmount"><b> Rs {{orders.total.amount}}</b></span>
                 </div>
                 <div class="clearfix"></div>
             </div>

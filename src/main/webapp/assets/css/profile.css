@@ -351,6 +351,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	color:#005326 ;
 	background:#fff;
 	word-wrap:break-word;
+	text-transform: capitalize;
 }
 .add-comment23
 {
@@ -376,6 +377,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 {
 	display:block;	
 	padding:5px 5% 5px 5% !important;
+	text-transform: capitalize;
 }
 .housingCityHeadThumb a
 {

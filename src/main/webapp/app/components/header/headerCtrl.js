@@ -141,6 +141,11 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             setValidSession(args);
         });
 
+        $scope.$on('byUserNameUpdate', function (event, args) {
+            setValidSession(args);
+        });
+
+
         $scope.$on('currentLocation', function (event, args) {
             if (args === '/' || args.indexOf('/users/home') > -1) {
                 isHomePage = true;                

@@ -49,9 +49,10 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
 
-                var pro = document.getElementById('profile_placeholder');
-                pro.innerHTML = BY.byUtil.validateUserName(login.userName);
+                //var pro = document.getElementById('profile_placeholder');
+                //pro.innerHTML = BY.byUtil.validateUserName(login.userName);
                 $scope.$parent.userName = login.userName;
+                $rootScope.$broadcast('byUserNameUpdate', login);
             }
             else {
                 $scope.setError('Browser does not support cookies');

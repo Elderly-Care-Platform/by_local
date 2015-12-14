@@ -6,21 +6,21 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
         $scope.institutionProfile   = $scope.$parent.profileData;
         $scope.branchId             = $routeParams.branchId ? $routeParams.branchId : null;
-        $scope.otherBranches        = [];
+        $scope.allBranches        = [];
 
         if($scope.branchId && $scope.institutionProfile.serviceBranches.length > 0){
 
             for (var i = 0; i < $scope.institutionProfile.serviceBranches.length; i++) {
+                $scope.allBranches.push($scope.institutionProfile.serviceBranches[i]);
+
                 if($scope.branchId  != $scope.institutionProfile.serviceBranches[i].id){
-                    $scope.otherBranches.push($scope.institutionProfile.serviceBranches[i]);
                     //var branchLocation = $scope.institutionProfile.serviceBranches[i].basicProfileInfo.primaryUserAddress.city;
-                    //$scope.otherBranches[branchLocation] = $scope.institutionProfile.serviceBranches[i]
+                    //$scope.allBranches[branchLocation] = $scope.institutionProfile.serviceBranches[i]
                 }else{
                     $scope.selectedBranch = $scope.institutionProfile.serviceBranches[i];
                 }
             }
 
-            console.log($scope.otherBranches);
         }
 
         $scope.setLocation = function ($event, url, queryParams) {

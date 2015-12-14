@@ -1,4 +1,4 @@
-define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, bootstrapToggle, regInstBranchCtrl) {
+define(['byApp', 'bootstrapToggle'], function (byApp, bootstrapToggle) {
     function regInstCtrl($scope, $rootScope, $http, $location, $routeParams, UserProfile) {
         $scope.userId = localStorage.getItem("USER_ID");
         $scope.selectedServices = {};
@@ -15,7 +15,7 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
         $scope.options = {country: "in", resetOnFocusOut: false};
 
         var init = initialize();
-
+        var systemTagList = {};
 
         function initialize() {
             if ($scope.$parent.profile) {
@@ -89,6 +89,12 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
             for (var i = 0; i < $scope.branchServiceInfo.services.length; i++) {
                 var menuId = $scope.branchServiceInfo.services[i];
                 $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
+            }
+        }
+
+        function addressFormat(index) {
+            return {
+                "city": "", "country": "", "locality": "", "streetAddress": "", "zip": ""
             }
         }
 
@@ -184,11 +190,7 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
         //$scope.newAddress = new addressFormat($scope.basicProfileInfo.userAddress.length);
         //$scope.basicProfileInfo.userAddress.push($scope.newAddress);
 
-        function addressFormat(index) {
-            return {
-                "city": "", "country": "", "locality": "", "streetAddress": "", "zip": ""
-            }
-        }
+
 
         //Function to be used to add additional address
         $scope.addNewAddress = function () {
@@ -242,7 +244,7 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
         }
 
 
-        var systemTagList = {};
+
         var getSystemTagList = function (data) {
             function rec(data) {
                 angular.forEach(data, function (menu, index) {
@@ -288,6 +290,32 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
 
         }
 
+        function prefillDataFromMain(){
+            var mainBranch = $scope.profile.serviceBranches[0];
+            //Prefill system tag list
+            if(Object.keys($scope.selectedMenuList).length===0){
+                getMainBranchCategory();
+            }
+
+            //prefill description
+            $scope.branchBasicInfo.description = mainBranch.basicProfileInfo.description;
+
+            //prefill home visit
+            $scope.branchServiceInfo.homeVisits = mainBranch.basicProfileInfo.homeVisits;
+
+            //prefill profileImage
+            if($scope.profileImage.length === 0){
+                $scope.branchBasicInfo.profileImage = mainBranch.basicProfileInfo.profileImage
+            }
+
+            //prefill galleryImages
+            if($scope.galleryImages.length === 0){
+                $scope.branchBasicInfo.photoGalleryURLs = mainBranch.basicProfileInfo.photoGalleryURLs;
+            }
+
+        }
+
+
         //Post institution form
         $scope.postUserProfile = function (isValidForm, addAnotherBranch) {
             $scope.addBranch = addAnotherBranch;
@@ -296,13 +324,17 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
             $scope.minCategoryError = false;
             $scope.websiteError = false;
 
+
+            //Prefill data like images, description, tags for other branches  from main branch
+            if($scope.branchIndex > 0){
+                prefillDataFromMain()
+            }
+
+
             if(tinymce.get("registrationDescription")){
                 $scope.branchBasicInfo.description = tinymce.get("registrationDescription").getContent();
             }
 
-            if(Object.keys($scope.selectedMenuList).length===0){
-                getMainBranchCategory();
-            }
 
             $scope.branchServiceInfo.services = $.map($scope.selectedMenuList, function (value, key) {
                 if (value && $rootScope.menuCategoryMap[value.id]) {

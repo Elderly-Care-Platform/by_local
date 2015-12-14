@@ -30,7 +30,7 @@
 
     <div class="clearfix" style="height:50px; background:#fff;"></div>
     <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="branchProfileId">
-        <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View
+        <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}?branchId={{branchProfileId}}">View
             Profile</a>
     </div>
     <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="!branchProfileId">
@@ -71,7 +71,7 @@
         <!-- order history ends -->
         <div class="clearfix" style="height:50px; background:#fff;"></div>
         <div class="by_profileDetailed_menu viewProfile margin-bottom-40 " ng-if="branchProfileId">
-            <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View
+            <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}?branchId={{branchProfileId}}">View
                 Profile</a>
         </div>
         <div class="by_profileDetailed_menu viewProfile margin-bottom-40 " ng-if="!branchProfileId">

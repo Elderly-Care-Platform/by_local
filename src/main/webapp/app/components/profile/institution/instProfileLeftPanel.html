@@ -21,12 +21,12 @@
 
 
     <div ng-controller="instProfileLeftCtrl">
-        <div class="panel-group acc-v1 housingCityWrap" id="accordion-1" ng-if="otherBranches.length > 0">
+        <div class="panel-group acc-v1 housingCityWrap" id="accordion-1" ng-if="allBranches.length > 0">
             <div class="housingCityHead">Branches:</div>
-            <div class="panel panel-default" ng-repeat="branch in otherBranches">
-                <div class="panel-heading housingCityHeadThumb">
-                    <span style="background:#fff;"
-                          ng-click="setLocation($event, '/profile/'+branch.userTypes[0]+'/'+branch.userId, {'branchId':branch.id})">
+            <div class="panel panel-default" ng-repeat="branch in allBranches">
+                <div class="panel-heading housingCityHeadThumb" ng-class="{'active':branch.id===selectedBranch.id}"
+                     ng-click="setLocation($event, '/profile/'+branch.userTypes[0]+'/'+branch.userId, {'branchId':branch.id})">
+                    <span style="background:#fff;">
                         {{branch.basicProfileInfo.firstName}}
                     </span>
                     <!--<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse"-->

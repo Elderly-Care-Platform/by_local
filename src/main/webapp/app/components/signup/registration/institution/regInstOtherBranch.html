@@ -1,14 +1,14 @@
-<div ng-controller="regInstBranchCtrl">
+<div>
     <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20 indvBorderRadius">
         <div class="addBasicInfo">My Institution Information</div>
         <div class="row margin-bottom-20 marginRightMinus5 register-page">
             <div class="col-md-5 required">
-                Name of my company
+                Branch name
             </div>
             <div class="col-md-7 no-padding-right register-page">
                 <input type="text" class="username-textbox textbox" name="branchname"
-                       placeholder="Please enter a name of your company"
-                       ng-model="serviceBranches.basicBranchInfo.firstName" required/>
+                       placeholder="Please enter branch name"
+                       ng-model="branchBasicInfo.firstName" required/>
                 <span ng-show="institutionForm.branchname.$invalid && submitted" class="errorRed">Please enter your branch name</span>
             </div>
         </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="text" class="username-textbox textbox"
-                               ng-model="serviceBranches.basicBranchInfo.primaryUserAddress.country"/>
+                               ng-model="branchBasicInfo.primaryUserAddress.country"/>
                     </div>
                 </div>
 
@@ -44,10 +44,10 @@
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="text" class="username-textbox textbox"
-                               ng-model="serviceBranches.basicBranchInfo.primaryUserAddress.zip" style="width:50%;"/>
+                               ng-model="branchBasicInfo.primaryUserAddress.zip" style="width:50%;"/>
                         <input type="button" class="btn btn-success pull-right register-btn"
                                value="Get address" style="padding:4px 12px;"
-                               ng-click="getLocationByPincode($event, address)">
+                               ng-click="getLocationByPincode($event, branchAddress)">
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="text" class="username-textbox textbox" name="branchCity"
-                               ng-model="serviceBranches.basicBranchInfo.primaryUserAddress.city" required/>
+                               ng-model="branchBasicInfo.primaryUserAddress.city" required/>
                             <span ng-show="institutionForm.branchCity.$invalid && submitted"
                                   class="errorRed">Please enter your city</span>
                     </div>
@@ -67,10 +67,9 @@
                 <div class="row  margin-bottom-20  marginRightMinus5" style="padding-left: 15px">
                     <div class="col-md-5 ">Locality</div>
                     <div class="col-md-7 no-padding-right register-page">
-                        <input type="text" ng-model="serviceBranches.basicBranchInfo.primaryUserAddress.locality"
-                               class="name-textbox textbox" ng-google-location options="options" obj="address"
-                               callback="addressCallback" id="addressLocality"
-                               placeholder="Locality"/>
+                        <input type="text" ng-model="branchBasicInfo.primaryUserAddress.locality"
+                               class="name-textbox textbox addressLocality" ng-google-location options="options" obj="branchAddress"
+                               callback="addressCallback" placeholder="Locality"/>
                     </div>
                 </div>
 
@@ -78,7 +77,7 @@
                     <div class="col-md-5 ">Address detail</div>
                     <div class="col-md-7 no-padding-right register-page">
                             <textarea class="textbox " rows="3"
-                                      ng-model="serviceBranches.basicBranchInfo.primaryUserAddress.streetAddress"></textarea>
+                                      ng-model="branchBasicInfo.primaryUserAddress.streetAddress"></textarea>
                     </div>
                 </div>
 
@@ -89,26 +88,26 @@
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="text" class="username-textbox textbox" name="primaryTel"
-                               ng-model="serviceBranches.basicBranchInfo.primaryPhoneNo"
+                               ng-model="branchBasicInfo.primaryPhoneNo"
                                placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"
                                minlength="10">
-                            <span ng-show="(institutionForm.primaryTel.$invalid || institutionForm.primaryTel.$error.pattern) && submitted"
+                        <span ng-show="(institutionForm.primaryTel.$invalid || institutionForm.primaryTel.$error.pattern) && submitted"
                                   class="errorRed">Not a valid number!</span>
                     </div>
                 </div>
 
                 <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px"
-                     ng-repeat="number in serviceBranches.basicBranchInfo.secondaryPhoneNos track by $index">
+                     ng-repeat="number in branchBasicInfo.secondaryPhoneNos track by $index">
                     <div class="col-md-5">
                         Additional Phone Number
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
-                               ng-model="serviceBranches.basicBranchInfo.secondaryPhoneNos[$index]"
+                               ng-model="branchBasicInfo.secondaryPhoneNos[$index]"
                                placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"
                                minlength="10"/>
 
-                            <span ng-show="(institutionForm.{{'tel'+$index}}.$invalid || institutionForm.{{'tel'+$index}}.$error.pattern) && submitted"
+                        <span ng-show="(institutionForm.{{'tel'+$index}}.$invalid || institutionForm.{{'tel'+$index}}.$error.pattern) && submitted"
                                   class="errorRed">Not a valid number!</span>
                     </div>
                 </div>
@@ -117,7 +116,7 @@
                 <div class="row add-phone-wrap margin-bottom-20" style="margin-top:-10px;">
                     <div class="col-md-5"></div>
                     <div class="col-md-7 no-padding-right register-page">
-                        <a class="add-phone" ng-click="addPhoneNumber()">+ add another phone no</a>
+                        <a class="add-phone" ng-click="addPhoneNumber(branchBasicInfo.secondaryPhoneNos)">+ add another phone no</a>
                     </div>
                 </div>
 
@@ -127,7 +126,7 @@
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="email" class="username-textbox textbox" name="primaryEmail"
-                               ng-model="serviceBranches.basicBranchInfo.primaryEmail"
+                               ng-model="branchBasicInfo.primaryEmail"
                                placeholder="Email"/>
                         <!--<span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted" class="errorRed">Please enter your Email Id!</span>-->
                         <span ng-show="institutionForm.primaryEmail.$error.email && submitted" class="errorRed">
@@ -136,14 +135,13 @@
                     </div>
                 </div>
 
-                <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px"
-                     ng-repeat="email in serviceBranches.basicBranchInfo.secondaryEmails track by $index">
+                <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px" ng-repeat="email in branchBasicInfo.secondaryEmails track by $index">
                     <div class="col-md-5">
                         Additional Email ID
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
-                               ng-model="serviceBranches.basicBranchInfo.secondaryEmails[$index]"
+                               ng-model="branchBasicInfo.secondaryEmails[$index]"
                                placeholder="Email"/>
                         <span ng-show="institutionForm.{{'email'+$index}}.$error.email && submitted" class="errorRed">Not valid Email!</span>
                     </div>
@@ -153,7 +151,7 @@
                 <div class="row add-email-wrap margin-bottom-20" style="margin-top:-10px;">
                     <div class="col-md-5"></div>
                     <div class="col-md-7 no-padding-right register-page">
-                        <a class="add-email" ng-click="addEmail()">+ add another email id</a>
+                        <a class="add-email" ng-click="addEmail(branchBasicInfo.secondaryEmails)">+ add another email id</a>
                     </div>
                 </div>
 
@@ -163,11 +161,11 @@
                     </div>
                     <div class="col-md-7 no-padding-right register-page">
                         <input type="text" class="username-textbox textbox"
-                               ng-model="serviceBranches.serviceProviderInfo.website"
+                               ng-model="selectedBranch.serviceProviderInfo.website"
                                placeholder="Website"/>
-                                   <span ng-show="websiteError && submitted" class="errorRed">
-                                    Please enter proper website url
-                                </span>
+                        <span ng-show="websiteError && submitted" class="errorRed">
+                            Please enter proper website url
+                        </span>
                     </div>
                 </div>
             </div>

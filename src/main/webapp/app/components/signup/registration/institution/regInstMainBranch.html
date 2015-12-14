@@ -1,17 +1,20 @@
 <div class="col-md-12 whiteBg register-page padding20 borderShadow margin-bottom-20 indvBorderRadius">
-    <div class="addBasicInfo">My Institution Information</div>
-    <div class="row margin-bottom-20 marginRightMinus5 register-page" ng-init="showHomeVisit();">
+    <!--corporate detail include template-->
+    <div ng-include="'app/components/signup/registration/institution/regInstCorp.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+
+    <!--Main branch detail-->
+    <div class="addBasicInfo"> Branch Information</div>
+    <div class="row margin-bottom-20 marginRightMinus5 register-page">
         <div class="col-md-5 required">
-            Name of my company
+            Branch name
         </div>
         <div class="col-md-7 no-padding-right register-page">
-            <input type="text" class="username-textbox textbox" name="firstName"
-                   placeholder="Please enter a name of your company"
-                   ng-model="basicProfileInfo.firstName" required/>
-            <span ng-show="institutionForm.firstName.$invalid && submitted" class="errorRed">Please enter your company name</span>
+            <input type="text" class="username-textbox textbox" name="branchName"
+                   placeholder="Please enter branch name"
+                   ng-model="branchBasicInfo.firstName" required/>
+            <span ng-show="institutionForm.branchName.$invalid && submitted" class="errorRed">Please enter your company name</span>
         </div>
     </div>
-
 
     <div class="row margin-bottom-20 marginRightMinus5 register-page">
         <div class="col-md-5 required">
@@ -27,7 +30,7 @@
                                 {{category.displayMenuName}}
 
                                 <input type="checkbox" ng-click="selectTag($event, category)"
-                                       ng-checked="serviceProviderInfo.services.indexOf(category.id) !== -1">
+                                       ng-checked="branchServiceInfo.services.indexOf(category.id) !== -1">
                             </label>
                         </h4>
                         <h4 class="panel-title by_editor_ParentCategories" ng-if="category.children.length > 0">
@@ -45,48 +48,43 @@
                         <div class="panel-body col-md-12" ng-repeat="subCategory in category.children"
                              ng-if="subCategory.module===1">
                             <input type="checkbox" ng-click="selectTag($event, subCategory)"
-                                   ng-checked="serviceProviderInfo.services.indexOf(subCategory.id) !== -1">
+                                   ng-checked="branchServiceInfo.services.indexOf(subCategory.id) !== -1">
                             <span style="line-height: 23px;">{{subCategory.displayMenuName}}</span>
                         </div>
                     </div>
                     <div style="clear:both"></div>
-
                 </div>
             </div>
             <span ng-show="minCategoryError && submitted" class="errorRed">Please select atleast one category</span>
         </div>
-
     </div>
 
     <div class="row margin-bottom-40 marginRightMinus5">
         <div class="col-md-5 col-xs-9" style="margin-right: 17px;">
             Our specialists are ready to visit clients at home
         </div>
-        <input type="checkbox" id="homeVisit" checked data-toggle="toggle" data-on="Yes"
-               data-off="No" data-onstyle="success" data-offstyle="danger">
+        <input type="checkbox" id="homeVisit" checked data-toggle="toggle" data-on="Yes" data-off="No"
+               data-onstyle="success" data-offstyle="danger" ng-init="showHomeVisit();">
     </div>
 
     <div class="row no-padding margin-bottom-20 marginleft0">
         <div class="col-md-12 no-padding fontSizeIndi  list-head dp-block">
-            Our corporate address is
+            Our address is
         </div>
-
         <div class="col-md-12 no-padding bg-gray-h1">
             <div class="bg-green-h2" style="width: 216px;"></div>
         </div>
     </div>
 
     <div class="row margin-bottom-40 marginRightMinus5">
-
         <div class="col-md-12 no-padding">
-
             <div class="row margin-bottom-20  marginRightMinus5" style="padding-left: 15px">
                 <div class="col-md-5">
                     Country
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox"
-                           ng-model="basicProfileInfo.primaryUserAddress.country"/>
+                           ng-model="branchBasicInfo.primaryUserAddress.country"/>
                 </div>
             </div>
 
@@ -96,10 +94,10 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox"
-                           ng-model="basicProfileInfo.primaryUserAddress.zip" style="width:50%;"/>
+                           ng-model="branchBasicInfo.primaryUserAddress.zip" style="width:50%;"/>
                     <input type="button" class="btn btn-success pull-right register-btn"
                            value="Get address" style="padding:4px 12px;"
-                           ng-click="getLocationByPincode($event, address)">
+                           ng-click="getLocationByPincode($event, branchAddress)">
                 </div>
             </div>
 
@@ -108,8 +106,10 @@
                     City
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <input type="text" class="username-textbox textbox" name="facilityCity"
-                           ng-model="basicProfileInfo.primaryUserAddress.city"/>
+                    <input type="text" class="username-textbox textbox" name="branchCity"
+                           ng-model="branchBasicInfo.primaryUserAddress.city" required/>
+                    <span ng-show="institutionForm.branchCity.$invalid && submitted"
+                          class="errorRed">Please enter your city</span>
                 </div>
             </div>
 
@@ -117,18 +117,16 @@
             <div class="row  margin-bottom-20  marginRightMinus5" style="padding-left: 15px">
                 <div class="col-md-5 ">Locality</div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <input type="text" ng-model="basicProfileInfo.primaryUserAddress.locality"
-                           class="name-textbox textbox" ng-google-location options="options" obj="address"
-                           callback="addressCallback" id="addressLocality"
-                           placeholder="Locality"/>
+                    <input type="text" ng-model="branchBasicInfo.primaryUserAddress.locality"
+                           class="name-textbox textbox addressLocality" ng-google-location options="options" obj="branchAddress"
+                           callback="addressCallback" placeholder="Locality"/>
                 </div>
             </div>
 
             <div class="row margin-bottom-20  marginRightMinus5" style="padding-left: 15px">
                 <div class="col-md-5 ">Address detail</div>
                 <div class="col-md-7 no-padding-right register-page">
-                            <textarea class="textbox " rows="3"
-                                      ng-model="basicProfileInfo.primaryUserAddress.streetAddress"></textarea>
+                    <textarea class="textbox " rows="3" ng-model="branchBasicInfo.primaryUserAddress.streetAddress"></textarea>
                 </div>
             </div>
 
@@ -138,25 +136,25 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" name="primaryTel"
-                           ng-model="basicProfileInfo.primaryPhoneNo"
-                           placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10">
-                            <span ng-show="(institutionForm.primaryTel.$invalid || institutionForm.primaryTel.$error.pattern) && submitted"
+                           ng-model="branchBasicInfo.primaryPhoneNo"
+                           placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17" minlength="10" />
+                    <span ng-show="(institutionForm.primaryTel.$invalid || institutionForm.primaryTel.$error.pattern) && submitted"
                                   class="errorRed">Not a valid number!</span>
                 </div>
             </div>
 
             <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px"
-                 ng-repeat="number in basicProfileInfo.secondaryPhoneNos track by $index">
+                 ng-repeat="number in branchBasicInfo.secondaryPhoneNos track by $index">
                 <div class="col-md-5">
                     Additional Phone Number
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox" name="{{'tel'+$index}}"
-                           ng-model="basicProfileInfo.secondaryPhoneNos[$index]"
+                           ng-model="branchBasicInfo.secondaryPhoneNos[$index]"
                            placeholder="Telephone number" ng-pattern="/^[+\d-]*\d[\d-]$/" maxlength="17"
                            minlength="10"/>
 
-						    <span ng-show="(institutionForm.{{'tel'+$index}}.$invalid || institutionForm.{{'tel'+$index}}.$error.pattern) && submitted"
+                    <span ng-show="(institutionForm.{{'tel'+$index}}.$invalid || institutionForm.{{'tel'+$index}}.$error.pattern) && submitted"
                                   class="errorRed">Not a valid number!</span>
                 </div>
             </div>
@@ -165,7 +163,7 @@
             <div class="row add-phone-wrap margin-bottom-20" style="margin-top:-10px;">
                 <div class="col-md-5"></div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <a class="add-phone" ng-click="addPhoneNumber()">+ add another phone no</a>
+                    <a class="add-phone" ng-click="addPhoneNumber(branchBasicInfo.secondaryPhoneNos)">+ add another phone no</a>
                 </div>
             </div>
 
@@ -175,23 +173,23 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="email" class="username-textbox textbox" name="primaryEmail"
-                           ng-model="basicProfileInfo.primaryEmail"
+                           ng-model="branchBasicInfo.primaryEmail"
                            placeholder="Email"/>
                     <!--<span ng-show="institutionForm.primaryEmail.$invalid && !institutionForm.primaryEmail.$error.email && submitted" class="errorRed">Please enter your Email Id!</span>-->
-                        <span ng-show="institutionForm.primaryEmail.$error.email && submitted" class="errorRed">
-                            Not valid Email!
-                        </span>
+                    <span ng-show="institutionForm.primaryEmail.$error.email && submitted" class="errorRed">
+                        Not valid Email!
+                    </span>
                 </div>
             </div>
 
             <div class="row margin-bottom-20 marginRightMinus5" style="padding-left: 15px"
-                 ng-repeat="email in basicProfileInfo.secondaryEmails track by $index">
+                 ng-repeat="email in branchBasicInfo.secondaryEmails track by $index">
                 <div class="col-md-5">
                     Additional Email ID
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="email" class="username-textbox textbox" name="{{'email'+$index}}"
-                           ng-model="basicProfileInfo.secondaryEmails[$index]"
+                           ng-model="branchBasicInfo.secondaryEmails[$index]"
                            placeholder="Email"/>
                     <span ng-show="institutionForm.{{'email'+$index}}.$error.email && submitted" class="errorRed">Not valid Email!</span>
                 </div>
@@ -201,7 +199,7 @@
             <div class="row add-email-wrap margin-bottom-20" style="margin-top:-10px;">
                 <div class="col-md-5"></div>
                 <div class="col-md-7 no-padding-right register-page">
-                    <a class="add-email" ng-click="addEmail()">+ add another email id</a>
+                    <a class="add-email" ng-click="addEmail(branchBasicInfo.secondaryEmails)">+ add another email id</a>
                 </div>
             </div>
 
@@ -211,11 +209,9 @@
                 </div>
                 <div class="col-md-7 no-padding-right register-page">
                     <input type="text" class="username-textbox textbox"
-                           ng-model="serviceProviderInfo.website"
+                           ng-model="branchServiceInfo.website"
                            placeholder="Website"/>
-                                   <span ng-show="websiteError && submitted" class="errorRed">
-                                    Please enter proper website url
-                                </span>
+                   <span ng-show="websiteError && submitted" class="errorRed">Please enter proper website url</span>
                 </div>
             </div>
 
@@ -249,15 +245,15 @@
 
 
     <div class="no-padding margin-bottom-40 register-page by_editor_post_divider" style="text-align:left;">
-        <div class="by-reg-gallery" ng-if="basicProfileInfo.profileImage && profileImage.length===0">
+        <div class="by-reg-gallery" ng-if="branchBasicInfo.profileImage">
             <img class="by-reg-image"
-                 ng-src="{{basicProfileInfo.profileImage.thumbnailImage}}"/>
+                 ng-src="{{branchBasicInfo.profileImage.thumbnailImage}}"/>
             <a class="image-fav" ng-if="!profileImage.loading"
                ng-click="deleteProfileImage()"></a>
         </div>
-        <div class="by-reg-gallery" ng-repeat="img in profileImage">
-            <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-            <a class="image-fav" ng-if="!img.loading" ng-click="deleteProfileImage()"></a>
+        <div class="by-reg-gallery" ng-if="profileImage.length > 0" ng-repeat="img in profileImage">
+            <img class="by-reg-image" style="visibility: hidden"/>
+            <!--<a class="image-fav" ng-if="!img.loading" ng-click="deleteProfileImage()"></a>-->
             <a class="by-reg-loadingImage" ng-if="img.loading"></a>
         </div>
 
@@ -269,12 +265,12 @@
                        load-image="profileImage"
                        resize-max-height="300"
                        resize-max-width="250"
-                       resize-quality="0.7" class="btn btn-success register-btn"/>
+                       resize-quality="0.7" class="btn btn-success register-btn" callback="profileImgUploaded"/>
 
                 <img src="assets/img/icons/photo.png" width="100%"/>
-                             <span style="float: right;max-width: 130px; margin-left: 10px; text-align: left; line-height:17px; color:#000;">
-                            Upload your <br/>profile picture
-                        </span>
+                <span style="float: right;max-width: 130px; margin-left: 10px; text-align: left; line-height:17px; color:#000;">
+                    Upload your <br/>profile picture
+                </span>
             </label>
         </div>
     </div>
@@ -298,13 +294,13 @@
 
 
     <div class="no-padding margin-bottom-20  register-page by_editor_post_divider" style="text-align:left;">
-        <div class="by-reg-gallery" ng-repeat="img in basicProfileInfo.photoGalleryURLs">
+        <div class="by-reg-gallery" ng-repeat="img in branchBasicInfo.photoGalleryURLs">
             <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
             <a class="image-fav" ng-click="deleteGalleryImage(img)"></a>
         </div>
         <div class="by-reg-gallery" ng-repeat="img in galleryImages">
-            <img class="by-reg-image" ng-src="{{img.thumbnailImage}}"/>
-            <a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>
+            <img class="by-reg-image"/>
+            <!--<a class="image-fav" ng-if="!img.loading" ng-click="deleteGalleryImage(img)"></a>-->
             <a class="by-reg-loadingImage" ng-if="img.loading"></a>
         </div>
         <div class="by-reg-uploadLabel">
@@ -317,11 +313,11 @@
                        resize-max-height="300"
                        resize-max-width="250"
                        resize-quality="0.7" class="btn btn-success register-btn"
-                       imgArray="$parent.galleryImages"/><img
-                    src="assets/img/icons/photo.png" width="100%"/> <span
-                    style="float: right; max-width: 180px; margin-left: 10px; text-align: left; line-height: 17px; color: #000;">
-							Upload multiple<br/> photos for your gallery
-					</span>
+                       imgArray="$parent.galleryImages" callback="galleryImgUploaded"/>
+                <img src="assets/img/icons/photo.png" width="100%"/>
+                <span style="float: right; max-width: 180px; margin-left: 10px; text-align: left; line-height: 17px; color: #000;">
+                    Upload multiple<br/> photos for your gallery
+                </span>
             </label>
         </div>
     </div>
@@ -339,7 +335,7 @@
     <div class="row marginleftMinu4 margin-bottom-20 no-padding register-page byEditor"
          style="border:1px solid #ccc;">
                 <textarea class="textbox" rows="3" id="registrationDescription"
-                          ng-model="basicProfileInfo.description"></textarea>
+                          ng-model="branchBasicInfo.description" ng-init="initEditor()"></textarea>
 
         <div class="clearfix"></div>
     </div>

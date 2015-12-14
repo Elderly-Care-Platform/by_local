@@ -16,6 +16,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
             $scope.showFilters              = showFilters;
             $scope.getData                  = $scope.getData;
             $scope.selectedMenuId           = $routeParams.menuId;
+            $scope.userTypeConfig           = BY.config.profile.userTypeMap;
 
             var city                        = $routeParams.city,
                 tags                        = [],
@@ -87,9 +88,12 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 return $sce.trustAsHtml(html);
             }
 
-            $scope.location = function ($event, userId, userType) {
+            $scope.location = function ($event, userId, userType, branchId) {
                 $event.stopPropagation();
                 if (userId && userType.length > 0) {
+                    if(branchId){
+                        $location.search('branchId', branchId);
+                    }
                     $location.path('/profile/' + userType[0] + '/' + userId);
                 }
             }

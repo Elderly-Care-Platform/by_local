@@ -10,7 +10,7 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
         $scope.otherLocations = [];
         $scope.selectedMenuList = {};
         $scope.addBranch = false;
-        $scope.branchIndex = null;
+        $scope.branchIndex = 0;
         $scope.views = {};
         $scope.options = {country: "in", resetOnFocusOut: false};
 
@@ -20,73 +20,101 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
         function initialize() {
             if ($scope.$parent.profile) {
                 $scope.profile = $scope.$parent.profile;
-                extractData();
+                extractCorporateData();
                 setContentPanel();
             } else {
                 $scope.profile = UserProfile.get({userId: $scope.userId}, function (profile) {
                     $scope.profile = profile.data;
-                    extractData();
+                    extractCorporateData();
                     setContentPanel();
                 });
             }
-            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
-            $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();  //Apply bootstrap toggle for house visit option
         }
 
+
         function setContentPanel(){
-            if (!$scope.branchIndex && $scope.branchIndex!==0) {
-                $scope.views.formView = "app/components/signup/registration/institution/regInstitutionPrimary.html?versionTimeStamp=%PROJECT_VERSION%";
+            if (!$scope.branchIndex && $scope.branchIndex===0) {
+                $scope.views.formView = "app/components/signup/registration/institution/regInstMainBranch.html?versionTimeStamp=%PROJECT_VERSION%";
             }else {
-                $scope.views.formView = "app/components/signup/registration/institution/regInstitutionBranch.html?versionTimeStamp=%PROJECT_VERSION%";
+                $scope.views.formView = "app/components/signup/registration/institution/regInstOtherBranch.html?versionTimeStamp=%PROJECT_VERSION%";
             }
         }
 
         function editorInitCallback() {
-            if (tinymce.get("registrationDescription") && $scope.basicProfileInfo && $scope.basicProfileInfo.description) {
-                tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
+            if (tinymce.get("registrationDescription") && $scope.branchBasicInfo && $scope.branchBasicInfo.description) {
+                tinymce.get("registrationDescription").setContent($scope.branchBasicInfo.description);
             }
         }
 
         //Prefill form with previously selected data
-        function extractData() {
+        function extractCorporateData() {
             $scope.basicProfileInfo = $scope.profile.basicProfileInfo;
             $scope.serviceProviderInfo = $scope.profile.serviceProviderInfo;
             $scope.address = $scope.basicProfileInfo.primaryUserAddress;
-            $scope.otherLocations = $scope.basicProfileInfo.otherAddresses;
-            editorInitCallback();
 
             if ($scope.address && $scope.address.country === null) {
                 $scope.address.country = "India";
             }
 
-            for (var i = 0; i < $scope.serviceProviderInfo.services.length; i++) {
-                var menuId = $scope.serviceProviderInfo.services[i];
-                $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
-            }
+            extractBranchData();
+            editorInitCallback();
+        }
 
-            //if ($scope.profile.serviceBranches.length > 0) {
-            //    for (var i = 0; i < $scope.profile.serviceBranches.length; i++) {
-            //        if (!$scope.profile.serviceBranches[i] || $scope.profile.serviceBranches[i] == null) {
-            //            $scope.profile.serviceBranches.splice(i, 1);
-            //        }
-            //    }
-            //}
-
+        function extractBranchData(){
+            var branchObj = (JSON.parse(JSON.stringify(BY.config.regConfig.institutionBranch)));
             if ($routeParams.branchIndex) {
                 $scope.branchIndex = parseInt($routeParams.branchIndex);
-                if ($scope.profile.serviceBranches.length < $scope.branchIndex) {
-                    var branchObj = (JSON.parse(JSON.stringify(BY.config.regConfig.institutionBranch)));
+                if ($scope.profile.serviceBranches.length <= $scope.branchIndex) {
+
                     $scope.profile.serviceBranches.push(branchObj);
-                    $scope.serviceBranches = $scope.profile.serviceBranches[$scope.branchIndex - 1];
+                    $scope.selectedBranch = $scope.profile.serviceBranches[$scope.branchIndex];
                 } else {
-                    $scope.serviceBranches = $scope.profile.serviceBranches[$scope.branchIndex];
+                    $scope.selectedBranch = $scope.profile.serviceBranches[$scope.branchIndex];
                 }
+            }else{
+                if($scope.profile.serviceBranches.length === 0){
+                    $scope.profile.serviceBranches.push(branchObj);
+                }
+                $scope.selectedBranch = $scope.profile.serviceBranches[0];
+            }
+
+            $scope.branchBasicInfo = $scope.selectedBranch.basicProfileInfo;
+            $scope.branchServiceInfo = $scope.selectedBranch.serviceProviderInfo;
+            $scope.branchAddress = $scope.branchBasicInfo.primaryUserAddress;
+
+            if ($scope.branchAddress && $scope.branchAddress.country === null) {
+                $scope.branchAddress.country = "India";
+            }
+
+            for (var i = 0; i < $scope.branchServiceInfo.services.length; i++) {
+                var menuId = $scope.branchServiceInfo.services[i];
+                $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
             }
         }
 
+        $scope.showAddressButton = function(){
+            if ($(".showAddress").css('display')=='none')
+            {
+                $(".showAddress").show();
+                $(".showAddressButton").val('- Hide Address');
+            }
+            else
+            {
+                $(".showAddress").hide();
+                $(".showAddressButton").val('+ Add Address');
+            }
+        };
+
+        $scope.initEditor = function(){
+            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+        };
+
+        $scope.initHomeVisit = function(){
+            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+        };
 
         $scope.addressCallback = function (response, addressObj) {
-            $('#addressLocality').blur();
+            $('.addressLocality').blur();
             addressObj.city = "";
             addressObj.locality = response.name;
             addressObj.country = "";
@@ -116,8 +144,6 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
 
             }
             addressObj.streetAddress = response.formatted_address;
-
-
         }
 
 
@@ -134,15 +160,13 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
 
 
         $scope.showHomeVisit = function () {
-            $('#homeVisit')[0].checked = $scope.serviceProviderInfo.homeVisits;
-            $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
-            var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+            $('#homeVisit')[0].checked = $scope.branchServiceInfo.homeVisits;
+            $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();  //Apply bootstrap toggle for house visit option
         }
 
 
         //Get location details based on pin code
         $scope.getLocationByPincode = function (event, addressObj) {
-            var element = document.getElementById("zipcode");
             addressObj.city = "";
             addressObj.locality = "";
             addressObj.country = "";
@@ -176,44 +200,44 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
 
 
         //Add secondary phone numbers
-        $scope.addPhoneNumber = function () {
+        $scope.addPhoneNumber = function (secondaryPhoneNos) {
             //var number = {value:""};
-            if ($scope.basicProfileInfo.secondaryPhoneNos.length < BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
-                $scope.basicProfileInfo.secondaryPhoneNos.push("");
+            if (secondaryPhoneNos.length < BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
+                secondaryPhoneNos.push("");
             }
 
-            if ($scope.basicProfileInfo.secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
+            if (secondaryPhoneNos.length === BY.config.regConfig.formConfig.maxSecondaryPhoneNos) {
                 $(".add-phone").hide();
             }
         }
 
         //Add secondary email details
-        $scope.addEmail = function () {
+        $scope.addEmail = function (secondaryEmails) {
             //var email = {value:""};
-            if ($scope.basicProfileInfo.secondaryEmails.length < BY.config.regConfig.formConfig.maxSecondaryEmailId) {
-                $scope.basicProfileInfo.secondaryEmails.push("");
+            if (secondaryEmails.length < BY.config.regConfig.formConfig.maxSecondaryEmailId) {
+                secondaryEmails.push("");
             }
 
-            if ($scope.basicProfileInfo.secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId) {
+            if (secondaryEmails.length === BY.config.regConfig.formConfig.maxSecondaryEmailId) {
                 $(".add-email").hide();
             }
         }
 
         //Delete profile Image
         $scope.deleteProfileImage = function () {
-            $scope.profileImage = [];
-            $scope.basicProfileInfo.profileImage = null;
+            //$scope.profileImage = [];
+            $scope.branchBasicInfo.profileImage = null;
         }
 
         //Delete gallery images
         $scope.deleteGalleryImage = function (img) {
-            var imgIndex = $scope.galleryImages.indexOf(img);
+            //var imgIndex = $scope.galleryImages.indexOf(img);
+            //if (imgIndex > -1) {
+            //    $scope.galleryImages.splice(imgIndex, 1);
+            //}
+            var imgIndex = $scope.branchBasicInfo.photoGalleryURLs.indexOf(img);
             if (imgIndex > -1) {
-                $scope.galleryImages.splice(imgIndex, 1);
-            }
-            imgIndex = $scope.basicProfileInfo.photoGalleryURLs.indexOf(img);
-            if (imgIndex > -1) {
-                $scope.basicProfileInfo.photoGalleryURLs.splice(imgIndex, 1);
+                $scope.branchBasicInfo.photoGalleryURLs.splice(imgIndex, 1);
             }
         }
 
@@ -240,6 +264,28 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
             return $.map(systemTagList, function (value, key) {
                 return value;
             });
+        };
+
+
+        $scope.profileImgUploaded = function(param){
+            $scope.profileImage = [];
+            $scope.branchBasicInfo.profileImage = param ? param : $scope.branchBasicInfo.profileImage;
+        };
+
+        $scope.galleryImgUploaded = function(param){
+            $scope.galleryImages = [];
+            $scope.branchBasicInfo.photoGalleryURLs = $scope.branchBasicInfo.photoGalleryURLs.concat(param);
+        }
+
+        function getMainBranchCategory(){
+            if($scope.profile.serviceBranches.length > 0 && $scope.profile.serviceBranches[0].serviceProviderInfo.services){
+                var mainBranchServices = $scope.profile.serviceBranches[0].serviceProviderInfo.services;
+                for (var i = 0; i < mainBranchServices.length; i++) {
+                    var menuId = mainBranchServices[i];
+                    $scope.selectedMenuList[menuId] = $rootScope.menuCategoryMap[menuId];
+                }
+            }
+
         }
 
         //Post institution form
@@ -250,49 +296,59 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
             $scope.minCategoryError = false;
             $scope.websiteError = false;
 
-            $scope.serviceProviderInfo.services = $.map($scope.selectedMenuList, function (value, key) {
+            if(tinymce.get("registrationDescription")){
+                $scope.branchBasicInfo.description = tinymce.get("registrationDescription").getContent();
+            }
+
+            if(Object.keys($scope.selectedMenuList).length===0){
+                getMainBranchCategory();
+            }
+
+            $scope.branchServiceInfo.services = $.map($scope.selectedMenuList, function (value, key) {
                 if (value && $rootScope.menuCategoryMap[value.id]) {
                     return value.id;
                 }
             });
-            $scope.serviceProviderInfo.homeVisits = $('#homeVisit')[0].checked;
 
-            $scope.basicProfileInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.basicProfileInfo.profileImage;
-            $scope.basicProfileInfo.photoGalleryURLs = $scope.basicProfileInfo.photoGalleryURLs.concat($scope.galleryImages);
-
-            if ($scope.otherLocations.length > 0) {
-                $scope.basicProfileInfo.otherAddresses = $.map($scope.otherLocations, function (value, key) {
-                    return value;
-                });
+            if($('#homeVisit')[0]){
+                $scope.branchServiceInfo.homeVisits = $('#homeVisit')[0].checked;
             }
 
-            $scope.profile.systemTags = getSystemTagList($scope.selectedMenuList);
-            if ($scope.profile.systemTags.length === 0) {
+
+            //$scope.branchBasicInfo.profileImage = $scope.profileImage.length > 0 ? $scope.profileImage[0] : $scope.branchBasicInfo.profileImage;
+            //$scope.branchBasicInfo.photoGalleryURLs = $scope.branchBasicInfo.photoGalleryURLs.concat($scope.galleryImages);
+
+            //if ($scope.otherLocations.length > 0) {
+            //    $scope.branchBasicInfo.otherAddresses = $.map($scope.otherLocations, function (value, key) {
+            //        return value;
+            //    });
+            //}
+
+            $scope.selectedBranch.systemTags = getSystemTagList($scope.selectedMenuList);
+            if ($scope.selectedBranch.systemTags.length === 0) {
                 $scope.minCategoryError = true;
             }
 
             var regex = /(?:)+([\w-])+(\.[a-z]{2,6}([-a-zA-Z0-9@:%_\+.~#?&!//=]*))+/;
-            if ($scope.serviceProviderInfo && $scope.serviceProviderInfo.website && $scope.serviceProviderInfo.website.length > 0) {
-                if (regex.exec($scope.serviceProviderInfo.website)) {
-                    $scope.serviceProviderInfo.website = regex.exec($scope.serviceProviderInfo.website)[0];
+            if ($scope.branchServiceInfo && $scope.branchServiceInfo.website && $scope.branchServiceInfo.website.length > 0) {
+                if (regex.exec($scope.branchServiceInfo.website)) {
+                    $scope.branchServiceInfo.website = regex.exec($scope.branchServiceInfo.website)[0];
                 } else {
                     $scope.websiteError = true;
                 }
             }
 
-
-            $scope.basicProfileInfo.description = tinymce.get("registrationDescription").getContent();
             if (isValidForm.$invalid || $scope.minCategoryError || $scope.websiteError) {
                 window.scrollTo(0, 0);
                 $(".by_btn_submit").prop('disabled', false);
             } else {
-                $scope.basicProfileInfo.secondaryPhoneNos = $.map($scope.basicProfileInfo.secondaryPhoneNos, function (value, key) {
+                $scope.branchBasicInfo.secondaryPhoneNos = $.map($scope.branchBasicInfo.secondaryPhoneNos, function (value, key) {
                     if (value && value !== "") {
                         return value;
                     }
                 });
 
-                $scope.basicProfileInfo.secondaryEmails = $.map($scope.basicProfileInfo.secondaryEmails, function (value, key) {
+                $scope.branchBasicInfo.secondaryEmails = $.map($scope.branchBasicInfo.secondaryEmails, function (value, key) {
                     if (value && value !== "") {
                         return value;
                     }
@@ -304,7 +360,7 @@ define(['byApp', 'bootstrapToggle', 'regInstBranchCtrl'], function (byApp, boots
                     console.log("success");
                     $scope.submitted = false;
                      if($scope.addBranch){
-                        $location.path('/users/institutionRegistration/'+ ($scope.profile.serviceBranches.length + 1));
+                        $location.path('/users/institutionRegistration/'+ ($scope.profile.serviceBranches.length));
                     }else{
                         $scope.$parent.exit();
                     }

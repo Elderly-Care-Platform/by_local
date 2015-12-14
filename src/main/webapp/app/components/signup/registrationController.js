@@ -7,7 +7,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         $scope.userType = null;
         $scope.facilityIdx = $routeParams.facilityIndex ? parseInt($routeParams.facilityIndex) : 0;
         $scope.serviceBranchTabs = [];
-        $scope.branchIdx = $routeParams.branchIndex ? parseInt($routeParams.branchIndex) : null;
+        $scope.branchIdx = $routeParams.branchIndex ? parseInt($routeParams.branchIndex) : 0;
 
         var changeUsername = function () {
             window.scrollTo(0, 0);
@@ -89,8 +89,8 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         var showInstitutionLeftPanel = function(){
             if($scope.profile.serviceBranches && $scope.profile.serviceBranches.length > 0){
                 for(var i=0; i<$scope.profile.serviceBranches.length; i++){
-                    if($scope.profile.serviceBranches[i].basicBranchInfo.firstName && $scope.profile.serviceBranches[i].basicBranchInfo.firstName.trim().length > 0){
-                        $scope.serviceBranchTabs.push($scope.profile.serviceBranches[i].basicBranchInfo.firstName);
+                    if($scope.profile.serviceBranches[i].basicProfileInfo.firstName && $scope.profile.serviceBranches[i].basicProfileInfo.firstName.trim().length > 0){
+                        $scope.serviceBranchTabs.push($scope.profile.serviceBranches[i].basicProfileInfo.firstName);
                     } else{
                         $scope.serviceBranchTabs.push("serviceBranches"+(i+1));
                     }
@@ -101,9 +101,9 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
             }
 
             if($routeParams.branchIndex){
-                if($scope.branchIdx > $scope.profile.serviceBranches.length){
-                    $scope.serviceBranchTabs.push("serviceBranches"+$scope.branchIdx);
-                    $scope.branchIdx = $scope.branchIdx - 1;
+                if($scope.branchIdx >= $scope.profile.serviceBranches.length){
+                    $scope.serviceBranchTabs.push("branch "+$scope.branchIdx);
+                    //$scope.branchIdx = $scope.branchIdx - 1;
                 }
             }
         };

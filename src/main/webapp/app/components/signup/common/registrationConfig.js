@@ -189,47 +189,58 @@ BY.config.regConfig.housingFacility = {
 };
 
 BY.config.regConfig.institutionBranch = {
-    'id': "",
-    'userId': "",
-    'basicBranchInfo': {
-        "firstName": "",
-        "profileImage": {
-            "original": "",
-            "titleImage": "",
-            "thumbnailImage": ""
-        },
-        "primaryEmail": "",
+    "id": null,
+    "userId": null,
+    "userTypes": [8],
+    "basicProfileInfo": {
+        "firstName": null,
+        "profileImage": null,
+        "primaryEmail": null,
         "secondaryEmails": [],
-        "primaryPhoneNo": "",
+        "primaryPhoneNo": null,
         "secondaryPhoneNos": [],
-        "description": "",
+        "description": null,
         "photoGalleryURLs": [],
-        "primaryUserAddress": {
-            "streetAddress": "",
-            "city": "",
-            "zip": "",
-            "locality": "",
-            "country": ""
-        },
+        "primaryUserAddress": {"streetAddress": null, "city": null, "zip": null, "locality": null, "country": null},
         "otherAddresses": [],
-        "shortDescription": ""
+        "shortDescription": null
+    },
+    "individualInfo": {
+        "salutation": null,
+        "lastName": null,
+        "gender": 0,
+        "dob": null,
+        "otherDates": null,
+        "occupation": null,
+        "emotionalIssues": null,
+        "medicalIssues": null,
+        "otherIssues": null,
+        "maritalStatus": null,
+        "hobbies": null,
+        "otherHobbies": null,
+        "interests": null,
+        "otherInterests": null,
+        "language": null
     },
     "serviceProviderInfo": {
         "services": [],
         "homeVisits": false,
-        "website": "",
+        "website": null,
         "yearsExperience": 0,
         "incorporationDate": null,
         "specialities": null
     },
-    "verified": false,
+    "ratingPercentage": 0.0,
+    "ratingCount": 0,
+    "reviewCount": 0,
     "createdAt": null,
-    "lastModifiedAt": null,
     "systemTags": [],
-    "userTags": [],
-    "status": 0,
-    "aggrRatingPercentage": 0.0,
+    "lastModifiedAt": null,
+    "verified": false,
+    "serviceBranches": [],
+    "facilities": [],
     "reviewedByUser": false,
-    "ratedByUser": false,
-    "featured": false
+    "featured": false,
+    "ratedByUser": false
+
 };

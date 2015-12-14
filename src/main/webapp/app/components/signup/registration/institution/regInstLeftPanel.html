@@ -10,7 +10,7 @@
     </div>
 
     <!-- main service -->
-    <div class="by_profileDetailed_menu reg-menu-1" ng-class="{'by_profileDetailed_menuActive':branchIdx===null}">
+    <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="serviceBranchTabs.length===0">
         <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
     </div>
 
@@ -50,7 +50,7 @@
 
 
         <!-- main service -->
-        <div class="by_profileDetailed_menu reg-menu-1" ng-class="{'by_profileDetailed_menuActive':branchIdx===null}">
+        <div class="by_profileDetailed_menu reg-menu-1 by_profileDetailed_menuActive" ng-if="serviceBranchTabs.length===0">
             <a href="#!/users/registrationProfile">{{userTypeConfig.label}}</a>
         </div>
 

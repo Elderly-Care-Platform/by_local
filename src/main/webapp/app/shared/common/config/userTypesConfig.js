@@ -59,7 +59,7 @@ BY.config.profile.userType = {
         'type': 'SERVICES',
         'reviewContentType': '4',
         'profileImage': 'assets/img/profile/instituation.png?versionTimeStamp=%PROJECT_VERSION%',
-        'label': 'Institution Info'
+        'label': 'Corporate'
     },
     '5': {
         'category': '1',

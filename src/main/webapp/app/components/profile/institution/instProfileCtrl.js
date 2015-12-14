@@ -10,7 +10,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         var init                    = initialize();
 
         function initialize(){
-            if($scope.institutionProfile.serviceBranches.length > 0){
+            if($scope.branchId && $scope.institutionProfile.serviceBranches.length > 0){
                 $scope.branchProfile = $scope.institutionProfile.serviceBranches[0];
                 if($scope.branchId){
                     $scope.serviceMainBranch = $scope.institutionProfile.serviceBranches[0];

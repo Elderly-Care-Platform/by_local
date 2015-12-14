@@ -1,17 +1,17 @@
 <div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720" style="position:fixed; bottom:0px;"
      ng-init="leftPanelHeight();">
 
-    <div class="by_profileDetailed_menu" ng-click="location($event, '/profile', [profileType,profileData.userId, 'corp'])">
+    <div class="by_profileDetailed_menu" ng-click="location($event, '/profile', [profileType, profileData.userId, 'corp'])">
         {{label}}
     </div>
 
-    <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0 && !housingFacilityId"
+    <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0 && !branchId"
          ng-click="gotoHref('userPosts')">
         <span>Posts ({{postsPagination.totalPosts}})</span>
 
         <div class="clearfix"></div>
     </div>
-    <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0 && !housingFacilityId"
+    <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0 && !branchId"
          ng-click="gotoHref('userQA')">
         <span>Q&A ({{qaPagination.totalPosts}})</span>
 
@@ -23,7 +23,7 @@
         <div class="panel-group acc-v1 housingCityWrap" id="accordion-1" ng-if="allBranches.length > 0">
             <div class="housingCityHead">Branches:</div>
             <div class="panel panel-default" ng-repeat="branch in allBranches">
-                <div class="panel-heading housingCityHeadThumb" ng-class="{'active':branch.id===selectedBranch.id}"
+                <div class="panel-heading housingCityHeadThumb" ng-class="{'active':selectedBranch && branch.id===selectedBranch.id}"
                      ng-click="setLocation($event, '/profile/'+branch.userTypes[0]+'/'+branch.userId, {'branchId':branch.id})">
                     <span style="background:#fff;">
                         {{branch.basicProfileInfo.firstName}}
@@ -64,17 +64,17 @@
     <div class="by_mobile_leftPanel" style="padding:0px 15px;">
 
         <div class="by_profileDetailed_menu"
-             ng-click="location($event, '/profile', [profileType,profileData.userId, 'corp'])">
+             ng-click="location($event, '/profile', [profileType, profileData.userId, 'corp'])">
             {{label}}
         </div>
 
-        <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0 && !housingFacilityId"
+        <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0 && !branchId"
              ng-click="gotoHref('userPosts')">
             <span>Posts ({{postsPagination.totalPosts}})</span>
 
             <div class="clearfix"></div>
         </div>
-        <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0 && !housingFacilityId"
+        <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0 && !branchId"
              ng-click="gotoHref('userQA')">
             <span>Q&A ({{qaPagination.totalPosts}})</span>
 
@@ -123,7 +123,7 @@
         </div>
 
 
-        <div class="by_profileDetailed_menuIcon" ng-if="isAllowedToReview && housingFacilityId"
+        <div class="by_profileDetailed_menuIcon" ng-if="isAllowedToReview && branchId"
              ng-click="gotoHref('userReviews')">
             <i class="review-Icon_rate"></i> <span>Rate & Review</span>
 

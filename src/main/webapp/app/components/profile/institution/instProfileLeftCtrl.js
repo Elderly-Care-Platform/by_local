@@ -7,16 +7,17 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $scope.institutionProfile   = $scope.$parent.profileData;
         $scope.branchId             = $routeParams.branchId ? $routeParams.branchId : null;
         $scope.allBranches        = [];
+        $scope.selectedBranch = null;
 
-        if($scope.branchId && $scope.institutionProfile.serviceBranches.length > 0){
+        if($scope.institutionProfile.serviceBranches.length > 0){
 
             for (var i = 0; i < $scope.institutionProfile.serviceBranches.length; i++) {
                 $scope.allBranches.push($scope.institutionProfile.serviceBranches[i]);
 
-                if($scope.branchId  != $scope.institutionProfile.serviceBranches[i].id){
+                if($scope.branchId && $scope.branchId  === $scope.institutionProfile.serviceBranches[i].id){
                     //var branchLocation = $scope.institutionProfile.serviceBranches[i].basicProfileInfo.primaryUserAddress.city;
                     //$scope.allBranches[branchLocation] = $scope.institutionProfile.serviceBranches[i]
-                }else{
+
                     $scope.selectedBranch = $scope.institutionProfile.serviceBranches[i];
                 }
             }
@@ -24,13 +25,16 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         }
 
         $scope.setLocation = function ($event, url, queryParams) {
-            console.log(url);
-            console.log(queryParams);
-
             $event.stopPropagation();
-            angular.forEach(queryParams, function (value, key) {
-                $location.search(key, value);
-            })
+            if(Object.keys(queryParams).length > 0){
+                angular.forEach(queryParams, function (value, key) {
+                    $location.search(key, value);
+                })
+            }else{
+                angular.forEach($location.search, function (value, key) {
+                    $location.search(key, null);
+                })
+            }
 
             $location.path(url);
 

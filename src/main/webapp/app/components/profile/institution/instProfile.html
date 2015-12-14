@@ -232,7 +232,7 @@
             <div class="clearfix" style="height:20px;"></div>
         </div>
 
-        <div ng-include="'app/components/profile/shared/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+        <div ng-include="'app/components/profile/shared/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="!branchId"></div>
 
         <!--<a style="margin-left:15px; " class="discussRightCategory {{isShowPosts===true && 'selected active'}}"-->
         <!--ng-click="showPosts(true)" ng-if="postsUser.length > 0">-->

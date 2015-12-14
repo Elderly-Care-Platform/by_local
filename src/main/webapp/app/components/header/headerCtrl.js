@@ -20,7 +20,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             getProductCount();
             getServicesCount();
         }
-        var minimumHeight = $( window ).height() - 46;
+        
 
         function getProductCount(){
             $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
@@ -147,6 +147,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                 $("#ng-scope").css('min-height', "0px");
             } else {
                 isHomePage = false;
+                var minimumHeight = $( window ).height() - 46;
                 $("#ng-scope").css('min-height', minimumHeight+"px");
             }
 

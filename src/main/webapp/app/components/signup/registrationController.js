@@ -13,14 +13,14 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
             window.scrollTo(0, 0);
             $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
             $(".username").addClass('by_profileDetailed_menuActive');
-            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            //$scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyUsername.html?versionTimeStamp=%PROJECT_VERSION%";
         };
         var changePassword = function () {
             window.scrollTo(0, 0);
             $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
             $(".password").addClass('by_profileDetailed_menuActive');
-            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            //$scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/signup/login/modifyPassword.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 
@@ -28,7 +28,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
             window.scrollTo(0, 0);
             $(".by_profileDetailed_menu").removeClass('by_profileDetailed_menuActive');
             $(".orderHistory").addClass('by_profileDetailed_menuActive');
-            $scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            //$scope.views.leftPanel = "app/components/signup/registrationLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.views.contentPanel = "app/components/product/orderHistory/order-history.html?versionTimeStamp=%PROJECT_VERSION%";
         };
 

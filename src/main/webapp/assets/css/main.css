@@ -327,3 +327,7 @@ body a:hover
         display: none;
     }
 }
+.pac-container
+{
+    z-index: 10;
+}

@@ -1,7 +1,8 @@
 <div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720" style="position:fixed; bottom:0px;" ng-init="leftPanelHeight();" >
        
          <div class="by_profileDetailed_menu" ng-click="location($event, '/profile', [profileType,profileData.userId, 'corp'])">
-            {{label}}
+             <span ng-if="housingFacilityId"> {{label}}</span>
+       		 <span ng-if="!housingFacilityId" ng-click="gotoHref('profileSection')"> {{label}}</span>
         </div>
 
         <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0 && !housingFacilityId" ng-click="gotoHref('userPosts')" >

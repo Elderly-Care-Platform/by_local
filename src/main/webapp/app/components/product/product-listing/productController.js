@@ -329,10 +329,18 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             //alert($scope.w);
             if($scope.slideIndex < $scope.w  && dir==="r"){
                 $('.by_featuredProduct_wrapperInside').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-moz-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-ms-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-o-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
                 $scope.slideIndex++;
             }
             if($scope.slideIndex >= 0  && dir==="l"){
                 $('.by_featuredProduct_wrapperInside').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-moz-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-ms-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-o-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
                 $scope.slideIndex--;
             }
 

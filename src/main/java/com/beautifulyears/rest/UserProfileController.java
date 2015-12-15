@@ -89,10 +89,10 @@ public class UserProfileController {
 	
 		try {
 			if (userId != null) {
-				List<UserProfile> userProfiles = userProfileRepository.findAllProfileByUserId(userId);
-				if(userProfiles.size() > 0){
-					userProfile = userProfiles.get(0);
-				}
+				userProfile = userProfileRepository.findByUserId(userId);
+//				if(userProfiles.size() > 0){
+//					userProfile = userProfiles.get(0);
+//				}
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
@@ -172,7 +172,7 @@ public class UserProfileController {
 			@RequestParam(value = "city", required = false) String city,
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-			@RequestParam(value = "size", required = false, defaultValue = "100") int size,
+			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
@@ -364,10 +364,8 @@ public class UserProfileController {
 							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES) || profile.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
-								List<UserProfile> branchInfo = userProfile.getServiceBranches();
-								saveBranches(branchInfo, userId);
-								profile.setServiceBranches(userProfile
-										.getServiceBranches());
+								List<UserProfile> branchInfo = saveBranches(userProfile.getServiceBranches(), userId);
+								profile.setServiceBranches(branchInfo);
 								
 							}
 							else if (profile.getUserTypes().contains(UserTypes.INDIVIDUAL_PROFESSIONAL)){
@@ -525,17 +523,37 @@ public class UserProfileController {
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 	
-	private void saveBranches(List<UserProfile> branchInfo,String userId) {
+	private List<UserProfile> saveBranches(List<UserProfile> branchInfo,String userId) {
 		for(UserProfile branch: branchInfo){
 			if(!branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
 				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 			}
 		}
+		List<UserProfile> updateBranchInfo = new ArrayList<UserProfile>();
 		for(UserProfile branch: branchInfo){
-			branch.setUserId(userId);
+			UserProfile newBranch = new UserProfile();
+			if(null == branch.getId()){
+				newBranch.setUserId(userId);
+				newBranch.setLastModifiedAt(new Date());
+				newBranch.setBasicProfileInfo(branch.getBasicProfileInfo());
+				newBranch.setIndividualInfo(branch.getIndividualInfo());
+				newBranch.setServiceProviderInfo(branch.getServiceProviderInfo());
+				newBranch.setSystemTags(branch.getSystemTags());
+				newBranch.setTags(branch.getTags());
+				newBranch.setUserTags(branch.getUserTags());
+				ArrayList<Integer> list = new ArrayList<Integer>();
+				list.add(UserTypes.INSTITUTION_BRANCH);
+				newBranch.setUserTypes(list);
+				branch = newBranch;
+			}else{
+				branch.setUserId(userId);
+				branch.setLastModifiedAt(new Date());
+			}
+			
 			mongoTemplate.save(branch);
+			updateBranchInfo.add(branch);
 		}
-		
+		return updateBranchInfo;
 	}
 
 	private String getShortDescription(UserProfile profile) {

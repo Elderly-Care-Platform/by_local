@@ -57,21 +57,23 @@
                          data-toggle="tooltip" ng-init="tooltipText();"
                          ng-click="$event.stopPropagation();"
                          title="Information on service providers, professionals and senior living options
-                        has been verified by a BeautifulYears 	representative  at the time of registration
+                         has been verified by a BeautifulYears 	representative  at the time of registration
                         on BeautifulYears.com. Verification details appear in the review section for the
                         specific establishment as a BeautifulYears Team review."></div>
                     <div style="clear:both;"></div>
                     <div class="no-padding" ng-if="branchProfile.ratingCount > 0 || branchProfile.reviewCount > 0">
                         <div class="profileRating" ng-if="branchProfile.ratingCount > 0">
                             <i class="rounded-x profileStar" rate-calculator="{{branchProfile.ratingPercentage}}"></i>Rated
-                            by <a href="">{{branchProfile.ratingCount}} user<xy
+                            by <a href="">{{branchProfile.ratingCount}} user
+                            <xy
                                     ng-if="branchProfile.ratingCount > 1">s
                             </xy>
                         </a>
                         </div>
                         <div style="clear:both; height:16px;"></div>
                         <div class="profileReview" ng-if="branchProfile.reviewCount > 0">
-                            <i class="rounded-x fa fa-review-icon padding42" style="margin-left:0px; margin-right:9px;"></i>{{branchProfile.reviewCount}}
+                            <i class="rounded-x fa fa-review-icon padding42"
+                               style="margin-left:0px; margin-right:9px;"></i>{{branchProfile.reviewCount}}
                             review<span ng-if="branchProfile.reviewCount > 1">s</span>
                         </div>
                         <div style="clear: both; height:6px;"></div>
@@ -165,7 +167,7 @@
         </div>
         <div class="clearfix"></div>
 
-
+        <!--start show profile description available-->
         <div class="col-md-12" ng-if="branchProfile.basicProfileInfo.description">
             <div class="row bg-color-grey2" style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
             <div class="by_profile_devider "></div>
@@ -185,54 +187,64 @@
                 </p>
             </div>
         </div>
+        <!--end show profile description available-->
 
         <div style="clear:both;"></div>
 
-        <div id="adminVerified" ng-if="reviewsVerify.length > 0">
-            <img src="assets/img/profile/by_verified.png?versionTimeStamp=%PROJECT_VERSION%">
-            <div class="clearfix" style="height:16px;"></div>
-            <div ng-repeat="review in reviewsVerify"  data-index="discussion-articles"
-                data-link="articles.html"
-                ng-include="'app/components/profile/profileVerifiedReview.html?versionTimeStamp=%PROJECT_VERSION%'"
-                ng-if="review.text && review.text.trim().length > 0 ">
-            </div>
-        </div>
-        <div style="clear:both;"></div>
+        <!--start show review and rate details only if branch id available-->
+        <div ng-if="branchId">
+            <div id="adminVerified" ng-if="reviewsVerify.length > 0">
+                <img src="assets/img/profile/by_verified.png?versionTimeStamp=%PROJECT_VERSION%">
 
-        <div class="row margin-top-10"
-             ng-include="'app/components/profile/shared/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'"
-             ng-if="isAllowedToReview"></div>
-
-        <div ng-if="reviews && reviews.length == 0" class="row">
-            <div class="col-md-12 bg-color-grey2" style=" margin-top: 12px;"></div>
-        </div>
-
-
-        <div ng-if="reviews && reviews.length > 0" class="row">
-            <div class="col-md-12 bg-color-grey2"
-                 style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
-
-            <div class="col-md-12  margin-bottom-20 review-rate-header" style="padding-left:21px; padding-right:21px;" >
-                <div class="col-md-12 no-padding dp-block" style="border-bottom:1px solid #ccc;">
-                    Reviews
-                </div>
-
-                <div class="col-md-12 no-padding">
-                    <div class="bg-green-h2" style="width: 75px;"></div>
+                <div class="clearfix" style="height:16px;"></div>
+                <div ng-repeat="review in reviewsVerify" data-index="discussion-articles"
+                     data-link="articles.html"
+                     ng-include="'app/components/profile/profileVerifiedReview.html?versionTimeStamp=%PROJECT_VERSION%'"
+                     ng-if="review.text && review.text.trim().length > 0 ">
                 </div>
             </div>
-            <div ng-repeat="review in reviews" data-index="discussion-articles"
-                 data-link="articles.html"
-                 ng-include="'app/components/profile/shared/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
-                 ng-if="review.text && review.text.trim().length > 0">
+            <div style="clear:both;"></div>
+
+            <div class="row margin-top-10"
+                 ng-include="'app/components/profile/shared/reviewRate.html?versionTimeStamp=%PROJECT_VERSION%'"
+                 ng-if="isAllowedToReview"></div>
+
+            <div ng-if="reviews && reviews.length == 0" class="row">
+                <div class="col-md-12 bg-color-grey2" style=" margin-top: 12px;"></div>
+            </div>
+
+
+            <div ng-if="reviews && reviews.length > 0" class="row">
+                <div class="col-md-12 bg-color-grey2"
+                     style="margin-bottom: 15px; margin-top: 12px; height:1px;"></div>
+
+                <div class="col-md-12  margin-bottom-20 review-rate-header"
+                     style="padding-left:21px; padding-right:21px;">
+                    <div class="col-md-12 no-padding dp-block" style="border-bottom:1px solid #ccc;">
+                        Reviews
+                    </div>
+
+                    <div class="col-md-12 no-padding">
+                        <div class="bg-green-h2" style="width: 75px;"></div>
+                    </div>
+                </div>
+                <div ng-repeat="review in reviews" data-index="discussion-articles"
+                     data-link="articles.html"
+                     ng-include="'app/components/profile/shared/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"
+                     ng-if="review.text && review.text.trim().length > 0">
+                </div>
+            </div>
+
+            <div ng-if="reviews && reviews.length === 0">
+                <div class="clearfix" style="height:20px;"></div>
             </div>
         </div>
+        <!--end show review and rate details only if branch id available-->
 
-        <div ng-if="reviews && reviews.length === 0">
-            <div class="clearfix" style="height:20px;"></div>
-        </div>
 
-        <div ng-include="'app/components/profile/shared/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="!branchId"></div>
+        <!--start show post/qa by user only if corporate is selected-->
+        <div ng-include="'app/components/profile/shared/contentByUser.html?versionTimeStamp=%PROJECT_VERSION%'"
+             ng-if="!branchId"></div>
 
         <!--<a style="margin-left:15px; " class="discussRightCategory {{isShowPosts===true && 'selected active'}}"-->
         <!--ng-click="showPosts(true)" ng-if="postsUser.length > 0">-->

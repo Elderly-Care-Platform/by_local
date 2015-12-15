@@ -34,7 +34,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         function getServicesCount(){
             $http.get("api/v1/userProfile/getCount").success(function (response) {
 
-                $rootScope.totalServiceCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_SERVICES']])
+                $rootScope.totalServiceCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_BRANCH']])
                     + parseInt(response.data[BY.config.profile.userTypeMap['INDIVIDUAL_PROFESSIONAL']]);
 
                 $rootScope.totalHousingCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_HOUSING']]);

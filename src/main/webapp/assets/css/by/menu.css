@@ -5,7 +5,6 @@
 	height: auto;
 	font-size: 18px;
 	color: #fff;
-	font-weight: bold;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: -35px;
@@ -20,10 +19,12 @@
 {
 	color: #fff;
 	text-decoration: none;
+	border-bottom:1px solid #fff;
 }
 .by_menu_Active
 {
 	border-bottom:1px solid #fff;
+	font-weight: bold;
 }
 .by_subMenu
 {
@@ -305,6 +306,10 @@
 	padding: 6px 15px;
 	font-weight: normal;
 }
+.nav>li> a.by_treeMenuText:hover
+{
+	font-weight: bold;
+}
 .nav>li> a.by_treeMenuIcon:after
 {
 	content : '+';
@@ -341,7 +346,7 @@
 	background: transparent;
 	padding: 3px 15px;
 }
-.nav>li> a.by_treeSubMenu_active
+.nav>li> a.by_treeSubMenu_active, .nav>li> a.by_treeSubMenu:hover
 {
 	font-weight: bold;
 }

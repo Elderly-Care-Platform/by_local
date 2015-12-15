@@ -14,6 +14,25 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
             BY.byUtil.updateMetaTags(metaTagParams);
         })();
 
+        $scope.leftPanelHeight = function(){            
+            var clientHeight = $( window ).height() - 57;
+            $(".by_menuDetailed").css('height', clientHeight+"px");
+        }
+
+        $scope.subMenuTabMobileShow = function () {
+            $(".by_mobile_leftPanel_image").click(function () {
+                if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
+                    $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
+                } else {
+                    $(".by_mobile_leftPanel_image").animate({left: "90%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburger-minG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "0%"}, {duration: 400});
+                }
+            });
+        };
+
         $scope.$watch("articles", function (value) {
             $timeout(
                 function () {
@@ -51,6 +70,9 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                     }, 100);
             } else {
                 $scope.scroll($scope.currentAcceleratorSelected);
+                $(".by_mobile_leftPanel_image").animate({left: "0%"}, {duration: 400});
+                    $(".by_mobile_leftPanel_image").css('background', "url('assets/img/community/mobile/humburgerG.png?versionTimeStamp=%PROJECT_VERSION%')");
+                    $(".by_mobile_leftPanel_hide").animate({left: "-90%"}, {duration: 400});
             }
 
         }

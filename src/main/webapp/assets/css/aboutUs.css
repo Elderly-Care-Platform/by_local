@@ -277,7 +277,13 @@
     line-height: 30px;
     text-align:center;
 }
-
+.aboutUsLotusText
+{
+    width: 80%;
+    font-size: 22px;
+    color: #525252;
+    text-align: center;
+}
 .aboutUsDiscussText {
     width: 80%;
     margin-left: 5%;
@@ -621,7 +627,7 @@
 }
 .contriTextSt span
 {
-    color: #AD9E9E;
+    color: #6B6B6B;
 }
 .aboutUsOneSecond a
 {

@@ -16,6 +16,8 @@ import com.beautifulyears.repository.custom.UserProfileRepositoryCustom;
 @Repository
 public interface UserProfileRepository extends PagingAndSortingRepository<UserProfile, String>,UserProfileRepositoryCustom{
 
+	UserProfile findByUserId(String UserId);
+	
 	@Query("{'$and': [{'userId': ?0}, {'userTypes':{ $nin: [8] }} ]}")
 	public List<UserProfile> findAllProfileByUserId(String userId);
 	

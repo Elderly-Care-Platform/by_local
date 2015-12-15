@@ -89,7 +89,10 @@ public class UserProfileController {
 	
 		try {
 			if (userId != null) {
-				userProfile = userProfileRepository.findByUserId(userId);
+				List<UserProfile> userProfiles = userProfileRepository.findAllProfileByUserId(userId);
+				if(userProfiles.size() > 0){
+					userProfile = userProfiles.get(0);
+				}
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
@@ -169,7 +172,7 @@ public class UserProfileController {
 			@RequestParam(value = "city", required = false) String city,
 			@RequestParam(value = "tags", required = false) List<String> tags,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(value = "size", required = false, defaultValue = "100") int size,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,

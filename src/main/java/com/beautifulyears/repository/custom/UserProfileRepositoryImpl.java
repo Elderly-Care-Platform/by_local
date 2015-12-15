@@ -1,6 +1,5 @@
 package com.beautifulyears.repository.custom;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -11,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.beautifulyears.constants.DiscussConstants;
-import com.beautifulyears.constants.UserTypes;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.rest.response.PageImpl;
 
@@ -76,19 +74,6 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryCustom {
 		PageImpl<UserProfile> userProfilePage = new PageImpl<UserProfile>(
 				userProfileList, pageable, total);
 		return userProfilePage;
-	}
-
-	@Override
-	public UserProfile findByUserId(String UserId) {
-		UserProfile profile = null;
-		Query q = new Query();
-		q.addCriteria(Criteria.where("status").in(
-				new Object[] { DiscussConstants.DISCUSS_STATUS_ACTIVE, null }));
-		List<Integer> userTypes = new ArrayList<Integer>();
-		userTypes.add(UserTypes.INSTITUTION_BRANCH);
-		q.addCriteria(Criteria.where((String) "userTypes").not().in(userTypes));
-		profile = mongoTemplate.findOne(q, UserProfile.class);
-		return profile;
 	}
 
 }

@@ -90,12 +90,13 @@ public class TempUserProfileController {
 		Query q = new Query();
 		List<Integer> userTypes = new ArrayList<Integer>();
 		userTypes.add(UserTypes.INSTITUTION_SERVICES);
-		Criteria.where((String) "userTypes").in(
-				userTypes);
+		q.addCriteria(Criteria.where((String) "userTypes").in(
+				userTypes));
 		List<UserProfile> services = mongoTemplate.find(q, UserProfile.class);
 		
 		for(UserProfile service : services){
 			if(service.getServiceBranches().size() <= 0){
+				System.out.println(service.getUserTypes());
 				UserProfile branch = new UserProfile();
 				branch.setAggrRatingPercentage(service.getAggrRatingPercentage());
 				branch.setBasicProfileInfo(service.getBasicProfileInfo());
@@ -147,6 +148,8 @@ public class TempUserProfileController {
 				
 				result += service.getId()+", ";
 				
+			}else{
+				System.out.println("skipping sa already contains branch");
 			}
 		}
 		

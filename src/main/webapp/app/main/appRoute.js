@@ -23,17 +23,17 @@ define([], function () {
                     }]
                 }
             })
-            .when('/discuss/list/:slug/:menuId/:discussType', {
-                templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['app/components/discuss/discussMenuCtrl.js'], function (discussMenuCtrl) {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
+            //.when('/discuss/list/:slug/:menuId/:discussType', {
+            //    templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
+            //        load: ['$q', function ($q) {
+            //            var defered = $q.defer();
+            //            require(['app/components/discuss/discussMenuCtrl.js'], function (discussMenuCtrl) {
+            //                defered.resolve();
+            //            });
+            //            return defered.promise;
+            //        }]
+            //    }
+            //})
 
             .when('/discuss/list/:slug/:menuId/:discussType', {
                 templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {

@@ -4,6 +4,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
         $scope.currentView = "aboutUs";
 
 
+
         (function(){
             var metaTagParams = {
                 title:  "About Us",
@@ -14,7 +15,28 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
             BY.byUtil.updateMetaTags(metaTagParams);
         })();
 
-        $scope.leftPanelHeight = function(){            
+
+        $scope.getHref = function(module, menuId, type, queryParams){
+            var newHref = BY.config.menu.modules[module].baseUrl + "/"+ BY.byUtil.removeSpecialChars($rootScope.menuCategoryMap[menuId].displayMenuName) +
+                "/"+ $rootScope.menuCategoryMap[menuId].id + "/";
+
+            if(type){
+                newHref = newHref + type + "/";
+            }
+
+            if(queryParams && Object.keys(queryParams).length > 0){
+                newHref = newHref + "?"
+                angular.forEach(queryParams, function (value, key) {
+                    newHref = newHref + key + "=" + value + "&";
+                });
+            }
+
+
+            return newHref;
+
+        };
+
+        $scope.leftPanelHeight = function(){
             var clientHeight = $( window ).height() - 57;
             $(".by_menuDetailed").css('height', clientHeight+"px");
         }

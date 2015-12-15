@@ -14,26 +14,38 @@ define(['byApp',
 
         $rootScope.byTopMenuId              = $rootScope.mainMenu[0].id ;
         $scope.discussType                  = $routeParams.discussType; //Needed for left side Q/A/P filters
+
         $scope.selectedMenu                 = $scope.$parent.menuLevel2;
+
         $scope.pageSize                     = 20;
         $scope.isGridInitialized            = false;
         $scope.initDiscussListing           = initDiscussListing;
         $scope.initScroll                   = initScroll;
+        $scope.showEditorPage               = showEditorPage;
+
         var tags                            = [];
         var queryParams                     = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
+        var showEditor                      = $routeParams.showEditor ? $routeParams.showEditor : null; //Needed for left side Q/A/P filters
+        var editorType                      = $routeParams.editorType ? $routeParams.editorType : null; //Needed for left side Q/A/P filters
         var init                            = initialize();
 
-
         function initialize(){
-            if(!$scope.showEditor){
-                initDiscussListing();
-            }else{
-                initScroll();
+            initDiscussListing();
+            initScroll();
+            //if(showEditor){
+            //    initScroll();
+            //    showEditorPage(null, editorType);
+            //}
+        }
+
+        $scope.initEditor = function(){
+            if(showEditor){
+                showEditorPage(null, editorType);
             }
         }
 
         function initScroll(){
-            if($scope.showEditor){
+            if(showEditor){
                 $timeout(
                     function () {
                         var tag = $("#discussListContainer");
@@ -147,8 +159,11 @@ define(['byApp',
             broadCastMenuDetail.setMenuId($scope.selectedMenu);
         };
 
-        $scope.showEditorPage = function(event, type){
-            event.stopPropagation();
+        function showEditorPage(event, type){
+            if(event){
+                event.stopPropagation();
+            }
+
             $scope.showEditorType = type;
             $(".by_editorButtonWrap_thumb").animate({width: '100%', borderRightWidth: '0px'}, "500");
             $("."+type+"hidePanel").hide();

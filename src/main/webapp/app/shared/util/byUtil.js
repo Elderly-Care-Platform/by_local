@@ -161,4 +161,12 @@ BY.byUtil.validateUserName = function(userName){
 	return userName;
 }
 
+BY.byUtil.removeSpecialChars = function(name){
+	var modifiedName = name.replace(/[^a-zA-Z0-9 ]/g, ""),
+		modifiedName = modifiedName.replace(/\s+/g, '-').toLowerCase();
+	return modifiedName;
+}
+
+
+
 

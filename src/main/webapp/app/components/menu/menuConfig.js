@@ -5,16 +5,20 @@ BY.config.menu = BY.config.menu || {};
 
 BY.config.menu.modules = {
     'discuss' : {
-        'moduleId' : 0
+        'moduleId' : 0,
+        'baseUrl':'#!/discuss/list'
     },
     'service' : {
-        'moduleId' : 1
+        'moduleId' : 1,
+        'baseUrl':'#!/services/list',
     },
     'housing' : {
-        'moduleId' : 2
+        'moduleId' : 2,
+        'baseUrl':'#!/housing/list',
     },
     'product' : {
-        'moduleId' : 3
+        'moduleId' : 3,
+        'baseUrl':'#!/products',
     }
 }
 

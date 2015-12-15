@@ -89,10 +89,7 @@ public class UserProfileController {
 	
 		try {
 			if (userId != null) {
-				List<UserProfile> userProfiles = userProfileRepository.findAllProfileByUserId(userId);
-				if(userProfiles.size() > 0){
-					userProfile = userProfiles.get(0);
-				}
+				userProfile = userProfileRepository.findByUserId(userId);
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();

@@ -121,7 +121,7 @@
                         <div style="clear: both; height: 6px;"></div>
                     </div>
 
-                    <div class=" profile-home-visit by-service-border" style="margin-top:0px;">
+                    <div class=" profile-home-visit by-service-border" style="margin-top:0px;" ng-if="branchId">
                         <span ng-if="branchProfile.serviceProviderInfo.homeVisits"><b>Available</b> for home visit</span>
                         <span ng-if="!branchProfile.serviceProviderInfo.homeVisits"><b>Not available</b> for home visit</span>
                     </div>

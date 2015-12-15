@@ -301,7 +301,7 @@ define(['byApp', 'bootstrapToggle'], function (byApp, bootstrapToggle) {
             $scope.branchBasicInfo.description = mainBranch.basicProfileInfo.description;
 
             //prefill home visit
-            $scope.branchServiceInfo.homeVisits = mainBranch.basicProfileInfo.homeVisits;
+            $scope.branchServiceInfo.homeVisits = mainBranch.serviceProviderInfo.homeVisits;
 
             //prefill profileImage
             if($scope.profileImage.length === 0){

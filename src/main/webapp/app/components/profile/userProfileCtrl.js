@@ -1,16 +1,18 @@
 define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
     function(byApp, byUtil, userTypeConfig, reviewRateController) {
     function ProfileController($scope, $rootScope, $window, $location, $routeParams, ReviewRateProfile, UserProfile, $sce, DiscussPage){
-        $scope.profileViews = {};
-        $scope.profileType = $routeParams.profileType;
-        $scope.profileId = $routeParams.profileId;
-        $scope.userName = $routeParams.userName ? BY.byUtil.validateUserName($routeParams.userName) : "Anonymous";
-        $scope.housingFacilityId = $routeParams.housingFacilityId ? $routeParams.housingFacilityId : null;
+        $scope.profileViews         = {};
+        $scope.profileType          = $routeParams.profileType;
+        $scope.profileId            = $routeParams.profileId;
+        $scope.userName             = $routeParams.userName ? BY.byUtil.validateUserName($routeParams.userName) : "Anonymous";
+        $scope.housingFacilityId    = $routeParams.housingFacilityId ? $routeParams.housingFacilityId : null;
+        $scope.branchId             = $routeParams.branchId ? $routeParams.branchId : null;
 
-        $scope.isIndividualProfile = false;
-        $scope.isAllowedToReview = false;
-        $scope.flags = {};
-        $scope.flags.isByAdminVerified = false;
+        $scope.isIndividualProfile      = false;
+        $scope.isAllowedToReview        = false;
+        $scope.flags                    = {};
+        $scope.flags.isByAdminVerified  = false;
+        
         var pageSize = 10;
         var reviewDetails = new ReviewRateProfile();
 
@@ -117,12 +119,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                 console.log(error);
             });
         };
-        
-       
-
-
-        
-
 
         var fetchUserPostedContent = function(){
             var pageNumber = 0;
@@ -181,9 +177,11 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             }
         };
 
-
         $scope.location = function ($event, url, params) {
             $event.stopPropagation();
+            angular.forEach($location.search(), function (value, key) {
+                $location.search(key, null);
+            });
             if(url){
                 if(params && params.length > 0){
                     for(var i=0; i < params.length; i++){

@@ -23,17 +23,17 @@ define([], function () {
                     }]
                 }
             })
-            .when('/discuss/list/:slug/:menuId/:discussType', {
-                templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['app/components/discuss/discussMenuCtrl.js'], function (discussMenuCtrl) {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
+            //.when('/discuss/list/:slug/:menuId/:discussType', {
+            //    templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
+            //        load: ['$q', function ($q) {
+            //            var defered = $q.defer();
+            //            require(['app/components/discuss/discussMenuCtrl.js'], function (discussMenuCtrl) {
+            //                defered.resolve();
+            //            });
+            //            return defered.promise;
+            //        }]
+            //    }
+            //})
 
             .when('/discuss/list/:slug/:menuId/:discussType', {
                 templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
@@ -104,6 +104,19 @@ define([], function () {
             })
 
             .when('/users/housingRegistration/:facilityIndex', {
+                templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'RegistrationController', resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/signup/registrationController.js'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+            
+            .when('/users/institutionRegistration/:branchIndex', {
                 templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'RegistrationController', resolve: {
                     load: ['$q', function ($q) {

@@ -20,7 +20,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             getProductCount();
             getServicesCount();
         }
-        var minimumHeight = $( window ).height() - 46;
+        
 
         function getProductCount(){
             $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
@@ -34,7 +34,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         function getServicesCount(){
             $http.get("api/v1/userProfile/getCount").success(function (response) {
 
-                $rootScope.totalServiceCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_SERVICES']])
+                $rootScope.totalServiceCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_BRANCH']])
                     + parseInt(response.data[BY.config.profile.userTypeMap['INDIVIDUAL_PROFESSIONAL']]);
 
                 $rootScope.totalHousingCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_HOUSING']]);
@@ -141,12 +141,18 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             setValidSession(args);
         });
 
+        $scope.$on('byUserNameUpdate', function (event, args) {
+            setValidSession(args);
+        });
+
+
         $scope.$on('currentLocation', function (event, args) {
             if (args === '/' || args.indexOf('/users/home') > -1) {
                 isHomePage = true;                
                 $("#ng-scope").css('min-height', "0px");
             } else {
                 isHomePage = false;
+                var minimumHeight = $( window ).height() - 46;
                 $("#ng-scope").css('min-height', minimumHeight+"px");
             }
 

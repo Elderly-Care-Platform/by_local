@@ -8,6 +8,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.beautifulyears.servlet.GenerateBarCode;
 import com.beautifulyears.servlet.UploadFile;
 
 public class ByWebAppInitializer implements
@@ -37,6 +38,12 @@ public class ByWebAppInitializer implements
 		dynamc2.addMapping("/UploadFile");
 		dynamc2.setLoadOnStartup(1);
 		dynamc2.setAsyncSupported(true);
+		
+		Dynamic dynamc3 = servletContext.addServlet("generateBarCode",
+				new GenerateBarCode());
+		dynamc3.addMapping("/generateBarCode");
+		dynamc3.setLoadOnStartup(1);
+		dynamc3.setAsyncSupported(true);
 
 	}
 

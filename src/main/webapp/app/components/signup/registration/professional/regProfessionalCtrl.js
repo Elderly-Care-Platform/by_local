@@ -17,7 +17,7 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
                 tinymce.get("registrationDescription").setContent($scope.basicProfileInfo.description);
             }
         }
-        var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription"}, editorInitCallback);
+        var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "registrationDescription", "autoFocus" : "false"}, editorInitCallback);
 
 
         $scope.addressCallback = function (response) {

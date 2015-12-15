@@ -36,7 +36,7 @@
     <div class="by_menu_cityFilter">
         <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft" ng-click="addressCallback({'name':address.city})"></i>        
         <div class="divRight by_menu_cityFilterRight">
-           <input type="text"  class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
+           <input type="text"  class="username-textbox textbox" enter-event="addressCallback({'name':address.city})" id="addressCity"
            placeholder="Type your city name" ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
        </div>
        <div class="clearfix"></div>
@@ -107,8 +107,8 @@
 
             <div class="by_menu_cityFilter">
                 <i class="fa fa-map-marker divLeft by_menu_cityFilterLeft" ng-click="addressCallback({'name':address.city})"></i>        
-                <div class="divRight by_menu_cityFilterRight">
-                   <input type="text"  class="username-textbox textbox ng-pristine ng-valid ng-touched ng-untouched" id="addressCity"
+                <div class="divRight by_menu_cityFilterRight"> 
+                   <input type="text"  class="username-textbox textbox" enter-event="addressCallback({'name':address.city})" id="addressCity"
                    placeholder="Type your city name" ng-model="address.city" ng-google-location callback="addressCallback" options="cityOptions">
                </div>
                <div class="clearfix"></div>

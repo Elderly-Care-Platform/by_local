@@ -4,8 +4,6 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
     function DiscussMenuCtrl($scope, $rootScope, $location, $route, $routeParams) {
 
         $scope.selectedMenuId = $routeParams.menuId;
-
-        
         $scope.moduleConfig = BY.config.menu.moduleConfig;
         $scope.menuConfig = BY.config.menu;
         $scope.isLeafMenuSelected = false;
@@ -68,7 +66,7 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
             if (selectedMenu.ancestorIds.length == 0) {
                 $scope.menuLevel1 = selectedMenu.children[0];
                 //$scope.menuLevel2 = getLeafMenu($scope.menuLevel1);
-                $scope.menuLevel2 = $scope.menuLevel1;
+                $scope.menuLevel2 = selectedMenu;
             } else if (selectedMenu.ancestorIds.length == 1) {
                 $scope.menuLevel1 = selectedMenu;
                // $scope.menuLevel2 = getLeafMenu($scope.menuLevel1);

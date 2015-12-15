@@ -28,7 +28,6 @@
 .aboutUsOne {
    
     padding: 35px 15px 0px 15px;
-    text-align: center;
     /* margin-left: -22px !important; */
     margin-top: 0px !important;
     /* margin-top: -21px; */
@@ -54,7 +53,6 @@
 
 .aboutUsOneSecond {
     color: #333333;
-    text-align: center;
     font-size: 17px;
     font-weight: 400;
     line-height: 26px;
@@ -278,9 +276,14 @@
     font-weight: 400;
     line-height: 30px;
     text-align:center;
-    padding-bottom:30px;
 }
-
+.aboutUsLotusText
+{
+    width: 80%;
+    font-size: 22px;
+    color: #525252;
+    text-align: center;
+}
 .aboutUsDiscussText {
     width: 80%;
     margin-left: 5%;
@@ -614,4 +617,26 @@
         margin-top: 15px;
         background-size: 100%;
     }
+}
+.contriTextSt
+{
+    margin-top: -20px;
+    text-align: center;
+    font-size: 17px;
+    color: #000;
+}
+.contriTextSt span
+{
+    color: #6B6B6B;
+}
+.aboutUsOneSecond a
+{
+    font-style: italic;
+    text-decoration: underline;
+}
+.aboutUsDivider
+{
+    width: 100%;
+    height: 1px;
+    margin: 40px 0px 20px 0px;
 }

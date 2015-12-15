@@ -25,7 +25,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +52,6 @@ import com.beautifulyears.util.UserProfilePrivacyHandler;
 import com.beautifulyears.util.Util;
 import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
 import com.beautifulyears.util.activityLogHandler.UserProfileLogHandler;
-import com.mongodb.util.Hash;
 
 /**
  * The REST based service for managing "user_profile"
@@ -85,26 +83,25 @@ public class UserProfileController {
 			@PathVariable(value = "userId") String userId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		User user = Util.getSessionUser(req);
+		//User sessionUser = Util.getSessionUser(req);
+		User userInfo = UserController.getUser(userId);
 		UserProfile userProfile = null;
+	
 		try {
 			if (userId != null) {
-				userProfile = this.userProfileRepository.findByUserId(userId);
+				userProfile = userProfileRepository.findByUserId(userId);
+//				if(userProfiles.size() > 0){
+//					userProfile = userProfiles.get(0);
+//				}
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					if (user != null
-							&& user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL
-							&& user.getEmail() != null
-							&& user.getId().equals(userId)) {
+					if (userInfo != null){
 						userProfile.getBasicProfileInfo().setPrimaryEmail(
-								user.getEmail());
-					} else if (user.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE
-							&& user.getPhoneNumber() != null) {
+								userInfo.getEmail());
 						userProfile.getBasicProfileInfo().setPrimaryPhoneNo(
-								user.getPhoneNumber());
-					}
-
+								userInfo.getPhoneNumber());
+					}	
 				} else {
 					logger.debug(userProfile.toString());
 				}
@@ -117,7 +114,7 @@ public class UserProfileController {
 			Util.handleException(e);
 		}
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
-				.getUserProfileEntity(userProfile, user));
+				.getUserProfileEntity(userProfile, userInfo));
 	}
 
 	/*
@@ -182,7 +179,7 @@ public class UserProfileController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
-				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
+				UserTypes.INSTITUTION_BRANCH, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
 		LoggerUtil.logEntry();
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
@@ -349,14 +346,11 @@ public class UserProfileController {
 							userProfile.getBasicProfileInfo()
 									.setShortDescription(
 											getShortDescription(userProfile));
-							profile.setStatus(userProfile.getStatus());
-							profile.setUserTypes(userProfile.getUserTypes());
 							profile.setLastModifiedAt(new Date());
 							profile.setSystemTags(userProfile.getSystemTags());
 
 							profile.setBasicProfileInfo(userProfile
 									.getBasicProfileInfo());
-							profile.setFeatured(userProfile.isFeatured());
 							if (!Collections.disjoint(
 									profile.getUserTypes(),
 									new ArrayList<>(Arrays.asList(
@@ -367,21 +361,18 @@ public class UserProfileController {
 								profile.setIndividualInfo(userProfile
 										.getIndividualInfo());
 							}
-							if (!Collections
-									.disjoint(
-											profile.getUserTypes(),
-											new ArrayList<>(
-													Arrays.asList(
-															UserTypes.INSTITUTION_SERVICES,
-															UserTypes.INDIVIDUAL_PROFESSIONAL)))) {
+							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES) || profile.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
+								profile.setServiceProviderInfo(userProfile
+										.getServiceProviderInfo());
+								List<UserProfile> branchInfo = saveBranches(userProfile.getServiceBranches(), userId);
+								profile.setServiceBranches(branchInfo);
+								
+							}
+							else if (profile.getUserTypes().contains(UserTypes.INDIVIDUAL_PROFESSIONAL)){
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
 							}
-							if (!Collections
-									.disjoint(
-											profile.getUserTypes(),
-											new ArrayList<>(
-													Arrays.asList(UserTypes.INSTITUTION_HOUSING)))) {
+							else if (profile.getUserTypes().contains(UserTypes.INSTITUTION_HOUSING)){
 								profile.setFacilities(HousingController
 										.addFacilities(
 												userProfile.getFacilities(),
@@ -530,6 +521,39 @@ public class UserProfileController {
 			Util.handleException(e);
 		}
 		return BYGenericResponseHandler.getResponse(userAddress);
+	}
+	
+	private List<UserProfile> saveBranches(List<UserProfile> branchInfo,String userId) {
+		for(UserProfile branch: branchInfo){
+			if(!branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
+				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
+			}
+		}
+		List<UserProfile> updateBranchInfo = new ArrayList<UserProfile>();
+		for(UserProfile branch: branchInfo){
+			UserProfile newBranch = new UserProfile();
+			if(null == branch.getId()){
+				newBranch.setUserId(userId);
+				newBranch.setLastModifiedAt(new Date());
+				newBranch.setBasicProfileInfo(branch.getBasicProfileInfo());
+				newBranch.setIndividualInfo(branch.getIndividualInfo());
+				newBranch.setServiceProviderInfo(branch.getServiceProviderInfo());
+				newBranch.setSystemTags(branch.getSystemTags());
+				newBranch.setTags(branch.getTags());
+				newBranch.setUserTags(branch.getUserTags());
+				ArrayList<Integer> list = new ArrayList<Integer>();
+				list.add(UserTypes.INSTITUTION_BRANCH);
+				newBranch.setUserTypes(list);
+				branch = newBranch;
+			}else{
+				branch.setUserId(userId);
+				branch.setLastModifiedAt(new Date());
+			}
+			
+			mongoTemplate.save(branch);
+			updateBranchInfo.add(branch);
+		}
+		return updateBranchInfo;
 	}
 
 	private String getShortDescription(UserProfile profile) {

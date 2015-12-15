@@ -163,7 +163,8 @@ define(["byApp", "angular"], function (byApp, angular) {
             restrict: 'A',
             scope: {
                 loadImage: '=',
-                imgArray:'=?'
+                imgArray:'=?',
+                callback:'=?'
             },
             link: function postLink(scope, element, attrs, ctrl) {
                 if(attrs.multiple){
@@ -193,6 +194,10 @@ define(["byApp", "angular"], function (byApp, angular) {
                                 headers: {'Content-Type': undefined}
                             }).success(function (result) {
                                 scope.loadImage.splice(idx+val, 1, result);
+                                if(scope.callback){
+                                    scope.callback(result);
+                                }
+
                             }).error(function (result) {
                                 console.log("Upload profile image failed");
                             });
@@ -550,6 +555,20 @@ define(["byApp", "angular"], function (byApp, angular) {
         	}
         }
     });
+
+    byApp.directive('enterEvent', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.enterEvent);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 
 
     byApp.directive('validateByCategories', function($rootScope){

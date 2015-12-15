@@ -1,0 +1,127 @@
+<div class="by_menuDetailed col-md-12" ng-if="$root.windowWidth > 720" style="position:fixed; bottom:0px;"
+     ng-init="leftPanelHeight();">
+
+    <div class="by_profileDetailed_menu" ng-click="location($event, '/profile', [profileType, profileData.userId, 'corp'])">
+       <span ng-if="branchId"> {{label}}</span>
+        <span ng-if="!branchId" ng-click="gotoHref('profileSection')"> {{label}}</span>
+    </div>
+
+    <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0 && !branchId"
+         ng-click="gotoHref('userPosts')">
+        <span>Posts ({{postsPagination.totalPosts}})</span>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0 && !branchId"
+         ng-click="gotoHref('userQA')">
+        <span>Q&A ({{qaPagination.totalPosts}})</span>
+
+        <div class="clearfix"></div>
+    </div>
+
+
+    <div ng-controller="instProfileLeftCtrl">
+        <div class="panel-group acc-v1 housingCityWrap" id="accordion-1" ng-if="allBranches.length > 0">
+            <div class="housingCityHead">Branches:</div>
+            <div class="panel panel-default" ng-repeat="branch in allBranches">
+                <div class="panel-heading housingCityHeadThumb" ng-class="{'active':selectedBranch && branch.id===selectedBranch.id}"
+                     ng-click="setLocation($event, '/profile/'+branch.userTypes[0]+'/'+branch.userId, {'branchId':branch.id})">
+                    <span style="background:#fff;">
+                        {{branch.basicProfileInfo.firstName}}
+                    </span>
+                    <!--<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse"-->
+                       <!--data-parent="#userTypeaccord"-->
+                       <!--href={{"#collapse"+key}}></a>-->
+                </div>
+                <!--<div class="panel-heading housingCityHeadThumb" ng-if="value.length > 1">-->
+                    <!--<a href={{"#collapse"+key}} data-toggle="collapse" data-parent="#userTypeaccord"-->
+                       <!--style="position:relative; right:0px; width:100%; top:0px; color:#000;">{{key}} ({{value.length}})-->
+                    <!--</a>-->
+                    <!--<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse"-->
+                       <!--data-parent="#userTypeaccord"-->
+                       <!--href={{"#collapse"+key}}></a>-->
+                <!--</div>-->
+                <!--<div id={{"collapse"+key}} class="panel-collapse collapse"-->
+                     <!--ng-class="{'in':value.length > 1 && facilityData.primaryAddress.city===key && userName!=='corp'}"-->
+                     <!--ng-if="value.length > 1">-->
+                    <!--<div class="panel-body" ng-repeat="branch in value">-->
+                        <!--<div class="housingCityHeadThumb"-->
+                             <!--ng-click="location($event, '/housingProfile', [profileType,profileData.userId,branch.id])"-->
+                             <!--ng-class="{'active':facilityData.id===branch.id && userName!=='corp'}">-->
+                            <!--{{branch.primaryAddress.locality}}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="isAllowedToReview && branchId" ng-click="gotoHref('userReviews')">
+            <i class="review-Icon_rate"></i> <span>Rate & Review</span>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+    <div class="by_mobile_leftPanel" style="padding:0px 15px;">
+
+         <div class="by_profileDetailed_menu" ng-click="location($event, '/profile', [profileType, profileData.userId, 'corp'])">
+        {{label}}
+    </div>
+
+    <div class="by_profileDetailed_menuIcon" ng-if="postsUser.length > 0 && !branchId"
+         ng-click="gotoHref('userPosts')">
+        <span>Posts ({{postsPagination.totalPosts}})</span>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_profileDetailed_menuIcon" ng-if="qaUser.length > 0 && !branchId"
+         ng-click="gotoHref('userQA')">
+        <span>Q&A ({{qaPagination.totalPosts}})</span>
+
+        <div class="clearfix"></div>
+    </div>
+
+
+    <div ng-controller="instProfileLeftCtrl">
+        <div class="panel-group acc-v1 housingCityWrap" id="accordion-1" ng-if="allBranches.length > 0">
+            <div class="housingCityHead">Branches:</div>
+            <div class="panel panel-default" ng-repeat="branch in allBranches">
+                <div class="panel-heading housingCityHeadThumb" ng-class="{'active':selectedBranch && branch.id===selectedBranch.id}"
+                     ng-click="setLocation($event, '/profile/'+branch.userTypes[0]+'/'+branch.userId, {'branchId':branch.id})">
+                    <span style="background:#fff;">
+                        {{branch.basicProfileInfo.firstName}}
+                    </span>
+                    <!--<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse"-->
+                       <!--data-parent="#userTypeaccord"-->
+                       <!--href={{"#collapse"+key}}></a>-->
+                </div>
+                <!--<div class="panel-heading housingCityHeadThumb" ng-if="value.length > 1">-->
+                    <!--<a href={{"#collapse"+key}} data-toggle="collapse" data-parent="#userTypeaccord"-->
+                       <!--style="position:relative; right:0px; width:100%; top:0px; color:#000;">{{key}} ({{value.length}})-->
+                    <!--</a>-->
+                    <!--<a ng-if="value.length > 1" class="triangle-down" data-toggle="collapse"-->
+                       <!--data-parent="#userTypeaccord"-->
+                       <!--href={{"#collapse"+key}}></a>-->
+                <!--</div>-->
+                <!--<div id={{"collapse"+key}} class="panel-collapse collapse"-->
+                     <!--ng-class="{'in':value.length > 1 && facilityData.primaryAddress.city===key && userName!=='corp'}"-->
+                     <!--ng-if="value.length > 1">-->
+                    <!--<div class="panel-body" ng-repeat="branch in value">-->
+                        <!--<div class="housingCityHeadThumb"-->
+                             <!--ng-click="location($event, '/housingProfile', [profileType,profileData.userId,branch.id])"-->
+                             <!--ng-class="{'active':facilityData.id===branch.id && userName!=='corp'}">-->
+                            <!--{{branch.primaryAddress.locality}}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="by_profileDetailed_menuIcon" ng-if="isAllowedToReview && branchId" ng-click="gotoHref('userReviews')">
+            <i class="review-Icon_rate"></i> <span>Rate & Review</span>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
+</div>

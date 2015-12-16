@@ -12,6 +12,8 @@ define([], function () {
                     }]
                 }
             })
+
+            //To be removed later
             .when('/users/home', {
                 templateUrl: 'app/components/home/home.html', controller: 'BYHomeController', resolve: {
                     load: ['$q', function ($q) {
@@ -35,7 +37,7 @@ define([], function () {
             //    }
             //})
 
-            .when('/discuss/list/:slug/:menuId/:discussType', {
+            .when('/community/:slug/:menuId/:discussType', {
                 templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();

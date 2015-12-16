@@ -25,8 +25,7 @@
 
             <li ng-repeat="topicId in discuss.topicId">
                 <p class="first-letter-uc by-systemTags">
-                    <span ng-if="$index > 0">|</span> <a
-                        ng-click="go($event,'menu', topicId)">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
+                    <span ng-if="$index > 0">|</span><a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
                 </p>
             </li>
         </ul>

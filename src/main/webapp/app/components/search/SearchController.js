@@ -14,6 +14,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
             $scope.pageInfo.lastPage = true;
             $scope.pageSize = 10;
             $scope.serverurl = SERVERURL_IMAGE.hostUrl;
+            
+            $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
             $scope.getDiscussData = function(page, size){
                 (function(){

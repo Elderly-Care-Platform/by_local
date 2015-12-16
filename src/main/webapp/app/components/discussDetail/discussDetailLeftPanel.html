@@ -29,7 +29,7 @@
 
             <li ng-repeat="topicId in article.topicId">
                 <span class="first-letter-uc by-systemTags">
-                    <a di-href="#!/community/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
+                    <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
                         {{$root.menuCategoryMap[topicId].displayMenuName}}
                     </a>
                     <span ng-if="$index < article.topicId.length-1">,</span>

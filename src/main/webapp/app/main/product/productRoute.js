@@ -27,19 +27,19 @@ define([], function () {
                     }]
                 }
             })
-            .when('/products/:productSlug/:menuId/all', {
-                templateUrl: 'app/components/product/product-listing/products.html?versionTimeStamp=%PROJECT_VERSION%',
-                controller: 'ProductsController',
-                resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['productController', 'productMenuCtrl'], function (productController, productMenuCtrl) {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
+            //.when('/products/:menuId/all', {
+            //    templateUrl: 'app/components/product/product-listing/products.html?versionTimeStamp=%PROJECT_VERSION%',
+            //    controller: 'ProductsController',
+            //    resolve: {
+            //        load: ['$q', function ($q) {
+            //            var defered = $q.defer();
+            //            require(['productController', 'productMenuCtrl'], function (productController, productMenuCtrl) {
+            //                defered.resolve();
+            //            });
+            //            return defered.promise;
+            //        }]
+            //    }
+            //})
             .when('/products/overview/list/:slug/:menuId/:discussType', {
                 templateUrl: 'app/components/product/product-listing/products.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ProductsController',

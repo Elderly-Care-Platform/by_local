@@ -6,19 +6,19 @@ BY.config.menu = BY.config.menu || {};
 BY.config.menu.modules = {
     'discuss' : {
         'moduleId' : 0,
-        'baseUrl':'#!/community'
+        'baseUrl':'#!/communities'
     },
     'service' : {
         'moduleId' : 1,
-        'baseUrl':'#!/services/list',
+        'baseUrl':'#!/services/list'
     },
     'housing' : {
         'moduleId' : 2,
-        'baseUrl':'#!/housing/list',
+        'baseUrl':'#!/housing/list'
     },
     'product' : {
         'moduleId' : 3,
-        'baseUrl':'#!/products',
+        'baseUrl':'#!/products'
     }
 }
 
@@ -28,20 +28,24 @@ BY.config.menu.seniorLiving = {
 
 BY.config.menu.moduleConfig = {
     '0' : {
-        'baseUrl':'#!/community',
-        'module' : 'discuss'
+        'baseUrl':'#!/communities',
+        'module' : 'discuss',
+        'defaultType' : 'all'
     },
     '1' : {
-        'baseUrl':'#!/services/list',
-        'module' : 'service'
+        'baseUrl':'#!/services/list/service',
+        'module' : 'service',
+        'defaultType' : 'all'
     },
     '2' : {
-        'baseUrl':'#!/housing/list',
-        'module' : 'housing'
+        'baseUrl':'#!/housing/list/housing',
+        'module' : 'housing',
+        'defaultType' : 'all'
     },
     '3' : {
         'baseUrl':'#!/products',
-        'module' : 'product'
+        'module' : 'product',
+        'defaultType' : ''
     }
 }
 

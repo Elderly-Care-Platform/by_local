@@ -37,7 +37,19 @@ define([], function () {
             //    }
             //})
 
-            .when('/community/:slug/:menuId/:discussType', {
+            .when('/communities/:slug/:menuId/:discussType', {
+                templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/discuss/discussMenuCtrl.js', 'editorController'], function (discussMenuCtrl, editorController) {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
+            .when('/communities/:menuId/:discussType', {
                 templateUrl: 'app/components/discuss/discussion.html', controller: 'DiscussMenuCtrl', resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();

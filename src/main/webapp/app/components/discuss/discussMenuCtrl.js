@@ -10,6 +10,8 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
 
         var initialize = getMenuLevels();
         
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
+        
         $scope.telNo = BY.config.constants.byContactNumber;
         $scope.showMoreMenu =  false;
 

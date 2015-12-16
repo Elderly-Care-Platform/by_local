@@ -15,6 +15,8 @@ define(['byApp', 'byUtil', 'homePromoController',
             $scope.moduleConfig = BY.config.menu.moduleConfig;
             $scope.menuMapConfig = $rootScope.menuCategoryMap;
             $scope.menuConfig = BY.config.menu;
+            
+            $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
             $scope.telNo = BY.config.constants.byContactNumber;
             var cntAnimDuration = 1000;

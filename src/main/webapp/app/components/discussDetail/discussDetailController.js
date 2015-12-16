@@ -3,6 +3,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
     function DiscussDetailController($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, $timeout){
         var discussId = $routeParams.discussId;	//discuss Id from url
         var isComment = $routeParams.comment;
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
 
         $scope.discussDetailViews = {};

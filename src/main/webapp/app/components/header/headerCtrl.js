@@ -9,6 +9,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             "text": "",
             "link": ""
         }
+        
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
         $scope.telNo = BY.config.constants.byContactNumber;
 

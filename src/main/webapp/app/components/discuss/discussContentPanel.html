@@ -46,18 +46,18 @@
 <div class="clearfix margin-top-20">&nbsp;</div>
 
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/all">All
+   href="#!/community/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/all">All
     ({{discuss_counts.z}})</a>
 
 <a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/f">Featured
+   href="#!/community/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/f">Featured
     ({{discuss_counts.featured}})</a>
 
 <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/Q">Q&amp;A ({{discuss_counts.q}})</a>
+   href="#!/community/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/Q">Q&amp;A ({{discuss_counts.q}})</a>
 
 <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
-   href="#!/discuss/list/{{selectedMenu.slug || selectedMenu.displayMenuName}}/{{selectedMenu.id}}/P">Posts
+   href="#!/community/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/P">Posts
     ({{discuss_counts.p}})</a>
 
 

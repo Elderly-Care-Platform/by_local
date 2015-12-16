@@ -28,6 +28,7 @@ define(['byApp',
         var showEditor                      = $routeParams.showEditor ? $routeParams.showEditor : null; //Needed for left side Q/A/P filters
         var editorType                      = $routeParams.editorType ? $routeParams.editorType : null; //Needed for left side Q/A/P filters
         var init                            = initialize();
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
         function initialize(){
             initDiscussListing();
@@ -227,7 +228,7 @@ define(['byApp',
                 //$(".selected-dropdown").removeClass("selected-dropdown");
                 //$("#" + menu.id).parents(".dropdown").addClass("selected-dropdown");
                 if(menu.module===0){
-                    $location.path("/discuss/list/"+menu.displayMenuName+"/"+menu.id+"/all");
+                    $location.path("/community/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/all");
                 }else if(menu.module===1){
                     $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
                 }else{

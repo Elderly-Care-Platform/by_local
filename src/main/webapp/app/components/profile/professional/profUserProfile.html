@@ -26,16 +26,16 @@
 				<div class="main-image  " style="padding-left:0px;">
 					<img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
 						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual-big.png"]'
-						 alt="">
+						 alt="{{individualProfile.basicProfileInfo.firstName}} {{individualProfile.individualInfo.lastName}}">
 						 <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 0"
 						ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}"  fallback-src='["assets/img/profile/individual_female_big.png"]'
-						 alt="">
+						 alt="{{individualProfile.basicProfileInfo.firstName}} {{individualProfile.individualInfo.lastName}}">
 						 <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 1"
 						ng-src="assets/img/profile/individual-big.png"
-						 alt="">
+						 alt="{{individualProfile.basicProfileInfo.firstName}} {{individualProfile.individualInfo.lastName}}">
 						 <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage && individualProfile.individualInfo.gender == 0"
 						ng-src="assets/img/profile/individual_female_big.png"
-						 alt="">
+						 alt="{{individualProfile.basicProfileInfo.firstName}} {{individualProfile.individualInfo.lastName}}">
 				</div>
 				<div class="col-md-12 by-imageGallery margin-top-20 row"
 					ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
@@ -47,7 +47,7 @@
 							data-hover="{{img.thumbnailImage || ''}}"
 							ng-init="galleryClickHover()">
 							<img ng-if="img.thumbnailImage || img.original" ng-src="{{img.thumbnailImage || ''}}"
-								fallback-src='[""]' />
+								fallback-src='[""]' alt="{{individualProfile.basicProfileInfo.firstName}} {{individualProfile.individualInfo.lastName}}" />
 						</div>
 					</div>
 					<div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
@@ -58,12 +58,12 @@
 			</div>
 			<div class="col-md-7 col-xs-7 by_profileInfoWidth by-service-padding">
 				<div class="profileMainContent">
-					<div class="profileContentTitle divLeft" style="width: calc(100% - 92px);">
+					<h1 class="profileContentTitle divLeft" style="width: calc(100% - 92px);">
 						<span ng-if="gender">{{gender}}</span> <span
 							ng-if="individualProfile.basicProfileInfo.firstName">{{individualProfile.basicProfileInfo.firstName.toLowerCase()}}</span>
 						<span ng-if="individualProfile.individualInfo.lastName">
 							{{individualProfile.individualInfo.lastName.toLowerCase()}}</span>
-					</div>
+					</h1>
 					<div class="by_profile_verified divRight" ng-if="individualProfile.verified == true" data-toggle="tooltip" ng-init="tooltipText();" 
                     ng-click="$event.stopPropagation();" 
                     title="Information on service providers, professionals and senior living options 

@@ -24,20 +24,22 @@
         
         <div style="clear: both; height:10px;" ng-if="detailResponse.discuss.promotion == true"></div>
 
-        <div class="by_discussDeatil_cardTitle col-md-12 margin-top-10" >
+        <h1 class="by_discussDeatil_cardTitle col-md-12 margin-top-10" >
             	{{detailResponse.discuss.title}}
-        </div>
+        </h1>
         <div style="clear: both"></div>
         <div class="by_discussDeatil_cardImage col-md-12  margin-top-10" ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
              <img  ng-src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}"
-                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' title="{{detailResponse.discuss.title}}">
+                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' title="{{detailResponse.discuss.title}}" alt="{{detailResponse.discuss.title}}">
             <div style="clear: both"></div>
         </div>
 
         <div class="margin-top-10" ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
 
-        <div class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
+        <div ng-if="detailResponse.discuss.discussType == 'P'" class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
+         <h1 style="margin-top:-10px;" ng-if="detailResponse.discuss.discussType == 'Q'" class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
+        </h1>
         <div style="clear: both; height:8px;"></div>
         
         

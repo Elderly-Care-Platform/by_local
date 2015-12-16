@@ -26,9 +26,9 @@
                 <div class="main-image  " style="padding-left:0px;">
                     <img class="padding-zero" ng-if="individualProfile.basicProfileInfo.profileImage.titleImage"
                          ng-src="{{individualProfile.basicProfileInfo.profileImage.titleImage || ''}}" 
-                         fallback-src='["assets/img/by.png"]' alt="">
+                         fallback-src='["assets/img/by.png"]' alt="{{individualProfile.basicProfileInfo.firstName}}                     {{individualProfile.individualInfo.lastName}}">
                     <img class="padding-zero" ng-if="!individualProfile.basicProfileInfo.profileImage.titleImage"
-                         ng-src="assets/img/by.png" alt="">
+                         ng-src="assets/img/by.png" alt="{{individualProfile.basicProfileInfo.firstName}}                     {{individualProfile.individualInfo.lastName}}">
                 </div>
                 <div class="col-md-12 by-imageGallery margin-top-20 row"
                      ng-if="individualProfile.basicProfileInfo.photoGalleryURLs.length > 0" style="padding-left:0px;">
@@ -39,7 +39,7 @@
                              class="by-imageGallery-item" data-popup="{{img.original || ''}}"
                              data-hover="{{img.thumbnailImage || ''}}"
                              ng-init="galleryClickHover()">
-                            <img ng-src="{{img.thumbnailImage || ''}}" fallback-src='[""]'/>
+                            <img ng-src="{{img.thumbnailImage || ''}}" fallback-src='[""]' alt="{{individualProfile.basicProfileInfo.firstName}}                     {{individualProfile.individualInfo.lastName}}" />
                         </div>
                     </div>
                     <div class="by-gallery-rightArrow" ng-click="slideGallery('r')">
@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-7 col-xs-7 by_profileInfoWidth by_profileInfoWidth1 by-service-padding no-padding">
                 <div class="profileMainContent">
-                    <div class="profileContentTitle">
+                    <h1 class="profileContentTitle">
 						<span>
 							{{individualProfile.basicProfileInfo.firstName.toLowerCase()}}
 							{{individualProfile.individualInfo.lastName.toLowerCase()}}
@@ -59,7 +59,7 @@
                             </span>
 						</span>
                         <div style="clear: both; height: 6px;"></div>
-                    </div>
+                    </h1>
                     <div class="no-padding"
                          ng-if="individualProfile.basicProfileInfo.primaryUserAddress.city || individualProfile.basicProfileInfo.primaryUserAddress.country">
                         <div class="profileRating">

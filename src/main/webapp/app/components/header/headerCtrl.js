@@ -89,7 +89,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     if (sess != '' && sess != null) {
                         setValidSession({'sessionId':sess});
                         if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
-                            window.location = apiPrefix + "#!/users/home?type=home";
+                            window.location = apiPrefix + "#!/";
                         }
                     }
 

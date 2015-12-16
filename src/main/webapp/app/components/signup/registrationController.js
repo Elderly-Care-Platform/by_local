@@ -187,7 +187,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
                 $rootScope.nextLocation = null;
             }
             else {
-                $location.path("/users/home");
+                $location.path("/");
             }
         }
 

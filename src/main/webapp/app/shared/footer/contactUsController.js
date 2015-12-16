@@ -53,7 +53,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                 $scope.errorMsg = "";
                 $scope.contactUs.$save( //success
                     function (value) {
-                        $location.path("/users/home");
+                        $location.path("/");
                     },
                     //error
                     function( error ){

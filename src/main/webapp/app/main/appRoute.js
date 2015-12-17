@@ -197,7 +197,7 @@ define([], function () {
                 }
             })
 
-            .when('/users/aboutUs', {
+            .when('/aboutUs', {
                 templateUrl: 'app/components/aboutUs/aboutUs.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'BYAboutUsController',
                 resolve: {

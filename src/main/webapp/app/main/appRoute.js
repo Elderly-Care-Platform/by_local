@@ -60,6 +60,32 @@ define([], function () {
                     }]
                 }
             })
+            
+             .when('/community/:discussTitle/:discussId', {
+                templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'DiscussDetailController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/discussDetail/discussDetailController.js'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+            .when('/community/:discussTitle/:discussId/:comment', {
+                templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'DiscussDetailController', resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/discussDetail/discussDetailController.js'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
 
             .when('/users/login', {
                 templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%',
@@ -185,31 +211,7 @@ define([], function () {
                 }
             })
 
-            .when('/discuss/:discussId', {
-                templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%',
-                controller: 'DiscussDetailController',
-                resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['app/components/discussDetail/discussDetailController.js'], function () {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
-            .when('/discuss/:discussId/:comment', {
-                templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%',
-                controller: 'DiscussDetailController', resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['app/components/discussDetail/discussDetailController.js'], function () {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
+           
 
             .when('/search/:term/:searchType', {
                 templateUrl: 'app/components/search/search.html?versionTimeStamp=%PROJECT_VERSION%',

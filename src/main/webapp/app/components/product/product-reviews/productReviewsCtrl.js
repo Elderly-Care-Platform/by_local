@@ -111,9 +111,38 @@ define(['byApp',
             return $sce.trustAsResourceUrl(url);
         };
 
-        $scope.nextLocation = function(discussId){
-            $location.path("/discuss/"+ discussId);
+        $scope.nextLocation = function($event, discuss){
+        	$event.stopPropagation();
+        	var disTitle = "others";
+        	if(discuss.title && discuss.title.trim().length > 0){
+        		disTitle = discuss.title;
+        	} else if(discuss.text && discuss.text.trim().length > 0){
+        		disTitle = discuss.text;
+        	} else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+        		disTitle = discuss.linkInfo.title;
+        	} else{
+        		disTitle = "others";
+        	}
+        	disTitle = BY.byUtil.getCommunitySlug(disTitle);
+        	$location.path('/community/'+disTitle+"/"+discuss.id);
         }
+        
+        $scope.getHref = function(discuss){
+        	var disTitle = "others";
+        	if(discuss.title && discuss.title.trim().length > 0){
+        		disTitle = discuss.title;
+        	} else if(discuss.text && discuss.text.trim().length > 0){
+        		disTitle = discuss.text;
+        	} else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+        		disTitle = discuss.linkInfo.title;
+        	} else{
+        		disTitle = "others";
+        	}
+        	disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            var newHref = "#!/community/"+disTitle+"/"+discuss.id+"/true";
+            return newHref;
+        };
+
     }
 
 

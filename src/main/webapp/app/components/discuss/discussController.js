@@ -219,10 +219,22 @@ define(['byApp',
             return $sce.trustAsResourceUrl(url);
         };
 
-        $scope.go = function($event, type, id, discussType){
+        $scope.go = function($event, type, discuss){
             $event.stopPropagation();
             if(type === "detail"){
-                $location.path('/discuss/'+id);
+            	var disTitle = "others";
+            	if(discuss.title && discuss.title.trim().length > 0){
+            		disTitle = discuss.title;
+            	} else if(discuss.text && discuss.text.trim().length > 0){
+            		disTitle = discuss.text;
+            	} else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+            		disTitle = discuss.linkInfo.title;
+            	} else{
+            		disTitle = "others";
+            	}
+            	disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            	$location.path('/community/'+disTitle+"/"+discuss.id);
+                
             } else if(type === "menu" && $rootScope.menuCategoryMap){
                 var menu = $rootScope.menuCategoryMap[id];
                 //$(".selected-dropdown").removeClass("selected-dropdown");
@@ -237,9 +249,25 @@ define(['byApp',
             }else if(type === "accordian"){
                 $($event.target).find('a').click();
             }else if(type === "comment") {
-                $location.path('/discuss/' + id).search({comment: true});
+                $location.path('/community/' + id).search({comment: true});
             }
         }
+        
+        $scope.getHref = function(discuss){
+        	var disTitle = "others";
+        	if(discuss.title && discuss.title.trim().length > 0){
+        		disTitle = discuss.title;
+        	} else if(discuss.text && discuss.text.trim().length > 0){
+        		disTitle = discuss.text;
+        	} else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+        		disTitle = discuss.linkInfo.title;
+        	} else{
+        		disTitle = "others";
+        	}
+        	disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            var newHref = "#!/community/"+disTitle+"/"+discuss.id+"/true";
+            return newHref;
+        };
 
 
 

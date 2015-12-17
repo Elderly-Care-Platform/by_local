@@ -6,7 +6,7 @@ define(["byApp"], function(byApp) {
         $scope.likeDiscuss = function (discussId) {
             $scope.discussLike = new DiscussLike();
             $scope.discussLike.discussId = discussId;
-            $scope.discussLike.url = window.location.origin + "/#!/discuss/"+discussId;
+            $scope.discussLike.url = window.location.origin + "/#!/community/"+discussId;
             $scope.discussLike.$likeDiscuss(function (likeReply, headers) {
                     $scope.beforePost = false;
                     $scope.aggrLikeCount = likeReply.data.aggrLikeCount;

@@ -150,6 +150,20 @@ BY.byUtil.removeSpecialChars = function(name){
 	return modifiedName;
 }
 
+BY.byUtil.getCommunitySlug = function(name){
+	var slug;
+	 var slugDiv = document.createElement('div');
+	 slugDiv.innerHTML = name;
+	 slug = slugDiv.innerText;
+	 var slugIndex = slug.indexOf(" ",30);
+	 if(slugIndex > 1){
+		 slug = slug.substr(0,slugIndex);
+	 }
+	 slug = BY.byUtil.removeSpecialChars(slug);
+	 return slug;
+}
+
+
 
 
 

@@ -28,7 +28,7 @@
 
             <!--Promotion/announcement cards start -->
             <div ng-if="discuss && discuss.promotion == true"
-                 ng-click="nextLocation(discuss.id)" class="by-discuss-card by_blog_author" >
+                 ng-click="nextLocation($event, discuss)" class="by-discuss-card by_blog_author" >
 
                 <div class="questionTag postTag"
                      ng-if="discuss.discussType == 'P' && discuss.featured == true">
@@ -55,7 +55,7 @@
 
             <!-- Post/question cards start -->
             <div ng-if="discuss && discuss.promotion == false"
-                 ng-click="nextLocation(discuss.id)" class="by-discuss-card by_blog_author">
+                 ng-click="nextLocation($event, discuss)" class="by-discuss-card by_blog_author">
                 <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true"></div>
                 <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
 
@@ -127,7 +127,7 @@
                 <div class="article-share-links news-v3 by_border">
                     <ul class="post-shares post-shares-lg">
                         <li class="add-comment" ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
-                            <a ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
+                            <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();">
                                 <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                                 <span>{{discuss.aggrReplyCount}}</span>
 
@@ -137,7 +137,7 @@
 
                         <li class="add-comment add-comment-FC"
                             ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                            <a ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
+                            <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();">
                                 <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
 
                                 <div class="text">
@@ -146,7 +146,7 @@
                             </a>
                         </li>
                         <li class="add-comment" ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
-                            <a ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
+                            <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();">
                                 <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
                                 <span>{{discuss.directReplyCount}}</span>
 
@@ -156,7 +156,7 @@
 
                         <li class="add-comment add-comment-FA"
                             ng-if="discuss.directReplyCount == 0 && discuss.discussType == 'Q'">
-                            <a ng-href="#!/discuss/{{discuss.id}}/true" ng-click="$event.stopPropagation();">
+                            <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();">
                                 <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
 
                                 <div class="text">

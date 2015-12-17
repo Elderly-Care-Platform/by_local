@@ -67,6 +67,22 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
         $scope.updateShareCount = function(count){
             $scope.detailResponse.discuss.shareCount = count;
         }
+
+        $scope.getHref = function(discuss){
+            var disTitle = "others";
+            if(discuss.title && discuss.title.trim().length > 0){
+                disTitle = discuss.title;
+            } else if(discuss.text && discuss.text.trim().length > 0){
+                disTitle = discuss.text;
+            } else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+                disTitle = discuss.linkInfo.title;
+            } else{
+                disTitle = "others";
+            }
+            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            var newHref = "#!/community/"+disTitle+"/"+discuss.id+"/true";
+            return newHref;
+        };
     }
 
     DiscussDetailController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData', '$timeout'];

@@ -1,4 +1,4 @@
-<div ng-click="go($event, 'detail', discuss.id, discuss.discussType)" class="by-discuss-card by_blog_author"
+<div ng-click="go($event, 'detail', discuss)" class="by-discuss-card by_blog_author"
      ng-if="discuss">
     <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true"></div>
     <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
@@ -75,7 +75,7 @@
         <ul class="post-shares post-shares-lg">
             <li class="add-comment"
                 ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
-                <a> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                     <span>{{discuss.aggrReplyCount}}</span>
 
                     <div class="text">Comment</div>
@@ -83,23 +83,9 @@
             </li>
 
             <li class="add-comment add-comment-FC" ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                <a> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <div class="text" ng-click="go($event,'comment', discuss.id)">
+                <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                    <div class="text" >
                         Be the first to comment
-                    </div>
-                </a>
-            </li>
-            <li class="add-comment" ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
-                <a> <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
-                    <span>{{discuss.directReplyCount}}</span>
-                    <div class="text">Answer</div>
-                </a>
-            </li>
-
-            <li class="add-comment add-comment-FA" ng-if="discuss.directReplyCount == 0 && discuss.discussType == 'Q'">
-                <a> <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
-                    <div class="text" ng-click="go($event,'comment', discuss.id)">
-                        Be the first to answer
                     </div>
                 </a>
             </li>

@@ -84,7 +84,7 @@
                             <i class="rounded-x fa fa-home" style="margin-right:10px;  margin-left:-2px;"></i></div>
                         <div class="divRight">
 						<span ng-repeat="category in facility.categoriesId">
-						    <a di-href="#!housing/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span
+						    <a di-href="#!/senior-living/{{removeSpecialChars($root.menuCategoryMap[category].displayMenuName)}}/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span
                                 ng-if="$index<facility.categoriesId.length - 1">,</span></span>
                         </div>
                         <div style="clear: both; height:8px;"></div>

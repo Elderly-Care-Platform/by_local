@@ -241,7 +241,22 @@ define([], function () {
                 }
             })
 
-            .when('/services/list/:slug/:menuId/:city', {
+            .when('/directory/:slug/:menuId/:city', {
+                templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'ServicesController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js'],
+                            function (servicesController, findMenuCtrl) {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+            
+            .when('/directory/:menuId/:city', {
                 templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ServicesController',
                 resolve: {
@@ -256,7 +271,7 @@ define([], function () {
                 }
             })
 
-            .when('/services/overview/list/:slug/:menuId/:discussType', {
+            .when('/directory/reviews/:slug/:menuId/:discussType', {
                 templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ServicesController',
                 resolve: {
@@ -312,7 +327,20 @@ define([], function () {
                 }
             })
 
-            .when('/housing/list/:slug/:menuId/:city', {
+            .when('/senior-living/:slug/:menuId/:city', {
+                templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'HousingController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/housing/housingController.js', 'housingMenuCtrl'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+             .when('/senior-living/:menuId/:city', {
                 templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'HousingController',
                 resolve: {
@@ -326,7 +354,7 @@ define([], function () {
                 }
             })
 
-            .when('/housing/overview/list/:slug/:menuId/:discussType', {
+            .when('/senior-living/reviews/:slug/:menuId/:discussType', {
                 templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'HousingController',
                 resolve: {

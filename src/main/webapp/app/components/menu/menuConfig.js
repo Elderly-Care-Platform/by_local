@@ -10,11 +10,11 @@ BY.config.menu.modules = {
     },
     'service' : {
         'moduleId' : 1,
-        'baseUrl':'#!/services/list'
+        'baseUrl':'#!/directory'
     },
     'housing' : {
         'moduleId' : 2,
-        'baseUrl':'#!/housing/list'
+        'baseUrl':'#!/senior-living'
     },
     'product' : {
         'moduleId' : 3,
@@ -33,12 +33,12 @@ BY.config.menu.moduleConfig = {
         'defaultType' : 'all'
     },
     '1' : {
-        'baseUrl':'#!/services/list/service',
+        'baseUrl':'#!/directory',
         'module' : 'service',
         'defaultType' : 'all'
     },
     '2' : {
-        'baseUrl':'#!/housing/list/housing',
+        'baseUrl':'#!/senior-living',
         'module' : 'housing',
         'defaultType' : 'all'
     },

@@ -33,7 +33,7 @@ define(['byApp',
             window.scrollTo(0, 0);
             //masonaryGridInit();
         };
-
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
         function updateMetaTags(){
             var metaTagParams = {
                 title: $scope.selectedMenu.displayMenuName,

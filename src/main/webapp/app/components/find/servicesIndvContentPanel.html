@@ -77,14 +77,14 @@
 				<span ng-if="service.serviceProviderInfo.services.length > 0">Service in</span>
 				<span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index < 3">
 					<a class="ng-binding"
-					   di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+					   di-href="#!/directory/{{removeSpecialChars($root.menuCategoryMap[category].displayMenuName)}}/{{$root.menuCategoryMap[category].id}}/all/">
 						{{$root.menuCategoryMap[category].displayMenuName}}
 					</a><span ng-if="$index < service.serviceProviderInfo.services.length - 1">,</span>
 				</span>
 
 				<span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index >= 3 && service.showMoreServices===true">
 					<a class="ng-binding"
-					   di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+					   di-href="#!/directory/{{removeSpecialChars($root.menuCategoryMap[category].displayMenuName)}}/{{$root.menuCategoryMap[category].id}}/all/">
 						{{$root.menuCategoryMap[category].displayMenuName}}</a>
 					<span ng-if="$index < service.serviceProviderInfo.services.length - 1">,</span>
 				</span>

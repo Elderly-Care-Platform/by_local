@@ -69,6 +69,8 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
         $scope.trustForcefully = function (html) {
             return $sce.trustAsHtml(html);
         };
+        
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
         $scope.location = function ($event, userID, id) {
             $event.stopPropagation();
@@ -92,7 +94,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                 if(menu.module == $scope.menuConfig.modules['discuss'].moduleId){
                     menu = $rootScope.menuCategoryMap['55bcadaee4b08970a736784c'];
                 }
-                $location.path("/housing/list/"+menu.slug+"/"+menu.id+"/"+response.name);
+                $location.path("/senior-living/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/"+response.name);
         };
 
         $scope.loadMore = function ($event) {

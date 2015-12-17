@@ -211,7 +211,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     if(menu.module===0){
                         $location.path("/communities/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/all");
                     }else if(menu.module===1){
-                        $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
+                        $location.path("/directory/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/all/");
                     }else{
                         //nothing as of now
                     }

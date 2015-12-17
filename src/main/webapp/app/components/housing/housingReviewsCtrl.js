@@ -16,6 +16,8 @@ define(['byApp',
 
         var tags = [];
         var queryParams = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
+        
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
         $scope.initGrid = function (index) {
             if ($rootScope.windowWidth > 800) {

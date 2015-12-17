@@ -63,6 +63,8 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
                 }
             });
         }
+        
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
         $scope.subMenuTabMobileShow = function () {
             if ($(".by_mobile_leftPanel_hide").css('left') == '0px') {
@@ -87,7 +89,7 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
                 $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
                 BY.byEditor.removeEditor();
                 var menuId = $scope.menuConfig.reveiwsMenuConfig['service_review'].id;
-                $location.path("/services/overview/list/service_review/"+menuId+"/all");
+                $location.path("/directory/reviews/service_review/"+menuId+"/all");
             }
         }
 

@@ -105,35 +105,51 @@ define(['byApp',
             return $sce.trustAsResourceUrl(url);
         };
 
-        $scope.nextLocation = function($event, discuss){
-        	$event.stopPropagation();
-        	var disTitle = "others";
-        	if(discuss.title && discuss.title.trim().length > 0){
-        		disTitle = discuss.title;
-        	} else if(discuss.text && discuss.text.trim().length > 0){
-        		disTitle = discuss.text;
-        	} else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
-        		disTitle = discuss.linkInfo.title;
-        	} else{
-        		disTitle = "others";
-        	}
-        	disTitle = BY.byUtil.getCommunitySlug(disTitle);
-        	$location.path('/community/'+disTitle+"/"+discuss.id);
-        }
+        $scope.nextLocation = function($event, discuss, queryParams){
+            $event.stopPropagation();
+            var url = getDiscussDetailUrl(discuss, queryParams, true);
+            $location.path(url);
+        };
         
-        $scope.getHref = function(discuss){
-        	var disTitle = "others";
-        	if(discuss.title && discuss.title.trim().length > 0){
-        		disTitle = discuss.title;
-        	} else if(discuss.text && discuss.text.trim().length > 0){
-        		disTitle = discuss.text;
-        	} else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
-        		disTitle = discuss.linkInfo.title;
-        	} else{
-        		disTitle = "others";
-        	}
-        	disTitle = BY.byUtil.getCommunitySlug(disTitle);
-            var newHref = "#!/community/"+disTitle+"/"+discuss.id+"/true";
+        $scope.getHref = function(discuss, queryParams){
+        	var newHref = getDiscussDetailUrl(discuss, queryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getDiscussDetailUrl(discuss, queryParams, isAngularLocation){
+            var disTitle = "others";
+            if(discuss.title && discuss.title.trim().length > 0){
+                disTitle = discuss.title;
+            } else if(discuss.text && discuss.text.trim().length > 0){
+                disTitle = discuss.text;
+            } else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+                disTitle = discuss.linkInfo.title;
+            } else{
+                disTitle = "others";
+            }
+
+            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            var newHref = "/"+disTitle+"/communities/";
+
+
+            if(queryParams && Object.keys(queryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(queryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+                    angular.forEach(queryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+                }
+            }
+
             return newHref;
         };
 

@@ -1,4 +1,4 @@
-<div ng-click="go($event, 'detail', discuss)" class="by-discuss-card by_blog_author"
+<div ng-click="go($event, discuss, {'id':discuss.id})" class="by-discuss-card by_blog_author"
      ng-if="discuss">
     <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true"></div>
     <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
@@ -75,7 +75,7 @@
         <ul class="post-shares post-shares-lg">
             <li class="add-comment"
                 ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
-                <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                     <span>{{discuss.aggrReplyCount}}</span>
 
                     <div class="text">Comment</div>
@@ -83,7 +83,7 @@
             </li>
 
             <li class="add-comment add-comment-FC" ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                <a ng-href="{{getHref(discuss)}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                     <div class="text" >
                         Be the first to comment
                     </div>

@@ -3,7 +3,7 @@
 
     <div class="col-md-5" style="padding:0px;">
         <div class="main-image" style="text-align:center;">
-            <img style="float:none;" class="by_productMainImage" ng-src="{{uiData.primaryMedia.url}}" alt="{{uiData.name}}">
+            <img style="float:none;" class="by_productMainImage" alt="{{uiData.name}}" ng-elevate-zoom      ng-src="{{uiData.primaryMedia.url}}"    zoom-image="{{uiData.primaryMedia.url}}" ng-init="productZoom();">
             <div class="clearfix"></div>
         </div>
         <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px; border:0px;">

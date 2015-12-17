@@ -149,9 +149,14 @@
             <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:15px; font-weight:bold; text-transform:capitalize;" ng-href="{{getHref(article, {'id':article.id})}}" >
                 {{article.title.toLowerCase()}}
             </a></div>
-            <a ng-href="{{getHref(article, {'id':article.id})}}">
-               <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div>
-           </a>
+            <a  ng-href="{{getHref(article, {'id':article.id})}}">
+             <div ng-if="article.title==='' && article.discussType == 'Q'" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div> 
+         </a>
+          <a  ng-href="{{getHref(article, {'id':article.id})}}">
+             <div ng-if="article.title==='' && article.discussType == 'P' && article.linkInfo && article.linkInfo.title.trim().length > 0" >
+             	{{article.linkInfo.title.substring(0, 70)}}
+             </div> 
+         </a>
            <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
             <li ng-if="article.topicId.length > 0">
                 In

@@ -184,6 +184,7 @@ public class UserController {
 				User userWithExtractedInformation = decorateWithInformation(user);
 				userWithExtractedInformation = userRepository
 						.save(userWithExtractedInformation);
+				sendWelcomeMail(userWithExtractedInformation);
 				logHandler.addLog(userWithExtractedInformation,
 						ActivityLogConstants.CRUD_TYPE_CREATE, req);
 				req.getSession().setAttribute("user",
@@ -278,6 +279,7 @@ public class UserController {
 				logHandler.addLog(newFbUser,
 						ActivityLogConstants.CRUD_TYPE_CREATE,
 						"new user with facebook social sign on", req);
+				sendWelcomeMail(newFbUser);
 			}
 			Session session = createSession(req, res, newFbUser);
 
@@ -334,6 +336,7 @@ public class UserController {
 				logHandler.addLog(newGoogleUser,
 						ActivityLogConstants.CRUD_TYPE_CREATE,
 						"new user with facebook social sign on", req);
+				sendWelcomeMail(newGoogleUser);
 			}
 			Session session = createSession(req, res, newGoogleUser);
 
@@ -451,6 +454,22 @@ public class UserController {
 					url, url);
 			MailHandler.sendMail(user.getEmail(),
 					"Reset Beutifulyears' password", body);
+			mailStatus = true;
+		} catch (Exception e) {
+			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
+		return mailStatus;
+	}
+	
+	boolean sendWelcomeMail(User user) {
+		boolean mailStatus = false;
+		try {
+			ResourceUtil resourceUtil = new ResourceUtil(
+					"mailTemplate.properties");
+			String body = MessageFormat.format(
+					resourceUtil.getResource("welcomeMail"),"");
+			MailHandler.sendMail(user.getEmail(),
+					"Welcome to Beutifulyears.com", body);
 			mailStatus = true;
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);

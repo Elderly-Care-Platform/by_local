@@ -35,6 +35,18 @@ define(["byApp"], function(byApp) {
         	}
         	
         }
+        
+        $scope.validateName = function() {
+    
+        	if($scope.shares.guestName != undefined){
+        		$scope.emailError = "";
+        		$(".by_btn_submit").prop("disabled", false);
+        	}else{
+        		$scope.emailError = "Please enter your name!";
+        		$(".by_btn_submit").prop("disabled", true);
+        	}
+        	
+        }
         	
         $scope.modalDismiss = function modalDismiss() {
         	$scope.resetError();

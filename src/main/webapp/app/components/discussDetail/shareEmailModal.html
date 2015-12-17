@@ -18,6 +18,9 @@
             			<div class="form-group">
 							<span ng-show="shareForm.emails.$invalid && focus" class="errorRed">Please enter atleast one emailId!</span>
 	            		</div>
+	      				<div class="form-group">
+	            			<span ng-show="emailError" class="errorRed">{{nameError}}</span>
+	            		</div>
 	            		<div class="form-group">
 	            			<span ng-show="emailError" class="errorRed">{{emailError}}</span>
 	            		</div>
@@ -26,7 +29,7 @@
 	    				</div>
 	    				<div ng-if="checkSession == ''">
 	    					<div class="form-group">
-	        					<input type="text" class="form-control mail-input" placeholder="Your Name" ng-model = "shares.guestName"/>
+	        					<input type="text" class="form-control mail-input" name = "guestName" placeholder="Your Name" ng-model = "shares.guestName" ng-change="validateName()" required/>
 	    					</div>
 	    				</div>
 	    				<div class="row">
@@ -62,7 +65,7 @@
 	    					</div>
 	    				</div> 
 						<div class="form-group button-group">
-							<input type="button" value="Send" class="nextButton by_btn_submit" ng-disabled="shareForm.emails.$invalid" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
+							<input type="button" value="Send" class="nextButton by_btn_submit" ng-disabled="shareForm.emails.$invalid || shareForm.name.$invalid" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
 							<input type="button" value="Cancel" class="returnButton" data-dismiss="modal ng-click="modalDismiss()">
 							<div class="clearfix"></div>
 						</div>

@@ -1,4 +1,9 @@
-
+.modal-open{
+	outline: none;
+}
+.modal.in .modal-dialog{
+	transform: translate(0px, 25%);
+}
 .share-modal-screen{
 	width:40%;
 	border:6px solid rgba(34, 34, 34, 0.4);
@@ -110,6 +115,7 @@
 .share-modal-screen .form-group input[type="text"]{
 	height:40px;
 	background:#fff;
+	border: 1px solid #B9B9B9;
 }
 .share-modal-screen .form-group textarea{
 	height:40px;
@@ -120,7 +126,7 @@
 }
 .share-modal-screen .form-group input[type="text"]:focus{
 	border: 1px solid #018704;
-	box-shadow:0px 0px 2px #018704;
+	box-shadow:0px 0px 3px rgba(1, 135, 4, 0.69) !important;
 	background:#fff;
 }
 .share-modal-screen .form-group textarea:focus{
@@ -129,7 +135,7 @@
 	box-shadow:none;
 }
 .content-form-group{
-	border: 1px solid #ccc;
+	border: 1px solid #B9B9B9;
 	height:170px;
 }
 .content-form-group img{

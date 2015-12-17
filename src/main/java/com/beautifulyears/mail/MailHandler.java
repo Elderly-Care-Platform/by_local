@@ -91,15 +91,17 @@ public class MailHandler {
 	}
 	
 	public static void sendMultipleMail(List<String> to, String subject, String body) {
-		//if(!Util.isEmpty(GetByWebApplicationInitializer.servletContext.getInitParameter("mail"))){
+		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
 			for(String email: to){
-				new Thread(new MailDispatcher(email, subject, body)).start();
+				if(!(email.equals(null))){
+					new Thread(new MailDispatcher(email, subject, body)).start();
+				}
 			}
 			
-		//}else{
-			//logger.debug("not sending mail as it is disabled in context config");
-			//throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
-		//}
+		}else{
+			logger.debug("not sending mail as it is disabled in context config");
+			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
 		
 	}
 	
@@ -111,7 +113,4 @@ public class MailHandler {
 		
 	}
 	
-	public static void shareInMail(List<String> email, String subject, String body) {
-		sendMultipleMail(email, subject, body);		
-	}
 }

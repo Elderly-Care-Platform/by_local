@@ -68,7 +68,13 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
             $scope.detailResponse.discuss.shareCount = count;
         }
 
-        $scope.getHref = function(discuss){
+        $scope.getHref = function(discuss, queryParams){
+        	var newHref = getDiscussDetailUrl(discuss, queryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getDiscussDetailUrl(discuss, queryParams, isAngularLocation){
             var disTitle = "others";
             if(discuss.title && discuss.title.trim().length > 0){
                 disTitle = discuss.title;
@@ -79,8 +85,28 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
             } else{
                 disTitle = "others";
             }
+
             disTitle = BY.byUtil.getCommunitySlug(disTitle);
-            var newHref = "#!/community/"+disTitle+"/"+discuss.id+"/true";
+            var newHref = "/"+disTitle+"/communities/";
+
+
+            if(queryParams && Object.keys(queryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(queryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+                    angular.forEach(queryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+                }
+            }
+
             return newHref;
         };
     }

@@ -4,7 +4,7 @@
 
 define(['byApp', 'byUtil'], function(byApp, byUtil) {
 	function discussDetailLeftController($scope, $rootScope, $window, $routeParams, broadCastData, DiscussPage, $sce){
-		var discussId = $routeParams.discussId;
+		var discussId = $routeParams.id;
 		$scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
 		$scope.$on('handleBroadcast', function() {

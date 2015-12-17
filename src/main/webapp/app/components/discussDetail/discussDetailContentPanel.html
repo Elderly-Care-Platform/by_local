@@ -146,10 +146,10 @@
         <div class="by_discDetail_alsoHead col-md-12"><b>{{header1}}<span>{{header2}}</span></b></div>
         <div style="clear:both;"></div>
         <div class="by_discDetail_alsoContent" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id && !article.linkInfo">
-            <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:15px; font-weight:bold; text-transform:capitalize;" ng-href="{{getHref(article)}}" >
+            <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:15px; font-weight:bold; text-transform:capitalize;" ng-href="{{getHref(article, {'id':article.id})}}" >
                 {{article.title.toLowerCase()}}
             </a></div>
-            <a ng-href="{{getHref(article)}}">
+            <a ng-href="{{getHref(article, {'id':article.id})}}">
                <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div>
            </a>
            <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >

@@ -231,13 +231,14 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                         angular.forEach(queryParams, function (value, key) {
                             newHref = newHref + key + "=" + value + "&";
                         });
+
+                        //remove the last  '&' symbol from the url, otherwise browser back does not work
+                        newHref = newHref.substr(0, newHref.length - 1);
                     }
                 }
 
                 return newHref;
             };
-
-
 
 
             $scope.location = function ($event, userId, userType) {

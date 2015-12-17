@@ -219,19 +219,19 @@ define(['byApp',
             return $sce.trustAsResourceUrl(url);
         };
 
-        $scope.go = function($event, discuss, queryParams){
+        $scope.go = function($event, discuss, urlQueryParams){
             $event.stopPropagation();
-            var url = getDiscussDetailUrl(discuss, queryParams, true);
+            var url = getDiscussDetailUrl(discuss, urlQueryParams, true);
             $location.path(url);
         };
         
-        $scope.getHref = function(discuss, queryParams){
-        	var newHref = getDiscussDetailUrl(discuss, queryParams, false);
+        $scope.getHref = function(discuss, urlQueryParams){
+        	var newHref = getDiscussDetailUrl(discuss, urlQueryParams, false);
             newHref = "#!" + newHref;
             return newHref;
         };
 
-        function getDiscussDetailUrl(discuss, queryParams, isAngularLocation){
+        function getDiscussDetailUrl(discuss, urlQueryParams, isAngularLocation){
             var disTitle = "others";
             if(discuss.title && discuss.title.trim().length > 0){
                 disTitle = discuss.title;
@@ -244,23 +244,27 @@ define(['byApp',
             }
 
             disTitle = BY.byUtil.getCommunitySlug(disTitle);
-            var newHref = "/"+disTitle+"/communities/";
+            var newHref = "/"+disTitle+"/communities";
 
 
-            if(queryParams && Object.keys(queryParams).length > 0){
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
                 //Set query params through angular location search method
                 if(isAngularLocation){
                     angular.forEach($location.search(), function (value, key) {
                         $location.search(key, null);
                     });
-                    angular.forEach(queryParams, function (value, key) {
+                    angular.forEach(urlQueryParams, function (value, key) {
                         $location.search(key, value);
                     });
                 } else{ //Set query params manually
                     newHref = newHref + "?"
-                    angular.forEach(queryParams, function (value, key) {
+
+                    angular.forEach(urlQueryParams, function (value, key) {
                         newHref = newHref + key + "=" + value + "&";
                     });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
                 }
             }
 

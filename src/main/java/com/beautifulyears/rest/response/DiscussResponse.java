@@ -145,9 +145,9 @@ public class DiscussResponse implements IResponse {
 
 			if (discuss.getUserProfile() != null) {
 				UserProfile userProfile = new UserProfile();
-				userProfile.getBasicProfileInfo().setProfileImage(
-						discuss.getUserProfile().getBasicProfileInfo()
-								.getProfileImage());
+				userProfile.setBasicProfileInfo(
+						discuss.getUserProfile().getBasicProfileInfo());
+				userProfile.setIndividualInfo(discuss.getUserProfile().getIndividualInfo());
 				this.setUserProfile(userProfile);
 			}
 		}

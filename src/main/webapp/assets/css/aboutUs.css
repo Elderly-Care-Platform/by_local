@@ -256,16 +256,29 @@
         color: #007a3c;
     }
 
-.aboutUsShop {
-   /* background: url('../img/aboutUs/discuss.jpg?versionTimeStamp=%PROJECT_VERSION%');*/
-    background-repeat: repeat-y;
-    padding: 19px 15px 0px 15px;
+.aboutUsShop {   
+    padding: 0px 15px 0px 15px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     margin-top: 15px;
-    background-size: 100%;
 }
-
+.lotusImage
+{   
+    float: left;
+    width: 160px;
+    height: 285px;
+    background: url('../img/aboutUs/lotus.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat left top;
+}
+.aboutUsLotusText
+{
+    width: calc(100% - 180px);
+    font-size: 22px;
+    color: #525252;
+    text-align: center;
+    padding-left: 20px;
+    padding-top: 12%;
+    float: left;
+}
 .aboutUsThreeText {
     width: 100%;
     margin-left: auto;
@@ -277,13 +290,7 @@
     line-height: 30px;
     text-align:center;
 }
-.aboutUsLotusText
-{
-    width: 80%;
-    font-size: 22px;
-    color: #525252;
-    text-align: center;
-}
+
 .aboutUsDiscussText {
     width: 80%;
     margin-left: 5%;
@@ -512,6 +519,14 @@
             padding: 35px 7px 249px 15px;
 
         }
+        .aboutUsShop
+        {
+            margin-top: 50px;
+        }
+        .aboutUsLotusText
+        {
+            font-size: 18px;
+        }
     }
     @media screen and (max-width: 680px) {
         .teamWrapperBelowRight {
@@ -545,6 +560,11 @@
         	position:relative;
         	width:100%;
         	left:0px;
+        }
+        .aboutUsLotusText
+        {
+            font-size: 16px;
+            padding-top: 4%;
         }
     }
     

@@ -6,7 +6,7 @@ define(['byApp',
     'use strict';
 
     function DiscussAllController($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
-                                  DiscussCount,$sce, $timeout, $window, broadCastMenuDetail) {
+                                  DiscussCount,$sce, $timeout, $window) {
 
         $scope.discussionViews              = {};
         $scope.discussionViews.leftPanel    = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -156,9 +156,6 @@ define(['byApp',
             };
         }
 
-        $scope.fixedMenuInitialized = function(){
-            broadCastMenuDetail.setMenuId($scope.selectedMenu);
-        };
 
         function showEditorPage(event, type){
             if(event){
@@ -282,7 +279,7 @@ define(['byApp',
 
 
     DiscussAllController.$inject = ['$scope', '$rootScope', '$location','$route', '$routeParams',
-        'DiscussPage', 'DiscussCount','$sce','$timeout', '$window','broadCastMenuDetail'];
+        'DiscussPage', 'DiscussCount','$sce','$timeout', '$window'];
     byApp.registerController('DiscussAllController', DiscussAllController);
     return DiscussAllController;
 

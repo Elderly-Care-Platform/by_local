@@ -27,7 +27,7 @@ define([
 	byApp.controller('LoginController', LoginController);
 	byApp.controller('BYHeaderCtrl', headerCtrl);
 	
-	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http, broadCastMenuDetail) {
+	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http) {
 		// register listener to watch route changes
 		$rootScope.$on("$routeChangeStart", function(event, next, current) {
 			$window.ga('send', 'pageview', { page: $location.url() });
@@ -39,12 +39,12 @@ define([
 			if($location.path().indexOf('/search/') == -1)
 				$rootScope.term = '';
 
-			//Menu should not be reset, if same menu id is selected as it create problem in iPad
-			if(next && next.params && next.params.menuId){
-				broadCastMenuDetail.setMenuId({"routeParamMenuId":next.params.menuId});
-			}else{
-				broadCastMenuDetail.setMenuId(0);
-			}
+			////Menu should not be reset, if same menu id is selected as it create problem in iPad
+			//if(next && next.params && next.params.menuId){
+			//	broadCastMenuDetail.setMenuId({"routeParamMenuId":next.params.menuId});
+			//}else{
+			//	broadCastMenuDetail.setMenuId(0);
+			//}
 		});
 
 		window.fbAsyncInit = function() {

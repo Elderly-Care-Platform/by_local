@@ -1,5 +1,5 @@
 define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
-    function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, broadCastMenuDetail, $http, FindHousing){
+    function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, $http, FindHousing){
         $scope.housingViews                 = {};
         $scope.housingViews.leftPanel       = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
         $scope.housingViews.contentPanel    = "app/components/housing/housingContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -129,7 +129,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
     }
 
     HousingController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-        '$sce', 'broadCastMenuDetail', '$http','FindHousing'];
+        '$sce', '$http','FindHousing'];
     byApp.registerController('HousingController', HousingController);
     return HousingController;
 });

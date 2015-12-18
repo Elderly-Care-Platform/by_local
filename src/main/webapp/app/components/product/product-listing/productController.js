@@ -15,7 +15,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
        SERVERURL_IMAGE,
        STATIC_IMAGE,
        Utility,
-       PAGINATION, broadCastMenuDetail){
+       PAGINATION){
         $log.debug('Inside Product Controller');
 
         //Variables
@@ -370,7 +370,7 @@ ProductsController.$inject = ['$rootScope', '$scope',
 'SERVERURL_IMAGE',
 'STATIC_IMAGE',
 'Utility',
-'PAGINATION', 'broadCastMenuDetail'];
+'PAGINATION'];
 
 byProductApp.registerController('ProductsController', ProductsController);
 return ProductsController;

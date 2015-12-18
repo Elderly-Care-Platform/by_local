@@ -2,7 +2,7 @@
 define(['byApp', 'byUtil', 'userTypeConfig'],
     function (byApp, byUtil, userTypeConfig) {
 
-        function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce, broadCastMenuDetail) {
+        function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce) {
             $scope.findViews                = {};
             $scope.findViews.leftPanel      = "app/components/find/servicesLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
             $scope.findViews.contentPanel   = "app/components/find/servicesContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -40,7 +40,6 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                         $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
                         $scope.pageInfo.isQueryInProgress = false;
                         $("#preloader").hide();
-                        //broadCastMenuDetail.setMenuId($scope.selectedMenu);
                     },
                     function (error) {
                         $("#preloader").hide();
@@ -178,7 +177,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
         }
 
         ServicesController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-            'FindServices', '$sce', 'broadCastMenuDetail'];
+            'FindServices', '$sce'];
         byApp.registerController('ServicesController', ServicesController);
         return ServicesController;
     });

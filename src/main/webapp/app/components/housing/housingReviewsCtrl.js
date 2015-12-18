@@ -139,7 +139,7 @@ define(['byApp',
             }
 
             disTitle = BY.byUtil.getCommunitySlug(disTitle);
-            var newHref = "/"+disTitle+"/communities/";
+            var newHref = "/communities/"+disTitle;
 
 
             if(queryParams && Object.keys(queryParams).length > 0){

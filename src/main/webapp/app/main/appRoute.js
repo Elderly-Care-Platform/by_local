@@ -61,7 +61,7 @@ define([], function () {
                 }
             })
             
-             .when('/:discussTitle/communities', {
+             .when('/communities/:discussTitle/', {
                 templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'DiscussDetailController',
                 resolve: {
@@ -271,7 +271,7 @@ define([], function () {
                 }
             })
 
-            .when('/directory/reviews/:slug/:menuId/:discussType', {
+            .when('/directory/reviews/:menuId/:discussType', {
                 templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ServicesController',
                 resolve: {
@@ -354,7 +354,7 @@ define([], function () {
                 }
             })
 
-            .when('/senior-living/reviews/:slug/:menuId/:discussType', {
+            .when('/senior-living/reviews/:menuId/:discussType', {
                 templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'HousingController',
                 resolve: {

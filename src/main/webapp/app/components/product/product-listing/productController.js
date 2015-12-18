@@ -1,57 +1,57 @@
-define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
+define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
     function ProductsController($rootScope, $scope,
-       $log,
-       $q,
-       $window,
-       $location,
-       $filter,
-       $sce,
-       ProductService,
-       CategoryService,
-       CartService,
-       BreadcrumbService,
-       $routeParams,
-       PAGE_URL,
-       SERVERURL_IMAGE,
-       STATIC_IMAGE,
-       Utility,
-       PAGINATION){
+                                $log,
+                                $q,
+                                $window,
+                                $location,
+                                $filter,
+                                $sce,
+                                ProductService,
+                                CategoryService,
+                                CartService,
+                                BreadcrumbService,
+                                $routeParams,
+                                PAGE_URL,
+                                SERVERURL_IMAGE,
+                                STATIC_IMAGE,
+                                Utility,
+                                PAGINATION) {
         $log.debug('Inside Product Controller');
 
         //Variables
         var breadCrumb;
-        $scope.discuss                  = [];
-        $scope.discussCounts            = {};
-        $scope.discussCounts.z          = 1;
-        $scope.serverurl                = SERVERURL_IMAGE.hostUrl;
-        $scope.selectedTab              = '';
-        $scope.query                    = {};
-        $scope.query.name               = '';
-        $scope.page                     = 0;
-        $scope.pageSize                 = PAGINATION.pageSize;
-        $scope.products                 = [];
-        $scope.lastPage                 = false;
-        $scope.isQueryInprogress        = false;
-        $scope.isFreeSearch             = false;
-        $scope.selectedMenu             = ($rootScope.menuCategoryMap && $routeParams.menuId) ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
-        $scope.showEditor               = $routeParams.showEditor==='true' ? true : false;
-        $scope.menuConfig               = BY.config.menu;
+        $scope.discuss = [];
+        $scope.discussCounts = {};
+        $scope.discussCounts.z = 1;
+        $scope.serverurl = SERVERURL_IMAGE.hostUrl;
+        $scope.selectedTab = '';
+        $scope.query = {};
+        $scope.query.name = '';
+        $scope.page = 0;
+        $scope.pageSize = PAGINATION.pageSize;
+        $scope.products = [];
+        $scope.lastPage = false;
+        $scope.isQueryInprogress = false;
+        $scope.isFreeSearch = false;
+        $scope.selectedMenu = ($rootScope.menuCategoryMap && $routeParams.menuId) ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
+        $scope.showEditor = $routeParams.showEditor === 'true' ? true : false;
+        $scope.menuConfig = BY.config.menu;
 
         //Functions
-        $scope.openProductDescription   = openProductDescription;
-        $scope.reloadRoute              = reloadRoute;
-        $scope.getProducts              = getProducts;
-        $scope.promise                  = initialize();
-        $scope.setDepth                 = setDepth;
-        $scope.getNumber                = getNumber;
-        $scope.getSearchedResult        = getSearchedResult;
-        $scope.loadMoreRecords          = loadMoreRecords;
-        $scope.trustForcefully          = trustForcefully;
-        $rootScope.byTopMenuId          = $rootScope.mainMenu[2].id ;
-        $scope.telNo                    = BY.config.constants.byContactNumber;
+        $scope.openProductDescription = openProductDescription;
+        $scope.reloadRoute = reloadRoute;
+        $scope.getProducts = getProducts;
+        $scope.promise = initialize();
+        $scope.setDepth = setDepth;
+        $scope.getNumber = getNumber;
+        $scope.getSearchedResult = getSearchedResult;
+        $scope.loadMoreRecords = loadMoreRecords;
+        $scope.trustForcefully = trustForcefully;
+        $rootScope.byTopMenuId = $rootScope.mainMenu[2].id;
+        $scope.telNo = BY.config.constants.byContactNumber;
 
-        function initialize(){
-            if($scope.selectedMenu && $scope.selectedMenu.ancestorIds.length > 0){
+        function initialize() {
+            if ($scope.selectedMenu && $scope.selectedMenu.ancestorIds.length > 0) {
                 var metaTagParams = {
                     title: $scope.selectedMenu.displayMenuName,
                     imageUrl: "",
@@ -59,10 +59,10 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
                     keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
                 }
                 BY.byUtil.updateMetaTags(metaTagParams);
-                if($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor){
+                if ($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor) {
                     return getProducts();
                 }
-            } else{
+            } else {
                 return getFeaturedProducts();
             }
 
@@ -71,18 +71,18 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
 
         function getProducts() {
             var category = $scope.selectedMenu.ancestorIds.length > 0 ? $scope.selectedMenu : null;
-            $scope.isQueryInprogress=true;
-            $scope.isFreeSearch=false;
+            $scope.isQueryInprogress = true;
+            $scope.isFreeSearch = false;
 
-            var productsPromise   = getProductPromise(category),
-            categoriesPromise = CategoryService.getAllCategories(),
-            loadPromise       = $q.all({ product: productsPromise, category: categoriesPromise});
+            var productsPromise = getProductPromise(category),
+                categoriesPromise = CategoryService.getAllCategories(),
+                loadPromise = $q.all({product: productsPromise, category: categoriesPromise});
             return loadPromise.then(getProductPageSuccess, failure);
         }
 
         function getSearchedResult(isFromLoadMore) {
-            $scope.isFreeSearch=true;
-            $scope.isQueryInprogress=true;
+            $scope.isFreeSearch = true;
+            $scope.isQueryInprogress = true;
             if (!isFromLoadMore) {
                 $scope.products = [];
                 $scope.page = 0;
@@ -92,16 +92,16 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             $scope.page = $scope.page + 1;
             params.page = $scope.page;
             params.pageSize = $scope.pageSize;
-            var productsPromise   = ProductService.getSearchedProduct(params),
-            categoriesPromise = CategoryService.getAllCategories();
+            var productsPromise = ProductService.getSearchedProduct(params),
+                categoriesPromise = CategoryService.getAllCategories();
             if ($scope.query.name === '') {
                 productsPromise = ProductService.getProducts(params);
             }
             if (!isFromLoadMore) {
-                $scope.promise = $q.all({ product: productsPromise, category: categoriesPromise});
+                $scope.promise = $q.all({product: productsPromise, category: categoriesPromise});
                 return $scope.promise.then(getProductPageSuccess, failure);
             } else {
-                $scope.lazyPromise = $q.all({ product: productsPromise, category: categoriesPromise});
+                $scope.lazyPromise = $q.all({product: productsPromise, category: categoriesPromise});
                 return $scope.lazyPromise.then(getProductPageSuccess, failure);
             }
         }
@@ -111,7 +111,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * @param  {object} category
          * @return {promise} of product service
          */
-         function getProductPromise(category) {
+        function getProductPromise(category) {
             var params = {};
             $scope.page = $scope.page + 1;
             params.page = $scope.page;
@@ -120,9 +120,9 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
                 if (category === 'featured') {
                     return ProductService.getFeaturedProducts(params);
                 } else {
-                    var url           = PAGE_URL.root,
-                    categoryEnURI = $filter('encodeUri')(category),
-                    name          = category.name;
+                    var url = PAGE_URL.root,
+                        categoryEnURI = $filter('encodeUri')(category),
+                        name = category.name;
                     return getProductsByCategory(category);
                 }
             } else {
@@ -136,20 +136,17 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             params.page = $scope.page;
             params.pageSize = $scope.pageSize;
             params.q = '*';
-            return $q.all({ productByCategory: ProductService.getProductsByCategory(params)});
+            return $q.all({productByCategory: ProductService.getProductsByCategory(params)});
         }
 
         function getFeaturedProducts() {
             var category = $scope.selectedMenu.ancestorIds.length = 0;
-            $scope.isQueryInprogress=true;
-            $scope.isFreeSearch=false;
-            var loadPromise       = $q.all({ product: ProductService.getFeaturedProducts()});
+            $scope.isQueryInprogress = true;
+            $scope.isFreeSearch = false;
+            var loadPromise = $q.all({product: ProductService.getFeaturedProducts()});
             return loadPromise.then(getProductPageSuccess, failure);
             /*return $q.all({ featuredProducts: ProductService.getFeaturedProducts()}).then(getProductPageSuccess, failure);*/
         }
-
-
-
 
 
         /**
@@ -157,12 +154,12 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * @param  {object} result categories
          * @return {void}
          */
-         function getProductPageSuccess(result) {
+        function getProductPageSuccess(result) {
             //Set Category
             var category = result.category || {};
             $scope.categories = category.category || category;
             // Set depth for category
-            for (var i=0; i < $scope.categories.length; i=i + 1) {
+            for (var i = 0; i < $scope.categories.length; i = i + 1) {
                 setDepth($scope.categories[i]);
             }
             //Set products
@@ -172,7 +169,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             if (productList.length === 0) {
                 $scope.lastPage = true;
             }
-            $scope.isQueryInprogress=false;
+            $scope.isQueryInprogress = false;
             $log.debug('getProductPageSuccess: ' + result);
         }
 
@@ -180,13 +177,13 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * recursivly set depth for each object of json of category
          * @param {object} category category
          */
-         function setDepth(category) {
+        function setDepth(category) {
             var depth = 0;
-            var insertDepth = function(category, depth) {
+            var insertDepth = function (category, depth) {
                 category.depth = depth;
                 if (category.subcategories) {
                     insertDepth(category.subcategories, depth + 1);
-                    for (var i=0; i < category.subcategories.length; i=i + 1) {
+                    for (var i = 0; i < category.subcategories.length; i = i + 1) {
                         insertDepth(category.subcategories[i], depth + 1);
                     }
                 }
@@ -210,7 +207,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
                 products = Utility.grabProducts(result, products);
             }
             Utility.checkImages(products);
-            return products;  
+            return products;
 
         }
 
@@ -228,17 +225,17 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
         function openProductDescription(productId, productName) {
             var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
                 prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
-                path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
+                path = '/' + prodName + PAGE_URL.productDescription + "/" + productId;
             $location.path(path);
         }
 
         /**
          * Refresh page
          */
-         function reloadRoute() {
+        function reloadRoute() {
             console.log('reloadRoute');
             setTimeout(
-                function() {
+                function () {
                     $window.location.reload();
                 }, 1);
         }
@@ -249,7 +246,7 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
          * @param  {integer} num
          * @return {array}     if number passed less then 2 return null else num-2
          */
-         function getNumber(num) {
+        function getNumber(num) {
             if (num > 2) {
                 return new Array(num - 2);
             } else {
@@ -266,113 +263,106 @@ define(['byProductApp', 'byUtil'], function(byProductApp, byUtil) {
             }
         }
 
-        function trustForcefully (html) {
+        function trustForcefully(html) {
             return $sce.trustAsHtml(html);
         }
 
 
+        $scope.selectedMenuId = $routeParams.menuId;
 
 
-        $scope.selectedMenuId           = $routeParams.menuId;
+        $scope.tabbedSlider = function () {
+            $('#myCarousel').carousel({
+                interval: 3000
+            });
 
-
-        $scope.tabbedSlider = function(){
-         $('#myCarousel').carousel({
-            interval:   3000
-        });
-
-         var clickEvent = false;
-         $('#myCarousel').on('click', '.nav a', function() {
-            clickEvent = true;
-            $('.nav li').removeClass('active');
-            $(this).parent().addClass('active');        
-        }).on('slid.bs.carousel', function() {
-            if(!clickEvent) {
-                var count = $('.nav-pills').children().length -1;
-                var current = $('.nav-pills li.active');
-                current.removeClass('active').next().addClass('active');
-                var id = parseInt(current.data('slide-to'));
-                if(count == id) {
-                    $('.nav-pills li').first().addClass('active');    
+            var clickEvent = false;
+            $('#myCarousel').on('click', '.nav a', function () {
+                clickEvent = true;
+                $('.nav li').removeClass('active');
+                $(this).parent().addClass('active');
+            }).on('slid.bs.carousel', function () {
+                if (!clickEvent) {
+                    var count = $('.nav-pills').children().length - 1;
+                    var current = $('.nav-pills li.active');
+                    current.removeClass('active').next().addClass('active');
+                    var id = parseInt(current.data('slide-to'));
+                    if (count == id) {
+                        $('.nav-pills li').first().addClass('active');
+                    }
                 }
+                clickEvent = false;
+            });
+        };
+        $scope.slideIndex = 1;
+
+        $scope.feWidth = function () {
+            if ($rootScope.windowWidth > 850) {
+                $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 4) - 10;
+                $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 4;
+            } else if ($rootScope.windowWidth > 720) {
+                $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 3) - 10;
+                $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 3;
+            } else if ($rootScope.windowWidth > 400) {
+                $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 2) - 10;
+                $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 2;
+            } else {
+                $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 1) - 10;
+                $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 1;
             }
-            clickEvent = false;
-        });
-    };
-    $scope.slideIndex = 1;
+            $(".by_featuredProductCard").css('width', $scope.byFeaWid + "px");
+        }
 
-    $scope.feWidth = function(){
-        if($rootScope.windowWidth > 850){
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 4) - 10;
-            $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 4;
-        } else if($rootScope.windowWidth > 720){
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 3) - 10;
-            $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 3;
-        } else if($rootScope.windowWidth > 400){
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 2) - 10;
-            $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 2;
-        } else{
-             $scope.byFeaWid = ($(".by_featuredProduct_wrapper").outerWidth() / 1) - 10;
-            $scope.byFeaWidSpace = $(".by_featuredProduct_wrapper").outerWidth() / 1;
-        }       
-        $(".by_featuredProductCard").css('width', $scope.byFeaWid +"px");
-    }
-
-    $scope.slideGallery = function(dir){
-            if($scope.slideIndex<1){
+        $scope.slideGallery = function (dir) {
+            if ($scope.slideIndex < 1) {
                 $scope.slideIndex = 1;
             }
-            $scope.byGalleryCount = ($(".by_featuredProduct_wrapper").outerWidth() / $scope.byFeaWidSpace) - 1 ;
-            $scope.byimageGallery = $scope.byFeaWidSpace ;
+            $scope.byGalleryCount = ($(".by_featuredProduct_wrapper").outerWidth() / $scope.byFeaWidSpace) - 1;
+            $scope.byimageGallery = $scope.byFeaWidSpace;
             $scope.bygallerycontainer = $(".by_featuredProduct_wrapperInside").outerWidth();
-            $scope.w = ($scope.bygallerycontainer / $scope.byimageGallery) - $scope.byGalleryCount ;
+            $scope.w = ($scope.bygallerycontainer / $scope.byimageGallery) - $scope.byGalleryCount;
             //alert($scope.w);
-            if($scope.slideIndex < $scope.w  && dir==="r"){
-                $('.by_featuredProduct_wrapperInside').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("-moz-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("-ms-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("-o-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex)+"px, 0px)");
+            if ($scope.slideIndex < $scope.w && dir === "r") {
+                $('.by_featuredProduct_wrapperInside').css("-webkit-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-moz-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-ms-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-o-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex) + "px, 0px)");
                 $scope.slideIndex++;
             }
-            if($scope.slideIndex >= 0  && dir==="l"){
-                $('.by_featuredProduct_wrapperInside').css("-webkit-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("-moz-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("-ms-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("-o-transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
-                $('.by_featuredProduct_wrapperInside').css("transform","translate(-"+($scope.byimageGallery)*($scope.slideIndex-2)+"px, 0px)");
+            if ($scope.slideIndex >= 0 && dir === "l") {
+                $('.by_featuredProduct_wrapperInside').css("-webkit-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex - 2) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-moz-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex - 2) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-ms-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex - 2) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("-o-transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex - 2) + "px, 0px)");
+                $('.by_featuredProduct_wrapperInside').css("transform", "translate(-" + ($scope.byimageGallery) * ($scope.slideIndex - 2) + "px, 0px)");
                 $scope.slideIndex--;
             }
 
         };
 
 
+    }
 
+    ProductsController.$inject = ['$rootScope', '$scope',
+        '$log',
+        '$q',
+        '$window',
+        '$location',
+        '$filter',
+        '$sce',
+        'ProductService',
+        'CategoryService',
+        'CartService',
+        'BreadcrumbService',
+        '$routeParams',
+        'PAGE_URL',
+        'SERVERURL_IMAGE',
+        'STATIC_IMAGE',
+        'Utility',
+        'PAGINATION'];
 
-
-
-
-}
-
-ProductsController.$inject = ['$rootScope', '$scope',
-'$log',
-'$q',
-'$window',
-'$location',
-'$filter',
-'$sce',
-'ProductService',
-'CategoryService',
-'CartService',
-'BreadcrumbService',
-'$routeParams',
-'PAGE_URL',
-'SERVERURL_IMAGE',
-'STATIC_IMAGE',
-'Utility',
-'PAGINATION'];
-
-byProductApp.registerController('ProductsController', ProductsController);
-return ProductsController;
+    byProductApp.registerController('ProductsController', ProductsController);
+    return ProductsController;
 });
 

@@ -5,11 +5,12 @@ define([
 	'byAppRoute',
 	'byResource',
 	'byEditor',
-	'../components/menu/mainMenuController', 'LoginController', 'angularResource',  'angularInfiniteScroll',
-	'angularGoogleLocation', 'headerCtrl',
+	'angularResource',  'angularInfiniteScroll',
+	'angularGoogleLocation',
+	"byMenuCtrl", 'LoginController', 'headerCtrl'
 ], function(angular, angularRoute, byProductApp, byAppRoute, byResource, byEditor,
-			MainMenuController, LoginController, angularResource, 
-			angularInfiniteScroll, angularGoogleLocation, headerCtrl) {
+			angularResource, angularInfiniteScroll, angularGoogleLocation,
+			mainMenuController, LoginController, headerCtrl) {
 
 	var byApp = angular.module('byApp', ["ngRoute", "ngResource", "byServices", "byProductApp", "infinite-scroll", "ngGoogleLocation"]);
 
@@ -18,12 +19,16 @@ define([
 		byApp.registerController = $controllerProvider.register;
 	}]);
 
+	byApp.config(['$filterProvider', function($filterProvider){
+		byApp.registerService = $filterProvider.register;
+	}]);
+
 	byApp.config(byAppRoute);
 	byApp.config(function($locationProvider) {
 		$locationProvider.hashPrefix('!');
 	});
 
-	byApp.controller('MainMenuController', MainMenuController);
+	byApp.controller('MainMenuController', mainMenuController);
 	byApp.controller('LoginController', LoginController);
 	byApp.controller('BYHeaderCtrl', headerCtrl);
 	
@@ -34,17 +39,11 @@ define([
 			//window.scrollTo(0, 0);
 			BY.byEditor.removeEditor();
 			$rootScope.$broadcast('currentLocation', $location.path());
-			//BY.byEditor.editorCategoryList.resetCategoryList();
+
 			//For any location other than search, wipe out the search term
 			if($location.path().indexOf('/search/') == -1)
 				$rootScope.term = '';
 
-			////Menu should not be reset, if same menu id is selected as it create problem in iPad
-			//if(next && next.params && next.params.menuId){
-			//	broadCastMenuDetail.setMenuId({"routeParamMenuId":next.params.menuId});
-			//}else{
-			//	broadCastMenuDetail.setMenuId(0);
-			//}
 		});
 
 		window.fbAsyncInit = function() {

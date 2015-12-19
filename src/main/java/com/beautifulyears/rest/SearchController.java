@@ -116,7 +116,7 @@ public class SearchController {
 		List<Integer> serviceTypes = new ArrayList<Integer>();
 		serviceTypes.add(UserTypes.INDIVIDUAL_PROFESSIONAL);
 		serviceTypes.add(UserTypes.INSTITUTION_NGO);
-		serviceTypes.add(UserTypes.INSTITUTION_SERVICES);
+		serviceTypes.add(UserTypes.INSTITUTION_BRANCH);
 
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);

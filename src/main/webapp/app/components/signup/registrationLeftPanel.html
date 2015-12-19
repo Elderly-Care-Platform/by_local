@@ -43,14 +43,11 @@
 
             <div class="clearfix" style="height:50px; background:#fff;"></div>
             <div ng-if="profile && profile.userTypes && profile.userTypes.length > 0">
-                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType!=3" >
-                    <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="!facilityProfileId">
+                    <a ng-href="{{getHrefProfile(profile, {'profileId':profile.userId})}}" ng-click="$event.stopPropagation();">View Profile</a>
                 </div>
-                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && facilityProfileId" >
-                    <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View Profile</a>
-                </div>
-                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && !facilityProfileId" >
-                    <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="facilityProfileId" >
+                    <a ng-href="{{getHrefFacilty(profile.facilities[facilityIdx], {'profileId':profile.userId, 'housingFacilityId':facilityProfileId})}}" ng-click="$event.stopPropagation();">View Profile</a>
                 </div>
             </div>
 </div>
@@ -97,14 +94,11 @@
             <!-- order history ends --> 
             <div class="clearfix" style="height:50px; background:#fff;"></div>
             <div ng-if="profile && profile.userTypes && profile.userTypes.length > 0">
-                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType!=3" >
-                    <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="!facilityProfileId">
+                    <a ng-href="{{getHrefProfile(profile, {'profileId':profile.userId})}}" ng-click="$event.stopPropagation();">View Profile</a>
                 </div>
-                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && facilityProfileId" >
-                    <a href="#!/housingProfile/{{profile.userTypes[0]}}/{{profile.userId}}/{{facilityProfileId}}">View Profile</a>
-                </div>
-                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="userType==3 && !facilityProfileId" >
-                    <a href="#!/profile/{{profile.userTypes[0]}}/{{profile.userId}}/{{userName}}">View Profile</a>
+                <div class="by_profileDetailed_menu viewProfile   margin-bottom-40 " ng-if="facilityProfileId" >
+                    <a ng-href="{{getHrefFacilty(profile.facilities[facilityIdx], {'profileId':profile.userId, 'housingFacilityId':facilityProfileId})}}" ng-click="$event.stopPropagation();">View Profile</a>
                 </div>
             </div>
         <div class="clearfix"></div>

@@ -4,7 +4,7 @@
             <ul class="by_discussDeatil_cardList" >
                 <li>
                     By <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
-                          href="#!/profile/0/{{detailResponse.discuss.userId}}/{{detailResponse.discuss.username}}"> {{username}} </a>
+                          ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
@@ -130,15 +130,15 @@
 <!-- mobile bottom -->
 <div ng-controller="discussDetailLeftController" ng-if="$root.windowWidth < 720">
     <div class=" by_discussDeatil_card" style="padding:0px 15px;">
-        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"><img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+        <a validate-user-name="{{discuss.username}}"  ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
        ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
        fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;"></a>
 
-        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"><img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+        <a validate-user-name="{{discuss.username}}"  ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
        ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;"></a>
       
        <div class="by_discDetail_userName" ng-if="discuss">
-        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
+        <a validate-user-name="{{discuss.username}}"  ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">
             <b>{{username}}</b>
         </a>
     </div>

@@ -286,7 +286,7 @@ define([], function () {
                 }
             })
 
-            .when('/profile/:profileType/:profileId/:userName', {
+            /*.when('/profile/:profileType/:profileId/:userName', {
                 templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ProfileController',
                 resolve: {
@@ -298,9 +298,9 @@ define([], function () {
                         return defered.promise;
                     }]
                 }
-            })
+            })*/
 
-            .when('/profile/:profileType/:profileId/', {
+            .when('/users/:profileTitle', {
                 templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ProfileController',
                 resolve: {

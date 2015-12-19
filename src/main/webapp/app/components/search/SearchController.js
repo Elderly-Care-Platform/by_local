@@ -2,6 +2,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
     function(byApp, byUtil, userTypeConfig, discussLikeController, shareController) {
         function SearchController($scope, $rootScope, $http, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce, SERVERURL_IMAGE, Utility){
             $rootScope.term = $routeParams.term;
+            $scope.userTypeConfig           = BY.config.profile.userTypeMap;
 
             //If this is enabled, then we need to somehow inject topic and subtopic information into the Discuss being created by users
             //For now Discuss cannot be created from the search page.
@@ -241,19 +242,65 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
             };
 
 
-            $scope.location = function ($event, userId, userType) {
-                $event.stopPropagation();
-                if (userId && userType.length > 0) {
-                    $location.path('/profile/' + userType[0] + '/' + userId);
-                }
-            };
+        $scope.location = function($event, profile, urlQueryParams){
+            $event.stopPropagation();
+            var url = getProfileDetailUrlS(profile, urlQueryParams, true);
+            $location.path(url);
+        };
+        
+        $scope.getHrefProfile = function(profile, urlQueryParams){
+            var newHref = getProfileDetailUrlS(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+        
+        function getProfileDetailUrlS(profile, urlQueryParams, isAngularLocation){
+            var proTitle = "others";
+            if(profile.basicProfileInfo){
+                if(profile && profile.basicProfileInfo.firstName.length > 0){
+                   proTitle = profile.basicProfileInfo.firstName;
+                   if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+                       proTitle = proTitle + " " + profile.individualInfo.lastName;
+                   }
+               }else{
+                   proTitle = "others";
+               }
+            } 
+            if(profile.name){
+                if(profile && profile.name.length > 0){
+                   proTitle = profile.name;
+               }else{
+                   proTitle = "others";
+               }
+            }
 
-            $scope.housingLocation = function ($event, userID, id) {
-                $event.stopPropagation();
-                if(id) {
-                    $location.path('/housingProfile/3/'+userID+'/'+id);
+            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
                 }
             }
+
+            return newHref;
+        };
 
             $scope.openProductDescription = function($event, productId, productName) {
                 $event.stopPropagation();

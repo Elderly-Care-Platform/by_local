@@ -76,7 +76,9 @@
 				
 				
 			</div><div class="clearfix"></div>
-			<a class="divRight by_housingCard_readmore" ng-href="#!/housingProfile/3/{{housing.userId}}/{{housing.id}}">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
+			<a class="divRight by_housingCard_readmore" 
+			ng-href="{{getHrefProfile(housing, {'profileId':housing.userId, 'housingFacilityId':housing.id})}}" 
+			ng-click="$event.stopPropagation();">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
 			<div class="clearfix"></div>
      </div>
      <div class="clearfix"></div>

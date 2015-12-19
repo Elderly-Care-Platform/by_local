@@ -17,7 +17,6 @@ require.config({
 		byProductRoute : '../main/product/productRoute',
 		byProductConfig : '../components/product/productConfig',
 
-		byAppParentCtrl : '../components/by-main/byAppParentController',
 		byMenuCtrl : '../components/menu/mainMenuController',
 
 		DelegatorFactory : '../main/product/productResources/delegatorFactory',

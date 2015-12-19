@@ -47,7 +47,7 @@
 
         <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
              ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
-            <a href="#!/products/overview/list/{{menu.slug}}/{{menu.id}}/all">
+            <a href="#!/products/review/{{menu.id}}">
                 View previous<br/> question &amp; overviews
             </a>
         </div>
@@ -107,7 +107,7 @@
 
                 <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
                      ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
-                    <a href="#!/products/overview/list/{{menu.slug}}/{{menu.id}}/all">
+                    <a href="#!/products/review/{{menu.id}}">
                         View previous<br/> question &amp; overviews
                     </a>
                 </div>

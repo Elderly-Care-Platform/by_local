@@ -1,6 +1,6 @@
 //DIscuss All
-define(['byApp', 'byUtil', 'userTypeConfig'],
-    function (byApp, byUtil, userTypeConfig) {
+define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
+    function (byApp, byUtil, userTypeConfig, byEditor) {
 
         function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce) {
             $scope.findViews                = {};
@@ -87,15 +87,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 return $sce.trustAsHtml(html);
             }
 
-            $scope.location = function ($event, userId, userType, branchId) {
-                $event.stopPropagation();
-                if (userId && userType.length > 0) {
-                    if(branchId){
-                        $location.search('branchId', branchId);
-                    }
-                    $location.path('/profile/' + userType[0] + '/' + userId);
-                }
-            }
+            
 
            
             $scope.cityOptions = {
@@ -112,7 +104,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                 if(menu.module == $scope.menuConfig.modules['discuss'].moduleId){
                     menu = $rootScope.menuCategoryMap['56406cd03e60f5b66f62df26'];
                 }
-                $location.path("/directory/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/"+response.name);
+                $location.path("/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/"+response.name);
             }
 
             $scope.specialityCallback = function (speciality) {
@@ -174,6 +166,64 @@ define(['byApp', 'byUtil', 'userTypeConfig'],
                     return false;
                 }
             }
+            
+            
+            
+            $scope.location = function($event, profile, urlQueryParams){
+                $event.stopPropagation();
+                var url = getProfileDetailUrlS(profile, urlQueryParams, true);
+                $location.path(url);
+            };
+            
+            $scope.getHrefProfile = function(profile, urlQueryParams){
+            	var newHref = getProfileDetailUrlS(profile, urlQueryParams, false);
+                newHref = "#!" + newHref;
+                return newHref;
+            };
+            
+            function getProfileDetailUrlS(profile, urlQueryParams, isAngularLocation){
+            	var proTitle = "others";
+            	 if(profile && profile.basicProfileInfo.firstName.length > 0){
+            		 proTitle = profile.basicProfileInfo.firstName;
+            		 if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+            			 proTitle = proTitle + " " + profile.individualInfo.lastName;
+            		 }
+            	 }else{
+            		 proTitle = "others";
+            	 }
+
+            	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+                var newHref = "/users/"+proTitle;
+
+
+                if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                    //Set query params through angular location search method
+                    if(isAngularLocation){
+                        angular.forEach($location.search(), function (value, key) {
+                            $location.search(key, null);
+                        });
+                        angular.forEach(urlQueryParams, function (value, key) {
+                            $location.search(key, value);
+                        });
+                    } else{ //Set query params manually
+                        newHref = newHref + "?"
+
+                        angular.forEach(urlQueryParams, function (value, key) {
+                            newHref = newHref + key + "=" + value + "&";
+                        });
+
+                        //remove the last  '&' symbol from the url, otherwise browser back does not work
+                        newHref = newHref.substr(0, newHref.length - 1);
+                    }
+                }
+
+                return newHref;
+            };
+            
+           
+
+           
+
         }
 
         ServicesController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',

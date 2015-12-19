@@ -1,4 +1,4 @@
-<div ng-click="location($event, service.userId, service.userTypes, service.id)"
+<div ng-click="location($event, service, {'profileId':service.userId, 'branchId':service.id})"
      class="by_serviceCard" data-index="discussion-articles"
      ng-if="service.systemTags.length > 0" ng-init="service.showMoreServices=false;">
     <div class="serviceFeatured" ng-if="service.featured == true"></div>
@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="clearfix"></div>
-        <a ng-href="#!/profile/4/{{service.userId}}" class="divRight by_serviceCard_readmore">Details<i
+        <a ng-href="{{getHrefProfile(service, {'profileId':service.userId, 'branchId':service.id})}}" ng-click="$event.stopPropagation();" class="divRight by_serviceCard_readmore">Details<i
                 class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
     </div>
 

@@ -1,12 +1,13 @@
 define(['byApp',
     'discussLikeController',
     'shareController',
-    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid'], function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid) {
+    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid', 'discussService'],
+    function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid, discussService) {
 
     'use strict';
 
     function DiscussAllController($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
-                                  DiscussCount,$sce, $timeout, $window) {
+                                  DiscussCount,$sce, $timeout, $window, DisServiceFilter) {
 
         $scope.discussionViews              = {};
         $scope.discussionViews.leftPanel    = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -28,7 +29,7 @@ define(['byApp',
         var showEditor                      = $routeParams.showEditor ? $routeParams.showEditor : null; //Needed for left side Q/A/P filters
         var editorType                      = $routeParams.editorType ? $routeParams.editorType : null; //Needed for left side Q/A/P filters
         var init                            = initialize();
-        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
+        $scope.removeSpecialChars           = BY.byUtil.removeSpecialChars;
 
         function initialize(){
             initDiscussListing();
@@ -194,16 +195,6 @@ define(['byApp',
 
         }
 
-        //$scope.add = function (type) {
-        //    require(['editorController'], function(editorController){
-        //        BY.byEditor.removeEditor();
-        //        $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        //        window.scrollTo(0, 0);
-        //        $scope.$apply();
-        //    });
-        //
-        //};
-
         $scope.postSuccess = function () {
             $route.reload();
         };
@@ -218,30 +209,39 @@ define(['byApp',
 
         $scope.go = function($event, discuss, urlQueryParams){
             $event.stopPropagation();
-            var url = getDiscussDetailUrl(discuss, urlQueryParams, true);
+            var url = DisServiceFilter.getDiscussDetailUrl(discuss, urlQueryParams, true);
             $location.path(url);
         };
         
         $scope.getHref = function(discuss, urlQueryParams){
-        	var newHref = getDiscussDetailUrl(discuss, urlQueryParams, false);
+        	var newHref = DisServiceFilter.getDiscussDetailUrl(discuss, urlQueryParams, false);
             newHref = "#!" + newHref;
             return newHref;
         };
 
-        function getDiscussDetailUrl(discuss, urlQueryParams, isAngularLocation){
-            var disTitle = "others";
-            if(discuss.title && discuss.title.trim().length > 0){
-                disTitle = discuss.title;
-            } else if(discuss.text && discuss.text.trim().length > 0){
-                disTitle = discuss.text;
-            } else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
-                disTitle = discuss.linkInfo.title;
-            } else{
-                disTitle = "others";
-            }
+        
+        
+        $scope.getHrefProfile = function(profile, urlQueryParams){
+        	var newHref = getProfileDetailUrl(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
-            var newHref = "/"+disTitle+"/communities";
+        function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
+        	var proTitle = "others";
+        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        		 proTitle = profile.userProfile.basicProfileInfo.firstName;
+        		 if(profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
+        			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
+        		 }
+        	 } else if(profile.username.length > 0){
+        		 proTitle = BY.byUtil.validateUserName(profile.username);
+        	 }else{
+        		 proTitle = "others";
+        	 }
+
+        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
 
 
             if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
@@ -279,7 +279,8 @@ define(['byApp',
 
 
     DiscussAllController.$inject = ['$scope', '$rootScope', '$location','$route', '$routeParams',
-        'DiscussPage', 'DiscussCount','$sce','$timeout', '$window'];
+        'DiscussPage', 'DiscussCount','$sce','$timeout', '$window', 'DisServiceFilter'];
+
     byApp.registerController('DiscussAllController', DiscussAllController);
     return DiscussAllController;
 

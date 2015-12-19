@@ -148,7 +148,7 @@ BY.byUtil.getCommunitySlug = function (name) {
     var slugDiv = document.createElement('div');
     slugDiv.innerHTML = name;
     slug = slugDiv.innerText;
-    var slugIndex = slug.indexOf(" ", 30);
+    var slugIndex = slug.indexOf(" ", 100);
     if (slugIndex > 1) {
         slug = slug.substr(0, slugIndex);
     }

@@ -1,4 +1,4 @@
-define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
+define(['byApp', 'serviceOverviewCtrl', 'editorController'], function (byApp, serviceOverviewCtrl, editorController) {
     'use strict';
 
     function FindMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
@@ -89,7 +89,7 @@ define(['byApp', 'serviceOverviewCtrl'], function (byApp, serviceOverviewCtrl) {
                 $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
                 BY.byEditor.removeEditor();
                 var menuId = $scope.menuConfig.reveiwsMenuConfig['service_review'].id;
-                $location.path("/directory/reviews/service_review/"+menuId+"/all");
+                $location.path("/directory/reviews/"+menuId);
             }
         }
 

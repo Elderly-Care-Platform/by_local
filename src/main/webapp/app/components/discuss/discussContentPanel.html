@@ -119,7 +119,7 @@
                             <p>
                                 By <a validate-user-name="{{discuss.username}}"
                                       class="text-capitalize"
-                                      ng-href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}" ng-click="$event.stopPropagation();">
+                                      ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}" ng-click="$event.stopPropagation();">
                                 {{username}}</a>
                             </p>
                         </li>

@@ -17,8 +17,16 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
 
         $scope.getHref = function(module, menuId, type, queryParams){
-            var newHref = BY.config.menu.modules[module].baseUrl + "/"+ BY.byUtil.removeSpecialChars($rootScope.menuCategoryMap[menuId].displayMenuName) +
-                "/"+ $rootScope.menuCategoryMap[menuId].id + "/";
+            var menu = $rootScope.menuCategoryMap[menuId], newHref;
+            var slug = menu.ancestorIds.length > 0 ? BY.byUtil.removeSpecialChars($rootScope.menuCategoryMap[menuId].displayMenuName) : null;
+
+            if(slug){
+                newHref = BY.config.menu.modules[module].baseUrl + "/"+ BY.byUtil.removeSpecialChars($rootScope.menuCategoryMap[menuId].displayMenuName) +
+                    "/"+ $rootScope.menuCategoryMap[menuId].id + "/";
+            }else{
+                newHref = BY.config.menu.modules[module].baseUrl + "/"+ $rootScope.menuCategoryMap[menuId].id + "/";
+            }
+
 
             if(type){
                 newHref = newHref + type + "/";

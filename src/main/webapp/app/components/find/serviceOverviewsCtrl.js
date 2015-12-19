@@ -1,7 +1,8 @@
 define(['byApp',
     'discussLikeController',
     'shareController',
-    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid'], function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid) {
+    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid'],
+    function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid) {
 
     'use strict';
 

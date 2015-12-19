@@ -40,7 +40,7 @@ define([], function () {
             //        }]
             //    }
             //})
-            .when('/products/review/:menuId', {
+            .when('/products/reviews/:menuId', {
                 templateUrl: 'app/components/product/product-listing/products.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ProductsController',
                 resolve: {

@@ -60,8 +60,8 @@ define([], function () {
                     }]
                 }
             })
-            
-             .when('/communities/:discussTitle/', {
+
+            .when('/communities/:discussTitle/', {
                 templateUrl: 'app/components/discussDetail/discussDetail.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'DiscussDetailController',
                 resolve: {
@@ -155,7 +155,7 @@ define([], function () {
                     }]
                 }
             })
-            
+
             .when('/users/institutionRegistration/:branchIndex', {
                 templateUrl: 'app/components/signup/registration.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'RegistrationController', resolve: {
@@ -211,7 +211,6 @@ define([], function () {
                 }
             })
 
-           
 
             .when('/search/:term/:searchType', {
                 templateUrl: 'app/components/search/search.html?versionTimeStamp=%PROJECT_VERSION%',
@@ -227,19 +226,19 @@ define([], function () {
                 }
             })
 
-            .when('/find/:slug/:services/:city', {
-                templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
-                controller: 'ServicesController',
-                resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['app/components/find/servicesController.js'], function () {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
+            //.when('/find/:slug/:services/:city', {
+            //    templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
+            //    controller: 'ServicesController',
+            //    resolve: {
+            //        load: ['$q', function ($q) {
+            //            var defered = $q.defer();
+            //            require(['app/components/find/servicesController.js'], function () {
+            //                defered.resolve();
+            //            });
+            //            return defered.promise;
+            //        }]
+            //    }
+            //})
 
             .when('/directory/:slug/:menuId/:city', {
                 templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
@@ -249,35 +248,20 @@ define([], function () {
                         var defered = $q.defer();
                         require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js'],
                             function (servicesController, findMenuCtrl) {
-                            defered.resolve();
-                        });
+                                defered.resolve();
+                            });
                         return defered.promise;
                     }]
                 }
             })
-            
-            .when('/directory/:menuId/:city', {
+
+            .when('/directory/reviews/:menuId', {
                 templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ServicesController',
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
                         require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js'],
-                            function (servicesController, findMenuCtrl) {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
-
-            .when('/directory/reviews/:menuId/:discussType', {
-                templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
-                controller: 'ServicesController',
-                resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js', 'editorController'],
                             function (servicesController, findMenuCtrl) {
                                 defered.resolve();
                             });
@@ -286,19 +270,36 @@ define([], function () {
                 }
             })
 
-            /*.when('/profile/:profileType/:profileId/:userName', {
-                templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%',
-                controller: 'ProfileController',
+            .when('/directory/:menuId/:city', {
+                templateUrl: 'app/components/find/services.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'ServicesController',
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/profile/userProfileCtrl.js'], function () {
-                            defered.resolve();
-                        });
+                        require(['app/components/find/servicesController.js', 'app/components/find/findMenuCtrl.js'],
+                            function (servicesController, findMenuCtrl) {
+                                defered.resolve();
+                            });
                         return defered.promise;
                     }]
                 }
-            })*/
+            })
+
+
+
+            /*.when('/profile/:profileType/:profileId/:userName', {
+             templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%',
+             controller: 'ProfileController',
+             resolve: {
+             load: ['$q', function ($q) {
+             var defered = $q.defer();
+             require(['app/components/profile/userProfileCtrl.js'], function () {
+             defered.resolve();
+             });
+             return defered.promise;
+             }]
+             }
+             })*/
 
             .when('/users/:profileTitle', {
                 templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%',
@@ -340,7 +341,22 @@ define([], function () {
                     }]
                 }
             })
-             .when('/senior-living/:menuId/:city', {
+
+            .when('/senior-living/reviews/:menuId', {
+                templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'HousingController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/housing/housingController.js', 'housingMenuCtrl', 'editorController'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
+            .when('/senior-living/:menuId/:city', {
                 templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'HousingController',
                 resolve: {
@@ -354,19 +370,6 @@ define([], function () {
                 }
             })
 
-            .when('/senior-living/reviews/:menuId/:discussType', {
-                templateUrl: 'app/components/housing/housing.html?versionTimeStamp=%PROJECT_VERSION%',
-                controller: 'HousingController',
-                resolve: {
-                    load: ['$q', function ($q) {
-                        var defered = $q.defer();
-                        require(['app/components/housing/housingController.js', 'housingMenuCtrl', 'editorController'], function () {
-                            defered.resolve();
-                        });
-                        return defered.promise;
-                    }]
-                }
-            })
 
             .when('/users/privacyPolicy', {
                 templateUrl: 'app/shared/footer/privacyPolicy.html?versionTimeStamp=%PROJECT_VERSION%',

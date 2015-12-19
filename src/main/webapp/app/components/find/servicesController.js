@@ -1,6 +1,6 @@
 //DIscuss All
-define(['byApp', 'byUtil', 'userTypeConfig'],
-    function (byApp, byUtil, userTypeConfig) {
+define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
+    function (byApp, byUtil, userTypeConfig, byEditor) {
 
         function ServicesController($scope, $rootScope, $location, $route, $routeParams, FindServices, $sce) {
             $scope.findViews                = {};

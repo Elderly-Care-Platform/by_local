@@ -1,4 +1,4 @@
-define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
+define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil, userTypeConfig, byEditor) {
     function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, $http, FindHousing){
         $scope.housingViews                 = {};
         $scope.housingViews.leftPanel       = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";

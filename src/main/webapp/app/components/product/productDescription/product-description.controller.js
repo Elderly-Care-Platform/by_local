@@ -453,11 +453,6 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
         };
 
-        $scope.productZoom = function(){
-             $('#native').elevateZoom();
-        };
-
-
     }
 
     ProductDescriptionController.$inject = ['$scope',

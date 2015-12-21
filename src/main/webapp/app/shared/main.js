@@ -17,6 +17,8 @@ require.config({
 		byProductRoute : '../main/product/productRoute',
 		byProductConfig : '../components/product/productConfig',
 
+		byMenuCtrl : '../components/menu/mainMenuController',
+
 		DelegatorFactory : '../main/product/productResources/delegatorFactory',
 		urlTemplateFactory : '../main/product/productResources/url-template.factory',
 		CachedRequestFactory : '../main/product/productResources/cached-request-handler.service',
@@ -111,7 +113,10 @@ require.config({
 
 		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl',
 		housingReviewsCtrl: '../components/housing/housingReviewsCtrl',
-		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl'
+		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl',
+
+
+		discussService : '../components/discuss/discussService'
 	},
 
 	shim : {
@@ -157,7 +162,7 @@ require.config({
 	},
 
 });
-require([ 'angular',"byApp","byUtil", "byDirectives", "lodash", "byApplicationConfig"], function(angular, byApp, byUtil, byDirectives, lodash, byApplicationConfig) {
+require(['angular', "byApp", "byUtil", "byDirectives", "lodash", "byApplicationConfig"], function(angular, byApp, byUtil, byDirectives, lodash, byApplicationConfig) {
 	var getProdCategoriesSuccess = function(prodCategories){
 		window.by_prodCategories = prodCategories;
 		angular.bootstrap(document, [ "byApp" ]);

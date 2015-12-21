@@ -1,4 +1,4 @@
-define(['byApp','housingReviewsCtrl'], function (byApp, housingReviewsCtrl) {
+define(['byApp', 'housingReviewsCtrl', 'editorController'], function (byApp, housingReviewsCtrl, editorController) {
     'use strict';
 
     function HousingMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
@@ -92,7 +92,7 @@ define(['byApp','housingReviewsCtrl'], function (byApp, housingReviewsCtrl) {
                 $location.search('postCategoryTag', JSON.stringify(serviceReviewTag));
                 BY.byEditor.removeEditor();
                 var menuId = $scope.menuConfig.reveiwsMenuConfig['housing_review'].id;
-                $location.path("/senior-living/reviews/housing_review/"+menuId+"/all");
+                $location.path("/senior-living/reviews/"+menuId);
             }
         }
 

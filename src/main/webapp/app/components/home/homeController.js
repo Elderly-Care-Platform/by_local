@@ -100,6 +100,13 @@ define(['byApp', 'byUtil', 'homePromoController',
                 $(this).addClass('by_ourExpertThumbColor');
                 $(".by_ourExpertTop2 .by_ourExpertDesc").eq(index).show();
             });
+
+            $(".by_homeSectionInside").mouseleave(function(){
+                 $(".by_ourExpertDesc").hide();
+                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
+                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
+                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
+            });
         }
 
         BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location'];

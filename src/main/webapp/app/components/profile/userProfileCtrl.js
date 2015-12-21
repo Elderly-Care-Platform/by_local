@@ -36,6 +36,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                     $scope.profileData = profile.data;
                     if ($scope.profileData.userTypes.length > 0) {
                         $scope.profileType = $scope.profileData.userTypes[0];
+                    } else{
+                    	$scope.profileType = 0;
                     }
 
                     $scope.reviewContentType = BY.config.profile.userType[$scope.profileType].reviewContentType;
@@ -177,7 +179,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             }
         };
 
-        $scope.location = function ($event, url, params) {
+        /*$scope.location = function ($event, url, params) {
             $event.stopPropagation();
             angular.forEach($location.search(), function (value, key) {
                 $location.search(key, null);
@@ -190,7 +192,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                 }
                 $location.path(url);
             }
-        }
+        }*/
+
+        
         
         $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
@@ -219,7 +223,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             }
 
             disTitle = BY.byUtil.getCommunitySlug(disTitle);
-            var newHref = "/"+disTitle+"/communities/";
+            var newHref = "/communities/"+disTitle;
 
 
             if(queryParams && Object.keys(queryParams).length > 0){
@@ -244,6 +248,141 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
 
             return newHref;
         };
+
+        $scope.setHrefCorp = function(profile, queryParams){
+            var newHref = getProfileDetailUrlCorp(profile, queryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getProfileDetailUrlCorp(profile, urlQueryParams, isAngularLocation){
+            var proTitle = "others";
+             if(profile && profile.basicProfileInfo.firstName.length > 0){
+                 proTitle = profile.basicProfileInfo.firstName;
+                 if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+                     proTitle = proTitle + " " + profile.individualInfo.lastName;
+                 }
+             }else{
+                 proTitle = "others";
+             }
+
+            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
+                }
+            }
+
+            return newHref;
+        };
+        
+        $scope.getHrefProfile = function(profile, urlQueryParams){
+        	var newHref = getProfileDetailUrl(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
+        	var proTitle = "others";
+        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        		 proTitle = profile.userProfile.basicProfileInfo.firstName;
+        		 if(profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
+        			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
+        		 }
+        	 } else if(profile.username.length > 0){
+        		 proTitle = BY.byUtil.validateUserName(profile.username);
+        	 }else{
+        		 proTitle = "others";
+        	 }
+
+        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
+                }
+            }
+
+            return newHref;
+        };
+        
+        $scope.getHrefProfileReview = function(profile, urlQueryParams){
+        	var newHref = getProfileDetailUrlReview(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getProfileDetailUrlReview(profile, urlQueryParams, isAngularLocation){
+        	var proTitle = "others";
+        	if(profile.userName.length > 0){
+        		 proTitle = BY.byUtil.validateUserName(profile.username);
+        	 }else{
+        		 proTitle = "others";
+        	 }
+
+        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
+                }
+            }
+
+            return newHref;
+        };
+
 
 
 

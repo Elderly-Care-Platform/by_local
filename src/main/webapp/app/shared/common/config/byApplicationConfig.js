@@ -17,3 +17,8 @@ BY.config.constants = {
 
     "byContactNumber" : "080-6940-0333"
 }
+
+
+BY.config.constants.broadCastConfig = {
+    "initMenu" : "initByMenu"
+}

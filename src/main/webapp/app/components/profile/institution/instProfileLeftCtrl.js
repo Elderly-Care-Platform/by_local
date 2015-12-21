@@ -24,7 +24,53 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
         }
 
-        $scope.setLocation = function ($event, url, queryParams) {
+        
+        $scope.setHrefInst = function(profile, queryParams){
+            var newHref = getProfileDetailUrlBrnach(profile, queryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getProfileDetailUrlBrnach(profile, urlQueryParams, isAngularLocation){
+            var proTitle = "others";
+             if(profile && profile.basicProfileInfo.firstName.length > 0){
+                 proTitle = profile.basicProfileInfo.firstName;
+                 if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+                     proTitle = proTitle + " " + profile.individualInfo.lastName;
+                 }
+             }else{
+                 proTitle = "others";
+             }
+
+            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
+                }
+            }
+
+            return newHref;
+        };
+
+        /*$scope.setLocation = function ($event, url, queryParams) {
             $event.stopPropagation();
             if(Object.keys(queryParams).length > 0){
                 angular.forEach(queryParams, function (value, key) {
@@ -37,16 +83,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
             }
 
             $location.path(url);
-
-            //if(url){
-            //    if(params && params.length > 0){
-            //        for(var i=0; i < params.length; i++){
-            //            url = url + "/" + params[i];
-            //        }
-            //    }
-            //    $location.path(url);
-            //}
-        }
+        }*/
 
         //$scope.$on('handleBroadcast', function() {
         //    $scope.facilityData = broadCastData.newData;

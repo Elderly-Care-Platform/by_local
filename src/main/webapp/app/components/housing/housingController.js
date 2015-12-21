@@ -1,4 +1,4 @@
-define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeConfig) {
+define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil, userTypeConfig, byEditor) {
     function HousingController($scope, $rootScope, $location, $route, $routeParams,  $sce, $http, FindHousing){
         $scope.housingViews                 = {};
         $scope.housingViews.leftPanel       = "app/components/housing/housingLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -72,13 +72,13 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
         
         $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
-        $scope.location = function ($event, userID, id) {
+       /* $scope.location = function ($event, userID, id) {
             $event.stopPropagation();
             if(id) {
                 //profilePageLocation = '/housingProfile/:profileType/:profileId/:userName/:housingFacilityId';
                 $location.path('/housingProfile/3/'+userID+'/'+id);
             }
-        };
+        };*/
 
        
         $scope.cityOptions = {
@@ -94,7 +94,7 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                 if(menu.module == $scope.menuConfig.modules['discuss'].moduleId){
                     menu = $rootScope.menuCategoryMap['55bcadaee4b08970a736784c'];
                 }
-                $location.path("/senior-living/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/"+response.name);
+                $location.path("/"+$scope.removeSpecialChars(menu.displayMenuName)+"/"+menu.id+"/"+response.name);
         };
 
         $scope.loadMore = function ($event) {
@@ -126,6 +126,57 @@ define(['byApp', 'byUtil', 'userTypeConfig'], function(byApp, byUtil, userTypeCo
                 return false;
             }
         };
+        
+        $scope.location = function($event, profile, urlQueryParams){
+            $event.stopPropagation();
+            var url = getProfileDetailUrlS(profile, urlQueryParams, true);
+            $location.path(url);
+        };
+        
+        $scope.getHrefProfile = function(profile, urlQueryParams){
+        	var newHref = getProfileDetailUrlS(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+        
+        function getProfileDetailUrlS(profile, urlQueryParams, isAngularLocation){
+        	var proTitle = "others";
+        	 if(profile && profile.name.length > 0){
+        		 proTitle = profile.name;
+        	 }else{
+        		 proTitle = "others";
+        	 }
+
+        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
+                }
+            }
+
+            return newHref;
+        };
+        
+       
+
     }
 
     HousingController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',

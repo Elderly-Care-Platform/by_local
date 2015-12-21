@@ -1,4 +1,4 @@
-define(['byApp', 'productReviewsCtrl'], function (byApp, productReviewsCtrl) {
+define(['byApp', 'productReviewsCtrl', 'editorController'], function (byApp, productReviewsCtrl, editorController) {
     'use strict';
 
     function ProductMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
@@ -90,7 +90,7 @@ define(['byApp', 'productReviewsCtrl'], function (byApp, productReviewsCtrl) {
                 $location.search('showEditor', 'true');
                 BY.byEditor.removeEditor();
                 var menuId = $scope.menuConfig.reveiwsMenuConfig['product_review'].id;
-                $location.path("/products/overview/list/product_review/"+menuId+"/all");
+                $location.path("/products/reviews/"+menuId);
             }
         }
 

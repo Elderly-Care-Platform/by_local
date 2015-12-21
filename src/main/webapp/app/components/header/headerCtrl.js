@@ -169,17 +169,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             }
         };
 
-        $scope.animateCounter = function (count, target) {
-            $({someValue: 0}).animate({someValue: count}, {
-                duration: cntAnimDuration,
-                easing: 'swing',
-                step: function () {
-                    target.text(Math.round(this.someValue));
-                }
-            });
-        };
-
-        $scope.homeSection = BY.config.menu.home;        
+        $scope.homeSection = BY.config.menu.home;
         $scope.moduleConfig= BY.config.menu.moduleConfig;
     }
 

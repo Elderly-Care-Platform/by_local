@@ -33,9 +33,9 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
         function getProfileDetailUrlBrnach(profile, urlQueryParams, isAngularLocation){
             var proTitle = "others";
-             if(profile && profile.basicProfileInfo.firstName.length > 0){
+             if(profile && profile.basicProfileInfo.firstName && profile.basicProfileInfo.firstName.length > 0){
                  proTitle = profile.basicProfileInfo.firstName;
-                 if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+                 if(profile.individualInfo.lastName && profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
                      proTitle = proTitle + " " + profile.individualInfo.lastName;
                  }
              }else{

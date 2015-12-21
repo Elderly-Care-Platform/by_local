@@ -141,7 +141,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil
         
         function getProfileDetailUrlS(profile, urlQueryParams, isAngularLocation){
         	var proTitle = "others";
-        	 if(profile && profile.name.length > 0){
+        	 if(profile && profile.name && profile.name.length > 0){
         		 proTitle = profile.name;
         	 }else{
         		 proTitle = "others";

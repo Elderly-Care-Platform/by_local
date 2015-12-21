@@ -257,9 +257,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         function getProfileDetailUrlS(profile, urlQueryParams, isAngularLocation){
             var proTitle = "others";
             if(profile.basicProfileInfo){
-                if(profile && profile.basicProfileInfo.firstName.length > 0){
+                if(profile && profile.basicProfileInfo.firstName && profile.basicProfileInfo.firstName.length > 0){
                    proTitle = profile.basicProfileInfo.firstName;
-                   if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+                   if(profile.individualInfo.lastName  && profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
                        proTitle = proTitle + " " + profile.individualInfo.lastName;
                    }
                }else{
@@ -267,7 +267,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                }
             } 
             if(profile.name){
-                if(profile && profile.name.length > 0){
+                if(profile && profile.name && profile.name.length > 0){
                    proTitle = profile.name;
                }else{
                    proTitle = "others";

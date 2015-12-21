@@ -257,9 +257,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
 
         function getProfileDetailUrlCorp(profile, urlQueryParams, isAngularLocation){
             var proTitle = "others";
-             if(profile && profile.basicProfileInfo.firstName.length > 0){
+             if(profile && profile.basicProfileInfo.firstName && profile.basicProfileInfo.firstName.length > 0){
                  proTitle = profile.basicProfileInfo.firstName;
-                 if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+                 if(profile.individualInfo.lastName && profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
                      proTitle = proTitle + " " + profile.individualInfo.lastName;
                  }
              }else{
@@ -302,12 +302,12 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
 
         function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
         	var proTitle = "others";
-        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
         		 proTitle = profile.userProfile.basicProfileInfo.firstName;
-        		 if(profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
+        		 if(profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
         			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
         		 }
-        	 } else if(profile.username.length > 0){
+        	 } else if(profile.username && profile.username.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";
@@ -349,7 +349,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
 
         function getProfileDetailUrlReview(profile, urlQueryParams, isAngularLocation){
         	var proTitle = "others";
-        	if(profile.userName.length > 0){
+        	if(profile.userName && profile.userName.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";

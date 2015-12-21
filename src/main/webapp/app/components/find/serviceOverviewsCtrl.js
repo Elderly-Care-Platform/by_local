@@ -165,12 +165,12 @@ define(['byApp',
 
         function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
         	var proTitle = "others";
-        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
         		 proTitle = profile.userProfile.basicProfileInfo.firstName;
-        		 if(profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
+        		 if(profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
         			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
         		 }
-        	 } else if(profile.username.length > 0){
+        	 } else if(profile.username && profile.username.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";

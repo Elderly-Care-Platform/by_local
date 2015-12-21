@@ -10,7 +10,7 @@ define(['byApp',
                                  DiscussCount, $sce, $timeout) {
 
         window.scrollTo(0, 0);
-        $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
+        $scope.discussType = $routeParams.discussType ? $routeParams.discussType : "all"; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.selectedMenu;
         $scope.pageSize = 20;
         $scope.isGridInitialized = false;
@@ -48,6 +48,7 @@ define(['byApp',
         $scope.initDiscussListing = function () {
             if ($scope.selectedMenu) {
                 updateMetaTags();
+
                 queryParams.tags = BY.config.menu.reveiwsMenuConfig['service_review'].tag;
                 if ($scope.discussType && $scope.discussType.toLowerCase().trim() !== "all") {
                     queryParams.discussType = $routeParams.discussType;

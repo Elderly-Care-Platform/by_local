@@ -7,6 +7,8 @@ public class EmailInfo {
 	private List<String> emailIds;
 	private String subject;
 	private String body;
+	private String senderName;
+	
 	public List<String> getEmailIds() {
 		return emailIds;
 	}
@@ -25,9 +27,18 @@ public class EmailInfo {
 	public void setBody(String body) {
 		this.body = body;
 	}
+	
+	public String getSenderName() {
+		return senderName;
+	}
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
+	
 	@Override
 	public String toString() {
-		return "EmailInfo [emailIds=" + emailIds + ", subject=" + subject + ", body=" + body + "]";
+		return "EmailInfo [emailIds=" + emailIds + ", subject=" + subject + ", body=" + body + ", senderName="
+				+ senderName + "]";
 	}
 	
 	

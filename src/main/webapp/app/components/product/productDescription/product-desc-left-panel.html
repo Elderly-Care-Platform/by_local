@@ -5,7 +5,8 @@
         </div>
 
         <div class="col-md-12 no-padding" ng-repeat="product in uiData.similarProduct">
-            <div ng-click="openProductDescription(product.id, product.name)">
+            <div >
+                <a href="{{productUrl(product.id, product.name)}}" ng-click="$event.stopPropagation();">
                 <div class="by_productDetail_leftSimilarThumb">
                     <div class="by_productDetail_leftSimilarThumbImage">
                         <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
@@ -26,6 +27,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                </a>
             </div>
         </div>
 </div>

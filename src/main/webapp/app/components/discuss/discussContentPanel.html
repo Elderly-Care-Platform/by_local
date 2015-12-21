@@ -81,7 +81,9 @@
                      ng-if="discuss.discussType == 'P' && discuss.title"
                      style="margin-top: 15px;">
                     <div class="article-heading">
-                        <p style="text-transform: uppercase;">{{discuss.title}}</p>
+                        <p style="text-transform: uppercase;">
+                            <a ng-href="{{getHref(discuss, {'id':discuss.id})}}" ng-click="$event.stopPropagation();">{{discuss.title}}</a>
+                        </p>
                     </div>
                     <div style="clear: both"></div>
                 </div>
@@ -135,7 +137,9 @@
                 <!-------------------------------Article title---------------------------------------->
                 <div class="by_discuss_title col-md-12"
                      ng-if="discuss.discussType == 'P'">
-                    <p class="text-uppercase">{{discuss.title}}</p>
+                    <p class="text-uppercase">
+                        <a ng-href="{{getHref(discuss, {'id':discuss.id})}}" ng-click="$event.stopPropagation();">{{discuss.title}}</a>
+                    </p>
                 </div>
                 <div style="clear: both"></div>
 
@@ -157,7 +161,7 @@
                 <div class="by_discuss_desc  col-md-12" id="{{discuss.id}}">
                     <p class="by_discuss_desciption" ng-if="discuss.shortSynopsis">
                         {{discuss.shortSynopsis}}
-                        <a class="divRight by_readmore">ReadMore <b style="font-size: 10px;">&#9002;</b></a>
+                        <a ng-href="{{getHref(discuss, {'id':discuss.id})}}" ng-click="$event.stopPropagation();" class="divRight by_readmore">ReadMore <b style="font-size: 10px;">&#9002;</b></a>
                     </p>
 
                     <p class="by_discuss_desciption" ng-if="!discuss.shortSynopsis"

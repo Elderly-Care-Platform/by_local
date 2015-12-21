@@ -33,6 +33,10 @@
 {
   border:0px;
 }
+.by_productCard a:hover
+{
+  text-decoration: none;
+}
 .by_productCard:hover
 {	
   border: 1px solid #db812e;

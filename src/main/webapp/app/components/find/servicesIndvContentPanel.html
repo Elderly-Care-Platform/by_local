@@ -1,4 +1,4 @@
-<div ng-click="location($event, service.userId, service.userTypes)"
+<div ng-click="location($event, service, {'profileId':service.userId})"
      class="by_serviceCard" data-index="discussion-articles"
      ng-if="service.systemTags.length > 0" ng-init="service.showMoreServices=false;">
     <div class="serviceFeatured" ng-if="service.featured == true"></div>
@@ -77,14 +77,14 @@
 				<span ng-if="service.serviceProviderInfo.services.length > 0">Service in</span>
 				<span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index < 3">
 					<a class="ng-binding"
-					   di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+					   di-href="#!/directory/{{removeSpecialChars($root.menuCategoryMap[category].displayMenuName)}}/{{$root.menuCategoryMap[category].id}}/all/">
 						{{$root.menuCategoryMap[category].displayMenuName}}
 					</a><span ng-if="$index < service.serviceProviderInfo.services.length - 1">,</span>
 				</span>
 
 				<span ng-repeat="category in service.serviceProviderInfo.services track by $index" ng-if="$index >= 3 && service.showMoreServices===true">
 					<a class="ng-binding"
-					   di-href="#!services/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">
+					   di-href="#!/directory/{{removeSpecialChars($root.menuCategoryMap[category].displayMenuName)}}/{{$root.menuCategoryMap[category].id}}/all/">
 						{{$root.menuCategoryMap[category].displayMenuName}}</a>
 					<span ng-if="$index < service.serviceProviderInfo.services.length - 1">,</span>
 				</span>
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 		<div class="clearfix"></div>
-		 <a ng-href="#!/profile/7/{{service.userId}}" class="divRight by_serviceCard_readmore">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
+		 <a ng-href="{{getHrefProfile(service, {'profileId':service.userId})}}" ng-click="$event.stopPropagation();" class="divRight by_serviceCard_readmore">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
 	</div>
 
 	<div class="clearfix"></div>

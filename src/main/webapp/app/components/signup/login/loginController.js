@@ -154,7 +154,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 ValidateUserCredential.loginCallback();
             } else
             {
-                $location.path("/users/home");
+                $location.path("/");
                 $scope.$apply();
             }
         };
@@ -323,7 +323,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 $(".by_resetPwd_btn").prop("disabled", true);
                 $http.post(apiPrefix + 'api/v1/users/resetPassword', resetPwdUser).success(function (res) {
                     console.log(res);
-                    $location.path("/users/home");
+                    $location.path("/");
                     $scope.setUserCredential(res.data);
                 }).error(function (errorRes) {
                     console.log(errorRes);

@@ -4,7 +4,7 @@
             <ul class="by_discussDeatil_cardList" >
                 <li>
                     By <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
-                          href="#!/profile/0/{{detailResponse.discuss.userId}}/{{detailResponse.discuss.username}}"> {{username}} </a>
+                          ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}"> {{username}} </a>
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
@@ -24,20 +24,22 @@
         
         <div style="clear: both; height:10px;" ng-if="detailResponse.discuss.promotion == true"></div>
 
-        <div class="by_discussDeatil_cardTitle col-md-12 margin-top-10" >
+        <h1 class="by_discussDeatil_cardTitle col-md-12 margin-top-10" >
             	{{detailResponse.discuss.title}}
-        </div>
+        </h1>
         <div style="clear: both"></div>
         <div class="by_discussDeatil_cardImage col-md-12  margin-top-10" ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
              <img  ng-src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}"
-                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' title="{{detailResponse.discuss.title}}">
+                  fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]' title="{{detailResponse.discuss.title}}" alt="{{detailResponse.discuss.title}}">
             <div style="clear: both"></div>
         </div>
 
         <div class="margin-top-10" ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
 
-        <div class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
+        <div ng-if="detailResponse.discuss.discussType == 'P'" class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
+         <h1 style="margin-top:-10px;" ng-if="detailResponse.discuss.discussType == 'Q'" class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
+        </h1>
         <div style="clear: both; height:8px;"></div>
         
         
@@ -128,15 +130,15 @@
 <!-- mobile bottom -->
 <div ng-controller="discussDetailLeftController" ng-if="$root.windowWidth < 720">
     <div class=" by_discussDeatil_card" style="padding:0px 15px;">
-        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"><img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+        <a validate-user-name="{{discuss.username}}"  ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
        ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
        fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;"></a>
 
-        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}"><img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
+        <a validate-user-name="{{discuss.username}}"  ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
        ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;"></a>
       
        <div class="by_discDetail_userName" ng-if="discuss">
-        <a validate-user-name="{{discuss.username}}"  href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
+        <a validate-user-name="{{discuss.username}}"  ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">
             <b>{{username}}</b>
         </a>
     </div>
@@ -144,12 +146,17 @@
         <div class="by_discDetail_alsoHead col-md-12"><b>{{header1}}<span>{{header2}}</span></b></div>
         <div style="clear:both;"></div>
         <div class="by_discDetail_alsoContent" ng-repeat="article in articlesByUser" ng-if="article.id!==discuss.id && !article.linkInfo">
-            <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:15px; font-weight:bold; text-transform:capitalize;" href="#!discuss/{{article.id}}" >
+            <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a style="font-size:15px; font-weight:bold; text-transform:capitalize;" ng-href="{{getHref(article, {'id':article.id})}}" >
                 {{article.title.toLowerCase()}}
             </a></div>
-            <a href="#!discuss/{{article.id}}">
-               <div ng-if="article.title===''" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div>
-           </a>
+            <a  ng-href="{{getHref(article, {'id':article.id})}}">
+             <div ng-if="article.title==='' && article.discussType == 'Q'" ng-bind-html="trustForcefully(article.text.substring(0, 70))" ></div> 
+         </a>
+          <a  ng-href="{{getHref(article, {'id':article.id})}}">
+             <div ng-if="article.title==='' && article.discussType == 'P' && article.linkInfo && article.linkInfo.title.trim().length > 0" >
+             	{{article.linkInfo.title.substring(0, 70)}}
+             </div> 
+         </a>
            <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" >
             <li ng-if="article.topicId.length > 0">
                 In
@@ -157,7 +164,7 @@
 
             <li ng-repeat="topicId in article.topicId">
                 <span class="first-letter-uc by-systemTags">
-                    <a di-href="#!discuss/list/{{$root.menuCategoryMap[topicId].displayMenuName}}/{{$root.menuCategoryMap[topicId].id}}/all">
+                    <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
                         {{$root.menuCategoryMap[topicId].displayMenuName}}
                     </a>
                     <span ng-if="$index < article.topicId.length-1">,</span>

@@ -1,12 +1,13 @@
 define(['byApp',
     'discussLikeController',
     'shareController',
-    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid'], function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid) {
+    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid', 'discussService'],
+    function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid, discussService) {
 
     'use strict';
 
     function DiscussAllController($scope, $rootScope, $location ,$route, $routeParams,DiscussPage,
-                                  DiscussCount,$sce, $timeout, $window, broadCastMenuDetail) {
+                                  DiscussCount,$sce, $timeout, $window, DisServiceFilter) {
 
         $scope.discussionViews              = {};
         $scope.discussionViews.leftPanel    = "app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -28,6 +29,7 @@ define(['byApp',
         var showEditor                      = $routeParams.showEditor ? $routeParams.showEditor : null; //Needed for left side Q/A/P filters
         var editorType                      = $routeParams.editorType ? $routeParams.editorType : null; //Needed for left side Q/A/P filters
         var init                            = initialize();
+        $scope.removeSpecialChars           = BY.byUtil.removeSpecialChars;
 
         function initialize(){
             initDiscussListing();
@@ -155,9 +157,6 @@ define(['byApp',
             };
         }
 
-        $scope.fixedMenuInitialized = function(){
-            broadCastMenuDetail.setMenuId($scope.selectedMenu);
-        };
 
         function showEditorPage(event, type){
             if(event){
@@ -196,16 +195,6 @@ define(['byApp',
 
         }
 
-        //$scope.add = function (type) {
-        //    require(['editorController'], function(editorController){
-        //        BY.byEditor.removeEditor();
-        //        $scope.discussionViews.contentPanel = "app/shared/editor/" + type + "EditorPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-        //        window.scrollTo(0, 0);
-        //        $scope.$apply();
-        //    });
-        //
-        //};
-
         $scope.postSuccess = function () {
             $route.reload();
         };
@@ -218,27 +207,66 @@ define(['byApp',
             return $sce.trustAsResourceUrl(url);
         };
 
-        $scope.go = function($event, type, id, discussType){
+        $scope.go = function($event, discuss, urlQueryParams){
             $event.stopPropagation();
-            if(type === "detail"){
-                $location.path('/discuss/'+id);
-            } else if(type === "menu" && $rootScope.menuCategoryMap){
-                var menu = $rootScope.menuCategoryMap[id];
-                //$(".selected-dropdown").removeClass("selected-dropdown");
-                //$("#" + menu.id).parents(".dropdown").addClass("selected-dropdown");
-                if(menu.module===0){
-                    $location.path("/discuss/list/"+menu.displayMenuName+"/"+menu.id+"/all");
-                }else if(menu.module===1){
-                    $location.path("/services/list/"+menu.displayMenuName+"/"+menu.id+"/all/");
-                }else{
-                    //nothing as of now
+            var url = DisServiceFilter.getDiscussDetailUrl(discuss, urlQueryParams, true);
+            $location.path(url);
+        };
+        
+        $scope.getHref = function(discuss, urlQueryParams){
+        	var newHref = DisServiceFilter.getDiscussDetailUrl(discuss, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        
+        
+        $scope.getHrefProfile = function(profile, urlQueryParams){
+        	var newHref = getProfileDetailUrl(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
+        	var proTitle = "others";
+        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        		 proTitle = profile.userProfile.basicProfileInfo.firstName;
+        		 if(profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
+        			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
+        		 }
+        	 } else if(profile.username && profile.username.length > 0){
+        		 proTitle = BY.byUtil.validateUserName(profile.username);
+        	 }else{
+        		 proTitle = "others";
+        	 }
+
+        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
                 }
-            }else if(type === "accordian"){
-                $($event.target).find('a').click();
-            }else if(type === "comment") {
-                $location.path('/discuss/' + id).search({comment: true});
             }
-        }
+
+            return newHref;
+        };
 
 
 
@@ -251,7 +279,8 @@ define(['byApp',
 
 
     DiscussAllController.$inject = ['$scope', '$rootScope', '$location','$route', '$routeParams',
-        'DiscussPage', 'DiscussCount','$sce','$timeout', '$window','broadCastMenuDetail'];
+        'DiscussPage', 'DiscussCount','$sce','$timeout', '$window', 'DisServiceFilter'];
+
     byApp.registerController('DiscussAllController', DiscussAllController);
     return DiscussAllController;
 

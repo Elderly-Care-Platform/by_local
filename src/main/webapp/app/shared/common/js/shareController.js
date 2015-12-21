@@ -18,7 +18,7 @@ define(["byApp"], function(byApp) {
 
                 FB.ui({
                     method: 'feed',
-                    link: window.location.origin + "/#!/discuss/"+sharedObj.id+"?v="+Math.random(),
+                    link: window.location.origin + "/#!/community/"+sharedObj.id+"?v="+Math.random(),
                     picture: picture,
                     caption: "Beautiful Years",
                     description: description,

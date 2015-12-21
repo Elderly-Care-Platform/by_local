@@ -1,7 +1,8 @@
 define(['byApp',
     'discussLikeController',
     'shareController',
-    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid'], function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid) {
+    'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid'],
+    function (byApp, discussLikeController, shareController, byEditor, menuConfig, blogMasonary, jqueryMasonaryGrid) {
 
     'use strict';
 
@@ -9,7 +10,7 @@ define(['byApp',
                                  DiscussCount, $sce, $timeout) {
 
         window.scrollTo(0, 0);
-        $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
+        $scope.discussType = $routeParams.discussType ? $routeParams.discussType : "all"; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.selectedMenu;
         $scope.pageSize = 20;
         $scope.isGridInitialized = false;
@@ -33,7 +34,7 @@ define(['byApp',
             window.scrollTo(0, 0);
             //masonaryGridInit();
         };
-
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
         function updateMetaTags(){
             var metaTagParams = {
                 title: $scope.selectedMenu.displayMenuName,
@@ -47,6 +48,7 @@ define(['byApp',
         $scope.initDiscussListing = function () {
             if ($scope.selectedMenu) {
                 updateMetaTags();
+
                 queryParams.tags = BY.config.menu.reveiwsMenuConfig['service_review'].tag;
                 if ($scope.discussType && $scope.discussType.toLowerCase().trim() !== "all") {
                     queryParams.discussType = $routeParams.discussType;
@@ -105,9 +107,104 @@ define(['byApp',
             return $sce.trustAsResourceUrl(url);
         };
 
-        $scope.nextLocation = function(discussId){
-            $location.path("/discuss/"+ discussId);
-        }
+        $scope.nextLocation = function($event, discuss, queryParams){
+            $event.stopPropagation();
+            var url = getDiscussDetailUrl(discuss, queryParams, true);
+            $location.path(url);
+        };
+        
+        $scope.getHref = function(discuss, queryParams){
+        	var newHref = getDiscussDetailUrl(discuss, queryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getDiscussDetailUrl(discuss, queryParams, isAngularLocation){
+            var disTitle = "others";
+            if(discuss.title && discuss.title.trim().length > 0){
+                disTitle = discuss.title;
+            } else if(discuss.text && discuss.text.trim().length > 0){
+                disTitle = discuss.text;
+            } else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+                disTitle = discuss.linkInfo.title;
+            } else{
+                disTitle = "others";
+            }
+
+            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            var newHref = "/communities/"+disTitle;
+
+
+            if(queryParams && Object.keys(queryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(queryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+                    angular.forEach(queryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
+                }
+            }
+
+            return newHref;
+        };
+        
+        $scope.getHrefProfile = function(profile, urlQueryParams){
+        	var newHref = getProfileDetailUrl(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
+        	var proTitle = "others";
+        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        		 proTitle = profile.userProfile.basicProfileInfo.firstName;
+        		 if(profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
+        			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
+        		 }
+        	 } else if(profile.username && profile.username.length > 0){
+        		 proTitle = BY.byUtil.validateUserName(profile.username);
+        	 }else{
+        		 proTitle = "others";
+        	 }
+
+        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            var newHref = "/users/"+proTitle;
+
+
+            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+                //Set query params through angular location search method
+                if(isAngularLocation){
+                    angular.forEach($location.search(), function (value, key) {
+                        $location.search(key, null);
+                    });
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        $location.search(key, value);
+                    });
+                } else{ //Set query params manually
+                    newHref = newHref + "?"
+
+                    angular.forEach(urlQueryParams, function (value, key) {
+                        newHref = newHref + key + "=" + value + "&";
+                    });
+
+                    //remove the last  '&' symbol from the url, otherwise browser back does not work
+                    newHref = newHref.substr(0, newHref.length - 1);
+                }
+            }
+
+            return newHref;
+        };
+
     }
 
 

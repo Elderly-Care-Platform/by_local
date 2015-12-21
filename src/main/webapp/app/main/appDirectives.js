@@ -557,17 +557,40 @@ define(["byApp", "angular"], function (byApp, angular) {
     });
 
     byApp.directive('enterEvent', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.enterEvent);
-                });
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.$apply(function (){
+                        scope.$eval(attrs.enterEvent);
+                    });
 
-                event.preventDefault();
-            }
-        });
-    };
+                    event.preventDefault();
+                }
+            });
+        };
+    });
+
+    byApp.directive('ngElevateZoom', function() {
+      return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+
+      //Will watch for changes on the attribute
+      attrs.$observe('zoomImage',function(){
+        linkElevateZoom();
+    })
+
+      function linkElevateZoom(){
+        //Check if its not empty
+        if (!attrs.zoomImage) return;
+        element.attr('data-zoom-image',attrs.zoomImage);
+        $(element).elevateZoom();
+    }
+
+    linkElevateZoom();
+
+}
+};
 });
 
 

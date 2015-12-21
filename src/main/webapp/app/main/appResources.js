@@ -49,21 +49,21 @@ define(["byApp", "angular"], function (byApp, angular) {
         return data;
     });
 
-    var broadCastMenuDetail = byServices.factory('broadCastMenuDetail', function ($rootScope) {
-        var menuDetails = {};
-        menuDetails.selectedMenu = null;
-
-        menuDetails.setMenuId = function (item) {
-            menuDetails.selectedMenu = item;
-            this.broadcastNewData();
-        };
-
-        menuDetails.broadcastNewData = function () {
-            $rootScope.$broadcast('handleBroadcastMenu');
-        }
-
-        return menuDetails;
-    });
+    //var broadCastMenuDetail = byServices.factory('broadCastMenuDetail', function ($rootScope) {
+    //    var menuDetails = {};
+    //    menuDetails.selectedMenu = null;
+    //
+    //    menuDetails.setMenuId = function (item) {
+    //        menuDetails.selectedMenu = item;
+    //        this.broadcastNewData();
+    //    };
+    //
+    //    menuDetails.broadcastNewData = function () {
+    //        $rootScope.$broadcast('handleBroadcastMenu');
+    //    }
+    //
+    //    return menuDetails;
+    //});
 
 
     var validateUserCredential = byServices.factory('ValidateUserCredential', function ($rootScope) {

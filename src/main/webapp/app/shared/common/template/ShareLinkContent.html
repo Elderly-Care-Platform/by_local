@@ -10,15 +10,15 @@
             <p class="linkUrl"><a href="{{linkInfo.url}}" target="_blank" ng-click="$event.stopPropagation();"> {{linkInfo.domainName}} </a></p>
         </div>
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-generalImage" ng-if="linkInfo.mainImage">
-            <img ng-src="{{linkInfo.mainImage}}">
+            <img ng-src="{{linkInfo.mainImage}}" alt="{{linkInfo.title}}">
         </div>
 
         <div class="col-md-6 shareInfo-generalImage col-sm-12 col-xs-12" ng-if="linkInfo.mainImage===null && linkInfo.otherImages && linkInfo.otherImages.length > 0">
-            <img ng-src="{{linkInfo.otherImages[0]}}">
+            <img ng-src="{{linkInfo.otherImages[0]}}" alt="{{linkInfo.title}}">
         </div>
     </div>
     <div class="row shareInfo-image" ng-if="linkInfo.type===1">
-        <img ng-src="{{linkInfo.mainImage}}">
+        <img ng-src="{{linkInfo.mainImage}}" alt="{{linkInfo.title}}">
     </div>
     <div class="row shareInfo-image" ng-if="linkInfo.type===2">
         <div class="col-md-6 col-sm-12 col-xs-12 shareInfo-content">

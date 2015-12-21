@@ -1,4 +1,4 @@
-<div ng-click="go($event, 'detail', discuss.id, discuss.discussType)" class="by-discuss-card by_blog_author" ng-if="discuss">
+<div ng-click="go($event, discuss, {'id':discuss.id})" class="by-discuss-card by_blog_author" ng-if="discuss">
     <div class="questionTag" ng-if="discuss.discussType == 'Q' && discuss.featured == true"></div>
     <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
     <img class="by_discuss_img" ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage"
@@ -14,7 +14,7 @@
                 <p>
                     By <a validate-user-name="{{discuss.username}}"
                           class="text-capitalize"
-                          href="#!/profile/0/{{discuss.userId}}/{{discuss.username}}">
+                          ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}" ng-click="$event.stopPropagation();">
                     {{username}}</a> |
                 </p>
             </li>
@@ -25,8 +25,7 @@
 
             <li ng-repeat="topicId in discuss.topicId">
                 <p class="first-letter-uc by-systemTags">
-                    <span ng-if="$index > 0">|</span> <a
-                        ng-click="go($event,'menu', topicId)">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
+                    <span ng-if="$index > 0">|</span><a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
                 </p>
             </li>
         </ul>
@@ -63,7 +62,7 @@
 
     <div class="by_discuss_desc  col-md-12" ng-if="discuss.promotion == false" id="{{discuss.id}}">
         <p class="by_discuss_desciption" ng-if="discuss.shortSynopsis">
-            {{discuss.shortSynopsis}}<a class="divRight by_readmore">Read
+            {{discuss.shortSynopsis}}<a ng-href="{{getHref(discuss, {'id':discuss.id})}}" ng-click="$event.stopPropagation();" class="divRight by_readmore">Read
             More <b style="font-size: 10px;">&#9002;</b></a>
         </p>
 
@@ -73,24 +72,10 @@
 
     <div class="article-share-links news-v3 by_border" ng-if="discuss.promotion == false">
         <ul class="post-shares post-shares-lg">
-            <li class="add-comment"
-                ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
-                <a> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span>{{discuss.aggrReplyCount}}</span>
-                    <div class="text">Comment</div>
-                </a>
-            </li>
-
-            <li class="add-comment add-comment-FC" ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                <a> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <div class="text" ng-click="go($event,'comment', discuss.id)">
-                        Be the first to comment
-                    </div>
-                </a>
-            </li>
+            
             <li class="add-comment"
                 ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
-                <a> <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
                     <span>{{discuss.directReplyCount}}</span>
                     <div class="text">Answer</div>
                 </a>
@@ -98,9 +83,9 @@
 
             <li class="add-comment add-comment-FA"
                 ng-if="discuss.directReplyCount == 0 && discuss.discussType == 'Q'">
-                <a> <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
 
-                    <div class="text" ng-click="go($event,'comment', discuss.id)">
+                    <div class="text" >
                         Be the first to answer
                     </div>
                 </a>

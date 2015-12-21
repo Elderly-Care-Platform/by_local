@@ -1,6 +1,6 @@
 <div ng-repeat="article in promo" ng-if="promo.length > 0"  data-index="discussion-articles" data-link="articles.html" ng-if="article">
     <!-- show if discuss is of type Article -->
-    <a href="#!/discuss/{{article.id}}">
+    <a href="#!/community/{{article.id}}">
     <div class="blog-author margin-bottom-35 main-article by_blog_author" style="position:relative; max-width:100%;" ng-if="article.title || article.articlePhotoFilename.titleImage">
 
         <div class="article  col-md-12" ng-if="article.discussType == 'P' && article.title" style="margin-top:15px;" >

@@ -1,13 +1,13 @@
 <div class="by_header by_header_image">
     <div class="by_logo  divLeft">
-        <a di-href="#!/users/home?type=home">
+        <a di-href="#!/">
             <img src="assets/img/home/logo.png?versionTimeStamp=%PROJECT_VERSION%" alt="Logo" width="100%">
         </a>
     </div>
 
     <div class="by_header_right_other divRight" ng-if="$root.windowWidth > 720" style="width:272px;">
     <div style="margin-left:-111px; text-align:right;">
-            <a di-href="#!/users/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
+            <a di-href="#!/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
             
            <span ng-if="profileDetails.text">
                 <a ng-href="{{profileDetails.link}}" class="menuPipeline" id="profile_placeholder" style="color:#fff;">
@@ -40,7 +40,7 @@
     </div>
     <div class="clearfix"></div>
     <div class="by_menu">
-        <a  href="{{moduleConfig[menu.module].baseUrl}}/{{menu.displayMenuName}}/{{menu.id}}/all" ng-repeat="menu in $root.mainMenu" ng-class="{'by_menu_Active': menu.id == $root.byTopMenuId }">{{menu.displayMenuName}}</a>
+        <a  href="{{moduleConfig[menu.module].baseUrl}}/{{menu.id}}/{{moduleConfig[menu.module].defaultType}}" ng-repeat="menu in $root.mainMenu" ng-class="{'by_menu_Active': menu.id == $root.byTopMenuId }">{{menu.displayMenuName}}</a>
     </div>
     <div class="clearfix"></div>
 </div>

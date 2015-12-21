@@ -5,8 +5,9 @@
     <img ng-if="!reply.userProfile || !reply.userProfile.basicProfileInfo.profileImage" ng-src="assets/img/by.png" alt="image" class="replyCardImg" >
     <div class="replyCard_right">
         <ul class="replyCard_list" >
-            <li ng-if="reply">By <a validate-user-name="{{reply.userName}}" 
-                                    href="#!/profile/0/{{reply.userId}}/{{username}}">
+            <li ng-if="reply">By <a validate-user-name="{{reply.userName}}"                                    
+ng-href="{{getHrefProfileReply(reply, {'profileId':reply.userId})}}"
+ng-click="$event.stopPropagation();">
                 {{username}} </a> &nbsp; |
             </li>
             <li time-since="{{reply.createdAt}}" ></li>

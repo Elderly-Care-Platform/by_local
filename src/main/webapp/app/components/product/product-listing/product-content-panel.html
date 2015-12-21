@@ -18,11 +18,12 @@
 <div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
     <div ng-repeat="product in products">
 
-        <div class="by_productCard col-md-6"
-             ng-click="openProductDescription(product.id, product.name)">
-            <div class="by_productCard_Image">
+        <div class="by_productCard col-md-6">
+        <!-- ng-click="openProductDescription(product.id, product.name)"-->
+             <a href="{{productUrl(product.id, product.name)}}" ng-click="$event.stopPropagation();">
+            <div class="by_productCard_Image">            
                 <img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
-                     fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
+                fallback-src='["assets/img/by.png"]' alt="{{product.name}}">               
             </div>
             <!--<div class="by_productCard_divider"></div>-->
             <div class="by_productCard_title ellipsisHead margin-top-20">{{product.name}}</div>
@@ -48,7 +49,7 @@
               ng-bind-html="trustForcefully(product.longDescription.substring(0, 120))"></span>
                 <span class="by_productCard_descEllipse" ng-if="product.longDescription.length > 120">...</span>
             </div>-->
-
+             </a>
         </div>
     </div>
 </div>

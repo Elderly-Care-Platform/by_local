@@ -37,7 +37,7 @@
 					</div>
 					<div class="divRight">
 						<span ng-repeat="category in housing.categoriesId"> <a
-							di-href="#!housing/list/{{$root.menuCategoryMap[category].displayMenuName}}/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span
+							di-href="#!/senior-living/{{$root.menuCategoryMap[category].id}}/all/">{{$root.menuCategoryMap[category].displayMenuName}}</a><span
 							ng-if="$index<housing.categoriesId.length - 1">,</span>
 						</span>
 					</div><div class="clearfix"></div>
@@ -76,7 +76,9 @@
 				
 				
 			</div><div class="clearfix"></div>
-			<a class="divRight by_housingCard_readmore" ng-href="#!/housingProfile/3/{{housing.userId}}/{{housing.id}}">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
+			<a class="divRight by_housingCard_readmore" 
+			ng-href="{{getHrefProfile(housing, {'profileId':housing.userId, 'housingFacilityId':housing.id})}}" 
+			ng-click="$event.stopPropagation();">Details<i class="fa fa-angle-right" style="font-size: 16px; margin-top: -3px;     margin-left: 3px;"></i></a>
 			<div class="clearfix"></div>
      </div>
      <div class="clearfix"></div>

@@ -9,6 +9,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             "text": "",
             "link": ""
         }
+        
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
         $scope.telNo = BY.config.constants.byContactNumber;
 
@@ -89,7 +91,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     if (sess != '' && sess != null) {
                         setValidSession({'sessionId':sess});
                         if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
-                            window.location = apiPrefix + "#!/users/home?type=home";
+                            window.location = apiPrefix + "#!/";
                         }
                     }
 
@@ -167,17 +169,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             }
         };
 
-        $scope.animateCounter = function (count, target) {
-            $({someValue: 0}).animate({someValue: count}, {
-                duration: cntAnimDuration,
-                easing: 'swing',
-                step: function () {
-                    target.text(Math.round(this.someValue));
-                }
-            });
-        };
-
-        $scope.homeSection = BY.config.menu.home;        
+        $scope.homeSection = BY.config.menu.home;
         $scope.moduleConfig= BY.config.menu.moduleConfig;
     }
 

@@ -1,5 +1,5 @@
 define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
-    function EditorController($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, broadCastMenuDetail, $location, $route, $routeParams){
+    function EditorController($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, $location, $route, $routeParams){
         $scope.editor                           = {};
         $scope.errorMsg                         = "";
         $scope.editor.subject                   = "";
@@ -259,7 +259,7 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         }
 
     }
-    EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http','broadCastMenuDetail','$location', '$route', '$routeParams'];
+    EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http', '$location', '$route', '$routeParams'];
     byApp.registerController('EditorController', EditorController);
 
     return EditorController;

@@ -15,6 +15,8 @@ define(['byApp', 'byUtil', 'homePromoController',
             $scope.moduleConfig = BY.config.menu.moduleConfig;
             $scope.menuMapConfig = $rootScope.menuCategoryMap;
             $scope.menuConfig = BY.config.menu;
+            
+            $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
             $scope.telNo = BY.config.constants.byContactNumber;
             var cntAnimDuration = 1000;
@@ -97,6 +99,13 @@ define(['byApp', 'byUtil', 'homePromoController',
                 $(this).find(".by_ourExpertThumbImg").addClass('by_ourExpertThumbImgActive');
                 $(this).addClass('by_ourExpertThumbColor');
                 $(".by_ourExpertTop2 .by_ourExpertDesc").eq(index).show();
+            });
+
+            $(".by_homeSectionInside").mouseleave(function(){
+                 $(".by_ourExpertDesc").hide();
+                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
+                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
+                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
             });
         }
 

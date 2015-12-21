@@ -3,7 +3,8 @@
 
     <div class="col-md-5" style="padding:0px;">
         <div class="main-image" style="text-align:center;">
-            <img style="float:none;" class="by_productMainImage" ng-src="{{uiData.primaryMedia.url}}" alt="{{uiData.name}}">
+            <img style="float:none;" class="by_productMainImage" alt="{{uiData.name}}" ng-elevate-zoom
+                 ng-src="{{uiData.primaryMedia.url}}" zoom-image="{{uiData.primaryMedia.url}}">
             <div class="clearfix"></div>
         </div>
         <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px; border:0px;">
@@ -284,7 +285,8 @@
     </div>
 
     <div class="col-md-12 no-padding" ng-repeat="product in uiData.similarProduct">
-        <div ng-click="openProductDescription(product.id, product.name)">
+        <div>        
+            <a href="{{productUrl(product.id, product.name)}}" ng-click="$event.stopPropagation();">
             <div class="by_productDetail_leftSimilarThumb">
                 <div class="by_productDetail_leftSimilarThumbImage">
                     <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
@@ -305,6 +307,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+            </a>
         </div>
     </div>
 </div>

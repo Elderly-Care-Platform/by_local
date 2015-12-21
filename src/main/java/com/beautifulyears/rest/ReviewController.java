@@ -117,7 +117,8 @@ public class ReviewController {
 			User user = Util.getSessionUser(req);
 
 			DiscussReply newReview = reviewRate;
-			if (null != user) {
+			if (null != user && SessionController
+					.checkCurrentSessionFor(req, "RATE_REVIEW")) {
 				if (null != contentType && null != associatedId
 						&& null != newReview) {
 					if (isSelfAccessment(associatedId, contentType, user)) {

@@ -111,7 +111,8 @@ public class DiscussDetailController {
 						.getDiscussType()));
 				comment.setReplyType(DiscussConstants.REPLY_TYPE_COMMENT);
 				User user = Util.getSessionUser(req);
-				if (null != user) {
+				if (null != user && SessionController
+						.checkCurrentSessionFor(req, "COMMENT")) {
 					comment.setUserId(user.getId());
 					comment.setUserName(user.getUserName());
 					Query query = new Query();
@@ -194,7 +195,8 @@ public class DiscussDetailController {
 						.getDiscussType()));
 				answer.setParentReplyId(null);
 				User user = Util.getSessionUser(req);
-				if (null != user) {
+				if (null != user && SessionController
+						.checkCurrentSessionFor(req, "ANSWER")) {
 					answer.setUserId(user.getId());
 					answer.setUserName(user.getUserName());
 					Query query = new Query();

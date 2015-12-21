@@ -28,6 +28,9 @@ public enum BYErrorCodes {
 	USER_EMAIL_DOES_NOT_EXIST(3006,"User's emailId is not registered"),
 	USER_CODE_EXPIRED(3007,"Validation code has been expired, please generate a new one"),
 	USER_CODE_DOES_NOT_EXIST(3008,"Validation code entered is invalid. Please enter a valid code."),
+	USER_LOGIN_REQUIRE_SOCIAL_SIGNIN(3009,"User is required to login using social sign in."),
+	USER_PROFILE_INCOMPLETE(3010,"User is required to create full profile for this operation."),
+	USER_FULL_LOGIN_REQUIRED(3011,"User is required to login with his password or social sign in for this operation."),
 	
 	//review rate
 	REVIEW_TYPE_INVALID(4001,"Invalid review type"),

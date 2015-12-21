@@ -26,6 +26,7 @@ import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussRepository;
+import com.beautifulyears.rest.SessionController;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
 import com.beautifulyears.util.LoggerUtil;
@@ -67,7 +68,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 
 			if (null == user) {
 				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
-			} else {
+			} else if (SessionController.checkCurrentSessionFor(req, "LIKE")) {
 
 				discuss = (Discuss) discussRepository.findOne(id);
 				if (discuss != null) {

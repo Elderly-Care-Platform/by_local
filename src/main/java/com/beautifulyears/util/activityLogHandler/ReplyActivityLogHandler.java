@@ -61,9 +61,9 @@ public class ReplyActivityLogHandler extends ActivityLogHandler<DiscussReply> {
 		log.setTitleToDisplay(getReplyTitle(reply));
 		if (null != currentUser) {
 			log.setUserId(currentUser.getId());
-			if(currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL){
+			if(currentUser.getUserIdType() == BYConstants.USER_ID_TYPE_EMAIL){
 				log.setCurrentUserEmailId(currentUser.getEmail());
-			}else if(currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE){
+			}else if(currentUser.getUserIdType() == BYConstants.USER_ID_TYPE_PHONE){
 				log.setCurrentUserEmailId(currentUser.getPhoneNumber());
 			}
 		}

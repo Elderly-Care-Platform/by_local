@@ -122,7 +122,8 @@ public class DiscussController {
 			throws Exception {
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
-		if (null != currentUser) {
+		if (null != currentUser
+				&& SessionController.checkCurrentSessionFor(request, "POST")) {
 			if (discuss != null && (Util.isEmpty(discuss.getId()))) {
 
 				discuss.setUserId(currentUser.getId());

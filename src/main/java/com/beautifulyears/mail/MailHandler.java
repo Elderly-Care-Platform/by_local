@@ -15,13 +15,9 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 
-import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.domain.User;
-import com.beautifulyears.exceptions.BYErrorCodes;
-import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.rest.UserController;
-import com.beautifulyears.util.Util;
 
 /**
  * @author Nitin
@@ -80,18 +76,18 @@ public class MailHandler {
 	}
 
 	public static void sendMail(String to, String subject, String body) {
-		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
+//		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
 			new Thread(new MailDispatcher(to, subject, body)).start();
-		}else{
-			logger.debug("not sending mail as it is disabled in context config");
-			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
-		}
+//		}else{
+//			logger.debug("not sending mail as it is disabled in context config");
+//			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+//		}
 		
 	}
 	
 	public static void sendMailToUserId(String userId, String subject, String body) {
 		User  user = UserController.getUser(userId);
-		if(null != user && user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL){
+		if(null != user && user.getUserIdType() == BYConstants.USER_ID_TYPE_EMAIL){
 			sendMail(user.getEmail(), subject, body);
 		}
 		

@@ -313,6 +313,15 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 }
             }
 
+            $scope.productUrl = function(productId, productName){
+                if(productId) {
+                    var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
+                    prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
+                    newHref = '#!/' + prodName + '/pd/' + productId;
+                    return  newHref;
+                }
+            }
+
 
             $scope.term = $rootScope.term;
 

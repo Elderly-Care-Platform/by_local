@@ -59,87 +59,74 @@ public class ShareController {
 				"mailTemplate.properties");
 		User currentUser = Util.getSessionUser(request);
 		String senderName = null;
-		String profileImage = null;	
+		String senderLink = "";
+		String authorLink = "";
+		String path = System.getProperty("path");
+		String profileImage = "http://beautifulyears.com/assets/img/by.png";	
 		String title = null;
-		String storyImage = null;
-		String borderStart = null;
-		String borderEnd = null;
+		String storyImage = "";
+		String borderStart = "";
+		String borderEnd = "";
 		String description = null;
 		
 		try {
 			
 			Discuss discuss = discussRepository.findOne(discussId);
 			
-			if(null == emailParams.getSenderName()){
-				senderName = currentUser.getUserName();
-			}else{
-				senderName = emailParams.getSenderName();
-			}
-			
-			String shareMessage = emailParams.getSubject();
-			
-			if(null != discuss.getUserProfile()){
-				if(null == discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original")){
-					profileImage = "http://beautifulyears.com/" + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("thumbnailImage");
-				}else{
-					profileImage = "http://beautifulyears.com/" + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original");
-				}
-			}else{
-				profileImage = "http://beautifulyears.com/assets/img/by.png";
-			}
-			
+			String shareMessage = emailParams.getSubject();	
 			String userName = discuss.getUsername();
 			
 			Date dateStart = discuss.getCreatedAt();
 			Date dateToday = new Date(); 
-			
 			long diff = dateToday.getTime()-dateStart.getTime();
 			long dateDiff = diff / (24 * 60 * 60 * 1000)+1;
 			
-			if(null == discuss.getLinkInfo()){
-				title = discuss.getTitle();
+			/**
+			 * For testing purpose
+			 */
+			if(path == "http://localhost:8080/ROOT" || path.equals("http://localhost:8080/ROOT")){
+				path = "http://beautifulyears.com";
+			} 
+			
+			if(null != currentUser){
+				senderName = currentUser.getUserName();
+				senderLink = path + "/#!/profile/0/" +  currentUser.getId() + "/" + currentUser.getUserName();
 			}else{
-				title = discuss.getLinkInfo().getTitle();
+				senderName = emailParams.getSenderName();
 			}
 			
-			
-			if(null != discuss.getLinkInfo()){
-				storyImage = discuss.getLinkInfo().getMainImage();
-			}else{
-				if(null != discuss.getArticlePhotoFilename()){
-					storyImage = "http://beautifulyears.com" + discuss.getArticlePhotoFilename();
+			if(null != discuss.getUserProfile()){
+				if(null == discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original")){
+					profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("thumbnailImage");
 				}else{
-					storyImage = "";
+					profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original");
 				}
+			}
+			
+			if(null == discuss.getLinkInfo()){
+				title = discuss.getTitle();
+				if(null != discuss.getArticlePhotoFilename()){
+					storyImage = path + discuss.getArticlePhotoFilename();
+				}
+				description = discuss.getShortSynopsis();
+			}else{
+				title = discuss.getLinkInfo().getTitle();
+				storyImage = discuss.getLinkInfo().getMainImage();
+				description = discuss.getLinkInfo().getDescription();
 			}
 			
 			if(storyImage != ""){
 				borderStart = "<img style='border: 0;display: block;max-width: 100%; height:auto; border:5px solid #F1F1F1' src='";
 				borderEnd = "' alt='' width='470'/>";
-			}else{
-				borderStart = "";
-				borderEnd = "";
 			}
 			
-			if(null == discuss.getLinkInfo()){
-				description = discuss.getShortSynopsis();
-			}else{
-				description = discuss.getLinkInfo().getDescription();
-			}
-			
-			String id = String.valueOf(discussId);
-			
-			String userId = discuss.getUserId();
-			String firstName = discuss.getUsername();
-			
-			String currentUserId = currentUser.getId();
-		    String currentUserFirstName  = currentUser.getUserName();
+			authorLink = path + "/#!/profile/0/" +  discuss.getUserId() + "/" + discuss.getUsername();	
 			
 			emailInfo.setEmailIds(emailParams.getEmailIds());
 			emailInfo.setSubject(title);
 			emailInfo.setBody(MessageFormat.format(
 					resourceUtil.getResource("shareInEmail"),
-					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, id, userId, firstName, currentUserId, currentUserFirstName));
+					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, discussId, authorLink, senderLink));
 			
 			shareInMail(emailInfo);
 			

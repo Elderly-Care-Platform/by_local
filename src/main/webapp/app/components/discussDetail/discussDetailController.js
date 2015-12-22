@@ -86,7 +86,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
                 disTitle = "others";
             }
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            disTitle = BY.byUtil.getSlug(disTitle);
             var newHref = "/communities/"+disTitle;
 
 
@@ -121,18 +121,18 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
 
         function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
         	var proTitle = "others";
-        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        	 if(profile && profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
         		 proTitle = profile.userProfile.basicProfileInfo.firstName;
         		 if(profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null  && profile.userProfile.individualInfo.lastName.length > 0){
         			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
         		 }
-        	 } else if(profile.username && profile.username.length > 0){
+        	 } else if(profile && profile.username && profile.username.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 
@@ -168,13 +168,13 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
 
         function getProfileDetailUrlReply(profile, urlQueryParams, isAngularLocation){
             var proTitle = "others";
-             if(profile.userName && profile.userName.length > 0){
-                 proTitle = BY.byUtil.validateUserName(profile.username);
+             if(profile && profile.userName && profile.userName.length > 0){
+                 proTitle = BY.byUtil.validateUserName(profile.userName);
              }else{
                  proTitle = "others";
              }
 
-            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

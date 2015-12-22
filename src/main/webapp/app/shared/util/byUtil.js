@@ -138,22 +138,26 @@ BY.byUtil.validateUserName = function (userName) {
 }
 
 BY.byUtil.removeSpecialChars = function (name) {
-    var modifiedName = name.replace(/[^a-zA-Z0-9 ]/g, ""),
+    if(name){
+        var modifiedName = name.replace(/[^a-zA-Z0-9 ]/g, ""),
         modifiedName = modifiedName.replace(/\s+/g, '-').toLowerCase();
-    return modifiedName;
+        return modifiedName;
+    }
 }
 
-BY.byUtil.getCommunitySlug = function (name) {
-    var slug;
-    var slugDiv = document.createElement('div');
-    slugDiv.innerHTML = name;
-    slug = slugDiv.innerText;
-    var slugIndex = slug.indexOf(" ", 100);
-    if (slugIndex > 1) {
-        slug = slug.substr(0, slugIndex);
+BY.byUtil.getSlug = function (name) {
+    if(name){
+        var slug;
+        var slugDiv = document.createElement('div');
+        slugDiv.innerHTML = name;
+        slug = slugDiv.textContent;
+        var slugIndex = slug.indexOf(" ", 100);
+        if (slugIndex > 1) {
+            slug = slug.substr(0, slugIndex);
+        }
+        slug = BY.byUtil.removeSpecialChars(slug);
+        return slug;
     }
-    slug = BY.byUtil.removeSpecialChars(slug);
-    return slug;
 }
 
 

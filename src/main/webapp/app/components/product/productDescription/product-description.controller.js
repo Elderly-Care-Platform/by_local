@@ -19,8 +19,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                                           TEMPLATE_URL,
                                           Utility, LogisticService) {
 
-        $log.debug('Inside ProductDescriptionController');
-
+        
         // Variables
         var customerId = null;
         if (localStorage.getItem("by_cust_id")) {
@@ -150,7 +149,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                         params.image = mediaItem.url;
                         CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
                         function loadImageSuccess() {
-                            $log.debug('success in getting image');
+                            //$log.debug('success in getting image');
                             mediaItem.url = SERVERURL_IMAGE.hostUrl + mediaItem.url;
                             Utility.checkMediaType(mediaItem);
                         }

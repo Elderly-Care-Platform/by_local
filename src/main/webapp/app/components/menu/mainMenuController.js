@@ -80,7 +80,6 @@ define([], function() {
             editCategoryOptions(prod_categories.category, [$rootScope.menuCategoryMapByName["Shop"].id]);
             angular.forEach($scope.mainMenu, function(menu, index){
                 if(menu.module==3){
-                    console.log(menu.displayMenuName);
                     menu.children = menu.children.concat(prod_categories.category);
                 }
             })
@@ -95,7 +94,6 @@ define([], function() {
 
         //callback from window resize directive
         $scope.windowResize = function(height, width){
-            console.log(width);
             var browserScrollBarWidth = 8; //Specified in psc.css, webkit-scrollbar width 8 px
             $rootScope.windowWidth = width;
         };

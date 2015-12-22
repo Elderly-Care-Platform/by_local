@@ -138,7 +138,7 @@ define(['byApp',
                 disTitle = "others";
             }
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            disTitle = BY.byUtil.getSlug(disTitle);
             var newHref = "/communities/"+disTitle;
 
 
@@ -179,13 +179,13 @@ define(['byApp',
         			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
         		 }
         	 } else */
-        	if(profile.username && profile.username.length > 0){
+        	if(profile && profile.username && profile.username.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

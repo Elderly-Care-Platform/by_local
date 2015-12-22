@@ -13,6 +13,10 @@
     word-break: break-word;
     background:#fff;
 }
+.by-discuss-card a
+{
+    color: #000;
+}
 .by_discuss_img
 {
 	margin-top: 15px;
@@ -74,6 +78,10 @@
 .by_discuss_desciption img
 {
 	max-width:100%;
+}
+.by_discuss_desciption a
+{
+    color: #004f24 !important;
 }
 .by_border
 {

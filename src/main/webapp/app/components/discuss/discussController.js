@@ -146,7 +146,6 @@ define(['byApp',
                             initScroll();
                         },
                         function (error) {
-                            console.log("DiscussAllForDiscussType");
                             $("#preloader").hide();
                             console.log(error);
                         });
@@ -229,18 +228,18 @@ define(['byApp',
 
         function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
         	var proTitle = "others";
-        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        	 if(profile && profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
         		 proTitle = profile.userProfile.basicProfileInfo.firstName;
         		 if(profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
         			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
         		 }
-        	 } else if(profile.username && profile.username.length > 0){
+        	 } else if(profile && profile.username && profile.username.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

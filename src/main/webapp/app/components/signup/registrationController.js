@@ -230,7 +230,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
              proTitle = "others";
          }
 
-         proTitle = BY.byUtil.getCommunitySlug(proTitle);
+         proTitle = BY.byUtil.getSlug(proTitle);
          var newHref = "/users/"+proTitle;
 
 
@@ -272,7 +272,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
                    proTitle = "others";
                }
 
-               proTitle = BY.byUtil.getCommunitySlug(proTitle);
+               proTitle = BY.byUtil.getSlug(proTitle);
                var newHref = "/users/"+proTitle;
 
 

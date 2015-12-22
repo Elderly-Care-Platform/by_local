@@ -40,15 +40,20 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             $scope.discussReply.text = tinymce.get(parentReplyId).getContent();
             $scope.discussReply.url = window.location.href;
 
-            if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
-                $scope.errorMsg = "Please enter valid Email Id";
-                $(".by_btn_submit").prop("disabled", false);
-            } else{
-                var promise = UserValidationFilter.loginUser($scope.userCredential.email);
-                promise.then(validUser, invalidUser);
+            if(!$scope.userSessionType){
+                if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
+                    $scope.errorMsg = "Please enter valid Email Id";
+                    $(".by_btn_submit").prop("disabled", false);
+                } else{
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(postHttpComment, invalidUser);
+                }
+            }else{
+                postHttpComment();
             }
 
-            function validUser(data){
+
+            function postHttpComment(data){
                 $scope.discussReply.$postComment(
                     function (discussReply) {
                         broadCastData.update(discussReply.data); //broadcast data for parent controller to update the view with latest comment/answer
@@ -79,16 +84,20 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             $scope.discussReply.text = tinymce.get(discussId).getContent();
             $scope.discussReply.url = window.location.href;
 
-
-            if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
-                $scope.errorMsg = "Please enter valid Email Id";
-                $(".by_btn_submit").prop("disabled", false);
-            } else{
-                var promise = UserValidationFilter.loginUser($scope.userCredential.email);
-                promise.then(validUser, invalidUser);
+            if(!$scope.userSessionType){
+                if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
+                    $scope.errorMsg = "Please enter valid Email Id";
+                    $(".by_btn_submit").prop("disabled", false);
+                } else{
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(postHttpAnswer, invalidUser);
+                }
+            }else{
+                postHttpAnswer()
             }
 
-            function validUser(data){
+
+            function postHttpAnswer(data){
                 console.log(data);
                 if (discussType === "Q") {
                     $scope.discussReply.$postAnswer(function (discussReply, headers) {

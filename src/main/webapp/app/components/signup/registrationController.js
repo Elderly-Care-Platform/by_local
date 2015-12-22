@@ -206,9 +206,14 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
             }
             BY.byUtil.updateMetaTags(metaTagParams);
 
-            if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
+            if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined || localStorage.getItem('SESSION_TYPE') != BY.config.sessionType.SESSION_TYPE_FULL) {
                 //$scope.views.leftPanel = "app/components/signup/login/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                $scope.views.loginPanel = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
+                if(localStorage.getItem('SESSION_TYPE') == BY.config.sessionType.SESSION_TYPE_PARTIAL){
+                    $scope.views.loginPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
+                }else{
+                    $scope.views.loginPanel = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
+                }
+
             } else{
                 $scope.getUserProfile();
             }

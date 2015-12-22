@@ -160,6 +160,14 @@ BY.byUtil.getSlug = function (name) {
     }
 }
 
+BY.byUtil.validateEmailId = function(emailId){
+    var validEmail = true, emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if(!emailValidation.test(emailId)){
+        validEmail = false;
+    }
+    return validEmail;
+}
+
 
 
 

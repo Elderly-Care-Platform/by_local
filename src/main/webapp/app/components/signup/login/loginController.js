@@ -202,7 +202,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 //     ************************   create new user start
         $scope.createNewUser = function(newUser) {  
         	if($scope.uniqueRegId && (!$scope.uniqueRegId.id || $scope.uniqueRegId.id ==="")){
-        		$scope.emailError = "Please enter valid Email Id or 10 digit mobile number";
+        		$scope.emailError = "Please enter a valid email-id";
         	} else{              	
             	var emailMobile = $scope.uniqueRegId.id;
             	var isMobile = !isNaN(parseFloat(emailMobile)) && isFinite(emailMobile); 

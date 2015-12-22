@@ -128,7 +128,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
                     $scope.itemAwbMap[data.field[$scope.prodEcomConfig.awb_number].value] = data.field;
                 })
 
-                console.log($scope.itemAwbMap);
+                //console.log($scope.itemAwbMap);
             }
 
             function logisticErrorRes(data){
@@ -166,7 +166,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
                 params.image = result.primaryMedia.url;
                 CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
                 function loadImageSuccess() {
-                    $log.debug('success in getting image');
+                    //$log.debug('success in getting image');
                     orderItem.imageUrl = SERVERURL_IMAGE.hostUrl + result.primaryMedia.url;
                 }
 

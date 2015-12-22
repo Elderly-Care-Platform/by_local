@@ -134,7 +134,7 @@ define([], function () {
             if (result.products) {
                 var products = result.products;
                 angular.forEach(products, function (product) {
-                    $log.debug(product.name);
+                    //$log.debug(product.name);
                     productList.push(product);
                 });
             }
@@ -162,7 +162,7 @@ define([], function () {
                 product.primaryMedia.url = STATIC_IMAGE.imageNotAvailable;
             }
             function loadImageSuccess() {
-                $log.debug('success in getting image');
+                //$log.debug('success in getting image');
                 product.primaryMedia.url = SERVERURL_IMAGE.hostUrl + image;
             }
 

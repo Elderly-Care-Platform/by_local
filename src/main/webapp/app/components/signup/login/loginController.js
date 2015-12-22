@@ -2,6 +2,15 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
     function LoginController($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
         window.scrollTo(0, 0);
 
+
+        $scope.byLoginPage = function(){
+            $scope.views.contentPanel1 = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
+        }
+        $scope.by_RegisterPage = function(){
+            $scope.views.contentPanel1 = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
+        }     
+
+
         $scope.user = {};
         $scope.user.email = '';
         $scope.user.password = '';

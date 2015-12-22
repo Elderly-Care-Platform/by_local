@@ -237,7 +237,7 @@
 	background:
 		url('../img/icons/or.png?versionTimeStamp=%PROJECT_VERSION%');
 	width: 42px;
-	height: 277px;
+	height: 221px;
 }
 
 .loginbar .pull-right {
@@ -283,13 +283,6 @@ ul.loginbar.pull-right {
 	}
 	.md-margin-bottom-40 {
 		margin-bottom: 0px;
-	}
-	.or-divider {
-		background:
-			url('../img/icons/or-v.png?versionTimeStamp=%PROJECT_VERSION%');
-		width: 42px;
-		height: 42px;
-		margin: 10px auto 10px auto;
 	}
 	.divider-login-new-register {
 		min-height: 42px;

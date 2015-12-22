@@ -116,7 +116,8 @@ require.config({
 		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl',
 
 
-		discussService : '../components/discuss/discussService'
+		discussService : '../components/discuss/discussService',
+		userValidation : '../main/services/userValidation'
 	},
 
 	shim : {

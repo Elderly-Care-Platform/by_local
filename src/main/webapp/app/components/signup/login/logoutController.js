@@ -1,12 +1,9 @@
-define(['byApp', 'byUtil'], function(byApp, byUtil) {
-    function LogoutController($rootScope, $scope,$location, $rootScope, $http, SessionIdService) {
-        $http.get(apiPrefix + "api/v1/users/logout");
-        localStorage.removeItem("by_cust_id");
-        $location.path("/users/login");
-        $rootScope.$broadcast('byUserLogout', '');
+define(['byApp', 'userValidation'], function(byApp, userValidation) {
+    function LogoutController(UserValidationFilter) {
+        UserValidationFilter.logoutUser();
     }
 
-    LogoutController.$inject = ['$rootScope', '$scope', '$location', '$rootScope' ,'$http','SessionIdService'];
+    LogoutController.$inject = ['UserValidationFilter'];
     byApp.registerController('LogoutController', LogoutController);
 
     return LogoutController;

@@ -1,5 +1,6 @@
-define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
-    function EditorController($scope, $rootScope, Discuss, ValidateUserCredential, $window, $http, $location, $route, $routeParams){
+define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil, byEditor, userValidation) {
+    function EditorController($scope, $rootScope, Discuss, UserValidationFilter,
+                              $http, $location, $route, $routeParams, UserValidationFilter){
         $scope.editor                           = {};
         $scope.errorMsg                         = "";
         $scope.editor.subject                   = "";
@@ -15,6 +16,8 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         var init                                = initialize();
         var systemTagList                       = {};
 
+        $scope.userCredential                   = {'email':'', 'pwd':''};
+        $scope.userSessionType                  = UserValidationFilter.getUserSessionType();
 
         function initialize(){
             //set accordion category list
@@ -99,14 +102,9 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         };
 
 
-        $scope.postContent = function (discussType) {
-            $(".by_btn_submit").prop("disabled", true);
-            $scope.discuss              = new Discuss();
-            $scope.discuss.discussType  = discussType;
-            $scope.discuss.text         = tinyMCE.activeEditor.getContent();
-            $scope.discuss.title        = $scope.editor.subject;
+        function moderateContent(){
             if($scope.editor.articlePhotoFilename){
-            	$scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
+                $scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
             } else{
                 if($("#articleTitleImage") && $("#articleTitleImage").val()){
                     $scope.discuss.articlePhotoFilename = JSON.parse($("#articleTitleImage").val());
@@ -118,7 +116,6 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                 selectParentHierArchy(menu);
             })
 
-
             if($scope.postCategoryTag){
                 $scope.discuss.systemTags = [$scope.postCategoryTag];
             }else{
@@ -128,6 +125,7 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             $scope.discuss.topicId = $.map($scope.selectedMenuList, function(value, key){
                 return value.id;
             });
+
             //putting the userId to discuss being created
             $scope.discuss.userId = localStorage.getItem("USER_ID");
             $scope.discuss.username = localStorage.getItem("USER_NAME");
@@ -138,15 +136,9 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             }else{
                 $scope.discuss.contentType = 0;
             }
-
-            $scope.setErrorMessage();
-
-            if($scope.errorMsg.trim().length === 0){
-                $scope.submitContent();
-            }
         };
 
-        $scope.setErrorMessage = function(){
+        function validateContent(){
             $(".by_btn_submit").prop("disabled", false);
 
             if($scope.discuss.topicId.length === 0 && $scope.discuss.discussType!=="F"){
@@ -166,9 +158,38 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             } else{
                 $scope.errorMsg = "";
             }
+
+            if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
+                $scope.errorMsg = "Please enter valid Email Id";
+            }
+        };
+
+
+        $scope.postContent = function (discussType) {
+            $(".by_btn_submit").prop("disabled", true);
+            $scope.discuss              = new Discuss();
+            $scope.discuss.discussType  = discussType;
+            $scope.discuss.text         = tinyMCE.activeEditor.getContent();
+            $scope.discuss.title        = $scope.editor.subject;
+
+            moderateContent();
+            validateContent();
+
+            if($scope.errorMsg.trim().length === 0){
+                var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                promise.then(validUser, invalidUser);
+            }
+        };
+
+        function validUser(data){
+            $scope.submitContent();
         }
 
-        
+        function invalidUser(data){
+            $(".by_btn_submit").prop("disabled", false);
+            console.log("content not submitted");
+        }
+
         $scope.submitContent = function(){
             $scope.errorMsg = "";
             $scope.discuss.$save(function (discuss, headers) {
@@ -181,10 +202,10 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             function (errorResponse) {
                 console.log(errorResponse);
                 $(".by_btn_submit").prop("disabled", false);
-                if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
-                    ValidateUserCredential.login();
-                    $scope.dataSubmissionPending = true;
-                } 
+                //if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                //    ValidateUserCredential.login();
+                //    $scope.dataSubmissionPending = true;
+                //}
             });
         };
 
@@ -192,8 +213,8 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
             if( $scope.dataSubmissionPending == true){
                 $scope.submitContent();
                 $scope.dataSubmissionPending = false;
-            }           
-            
+            }
+
         });
 
         $scope.resetEditorView = function(){
@@ -214,7 +235,7 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                     then(function(response) {
                     	$scope.linkImages = [];
                     	$scope.linkImagesIdx = 0;
-                    	
+
                         $scope.linkInfo = response.data.data;
                         if($scope.linkInfo.mainImage){
                         	$scope.linkImages.push($scope.linkInfo.mainImage);
@@ -225,7 +246,7 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                         if($scope.linkImages.length > 1){
                         	$scope.linkInfo.mainImage = $scope.linkImages[$scope.linkImagesIdx];
                         }
-                        
+
                         $scope.linkInfoLoading = false;
                         $scope.sharedLinkUrl = "";
                         $(".by_btn_submit").prop("disabled", false);
@@ -239,12 +260,12 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
                     });
             }
         }
-        
+
         $scope.selectPrevLinkImage = function(){
         	$scope.linkImagesIdx--;
         	$scope.linkInfo.mainImage = $scope.linkImages[$scope.linkImagesIdx];
         }
-        
+
         $scope.selectNextLinkImage = function(){
         	$scope.linkImagesIdx++;
         	$scope.linkInfo.mainImage = $scope.linkImages[$scope.linkImagesIdx];
@@ -259,7 +280,8 @@ define(['byApp', 'byUtil', 'byEditor'], function(byApp, byUtil, byEditor) {
         }
 
     }
-    EditorController.$inject = ['$scope', '$rootScope','Discuss','ValidateUserCredential', '$window', '$http', '$location', '$route', '$routeParams'];
+    EditorController.$inject = ['$scope', '$rootScope','Discuss', 'ValidateUserCredential',
+        '$http', '$location', '$route', '$routeParams', 'UserValidationFilter'];
     byApp.registerController('EditorController', EditorController);
 
     return EditorController;

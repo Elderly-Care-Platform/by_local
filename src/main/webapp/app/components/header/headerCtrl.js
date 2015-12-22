@@ -99,7 +99,6 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     inValidateSession();
                 })
             }
-
         }
 
         function setValidSession(params) {
@@ -113,26 +112,14 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
             $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
-
-            //$("#profile_placeholder").show();
-            
         }
 
         function inValidateSession() {
-            localStorage.setItem("SessionId", "");
-            localStorage.setItem("USER_ID", "");
-            localStorage.setItem("USER_NAME", "");
-
             $scope.profileDetails.text = "";
             $scope.profileDetails.link = "";
 
             $scope.loginDetails.text = "Join us";
             $scope.loginDetails.link = apiPrefix + "#!/users/login";
-            //$("#profile_placeholder").hide();
-            
-
-            $http.defaults.headers.common.sess = "";
-            SessionIdService.setSessionId("");
         }
 
         $scope.$on('byUserLogout', function (event, args) {
@@ -149,7 +136,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
 
         $scope.$on('currentLocation', function (event, args) {
-            if (args === '/' || args.indexOf('/users/home') > -1) {
+            if (args === '/') {
                 isHomePage = true;                
                 $("#ng-scope").css('min-height', "0px");
             } else {

@@ -229,6 +229,13 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
             $location.path(path);
         }
 
+        $scope.productUrl = function(productId, productName){
+            var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
+                prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
+                newHref = '#!/' + prodName + PAGE_URL.productDescription + "/" + productId;
+                return  newHref;
+        }
+
         /**
          * Refresh page
          */

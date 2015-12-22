@@ -164,11 +164,13 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
 
 
             var initSearch = function(){
+                $("#preloader").show();
                 if (disType == 'All') {
                     $scope.getDiscussData(0, $scope.pageSize);
                     $scope.getServicesData(0, $scope.pageSize);
                     $scope.getHousingData(0, $scope.pageSize);
                     $scope.getProductsData(0, $scope.pageSize);
+                    $("#preloader").hide();
                 }
             };
             initSearch();
@@ -214,7 +216,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     disTitle = "others";
                 }
 
-                disTitle = BY.byUtil.getCommunitySlug(disTitle);
+                disTitle = BY.byUtil.getSlug(disTitle);
                 var newHref = "/communities/"+disTitle;
 
 
@@ -257,9 +259,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
         function getProfileDetailUrlS(profile, urlQueryParams, isAngularLocation){
             var proTitle = "others";
             if(profile.basicProfileInfo){
-                if(profile && profile.basicProfileInfo.firstName.length > 0){
+                if(profile && profile.basicProfileInfo.firstName && profile.basicProfileInfo.firstName.length > 0){
                    proTitle = profile.basicProfileInfo.firstName;
-                   if(profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
+                   if(profile.individualInfo.lastName  && profile.individualInfo.lastName != null && profile.individualInfo.lastName.length > 0){
                        proTitle = proTitle + " " + profile.individualInfo.lastName;
                    }
                }else{
@@ -267,14 +269,14 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                }
             } 
             if(profile.name){
-                if(profile && profile.name.length > 0){
+                if(profile && profile.name && profile.name.length > 0){
                    proTitle = profile.name;
                }else{
                    proTitle = "others";
                }
             }
 
-            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 
@@ -310,6 +312,15 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                         path = '/' + prodName + '/pd/' + productId;
 
                     $location.path(path);
+                }
+            }
+
+            $scope.productUrl = function(productId, productName){
+                if(productId) {
+                    var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
+                    prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
+                    newHref = '#!/' + prodName + '/pd/' + productId;
+                    return  newHref;
                 }
             }
 

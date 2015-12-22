@@ -72,6 +72,7 @@ define(['byApp'], function (byApp) {
             localStorage.setItem("USER_NAME", "");
             localStorage.setItem("SESSION_TYPE", "");
             localStorage.removeItem("by_cust_id");
+            localStorage.removeItem('pendingReviewByUser');
         }
 
         function validateSession(){

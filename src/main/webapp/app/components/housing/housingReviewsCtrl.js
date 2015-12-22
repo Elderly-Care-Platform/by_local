@@ -9,7 +9,7 @@ define(['byApp',
                                  DiscussCount, $sce, $timeout) {
 
         window.scrollTo(0, 0);
-        $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
+        $scope.discussType = $routeParams.discussType ? $routeParams.discussType : 'all'; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.selectedMenu;
         $scope.pageSize = 20;
         $scope.isGridInitialized = false;
@@ -138,7 +138,7 @@ define(['byApp',
                 disTitle = "others";
             }
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            disTitle = BY.byUtil.getSlug(disTitle);
             var newHref = "/communities/"+disTitle;
 
 
@@ -179,13 +179,13 @@ define(['byApp',
         			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
         		 }
         	 } else */
-        	if(profile.username.length > 0){
+        	if(profile && profile.username && profile.username.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

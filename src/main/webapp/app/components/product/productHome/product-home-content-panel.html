@@ -53,8 +53,9 @@
 
     <div ng-repeat="product in products"  class="fpInline">
 
-      <div class="by_featuredProductCard col-md-6" ng-init="feWidth();"
-      ng-click="openProductDescription(product.id, product.name)">
+      <div class="by_featuredProductCard col-md-6" ng-init="feWidth();">
+      <!--  ng-click="openProductDescription(product.id, product.name)"-->
+      <a href="{{productUrl(product.id, product.name)}}" ng-click="$event.stopPropagation();">
       <div class="by_productCard_Image">
         <img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
         fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
@@ -62,6 +63,7 @@
         <div class="by_productCard_ImageOffer" ng-if="product.salePrice.amount && (product.retailPrice.amount - product.salePrice.amount) > 0">{{((product.retailPrice.amount - product.salePrice.amount)/product.retailPrice.amount * 100).toFixed(0)}}% <br/><small>off</small></div>
       </div>
       <div class="by_productCard_title ellipsisHead" style="height:50px;">{{product.name}}</div>
+      </a>
     </div>
   </div>
   <div class="clearfix"></div>

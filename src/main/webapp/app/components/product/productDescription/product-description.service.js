@@ -8,7 +8,6 @@ define([], function () {
                               CONSTANT,
                               $log) {
 
-    $log.debug('Inside ProductDescription Service');
     var productDescriptionService, urls;
     var forProductSkuURL = REST_URL.getProductById + '/:id' + REST_URL.getProductSku;
     var forProductSkuInventoryURL = REST_URL.getProductSkuInventory + '?id=' + ':id';

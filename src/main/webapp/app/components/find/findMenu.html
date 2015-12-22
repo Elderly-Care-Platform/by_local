@@ -96,7 +96,7 @@
 
         <div class="col-md-12 by_editorButtonViews" ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
              ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
-            <a href="#!/directory/reviews/{{menu.id}}/all">
+            <a href="#!/directory/reviews/{{menu.id}}/">
                 View previous<br/> question &amp; overviews
             </a>
         </div>
@@ -187,7 +187,7 @@
 
                 <div class="col-md-12 by_editorButtonViews"
                      ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" ng-if="menu.module == menuConfig.modules['discuss'].moduleId">
-                    <a href="#!/directory/reviews/{{menu.id}}/all">View previous<br/> question &amp;
+                    <a href="#!/directory/reviews/{{menu.id}}/">View previous<br/> question &amp;
                         overviews</a>
                 </div>
                 <div class="clearfix"></div>

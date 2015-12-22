@@ -33,13 +33,13 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
         function getProfileDetailUrlBrnach(profile, urlQueryParams, isAngularLocation){
             var proTitle = "others";
-            if(profile && profile.name.length > 0){
+            if(profile && profile.name && profile.name.length > 0){
                proTitle = profile.name;
            }else{
                proTitle = "others";
            }
 
-           proTitle = BY.byUtil.getCommunitySlug(proTitle);
+           proTitle = BY.byUtil.getSlug(proTitle);
            var newHref = "/users/"+proTitle;
 
 

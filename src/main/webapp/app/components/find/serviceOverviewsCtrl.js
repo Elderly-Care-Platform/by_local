@@ -10,7 +10,7 @@ define(['byApp',
                                  DiscussCount, $sce, $timeout) {
 
         window.scrollTo(0, 0);
-        $scope.discussType = $routeParams.discussType; //Needed for left side Q/A/P filters
+        $scope.discussType = $routeParams.discussType ? $routeParams.discussType : "all"; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.selectedMenu;
         $scope.pageSize = 20;
         $scope.isGridInitialized = false;
@@ -48,6 +48,7 @@ define(['byApp',
         $scope.initDiscussListing = function () {
             if ($scope.selectedMenu) {
                 updateMetaTags();
+
                 queryParams.tags = BY.config.menu.reveiwsMenuConfig['service_review'].tag;
                 if ($scope.discussType && $scope.discussType.toLowerCase().trim() !== "all") {
                     queryParams.discussType = $routeParams.discussType;
@@ -130,7 +131,7 @@ define(['byApp',
                 disTitle = "others";
             }
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            disTitle = BY.byUtil.getSlug(disTitle);
             var newHref = "/communities/"+disTitle;
 
 
@@ -165,18 +166,18 @@ define(['byApp',
 
         function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation){
         	var proTitle = "others";
-        	 if(profile.userProfile && profile.userProfile.basicProfileInfo.firstName.length > 0){
+        	 if(profile && profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0){
         		 proTitle = profile.userProfile.basicProfileInfo.firstName;
-        		 if(profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
+        		 if(profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0){
         			 proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
         		 }
-        	 } else if(profile.username.length > 0){
+        	 } else if(profile && profile.username && profile.username.length > 0){
         		 proTitle = BY.byUtil.validateUserName(profile.username);
         	 }else{
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

@@ -138,32 +138,28 @@ BY.byUtil.validateUserName = function (userName) {
 }
 
 BY.byUtil.removeSpecialChars = function (name) {
-    var modifiedName = name.replace(/[^a-zA-Z0-9 ]/g, ""),
+    if(name){
+        var modifiedName = name.replace(/[^a-zA-Z0-9 ]/g, ""),
         modifiedName = modifiedName.replace(/\s+/g, '-').toLowerCase();
-    return modifiedName;
-}
-
-BY.byUtil.getCommunitySlug = function (name) {
-    var slug;
-    var slugDiv = document.createElement('div');
-    slugDiv.innerHTML = name;
-    slug = slugDiv.innerText;
-    var slugIndex = slug.indexOf(" ", 100);
-    if (slugIndex > 1) {
-        slug = slug.substr(0, slugIndex);
+        return modifiedName;
     }
-    slug = BY.byUtil.removeSpecialChars(slug);
-    return slug;
 }
 
-
-BY.byUtil.validateEmailId = function(emailId){
-    var validEmail = true, emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if(!emailValidation.test(emailId)){
-        validEmail = false;
+BY.byUtil.getSlug = function (name) {
+    if(name){
+        var slug;
+        var slugDiv = document.createElement('div');
+        slugDiv.innerHTML = name;
+        slug = slugDiv.textContent;
+        var slugIndex = slug.indexOf(" ", 100);
+        if (slugIndex > 1) {
+            slug = slug.substr(0, slugIndex);
+        }
+        slug = BY.byUtil.removeSpecialChars(slug);
+        return slug;
     }
-    return validEmail;
 }
+
 
 
 

@@ -1,5 +1,5 @@
 define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
-    function BYHeaderCtrl($rootScope, $scope, $window, $http, SessionIdService) {
+    function BYHeaderCtrl($rootScope, $scope, $window, $location, $http, SessionIdService) {
         $rootScope.screenHeight = $(window).height();
         $scope.loginDetails = {
             "text": "",
@@ -21,6 +21,12 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             validateSession();
             getProductCount();
             getServicesCount();
+        }
+
+        $scope.searchResults = function(){
+            if($("#SearchValue").val() != ''){
+                $location.path('/search/'+ $("#SearchValue").val() +'/All');
+            }            
         }
         
 
@@ -99,6 +105,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     inValidateSession();
                 })
             }
+
         }
 
         function setValidSession(params) {
@@ -152,7 +159,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             if ($(".by_header_right_search").css('display') == 'none') {
                 $(".by_header_right_search").fadeIn('1000');
             } else {
-                document.getElementById('search_link').click()
+                $scope.searchResults();
             }
         };
 
@@ -160,7 +167,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         $scope.moduleConfig= BY.config.menu.moduleConfig;
     }
 
-    BYHeaderCtrl.$inject = ['$rootScope', '$scope', '$window', '$http', 'SessionIdService'];
+    BYHeaderCtrl.$inject = ['$rootScope', '$scope', '$window', '$location', '$http', 'SessionIdService'];
     return BYHeaderCtrl;
 });
 

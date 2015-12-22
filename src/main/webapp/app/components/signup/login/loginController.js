@@ -4,10 +4,10 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 
 
         $scope.byLoginPage = function(){
-            $scope.views.contentPanel1 = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.views.loginPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
         }
         $scope.by_RegisterPage = function(){
-            $scope.views.contentPanel1 = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.views.loginPanel = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
         }     
 
 

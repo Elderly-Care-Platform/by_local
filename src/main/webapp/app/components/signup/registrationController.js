@@ -109,7 +109,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         };
 
         var updateContentPanel = function(){
-            $scope.views.contentPanel1 = '';
+            $scope.views.loginPanel = '';
             if($routeParams.changeUserName) {
                 require(["modifySignupCtrl"], function(regCtrl) {
                     changeUsername();
@@ -208,7 +208,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
 
             if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
                 //$scope.views.leftPanel = "app/components/signup/login/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                $scope.views.contentPanel1 = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
+                $scope.views.loginPanel = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
             } else{
                 $scope.getUserProfile();
             }

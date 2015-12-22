@@ -279,7 +279,7 @@ define([], function () {
                 }
             })
 
-            .when('/housingProfile/:profileType/:profileId/:housingFacilityId', {
+            /*.when('/housingProfile/:profileType/:profileId/:housingFacilityId', {
                 templateUrl: 'app/components/profile/profile.html?versionTimeStamp=%PROJECT_VERSION%',
                 controller: 'ProfileController', resolve: {
                     load: ['$q', function ($q) {
@@ -290,7 +290,7 @@ define([], function () {
                         return defered.promise;
                     }]
                 }
-            })
+            })*/
 
             .when('/privacyPolicy', {
                 templateUrl: 'app/shared/footer/privacyPolicy.html?versionTimeStamp=%PROJECT_VERSION%',

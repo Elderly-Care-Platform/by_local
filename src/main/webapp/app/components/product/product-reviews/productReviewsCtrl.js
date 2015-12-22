@@ -135,7 +135,7 @@ define(['byApp',
                 disTitle = "others";
             }
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            disTitle = BY.byUtil.getSlug(disTitle);
             var newHref = "/communities/"+disTitle;
 
 
@@ -182,7 +182,7 @@ define(['byApp',
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

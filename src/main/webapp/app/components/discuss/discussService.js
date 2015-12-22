@@ -18,7 +18,7 @@ define(['byApp'], function (byApp) {
                 disTitle = "others";
             }
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            disTitle = BY.byUtil.getSlug(disTitle);
             var newHref = "/communities/"+disTitle ;
 
 

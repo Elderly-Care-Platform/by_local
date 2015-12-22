@@ -27,12 +27,10 @@
         <div class="by_header_right_search_other divRight"
              ng-class="$root.totalCartItem > 0 ? 'by_header_right_search_other_cart' : '' ">
             <div class="by_header_right_search_other_left divLeft">
-                <input type="text" placeholder="Search" ng-model="term"
-                       onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
-                <a href="#!/search/{{term}}/All" id="search_link"></a>
+                <input type="text" placeholder="Search" ng-model="term" id="SearchValue"
+                       enter-event="searchResults();">
             </div>
-            <div class="by_header_right_search_other_image divRight"
-                 onclick="document.getElementById('search_link').click()">
+            <div class="by_header_right_search_other_image divRight" ng-click="searchResults();">
                 <i class="fa fa-search"></i>
             </div>
             <div class="clearfix"></div>
@@ -47,9 +45,8 @@
 <div class="by_mobile_header" ng-if="$root.windowWidth < 720">
     <div class="by_header_right_mobile divLeft">
         <div class="by_header_right_mobile_search divLeft">
-            <input type="text" placeholder="Search" ng-model="term"
-                   onkeydown="if (event.keyCode == 13) document.getElementById('search_link').click()">
-            <a href="#!/search/{{term}}/All" id="search_link"></a>
+            <input type="text" placeholder="Search" ng-model="term" id="SearchValue"
+                  enter-event="searchResults();">
         </div>
         <div class="by_header_right_mobile_search_image divRight" ng-click="searchInputShow();">
             <i class="fa fa-search"></i>

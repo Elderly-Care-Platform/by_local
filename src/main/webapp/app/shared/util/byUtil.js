@@ -143,11 +143,11 @@ BY.byUtil.removeSpecialChars = function (name) {
     return modifiedName;
 }
 
-BY.byUtil.getCommunitySlug = function (name) {
+BY.byUtil.getSlug = function (name) {
     var slug;
     var slugDiv = document.createElement('div');
     slugDiv.innerHTML = name;
-    slug = slugDiv.innerText;
+    slug = slugDiv.textContent;
     var slugIndex = slug.indexOf(" ", 100);
     if (slugIndex > 1) {
         slug = slug.substr(0, slugIndex);

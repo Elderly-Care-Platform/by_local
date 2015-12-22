@@ -42,7 +42,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                  proTitle = "others";
              }
 
-            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

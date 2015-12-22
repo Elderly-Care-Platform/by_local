@@ -164,11 +164,13 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
 
 
             var initSearch = function(){
+                $("#preloader").show();
                 if (disType == 'All') {
                     $scope.getDiscussData(0, $scope.pageSize);
                     $scope.getServicesData(0, $scope.pageSize);
                     $scope.getHousingData(0, $scope.pageSize);
                     $scope.getProductsData(0, $scope.pageSize);
+                    $("#preloader").hide();
                 }
             };
             initSearch();
@@ -214,7 +216,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     disTitle = "others";
                 }
 
-                disTitle = BY.byUtil.getCommunitySlug(disTitle);
+                disTitle = BY.byUtil.getSlug(disTitle);
                 var newHref = "/communities/"+disTitle;
 
 
@@ -274,7 +276,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                }
             }
 
-            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

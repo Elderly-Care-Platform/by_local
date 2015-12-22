@@ -222,7 +222,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                 disTitle = "others";
             }
 
-            disTitle = BY.byUtil.getCommunitySlug(disTitle);
+            disTitle = BY.byUtil.getSlug(disTitle);
             var newHref = "/communities/"+disTitle;
 
 
@@ -266,7 +266,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                  proTitle = "others";
              }
 
-            proTitle = BY.byUtil.getCommunitySlug(proTitle);
+            proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 
@@ -313,7 +313,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 
@@ -355,7 +355,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
         		 proTitle = "others";
         	 }
 
-        	proTitle = BY.byUtil.getCommunitySlug(proTitle);
+        	proTitle = BY.byUtil.getSlug(proTitle);
             var newHref = "/users/"+proTitle;
 
 

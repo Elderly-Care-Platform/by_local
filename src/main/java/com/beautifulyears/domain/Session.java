@@ -23,7 +23,7 @@ public class Session implements Serializable {
 	private String userId;
 	private String userName;
 	private String userEmail;
-	private int userIdType;
+	private Integer userIdType;
 	private String phoneNumber;
 	private Date createdAt = new Date();
 	private int status = DiscussConstants.SESSION_STATUS_ACTIVE;
@@ -81,11 +81,11 @@ public class Session implements Serializable {
 		this.sessionType = sessionType;
 	}
 
-	public int getUserIdType() {
+	public Integer getUserIdType() {
 		return userIdType;
 	}
 
-	public void setUserIdType(int userIdType) {
+	public void setUserIdType(Integer userIdType) {
 		this.userIdType = userIdType;
 	}
 

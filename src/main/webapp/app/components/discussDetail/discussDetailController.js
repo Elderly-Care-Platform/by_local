@@ -169,7 +169,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
         function getProfileDetailUrlReply(profile, urlQueryParams, isAngularLocation){
             var proTitle = "others";
              if(profile && profile.userName && profile.userName.length > 0){
-                 proTitle = BY.byUtil.validateUserName(profile.username);
+                 proTitle = BY.byUtil.validateUserName(profile.userName);
              }else{
                  proTitle = "others";
              }

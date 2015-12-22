@@ -79,6 +79,10 @@
 {
 	max-width:100%;
 }
+.by_discuss_desciption a
+{
+    color: #004f24 !important;
+}
 .by_border
 {
 	border-top: 1px solid #ececec;

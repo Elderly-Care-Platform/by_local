@@ -1,5 +1,5 @@
 define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
-    function BYHeaderCtrl($rootScope, $scope, $window, $location, $http, SessionIdService) {
+    function BYHeaderCtrl($rootScope, $scope, $window, $location, $http, $injector) {
         $rootScope.screenHeight = $(window).height();
         $scope.loginDetails = {
             "text": "",
@@ -11,7 +11,6 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         }
         
         $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
-
         $scope.telNo = BY.config.constants.byContactNumber;
 
         var isHomePage = false,
@@ -91,21 +90,13 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function validateSession() {
             if (window.localStorage) {
-                $http.defaults.headers.common.sess = localStorage.getItem("SessionId");
-                $http.get("api/v1/users/validateSession").success(function (response) {
-                    var sess = localStorage.getItem("SessionId");
-                    if (sess != '' && sess != null) {
-                        setValidSession({'sessionId':sess});
-                        if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
-                            window.location = apiPrefix + "#!/";
-                        }
-                    }
-
-                }).error(function (err) {
-                    inValidateSession();
-                })
+                require(["userValidation"], function(userValidation) {
+                    $scope.UserValidationFilter  = $injector.get('UserValidationFilter');
+                    var validateSessionPromise = $scope.UserValidationFilter.validateSession();
+                    validateSessionPromise.then(setValidSession, inValidateSession);
+                    $scope.$apply();
+                });
             }
-
         }
 
         function setValidSession(params) {
@@ -167,7 +158,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         $scope.moduleConfig= BY.config.menu.moduleConfig;
     }
 
-    BYHeaderCtrl.$inject = ['$rootScope', '$scope', '$window', '$location', '$http', 'SessionIdService'];
+    BYHeaderCtrl.$inject = ['$rootScope', '$scope', '$window', '$location', '$http', '$injector'];
     return BYHeaderCtrl;
 });
 

@@ -76,18 +76,16 @@ define(['byApp'], function (byApp) {
         }
 
         function validateSession(){
+            var deferred = $q.defer();
             $http.defaults.headers.common.sess = localStorage.getItem("SessionId");
-            var validateSessionPromise = $http.get("api/v1/users/validateSession");
-            return validateSessionPromise.then(validSession, invalidSession);
+            $http.get("api/v1/users/validateSession").success(function (response) {
+                deferred.resolve(response.data);
+            }).error(function (error) {
+                invalidateSession();
+                deferred.reject(error.error);
+            });
 
-            function validSession(response){
-                return validateSessionPromise.success(response.data);
-            };
-
-            function invalidSession(response){
-                return validateSessionPromise.error(response.data);
-            };
-
+            return deferred.promise;
         }
 
     }

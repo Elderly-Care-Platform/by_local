@@ -102,7 +102,7 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
         };
 
 
-        function moderateContent(){
+        function formatContent(){
             if($scope.editor.articlePhotoFilename){
                 $scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
             } else{
@@ -159,8 +159,10 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
                 $scope.errorMsg = "";
             }
 
-            if(!$scope.userSessionType && !$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
-                $scope.errorMsg = "Please enter valid Email Id";
+            if(!$scope.userSessionType || $scope.userSessionType.toString()!=="0"){
+                if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
+                    $scope.errorMsg = "Please enter valid Email Id";
+                }
             }
         };
 
@@ -172,13 +174,18 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
             $scope.discuss.text         = tinyMCE.activeEditor.getContent();
             $scope.discuss.title        = $scope.editor.subject;
 
-            moderateContent();
+            formatContent();
             validateContent();
 
-            if($scope.errorMsg.trim().length === 0){
+            if($scope.userSessionType && $scope.errorMsg.trim().length === 0){
+                $scope.submitContent();
+            } else if(!$scope.userSessionType){
                 var promise = UserValidationFilter.loginUser($scope.userCredential.email);
                 promise.then(validUser, invalidUser);
+            } else{
+                $(".by_btn_submit").prop("disabled", false);
             }
+
         };
 
         function validUser(data){

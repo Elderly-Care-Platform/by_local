@@ -151,8 +151,9 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
 
         $scope.postReview = function(){
             $(".by_btn_submit").prop("disabled", true);
-            var content = tinymce.get("reviewTextArea").getContent();
-            var reviewText = tinymce.get("reviewTextArea").getBody().textContent.trim();
+            var content                 = tinymce.get("reviewTextArea").getContent();
+            var reviewText              = tinymce.get("reviewTextArea").getBody().textContent.trim();
+            $scope.userSessionType      = UserValidationFilter.getUserSessionType();
 
             if(content.indexOf("img") !== -1 || reviewText.trim().length > 0){
                 $scope.reviewText = content;

@@ -81,6 +81,8 @@
 							</span>
 							<span ng-show="unauthorizeUserError" class="errorRed">
 								You are not authorized to review/rate this profile </span>
+							<span ng-show="otherError" class="errorRed">
+								{{otherError}} </span>
 						</div>
 
 						<div class="clearfix" style="height:10px;"></div>
@@ -89,13 +91,13 @@
 							<div class="col-md-6 ">
 								Please register to complete the rating
 								<div class="margin-top-10">
-									<input type="email" class="by_registerEmailId" placeholder="Username (optional)"/>
+									<input type="text" class="by_registerEmailId" placeholder="Username (optional)" ng-model="newUserCredential.userName"/>
 								</div>
 								<div class="margin-top-10">
-									<input type="email" class="by_registerEmailId" placeholder="Enter your email Id"/>
+									<input type="email" class="by_registerEmailId" placeholder="Enter your email Id" ng-model="newUserCredential.uniqueRegId"/>
 								</div>
 								<div class="margin-top-10">
-									<input type="email" class="by_registerEmailId" placeholder="Enter your Password"/>
+									<input type="password" class="by_registerEmailId" placeholder="Enter your Password" ng-model="newUserCredential.pwd"/>
 								</div>
 								<div class="margin-top-10">
 									Or Social Login 
@@ -110,20 +112,20 @@
 								</div>
 							</div>
 							<div class="col-md-6 margin-top-40">
-								Already a BeautifulYears member? <div class="by_rateChangePanel" ng-click="ShowRateLogin();">Login</div>
+								Already a BeautifulYears member? <div class="by_rateChangePanel" ng-click="toggleRegForm(1);">Login</div>
 							</div>
 						</div>
 						<div class="by_rateLoginWrap">
 							<div class="col-md-6 ">
 								Please login to complete the rating
 								<div class="margin-top-10">
-									<input type="email" class="by_registerEmailId" placeholder="Enter your email Id"/>
+									<input type="email" class="by_registerEmailId" placeholder="Enter your email Id" ng-model="userCredential.userName"/>
 								</div>
 								<div class="margin-top-10">
-									<input type="email" class="by_registerEmailId" placeholder="Enter your Password"/>
+									<input type="password" class="by_registerEmailId" placeholder="Enter your Password" ng-model="userCredential.pwd"/>
 								</div>
 								<div class="margin-top-10">
-									Or Social Login 
+									Or Social Login
 									<div class="dp-inline-block" >
 										<img src="assets/img/icons/fb-login.png" width="97" height="23"
 										class="post-text">
@@ -135,7 +137,7 @@
 								</div>
 							</div>
 							<div class="col-md-6 margin-top-40">
-								New user? <div class="by_rateChangePanel" ng-click="ShowRateRegister();">Register Now </div>
+								New user? <div class="by_rateChangePanel" ng-click="toggleRegForm(0);">Register Now </div>
 							</div>
 						</div>
 						<div class="clearfix"></div>

@@ -396,6 +396,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                 });
             };
 
+
         }
 
         ProfileController.$inject = ['$scope', '$rootScope', '$window', '$location', '$routeParams', 'ReviewRateProfile', 'UserProfile', '$sce', 'DiscussPage'];

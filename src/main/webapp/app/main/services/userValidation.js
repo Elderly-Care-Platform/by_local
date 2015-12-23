@@ -1,4 +1,4 @@
-define(['byApp'], function (byApp) {
+define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
 
     /* @ngInject */
     function UserValidation($rootScope, $location, $http, $q, SessionIdService) {
@@ -6,7 +6,8 @@ define(['byApp'], function (byApp) {
             getUserSessionType  : getUserSessionType,
             loginUser           : loginUser,
             logoutUser          : logoutUser,
-            validateSession     : validateSession
+            validateSession     : validateSession,
+            registerUser        : registerUser
         };
 
 
@@ -35,6 +36,62 @@ define(['byApp'], function (byApp) {
             }).error(function (error) {
                 deferred.reject(error);
             });
+
+            return deferred.promise;
+        }
+
+        function registerUser(userObj){
+            var deferred = $q.defer(), errMsg = "", newUser = {'userName':userObj.userName};
+            if(!userObj.uniqueRegId){
+                errMsg = "Please enter a valid email-id";
+            } else{
+                var regId = userObj.uniqueRegId;
+                var isMobile = !isNaN(parseFloat(userObj.uniqueRegId)) && isFinite(userObj.uniqueRegId);
+                if(isMobile == true)
+                {
+                    var reg = /^\d+$/;
+                    if (regId.length === 10 && reg.test(regId)) {
+                        errMsg = "";
+                        newUser.userIdType = BY.config.regConfig.userIdType.mobile;
+                        newUser.phoneNumber = regId;
+                        delete newUser.email;
+
+                    } else {
+                        errMsg = "Please enter 10 digit mobile number";
+                    }
+
+                } else {
+                    var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if(!emailValidation.test(regId)){
+                        errMsg = "Please enter valid Email Id";
+                    }else{
+                        errMsg = "";
+                        newUser.userIdType = BY.config.regConfig.userIdType.email;
+                        newUser.email = regId;
+                        delete newUser.phoneNumber;
+                    }
+                }
+            }
+
+            if(!userObj.pwd || userObj.pwd.trim().length < 6){
+                errMsg = "Password must be at least 6 character";
+            }else{
+                newUser.password = userObj.pwd;
+                errMsg = "";
+            }
+
+            if(errMsg.trim().length > 0){
+                deferred.reject(errMsg);
+            } else{
+                $http.post(apiPrefix + 'api/v1/users', newUser).success(function (response) {
+                    var regData = response.data;
+                    setUserCredential(regData);
+                    $rootScope.$broadcast('byUserLogin', regData);
+                    deferred.resolve();
+                }).error(function (error) {
+                    deferred.reject(error.error.errorMsg);
+                });
+            }
 
             return deferred.promise;
         }

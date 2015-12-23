@@ -2,17 +2,19 @@
  * Created by sanjukta on 21-07-2015.
  */
 define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValidation) {
-    function ReviewRateController($scope, $rootScope, $location, $route, $routeParams, ReviewRateProfile, ValidateUserCredential, UserValidationFilter){
+    function ReviewRateController($scope, $rootScope, $location, ReviewRateProfile, UserValidationFilter){
         $scope.userProfile              = $scope.$parent.profileData;
         $scope.selectedRating           = 0;
         $scope.reviewText               = "";
         $scope.userCredential           = {'email':'', 'pwd':''};
         $scope.userSessionType          = UserValidationFilter.getUserSessionType();
         $scope.blankReviewRateError     = false;
+        $scope.otherError               = "";
         $scope.getReview                = getReview;
         $scope.selectRating             = selectRating;
         $scope.showRateLogin            = showRateLogin;
         $scope.showRateRegister         = showRateRegister;
+        $scope.newUserCredential        = {'uniqueRegId':'', 'pwd':'', 'userName': ''};
 
         var postReview                  = new ReviewRateProfile();
         var initialize                  = init();
@@ -130,15 +132,31 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
                 if($scope.userSessionType && $scope.userSessionType==BY.config.sessionType.SESSION_TYPE_FULL){
                     postHttpReview();
                 } else{
-                    var reviewRateObj = {associatedId:$scope.userProfile.id, reviewText:$scope.reviewText, selectedRating: $scope.selectedRating};
-                    localStorage.setItem('pendingReviewByUser', JSON.stringify(reviewRateObj));
-                    $rootScope.nextLocation = $location.$$url;
-                    $location.path('/users/login');
+                    if(!$scope.userType || $scope.userType===0){
+                        var promise = UserValidationFilter.registerUser($scope.newUserCredential);
+                        promise.then(validUser, invalidUser);
+                    }else if($scope.userType && $scope.userType===1){
+                        var promise = UserValidationFilter.loginUser($scope.userCredential.email, $scope.userCredential.pwd);
+                        promise.then(validUser, invalidUser);
+                    } else{
+                        postHttpReview();
+                    }
                 }
 
             }else{
                 $scope.blankReviewRateError = true;
                 $(".by_btn_submit").prop('disabled', false);
+            }
+
+            function validUser(){
+                hideLoginRegister();
+                postHttpReview();
+            }
+
+            function invalidUser(errMsg){
+                $scope.otherError = errMsg;
+                $(".by_btn_submit").prop("disabled", false);
+                console.log(errMsg);
             }
         };
 
@@ -151,12 +169,25 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             document.getElementById("by_rate_show").style.display = "block";
         };
 
+
+
+        $scope.toggleRegForm = function(val){
+            if(val===0){
+                showRateRegister();
+            }else{
+                showRateLogin();
+            }
+        }
+
         function showRateLogin(){
+            $scope.userType = 1;
             $(".by_rateLoginWrap").show();
             $(".by_rateRegisterWrap").hide();
         };
 
+
         function showRateRegister(){
+            $scope.userType = 0;
             $(".by_rateLoginWrap").hide();
             $(".by_rateRegisterWrap").show();
         };
@@ -168,7 +199,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
 
     }
 
-    ReviewRateController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams','ReviewRateProfile','ValidateUserCredential', 'UserValidationFilter'];
+    ReviewRateController.$inject = ['$scope', '$rootScope', '$location', 'ReviewRateProfile', 'UserValidationFilter'];
     byApp.registerController('ReviewRateController', ReviewRateController);
     return ReviewRateController;
 });

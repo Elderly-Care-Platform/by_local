@@ -96,15 +96,18 @@
                 </li>
 
                 <li ng-if="detailResponse.discuss.discussType == 'P'" ng-controller="ShareController">
-                    <a ng-click="shareComment(detailResponse.discuss, $event)">
+
+                    <a data-toggle="modal" data-target="#shareModal">
                         <i class="rounded-x icon-share"></i>
                         <span ng-if="detailResponse.discuss.shareCount > 0">{{detailResponse.discuss.shareCount}}</span>
                     </a>
 
-                    <div ng-click="shareComment(detailResponse.discuss, $event)" class="text">Share</div>
+                    <div data-toggle="modal" data-target="#shareModal" class="text">Share</div>
                 </li>
             </ul>
+
             <div style="clear:both;"></div>
+
         </div>
 
         <!--  cooments -->
@@ -130,13 +133,13 @@
                                 Please enter valid Email Id
                         </span>
                     </div>
-                    <div class="clearfix" ></div>
+                    <div class="clearfix"></div>
                     <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
                             type="submit" disabled
                             ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">
                         SUBMIT
                     </button>
-                    <span/>
+
                     <button class="btn btn-sm btn-success comment-submit by_btn_cancel "
                             ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
                     </button>
@@ -156,6 +159,14 @@
                  ng-include="'app/shared/common/template/replyCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
         </div>
         <div style="clear: both; height:0px; background:#fff !important"></div>
+
+        <div id="shareModal" class="modal fade" role="dialog">
+            <div ng-include="'app/components/discussDetail/discussModal.html'"></div>
+        </div>
+
+        <div id="shareEmailModal" class="modal fade" role="dialog">
+            <div ng-include="'app/components/discussDetail/shareEmailModal.html'"></div>
+        </div>
 
     </div>
 

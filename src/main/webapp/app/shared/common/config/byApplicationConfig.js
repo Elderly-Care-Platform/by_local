@@ -24,7 +24,7 @@ BY.config.constants.broadCastConfig = {
 }
 
 BY.config.sessionType =  {
-    SESSION_TYPE_FULL : 0,
-    SESSION_TYPE_GUEST : 1,
-    SESSION_TYPE_PARTIAL : 2
+    SESSION_TYPE_FULL : "0",
+    SESSION_TYPE_GUEST : "1",
+    SESSION_TYPE_PARTIAL : "2"
 };

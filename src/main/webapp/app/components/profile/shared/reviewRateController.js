@@ -11,6 +11,8 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
         $scope.blankReviewRateError     = false;
         $scope.getReview                = getReview;
         $scope.selectRating             = selectRating;
+        $scope.showRateLogin            = showRateLogin;
+        $scope.showRateRegister         = showRateRegister;
 
         var postReview                  = new ReviewRateProfile();
         var initialize                  = init();
@@ -23,6 +25,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
         }
 
         function init(){
+            //Prefill form with data saved in local storage
             var pendingReviewByUser = localStorage.getItem('pendingReviewByUser') ? JSON.parse(localStorage.getItem('pendingReviewByUser')) : null;
             if(pendingReviewByUser && pendingReviewByUser.associatedId === $scope.userProfile.id){
                 if(pendingReviewByUser.selectedRating && pendingReviewByUser.selectedRating > 0){
@@ -32,10 +35,26 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
                 $scope.reviewText = pendingReviewByUser.reviewText;
                 setReviewText();
             }
+
+            //initialize tinymce editor
             var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "reviewTextArea"}, setReviewText);
+
+            //check gender for individual profile
             if($scope.$parent.isIndividualProfile){
                 $scope.gender =  BY.config.profile.userGender[$scope.userProfile.individualInfo.sex];
             }
+
+            //show login/reg form for unregistered/not logged in user
+            if($scope.userSessionType === null || $scope.userSessionType === BY.config.sessionType.SESSION_TYPE_GUEST){
+                showRateRegister();
+            }else if($scope.userSessionType === BY.config.sessionType.SESSION_TYPE_PARTIAL){
+                showRateLogin();
+            } else{
+                hideLoginRegister();
+            }
+
+
+            //get reviews for the profile
             $scope.getReview();
 
         }
@@ -131,6 +150,21 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             document.getElementById("by_rate_hide").style.display = "none";
             document.getElementById("by_rate_show").style.display = "block";
         };
+
+        function showRateLogin(){
+            $(".by_rateLoginWrap").show();
+            $(".by_rateRegisterWrap").hide();
+        };
+
+        function showRateRegister(){
+            $(".by_rateLoginWrap").hide();
+            $(".by_rateRegisterWrap").show();
+        };
+
+        function hideLoginRegister(){
+            $(".by_rateRegisterWrap").hide();
+            $(".by_rateLoginWrap").hide();
+        }
 
     }
 

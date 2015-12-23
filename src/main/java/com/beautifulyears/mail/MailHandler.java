@@ -3,6 +3,7 @@
  */
 package com.beautifulyears.mail;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -15,9 +16,13 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 
+import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.exceptions.BYErrorCodes;
+import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.rest.UserController;
+import com.beautifulyears.util.Util;
 
 /**
  * @author Nitin
@@ -76,12 +81,27 @@ public class MailHandler {
 	}
 
 	public static void sendMail(String to, String subject, String body) {
-//		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
+		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
 			new Thread(new MailDispatcher(to, subject, body)).start();
-//		}else{
-//			logger.debug("not sending mail as it is disabled in context config");
-//			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
-//		}
+		}else{
+			logger.debug("not sending mail as it is disabled in context config");
+			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
+		
+	}
+	
+	public static void sendMultipleMail(List<String> to, String subject, String body) {
+		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
+			for(String email: to){
+				if(!(email.equals(null))){
+					new Thread(new MailDispatcher(email, subject, body)).start();
+				}
+			}
+			
+		}else{
+			logger.debug("not sending mail as it is disabled in context config");
+			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
 		
 	}
 	

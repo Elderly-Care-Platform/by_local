@@ -72,17 +72,8 @@
 							</div>
 						</div>
 						<div>
-							<span ng-show="blankReviewRateError" class="errorRed">
-								Please rate/review
-								<span ng-if="gender">{{gender}}</span>
-								<span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
-								<span ng-if="userProfile.individualInfo.lastName">
-									{{userProfile.individualInfo.lastName}}</span>
-							</span>
-							<span ng-show="unauthorizeUserError" class="errorRed">
-								You are not authorized to review/rate this profile </span>
-							<span ng-show="otherError" class="errorRed">
-								{{otherError}} </span>
+							
+							
 						</div>
 
 						<div class="clearfix" style="height:10px;"></div>
@@ -142,7 +133,19 @@
 						</div>
 						<div class="clearfix"></div>
 
-						<div class="col-md-12  margin-bottom-10">
+						<div class="col-md-12  margin-bottom-10 margin-top-10">
+
+						<span ng-show="blankReviewRateError" class="errorRed">
+								Please rate/review
+								<span ng-if="gender">{{gender}}</span>
+								<span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+								<span ng-if="userProfile.individualInfo.lastName">
+									{{userProfile.individualInfo.lastName}}</span>
+							</span>
+							<span ng-show="unauthorizeUserError" class="errorRed">
+								You are not authorized to review/rate this profile </span>
+						<span ng-show="otherError" class="errorRed ">
+								{{otherError}} </span>
 							<input style="font-size: 15px;" type="submit" value="Submit" id="reviewSubmit"
 								class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
 								ng-click="postReview(individualForm)" /> 

@@ -116,7 +116,7 @@ public class UserController {
 					}
 					q.addCriteria(criteria);
 					user = mongoTemplate.findOne(q, User.class);
-					if (null == user) {
+					if (null == user && Util.isEmpty(loginRequest.getPassword())) {
 						user = createGuestUser(loginRequest, req, res);
 					}
 				} else {
@@ -208,33 +208,38 @@ public class UserController {
 				} else {
 					throw new BYException(BYErrorCodes.INVALID_REQUEST);
 				}
-				
+
 				User existingUser = mongoTemplate.findOne(q, User.class);
 
 				if (null != existingUser) {
-					if(existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST){
+					if (existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
 						user.setId(existingUser.getId());
-					}else{
+					} else {
 						logger.debug("user with the same credential already exist = "
-								+ user.getEmail() + " or " + user.getPhoneNumber());
+								+ user.getEmail()
+								+ " or "
+								+ user.getPhoneNumber());
 						throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
 					}
 				}
-				
+
 				User userWithExtractedInformation = decorateWithInformation(user);
-				
+
 				if (isGuestUser(user)) {
-					userWithExtractedInformation.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
-					if(null != user.getId()){
+					userWithExtractedInformation
+							.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
+					if (null != user.getId()) {
 						userWithExtractedInformation.setId(user.getId());
 					}
 				} else {
-					userWithExtractedInformation.setUserRegType(BYConstants.USER_REG_TYPE_FULL);
+					userWithExtractedInformation
+							.setUserRegType(BYConstants.USER_REG_TYPE_FULL);
 				}
 
-				
 				userWithExtractedInformation = userRepository
 						.save(userWithExtractedInformation);
+				changeUserName(userWithExtractedInformation.getId(),
+						userWithExtractedInformation.getUserName());
 				sendWelcomeMail(userWithExtractedInformation);
 				logHandler.addLog(userWithExtractedInformation,
 						ActivityLogConstants.CRUD_TYPE_CREATE, req);
@@ -289,10 +294,7 @@ public class UserController {
 			logHandler.addLog(editedUser,
 					ActivityLogConstants.CRUD_TYPE_UPDATE, req);
 			if (isUserNameChanged) {
-				UserNameHandler userNameHandler = new UserNameHandler(
-						mongoTemplate);
-				userNameHandler.setUserParams(user.getId(), user.getUserName());
-				new Thread(userNameHandler).start();
+				changeUserName(user.getId(), user.getUserName());
 			}
 
 			if (isUserNameChanged || isPasswordChanged) {
@@ -624,5 +626,11 @@ public class UserController {
 		}
 
 		return isGuestUser;
+	}
+
+	private void changeUserName(String userId, String userName) {
+		UserNameHandler userNameHandler = new UserNameHandler(mongoTemplate);
+		userNameHandler.setUserParams(userId, userName);
+		new Thread(userNameHandler).start();
 	}
 }

@@ -27,8 +27,17 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
             if(pwd){
                 user.password = pwd;
             }
-
-            if(user.email && user.email.trim().length > 0){
+            var isMobile = !isNaN(parseFloat(email)) && isFinite(email);
+            if (isMobile){
+                user.userIdType = BY.config.regConfig.userIdType.mobile;
+                user.phoneNumber = email;
+                delete user.email;
+            } else{
+                user.userIdType = BY.config.regConfig.userIdType.email;
+                user.email = email;
+                delete user.phoneNumber;
+            }
+            if((user.email && user.email.trim().length > 0) || (user.phoneNumber && user.phoneNumber.trim().length > 0)){
                 $http.post(apiPrefix + 'api/v1/users/login', user).success(function (loginData) {
                     var loginData = loginData.data;
                     setUserCredential(loginData);

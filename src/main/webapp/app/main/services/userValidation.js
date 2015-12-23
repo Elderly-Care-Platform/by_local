@@ -44,7 +44,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
             var deferred = $q.defer(), errMsg = "", newUser = {'userName':userObj.userName};
             if(!userObj.uniqueRegId){
                 errMsg = "Please enter a valid email-id";
-            } else{
+            } else {
                 var regId = userObj.uniqueRegId;
                 var isMobile = !isNaN(parseFloat(userObj.uniqueRegId)) && isFinite(userObj.uniqueRegId);
                 if(isMobile == true)
@@ -73,12 +73,15 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
                 }
             }
 
-            if(!userObj.pwd || userObj.pwd.trim().length < 6){
-                errMsg = "Password must be at least 6 character";
-            }else{
-                newUser.password = userObj.pwd;
-                errMsg = "";
+            if(errMsg.trim().length === 0){
+                if(!userObj.pwd || userObj.pwd.trim().length < 6){
+                    errMsg = "Password must be at least 6 character";
+                }else{
+                    newUser.password = userObj.pwd;
+                    errMsg = "";
+                }
             }
+
 
             if(errMsg.trim().length > 0){
                 deferred.reject(errMsg);

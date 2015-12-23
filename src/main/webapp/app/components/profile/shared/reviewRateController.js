@@ -149,6 +149,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             }
 
             function validUser(){
+                $scope.otherError  = "";
                 hideLoginRegister();
                 postHttpReview();
             }

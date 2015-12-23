@@ -475,3 +475,21 @@ label input[type="file"] {
 	width: 100%;
 	color: #000;
 }
+.by_rateRegisterWrap
+{
+	width: 100%;
+	height: auto;
+}
+.by_rateChangePanel
+{
+	border-bottom: 1px solid #449d44;
+    color: #449d44;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 22px;
+}
+.by_rateLoginWrap
+{
+	display: none;
+}

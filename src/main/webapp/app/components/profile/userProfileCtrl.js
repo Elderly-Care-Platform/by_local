@@ -403,7 +403,15 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
         };
 
        
-      
+      $scope.ShowRateLogin = function(){
+        $(".by_rateLoginWrap").show();
+        $(".by_rateRegisterWrap").hide();
+      };
+
+      $scope.ShowRateRegister = function(){
+         $(".by_rateLoginWrap").hide();
+        $(".by_rateRegisterWrap").show();
+      };
 
        
 

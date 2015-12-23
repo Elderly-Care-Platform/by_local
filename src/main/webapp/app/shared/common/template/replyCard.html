@@ -60,15 +60,18 @@
         <img src="assets/img/by.png" alt="image" class="replyCardImg">
 
         <div class="replyCard_right">
-            <textarea rows="3" id={{reply.id}}></textarea>
+            <textarea rows="3" id="{{reply.id}}"></textarea>
 
-            <div class="col-md-12 no-padding margin-bottom-20 register-page" ng-if="!userSessionType">
-                <input type="email" class="username-textbox textbox"
+            <div class="clearfix" style="height:45px;"></div>
+
+            <div class="col-md-6 no-padding margin-bottom-10 register-page" ng-if="!userSessionType">
+                <input type="email" class="by_registerEmailId"
                        placeholder="Enter your email Id" ng-model="userCredential.email" name="userEmail" required/>
                 <span ng-show="errorMsg" class="errorRed">
                         Please enter valid Email Id
                 </span>
             </div>
+             <div class="clearfix" ></div>
 
             <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn"
                     type="submit" disabled ng-click="postComment(reply.discussId, reply.id)">

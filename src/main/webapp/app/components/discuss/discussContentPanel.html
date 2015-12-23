@@ -231,32 +231,31 @@
                             <div ng-click="likeDiscuss(discuss.id)" class="text text2">Like</div>
                         </li>
 
-                        <li class="add-comment" ng-if="discuss.discussType == 'P'"
-                            ng-controller="ShareController">
-                            <a ng-click="shareComment(discuss, $event)">
-                                <i class="rounded-x icon-share"></i>
-                                <span ng-if="discuss.shareCount > 0">{{discuss.shareCount}}</span>
-                            </a>
-
-                            <div class="post-text post_text-comment">
-                                <a ng-click="shareComment(discuss, $event)">
-                                    <div class="text">Share</div>
-                                </a>
-                            </div>
+                        <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
+                            <a data-toggle="modal" data-target="#shareModal1">
+	                   			<i class="rounded-x icon-share"></i>
+	                   			<span ng-if="detailResponse.discuss.shareCount > 0">{{detailResponse.discuss.shareCount}}</span>
+	               			</a>
+	               	
+							<div data-toggle="modal" data-target="#shareModal1" class="text">Share</div>
                         </li>
                         <div class="clearfix"></div>
                     </ul>
                 </div>
-
+				
                 <!------------------------Comment, like, share buttons end------------------------>
 
                 <div style="clear: both"></div>
             </div>
-
-
+			
             <div style="clear: both"></div>
         </div>
-
+		<div id="shareEmailModal1" class="modal fade" role="dialog">
+			<div ng-include="'app/components/discussDetail/shareEmailModal.html'"></div>
+		</div>
+		<div id="shareModal1" class="modal fade" role="dialog">
+			<div ng-include="'app/components/discussDetail/discussModal.html'"></div>
+		</div> 
     </div>
     <div style="clear: both"></div>
 

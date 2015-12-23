@@ -231,12 +231,12 @@
                             <div ng-click="likeDiscuss(discuss.id)" class="text text2">Like</div>
                         </li>
                         <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
-                            <a ng-click="$event.stopPropagation();" data-toggle="modal" data-target="#shareModal">
+                            <a ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal">
 	                   			<i class="rounded-x icon-share"></i>
 	                   			<span ng-if="discuss.shareCount > 0">{{discuss.shareCount}}</span>
 	               			</a>
 	               	
-							<div ng-click="$event.stopPropagation();" data-toggle="modal" data-target="#shareModal" class="text">Share</div>
+							<div ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal" class="text">Share</div>
                         </li>
                         
                         <div class="clearfix"></div>
@@ -249,10 +249,10 @@
             </div>
 			
             <div style="clear: both"></div>
-            <div id="shareModal" class="modal fade" tabindex="-1" role="dialog">
+            <div id="shareModal" class="modal fade" role="dialog">
 				<div ng-include="'app/components/discuss/discussModal.html'"></div>
 			</div> 
-			<div id="shareEmailModal" class="modal fade" tabindex="-1" role="dialog">
+			<div id="shareEmailModal" class="modal fade" role="dialog">
 				<div ng-include="'app/components/discuss/shareEmailModal.html'"></div>
 			</div>
         </div>

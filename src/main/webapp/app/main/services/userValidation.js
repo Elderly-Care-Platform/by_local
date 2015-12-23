@@ -34,7 +34,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
                 $rootScope.$broadcast('byUserLogin', loginData);
                 deferred.resolve();
             }).error(function (error) {
-                deferred.reject(error);
+                deferred.reject(error.error.errorMsg);
             });
 
             return deferred.promise;

@@ -1,7 +1,7 @@
 define([], function () {
 
     /* @ngInject */
-    function SelectAddressFactory($rootScope, $location, $http, UserProfile) {
+    function SelectAddressFactory($rootScope, $location, $http, UserProfile, UserValidationFilter) {
         var addressFormat = {
             "firstName": "",
             "lastName": "",
@@ -12,7 +12,7 @@ define([], function () {
             },
             "userId": ""
         }
-
+        var userSessionType = UserValidationFilter.getUserSessionType();
         return {
             //getCustomerProfile: getCustomerProfile,
             getAddress: getAddress,
@@ -38,8 +38,8 @@ define([], function () {
         }
 
         function getAddress(addressIdx) {
-            var userId = localStorage.getItem("USER_ID");
-            if (userId) {
+            //var userId = localStorage.getItem("USER_ID");
+            if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 if (addressIdx) {
                     return $http.get('api/v1/userAddress/' + userId + '?addressId=' + addressIdx);
                 } else {
@@ -52,8 +52,8 @@ define([], function () {
         }
 
         function updateAddress(params) {
-            var userId = localStorage.getItem("USER_ID");
-            if (userId) {
+            //var userId = localStorage.getItem("USER_ID");
+            if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.put('api/v1/userAddress/' + userId, params.address);
             } else {
                 $rootScope.nextLocation = "/selectAddress"
@@ -62,8 +62,8 @@ define([], function () {
         }
 
         function addNewAddress(params) {
-            var userId = localStorage.getItem("USER_ID");
-            if (userId) {
+            //var userId = localStorage.getItem("USER_ID");
+            if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.post('api/v1/userAddress/' + userId, params.address);
             } else {
                 $rootScope.nextLocation = "/selectAddress"

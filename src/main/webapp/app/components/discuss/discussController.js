@@ -27,6 +27,7 @@ define(['byApp',
         $scope.initDiscussListing           = initDiscussListing;
         $scope.initScroll                   = initScroll;
         $scope.showEditorPage               = showEditorPage;
+        $scope.shareDiscussObject = {};
 
         var tags                            = [];
         var queryParams                     = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
@@ -50,6 +51,12 @@ define(['byApp',
             }
         }
 
+        $scope.openModal = function ($event, data) {
+            $event.stopPropagation();
+            $scope.shareDiscussObject = data;
+            $('#shareModal').modal('show');
+        }
+        
         function initScroll(){
             if(showEditor){
                 $timeout(

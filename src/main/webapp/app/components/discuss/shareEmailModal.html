@@ -34,29 +34,29 @@
 	    				</div>
 	    				<div class="row">
 	    					<div class="col-md-2 profile-img-space">
-								<img ng-src="http://beautifulyears.com/{{detailResponse.discuss.userProfile.basicProfileInfo.profileImage.original||''}}"
-	                  fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{detailResponse.discuss.title}}">
+								<img ng-src="http://beautifulyears.com/{{shareDiscussObject.userProfile.basicProfileInfo.profileImage.original||''}}"
+	                  fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{shareDiscussObject.title}}">
 	    					</div>
 	    					<div class="col-md-10">
 	    						<div class="content-form-group">
 	    							<div class="form-group">
 	        							<textarea class="form-control mail-input" placeholder="Type an additional Message" ng-model = "shares.message" ></textarea>	
 	    							</div>
-	    							<div class="" ng-if="detailResponse.discuss.linkInfo == null">
+	    							<div class="" ng-if="shareDiscussObject.linkInfo == null">
 	    								<div class="shareDetails">
-	        								<h3>{{detailResponse.discuss.title}}</h3>
-	        								<p>{{detailResponse.discuss.shortSynopsis}}</p>
+	        								<h3>{{shareDiscussObject.title}}</h3>
+	        								<p>{{shareDiscussObject.shortSynopsis}}</p>
 	    								</div>
 	    							</div>
-	    							<div class="" ng-if="detailResponse.discuss.linkInfo != null">
+	    							<div class="" ng-if="shareDiscussObject.linkInfo != null">
 	    								<div class="row">
 	    									<div class="col-md-3">
-	    										<img ng-src="{{detailResponse.discuss.linkInfo.mainImage||''}}" title="{{detailResponse.discuss.title}}">
+	    										<img ng-src="{{shareDiscussObject.linkInfo.mainImage||''}}" title="{{shareDiscussObject.title}}">
 	    									</div>
 	    									<div class="col-md-9">
 	    										<div class="shareDetails">
-	        										<h3>{{detailResponse.discuss.linkInfo.title}}</h3>
-	        										<p>{{detailResponse.discuss.linkInfo.description}}</p>
+	        										<h3>{{shareDiscussObject.linkInfo.title}}</h3>
+	        										<p>{{shareDiscussObject.linkInfo.description}}</p>
 	    										</div>
 	    									</div>
 	    								</div>
@@ -65,7 +65,7 @@
 	    					</div>
 	    				</div> 
 						<div class="form-group button-group">
-							<input type="button" value="Send" class="nextButton by_btn_submit" data-dismiss="modal" ng-disabled="shareForm.emails.$invalid || shareForm.name.$invalid" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
+							<input type="button" value="Send" class="nextButton by_btn_submit" data-dismiss="modal" ng-disabled="shareForm.emails.$invalid || shareForm.name.$invalid" ng-click="emailShare(shareForm, shareDiscussObject)"/>
 							<input type="button" value="Cancel" class="returnButton" data-dismiss="modal" ng-click="modalDismiss()">
 							<div class="clearfix"></div>
 						</div>

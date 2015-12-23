@@ -32,6 +32,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			String path = "http://" + request.getServerName() + ":"
 					+ request.getServerPort() + request.getContextPath();
 			System.setProperty("path", path);
+			System.out.println("setting path as = "+path);
 		}
 		String sessionId = request.getHeader("sess");
 		if ((!"null".equals(sessionId) && null != sessionId && !sessionId

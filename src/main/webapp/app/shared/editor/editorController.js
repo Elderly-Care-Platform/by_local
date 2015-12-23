@@ -159,7 +159,7 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
                 $scope.errorMsg = "";
             }
 
-            if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
+            if(!$scope.userSessionType && !$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
                 $scope.errorMsg = "Please enter valid Email Id";
             }
         };
@@ -182,6 +182,7 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
         };
 
         function validUser(data){
+            $scope.userSessionType = UserValidationFilter.getUserSessionType();
             $scope.submitContent();
         }
 

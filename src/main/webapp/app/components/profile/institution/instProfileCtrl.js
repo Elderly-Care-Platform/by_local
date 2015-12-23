@@ -4,7 +4,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         $scope.branchId             = $routeParams.branchId ? $routeParams.branchId : null;
         $scope.slideIndex           = 1;
         $scope.showReviews          = showReviews;
-        $scope.showVerifiedReviews  = showVerifiedReviews;
+        $scope.showReviewsVerified  = showReviewsVerified;
 
         var reviewDetails           = new ReviewRateProfile();
         var init                    = initialize();
@@ -27,7 +27,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
 
             updateMetaTag();
             showReviews();
-            showVerifiedReviews();
+            showReviewsVerified();
         }
 
 
@@ -55,7 +55,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
             })
         };
 
-        function showVerifiedReviews(){
+        function showReviewsVerified(){
             //Get reviews by all user for this professional
             $scope.reviews = reviewDetails.$get({associatedId:$scope.branchProfile.id, verified : true, reviewContentType:$scope.$parent.reviewContentType}, function(response){
                 $scope.reviewsVerify = response.data.replies;

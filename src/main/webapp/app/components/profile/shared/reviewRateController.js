@@ -115,6 +115,40 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             })
         }
 
+        function validateUser (){
+            if(!$scope.userType || $scope.userType===0){
+                var promise = UserValidationFilter.registerUser($scope.newUserCredential);
+                promise.then(validUser, invalidUser);
+            } else if($scope.userType && $scope.userType===1){
+                if(!$scope.userCredential.email || $scope.userCredential.email.trim().length === 0){
+                    $(".by_btn_submit").prop("disabled", false);
+                    $scope.otherError  = "Please enter your email id";
+                }else if(!$scope.userCredential.pwd || $scope.userCredential.pwd.trim().length === 0){
+                    $(".by_btn_submit").prop("disabled", false);
+                    $scope.otherError  = "Please enter your password";
+                }else{
+                    $scope.otherError  = "";
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email, $scope.userCredential.pwd);
+                    promise.then(validUser, invalidUser);
+                }
+
+            } else{
+                postHttpReview();
+            }
+
+            function validUser(){
+                $scope.otherError  = "";
+                hideLoginRegister();
+                postHttpReview();
+            }
+
+            function invalidUser(errMsg){
+                $scope.otherError = errMsg;
+                $(".by_btn_submit").prop("disabled", false);
+                console.log(errMsg);
+            }
+        }
+
         $scope.postReview = function(){
             $(".by_btn_submit").prop("disabled", true);
             var content = tinymce.get("reviewTextArea").getContent();
@@ -132,33 +166,13 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
                 if($scope.userSessionType && $scope.userSessionType==BY.config.sessionType.SESSION_TYPE_FULL){
                     postHttpReview();
                 } else{
-                    if(!$scope.userType || $scope.userType===0){
-                        var promise = UserValidationFilter.registerUser($scope.newUserCredential);
-                        promise.then(validUser, invalidUser);
-                    }else if($scope.userType && $scope.userType===1){
-                        var promise = UserValidationFilter.loginUser($scope.userCredential.email, $scope.userCredential.pwd);
-                        promise.then(validUser, invalidUser);
-                    } else{
-                        postHttpReview();
-                    }
+                    validateUser();
                 }
-
             }else{
                 $scope.blankReviewRateError = true;
                 $(".by_btn_submit").prop('disabled', false);
             }
 
-            function validUser(){
-                $scope.otherError  = "";
-                hideLoginRegister();
-                postHttpReview();
-            }
-
-            function invalidUser(errMsg){
-                $scope.otherError = errMsg;
-                $(".by_btn_submit").prop("disabled", false);
-                console.log(errMsg);
-            }
         };
 
         $scope.showRate = function(){
@@ -169,8 +183,6 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             document.getElementById("by_rate_hide").style.display = "none";
             document.getElementById("by_rate_show").style.display = "block";
         };
-
-
 
         $scope.toggleRegForm = function(val){
             if(val===0){

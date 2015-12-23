@@ -22,20 +22,24 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
         };
 
         function loginUser(email, pwd){
-            var user = {};
+            var user = {}, deferred = $q.defer();
             user.email = email;
             if(pwd){
                 user.password = pwd;
             }
-            var deferred = $q.defer();
-            $http.post(apiPrefix + 'api/v1/users/login', user).success(function (loginData) {
-                var loginData = loginData.data;
-                setUserCredential(loginData);
-                $rootScope.$broadcast('byUserLogin', loginData);
-                deferred.resolve();
-            }).error(function (error) {
-                deferred.reject(error.error.errorMsg);
-            });
+
+            if(user.email && user.email.trim().length > 0){
+                $http.post(apiPrefix + 'api/v1/users/login', user).success(function (loginData) {
+                    var loginData = loginData.data;
+                    setUserCredential(loginData);
+                    $rootScope.$broadcast('byUserLogin', loginData);
+                    deferred.resolve();
+                }).error(function (error) {
+                    deferred.reject(error.error.errorMsg);
+                });
+            } else{
+                deferred.reject("Please enter email Id");
+            }
 
             return deferred.promise;
         }

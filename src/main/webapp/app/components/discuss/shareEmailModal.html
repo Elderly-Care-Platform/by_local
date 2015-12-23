@@ -34,29 +34,29 @@
 	    				</div>
 	    				<div class="row">
 	    					<div class="col-md-2 profile-img-space">
-								<img ng-src="http://beautifulyears.com/{{detailResponse.discuss.userProfile.basicProfileInfo.profileImage.original||''}}"
-	                  fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{detailResponse.discuss.title}}">
+								<img ng-src="http://beautifulyears.com/{{discuss.userProfile.basicProfileInfo.profileImage.original||''}}"
+	                  fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{discuss.title}}">
 	    					</div>
 	    					<div class="col-md-10">
 	    						<div class="content-form-group">
 	    							<div class="form-group">
 	        							<textarea class="form-control mail-input" placeholder="Type an additional Message" ng-model = "shares.message" ></textarea>	
 	    							</div>
-	    							<div class="" ng-if="detailResponse.discuss.linkInfo == null">
+	    							<div class="" ng-if="discuss.linkInfo == null">
 	    								<div class="shareDetails">
-	        								<h3>{{detailResponse.discuss.title}}</h3>
-	        								<p>{{detailResponse.discuss.shortSynopsis}}</p>
+	        								<h3>{{discuss.title}}</h3>
+	        								<p>{{discuss.shortSynopsis}}</p>
 	    								</div>
 	    							</div>
-	    							<div class="" ng-if="detailResponse.discuss.linkInfo != null">
+	    							<div class="" ng-if="discuss.linkInfo != null">
 	    								<div class="row">
 	    									<div class="col-md-3">
-	    										<img ng-src="{{detailResponse.discuss.linkInfo.mainImage||''}}" title="{{detailResponse.discuss.title}}">
+	    										<img ng-src="{{discuss.linkInfo.mainImage||''}}" title="{{discuss.title}}">
 	    									</div>
 	    									<div class="col-md-9">
 	    										<div class="shareDetails">
-	        										<h3>{{detailResponse.discuss.linkInfo.title}}</h3>
-	        										<p>{{detailResponse.discuss.linkInfo.description}}</p>
+	        										<h3>{{discuss.linkInfo.title}}</h3>
+	        										<p>{{discuss.linkInfo.description}}</p>
 	    										</div>
 	    									</div>
 	    								</div>

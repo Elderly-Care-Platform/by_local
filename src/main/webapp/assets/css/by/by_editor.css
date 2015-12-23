@@ -466,3 +466,12 @@ label input[type="file"] {
 {
     display: none;
 }
+.by_registerEmailId
+{
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	padding: 6px 8px 6px 8px;
+	font-size: 14px;
+	width: 100%;
+	color: #000;
+}

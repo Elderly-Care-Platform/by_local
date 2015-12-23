@@ -101,12 +101,14 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function setValidSession(params) {
             var userName = localStorage.getItem("USER_NAME");
+            var userId = localStorage.getItem("USER_ID");
+
             if(userName.length > 9){
                 userName = localStorage.getItem("USER_NAME").substring(0, 9)+'...';
             }
 
             $scope.loginDetails.text = "Logout";
-            $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + params.sessionId;
+            $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + userId;
 
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
             $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";

@@ -265,6 +265,15 @@
 		</div>
 		<div class="clearfix"></div>
 
+		<div class="col-md-6 no-padding margin-bottom-20 register-page" ng-if="!userSessionType">
+			<input type="email" class="by_registerEmailId"
+				   placeholder="Enter your email Id" ng-model="userCredential.email" name="userEmail"/><br/>
+
+			<div ng-show="errorMsg">
+				<font color="red">{{errorMsg}}</font>
+			</div>
+		</div>
+
 		<div class="col-md-12 margin-bottom-20">
 			<div ng-show="errorMsg">
 				<font color="red">{{errorMsg}}</font>

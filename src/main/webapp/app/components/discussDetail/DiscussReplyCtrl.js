@@ -41,7 +41,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             $scope.discussReply.text = tinymce.get(parentReplyId).getContent();
             $scope.discussReply.url = window.location.href;
 
-            if(!$scope.userSessionType){
+            if($scope.userSessionType === null){
                 if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
                     $scope.errorMsg = "Please enter valid Email Id";
                     $(".by_btn_submit").prop("disabled", false);
@@ -91,7 +91,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             $scope.discussReply.text = tinymce.get(discussId).getContent();
             $scope.discussReply.url = window.location.href;
 
-            if(!$scope.userSessionType){
+            if($scope.userSessionType === null){
                 if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
                     $scope.errorMsg = "Please enter valid Email Id";
                     $(".by_btn_submit").prop("disabled", false);

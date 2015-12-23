@@ -159,11 +159,13 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
                 $scope.errorMsg = "";
             }
 
-            if(!$scope.userSessionType || $scope.userSessionType.toString()!=="0"){
+
+            if($scope.userSessionType === null){
                 if(!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email)){
                     $scope.errorMsg = "Please enter valid Email Id";
                 }
             }
+
         };
 
 
@@ -179,7 +181,7 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
 
             if($scope.userSessionType && $scope.errorMsg.trim().length === 0){
                 $scope.submitContent();
-            } else if(!$scope.userSessionType){
+            } else if($scope.userSessionType === null){
                 var promise = UserValidationFilter.loginUser($scope.userCredential.email);
                 promise.then(validUser, invalidUser);
             } else{

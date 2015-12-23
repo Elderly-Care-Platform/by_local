@@ -79,7 +79,7 @@ define(['byApp'], function (byApp) {
             var deferred = $q.defer();
             $http.defaults.headers.common.sess = localStorage.getItem("SessionId");
             $http.get("api/v1/users/validateSession").success(function (response) {
-                deferred.resolve(response.data);
+                deferred.resolve(response);
             }).error(function (error) {
                 invalidateSession();
                 deferred.reject(error.error);

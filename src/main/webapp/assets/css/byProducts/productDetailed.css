@@ -223,3 +223,14 @@
   }
 }
 /* content panel ends */
+
+
+.by_productDetail_contentDescText  table
+{
+  border-collapse: collapse;
+  width: 100%;
+}
+.by_productDetail_contentDescText  table td
+{
+  width: 25%;
+}

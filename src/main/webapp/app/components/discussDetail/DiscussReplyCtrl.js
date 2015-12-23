@@ -47,9 +47,14 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
                     $(".by_btn_submit").prop("disabled", false);
                 } else{
                     var promise = UserValidationFilter.loginUser($scope.userCredential.email);
-                    promise.then(postHttpComment, invalidUser);
+                    promise.then(validUser, invalidUser);
                 }
             }else{
+                postHttpComment();
+            }
+
+            function validUser(){
+                $scope.userSessionType = UserValidationFilter.getUserSessionType();
                 postHttpComment();
             }
 
@@ -92,12 +97,16 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
                     $(".by_btn_submit").prop("disabled", false);
                 } else{
                     var promise = UserValidationFilter.loginUser($scope.userCredential.email);
-                    promise.then(postHttpAnswer, invalidUser);
+                    promise.then(validUser, invalidUser);
                 }
             }else{
                 postHttpAnswer()
             }
 
+            function validUser(){
+                $scope.userSessionType = UserValidationFilter.getUserSessionType();
+                postHttpAnswer();
+            }
 
             function postHttpAnswer(data){
                 console.log(data);

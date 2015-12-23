@@ -209,11 +209,21 @@ public class UserController {
 					throw new BYException(BYErrorCodes.INVALID_REQUEST);
 				}
 
-				if (mongoTemplate.count(q, User.class) > 0) {
-					logger.debug("user with the same credential already exist = "
-							+ user.getEmail() + " or " + user.getPhoneNumber());
-					throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
+				User existingUser = mongoTemplate.findOne(q, User.class);
+
+				if (null != existingUser) {
+					if (existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
+						user.setId(existingUser.getId());
+					} else {
+						logger.debug("user with the same credential already exist = "
+								+ user.getEmail()
+								+ " or "
+								+ user.getPhoneNumber());
+						throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
+					}
+
 				}
+
 				if (isGuestUser(user)) {
 					user.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
 				} else {

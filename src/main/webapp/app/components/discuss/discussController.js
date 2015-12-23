@@ -210,7 +210,7 @@ define(['byApp',
             return $sce.trustAsResourceUrl(url);
         };
 
-        $scope.go = function($event, discuss, urlQueryParams){
+        $scope.nextLocation = function($event, discuss, urlQueryParams){
             $event.stopPropagation();
             var url = DisServiceFilter.getDiscussDetailUrl(discuss, urlQueryParams, true);
             $location.path(url);

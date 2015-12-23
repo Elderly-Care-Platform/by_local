@@ -76,6 +76,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             postReview.url = encodeURIComponent(window.location.href);
 
             postReview.$post({associatedId:$scope.userProfile.id, reviewContentType:$scope.$parent.reviewContentType}, function(success){
+                localStorage.removeItem('pendingReviewByUser');
                 $scope.$parent.showReviews();
                 $scope.$parent.showReviewsVerified();
                 $scope.reviewText = "";

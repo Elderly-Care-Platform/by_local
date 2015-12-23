@@ -120,6 +120,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
                 localStorage.setItem("SESSION_TYPE", login.sessionType);
+                localStorage.removeItem("by_cust_id");
             }
             else {
                 $scope.setError('Browser does not support cookies');
@@ -130,6 +131,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
 
 
         function logoutUser(){
+            localStorage.removeItem("by_cust_id");
             $http.get(apiPrefix + "api/v1/users/logout");
             invalidateSession();
             $rootScope.$broadcast('byUserLogout', '');
@@ -144,7 +146,6 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
             localStorage.setItem("USER_ID", "");
             localStorage.setItem("USER_NAME", "");
             localStorage.setItem("SESSION_TYPE", "");
-            localStorage.removeItem("by_cust_id");
             localStorage.removeItem('pendingReviewByUser');
         }
 

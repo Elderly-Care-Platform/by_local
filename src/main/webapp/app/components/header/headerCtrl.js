@@ -94,21 +94,21 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     $scope.UserValidationFilter  = $injector.get('UserValidationFilter');
                     var validateSessionPromise = $scope.UserValidationFilter.validateSession();
                     validateSessionPromise.then(setValidSession, inValidateSession);
-                    $scope.$apply();
+                    //$scope.$apply();
                 });
             }
         }
 
         function setValidSession(params) {
             var userName = localStorage.getItem("USER_NAME");
-            var userId = localStorage.getItem("USER_ID");
+            var sessionId = localStorage.getItem("SessionId");
 
             if(userName.length > 9){
                 userName = localStorage.getItem("USER_NAME").substring(0, 9)+'...';
             }
 
             $scope.loginDetails.text = "Logout";
-            $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + userId;
+            $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + sessionId;
 
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
             $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";

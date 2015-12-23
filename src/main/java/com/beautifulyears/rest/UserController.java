@@ -208,29 +208,31 @@ public class UserController {
 				} else {
 					throw new BYException(BYErrorCodes.INVALID_REQUEST);
 				}
-
+				
 				User existingUser = mongoTemplate.findOne(q, User.class);
 
 				if (null != existingUser) {
-					if (existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
+					if(existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST){
 						user.setId(existingUser.getId());
-					} else {
+					}else{
 						logger.debug("user with the same credential already exist = "
-								+ user.getEmail()
-								+ " or "
-								+ user.getPhoneNumber());
+								+ user.getEmail() + " or " + user.getPhoneNumber());
 						throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
 					}
-
 				}
-
-				if (isGuestUser(user)) {
-					user.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
-				} else {
-					user.setUserRegType(BYConstants.USER_REG_TYPE_FULL);
-				}
-
+				
 				User userWithExtractedInformation = decorateWithInformation(user);
+				
+				if (isGuestUser(user)) {
+					userWithExtractedInformation.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
+					if(null != user.getId()){
+						userWithExtractedInformation.setId(user.getId());
+					}
+				} else {
+					userWithExtractedInformation.setUserRegType(BYConstants.USER_REG_TYPE_FULL);
+				}
+
+				
 				userWithExtractedInformation = userRepository
 						.save(userWithExtractedInformation);
 				sendWelcomeMail(userWithExtractedInformation);
@@ -548,8 +550,8 @@ public class UserController {
 		String userName = user.getUserName();
 		String password = user.getPassword();
 		String email = user.getEmail();
-		int userIdType = user.getUserIdType();
-		int userRegType = user.getUserRegType();
+		Integer userIdType = user.getUserIdType();
+		Integer userRegType = user.getUserRegType();
 		String phoneNumber = user.getPhoneNumber();
 		String verificationCode = user.getVerificationCode();
 		Date verificationCodeExpiry = user.getVerificationCodeExpiry();

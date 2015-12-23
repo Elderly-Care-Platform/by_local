@@ -102,7 +102,7 @@ public class User implements Serializable {
 
 	}
 
-	public User(String userName, int userIdType,int userRegType, String password, String email,
+	public User(String userName, Integer userIdType,Integer userRegType, String password, String email,
 			String phoneNumber, String verificationCode,
 			Date verificationCodeExpiry, String socialSignOnId,
 			String socialSignOnPlatform, String passwordCode,

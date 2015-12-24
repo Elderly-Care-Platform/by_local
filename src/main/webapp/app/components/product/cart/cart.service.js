@@ -7,11 +7,10 @@ define([], function () {
                                 urlTemplate,
                                 SERVERURL_IMAGE,
                                 $q,
-                                $log) {
+                                $log, $injector) {
         $log.debug('Inside CartService Service');
 
-        var cartService, urls;
-
+        var cartService, urls, userSessionType;
         urls = {
             forCartDetail: urlTemplate(REST_URL.getCartDetail + '?customerId=:customerId'),
             createCart: urlTemplate(REST_URL.getCartDetail + '?customerId=:customerId&:productOptions', {},
@@ -52,8 +51,8 @@ define([], function () {
         return cartService;
 
         function getCartDetail(params) {
-            var sessId = localStorage.getItem("SessionId");
-            if ((params && params.customerId) || sessId) {
+            var userSessionType = localStorage.getItem("SESSION_TYPE");
+            if ((params && params.customerId) || (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL)) {
                 return this.$get(urls.forCartDetail(params));
             } else {
                 return this.$get(urls.createCartForGuest());

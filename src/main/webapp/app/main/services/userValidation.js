@@ -7,7 +7,9 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
             loginUser           : loginUser,
             logoutUser          : logoutUser,
             validateSession     : validateSession,
-            registerUser        : registerUser
+            registerUser        : registerUser,
+            googleLogin         : googleLogin,
+            fbLogin             : fbLogin
         };
 
 
@@ -165,6 +167,41 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
 
             return deferred.promise;
         }
+
+        var socialCallback = function(e){
+            socialRegistration(e.data);
+            $scope.resetError();
+            window.removeEventListener("message", socialCallback, false);
+        }
+
+
+         function googleLogin(){
+            $http.get("api/v1/users/getGgURL").success(function(res){
+                window.addEventListener("message", socialCallback);
+                var child = window.open(res.data, 'Google Login','width=500,height=500');
+                var timer = setInterval(checkChild, 500);
+                function checkChild() {
+                    if (child.closed) {
+                        window.removeEventListener("message", socialCallback);
+                        clearInterval(timer);
+                    }
+                }
+            })
+        };
+
+         function fbLogin(){
+            $http.get("api/v1/users/getFbURL").success(function(res){
+                window.addEventListener("message", socialCallback);
+                var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
+                var timer = setInterval(checkChild, 500);
+                function checkChild() {
+                    if (child.closed) {
+                        window.removeEventListener("message", socialCallback);
+                        clearInterval(timer);
+                    }
+                }
+            })
+        };
 
     }
 

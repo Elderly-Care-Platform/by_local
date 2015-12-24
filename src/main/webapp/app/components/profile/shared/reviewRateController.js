@@ -224,39 +224,10 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             $(".by_rateLoginWrap").hide();
         }
 
-         var socialCallback = function(e){
-            socialRegistration(e.data);
-            $scope.resetError();
-            window.removeEventListener("message", socialCallback, false);
-        }
+        
+        $scope.ggLogin = UserValidationFilter.googleLogin;
 
-        $scope.ggLogin = function(){
-            $http.get("api/v1/users/getGgURL").success(function(res){
-                window.addEventListener("message", socialCallback);
-                var child = window.open(res.data, 'Google Login','width=500,height=500');
-                var timer = setInterval(checkChild, 500);
-                function checkChild() {
-                    if (child.closed) {
-                        window.removeEventListener("message", socialCallback);
-                        clearInterval(timer);
-                    }
-                }
-            })
-        };
-
-        $scope.fbLogin = function(){
-            $http.get("api/v1/users/getFbURL").success(function(res){
-                window.addEventListener("message", socialCallback);
-                var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
-                var timer = setInterval(checkChild, 500);
-                function checkChild() {
-                    if (child.closed) {
-                        window.removeEventListener("message", socialCallback);
-                        clearInterval(timer);
-                    }
-                }
-            })
-        };
+        $scope.fbLogin = UserValidationFilter.fbLogin;
 
     }
 

@@ -112,6 +112,7 @@
 .by_discussDeatil_cardDesc img
 {
 	max-width:100%;
+    height: auto;
 }
 .by_discussDeatil_cardShare
 {

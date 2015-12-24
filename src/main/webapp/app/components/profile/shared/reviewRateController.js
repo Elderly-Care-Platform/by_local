@@ -2,7 +2,7 @@
  * Created by sanjukta on 21-07-2015.
  */
 define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValidation) {
-    function ReviewRateController($scope, $rootScope, $location, ReviewRateProfile, UserValidationFilter){
+    function ReviewRateController($scope, $rootScope, $http, $location, ReviewRateProfile, UserValidationFilter){
         $scope.userProfile              = $scope.$parent.profileData;
         $scope.selectedRating           = 0;
         $scope.reviewText               = "";
@@ -224,9 +224,43 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             $(".by_rateLoginWrap").hide();
         }
 
+         var socialCallback = function(e){
+            socialRegistration(e.data);
+            $scope.resetError();
+            window.removeEventListener("message", socialCallback, false);
+        }
+
+        $scope.ggLogin = function(){
+            $http.get("api/v1/users/getGgURL").success(function(res){
+                window.addEventListener("message", socialCallback);
+                var child = window.open(res.data, 'Google Login','width=500,height=500');
+                var timer = setInterval(checkChild, 500);
+                function checkChild() {
+                    if (child.closed) {
+                        window.removeEventListener("message", socialCallback);
+                        clearInterval(timer);
+                    }
+                }
+            })
+        };
+
+        $scope.fbLogin = function(){
+            $http.get("api/v1/users/getFbURL").success(function(res){
+                window.addEventListener("message", socialCallback);
+                var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
+                var timer = setInterval(checkChild, 500);
+                function checkChild() {
+                    if (child.closed) {
+                        window.removeEventListener("message", socialCallback);
+                        clearInterval(timer);
+                    }
+                }
+            })
+        };
+
     }
 
-    ReviewRateController.$inject = ['$scope', '$rootScope', '$location', 'ReviewRateProfile', 'UserValidationFilter'];
+    ReviewRateController.$inject = ['$scope', '$rootScope', '$http', '$location', 'ReviewRateProfile', 'UserValidationFilter'];
     byApp.registerController('ReviewRateController', ReviewRateController);
     return ReviewRateController;
 });

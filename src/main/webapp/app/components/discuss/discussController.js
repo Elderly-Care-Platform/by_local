@@ -301,7 +301,7 @@ define(['byApp',
                     var promise = UserValidationFilter.loginUser($scope.userCredential.email);
                     promise.then(validUser, invalidUser);
                 }else{
-                    $scope.errMsg = "Please enter valid email";
+                    $scope.likeErrMsg = "Please enter valid email";
                 }
 
                 function validUser(){

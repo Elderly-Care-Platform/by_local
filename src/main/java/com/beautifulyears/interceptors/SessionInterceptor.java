@@ -11,10 +11,12 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Session;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.repository.UserRepository;
+import com.beautifulyears.util.Util;
 
 @Service
 public class SessionInterceptor extends HandlerInterceptorAdapter {
@@ -28,10 +30,10 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		if (null == System.getProperty("path")) {
-			String path = "http://" + request.getServerName() + ":"
-					+ request.getServerPort() + request.getContextPath();
+		if (null == System.getProperty("path") && !Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("host"))) {
+			String path = ByWebAppInitializer.servletContext.getInitParameter("host") + request.getContextPath();
 			System.setProperty("path", path);
+			System.out.println("setting path as = "+path);
 		}
 		String sessionId = request.getHeader("sess");
 		if ((!"null".equals(sessionId) && null != sessionId && !sessionId

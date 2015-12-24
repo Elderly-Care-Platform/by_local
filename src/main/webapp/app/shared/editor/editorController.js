@@ -103,6 +103,11 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
 
 
         function formatContent(){
+            //putting the userId to discuss being created
+            $scope.discuss.userId = localStorage.getItem("USER_ID");
+            $scope.discuss.username = localStorage.getItem("USER_NAME");
+
+            //article photo
             if($scope.editor.articlePhotoFilename){
                 $scope.discuss.articlePhotoFilename = JSON.parse($scope.editor.articlePhotoFilename);
             } else{
@@ -126,9 +131,7 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
                 return value.id;
             });
 
-            //putting the userId to discuss being created
-            $scope.discuss.userId = localStorage.getItem("USER_ID");
-            $scope.discuss.username = localStorage.getItem("USER_NAME");
+
 
             if($scope.showLinkView){
                 $scope.discuss.contentType = 2;

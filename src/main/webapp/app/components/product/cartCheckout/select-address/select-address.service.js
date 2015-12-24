@@ -12,7 +12,7 @@ define([], function () {
             },
             "userId": ""
         }
-        var userSessionType = UserValidationFilter.getUserSessionType();
+
         return {
             //getCustomerProfile: getCustomerProfile,
             getAddress: getAddress,
@@ -38,6 +38,7 @@ define([], function () {
         }
 
         function getAddress(addressIdx) {
+            var userSessionType = UserValidationFilter.getUserSessionType();
             var userId = localStorage.getItem("USER_ID");
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 if (addressIdx) {
@@ -52,6 +53,7 @@ define([], function () {
         }
 
         function updateAddress(params) {
+            var userSessionType = UserValidationFilter.getUserSessionType();
             var userId = localStorage.getItem("USER_ID");
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.put('api/v1/userAddress/' + userId, params.address);
@@ -62,6 +64,7 @@ define([], function () {
         }
 
         function addNewAddress(params) {
+            var userSessionType = UserValidationFilter.getUserSessionType();
             var userId = localStorage.getItem("USER_ID");
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.post('api/v1/userAddress/' + userId, params.address);

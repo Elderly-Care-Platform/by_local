@@ -74,6 +74,7 @@ require.config({
 		LoginController : '../components/signup/login/loginController',
 		sectionHeaderConfig : '../components/menu/sectionHeaderConfig',
 		menuConfig : '../components/menu/menuConfig',
+		discussConfig : '../shared/common/config/discussConfig',
 
 		indvUserProfileCtrl : '../components/profile/individual/indvUserProfileCtrl',
 		instProfileCtrl : '../components/profile/institution/instProfileCtrl',

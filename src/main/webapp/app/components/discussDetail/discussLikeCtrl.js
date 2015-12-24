@@ -9,7 +9,7 @@ define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConf
             $scope.discussLike.discussId = discussId;
             $scope.discussLike.url = window.location.origin + "/#!/community/"+discussId;
             $scope.userSessionType   = UserValidationFilter.getUserSessionType();
-
+            $scope.userCredential = {'email': '', 'pwd': ''};
 
             if($scope.userSessionType === null){
                 var userCredentialPromise = $scope.getUserCredentialForLike(discuss);

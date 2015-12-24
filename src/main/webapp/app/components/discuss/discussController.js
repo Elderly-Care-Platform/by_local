@@ -28,7 +28,6 @@ define(['byApp',
             $scope.initScroll = initScroll;
             $scope.showEditorPage = showEditorPage;
             $scope.shareDiscussObject = {};
-            $scope.userCredential = {'email': '', 'pwd': ''};
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
 

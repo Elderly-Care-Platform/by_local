@@ -155,10 +155,12 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
                 $scope.errorMsg = "Please select title";
             } else if($scope.discuss.text.trim().length <= 0){
                 $scope.errorMsg = "Please add more details";
-            } else if($scope.userSessionType === null && (!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email))){
-                $scope.errorMsg = "Please enter valid Email Id";
             } else{
                 $scope.errorMsg = "";
+            }
+
+            if($scope.userSessionType === null && (!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email))){
+                $scope.errorMsg = "Please enter valid Email Id";
             }
 
         };

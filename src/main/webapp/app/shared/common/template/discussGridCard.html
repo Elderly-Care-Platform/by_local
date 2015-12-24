@@ -1,5 +1,5 @@
 <div class="grid-boxes-in " ng-repeat="discuss in discussList"
-     ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''" ng-controller="DiscussLikeController">
+     ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''">
     <div ng-if="$last" ng-init="initGrid($index)"></div>
 
     <!--Promotion/announcement cards start -->
@@ -152,7 +152,7 @@
                     </a>
                 </li>
 
-                <li class="add-comment" ng-click="$event.stopPropagation();">
+                <li class="add-comment" ng-click="$event.stopPropagation();" ng-controller="DiscussLikeController">
                     <a ng-click="likeDiscuss(discuss)">
                         <i class="rounded-x"
                            ng-if="beforePost"

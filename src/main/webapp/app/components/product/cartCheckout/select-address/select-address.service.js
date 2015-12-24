@@ -38,7 +38,7 @@ define([], function () {
         }
 
         function getAddress(addressIdx) {
-            //var userId = localStorage.getItem("USER_ID");
+            var userId = localStorage.getItem("USER_ID");
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 if (addressIdx) {
                     return $http.get('api/v1/userAddress/' + userId + '?addressId=' + addressIdx);

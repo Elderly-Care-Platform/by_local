@@ -154,7 +154,7 @@
 
                 <li class="add-comment" ng-controller="DiscussLikeController"
                     ng-click="$event.stopPropagation();">
-                    <a ng-click="likeDiscuss(discuss.id)">
+                    <a ng-click="likeDiscuss(discuss)">
                         <i class="rounded-x"
                            ng-if="beforePost"
                            ng-class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]"
@@ -167,7 +167,7 @@
                         <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
                     </a>
 
-                    <div ng-click="likeDiscuss(discuss.id)" class="text text2">Like</div>
+                    <div ng-click="likeDiscuss(discuss)" class="text text2">Like</div>
                 </li>
 
                 <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
@@ -196,17 +196,17 @@
         <div ng-include="'app/components/discuss/shareEmailModal.html'"></div>
     </div>
 
-    <div ng-if="discussLikePending" class="margin-bottom-20">
+    <div ng-show="discuss.pendingUserCredential" class="margin-bottom-20">
         <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
-            <input type="email" class="by_registerEmailId"
+            <input type="email" class="by_registerEmailId" ng-model="userCredential.email"
                    placeholder="Enter your email Id"/>
         </div>
         <div class="clearfix"></div>
-        <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
-                disabled>
+        <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
+            ng-click="setUserCredentialForLike()"    type="submit">
             SUBMIT
         </button>
-        <button class="btn btn-sm btn-success comment-submit by_btn_cancel ">
+        <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">
             CANCEL
         </button>
         <div class="clearfix"></div>

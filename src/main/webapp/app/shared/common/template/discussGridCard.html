@@ -1,5 +1,5 @@
 <div class="grid-boxes-in " ng-repeat="discuss in discussList"
-     ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''">
+     ng-class="discuss.promotion == true? 'grid-boxes-in-two' : ''" ng-controller="DiscussLikeController">
     <div ng-if="$last" ng-init="initGrid($index)"></div>
 
     <!--Promotion/announcement cards start -->
@@ -152,8 +152,7 @@
                     </a>
                 </li>
 
-                <li class="add-comment" ng-controller="DiscussLikeController"
-                    ng-click="$event.stopPropagation();">
+                <li class="add-comment" ng-click="$event.stopPropagation();">
                     <a ng-click="likeDiscuss(discuss)">
                         <i class="rounded-x"
                            ng-if="beforePost"
@@ -171,15 +170,15 @@
                 </li>
 
                 <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
-                            <a ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal">
-                                <i class="rounded-x icon-share"></i>
-                                <span ng-if="discuss.shareCount > 0">{{discuss.shareCount}}</span>
-                            </a>
+                    <a ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal">
+                        <i class="rounded-x icon-share"></i>
+                        <span ng-if="discuss.shareCount > 0">{{discuss.shareCount}}</span>
+                    </a>
 
-                            <div ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal"
-                                 class="text">Share
-                            </div>
-                        </li>
+                    <div ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal"
+                         class="text">Share
+                    </div>
+                </li>
                 <div class="clearfix"></div>
             </ul>
         </div>
@@ -188,7 +187,7 @@
         <div style="clear: both"></div>
     </div>
 
-     <div style="clear: both"></div>
+    <div style="clear: both"></div>
     <div id="shareModal" class="modal fade" role="dialog">
         <div ng-include="'app/components/discuss/discussModal.html'"></div>
     </div>
@@ -199,14 +198,14 @@
     <div ng-show="discuss.pendingUserCredential" class="margin-bottom-20">
         <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
             <input type="email" class="by_registerEmailId" ng-model="userCredential.email"
-                   placeholder="Enter your email Id"/><br/>               
+                   placeholder="Enter your email Id"/><br/>
         </div>
         <div class="clearfix"></div>
          <span ng-show="likeErrMsg">
                 <font color="red">{{likeErrMsg}}</font>
-            </span>   
+            </span>
         <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
-            ng-click="setUserCredentialForLike()"    type="submit">
+                ng-click="setUserCredentialForLike()" type="submit">
             SUBMIT
         </button>
         <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">

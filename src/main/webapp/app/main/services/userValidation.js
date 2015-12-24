@@ -120,6 +120,8 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
                 localStorage.setItem("SESSION_TYPE", login.sessionType);
+                localStorage.setItem("USER_EMAIL", login.userEmail);
+                localStorage.setItem("USER_PHONENUMBER", login.phoneNumber);
                 localStorage.removeItem("by_cust_id");
             }
             else {
@@ -147,6 +149,8 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
             localStorage.setItem("USER_NAME", "");
             localStorage.setItem("SESSION_TYPE", "");
             localStorage.removeItem('pendingReviewByUser');
+            localStorage.removeItem("USER_EMAIL");
+            localStorage.removeItem("USER_PHONENUMBER");
         }
 
         function validateSession(){

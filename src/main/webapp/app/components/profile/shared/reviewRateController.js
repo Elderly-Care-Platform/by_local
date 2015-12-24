@@ -6,19 +6,22 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
         $scope.userProfile              = $scope.$parent.profileData;
         $scope.selectedRating           = 0;
         $scope.reviewText               = "";
-        $scope.userCredential           = {'email':'', 'pwd':''};
-        $scope.userSessionType          = UserValidationFilter.getUserSessionType();
         $scope.blankReviewRateError     = false;
         $scope.otherError               = "";
         $scope.getReview                = getReview;
         $scope.selectRating             = selectRating;
         $scope.showRateLogin            = showRateLogin;
         $scope.showRateRegister         = showRateRegister;
+        $scope.userSessionType          = UserValidationFilter.getUserSessionType();
+        $scope.userCredential           = {'email':'', 'pwd':''};
         $scope.newUserCredential        = {'uniqueRegId':'', 'pwd':'', 'userName': ''};
 
-        var postReview                  = new ReviewRateProfile();
+        var postReview                  = new ReviewRateProfile(),
+            setReviewText               = setReviewText,
+            storedUserEmail             = localStorage.getItem("USER_EMAIL"),
+            storedUserPhoneNo           = localStorage.getItem("USER_PHONENUMBER");
+
         var initialize                  = init();
-        var setReviewText               = setReviewText;
 
         function setReviewText(){
             if(tinymce.get("reviewTextArea") && $scope.reviewText){
@@ -36,6 +39,16 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
 
                 $scope.reviewText = pendingReviewByUser.reviewText;
                 setReviewText();
+            }
+
+            if(storedUserEmail && storedUserEmail!=="null" && storedUserEmail!==""){
+                $scope.userCredential.email = storedUserEmail;
+                $scope.newUserCredential.uniqueRegId = storedUserEmail;
+            }
+
+            if(storedUserPhoneNo && storedUserPhoneNo!=="null" && storedUserPhoneNo!==""){
+                $scope.userCredential.email = storedUserPhoneNo;
+                $scope.newUserCredential.uniqueRegId = storedUserPhoneNo;
             }
 
             //initialize tinymce editor
@@ -56,7 +69,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             }
 
 
-            //get reviews for the profile
+            //get reviews for the selected user profile
             $scope.getReview();
 
         }

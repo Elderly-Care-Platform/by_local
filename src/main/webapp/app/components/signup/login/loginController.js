@@ -2,10 +2,10 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
     function LoginController($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
         window.scrollTo(0, 0);
 
-
         $scope.byLoginPage = function(){
             $scope.views.loginPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
         }
+
         $scope.by_RegisterPage = function(){
             $scope.views.loginPanel = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
         }     
@@ -29,6 +29,20 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         $scope.emailError = "";
         $scope.uniqueRegId = {};
         $scope.uniqueLoginId = {};
+
+        var storedUserEmail    = localStorage.getItem("USER_EMAIL"),
+            storedUserPhoneNo  = localStorage.getItem("USER_PHONENUMBER");
+
+        if(storedUserEmail && storedUserEmail!=="null" && storedUserEmail!==""){
+            $scope.uniqueLoginId.id = storedUserEmail;
+            $scope.uniqueRegId.id = storedUserEmail;
+        }
+
+        if(storedUserPhoneNo && storedUserPhoneNo!=="null" && storedUserPhoneNo!==""){
+            $scope.uniqueLoginId.id = localStorage.getItem("USER_PHONENUMBER");
+            $scope.uniqueRegId.id = localStorage.getItem("USER_PHONENUMBER");
+        }
+
 
         if($routeParams.resetPasswordCode){
             verifyPasswordCode($routeParams.resetPasswordCode);
@@ -296,6 +310,8 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
                 localStorage.setItem("SESSION_TYPE", login.sessionType);
+                localStorage.setItem("USER_EMAIL", login.userEmail);
+                localStorage.setItem("USER_PHONENUMBER", login.phoneNumber);
                 localStorage.removeItem("by_cust_id");
                 $rootScope.$broadcast('byUserLogin', login);
             }

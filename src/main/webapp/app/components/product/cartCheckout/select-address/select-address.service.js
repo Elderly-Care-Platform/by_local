@@ -52,7 +52,7 @@ define([], function () {
         }
 
         function updateAddress(params) {
-            //var userId = localStorage.getItem("USER_ID");
+            var userId = localStorage.getItem("USER_ID");
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.put('api/v1/userAddress/' + userId, params.address);
             } else {
@@ -62,7 +62,7 @@ define([], function () {
         }
 
         function addNewAddress(params) {
-            //var userId = localStorage.getItem("USER_ID");
+            var userId = localStorage.getItem("USER_ID");
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.post('api/v1/userAddress/' + userId, params.address);
             } else {

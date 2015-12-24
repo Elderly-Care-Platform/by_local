@@ -242,7 +242,7 @@
             <input type="email" class="by_registerEmailId" placeholder="Enter your email Id"
                    ng-model="userCredential.email" name="userEmail"/>
         </div>
-        <div class="col-md-6 by_emailIdHint">
+        <div class="col-md-6 by_emailIdHint" ng-if="!userSessionType">
             We will send you updates when someone responds on this thread. 
         </div>
         <div class="clearfix"></div>

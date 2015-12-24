@@ -228,10 +228,10 @@ public class UserController {
 				if (isGuestUser(user)) {
 					userWithExtractedInformation
 							.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
+				} else {
 					if (null != user.getId()) {
 						userWithExtractedInformation.setId(user.getId());
 					}
-				} else {
 					userWithExtractedInformation
 							.setUserRegType(BYConstants.USER_REG_TYPE_FULL);
 				}
@@ -283,7 +283,7 @@ public class UserController {
 				editedUser.setUserRegType(BYConstants.USER_REG_TYPE_FULL);
 				editedUser.setPassword(user.getPassword());
 			} else {
-				if (isGuestUser(user)) {
+				if (isGuestUser(editedUser)) {
 					user.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
 				} else {
 					user.setUserRegType(BYConstants.USER_REG_TYPE_FULL);

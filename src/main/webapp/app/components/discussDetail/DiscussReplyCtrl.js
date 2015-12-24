@@ -2,10 +2,12 @@
  * Created by sanjukta on 22-09-2015.
  */
 define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValidation) {
-    function DiscussReplyController($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, ValidateUserCredential, UserValidationFilter){
+    function DiscussReplyController($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData,
+                                    ValidateUserCredential, UserValidationFilter, $q){
         $scope.showEditor           = false;
         $scope.userSessionType      = UserValidationFilter.getUserSessionType();
         $scope.userCredential       = {'email':'', 'pwd':''};
+        $scope.likeActionCredential = {'email':'', 'pwd':''};
 
 
         $scope.trustForcefully = function (html) {
@@ -13,6 +15,8 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
         };
 
         $scope.createNewComment = function (editorId) {
+            $scope.userSessionType  = UserValidationFilter.getUserSessionType();
+            $scope.cancelSetCredentialForLike();
             if (!$scope.showEditor)
                 $scope.initCommentEditor(editorId);
         };
@@ -144,10 +148,58 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             }
 
         };
+
+
+        //***********Discuss like user validation code start********************
+        $scope.getUserCredentialForLike = function(discussLikeObj){
+            if($scope.discussLikeObj){
+                delete $scope.discussLikeObj.pendingUserCredential
+            }
+            $scope.discussLikeObj = discussLikeObj;
+            $scope.discussLikeObj.pendingUserCredential = true;
+            $scope.likeActionCredential.defer= $q.defer();
+
+            return $scope.likeActionCredential.defer.promise;
+        }
+
+        $scope.setUserCredentialForLike = function(){
+            if($scope.likeActionCredential.email && BY.byUtil.validateEmailId($scope.likeActionCredential.email)){
+                var promise = UserValidationFilter.loginUser($scope.likeActionCredential.email);
+                promise.then(validUser, invalidUser);
+            }else{
+                $scope.likeErrMsg = "Please enter valid email";
+            }
+
+            function validUser(){
+                if($scope.likeActionCredential.defer){
+                    $scope.userSessionType  = UserValidationFilter.getUserSessionType();
+                    $scope.discussLikeObj.pendingUserCredential = false;
+                    $scope.likeActionCredential.defer.resolve();
+                    //delete $scope.likeActionCredential.promise;
+                }
+            }
+
+            function invalidUser(){
+                console.log("invalid user error");
+                if($scope.likeActionCredential.defer){
+                    $scope.likeActionCredential.defer.reject();
+                }
+                //delete $scope.likeActionCredential.promise;
+            }
+        }
+
+        $scope.cancelSetCredentialForLike = function(){
+            $scope.discussLikeObj.pendingUserCredential = false;
+            if($scope.likeActionCredential.defer){
+                $scope.likeActionCredential.defer.reject();
+            }
+        }
+
+        //***********Discuss like user validation code start********************
     }
 
     DiscussReplyController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData',
-        'ValidateUserCredential', 'UserValidationFilter'];
+        'ValidateUserCredential', 'UserValidationFilter', '$q'];
     byApp.registerController('DiscussReplyController', DiscussReplyController);
     return DiscussReplyController;
 });

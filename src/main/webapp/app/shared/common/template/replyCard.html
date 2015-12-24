@@ -39,7 +39,7 @@
                 </div>
             </li>
             <li ng-controller="DiscussLikeController">
-                <a ng-click="likeComment(reply.id, reply.replyType)">
+                <a ng-click="likeComment(reply)">
                     <i class="rounded-x" ng-if="beforePost"
                        ng-class="{false:'icon-heart', true:'icon-heart-active'}[reply.likedByUser===true]"
                        title="Likes"></i>
@@ -49,14 +49,14 @@
                     <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
                 </a>
 
-                <div ng-click="likeComment(reply.id, reply.replyType)">Like</div>
+                <div ng-click="likeComment(reply)">Like</div>
 
             </li>
         </ul>
     </div>
     <div style="clear: both"></div>
     <div class="replyCardInsideComment by_editor_wrap by-commment-bg-gray"
-         id="commentEditor" ng-show="showEditor">
+         id="commentEditor" ng-show="showEditor && !reply.pendingUserCredential">
         <img src="assets/img/by.png" alt="image" class="replyCardImg">
 
         <div class="replyCard_right">
@@ -72,9 +72,9 @@
                 </span>
             </div>
             <div class="col-md-6 by_emailIdHint" ng-if="!userSessionType">
-                We will send you updates when someone responds on this thread. 
+                We will send you updates when someone responds on this thread.
             </div>
-             <div class="clearfix" ></div>
+            <div class="clearfix"></div>
 
             <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn"
                     type="submit" disabled ng-click="postComment(reply.discussId, reply.id)">
@@ -85,25 +85,30 @@
             </button>
         </div>
         <div style="clear: both"></div>
-
-         <div ng-if="discussLikePending" class="col-md-12 margin-bottom-20 margin-top-20">
-            <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
-                <input type="email" class="by_registerEmailId"
-                placeholder="Enter your email Id"/>
-            </div>
-            <div class="clearfix"></div>
-            <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
-            disabled>
-            SUBMIT
-        </button>
-        <button class="btn btn-sm btn-success comment-submit by_btn_cancel ">
-            CANCEL
-        </button>
         <div class="clearfix"></div>
-    </div> <div class="clearfix"></div>
     </div>
 
 
+    <!--discuss like user valisation start-->
+    <div ng-show="reply.pendingUserCredential" class="col-md-12 margin-bottom-20 margin-top-20">
+        <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
+            <input type="email" class="by_registerEmailId" ng-model="likeActionCredential.email"
+                   placeholder="Enter your email Id"/>
+        </div>
+        <div class="clearfix"></div>
+            <span ng-show="likeErrMsg">
+                <font color="red">{{likeErrMsg}}</font>
+            </span>
+        <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
+                ng-click="setUserCredentialForLike()">
+            SUBMIT
+        </button>
+        <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">
+            CANCEL
+        </button>
+        <div class="clearfix"></div>
+    </div>
+    <!--discuss like user valisation end-->
 
     <div ng-if="reply.replies && reply.replies.length > 0">
         <div class="insideComments" ng-repeat="reply in reply.replies"

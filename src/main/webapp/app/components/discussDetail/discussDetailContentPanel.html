@@ -54,7 +54,7 @@
 
         <div style="clear: both; height:8px;"></div>
 
-
+        <!--  discuss like/share/comment/answer code start -->
         <div class="by_discussDeatil_cardShare" style="border-bottom:1px solid #ccc !important;">
             <ul class="by_discussDeatil_cardShareList col-md-12">
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
@@ -74,13 +74,11 @@
                         <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
                     </a>
 
-                    <div
-                            ng-click="createNewComment(detailResponse.discuss.id)">Answer
-                    </div>
+                    <div ng-click="createNewComment(detailResponse.discuss.id)">Answer</div>
                 </li>
 
                 <li ng-controller="DiscussLikeController">
-                    <a ng-click="likeDiscuss(detailResponse.discuss.id)">
+                    <a ng-click="likeDiscuss(detailResponse.discuss)">
                         <i class="rounded-x" ng-if="beforePost"
                            ng-class="{false:'icon-heart', true:'icon-heart-active'}[detailResponse.discuss.likedByUser===true]"
                            title="Likes"></i>
@@ -91,7 +89,7 @@
                         <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
                     </a>
 
-                    <div ng-click="likeDiscuss(detailResponse.discuss.id)" class="text text2">Like</div>
+                    <div ng-click="likeDiscuss(detailResponse.discuss)" class="text text2">Like</div>
 
                 </li>
 
@@ -109,11 +107,14 @@
             <div style="clear:both;"></div>
 
         </div>
+        <!--  discuss like/share/comment/answer code end -->
 
-        <!--  cooments -->
+
+        <!--  coments -->
         <div style="clear:both; "></div>
 
-        <div class="by_discussDeatil_cardCommentWrap" id="article-comments-wrapper">
+        <div ng-show="!detailResponse.discuss.pendingUserCredential" class="by_discussDeatil_cardCommentWrap"
+             id="article-comments-wrapper">
 
             <!--Comment Editor for main article-->
             <div class="col-md-12 by_discussDeatil_cardComment" id="replyEditor" ng-show="showEditor">
@@ -126,15 +127,15 @@
 
                     <div class="clearfix" style="height:45px;"></div>
                     <div class="col-md-6 no-padding margin-bottom-10 register-page" ng-if="!userSessionType">
-                        <input type="email" class="by_registerEmailId"
-                               placeholder="Enter your email Id" ng-model="userCredential.email" name="userEmail"
+                        <input type="email" class="by_registerEmailId" placeholder="Enter your email Id"
+                               ng-model="userCredential.email" name="userEmail"
                                required/>
                         <span ng-show="errorMsg" class="errorRed">
                                 Please enter valid Email Id
                         </span>
                     </div>
                     <div class="col-md-6 by_emailIdHint" ng-if="!userSessionType">
-                        We will send you updates when someone responds on this thread. 
+                        We will send you updates when someone responds on this thread.
                     </div>
                     <div class="clearfix"></div>
                     <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
@@ -153,22 +154,31 @@
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
-        <div ng-if="discussLikePending" class="col-md-12 margin-bottom-20 margin-top-20">
+
+
+        <!--discuss like user valisation start-->
+        <div ng-show="detailResponse.discuss.pendingUserCredential" class="col-md-12 margin-bottom-20 margin-top-20">
             <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
-                <input type="email" class="by_registerEmailId"
-                placeholder="Enter your email Id"/>
+                <input type="email" class="by_registerEmailId" ng-model="likeActionCredential.email"
+                       placeholder="Enter your email Id"/>
             </div>
             <div class="clearfix"></div>
+            <span ng-show="likeErrMsg">
+                <font color="red">{{likeErrMsg}}</font>
+            </span>
             <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
-            disabled>
-            SUBMIT
-        </button>
-        <button class="btn btn-sm btn-success comment-submit by_btn_cancel ">
-            CANCEL
-        </button>
-        <div class="clearfix"></div>
-    </div>
+                    ng-click="setUserCredentialForLike()">
+                SUBMIT
+            </button>
+            <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">
+                CANCEL
+            </button>
+            <div class="clearfix"></div>
+        </div>
+        <!--discuss like user valisation end-->
 
+
+        <!--discuss detail replies start-->
         <div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"
              ng-init="initCommentEditor(detailResponse.discuss.id)"></div>
 
@@ -178,7 +188,9 @@
                  ng-include="'app/shared/common/template/replyCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
         </div>
         <div style="clear: both; height:0px; background:#fff !important"></div>
+        <!--discuss detail replies start-->
 
+        <!--discuss detail share by email start-->
         <div id="shareModal" class="modal fade" role="dialog">
             <div ng-include="'app/components/discussDetail/discussModal.html'"></div>
         </div>
@@ -186,7 +198,7 @@
         <div id="shareEmailModal" class="modal fade" role="dialog">
             <div ng-include="'app/components/discussDetail/shareEmailModal.html'"></div>
         </div>
-
+        <!--discuss detail share by email end-->
     </div>
 
 </div>

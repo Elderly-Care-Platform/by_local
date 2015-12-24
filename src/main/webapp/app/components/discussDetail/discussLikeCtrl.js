@@ -33,22 +33,22 @@ define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConf
                     },
                     function (errorResponse) {
                         console.log(errorResponse);
-                        if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
-                            ValidateUserCredential.login();
-                        }
+                        //if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                        //    ValidateUserCredential.login();
+                        //}
                     });
             }
 
         }
 
-        $scope.likeComment = function (commentId, replyType) {
+        $scope.likeComment = function (replyObj) {
             $scope.discussLike = new DiscussReplyLike();
-            $scope.discussLike.replyId = commentId;
+            $scope.discussLike.replyId = replyObj.id;
             $scope.discussLike.url = window.location.href;
             $scope.userSessionType   = UserValidationFilter.getUserSessionType();
 
             if($scope.userSessionType === null){
-                var userCredentialPromise = $scope.$parent.getUserCredentialForLike();
+                var userCredentialPromise = $scope.$parent.getUserCredentialForLike(replyObj);
                 userCredentialPromise.then(validUser, invalidUser);
             } else {
                 httpPostLike();
@@ -63,7 +63,7 @@ define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConf
             }
 
             function httpPostLike(){
-                if (replyType === BY.config.discuss.replyType.REPLY_TYPE_ANSWER) {
+                if (replyObj.replyType === BY.config.discuss.replyType.REPLY_TYPE_ANSWER) {
                     $scope.discussLike.$likeAnswer(function (likeReply, headers) {
                             $scope.beforePost = false;
                             $scope.aggrLikeCount = likeReply.data.likeCount;

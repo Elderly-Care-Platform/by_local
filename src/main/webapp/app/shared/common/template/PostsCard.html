@@ -100,7 +100,7 @@
 
 
             <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
-                <a ng-click="likeDiscuss(discuss.id)">
+                <a ng-click="likeDiscuss(discuss)">
                     <i class="rounded-x" ng-if="beforePost"
                        ng:class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]"
                        title="Likes">
@@ -113,7 +113,7 @@
                     <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
                 </a>
 
-                <div ng-click="likeDiscuss(discuss.id)" class="text text2">Like</div>
+                <div ng-click="likeDiscuss(discuss)" class="text text2">Like</div>
             </li>
 
             <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">

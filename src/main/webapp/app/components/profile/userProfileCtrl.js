@@ -1,6 +1,6 @@
 define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
     function (byApp, byUtil, userTypeConfig, reviewRateController) {
-        function ProfileController($scope, $rootScope, $window, $location, $routeParams, ReviewRateProfile, UserProfile, $sce, DiscussPage) {
+        function ProfileController($scope, $rootScope, $window, $location, $routeParams, ReviewRateProfile, UserProfile, $sce, DiscussPage, $q, UserValidationFilter) {
             $scope.profileViews = {};
             $scope.profileType = $routeParams.profileType;
             $scope.profileId = $routeParams.profileId;
@@ -12,6 +12,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             $scope.isAllowedToReview = false;
             $scope.flags = {};
             $scope.flags.isByAdminVerified = false;
+
+            $scope.userCredential = {'email': '', 'pwd': ''};
 
             var pageSize = 10;
             var reviewDetails = new ReviewRateProfile();
@@ -396,10 +398,54 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                 });
             };
 
+            //Discuss like code
+            $scope.getUserCredentialForLike = function(discussLikeObj){
+                if($scope.discussLikeObj){
+                    delete $scope.discussLikeObj.pendingUserCredential
+                }
+                $scope.discussLikeObj = discussLikeObj;
+                $scope.discussLikeObj.pendingUserCredential = true;
+                $scope.userCredential.defer= $q.defer();
+
+                return $scope.userCredential.defer.promise;
+            }
+
+            $scope.setUserCredentialForLike = function(){
+                if($scope.userCredential.email && BY.byUtil.validateEmailId($scope.userCredential.email)){
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(validUser, invalidUser);
+                }else{
+                    $scope.likeErrMsg = "Please enter valid email";
+                }
+
+                function validUser(){
+                    if($scope.userCredential.defer){
+                        $scope.discussLikeObj.pendingUserCredential = false;
+                        $scope.userCredential.defer.resolve();
+                        //delete $scope.userCredential.promise;
+                    }
+                }
+
+                function invalidUser(){
+                    console.log("invalid user error");
+                    if($scope.userCredential.defer){
+                        $scope.userCredential.defer.reject();
+                    }
+                    //delete $scope.userCredential.promise;
+                }
+            }
+
+            $scope.cancelSetCredentialForLike = function(){
+                $scope.discussLikeObj.pendingUserCredential = false;
+                if($scope.userCredential.defer){
+                    $scope.userCredential.defer.reject();
+                }
+            }
+
 
         }
 
-        ProfileController.$inject = ['$scope', '$rootScope', '$window', '$location', '$routeParams', 'ReviewRateProfile', 'UserProfile', '$sce', 'DiscussPage'];
+        ProfileController.$inject = ['$scope', '$rootScope', '$window', '$location', '$routeParams', 'ReviewRateProfile', 'UserProfile', '$sce', 'DiscussPage', '$q', 'UserValidationFilter'];
         byApp.registerController('ProfileController', ProfileController);
         return ProfileController;
     });

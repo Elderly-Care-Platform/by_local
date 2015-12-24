@@ -1,6 +1,6 @@
 define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareController'],
     function(byApp, byUtil, userTypeConfig, discussLikeController, shareController) {
-        function SearchController($scope, $rootScope, $http, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce, SERVERURL_IMAGE, Utility){
+        function SearchController($scope, $rootScope, $http, $route, $location, $routeParams, DiscussSearch, ServiceSearch, HousingSearch, $sce, SERVERURL_IMAGE, Utility, $q, UserValidationFilter){
             $rootScope.term = $routeParams.term;
             $scope.userTypeConfig           = BY.config.profile.userTypeMap;
 
@@ -9,6 +9,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
             $scope.showme = false;
 
             var disType = $routeParams.searchType;
+
+            $scope.userCredential = {'email': '', 'pwd': ''};
 
             $scope.discuss = "";
             $scope.pageInfo = {};
@@ -359,10 +361,54 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     }
                 }
             };
+
+            //Discuss like code
+            $scope.getUserCredentialForLike = function(discussLikeObj){
+                if($scope.discussLikeObj){
+                    delete $scope.discussLikeObj.pendingUserCredential
+                }
+                $scope.discussLikeObj = discussLikeObj;
+                $scope.discussLikeObj.pendingUserCredential = true;
+                $scope.userCredential.defer= $q.defer();
+
+                return $scope.userCredential.defer.promise;
+            }
+
+            $scope.setUserCredentialForLike = function(){
+                if($scope.userCredential.email && BY.byUtil.validateEmailId($scope.userCredential.email)){
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(validUser, invalidUser);
+                }else{
+                    $scope.likeErrMsg = "Please enter valid email";
+                }
+
+                function validUser(){
+                    if($scope.userCredential.defer){
+                        $scope.discussLikeObj.pendingUserCredential = false;
+                        $scope.userCredential.defer.resolve();
+                        //delete $scope.userCredential.promise;
+                    }
+                }
+
+                function invalidUser(){
+                    console.log("invalid user error");
+                    if($scope.userCredential.defer){
+                        $scope.userCredential.defer.reject();
+                    }
+                    //delete $scope.userCredential.promise;
+                }
+            }
+
+            $scope.cancelSetCredentialForLike = function(){
+                $scope.discussLikeObj.pendingUserCredential = false;
+                if($scope.userCredential.defer){
+                    $scope.userCredential.defer.reject();
+                }
+            }
         }
 
         SearchController.$inject = ['$scope', '$rootScope', '$http', '$route', '$location', '$routeParams', 'DiscussSearch',
-            'ServicePageSearch', 'HousingPageSearch',  '$sce', 'SERVERURL_IMAGE', 'Utility'];
+            'ServicePageSearch', 'HousingPageSearch',  '$sce', 'SERVERURL_IMAGE', 'Utility', '$q', 'UserValidationFilter'];
         byApp.registerController('SearchController', SearchController);
         return SearchController;
     });

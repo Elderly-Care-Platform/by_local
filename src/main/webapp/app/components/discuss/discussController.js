@@ -14,7 +14,7 @@ define(['byApp',
         'use strict';
 
         function DiscussAllController($scope, $rootScope, $location, $route, $routeParams, DiscussPage,
-                                      DiscussCount, $sce, $timeout, $window, DisServiceFilter) {
+                                      DiscussCount, $sce, $timeout, $window, DisServiceFilter, $q, UserValidationFilter) {
 
 
             $rootScope.byTopMenuId = $rootScope.mainMenu[0].id;
@@ -29,7 +29,7 @@ define(['byApp',
             $scope.showEditorPage = showEditorPage;
             $scope.shareDiscussObject = {};
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
-
+            $scope.userCredential = {'email': '', 'pwd': ''};
 
             var tags = [];
             var queryParams = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
@@ -279,11 +279,68 @@ define(['byApp',
 
                 return newHref;
             };
+
+
+            //Discuss like code
+            $scope.getUserCredentialForLike = function(discussLikeObj){
+                if($scope.discussLikeObj){
+                    delete $scope.discussLikeObj.pendingUserCredential
+                }
+                $scope.discussLikeObj = discussLikeObj;
+                $scope.discussLikeObj.pendingUserCredential = true;
+                $scope.userCredential.defer= $q.defer();
+                window.setTimeout(function(){
+                    $(".masonry").masonry("reload");
+                }, 100);
+
+                return $scope.userCredential.defer.promise;
+            }
+
+            $scope.setUserCredentialForLike = function(){
+                if($scope.userCredential.email && BY.byUtil.validateEmailId($scope.userCredential.email)){
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(validUser, invalidUser);
+                }else{
+                    $scope.likeErrMsg = "Please enter valid email";
+                }
+
+                function validUser(){
+                    if($scope.userCredential.defer){
+                        $scope.discussLikeObj.pendingUserCredential = false;
+                        $scope.userCredential.defer.resolve();
+                        //delete $scope.userCredential.promise;
+                    }
+                    window.setTimeout(function(){
+                        $(".masonry").masonry("reload");
+                    }, 100);
+                }
+
+                function invalidUser(){
+                    console.log("invalid user error");
+                    if($scope.userCredential.defer){
+                        $scope.userCredential.defer.reject();
+                    }
+                    window.setTimeout(function(){
+                        $(".masonry").masonry("reload");
+                    }, 100);
+                    //delete $scope.userCredential.promise;
+                }
+            }
+
+            $scope.cancelSetCredentialForLike = function(){
+                $scope.discussLikeObj.pendingUserCredential = false;
+                if($scope.userCredential.defer){
+                    $scope.userCredential.defer.reject();
+                }
+                window.setTimeout(function(){
+                    $(".masonry").masonry("reload");
+                }, 100);
+            }
         }
 
 
         DiscussAllController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-            'DiscussPage', 'DiscussCount', '$sce', '$timeout', '$window', 'DisServiceFilter'];
+            'DiscussPage', 'DiscussCount', '$sce', '$timeout', '$window', 'DisServiceFilter', '$q', 'UserValidationFilter'];
 
         byApp.registerController('DiscussAllController', DiscussAllController);
         return DiscussAllController;

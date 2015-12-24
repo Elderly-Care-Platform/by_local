@@ -32,19 +32,15 @@
 				<p ng-show="loginForm.password.$invalid && loginForm.password.$pristine"
 					class="help-block">Password is required.</p>
 			</span>
-
-			
-
+			<div class="col-md-12 no-padding form-header-content margin-bottom-20">
+				<button class="btn btn-success pull-right login-btn by_btn_submit"
+					ng-disabled="!loginForm.$valid" type="submit" style="margin-top:10px; border-radius:3px !important; width:100%;">LOGIN</button>
+			</div>
 			<div class="by_registerLogin_center" style="text-align:right !important;">
 				 <div ng-click="showForm(2)">Forgot password?</div>
 			</div>
+			<div class="clearfix" style="height:20px;"></div>
 
-
-			<div class="col-md-12 no-padding form-header-content margin-bottom-25">
-				<button class="btn btn-success pull-right login-btn by_btn_submit"
-					ng-disabled="!loginForm.$valid" type="submit" style="margin-top:20px; border-radius:3px !important; width:100%;">LOGIN</button>
-			</div>
-			<div class="clearfix" style="height:10px;"></div>
 		</form>
 	</div>
 	<div class="or-divider mobileSite"></div>

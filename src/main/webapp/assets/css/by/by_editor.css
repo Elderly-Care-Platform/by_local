@@ -497,3 +497,12 @@ label input[type="file"] {
 {
 	display: none;
 }
+.by_emailIdHint
+{
+	line-height: 16px;
+}
+@media ( max-width : 1000px){
+	.by_emailIdHint{
+		padding:0px !important;
+	}
+}

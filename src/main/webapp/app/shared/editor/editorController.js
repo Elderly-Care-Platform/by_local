@@ -159,10 +159,13 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
                 $scope.errorMsg = "";
             }
 
-            if($scope.userSessionType === null && (!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email))){
-                $scope.errorMsg = "Please enter valid Email Id";
-            }
 
+            //If all other validation error are cleared then show email id error
+            if($scope.errorMsg.trim().length === 0){
+                if($scope.userSessionType === null && (!$scope.userCredential.email || !BY.byUtil.validateEmailId($scope.userCredential.email))){
+                    $scope.errorMsg = "Please enter valid Email Id";
+                }
+            }
         };
 
 
@@ -176,14 +179,26 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
             formatContent();
             validateContent();
 
-            if($scope.userSessionType && $scope.errorMsg.trim().length === 0){
-                $scope.submitContent();
-            } else if($scope.userSessionType === null){
-                var promise = UserValidationFilter.loginUser($scope.userCredential.email);
-                promise.then(validUser, invalidUser);
-            } else{
+            if($scope.errorMsg.trim().length === 0){
+                if($scope.userSessionType){
+                    $scope.submitContent();
+                } else if($scope.userSessionType === null){
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(validUser, invalidUser);
+                }
+            }else{
                 $(".by_btn_submit").prop("disabled", false);
             }
+
+
+            //if($scope.userSessionType && $scope.errorMsg.trim().length === 0){
+            //    $scope.submitContent();
+            //} else if($scope.userSessionType === null){
+            //    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+            //    promise.then(validUser, invalidUser);
+            //} else{
+            //    $(".by_btn_submit").prop("disabled", false);
+            //}
 
         };
 

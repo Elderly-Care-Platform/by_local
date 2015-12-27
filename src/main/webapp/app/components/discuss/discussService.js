@@ -1,9 +1,8 @@
 define(['byApp'], function (byApp) {
 
-    /* @ngInject */
     function DisService($location) {
         return {
-            getDiscussDetailUrl: getDiscussDetailUrl,
+            getDiscussDetailUrl: getDiscussDetailUrl
         };
 
         function getDiscussDetailUrl(discuss, urlQueryParams, isAngularLocation){

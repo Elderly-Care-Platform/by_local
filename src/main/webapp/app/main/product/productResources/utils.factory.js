@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function UtilFactory($rootScope,
                          $log,
                          $window,

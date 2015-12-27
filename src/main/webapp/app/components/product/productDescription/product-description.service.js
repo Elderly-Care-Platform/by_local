@@ -1,6 +1,5 @@
 define([], function () {
 
-  /* @ngInject */
   function ProductDescFactory(REST_URL,
                               DelegatorService,
                               CachedRequestHandler,

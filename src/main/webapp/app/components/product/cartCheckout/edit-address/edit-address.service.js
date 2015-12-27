@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function EditAddressFactory($http,
                                 urlTemplate,
                                 REST_URL,
@@ -18,8 +17,7 @@ define([], function () {
          * making request
          * @type {object}
          */
-        addressService = angular.extend(
-            {},
+        addressService = angular.extend({},
             CachedRequestHandler,
             {
                 modelName: 'editAddress',

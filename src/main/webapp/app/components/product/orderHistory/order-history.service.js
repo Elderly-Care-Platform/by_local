@@ -1,5 +1,4 @@
 define(["byProductResources"], function (byProductResources) {
-  /* @ngInject */
   function OrderHistoryFactory(urlTemplate,
                                REST_URL,
                                SERVERURL,

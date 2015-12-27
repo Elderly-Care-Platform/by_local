@@ -1,5 +1,4 @@
 define([], function () {
-    /* @ngInject */
     function AddAddressFactory($http,
                                REST_URL,
                                urlTemplate,
@@ -14,8 +13,7 @@ define([], function () {
                 ':addressId')
         };
 
-        addressService = angular.extend(
-            {},
+        addressService = angular.extend({},
             CachedRequestHandler,
             {
                 //Todo:Define modelname for selectAdress in appropriate

@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function SelectAddressFactory($rootScope, $location, $http, UserProfile, UserValidationFilter) {
         var addressFormat = {
             "firstName": "",

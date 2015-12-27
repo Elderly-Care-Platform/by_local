@@ -1,6 +1,5 @@
 define([], function () {
 
-  /* @ngInject */
   function StateParamsValidator() {
 
     return {

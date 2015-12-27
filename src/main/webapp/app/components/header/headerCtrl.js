@@ -3,7 +3,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         $rootScope.screenHeight = $(window).height();
         $scope.loginDetails = {
             "text": "",
-            "link": "",
+            "link": ""
         }
         $scope.profileDetails = {
             "text": "",

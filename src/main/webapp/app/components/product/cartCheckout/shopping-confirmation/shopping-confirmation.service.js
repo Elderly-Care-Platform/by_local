@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function ShoppingConfirmationFactory($log,
                                          urlTemplate,
                                          REST_URL,

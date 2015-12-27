@@ -1,6 +1,5 @@
 define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
 
-    /* @ngInject */
     function UserValidation($rootScope, $location, $http, $q, SessionIdService) {
         return {
             getUserSessionType  : getUserSessionType,

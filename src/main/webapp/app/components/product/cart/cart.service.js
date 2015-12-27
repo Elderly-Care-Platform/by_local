@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function CartServiceFactory(CachedRequestHandler,
                                 APPLICATION,
                                 REST_URL,
@@ -25,7 +24,7 @@ define([], function () {
             forRemovePromoCodes: urlTemplate(REST_URL.offersRemove + '?customerId=:customerId',
                 {}, {type: 'delete'}),
 
-            mergeGuestCart: urlTemplate(REST_URL.mergeCart + '?guestOrderId=:guestOrderId', {}, {type: 'post'}),
+            mergeGuestCart: urlTemplate(REST_URL.mergeCart + '?guestOrderId=:guestOrderId', {}, {type: 'post'})
         };
 
         cartService = angular.extend(

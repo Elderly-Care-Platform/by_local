@@ -1,5 +1,4 @@
 define([], function () {
-  /* @ngInject */
   function CategoryServiceFactory(
     CachedRequestHandler,
     APPLICATION,

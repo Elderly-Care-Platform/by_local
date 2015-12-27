@@ -597,7 +597,7 @@ define(["byApp", "angular"], function (byApp, angular) {
     byApp.directive('validateByCategories', function($rootScope){
         return {
             scope: {
-                validateByCategories: '=',
+                validateByCategories: '='
             },
             link: function (scope) {
                 var categoryArr = [];

@@ -1,6 +1,5 @@
 define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoImageDirective) {
 
-    /* @ngInject */
     function ProductDescriptionController($scope,
                                           $rootScope,
                                           $log,

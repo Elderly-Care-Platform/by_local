@@ -161,7 +161,7 @@ require.config({
 		"angularSanitize" : {
 			deps : [ "angular" ]
 		}
-	},
+	}
 
 });
 require(['angular', "byApp", "byUtil", "byDirectives", "lodash", "byApplicationConfig"], function(angular, byApp, byUtil, byDirectives, lodash, byApplicationConfig) {

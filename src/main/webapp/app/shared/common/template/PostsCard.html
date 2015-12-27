@@ -5,16 +5,17 @@
     <img class="by_discuss_img" ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage"
          ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
          fallback-src='["assets/img/by.png"]' alt="image">
-         
-          <img class="by_discuss_img" ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage"
-                 ng-src="assets/img/by.png" alt="image">
+
+    <img class="by_discuss_img" ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage"
+         ng-src="assets/img/by.png" alt="image">
 
     <div class="by_discuss_info" style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
         <ul class="list-inline by_discuss_infoList" style="">
             <li>
                 <p>
                     By <a validate-user-name="{{discuss.username}}" class="text-capitalize"
-                          ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}" ng-click="$event.stopPropagation();">
+                          ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"
+                          ng-click="$event.stopPropagation();">
                     {{username}}</a> |
                 </p>
             </li>
@@ -25,7 +26,8 @@
 
             <li ng-repeat="topicId in discuss.topicId">
                 <p class="first-letter-uc by-systemTags">
-                    <span ng-if="$index > 0">|</span> <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
+                    <span ng-if="$index > 0">|</span> <a
+                        di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
                 </p>
             </li>
         </ul>
@@ -83,7 +85,8 @@
         <ul class="post-shares post-shares-lg">
             <li class="add-comment"
                 ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
-                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
+                   ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                     <span>{{discuss.aggrReplyCount}}</span>
 
                     <div class="text">Comment</div>
@@ -91,8 +94,10 @@
             </li>
 
             <li class="add-comment add-comment-FC" ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <div class="text" >
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
+                   ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+
+                    <div class="text">
                         Be the first to comment
                     </div>
                 </a>
@@ -121,6 +126,7 @@
                     <i class="rounded-x icon-share"></i>
                     <span ng-if="discuss.shareCount > 0">{{discuss.shareCount}}</span>
                 </a>
+
                 <div class="post-text post_text-comment">
                     <a ng-click="shareComment(discuss, $event)">
                         <div class="text">Share</div>
@@ -134,16 +140,16 @@
     <div style="clear: both"></div>
 </div>
 
-<div ng-if="discussLikePending" class="margin-bottom-20">
+<div ng-if="discuss.pendingUserCredential" class="margin-bottom-20">
     <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
-        <input type="email" class="by_registerEmailId"
-        placeholder="Enter your email Id"/>
+        <input type="email" class="by_registerEmailId" placeholder="Enter your email Id" ng-model="userCredential.email"/>
     </div>
     <div class="clearfix"></div>
-    <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "  type="submit" disabled>
+    <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn"
+            type="submit" ng-click="setUserCredentialForLike()">
         SUBMIT
     </button>
-    <button class="btn btn-sm btn-success comment-submit by_btn_cancel ">
+    <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">
         CANCEL
     </button>
     <div class="clearfix"></div>

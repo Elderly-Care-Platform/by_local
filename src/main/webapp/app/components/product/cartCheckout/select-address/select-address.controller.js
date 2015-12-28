@@ -29,6 +29,7 @@ define(['byProductApp'], function (byProductApp) {
             /**
              * Retrieve the list of address
              */
+             $("#preloader").show();
             var getAddressPromise = SelectAddressService.getAddress();
             if(getAddressPromise){
                 getAddressPromise.then(successCallBack, errorCallBack);
@@ -41,9 +42,11 @@ define(['byProductApp'], function (byProductApp) {
              */
             function successCallBack(result) {
                 $scope.customerAddress = result.data.data;
+                $("#preloader").hide();
             }
 
             function errorCallBack() {
+                $("#preloader").hide();
                 console.log('can\'t get the data');
             }
         }

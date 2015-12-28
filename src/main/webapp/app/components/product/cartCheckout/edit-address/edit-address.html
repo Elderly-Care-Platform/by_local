@@ -1,9 +1,10 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
+	<div >
+		<div class="leftPanel" ng-include="'app/components/product/cartCheckout/edit-address/edit-address-left-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
+		</div>
+		<div class="contentPanel" ng-include="'app/components/product/cartCheckout/edit-address/edit-address-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
+		</div>
 
-<div >
-     <div class="leftPanel" ng-include="'app/components/product/cartCheckout/edit-address/edit-address-left-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
-    </div>
-    <div class="contentPanel" ng-include="'app/components/product/cartCheckout/edit-address/edit-address-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'">
-    </div>
-
+	</div>
 </div>

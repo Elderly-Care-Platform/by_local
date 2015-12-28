@@ -11,6 +11,7 @@ define(["byApp"], function(byApp) {
         $scope.resetError = function () {
             $scope.emailError = "";
             $scope.shareForm.emails.$invalid = "";
+            $(".by_btn_submit").prop("disabled", false);
         }
         
         $scope.checkSession = localStorage.getItem("SessionId");
@@ -48,9 +49,15 @@ define(["byApp"], function(byApp) {
         	
         }
         	
-        $scope.modalDismiss = function modalDismiss() {
+        $scope.resetErrorOnModalDismiss = function resetErrorOnModalDismiss() {
         	$scope.resetError();
         }
+        
+        $scope.dismissModal = function dismissModal() {
+        	$("#shareModal").modal("hide");
+        }
+
+        
         
         $scope.emailShare = function emailShare(isValidForm, data) {
             
@@ -70,15 +77,20 @@ define(["byApp"], function(byApp) {
         	if( $scope.emailError == ""){
         		$http.post($scope.pathName + 'api/v1/share/email/' + discussId, emailParams   
         		).success(function (response, status, headers, config) {
-    			 
+        			$("#shareEmailModal").modal("hide");
         		}).error(function(errorRes) {    
-        			console.log(errorRes);
         			$(".by_btn_submit").prop("disabled", true);
+        			if(errorRes == undefined){
+        			}else{
+        				$scope.emailError = errorRes.error.errorMsg;
+        				$(".by_btn_submit").prop("disabled", true);
+        				$("#shareEmailModal").modal("show");
+        			}
         		});
         	}
-        	
+
         }
-        
+                
     	$scope.shareComment = function(sharedObj, $event){
             var caption = "", picture = Math.random() + ".jpg", description = "";
         	$event.stopPropagation();

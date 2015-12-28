@@ -59,21 +59,29 @@ public class ShareController {
 				"mailTemplate.properties");
 		User currentUser = Util.getSessionUser(request);
 		String senderName = null;
+		String shareMessage = null;
 		String senderLink = "";
 		String authorLink = "";
 		String path = System.getProperty("path");
-		String profileImage = "http://beautifulyears.com/assets/img/by.png";	
 		String title = null;
 		String storyImage = "";
 		String borderStart = "";
 		String borderEnd = "";
+		String hideMessageBubble = "";
 		String description = null;
 		
 		try {
 			
 			Discuss discuss = discussRepository.findOne(discussId);
 			
-			String shareMessage = emailParams.getSubject();	
+			if(null == emailParams.getSubject()){
+				shareMessage = "";
+				hideMessageBubble = "none !important";
+			}else{
+				shareMessage = emailParams.getSubject();
+				hideMessageBubble = "inherit";
+			}
+				
 			String userName = discuss.getUsername();
 			
 			Date dateStart = discuss.getCreatedAt();
@@ -88,18 +96,25 @@ public class ShareController {
 				path = "http://beautifulyears.com";
 			} 
 			
+			String profileImage = path + "/assets/img/by.png";	
+			
+			String modifiedName = discuss.getTitle().replaceAll("[^a-zA-Z0-9 ]", "");
+			modifiedName = modifiedName.replaceAll(" ", "-").toLowerCase();
+			
 			if(null != currentUser){
 				senderName = currentUser.getUserName();
-				senderLink = path + "/#!/profile/0/" +  currentUser.getId() + "/" + currentUser.getUserName();
+				senderLink = path + "/#!/users/" + currentUser.getUserName() + "?profileId=" + currentUser.getId();
 			}else{
 				senderName = emailParams.getSenderName();
 			}
 			
 			if(null != discuss.getUserProfile()){
-				if(null == discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original")){
-					profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("thumbnailImage");
-				}else{
-					profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original");
+				if(null != discuss.getUserProfile().getBasicProfileInfo().getProfileImage()){
+					if(null == discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original")){
+						profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("thumbnailImage");
+					}else{
+						profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original");
+					}
 				}
 			}
 			
@@ -120,18 +135,19 @@ public class ShareController {
 				borderEnd = "' alt='' width='470'/>";
 			}
 			
-			authorLink = path + "/#!/profile/0/" +  discuss.getUserId() + "/" + discuss.getUsername();	
+			authorLink = path + "/#!/users/" +  discuss.getUsername() + "?profileId=" + discuss.getUserId();	
 			
 			emailInfo.setEmailIds(emailParams.getEmailIds());
 			emailInfo.setSubject(title);
 			emailInfo.setBody(MessageFormat.format(
 					resourceUtil.getResource("shareInEmail"),
-					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, discussId, authorLink, senderLink));
-			
+					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, discussId, authorLink, senderLink, hideMessageBubble, modifiedName));
+			System.out.println(emailInfo.getBody());
 			shareInMail(emailInfo);
 			
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+			Util.handleException(e);
 		}
 	}
 	

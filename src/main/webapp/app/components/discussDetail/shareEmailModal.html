@@ -5,7 +5,7 @@
         <div class="modal-header">
         	<p><i class="fa fa-envelope-o"></i>Share on E-mail</p>
             <button type="button" class="close"
-                    data-dismiss="modal" ng-click="modalDismiss()">
+                    data-dismiss="modal" ng-click="resetErrorOnModalDismiss()">
                 <span aria-hidden="true">&times;</span>
                 <span class="sr-only">Close</span>
             </button>
@@ -65,8 +65,8 @@
 	    					</div>
 	    				</div> 
 						<div class="form-group button-group">
-							<input type="button" value="Send" class="nextButton by_btn_submit" data-dismiss="modal" ng-disabled="shareForm.emails.$invalid || shareForm.name.$invalid" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
-							<input type="button" value="Cancel" class="returnButton" data-dismiss="modal" ng-click="modalDismiss()">
+							<input type="button" value="Send" class="nextButton by_btn_submit" ng-disabled="shareForm.emails.$invalid || shareForm.name.$invalid" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
+							<input type="button" value="Cancel" class="returnButton" data-dismiss="modal" ng-click="resetErrorOnModalDismiss()">
 							<div class="clearfix"></div>
 						</div>
 					</form>

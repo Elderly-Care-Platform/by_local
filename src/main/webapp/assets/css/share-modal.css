@@ -19,7 +19,7 @@
 	border-right:1px solid #A8A6A6;
 }
 .share-block-link{
-	paddig:0px;
+	padding:0px;
 	display:block;
 	border: 1px solid #fff;
 	box-shadow:0px 0px 2px #fff;
@@ -66,7 +66,7 @@
 	border-radius:50% !important;	
 	width:40px;
 	height:40px;
-	margin-left:44px;
+	margin-left:30%;
 }
 .icon-bg i{
 	position:absolute;
@@ -166,4 +166,26 @@
 .shareDetails p{
 	font-size:13px;
 	margin-top:-8px;
+}
+@media screen and (max-width: 992px) {
+	.border-side{
+		border-bottom:1px solid #A8A6A6;
+		border-right:none;
+	}
+	.icon-bg{
+		margin-left:40%;
+	}
+}
+@media screen and (max-width: 768px) {
+	.border-side{
+		border-bottom:1px solid #A8A6A6;
+		border-right:none;
+	}
+	.modal.in .modal-dialog{
+		transform: translate(10%, 25%);
+		width:80%;
+	}
+	.icon-bg{
+		margin-left:44%;
+	}
 }

@@ -103,10 +103,15 @@ define(['byApp',
             };
 
             function updateMetaTags(){
-                var seoKeywords = [$scope.selectedMenu.displayMenuName],
-                    seoDesc = $scope.menuConfig.community[selectedMenu.id].desc;
+                var seoKeywords = [$scope.selectedMenu.displayMenuName], seoDesc;
 
-                for(var i=0; i<$scope.selectedMenu.ancestorIds.length-1;i++){
+                    if($scope.menuConfig.community[$scope.selectedMenu.id]){
+                        seoDesc = $scope.menuConfig.community[$scope.selectedMenu.id].desc;
+                    } else{
+                        seoDesc = $scope.selectedMenu.displayMenuName;
+                    }
+
+                for(var i=0; i<=$scope.selectedMenu.ancestorIds.length-1;i++){
                     var categoryName = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[i]].displayMenuName;
                     seoKeywords.push(categoryName);
                 }

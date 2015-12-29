@@ -46,6 +46,7 @@ define([], function () {
                     return $http.get('api/v1/userAddress/' + userId);
                 }
             } else {
+                $("#preloader").hide();
                 $rootScope.nextLocation = "/selectAddress"
                 $location.path('/users/login');
             }
@@ -57,6 +58,7 @@ define([], function () {
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.put('api/v1/userAddress/' + userId, params.address);
             } else {
+                $("#preloader").hide();
                 $rootScope.nextLocation = "/selectAddress"
                 $location.path('/users/login');
             }
@@ -68,6 +70,7 @@ define([], function () {
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.post('api/v1/userAddress/' + userId, params.address);
             } else {
+                $("#preloader").hide();
                 $rootScope.nextLocation = "/selectAddress"
                 $location.path('/users/login');
             }

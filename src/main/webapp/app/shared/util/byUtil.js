@@ -66,11 +66,11 @@ BY.byUtil.updateMetaTags = function (param) {
     if (keywords && keywords.length > 0) {
         keywords = keywords.join(", ");
     } else {
-        keywords = "Beutifulyears , senior care, ageing";
+        keywords = "BeautifulYears , senior care, ageing, elder care";
     }
 
     if (!description || description === "" || description === "undefined") {
-        description = "Beautiful Years"
+        description = "BeautifulYears"
     }
 
     if (!title && title === "") {
@@ -78,7 +78,7 @@ BY.byUtil.updateMetaTags = function (param) {
     }
 
     if (title.indexOf("Beautiful Years") == -1) {
-        title += " - Beautiful Years";
+        title += " - BeautifulYears";
     }
 
     var url = location.origin + "/" + location.hash;

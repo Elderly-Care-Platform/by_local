@@ -25,13 +25,13 @@ define(['byProductApp'], function (byProductApp) {
 
         var init = initialize();
 
-        function initialize(){
+        function initialize() {
             /**
              * Retrieve the list of address
              */
-             $("#preloader").show();
+            $("#preloader").show();
             var getAddressPromise = SelectAddressService.getAddress();
-            if(getAddressPromise){
+            if (getAddressPromise) {
                 getAddressPromise.then(successCallBack, errorCallBack);
             }
 
@@ -68,32 +68,32 @@ define(['byProductApp'], function (byProductApp) {
         function shipToAddress(addressIndex) {
             $scope.selectedAddress = $scope.customerAddress[addressIndex];
             var pinCode = $scope.selectedAddress.address.zip;
-            if(pinCode){
+            if (pinCode) {
                 checkLogisticAvailability(pinCode);
-            }else{
+            } else {
                 $scope.selectedAddress.shipToAddressDisabled = true;
             }
         }
 
-        function checkLogisticAvailability(pincode){
+        function checkLogisticAvailability(pincode) {
             var checkLogistic = LogisticService.checkLogisticAvailability(pincode);
-            if(checkLogistic){
+            if (checkLogistic) {
                 checkLogistic.then(logisticSuccessRes, logisticErrorRes);
             }
 
-            function logisticSuccessRes(data){
+            function logisticSuccessRes(data) {
                 console.log("Logistic Available");
-                if(data.data === "" || data.status === 240){
+                if (data.data === "" || data.status === 240) {
                     console.log("Logistic Unavailable");
                     $scope.selectedAddress.logisticError = true;
-                }else{
+                } else {
                     console.log("Logistic Available");
                     $location.path(PAGE_URL.paymentGateway + $scope.selectedAddress.id);
                 }
 
             }
 
-            function logisticErrorRes(data){
+            function logisticErrorRes(data) {
                 console.log("Logistic Unavailable");
                 $scope.selectedAddress.logisticError = true;
             }
@@ -111,9 +111,9 @@ define(['byProductApp'], function (byProductApp) {
             $scope.cartItemCount = args;
         });
 
-        $scope.leftPanelHeight = function(){            
-            var clientHeight = $( window ).height() - 57;
-            $(".by_menuDetailed").css('height', clientHeight+"px");
+        $scope.leftPanelHeight = function () {
+            var clientHeight = $(window).height() - 57;
+            $(".by_menuDetailed").css('height', clientHeight + "px");
         }
 
         $scope.subMenuTabMobileShow = function () {

@@ -102,20 +102,32 @@ define(['byApp',
                 //masonaryGridInit();
             };
 
+            function updateMetaTags(){
+                var seoKeywords = [$scope.selectedMenu.displayMenuName],
+                    seoDesc = $scope.menuConfig.community[selectedMenu.id].desc;
+
+                for(var i=0; i<$scope.selectedMenu.ancestorIds.length-1;i++){
+                    var categoryName = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[i]].displayMenuName;
+                    seoKeywords.push(categoryName);
+                }
+
+                if(seoDesc && seoDesc.trim().length===0){
+                    seoDesc = seoKeywords.toString;
+                }
+
+                var metaTagParams = {
+                    title: $scope.selectedMenu.displayMenuName,
+                    imageUrl: "",
+                    description: "<p>"+seoDesc+"</p>",
+                    keywords: seoKeywords
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+            }
+
             function initDiscussListing() {
                 if ($scope.selectedMenu) {
+                    updateMetaTags();
                     //Set page title and FB og tags
-                    (function () {
-                        var metaTagParams = {
-                            title: $scope.selectedMenu.displayMenuName,
-                            imageUrl: "",
-                            description: "",
-                            keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
-                        }
-                        BY.byUtil.updateMetaTags(metaTagParams);
-                    })();
-
-
                     tags = $.map($scope.selectedMenu.tags, function (value, key) {
                         return value.id;
                     })

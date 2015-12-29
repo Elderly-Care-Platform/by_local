@@ -8,21 +8,21 @@
 
 
             <img style="float:none;" ng-src="{{uiData.primaryMedia.url}}"
-                 class="by_productMainImage" alt="{{uiData.name}}" ng-elevate-zoom data-imagezoom="true" data-magnification="4" ng-if="$root.windowWidth > 982">
+                 class="by_productMainImage" alt="{{uiData.name}}" ng-elevate-zoom data-imagezoom="true" data-magnification="4" ng-if="$root.windowWidth > 982" alt="{{uiData.name}}">
 
             <img style="float:none;" ng-src="{{uiData.primaryMedia.url}}"
-                 class="by_productMainImage" alt="{{uiData.name}}"  ng-if="$root.windowWidth < 983">     
+                 class="by_productMainImage" alt="{{uiData.name}}"  ng-if="$root.windowWidth < 983" alt=" {{uiData.name}}">     
 
             <div class="clearfix"></div>
         </div>
         <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px; border:0px;">
             <div id="arrow_left" ng-click="slideGallery('l')">
-                <img src="assets/img/icons/arrow_left.gif" style=" height: 40px;  margin-top:10px;" usemap="#Map" border="0">
+                <img src="assets/img/icons/arrow_left.gif" style=" height: 40px;  margin-top:10px;" usemap="#Map" border="0" alt="left">
             </div>
             <div class="by-gallery-container" style="left:20px;">
                 <a ng-repeat="media in uiData.mediaItems" on-finish-render="ngRepeatFinished">
                     <div ng-if="media.type === 'image' " class="by-imageGallery-item">
-                        <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}"
+                        <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}" alt="Gallery Image"
                              style="height:70px;">
                     </div>
                     <!-- Set image of video -->
@@ -44,7 +44,7 @@
                 </a>
             </div>
             <div id="arrow_right" ng-click="slideGallery('r')">
-                <img src="assets/img/icons/arrow_right.gif" style=" height: 40px;  margin-top:10px;">
+                <img src="assets/img/icons/arrow_right.gif" alt="Right" style=" height: 40px;  margin-top:10px;">
             </div>
             <div class="clearfix"></div>
         </div>
@@ -93,7 +93,7 @@
             <div class="pincode-form-wrap pincode-availableContent">
                 <div class="Cash-check-pin divLeft">
                     <div class="singleinline">
-                        <img src="assets/img/product/location.png" width="12">
+                        <img src="assets/img/product/location.png" alt="Pincode" width="12">
                     </div>
                     Check Availability at
                 </div>
@@ -219,7 +219,7 @@
             ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'"
             ng-click="addProductToCart(productId)">
             <span class="cart-icon">
-                <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13"/>
+                <img class="cart-icon-img" alt="Cart" src="assets/img/product/cart.png" width="19" height="13"/>
             </span>
             Add to Cart
         </button>
@@ -228,13 +228,13 @@
             ng-disabled="userRequiredQuantity > quantityAvailable || addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'"
             di-href="#!cart/" ng-click="addProductToCart(productId, 'selectAddress')">
             <span class="cart-icon">
-                <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13"/></span>
+                <img class="buy-icon-img" alt="Buy" src="assets/img/product/buy.png" width="19" height="13"/></span>
             Buy Now
         </button>
         <button type="button" class="btn-u by_productDetail_buttonBg" ng-if="inventoryType === 'ALWAYS_AVAILABLE'"
             ng-disabled="addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'" ng-click="addProductToCart(productId)">
             <span class="cart-icon">
-                <img class="cart-icon-img" src="assets/img/product/cart.png" width="19" height="13">
+                <img class="cart-icon-img" alt="Cart" src="assets/img/product/cart.png" width="19" height="13">
             </span>
             Add to Cart
         </button>
@@ -243,7 +243,7 @@
             ng-disabled="addToCartDisable || f1.qty.$invalid || logisticInfo.deliveryDetail==='NA'" di-href="#!cart/"
             ng-click="addProductToCart(productId, 'selectAddress')">
             <span class="cart-icon">
-                <img class="buy-icon-img" src="assets/img/product/buy.png" width="19" height="13">
+                <img class="buy-icon-img" alt="Buy" src="assets/img/product/buy.png" width="19" height="13">
             </span>
             Buy Now
         </button>

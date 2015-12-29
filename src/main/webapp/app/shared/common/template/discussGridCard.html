@@ -22,7 +22,7 @@
         <div class="by-quad-image col-md-12 no-padding"
              style="margin-top: -1px;">
             <img ng-if="discuss.discussType == 'P'"
-                 ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+                 ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="{{discuss.title}}"
                  fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>
@@ -80,7 +80,7 @@
         <!--Article image-->
         <div class="by_discuss_image col-md-12">
             <img ng-if="discuss.discussType == 'P' && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
-                 ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
+                 ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="{{discuss.title}}"
                  fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
             <div style="clear: both"></div>

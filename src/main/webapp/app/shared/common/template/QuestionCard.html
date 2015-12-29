@@ -3,10 +3,10 @@
     <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
     <img class="by_discuss_img" ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage"
          ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-         fallback-src='["assets/img/by.png"]' alt="image">
+         fallback-src='["assets/img/by.png"]' alt="Profile Image">
          
           <img class="by_discuss_img" ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage"
-        ng-src="assets/img/by.png" alt="image">
+        ng-src="assets/img/by.png" alt="Profile Image">
 
     <div class="by_discuss_info" style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
         <ul class="list-inline by_discuss_infoList" style="">
@@ -43,7 +43,7 @@
     <div style="clear: both"></div>
     <div class="by_discuss_image col-md-12">
         <img ng-if="discuss.discussType == 'P' && discuss.promotion == false"
-             ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
+             ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="{{discuss.title}}"
              fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
         <div style="clear: both"></div>
@@ -51,7 +51,7 @@
     <div class="by_discuss_image col-md-12 no-padding"
          style="margin-top: -1px;">
         <img ng-if="discuss.discussType == 'P' && discuss.promotion == true"
-            ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+            ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="{{discuss.title}}"
             fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
         <div style="clear: both"></div>

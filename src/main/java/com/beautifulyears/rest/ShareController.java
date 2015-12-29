@@ -63,7 +63,7 @@ public class ShareController {
 		String userName = "Anonymous";
 		String senderLink = "";
 		String authorLink = "";
-		String path = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+		String path = System.getProperty("path");
 		String title = null;
 		String storyImage = "";
 		String borderStart = "";

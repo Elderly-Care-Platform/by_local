@@ -78,10 +78,10 @@ public class SearchController {
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
 
-			TextCriteria criteria = TextCriteria.forDefaultLanguage()
+			TextCriteria criteria = TextCriteria.forDefaultLanguage().matching(term)
 					.matchingAny(term);
 
-			Query query = TextQuery.queryText(criteria);
+			Query query = TextQuery.queryText(criteria).sortByScore();
 			query.addCriteria(Criteria.where("status").is(
 					DiscussConstants.DISCUSS_STATUS_ACTIVE));
 			query.with(pageable);
@@ -133,7 +133,7 @@ public class SearchController {
 			TextCriteria criteria = TextCriteria.forDefaultLanguage()
 					.matchingAny(term);
 
-			Query query = TextQuery.queryText(criteria);
+			Query query = TextQuery.queryText(criteria).sortByScore();
 			query.with(pageable);
 
 			query.addCriteria(Criteria.where("userTypes").in(serviceTypes));
@@ -180,7 +180,7 @@ public class SearchController {
 			TextCriteria criteria = TextCriteria.forDefaultLanguage()
 					.matchingAny(term);
 
-			Query query = TextQuery.queryText(criteria);
+			Query query = TextQuery.queryText(criteria).sortByScore();
 			query.with(pageable);
 			query.addCriteria(Criteria.where("status")
 					.in(new Object[] { DiscussConstants.DISCUSS_STATUS_ACTIVE,

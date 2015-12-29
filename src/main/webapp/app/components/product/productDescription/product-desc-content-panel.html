@@ -8,7 +8,10 @@
 
 
             <img style="float:none;" ng-src="{{uiData.primaryMedia.url}}"
-                 class="by_productMainImage" alt="{{uiData.name}}" ng-elevate-zoom data-imagezoom="true" data-magnification="4">
+                 class="by_productMainImage" alt="{{uiData.name}}" ng-elevate-zoom data-imagezoom="true" data-magnification="4" ng-if="$root.windowWidth > 982">
+
+            <img style="float:none;" ng-src="{{uiData.primaryMedia.url}}"
+                 class="by_productMainImage" alt="{{uiData.name}}"  ng-if="$root.windowWidth < 983">     
 
             <div class="clearfix"></div>
         </div>

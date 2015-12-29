@@ -2,7 +2,7 @@
 <div class="by_registerLogin" ng-controller="LoginController">
 	
 	
-	<div class="by_registerLogin_left">
+	<div class="by_registerLogin_left" ng-class="{'by_registerLogin_left_full': uniqueLoginId.id}">
 		<form class="" name="userForm" ng-submit="createNewUser(userForm.$valid)" novalidate>
 			<div class="by_registerLogin_head">Register</div>
 

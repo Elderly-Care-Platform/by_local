@@ -391,6 +391,12 @@ button.login-btn {
 	float: right;
 	width: calc(50% - 26px);
 }
+.by_registerLogin_left_full
+{
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+}
 .by_registerLogin_right
 {
 	float: left;	

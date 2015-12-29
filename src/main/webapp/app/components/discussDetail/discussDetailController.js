@@ -25,6 +25,37 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
 
         };
 
+        function updateMetaTags(){
+            var seoTitle = $scope.detailResponse.discuss.title,
+                seoDesc = $scope.detailResponse.discuss.text;
+
+                if(!seoTitle || seoTitle.trim().length==0){
+                    if($scope.detailResponse.discuss.linkInfo){
+                        seoTitle = $scope.detailResponse.discuss.linkInfo.title;
+
+                    }
+                }
+
+                if(!seoDesc || seoDesc.trim().length==0){
+                    if($scope.detailResponse.discuss.linkInfo){
+                        seoDesc = "<p>"+$scope.detailResponse.discuss.linkInfo.description+"</p>";
+                    } else{
+                        seoDesc = "<p>"+seoTitle+"</p>";
+                    }
+                }
+
+            var metaTagParams = {
+                    title:  seoTitle,
+                    imageUrl:   BY.byUtil.getImage($scope.detailResponse.discuss),
+                    description:    seoDesc,
+                    keywords:[]
+                }
+                for(var i=0;i<$scope.detailResponse.discuss.systemTags.length ; i++){
+                    metaTagParams.keywords.push($scope.detailResponse.discuss.systemTags[i].name);
+                }
+                BY.byUtil.updateMetaTags(metaTagParams);
+        };
+
         DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
                 //broadcast data to left panel, to avoid another query from left panel of detail page
                 $scope.detailResponse = discussDetail.data;
@@ -32,16 +63,8 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
                 $scope.detailResponse.discuss.createdAt = discussDetail.data.discuss.createdAt;
                 $("#preloader").hide();
 
-                var metaTagParams = {
-                    title:  $scope.detailResponse.discuss.title,
-                    imageUrl:   BY.byUtil.getImage($scope.detailResponse.discuss),
-                    description:    $scope.detailResponse.discuss.text,
-                    keywords:[]
-                }
-                for(var i=0;i<$scope.detailResponse.discuss.systemTags.length ; i++){
-                	metaTagParams.keywords.push($scope.detailResponse.discuss.systemTags[i].name);
-                }
-                BY.byUtil.updateMetaTags(metaTagParams);
+                updateMetaTags();
+                
                 scrollToEditor();
             },
             function (error) {

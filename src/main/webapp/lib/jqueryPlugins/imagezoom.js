@@ -11,10 +11,9 @@
     opacity:0.5,
     cursor:'crosshair',
     zindex:2147483647,
-    zoomviewsize:[480,395],
+    zoomviewsize:[400,325],
     zoomviewposition:'right',
     zoomviewmargin:10,
-    zoomviewborder:'none',
     magnification:1.925
   };
 
@@ -52,10 +51,10 @@
           'top': offset.top,
           'width': cursorSize[0]*settings.magnification,
           'height': cursorSize[1]*settings.magnification,
-          'background':'#000',
+          'background':'#fff',
           'z-index':2147483647,
           'overflow':'hidden',
-          'border': settings.zoomviewborder
+          'border': '1px solid rgb(228, 228, 228)'
         });
 
         $(imagezoomView.selector).children('img').css({
@@ -68,7 +67,8 @@
           'position':'absolute',
           'width':cursorSize[0],
           'height':cursorSize[1],
-          'background-color':'rgb('+settings.cursorcolor+')',
+          'background-color':'rgba(255, 255, 255, 0.2)',
+          'border':'1px solid rgb(105, 105, 105)',
           'z-index':settings.zindex,
           'opacity':settings.opacity,
           'cursor':settings.cursor

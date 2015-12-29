@@ -119,7 +119,7 @@
 								<div class="margin-top-10">
 									<input type="password" class="by_registerEmailId" placeholder="Enter your Password" ng-model="userCredential.pwd"/>
 								</div>
-								<xyz ng-if="!userCredential.email && userCredential.email.trim().length === 0">
+								<xyz ng-if="!userCredential.email || userCredential.email.trim().length === 0">
 									<div class="margin-top-10">
 										Or <br/>
 										Use your social network account to login

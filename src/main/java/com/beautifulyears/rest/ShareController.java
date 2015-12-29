@@ -70,6 +70,7 @@ public class ShareController {
 		String borderEnd = "";
 		String hideMessageBubble = "";
 		String description = null;
+		String storyLink = null;
 		
 		try {
 
@@ -93,9 +94,6 @@ public class ShareController {
 			long dateDiff = diff / (24 * 60 * 60 * 1000)+1;
 			
 			String profileImage = path + "/assets/img/by.png";
-			
-			String modifiedName = discuss.getTitle().replaceAll("[^a-zA-Z0-9 ]", "");
-			modifiedName = modifiedName.replaceAll(" ", "-").toLowerCase();
 			
 			if(null != currentUser){
 				if(null != currentUser.getUserName()){
@@ -140,13 +138,19 @@ public class ShareController {
 				borderEnd = "' alt='' width='470'/>";
 			}
 			
+			String modifiedName = discuss.getTitle().replaceAll("[^a-zA-Z0-9 ]", "");
+			modifiedName = modifiedName.replaceAll(" ", "-").toLowerCase();
+			storyLink = path + "/#!/communities/" + modifiedName + "?id=" + discussId; 
 			authorLink = path + "/#!/users/" +  discuss.getUsername() + "?profileId=" + discuss.getUserId();	
 			
 			emailInfo.setEmailIds(emailParams.getEmailIds());
 			emailInfo.setSubject(title);
+			System.out.println(storyLink);
 			emailInfo.setBody(MessageFormat.format(
 					resourceUtil.getResource("shareInEmail"),
-					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, discussId, authorLink, senderLink, hideMessageBubble, modifiedName));
+					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, authorLink, senderLink, hideMessageBubble, storyLink));
+			
+			System.out.println(emailInfo.getBody());
 			
 			shareInMail(emailInfo);
 			

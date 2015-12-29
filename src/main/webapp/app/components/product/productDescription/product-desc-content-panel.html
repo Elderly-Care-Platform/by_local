@@ -17,12 +17,12 @@
         </div>
         <div class="col-md-12 by-imageGallery margin-top-20 row" style="padding-left:0px; border:0px;">
             <div id="arrow_left" ng-click="slideGallery('l')">
-                <img src="assets/img/icons/arrow_left.gif" style=" height: 40px;  margin-top:10px;" usemap="#Map" border="0" alt="left">
+                <img src="assets/img/icons/arrow_left.gif" style=" height: 40px;  margin-top:10px;" usemap="#Map" border="0" alt="Product Gallery Left Arrow">
             </div>
             <div class="by-gallery-container" style="left:20px;">
                 <a ng-repeat="media in uiData.mediaItems" on-finish-render="ngRepeatFinished">
                     <div ng-if="media.type === 'image' " class="by-imageGallery-item">
-                        <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}" alt="Gallery Image"
+                        <img class="small-width" ng-init="galleryClickHover();" ng-src="{{media.url}}" alt="Product Gallery Thumbnail Image"
                              style="height:70px;">
                     </div>
                     <!-- Set image of video -->
@@ -44,7 +44,7 @@
                 </a>
             </div>
             <div id="arrow_right" ng-click="slideGallery('r')">
-                <img src="assets/img/icons/arrow_right.gif" alt="Right" style=" height: 40px;  margin-top:10px;">
+                <img src="assets/img/icons/arrow_right.gif" alt="Product Gallery Right Arrow" style=" height: 40px;  margin-top:10px;">
             </div>
             <div class="clearfix"></div>
         </div>

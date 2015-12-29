@@ -116,7 +116,8 @@ public class UserController {
 					}
 					q.addCriteria(criteria);
 					user = mongoTemplate.findOne(q, User.class);
-					if (null == user && Util.isEmpty(loginRequest.getPassword())) {
+					if (null == user
+							&& Util.isEmpty(loginRequest.getPassword())) {
 						user = createGuestUser(loginRequest, req, res);
 					}
 				} else {
@@ -536,8 +537,15 @@ public class UserController {
 		try {
 			ResourceUtil resourceUtil = new ResourceUtil(
 					"mailTemplate.properties");
-			String body = MessageFormat.format(
-					resourceUtil.getResource("welcomeMail"), "");
+			String body = "";
+			if (user.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
+				body = MessageFormat.format(
+						resourceUtil.getResource("welcomeMailToFillProfile"),
+						"");
+			} else {
+				body = MessageFormat.format(
+						resourceUtil.getResource("welcomeMail"), "");
+			}
 			MailHandler.sendMail(user.getEmail(),
 					"Welcome to Beutifulyears.com", body);
 			mailStatus = true;

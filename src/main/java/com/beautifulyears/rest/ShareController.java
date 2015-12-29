@@ -60,9 +60,10 @@ public class ShareController {
 		User currentUser = Util.getSessionUser(request);
 		String senderName = null;
 		String shareMessage = null;
+		String userName = "Anonymous";
 		String senderLink = "";
 		String authorLink = "";
-		String path = System.getProperty("path");
+		String path = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 		String title = null;
 		String storyImage = "";
 		String borderStart = "";
@@ -71,7 +72,7 @@ public class ShareController {
 		String description = null;
 		
 		try {
-			
+
 			Discuss discuss = discussRepository.findOne(discussId);
 			
 			if(null == emailParams.getSubject()){
@@ -82,7 +83,9 @@ public class ShareController {
 				hideMessageBubble = "inherit";
 			}
 				
-			String userName = discuss.getUsername();
+			if(null != discuss.getUsername()){
+				userName = discuss.getUsername();
+			}
 			
 			Date dateStart = discuss.getCreatedAt();
 			Date dateToday = new Date(); 
@@ -92,18 +95,23 @@ public class ShareController {
 			/**
 			 * For testing purpose
 			 */
-			if(path == "http://localhost:8080/ROOT" || path.equals("http://localhost:8080/ROOT")){
+			if(path.equals("http://localhost:8080/ROOT")){
 				path = "http://beautifulyears.com";
-			} 
+			}
 			
-			String profileImage = path + "/assets/img/by.png";	
+			String profileImage = path + "/assets/img/by.png";
 			
 			String modifiedName = discuss.getTitle().replaceAll("[^a-zA-Z0-9 ]", "");
 			modifiedName = modifiedName.replaceAll(" ", "-").toLowerCase();
 			
 			if(null != currentUser){
-				senderName = currentUser.getUserName();
-				senderLink = path + "/#!/users/" + currentUser.getUserName() + "?profileId=" + currentUser.getId();
+				if(null != currentUser.getUserName()){
+					senderName = currentUser.getUserName();
+					senderLink = path + "/#!/users/" + currentUser.getUserName() + "?profileId=" + currentUser.getId();
+				}else{
+					senderName = "Anonymous";
+					senderLink = "";
+				}
 			}else{
 				senderName = emailParams.getSenderName();
 			}
@@ -130,6 +138,10 @@ public class ShareController {
 				description = discuss.getLinkInfo().getDescription();
 			}
 			
+			if(null == description){
+				description = "";
+			}
+			
 			if(storyImage != ""){
 				borderStart = "<img style='border: 0;display: block;max-width: 100%; height:auto; border:5px solid #F1F1F1' src='";
 				borderEnd = "' alt='' width='470'/>";
@@ -142,7 +154,7 @@ public class ShareController {
 			emailInfo.setBody(MessageFormat.format(
 					resourceUtil.getResource("shareInEmail"),
 					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, discussId, authorLink, senderLink, hideMessageBubble, modifiedName));
-			System.out.println(emailInfo.getBody());
+			
 			shareInMail(emailInfo);
 			
 		} catch (Exception e) {

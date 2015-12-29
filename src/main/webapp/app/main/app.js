@@ -39,7 +39,6 @@ define([
 			//window.scrollTo(0, 0);
 			BY.byEditor.removeEditor();
 			$rootScope.$broadcast('currentLocation', $location.path());
-			$(".zoomContainer").remove();
 
 			//For any location other than search, wipe out the search term
 			if($location.path().indexOf('/search/') == -1)

@@ -52,9 +52,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                                 }
                             )
                         }, 500);
-
-
-                }, function (error) {
+                }, function (error) {        
                     console.log(error);
                 });
             };
@@ -140,7 +138,11 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                                     $(b).html(result);
                                 }
                             )
-                        }, 500);
+                        }, 500);                    
+                    $("#preloader").hide();
+                }, function (error) {        
+                    $("#preloader").hide();       
+                    console.log(error);
                 });
             };
 
@@ -172,7 +174,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     $scope.getServicesData(0, $scope.pageSize);
                     $scope.getHousingData(0, $scope.pageSize);
                     $scope.getProductsData(0, $scope.pageSize);
-                    $("#preloader").hide();
                 }
             };
             initSearch();

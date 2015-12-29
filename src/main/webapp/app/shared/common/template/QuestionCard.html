@@ -126,13 +126,16 @@
 <div ng-if="discuss.pendingUserCredential" class="margin-bottom-20">
     <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
         <input type="email" class="by_registerEmailId"
-        placeholder="Enter your email Id"/>
+        placeholder="Enter your email Id" ng-model="userCredential.email"/>
     </div>
     <div class="clearfix"></div>
-    <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "  type="submit" disabled>
+    <span ng-show="likeErrMsg">
+                <font color="red">{{likeErrMsg}}</font>
+            </span>
+    <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "  type="submit"  ng-click="setUserCredentialForLike()">
         SUBMIT
     </button>
-    <button class="btn btn-sm btn-success comment-submit by_btn_cancel ">
+    <button class="btn btn-sm btn-success comment-submit by_btn_cancel " ng-click="cancelSetCredentialForLike()">
         CANCEL
     </button>
     <div class="clearfix"></div>

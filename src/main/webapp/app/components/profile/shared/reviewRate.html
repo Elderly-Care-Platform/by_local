@@ -90,19 +90,21 @@
 								<div class="margin-top-10">
 									<input type="password" class="by_registerEmailId" placeholder="Enter your Password" ng-model="newUserCredential.pwd"/>
 								</div>
-								<div class="margin-top-10">
-									Or <br/>
-									Use your social network account to register
-									<br/>
-									<div class="dp-inline-block" ng-click="fbLogin()">
-										<img src="assets/img/icons/fb-login.png" width="97" height="23"
-										class="post-text">
+								<xyz ng-if="!userCredential.email && userCredential.email.trim().length === 0">
+									<div class="margin-top-10">
+										Or <br/>
+										Use your social network account to register
+										<br/>
+										<div class="dp-inline-block" ng-click="fbLogin()">
+											<img src="assets/img/icons/fb-login.png" width="97" height="23"
+											class="post-text">
+										</div>
+										<div class="dp-inline-block padding-left-5" ng-click="ggLogin()">
+											<img src="assets/img/icons/googleplus-login.png" width="82"
+											height="23" class="post-text">
+										</div>
 									</div>
-									<div class="dp-inline-block padding-left-5" ng-click="ggLogin()">
-										<img src="assets/img/icons/googleplus-login.png" width="82"
-										height="23" class="post-text">
-									</div>
-								</div>
+								</xyz>
 							</div>
 							<div class="col-md-6 margin-top-40">
 								Already a BeautifulYears member? <div class="by_rateChangePanel" ng-click="toggleRegForm(1);">Login</div>
@@ -117,19 +119,21 @@
 								<div class="margin-top-10">
 									<input type="password" class="by_registerEmailId" placeholder="Enter your Password" ng-model="userCredential.pwd"/>
 								</div>
-								<div class="margin-top-10">
-									Or <br/>
-									Use your social network account to login
-									<br/>
-									<div class="dp-inline-block" ng-click="fbLogin()">
-										<img src="assets/img/icons/fb-login.png" width="97" height="23"
-										class="post-text">
+								<xyz ng-if="!userCredential.email && userCredential.email.trim().length === 0">
+									<div class="margin-top-10">
+										Or <br/>
+										Use your social network account to login
+										<br/>
+										<div class="dp-inline-block" ng-click="fbLogin()">
+											<img src="assets/img/icons/fb-login.png" width="97" height="23"
+											class="post-text">
+										</div>
+										<div class="dp-inline-block padding-left-5" ng-click="ggLogin()">
+											<img src="assets/img/icons/googleplus-login.png" width="82"
+											height="23" class="post-text">
+										</div>
 									</div>
-									<div class="dp-inline-block padding-left-5" ng-click="ggLogin()">
-										<img src="assets/img/icons/googleplus-login.png" width="82"
-										height="23" class="post-text">
-									</div>
-								</div>
+								</xyz>
 							</div>
 							<div class="col-md-6 margin-top-40">
 								New user? <div class="by_rateChangePanel" ng-click="toggleRegForm(0);">Register Now </div>

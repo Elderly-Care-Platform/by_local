@@ -142,8 +142,6 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
         };
 
         function validateContent(){
-            $(".by_btn_submit").prop("disabled", false);
-
             if($scope.discuss.topicId.length === 0 && $scope.discuss.discussType!=="F"){
                 $scope.errorMsg = "Please select atleast one category";
             } else if($scope.showLinkView){
@@ -184,7 +182,11 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
 
             if($scope.errorMsg.trim().length === 0){
                 if($scope.userSessionType){
-                    $scope.submitContent();
+
+                    window.setTimeout(function(){
+                        $scope.submitContent();
+                        $scope.$apply();
+                    }, 1000)
                 } else if($scope.userSessionType === null){
                     var promise = UserValidationFilter.loginUser($scope.userCredential.email);
                     promise.then(validUser, invalidUser);

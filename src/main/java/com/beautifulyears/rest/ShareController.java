@@ -92,13 +92,6 @@ public class ShareController {
 			long diff = dateToday.getTime()-dateStart.getTime();
 			long dateDiff = diff / (24 * 60 * 60 * 1000)+1;
 			
-			/**
-			 * For testing purpose
-			 */
-			if(path.equals("http://localhost:8080/ROOT")){
-				path = "http://beautifulyears.com";
-			}
-			
 			String profileImage = path + "/assets/img/by.png";
 			
 			String modifiedName = discuss.getTitle().replaceAll("[^a-zA-Z0-9 ]", "");

@@ -32,6 +32,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 
         var storedUserEmail    = localStorage.getItem("USER_EMAIL"),
             storedUserPhoneNo  = localStorage.getItem("USER_PHONENUMBER");
+        $scope.storedUserEmail = localStorage.getItem("USER_EMAIL") || localStorage.getItem("USER_PHONENUMBER");   
 
         if(storedUserEmail && storedUserEmail!=="null" && storedUserEmail!==""){
             $scope.uniqueLoginId.id = storedUserEmail;

@@ -8,6 +8,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
         $scope.userSessionType      = UserValidationFilter.getUserSessionType();
         $scope.userCredential       = {'email':'', 'pwd':''};
         $scope.likeActionCredential = {'email':'', 'pwd':''};
+        $scope.discussLikeObj       = {};
 
 
         $scope.trustForcefully = function (html) {
@@ -18,9 +19,6 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             $scope.userSessionType  = UserValidationFilter.getUserSessionType();
             if (!$scope.showEditor){
                 $scope.initCommentEditor(editorId);
-            }
-            if(!$scope.discussLikeObj){
-                $scope.discussLikeObj = {};
             }
             $scope.cancelSetCredentialForLike();
             

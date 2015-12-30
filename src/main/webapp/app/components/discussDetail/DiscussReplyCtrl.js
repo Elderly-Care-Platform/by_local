@@ -19,6 +19,9 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             if (!$scope.showEditor){
                 $scope.initCommentEditor(editorId);
             }
+            if(!$scope.discussLikeObj){
+                $scope.discussLikeObj = {};
+            }
             $scope.cancelSetCredentialForLike();
             
         };
@@ -195,7 +198,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             if($scope.likeActionCredential.defer){
                 $scope.likeActionCredential.defer.reject();
             }
-            
+
         }
 
         //***********Discuss like user validation code start********************

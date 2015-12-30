@@ -157,22 +157,25 @@
 
 
         <!--discuss like user valisation start-->
-        <div ng-show="detailResponse.discuss.pendingUserCredential" class="col-md-12 margin-bottom-20 margin-top-20">
-            <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
+        <div ng-show="detailResponse.discuss.pendingUserCredential" class="col-md-12 margin-bottom-20 by_discussDeatil_cardComment" style="margin-top:0px;">
+         <div class="clearfix margin-top-20"></div>
+            <div class="col-md-12  register-page">
                 <input type="email" class="by_registerEmailId" ng-model="likeActionCredential.email"
                        placeholder="Enter your email Id"/>
             </div>
             <div class="clearfix"></div>
-            <span ng-show="likeErrMsg">
-                <font color="red">{{likeErrMsg}}</font>
-            </span>
-            <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
-                    ng-click="setUserCredentialForLike()">
+            <div class="col-md-12 margin-bottom-10">
+                <span ng-show="likeErrMsg">
+                    <font color="red">{{likeErrMsg}}</font>
+                </span>
+                <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
+                ng-click="setUserCredentialForLike()">
                 SUBMIT
             </button>
             <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">
                 CANCEL
             </button>
+        </div>
             <div class="clearfix"></div>
         </div>
         <!--discuss like user valisation end-->

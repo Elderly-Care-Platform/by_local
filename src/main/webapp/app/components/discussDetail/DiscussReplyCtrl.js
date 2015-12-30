@@ -16,9 +16,11 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
 
         $scope.createNewComment = function (editorId) {
             $scope.userSessionType  = UserValidationFilter.getUserSessionType();
-            $scope.cancelSetCredentialForLike();
-            if (!$scope.showEditor)
+            if (!$scope.showEditor){
                 $scope.initCommentEditor(editorId);
+            }
+            $scope.cancelSetCredentialForLike();
+            
         };
 
         $scope.initCommentEditor = function (editorId) {
@@ -193,6 +195,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             if($scope.likeActionCredential.defer){
                 $scope.likeActionCredential.defer.reject();
             }
+            
         }
 
         //***********Discuss like user validation code start********************

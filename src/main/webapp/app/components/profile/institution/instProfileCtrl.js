@@ -36,7 +36,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
                 title: $scope.branchProfile.basicProfileInfo.firstName ? $scope.branchProfile.basicProfileInfo.firstName : "Institution Profile - Beautiful Years",
                 imageUrl: $scope.branchProfile.basicProfileInfo.profileImage? $scope.branchProfile.basicProfileInfo.profileImage.original : "",
                 description: $scope.branchProfile.basicProfileInfo.description ? $scope.branchProfile.basicProfileInfo.description : "",
-                keywords:[]
+                keywords:['senior care services', 'old age services', 'elder care services']
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }

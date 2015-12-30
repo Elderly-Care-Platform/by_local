@@ -43,7 +43,7 @@ define(['byApp',
                 title: $scope.selectedMenu.displayMenuName,
                 imageUrl: "",
                 description: "",
-                keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                keywords: [$scope.selectedMenu.displayMenuName, "old age home reviews"]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }

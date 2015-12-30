@@ -7,33 +7,41 @@ define(['byApp', 'byUtil', 'homePromoController',
         'byEditor', 'menuConfig'],
     function (byApp, byUtil, homePromoController, userTypeConfig, byEditor, menuConfig) {
         function BYHomeController($scope, $rootScope, $routeParams, $location) {
-            $scope.homeViews = {};
-            $scope.homeViews.contentPanel = "app/components/home/homeContentPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+            $scope.homeSectionConfig    = BY.config.menu.home;
+            $scope.homeimageConfig      = BY.config.menu.homeIcon;
+            $scope.moduleConfig         = BY.config.menu.moduleConfig;
+            $scope.menuMapConfig        = $rootScope.menuCategoryMap;
+            $scope.menuConfig           = BY.config.menu;
+            $scope.removeSpecialChars   = BY.byUtil.removeSpecialChars;
+            $scope.telNo                = BY.config.constants.byContactNumber;
 
-            $scope.homeSectionConfig = BY.config.menu.home;
-            $scope.homeimageConfig = BY.config.menu.homeIcon;
-            $scope.moduleConfig = BY.config.menu.moduleConfig;
-            $scope.menuMapConfig = $rootScope.menuCategoryMap;
-            $scope.menuConfig = BY.config.menu;
-            
-            $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
+            var cntAnimDuration         = 1000,
+                init                    = initialize();
 
-            $scope.telNo = BY.config.constants.byContactNumber;
-            var cntAnimDuration = 1000;
 
-            (function () {
-                var metaTagParams = {
-                    title: "Home",
-                    imageUrl: "",
-                    description: "",
-                    keywords: []
-                }
+            function updateMetaTags(){
+                var metaTagParams = BY.config.seo.home;
                 BY.byUtil.updateMetaTags(metaTagParams);
-            })();
+            }
+
+            function initialize(){
+                if($rootScope.totalServiceCount){
+                    animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
+                }
+
+                if($rootScope.totalHousingCount){
+                    animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
+                }
+
+                if($rootScope.totalProductCount){
+                    animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
+                }
+
+                updateMetaTags();
+            }
 
 
-
-            $scope.animateCounter = function (count, target) {
+            function animateCounter(count, target) {
                 $({someValue: 0}).animate({someValue: count}, {
                     duration: cntAnimDuration,
                     easing: 'swing',
@@ -44,26 +52,14 @@ define(['byApp', 'byUtil', 'homePromoController',
             };
 
             $scope.$on('directoryCountAvailable', function (event, args) {
-                $scope.animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
-                $scope.animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
+                animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
+                animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
             });
 
             $scope.$on('productCountAvailable', function (event, args) {
-                $scope.animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
+                animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
             });
 
-
-            if($rootScope.totalServiceCount){
-                $scope.animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
-            }
-
-            if($rootScope.totalHousingCount){
-                $scope.animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
-            }
-
-            if($rootScope.totalProductCount){
-                $scope.animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
-            }
 
             $(".by_ourExpertTop .by_ourExpertThumb").click(function(){
                 var index = $(this).index();

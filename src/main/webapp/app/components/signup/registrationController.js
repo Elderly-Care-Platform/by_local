@@ -202,7 +202,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
                 title: "Beautiful Years | Registration",
                 imageUrl: "",
                 description: "",
-                keywords:[]
+                keywords:['registration']
             }
             BY.byUtil.updateMetaTags(metaTagParams);
 

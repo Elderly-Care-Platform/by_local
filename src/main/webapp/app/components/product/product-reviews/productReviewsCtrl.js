@@ -41,7 +41,7 @@ define(['byApp',
                 title: $scope.selectedMenu.displayMenuName,
                 imageUrl: "",
                 description: "",
-                keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                keywords: [$scope.selectedMenu.displayMenuName, "Product reviews"]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }

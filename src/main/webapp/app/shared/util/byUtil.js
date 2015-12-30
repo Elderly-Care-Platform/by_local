@@ -61,30 +61,30 @@ BY.byUtil.updateMetaTags = function (param) {
     var title = param.title.trim(),
         imageUrl = param.imageUrl || "http://www.beautifulyears.com/assets/img/logo-fb.jpg",
         description = $(param.description).text().trim(),
-        keywords = param.keywords;
+        keywords = param.keywords, url = location.origin + "/" + location.hash, nextSpaceIndex;
 
     if (keywords && keywords.length > 0) {
         keywords = keywords.join(", ");
     } else {
-        keywords = "BeautifulYears , senior care, ageing, elder care";
-    }
-
-    if (!description || description === "" || description === "undefined") {
-        description = "BeautifulYears"
+        keywords = BY.config.seo.home.keywords;
     }
 
     if (!title && title === "") {
-        title = description;
+        title = BY.config.seo.home.title;
     }
 
-    if (title.indexOf("Beautiful Years") == -1) {
+    if (!description || description === "" || description === "undefined") {
+        description = BY.config.seo.home.description;
+    }
+
+    if (title.indexOf("BeautifulYears") == -1) {
         title += " - BeautifulYears";
     }
 
-    var url = location.origin + "/" + location.hash;
-    document.title = title;
-    description = description.length > 300 ? description.substring(0, 300) + '...' : description;
+    nextSpaceIndex = description.indexOf(" ", 300);
+    description = description.length > 300 ? description.substring(0, nextSpaceIndex) + '...' : description;
 
+    document.title = title;
     $("meta[property='og\\:url']").attr("content", url);
     $("meta[property='og\\:title']").attr("content", title);
     $("meta[name='twitter\\:title']").attr("content", title);

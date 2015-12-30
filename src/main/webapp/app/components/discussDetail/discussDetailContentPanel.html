@@ -47,7 +47,7 @@
         <div ng-if="detailResponse.discuss.discussType == 'P'" class="by_discussDeatil_cardDesc  col-md-12"
              ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
-        <h1 style="margin-top:-10px;" ng-if="detailResponse.discuss.discussType == 'Q'"
+        <h1 ng-if="detailResponse.discuss.discussType == 'Q'"
             class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)"
             style="">
         </h1>

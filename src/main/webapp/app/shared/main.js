@@ -6,19 +6,39 @@ require.config({
 	urlArgs: "versionTimeStamp=%PROJECT_VERSION%",
 	waitSeconds : 0,
 	paths : {
+
+		//core
 		byApp : '../main/app',
 		byResource : '../main/appResources',
 		byDirectives : '../main/appDirectives',
 		byAppRoute : '../main/appRoute',
-		byApplicationConfig : '../shared/common/config/byApplicationConfig',
-		byProdEcomConfig : '../shared/common/config/byProductEcomConfig',
 		byProductApp : '../main/product/productApp',
 		byProductResources : '../main/product/productResources',
 		byProductRoute : '../main/product/productRoute',
-		byProductConfig : '../components/product/productConfig',
 
+		//config
+		byApplicationConfig : '../shared/common/config/byApplicationConfig',
+		byProdEcomConfig : '../shared/common/config/byProductEcomConfig',
+		bySeoConfig : '../shared/common/config/seoMetaConfig',
+		byProductConfig : '../components/product/productConfig',
+		userTypeConfig : '../shared/common/config/userTypesConfig',
+		menuConfig : '../components/menu/menuConfig',
+		discussConfig : '../shared/common/config/discussConfig',
+		registrationConfig : '../components/signup/common/registrationConfig',
+
+		//shared
+		byUtil : '../shared/util/byUtil',
+		byEditor : '../shared/editor/byEditor',
+		shareController : '../shared/common/js/shareController',
+		editorController : '../shared/editor/editorController',
 		byMenuCtrl : '../components/menu/mainMenuController',
 
+		//services
+		discussService : '../components/discuss/discussService',
+		userValidation : '../main/services/userValidation',
+
+
+		//factory
 		DelegatorFactory : '../main/product/productResources/delegatorFactory',
 		urlTemplateFactory : '../main/product/productResources/url-template.factory',
 		CachedRequestFactory : '../main/product/productResources/cached-request-handler.service',
@@ -42,6 +62,8 @@ require.config({
 		ShoppingConfirmationFactory : '../components/product/cartCheckout/shopping-confirmation/shopping-confirmation.service',
 		OrderHistoryFactory : '../components/product/orderHistory/order-history.service',
 
+
+		//library
 		jquery : '../../lib/jqueryPlugins/jquery.min',
 		angular : '../../lib/angular/angular.min',
 		angularRoute : '../../lib/angular/angular-route',
@@ -57,24 +79,15 @@ require.config({
 		blogMasonary : '../../lib/jqueryPlugins/blog-masonry',
 		jqueryMasonaryGrid : '../../lib/jqueryPlugins/jquery.masonry.min',
 		lodash : '../../lib/lodash.min',
-//		jqueryUiLib : '../../lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min',
 		bootstrapToggle: '../../lib/unify/plugins/bootstrap/js/bootstrap-toggle',
 
-		byUtil : '../shared/util/byUtil',
-		byEditor : '../shared/editor/byEditor',
-		shareController : '../shared/common/js/shareController',
-		userTypeConfig : '../shared/common/config/userTypesConfig',
-		editorController : '../shared/editor/editorController',
 
+		//controllers
 		homePromoController : '../components/home/homePromoController',
-		homeConfig : '../components/home/homeConfig',
 		discussLikeController : '../components/discussDetail/discussLikeCtrl',
 		discussDetailLeftController : '../components/discussDetail/discussDetailLeftCtrl',
 		discussReplyController : '../components/discussDetail/DiscussReplyCtrl',
 		LoginController : '../components/signup/login/loginController',
-		sectionHeaderConfig : '../components/menu/sectionHeaderConfig',
-		menuConfig : '../components/menu/menuConfig',
-		discussConfig : '../shared/common/config/discussConfig',
 
 		indvUserProfileCtrl : '../components/profile/individual/indvUserProfileCtrl',
 		instProfileCtrl : '../components/profile/institution/instProfileCtrl',
@@ -84,7 +97,6 @@ require.config({
 		housingProfileLeftCtrl : '../components/profile/housing/housingProfileLeftCtrl',
 		instProfileLeftCtrl : '../components/profile/institution/instProfileLeftCtrl',
 
-		registrationConfig : '../components/signup/common/registrationConfig',
 		regIndividualCtrl : '../components/signup/registration/individual/regIndividualCtrl',
 		regProfessionalCtrl : '../components/signup/registration/professional/regProfessionalCtrl',
 		regInstitutionCtrl : '../components/signup/registration/institution/regInstitutionCtrl',
@@ -92,7 +104,6 @@ require.config({
 		regHousingFacilityCtrl : '../components/signup/registration/housing/regHousingFacilityCtrl',
 		regUserTypeController : '../components/signup/regUserTypeController',
 		modifySignupCtrl : '../components/signup/login/modifySignupCtrl',
-
 
 		productController : '../components/product/product-listing/productController',
 		productMenuCtrl :  '../components/product/product-menu/productMenuCtrl',
@@ -114,11 +125,8 @@ require.config({
 
 		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl',
 		housingReviewsCtrl: '../components/housing/housingReviewsCtrl',
-		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl',
+		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl'
 
-
-		discussService : '../components/discuss/discussService',
-		userValidation : '../main/services/userValidation'
 	},
 
 	shim : {

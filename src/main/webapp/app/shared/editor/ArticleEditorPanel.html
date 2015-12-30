@@ -265,25 +265,27 @@
 		</div>
 		<div class="clearfix"></div>
 
-		<div class="col-md-6  margin-bottom-20 register-page" ng-if="!userSessionType">
+		<div class="col-md-6   register-page">
+			<xyz  ng-if="!userSessionType">
 			<input type="email" class="by_registerEmailId"
 				   placeholder="Enter your email Id" ng-model="userCredential.email" name="userEmail"/>
-		</div>
-		<div class="col-md-6 by_emailIdHint" ng-if="!userSessionType">
-			We will send you updates when someone responds on this thread. 
-		</div><div class="clearfix"></div>
-
-		<div class="col-md-12 margin-bottom-20">
+			<div class="clearfix"></div>	
+			</xyz>
 			<div ng-show="errorMsg">
 				<font color="red">{{errorMsg}}</font>
-			</div>
+			</div>	   
+			<div class="clearfix margin-bottom-20"></div>
+		</div>
+
+		<div class="col-md-6">
+			
 			<button
 				class="btn btn-big btn-default pull-right by_btn_submit by-editor-submit-btn"
 				disabled ng-click="postContent('P')">Submit</button>
 			<button
 				class="btn btn-big btn-default pull-right by-editor-cancel-btn"
 				ng-click="exitEditor()">Cancel</button>
-			<div class="clearfix"></div>
+			<div class="clearfix margin-bottom-20"></div>
 		</div>
 		<div class="clearfix"></div>
 	</div>

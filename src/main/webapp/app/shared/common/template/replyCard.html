@@ -64,25 +64,25 @@
 
             <div class="clearfix" style="height:45px;"></div>
 
-            <div class="col-md-6 no-padding margin-bottom-10 register-page" ng-if="!userSessionType">
+            <div class="col-md-6 no-padding register-page" ng-if="!userSessionType">
                 <input type="email" class="by_registerEmailId"
-                       placeholder="Enter your email Id" ng-model="userCredential.email" name="userEmail" required/>
+                placeholder="Enter your email Id" ng-model="userCredential.email" name="userEmail" required/>
                 <span ng-show="errorMsg" class="errorRed">
-                        Please enter valid Email Id
+                    Please enter valid Email Id
                 </span>
+                <div class="clearfix margin-bottom-20"></div>
             </div>
-            <div class="col-md-6 by_emailIdHint" ng-if="!userSessionType">
-                We will send you updates when someone responds on this thread.
-            </div>
-            <div class="clearfix"></div>
-
-            <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn"
-                    type="submit" disabled ng-click="postComment(reply.discussId, reply.id)">
+            
+            <div class="col-md-6" ng-class="{'full-width': userSessionType}">
+                <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn"
+                type="submit" disabled ng-click="postComment(reply.discussId, reply.id)">
                 SUBMIT
             </button>
             <button class="inner-comment-submit btn btn-sm btn-success by_btn_cancel"
-                    ng-click="disposeComment(reply.id)">CANCEL
-            </button>
+            ng-click="disposeComment(reply.id)">CANCEL
+        </button>
+        <div class="clearfix margin-bottom-20"></div>
+    </div>
         </div>
         <div style="clear: both"></div>
         <div class="clearfix"></div>

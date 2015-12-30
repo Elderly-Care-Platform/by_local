@@ -133,21 +133,20 @@
                         <span ng-show="errorMsg" class="errorRed">
                                 Please enter valid Email Id
                         </span>
+                        <div class="clearfix margin-bottom-20"></div>
                     </div>
-                    <div class="col-md-6 by_emailIdHint" ng-if="!userSessionType">
-                        We will send you updates when someone responds on this thread.
-                    </div>
-                    <div class="clearfix"></div>
-                    <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
-                            type="submit" disabled
-                            ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">
+                    <div class="col-md-6" ng-class="{'full-width': userSessionType}">
+                        <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
+                        type="submit" disabled
+                        ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">
                         SUBMIT
                     </button>
 
                     <button class="btn btn-sm btn-success comment-submit by_btn_cancel "
-                            ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
-                    </button>
-                    <div class="clearfix"></div>
+                    ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
+                </button>
+                <div class="clearfix margin-bottom-20"></div>
+            </div>
                 </div>
                 <div class="clearfix"></div>
             </div>

@@ -18,8 +18,8 @@
             			<div class="form-group">
 							<span ng-show="shareForm.emails.$invalid && focus" class="errorRed">Please enter atleast one emailId!</span>
 	            		</div>
-	      				<div class="form-group">
-	            			<span ng-show="emailError" class="errorRed">{{nameError}}</span>
+	            		<div class="form-group">
+							<span ng-show="shareForm.guestName.$invalid" class="errorRed">Please enter your name!</span>
 	            		</div>
 	            		<div class="form-group">
 	            			<span ng-show="emailError" class="errorRed">{{emailError}}</span>
@@ -29,7 +29,7 @@
 	    				</div>
 	    				<div ng-if="checkSession == ''">
 	    					<div class="form-group">
-	        					<input type="text" class="form-control mail-input" name = "guestName" placeholder="Your Name" ng-model = "shares.guestName" ng-change="validateName()" required/>
+	        					<input type="text" class="form-control mail-input" name = "guestName" placeholder="Your Name" ng-model = "shares.guestName" required/>
 	    					</div>
 	    				</div>
 	    				<div class="row">
@@ -40,7 +40,7 @@
 	    					<div class="col-md-10">
 	    						<div class="content-form-group">
 	    							<div class="form-group">
-	        							<textarea class="form-control mail-input" placeholder="Type an additional Message" ng-model = "shares.message" ></textarea>	
+	        							<textarea class="form-control mail-input" placeholder="Type your message here:" ng-model = "shares.message" ></textarea>	
 	    							</div>
 	    							<div class="" ng-if="detailResponse.discuss.linkInfo == null">
 	    								<div class="shareDetails">
@@ -65,7 +65,7 @@
 	    					</div>
 	    				</div> 
 						<div class="form-group button-group">
-							<input type="button" value="Send" class="nextButton by_btn_submit" ng-disabled="shareForm.emails.$invalid || shareForm.name.$invalid" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
+							<input type="button" value="Send" class="nextButton by_btn_submit" ng-disabled="shareForm.$invalid || shareForm.$pending" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
 							<input type="button" value="Cancel" class="returnButton" data-dismiss="modal" ng-click="resetErrorOnModalDismiss()">
 							<div class="clearfix"></div>
 						</div>

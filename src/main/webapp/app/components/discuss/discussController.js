@@ -53,6 +53,10 @@ define(['byApp',
                 }
             }
 
+        $scope.updateShareCount = function(count){
+            $scope.detailResponse.discuss.shareCount = count;
+        }
+        
             $scope.openModal = function ($event, data) {
                 $event.stopPropagation();
                 $scope.shareDiscussObject = data;

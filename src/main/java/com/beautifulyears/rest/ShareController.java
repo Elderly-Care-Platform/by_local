@@ -50,7 +50,7 @@ public class ShareController {
 	
 	@RequestMapping(value = "/email/{discussId}", method = RequestMethod.POST)
 	@ResponseBody
-	public void shareWithEmail(@RequestBody EmailInfo emailParams,
+	public Object shareWithEmail(@RequestBody EmailInfo emailParams,
 			@PathVariable("discussId") String discussId,
 			HttpServletRequest request) throws Exception {
 		
@@ -72,9 +72,9 @@ public class ShareController {
 		String description = null;
 		String storyLink = null;
 		
-		try {
-
-			Discuss discuss = discussRepository.findOne(discussId);
+		Discuss discuss = discussRepository.findOne(discussId);
+		
+		try {	
 			
 			if(null == emailParams.getSubject()){
 				shareMessage = "";
@@ -138,19 +138,17 @@ public class ShareController {
 				borderEnd = "' alt='' width='470'/>";
 			}
 			
-			String modifiedName = discuss.getTitle().replaceAll("[^a-zA-Z0-9 ]", "");
+			String modifiedName = title.replaceAll("[^a-zA-Z0-9 ]", "");
 			modifiedName = modifiedName.replaceAll(" ", "-").toLowerCase();
+			
 			storyLink = path + "/#!/communities/" + modifiedName + "?id=" + discussId; 
 			authorLink = path + "/#!/users/" +  discuss.getUsername() + "?profileId=" + discuss.getUserId();	
 			
 			emailInfo.setEmailIds(emailParams.getEmailIds());
 			emailInfo.setSubject(title);
-			System.out.println(storyLink);
 			emailInfo.setBody(MessageFormat.format(
 					resourceUtil.getResource("shareInEmail"),
 					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, authorLink, senderLink, hideMessageBubble, storyLink));
-			
-			System.out.println(emailInfo.getBody());
 			
 			shareInMail(emailInfo);
 			
@@ -158,6 +156,8 @@ public class ShareController {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 			Util.handleException(e);
 		}
+		
+		return discuss;
 	}
 	
 	public static void shareInMail(EmailInfo emailInfo) {

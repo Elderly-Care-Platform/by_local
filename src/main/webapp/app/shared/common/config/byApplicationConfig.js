@@ -3,9 +3,9 @@ BY.config = BY.config || {};
 BY.config.constants = BY.config.constants || {};
 
 BY.config.constants = {
-    "productHost" : "http://products.beautifulyears.com/beautifulyears/api/v1",
-    "productImageHost" : "http://products.beautifulyears.com",
-    "selfHost" : "http://beautifulyears.com",
+    //"productHost" : "http://products.beautifulyears.com/beautifulyears/api/v1",
+    //"productImageHost" : "http://products.beautifulyears.com",
+    //"selfHost" : "http://beautifulyears.com",
 
    "productHost" : "http://qa.beautifulyears.com:8083/beautifulyears/api/v1",
     "productImageHost" : "http://qa.beautifulyears.com:8083",

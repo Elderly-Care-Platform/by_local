@@ -13,13 +13,13 @@
 			</div>
 
 			<div ng-if="createUserError">
-				<font color="red">{{createUserError}}</font>
+				<span class='redColor'>{{createUserError}}</span>
 			</div>
 
 
 
 			<div ng-if="emailError!==''">
-				<font color="red">{{emailError}}</font>
+				<span class='redColor'>{{emailError}}</span>
 			</div>
 			<div class=" col-md-12 no-padding margin-bottom-10 register-page">
 				<input type="text" class="username-textbox textbox text-center"
@@ -30,7 +30,7 @@
 			
 
 			<div ng-if="pwdError!==''">
-				<font color="red">{{pwdError}}</font>
+				<span class='redColor'>{{pwdError}}</span>
 			</div>
 			<div class=" col-md-12 no-padding margin-bottom-10 register-page">
 				<input type="password" class="username-textbox textbox text-center"

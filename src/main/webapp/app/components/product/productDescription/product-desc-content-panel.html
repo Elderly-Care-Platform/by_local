@@ -127,7 +127,7 @@
         </div>
         <div class="clearfix" style="height:6px;"></div>
         <div ng-if="logisticInfo.deliveryDetail === 'NA'">
-            <font color="red">Sorry! we do not deliver to this pincode.</font>
+            <span class='redColor'>Sorry! we do not deliver to this pincode.</span>
         </div>
 
         <div class="by_productDetail_contentCOD" ng-if="logisticInfo.deliveryDetail && logisticInfo.deliveryDetail==='standard'">
@@ -151,7 +151,7 @@
             <!--</span>-->
         </div>
         <div ng-if="addToCartFailedMsg.length > 0">
-            <font color="red">{{addToCartFailedMsg}}</font>
+            <span class='redColor'>{{addToCartFailedMsg}}</span>
         </div>
         <div class="by_productDetail_optionColor margin-bottom-10 margin-top-10">
             <div ng-repeat="productColor in uiData.productOptions"
@@ -190,12 +190,12 @@
         </div><div class="clearfix"></div>
     <div class="qty-cart-buy margin-bottom-20">
         <span class="added-to-cart-message" ng-show="checkLogisticDetail">
-            <!--<font color="red" ng-if="logisticInfo.deliveryDetail === 'NA'">Please enter your pincode to check availabiity of the product</font>-->
-            <font color="red" ng-if="!logisticInfo.deliveryDetail">Please enter your pincode to check availabiity of the product</font>
+            <!--<span class="redColor" ng-if="logisticInfo.deliveryDetail === 'NA'">Please enter your pincode to check availabiity of the product</span>-->
+            <span class="redColor" ng-if="!logisticInfo.deliveryDetail">Please enter your pincode to check availabiity of the product</span>
         </span> <br/>
 
         <span class="added-to-cart-message" ng-show="productAddSuccess">
-            <font color="green">Product is successfully added to cart!</font>
+            <span class="greenColor">Product is successfully added to cart!</span>
         </span> <br/>
 
         <form name="f1" class="divLeft by_productDetail_contentQuantity">

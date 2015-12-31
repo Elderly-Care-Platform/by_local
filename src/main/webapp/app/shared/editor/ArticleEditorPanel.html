@@ -14,7 +14,7 @@
 
 				// change message text to red after 50%
 				//if (percentComplete > 50) {
-				//$("#message").html("<font color='red'>File Upload is in progress</font>");
+				//$("#message").html("<span class='redColor'>File Upload is in progress</span>");
 				// }
 			},
 			success: function () {
@@ -25,7 +25,7 @@
 				$("#articlePhotoFilename").val(response.responseText.substring(response.responseText.lastIndexOf('/') + 1));
 			},
 			error: function () {
-				$("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
+				$("#articlePhotoFilename").val("<span class='redColor'> ERROR: unable to upload files</span>");
 			}
 		};
 
@@ -272,7 +272,7 @@
 			<div class="clearfix"></div>	
 			</xyz>
 			<div ng-show="errorMsg">
-				<font color="red">{{errorMsg}}</font>
+				<span class='redColor'>{{errorMsg}}</span>
 			</div>	   
 			<div class="clearfix margin-bottom-20"></div>
 		</div>

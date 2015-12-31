@@ -367,3 +367,11 @@ body a:hover
 {
     max-height:150px; overflow-y:auto; margin-right:-10px;
 }
+.redColor
+{
+    color: red;
+}
+.greenColor
+{
+    color: green;
+}

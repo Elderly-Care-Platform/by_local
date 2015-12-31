@@ -35,7 +35,7 @@
 	    				<div class="row">
 	    					<div class="col-md-2 profile-img-space">
 								<img ng-src="http://beautifulyears.com/{{shareDiscussObject.userProfile.basicProfileInfo.profileImage.original||''}}"
-	                  fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{shareDiscussObject.title}}">
+									 fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{shareDiscussObject.title}}" alt="{{shareDiscussObject.title}}">
 	    					</div>
 	    					<div class="col-md-10">
 	    						<div class="content-form-group">
@@ -51,7 +51,8 @@
 	    							<div class="" ng-if="shareDiscussObject.linkInfo != null">
 	    								<div class="row">
 	    									<div class="col-md-3">
-	    										<img ng-src="{{shareDiscussObject.linkInfo.mainImage||''}}" title="{{shareDiscussObject.title}}">
+	    										<img ng-src="{{shareDiscussObject.linkInfo.mainImage||''}}" title="{{shareDiscussObject.title}}"
+													 alt="{{shareDiscussObject.title}}">
 	    									</div>
 	    									<div class="col-md-9">
 	    										<div class="shareDetails">

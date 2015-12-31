@@ -391,8 +391,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     }
                 }
 
-                function invalidUser(){
+                function invalidUser(errMsg){
                     console.log("invalid user error");
+                    $scope.likeErrMsg = errMsg;
                     if($scope.userCredential.defer){
                         $scope.userCredential.defer.reject();
                     }

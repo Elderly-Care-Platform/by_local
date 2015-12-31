@@ -78,10 +78,11 @@
                     <p style="margin-bottom: 2px;">Paste your video embedded code</p>
 
                     <div class="clearfix"></div>
-                    <img src="assets/img/icons/dailymotion.png?versionTimeStamp=%PROJECT_VERSION%"/>
-                    <img src="assets/img/icons/vimeo.png?versionTimeStamp=%PROJECT_VERSION%"/>
-                    <img src="assets/img/icons/metacafe.png?versionTimeStamp=%PROJECT_VERSION%"/>
-                    <img src="assets/img/icons/youtube.png?versionTimeStamp=%PROJECT_VERSION%"/>
+                    <img src="assets/img/icons/dailymotion.png?versionTimeStamp=%PROJECT_VERSION%"
+                         alt="dailymotion icon"/>
+                    <img src="assets/img/icons/vimeo.png?versionTimeStamp=%PROJECT_VERSION%" alt="vimeo icon"/>
+                    <img src="assets/img/icons/metacafe.png?versionTimeStamp=%PROJECT_VERSION%" alt="metacafe icon"/>
+                    <img src="assets/img/icons/youtube.png?versionTimeStamp=%PROJECT_VERSION%" alt="youtube icon"/>
 
                     <div class="clearfix" style="height: 10px;"></div>
 					<textarea rows="" cols="" class="by_editorModalTextArea"
@@ -143,7 +144,7 @@
                 <form id="UploadImage12" action="UploadFile" method="post" enctype="multipart/form-data">
                     <label ng-click="resetEditorView()">
                         <input name="sp" id="sp" type="file" required onchange="javascript:uploadImage(this)"/>
-                        <img src="assets/img/icons/photo.png" width="100%"/>
+                        <img src="assets/img/icons/photo.png" width="100%" alt="editor uploaded photo"/>
                         <span style="float: right; min-width: 50px; max-width: 80px; margin-left: 10px; text-align: left;">
 							Upload<br/> your photo
 					    </span>
@@ -155,14 +156,14 @@
             </div>
             <div class="col-md-4 col-xs-4 no-padding  register-page by_editor_post_divider">
                 <label data-toggle="modal" data-target="#editorLinkModal" ng-click="resetEditorView()">
-                    <img src="assets/img/icons/link.png" width="100%"/>
+                    <img src="assets/img/icons/link.png" width="100%" alt="beautifulyears share link icon"/>
                     <span style="float: right; min-width: 50px; max-width: 80px; margin-left: 10px; text-align: left;">Share<br/> a link</span>
                 </label>
             </div>
             <div class="col-md-4 col-xs-4 no-padding register-page by_editor_post_divider">
                 <label data-toggle="modal" data-target="#editorVideoModal"
                        ng-click="resetEditorView()">
-                    <img src="assets/img/icons/video.png" width="100%"/>
+                    <img src="assets/img/icons/video.png" width="100%" alt="beautifulyears share video icon"/>
                     <span style="float: right; min-width: 50px; max-width: 80px; margin-left: 10px; text-align: left;">Share<br/> a video</span>
                 </label>
                 <!--<label class="by_call_submit_video">-->
@@ -176,7 +177,7 @@
         <div class="by_uploading_image">
             <div class="col-md-6 by_uploading_image_add">
                 <div class="myLabel" style="padding: 0px; width: 100%;">
-                    <img ng-src="" alt="" style="border: 1px solid #fff;"/>
+                    <img ng-src="" alt="" style="border: 1px solid #fff;" alt="beautifulyears blank icon"/>
                 </div>
                 <div class="clearfix"></div>
                 <div class="by-imageEditor-view-close" ng-click="resetEditorView()"></div>

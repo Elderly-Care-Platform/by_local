@@ -40,10 +40,10 @@
         <!--Card author profile image-->
         <img class="by_discuss_img" ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
              ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-             fallback-src='["assets/img/by.png"]' alt="profileImage">
+             fallback-src='["assets/img/by.png"]' alt="article author profileImage">
 
         <img class="by_discuss_img" ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-             ng-src="assets/img/by.png" alt="profileImage">
+             ng-src="assets/img/by.png" alt="article author profileImage">
 
 
         <!--Author name and created at-->

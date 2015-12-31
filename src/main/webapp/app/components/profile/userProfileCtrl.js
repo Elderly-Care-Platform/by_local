@@ -426,8 +426,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                     }
                 }
 
-                function invalidUser(){
+                function invalidUser(errMsg){
                     console.log("invalid user error");
+                    $scope.likeErrMsg = errMsg;
                     if($scope.userCredential.defer){
                         $scope.userCredential.defer.reject();
                     }

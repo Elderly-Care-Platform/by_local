@@ -82,6 +82,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             }
 
             function invalidUser(data){
+                $scope.errorMsg = data;
                 $(".by_btn_submit").prop("disabled", false);
                 console.log("Comment not posted");
                 console.log("Invalid user");
@@ -145,6 +146,7 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
             }
 
             function invalidUser(data){
+                $scope.errorMsg = data;
                 $(".by_btn_submit").prop("disabled", false);
                 console.log("Comment not posted");
                 console.log("Invalid user");
@@ -182,8 +184,9 @@ define(['byApp', 'byUtil', 'userValidation'], function(byApp, byUtil, userValida
                 }
             }
 
-            function invalidUser(){
+            function invalidUser(errMsg){
                 console.log("invalid user error");
+                $scope.likeErrMsg = errMsg;
                 if($scope.likeActionCredential.defer){
                     $scope.likeActionCredential.defer.reject();
                 }

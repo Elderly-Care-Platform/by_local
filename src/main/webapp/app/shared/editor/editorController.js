@@ -213,6 +213,7 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
         }
 
         function invalidUser(data){
+            $scope.errorMsg = data;
             $(".by_btn_submit").prop("disabled", false);
             console.log("content not submitted");
         }

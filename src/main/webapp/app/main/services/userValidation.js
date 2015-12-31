@@ -45,7 +45,15 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
                     $rootScope.$broadcast('byUserLogin', loginData);
                     deferred.resolve();
                 }).error(function (error) {
-                    deferred.reject(error.error.errorMsg);
+                    var errorMsg = "";
+                    if(BY.config.userCredentialError[error.error.errorCode]){
+                        errorMsg = BY.config.userCredentialError[error.error.errorCode];
+                    }else if(error.error && error.error.errorMsg){
+                        errorMsg = error.error.errorMsg;
+                    } else{
+                        errorMsg = "Invalid user";
+                    }
+                    deferred.reject(errorMsg);
                 });
             } else{
                 deferred.reject("Please enter email Id");

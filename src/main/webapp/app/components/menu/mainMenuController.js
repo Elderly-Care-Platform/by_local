@@ -1,7 +1,7 @@
 /**
  * Created by sanjukta on 08-07-2015.
  */
-define([], function() {
+define(['bySeoConfig'], function(bySeoConfig) {
     'use strict';
     function MainMenuController($scope, $rootScope, $location, $routeParams, BYMenu, $window) {
         $scope.mainMenu = window.by_menu;

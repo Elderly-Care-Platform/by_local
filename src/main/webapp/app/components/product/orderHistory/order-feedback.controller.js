@@ -3,7 +3,6 @@
   angular.module('by')
   .controller('OrderFeedbackController', OrderFeedbackController);
 
-  /* @ngInject */
   function OrderFeedbackController(
     $scope,
     $stateParams,

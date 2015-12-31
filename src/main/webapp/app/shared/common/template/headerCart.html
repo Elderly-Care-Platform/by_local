@@ -1,6 +1,6 @@
 <div>
     <ul class="shop-badge" ng-controller="CartController">
-        <li class="padding-bottom6" style="padding-bottom:0px !important;" ng-click="hideCart();">  
+        <li class="padding-bottom6 paddingBottom0Imp"  ng-click="hideCart();">  
             <div class="by_cart_iconWrap" ng-click="showCart($event);" ng-if="uiData.totalCartItem > 0" style="margin-left:10px;">
                 <span ng-if="$root.windowWidth > 720" ><img src="assets/img/product/cart.png?versionTimeStamp=%PROJECT_VERSION%"/></span>
                 <span ng-if="$root.windowWidth < 720"><img src="assets/img/product/shopping-cart.jpg?versionTimeStamp=%PROJECT_VERSION%"/></span>
@@ -11,7 +11,7 @@
             <ul class="badge-open"  ng-show="uiData.cartItems.length">
 
                 <div>
-                    <div style="max-height:150px; overflow-y:auto; margin-right:-10px;">
+                    <div class="headerCartStyle">
                         <li ng-repeat="item in uiData.cartItems">
                             <img ng-src="{{item.primaryMedia.url}}" alt="" class="mCS_img_loaded">
                             <button type="button" class="close" ng-click="removeItemFromCart(item.id)">×</button>

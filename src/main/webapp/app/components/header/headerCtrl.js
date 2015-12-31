@@ -1,9 +1,9 @@
 define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
-    function BYHeaderCtrl($rootScope, $scope, $window, $location, $http, SessionIdService) {
+    function BYHeaderCtrl($rootScope, $scope, $window, $location, $http, $injector) {
         $rootScope.screenHeight = $(window).height();
         $scope.loginDetails = {
             "text": "",
-            "link": "",
+            "link": ""
         }
         $scope.profileDetails = {
             "text": "",
@@ -11,7 +11,6 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         }
         
         $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
-
         $scope.telNo = BY.config.constants.byContactNumber;
 
         var isHomePage = false,
@@ -55,7 +54,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function updateHeaderTemplate() {
             if (isHomePage == true) {
-                $("#home").show();
+                $("#home").removeClass('hide');
+                $("#home").addClass('show');
                 //$("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%");
                 $scope.templateUrl = 'app/components/header/homeHeader.html?versionTimeStamp=%PROJECT_VERSION%';
                 // on scrolling adding header background
@@ -74,7 +74,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                         
                 });
             } else {
-                $("#home").hide();
+                $("#home").removeClass('show');
+                $("#home").addClass('hide');
                 //$("#home").html('');
                 $scope.templateUrl = 'app/components/header/otherHeader.html?versionTimeStamp=%PROJECT_VERSION%';
                 angular.element($window).bind("scroll", function () {
@@ -91,54 +92,36 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function validateSession() {
             if (window.localStorage) {
-                $http.defaults.headers.common.sess = localStorage.getItem("SessionId");
-                $http.get("api/v1/users/validateSession").success(function (response) {
-                    var sess = localStorage.getItem("SessionId");
-                    if (sess != '' && sess != null) {
-                        setValidSession({'sessionId':sess});
-                        if (window.location.href.endsWith("#!/users/login") || window.location.href.endsWith("main.html")) {
-                            window.location = apiPrefix + "#!/";
-                        }
-                    }
-
-                }).error(function (err) {
-                    inValidateSession();
-                })
+                require(["userValidation"], function(userValidation) {
+                    $scope.UserValidationFilter  = $injector.get('UserValidationFilter');
+                    var validateSessionPromise = $scope.UserValidationFilter.validateSession();
+                    validateSessionPromise.then(setValidSession, inValidateSession);
+                    //$scope.$apply();
+                });
             }
-
         }
 
         function setValidSession(params) {
             var userName = localStorage.getItem("USER_NAME");
+            var sessionId = localStorage.getItem("SessionId");
+
             if(userName.length > 9){
                 userName = localStorage.getItem("USER_NAME").substring(0, 9)+'...';
             }
 
             $scope.loginDetails.text = "Logout";
-            $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + params.sessionId;
+            $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + sessionId;
 
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
             $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
-
-            //$("#profile_placeholder").show();
-            
         }
 
         function inValidateSession() {
-            localStorage.setItem("SessionId", "");
-            localStorage.setItem("USER_ID", "");
-            localStorage.setItem("USER_NAME", "");
-
             $scope.profileDetails.text = "";
             $scope.profileDetails.link = "";
 
             $scope.loginDetails.text = "Join us";
             $scope.loginDetails.link = apiPrefix + "#!/users/login";
-            //$("#profile_placeholder").hide();
-            
-
-            $http.defaults.headers.common.sess = "";
-            SessionIdService.setSessionId("");
         }
 
         $scope.$on('byUserLogout', function (event, args) {
@@ -179,7 +162,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         $scope.moduleConfig= BY.config.menu.moduleConfig;
     }
 
-    BYHeaderCtrl.$inject = ['$rootScope', '$scope', '$window', '$location', '$http', 'SessionIdService'];
+    BYHeaderCtrl.$inject = ['$rootScope', '$scope', '$window', '$location', '$http', '$injector'];
     return BYHeaderCtrl;
 });
 

@@ -83,25 +83,25 @@ public class UserProfileController {
 			@PathVariable(value = "userId") String userId,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
-		//User sessionUser = Util.getSessionUser(req);
+		// User sessionUser = Util.getSessionUser(req);
 		User userInfo = UserController.getUser(userId);
 		UserProfile userProfile = null;
-	
+
 		try {
 			if (userId != null) {
 				userProfile = userProfileRepository.findByUserId(userId);
-//				if(userProfiles.size() > 0){
-//					userProfile = userProfiles.get(0);
-//				}
+				// if(userProfiles.size() > 0){
+				// userProfile = userProfiles.get(0);
+				// }
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 					userProfile = new UserProfile();
-					if (userInfo != null){
+					if (userInfo != null) {
 						userProfile.getBasicProfileInfo().setPrimaryEmail(
 								userInfo.getEmail());
 						userProfile.getBasicProfileInfo().setPrimaryPhoneNo(
 								userInfo.getPhoneNumber());
-					}	
+					}
 				} else {
 					logger.debug(userProfile.toString());
 				}
@@ -279,7 +279,9 @@ public class UserProfileController {
 		try {
 			if ((userProfile != null)) {
 				currentUser = Util.getSessionUser(req);
-				if (null != currentUser) {
+				if (null != currentUser
+						&& SessionController.checkCurrentSessionFor(req,
+								"SUBMIT_PROFILE")) {
 					logger.debug("current user details"
 							+ currentUser.toString());
 					if (userProfile.getUserId() != null
@@ -290,10 +292,10 @@ public class UserProfileController {
 							profile = new UserProfile();
 							profile.setUserId(currentUser.getId());
 							profile.setUserTypes(userProfile.getUserTypes());
-							if (currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL) {
+							if (currentUser.getUserIdType() == BYConstants.USER_ID_TYPE_EMAIL) {
 								profile.getBasicProfileInfo().setPrimaryEmail(
 										currentUser.getEmail());
-							} else if (currentUser.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE) {
+							} else if (currentUser.getUserIdType() == BYConstants.USER_ID_TYPE_PHONE) {
 								profile.getBasicProfileInfo()
 										.setPrimaryPhoneNo(
 												currentUser.getPhoneNumber());
@@ -338,7 +340,9 @@ public class UserProfileController {
 		User currentUser = Util.getSessionUser(req);
 		try {
 			if ((userProfile != null) && (userId != null)) {
-				if (null != currentUser) {
+				if (null != currentUser
+						&& SessionController.checkCurrentSessionFor(req,
+								"SUBMIT_PROFILE")) {
 					if (userProfile.getUserId().equals(currentUser.getId())) {
 						profile = userProfileRepository.findByUserId(userId);
 
@@ -360,19 +364,23 @@ public class UserProfileController {
 											UserTypes.INDIVIDUAL_VOLUNTEER)))) {
 								profile.setIndividualInfo(userProfile
 										.getIndividualInfo());
-							}
-							else if(profile.getUserTypes().contains(UserTypes.INSTITUTION_SERVICES) || profile.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
+							} else if (profile.getUserTypes().contains(
+									UserTypes.INSTITUTION_SERVICES)
+									|| profile.getUserTypes().contains(
+											UserTypes.INSTITUTION_BRANCH)) {
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
-								List<UserProfile> branchInfo = saveBranches(userProfile.getServiceBranches(), userId);
+								List<UserProfile> branchInfo = saveBranches(
+										userProfile.getServiceBranches(),
+										userId);
 								profile.setServiceBranches(branchInfo);
-								
-							}
-							else if (profile.getUserTypes().contains(UserTypes.INDIVIDUAL_PROFESSIONAL)){
+
+							} else if (profile.getUserTypes().contains(
+									UserTypes.INDIVIDUAL_PROFESSIONAL)) {
 								profile.setServiceProviderInfo(userProfile
 										.getServiceProviderInfo());
-							}
-							else if (profile.getUserTypes().contains(UserTypes.INSTITUTION_HOUSING)){
+							} else if (profile.getUserTypes().contains(
+									UserTypes.INSTITUTION_HOUSING)) {
 								profile.setFacilities(HousingController
 										.addFacilities(
 												userProfile.getFacilities(),
@@ -459,12 +467,19 @@ public class UserProfileController {
 
 		LoggerUtil.logEntry();
 		UserProfile userProfile = null;
+		User currentUser = Util.getSessionUser(req);
 		try {
-			if (userId != null) {
+			if (userId != null
+					&& SessionController.checkCurrentSessionFor(req,
+							"NEW_ADDRESS")) {
 				userProfile = this.userProfileRepository.findByUserId(userId);
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 				} else {
+					if(!userProfile.getUserId().equals(currentUser.getId())){
+						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+					}
+					
 					if (addressIndex == 0
 							&& null != userProfile.getBasicProfileInfo()) {
 						userProfile.getBasicProfileInfo()
@@ -502,12 +517,16 @@ public class UserProfileController {
 
 		LoggerUtil.logEntry();
 		UserProfile userProfile = null;
+		User currentUser = Util.getSessionUser(req);
 		try {
-			if (userId != null) {
+			if (userId != null && SessionController.checkCurrentSessionFor(req,
+					"NEW_ADDRESS")) {
 				userProfile = this.userProfileRepository.findByUserId(userId);
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
-				} else {
+				}else if (!userProfile.getUserId().equals(currentUser.getId())) {
+					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+				}else {
 					userProfile.getBasicProfileInfo().getOtherAddresses()
 							.add(userAddress);
 					mongoTemplate.save(userProfile);
@@ -522,22 +541,24 @@ public class UserProfileController {
 		}
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
-	
-	private List<UserProfile> saveBranches(List<UserProfile> branchInfo,String userId) {
-		for(UserProfile branch: branchInfo){
-			if(!branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)){
+
+	private List<UserProfile> saveBranches(List<UserProfile> branchInfo,
+			String userId) {
+		for (UserProfile branch : branchInfo) {
+			if (!branch.getUserTypes().contains(UserTypes.INSTITUTION_BRANCH)) {
 				throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 			}
 		}
 		List<UserProfile> updateBranchInfo = new ArrayList<UserProfile>();
-		for(UserProfile branch: branchInfo){
+		for (UserProfile branch : branchInfo) {
 			UserProfile newBranch = new UserProfile();
-			if(null == branch.getId()){
+			if (null == branch.getId()) {
 				newBranch.setUserId(userId);
 				newBranch.setLastModifiedAt(new Date());
 				newBranch.setBasicProfileInfo(branch.getBasicProfileInfo());
 				newBranch.setIndividualInfo(branch.getIndividualInfo());
-				newBranch.setServiceProviderInfo(branch.getServiceProviderInfo());
+				newBranch.setServiceProviderInfo(branch
+						.getServiceProviderInfo());
 				newBranch.setSystemTags(branch.getSystemTags());
 				newBranch.setTags(branch.getTags());
 				newBranch.setUserTags(branch.getUserTags());
@@ -545,11 +566,11 @@ public class UserProfileController {
 				list.add(UserTypes.INSTITUTION_BRANCH);
 				newBranch.setUserTypes(list);
 				branch = newBranch;
-			}else{
+			} else {
 				branch.setUserId(userId);
 				branch.setLastModifiedAt(new Date());
 			}
-			
+
 			mongoTemplate.save(branch);
 			updateBranchInfo.add(branch);
 		}

@@ -466,3 +466,43 @@ label input[type="file"] {
 {
     display: none;
 }
+.by_registerEmailId
+{
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	padding: 6px 8px 6px 8px;
+	font-size: 14px;
+	width: 100%;
+	color: #000;
+}
+.by_rateRegisterWrap
+{
+	width: 100%;
+	height: auto;
+}
+.by_rateChangePanel
+{
+	border-bottom: 1px solid #449d44;
+    color: #449d44;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 22px;
+}
+.by_rateLoginWrap
+{
+	display: none;
+}
+.by_rateRegisterWrap
+{
+	display: none;
+}
+.by_emailIdHint
+{
+	line-height: 16px;
+}
+@media ( max-width : 1000px){
+	.by_emailIdHint{
+		padding:0px !important;
+	}
+}

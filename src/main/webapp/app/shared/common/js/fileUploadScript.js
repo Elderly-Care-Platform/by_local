@@ -13,7 +13,7 @@
 //
 //                // change message text to red after 50%
 //                if (percentComplete > 50) {
-//                $("#message").html("<font color='red'>File Upload is in progress</font>");
+//                $("#message").html("<span class='redColor'>File Upload is in progress</span>");
 //                }
 //        },
 //        success : function() {
@@ -25,7 +25,7 @@
 //        $("#message").html("<a href='" + response.responseText + "'" +  ">" + response.responseText + "</a>");
 //        },
 //        error : function() {
-//        //$("#message").html("<font color='red'> ERROR: unable to upload files</font>");
+//        //$("#message").html("<span class='redColor'> ERROR: unable to upload files</span>");
 //        }
 //};
 //try

@@ -109,6 +109,7 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
         };
 
         var updateContentPanel = function(){
+            $scope.views.loginPanel = '';
             if($routeParams.changeUserName) {
                 require(["modifySignupCtrl"], function(regCtrl) {
                     changeUsername();
@@ -201,13 +202,18 @@ define(['byApp', 'byUtil', 'LoginController', 'registrationConfig'], function(by
                 title: "Beautiful Years | Registration",
                 imageUrl: "",
                 description: "",
-                keywords:[]
+                keywords:['registration']
             }
             BY.byUtil.updateMetaTags(metaTagParams);
 
-            if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined) {
-                $scope.views.leftPanel = "app/components/signup/login/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
-                $scope.views.contentPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
+            if (localStorage.getItem('SessionId') == '' || localStorage.getItem('SessionId') == undefined || localStorage.getItem('SESSION_TYPE') != BY.config.sessionType.SESSION_TYPE_FULL) {
+                //$scope.views.leftPanel = "app/components/signup/login/loginLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
+                if(localStorage.getItem('SESSION_TYPE') == BY.config.sessionType.SESSION_TYPE_PARTIAL){
+                    $scope.views.loginPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
+                }else{
+                    $scope.views.loginPanel = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
+                }
+
             } else{
                 $scope.getUserProfile();
             }

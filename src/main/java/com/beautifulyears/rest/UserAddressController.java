@@ -72,14 +72,16 @@ public class UserAddressController {
 			@RequestBody UserShippingAddress address, HttpServletRequest req)
 			throws Exception {
 		User user = Util.getSessionUser(req);
-		if (null == user) {
-			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
-		} else if (null != user.getId() && !user.getId().equals(userId)) {
-			throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+		if (SessionController.checkCurrentSessionFor(req, "NEW_ADDRESS")) {
+			if (null == user) {
+				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+			} else if (null != user.getId() && !user.getId().equals(userId)) {
+				throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+			}
+			address.setUserId(userId);
+			address.setId(null);
+			mongoTemplate.save(address);
 		}
-		address.setUserId(userId);
-		address.setId(null);
-		mongoTemplate.save(address);
 		return BYGenericResponseHandler.getResponse(address);
 	}
 
@@ -89,23 +91,27 @@ public class UserAddressController {
 			@RequestBody UserShippingAddress address, HttpServletRequest req)
 			throws Exception {
 		User user = Util.getSessionUser(req);
-		if (null == user) {
-			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
-		} else if (null != user.getId()
-				&& (!user.getId().equals(userId) || !user.getId().equals(
-						address.getUserId()))) {
-			throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+		Object ret = null;
+		if (SessionController.checkCurrentSessionFor(req, "NEW_ADDRESS")) {
+			if (null == user) {
+				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+			} else if (null != user.getId()
+					&& (!user.getId().equals(userId) || !user.getId().equals(
+							address.getUserId()))) {
+				throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+			}
+			Query q = new Query();
+			q.addCriteria(Criteria.where("userId").is(userId));
+			q.addCriteria(Criteria.where("id").is(address.getId()));
+
+			UserShippingAddress oldAddress = mongoTemplate.findOne(q,
+					UserShippingAddress.class);
+			updateWithNewAddress(oldAddress, address);
+
+			mongoTemplate.save(oldAddress);
+			ret = BYGenericResponseHandler.getResponse(oldAddress);
 		}
-		Query q = new Query();
-		q.addCriteria(Criteria.where("userId").is(userId));
-		q.addCriteria(Criteria.where("id").is(address.getId()));
-
-		UserShippingAddress oldAddress = mongoTemplate.findOne(q,
-				UserShippingAddress.class);
-		updateWithNewAddress(oldAddress, address);
-
-		mongoTemplate.save(oldAddress);
-		return BYGenericResponseHandler.getResponse(oldAddress);
+		return ret;
 	}
 
 	private void updateWithNewAddress(UserShippingAddress oldAddress,

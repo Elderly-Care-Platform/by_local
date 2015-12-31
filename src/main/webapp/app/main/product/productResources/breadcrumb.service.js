@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function BreadcrumbServiceFactory(Global,
                                       PAGE_URL,
                                       $log) {

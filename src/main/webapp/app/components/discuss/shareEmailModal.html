@@ -1,0 +1,80 @@
+
+<div class="modal-dialog share-modal-screen">
+    <div class="modal-content"  ng-controller="ShareController">
+    	<!-- Modal Header -->
+        <div class="modal-header">
+        	<p><i class="fa fa-envelope-o"></i>Share on E-mail</p>
+            <button type="button" class="close"
+                    data-dismiss="modal" ng-click="resetErrorOnModalDismiss()">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+            <div class="row padding-20">
+            	<div class="col-md-12">
+            		<form name="shareForm" novalidate>
+            			<div class="form-group">
+							<span ng-show="shareForm.emails.$invalid && focus" class="errorRed">Please enter atleast one emailId!</span>
+	            		</div>
+	            		<div class="form-group">
+							<span ng-show="shareForm.guestName.$invalid" class="errorRed">Please enter your name!</span>
+	            		</div>
+	            		<div class="form-group">
+	            			<span ng-show="emailError" class="errorRed">{{emailError}}</span>
+	            		</div>
+	            		<div class="form-group">
+	        				<input type="text" class="form-control mail-input" name = "emails" placeholder="name1@example.com, name2@example.com" ng-model = "shares.email" ng-focus="focus=false" ng-blur="focus=true" ng-change="validateEmails()" required/>
+	    				</div>
+	    				<div ng-if="checkSession == ''">
+	    					<div class="form-group">
+	        					<input type="text" class="form-control mail-input" name = "guestName" placeholder="Your Name" ng-model = "shares.guestName" required/>
+	    					</div>
+	    				</div>
+	    				<div class="row">
+	    					<div class="col-md-2 profile-img-space">
+								<img ng-src="http://beautifulyears.com/{{shareDiscussObject.userProfile.basicProfileInfo.profileImage.original||''}}"
+									 fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{shareDiscussObject.title}}" alt="{{shareDiscussObject.title}}">
+	    					</div>
+	    					<div class="col-md-10">
+	    						<div class="content-form-group">
+	    							<div class="form-group">
+	        							<textarea class="form-control mail-input" placeholder="Type your message here:" ng-model = "shares.message" ></textarea>	
+	    							</div>
+	    							<div class="" ng-if="shareDiscussObject.linkInfo == null">
+	    								<div class="shareDetails">
+	        								<h3>{{shareDiscussObject.title}}</h3>
+	        								<p>{{shareDiscussObject.shortSynopsis}}</p>
+	    								</div>
+	    							</div>
+	    							<div class="" ng-if="shareDiscussObject.linkInfo != null">
+	    								<div class="row">
+	    									<div class="col-md-3">
+	    										<img ng-src="{{shareDiscussObject.linkInfo.mainImage||''}}" title="{{shareDiscussObject.title}}"
+													 alt="{{shareDiscussObject.title}}">
+	    									</div>
+	    									<div class="col-md-9">
+	    										<div class="shareDetails">
+	        										<h3>{{shareDiscussObject.linkInfo.title}}</h3>
+	        										<p>{{shareDiscussObject.linkInfo.description}}</p>
+	    										</div>
+	    									</div>
+	    								</div>
+	    							</div>
+	    						</div>
+	    					</div>
+	    				</div> 
+						<div class="form-group button-group">
+							<input type="button" value="Send" class="nextButton by_btn_submit" ng-disabled="shareForm.$invalid || shareForm.$pending" ng-click="emailShare(shareForm, shareDiscussObject)"/>
+							<input type="button" value="Cancel" class="returnButton" data-dismiss="modal" ng-click="resetErrorOnModalDismiss()">
+							<div class="clearfix"></div>
+						</div>
+					</form>
+            	</div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

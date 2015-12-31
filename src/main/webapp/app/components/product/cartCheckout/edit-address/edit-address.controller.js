@@ -23,6 +23,7 @@ define(['byProductApp'], function (byProductApp) {
         };
 
         function init() {
+            $("#preloader").show();
             if (localStorage.getItem("by_cust_id")) {
                 $scope.customerId = localStorage.getItem("by_cust_id");
             }else{
@@ -42,9 +43,11 @@ define(['byProductApp'], function (byProductApp) {
          */
         function successCallBack(result) {
             $scope.address = result.data.data[0];
+            $("#preloader").hide();
         }
 
         function errorCallBack() {
+            $("#preloader").hide();
             console.log('can\'t get the data');
         }
 

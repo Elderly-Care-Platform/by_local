@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function GlobalServiceFactory($log,
                                   $rootScope) {
         $log.debug('Inside Global Service');

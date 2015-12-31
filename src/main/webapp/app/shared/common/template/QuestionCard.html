@@ -3,10 +3,10 @@
     <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
     <img class="by_discuss_img" ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage"
          ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-         fallback-src='["assets/img/by.png"]' alt="image">
+         fallback-src='["assets/img/by.png"]' alt="Profile Image">
          
           <img class="by_discuss_img" ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage"
-        ng-src="assets/img/by.png" alt="image">
+        ng-src="assets/img/by.png" alt="Profile Image">
 
     <div class="by_discuss_info" style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
         <ul class="list-inline by_discuss_infoList" style="">
@@ -43,7 +43,7 @@
     <div style="clear: both"></div>
     <div class="by_discuss_image col-md-12">
         <img ng-if="discuss.discussType == 'P' && discuss.promotion == false"
-             ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
+             ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="{{discuss.title}}"
              fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
         <div style="clear: both"></div>
@@ -51,7 +51,7 @@
     <div class="by_discuss_image col-md-12 no-padding"
          style="margin-top: -1px;">
         <img ng-if="discuss.discussType == 'P' && discuss.promotion == true"
-            ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+            ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="{{discuss.title}}"
             fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
         <div style="clear: both"></div>
@@ -93,7 +93,7 @@
 
 
             <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
-                <a ng-click="likeDiscuss(discuss.id)">
+                <a ng-click="likeDiscuss(discuss)">
                     <i class="rounded-x" ng-if="beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]"
                        title="Likes"></i>
                     <i class="rounded-x" ng-if="!beforePost" ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]"
@@ -101,7 +101,7 @@
                     <span ng-if="beforePost && discuss.aggrLikeCount > 0">{{discuss.aggrLikeCount}}</span>
                     <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
                 </a>
-                <div ng-click="likeDiscuss(discuss.id)" class="text text2">Like</div>
+                <div ng-click="likeDiscuss(discuss)" class="text text2">Like</div>
             </li>
 
             <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
@@ -121,4 +121,22 @@
     <div ng-if="$index===discussList.length-1">
     </div>
     <div style="clear: both"></div>
+</div>
+
+<div ng-if="discuss.pendingUserCredential" class="margin-bottom-20">
+    <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
+        <input type="email" class="by_registerEmailId"
+        placeholder="Enter your email Id" ng-model="userCredential.email"/>
+    </div>
+    <div class="clearfix"></div>
+    <span ng-show="likeErrMsg">
+                <span class='redColor'>{{likeErrMsg}}</span>
+            </span>
+    <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "  type="submit"  ng-click="setUserCredentialForLike()">
+        SUBMIT
+    </button>
+    <button class="btn btn-sm btn-success comment-submit by_btn_cancel " ng-click="cancelSetCredentialForLike()">
+        CANCEL
+    </button>
+    <div class="clearfix"></div>
 </div>

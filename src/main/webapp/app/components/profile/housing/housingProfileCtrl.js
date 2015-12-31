@@ -10,7 +10,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         		title: $scope.housingProfile.basicProfileInfo.firstName ? $scope.housingProfile.basicProfileInfo.firstName : "Corporation Profile - Beautiful Years",
                 imageUrl: $scope.housingProfile.basicProfileInfo.profileImage? $scope.housingProfile.basicProfileInfo.profileImage.original : "",
                 description: $scope.housingProfile.basicProfileInfo.description ? $scope.housingProfile.basicProfileInfo.description : "",
-                keywords:[]
+                keywords:['senior living', 'old age home']
             }
             BY.byUtil.updateMetaTags(metaTagParams);
 
@@ -24,7 +24,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
                 		title: $scope.facility.name ? $scope.facility.name : "Housing Profile - Beautiful Years",
                         imageUrl: $scope.facility.profileImage? $scope.facility.profileImage.original : "",
                         description: $scope.facility.description ? $scope.facility.description : "",
-                        keywords:[]
+                        keywords:['senior living', 'old age home']
                     }
                     BY.byUtil.updateMetaTags(metaTagParams);
             }).error(function (errorResponse) {

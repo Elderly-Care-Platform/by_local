@@ -1,23 +1,23 @@
 <div class="by_header by_header_image">
     <div class="by_logo  divLeft">
         <a di-href="#!/">
-            <img src="assets/img/home/logo.png?versionTimeStamp=%PROJECT_VERSION%" alt="Logo" width="100%">
+            <img src="assets/img/home/logo.png?versionTimeStamp=%PROJECT_VERSION%" alt="BeautifulYears Logo" width="100%">
         </a>
     </div>
 
-    <div class="by_header_right_other divRight" ng-if="$root.windowWidth > 720" style="width:272px;">
-    <div style="margin-left:-111px; text-align:right;">
+    <div class="by_header_right_other divRight width272" ng-if="$root.windowWidth > 720">
+    <div class="text-right marginLeftM111">
             <a di-href="#!/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
             
            <span ng-if="profileDetails.text">
-                <a ng-href="{{profileDetails.link}}" class="menuPipeline" id="profile_placeholder" style="color:#fff;">
+                <a ng-href="{{profileDetails.link}}" class="menuPipeline" id="profile_placeholder" class="whiteColor">
                     {{profileDetails.text}}
                 </a>
            </span>
            
             <a ng-href="{{loginDetails.link}}" class="menuPipeline" id="login_placeholder">{{loginDetails.text}}</a>
             
-            <span><img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%" width="20"/></span>
+            <span><img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%" alt="BeautifulYears Call" width="20"/></span>
             <b><a ng-href="{{'tel:'+telNo}}">{{telNo}}</a></b>
 
             <div class="clearfix"></div>
@@ -57,7 +57,7 @@
          ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     <div class="divRight by_mobile_header_profile">
        <span id="profile_placeHolder_li">
-                <a ng-href="{{profileDetails.link}}" style="color:#004f24" id="profile_placeholder">
+                <a ng-href="{{profileDetails.link}}" class="greenColor" id="profile_placeholder">
                     {{profileDetails.text}}
                 </a>
             </span>

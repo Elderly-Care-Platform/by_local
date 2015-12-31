@@ -19,10 +19,10 @@
                             Login
                         </div>
                         <div ng-show="error">
-                            <font color="red">{{error}}</font>
+                            <span class='redColor'>{{error}}</span>
                         </div>
                         <div ng-show="message">
-                            <font color="green">{{message}}</font>
+                            <span class='greenColor'>{{message}}</span>
                         </div>
 
                         <div class="no-padding margin-bottom-10">
@@ -65,10 +65,10 @@
                             Sign Up
                         </div>
                         <div ng-if="createUserError">
-                            <font color="red">{{createUserError}}</font>
+                            <span class='redColor'>{{createUserError}}</span>
                         </div>
                         <div ng-if="emailError!==''">
-                            <font color="red">{{emailError}}</font>
+                            <span class='redColor'>{{emailError}}</span>
                         </div>
                         <div class="no-padding margin-bottom-10">
                             <input type="text" class="username-textbox textbox modal-login-input"
@@ -83,7 +83,7 @@
                         </div>
 
                         <div ng-if="pwdError!==''">
-                            <font color="red">{{pwdError}}</font>
+                            <span class='redColor'>{{pwdError}}</span>
                         </div>
 
                         <div class="no-padding margin-bottom-10">
@@ -108,7 +108,7 @@
                         </div>
 
                         <div ng-if="resetPwd.error">
-                            <font color="red">{{resetPwd.error}}</font>
+                            <span class='redColor'>{{resetPwd.error}}</span>
                         </div>
 
                         <div ng-if="resetPwd.status===0" class="no-padding margin-bottom-20">

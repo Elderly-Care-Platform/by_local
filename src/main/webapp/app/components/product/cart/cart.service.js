@@ -1,17 +1,15 @@
 define([], function () {
 
-    /* @ngInject */
     function CartServiceFactory(CachedRequestHandler,
                                 APPLICATION,
                                 REST_URL,
                                 urlTemplate,
                                 SERVERURL_IMAGE,
                                 $q,
-                                $log) {
+                                $log, $injector) {
         $log.debug('Inside CartService Service');
 
-        var cartService, urls;
-
+        var cartService, urls, userSessionType;
         urls = {
             forCartDetail: urlTemplate(REST_URL.getCartDetail + '?customerId=:customerId'),
             createCart: urlTemplate(REST_URL.getCartDetail + '?customerId=:customerId&:productOptions', {},
@@ -26,7 +24,7 @@ define([], function () {
             forRemovePromoCodes: urlTemplate(REST_URL.offersRemove + '?customerId=:customerId',
                 {}, {type: 'delete'}),
 
-            mergeGuestCart: urlTemplate(REST_URL.mergeCart + '?guestOrderId=:guestOrderId', {}, {type: 'post'}),
+            mergeGuestCart: urlTemplate(REST_URL.mergeCart + '?guestOrderId=:guestOrderId', {}, {type: 'post'})
         };
 
         cartService = angular.extend(
@@ -52,8 +50,8 @@ define([], function () {
         return cartService;
 
         function getCartDetail(params) {
-            var sessId = localStorage.getItem("SessionId");
-            if ((params && params.customerId) || sessId) {
+            var userSessionType = localStorage.getItem("SESSION_TYPE");
+            if ((params && params.customerId) || (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL)) {
                 return this.$get(urls.forCartDetail(params));
             } else {
                 return this.$get(urls.createCartForGuest());

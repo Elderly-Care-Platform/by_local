@@ -3,6 +3,7 @@
  */
 package com.beautifulyears.mail;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -89,9 +90,24 @@ public class MailHandler {
 		
 	}
 	
+	public static void sendMultipleMail(List<String> to, String subject, String body) {
+		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
+			for(String email: to){
+				if(!(email.equals(null))){
+					new Thread(new MailDispatcher(email, subject, body)).start();
+				}
+			}
+			
+		}else{
+			logger.debug("not sending mail as it is disabled in context config");
+			throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
+		}
+		
+	}
+	
 	public static void sendMailToUserId(String userId, String subject, String body) {
 		User  user = UserController.getUser(userId);
-		if(null != user && user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL){
+		if(null != user && user.getUserIdType() == BYConstants.USER_ID_TYPE_EMAIL){
 			sendMail(user.getEmail(), subject, body);
 		}
 		

@@ -239,7 +239,7 @@ BY.config.sectionHeader = {
 		'sectionDesc' : 'The companionship and unconditional love a pet gives can motivate you to reach out and devote yourself to its wellbeing. Read about all the activities you can share with your pet. And meet other pet lovers!',
 		'sectionImage' : 'assets/img/section_headers/activity.jpg?versionTimeStamp=%PROJECT_VERSION%',
 		'sectionImageMobile' : 'assets/img/section_headers/activity_m.jpg?versionTimeStamp=%PROJECT_VERSION%'
-	},
+	}
     
     
 

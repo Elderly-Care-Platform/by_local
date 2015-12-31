@@ -1,60 +1,101 @@
-define(["byApp"], function(byApp) {
+define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConfig, userValidation) {
     'use strict';
-    function DiscussLikeController ($scope, $rootScope, DiscussLike, DiscussReplyLike, $location, ValidateUserCredential) {
-        $scope.beforePost = true;
+    function DiscussLikeController ($scope, $rootScope, $q, DiscussLike, DiscussReplyLike, $location, ValidateUserCredential, UserValidationFilter) {
+        $scope.beforePost        = true;
 
-        $scope.likeDiscuss = function (discussId) {
+        $scope.likeDiscuss = function (discuss) {
+            var discussId = discuss.id;
             $scope.discussLike = new DiscussLike();
             $scope.discussLike.discussId = discussId;
             $scope.discussLike.url = window.location.origin + "/#!/community/"+discussId;
-            $scope.discussLike.$likeDiscuss(function (likeReply, headers) {
-                    $scope.beforePost = false;
-                    $scope.aggrLikeCount = likeReply.data.aggrLikeCount;
-                    $scope.likedByUser = likeReply.data.likedByUser;
-                },
-                function (errorResponse) {
-                    console.log(errorResponse);
-                    if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
-                        ValidateUserCredential.login();
-                    }
-                });
-        }
+            $scope.userSessionType   = UserValidationFilter.getUserSessionType();
 
-        $scope.likeComment = function (commentId, replyType) {
-            $scope.discussLike = new DiscussReplyLike();
-            $scope.discussLike.replyId = commentId;
-            $scope.discussLike.url = window.location.href;
-
-            if (replyType === 6) {
-                $scope.discussLike.$likeAnswer(function (likeReply, headers) {
-                        $scope.beforePost = false;
-                        $scope.aggrLikeCount = likeReply.data.likeCount;
-                        $scope.likedByUser = likeReply.data.likedByUser;
-                    },
-                    function (errorResponse) {
-                        console.log(errorResponse);
-                        if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
-                            ValidateUserCredential.login();
-                        }
-                    }
-                );
+            if($scope.userSessionType === null){
+                var userCredentialPromise = $scope.$parent.getUserCredentialForLike(discuss);
+                userCredentialPromise.then(validUser, invalidUser);
             } else {
-                $scope.discussLike.$likeComment(function (likeReply, headers) {
+                httpPostLike();
+            }
+
+            function validUser(){
+                httpPostLike();
+            }
+
+            function invalidUser(){
+                console.log("invalid user error");
+            }
+
+            function httpPostLike(){
+                $scope.discussLike.$likeDiscuss(function (likeReply, headers) {
                         $scope.beforePost = false;
-                        $scope.aggrLikeCount = likeReply.data.likeCount;
+                        $scope.aggrLikeCount = likeReply.data.aggrLikeCount;
                         $scope.likedByUser = likeReply.data.likedByUser;
                     },
                     function (errorResponse) {
                         console.log(errorResponse);
-                        if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
-                            ValidateUserCredential.login();
-                        }
+                        //if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                        //    ValidateUserCredential.login();
+                        //}
                     });
             }
+
         }
+
+        $scope.likeComment = function (replyObj) {
+            $scope.discussLike = new DiscussReplyLike();
+            $scope.discussLike.replyId = replyObj.id;
+            $scope.discussLike.url = window.location.href;
+            $scope.userSessionType   = UserValidationFilter.getUserSessionType();
+
+            if($scope.userSessionType === null){
+                var userCredentialPromise = $scope.$parent.getUserCredentialForLike(replyObj);
+                userCredentialPromise.then(validUser, invalidUser);
+            } else {
+                httpPostLike();
+            }
+
+            function validUser(){
+                httpPostLike();
+            }
+
+            function invalidUser(){
+                console.log("invalid user error");
+            }
+
+            function httpPostLike(){
+                if (replyObj.replyType === BY.config.discuss.replyType.REPLY_TYPE_ANSWER) {
+                    $scope.discussLike.$likeAnswer(function (likeReply, headers) {
+                            $scope.beforePost = false;
+                            $scope.aggrLikeCount = likeReply.data.likeCount;
+                            $scope.likedByUser = likeReply.data.likedByUser;
+                        },
+                        function (errorResponse) {
+                            console.log(errorResponse);
+                            if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                                ValidateUserCredential.login();
+                            }
+                        }
+                    );
+                } else {
+                    $scope.discussLike.$likeComment(function (likeReply, headers) {
+                            $scope.beforePost = false;
+                            $scope.aggrLikeCount = likeReply.data.likeCount;
+                            $scope.likedByUser = likeReply.data.likedByUser;
+                        },
+                        function (errorResponse) {
+                            console.log(errorResponse);
+                            if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
+                                ValidateUserCredential.login();
+                            }
+                        });
+                }
+            }
+
+        }
+
     }
     
-    DiscussLikeController.$inject=['$scope', '$rootScope', 'DiscussLike','DiscussReplyLike', '$location','ValidateUserCredential'];
+    DiscussLikeController.$inject=['$scope', '$rootScope', '$q', 'DiscussLike','DiscussReplyLike', '$location','ValidateUserCredential', 'UserValidationFilter'];
     byApp.registerController('DiscussLikeController', DiscussLikeController);
     return DiscussLikeController;
 

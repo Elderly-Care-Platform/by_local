@@ -1,7 +1,6 @@
 define([], function () {
 
-    /* @ngInject */
-    function SelectAddressFactory($rootScope, $location, $http, UserProfile) {
+    function SelectAddressFactory($rootScope, $location, $http, UserProfile, UserValidationFilter) {
         var addressFormat = {
             "firstName": "",
             "lastName": "",
@@ -38,34 +37,40 @@ define([], function () {
         }
 
         function getAddress(addressIdx) {
+            var userSessionType = UserValidationFilter.getUserSessionType();
             var userId = localStorage.getItem("USER_ID");
-            if (userId) {
+            if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 if (addressIdx) {
                     return $http.get('api/v1/userAddress/' + userId + '?addressId=' + addressIdx);
                 } else {
                     return $http.get('api/v1/userAddress/' + userId);
                 }
             } else {
+                $("#preloader").hide();
                 $rootScope.nextLocation = "/selectAddress"
                 $location.path('/users/login');
             }
         }
 
         function updateAddress(params) {
+            var userSessionType = UserValidationFilter.getUserSessionType();
             var userId = localStorage.getItem("USER_ID");
-            if (userId) {
+            if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.put('api/v1/userAddress/' + userId, params.address);
             } else {
+                $("#preloader").hide();
                 $rootScope.nextLocation = "/selectAddress"
                 $location.path('/users/login');
             }
         }
 
         function addNewAddress(params) {
+            var userSessionType = UserValidationFilter.getUserSessionType();
             var userId = localStorage.getItem("USER_ID");
-            if (userId) {
+            if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 return $http.post('api/v1/userAddress/' + userId, params.address);
             } else {
+                $("#preloader").hide();
                 $rootScope.nextLocation = "/selectAddress"
                 $location.path('/users/login');
             }

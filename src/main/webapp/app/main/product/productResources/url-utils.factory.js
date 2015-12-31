@@ -1,6 +1,5 @@
 define([], function () {
 
-    /* @ngInject */
     function URLUtilsFactory($window) {
         var isArray = angular.isArray,
             isObject = angular.isObject,

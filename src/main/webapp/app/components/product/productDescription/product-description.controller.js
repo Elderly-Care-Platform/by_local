@@ -1,6 +1,5 @@
 define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoImageDirective) {
 
-    /* @ngInject */
     function ProductDescriptionController($scope,
                                           $rootScope,
                                           $log,
@@ -112,7 +111,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                 title:  $scope.uiData.name,
                 imageUrl:   BY.config.constants.productImageHost + $scope.uiData.media[0].url,
                 description:    descText,
-                keywords:[]
+                keywords:['Elder care products', 'senior care products']
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }

@@ -6,13 +6,15 @@ define(['byApp',
     'use strict';
 
     function ProductReviewsCtrl($scope, $rootScope, $location, $route, $routeParams, DiscussPage,
-                                 DiscussCount, $sce, $timeout) {
+                                 DiscussCount, $sce, $timeout, $q, UserValidationFilter) {
 
         window.scrollTo(0, 0);
         $scope.discussType = $routeParams.discussType ? $routeParams.discussType : 'all'; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.selectedMenu;
         $scope.pageSize = 20;
         $scope.isGridInitialized = false;
+
+        $scope.userCredential = {'email': '', 'pwd': ''};
 
         var tags = [];
         var queryParams = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
@@ -39,7 +41,7 @@ define(['byApp',
                 title: $scope.selectedMenu.displayMenuName,
                 imageUrl: "",
                 description: "",
-                keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                keywords: [$scope.selectedMenu.displayMenuName, "Product reviews"]
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }
@@ -210,12 +212,69 @@ define(['byApp',
             return newHref;
         };
 
+        //Discuss like code
+            $scope.getUserCredentialForLike = function(discussLikeObj){
+                if($scope.discussLikeObj){
+                    delete $scope.discussLikeObj.pendingUserCredential
+                }
+                $scope.discussLikeObj = discussLikeObj;
+                $scope.discussLikeObj.pendingUserCredential = true;
+                $scope.userCredential.defer= $q.defer();
+                window.setTimeout(function(){
+                    $(".masonry").masonry("reload");
+                }, 100);
+
+                return $scope.userCredential.defer.promise;
+            }
+
+            $scope.setUserCredentialForLike = function(){
+                if($scope.userCredential.email && BY.byUtil.validateEmailId($scope.userCredential.email)){
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(validUser, invalidUser);
+                }else{
+                    $scope.likeErrMsg = "Please enter valid email";
+                }
+
+                function validUser(){
+                    if($scope.userCredential.defer){
+                        $scope.discussLikeObj.pendingUserCredential = false;
+                        $scope.userCredential.defer.resolve();
+                        //delete $scope.userCredential.promise;
+                    }
+                    window.setTimeout(function(){
+                        $(".masonry").masonry("reload");
+                    }, 100);
+                }
+
+                function invalidUser(errMsg){
+                    console.log("invalid user error");
+                    $scope.likeErrMsg = errMsg;
+                    if($scope.userCredential.defer){
+                        $scope.userCredential.defer.reject();
+                    }
+                    window.setTimeout(function(){
+                        $(".masonry").masonry("reload");
+                    }, 100);
+                    //delete $scope.userCredential.promise;
+                }
+            }
+
+            $scope.cancelSetCredentialForLike = function(){
+                $scope.discussLikeObj.pendingUserCredential = false;
+                if($scope.userCredential.defer){
+                    $scope.userCredential.defer.reject();
+                }
+                window.setTimeout(function(){
+                    $(".masonry").masonry("reload");
+                }, 100);
+            }
+
 
     }
 
 
     ProductReviewsCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-        'DiscussPage', 'DiscussCount', '$sce', '$timeout'];
+        'DiscussPage', 'DiscussCount', '$sce', '$timeout', '$q', 'UserValidationFilter'];
 
     byApp.registerController('ProductReviewsCtrl', ProductReviewsCtrl);
     return ProductReviewsCtrl;

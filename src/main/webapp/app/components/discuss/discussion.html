@@ -1,16 +1,55 @@
 <!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
 <div ng-include="'app/components/discuss/discussMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
 <div class="by_mobile_call_wrap" ng-if="$root.windowWidth < 720">
-    <div class="by_container" style="color: #fff ; text-align:center;">     
-        Need help? <a ng-href="{{'tel:'+telNo}}"> <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%"> Call Now</a>
+    <div class="by_container" style="color: #fff ; text-align:center;">
+        Need help? <a ng-href="{{'tel:'+telNo}}">
+        <img src="assets/img/home/call.png?versionTimeStamp=%PROJECT_VERSION%" alt="beautifulyears phone number"> Call Now</a>
     </div>
 </div>
 <!--=== Content Part ===-->
-<div class="container" ng-if="menuLevel1 && menuLevel2" >
-     <div id="discussListContainer"></div>
+<div class="container" ng-if="menuLevel1 && menuLevel2">
+    <div id="discussListContainer"></div>
     <div class="row" ng-controller="DiscussAllController">
-        <div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper"
-             ng-include="discussionViews.contentPanel">
+        <div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper">
+
+            <div class="clearfix"></div>
+
+            <!--Show section header-->
+            <div class="by_commSectionHeader" ng-if="menuConfig.community[selectedMenu.id]">
+                {{menuConfig.community[selectedMenu.id].desc}}
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!--Show discuss post/ask editor start-->
+            <div ng-include="'app/components/discuss/discussEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+            <!--Show discuss post/ask editor end-->
+
+            <div class="clearfix margin-top-20">&nbsp;</div>
+
+            <!--Show discuss filters start-->
+            <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
+               href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/all">All
+                ({{discuss_counts.z}})</a>
+
+            <a class="discussRightCategory {{discussType == 'f' && 'selected active'}}" ng-if="discuss_counts.featured > 0"
+               href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/f">Featured
+                ({{discuss_counts.featured}})</a>
+
+            <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
+               href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/Q">Q&amp;A ({{discuss_counts.q}})</a>
+
+            <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
+               href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/P">Posts
+                ({{discuss_counts.p}})</a>
+            <!--Show discuss filters end-->
+
+            <div class="clearfix" style="height:15px;"></div>
+
+            <!--Show discuss post/ask editor start-->
+            <div ng-include="'app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+            <!--Show discuss post/ask editor end-->
+
         </div>
     </div>
 </div>

@@ -20,7 +20,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
                 title:  "Contact us",
                 imageUrl:   "",
                 description:   "",
-                keywords:[]
+                keywords:['contact us']
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         })();

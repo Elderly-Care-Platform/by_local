@@ -61,30 +61,30 @@ BY.byUtil.updateMetaTags = function (param) {
     var title = param.title.trim(),
         imageUrl = param.imageUrl || "http://www.beautifulyears.com/assets/img/logo-fb.jpg",
         description = $(param.description).text().trim(),
-        keywords = param.keywords;
+        keywords = param.keywords, url = location.origin + "/" + location.hash, nextSpaceIndex;
 
     if (keywords && keywords.length > 0) {
         keywords = keywords.join(", ");
     } else {
-        keywords = "Beutifulyears , senior care, ageing";
-    }
-
-    if (!description || description === "" || description === "undefined") {
-        description = "Beautiful Years"
+        keywords = BY.config.seo.home.keywords;
     }
 
     if (!title && title === "") {
-        title = description;
+        title = BY.config.seo.home.title;
     }
 
-    if (title.indexOf("Beautiful Years") == -1) {
-        title += " - Beautiful Years";
+    if (!description || description === "" || description === "undefined") {
+        description = BY.config.seo.home.description;
     }
 
-    var url = location.origin + "/" + location.hash;
+    if (title.indexOf("BeautifulYears") == -1) {
+        title += " - BeautifulYears";
+    }
+
+    nextSpaceIndex = description.indexOf(" ", 300);
+    description = description.length > 300 ? description.substring(0, nextSpaceIndex) + '...' : description;
+
     document.title = title;
-    description = description.length > 300 ? description.substring(0, 300) + '...' : description;
-
     $("meta[property='og\\:url']").attr("content", url);
     $("meta[property='og\\:title']").attr("content", title);
     $("meta[name='twitter\\:title']").attr("content", title);
@@ -158,6 +158,14 @@ BY.byUtil.getSlug = function (name) {
         slug = BY.byUtil.removeSpecialChars(slug);
         return slug;
     }
+}
+
+BY.byUtil.validateEmailId = function(emailId){
+    var validEmail = true, emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if(!emailValidation.test(emailId)){
+        validEmail = false;
+    }
+    return validEmail;
 }
 
 

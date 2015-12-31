@@ -373,3 +373,108 @@ button.login-btn {
 		margin-top: 0px;
 	}
 }
+
+.by_registerLogin
+{
+	max-width: 640px;
+	height: 380px;
+	padding: 50px 20px 30px;
+	background-color: #fff;
+	border-radius: 3px !important;
+	margin-left: auto;
+	margin-right: auto;
+	border:1px solid #e1e1e1;
+	box-shadow: 0px 0px 9px rgba(255, 255, 255, 0.21);
+}
+.by_registerLogin_left
+{
+	float: right;
+	width: calc(50% - 26px);
+}
+.by_registerLogin_left_full
+{
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+}
+.by_registerLogin_right
+{
+	float: left;	
+	width: calc(50% - 47px);
+	text-align: center;
+	padding-top: 40px;
+}
+.by_registerLogin .or-divider
+{
+	float: left;
+	text-align: center;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+.by_registerLogin_head
+{
+	width: 100%;
+	margin-top: -10px;
+	font-size: 20px;
+	content: #000;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.by_registerLogin_divider
+{
+	width: 100%;
+	height: 1px;
+	background-color: #ccc;
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+.by_registerLogin_center2
+{
+	color: #888;
+}
+.by_registerLogin_center
+{
+	color: #000; 
+	text-align: center;
+}
+.by_registerLogin_center div
+{
+	border-bottom: 1px solid #449d44;
+	color: #449d44;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 18px;
+    line-height: 22px;
+}
+.by_registerLogin button.register-btn {
+    padding: 7px 17px 7px 17px;
+}
+.by_registerLogin .register-page .textbox {
+    width: 100%;
+    padding: 4px 8px 4px 8px;
+}
+@media screen and (max-width: 900px){
+	.contentPanelLogin
+	{
+		width: 80%;
+	}
+}
+@media screen and (max-width: 720px){
+	.or-divider {
+		background:
+			url('../img/icons/or-v.png?versionTimeStamp=%PROJECT_VERSION%') no-repeat center;
+		width: 100%;
+		height: 42px;
+		margin: 10px auto 10px auto !important;
+		float: none;
+	}
+	.by_registerLogin_left, .by_registerLogin_right
+	{
+		width: 100%;
+	}
+	.by_registerLogin
+	{
+		height: auto;
+	}
+}
+	

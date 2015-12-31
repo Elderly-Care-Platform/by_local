@@ -38,9 +38,9 @@ public class UserActivityLogHandler extends ActivityLogHandler<User> {
 			log.setRead(false);
 			log.setTitleToDisplay(user.getUserName());
 			log.setUserId(user.getId());
-			if(user.getRegType() == BYConstants.REGISTRATION_TYPE_EMAIL){
+			if(user.getUserIdType() == BYConstants.USER_ID_TYPE_EMAIL){
 				log.setCurrentUserEmailId(user.getEmail());
-			}else if(user.getRegType() == BYConstants.REGISTRATION_TYPE_PHONE){
+			}else if(user.getUserIdType() == BYConstants.USER_ID_TYPE_PHONE){
 				log.setCurrentUserEmailId(user.getPhoneNumber());
 			}
 		}

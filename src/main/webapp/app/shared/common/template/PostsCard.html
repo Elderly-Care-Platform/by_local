@@ -4,17 +4,18 @@
     <div class="questionTag postTag" ng-if="discuss.discussType == 'P' && discuss.featured == true"></div>
     <img class="by_discuss_img" ng-if="discuss.promotion == false && discuss.userProfile.basicProfileInfo.profileImage"
          ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-         fallback-src='["assets/img/by.png"]' alt="image">
-         
-          <img class="by_discuss_img" ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage"
-                 ng-src="assets/img/by.png" alt="image">
+         fallback-src='["assets/img/by.png"]' alt="Profile Image">
+
+    <img class="by_discuss_img" ng-if="discuss.promotion == false && !discuss.userProfile.basicProfileInfo.profileImage"
+         ng-src="assets/img/by.png" alt="Profile Image">
 
     <div class="by_discuss_info" style="margin-right: 80px !important;" ng-if="discuss.promotion == false">
         <ul class="list-inline by_discuss_infoList" style="">
             <li>
                 <p>
                     By <a validate-user-name="{{discuss.username}}" class="text-capitalize"
-                          ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}" ng-click="$event.stopPropagation();">
+                          ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"
+                          ng-click="$event.stopPropagation();">
                     {{username}}</a> |
                 </p>
             </li>
@@ -25,7 +26,8 @@
 
             <li ng-repeat="topicId in discuss.topicId">
                 <p class="first-letter-uc by-systemTags">
-                    <span ng-if="$index > 0">|</span> <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
+                    <span ng-if="$index > 0">|</span> <a
+                        di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">{{$root.menuCategoryMap[topicId].displayMenuName}}</a>
                 </p>
             </li>
         </ul>
@@ -53,14 +55,14 @@
     <div style="clear: both"></div>
     <div class="by_discuss_image col-md-12">
         <img ng-if="discuss.discussType == 'P' && discuss.promotion == false && (discuss.articlePhotoFilename.titleImage || discuss.articlePhotoFilename.original)"
-             ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="image"
+             ng-src="{{discuss.articlePhotoFilename.titleImage||''}}" alt="{{discuss.title}}"
              fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
         <div style="clear: both"></div>
     </div>
     <div class="by_discuss_image col-md-12 no-padding" style="margin-top: -1px;">
         <img ng-if="discuss.discussType == 'P' && discuss.promotion == true"
-             ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="image"
+             ng-src="{{discuss.articlePhotoFilename.original||''}}" alt="{{discuss.title}}"
              fallback-src='["{{discuss.articlePhotoFilename.original||""}}"]'>
 
         <div style="clear: both"></div>
@@ -70,7 +72,7 @@
 
     <div class="by_discuss_desc  col-md-12" ng-if="discuss.promotion == false" id="{{discuss.id}}">
         <p class="by_discuss_desciption" ng-if="discuss.shortSynopsis">
-            {{discuss.shortSynopsis}}<a ng-href="{{getHref(discuss, {'id':discuss.id})}}" ng-click="$event.stopPropagation();" class="divRight by_readmore">Read More <b style="font-size: 10px;">
+            {{discuss.shortSynopsis}}<a class="divRight by_readmore">Read More <b style="font-size: 10px;">
             &#9002;</b></a>
         </p>
 
@@ -83,7 +85,8 @@
         <ul class="post-shares post-shares-lg">
             <li class="add-comment"
                 ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
-                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
+                   ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
                     <span>{{discuss.aggrReplyCount}}</span>
 
                     <div class="text">Comment</div>
@@ -91,8 +94,10 @@
             </li>
 
             <li class="add-comment add-comment-FC" ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
-                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}" ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <div class="text" >
+                <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
+                   ng-click="$event.stopPropagation();"> <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+
+                    <div class="text">
                         Be the first to comment
                     </div>
                 </a>
@@ -100,7 +105,7 @@
 
 
             <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
-                <a ng-click="likeDiscuss(discuss.id)">
+                <a ng-click="likeDiscuss(discuss)">
                     <i class="rounded-x" ng-if="beforePost"
                        ng:class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]"
                        title="Likes">
@@ -113,7 +118,7 @@
                     <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
                 </a>
 
-                <div ng-click="likeDiscuss(discuss.id)" class="text text2">Like</div>
+                <div ng-click="likeDiscuss(discuss)" class="text text2">Like</div>
             </li>
 
             <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
@@ -121,6 +126,7 @@
                     <i class="rounded-x icon-share"></i>
                     <span ng-if="discuss.shareCount > 0">{{discuss.shareCount}}</span>
                 </a>
+
                 <div class="post-text post_text-comment">
                     <a ng-click="shareComment(discuss, $event)">
                         <div class="text">Share</div>
@@ -132,4 +138,22 @@
     </div>
     <div ng-if="$index===discussList.length-1"></div>
     <div style="clear: both"></div>
+</div>
+
+<div ng-if="discuss.pendingUserCredential" class="margin-bottom-20">
+    <div class="col-md-12 no-padding register-page" style="margin-top:-15px;">
+        <input type="email" class="by_registerEmailId" placeholder="Enter your email Id" ng-model="userCredential.email"/>
+    </div>
+    <div class="clearfix"></div>
+    <span ng-show="likeErrMsg">
+                <span class='redColor'>{{likeErrMsg}}</span>
+            </span>
+    <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn"
+            type="submit" ng-click="setUserCredentialForLike()">
+        SUBMIT
+    </button>
+    <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">
+        CANCEL
+    </button>
+    <div class="clearfix"></div>
 </div>

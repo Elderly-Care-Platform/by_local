@@ -2,7 +2,7 @@
      <div class="housingFeatured" ng-if="housing.featured == true"></div>
      <div class="by_housingCard_profileImage" aria-label="{{housing.name}}" ng-if="housing.profileImage != null" style="background-image:url('{{housing.profileImage.titleImage}}');">
 			<img background-fallback-src="assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%"
-				ng-src="{{housing.profileImage.titleImage}}" style="display: none;">
+				ng-src="{{housing.profileImage.titleImage}}" alt="{{housing.name}}" style="display: none;">
 		</div>
      <div class="by_housingCard_profileImage" ng-if="housing.profileImage == null" style="background-image:url('assets/img/housing/Housing_card.png?versionTimeStamp=%PROJECT_VERSION%');"></div>
      <div class="by_housingCard_content">

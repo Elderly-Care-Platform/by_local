@@ -331,3 +331,43 @@ body a:hover
 {
     z-index: 10;
 }
+.floatNone
+{
+    float: none;
+}
+.width272
+{
+    width: 272px;
+}
+.marginLeftM111
+{
+    margin-left: -111px;
+}
+.whiteColor
+{
+    color: #fff;
+}
+.greenColor
+{
+    color: #004f24;
+}
+.marginTopM11
+{
+    margin-top: -11px;
+}
+.paddingBottom0Imp
+{
+    padding-bottom: 0px !important;
+}
+.headerCartStyle
+{
+    max-height:150px; overflow-y:auto; margin-right:-10px;
+}
+.redColor
+{
+    color: red;
+}
+.greenColor
+{
+    color: green;
+}

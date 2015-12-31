@@ -2,6 +2,15 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
     function LoginController($scope, $rootScope, $http, $location, $routeParams, User, SessionIdService, ValidateUserCredential) {
         window.scrollTo(0, 0);
 
+        $scope.byLoginPage = function(){
+            $scope.views.loginPanel = "app/components/signup/login/login.html?versionTimeStamp=%PROJECT_VERSION%";
+        }
+
+        $scope.by_RegisterPage = function(){
+            $scope.views.loginPanel = "app/components/signup/login/register.html?versionTimeStamp=%PROJECT_VERSION%";
+        }     
+
+
         $scope.user = {};
         $scope.user.email = '';
         $scope.user.password = '';
@@ -20,6 +29,21 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         $scope.emailError = "";
         $scope.uniqueRegId = {};
         $scope.uniqueLoginId = {};
+
+        var storedUserEmail    = localStorage.getItem("USER_EMAIL"),
+            storedUserPhoneNo  = localStorage.getItem("USER_PHONENUMBER");
+        $scope.storedUserEmail = localStorage.getItem("USER_EMAIL") || localStorage.getItem("USER_PHONENUMBER");   
+
+        if(storedUserEmail && storedUserEmail!=="null" && storedUserEmail!==""){
+            $scope.uniqueLoginId.id = storedUserEmail;
+            $scope.uniqueRegId.id = storedUserEmail;
+        }
+
+        if(storedUserPhoneNo && storedUserPhoneNo!=="null" && storedUserPhoneNo!==""){
+            $scope.uniqueLoginId.id = localStorage.getItem("USER_PHONENUMBER");
+            $scope.uniqueRegId.id = localStorage.getItem("USER_PHONENUMBER");
+        }
+
 
         if($routeParams.resetPasswordCode){
             verifyPasswordCode($routeParams.resetPasswordCode);
@@ -165,11 +189,11 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         	var reg = /^\d+$/;
         	if(reg.test(loginUserValue))
          		{	
-	        		$scope.user.regType = BY.config.regConfig.regType.mobile;
+	        		$scope.user.userIdType = BY.config.regConfig.userIdType.mobile;
 					$scope.user.phoneNumber = loginUserValue;
 					delete $scope.user.email;					            		
          		} else {
-         			$scope.user.regType = BY.config.regConfig.regType.email;
+         			$scope.user.userIdType = BY.config.regConfig.userIdType.email;
 					$scope.user.email = loginUserValue;
 					delete $scope.user.phoneNumber;
         		}
@@ -211,7 +235,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 	            		var reg = /^\d+$/;
 						if (emailMobile.length === 10 && reg.test(emailMobile)) {
 							$scope.emailError = "";
-							$scope.newUser.regType = BY.config.regConfig.regType.mobile;
+							$scope.newUser.userIdType = BY.config.regConfig.userIdType.mobile;
 							$scope.newUser.phoneNumber = $scope.uniqueRegId.id;
 							delete $scope.newUser.email;
 
@@ -225,7 +249,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                             $scope.emailError = "Please enter valid Email Id";
                         }else{
                             $scope.emailError = "";
-                            $scope.newUser.regType = BY.config.regConfig.regType.email;
+                            $scope.newUser.userIdType = BY.config.regConfig.userIdType.email;
     						$scope.newUser.email = $scope.uniqueRegId.id;
     						delete $scope.newUser.phoneNumber;
                         }                       
@@ -286,6 +310,9 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
                 $http.defaults.headers.common.sess = login.sessionId;
                 localStorage.setItem("USER_ID", login.userId);
                 localStorage.setItem("USER_NAME", login.userName);
+                localStorage.setItem("SESSION_TYPE", login.sessionType);
+                localStorage.setItem("USER_EMAIL", login.userEmail);
+                localStorage.setItem("USER_PHONENUMBER", login.phoneNumber);
                 localStorage.removeItem("by_cust_id");
                 $rootScope.$broadcast('byUserLogin', login);
             }

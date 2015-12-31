@@ -34,17 +34,23 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil
         };
 
         function updateMetaTags(){
+            var seoKeywords = [$scope.selectedMenu.displayMenuName, 'old age home'];
+            for(var i=0; i<=$scope.selectedMenu.ancestorIds.length-1;i++){
+                var categoryName = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[i]].displayMenuName;
+                seoKeywords.push(categoryName);
+            }
             var metaTagParams = {
-                title:  $scope.selectedMenu.displayMenuName,
-                imageUrl:   "",
-                description:   "",
-                keywords:[$scope.selectedMenu.displayMenuName,$scope.selectedMenu.slug]
+                title: $scope.selectedMenu.displayMenuName,
+                imageUrl: "",
+                description: "<p>"+"Find any service for seniors or senior living facilities"+"</p>",
+                keywords: seoKeywords
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }
 
         function initialize(){
             if($scope.selectedMenu){
+                updateMetaTags();
                 tags = $.map($scope.selectedMenu.tags, function(value, key){
                     return value.id;
                 })

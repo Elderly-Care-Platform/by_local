@@ -1,33 +1,18 @@
-<div class="by_profileDetailed_menu by_profileDetailed_menuActive" ng-if="$root.windowWidth < 720">
-		<a>Login / Registration</a>
-	</div>
-<div class="darkBgwithText " style="font-size:15px; margin-left:0px;">
-	To publish your stories or
-		articles; to comment; to 'like'; to answer questions; and to provide
-		relevant personalized information - we invite you to join us!
-	<div class="darkBgwithTextArrow">
-		<img
-			src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%"
-			alt="" />
-	</div>
-</div>
-<div class="col-md-12 no-padding margin-top-10 whitebg-graybdr signup"
-	ng-controller="LoginController">
-	<div class="col-md-5 margin-left-20  login">
-		<form class="" name="loginForm" ng-submit="loginUser(user)" novalidate>
-			<div
-				class="col-md-12 no-padding form-header-content margin-bottom-35 margin-top-20 font-bold grayBgWhite">
-				Please log in if you have already registered with us:</div>
+<div class="by_registerLogin" ng-controller="LoginController">
+	<div class="by_registerLogin_left" ng-class="{'by_registerLogin_left_full': storedUserEmail}" >
+		<form class="" name="loginForm" ng-submit="loginUser(user)"  novalidate>
+			<div class="by_registerLogin_head">Login</div>
+
 			<div ng-show="error">
-				<font color="red">{{error}}</font>
+				<span class='redColor'>{{error}}</span>
 			</div>
 			<div ng-show="message">
-				<font color="green">{{message}}</font>
+				<span class='greenColor'>{{message}}</span>
 			</div>
 
-			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+			<div class=" col-md-12 no-padding margin-bottom-10 register-page">
 				<input type="text" class="username-textbox textbox"
-					placeholder="Please enter your email-id" ng-model="uniqueLoginId.id">
+					placeholder="Please enter e-mail ID" ng-model="uniqueLoginId.id">
 			</div>
 
 			<span>
@@ -35,101 +20,51 @@
 					class="help-block">Email is required.</p>
 			</span>
 
-			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
+			<div class=" col-md-12 no-padding margin-bottom-10 register-page">
 				<input type="password" class="username-textbox textbox"
-					placeholder="Please enter your password" ng-model="user.password">
+					placeholder="Please enter your password" ng-model="user.password" required>
 			</div>
 			<span>
 				<p ng-show="loginForm.password.$invalid && loginForm.password.$pristine"
 					class="help-block">Password is required.</p>
 			</span>
-
-			<div
-				class="col-md-12 no-padding form-header-content margin-bottom-25">
-				Forgot your password?  <a href="" ng-click="showForm(2)" style="color:#005326 !important;"><b><u>Click here</u></b></a> 
-			</div>
-
-
-			<div class="col-md-12 no-padding form-header-content margin-bottom-25">
+			<div class="col-md-12 no-padding form-header-content margin-bottom-20">
 				<button class="btn btn-success pull-right login-btn by_btn_submit"
-					ng-disabled="!loginForm.$valid" type="submit">LOGIN</button>
+					ng-disabled="!loginForm.$valid" type="submit" style="margin-top:10px; border-radius:3px !important; width:100%;">LOGIN</button>
 			</div>
+			<div class="by_registerLogin_center" style="text-align:right !important;">
+				 <div ng-click="showForm(2)">Forgot password?</div>
+			</div>
+			<div class="clearfix" style="height:20px;"></div>
+
 		</form>
 	</div>
-	<div class=" col-md-1 margin-top-20 divider-login-new-register">
-
-		<div class="or-divider"></div>
-
-	</div>
-	<div class="col-md-5 new-register">
-		<form class="" name="userForm" ng-submit="createNewUser(userForm.$valid)" novalidate>
-			<div class="col-md-12 no-padding form-header-content margin-bottom-35 margin-top-20 font-bold grayBgWhite">
-				Not registered yet? <br /> No worries, it takes just a few seconds!
-			</div>
-
-			<div ng-if="createUserError">
-				<font color="red">{{createUserError}}</font>
-			</div>
-
-
-
-			<div ng-if="emailError!==''">
-				<font color="red">{{emailError}}</font>
-			</div>
-			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
-				<input type="text" class="username-textbox textbox"
-					placeholder="Please enter your email-id" ng-model="uniqueRegId.id">
-			</div>
-
-
-			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
-				<input type="text" class="username-textbox textbox"
-					placeholder="Please enter your User Name (optional)"
-					ng-model="newUser.userName">
-			</div>
-
-			<div ng-if="pwdError!==''">
-				<font color="red">{{pwdError}}</font>
-			</div>
-			<div class=" col-md-12 no-padding margin-bottom-20 register-page">
-				<input type="password" class="username-textbox textbox"
-					placeholder="Please enter your password"
-					ng-model="newUser.password">
-			</div>
-
-			<div class="col-md-12 by-register-button" style="margin-top:22px;">
-				<button class="btn btn-success pull-right register-btn by_btn_submit">REGISTER</button>
-				<div class="clearfix"></div>
-			</div>
-			<div class="clearfix"></div>
-		</form>
-	</div>
-
-	<div class="col-md-12 no-padding signup-social whitebg-graybdr">
-
-		<div class="col-md-8 form-header-content margin-top-20  ">
-			<ul class="social-ul">
-				<li>You could also use your Social login to sign up.</li>
-				<li>
-					<span class="lock-icon"><img src="assets/img/icons/lock.png" width="8" height="11"></span>
-					Be assured, BeautifulYears do not share your information
-				</li>
-			</ul>
-		</div>
-		<div class="col-md-4  margin-top-20">
+	<xyz ng-if="!storedUserEmail || storedUserEmail.trim().length === 0">
+		<div class="or-divider mobileSite"></div>
+		<div class="by_registerLogin_right">
+			Use your social network <br/>account to login<br/>
+			<div class="clearfix" style="height: 20px;"></div>
 			<div class="dp-inline-block" ng-click="fbLogin()">
 				<img src="assets/img/icons/fb-login.png" width="97" height="23"
-					class="post-text">
+					 class="post-text">
 			</div>
 			<div class="dp-inline-block padding-left-5" ng-click="ggLogin()">
 				<img src="assets/img/icons/googleplus-login.png" width="82"
-					height="23" class="post-text">
+					 height="23" class="post-text">
 			</div>
 			<div class="clearfix" style="height: 20px;"></div>
+			<span class="lock-icon"><img src="assets/img/icons/lock.png" width="8" height="11"></span>
+			<span class="by_registerLogin_center2">BeautifulYears do not <br/>share your information</span>
 		</div>
-		<div class="clearfix"></div>
+
+		<div class="or-divider desktopSite"></div>
+	</xyz>
+
+	<div class="clearfix"></div>
+	<div class="by_registerLogin_divider"></div>
+	<div class="by_registerLogin_center">
+		New user? <div ng-click="by_RegisterPage();">Register Now</div>
 	</div>
-	
-</div><div class="clearfix" style="height: 20px;"></div>
+</div>
 
-
+<div class="clearfix" style="height:20px;"></div>

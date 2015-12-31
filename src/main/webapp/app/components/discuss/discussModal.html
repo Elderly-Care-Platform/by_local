@@ -1,0 +1,34 @@
+<div class="modal-dialog share-modal-screen">
+    <div class="modal-content" ng-controller="ShareController">
+        <!-- Modal Body -->
+        <div class="modal-body">
+            <div class="row padded-row">
+            	<div class="col-md-6 border-side">
+            		<a ng-click="shareComment(shareDiscussObject, $event);dismissModal();" class="share-block-link purple">
+            			<div class="share-block">
+            				<div class="icon-bg">
+            					<i class="fa fa-facebook"></i>
+            				</div>
+            				<h3>Share on</h3>
+            				<p>Facebook</p>
+            			</div>
+            		</a>
+            	</div>
+            	<div class="col-md-6">
+            		<a ng-click="toggleModal(shareDiscussObject.id)" class="share-block-link green" data-toggle="modal" data-target="#shareEmailModal" data-dismiss="modal">
+            			<div class="share-block">
+            				<div class="icon-bg">
+            					<i class="fa fa-envelope-o"></i>
+            				</div>
+            				<h3>Share on</h3>
+            				<p>E-mail</p>
+            			</div>
+            		</a>
+            	</div>
+                
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

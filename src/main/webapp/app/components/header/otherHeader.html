@@ -5,12 +5,12 @@
         </a>
     </div>
 
-    <div class="by_header_right_other divRight" ng-if="$root.windowWidth > 720" style="width:272px;">
-    <div style="margin-left:-111px; text-align:right;">
+    <div class="by_header_right_other divRight width272" ng-if="$root.windowWidth > 720">
+    <div class="text-right marginLeftM111">
             <a di-href="#!/aboutUs" class="menuPipeline" id="aboutUs_placeholder">About us</a>
             
            <span ng-if="profileDetails.text">
-                <a ng-href="{{profileDetails.link}}" class="menuPipeline" id="profile_placeholder" style="color:#fff;">
+                <a ng-href="{{profileDetails.link}}" class="menuPipeline" id="profile_placeholder" class="whiteColor">
                     {{profileDetails.text}}
                 </a>
            </span>
@@ -57,7 +57,7 @@
          ng-include="'app/shared/common/template/headerCart.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     <div class="divRight by_mobile_header_profile">
        <span id="profile_placeHolder_li">
-                <a ng-href="{{profileDetails.link}}" style="color:#004f24" id="profile_placeholder">
+                <a ng-href="{{profileDetails.link}}" class="greenColor" id="profile_placeholder">
                     {{profileDetails.text}}
                 </a>
             </span>

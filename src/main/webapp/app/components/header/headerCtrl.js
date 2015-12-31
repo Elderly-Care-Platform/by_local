@@ -54,7 +54,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         function updateHeaderTemplate() {
             if (isHomePage == true) {
-                $("#home").show();
+                $("#home").removeClass('hide');
+                $("#home").addClass('show');
                 //$("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%");
                 $scope.templateUrl = 'app/components/header/homeHeader.html?versionTimeStamp=%PROJECT_VERSION%';
                 // on scrolling adding header background
@@ -73,7 +74,8 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                         
                 });
             } else {
-                $("#home").hide();
+                $("#home").removeClass('show');
+                $("#home").addClass('hide');
                 //$("#home").html('');
                 $scope.templateUrl = 'app/components/header/otherHeader.html?versionTimeStamp=%PROJECT_VERSION%';
                 angular.element($window).bind("scroll", function () {

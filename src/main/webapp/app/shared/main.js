@@ -64,7 +64,7 @@ require.config({
 
 
 		//library
-		jquery : '../../lib/jqueryPlugins/jquery.min',
+		//jquery : '../../lib/jqueryPlugins/jquery.min',
 		angular : '../../lib/angular/angular.min',
 		angularRoute : '../../lib/angular/angular-route',
 		angularResource : '../../lib/angular/angular-resource',
@@ -150,9 +150,9 @@ require.config({
 			deps : [ "angular" ]
 		},
 
-		'bootstrapToggle' : {
-			deps : [ "jquery" ]
-		},
+		// 'bootstrapToggle' : {
+		// 	deps : [ "jquery" ]
+		// },
 
 		"angularBootstrap"  : {
 			deps : [ "angular" ]

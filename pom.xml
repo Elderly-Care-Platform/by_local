@@ -191,13 +191,14 @@
 				    <configuration>
 				        <charset>UTF-8</charset>
 				        <skipMerge>true</skipMerge>
-				        <cssSourceDir>assets/css</cssSourceDir>
+				        <cssSourceDir>/</cssSourceDir>
 				        <jsSourceDir>app</jsSourceDir>
 				        <jsEngine>CLOSURE</jsEngine>
 				        <nosuffix>true</nosuffix>
 				        <webappTargetDir>${project.build.directory}/minify</webappTargetDir>
 				        <cssSourceIncludes>
-				            <cssSourceInclude>**/*.css</cssSourceInclude>
+				            <cssSourceInclude>assets/css/**/*.css</cssSourceInclude>
+				            <cssSourceInclude>lib/**/*.css</cssSourceInclude>
 				        </cssSourceIncludes>
 				        <cssSourceExcludes>
 				            <cssSourceExclude>**/*.min.css</cssSourceExclude>

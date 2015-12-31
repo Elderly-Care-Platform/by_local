@@ -342,6 +342,7 @@ public class UserController {
 				newFbUser.setEmail(fbProfileData.get("email"));
 				newFbUser.setUserName(fbProfileData.get("displayName"));
 				newFbUser.setUserRegType(BYConstants.USER_REG_TYPE_SOCIAL);
+				newFbUser.setUserIdType(BYConstants.USER_ID_TYPE_EMAIL);
 				logger.debug("creating new social sign on user : "
 						+ newFbUser.toString());
 				newFbUser = userRepository
@@ -400,6 +401,7 @@ public class UserController {
 				newGoogleUser.setEmail(ggProfileData.get("email"));
 				newGoogleUser.setUserName(ggProfileData.get("displayName"));
 				newGoogleUser.setUserRegType(BYConstants.USER_REG_TYPE_SOCIAL);
+				newGoogleUser.setUserIdType(BYConstants.USER_ID_TYPE_EMAIL);
 				logger.debug("creating new social sign on user : "
 						+ newGoogleUser.toString());
 				newGoogleUser = userRepository

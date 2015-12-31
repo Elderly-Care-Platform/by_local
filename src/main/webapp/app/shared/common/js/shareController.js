@@ -36,18 +36,6 @@ define(["byApp"], function(byApp) {
         	}
         	
         }
-        
-        $scope.validateName = function() {
-    
-        	if($scope.shares.guestName != undefined){
-        		$scope.emailError = "";
-        		$(".by_btn_submit").prop("disabled", false);
-        	}else{
-        		$scope.emailError = "Please enter your name!";
-        		$(".by_btn_submit").prop("disabled", true);
-        	}
-        	
-        }
         	
         $scope.resetErrorOnModalDismiss = function resetErrorOnModalDismiss() {
         	$scope.resetError();
@@ -78,6 +66,17 @@ define(["byApp"], function(byApp) {
         		$http.post($scope.pathName + 'api/v1/share/email/' + discussId, emailParams   
         		).success(function (response, status, headers, config) {
         			$("#shareEmailModal").modal("hide");
+        			if (response) {
+                        var shareDiscuss = new ShareDiscuss();
+                        shareDiscuss.id = data.id;
+                        shareDiscuss.$post({},function(res){
+                            $scope.$parent.updateShareCount(res.data.shareCount);
+                        },function(err){
+                            console.log("alert posting the share count");
+                        });
+                    } else {
+                        console.log('Post was not published.');
+                    }
         		}).error(function(errorRes) {    
         			$(".by_btn_submit").prop("disabled", true);
         			if(errorRes == undefined){
@@ -113,7 +112,6 @@ define(["byApp"], function(byApp) {
                     description: description,
                     name:caption
                 }, function(response){
-                    console.log(response);
                     if (response && response.post_id) {
                         var shareDiscuss = new ShareDiscuss();
                         shareDiscuss.id = sharedObj.id;

@@ -90,10 +90,13 @@ public class UserController {
 	@RequestMapping(value = "/validateSession", method = RequestMethod.GET)
 	public @ResponseBody Object validateSession(HttpServletRequest req,
 			HttpServletResponse res) {
-		if (null == Util.getSessionUser(req)) {
+		Session currentSession = null;
+		if (null == Util.getSessionUser(req) || null == req.getSession().getAttribute("session")) {
 			throw new BYException(BYErrorCodes.INVALID_SESSION);
+		}else{
+			currentSession = (Session)req.getSession().getAttribute("session");
 		}
-		return BYGenericResponseHandler.getResponse(null);
+		return BYGenericResponseHandler.getResponse(currentSession);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

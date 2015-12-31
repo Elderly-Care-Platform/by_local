@@ -19,7 +19,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
         		title:  title,
                 imageUrl: $scope.individualProfile.basicProfileInfo.profileImage? $scope.individualProfile.basicProfileInfo.profileImage.original : "",
                 description: $scope.individualProfile.basicProfileInfo.description ? $scope.individualProfile.basicProfileInfo.description : "",
-                 keywords:[]
+                keywords:['senior care professional', 'elder care professional']
             }
             BY.byUtil.updateMetaTags(metaTagParams);
 

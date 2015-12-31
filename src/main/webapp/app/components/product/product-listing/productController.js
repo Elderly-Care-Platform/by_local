@@ -50,15 +50,26 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         $rootScope.byTopMenuId = $rootScope.mainMenu[2].id;
         $scope.telNo = BY.config.constants.byContactNumber;
 
+
+        function updateMetaTags(){
+            var seoKeywords = [$scope.selectedMenu.displayMenuName, 'senior care products', 'elder care products'];
+            for(var i=0; i<=$scope.selectedMenu.ancestorIds.length-1;i++){
+                var categoryName = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[i]].displayMenuName;
+                seoKeywords.push(categoryName);
+            }
+
+            var metaTagParams = {
+                title: $scope.selectedMenu.displayMenuName,
+                imageUrl: "",
+                description: "<p>"+ "Products that improve lives of seniors - select from our catalogue" +"</p>",
+                keywords: seoKeywords
+            }
+            BY.byUtil.updateMetaTags(metaTagParams);
+        }
+
         function initialize() {
+            updateMetaTags();
             if ($scope.selectedMenu && $scope.selectedMenu.ancestorIds.length > 0) {
-                var metaTagParams = {
-                    title: $scope.selectedMenu.displayMenuName,
-                    imageUrl: "",
-                    description: "",
-                    keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
-                }
-                BY.byUtil.updateMetaTags(metaTagParams);
                 if ($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor) {
                     return getProducts();
                 }

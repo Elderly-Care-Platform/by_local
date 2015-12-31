@@ -3,13 +3,12 @@ define(['byApp', 'housingReviewsCtrl', 'editorController'], function (byApp, hou
 
     function HousingMenuCtrl($scope, $rootScope, $window, $location, $route, $routeParams) {
         $scope.selectedMenuId           = $routeParams.menuId;
-        var selectedNode                = $rootScope.menuCategoryMap[$scope.selectedMenuId];
-        $scope.selectedParent           = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
+        $scope.selectedParent           = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[$scope.selectedMenu.ancestorIds.length - 1]];
         $scope.menuConfig               = BY.config.menu;
 
         $scope.expandParent = function (menuId) {
             if (menuId && menuId.toString() == $scope.selectedMenuId) {
-                $scope.selectedParent = $rootScope.menuCategoryMap[selectedNode.ancestorIds[selectedNode.ancestorIds.length - 1]];
+                $scope.selectedParent = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[$scope.selectedMenu.ancestorIds.length - 1]];
                 var target = $("#" + $scope.selectedParent.id).children('ul.tree');
                 target.toggle(200, function () {
                     if (target.is(':visible')) {

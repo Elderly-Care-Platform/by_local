@@ -70,11 +70,16 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
             }
 
             function updateMetaTags(){
+                var seoKeywords = [$scope.selectedMenu.displayMenuName, 'senior care services', 'elder care services'];
+                for(var i=0; i<=$scope.selectedMenu.ancestorIds.length-1;i++){
+                    var categoryName = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[i]].displayMenuName;
+                    seoKeywords.push(categoryName);
+                }
                 var metaTagParams = {
                     title: $scope.selectedMenu.displayMenuName,
                     imageUrl: "",
-                    description: "",
-                    keywords: [$scope.selectedMenu.displayMenuName, $scope.selectedMenu.slug]
+                    description: "<p>"+"Find any service for seniors or senior living facilities"+"</p>",
+                    keywords: seoKeywords
                 }
                 BY.byUtil.updateMetaTags(metaTagParams);
             }
@@ -87,9 +92,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
                 return $sce.trustAsHtml(html);
             }
 
-            
-
-           
             $scope.cityOptions = {
                 types: "(cities)",
                 resetOnFocusOut: false

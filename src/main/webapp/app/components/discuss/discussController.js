@@ -103,30 +103,19 @@ define(['byApp',
             };
 
             function updateMetaTags(){
-                var seoKeywords = [$scope.selectedMenu.displayMenuName], seoDesc;
-
-                    if($scope.menuConfig.community[$scope.selectedMenu.id]){
-                        seoDesc = $scope.menuConfig.community[$scope.selectedMenu.id].desc;
-                    } else{
-                        seoDesc = $scope.selectedMenu.displayMenuName;
-                    }
-
-                for(var i=0; i<=$scope.selectedMenu.ancestorIds.length-1;i++){
-                    var categoryName = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[i]].displayMenuName;
-                    seoKeywords.push(categoryName);
-                }
-
-                if(seoDesc && seoDesc.trim().length===0){
-                    seoDesc = seoKeywords.toString;
-                }
-
-                var metaTagParams = {
-                    title: $scope.selectedMenu.displayMenuName,
-                    imageUrl: "",
-                    description: "<p>"+seoDesc+"</p>",
-                    keywords: seoKeywords
+                var metaTagParams = BY.config.seo.communities[$scope.selectedMenu.id];
+                if(metaTagParams.description){
+                    metaTagParams.description = "<p>"+metaTagParams.description+"</p>"
                 }
                 BY.byUtil.updateMetaTags(metaTagParams);
+
+                //var metaTagParams = {
+                //    title: $scope.selectedMenu.displayMenuName,
+                //    imageUrl: "",
+                //    description: "<p>"+seoDesc+"</p>",
+                //    keywords: seoKeywords
+                //}
+
             }
 
             function initDiscussListing() {

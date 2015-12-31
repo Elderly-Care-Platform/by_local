@@ -174,7 +174,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                     $scope.getServicesData(0, $scope.pageSize);
                     $scope.getHousingData(0, $scope.pageSize);
                     $scope.getProductsData(0, $scope.pageSize);
-                    $("#preloader").hide();
                 }
             };
             initSearch();

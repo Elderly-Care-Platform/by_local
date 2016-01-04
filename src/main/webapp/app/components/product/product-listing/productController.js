@@ -180,7 +180,7 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
             var productList = extractProducts(result);
             $scope.products = $scope.products.concat(productList);
             $scope.length = $scope.products.length;
-            if (productList.length === 0) {
+            if (productList.length === 0 || productList.length < $scope.pageSize) {
                 $scope.lastPage = true;
             }
             $scope.isQueryInprogress = false;

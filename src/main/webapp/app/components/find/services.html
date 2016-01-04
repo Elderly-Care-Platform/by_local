@@ -17,10 +17,7 @@
 <div>
     <div class="leftPanel" ng-include="'app/components/find/findMenu.html'" ng-controller="FindMenuCtrl"></div>
     <div ng-if="!showEditor && selectedMenu.module == menuConfig.modules['service'].moduleId || selectedMenu.module == menuConfig.modules['housing'].moduleId"
-         class="contentPanel" infinite-scroll="loadMore()"
-         ng-include="findViews.contentPanel"
-         infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"
-         infinite-scroll-distance="0">
+         class="contentPanel" ng-include="findViews.contentPanel">
     </div>
 
     <div ng-if="!showEditor && selectedMenu.module === menuConfig.modules['discuss'].moduleId"

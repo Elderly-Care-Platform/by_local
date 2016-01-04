@@ -371,3 +371,23 @@ body a:hover
 {
     color: green;
 }
+
+.by_viewMoreButton
+{
+    color: #fff;
+    background: #004f24;
+    margin:-5px 15px 10px 40%;
+    width: 20%;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 7px;
+}
+.by_viewMoreButton a
+{
+    color: #fff;
+    display: block;
+}
+.by_viewMoreButton a:hover
+{
+    color: #fff;
+}

@@ -143,8 +143,7 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
             }
         }
 
-        function getProductsByCategory(category) {            
-            $scope.showContact.showContactNumber = true;
+        function getProductsByCategory(category) {
             var params = {};
             params.id = category.id;
             params.page = $scope.page;

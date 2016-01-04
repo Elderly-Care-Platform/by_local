@@ -36,6 +36,8 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         $scope.selectedMenu = ($rootScope.menuCategoryMap && $routeParams.menuId) ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
         $scope.showEditor = $routeParams.showEditor === 'true' ? true : false;
         $scope.menuConfig = BY.config.menu;
+        $scope.showContact = {};
+        $scope.showContact.showContactNumber = false;
 
         //Functions
         $scope.openProductDescription = openProductDescription;
@@ -141,7 +143,8 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
             }
         }
 
-        function getProductsByCategory(category) {
+        function getProductsByCategory(category) {            
+            $scope.showContact.showContactNumber = true;
             var params = {};
             params.id = category.id;
             params.page = $scope.page;

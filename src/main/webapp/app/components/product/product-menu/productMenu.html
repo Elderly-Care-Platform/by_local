@@ -4,6 +4,11 @@
 </div>
 <!--Desktop Menu-->
 <div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" ng-init="expandParent()" element-resize callback="setContentHeight">
+    <div class="clearfix"></div>
+    <div class="by_menuHeadFind  margin-top-10">
+        Find Products
+    </div>
+    <div class="by_menuHeadFindArrow"></div><div class="clearfix"></div>
     <ul class="nav nav-list" ng-init="smartScroll();">
         <li ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}" class="byTreeMenu-wrapper"
             ng-if="menu.module == menuConfig.modules['product'].moduleId">
@@ -35,7 +40,7 @@
     </ul>
 
     <div class="clearfix"></div>
-    <div class="by_editorButtonWrap">
+    <!--<div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
              ng-click="showEditorPage()" ng-init="initScroll()" >
             <i class="sprite sprite-question divLeft"></i>
@@ -56,7 +61,24 @@
             </a>
         </div>
         <div class="clearfix"></div>
+    </div>-->
+    <div class="col-md-12 menuDivider">
+        <img src="assets/img/home/line.png?versionTimeStamp=%PROJECT_VERSION%" width="100%" height="1" alt="Menu Divider" />
     </div>
+    <div class="col-md-12 by_editorButtonViews"  ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
+             ng-if="menu.module == menuConfig.modules['discuss'].moduleId && showContact.showContactNumber == false">
+            <a href="#!/products/review/{{menu.id}}/">
+               Questions &amp; Reviews
+            </a>
+    </div>
+    <div ng-if="showContact.showContactNumber == true">
+        <div class="col-md-12">Can't find what you need?</div>
+        <div class="clearfix"></div>
+        <div class="by_menuContactNumber">
+        <i class="fa fa-phone2"></i> {{telNo}}
+        </div>
+    </div>
+    <div class="clearfix"></div>
 </div>
 
 
@@ -64,11 +86,16 @@
 <div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
     <div class="by_mobile_leftPanel">
         <div class="by_subMenuPlus" style="max-width:100%;">
+            <div class="clearfix"></div>
+            <div class="by_menuHeadFind  margin-top-10">
+                Find Products
+            </div>
+            <div class="by_menuHeadFindArrow"></div><div class="clearfix"></div>
             <ul class="nav nav-list">
                 <li ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children" id="{{menu.id}}"
                     class="byTreeMenu-wrapper" ng-if="menu.module == menuConfig.modules['product'].moduleId">
                     <a ng-if="menu.children.length === 0"
-                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(menu.displayMenuName)}}/{{menu.id}}/all?q={{menu.id}}" class="by_treeMenuText"
+                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(menu.displayMenuName)}}/{{menu.id}}" class="by_treeMenuText"
                        style="display: inline-block; width:100%;"
                        ng-class="{'by_treeMenuTextActive': menu.id == (selectedParent.id || selectedMenuId) }">
                         {{menu.displayMenuName}}
@@ -90,12 +117,12 @@
                             ng-init="expandParent(submenu1.id)">
                             <a class="by_treeSubMenu"
                                ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                               ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(submenu1.displayMenuName)}}/{{submenu1.id}}/all?q={{submenu1.id}}">{{submenu1.displayMenuName}}</a>
+                               ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(submenu1.displayMenuName)}}/{{submenu1.id}}">{{submenu1.displayMenuName}}</a>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <div class="by_editorButtonWrap">
+            <!--<div class="by_editorButtonWrap">
                 <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
                      ng-click="showEditorPage()" ng-init="initScroll()">
                     <i class="sprite sprite-question divLeft"></i>
@@ -116,7 +143,26 @@
                     </a>
                 </div>
                 <div class="clearfix"></div>
+            </div>-->
+            <div class="col-md-12 menuDivider">
+                <img src="assets/img/home/line.png?versionTimeStamp=%PROJECT_VERSION%" width="100%" height="1" alt="Menu Divider" />
             </div>
+            <div class="col-md-12 by_editorButtonViews"  ng-repeat="menu in $root.menuCategoryMapByName['Shop'].children"
+            ng-if="menu.module == menuConfig.modules['discuss'].moduleId && showContact.showContactNumber == false">
+            <a href="#!/products/review/{{menu.id}}/">
+             Questions &amp; Reviews
+         </a>
+     </div>
+     <div ng-if="showContact.showContactNumber == true">
+        <div class="col-md-12">Can't find what you need?</div>
+        <div class="clearfix"></div>
+        <a ng-href="{{'tel:'+telNo}}">
+            <div class="by_menuContactNumber">
+                <i class="fa fa-phone2"></i> {{telNo}}
+            </div>
+        </a>
+    </div>
+    <div class="clearfix"></div>
 
         </div>
     </div>

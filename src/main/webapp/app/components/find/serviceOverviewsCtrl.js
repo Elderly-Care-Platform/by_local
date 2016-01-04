@@ -14,6 +14,7 @@ define(['byApp',
         $scope.selectedMenu = $scope.$parent.selectedMenu;
         $scope.pageSize = 20;
         $scope.isGridInitialized = false;
+        $scope.showContact.showContactNumber = true;
 
         $scope.userCredential = {'email': '', 'pwd': ''};
 
@@ -262,6 +263,44 @@ define(['byApp',
                 window.setTimeout(function(){
                     $(".masonry").masonry("reload");
                 }, 100);
+            }
+
+            //// Sevices editor
+            $scope.showEditorPage= function (event, type) {
+                if (event) {
+                    event.stopPropagation();
+                }
+
+                $scope.showEditorType = type;
+                $(".by_editorButtonWrap_thumb").animate({width: '100%', borderRightWidth: '0px'}, "500");
+                $("." + type + "hidePanel").hide();
+                $("." + type + "by_editorButtonWrap_thumb").hide();
+                $("." + type + "showPanel").slideDown("500");
+
+                if ($scope.showEditorType === 'Question') {
+                    var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea"});
+                }
+
+                if ($scope.showEditorType === 'Article') {
+                    var tinyEditor = BY.byEditor.addEditor({
+                        "editorTextArea": "article_textArea",
+                        "autoFocus": "false"
+                    });
+
+                }
+                $("#shareInputFeild").focus();
+            }
+
+            $scope.exitEditorDiscuss = function (type, event) {
+                event.stopPropagation();
+                $(".by_editorButtonWrap_thumb").animate({width: '50%', borderRightWidth: '1px'}, "500");
+                $("." + type + "hidePanel").show();
+                $("." + type + "by_editorButtonWrap_thumb").show();
+                $("." + type + "showPanel").slideUp("100", function () {
+                    BY.byEditor.removeEditor();
+                    //$route.reload();
+                });
+
             }
 
     }

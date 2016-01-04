@@ -3,6 +3,11 @@
     <h2>Senior care service, Senior Living and old age home</h2>
 </div>
 <div class="by_subMenuPlus" ng-if="$root.windowWidth > 720" element-resize callback="setContentHeight">
+     <div class="clearfix"></div>
+    <div class="by_menuHeadFind  margin-top-10">
+        Find Services
+    </div>
+    <div class="by_menuHeadFindArrow"></div><div class="clearfix"></div>
     <!--=== Header v7 Left ===-->
     <ul class="nav nav-list" ng-init="smartScroll();">
         <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}"
@@ -42,7 +47,7 @@
             <div ng-if="menu.module==menuConfig.modules['housing'].moduleId" class="by_menuHousingBorderTop"></div>
             <a ng-if="menu.children.length === 0"
                ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.id}}/all" class="by_treeMenuText"
-               style="display: inline-block; width:100%;"
+               style="display: inline-block; width:100%; font-size:18px;"
                ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                 {{menu.displayMenuName}}
             </a>
@@ -84,7 +89,7 @@
     <!-- end ngIf: discuss_counts.z > 0 -->
 
 
-    <div class="by_editorButtonWrap">
+    <!--<div class="by_editorButtonWrap">
         <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
              ng-click="showEditorPage()" id="discussList" ng-init="initScroll()">
             <i class="sprite sprite-question divLeft"></i>
@@ -92,7 +97,7 @@
 
             <div class="clearfix"></div>
             <div class="by_editorButtonText col-md-12">
-                Type any question about <!--{{selectedMenu.displayMenuName}}--> elder care services or senior living
+                Type any question about {{selectedMenu.displayMenuName}} elder care services or senior living
             </div>
 
         </div>
@@ -105,14 +110,35 @@
             </a>
         </div>
         <div class="clearfix"></div>
+    </div>-->
+
+    <div class="col-md-12 margin-top-20"></div>
+    <div class="col-md-12 by_editorButtonViews"  ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
+             ng-if="menu.module == menuConfig.modules['discuss'].moduleId && showContact.showContactNumber == false">
+            <a href="#!/directory/reviews/{{menu.id}}/">
+               Questions &amp; Reviews
+            </a>
     </div>
+    <div ng-if="showContact.showContactNumber == true">
+        <div class="col-md-12">Can't find what you need?</div>
+        <div class="clearfix"></div>
+        <div class="by_menuContactNumber">
+        <i class="fa fa-phone2"></i> {{telNo}}
+        </div>
+    </div>
+    <div class="clearfix"></div>
 
 </div>
 
 <div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
     <div class="by_mobile_leftPanel">
         <div class="by_subMenuPlus" style="max-width:100%;">
-            <!--=== Header v7 Left ===-->
+          <div class="clearfix"></div>
+          <div class="by_menuHeadFind  margin-top-10">
+            Find Services
+          </div>
+          <div class="by_menuHeadFindArrow"></div><div class="clearfix"></div>
+          <!--=== Header v7 Left ===-->
             <ul class="nav nav-list">
                 <li ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children" id="{{menu.id}}" class="byTreeMenu-wrapper"
                     ng-if="menu.module == menuConfig.modules['service'].moduleId">
@@ -152,7 +178,7 @@
                         <a ng-if="menu.children.length === 0"
                            ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{menu.id}}/all"
                            class="by_treeMenuText"
-                           style="display: inline-block; width:100%;"
+                           style="display: inline-block; width:100%; font-size:18px;"
                            ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
                             {{menu.displayMenuName}}
                         </a>
@@ -174,7 +200,7 @@
                 <div class="clearfix"></div>
             </div>
 
-            <div class="by_editorButtonWrap">
+            <!--<div class="by_editorButtonWrap">
                 <div class="col-md-12 col-xs-12 col-sm-12  by_editorButtonWrap_thumb"
                      ng-click="showEditorPage()" ng-init="initScroll()">
                     <i class="sprite sprite-question divLeft"></i>
@@ -182,7 +208,7 @@
 
                     <div class="clearfix"></div>
                     <div class="by_editorButtonText col-md-12">
-                        Type any question about <!--{{selectedMenu.displayMenuName}}-->elder care services or senior
+                        Type any question about {{selectedMenu.displayMenuName}}elder care services or senior
                         living
                     </div>
 
@@ -195,7 +221,25 @@
                         overviews</a>
                 </div>
                 <div class="clearfix"></div>
-            </div>
+            </div>-->
+
+            <div class="col-md-12 margin-top-20"></div>
+    <div class="col-md-12 by_editorButtonViews"  ng-repeat="menu in $root.menuCategoryMapByName['Directory'].children"
+             ng-if="menu.module == menuConfig.modules['discuss'].moduleId && showContact.showContactNumber == false">
+            <a href="#!/directory/reviews/{{menu.id}}/">
+              Questions &amp; Reviews
+            </a>
+    </div>
+    <div ng-if="showContact.showContactNumber == true">
+        <div class="col-md-12">Can't find what you need?</div>
+        <div class="clearfix"></div>
+        <a ng-href="{{'tel:'+telNo}}">
+          <div class="by_menuContactNumber">
+            <i class="fa fa-phone2"></i> {{telNo}}
+          </div>
+        </a>
+    </div>
+    <div class="clearfix"></div>
 
         </div>
     </div>

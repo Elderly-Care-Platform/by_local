@@ -31,12 +31,8 @@
             <li>
                 <a ng-click="createNewComment(reply.id)">
                     <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                    <span ng-if="reply.childrenCount > 0">{{reply.childrenCount}}</span>
+                    <span ng-if="reply.childrenCount > 0" class="by_commentSpan">{{reply.childrenCount}}</span>
                 </a>
-
-                <div ng-click="createNewComment(reply.id)">
-                    Comment
-                </div>
             </li>
             <li ng-controller="DiscussLikeController">
                 <a ng-click="likeComment(reply)">
@@ -45,12 +41,9 @@
                        title="Likes"></i>
                     <i class="rounded-x" ng-if="!beforePost"
                        ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]" title="Likes"></i>
-                    <span ng-if="beforePost && reply.likeCount > 0">{{reply.likeCount}}</span>
-                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
+                    <span ng-if="beforePost && reply.likeCount > 0" class="by_likeSpan">{{reply.likeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" class="by_likeSpan">{{aggrLikeCount}}</span>
                 </a>
-
-                <div ng-click="likeComment(reply)">Like</div>
-
             </li>
         </ul>
     </div>

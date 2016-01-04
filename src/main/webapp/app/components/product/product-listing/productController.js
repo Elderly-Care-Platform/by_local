@@ -38,6 +38,7 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         $scope.menuConfig = BY.config.menu;
         $scope.showContact = {};
         $scope.showContact.showContactNumber = false;
+        $scope.slug = $routeParams.productSlug;
 
         //Functions
         $scope.openProductDescription = openProductDescription;
@@ -71,11 +72,11 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
 
         function initialize() {
             updateMetaTags();
-            if ($scope.selectedMenu && $scope.selectedMenu.ancestorIds.length > 0) {
+            if ($scope.slug == 'all' || ($scope.selectedMenu && $scope.selectedMenu.ancestorIds.length > 0)) {
                 if ($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor) {
                     return getProducts();
                 }
-            } else {
+            }else {
                 return getFeaturedProducts();
             }
 

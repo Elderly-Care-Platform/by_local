@@ -72,15 +72,22 @@
 
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
                     <a ng-click="createNewComment(detailResponse.discuss.id)">
-                        <i class="rounded-x icon-answer" title="Answers"></i>
+                        <i class="rounded-x icon-answer" title="Answers" ng-if="detailResponse.discuss.directReplyCount == 0"></i>
+                        <i class="rounded-x icon-answer-active" title="Answers" ng-if="detailResponse.discuss.directReplyCount > 0"></i>
                         <span ng-if="detailResponse.discuss.directReplyCount > 0" class="by_answerSpan">{{detailResponse.discuss.directReplyCount}}</span>
                     </a>
                 </li>
 
                 <li ng-controller="DiscussLikeController">
                     <a ng-click="likeDiscuss(detailResponse.discuss)">
-                        <i class="rounded-x" ng-if="beforePost"
-                           ng-class="{false:'icon-heart', true:'icon-heart-active'}[detailResponse.discuss.likedByUser===true]"
+                       <i class="rounded-x icon-heart-liked"
+                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===false"
+                           title="Likes"></i>
+                        <i class="rounded-x icon-heart-active"
+                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===true"
+                           title="Likes"></i>
+                         <i class="rounded-x icon-heart"
+                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount == 0"
                            title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost"
                            ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]"

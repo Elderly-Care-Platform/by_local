@@ -94,10 +94,15 @@
 
             <li class="add-comment" ng-controller="DiscussLikeController" ng-click="$event.stopPropagation();">
                 <a ng-click="likeDiscuss(discuss)">
-                    <i class="rounded-x" ng-if="beforePost"
-                       ng:class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]"
-                       title="Likes">
-                    </i>
+                    <i class="rounded-x icon-heart-liked"
+                    ng-if="beforePost && discuss.aggrLikeCount > 0 && discuss.likedByUser===false"
+                    title="Likes"></i>
+                    <i class="rounded-x icon-heart-active"
+                    ng-if="beforePost && discuss.aggrLikeCount > 0 && discuss.likedByUser===true"
+                    title="Likes"></i>
+                    <i class="rounded-x icon-heart"
+                    ng-if="beforePost && discuss.aggrLikeCount == 0"
+                    title="Likes"></i>
                     <i class="rounded-x" ng-if="!beforePost"
                        ng:class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]"
                        title="Likes">

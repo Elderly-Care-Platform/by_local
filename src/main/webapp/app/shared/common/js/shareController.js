@@ -7,6 +7,10 @@ define(["byApp"], function(byApp) {
         
         $scope.shares = {};
         $scope.emailError = "";
+
+        $scope.trustForcefully = function (html) {
+            return $sce.trustAsHtml(html);
+        };
         
         $scope.resetError = function () {
             $scope.emailError = "";

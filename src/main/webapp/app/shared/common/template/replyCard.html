@@ -36,9 +36,15 @@
             </li>
             <li ng-controller="DiscussLikeController">
                 <a ng-click="likeComment(reply)">
-                    <i class="rounded-x" ng-if="beforePost"
-                       ng-class="{false:'icon-heart', true:'icon-heart-active'}[reply.likedByUser===true]"
-                       title="Likes"></i>
+                 <i class="rounded-x icon-heart-liked"
+                 ng-if="beforePost && reply.likeCount > 0 && reply.likedByUser===false"
+                 title="Likes"></i>
+                 <i class="rounded-x icon-heart-active"
+                 ng-if="beforePost && reply.likeCount > 0 && reply.likedByUser===true"
+                 title="Likes"></i>
+                 <i class="rounded-x icon-heart"
+                 ng-if="beforePost && reply.likeCount == 0"
+                 title="Likes"></i>
                     <i class="rounded-x" ng-if="!beforePost"
                        ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]" title="Likes"></i>
                     <span ng-if="beforePost && reply.likeCount > 0" class="by_likeSpan">{{reply.likeCount}}</span>

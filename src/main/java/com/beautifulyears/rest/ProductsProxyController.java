@@ -31,14 +31,14 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/products")
 public class ProductsProxyController {
 
-	private String server = "qa.beautifulyears.com";
-	private int port = 8083;
-
 	@RequestMapping("/**")
 	@ResponseBody
 	public String mirrorProductsRest(@RequestBody String body,
 			HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
+		String server = System.getProperty("productServerHost");
+		int port = Integer
+				.parseInt(System.getProperty("productServerPort"));
 		RestTemplate restTemplate = new RestTemplate();
 		if (null != request.getRequestURI()
 				&& request.getRequestURI().indexOf("/products") > -1) {
@@ -46,7 +46,7 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 
-			HttpHeaders headers = copyHeader(request,new HttpHeaders());
+			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(body, headers);
 
 			ResponseEntity<String> responseEntity = restTemplate.exchange(uri,
@@ -64,6 +64,9 @@ public class ProductsProxyController {
 	public String mirrorGETProductsRest(HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response)
 			throws URISyntaxException {
+		String server = System.getProperty("productServerHost");
+		int port = Integer
+				.parseInt(System.getProperty("productServerPort"));
 		RestTemplate restTemplate = new RestTemplate();
 
 		if (null != request.getRequestURI()
@@ -72,7 +75,7 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 
-			HttpHeaders headers = copyHeader(request,new HttpHeaders());
+			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
 			ResponseEntity<String> responseEntity = restTemplate.exchange(uri,
@@ -84,32 +87,35 @@ public class ProductsProxyController {
 		}
 
 	}
-	
+
 	@RequestMapping(value = { "/images/**" }, method = { RequestMethod.GET })
 	@ResponseBody
 	public HttpEntity<byte[]> mirrorGETProductsImage(HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response)
 			throws URISyntaxException {
+		String server = System.getProperty("productServerHost");
+		int port = Integer
+				.parseInt(System.getProperty("productServerPort"));
 		RestTemplate restTemplate = new RestTemplate();
 
 		if (null != request.getRequestURI()
 				&& request.getRequestURI().indexOf("/products/images") > -1) {
-			String[] path = request.getRequestURI().split("/products/images", 2);
+			String[] path = request.getRequestURI()
+					.split("/products/images", 2);
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 
-			HttpHeaders headers = copyHeader(request,new HttpHeaders());
+			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<byte[]> entity = new HttpEntity<byte[]>(headers);
 
 			ResponseEntity<byte[]> responseEntity = restTemplate.exchange(uri,
 					method, entity, byte[].class);
 			headers = new HttpHeaders();
-		    headers.setContentType(MediaType.IMAGE_JPEG);
-		    headers.setContentLength(responseEntity.getBody().length);
+			headers.setContentType(MediaType.IMAGE_JPEG);
+			headers.setContentLength(responseEntity.getBody().length);
 
-		    return new HttpEntity<byte[]>(responseEntity.getBody(), headers);
-			
-			
+			return new HttpEntity<byte[]>(responseEntity.getBody(), headers);
+
 		} else {
 			return null;
 		}

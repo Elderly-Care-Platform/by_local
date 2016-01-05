@@ -39,18 +39,10 @@ public class UploadFile extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(UploadFile.class);
 
 	public void init() {
-		System.out.println("host in init parameters ====");
-		System.out.println(ByWebAppInitializer.servletContext.getInitParameter("host"));
-		System.out.println("CONTEXT PATH ===== "
-				+ getServletContext().getContextPath());
-		System.out.println(getServletContext().getInitParameter(
-				"imageUploadPath"));
-		if (null != getServletContext().getInitParameter("imageUploadPath")) {
-			uploadDir = getServletContext().getInitParameter("imageUploadPath");
+		if (null != System.getProperty("imageUploadPath")) {
+			uploadDir = System.getProperty("imageUploadPath");
+			System.out.println("uploadDir === "+uploadDir);
 		}
-		// uploadDir = "/home/ubuntu/uploads";
-		// uploadDir = "c:/uploads";
-
 	}
 
 	protected void doPost(HttpServletRequest request,

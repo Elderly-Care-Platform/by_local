@@ -58,6 +58,61 @@ public class ProductsProxyController {
 		}
 
 	}
+	
+	@RequestMapping(value = { "/**" }, method = { RequestMethod.DELETE })
+	@ResponseBody
+	public String mirrorDELETEProductsRest(HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		String server = System.getProperty("productServerHost");
+		int port = Integer
+				.parseInt(System.getProperty("productServerPort"));
+		RestTemplate restTemplate = new RestTemplate();
+		if (null != request.getRequestURI()
+				&& request.getRequestURI().indexOf("/products") > -1) {
+			String[] path = request.getRequestURI().split("/products");
+			URI uri = new URI("http", null, server, port, path[1],
+					request.getQueryString(), null);
+
+			HttpHeaders headers = copyHeader(request, new HttpHeaders());
+			HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+			ResponseEntity<String> responseEntity = restTemplate.exchange(uri,
+					method, entity, String.class);
+
+			return responseEntity.getBody();
+		} else {
+			return null;
+		}
+
+	}
+	
+	@RequestMapping(value = { "/**" }, method = { RequestMethod.PUT })
+	@ResponseBody
+	public String mirrorPUTProductsRest(@RequestBody String body,
+			HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		String server = System.getProperty("productServerHost");
+		int port = Integer
+				.parseInt(System.getProperty("productServerPort"));
+		RestTemplate restTemplate = new RestTemplate();
+		if (null != request.getRequestURI()
+				&& request.getRequestURI().indexOf("/products") > -1) {
+			String[] path = request.getRequestURI().split("/products");
+			URI uri = new URI("http", null, server, port, path[1],
+					request.getQueryString(), null);
+
+			HttpHeaders headers = copyHeader(request, new HttpHeaders());
+			HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+
+			ResponseEntity<String> responseEntity = restTemplate.exchange(uri,
+					method, entity, String.class);
+
+			return responseEntity.getBody();
+		} else {
+			return null;
+		}
+
+	}
 
 	@RequestMapping(value = { "/**" }, method = { RequestMethod.GET })
 	@ResponseBody

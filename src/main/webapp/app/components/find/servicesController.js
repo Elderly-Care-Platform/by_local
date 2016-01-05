@@ -17,6 +17,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
             $scope.getData                  = $scope.getData;
             $scope.selectedMenuId           = $routeParams.menuId;
             $scope.userTypeConfig           = BY.config.profile.userTypeMap;
+            $scope.showContact              = {};
+            $scope.showContact.showContactNumber = false;
 
             var city                        = $routeParams.city,
                 tags                        = [],

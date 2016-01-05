@@ -1,0 +1,29 @@
+<div class="by_editorButtonWrap margin-bottom-20">
+    <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb Articleby_editorButtonWrap_thumb" style="border-right:1px solid #fff;">
+        <i class="sprite sprite-question divLeft"></i>
+        <span class="divLeft by_editorButtonHead">Ask <span ng-if="$root.windowWidth > 720">our experts</span></span>
+
+        <div class="clearfix"></div>
+        <div class="by_editorButtonText QuestionhidePanel col-md-12" ng-click="showEditorPage($event,'Question')">
+            Type any question about {{selectedMenu.displayMenuName}}
+        </div>
+        <div class="QuestionshowPanel"
+             ng-include="'app/shared/editor/askEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+    </div>
+    <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb Questionby_editorButtonWrap_thumb"
+         style="border-right:1px solid transparent;">
+        <i class="sprite sprite-story divLeft"></i>
+        <span class="divLeft by_editorButtonHead">Share</span>
+
+        <div class="clearfix"></div>
+        <div class="by_editorButtonText ArticlehidePanel col-md-12" ng-click="showEditorPage($event,'Article')">
+            Post your tips and stories about {{selectedMenu.displayMenuName}}
+        </div>
+
+        <div class="ArticleshowPanel"
+             ng-include="'app/shared/editor/shareEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>

@@ -319,3 +319,19 @@
 		width: calc(100% - 1px);
 	}
 }
+.by_productAll
+{
+	width: 200px;
+	height: auto;
+	padding: 5px 15px;
+	text-align: center;
+	background-color: #004f24;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: -10px;
+	margin-bottom: 20px;
+}
+.by_productAll a
+{
+	color: #fff;
+}

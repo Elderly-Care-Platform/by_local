@@ -563,3 +563,47 @@
 		margin-top: calc(15% - 40px);
 	}
 }
+.menuDivider
+{
+	width: 100%;
+	height: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.by_menuContactNumber
+{
+	background: #666;
+	height: auto;
+	width: 100%;
+	padding: 3px 15px;
+	margin-top: 5px;
+	color: #fff;
+	font-size: 20px;
+}
+.fa-phone2:before {
+    content: "\f095";
+}
+.by_menuHeadFind
+{
+	width: 100%;
+	height: auto;
+	padding: 2px 15px;
+	margin-bottom: 10px;
+	color: #fff;
+	font-size: 20px;
+	background-color: #FF850F;	
+}
+.by_menuHeadFindArrow
+{
+	margin-top: -12px;
+    margin-left: 20px;
+    display: inline-block !important;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #FF850F;
+    float: left;
+    padding: 0px !important;
+    background: none !important;
+}

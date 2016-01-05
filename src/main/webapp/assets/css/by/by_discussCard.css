@@ -99,3 +99,26 @@
 {
 	list-style:none;
 }
+.by_questionLetter
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: #08522A;
+    display: inline-block;
+}
+.by_commentSpan
+{
+    margin-left: -80px !important;
+}
+.by_answerSpan
+{
+    margin-left: -66px !important;
+}
+.by_shareSpan
+{
+    margin-left: -51px !important;
+}
+.by_likeSpan
+{
+    margin-left: -41px !important;
+}

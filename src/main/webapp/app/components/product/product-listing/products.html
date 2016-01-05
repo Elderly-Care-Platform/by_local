@@ -19,24 +19,24 @@
          ng-controller="ProductMenuCtrl"></div>
 
      <!--Product Home-->
-    <div class="contentPanel contentPanelProduct" ng-if="!showEditor && selectedMenu.ancestorIds.length == 0"
+    <div class="contentPanel contentPanelProduct" ng-if="selectedMenu.ancestorIds.length == 0 && !slug"
          ng-include="'app/components/product/productHome/product-home-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>     
 
     <!--Product Content-->
-    <div class="contentPanel" ng-if="!showEditor && selectedMenu.module == menuConfig.modules['product'].moduleId && selectedMenu.ancestorIds.length > 0"
-         ng-include="'app/components/product/product-listing/product-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'"
-         infinite-scroll="loadMoreRecords()" infinite-scroll-distance="0"
-         infinite-scroll-disabled="lastPage || isQueryInprogress"></div>
+    <div class="contentPanel" ng-if=" (selectedMenu.module == menuConfig.modules['product'].moduleId && selectedMenu.ancestorIds.length > 0 ) || slug == 'all'"
+         ng-include="'app/components/product/product-listing/product-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+
+    <!--<div class="contentPanel" ng-if=" (selectedMenu.module == menuConfig.modules['product'].moduleId && selectedMenu.ancestorIds.length > 0 ) || slug == 'all'"-->
+         <!--ng-include="'app/components/product/product-listing/product-content-panel.html?versionTimeStamp=%PROJECT_VERSION%'"-->
+         <!--infinite-scroll="loadMoreRecords()" infinite-scroll-distance="0"-->
+         <!--infinite-scroll-disabled="lastPage || isQueryInprogress"></div>-->
+
 
     <!--Product reviews-->
-    <div ng-if="!showEditor && selectedMenu.module ===  menuConfig.modules['discuss'].moduleId"
+    <div ng-if="selectedMenu.module ===  menuConfig.modules['discuss'].moduleId"
          class="contentPanel"
          ng-controller="ProductReviewsCtrl"
          ng-include="'app/components/product/product-reviews/productReviewsPanel.html?versionTimeStamp=%PROJECT_VERSION%'">
-    </div>
-    <!--Product Review Editor-->
-    <div class="contentPanel" ng-if="showEditor">
-        <div ng-include="'app/shared/editor/QuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     </div>
 
 </div>

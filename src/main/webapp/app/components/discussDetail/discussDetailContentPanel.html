@@ -2,7 +2,13 @@
     <div class="by_discussDeatil_card">
         <div class="col-md-12 margin-top-10" ng-if="detailResponse.discuss.promotion == false">
             <ul class="by_discussDeatil_cardList">
-                <li>
+                <li ng-if="detailResponse.discuss.discussType == 'Q'">
+                    <span class="by_questionLetter">Q</span>uestion by <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
+                          ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}">
+                    {{username}} </a>
+                    &nbsp; |
+                </li>
+                 <li ng-if="detailResponse.discuss.discussType == 'P'">
                     By <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
                           ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}">
                     {{username}} </a>
@@ -60,47 +66,43 @@
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
                     <a ng-click="createNewComment(detailResponse.discuss.id)">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span ng-if="detailResponse.discuss.aggrReplyCount > 0">{{detailResponse.discuss.aggrReplyCount}}</span>
+                        <span ng-if="detailResponse.discuss.aggrReplyCount > 0" class="by_commentSpan">{{detailResponse.discuss.aggrReplyCount}}</span>
                     </a>
-
-                    <div
-                            ng-click="createNewComment(detailResponse.discuss.id)">Comment
-                    </div>
                 </li>
 
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
                     <a ng-click="createNewComment(detailResponse.discuss.id)">
-                        <i class="rounded-x icon-answer" title="Answers"></i>
-                        <span ng-if="detailResponse.discuss.directReplyCount > 0">{{detailResponse.discuss.directReplyCount}}</span>
+                        <i class="rounded-x icon-answer" title="Answers" ng-if="detailResponse.discuss.directReplyCount == 0"></i>
+                        <i class="rounded-x icon-answer-active" title="Answers" ng-if="detailResponse.discuss.directReplyCount > 0"></i>
+                        <span ng-if="detailResponse.discuss.directReplyCount > 0" class="by_answerSpan">{{detailResponse.discuss.directReplyCount}}</span>
                     </a>
-
-                    <div ng-click="createNewComment(detailResponse.discuss.id)">Answer</div>
                 </li>
 
                 <li ng-controller="DiscussLikeController">
                     <a ng-click="likeDiscuss(detailResponse.discuss)">
-                        <i class="rounded-x" ng-if="beforePost"
-                           ng-class="{false:'icon-heart', true:'icon-heart-active'}[detailResponse.discuss.likedByUser===true]"
+                       <i class="rounded-x icon-heart-liked"
+                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===false"
+                           title="Likes"></i>
+                        <i class="rounded-x icon-heart-active"
+                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===true"
+                           title="Likes"></i>
+                         <i class="rounded-x icon-heart"
+                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount == 0"
                            title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost"
                            ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]"
                            title="Likes"></i>
-                        <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0">{{detailResponse.discuss.aggrLikeCount}}</span>
-                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
+                        <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" class="by_likeSpan">{{detailResponse.discuss.aggrLikeCount}}</span>
+                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" class="by_likeSpan">{{aggrLikeCount}}</span>
                     </a>
-
-                    <div ng-click="likeDiscuss(detailResponse.discuss)" class="text text2">Like</div>
-
                 </li>
 
-                <li ng-if="detailResponse.discuss.discussType == 'P'" ng-controller="ShareController">
+                <li ng-controller="ShareController">
 
                     <a data-toggle="modal" data-target="#shareModal">
                         <i class="rounded-x icon-share"></i>
-                        <span ng-if="detailResponse.discuss.shareCount > 0">{{detailResponse.discuss.shareCount}}</span>
+                        <span ng-if="detailResponse.discuss.shareCount > 0"  class="by_shareSpan">{{detailResponse.discuss.shareCount}}</span>
                     </a>
-
-                    <div data-toggle="modal" data-target="#shareModal" class="text">Share</div>
                 </li>
             </ul>
 
@@ -131,7 +133,7 @@
                                ng-model="userCredential.email" name="userEmail"
                                required/>
                         <span ng-show="errorMsg" class="errorRed">
-                                Please enter valid Email Id
+                                {{errorMsg}}
                         </span>
                         <div class="clearfix margin-bottom-20"></div>
                     </div>

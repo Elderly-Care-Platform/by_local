@@ -16,6 +16,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil
         var tags                            = [];
         var queryParams                     = {p:0,s:10,sort:"lastModifiedAt"};
         var init                            = initialize();
+        $scope.showContact                  = {};
+        $scope.showContact.showContactNumber = false;
 
         function getData() {
             $("#preloader").show();

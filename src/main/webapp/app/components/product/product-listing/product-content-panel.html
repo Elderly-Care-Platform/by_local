@@ -63,5 +63,12 @@
     </div>
 </div>
 <div class="clearfix"></div>
-<div cg-busy="{promise:lazyPromise,templateUrl:'app/shared/common/template/lazyLoader.html'}"
-        style="height: 50px"></div>
+
+
+<div class="by_viewMoreButton" align="center" ng-if="!lastPage">
+    <a ng-click="loadMoreRecords()" ng-if="!isQueryInprogress">View More</a>
+    <img ng-if="isQueryInprogress" src="assets/img/ajax_scroll_loading.gif">
+</div>
+
+
+

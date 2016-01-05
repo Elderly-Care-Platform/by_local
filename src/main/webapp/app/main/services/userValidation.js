@@ -166,6 +166,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
             var deferred = $q.defer();
             $http.defaults.headers.common.sess = localStorage.getItem("SessionId");
             $http.get("api/v1/users/validateSession").success(function (response) {
+                setUserCredential(response.data);
                 deferred.resolve(response);
             }).error(function (error) {
                 invalidateSession();

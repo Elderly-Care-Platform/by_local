@@ -104,8 +104,8 @@
     height: auto;
     border-radius: 7px !important;
     color: #000;
-    width: 25px;
-    background-color: #d0d0d0;
+    width: 20px;
+    background-color: #E6E6E6;
     position:static;
     margin-top: 0px;
     margin-left: -6px;
@@ -138,10 +138,6 @@
 	text-align: center;
 }
 
-
-.by_blog_author .news-v3 .post-shares li {
-	margin-left: 15px !important;
-}
 
 
 .discussion-page .posted-info {

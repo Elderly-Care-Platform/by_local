@@ -49,7 +49,15 @@
         <!--Author name and created at-->
         <div class="by_discuss_info" style="margin-right: 80px !important;">
             <ul class="list-inline by_discuss_infoList" style="">
-                <li>
+                <li ng-if="discuss.discussType == 'Q'">
+                    <p>
+                        <span class="by_questionLetter">Q</span>uestion by <a validate-user-name="{{discuss.username}}"
+                              class="text-capitalize" ng-click="$event.stopPropagation();"
+                              ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">
+                        {{username}}</a>
+                    </p>
+                </li>
+                <li ng-if="discuss.discussType == 'P'">
                     <p>
                         By <a validate-user-name="{{discuss.username}}"
                               class="text-capitalize" ng-click="$event.stopPropagation();"
@@ -109,17 +117,15 @@
         <!--Comment, like, share buttons start-->
         <div class="article-share-links news-v3 by_border">
             <ul class="post-shares post-shares-lg">
-                <li class="add-comment" ng-if="discuss.aggrReplyCount > 0 && (discuss.discussType == 'P')">
+                <li class="add-comment" ng-if="discuss.discussType == 'P'">
                     <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
                        ng-click="$event.stopPropagation();">
                         <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span>{{discuss.aggrReplyCount}}</span>
-
-                        <div class="text">Comment</div>
+                        <span ng-if="discuss.aggrReplyCount > 0" class="by_commentSpan">{{discuss.aggrReplyCount}}</span>
                     </a>
                 </li>
 
-                <li class="add-comment add-comment-FC"
+                <!--<li class="add-comment add-comment-FC"
                     ng-if="discuss.aggrReplyCount == 0 && (discuss.discussType == 'P')">
                     <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
                        ng-click="$event.stopPropagation();">
@@ -129,18 +135,17 @@
                             Be the first to comment
                         </div>
                     </a>
-                </li>
-                <li class="add-comment" ng-if="discuss.directReplyCount > 0 && discuss.discussType == 'Q'">
+                </li>-->
+                <li class="add-comment" ng-if="discuss.discussType == 'Q'">
                     <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
                        ng-click="$event.stopPropagation();">
-                        <i class="rounded-x icon-answer ng-scope" title="Answers"></i>
-                        <span>{{discuss.directReplyCount}}</span>
-
-                        <div class="text">Answer</div>
+                        <i class="rounded-x icon-answer ng-scope" title="Answers" ng-if="discuss.directReplyCount == 0"></i>
+                         <i class="rounded-x icon-answer-active ng-scope" title="Answers" ng-if="discuss.directReplyCount > 0"></i>
+                        <span ng-if="discuss.directReplyCount > 0" class="by_answerSpan">{{discuss.directReplyCount}}</span>
                     </a>
                 </li>
 
-                <li class="add-comment add-comment-FA"
+                <!--<li class="add-comment add-comment-FA"
                     ng-if="discuss.directReplyCount == 0 && discuss.discussType == 'Q'">
                     <a ng-href="{{getHref(discuss, {'id':discuss.id, 'comment':'true'})}}"
                        ng-click="$event.stopPropagation();">
@@ -150,34 +155,33 @@
                             Be the first to answer
                         </div>
                     </a>
-                </li>
+                </li>-->
 
                 <li class="add-comment" ng-click="$event.stopPropagation();" ng-controller="DiscussLikeController">
                     <a ng-click="likeDiscuss(discuss)">
-                        <i class="rounded-x"
-                           ng-if="beforePost"
-                           ng-class="{true:'icon-heart', false:'icon-heart-active'}[discuss.likedByUser===false]"
+                        <i class="rounded-x icon-heart-liked"
+                           ng-if="beforePost && discuss.aggrLikeCount > 0 && discuss.likedByUser===false"
+                           title="Likes"></i>
+                        <i class="rounded-x icon-heart-active"
+                           ng-if="beforePost && discuss.aggrLikeCount > 0 && discuss.likedByUser===true"
+                           title="Likes"></i>
+                         <i class="rounded-x icon-heart"
+                           ng-if="beforePost && discuss.aggrLikeCount == 0"
                            title="Likes"></i>
                         <i class="rounded-x"
                            ng-if="!beforePost"
                            ng-class="{true:'icon-heart', false:'icon-heart-active'}[likedByUser===false]"
                            title="Likes"></i>
-                        <span ng-if="beforePost && discuss.aggrLikeCount > 0">{{discuss.aggrLikeCount}}</span>
-                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0">{{aggrLikeCount}}</span>
+                        <span ng-if="beforePost && discuss.aggrLikeCount > 0" class="by_likeSpan">{{discuss.aggrLikeCount}}</span>
+                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" class="by_likeSpan">{{aggrLikeCount}}</span>
                     </a>
-
-                    <div ng-click="likeDiscuss(discuss)" class="text text2">Like</div>
                 </li>
 
-                <li class="add-comment" ng-if="discuss.discussType == 'P'" ng-controller="ShareController">
+                <li class="add-comment"  ng-controller="ShareController">
                     <a ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal">
                         <i class="rounded-x icon-share"></i>
-                        <span ng-if="discuss.shareCount > 0">{{discuss.shareCount}}</span>
+                        <span  ng-if="discuss.shareCount > 0" class="by_shareSpan">{{discuss.shareCount}}</span>
                     </a>
-
-                    <div ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal"
-                         class="text">Share
-                    </div>
                 </li>
                 <div class="clearfix"></div>
             </ul>

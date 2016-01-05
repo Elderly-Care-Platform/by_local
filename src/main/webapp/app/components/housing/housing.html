@@ -21,10 +21,14 @@
 
     <!--Housing Content-->
     <div ng-if="!showEditor && selectedMenu.module == menuConfig.modules['service'].moduleId || selectedMenu.module == menuConfig.modules['housing'].moduleId"
-         class="contentPanel" infinite-scroll="loadMore()"
-         ng-include="housingViews.contentPanel"
-         infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"
-         infinite-scroll-distance="0"></div>
+         class="contentPanel" ng-include="housingViews.contentPanel"></div>
+
+    <!--<div ng-if="!showEditor && selectedMenu.module == menuConfig.modules['service'].moduleId || selectedMenu.module == menuConfig.modules['housing'].moduleId"-->
+         <!--class="contentPanel" infinite-scroll="loadMore()"-->
+         <!--ng-include="housingViews.contentPanel"-->
+         <!--infinite-scroll-disabled="pageInfo.lastPage || pageInfo.isQueryInProgress"-->
+         <!--infinite-scroll-distance="0"></div>-->
+
 
     <!--Housing reviews-->
     <div ng-if="!showEditor && selectedMenu.module === menuConfig.modules['discuss'].moduleId" class="contentPanel "
@@ -32,10 +36,6 @@
          ng-include="'app/components/housing/housingReviewsPanel.html'">
     </div>
 
-    <!--Housing Review Editor-->
-    <div class="contentPanel" ng-if="showEditor" >
-        <div ng-include="'app/shared/editor/QuestionEditorPanel.html?versionTimeStamp=%PROJECT_VERSION%'"> </div>
-    </div>
 </div>
 
 

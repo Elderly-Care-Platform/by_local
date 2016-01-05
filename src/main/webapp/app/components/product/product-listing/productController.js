@@ -36,6 +36,9 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         $scope.selectedMenu = ($rootScope.menuCategoryMap && $routeParams.menuId) ? $rootScope.menuCategoryMap[$routeParams.menuId] : null;
         $scope.showEditor = $routeParams.showEditor === 'true' ? true : false;
         $scope.menuConfig = BY.config.menu;
+        $scope.showContact = {};
+        $scope.showContact.showContactNumber = false;
+        $scope.slug = $routeParams.productSlug;
 
         //Functions
         $scope.openProductDescription = openProductDescription;
@@ -69,11 +72,11 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
 
         function initialize() {
             updateMetaTags();
-            if ($scope.selectedMenu && $scope.selectedMenu.ancestorIds.length > 0) {
+            if ($scope.slug == 'all' || ($scope.selectedMenu && $scope.selectedMenu.ancestorIds.length > 0)) {
                 if ($scope.selectedMenu.module === BY.config.menu.modules['product'].moduleId && !$scope.showEditor) {
                     return getProducts();
                 }
-            } else {
+            }else {
                 return getFeaturedProducts();
             }
 
@@ -177,7 +180,7 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
             var productList = extractProducts(result);
             $scope.products = $scope.products.concat(productList);
             $scope.length = $scope.products.length;
-            if (productList.length === 0) {
+            if (productList.length === 0 || productList.length < $scope.pageSize) {
                 $scope.lastPage = true;
             }
             $scope.isQueryInprogress = false;

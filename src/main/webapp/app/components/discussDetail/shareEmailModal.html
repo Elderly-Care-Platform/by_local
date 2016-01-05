@@ -42,13 +42,18 @@
 	    							<div class="form-group">
 	        							<textarea class="form-control mail-input" placeholder="Type your message here:" ng-model = "shares.message" ></textarea>	
 	    							</div>
-	    							<div class="" ng-if="detailResponse.discuss.linkInfo == null">
+	    							<div class="" ng-if="detailResponse.discuss.discussType == 'Q'">
+	    								<div class="shareDetails">
+	        								<p ng-bind-html="trustForcefully(detailResponse.discuss.text)"></p>
+	    								</div>
+	    							</div>
+	    							<div class="" ng-if="detailResponse.discuss.linkInfo == null && detailResponse.discuss.discussType == 'P'">
 	    								<div class="shareDetails">
 	        								<h3>{{detailResponse.discuss.title}}</h3>
 	        								<p>{{detailResponse.discuss.shortSynopsis}}</p>
 	    								</div>
 	    							</div>
-	    							<div class="" ng-if="detailResponse.discuss.linkInfo != null">
+	    							<div class="" ng-if="detailResponse.discuss.linkInfo != null && detailResponse.discuss.discussType == 'P'">
 	    								<div class="row">
 	    									<div class="col-md-3">
 	    										<img ng-src="{{detailResponse.discuss.linkInfo.mainImage||''}}" title="{{detailResponse.discuss.title}}">

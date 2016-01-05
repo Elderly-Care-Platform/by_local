@@ -89,9 +89,9 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
                 }
             });
 
-            $scope.updateShareCount = function (count) {
-                $scope.detailResponse.discuss.shareCount = count;
-            }
+            // $scope.updateShareCount = function (count) {
+            //     $scope.detailResponse.discuss.shareCount = count;
+            // }
 
             $scope.getHref = function (discuss, queryParams) {
                 var newHref = getDiscussDetailUrl(discuss, queryParams, false);

@@ -65,19 +65,27 @@ define(["byApp"], function(byApp) {
         		subject: $scope.shares.message,
         		senderName: $scope.shares.guestName
         	};
+
+            function updateShareCnt(){
+                var shareDiscuss = new ShareDiscuss();
+                        shareDiscuss.id = data.id;
+                        shareDiscuss.$post({},function(res){
+                            data.shareCount = res.data.shareCount;
+                            //$scope.$parent.updateShareCount(res.data.shareCount);
+                        },function(err){
+                            console.log("alert posting the share count");
+                        });
+            }
+
+
         		
         	if( $scope.emailError == ""){
+
         		$http.post($scope.pathName + 'api/v1/share/email/' + discussId, emailParams   
         		).success(function (response, status, headers, config) {
         			$("#shareEmailModal").modal("hide");
         			if (response) {
-                        var shareDiscuss = new ShareDiscuss();
-                        shareDiscuss.id = data.id;
-                        shareDiscuss.$post({},function(res){
-                            $scope.$parent.updateShareCount(res.data.shareCount);
-                        },function(err){
-                            console.log("alert posting the share count");
-                        });
+                        updateShareCnt();
                     } else {
                         console.log('Post was not published.');
                     }

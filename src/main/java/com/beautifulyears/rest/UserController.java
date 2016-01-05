@@ -122,7 +122,7 @@ public class UserController {
 					if (null == user
 							&& Util.isEmpty(loginRequest.getPassword())) {
 						user = createGuestUser(loginRequest, req, res);
-					} else {
+					} else if(!Util.isEmpty(loginRequest.getPassword())){
 						Util.isPasswordMatching(loginRequest.getPassword(),
 								user.getPassword());
 					}

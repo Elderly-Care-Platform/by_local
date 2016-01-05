@@ -80,6 +80,9 @@ public class Util {
 	
 	public static boolean isPasswordMatching(String enteredPassword, String dbPassword){
 		boolean ret = true;
+		if(Util.isEmpty(enteredPassword)){
+			throw new BYException(BYErrorCodes.USER_LOGIN_FAILED);
+		}
 		ret = passwordEncoder.matches(enteredPassword, dbPassword);
 		if(!ret){
 			throw new BYException(BYErrorCodes.USER_LOGIN_FAILED);

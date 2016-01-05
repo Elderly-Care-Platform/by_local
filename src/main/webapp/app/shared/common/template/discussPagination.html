@@ -12,7 +12,7 @@
             ng-click="selectPage(page)">
             <a ng-href="{{getPageLocation(page)}}">{{page+1}}</a>
         </li>
-        <li>... of &nbsp;{{totalNoPages}}</li>
+        <li>... of &nbsp;{{totalNoPages}} &nbsp;</li>
         <li ng-class="{disabled:nextDisabled}">
             <a ng-href="{{getPageLocation(selectedPageNo+1)}}">&gt;</a>
         </li>

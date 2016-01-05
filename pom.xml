@@ -136,11 +136,11 @@
 				</executions>
 				<configuration>
 					<useCache>true</useCache>
-					<webResources>
+					<!--  webResources>
 			            <resource>
 			                <directory>${project.build.directory}/minify</directory>
 			            </resource>
-			        </webResources>
+			        </webResources-->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<outputDirectory>target</outputDirectory>
 				</configuration>

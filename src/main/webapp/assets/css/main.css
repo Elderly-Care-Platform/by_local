@@ -391,3 +391,10 @@ body a:hover
 {
     color: #fff;
 }
+
+.discussPagination{
+    float: none !important;
+    margin:-5px 15px 10px 35%;
+    width: 100%;
+    text-align: center;
+}

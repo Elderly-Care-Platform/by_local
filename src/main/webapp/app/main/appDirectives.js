@@ -487,6 +487,81 @@ define(["byApp", "angular"], function (byApp, angular) {
         };
     });
 
+    byApp.directive('discussPagination', function () {
+        return {
+            scope: {
+                obj: '=?',
+                callback: '=?'
+
+            },
+            templateUrl: 'app/shared/common/template/discussPagination.html?versionTimeStamp=%PROJECT_VERSION%',
+            controller: function ($scope, $location) {
+                $scope.pageIndexName = $scope.obj.pageIndexName;
+                $scope.maxPageNo = 3;
+                $scope.selectedPageNo = $scope.obj.currentPage;
+                $scope.totalNoPages = $scope.obj.noOfPages;
+
+                var firstPageIndex, lastPageIndex;
+                var setPageArray = function () {
+                    $scope.pageArray = [];
+                    for (var i = firstPageIndex; i <= lastPageIndex - 1; i++) {
+                        $scope.pageArray.push(i);
+                    }
+                };
+
+
+                var updateNextPevLink = function () {
+                    if ($scope.selectedPageNo === $scope.totalNoPages - 1) {
+                        $scope.nextDisabled = true;
+                    } else {
+                        $scope.nextDisabled = false;
+                    }
+
+                    if ($scope.selectedPageNo === 0) {
+                        $scope.prevDisabled = true;
+                    } else {
+                        $scope.prevDisabled = false;
+                    }
+                }
+
+
+                $scope.getPageLocation = function (page) {
+                    var newHref = "#!" + $location.path();
+                    newHref = newHref + "?";
+                    angular.forEach($location.search(), function (value, key) {
+                        if (key !== $scope.pageIndexName) {
+                            newHref = newHref + key + "=" + value + "&";
+                        }
+                    });
+                    newHref = newHref + $scope.pageIndexName + "=" + page;
+                    return newHref;
+                }
+
+                $scope.initPageArray = function () {
+                    if ($scope.selectedPageNo === 0) {
+                        if ($scope.totalNoPages > $scope.maxPageNo) {
+                            firstPageIndex = 0;
+                            lastPageIndex = $scope.maxPageNo;
+                        } else {
+                            firstPageIndex = 0;
+                            lastPageIndex = $scope.totalNoPages;
+                        }
+                    } else {
+                        $scope.selectedPageSet = Math.ceil($scope.selectedPageNo / $scope.maxPageNo);
+                        lastPageIndex = $scope.selectedPageSet * $scope.maxPageNo,
+                            firstPageIndex = lastPageIndex - $scope.maxPageNo;
+
+                        if (lastPageIndex > $scope.totalNoPages) {
+                            lastPageIndex = $scope.totalNoPages;
+                        }
+                    }
+                    setPageArray();
+                    updateNextPevLink();
+                };
+
+            }
+        };
+    });
 
     byApp.directive('formatAddress', function () {
         return {
@@ -569,8 +644,8 @@ define(["byApp", "angular"], function (byApp, angular) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                
-                element.bind('load', function(){
+
+                element.bind('load', function () {
                     $('[data-imagezoom]').imageZoom();
                 })
             }

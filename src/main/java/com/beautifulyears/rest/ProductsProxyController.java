@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -78,6 +79,37 @@ public class ProductsProxyController {
 					method, entity, String.class);
 
 			return responseEntity.getBody();
+		} else {
+			return null;
+		}
+
+	}
+	
+	@RequestMapping(value = { "/images/**" }, method = { RequestMethod.GET })
+	@ResponseBody
+	public HttpEntity<byte[]> mirrorGETProductsImage(HttpMethod method,
+			HttpServletRequest request, HttpServletResponse response)
+			throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+
+		if (null != request.getRequestURI()
+				&& request.getRequestURI().indexOf("/products/images") > -1) {
+			String[] path = request.getRequestURI().split("/products/images", 2);
+			URI uri = new URI("http", null, server, port, path[1],
+					request.getQueryString(), null);
+
+			HttpHeaders headers = copyHeader(request,new HttpHeaders());
+			HttpEntity<byte[]> entity = new HttpEntity<byte[]>(headers);
+
+			ResponseEntity<byte[]> responseEntity = restTemplate.exchange(uri,
+					method, entity, byte[].class);
+			headers = new HttpHeaders();
+		    headers.setContentType(MediaType.IMAGE_JPEG);
+		    headers.setContentLength(responseEntity.getBody().length);
+
+		    return new HttpEntity<byte[]>(responseEntity.getBody(), headers);
+			
+			
 		} else {
 			return null;
 		}

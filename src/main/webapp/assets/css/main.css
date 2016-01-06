@@ -401,3 +401,7 @@ body a:hover
     text-align: center;
     display: block !important;
 }
+.discussPagination2
+{
+    max-width: 172px;
+}

@@ -425,6 +425,13 @@ label input[type="file"] {
 	border:1px solid #bfbfbf ;
 	cursor: pointer;
 }
+
+.by_editorButtonText span
+{
+	font-style: italic;
+	color: #a6a5a5;
+}
+
 .byEditorShadow
 {
 	border:1px solid #33a457;

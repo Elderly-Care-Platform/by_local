@@ -56,7 +56,14 @@ public class Util {
 	
 	public static String truncateText(String text){
 		if(text != null && text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH){
-			int max = DiscussConstants.DISCUSS_TRUNCATION_LENGTH;
+			truncateText(text,DiscussConstants.DISCUSS_TRUNCATION_LENGTH);
+		}
+		return text;
+	}
+	
+	public static String truncateText(String text,int maxLength){
+		if(text != null && text.length() > maxLength){
+			int max = maxLength;
 			int end = text.lastIndexOf(' ', max - 3);
 
 		    // Just one long word. Chop it off.

@@ -23,10 +23,10 @@ define(["byApp"], function(byApp) {
         $scope.validateEmails = function() {
         	var emailIds;
         	if($scope.shares.email != undefined){
-        		emailIds = $scope.shares.email.split(',');
+        		emailIds = $scope.shares.email.split(/[\s,;|]+/);
             	for (var i = 0; i < emailIds.length; i++) {
             		var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    if(!emailValidation.test(emailIds[i])){
+                    if(!emailValidation.test(emailIds[i].trin())){
                     	$scope.emailError = emailIds[i] + ' does not appear to be a proper email!';
                     	$(".by_btn_submit").prop("disabled", true);
                     }else{

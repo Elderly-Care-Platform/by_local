@@ -23,6 +23,9 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         }
 
         $scope.searchResults = function(){
+            angular.forEach($location.search(), function (value, key) {
+                $location.search(key, null);
+            });
             if($("#SearchValue").val() != ''){
                 $location.path('/search/'+ $("#SearchValue").val() +'/All');
             }            

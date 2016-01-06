@@ -11,14 +11,15 @@ define(['byApp',
         window.scrollTo(0, 0);
         $scope.discussType = $routeParams.discussType ? $routeParams.discussType : 'all'; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.selectedMenu;
-        $scope.pageSize = 20;
+        $scope.pageNo = $routeParams.byPageIdx ? $routeParams.byPageIdx : 0;
         $scope.isGridInitialized = false;
         $scope.showContact.showContactNumber = true;
-
         $scope.userCredential = {'email': '', 'pwd': ''};
 
-        var tags = [];
-        var queryParams = {p: 0, s: $scope.pageSize, sort: "lastModifiedAt"};
+        var tags = [],
+            pageSize = 20,
+            discussPageIdx = $routeParams.discussPageIdx ? $routeParams.discussPageIdx : 0,
+            queryParams = {p: discussPageIdx, s: pageSize, sort: "lastModifiedAt"};
         
         $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
@@ -84,11 +85,11 @@ define(['byApp',
                             $scope.discussList = value.data.content;
                             $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
                             $scope.pageInfo.isQueryInProgress = false;
-                            $scope.discussPagination = {};
+                            $scope.discussPagination = {'pageIndexName': 'discussPageIdx'};
                             $scope.discussPagination.totalPosts = value.data.total;
                             $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                             $scope.discussPagination.currentPage = value.data.number;
-                            $scope.discussPagination.pageSize = $scope.pageSize;
+                            $scope.discussPagination.pageSize = pageSize;
 
                             /*if ($scope.discussList.length === 0) {
                                 $("#preloader").hide();
@@ -102,7 +103,7 @@ define(['byApp',
                         });
                 }
 
-                $scope.getDiscussData(0, $scope.pageSize);
+                $scope.getDiscussData(discussPageIdx, pageSize);
 
             };
         }

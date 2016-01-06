@@ -37,10 +37,10 @@ public class ShareEmailHelper {
 				&& null != discuss.getUserProfile().getBasicProfileInfo()
 						.getProfileImage()
 				&& null != discuss.getUserProfile().getBasicProfileInfo()
-						.getProfileImage().get("thumbnail")) {
+						.getProfileImage().get("thumbnailImage")) {
 			profileImage = System.getProperty("path")
 					+ discuss.getUserProfile().getBasicProfileInfo()
-							.getProfileImage().get("thumbnail");
+							.getProfileImage().get("thumbnailImage");
 		}
 
 		String authorUserName = "Anonymous";

@@ -29,6 +29,8 @@ public class ShareEmailHelper {
 			}
 			senderLink = System.getProperty("path") + "/#!/users/" + userName
 					+ "?profileId=" + currentUser.getId();
+		}else if(!Util.isEmpty(details.get("senderName"))){
+			userName = details.get("senderName");
 		}
 
 		String profileImage = System.getProperty("path") + "/assets/img/by.png";

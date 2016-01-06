@@ -78,6 +78,7 @@ public class ShareController {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("msg", emailParams.getSubject());
 		params.put("title", subject);
+		params.put("senderName", emailParams.getSenderName());
 		String body = ShareEmailHelper.getEmailContent(discuss, currentUser,
 				params);
 

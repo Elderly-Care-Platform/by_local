@@ -386,6 +386,7 @@ body a:hover
 {
     color: #fff;
     display: block;
+    font-size: 18px;
 }
 .by_viewMoreButton a:hover
 {

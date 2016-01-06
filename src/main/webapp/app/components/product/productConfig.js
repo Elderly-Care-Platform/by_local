@@ -107,7 +107,7 @@ define([], function () {
                 all: 'All'
             })
             .constant('PAGINATION', {
-                pageSize: 12
+                pageSize: 18
             })
             .constant('CONSTANT', {
                 products: 'products'

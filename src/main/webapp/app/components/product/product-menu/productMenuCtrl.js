@@ -9,13 +9,19 @@ define(['byApp', 'productReviewsCtrl', 'editorController'], function (byApp, pro
 
         $scope.expandParent = function (menuId) {
             if (menuId && menuId.toString() == $scope.selectedMenuId) {
-                $scope.selectedParent = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[$scope.selectedMenu.ancestorIds.length - 1]];
-                var target = $("#" + $scope.selectedParent.id).children('ul.tree');
+                var expandNodeId;
+                if($scope.selectedParent && $scope.selectedParent.displayMenuName && $scope.selectedParent.displayMenuName.toLowerCase() === "shop"){
+                    expandNodeId = $scope.selectedMenuId;
+                }else{
+                    expandNodeId = $scope.selectedParent.id;
+                }
+                //$scope.selectedParent = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[$scope.selectedMenu.ancestorIds.length - 1]];
+                var target = $("#" + expandNodeId).children('ul.tree');
                 target.toggle(200, function () {
                     if (target.is(':visible')) {
-                        $("#" + $scope.selectedParent.id).children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
+                        $("#" + expandNodeId).children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
                     } else {
-                        $("#" + $scope.selectedParent.id).children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
+                        $("#" + expandNodeId).children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
                     }
                 });
             }

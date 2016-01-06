@@ -15,13 +15,13 @@
             <a ng-if="menu.children.length === 0" class="by_treeMenuText"
                ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(menu.displayMenuName)}}/{{menu.id}}"
                style="display: inline-block; width:100%;"
-               ng-class="{'by_treeMenuTextActive': menu.id == (selectedParent.id || selectedMenuId)}">
+               ng-class="{'by_treeMenuTextActive': (menu.id == selectedParent.id) || (menu.id == selectedMenuId)}">
                 {{menu.displayMenuName}} 
             </a>
 
             <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
                ng-click="toggleMenu($event)" style="display: inline-block; width:calc(100% - 40px);"
-               ng-class="{'by_treeMenuTextActive': menu.id == (selectedParent.id || selectedMenuId) }">
+               ng-class="{'by_treeMenuTextActive': (menu.id == selectedParent.id) || (menu.id == selectedMenuId)}">
                 {{menu.displayMenuName}} 
             </a>
             <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"
@@ -97,14 +97,14 @@
                     <a ng-if="menu.children.length === 0"
                        ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(menu.displayMenuName)}}/{{menu.id}}" class="by_treeMenuText"
                        style="display: inline-block; width:100%;"
-                       ng-class="{'by_treeMenuTextActive': menu.id == (selectedParent.id || selectedMenuId) }">
+                       ng-class="{'by_treeMenuTextActive': (menu.id == selectedParent.id) || (menu.id == selectedMenuId)}">
                         {{menu.displayMenuName}}
                     </a>
 
                     <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
                        ng-click="toggleMenu($event)"
                        style="display: inline-block; width:calc(100% - 40px);"
-                       ng-class="{'by_treeMenuTextActive': menu.id == (selectedParent.id || selectedMenuId) }">
+                       ng-class="{'by_treeMenuTextActive': (menu.id == selectedParent.id) || (menu.id == selectedMenuId)}">
                         {{menu.displayMenuName}}
                     </a>
                     <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header"

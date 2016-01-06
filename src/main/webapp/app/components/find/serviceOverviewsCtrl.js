@@ -83,7 +83,7 @@ define(['byApp',
                             $scope.discussPagination.totalPosts = value.data.total;
                             $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                             $scope.discussPagination.currentPage = value.data.number;
-                            $scope.discussPagination.pageSize = $scope.pageSize;
+                            $scope.discussPagination.pageSize = pageSize;
 
                            /* if ($scope.discussList.length === 0) {
                                 $("#preloader").hide();

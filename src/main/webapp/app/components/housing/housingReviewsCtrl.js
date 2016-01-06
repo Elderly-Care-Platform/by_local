@@ -11,14 +11,13 @@ define(['byApp',
         window.scrollTo(0, 0);
         $scope.discussType = $routeParams.discussType ? $routeParams.discussType : 'all'; //Needed for left side Q/A/P filters
         $scope.selectedMenu = $scope.$parent.selectedMenu;
-        $scope.pageSize = 20;
         $scope.pageNo = $routeParams.byPageIdx ? $routeParams.byPageIdx : 0;
         $scope.isGridInitialized = false;
         $scope.showContact.showContactNumber = true;
         $scope.userCredential = {'email': '', 'pwd': ''};
 
         var tags = [],
-            pageSize = 20,
+            pageSize = 4,
             discussPageIdx = $routeParams.discussPageIdx ? $routeParams.discussPageIdx : 0,
             queryParams = {p: discussPageIdx, s: pageSize, sort: "lastModifiedAt"};
         
@@ -90,7 +89,7 @@ define(['byApp',
                             $scope.discussPagination.totalPosts = value.data.total;
                             $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                             $scope.discussPagination.currentPage = value.data.number;
-                            $scope.discussPagination.pageSize = $scope.pageSize;
+                            $scope.discussPagination.pageSize = pageSize;
 
                             /*if ($scope.discussList.length === 0) {
                                 $("#preloader").hide();

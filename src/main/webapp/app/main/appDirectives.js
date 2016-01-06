@@ -497,30 +497,34 @@ define(["byApp", "angular"], function (byApp, angular) {
             templateUrl: 'app/shared/common/template/discussPagination.html?versionTimeStamp=%PROJECT_VERSION%',
             controller: function ($scope, $location) {
                 $scope.pageIndexName = $scope.obj.pageIndexName;
-                $scope.maxPageNo = 3;
+                $scope.maxPageSize = 3;
                 $scope.selectedPageNo = $scope.obj.currentPage;
                 $scope.totalNoPages = $scope.obj.noOfPages;
 
-                var firstPageIndex, lastPageIndex;
                 var setPageArray = function () {
                     $scope.pageArray = [];
-                    for (var i = firstPageIndex; i <= lastPageIndex - 1; i++) {
+                    for (var i = $scope.firstPageIndex; i <= $scope.lastPageIndex - 1; i++) {
                         $scope.pageArray.push(i);
                     }
                 };
 
 
                 var updateNextPevLink = function () {
-                    if ($scope.selectedPageNo === $scope.totalNoPages - 1) {
+                    $scope.moreDisabled = false;
+                    if ($scope.lastPageIndex === $scope.totalNoPages) {
                         $scope.nextDisabled = true;
                     } else {
                         $scope.nextDisabled = false;
                     }
 
-                    if ($scope.selectedPageNo === 0) {
+                    if ($scope.firstPageIndex === 0) {
                         $scope.prevDisabled = true;
                     } else {
                         $scope.prevDisabled = false;
+                    }
+
+                    if($scope.selectedPageNo === $scope.totalNoPages){
+                        $scope.moreDisabled = true;
                     }
                 }
 
@@ -539,20 +543,20 @@ define(["byApp", "angular"], function (byApp, angular) {
 
                 $scope.initPageArray = function () {
                     if ($scope.selectedPageNo === 0) {
-                        if ($scope.totalNoPages > $scope.maxPageNo) {
-                            firstPageIndex = 0;
-                            lastPageIndex = $scope.maxPageNo;
+                        if ($scope.totalNoPages > $scope.maxPageSize) {
+                            $scope.firstPageIndex = 0;
+                            $scope.lastPageIndex = $scope.maxPageSize;
                         } else {
-                            firstPageIndex = 0;
-                            lastPageIndex = $scope.totalNoPages;
+                            $scope.firstPageIndex = 0;
+                            $scope.lastPageIndex = $scope.totalNoPages;
                         }
                     } else {
-                        $scope.selectedPageSet = Math.ceil($scope.selectedPageNo / $scope.maxPageNo);
-                        lastPageIndex = $scope.selectedPageSet * $scope.maxPageNo,
-                            firstPageIndex = lastPageIndex - $scope.maxPageNo;
+                        $scope.selectedPageSet = Math.ceil($scope.selectedPageNo / $scope.maxPageSize);
+                        $scope.lastPageIndex = $scope.selectedPageSet * $scope.maxPageSize,
+                            $scope.firstPageIndex = $scope.lastPageIndex - $scope.maxPageSize;
 
-                        if (lastPageIndex > $scope.totalNoPages) {
-                            lastPageIndex = $scope.totalNoPages;
+                        if ($scope.lastPageIndex > $scope.totalNoPages) {
+                            $scope.lastPageIndex = $scope.totalNoPages;
                         }
                     }
                     setPageArray();

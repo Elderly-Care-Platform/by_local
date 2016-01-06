@@ -10,7 +10,7 @@ define(['byApp', 'productReviewsCtrl', 'editorController'], function (byApp, pro
         $scope.expandParent = function (menuId) {
             if (menuId && menuId.toString() == $scope.selectedMenuId) {
                 var expandNodeId;
-                if($scope.selectedParent.displayMenuName === "Shop"){
+                if($scope.selectedParent && $scope.selectedParent.displayMenuName && $scope.selectedParent.displayMenuName.toLowerCase() === "shop"){
                     expandNodeId = $scope.selectedMenuId;
                 }else{
                     expandNodeId = $scope.selectedParent.id;

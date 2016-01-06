@@ -151,7 +151,7 @@ public class ShareEmailHelper {
 			email.append(" </table>");
 
 			// for msg bubble
-			email.append(" <table class='social' style='border-collapse: collapse;border-spacing: 0;Margin-left: auto;Margin-right: auto;'>");
+			email.append(" <table class='social' style='border-collapse: collapse;border-spacing: 0;margin-top: -1px;Margin-left: auto;Margin-right: auto;'>");
 			email.append(" <tbody>");
 			email.append(" <tr> ");
 			email.append("<td style='padding: 0;vertical-align: top;padding-bottom:20px;'>");

@@ -70,6 +70,17 @@ public class ShareEmailHelper {
 			}
 		}
 
+		String mainImagePath = "";
+		if (null != discuss.getArticlePhotoFilename()
+				&& !Util.isEmpty(discuss.getArticlePhotoFilename().get(
+						"titleImage"))) {
+			mainImagePath = System.getProperty("path")
+					+ discuss.getArticlePhotoFilename().get("titleImage");
+		} else if (null != discuss.getLinkInfo()
+				&& !Util.isEmpty(discuss.getLinkInfo().getMainImage())) {
+			mainImagePath = discuss.getLinkInfo().getMainImage();
+		}
+
 		StringBuilder email = new StringBuilder("");
 		email.append("<center class='wrapper' style='display: table;table-layout: fixed;width: 100%;min-width: 480px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;background: #fff;'>");
 
@@ -191,9 +202,7 @@ public class ShareEmailHelper {
 		}
 
 		// discussImage
-		if (null != discuss.getArticlePhotoFilename()
-				&& !Util.isEmpty(discuss.getArticlePhotoFilename().get(
-						"titleImage"))) {
+		if (!Util.isEmpty(mainImagePath)) {
 			email.append(" <table class='social' style='border-collapse: collapse;border-spacing: 0;Margin-left: auto;Margin-right: auto;'>");
 			email.append(" <tbody>");
 			email.append(" <tr>");
@@ -201,7 +210,7 @@ public class ShareEmailHelper {
 
 			email.append("<div class='image' style='font-size: 12px;Margin-bottom: 21px;mso-line-height-rule: at-least;color: #757575;font-family: helvetica' align='center'>");
 			email.append("<img style='border: 0;display: block;max-width: 100%; height:auto; border:5px solid #F1F1F1' src='");
-			email.append(discuss.getArticlePhotoFilename().get("titleImage"));
+			email.append(mainImagePath);
 			email.append("' alt='' width='470'/>");
 			email.append("</div>");
 

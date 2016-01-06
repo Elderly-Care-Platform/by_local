@@ -53,10 +53,15 @@ define(["byApp"], function(byApp) {
         
         $scope.emailShare = function emailShare(isValidForm, data) {
             
+        	$scope.validateEmails();
+        	if($scope.emailError != ""){
+        		return;
+        	}
+        	
             var emailList = $scope.shares.email;
             var emailIds = [];
             
-            emailIds = emailList.split(",");               
+            emailIds = emailList.split(/[\s,;|]+/);              
 
             var discussId = data.id;
             

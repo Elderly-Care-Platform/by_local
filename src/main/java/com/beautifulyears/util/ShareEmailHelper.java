@@ -133,11 +133,13 @@ public class ShareEmailHelper {
 			email.append(" <tr>");
 			email.append(" <td class='column first' style='padding: 0;vertical-align: top;line-height: 0px;font-weight: 400;font-size: 11px;Margin-right: auto;Margin-left: auto;width: 480px; color: #fff;font-family: helvetica'>");
 			email.append(" <center>");
-			email.append(" <table class='social' style='border-collapse: collapse;border-spacing: 0;Margin-left: 22%;Margin-right: auto;'>");
+			email.append(" <table class='social' style='border-collapse: collapse;border-spacing: 0;Margin-left: 8%;margin-bottom: -1px;Margin-right: auto;'>");
 			email.append(" <tbody>");
 			email.append(" <tr>");
 			email.append("<td style='padding: 0;vertical-align: top;'>");
-			email.append("<img style='width:12px;Margin-bottom:-6px;' src='http://dev.beautifulyears.com/uploaded_files/a407e70d-71d1-47ec-b415-ebc528420d7b_135_168.png'/>");
+			email.append("<img style='width:12px;Margin-bottom:-6px;' src='");
+			email.append(System.getProperty("path") + "/assets/img/icons/mail-bubble-pointer.png");
+			email.append("'/>");
 			email.append("</td>");
 			email.append(" </tr>");
 			email.append(" </tbody>");

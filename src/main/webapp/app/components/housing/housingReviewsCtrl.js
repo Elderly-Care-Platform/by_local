@@ -17,7 +17,7 @@ define(['byApp',
         $scope.userCredential = {'email': '', 'pwd': ''};
 
         var tags = [],
-            pageSize = 4,
+            pageSize = 20,
             discussPageIdx = $routeParams.discussPageIdx ? $routeParams.discussPageIdx : 0,
             queryParams = {p: discussPageIdx, s: pageSize, sort: "lastModifiedAt"};
         

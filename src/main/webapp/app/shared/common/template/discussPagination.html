@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div class="by_viewMoreButton" align="center">
-        <a ng-href="{{getPageLocation(selectedPageNo+1)}}" ng-class="{disabled:moreDisabled}">View More</a>
+        <a ng-href="{{getPageLocation(selectedPageNo+1)}}">View More</a>
     </div>
     <ul class="pagination discussPagination" ng-init="initPageArray()" ng-class="{'discussPagination2': maxPageSize > pageArray.length}">
         <!--<li ng-click="firstPageSet()"><a>First</a></li>-->

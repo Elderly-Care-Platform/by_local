@@ -503,7 +503,7 @@ define(["byApp", "angular"], function (byApp, angular) {
 
                 var setPageArray = function () {
                     $scope.pageArray = [];
-                    for (var i = $scope.firstPageIndex; i <= $scope.lastPageIndex - 1; i++) {
+                    for (var i = $scope.firstPageIndex; i <= $scope.lastPageIndex; i++) {
                         $scope.pageArray.push(i);
                     }
                 };
@@ -511,52 +511,54 @@ define(["byApp", "angular"], function (byApp, angular) {
 
                 var updateNextPevLink = function () {
                     $scope.moreDisabled = false;
-                    if ($scope.lastPageIndex === $scope.totalNoPages) {
+                    if ($scope.selectedPageNo >= $scope.totalNoPages - 1) {
                         $scope.nextDisabled = true;
                     } else {
                         $scope.nextDisabled = false;
                     }
 
-                    if ($scope.firstPageIndex === 0) {
+                    if ($scope.selectedPageNo <= 0) {
                         $scope.prevDisabled = true;
                     } else {
                         $scope.prevDisabled = false;
-                    }
-
-                    if($scope.selectedPageNo === $scope.totalNoPages){
-                        $scope.moreDisabled = true;
                     }
                 }
 
 
                 $scope.getPageLocation = function (page) {
-                    var newHref = "#!" + $location.path();
-                    newHref = newHref + "?";
-                    angular.forEach($location.search(), function (value, key) {
-                        if (key !== $scope.pageIndexName) {
-                            newHref = newHref + key + "=" + value + "&";
-                        }
-                    });
-                    newHref = newHref + $scope.pageIndexName + "=" + page;
-                    return newHref;
+                    if(page < 0 || page > ($scope.totalNoPages - 1)){
+                        return null;
+                    }else{
+                        var newHref = "#!" + $location.path();
+                        newHref = newHref + "?";
+                        angular.forEach($location.search(), function (value, key) {
+                            if (key !== $scope.pageIndexName) {
+                                newHref = newHref + key + "=" + value + "&";
+                            }
+                        });
+                        newHref = newHref + $scope.pageIndexName + "=" + page;
+                        return newHref;
+                    }
+
                 }
 
                 $scope.initPageArray = function () {
+                    var selectedPageIndex = $scope.selectedPageNo + 1, maxPageIndex = $scope.maxPageSize - 1, totalPageIndex = $scope.totalNoPages - 1;
                     if ($scope.selectedPageNo === 0) {
                         if ($scope.totalNoPages > $scope.maxPageSize) {
                             $scope.firstPageIndex = 0;
-                            $scope.lastPageIndex = $scope.maxPageSize;
+                            $scope.lastPageIndex = maxPageIndex;
                         } else {
                             $scope.firstPageIndex = 0;
-                            $scope.lastPageIndex = $scope.totalNoPages;
+                            $scope.lastPageIndex = totalPageIndex;
                         }
                     } else {
-                        $scope.selectedPageSet = Math.ceil($scope.selectedPageNo / $scope.maxPageSize);
-                        $scope.lastPageIndex = $scope.selectedPageSet * $scope.maxPageSize,
-                            $scope.firstPageIndex = $scope.lastPageIndex - $scope.maxPageSize;
+                        $scope.selectedPageSet = Math.ceil(selectedPageIndex / $scope.maxPageSize);
+                        $scope.lastPageIndex = ($scope.selectedPageSet * $scope.maxPageSize) - 1,
+                            $scope.firstPageIndex = $scope.lastPageIndex - maxPageIndex;
 
-                        if ($scope.lastPageIndex > $scope.totalNoPages) {
-                            $scope.lastPageIndex = $scope.totalNoPages;
+                        if ($scope.lastPageIndex > totalPageIndex) {
+                            $scope.lastPageIndex = totalPageIndex;
                         }
                     }
                     setPageArray();

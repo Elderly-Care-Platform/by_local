@@ -24,12 +24,11 @@ public class ShareEmailHelper {
 		String userName = "Anonymous user";
 		String senderLink = "";
 		if (null != currentUser) {
-			if(!Util.isEmpty(currentUser.getUserName())){
+			if (!Util.isEmpty(currentUser.getUserName())) {
 				userName = currentUser.getUserName();
 			}
-			senderLink = System.getProperty("path") + "/#!/users/"
-					+ userName + "?profileId="
-					+ currentUser.getId();
+			senderLink = System.getProperty("path") + "/#!/users/" + userName
+					+ "?profileId=" + currentUser.getId();
 		}
 
 		String profileImage = System.getProperty("path") + "/assets/img/by.png";
@@ -55,8 +54,6 @@ public class ShareEmailHelper {
 		String authorLink = System.getProperty("path") + "/#!/users/"
 				+ discuss.getUsername() + "?profileId=" + discuss.getUserId();
 
-		
-
 		Date discussDate = discuss.getCreatedAt();
 		long diff = (new Date()).getTime() - discussDate.getTime();
 		diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
@@ -77,9 +74,9 @@ public class ShareEmailHelper {
 		email.append("<center class='wrapper' style='display: table;table-layout: fixed;width: 100%;min-width: 480px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;background: #fff;'>");
 
 		// for beautifulyears logo
-		email.append("<table class='centered' style='border-collapse: collapse;border-spacing: 0;Margin-left: auto;Margin-right: auto;background-color: #ffffff;'>");
+		email.append("<table class='centered' style='text-align: center;border-collapse: collapse;border-spacing: 0;Margin-left: auto;Margin-right: auto;background-color: #ffffff;'>");
 		email.append("<tbody>");
-		email.append("<tr><td class='column first' style='padding: 0;vertical-align: top;line-height: 17px;font-weight: 400;font-size: 11px;Margin-right: auto;Margin-left: auto;padding-top: 50px;width: 480px;color: #fff;font-family: helvetica'>");
+		email.append("<tr><td class='column first' style='text-align: center;padding: 0;vertical-align: top;line-height: 17px;font-weight: 400;font-size: 11px;Margin-right: auto;Margin-left: auto;padding-top: 50px;width: 480px;color: #fff;font-family: helvetica'>");
 		email.append("<a style='color: #222; text-decoration:none; outline:none;' href='http://beautifulyears.com' target='_blank' >");
 		email.append("<img style='width:180px;Margin-top:-20px;'src='http://beautifulyears.com/uploaded_files/c5a6c771-a28e-417e-91ae-557112aaa36a.png' />");
 		email.append("</a>");
@@ -102,11 +99,11 @@ public class ShareEmailHelper {
 		email.append("<td class='column first' style='padding: 0;vertical-align: top;line-height: 17px;font-weight: 400;font-size: 11px;Margin-right: auto;Margin-left: auto;padding-top: 20px;width: 480px; color: #fff;font-family: helvetica'>");
 		email.append(" <h3 style ='font-size:18px; font-weight: 300; text-align:left; line-height:20px; color:#818181;'>");
 		email.append("<b style='color:#222'>");
-		email.append("<a style='color: #222; text-decoration:none; outline:none;' href='");
+		email.append("<u><a style='color: #222; text-decoration:none; outline:none;' href='");
 		email.append(senderLink);
 		email.append("'>");
 		email.append(userName);
-		email.append("</a>");
+		email.append("</a></u>");
 		email.append("</b> shared a BeautifulYears post with you.");
 		email.append("</h3>");
 		email.append("</td>");
@@ -194,7 +191,9 @@ public class ShareEmailHelper {
 		}
 
 		// discussImage
-		if (null != discuss.getArticlePhotoFilename()) {
+		if (null != discuss.getArticlePhotoFilename()
+				&& !Util.isEmpty(discuss.getArticlePhotoFilename().get(
+						"titleImage"))) {
 			email.append(" <table class='social' style='border-collapse: collapse;border-spacing: 0;Margin-left: auto;Margin-right: auto;'>");
 			email.append(" <tbody>");
 			email.append(" <tr>");
@@ -202,7 +201,7 @@ public class ShareEmailHelper {
 
 			email.append("<div class='image' style='font-size: 12px;Margin-bottom: 21px;mso-line-height-rule: at-least;color: #757575;font-family: helvetica' align='center'>");
 			email.append("<img style='border: 0;display: block;max-width: 100%; height:auto; border:5px solid #F1F1F1' src='");
-			email.append(discuss.getArticlePhotoFilename());
+			email.append(discuss.getArticlePhotoFilename().get("titleImage"));
 			email.append("' alt='' width='470'/>");
 			email.append("</div>");
 

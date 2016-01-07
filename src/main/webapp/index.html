@@ -58,336 +58,340 @@
 </head>
 
 <body ng-cloak>
-<div id="home"></div>
-<script>
-    $(function () {
-        $("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%");
-    });
-</script>
+    <div id="home" ng-if="$root.BYhomePage"></div>
+    <script>
+        $(function () {
+            $("#home").load("app/components/home/homeStatic.html?versionTimeStamp=%PROJECT_VERSION%");
+        });
+    </script>
 
 
-<!-- CSS Global Compulsory -->
-<link rel="stylesheet" href="lib/unify/plugins/bootstrap/css/bootstrap.min.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/style.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet"
-      href="lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min.css?versionTimeStamp=%PROJECT_VERSION%">
-<!-- bootstrap -->
-<link rel="stylesheet" href="lib/unify/plugins/bootstrap/css/bootstrap-toggle.min.css">
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="lib/unify/plugins/bootstrap/css/bootstrap.min.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/style.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet"
+          href="lib/jqueryPlugins/jquery-ui-1.11.4.custom/jquery-ui.min.css?versionTimeStamp=%PROJECT_VERSION%">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="lib/unify/plugins/bootstrap/css/bootstrap-toggle.min.css">
 
-<!-- CSS Header and Footer -->
-<link rel="stylesheet" href="assets/css/headers/header-default.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by-header.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/footers/footer-v1.css?versionTimeStamp=%PROJECT_VERSION%">
+    <!-- CSS Header and Footer -->
+    <link rel="stylesheet" href="assets/css/headers/header-default.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by-header.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/footers/footer-v1.css?versionTimeStamp=%PROJECT_VERSION%">
 
-<!-- CSS Implementing Plugins -->
-<link rel="stylesheet" href="lib/unify/plugins/animate.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="lib/unify/plugins/line-icons/line-icons.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet"
-      href="lib/unify/plugins/font-awesome/css/font-awesome.min.css?versionTimeStamp=%PROJECT_VERSION%">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="lib/unify/plugins/animate.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="lib/unify/plugins/line-icons/line-icons.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet"
+          href="lib/unify/plugins/font-awesome/css/font-awesome.min.css?versionTimeStamp=%PROJECT_VERSION%">
 
-<link rel="stylesheet" href="lib/unify/plugins/flexslider/flexslider.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet"
-      href="lib/unify/plugins/parallax-slider/css/parallax-slider.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="lib/unify/plugins/flexslider/flexslider.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet"
+          href="lib/unify/plugins/parallax-slider/css/parallax-slider.css?versionTimeStamp=%PROJECT_VERSION%">
 
-<!-- CSS Page Style -->
-<!--<link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css?versionTimeStamp=%PROJECT_VERSION%">-->
+    <!-- CSS Page Style -->
+    <!--<link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css?versionTimeStamp=%PROJECT_VERSION%">-->
 
-<!-- CSS Customization -->
-<link rel="stylesheet" href="assets/css/main.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/custom.css?versionTimeStamp=%PROJECT_VERSION%">
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="assets/css/main.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/custom.css?versionTimeStamp=%PROJECT_VERSION%">
 
-<link rel="stylesheet" href="assets/css/psc.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/psc.css?versionTimeStamp=%PROJECT_VERSION%">
 
-<link rel="stylesheet" href="lib/tagmanager-master/tagmanager.css?versionTimeStamp=%PROJECT_VERSION%">
-
-
-<link rel="stylesheet" href="assets/css/home.css?versionTimeStamp=%PROJECT_VERSION%">
-
-<link rel="stylesheet" href="assets/css/aboutUs.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/by_editor.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/login.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/discussDetail.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/services.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/profile.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/replyCard.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/productSearch.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/image-gallery.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by_quad.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/by_section_headers.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by-menu.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by-modalLogin.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by_userType.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by_regIndvLogin.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by_sprite.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/by_discussCard.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/discuss_list_grid.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/housing.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/product-style.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/product.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/product_housing.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/shop-style.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/productHome.css?versionTimeStamp=%PROJECT_VERSION%">
-
-<link rel="stylesheet" href="assets/css/byProducts/by_product_listing.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/cart.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/cartCheckout.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/productDetailed.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/byProducts/order_history.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/share-modal.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="lib/tagmanager-master/tagmanager.css?versionTimeStamp=%PROJECT_VERSION%">
 
 
-<!--<link rel="stylesheet" href="assets/css/headers/header-v7.css?versionTimeStamp=%PROJECT_VERSION%">-->
+    <link rel="stylesheet" href="assets/css/home.css?versionTimeStamp=%PROJECT_VERSION%">
+
+    <link rel="stylesheet" href="assets/css/aboutUs.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/by_editor.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/login.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/discussDetail.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/services.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/profile.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/replyCard.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/productSearch.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/image-gallery.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by_quad.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/by_section_headers.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by-menu.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by-modalLogin.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by_userType.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by_regIndvLogin.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by_sprite.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/by_discussCard.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/discuss_list_grid.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/housing.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/product-style.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/product.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/product_housing.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/shop-style.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/productHome.css?versionTimeStamp=%PROJECT_VERSION%">
+
+    <link rel="stylesheet" href="assets/css/byProducts/by_product_listing.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/cart.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/cartCheckout.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/productDetailed.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/byProducts/order_history.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/share-modal.css?versionTimeStamp=%PROJECT_VERSION%">
 
 
-<!-- unify libs and plugins start -->
-
-<script type="text/javascript"
-        src="lib/unify/plugins/bootstrap/js/bootstrap.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-<script type="text/javascript" src="lib/unify/unify_app.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-<script type="text/javascript" src="lib/unify/plugins/back-to-top.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-<script type="text/javascript" src="lib/unify/plugins/smoothScroll.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-<script type="text/javascript" src="lib/payment/sha256.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-<script type="text/javascript" src="lib/payment/sha512.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <!--<link rel="stylesheet" href="assets/css/headers/header-v7.css?versionTimeStamp=%PROJECT_VERSION%">-->
 
 
+    <!-- unify libs and plugins start -->
 
-<script type="text/javascript" src="lib/jqueryPlugins/imagezoom.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-
-<script type="text/javascript" src="lib/tinymce/tinymce.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-<script type='text/javascript' src="lib/require.js"
-        data-main="app/shared/main.js?versionTimeStamp=%PROJECT_VERSION%"></script>
-
-
-<!-- new styles to new design -->
-<link rel="stylesheet" href="assets/css/by/header.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/home.css?versionTimeStamp=%PROJECT_VERSION%">
-<link rel="stylesheet" href="assets/css/by/menu.css?versionTimeStamp=%PROJECT_VERSION%">
-
-<div id="fb-root"></div>
-<div class="preloader" id="preloader" style="display:none">
-    <div class="preloaderImage"></div>
-</div>
-
-<div class="modal fade by-login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="myModalHorizontal"
-     ng-include="'app/components/signup/login/modalLogin.html'" ng-if="$root.inContextLogin">
-</div>
+    <script type="text/javascript"
+            src="lib/unify/plugins/bootstrap/js/bootstrap.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/unify/unify_app.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/unify/plugins/back-to-top.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/unify/plugins/smoothScroll.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/payment/sha256.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type="text/javascript" src="lib/payment/sha512.js?versionTimeStamp=%PROJECT_VERSION%"></script>
 
 
-<div class="tnymcePopUpwrapper">
-    <div class="tnymcePopUpwrapperInside">
-        <div class="imagebgNew">
-            <div class="tnymcePopUpwrapperInsideTitle divLeft">
-                Insert Image
+
+    <script type="text/javascript" src="lib/jqueryPlugins/imagezoom.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+
+    <script type="text/javascript" src="lib/tinymce/tinymce.min.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+    <script type='text/javascript' src="lib/require.js"
+            data-main="app/shared/main.js?versionTimeStamp=%PROJECT_VERSION%"></script>
+
+
+    <!-- new styles to new design -->
+    <link rel="stylesheet" href="assets/css/by/header.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/home.css?versionTimeStamp=%PROJECT_VERSION%">
+    <link rel="stylesheet" href="assets/css/by/menu.css?versionTimeStamp=%PROJECT_VERSION%">
+
+    <div id="fb-root"></div>
+    <div class="preloader" id="preloader" style="display:none">
+        <div class="preloaderImage"></div>
+    </div>
+
+    <div class="modal fade by-login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="myModalHorizontal"
+         ng-include="'app/components/signup/login/modalLogin.html'" ng-if="$root.inContextLogin">
+    </div>
+
+
+    <div class="tnymcePopUpwrapper">
+        <div class="tnymcePopUpwrapperInside">
+            <div class="imagebgNew">
+                <div class="tnymcePopUpwrapperInsideTitle divLeft">
+                    Insert Image
+                </div>
+                <div class="tnymcePopUpwrapperInsideClose tnymceCloseImage divRight">
+                    X
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="tnymcePopUpwrapperInsideClose tnymceCloseImage divRight">
-                X
-            </div>
-            <div class="clearfix"></div>
-        </div>
 
-        <!-- insert image in tinymce -->
-        <form id="UploadImage" action="UploadFile?type=editor&transcoding=false" method="post"
-              enctype="multipart/form-data">
             <!-- insert image in tinymce -->
+            <form id="UploadImage" action="UploadFile?type=editor&transcoding=false" method="post"
+                  enctype="multipart/form-data">
+                <!-- insert image in tinymce -->
 
-            <div class="tnymcePopUpwrapperInsideLabel divLeft">Image URL</div>
-            <div class="tnymcePopUpwrapperInsideUrl divRight">
-                <input type="file" name="sp" id="sp" size="100">
-            </div>
-            <div class="clearfix"></div>
-            <div>
-                <button type="submit" class="tnymceCloseImageAdd">Ok</button>
-                <button type="button" class="tnymceCloseImage tnymceCloseImageButton">Cancel</button>
-            </div>
-            <div class="clearfix"></div>
-        </form>
-    </div>
-</div>
-
-<div class="topScroll"></div>
-<div class="wrapper">
-    <!--=== Header ===-->
-    <div ng-controller="BYHeaderCtrl">
-
-        <div ng-include="templateUrl"></div>
-    </div>
-    <div ng-controller="MainMenuController">
-        <div window-resize callback="windowResize"
-             class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
-            <!-- <div class="container-fluid" style="max-width: 960px; margin-top:100px;" ng-include="menuView"></div>-->
+                <div class="tnymcePopUpwrapperInsideLabel divLeft">Image URL</div>
+                <div class="tnymcePopUpwrapperInsideUrl divRight">
+                    <input type="file" name="sp" id="sp" size="100">
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <button type="submit" class="tnymceCloseImageAdd">Ok</button>
+                    <button type="button" class="tnymceCloseImage tnymceCloseImageButton">Cancel</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
         </div>
     </div>
 
-    <div id="mask"></div>
+    <div class="topScroll"></div>
+    <div class="wrapper">
+        <!--=== Header ===-->
+        <div ng-controller="BYHeaderCtrl">
+            <div ng-include="templateUrl"></div>
+        </div>
+        <div ng-controller="MainMenuController">
+            <div window-resize callback="windowResize"
+                 class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+                <!-- <div class="container-fluid" style="max-width: 960px; margin-top:100px;" ng-include="menuView"></div>-->
+            </div>
+        </div>
 
-    <div id="ng-scope">
-        <ng-view ng-cloak></ng-view>
-    </div>
-    <div class="clearfix"></div>
+        <div id="mask"></div>
 
-    <!-- home page starts -->
+        <div id="ng-scope">
+            <ng-view ng-cloak></ng-view>
+        </div>
+        <div class="clearfix"></div>
 
 
-    <!-- home page ends -->
+        <!--=== Footer Version 1 ===-->
+        <div class="footer-v1 footerDesktop">
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-xs-9">
+                            <p>
+                                2015 © BeautifulYears Ltd.
+                                <a href="#!/privacyPolicy">Privacy Policy </a> <a>|</a> <a
+                                    href="#!/termsCondition">Terms of Service</a><a>|</a>
+                                <a href="#!/contactUs">Contact Us</a>
+                            </p>
+                        </div>
+                        <!-- Social Links -->
+                        <div class="col-md-2 col-xs-3 pull-right">
+                            <ul class="social-icons pull-right">
+                                <li><span>Like us on</span></li>
+                                <li><a data-original-title="Facebook" class="social_facebook"
+                                       onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'Share on facebook','width=600,height=400')"></a>
+                                </li>
 
-    <!--=== Footer Version 1 ===-->
-    <div class="footer-v1 footerDesktop">
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-xs-9">
-                        <p>
-                            2015 © BeautifulYears Ltd.
-                            <a href="#!/privacyPolicy">Privacy Policy </a> <a>|</a> <a
-                                href="#!/termsCondition">Terms of Service</a><a>|</a>
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-v1 footerMobile">
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-xs-12">
+
+                            <a di-href="#!/aboutUs">About us</a> <a>|</a>
+                            <a href="#!/privacyPolicy">Privacy Policy </a> <a>|</a>
+                            <a href="#!/termsCondition">Terms of Service</a><a>|</a>
                             <a href="#!/contactUs">Contact Us</a>
-                        </p>
-                    </div>
-                    <!-- Social Links -->
-                    <div class="col-md-2 col-xs-3 pull-right">
-                        <ul class="social-icons pull-right">
-                            <li><span>Like us on</span></li>
-                            <li><a data-original-title="Facebook" class="social_facebook"
-                                   onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'Share on facebook','width=600,height=400')"></a>
-                            </li>
 
-                        </ul>
+                        </div>
+                        <!-- Social Links -->
+                        <div class="col-md-2 col-xs-9 pull-left whiteColor" >
+                            2015 © BeautifulYears Ltd.
+                        </div>
+                        <div class="col-md-2 col-xs-3 pull-right marginTopM11">
+                            <ul class="social-icons pull-right">
+                                <li><a data-original-title="Facebook" class="social_facebook"
+                                       onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'Share on facebook','width=600,height=400')"></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
                     </div>
-                    <!-- End Social Links -->
                 </div>
             </div>
         </div>
+        <!--/wrapper-->
+        <!--</div>-->
     </div>
-    <div class="footer-v1 footerMobile">
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-xs-12">
-
-                        <a di-href="#!/aboutUs">About us</a> <a>|</a>
-                        <a href="#!/privacyPolicy">Privacy Policy </a> <a>|</a>
-                        <a href="#!/termsCondition">Terms of Service</a><a>|</a>
-                        <a href="#!/contactUs">Contact Us</a>
-
-                    </div>
-                    <!-- Social Links -->
-                    <div class="col-md-2 col-xs-9 pull-left whiteColor" >
-                        2015 © BeautifulYears Ltd.
-                    </div>
-                    <div class="col-md-2 col-xs-3 pull-right marginTopM11">
-                        <ul class="social-icons pull-right">
-                            <li><a data-original-title="Facebook" class="social_facebook"
-                                   onclick="window.open('http://www.facebook.com/sharer.php?u=www.beautifulyears.com', 'Share on facebook','width=600,height=400')"></a>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <!-- End Social Links -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--/wrapper-->
-    <!--</div>-->
-</div>
 
 
-<script type="text/javascript" async defer
-        src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initMap"></script>
-<!-- script for inserting images into tinymce -->
-<script type="text/javascript">
-    var initMap = function () {
-    };
+    <script type="text/javascript" async defer
+            src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&callback=initMap"></script>
 
-    $(document).ready(function () {
-        var options1 = {
-            beforeSend: function () {
-                //$("#progressbox").show();
-                // clear everything
-                //$("#progressbar").width('0%');
-                //$("#message").empty();
-                //$("#percent").html("0%");
-            },
-            uploadProgress: function (event, position, total, percentComplete) {
-                //$("#progressbar").width(percentComplete + '%');
-                //$("#percent").html(percentComplete + '%');
-
-                // change message text to red after 50%
-                //if (percentComplete > 50) {
-                //$("#message").html("<font color='red'>File Upload is in progress</font>");
-                // }
-            },
-            success: function () {
-                // $("#progressbar").width('100%');
-                // $("#percent").html('100%');
-            },
-            complete: function (response) {
-                //tinyMCE.activeEditor.focus();
-                //tinyMCE.get('submit-article').getBody().focus();
-
-                //?????var img = "<img style = 'height:80px;width:80px' src = 'http://" + response.responseText + "' />";
-                //alert("img path = " + response.responseText.substring(response.responseText.lastIndexOf('/')+1));
-                var img = "<img src = '/uploaded_files/" + response.responseText.substring(response.responseText.lastIndexOf('/') + 1) + "' />";
-                tinyMCE.activeEditor.execCommand("mceInsertContent", true, img);
-                //$("#articlePhotoFilename").val(response.responseText);
-            },
-            error: function () {
-                //$("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
-            }
+    <!-- script for inserting images into tinymce  start-->
+    <script type="text/javascript">
+        var initMap = function () {
         };
 
-        $("#UploadImage").ajaxForm(options1);
+        $(document).ready(function () {
+            var options1 = {
+                beforeSend: function () {
+                    //$("#progressbox").show();
+                    // clear everything
+                    //$("#progressbar").width('0%');
+                    //$("#message").empty();
+                    //$("#percent").html("0%");
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+                    //$("#progressbar").width(percentComplete + '%');
+                    //$("#percent").html(percentComplete + '%');
 
-    });
-</script>
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-65429141-1', 'auto');
-    ga('send', 'pageview');
-</script>
+                    // change message text to red after 50%
+                    //if (percentComplete > 50) {
+                    //$("#message").html("<font color='red'>File Upload is in progress</font>");
+                    // }
+                },
+                success: function () {
+                    // $("#progressbar").width('100%');
+                    // $("#percent").html('100%');
+                },
+                complete: function (response) {
+                    //tinyMCE.activeEditor.focus();
+                    //tinyMCE.get('submit-article').getBody().focus();
 
-<!-- Facebook Conversion Code for Checkouts - Sourabh Chenni 1 -->
-<script>
-    (function () {
-        var _fbq = window._fbq || (window._fbq = []);
-        if (!_fbq.loaded) {
-            var fbds = document.createElement('script');
-            fbds.async = true;
-            fbds.src = '//connect.facebook.net/en_US/fbds.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(fbds, s);
-            _fbq.loaded = true;
-        }
-    })();
-    window._fbq = window._fbq || [];
-    window._fbq.push(['track', '6030136887627', {'value': '0.01', 'currency': 'INR'}]);
-</script>
-<script type="text/javascript">
-    setTimeout(function () {
-        var a = document.createElement("script");
-        var b = document.getElementsByTagName("script")[0];
-        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0042/9584.js?" + Math.floor(new Date().getTime() / 3600000);
-        a.async = true;
-        a.type = "text/javascript";
-        b.parentNode.insertBefore(a, b)
-    }, 1);
-</script>
-<noscript>
-    <img height="1" width="1" alt="" style="display:none"
-         src="https://www.facebook.com/tr?ev=6030136887627&amp;cd[value]=0.01&amp;cd[currency]=INR&amp;noscript=1"/>
-</noscript>
+                    //?????var img = "<img style = 'height:80px;width:80px' src = 'http://" + response.responseText + "' />";
+                    //alert("img path = " + response.responseText.substring(response.responseText.lastIndexOf('/')+1));
+                    var img = "<img src = '/uploaded_files/" + response.responseText.substring(response.responseText.lastIndexOf('/') + 1) + "' />";
+                    tinyMCE.activeEditor.execCommand("mceInsertContent", true, img);
+                    //$("#articlePhotoFilename").val(response.responseText);
+                },
+                error: function () {
+                    //$("#articlePhotoFilename").val("<font color='red'> ERROR: unable to upload files</font>");
+                }
+            };
+
+            $("#UploadImage").ajaxForm(options1);
+
+        });
+    </script>
+    <!-- script for inserting images into tinymce  start-->
+
+    <!-- Google analytics code snippet start -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-65429141-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- Google analytics code snippet end -->
+
+    <!-- Facebook Conversion Code for Checkouts - Sourabh Chenni 1 start-->
+    <script>
+        (function () {
+            var _fbq = window._fbq || (window._fbq = []);
+            if (!_fbq.loaded) {
+                var fbds = document.createElement('script');
+                fbds.async = true;
+                fbds.src = '//connect.facebook.net/en_US/fbds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(fbds, s);
+                _fbq.loaded = true;
+            }
+        })();
+        window._fbq = window._fbq || [];
+        window._fbq.push(['track', '6030136887627', {'value': '0.01', 'currency': 'INR'}]);
+    </script>
+    <!-- Facebook Conversion Code for Checkouts - Sourabh Chenni 1 end -->
 
 
+    <!-- Crazy egg analytics snippet start-->
+    <script type="text/javascript">
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName("script")[0];
+            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0042/9584.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true;
+            a.type = "text/javascript";
+            b.parentNode.insertBefore(a, b)
+        }, 1);
+    </script>
+    <!-- Crazy egg analytics snippet end-->
+
+    <noscript>
+        <img height="1" width="1" alt="" style="display:none"
+             src="https://www.facebook.com/tr?ev=6030136887627&amp;cd[value]=0.01&amp;cd[currency]=INR&amp;noscript=1"/>
+    </noscript>
 </body>
 </html>
 

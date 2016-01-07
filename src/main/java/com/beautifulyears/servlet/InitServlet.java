@@ -26,6 +26,9 @@ public class InitServlet extends HttpServlet {
 				.getInitParameter("contextPath"))) {
 			contextPath = ByWebAppInitializer.servletContext
 					.getInitParameter("contextPath");
+			if("/".equals(contextPath)){
+				contextPath = "";
+			}
 		}
 
 		if (!Util.isEmpty(ByWebAppInitializer.servletContext

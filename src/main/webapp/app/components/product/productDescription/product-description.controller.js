@@ -146,7 +146,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                     angular.forEach(data.mediaItems, function (mediaItem) {
                         var params = {};
                         params.image = mediaItem.url;
-                        CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
+                        mediaItem.url = SERVERURL_IMAGE.hostUrl + mediaItem.url;
+//                        CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
                         function loadImageSuccess() {
                             //$log.debug('success in getting image');
                             mediaItem.url = SERVERURL_IMAGE.hostUrl + mediaItem.url;

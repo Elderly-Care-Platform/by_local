@@ -142,9 +142,11 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
 
         $scope.$on('currentLocation', function (event, args) {
             if (args === '/') {
+                $rootScope.BYhomePage = true;
                 isHomePage = true;                
                 $("#ng-scope").css('min-height', "0px");
             } else {
+                $rootScope.BYhomePage = false;
                 isHomePage = false;
                 var minimumHeight = $( window ).height() - 46;
                 $("#ng-scope").css('min-height', minimumHeight+"px");

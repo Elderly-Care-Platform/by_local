@@ -146,6 +146,7 @@
     text-decoration: none;
     color: #08522A;
     font-weight: normal;
+    word-wrap: break-word;
 }
 .curatedProfile
 {

@@ -1,4 +1,4 @@
-define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, discussCtrl) {
+define(['byApp', 'menuConfig', 'discussCtrl', 'discussLeftCtrl'], function (byApp, menuConfig, discussCtrl, discussLeftCtrl) {
     'use strict';
 
     function DiscussMenuCtrl($scope, $rootScope, $location, $route, $routeParams) {
@@ -92,9 +92,14 @@ define(['byApp', 'menuConfig', 'discussCtrl'], function (byApp, menuConfig, disc
             } 
         };
 
+        
         $scope.showAllMenu = function ($event, menu) {               
-                $scope.showMoreMenu = ($scope.showMoreMenu === false) ? true : false;
-            }
+            $scope.showMoreMenu = ($scope.showMoreMenu === false) ? true : false;
+            setTimeout(function(){
+                $scope.smartHeight = $(".by_subMenu").height() + 80 + 57;
+                BY.byUtil.smartScroll($scope.smartHeight);
+            }, 100);
+        }
 
 
     }

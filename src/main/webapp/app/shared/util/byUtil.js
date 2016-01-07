@@ -168,7 +168,47 @@ BY.byUtil.validateEmailId = function(emailId){
     return validEmail;
 }
 
+BY.byUtil.smartScroll = function (smartHeight) {
+    var clientHeight = $( window ).height();
+    $(".by_subMenuPlus").css('min-height', (clientHeight - 57)+"px");
+    $('.by_subMenuPlus').css({
+        'position': 'relative',
+        'bottom': 'auto'
+    });
+    $(window).scroll(function () {
+        var winTop = $(this).scrollTop(),
+        winBottom = winTop + $(this).height(),
+        left = $('.by_subMenuPlus'),
+        leftBottom = left.height() + smartHeight;
 
+                //when the user reached the bottom of '#leftShort' set its position to fixed to prevent it from moving on scroll
+                if (winBottom >= leftBottom) {
 
+                    left.css({
+                        'position': 'fixed',
+                        'bottom': '0px'
+                    });
+                } else {
+                    //when the user scrolls back up revert its position to relative
+                    left.css({
+                        'position': 'relative',
+                        'bottom': 'auto'
+                    });
+                }
+            });
+};
+
+BY.byUtil.getShortTitle = function (name) {
+    if(name){
+        var title, titleDiv = document.createElement('div'), nextSpaceIndex;
+        titleDiv.innerHTML = name;
+        title = titleDiv.textContent;
+        nextSpaceIndex = title.indexOf(" ", 60);
+        if (nextSpaceIndex > 1) {
+            title = title.substr(0, nextSpaceIndex);
+        }        
+        return title;
+    }
+}
 
 

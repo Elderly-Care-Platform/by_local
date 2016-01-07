@@ -1,0 +1,63 @@
+<div  ng-controller="DiscussLeftController">
+<div class="by_subMenuPlus col-md-12"  ng-init="smartScroll();" >
+     <div ng-if="menuConfig.community[selectedMenu.id].curator">
+    <div class="by_commFeaturedHead">
+        Curated by:
+    </div><div class="clearfix margin-top-20"></div>
+     <div class="curatedProfile" ng-repeat="curator in menuConfig.community[selectedMenu.id].curator">
+      <a href="{{curator.url}}">
+        <img src="{{curator.image}}"  alt="{{curator.name}}" /><br/>
+        <b>{{curator.name}}</b><br/>
+        {{curator.desg}}
+      </a>
+    </div>
+    <div class="by_commFeaturedHead clearfix margin-top-20"></div>
+    </div>
+    <!--
+    <div class="curatedProfile">
+      <a href="#!/users/lohith?profileId=5653f14ee4b082a5437d1d1b">
+        <img src="assets/img/home/Lohith.png?versionTimeStamp=%PROJECT_VERSION%"  alt="Dr. Lohith" /><br/>
+        <b>Dr. Lohith </b><br/>
+        Physician
+      </a>
+    </div>
+    <div class="curatedProfile">
+      <a href="#!/users/padmashree-balaram?profileId=55fcade0e4b077b0500ae807">
+       <img src="assets/img/home/Padmashree.png?versionTimeStamp=%PROJECT_VERSION%"  alt="Padmashree" /><br/>
+       <b>Padmashree  </b><br/>
+       Caregiver
+     </a>
+    </div>
+    <div class="curatedProfile">
+     <a href="#!/users/rukmani-menon?profileId=5653ed92e4b082a5437d1d14">
+      <img src="assets/img/home/rukmani.png?versionTimeStamp=%PROJECT_VERSION%"  alt="Rukmani" /><br/>
+      <b>Rukmani  </b><br/>
+      Advocate
+    </a>
+    </div>
+    <div class="curatedProfile">
+     <a href="#!/users/diwakar?profileId=56595eb3e4b033d7bb208ab3">
+       <img src="assets/img/home/diwakar.png?versionTimeStamp=%PROJECT_VERSION%"   alt="Dr.  Diwakar" /><br/>
+       <b>Dr.  Diwakar </b><br/>
+       Dentist
+     </a>
+   </div>   -->
+    
+    <div class="by_commFeaturedHead" ng-if="discussFeatured.length > 0">
+        Featured:
+    </div>
+
+    <div ng-repeat="featured in discussFeatured" class="by_commFeaturedItem">
+       <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();">
+           <span ng-if="featured.discussType == 'Q'" >
+               {{getShortTitle(featured.text)}}
+           </span>
+           <span ng-if="featured.discussType == 'P' && featured.title && featured.title.trim().length > 0">{{getShortTitle(featured.title)}}</span>
+           <span ng-if="featured.discussType == 'P' &&  featured.title.trim().length == 0 && linkInfo.title && linkInfo.title.trim().length > 0">{{getShortTitle(linkInfo.title)}}</span>
+           <span ng-if="featured.discussType == 'P' &&  featured.title.trim().length == 0 && linkInfo == null && featured.shortSynopsis">{{getShortTitle(featured.shortSynopsis)}}</span>
+        </a>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+</div>

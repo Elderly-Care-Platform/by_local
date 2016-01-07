@@ -121,6 +121,7 @@ require.config({
 		orderHistoryCtrl : '../components/product/orderHistory/order-history.controller',
 		headerCtrl : '../components/header/headerCtrl',
 		discussCtrl : '../components/discuss/discussController',
+		discussLeftCtrl : '../components/discuss/discussLeftController',
 		housingMenuCtrl : '../components/housing/housingMenuCtrl',
 
 		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl',

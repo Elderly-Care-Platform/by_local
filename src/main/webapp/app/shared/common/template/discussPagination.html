@@ -1,11 +1,11 @@
 <div class="col-md-12">
     <div class="by_viewMoreButton" align="center">
-        <a ng-href="{{getPageLocation(selectedPageNo+1)}}">View More</a>
+        <a ng-href="{{getPageLocation(selectedPageNo+1)}}">More <img src="assets/img/home/arrow_white.png?versionTimeStamp=%PROJECT_VERSION%" width="16" height="16" alt="Arrow" class="marginTopM1" /></a>
     </div>
     <ul class="pagination discussPagination" ng-init="initPageArray()" ng-class="{'discussPagination2': maxPageSize > pageArray.length}">
         <!--<li ng-click="firstPageSet()"><a>First</a></li>-->
         <li ng-class="{disabled:prevDisabled}">
-            <a ng-href="{{getPageLocation(selectedPageNo-1)}}">&lt;</a>
+            <a ng-href="{{getPageLocation(selectedPageNo-1)}}"><img src="assets/img/home/arrow_back.png?versionTimeStamp=%PROJECT_VERSION%" width="16" height="16" alt="Arrow" class="marginTopM1" /></a>
         </li>
         <li ng-repeat="page in pageArray track by $index"
             ng-class="{true:'active'}[page===selectedPageNo]"
@@ -14,7 +14,7 @@
         </li>
         <li>... of &nbsp;{{totalNoPages}} &nbsp;</li>
         <li ng-class="{disabled:nextDisabled}">
-            <a ng-href="{{getPageLocation(selectedPageNo+1)}}">&gt;</a>
+            <a ng-href="{{getPageLocation(selectedPageNo+1)}}"><img src="assets/img/home/arrow.png?versionTimeStamp=%PROJECT_VERSION%" width="16" height="16" alt="Arrow" class="marginTopM1" /></a>
         </li>
         <!--<li ng-click="lastPageSet()" ng-class="{disable:lastDisabled}"><a>Last</a></li>-->
         <div class="clearfix"></div>

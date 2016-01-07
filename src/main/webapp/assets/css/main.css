@@ -376,8 +376,8 @@ body a:hover
 {
     color: #fff;
     background: #004f24;
-    margin:-5px auto 10px auto;
-    width: 200px;
+    margin:10px auto 10px auto;
+    width: 280px;
     text-align: center;
     padding-top: 4px;
     padding-bottom: 7px;
@@ -398,11 +398,19 @@ body a:hover
     margin:0 auto 10px auto;
     width: auto;
     min-width: 100px;
-    max-width: 235px;
+    max-width: 251px;
     text-align: center;
     display: block !important;
 }
 .discussPagination2
 {
-    max-width: 172px;
+    max-width: 188px;
+}
+.marginTopM1
+{
+    margin-top: -2px;
+}
+.directoyDetailsArrow
+{
+    font-size: 18px;   margin-top:3px; float:right;  margin-left: 5px;
 }

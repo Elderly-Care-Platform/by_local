@@ -15,29 +15,23 @@
             <div class="row padding-20">
             	<div class="col-md-12">
             		<form name="shareForm" novalidate>
-            			<div class="form-group">
-							<span ng-show="shareForm.emails.$invalid && focus" class="errorRed">Please enter atleast one emailId!</span>
-	            		</div>
-	            		<div class="form-group">
-							<span ng-show="shareForm.guestName.$invalid" class="errorRed">Please enter your name!</span>
-	            		</div>
+            			
 	            		<div class="form-group">
 	            			<span ng-show="emailError" class="errorRed">{{emailError}}</span>
-	            		</div>
-	            		<div class="form-group">
-	        				<input type="text" class="form-control mail-input" name = "emails" placeholder="name1@example.com, name2@example.com" ng-model = "shares.email" ng-focus="focus=false" ng-blur="focus=true" ng-change="validateEmails()" required/>
+	        				<input type="text" class="form-control mail-input" name = "emails" placeholder="name1@example.com, name2@example.com" ng-model = "shares.email" required/>
 	    				</div>
 	    				<div ng-if="checkSession == ''">
 	    					<div class="form-group">
+	    						<span ng-show="shareForm.guestName.$invalid && submitted" class="errorRed">Please enter your name!</span>
 	        					<input type="text" class="form-control mail-input" name = "guestName" placeholder="Your Name" ng-model = "shares.guestName" required/>
 	    					</div>
 	    				</div>
-	    				<div class="row">
-	    					<div class="col-md-2 profile-img-space">
+	    				<div class="col-md-12 no-padding margin-bottom-20">
+	    					<div class="profile-img-space">
 								<img ng-src="http://beautifulyears.com/{{detailResponse.discuss.userProfile.basicProfileInfo.profileImage.original||''}}"
 	                  fallback-src='["http://beautifulyears.com/assets/img/by.png"]' title="{{detailResponse.discuss.title}}">
 	    					</div>
-	    					<div class="col-md-10">
+	    					<div class="profile-img-space-content">
 	    						<div class="content-form-group">
 	    							<div class="form-group">
 	        							<textarea class="form-control mail-input" placeholder="Type your message here:" ng-model = "shares.message" ></textarea>	
@@ -54,11 +48,11 @@
 	    								</div>
 	    							</div>
 	    							<div class="" ng-if="detailResponse.discuss.linkInfo != null && detailResponse.discuss.discussType == 'P'">
-	    								<div class="row">
-	    									<div class="col-md-3">
+	    								<div class="col-md-12">
+	    									<div class="profile-img-space">
 	    										<img ng-src="{{detailResponse.discuss.linkInfo.mainImage||''}}" title="{{detailResponse.discuss.title}}">
 	    									</div>
-	    									<div class="col-md-9">
+	    									<div class="profile-img-space-content">
 	    										<div class="shareDetails">
 	        										<h3>{{detailResponse.discuss.linkInfo.title}}</h3>
 	        										<p>{{detailResponse.discuss.linkInfo.description}}</p>
@@ -69,8 +63,9 @@
 	    						</div>
 	    					</div>
 	    				</div> 
+	    				<div class="clearfix"></div>
 						<div class="form-group button-group">
-							<input type="button" value="Send" class="nextButton by_btn_submit" ng-disabled="shareForm.$invalid || shareForm.$pending" ng-click="emailShare(shareForm, detailResponse.discuss)"/>
+							<input type="button" value="Send" class="nextButton by_btn_submit"  ng-click="emailShare(shareForm, detailResponse.discuss)"/>
 							<input type="button" value="Cancel" class="returnButton" data-dismiss="modal" ng-click="resetErrorOnModalDismiss()">
 							<div class="clearfix"></div>
 						</div>

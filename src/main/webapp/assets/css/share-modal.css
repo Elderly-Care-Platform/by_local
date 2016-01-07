@@ -1,12 +1,10 @@
 .modal-open{
 	outline: none;
 }
-.modal.in .modal-dialog{
-	transform: translate(0px, 25%);
-}
 .share-modal-screen{
-	width:40%;
+	width:70%;
 	border:6px solid rgba(34, 34, 34, 0.4);
+	max-width: 650px;
 }
 .share-modal-screen button.close{
 	font-size:30px;
@@ -65,8 +63,9 @@
 .icon-bg{
 	border-radius:50% !important;	
 	width:40px;
-	height:40px;
-	margin-left:30%;
+	height:40px;	
+    margin-left: auto;
+    margin-right: auto;
 }
 .icon-bg i{
 	position:absolute;
@@ -88,8 +87,6 @@
 }
 
 .modal-header{
-	background: #D7D7D7;
-	padding:6px !important;
 }
 .modal-header p{
 	display: inline;
@@ -137,6 +134,7 @@
 .content-form-group{
 	border: 1px solid #B9B9B9;
 	height:170px;
+	overflow-y: auto;
 }
 .content-form-group img{
 	width:85px;
@@ -144,11 +142,24 @@
 	margin:2px 10px;
 	border:2px solid #ccc;
 }
+.profile-img-space
+{
+	float: left;
+	width: 70px;
+	height: 70px;
+	margin-right: 10px;
+}
 .profile-img-space img{
 	width:70px;
 	height:70px;
 	border-radius: 50% !important;
 	border:2px solid #ccc;
+}
+.profile-img-space-content
+{
+	float: left;
+	width: calc(100% - 80px);
+	overflow-y:auto;
 }
 .shareDetails{
 	padding:14px;
@@ -167,13 +178,14 @@
 	font-size:13px;
 	margin-top:-8px;
 }
+#shareEmailModal.fade.in
+{
+	overflow-y: auto;
+}
 @media screen and (max-width: 992px) {
 	.border-side{
 		border-bottom:1px solid #A8A6A6;
 		border-right:none;
-	}
-	.icon-bg{
-		margin-left:40%;
 	}
 }
 @media screen and (max-width: 768px) {
@@ -182,10 +194,8 @@
 		border-right:none;
 	}
 	.modal.in .modal-dialog{
-		transform: translate(10%, 25%);
-		width:80%;
-	}
-	.icon-bg{
-		margin-left:44%;
+		width:80%;		
+		margin-left: auto;
+		margin-right: auto;
 	}
 }

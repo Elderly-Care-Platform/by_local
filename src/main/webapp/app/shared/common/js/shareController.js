@@ -4,6 +4,7 @@ define(["byApp"], function(byApp) {
     function ShareController($scope, $http, $rootScope, $location, $sce, $filter, ValidateUserCredential, ShareDiscuss) {
 
         $scope.pathName = location.pathname;
+        $scope.submitted = false;
         
         $scope.shares = {};
         $scope.emailError = "";
@@ -28,16 +29,17 @@ define(["byApp"], function(byApp) {
             		var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                     if(!emailValidation.test(emailIds[i])){
                     	$scope.emailError = emailIds[i] + ' does not appear to be a proper email!';
-                    	$(".by_btn_submit").prop("disabled", true);
+                    	//$(".by_btn_submit").prop("disabled", true);
                     }else{
                         $scope.emailError = "";
                         $(".by_btn_submit").prop("disabled", false);
                     }       
             	}
-        	}else{
-        		emailIds = null;
-        		$scope.emailError = "";
-        	}
+        	}else if(emailIds == null){
+        		$scope.emailError = "Please enter atleast one emailId!";
+        	} else{
+                $scope.emailError = '';
+            }
         	
         }
         	
@@ -52,7 +54,8 @@ define(["byApp"], function(byApp) {
         
         
         $scope.emailShare = function emailShare(isValidForm, data) {
-            
+            $scope.validateEmails();
+            $scope.submitted = true;
             var emailList = $scope.shares.email;
             var emailIds = [];
             

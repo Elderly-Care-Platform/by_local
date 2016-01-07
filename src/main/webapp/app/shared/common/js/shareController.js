@@ -4,6 +4,7 @@ define(["byApp"], function(byApp) {
     function ShareController($scope, $http, $rootScope, $location, $sce, $filter, ValidateUserCredential, ShareDiscuss) {
 
         $scope.pathName = location.pathname;
+        
         $scope.submitted = false;
         
         $scope.shares = {};
@@ -15,7 +16,6 @@ define(["byApp"], function(byApp) {
         
         $scope.resetError = function () {
             $scope.emailError = "";
-            $scope.shareForm.emails.$invalid = "";
             $(".by_btn_submit").prop("disabled", false);
         }
         
@@ -24,10 +24,10 @@ define(["byApp"], function(byApp) {
         $scope.validateEmails = function() {
         	var emailIds;
         	if($scope.shares.email != undefined){
-        		emailIds = $scope.shares.email.split(',');
+        		emailIds = $scope.shares.email.split(/[\s,;|]+/);
             	for (var i = 0; i < emailIds.length; i++) {
             		var emailValidation = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    if(!emailValidation.test(emailIds[i])){
+                    if(emailIds[i].trim() != "" && !emailValidation.test(emailIds[i].trim())){
                     	$scope.emailError = emailIds[i] + ' does not appear to be a proper email!';
                     	//$(".by_btn_submit").prop("disabled", true);
                     }else{
@@ -45,6 +45,11 @@ define(["byApp"], function(byApp) {
         	
         $scope.resetErrorOnModalDismiss = function resetErrorOnModalDismiss() {
         	$scope.resetError();
+            $scope.shares.email = '';
+            $scope.shares.guestName = '';
+            $scope.shares.message = '';
+            $scope.submitted = false;
+
         }
         
         $scope.dismissModal = function dismissModal() {
@@ -56,10 +61,13 @@ define(["byApp"], function(byApp) {
         $scope.emailShare = function emailShare(isValidForm, data) {
             $scope.validateEmails();
             $scope.submitted = true;
+            if($scope.emailError != ""){
+              return;
+        	}
             var emailList = $scope.shares.email;
             var emailIds = [];
             
-            emailIds = emailList.split(",");               
+            emailIds = emailList.split(/[\s,;|]+/);              
 
             var discussId = data.id;
             
@@ -84,9 +92,10 @@ define(["byApp"], function(byApp) {
         		
         	if( $scope.emailError == ""){
 
-        		$http.post($scope.pathName + 'api/v1/share/email/' + discussId, emailParams   
+        		$http.post('api/v1/share/email/' + discussId, emailParams   
         		).success(function (response, status, headers, config) {
         			$("#shareEmailModal").modal("hide");
+                    $scope.resetErrorOnModalDismiss();
         			if (response) {
                         updateShareCnt();
                     } else {
@@ -104,6 +113,8 @@ define(["byApp"], function(byApp) {
         	}
 
         }
+
+       
                 
     	$scope.shareComment = function(sharedObj, $event){
             var caption = "", picture = Math.random() + ".jpg", description = "";

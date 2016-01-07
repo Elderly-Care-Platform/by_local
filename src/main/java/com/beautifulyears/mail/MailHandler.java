@@ -16,7 +16,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 
-import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
@@ -93,7 +92,7 @@ public class MailHandler {
 	public static void sendMultipleMail(List<String> to, String subject, String body) {
 		if(!Util.isEmpty(System.getProperty("mailSupported"))){
 			for(String email: to){
-				if(!(email.equals(null))){
+				if(!Util.isEmpty(email)){
 					new Thread(new MailDispatcher(email, subject, body)).start();
 				}
 			}

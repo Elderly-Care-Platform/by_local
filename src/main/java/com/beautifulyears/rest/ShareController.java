@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.EmailInfo;
 import com.beautifulyears.domain.User;
@@ -25,6 +27,8 @@ import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.util.ShareEmailHelper;
 import com.beautifulyears.util.Util;
+import com.beautifulyears.util.activityLogHandler.ActivityLogHandler;
+import com.beautifulyears.util.activityLogHandler.SharedActivityLogHandler;
 
 @Controller
 @RequestMapping("/share")
@@ -33,10 +37,13 @@ public class ShareController {
 	private static final Logger logger = Logger
 			.getLogger(ShareController.class);
 	private DiscussRepository discussRepository;
+	ActivityLogHandler<Object> shareLogHandler;
 
 	@Autowired
-	public ShareController(DiscussRepository discussRepository) {
+	public ShareController(DiscussRepository discussRepository,
+			MongoTemplate mongoTemplate) {
 		this.discussRepository = discussRepository;
+		shareLogHandler = new SharedActivityLogHandler(mongoTemplate);
 
 	}
 
@@ -92,6 +99,9 @@ public class ShareController {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 			Util.handleException(e);
 		}
+		
+		shareLogHandler.addLog(discuss,
+				ActivityLogConstants.CRUD_TYPE_CREATE, request);
 
 		return discuss;
 	}

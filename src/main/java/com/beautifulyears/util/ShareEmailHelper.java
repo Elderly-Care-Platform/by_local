@@ -240,7 +240,7 @@ public class ShareEmailHelper {
 		email.append("<a href='");
 		email.append(discussLink);
 		email.append("' target='_blank' style='text-align:center; display:block; text-decoration:none; outline:none;'>");
-		email.append("<h3 style='background: #004f24 none repeat scroll 20px 20px; width: 155px; height: 35px; line-height: 35px; border-radius: 3px; color: rgb(255, 255, 255); font-size: 15px; margin: 20px 35%;'>Read Full Article");
+		email.append("<h3 style='background: #004f24 none repeat scroll 20px 20px; width: 155px; height: 35px; line-height: 35px; border-radius: 3px; color: rgb(255, 255, 255); font-size: 15px; margin: 20px 35%;'>Read More");
 		email.append("</h3>");
 		email.append("</a>");
 

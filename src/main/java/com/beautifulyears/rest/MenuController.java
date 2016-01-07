@@ -38,7 +38,9 @@ public class MenuController {
 	@RequestMapping(method = { RequestMethod.GET }, produces = { "application/json" }, value = { "getAllMenu" })
 	@ResponseBody
 	public Object getAllMenu() {
-		List<Menu> menus = this.mongoTemplate.findAll(Menu.class);
+		Query q = new Query();
+		q.addCriteria(Criteria.where("isHidden").is(false));
+		List<Menu> menus = this.mongoTemplate.find(q,Menu.class);
 		return menus;
 	}
 

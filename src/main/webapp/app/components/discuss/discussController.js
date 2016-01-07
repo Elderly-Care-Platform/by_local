@@ -341,6 +341,14 @@ define(['byApp',
                     $(".masonry").masonry("reload");
                 }, 100);
             }
+
+            
+            $scope.smartScroll = function(){
+                setTimeout(function(){
+                    $scope.smartHeight = $(".by_subMenu").height() + 80 + 57;
+                    BY.byUtil.smartScroll($scope.smartHeight);
+                }, 100);
+            }
         }
 
 

@@ -14,7 +14,7 @@ BY.config.constants = {
   //  "productHost" : "api/v1/products/beautifulyears/api/v1",
   //  "selfHost" : "http://localhost:8080/ROOT/api/v1/products/images",
    // "productImageHost" : "http://localhost",
-
+ 
     "byContactNumber" : "080-6940-0333"
 }
 

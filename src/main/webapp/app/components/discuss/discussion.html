@@ -7,14 +7,15 @@
     </div>
 </div>
 <!--=== Content Part ===-->
-<div class="container" ng-if="menuLevel1 && menuLevel2">
+
+<div  ng-if="menuLevel1 && menuLevel2">
     <div id="discussListContainer"></div>
-    <div class="row" ng-controller="DiscussAllController">
-        <div class="col-md-12 discussion-page md-margin-bottom-40 article-outer-wrapper">
-
-            <div class="clearfix"></div>
-
-            <!--Show section header-->
+    <div ng-controller="DiscussAllController">
+    <div class="leftPanel" ng-if="$root.windowWidth > 720" >
+        <div ng-include="'app/components/discuss/discussLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+    </div>
+    <div  class="contentPanel">
+         <!--Show section header-->
             <div class="by_commSectionHeader" ng-if="menuConfig.community[selectedMenu.id]">
                 {{menuConfig.community[selectedMenu.id].desc}}
             </div>
@@ -46,10 +47,11 @@
 
             <div class="clearfix" style="height:15px;"></div>
 
-            <!--Show discuss post/ask editor start-->
+            <!--Show discuss content-->
             <div ng-include="'app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
-            <!--Show discuss post/ask editor end-->
-
+            <!--Show discuss content end-->
+             <div   ng-if="$root.windowWidth < 721"  ng-include="'app/components/discuss/discussLeftPanelMobile.html?versionTimeStamp=%PROJECT_VERSION%'">
+        </div>
         </div>
     </div>
 </div>

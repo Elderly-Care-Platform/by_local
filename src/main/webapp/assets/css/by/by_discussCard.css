@@ -122,3 +122,53 @@
 {
     margin-left: -41px !important;
 }
+
+.by_commFeaturedHead
+{
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0px;
+}
+.by_commFeaturedItem
+{
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    color: #08522A;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0px;
+}
+.by_commFeaturedItem a, .by_commFeaturedItem p, .by_commFeaturedItem strong, .by_commFeaturedItem span
+{
+    text-decoration: none;
+    color: #08522A;
+    font-weight: normal;
+    word-wrap: break-word;
+}
+.curatedProfile
+{
+    width: 50%;
+    height: auto;
+    float: left;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    line-height: 18px;
+}
+.curatedProfile img
+{
+    margin-bottom: 5px;
+}
+.curatedProfile a
+{
+    color: #000;
+}
+@media ( max-width : 720px){
+    .curatedProfile
+    {
+        width: 25%;
+    }
+}

@@ -174,7 +174,7 @@ require.config({
 });
 require(['angular', "byApp", "byUtil", "byDirectives", "lodash", "byApplicationConfig"], function(angular, byApp, byUtil, byDirectives, lodash, byApplicationConfig) {
 	var getProdCategoriesSuccess = function(prodCategories){
-		window.by_prodCategories = prodCategories;
+		window.by_prodCategories = JSON.parse(prodCategories);
 		angular.bootstrap(document, [ "byApp" ]);
 	};
 

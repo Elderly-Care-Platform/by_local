@@ -81,7 +81,7 @@ public class MailHandler {
 	}
 
 	public static void sendMail(String to, String subject, String body) {
-		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
+		if(!Util.isEmpty(System.getProperty("mailSupported"))){
 			new Thread(new MailDispatcher(to, subject, body)).start();
 		}else{
 			logger.debug("not sending mail as it is disabled in context config");
@@ -91,7 +91,7 @@ public class MailHandler {
 	}
 	
 	public static void sendMultipleMail(List<String> to, String subject, String body) {
-		if(!Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("mail"))){
+		if(!Util.isEmpty(System.getProperty("mailSupported"))){
 			for(String email: to){
 				if(!(email.equals(null))){
 					new Thread(new MailDispatcher(email, subject, body)).start();

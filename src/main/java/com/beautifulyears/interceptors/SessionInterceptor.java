@@ -30,11 +30,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		if (null == System.getProperty("path") && !Util.isEmpty(ByWebAppInitializer.servletContext.getInitParameter("host"))) {
-			String path = ByWebAppInitializer.servletContext.getInitParameter("host") + request.getContextPath();
-			System.setProperty("path", path);
-			System.out.println("setting path as = "+path);
-		}
 		String sessionId = request.getHeader("sess");
 		if ((!"null".equals(sessionId) && null != sessionId && !sessionId
 				.isEmpty())) {

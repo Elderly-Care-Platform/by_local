@@ -164,7 +164,8 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             function sucessCallBack(result) {
                 var params = {};
                 params.image = result.primaryMedia.url;
-                CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
+                orderItem.imageUrl = SERVERURL_IMAGE.hostUrl + result.primaryMedia.url;
+//                CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
                 function loadImageSuccess() {
                     //$log.debug('success in getting image');
                     orderItem.imageUrl = SERVERURL_IMAGE.hostUrl + result.primaryMedia.url;

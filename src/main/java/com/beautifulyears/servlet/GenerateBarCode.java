@@ -30,16 +30,10 @@ public class GenerateBarCode extends HttpServlet {
 			.getLogger(GenerateBarCode.class);
 
 	public void init() {
-		System.out.println("CONTEXT PATH ===== "
-				+ getServletContext().getContextPath());
-		System.out.println(getServletContext().getInitParameter(
-				"imageUploadPath"));
-		if (null != getServletContext().getInitParameter("imageUploadPath")) {
-			uploadDir = getServletContext().getInitParameter("imageUploadPath");
+		if (null != System.getProperty("imageUploadPath")) {
+			uploadDir = System.getProperty("imageUploadPath");
+			System.out.println("uploadDir === "+uploadDir);
 		}
-		// uploadDir = "/home/ubuntu/uploads";
-		// uploadDir = "c:/uploads";
-
 	}
 
 	@Override
@@ -56,22 +50,18 @@ public class GenerateBarCode extends HttpServlet {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			ImageIO.write(barImage, "PNG", out);
 			byte[] bytes = out.toByteArray();
-//			File f = new File("myFile");
-//			File newFile = new File(uploadDir + File.separator
-//					+ dataString + ".jpeg");
-//			OutputStream outputStream = new FileOutputStream(f);
-//			out.writeTo(outputStream);
-			
-			path =  "barcodes/"+ dataString +"_"+(new Date()).getTime() + "." + "jpeg";
+
+			path = "barcodes/" + dataString + "_" + (new Date()).getTime()
+					+ "." + "jpeg";
 			File f = new File(uploadDir + File.separator + path);
 			ImageIO.write(barImage, "jpeg", f);
-			
+
 		} catch (BarcodeException e) {
 			e.printStackTrace();
 		} catch (OutputException e) {
 			e.printStackTrace();
 		}
-		response.getWriter().write("/uploaded_files/"+path);
+		response.getWriter().write("/uploaded_files/" + path);
 	}
 
 }

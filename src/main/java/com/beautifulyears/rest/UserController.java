@@ -91,10 +91,11 @@ public class UserController {
 	public @ResponseBody Object validateSession(HttpServletRequest req,
 			HttpServletResponse res) {
 		Session currentSession = null;
-		if (null == Util.getSessionUser(req) || null == req.getSession().getAttribute("session")) {
+		if (null == Util.getSessionUser(req)
+				|| null == req.getSession().getAttribute("session")) {
 			throw new BYException(BYErrorCodes.INVALID_SESSION);
-		}else{
-			currentSession = (Session)req.getSession().getAttribute("session");
+		} else {
+			currentSession = (Session) req.getSession().getAttribute("session");
 		}
 		return BYGenericResponseHandler.getResponse(currentSession);
 	}
@@ -104,7 +105,6 @@ public class UserController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Session session = killSession(req, res);
-		;
 		try {
 			Query q = new Query();
 			User user = null;
@@ -113,15 +113,18 @@ public class UserController {
 					Criteria criteria = Criteria.where("email").is(
 							loginRequest.getEmail());
 
-					if (!Util.isEmpty(loginRequest.getPassword())) {
-						criteria = criteria.and("password").is(
-								loginRequest.getPassword());
-					}
+					// if (!Util.isEmpty(loginRequest.getPassword())) {
+					// criteria = criteria.and("password").is(
+					// loginRequest.getPassword());
+					// }
 					q.addCriteria(criteria);
 					user = mongoTemplate.findOne(q, User.class);
 					if (null == user
 							&& Util.isEmpty(loginRequest.getPassword())) {
 						user = createGuestUser(loginRequest, req, res);
+					} else if(!Util.isEmpty(loginRequest.getPassword())){
+						Util.isPasswordMatching(loginRequest.getPassword(),
+								user.getPassword());
 					}
 				} else {
 					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
@@ -129,10 +132,15 @@ public class UserController {
 			} else if (loginRequest.getUserIdType() == BYConstants.USER_ID_TYPE_PHONE) {
 				if (!Util.isEmpty(loginRequest.getPhoneNumber())
 						&& !Util.isEmpty(loginRequest.getPassword())) {
-					q.addCriteria(Criteria.where("phoneNumber")
-							.is(loginRequest.getPhoneNumber()).and("password")
-							.is(loginRequest.getPassword()));
+					q.addCriteria(Criteria.where("phoneNumber").is(
+							loginRequest.getPhoneNumber()));
+					// .and("password")
+					// .is(loginRequest.getPassword()));
 					user = mongoTemplate.findOne(q, User.class);
+					if (null != user) {
+						Util.isPasswordMatching(loginRequest.getPassword(),
+								user.getPassword());
+					}
 				} else {
 					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 				}
@@ -283,6 +291,7 @@ public class UserController {
 				if (!user.getPassword().equals(editedUser.getPassword())) {
 					inValidateAllSessions(user.getId());
 					isPasswordChanged = true;
+					user.setPassword(Util.getEncodedPwd(user.getPassword()));
 				}
 				editedUser.setUserRegType(BYConstants.USER_REG_TYPE_FULL);
 				editedUser.setPassword(user.getPassword());
@@ -552,7 +561,7 @@ public class UserController {
 						resourceUtil.getResource("welcomeMail"), "");
 			}
 			MailHandler.sendMail(user.getEmail(),
-					"Welcome to Beutifulyears.com", body);
+					"Welcome to Beautifulyears.com", body);
 			mailStatus = true;
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
@@ -563,7 +572,7 @@ public class UserController {
 	private User decorateWithInformation(User user) {
 		LoggerUtil.logEntry();
 		String userName = user.getUserName();
-		String password = user.getPassword();
+		String password = Util.getEncodedPwd(user.getPassword());
 		String email = user.getEmail();
 		Integer userIdType = user.getUserIdType();
 		Integer userRegType = user.getUserRegType();

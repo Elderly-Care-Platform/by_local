@@ -1,12 +1,14 @@
 package com.beautifulyears.rest;
 
-import java.text.MessageFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,150 +23,84 @@ import com.beautifulyears.domain.User;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussRepository;
-import com.beautifulyears.util.ResourceUtil;
+import com.beautifulyears.util.ShareEmailHelper;
 import com.beautifulyears.util.Util;
 
 @Controller
 @RequestMapping("/share")
 public class ShareController {
-	
+
 	private static final Logger logger = Logger
 			.getLogger(ShareController.class);
 	private DiscussRepository discussRepository;
-	
+
 	@Autowired
-	public ShareController(
-			DiscussRepository discussRepository) {
+	public ShareController(DiscussRepository discussRepository) {
 		this.discussRepository = discussRepository;
 
 	}
-	
+
 	/**
 	 * 
-	 * Mail format
-	 * EmailId : [name1@domain.com, name2@domain.com]
-	 * Subject : "some message here"
-	 * body : "text"
+	 * Mail format EmailId : [name1@domain.com, name2@domain.com] Subject :
+	 * "some message here" body : "text"
 	 * 
 	 */
-	
+
 	@RequestMapping(value = "/email/{discussId}", method = RequestMethod.POST)
 	@ResponseBody
 	public Object shareWithEmail(@RequestBody EmailInfo emailParams,
 			@PathVariable("discussId") String discussId,
 			HttpServletRequest request) throws Exception {
-		
-		EmailInfo emailInfo = new EmailInfo();	
-		ResourceUtil resourceUtil = new ResourceUtil(
-				"mailTemplate.properties");
+
+		EmailInfo emailInfo = new EmailInfo();
 		User currentUser = Util.getSessionUser(request);
-		String senderName = null;
-		String shareMessage = null;
-		String userName = "Anonymous";
-		String senderLink = "";
-		String authorLink = "";
-		String path = System.getProperty("path");
-		String title = null;
-		String storyImage = "";
-		String borderStart = "";
-		String borderEnd = "";
-		String hideMessageBubble = "";
-		String description = null;
-		String storyLink = null;
-		
 		Discuss discuss = discussRepository.findOne(discussId);
-		
-		try {	
-			
-			if(null == emailParams.getSubject()){
-				shareMessage = "";
-				hideMessageBubble = "none !important";
-			}else{
-				shareMessage = emailParams.getSubject();
-				hideMessageBubble = "inherit";
-			}
-				
-			if(null != discuss.getUsername()){
-				userName = discuss.getUsername();
-			}
-			
-			Date dateStart = discuss.getCreatedAt();
-			Date dateToday = new Date(); 
-			long diff = dateToday.getTime()-dateStart.getTime();
-			long dateDiff = diff / (24 * 60 * 60 * 1000)+1;
-			
-			String profileImage = path + "/assets/img/by.png";
-			
-			if(null != currentUser){
-				if(null != currentUser.getUserName()){
-					senderName = currentUser.getUserName();
-					senderLink = path + "/#!/users/" + currentUser.getUserName() + "?profileId=" + currentUser.getId();
-				}else{
-					senderName = "Anonymous";
-					senderLink = "";
+
+		String subject = discuss.getTitle();
+		if (Util.isEmpty(subject)) {
+			if (null != discuss.getLinkInfo()) {
+				subject = discuss.getLinkInfo().getTitle();
+			} else if (!Util.isEmpty(discuss.getShortSynopsis())) {
+				subject = discuss.getShortSynopsis().trim();
+				subject = Util.truncateText(subject, 30);
+			} else if (null == discuss.getShortSynopsis()) {
+				Document doc = Jsoup.parse(discuss.getText());
+				String text = doc.text();
+				if (text.length() > 30) {
+					subject = Util.truncateText(text, 30);
+				} else {
+					subject = text;
 				}
-			}else{
-				senderName = emailParams.getSenderName();
+				discuss.setShortSynopsis(Util.truncateText(text));
 			}
-			
-			if(null != discuss.getUserProfile()){
-				if(null != discuss.getUserProfile().getBasicProfileInfo().getProfileImage()){
-					if(null == discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original")){
-						profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("thumbnailImage");
-					}else{
-						profileImage = path + discuss.getUserProfile().getBasicProfileInfo().getProfileImage().get("original");
-					}
-				}
-			}
-			
-			if(null == discuss.getLinkInfo()){
-				title = discuss.getTitle();
-				if(null != discuss.getArticlePhotoFilename()){
-					storyImage = path + discuss.getArticlePhotoFilename();
-				}
-				description = discuss.getShortSynopsis();
-			}else{
-				title = discuss.getLinkInfo().getTitle();
-				storyImage = discuss.getLinkInfo().getMainImage();
-				description = discuss.getLinkInfo().getDescription();
-			}
-			
-			if(null == description){
-				description = "";
-			}
-			
-			if(storyImage != ""){
-				borderStart = "<img style='border: 0;display: block;max-width: 100%; height:auto; border:5px solid #F1F1F1' src='";
-				borderEnd = "' alt='' width='470'/>";
-			}
-			
-			String modifiedName = title.replaceAll("[^a-zA-Z0-9 ]", "");
-			modifiedName = modifiedName.replaceAll(" ", "-").toLowerCase();
-			
-			storyLink = path + "/#!/communities/" + modifiedName + "?id=" + discussId; 
-			authorLink = path + "/#!/users/" +  discuss.getUsername() + "?profileId=" + discuss.getUserId();	
-			
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("msg", emailParams.getSubject());
+		params.put("title", subject);
+		params.put("senderName", emailParams.getSenderName());
+		String body = ShareEmailHelper.getEmailContent(discuss, currentUser,
+				params);
+
+		try {
 			emailInfo.setEmailIds(emailParams.getEmailIds());
-			emailInfo.setSubject(title);
-			emailInfo.setBody(MessageFormat.format(
-					resourceUtil.getResource("shareInEmail"),
-					senderName, shareMessage, profileImage, userName, dateDiff, title, borderStart, storyImage, borderEnd, description, authorLink, senderLink, hideMessageBubble, storyLink));
-			
+			emailInfo.setSubject(subject);
+			emailInfo.setBody(body);
 			shareInMail(emailInfo);
-			
+
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 			Util.handleException(e);
 		}
-		
+
 		return discuss;
 	}
-	
+
 	public static void shareInMail(EmailInfo emailInfo) {
 		List<String> email = emailInfo.getEmailIds();
 		String subject = emailInfo.getSubject();
 		String body = emailInfo.getBody();
-		MailHandler.sendMultipleMail(email, subject, body);		
+		MailHandler.sendMultipleMail(email, subject, body);
 	}
-	
+
 }

@@ -155,7 +155,8 @@ define([], function () {
                 var image = product.primaryMedia.url;
                 var params = {};
                 params.image = image;
-                CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
+                product.primaryMedia.url = SERVERURL_IMAGE.hostUrl + image;
+                //CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
             } else {
                 product.primaryMedia = {};
                 product.primaryMedia.url = STATIC_IMAGE.imageNotAvailable;

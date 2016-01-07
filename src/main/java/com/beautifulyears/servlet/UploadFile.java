@@ -23,6 +23,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.imgscalr.Scalr;
 
+import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.constants.BYConstants;
 
 public class UploadFile extends HttpServlet {
@@ -38,16 +39,10 @@ public class UploadFile extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(UploadFile.class);
 
 	public void init() {
-		System.out.println("CONTEXT PATH ===== "
-				+ getServletContext().getContextPath());
-		System.out.println(getServletContext().getInitParameter(
-				"imageUploadPath"));
-		if (null != getServletContext().getInitParameter("imageUploadPath")) {
-			uploadDir = getServletContext().getInitParameter("imageUploadPath");
+		if (null != System.getProperty("imageUploadPath")) {
+			uploadDir = System.getProperty("imageUploadPath");
+			System.out.println("uploadDir === "+uploadDir);
 		}
-		// uploadDir = "/home/ubuntu/uploads";
-		// uploadDir = "c:/uploads";
-
 	}
 
 	protected void doPost(HttpServletRequest request,

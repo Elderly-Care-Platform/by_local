@@ -3,17 +3,17 @@ BY.config = BY.config || {};
 BY.config.constants = BY.config.constants || {};
 
 BY.config.constants = {
-    //"productHost" : "http://products.beautifulyears.com/beautifulyears/api/v1",
-    //"productImageHost" : "http://products.beautifulyears.com",
+    //"productHost" : "api/v1/products/beautifulyears/api/v1",
+    //"productImageHost" : "http://www.beautifulyears.com/api/v1/products/images",
     //"selfHost" : "http://beautifulyears.com",
 
-   "productHost" : "http://qa.beautifulyears.com:8083/beautifulyears/api/v1",
-    "productImageHost" : "http://qa.beautifulyears.com:8083",
+   "productHost" : "api/v1/products/beautifulyears/api/v1",
+    "productImageHost" : "http://dev.beautifulyears.com/api/v1/products/images",
    "selfHost" : "http://dev.beautifulyears.com",
 
-    //"productHost" : "http://localhost:8080/beautifulyears/api/v1",
-    //"selfHost" : "http://localhost",
-    //"productImageHost" : "http://localhost",
+  //  "productHost" : "api/v1/products/beautifulyears/api/v1",
+  //  "selfHost" : "http://localhost:8080/ROOT/api/v1/products/images",
+   // "productImageHost" : "http://localhost",
 
     "byContactNumber" : "080-6940-0333"
 }

@@ -120,8 +120,8 @@
                             </div>
                             <div class="divRight">
                                 Interested in
-                                <span ng-repeat="interest in individualProfile.individualInfo.interests"
-                                    ng-if="interest.trim()!==''"> {{interest.displayMenuName}}<span ng-if="$index<individualProfile.individualInfo.interests.length - 1">,</span>
+                                <span ng-repeat="interest in individualProfile.individualInfo.interests track by $index"
+                                    ng-if="interest && interest.trim()!==''"> {{interest.displayMenuName}}<span ng-if="$index<individualProfile.individualInfo.interests.length - 1">,</span>
                                 </span><span  style="margin-left: -4px;" ng-if="individualProfile.individualInfo.otherInterests"><span ng-if="individualProfile.individualInfo.interests.length > 0 && individualProfile.individualInfo.otherInterests.length > 0">,</span> {{individualProfile.individualInfo.otherInterests[0]}}</span>
                             </div>
                         </div>
@@ -134,8 +134,8 @@
                             </div>
                             <div class="divRight">
                                 Hobbies:
-                                <span ng-repeat="hobby in individualProfile.individualInfo.hobbies"
-                                        ng-if="hobby.trim()!==''"> {{hobby.displayMenuName}}<span  ng-if="$index<individualProfile.individualInfo.hobbies.length - 1">,</span>
+                                <span ng-repeat="hobby in individualProfile.individualInfo.hobbies track by $index"
+                                        ng-if="hobby && hobby.trim()!==''"> {{hobby.displayMenuName}}<span  ng-if="$index<individualProfile.individualInfo.hobbies.length - 1">,</span>
                                 </span><span style="margin-left: -4px;" ng-if="individualProfile.individualInfo.otherHobbies"><span ng-if="individualProfile.individualInfo.hobbies.length > 0 && individualProfile.individualInfo.otherHobbies.length > 0">,</span> {{individualProfile.individualInfo.otherHobbies[0]}}</span>
                             </div>
                         </div>

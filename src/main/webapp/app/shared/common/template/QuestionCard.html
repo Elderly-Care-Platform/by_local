@@ -62,8 +62,8 @@
 
     <div class="by_discuss_desc  col-md-12" ng-if="discuss.promotion == false" id="{{discuss.id}}">
         <p class="by_discuss_desciption" ng-if="discuss.shortSynopsis">
-            {{discuss.shortSynopsis}}<a ng-href="{{getHref(discuss, {'id':discuss.id})}}" ng-click="$event.stopPropagation();" class="divRight by_readmore">Read
-            More <b style="font-size: 10px;">&#9002;</b></a>
+            {{discuss.shortSynopsis}}<a ng-href="{{getHref(discuss, {'id':discuss.id})}}" ng-click="$event.stopPropagation();" class="divRight by_readmore">
+            More <i class="fa fa-angle-right by_moreArrow"></i></a>
         </p>
 
         <p class="by_discuss_desciption" ng-if="!discuss.shortSynopsis" ng-bind-html="trustForcefully(discuss.text)"></p>

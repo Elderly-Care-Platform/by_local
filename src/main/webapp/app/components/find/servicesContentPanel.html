@@ -17,7 +17,7 @@
 
 <div class="by_viewMoreButton" align="center"
 	 ng-if="showFeaturedTag && services && services.length > 0 && !pageInfo.lastPage || pageInfo.isQueryInProgress">
-	<a ng-if="!pageInfo.isQueryInProgress" ng-click="loadMore()">View More</a>
+	<a ng-if="!pageInfo.isQueryInProgress" ng-click="loadMore()">More <i class="fa fa-angle-right by_moreArrowView"></i></a>
 	<img ng-if="pageInfo.isQueryInProgress" src="assets/img/ajax_scroll_loading.gif">
 </div>
 

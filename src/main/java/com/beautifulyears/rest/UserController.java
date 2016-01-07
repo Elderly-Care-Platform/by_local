@@ -561,7 +561,7 @@ public class UserController {
 						resourceUtil.getResource("welcomeMail"), "");
 			}
 			MailHandler.sendMail(user.getEmail(),
-					"Welcome to Beutifulyears.com", body);
+					"Welcome to Beautifulyears.com", body);
 			mailStatus = true;
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);

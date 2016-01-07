@@ -86,7 +86,7 @@ define(["byApp"], function(byApp) {
         		
         	if( $scope.emailError == ""){
 
-        		$http.post($scope.pathName + 'api/v1/share/email/' + discussId, emailParams   
+        		$http.post('api/v1/share/email/' + discussId, emailParams   
         		).success(function (response, status, headers, config) {
         			$("#shareEmailModal").modal("hide");
         			if (response) {

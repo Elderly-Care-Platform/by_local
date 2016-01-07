@@ -414,3 +414,15 @@ body a:hover
 {
     font-size: 18px;   margin-top:3px; float:right;  margin-left: 5px;
 }
+.by_moreArrow
+{
+    font-size: 18px;   margin-top:5px; float:right;  margin-left: 3px;
+}
+.by_moreArrowView
+{
+    font-size: 17px;   margin-top:4px; margin-left: 3px;
+}
+.by_moreArrowPagination
+{
+    font-size: 19px; 
+}

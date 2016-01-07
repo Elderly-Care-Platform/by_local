@@ -11,7 +11,7 @@
 
 <div class="by_viewMoreButton" align="center"
 	 ng-if=" housing && housing.length > 0 && !pageInfo.lastPage || pageInfo.isQueryInProgress">
-	<a ng-if="!pageInfo.isQueryInProgress" ng-click="loadMore()">More <img src="assets/img/home/arrow_white.png?versionTimeStamp=%PROJECT_VERSION%" width="16" height="16" alt="Arrow" class="marginTopM1" /></a>
+	<a ng-if="!pageInfo.isQueryInProgress" ng-click="loadMore()">More <i class="fa fa-angle-right by_moreArrowView"></i></a>
 	<img ng-if="pageInfo.isQueryInProgress" src="assets/img/ajax_scroll_loading.gif">
 	<!--<img src="assets/img/ajax_scroll_loading.gif" style="margin-bottom: 20px">-->
 </div>

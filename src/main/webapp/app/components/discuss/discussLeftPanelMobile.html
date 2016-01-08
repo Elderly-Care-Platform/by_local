@@ -1,7 +1,7 @@
 <div  ng-controller="DiscussLeftController">
       <div ng-if="menuConfig.community[selectedMenu.id].curator">
             <div class="by_commFeaturedHead">
-                  Curated by:
+                  Curated by
             </div>
             <div class="clearfix margin-top-10"></div>
             <div class="curatedProfile" ng-class="{'curatedProfileOne': menuConfig.community[selectedMenu.id].curator.length < 2}" ng-repeat="curator in menuConfig.community[selectedMenu.id].curator">
@@ -14,7 +14,7 @@
             <div class="by_commFeaturedHead clearfix margin-top-40"></div>
       </div>
       <div class="by_commFeaturedHead" ng-if="discussFeatured.length > 0">
-            Featured:
+            Featured
       </div>
       <div ng-repeat="featured in discussFeatured" class="by_commFeaturedItem">
             <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();">

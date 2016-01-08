@@ -3,7 +3,7 @@
 	<div class="clearfix"></div>
     <div class="clearfix"></div>
 
-	<div class="by_editor_wrap_bg" style="border:0px;">
+	<div  style="border:0px;">
 		<div class="byEditorBg">
 			<div class="col-md-12 no-padding margin-bottom-20 byEditor">
 				<textarea id="question_textArea" class="textbox about-dependent"
@@ -12,7 +12,7 @@
 			<div class="clearfix"></div>
 		</div>
 
-		<div class="col-md-12  form-header-content margin-bottom-15">
+		<div class="col-md-12 no-padding form-header-content margin-bottom-15">
 			<!--<a ng-click="showCategoryList()" ng-if="selectedMenuCount == 0">
 				Please click to select the category in which your question will appear
 				<span ng-click="showCategoryList()" class="triangle-down by-arrow-float-none"></span>
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-12  margin-bottom-20" ng-if="showCategory">
+		<div class="col-md-12 no-padding margin-bottom-20" ng-if="showCategory">
 			<div class="panel-group acc-v1" id="accordion-1">
 				<div class="panel panel-default by_accordian" ng-repeat="category in categoryLists">
 					<div class="panel-heading">
@@ -78,7 +78,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-6  register-page" ng-if="!userSessionType">
+		<div class="col-md-6 no-padding register-page" ng-if="!userSessionType">
 			<input type="email" class="by_registerEmailId"
 				   placeholder="Enter your email Id" ng-model="userCredential.email" name="userEmail"/>
 				   <div class="clearfix"></div>

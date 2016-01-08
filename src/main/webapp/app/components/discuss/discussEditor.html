@@ -12,7 +12,7 @@
             <span style="visibility:hidden;">yo tip</span>
         </div>
         <div class="QuestionshowPanel"
-             ng-include="'app/components/discuss/discQuestionEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+             ng-include="'app/shared/editor/askEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     </div>
     <div class="col-md-6 col-xs-6 col-sm-6  by_editorButtonWrap_thumb Questionby_editorButtonWrap_thumb"
          style="border-right:1px solid transparent;">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="ArticleshowPanel"
-             ng-include="'app/components/discuss/discArticleEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+             ng-include="'app/shared/editor/shareEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -45,7 +45,7 @@
             <span ng-if="selectedMenu.ancestorIds.length > 0">{{selectedMenu.displayMenuName}}</span>
         </div>
         <div class="ArticleshowPanel"
-             ng-include="'app/components/discuss/discArticleEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+             ng-include="'app/shared/editor/shareEditor.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
     </div>
     <div class="clearfix"></div>
 </div>

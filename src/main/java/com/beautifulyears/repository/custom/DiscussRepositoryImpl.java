@@ -5,6 +5,9 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -24,13 +27,14 @@ public class DiscussRepositoryImpl implements DiscussRepositoryCustom {
 		List<Discuss> stories = null;
 
 		Query query = new Query();
-		query = getQuery(query, discussTypeArray, tagIds, userId, isFeatured,isPromotion);
+		query = getQuery(query, discussTypeArray, tagIds, userId, isFeatured,
+				isPromotion);
+		query.with(new Sort(new Order(Direction.DESC, "isPromotion")));
 		query.with(pageable);
 		query.addCriteria(Criteria.where("status").is(
 				DiscussConstants.DISCUSS_STATUS_ACTIVE));
 
 		stories = this.mongoTemplate.find(query, Discuss.class);
-
 		long total = this.mongoTemplate.count(query, Discuss.class);
 		PageImpl<Discuss> storyPage = new PageImpl<Discuss>(stories, pageable,
 				total);
@@ -39,7 +43,8 @@ public class DiscussRepositoryImpl implements DiscussRepositoryCustom {
 	}
 
 	private Query getQuery(Query q, List<String> discussTypeArray,
-			List<ObjectId> tagIds, String userId, Boolean isFeatured, Boolean isPromotion) {
+			List<ObjectId> tagIds, String userId, Boolean isFeatured,
+			Boolean isPromotion) {
 
 		if (discussTypeArray != null && discussTypeArray.size() > 0) {
 			q.addCriteria(Criteria.where((String) "discussType").in(
@@ -63,10 +68,11 @@ public class DiscussRepositoryImpl implements DiscussRepositoryCustom {
 
 	@Override
 	public long getCount(List<String> discussTypeArray, List<ObjectId> tagIds,
-			String userId, Boolean isFeatured,Boolean isPromotion) {
+			String userId, Boolean isFeatured, Boolean isPromotion) {
 		long count = 0;
 		Query query = new Query();
-		query = getQuery(query, discussTypeArray, tagIds, userId, isFeatured, isPromotion);
+		query = getQuery(query, discussTypeArray, tagIds, userId, isFeatured,
+				isPromotion);
 		query.addCriteria(Criteria.where("status").is(
 				DiscussConstants.DISCUSS_STATUS_ACTIVE));
 		count = this.mongoTemplate.count(query, Discuss.class);

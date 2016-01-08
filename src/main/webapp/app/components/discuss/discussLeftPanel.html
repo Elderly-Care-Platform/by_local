@@ -1,0 +1,33 @@
+<div ng-controller="DiscussLeftController">
+    <div class="by_subMenuPlus col-md-12" ng-init="smartScroll();">
+        <div ng-if="menuConfig.community[selectedMenu.id].curator">
+            <div class="by_commFeaturedHead">
+                Curated by
+            </div>
+            <div class="clearfix margin-top-10"></div>
+            <div class="curatedProfile" ng-class="{'curatedProfileOne': menuConfig.community[selectedMenu.id].curator.length < 2}" ng-repeat="curator in menuConfig.community[selectedMenu.id].curator">
+                <a href="{{curator.url}}">
+                <img src="{{curator.image}}" alt="{{curator.name}}" />
+                <b>{{curator.name}}</b>
+                <br/>
+                {{curator.desg}}
+                </a>
+            </div>
+            <div class="by_commFeaturedHead clearfix margin-top-40"></div>
+        </div>
+        <div class="by_commFeaturedHead" ng-if="discussFeatured.length > 0">
+            Featured
+        </div>
+        <div ng-repeat="featured in discussFeatured" class="by_commFeaturedItem">
+            <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();">
+            <span ng-if="featured.discussType == 'Q'">
+            {{getShortTitle(featured.text)}}
+            </span>
+            <span ng-if="featured.discussType == 'P' && featured.title && featured.title.trim().length > 0">{{getShortTitle(featured.title)}}</span>
+            <span ng-if="featured.discussType == 'P' &&  featured.title.trim().length == 0 && linkInfo.title && linkInfo.title.trim().length > 0">{{getShortTitle(linkInfo.title)}}</span>
+            <span ng-if="featured.discussType == 'P' &&  featured.title.trim().length == 0 && linkInfo == null && featured.shortSynopsis">{{getShortTitle(featured.shortSynopsis)}}</span>
+            </a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

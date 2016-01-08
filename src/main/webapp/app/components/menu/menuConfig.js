@@ -154,7 +154,15 @@ BY.config.menu.community = {
         'name':'Alzheimer’s & Mental Disorders' , 
         'menuIconImageDesktop':'assets/img/community/desktop/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/alzheimers-mental-decay.png?versionTimeStamp=%PROJECT_VERSION%',
-        'desc':'Caring for elders with memory loss, Alzheimer’s, depression, loneliness, insecurity, and other mental conditions.'
+        'desc':'Caring for elders with memory loss, Alzheimer’s, depression, loneliness, insecurity, and other mental conditions.',
+        'curator':[
+        {
+            'url':'#!/users/lohith?profileId=5653f14ee4b082a5437d1d1b',
+            'name':'Dr. Lohith',
+            'desg':'Physician',
+            'image':'assets/img/home/Lohith.png?versionTimeStamp=%PROJECT_VERSION%'
+        }
+        ]
     },
     '55bcaef5e4b08970a736784f' : {     
         'name':'Parkinson’s',  
@@ -263,7 +271,15 @@ BY.config.menu.community = {
         'name':'Legal & Finance',
         'menuIconImageDesktop':'assets/img/community/desktop/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%',     
-        'desc':'How to write a proper will? What is a living will? What are senior citizens’ rights, and how to benefit from them. And more !'
+        'desc':'How to write a proper will? What is a living will? What are senior citizens’ rights, and how to benefit from them. And more !',
+        'curator':[
+        {
+            'url':'#!/users/rukmani-menon?profileId=5653ed92e4b082a5437d1d14',
+            'name':'Rukmani',
+            'desg':'Advocate',
+            'image':'assets/img/home/rukmani.png?versionTimeStamp=%PROJECT_VERSION%'
+        }
+        ]
     },
     '5640746b3e60f5b66f62df31' : {  
         'name':'Anti-aging Research', 

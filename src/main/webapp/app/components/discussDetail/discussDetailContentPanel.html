@@ -210,25 +210,31 @@
 <!-- mobile bottom -->
 <div ng-controller="discussDetailLeftController" ng-if="$root.windowWidth < 720">
     <div class=" by_discussDeatil_card" style="padding:0px 15px;">
-        <a validate-user-name="{{discuss.username}}"
-           ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img
-                ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-                ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"
-                fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;"></a>
+        <!--<a validate-user-name="{{discuss.username}}"-->
+           <!--ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img-->
+                <!--ng-if="discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"-->
+                <!--ng-src="{{discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}"-->
+                <!--fallback-src='["assets/img/by.png"]' alt="profileImage" style="margin-top: 20px;"></a>-->
 
-        <a validate-user-name="{{discuss.username}}"
-           ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img
-                ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"
-                ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;"></a>
+        <!--<a validate-user-name="{{discuss.username}}"-->
+           <!--ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}"><img-->
+                <!--ng-if="!discuss.userProfile.basicProfileInfo.profileImage.thumbnailImage"-->
+                <!--ng-src="assets/img/by.png" alt="profileImage" style="margin-top: 30px; margin-bottom:20px;"></a>-->
 
-        <div class="by_discDetail_userName" ng-if="discuss">
-            <a validate-user-name="{{discuss.username}}"
-               ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">
-                <b>{{username}}</b>
-            </a>
-        </div>
+        <!--<div class="by_discDetail_userName" ng-if="discuss">-->
+            <!--<a validate-user-name="{{discuss.username}}"-->
+               <!--ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">-->
+                <!--<b>{{username}}</b>-->
+            <!--</a>-->
+        <!--</div>-->
         <div ng-if="articlesByUser.length > 0 " class="by_discDetail_alsoWrap left-container-img-wrapper">
-            <div class="by_discDetail_alsoHead col-md-12"><b>{{header1}}<span>{{header2}}</span></b></div>
+            <div class="by_discDetail_alsoHead col-md-12">
+                <b>{{header1}}
+                <a validate-user-name="{{discuss.username}}"
+                   ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">
+                    <b>{{username}}</b>
+                </a>
+            </b></div>
             <div style="clear:both;"></div>
             <div class="by_discDetail_alsoContent" ng-repeat="article in articlesByUser"
                  ng-if="article.id!==discuss.id && !article.linkInfo">

@@ -138,8 +138,8 @@
     height: auto;
     font-size: 14px;
     color: #08522A;
-    border-bottom: 1px solid #e4e4e4;
-    padding: 5px 0px;
+    padding: 10px 0px;
+    line-height: 17px;
 }
 .by_commFeaturedItem a, .by_commFeaturedItem p, .by_commFeaturedItem strong, .by_commFeaturedItem span
 {
@@ -147,6 +147,10 @@
     color: #08522A;
     font-weight: normal;
     word-wrap: break-word;
+}
+.by_commFeaturedItem a:hover, .by_commFeaturedItem p:hover, .by_commFeaturedItem strong:hover, .by_commFeaturedItem span:hover
+{
+    color: #00af50;
 }
 .curatedProfile
 {
@@ -158,9 +162,26 @@
     margin-bottom: 15px;
     line-height: 18px;
 }
+.curatedProfileOne
+{
+    width: 100% !important;
+}
 .curatedProfile img
 {
     margin-bottom: 5px;
+    display: block;
+    max-width: 90px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    border-radius: 50% !important;
+    height: auto;
+    line-height: 90px;
+    border: 1px solid transparent;
+}
+.curatedProfile:hover img
+{
+    border: 1px solid #004f24;
 }
 .curatedProfile a
 {

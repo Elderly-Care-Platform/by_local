@@ -272,6 +272,7 @@
 	padding-bottom: 57px;
 	max-width: 250px;
 	box-shadow: 5px 0px 8px rgba(4, 4, 4, 0.15);
+	background: #eee;
 }
 .by_menuDetailed{
 	overflow-y:auto;

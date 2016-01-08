@@ -5,7 +5,7 @@ define(['byApp'],
 
         function DiscussLeftController($scope, $rootScope, $route, $routeParams, DiscussPage) {
 
-            var init = getFeaturedData();
+            $scope.getFeaturedData = getFeaturedData;
             $scope.getShortTitle = BY.byUtil.getShortTitle;
 
             var tags = [], queryParams = {sort: "lastModifiedAt", s: 5};
@@ -27,7 +27,7 @@ define(['byApp'],
                         console.log(error);
                     });
             }
-
+            getFeaturedData();
         }
 
         DiscussLeftController.$inject = ['$scope', '$rootScope', '$route', '$routeParams',

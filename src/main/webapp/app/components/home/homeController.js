@@ -103,6 +103,14 @@ define(['byApp', 'byUtil', 'homePromoController',
                 $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
                 $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
             });
+
+            $(".by_homeTextareaShow").click(function(){
+                var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea"});
+                $(".by_homeEditor").animate({width: '100%', height: '350px', marginBottom: '20px'}, "500");
+                $(".by_homeEditorShow").show();
+                $(".by_homeTextareaShow").hide();
+                $(".by_homeTalk").animate({width: '100%'}, "500");
+            });
         }
 
         BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location'];

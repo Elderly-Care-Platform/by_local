@@ -364,7 +364,9 @@ public class UserProfileController {
 											UserTypes.INDIVIDUAL_VOLUNTEER)))) {
 								profile.setIndividualInfo(userProfile
 										.getIndividualInfo());
-							} else if (profile.getUserTypes().contains(
+							} 
+
+							if (profile.getUserTypes().contains(
 									UserTypes.INSTITUTION_SERVICES)
 									|| profile.getUserTypes().contains(
 											UserTypes.INSTITUTION_BRANCH)) {

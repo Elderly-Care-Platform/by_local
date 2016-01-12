@@ -186,7 +186,7 @@ public class ProductsProxyController {
             }
             URI uri = new URI("http", null, server, port, path[1],
                     request.getQueryString(), null);
-
+            System.out.println(uri.toString());
             HttpHeaders headers = copyHeader(request, new HttpHeaders());
             HttpEntity<byte[]> entity = new HttpEntity<byte[]>(headers);
 

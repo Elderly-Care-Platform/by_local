@@ -481,7 +481,7 @@ public class UserController {
 				Date currentDate = new Date();
 				if (currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0) {
 					user1.setVerificationCodeExpiry(currentDate);
-					user1.setPassword(user.getPassword());
+					user1.setPassword(Util.getEncodedPwd(user.getPassword()));
 					logger.debug("password changed successfuully for user "
 							+ user1.getEmail() + " or " + user.getPhoneNumber());
 					// send mail on successful changing the password
@@ -496,6 +496,7 @@ public class UserController {
 			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 		}
 		inValidateAllSessions(user.getId());
+		user1.setPassword(user.getPassword());
 		return login(new LoginRequest(user1), req, res);
 	}
 
@@ -516,7 +517,7 @@ public class UserController {
 					throw new BYException(BYErrorCodes.USER_CODE_EXPIRED);
 				}
 			} else {
-				throw new BYException(BYErrorCodes.USER_CODE_DOES_NOT_EXIST);
+				throw new BYException(BYErrorCodes.USER_CODE_DOES_NOT_EXIST);	
 			}
 		} else {
 			throw new BYException(BYErrorCodes.MISSING_PARAMETER);

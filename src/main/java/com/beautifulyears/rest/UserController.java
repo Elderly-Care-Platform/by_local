@@ -481,7 +481,7 @@ public class UserController {
 				Date currentDate = new Date();
 				if (currentDate.compareTo(user1.getVerificationCodeExpiry()) <= 0) {
 					user1.setVerificationCodeExpiry(currentDate);
-					user1.setPassword(user.getPassword());
+					user1.setPassword(Util.getEncodedPwd(user.getPassword()));
 					logger.debug("password changed successfuully for user "
 							+ user1.getEmail() + " or " + user.getPhoneNumber());
 					// send mail on successful changing the password

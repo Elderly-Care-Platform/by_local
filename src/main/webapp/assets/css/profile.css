@@ -87,7 +87,8 @@
 	width: 29px !important;
     height: 29px !important;
     border-radius: 0% !important;
-    padding: 5px 2px 0px 1px;   
+    padding: 0px 2px 0px 1px;  
+    line-height: 29px; 
     font-size: 12px;
     margin-left: -6px;
     background-image: url('../img/profile/blank_star.png?versionTimeStamp=%PROJECT_VERSION%');
@@ -193,7 +194,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .by_rate_bg
 {
 	margin-top:5px;
-	margin-bottom:-12px;
 	background:#f2f2f2;
 }
 .by_rating_left

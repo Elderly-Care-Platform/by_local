@@ -4,39 +4,39 @@
 //home
 define(['byApp', 'byUtil', 'homePromoController',
         'userTypeConfig',
-        'byEditor', 'menuConfig', 'editorController'],
-    function (byApp, byUtil, homePromoController, userTypeConfig, byEditor, menuConfig, editorController) {
-        function BYHomeController($scope, $rootScope, $routeParams, $location) {
-            $scope.homeSectionConfig    = BY.config.menu.home;
-            $scope.homeimageConfig      = BY.config.menu.homeIcon;
-            $scope.moduleConfig         = BY.config.menu.moduleConfig;
-            $scope.menuMapConfig        = $rootScope.menuCategoryMap;
-            $scope.menuConfig           = BY.config.menu;
-            $scope.removeSpecialChars   = BY.byUtil.removeSpecialChars;
-            $scope.telNo                = BY.config.constants.byContactNumber;
-            $scope.selectedMenu         = $rootScope.menuCategoryMap['564071623e60f5b66f62df27'];
-            var cntAnimDuration         = 1000,
-                init                    = initialize();
+        'byEditor', 'menuConfig', 'editorController', 'userValidation'],
+    function (byApp, byUtil, homePromoController, userTypeConfig, byEditor, menuConfig, editorController, userValidation) {
+        function BYHomeController($scope, $rootScope, $routeParams, $location, UserValidationFilter) {
+            $scope.homeSectionConfig = BY.config.menu.home;
+            $scope.homeimageConfig = BY.config.menu.homeIcon;
+            $scope.moduleConfig = BY.config.menu.moduleConfig;
+            $scope.menuMapConfig = $rootScope.menuCategoryMap;
+            $scope.menuConfig = BY.config.menu;
+            $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
+            $scope.telNo = BY.config.constants.byContactNumber;
+            $scope.selectedMenu = $rootScope.menuCategoryMap['564071623e60f5b66f62df27'];
+            var cntAnimDuration = 1000,
+                init = initialize();
 
 
-            function updateMetaTags(){
+            function updateMetaTags() {
                 var metaTagParams = BY.config.seo.home;
                 BY.byUtil.updateMetaTags(metaTagParams);
             }
 
-            function initialize(){
-                if($rootScope.totalServiceCount){
+            function initialize() {
+                if ($rootScope.totalServiceCount) {
                     animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
                 }
 
-                if($rootScope.totalHousingCount){
+                if ($rootScope.totalHousingCount) {
                     animateCounter($rootScope.totalHousingCount, $(".HomeHousingCnt"));
                 }
 
-                if($rootScope.totalProductCount){
+                if ($rootScope.totalProductCount) {
                     animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
                 }
-
+                $scope.isLoggedinUser = UserValidationFilter.getUserSessionType();
                 updateMetaTags();
             }
 
@@ -60,21 +60,24 @@ define(['byApp', 'byUtil', 'homePromoController',
                 animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
             });
 
-            $scope.exitEditorDiscuss = function(type, event) {
+            $scope.exitEditorDiscuss = function (type, event) {
                 event.stopPropagation();
-                 $(".by_homeEditor").animate({width: 'auto', height: '171px', marginBottom: '20px'}, "500");
-                 $(".by_homeEditorShow").hide();
+                $(".by_homeEditor").animate({width: '50%', height: '171px', marginBottom: '20px'}, "500");
+                $(".by_homeEditorShow").hide();
                 $(".by_homeTextareaShow").show();
-                $(".by_homeTalk").animate({width: '50%'}, "500");
+                $(".by_homeTalk").animate({width: '49%'}, "500");
                 $(".by_homeEditorShow").slideUp("100", function () {
                     BY.byEditor.removeEditor();
                     //$route.reload();
                 });
 
+
+
+
             }
         }
 
-        BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location'];
+        BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'UserValidationFilter'];
         byApp.registerController('BYHomeController', BYHomeController);
 
         return BYHomeController;

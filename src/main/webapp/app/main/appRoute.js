@@ -53,6 +53,20 @@ define([], function () {
                 }
             })
 
+            .when('/announcements/:discussTitle/', {
+                templateUrl: 'app/components/announcements/announcementContainer.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'AnnouncementCtrl',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/announcements/announcementCtrl.js', 'editorController'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
             //**********Communities routes end*********************************************************************
 
 

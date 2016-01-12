@@ -10,9 +10,12 @@ define(['bySeoConfig'], function(bySeoConfig) {
         $rootScope.menuCategoryMapByName = {};
         $rootScope.discussCategoryMap = {};
         $rootScope.serviceCategoryMap = {};
+        $rootScope.hiddenMenu = {};
         $rootScope.windowWidth;
 
-        var createMenuCategoryMap = function(categories){
+        var initialize = init();
+
+        function createMenuCategoryMap(categories){
             angular.forEach(categories, function(category, index){
                 $rootScope.menuCategoryMap[category.id] = category;
                 $rootScope.menuCategoryMapByName[category.displayMenuName] = category;
@@ -54,9 +57,9 @@ define(['bySeoConfig'], function(bySeoConfig) {
             });       
 
         };
-        
 
-        var mergeProdCategories = function(prod_categories){
+
+        function mergeProdCategories(prod_categories){
             function editCategoryOptions(categories, ancestorIdArr){
                 angular.forEach(categories, function(category, index){
                     $rootScope.menuCategoryMap[category.id] = category;
@@ -85,12 +88,29 @@ define(['bySeoConfig'], function(bySeoConfig) {
             })
         };
 
-        createMenuCategoryMap($scope.mainMenu);
-        mergeProdCategories(window.by_prodCategories);
-        window.by_menu = null;
-        delete window.by_menu;
-        delete window.by_prodCategories;
+        function init(){
+            removeHiddenMenu($scope.mainMenu);
+            createMenuCategoryMap($scope.mainMenu);
+            mergeProdCategories(window.by_prodCategories);
+            window.by_menu = null;
+            delete window.by_menu;
+            delete window.by_prodCategories;
+        }
 
+
+
+        function removeHiddenMenu(menuList){
+            angular.forEach(menuList, function(menu, index){
+                if(menu.hidden){
+                    menuList.splice(index,1);
+                    $rootScope.hiddenMenu[menu.id] = menu;
+                }else{
+                    if(menu.children.length > 0){
+                        removeHiddenMenu(menu.children);
+                    }
+                }
+            })
+        }
 
         //callback from window resize directive
         $scope.windowResize = function(height, width){

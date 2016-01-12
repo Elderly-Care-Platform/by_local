@@ -6,6 +6,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 	function discussDetailLeftController($scope, $rootScope, $window, $routeParams, broadCastData, DiscussPage, $sce){
 		var discussId = $routeParams.id;
 		$scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
+		$scope.authorName = null;
 
 		$scope.$on('handleBroadcast', function() {
 			if(discussId === broadCastData.newData.id){
@@ -23,7 +24,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 							}
 						}
 						$scope.header1 = "Also by ";
-						$scope.header2 = BY.byUtil.validateUserName($scope.discuss.username);
+						$scope.authorName = BY.byUtil.validateUserName($scope.discuss.username);
 					},
 					function(error){
 						console.log(error);
@@ -93,7 +94,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 					function(response){
 						$scope.articlesByUser = response.data.content;
 						$scope.header1 = "Related Post";
-						$scope.header2 = "";
+						$scope.authorName = null;
 					},
 					function(error){
 						console.log(error);

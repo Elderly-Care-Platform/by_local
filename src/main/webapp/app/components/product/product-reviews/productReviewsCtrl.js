@@ -290,8 +290,7 @@ define(['byApp',
 
                 if ($scope.showEditorType === 'Article') {
                     var tinyEditor = BY.byEditor.addEditor({
-                        "editorTextArea": "article_textArea",
-                        "autoFocus": "false"
+                        "editorTextArea": "article_textArea"
                     });
 
                 }

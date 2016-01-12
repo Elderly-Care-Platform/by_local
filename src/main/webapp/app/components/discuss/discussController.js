@@ -1,7 +1,7 @@
 define(['byApp',
         'discussLikeController',
         'shareController',
-        'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid', 'discussService', 'userValidation'],
+        'byEditor', 'menuConfig', 'blogMasonary', 'jqueryMasonaryGrid', 'urlFactory', 'userValidation'],
     function (byApp,
               discussLikeController,
               shareController,
@@ -9,12 +9,12 @@ define(['byApp',
               menuConfig,
               blogMasonary,
               jqueryMasonaryGrid,
-              discussService, userValidation) {
+              urlFactory, userValidation) {
 
         'use strict';
 
         function DiscussAllController($scope, $rootScope, $location, $route, $routeParams, DiscussPage,
-                                      DiscussCount, $sce, $timeout, $window, DisServiceFilter, $q, UserValidationFilter) {
+                                      DiscussCount, $sce, $timeout, $window, urlFactoryFilter, $q, UserValidationFilter) {
 
 
             $rootScope.byTopMenuId = $rootScope.mainMenu[0].id;
@@ -187,13 +187,12 @@ define(['byApp',
                 $("." + type + "showPanel").slideDown("500");
 
                 if ($scope.showEditorType === 'Question') {
-                    var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea"});
+                    var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea", "autoFocus": "true"});
                 }
 
                 if ($scope.showEditorType === 'Article') {
                     var tinyEditor = BY.byEditor.addEditor({
-                        "editorTextArea": "article_textArea",
-                        "autoFocus": "false"
+                        "editorTextArea": "article_textArea"
                     });
 
                 }
@@ -226,63 +225,63 @@ define(['byApp',
 
             $scope.nextLocation = function ($event, discuss, urlQueryParams) {
                 $event.stopPropagation();
-                var url = DisServiceFilter.getDiscussDetailUrl(discuss, urlQueryParams, true);
+                var url = urlFactoryFilter.getDiscussDetailUrl(discuss, urlQueryParams, true);
                 $location.path(url);
             };
 
             $scope.getHref = function (discuss, urlQueryParams) {
-                var newHref = DisServiceFilter.getDiscussDetailUrl(discuss, urlQueryParams, false);
+                var newHref = urlFactoryFilter.getDiscussDetailUrl(discuss, urlQueryParams, false);
                 newHref = "#!" + newHref;
                 return newHref;
             };
 
 
             $scope.getHrefProfile = function (profile, urlQueryParams) {
-                var newHref = getProfileDetailUrl(profile, urlQueryParams, false);
+                var newHref = urlFactoryFilter.getIndvProfileUrl(profile, urlQueryParams, false);
                 newHref = "#!" + newHref;
                 return newHref;
             };
 
-            function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation) {
-                var proTitle = "others";
-                if (profile && profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0) {
-                    proTitle = profile.userProfile.basicProfileInfo.firstName;
-                    if (profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0) {
-                        proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
-                    }
-                } else if (profile && profile.username && profile.username.length > 0) {
-                    proTitle = BY.byUtil.validateUserName(profile.username);
-                } else {
-                    proTitle = "others";
-                }
-
-                proTitle = BY.byUtil.getSlug(proTitle);
-                var newHref = "/users/" + proTitle;
-
-
-                if (urlQueryParams && Object.keys(urlQueryParams).length > 0) {
-                    //Set query params through angular location search method
-                    if (isAngularLocation) {
-                        angular.forEach($location.search(), function (value, key) {
-                            $location.search(key, null);
-                        });
-                        angular.forEach(urlQueryParams, function (value, key) {
-                            $location.search(key, value);
-                        });
-                    } else { //Set query params manually
-                        newHref = newHref + "?"
-
-                        angular.forEach(urlQueryParams, function (value, key) {
-                            newHref = newHref + key + "=" + value + "&";
-                        });
-
-                        //remove the last  '&' symbol from the url, otherwise browser back does not work
-                        newHref = newHref.substr(0, newHref.length - 1);
-                    }
-                }
-
-                return newHref;
-            };
+            //function getProfileDetailUrl(profile, urlQueryParams, isAngularLocation) {
+            //    var proTitle = "others";
+            //    if (profile && profile.userProfile && profile.userProfile.basicProfileInfo.firstName && profile.userProfile.basicProfileInfo.firstName.length > 0) {
+            //        proTitle = profile.userProfile.basicProfileInfo.firstName;
+            //        if (profile.userProfile.individualInfo.lastName && profile.userProfile.individualInfo.lastName != null && profile.userProfile.individualInfo.lastName.length > 0) {
+            //            proTitle = proTitle + " " + profile.userProfile.individualInfo.lastName;
+            //        }
+            //    } else if (profile && profile.username && profile.username.length > 0) {
+            //        proTitle = BY.byUtil.validateUserName(profile.username);
+            //    } else {
+            //        proTitle = "others";
+            //    }
+            //
+            //    proTitle = BY.byUtil.getSlug(proTitle);
+            //    var newHref = "/users/" + proTitle;
+            //
+            //
+            //    if (urlQueryParams && Object.keys(urlQueryParams).length > 0) {
+            //        //Set query params through angular location search method
+            //        if (isAngularLocation) {
+            //            angular.forEach($location.search(), function (value, key) {
+            //                $location.search(key, null);
+            //            });
+            //            angular.forEach(urlQueryParams, function (value, key) {
+            //                $location.search(key, value);
+            //            });
+            //        } else { //Set query params manually
+            //            newHref = newHref + "?"
+            //
+            //            angular.forEach(urlQueryParams, function (value, key) {
+            //                newHref = newHref + key + "=" + value + "&";
+            //            });
+            //
+            //            //remove the last  '&' symbol from the url, otherwise browser back does not work
+            //            newHref = newHref.substr(0, newHref.length - 1);
+            //        }
+            //    }
+            //
+            //    return newHref;
+            //};
 
 
             //Discuss like code
@@ -353,7 +352,7 @@ define(['byApp',
 
 
         DiscussAllController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams',
-            'DiscussPage', 'DiscussCount', '$sce', '$timeout', '$window', 'DisServiceFilter', '$q', 'UserValidationFilter'];
+            'DiscussPage', 'DiscussCount', '$sce', '$timeout', '$window', 'UrlFactoryFilter', '$q', 'UserValidationFilter'];
 
         byApp.registerController('DiscussAllController', DiscussAllController);
         return DiscussAllController;

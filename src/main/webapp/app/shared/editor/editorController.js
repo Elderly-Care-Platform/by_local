@@ -24,19 +24,28 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
             if($scope.$parent.categoryLists){
                 $scope.categoryLists = $scope.$parent.categoryLists;
             }
-            $scope.selectedMenuId   = $routeParams.menuId;
-            $scope.postCategoryTag  = $routeParams.postCategoryTag ? JSON.parse($routeParams.postCategoryTag) : null;
-            $scope.selectedMenu     =   $rootScope.menuCategoryMap[$scope.selectedMenuId];
 
-            if(!$scope.selectedMenu && $scope.$parent.selectedMenu){
-                $scope.selectedMenu = $scope.$parent.selectedMenu;
+            if($scope.$parent.editorPostCategories && $scope.$parent.editorPostCategories.length > 0){
+                for(var i=0; i<$scope.$parent.editorPostCategories.length; i++){
+                    var editorPostCategory = $scope.$parent.editorPostCategories[i];
+                    $scope.selectedMenuList[editorPostCategory.id] = editorPostCategory;
+                }
+            } else {
+                $scope.selectedMenuId   = $routeParams.menuId;
+                $scope.postCategoryTag  = $routeParams.postCategoryTag ? JSON.parse($routeParams.postCategoryTag) : null;
+                $scope.selectedMenu     =   $rootScope.menuCategoryMap[$scope.selectedMenuId];
+
+                if(!$scope.selectedMenu && $scope.$parent.selectedMenu){
+                    $scope.selectedMenu = $scope.$parent.selectedMenu;
+                }
+
+                if($scope.selectedMenu){
+                    $scope.selectedMenuId = $scope.selectedMenu.id;
+                    $scope.selectedMenuList[$scope.selectedMenuId] = $scope.selectedMenu;
+                    $scope.selectedMenuCount++;
+                }
             }
 
-            if($scope.selectedMenu){
-                $scope.selectedMenuId = $scope.selectedMenu.id;
-                $scope.selectedMenuList[$scope.selectedMenuId] = $scope.selectedMenu;
-                $scope.selectedMenuCount++;
-            }
         }
 
         //Toggle category accordion
@@ -61,8 +70,15 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
             if (category.ancestorIds.length > 0) {
                 for (var i = 0; i < category.ancestorIds.length; i++) {
                     if (!$scope.selectedMenuList[category.ancestorIds[i]]) {
-                        $scope.selectedMenuList[category.ancestorIds[i]] = $rootScope.menuCategoryMap[category.ancestorIds[i]];
-                        $scope.selectedMenuCount++;
+                        var selectedParentMenu = $rootScope.menuCategoryMap[category.ancestorIds[i]];
+                        if(!selectedParentMenu){
+                            selectedParentMenu = $rootScope.hiddenMenu[category.ancestorIds[i]];
+                        }
+
+                        if(selectedParentMenu){
+                            $scope.selectedMenuList[selectedParentMenu.id] = selectedParentMenu;
+                            $scope.selectedMenuCount++;
+                        }
                     }
                 }
             }
@@ -306,6 +322,8 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
             $location.search('postCategoryTag', null);
             $route.reload();
         }
+
+
 
     }
     EditorController.$inject = ['$scope', '$rootScope','Discuss', 'ValidateUserCredential',

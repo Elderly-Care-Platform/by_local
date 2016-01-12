@@ -160,12 +160,12 @@
 }
 .by_discussDeatil_cardCommentWrap
 {
-	margin-top: 20px;
+	/*margin-top: 20px;*/
     color: #8c8c8c;
 }
 .by_discussDeatil_cardComment
 {
-	margin-top: -20px;
+	/*margin-top: -20px;*/
     border-top: 0px;
     border-radius: 0px !important;
     /*max-width: 720px;*/

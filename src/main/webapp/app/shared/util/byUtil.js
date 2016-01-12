@@ -147,13 +147,12 @@ BY.byUtil.removeSpecialChars = function (name) {
 
 BY.byUtil.getSlug = function (name) {
     if(name){
-        var slug;
-        var slugDiv = document.createElement('div');
+        var slug, slugDiv = document.createElement('div'), nextSpaceIndex;
         slugDiv.innerHTML = name;
         slug = slugDiv.textContent;
-        var slugIndex = slug.indexOf(" ", 100);
-        if (slugIndex > 1) {
-            slug = slug.substr(0, slugIndex);
+        nextSpaceIndex = slug.indexOf(" ", 100);
+        if (nextSpaceIndex > 1) {
+            slug = slug.substr(0, nextSpaceIndex);
         }
         slug = BY.byUtil.removeSpecialChars(slug);
         return slug;
@@ -210,5 +209,8 @@ BY.byUtil.getShortTitle = function (name) {
         return title;
     }
 }
+
+
+
 
 

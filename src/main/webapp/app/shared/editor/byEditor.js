@@ -26,7 +26,7 @@ BY.byEditor.addEditor = function(param, initCallback){
 
     var textAreas = $("textarea");
     var isCommentEditor = param.commentEditor ? param.commentEditor : false, toolbar, plugins;
-    var autoFocus = (param.autoFocus && param.autoFocus==="false") ? false : true;
+    var autoFocus = (param.autoFocus && param.autoFocus==="true") ? true : false;
     if(isCommentEditor){
         toolbar = "bold italic | emoticons";
         plugins = [

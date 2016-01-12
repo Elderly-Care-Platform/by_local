@@ -36,6 +36,7 @@ require.config({
 		//services
 		discussService : '../components/discuss/discussService',
 		userValidation : '../main/services/userValidation',
+		urlFactory : '../main/services/urlFactory',
 
 
 		//factory

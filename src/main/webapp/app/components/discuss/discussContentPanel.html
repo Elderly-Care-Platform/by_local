@@ -1,20 +1,13 @@
 <div class="blog_masonry_3col">
     <div class="grid-boxes by_discuss_listing">
-        
-
-             <div ng-include="'app/shared/common/template/discussGridCard.html?versionTimeStamp=%PROJECT_VERSION%'" ></div>
-
-
-            <div style="clear: both"></div>
-        </div>
-
+        <div ng-include="'app/shared/common/template/discussGridCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+        <div style="clear: both"></div>
     </div>
-    <div style="clear: both"></div>
-
-    <div style="clear: both"></div>
-    <div ng-if="discussPagination.noOfPages > 1">
-        <div class="text-left">
-            <discuss-pagination obj="discussPagination" callback="getDiscussData"></discuss-pagination>
-        </div>
+</div>
+<div class="clearfix"></div>
+<div ng-if="discussPagination.noOfPages > 1">
+    <div class="text-left">
+        <discuss-pagination obj="discussPagination" callback="getDiscussData"></discuss-pagination>
     </div>
+</div>
 </div>

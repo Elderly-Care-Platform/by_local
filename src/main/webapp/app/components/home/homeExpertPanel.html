@@ -288,9 +288,14 @@
 
     $(".by_homeTextareaShow").click(function(){
         var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea"});
-        $(".by_homeEditor").animate({width: '100%', height: '350px', marginBottom: '20px'}, "500");
+        $(".by_homeEditor").animate({width: '100%', height: '380px', marginBottom: '20px'}, "500");
         $(".by_homeEditorShow").show();
         $(".by_homeTextareaShow").hide();
         $(".by_homeTalk").animate({width: '100%'}, "500");
+        if($(window).width() < 721){
+            $(".by_homeEditor").animate({width: '100%', height: '440px', marginBottom: '20px'}, "500");
+        }
     });
+
+    
 </script>

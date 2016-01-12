@@ -59,6 +59,19 @@ define(['byApp', 'byUtil', 'homePromoController',
             $scope.$on('productCountAvailable', function (event, args) {
                 animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
             });
+
+            $scope.exitEditorDiscuss = function(type, event) {
+                event.stopPropagation();
+                 $(".by_homeEditor").animate({width: 'auto', height: '171px', marginBottom: '20px'}, "500");
+                 $(".by_homeEditorShow").hide();
+                $(".by_homeTextareaShow").show();
+                $(".by_homeTalk").animate({width: '50%'}, "500");
+                $(".by_homeEditorShow").slideUp("100", function () {
+                    BY.byEditor.removeEditor();
+                    //$route.reload();
+                });
+
+            }
         }
 
         BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location'];

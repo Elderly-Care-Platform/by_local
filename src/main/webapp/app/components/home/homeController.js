@@ -4,8 +4,8 @@
 //home
 define(['byApp', 'byUtil', 'homePromoController',
         'userTypeConfig',
-        'byEditor', 'menuConfig'],
-    function (byApp, byUtil, homePromoController, userTypeConfig, byEditor, menuConfig) {
+        'byEditor', 'menuConfig', 'editorController'],
+    function (byApp, byUtil, homePromoController, userTypeConfig, byEditor, menuConfig, editorController) {
         function BYHomeController($scope, $rootScope, $routeParams, $location) {
             $scope.homeSectionConfig    = BY.config.menu.home;
             $scope.homeimageConfig      = BY.config.menu.homeIcon;
@@ -14,7 +14,7 @@ define(['byApp', 'byUtil', 'homePromoController',
             $scope.menuConfig           = BY.config.menu;
             $scope.removeSpecialChars   = BY.byUtil.removeSpecialChars;
             $scope.telNo                = BY.config.constants.byContactNumber;
-
+            $scope.selectedMenu         = $rootScope.menuCategoryMap['564071623e60f5b66f62df27'];
             var cntAnimDuration         = 1000,
                 init                    = initialize();
 
@@ -58,58 +58,6 @@ define(['byApp', 'byUtil', 'homePromoController',
 
             $scope.$on('productCountAvailable', function (event, args) {
                 animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
-            });
-
-
-            $(".by_ourExpertTop .by_ourExpertThumb").click(function(){
-                var index = $(this).index();
-                $(".by_ourExpertDesc").hide();
-                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
-                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
-                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
-                $(this).find(".by_ourExpertThumbArrow").css('visibility','visible');
-                $(this).find(".by_ourExpertThumbImg").addClass('by_ourExpertThumbImgActive');
-                $(this).addClass('by_ourExpertThumbColor');
-                $(".by_ourExpertTop .by_ourExpertDesc").eq(index).show();
-            });
-
-             $(".by_ourExpertTop .by_ourExpertThumb").hover(function(){
-                var index = $(this).index();
-                $(".by_ourExpertDesc").hide();
-                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
-                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
-                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
-                $(this).find(".by_ourExpertThumbArrow").css('visibility','visible');
-                $(this).find(".by_ourExpertThumbImg").addClass('by_ourExpertThumbImgActive');
-                $(this).addClass('by_ourExpertThumbColor');
-                $(".by_ourExpertTop .by_ourExpertDesc").eq(index).show();
-            });
-
-            $(".by_ourExpertTop2 .by_ourExpertThumb").click(function(){
-                var index = $(this).index();
-                $(".by_ourExpertDesc").hide();
-                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
-                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
-                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
-                $(this).find(".by_ourExpertThumbArrow").css('visibility','visible');
-                $(this).find(".by_ourExpertThumbImg").addClass('by_ourExpertThumbImgActive');
-                $(this).addClass('by_ourExpertThumbColor');
-                $(".by_ourExpertTop2 .by_ourExpertDesc").eq(index).show();
-            });
-
-            $(".by_homeSectionInside").mouseleave(function(){
-                 $(".by_ourExpertDesc").hide();
-                $(".by_ourExpertThumbArrow").css('visibility', 'hidden');
-                $(".by_ourExpertThumbImg").removeClass('by_ourExpertThumbImgActive');
-                $(".by_ourExpertThumb").removeClass('by_ourExpertThumbColor');
-            });
-
-            $(".by_homeTextareaShow").click(function(){
-                var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea"});
-                $(".by_homeEditor").animate({width: '100%', height: '350px', marginBottom: '20px'}, "500");
-                $(".by_homeEditorShow").show();
-                $(".by_homeTextareaShow").hide();
-                $(".by_homeTalk").animate({width: '100%'}, "500");
             });
         }
 

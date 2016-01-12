@@ -59,7 +59,7 @@ define([], function () {
                 resolve: {
                     load: ['$q', function ($q) {
                         var defered = $q.defer();
-                        require(['app/components/announcements/announcementCtrl.js', 'editorController'], function () {
+                        require(['app/components/announcements/announcementCtrl.js', ''], function () {
                             defered.resolve();
                         });
                         return defered.promise;

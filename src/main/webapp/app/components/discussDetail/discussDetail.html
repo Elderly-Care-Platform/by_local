@@ -1,6 +1,6 @@
 <div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
-<div>
-	<div class="leftPanel" ng-include="discussDetailViews.leftPanel" ng-controller="discussDetailLeftController"></div>
+<div ng-controller="discussDetailLeftController">
+	<div class="leftPanel" ng-include="discussDetailViews.leftPanel"></div>
 	<div class="contentPanel" ng-include="discussDetailViews.contentPanel" ng-controller="DiscussReplyController"></div>
 	<div class="clearfix"></div>
 </div>

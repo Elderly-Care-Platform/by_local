@@ -62,7 +62,8 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
             DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
                     //broadcast data to left panel, to avoid another query from left panel of detail page
                     $scope.detailResponse = discussDetail.data;
-                    broadCastData.update(discussDetail.data.discuss);
+                    $rootScope.$broadcast('discussDetailReceived', discussDetail.data.discuss);
+                    //broadCastData.update(discussDetail.data.discuss);
                     $scope.detailResponse.discuss.createdAt = discussDetail.data.discuss.createdAt;
                     $("#preloader").hide();
 

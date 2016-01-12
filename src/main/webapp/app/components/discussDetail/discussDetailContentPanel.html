@@ -3,12 +3,13 @@
         <div class="col-md-12 margin-top-10" ng-if="detailResponse.discuss.promotion == false">
             <ul class="by_discussDeatil_cardList">
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
-                    <span class="by_questionLetter">Q</span>uestion by <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
-                          ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}">
+                    <span class="by_questionLetter">Q</span>uestion by <a
+                        validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
+                        ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}">
                     {{username}} </a>
                     &nbsp; |
                 </li>
-                 <li ng-if="detailResponse.discuss.discussType == 'P'">
+                <li ng-if="detailResponse.discuss.discussType == 'P'">
                     By <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
                           ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}">
                     {{username}} </a>
@@ -32,7 +33,8 @@
 
         <div style="clear: both; height:10px;" ng-if="detailResponse.discuss.promotion == true"></div>
 
-        <h1 class="by_discussDeatil_cardTitle col-md-12 margin-top-10" ng-if="detailResponse.discuss.discussType == 'P'">
+        <h1 class="by_discussDeatil_cardTitle col-md-12 margin-top-10"
+            ng-if="detailResponse.discuss.discussType == 'P'">
             {{detailResponse.discuss.title}}
         </h1>
 
@@ -72,21 +74,23 @@
 
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
                     <a ng-click="createNewComment(detailResponse.discuss.id)">
-                        <i class="rounded-x icon-answer" title="Answers" ng-if="detailResponse.discuss.directReplyCount == 0"></i>
-                        <i class="rounded-x icon-answer-active" title="Answers" ng-if="detailResponse.discuss.directReplyCount > 0"></i>
+                        <i class="rounded-x icon-answer" title="Answers"
+                           ng-if="detailResponse.discuss.directReplyCount == 0"></i>
+                        <i class="rounded-x icon-answer-active" title="Answers"
+                           ng-if="detailResponse.discuss.directReplyCount > 0"></i>
                         <span ng-if="detailResponse.discuss.directReplyCount > 0" class="by_answerSpan">{{detailResponse.discuss.directReplyCount}}</span>
                     </a>
                 </li>
 
                 <li ng-controller="DiscussLikeController">
                     <a ng-click="likeDiscuss(detailResponse.discuss)">
-                       <i class="rounded-x icon-heart-liked"
+                        <i class="rounded-x icon-heart-liked"
                            ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===false"
                            title="Likes"></i>
                         <i class="rounded-x icon-heart-active"
                            ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===true"
                            title="Likes"></i>
-                         <i class="rounded-x icon-heart"
+                        <i class="rounded-x icon-heart"
                            ng-if="beforePost && detailResponse.discuss.aggrLikeCount == 0"
                            title="Likes"></i>
                         <i class="rounded-x" ng-if="!beforePost"
@@ -101,7 +105,7 @@
 
                     <a data-toggle="modal" data-target="#shareModal">
                         <i class="rounded-x icon-share"></i>
-                        <span ng-if="detailResponse.discuss.shareCount > 0"  class="by_shareSpan">{{detailResponse.discuss.shareCount}}</span>
+                        <span ng-if="detailResponse.discuss.shareCount > 0" class="by_shareSpan">{{detailResponse.discuss.shareCount}}</span>
                     </a>
                 </li>
             </ul>
@@ -135,20 +139,21 @@
                         <span ng-show="errorMsg" class="errorRed">
                                 {{errorMsg}}
                         </span>
+
                         <div class="clearfix margin-bottom-20"></div>
                     </div>
                     <div class="col-md-6" ng-class="{'full-width': userSessionType}">
                         <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
-                        type="submit" disabled
-                        ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">
-                        SUBMIT
-                    </button>
+                                type="submit" disabled
+                                ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">
+                            SUBMIT
+                        </button>
 
-                    <button class="btn btn-sm btn-success comment-submit by_btn_cancel "
-                    ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
-                </button>
-                <div class="clearfix margin-bottom-20"></div>
-            </div>
+                        <button class="btn btn-sm btn-success comment-submit by_btn_cancel "
+                                ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
+                        </button>
+                        <div class="clearfix margin-bottom-20"></div>
+                    </div>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -158,8 +163,9 @@
 
 
         <!--discuss like user valisation start-->
-        <div ng-show="detailResponse.discuss.pendingUserCredential" class="col-md-12 margin-bottom-20 by_discussDeatil_cardComment" style="margin-top:0px;">
-         <div class="clearfix margin-top-20"></div>
+        <div ng-show="detailResponse.discuss.pendingUserCredential"
+             class="col-md-12 margin-bottom-20 by_discussDeatil_cardComment" style="margin-top:0px;">
+            <div class="clearfix margin-top-20"></div>
             <div class="col-md-12  register-page">
                 <input type="email" class="by_registerEmailId" ng-model="likeActionCredential.email"
                        placeholder="Enter your email Id"/>
@@ -170,13 +176,14 @@
                     <span class='redColor'>{{likeErrMsg}}</span>
                 </span>
                 <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
-                ng-click="setUserCredentialForLike()">
-                SUBMIT
-            </button>
-            <button class="btn btn-sm btn-success comment-submit by_btn_cancel" ng-click="cancelSetCredentialForLike()">
-                CANCEL
-            </button>
-        </div>
+                        ng-click="setUserCredentialForLike()">
+                    SUBMIT
+                </button>
+                <button class="btn btn-sm btn-success comment-submit by_btn_cancel"
+                        ng-click="cancelSetCredentialForLike()">
+                    CANCEL
+                </button>
+            </div>
             <div class="clearfix"></div>
         </div>
         <!--discuss like user valisation end-->
@@ -184,7 +191,7 @@
 
         <!--discuss detail replies start-->
         <!--<div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"-->
-             <!--ng-init="initCommentEditor(detailResponse.discuss.id)"></div>-->
+        <!--ng-init="initCommentEditor(detailResponse.discuss.id)"></div>-->
 
         <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:20px;">
             <div class="clearfix margin-top-20"></div>
@@ -209,7 +216,7 @@
 </div>
 
 <!-- mobile bottom -->
-<div ng-controller="discussDetailLeftController" ng-if="$root.windowWidth < 720">
+<div ng-if="$root.windowWidth < 720">
     <div class="by_discussDeatil_card" style="padding:0px 15px;">
         <div ng-if="articlesByUser.length > 0 " class="by_discDetail_alsoWrap left-container-img-wrapper">
             <div class="by_discDetail_alsoHead col-md-12">
@@ -237,18 +244,18 @@
                         {{article.linkInfo.title.substring(0, 70)}}
                     </div>
                 </a>
-                <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info">
-                    <li ng-if="article.topicId.length > 0">
+                <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" ng-init="getLeafCategories(article)">
+                    <li ng-if="article.leafCategories.length > 0">
                         In
                     </li>
 
-                    <li ng-repeat="topicId in article.topicId">
-                <span class="first-letter-uc by-systemTags">
-                    <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
-                        {{$root.menuCategoryMap[topicId].displayMenuName}}
-                    </a>
-                    <span ng-if="$index < article.topicId.length-1">,</span>
-                </span>
+                    <li ng-repeat="topicId in article.leafCategories">
+                        <span class="first-letter-uc by-systemTags">
+                            <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
+                                {{$root.menuCategoryMap[topicId].displayMenuName}}
+                            </a>
+                            <span ng-if="$index < article.leafCategories.length-1">,</span>
+                        </span>
                     </li>
                     <div style="clear:both;"></div>
                 </ul>

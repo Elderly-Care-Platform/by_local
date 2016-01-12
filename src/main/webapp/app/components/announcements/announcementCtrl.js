@@ -1,6 +1,6 @@
-define(['byApp', 'byUtil', 'discussLikeController', 'discussReplyController', 'shareController', 'urlFactory', 'blogMasonary', 'jqueryMasonaryGrid'],
-    function (byApp, byUtil, discussLikeController, discussReplyController, shareController, urlFactory, blogMasonary, jqueryMasonaryGrid) {
-        function AnnouncementCtrl($scope, $rootScope, $routeParams, $location, $sce, $timeout, DiscussDetail, DiscussPage, UrlFactoryFilter) {
+define(['byApp', 'byUtil', 'discussLikeController', 'discussReplyController', 'shareController', 'urlFactory', 'blogMasonary', 'jqueryMasonaryGrid', 'userValidation'],
+    function (byApp, byUtil, discussLikeController, discussReplyController, shareController, urlFactory, blogMasonary, jqueryMasonaryGrid, userValidation) {
+        function AnnouncementCtrl($scope, $rootScope, $routeParams, $location, $sce, $timeout, DiscussDetail, DiscussPage, $q, UrlFactoryFilter, UserValidationFilter) {
 
             var discussId = $routeParams.id,	//discuss Id from url
                 isComment = $routeParams.comment,
@@ -10,6 +10,8 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussReplyController', 's
                 initialize = init();
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
             $("#preloader").show();
+
+            $scope.userCredential = {'email': '', 'pwd': ''};
 
 
             function scrollToEditor() {
@@ -149,6 +151,12 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussReplyController', 's
                 return $sce.trustAsResourceUrl(url);
             };
 
+            $scope.nextLocation = function ($event, discuss, urlQueryParams) {
+                $event.stopPropagation();
+                var url = UrlFactoryFilter.getDiscussDetailUrl(discuss, urlQueryParams, true);
+                $location.path(url);
+            };
+
             $scope.getHref = function (discuss, queryParams) {
                 var newHref = UrlFactoryFilter.getDiscussDetailUrl(discuss, queryParams, false);
                 newHref = "#!" + newHref;
@@ -191,9 +199,66 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussReplyController', 's
                 });
 
             }
+
+            //Discuss like code
+            $scope.getUserCredentialForLike = function (discussLikeObj) {
+                if ($scope.discussLikeObj) {
+                    delete $scope.discussLikeObj.pendingUserCredential
+                }
+                $scope.discussLikeObj = discussLikeObj;
+                $scope.discussLikeObj.pendingUserCredential = true;
+                $scope.userCredential.defer = $q.defer();
+                window.setTimeout(function () {
+                    $(".masonry").masonry("reload");
+                }, 100);
+
+                return $scope.userCredential.defer.promise;
+            }
+
+            $scope.setUserCredentialForLike = function () {
+                if ($scope.userCredential.email && BY.byUtil.validateEmailId($scope.userCredential.email)) {
+                    var promise = UserValidationFilter.loginUser($scope.userCredential.email);
+                    promise.then(validUser, invalidUser);
+                } else {
+                    $scope.likeErrMsg = "Please enter valid email";
+                }
+
+                function validUser() {
+                    if ($scope.userCredential.defer) {
+                        $scope.discussLikeObj.pendingUserCredential = false;
+                        $scope.userCredential.defer.resolve();
+                        //delete $scope.userCredential.promise;
+                    }
+                    window.setTimeout(function () {
+                        $(".masonry").masonry("reload");
+                    }, 100);
+                }
+
+                function invalidUser(errMsg) {
+                    console.log("invalid user error");
+                    $scope.likeErrMsg = errMsg;
+                    if ($scope.userCredential.defer) {
+                        $scope.userCredential.defer.reject();
+                    }
+                    window.setTimeout(function () {
+                        $(".masonry").masonry("reload");
+                    }, 100);
+                    //delete $scope.userCredential.promise;
+                }
+            }
+
+            $scope.cancelSetCredentialForLike = function () {
+                $scope.discussLikeObj.pendingUserCredential = false;
+                if ($scope.userCredential.defer) {
+                    $scope.userCredential.defer.reject();
+                }
+                window.setTimeout(function () {
+                    $(".masonry").masonry("reload");
+                }, 100);
+            }
         }
 
-        AnnouncementCtrl.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$sce', '$timeout', 'DiscussDetail', 'DiscussPage', 'UrlFactoryFilter'];
+        AnnouncementCtrl.$inject = ['$scope', '$rootScope', '$routeParams', '$location', '$sce', '$timeout', 'DiscussDetail', 'DiscussPage', '$q', 'UrlFactoryFilter', 'UserValidationFilter'];
         byApp.registerController('AnnouncementCtrl', AnnouncementCtrl);
         return AnnouncementCtrl;
     });

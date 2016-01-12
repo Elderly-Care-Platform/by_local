@@ -187,6 +187,7 @@
              <!--ng-init="initCommentEditor(detailResponse.discuss.id)"></div>-->
 
         <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:20px;">
+            <div class="clearfix margin-top-20"></div>
             <div ng-repeat="reply in detailResponse.replies" id="comment"
                  data-link="articles.html" ng-controller="DiscussReplyController"
                  ng-include="'app/shared/common/template/replyCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>

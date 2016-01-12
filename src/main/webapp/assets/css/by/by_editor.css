@@ -457,6 +457,10 @@ label input[type="file"] {
 {
 	color: #fff;
 }
+.by_editorButtonWrap .col-md-12
+{
+	width: 100% !important;
+}
 @media ( max-width : 720px){
 	.by_mobile_leftPanel .by_editorButtonWrap{
 		width: 94%;

@@ -17,7 +17,10 @@
     <div  class="contentPanel">
          <!--Show section header-->
             <div class="by_commSectionHeader" ng-if="menuConfig.community[selectedMenu.id]">
-                {{menuConfig.community[selectedMenu.id].desc}}
+                {{menuConfig.community[selectedMenu.id].desc}} 
+                <span ng-if="menuConfig.community[selectedMenu.id].desc1">
+                    <br/> {{menuConfig.community[selectedMenu.id].desc1}} 
+                </span>
             </div>
 
             <div class="clearfix"></div>

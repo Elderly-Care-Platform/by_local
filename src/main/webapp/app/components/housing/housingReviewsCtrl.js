@@ -288,7 +288,7 @@ define(['byApp',
                 $("." + type + "showPanel").slideDown("500");
 
                 if ($scope.showEditorType === 'Question') {
-                    var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea"});
+                    var tinyEditor = BY.byEditor.addEditor({"editorTextArea": "question_textArea", "autoFocus": "true"});
                 }
 
                 if ($scope.showEditorType === 'Article') {

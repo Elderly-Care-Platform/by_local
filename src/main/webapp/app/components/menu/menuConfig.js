@@ -198,7 +198,16 @@ BY.config.menu.community = {
         'name':'Cancer', 
         'menuIconImageDesktop':'assets/img/community/desktop/cancer.png?versionTimeStamp=%PROJECT_VERSION%',
         'menuIconImageMobile':'assets/img/community/mobile/cancer.png?versionTimeStamp=%PROJECT_VERSION%',         
-        'desc':'Coping with cancer – survivors’ stories, treatment tips and more.'
+        'desc':'Coping with cancer – survivors’ stories, treatment tips and more.  ',
+        'desc1': 'In cooperation with the Indian Cancer Society, Karnataka branch',
+        'curator':[
+        {
+            'url':'#!/users/ritu-sharma?profileId=565d7bc5e4b088c160fd90c2',
+            'name':'Ms. Ritu Sharma',
+            'desg':'Counsellor',
+            'image':'assets/img/community/Ritu_sharma.jpg?versionTimeStamp=%PROJECT_VERSION%'
+        }
+        ]
     },
     '55befc2ce4b07cedaa267818' : { 
         'name':'Diabetes',   

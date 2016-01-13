@@ -55,7 +55,7 @@ public class ProductsProxyController {
 			}
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
-
+			System.out.println(uri.toString());
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(body, headers);
 
@@ -87,7 +87,7 @@ public class ProductsProxyController {
 			}
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
-
+			System.out.println(uri.toString());
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
@@ -119,7 +119,7 @@ public class ProductsProxyController {
 			}
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
-
+			System.out.println(uri.toString());
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(body, headers);
 
@@ -152,7 +152,7 @@ public class ProductsProxyController {
 			}
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
-
+			System.out.println(uri.toString());
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 

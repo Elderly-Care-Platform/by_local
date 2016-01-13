@@ -107,38 +107,6 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 			return $sce.trustAsHtml(html);
 		};
 
-		$scope.getLeafCategories = function(article){
-			var menuWith3Ancestor = [], menuWith2Ancestor = [], menuWith1Ancestor = [], menuWith0Ancestor = [];
-			for(var i=0; i<article.topicId.length; i++){
-				var topicMenu = $rootScope.menuCategoryMap[article.topicId[i]];
-				if(topicMenu && topicMenu.ancestorIds.length === 3){
-					menuWith3Ancestor.push(article.topicId[i]);
-				}
-
-				if(topicMenu && topicMenu.ancestorIds.length === 2){
-					menuWith2Ancestor.push(article.topicId[i]);
-				}
-
-				if(topicMenu && topicMenu.ancestorIds.length === 1){
-					menuWith1Ancestor.push(article.topicId[i]);
-				}
-
-				if(topicMenu && topicMenu.ancestorIds.length === 0){
-					menuWith0Ancestor.push(article.topicId[i]);
-				}
-			}
-
-			if(menuWith3Ancestor.length > 0){
-				article.leafCategories = menuWith3Ancestor;
-			} else if(menuWith2Ancestor.length > 0){
-				article.leafCategories = menuWith2Ancestor;
-			} else if(menuWith1Ancestor.length > 0){
-				article.leafCategories = menuWith1Ancestor;
-			} else {
-				article.leafCategories = menuWith0Ancestor;
-			}
-
-		}
 	}
 
 	discussDetailLeftController.$inject = ['$scope', '$rootScope', '$window', '$routeParams','broadCastData','DiscussPage','$sce'];

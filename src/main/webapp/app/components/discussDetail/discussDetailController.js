@@ -4,7 +4,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
             var discussId = $routeParams.id;	//discuss Id from url
             var isComment = $routeParams.comment;
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
-
+            $scope.pageNotFound = false;
 
             $scope.discussDetailViews = {};
             $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";
@@ -61,6 +61,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
 
             DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
                     //broadcast data to left panel, to avoid another query from left panel of detail page
+                    $scope.pageNotFound = false;
                     $scope.detailResponse = discussDetail.data;
                     $rootScope.$broadcast('discussDetailReceived', discussDetail.data.discuss);
                     //broadCastData.update(discussDetail.data.discuss);
@@ -72,6 +73,8 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
                     scrollToEditor();
                 },
                 function (error) {
+                    $scope.pageNotFound = true;
+                    $("#preloader").hide();
                     console.log("error");
                 });
 
@@ -227,6 +230,39 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
 
                 return newHref;
             };
+
+            $scope.getLeafCategories = function(article){
+                var menuWith3Ancestor = [], menuWith2Ancestor = [], menuWith1Ancestor = [], menuWith0Ancestor = [];
+                for(var i=0; i<article.topicId.length; i++){
+                    var topicMenu = $rootScope.menuCategoryMap[article.topicId[i]];
+                    if(topicMenu && topicMenu.ancestorIds.length === 3){
+                        menuWith3Ancestor.push(article.topicId[i]);
+                    }
+
+                    if(topicMenu && topicMenu.ancestorIds.length === 2){
+                        menuWith2Ancestor.push(article.topicId[i]);
+                    }
+
+                    if(topicMenu && topicMenu.ancestorIds.length === 1){
+                        menuWith1Ancestor.push(article.topicId[i]);
+                    }
+
+                    if(topicMenu && topicMenu.ancestorIds.length === 0){
+                        menuWith0Ancestor.push(article.topicId[i]);
+                    }
+                }
+
+                if(menuWith3Ancestor.length > 0){
+                    article.leafCategories = menuWith3Ancestor;
+                } else if(menuWith2Ancestor.length > 0){
+                    article.leafCategories = menuWith2Ancestor;
+                } else if(menuWith1Ancestor.length > 0){
+                    article.leafCategories = menuWith1Ancestor;
+                } else {
+                    article.leafCategories = menuWith0Ancestor;
+                }
+
+            }
         }
 
         DiscussDetailController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData', '$timeout'];

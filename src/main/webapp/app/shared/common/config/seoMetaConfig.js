@@ -8,16 +8,15 @@ BY.config.seo = {
         title: "BeautifulYears - Everything about elderly care & senior citizens in India",
         imageUrl: "",
         "description": "<p>Information on geriatric care and aging. Find old age homes, senior living options & services for seniors. Buy products that improve lives of seniors.</p>",
-        keywords: ['senior citizen', 'old age home', 'aging', 'ageing', 'old age home', 'geriatric care', 'elderly care', 'elder care', 'BeautifulYears', 'Senior living']
+        keywords: ['senior citizen', 'elderly', 'old age home', 'aging', 'ageing', 'aged', 'old age home', 'geriatric care', 'elderly care', 'elder care', 'BeautifulYears', 'Senior living']
     },
 
     'communities': {
         '564071623e60f5b66f62df27': {
-            title: 'Elder care communities',
+            title: 'Elder care communities and support groups in India',
             imageUrl: '',
-            description: 'Ask anything about senior care or aging. Share your experiences.',
-            keywords: ['caring for parents', 'old age group', 'senior citizen club', 'elderly group', 'elder care communities', 'senior care communities',
-                'senior care discussions', 'elder care discussions', 'elder care question']
+            description: 'Ask anything about elderly care or aging. Living longer and happier. Community for Alzheimers and Parkinsons. Share your experiences in the support group.',
+            keywords: ['caring for parents', 'geriatric care', 'elderly', 'aged', 'elderly care', 'senior care', 'Alzheimers', 'Parkinson', 'dementia', 'bedridden', 'old age', 'Incontinence', 'Personal Hygiene', 'paralysis', 'bedsore']
         },
         '55bcae5ee4b08970a736784e': {
             title: 'Alzheimers & Mental Disorders',
@@ -35,7 +34,7 @@ BY.config.seo = {
             title: 'Stroke / Bedridden',
             imageUrl: 'assets/img/community/desktop/stroke-bedridden.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'Caring for bedridden elders affected by stroke, paralysis, and other problems.',
-            keywords: ['Stroke', 'bedridden elders', 'paralysis']
+            keywords: ['Stroke', 'bedridden', 'paralysis']
         },
         '55befc42e4b07cedaa267819': {
             title: 'Incontinence / Personal Hygiene',
@@ -47,7 +46,7 @@ BY.config.seo = {
             title: 'Joints & Bones Problems',
             imageUrl: 'assets/img/community/desktop/joints-bones-issues.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'Caring for elders with arthritis, osteoporosis, muscle degradation, broken hips, and chronic joints or bones pains.',
-            keywords: ['arthritis', 'elder arthritis', 'osteoporosis', 'broken hips', 'elder joint pain']
+            keywords: ['arthritis', 'elder arthritis', 'osteoporosis', 'broken hips', 'elder joint pain', 'broken hip', 'joints']
         },
         '55befc97e4b07cedaa26781c': {
             title: 'Cancer',
@@ -65,7 +64,7 @@ BY.config.seo = {
             title: 'Blood Pressure & Heart Problems',
             imageUrl: 'assets/img/community/desktop/blood-pressure-heart-issues.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'Coping with high blood pressure and heart conditions.',
-            keywords: ['B.P', 'blood pressure', 'heart problems']
+            keywords: ['B.P', 'blood pressure', 'heart problems', 'heart disease', 'heart']
         },
         '55befe3be4b07cedaa267823': {
             title: 'Other Health Issues',
@@ -76,7 +75,7 @@ BY.config.seo = {
         '55bcac92e4b08970a7367848': {
             title: 'Family Relationships',
             imageUrl: 'assets/img/community/desktop/relation.png?versionTimeStamp=%PROJECT_VERSION%',
-            description: 'All about relationships in families with aging parents, the good and the not-so-good.',
+            description: 'Everything about relationships in families with aging parents, the good and the not-so-good.',
             keywords: ['relationships']
         },
         '5645fc4a3e60e958ec2d3d30': {
@@ -89,13 +88,13 @@ BY.config.seo = {
             title: 'Mobility & Falls',
             imageUrl: 'assets/img/community/desktop/mobility-falls.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'Preventing elders from falling. Assisting with moving around.',
-            keywords: ['Mobility']
+            keywords: ['Mobility', 'wheel chair', 'walker', 'cane', 'walking stick', 'falls']
         },
         '56407d743e60f5b66f62df36': {
             title: 'Senior-Friendly Home',
             imageUrl: 'assets/img/community/desktop/senior-friendly-home.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'How to make your home a better and safer place for seniors.',
-            keywords: ['senior living', 'old age home']
+            keywords: ['independent living', 'senior friendly home', 'adapting homes for elderly', 'home improvements for parents']
         },
         '55bca7b8e4b08970a736783c': {
             title: 'Caretakers Challenges',
@@ -113,13 +112,13 @@ BY.config.seo = {
             title: 'Challenges Of Ageing',
             imageUrl: 'assets/img/community/desktop/challenges-of-ageing.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'How does aging affect you or does it really? Questioning stigmas and stereotypes, redefining aging.',
-            keywords: ['Ageing']
+            keywords: ['Ageing', 'Aging']
         },
         '5645fe1c3e60e958ec2d3d31': {
             title: 'Legal & Finance',
             imageUrl: 'assets/img/community/desktop/legal_gray.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'How to write a proper will? What is a living will? What are senior citizens rights, and how to benefit from them. And more .',
-            keywords: ['Legal', 'Finance', 'will writing']
+            keywords: ['Legal', 'Finance', 'will writing', 'inheritance']
         },
         '5640746b3e60f5b66f62df31': {
             title: 'Anti-aging Research',
@@ -167,7 +166,7 @@ BY.config.seo = {
             title: 'Creative Writing',
             imageUrl: 'assets/img/community/desktop/creative-writing.png?versionTimeStamp=%PROJECT_VERSION%',
             description: 'Creative Writing',
-            keywords: ['writing', 'blogging']
+            keywords: ['writing', 'blogging', 'creative writing']
         },
         '564076aa3e60f5b66f62df33': {
             title: 'Travel & Pilgrimages',
@@ -185,19 +184,19 @@ BY.config.seo = {
             title: 'Caring for parents',
             imageUrl: '',
             description: 'Taking care of aging parents. Sharing questions,  tips, stories,  diaries and more.',
-            keywords: ['caretakers', 'caregiving']
+            keywords: ['caretakers', 'caregiving', 'aging parents']
         },
         '564072373e60f5b66f62df2b': {
             title: 'Beautiful ageing',
             imageUrl: '',
             description: 'Challenging stigmas of aging. Living longer  and happier. Celebrating lives.',
-            keywords: ['living longer']
+            keywords: ['living longer', 'anti-aging', 'antiaging', 'aging', 'anti aging']
         },
         '5640726c3e60f5b66f62df2c': {
             title: 'Active leisure',
             imageUrl: '',
             description: 'Activity and creativity, from cooking to painting, from photography to travel. Join us and show your talent',
-            keywords: ['painting', 'photography']
+            keywords: ['painting', 'photography', 'creative writing', 'old age group', 'senior citizen club', 'elderly group']
         }
     }
 }

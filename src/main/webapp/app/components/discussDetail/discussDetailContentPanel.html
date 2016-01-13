@@ -1,7 +1,8 @@
+<span ng-if="pageNotFound">Sorry this page is not available</span>
 <div ng-if="detailResponse.discuss">
     <div class="by_discussDeatil_card">
         <div class="col-md-12 margin-top-10" ng-if="detailResponse.discuss.promotion == false">
-            <ul class="by_discussDeatil_cardList">
+            <ul class="by_discussDeatil_cardList" ng-init="getLeafCategories(detailResponse.discuss)">
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
                     <span class="by_questionLetter">Q</span>uestion by <a
                         validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
@@ -16,16 +17,16 @@
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
-                <!--<li ng-if="detailResponse.discuss.topicId.length > 0"> | In  </li>
+                <li ng-if="detailResponse.discuss.leafCategories.length > 0"> | In  </li>
 
-                <li ng-repeat="topicId in detailResponse.discuss.topicId" class="by_discussDeatil_cardlineHeight20">
+                <li ng-repeat="topicId in detailResponse.discuss.leafCategories" class="by_discussDeatil_cardlineHeight20">
                     <p class="first-letter-uc by-systemTags">
                         <span ng-if="$index > 0">|</span>
-                        <a di-href="#!/discuss/list/{{$root.menuCategoryMap[topicId].slug}}/{{$root.menuCategoryMap[topicId].id}}/all">
+                        <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
                             {{$root.menuCategoryMap[topicId].displayMenuName}}
                         </a>
                     </p>
-                </li>-->
+                </li>
             </ul>
             <div style="clear: both"></div>
         </div>
@@ -244,21 +245,21 @@
                         {{article.linkInfo.title.substring(0, 70)}}
                     </div>
                 </a>
-                <ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" ng-init="getLeafCategories(article)">
-                    <li ng-if="article.leafCategories.length > 0">
-                        In
-                    </li>
+                <!--<ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" ng-init="getLeafCategories(article)">-->
+                    <!--<li ng-if="article.leafCategories.length > 0">-->
+                        <!--In-->
+                    <!--</li>-->
 
-                    <li ng-repeat="topicId in article.leafCategories">
-                        <span class="first-letter-uc by-systemTags">
-                            <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
-                                {{$root.menuCategoryMap[topicId].displayMenuName}}
-                            </a>
-                            <span ng-if="$index < article.leafCategories.length-1">,</span>
-                        </span>
-                    </li>
-                    <div style="clear:both;"></div>
-                </ul>
+                    <!--<li ng-repeat="topicId in article.leafCategories">-->
+                        <!--<span class="first-letter-uc by-systemTags">-->
+                            <!--<a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">-->
+                                <!--{{$root.menuCategoryMap[topicId].displayMenuName}}-->
+                            <!--</a>-->
+                            <!--<span ng-if="$index < article.leafCategories.length-1">,</span>-->
+                        <!--</span>-->
+                    <!--</li>-->
+                    <!--<div style="clear:both;"></div>-->
+                <!--</ul>-->
             </div>
         </div>
 

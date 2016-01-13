@@ -95,7 +95,7 @@ define(['byApp', 'productReviewsCtrl', 'editorController'], function (byApp, pro
                 $location.search('showEditor', 'true');
                 BY.byEditor.removeEditor();
                 var menuId = $scope.menuConfig.reveiwsMenuConfig['product_review'].id;
-                $location.path("/products/reviews/"+menuId);
+                $location.path("/shop/reviews/"+menuId);
             }
         }
 

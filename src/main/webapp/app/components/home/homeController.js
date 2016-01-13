@@ -6,7 +6,7 @@ define(['byApp', 'byUtil', 'homePromoController',
         'userTypeConfig',
         'byEditor', 'menuConfig', 'editorController', 'userValidation'],
     function (byApp, byUtil, homePromoController, userTypeConfig, byEditor, menuConfig, editorController, userValidation) {
-        function BYHomeController($scope, $rootScope, $routeParams, $location, UserValidationFilter) {
+        function BYHomeController($scope, $rootScope, $routeParams, $location, UserValidationFilter, SessionIdService) {
             $scope.homeSectionConfig = BY.config.menu.home;
             $scope.homeimageConfig = BY.config.menu.homeIcon;
             $scope.moduleConfig = BY.config.menu.moduleConfig;
@@ -15,6 +15,11 @@ define(['byApp', 'byUtil', 'homePromoController',
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
             $scope.telNo = BY.config.constants.byContactNumber;
             $scope.selectedMenu = $rootScope.menuCategoryMap['564071623e60f5b66f62df27'];
+            $scope.loginDetails = {
+                "text": "",
+                "link": ""
+            }
+
             var cntAnimDuration = 1000,
                 init = initialize();
 
@@ -25,6 +30,7 @@ define(['byApp', 'byUtil', 'homePromoController',
             }
 
             function initialize() {
+                var isLoggedinUser = UserValidationFilter.getUserSessionType();
                 if ($rootScope.totalServiceCount) {
                     animateCounter($rootScope.totalServiceCount, $(".HomeSevicesCnt"));
                 }
@@ -36,7 +42,15 @@ define(['byApp', 'byUtil', 'homePromoController',
                 if ($rootScope.totalProductCount) {
                     animateCounter($rootScope.totalProductCount, $(".HomeProductCnt"));
                 }
-                $scope.isLoggedinUser = UserValidationFilter.getUserSessionType();
+
+
+                if(isLoggedinUser){
+                    $scope.loginDetails.text = "Logout";
+                    $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + SessionIdService.getSessionId();
+                }else{
+                    $scope.loginDetails.text = "Join us";
+                    $scope.loginDetails.link = apiPrefix + "#!/users/login";
+                }
                 updateMetaTags();
             }
 
@@ -77,7 +91,7 @@ define(['byApp', 'byUtil', 'homePromoController',
             }
         }
 
-        BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'UserValidationFilter'];
+        BYHomeController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'UserValidationFilter', 'SessionIdService'];
         byApp.registerController('BYHomeController', BYHomeController);
 
         return BYHomeController;

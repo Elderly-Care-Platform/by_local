@@ -1043,14 +1043,14 @@
     background: #fff;
     border: 1px solid #B9B8B8;
     margin-top: -24px;
-    font-family: 'Covered By Your Grace', cursive !important;
+    font-family: Segoe_Print !important;
     font-size: 22px;
     text-align: center;
     padding: 15px;
 }
 .by_homeFeedbackInside a
 {
-    font-family: 'Covered By Your Grace', cursive !important;
+    font-family: Segoe_Print !important;
     text-decoration: underline;
     color: #087339 !important;
 }

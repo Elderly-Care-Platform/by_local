@@ -48,6 +48,14 @@ body#tinymce{
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Segoe_Print';
+    src: url("../font/Segoe Print.ttf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 body p, body span, body div
 {

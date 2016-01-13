@@ -224,8 +224,7 @@ public class ProductsProxyController {
 			header.set("email", currentUser.getEmail());
 			header.set("userName", currentUser.getUserName());
 			if (null != currentSession) {
-				header.set("sessionType", Integer
-						.toUnsignedString(currentSession.getSessionType()));
+				header.set("sessionType", String.valueOf(currentSession.getSessionType()));
 			}
 
 		}

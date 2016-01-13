@@ -74,12 +74,18 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 			var systemTags = [];
 			if($scope.discuss.topicId && $scope.discuss.topicId.length > 0){
 				for(var i=0; i < $scope.discuss.topicId.length; i++){
-					var topicId = $scope.discuss.topicId[i];
-					var menu = $rootScope.menuCategoryMap[topicId];
+					var topicId = $scope.discuss.topicId[i], menu = $rootScope.menuCategoryMap[topicId];
 
-					for(var j=0; j < menu.tags.length; j++){
-						systemTags.push(menu.tags[j].id);
+					if(!menu){
+						menu = $rootScope.hiddenMenu[topicId];
 					}
+
+					if(menu){
+						for(var j=0; j < menu.tags.length; j++){
+							systemTags.push(menu.tags[j].id);
+						}
+					}
+
 				}
 			}
 

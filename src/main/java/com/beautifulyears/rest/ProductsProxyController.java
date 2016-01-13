@@ -228,7 +228,7 @@ public class ProductsProxyController {
 			}
 
 		}
-
+		System.out.println(header.toString());
 		return header;
 	}
 

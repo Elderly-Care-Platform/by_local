@@ -378,3 +378,10 @@ button.quantity-button {
     top: 80px;
 }
 
+.product-checkAvailibility-button{
+    padding-right:15px;
+    padding-left:15px;
+    background:#004f24;
+    color:#fff;
+}
+

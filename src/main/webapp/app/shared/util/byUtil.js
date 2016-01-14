@@ -134,6 +134,8 @@ BY.byUtil.validateUserName = function (userName) {
         userName = "Anonymous";
     }
 
+    userName = userName.replace('-', ' ');
+
     return userName;
 }
 

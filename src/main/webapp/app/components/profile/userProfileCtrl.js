@@ -4,7 +4,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             $scope.profileViews = {};
             $scope.profileType = $routeParams.profileType;
             $scope.profileId = $routeParams.profileId;
-            $scope.userName = $routeParams.userName ? BY.byUtil.validateUserName($routeParams.userName) : "Anonymous";
+            $scope.userName = $routeParams.profileTitle ? BY.byUtil.validateUserName($routeParams.profileTitle) : "Anonymous";
             $scope.housingFacilityId = $routeParams.housingFacilityId ? $routeParams.housingFacilityId : null;
             $scope.branchId = $routeParams.branchId ? $routeParams.branchId : null;
 

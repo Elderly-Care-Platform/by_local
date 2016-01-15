@@ -315,6 +315,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
         function checkLogisticAvailability(pincode){
             localStorage.setItem("LOCATION-PINCODE", pincode);
+            $scope.logisticInfo.deliveryDetail = "";
             var checkLogistic = LogisticService.checkLogisticAvailability(pincode);
             if(checkLogistic){
                 checkLogistic.then(logisticSuccessRes, logisticErrorRes);

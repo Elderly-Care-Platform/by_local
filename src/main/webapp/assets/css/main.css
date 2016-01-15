@@ -359,6 +359,11 @@ body a:hover
 {
     color: #004f24;
 }
+
+.greyColor {
+    color:#a2a1a1;
+}
+
 .marginTopM11
 {
     margin-top: -11px;

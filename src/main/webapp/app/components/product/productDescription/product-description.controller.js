@@ -51,12 +51,13 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.checkProductCashOnDeliveryPincode = checkProductCashOnDeliveryPincode;
         $scope.closeModelInstance = closeModelInstance;
         $scope.playVideo = playVideo;
-        $scope.promise = getProductDescription();
         $scope.productOptionSelected = productOptionSelected;
 	    $scope.checkLogisticAvailability = checkLogisticAvailability;
         $scope.slideIndex       = 1;
+        $scope.pincode = localStorage.getItem("LOCATION-PINCODE") ? parseInt(localStorage.getItem("LOCATION-PINCODE")) : null;
+        $scope.promise = getProductDescription();
 
-        $scope.leftPanelHeight = function(){            
+        $scope.leftPanelHeight = function(){
             var clientHeight = $( window ).height() - 57;
             $(".by_menuDetailed").css('height', clientHeight+"px");
         }
@@ -124,6 +125,9 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         function getProductDescription() {
             var params = {};
             params.id = $scope.productId;
+            if($scope.pincode){
+                checkLogisticAvailability($scope.pincode);
+            }
             var productDescriptionPromise = ProductDescriptionService.getProductDescription(params),
                 loadPromise = $q.all({productDescription: productDescriptionPromise});
             return loadPromise.then(productDescriptionSuccess, failure);
@@ -310,6 +314,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
 
         function checkLogisticAvailability(pincode){
+            localStorage.setItem("LOCATION-PINCODE", pincode);
             var checkLogistic = LogisticService.checkLogisticAvailability(pincode);
             if(checkLogistic){
                 checkLogistic.then(logisticSuccessRes, logisticErrorRes);

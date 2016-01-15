@@ -2,54 +2,29 @@
     {{selectedMenu.displayMenuName}}
 </div>
 
-<!--
-<div class="by_productList_banner">
-	<img src="assets/img/product/banner_placeHolder.jpg?versionTimeStamp=%PROJECT_VERSION%" width="100%" />
-</div>
 
-<div class="clearfix" style="height: 15px;"></div>-->
-<!--
-<a class="productFiltering productFilteringActive" href="#">All</a>
-<a class="productFiltering" href="#">Featured</a>
-<a class="productFiltering"  >New</a>
-<a class="productFiltering" href="#">Best Sellers</a>
-
-<div class="clearfix" style="height: 15px;"></div>-->
 <div cg-busy="{promise:promise,backdrop:true,templateUrl:'app/shared/common/template/preloader.html'}">
     <div ng-repeat="product in products">
 
         <div class="by_productCard col-md-6">
-        <!-- ng-click="openProductDescription(product.id, product.name)"-->
-             <a href="{{productUrl(product.id, product.name)}}" ng-click="$event.stopPropagation();">
-            <div class="by_productCard_Image">            
-                <img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
-                fallback-src='["assets/img/by.png"]' alt="{{product.name}}">               
-            </div>
-            <!--<div class="by_productCard_divider"></div>-->
-            <div class="by_productCard_title ellipsisHead margin-top-20">{{product.name}}</div>
-            <div class="by_productCard_price">
-            <span ng-if="product.salePrice && product.salePrice.amount">Our price: <strong>Rs
-                {{product.salePrice.amount}}</strong></span>
-            <span ng-if="!product.salePrice || !product.salePrice.amount">Our price: <strong>Rs
-                {{product.retailPrice.amount}}</strong></span><br/>
-
-                <span ng-if="product.retailPrice != null && product.salePrice != null && product.retailPrice.amount != product.salePrice.amount">
-                    <del>Rs {{product.retailPrice.amount}}</del>
-                </span>
-                <!--<span class="by_productCard_offer">5% Off</span>-->
-            </div>
-            <!--<div class="by_productCard_divider"></div>
-            <div ng-if="$root.windowWidth > 990">
-		<span class="by_productCard_desc"
-              ng-bind-html="trustForcefully(product.longDescription.substring(0, 80))"></span>
-                <span class="by_productCard_descEllipse" ng-if="product.longDescription.length > 80">...</span>
-            </div>
-            <div ng-if="$root.windowWidth < 991">
-		<span class="by_productCard_desc"
-              ng-bind-html="trustForcefully(product.longDescription.substring(0, 120))"></span>
-                <span class="by_productCard_descEllipse" ng-if="product.longDescription.length > 120">...</span>
-            </div>-->
-             </a>
+            <a href="{{productUrl(product.id, product.name)}}" ng-click="$event.stopPropagation();">
+                <div class="by_productCard_Image">
+                    <img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
+                         fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
+                </div>
+                <!--<div class="by_productCard_divider"></div>-->
+                <div class="by_productCard_title ellipsisHead margin-top-10">{{product.name}}</div>
+                <div class="by_productCard_price" ng-init="getDiscountPercentage(product)">
+                    <div ng-if="product.discountPercentage" class="productDiscount">
+                        <del class="greyColor">Rs {{product.retailPrice.amount}}</del>&nbsp;&nbsp;
+                        <span class="redColor"><b>({{product.discountPercentage}})% off </b></span><br/>
+                    </div>
+                    <span ng-if="product.salePrice && product.salePrice.amount">Our price: <strong>Rs
+                        {{product.salePrice.amount}}</strong></span>
+                    <span ng-if="!product.salePrice || !product.salePrice.amount">Our price: <strong>Rs
+                        {{product.retailPrice.amount}}</strong></span><br/>
+                </div>
+            </a>
         </div>
     </div>
 </div>
@@ -66,7 +41,8 @@
 
 
 <div class="by_viewMoreButton" align="center" ng-if="!lastPage">
-    <a ng-click="loadMoreRecords()" ng-if="!isQueryInprogress">More <i class="fa fa-angle-right by_moreArrowView"></i></a>
+    <a ng-click="loadMoreRecords()" ng-if="!isQueryInprogress">More <i
+            class="fa fa-angle-right by_moreArrowView"></i></a>
     <img ng-if="isQueryInprogress" src="assets/img/ajax_scroll_loading.gif">
 </div>
 

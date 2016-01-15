@@ -159,7 +159,7 @@ BY.config.menu.community = {
             {
                 'url': '#!/users/elsie?profileId=568f08cfe4b00f4b07a43ee5',
                 'name': 'Elsie',
-                'desg': 'Nurse',
+                'desg': 'Elderly care expert',
                 'image': 'assets/img/community/elsie.jpg?versionTimeStamp=%PROJECT_VERSION%'
             }
         ]
@@ -193,7 +193,7 @@ BY.config.menu.community = {
             {
                 'url': '#!/users/elsie?profileId=568f08cfe4b00f4b07a43ee5',
                 'name': 'Elsie',
-                'desg': 'Nurse',
+                'desg': 'Elderly care expert',
                 'image': 'assets/img/community/elsie.jpg?versionTimeStamp=%PROJECT_VERSION%'
             }
         ]
@@ -207,7 +207,7 @@ BY.config.menu.community = {
             {
                 'url': '#!/users/elsie?profileId=568f08cfe4b00f4b07a43ee5',
                 'name': 'Elsie',
-                'desg': 'Nurse',
+                'desg': 'Elderly care expert',
                 'image': 'assets/img/community/elsie.jpg?versionTimeStamp=%PROJECT_VERSION%'
             }
         ]
@@ -227,7 +227,7 @@ BY.config.menu.community = {
             {
                 'url': '#!/users/elsie?profileId=568f08cfe4b00f4b07a43ee5',
                 'name': 'Elsie',
-                'desg': 'Nurse',
+                'desg': 'Elderly care expert',
                 'image': 'assets/img/community/elsie.jpg?versionTimeStamp=%PROJECT_VERSION%'
             }
         ]

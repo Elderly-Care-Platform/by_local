@@ -95,7 +95,7 @@
                     <div class="singleinline">
                         <img src="assets/img/product/location.png" alt="Pincode" width="12">
                     </div>
-                    Check Availability at
+                    Check availability at
                 </div>
                 <div class="pincode-form divLeft">
                     <form name="pincode-form" class="pinCheck">
@@ -105,9 +105,9 @@
                                class="pincode  textbox-nowidth"
                                min="1" style="width:95px;">
                         <input type="submit" href="javascript:void(0)"
-                               class="btn btn-sm btn-default  pull-right  grayBg" value="Check"
-                               style="height:26px; background:#4e4e4e; color:#fff;"
-                               ng-disabled="!pincode-form.pincode.$valid"
+                               class="btn btn-sm btn-default pull-right grayBg" value="Check"
+                               style="height:26px; background:#004f24; color:#fff; padding-right:15px; padding-left:15px;"
+                               ng-disabled="pincode-form.pincode.$invalid"
                                ng-click="checkLogisticAvailability(pincode)">
                     </form>
                 </div>
@@ -185,8 +185,19 @@
             </div>
         </div>
 
-        <div class="by_productDetail_contentCall">
-            <b>Call for assistance {{ByContactNo}}</b><br/>
+        <div class="by_productDetail_contentCall" ng-if="$root.windowWidth > 720">
+            <b>Call for assistance</b>
+            <span ng-if="(uiData.salePrice.amount && uiData.salePrice.amount > 4999) || (uiData.retailPrice.amount && uiData.retailPrice.amount > 4999)"><b> or rent &nbsp;</b></span>
+            <span class="by_menuContactNumber">
+                {{telNo}}
+            </span>
+        </div>
+        <div class="by_productDetail_contentCall" ng-if="$root.windowWidth < 720">
+            <b>Call for assistance</b>
+            <span ng-if="(uiData.salePrice.amount && uiData.salePrice.amount > 4999) || (uiData.retailPrice.amount && uiData.retailPrice.amount > 4999)"><b> or rent &nbsp;</b></span>
+            <a ng-href="{{'tel:'+telNo}}">
+                <i class="fa fa-phone2"></i> {{telNo}}
+            </a>
         </div><div class="clearfix"></div>
     <div class="qty-cart-buy margin-bottom-20">
         <span class="added-to-cart-message" ng-show="checkLogisticDetail">
@@ -319,8 +330,5 @@
         </div>
     </div>
 </div>
-
-
-
 
 <div class="clearfix" style="height:20px;"></div>

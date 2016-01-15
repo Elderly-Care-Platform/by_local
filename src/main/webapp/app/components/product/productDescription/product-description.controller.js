@@ -37,6 +37,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.adjustedPrice = null;
         $scope.ByContactNo = BY.config.constants.byContactNumber;
         $scope.productAddSuccess = false;
+        $scope.telNo = BY.config.constants.byContactNumber;
         var productOptions = {};
 
         // uiData mapping

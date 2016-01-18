@@ -207,9 +207,9 @@
 				            <cssSourceInclude>assets/css/**/*.css</cssSourceInclude>
 				            <cssSourceInclude>lib/**/*.css</cssSourceInclude>
 				        </cssSourceIncludes>
-				        <cssSourceExcludes>
+				        <!--cssSourceExcludes>
 				            <cssSourceExclude>**/*.min.css</cssSourceExclude>
-				        </cssSourceExcludes>
+				        </cssSourceExcludes-->
 				        <jsSourceIncludes>
 				            <jsSourceInclude>**/*.js</jsSourceInclude>
 				        </jsSourceIncludes>

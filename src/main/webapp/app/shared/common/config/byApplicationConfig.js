@@ -5,7 +5,7 @@ BY.config.constants = BY.config.constants || {};
 BY.config.constants = {
     //"productHost" : "api/v1/products/beautifulyears/api/v1",
     //"productImageHost" : "http://www.beautifulyears.com/api/v1/products/images",
-    //"selfHost" : "http://beautifulyears.com",
+    //"selfHost" : "http://www.beautifulyears.com",
 
    "productHost" : "api/v1/products/beautifulyears/api/v1",
     "productImageHost" : "http://dev.beautifulyears.com/api/v1/products/images",

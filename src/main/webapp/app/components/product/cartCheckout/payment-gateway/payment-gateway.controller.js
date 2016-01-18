@@ -144,7 +144,7 @@ define(['byProductApp'], function (byProductApp) {
                             });
                             order.totalShipping.amount = totalProductDeliveryCharges;
                             $scope.uiData.totalShipping = parseFloat(order.totalShipping.amount);
-                            $scope.payu.amount = $scope.uiData.amount + $scope.uiData.totalShipping;
+                            $scope.payu.amount = $scope.uiData.amount;
                             makePayuChecksum();
                         }
                     });

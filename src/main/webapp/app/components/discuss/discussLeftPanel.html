@@ -5,12 +5,14 @@
                 Curated by
             </div>
             <div class="clearfix margin-top-10"></div>
-            <div class="curatedProfile" ng-class="{'curatedProfileOne': menuConfig.community[selectedMenu.id].curator.length < 2}" ng-repeat="curator in menuConfig.community[selectedMenu.id].curator">
+            <div class="curatedProfile"
+                 ng-class="{'curatedProfileOne': menuConfig.community[selectedMenu.id].curator.length < 2}"
+                 ng-repeat="curator in menuConfig.community[selectedMenu.id].curator">
                 <a href="{{curator.url}}">
-                <img src="{{curator.image}}" alt="{{curator.name}}" />
-                <b>{{curator.name}}</b>
-                <br/>
-                {{curator.desg}}
+                    <img src="{{curator.image}}" alt="{{curator.name}}"/>
+                    <b>{{curator.name}}</b>
+                    <br/>
+                    {{curator.desg}}
                 </a>
             </div>
             <div class="by_commFeaturedHead clearfix margin-top-40"></div>
@@ -21,13 +23,15 @@
         <div ng-repeat="featured in formattedData" class="by_commFeaturedItem">
             <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();"> 
             <span ng-if="featured.image">
-            <img src="{{featured.image}}" width="50" alt="{{featured.title}}" class="divLeft" />
-            <span class="divRight by_featuredTextWidth">{{featured.title}}</span>
+                <img ng-src="{{featured.image.thumbnailImage || ''}}" width="50" alt="{{featured.title}}" class="divLeft"
+                     fallback-src='["{{featured.image.original || ""}}"]'/>
+                <span class="by_featuredTextWidth">{{featured.title}}</span>
             </span>
             <span ng-if="!featured.image">
-            {{featured.title}}
+                {{featured.title}}
             </span>
             </a>
+
             <div class="clearfix"></div>
         </div>
     </div>

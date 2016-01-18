@@ -47,12 +47,12 @@ define(['byApp'], function (byApp) {
         };
 
         function formatData(discussObj) {
-                var formattedData = [], title, id, image;
+                var formattedData = [], title, id, image = null;
                 for (var i = 0; i < discussObj.length; i++) {
                     title = getShortTitle(discussObj[i]);
                     id = discussObj[i].id;
                     if (discussObj[i].articlePhotoFilename != null) {
-                        image = discussObj[i].articlePhotoFilename.original;
+                        image = discussObj[i].articlePhotoFilename;
                     }
                     formattedData.push({
                         title: title,

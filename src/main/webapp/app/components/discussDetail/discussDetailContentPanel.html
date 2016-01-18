@@ -12,18 +12,17 @@
                 </li>
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
                     By <a validate-user-name="{{detailResponse.discuss.username}}" class="text-capitalize"
-                          ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}">
+                        ng-href="{{getHrefProfile(detailResponse.discuss, {'profileId':detailResponse.discuss.userId})}}">
                     {{username}} </a>
                     &nbsp; |
                 </li>
                 <li time-since="{{detailResponse.discuss.createdAt}}" ng-if="detailResponse.discuss.createdAt"></li>
                 <li ng-if="detailResponse.discuss.leafCategories.length > 0"> | In  </li>
-
                 <li ng-repeat="topicId in detailResponse.discuss.leafCategories" class="by_discussDeatil_cardlineHeight20">
                     <p class="first-letter-uc by-systemTags">
                         <span ng-if="$index > 0">|</span>
                         <a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">
-                            {{$root.menuCategoryMap[topicId].displayMenuName}}
+                        {{$root.menuCategoryMap[topicId].displayMenuName}}
                         </a>
                     </p>
                 </li>
@@ -31,127 +30,104 @@
             <div style="clear: both"></div>
         </div>
         <div style="clear: both"></div>
-
         <div style="clear: both; height:10px;" ng-if="detailResponse.discuss.promotion == true"></div>
-
         <h1 class="by_discussDeatil_cardTitle col-md-12 margin-top-10"
             ng-if="detailResponse.discuss.discussType == 'P'">
             {{detailResponse.discuss.title}}
         </h1>
-
         <div style="clear: both"></div>
         <div class="by_discussDeatil_cardImage col-md-12  margin-top-10"
-             ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
+            ng-if="detailResponse.discuss.discussType == 'P' && detailResponse.discuss.articlePhotoFilename">
             <img ng-src="{{detailResponse.discuss.articlePhotoFilename.titleImage||''}}"
-                 fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]'
-                 title="{{detailResponse.discuss.title}}" alt="{{detailResponse.discuss.title}}">
-
+                fallback-src='["{{detailResponse.discuss.articlePhotoFilename.original || ""}}"]'
+                title="{{detailResponse.discuss.title}}" alt="{{detailResponse.discuss.title}}">
             <div style="clear: both"></div>
         </div>
-
         <div class="margin-top-10"
-             ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'"
-             ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
-
+            ng-include="'app/shared/common/template/ShareLinkContent.html?versionTimeStamp=%PROJECT_VERSION%'"
+            ng-if="detailResponse.discuss.linkInfo" ng-init="linkInfo=detailResponse.discuss.linkInfo"></div>
         <div ng-if="detailResponse.discuss.discussType == 'P'" class="by_discussDeatil_cardDesc  col-md-12"
-             ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
+            ng-bind-html="trustForcefully(detailResponse.discuss.text)" style="">
         </div>
         <h1 ng-if="detailResponse.discuss.discussType == 'Q'"
             class="by_discussDeatil_cardDesc  col-md-12" ng-bind-html="trustForcefully(detailResponse.discuss.text)"
             style="">
         </h1>
-
         <div style="clear: both; height:8px;"></div>
-
         <!--  discuss like/share/comment/answer code start -->
         <div class="by_discussDeatil_cardShare" style="border-bottom:1px solid #ccc !important;">
             <ul class="by_discussDeatil_cardShareList col-md-12">
                 <li ng-if="detailResponse.discuss.discussType == 'P'">
                     <a ng-click="createNewComment(detailResponse.discuss.id)">
-                        <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
-                        <span ng-if="detailResponse.discuss.aggrReplyCount > 0" class="by_commentSpan">{{detailResponse.discuss.aggrReplyCount}}</span>
+                    <i class="rounded-x icon-speech ng-scope" title="Comment"></i>
+                    <span ng-if="detailResponse.discuss.aggrReplyCount > 0" class="by_commentSpan">{{detailResponse.discuss.aggrReplyCount}}</span>
                     </a>
                 </li>
-
                 <li ng-if="detailResponse.discuss.discussType == 'Q'">
                     <a ng-click="createNewComment(detailResponse.discuss.id)">
-                        <i class="rounded-x icon-answer" title="Answers"
-                           ng-if="detailResponse.discuss.directReplyCount == 0"></i>
-                        <i class="rounded-x icon-answer-active" title="Answers"
-                           ng-if="detailResponse.discuss.directReplyCount > 0"></i>
-                        <span ng-if="detailResponse.discuss.directReplyCount > 0" class="by_answerSpan">{{detailResponse.discuss.directReplyCount}}</span>
+                    <i class="rounded-x icon-answer" title="Answers"
+                        ng-if="detailResponse.discuss.directReplyCount == 0"></i>
+                    <i class="rounded-x icon-answer-active" title="Answers"
+                        ng-if="detailResponse.discuss.directReplyCount > 0"></i>
+                    <span ng-if="detailResponse.discuss.directReplyCount > 0" class="by_answerSpan">{{detailResponse.discuss.directReplyCount}}</span>
                     </a>
                 </li>
-
                 <li ng-controller="DiscussLikeController">
                     <a ng-click="likeDiscuss(detailResponse.discuss)">
-                        <i class="rounded-x icon-heart-liked"
-                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===false"
-                           title="Likes"></i>
-                        <i class="rounded-x icon-heart-active"
-                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===true"
-                           title="Likes"></i>
-                        <i class="rounded-x icon-heart"
-                           ng-if="beforePost && detailResponse.discuss.aggrLikeCount == 0"
-                           title="Likes"></i>
-                        <i class="rounded-x" ng-if="!beforePost"
-                           ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]"
-                           title="Likes"></i>
-                        <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" class="by_likeSpan">{{detailResponse.discuss.aggrLikeCount}}</span>
-                        <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" class="by_likeSpan">{{aggrLikeCount}}</span>
+                    <i class="rounded-x icon-heart-liked"
+                        ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===false"
+                        title="Likes"></i>
+                    <i class="rounded-x icon-heart-active"
+                        ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0 && detailResponse.discuss.likedByUser===true"
+                        title="Likes"></i>
+                    <i class="rounded-x icon-heart"
+                        ng-if="beforePost && detailResponse.discuss.aggrLikeCount == 0"
+                        title="Likes"></i>
+                    <i class="rounded-x" ng-if="!beforePost"
+                        ng-class="{false:'icon-heart', true:'icon-heart-active'}[likedByUser===true]"
+                        title="Likes"></i>
+                    <span ng-if="beforePost && detailResponse.discuss.aggrLikeCount > 0" class="by_likeSpan">{{detailResponse.discuss.aggrLikeCount}}</span>
+                    <span ng-model="aggrLikeCount" ng-if="!beforePost && aggrLikeCount > 0" class="by_likeSpan">{{aggrLikeCount}}</span>
                     </a>
                 </li>
-
                 <li ng-controller="ShareController">
-
                     <a data-toggle="modal" data-target="#shareModal">
-                        <i class="rounded-x icon-share"></i>
-                        <span ng-if="detailResponse.discuss.shareCount > 0" class="by_shareSpan">{{detailResponse.discuss.shareCount}}</span>
+                    <i class="rounded-x icon-share"></i>
+                    <span ng-if="detailResponse.discuss.shareCount > 0" class="by_shareSpan">{{detailResponse.discuss.shareCount}}</span>
                     </a>
                 </li>
             </ul>
-
             <div style="clear:both;"></div>
-
         </div>
         <!--  discuss like/share/comment/answer code end -->
-
-
         <!--  coments -->
         <div style="clear:both; "></div>
-
         <div ng-show="!detailResponse.discuss.pendingUserCredential" class="by_discussDeatil_cardCommentWrap"
-             id="article-comments-wrapper">
-
+            id="article-comments-wrapper">
             <!--Comment Editor for main article-->
             <div class="col-md-12 by_discussDeatil_cardComment" id="replyEditor" ng-show="showEditor">
                 <img src="assets/img/by.png" alt="image" class="by_discussDeatil_cardCommentImg">
-
                 <div class="padding20SM   by_editor_wrap" style="width:calc(100% - 48px)!important; float:left;"
-                     id="answer_block">
-
+                    id="answer_block">
                     <textarea rows="3" id="{{detailResponse.discuss.id}} "></textarea>
-
                     <div class="clearfix" style="height:45px;"></div>
                     <div class="col-md-6 no-padding margin-bottom-10 register-page" ng-if="!userSessionType">
                         <input type="email" class="by_registerEmailId" placeholder="Enter your email Id"
-                               ng-model="userCredential.email" name="userEmail"
-                               required/>
+                            ng-model="userCredential.email" name="userEmail"
+                            required/>
                         <span ng-show="errorMsg" class="errorRed">
-                                {{errorMsg}}
+                        {{errorMsg}}
                         </span>
-
                         <div class="clearfix margin-bottom-20"></div>
                     </div>
                     <div class="col-md-6" ng-class="{'full-width': userSessionType}">
                         <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn "
-                                type="submit" disabled
-                                ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">
-                            SUBMIT
+                            type="submit" disabled
+                            ng-click="postMainReply(detailResponse.discuss.id, detailResponse.discuss.discussType)">
+                        SUBMIT
                         </button>
-
                         <button class="btn btn-sm btn-success comment-submit by_btn_cancel "
-                                ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
+                            ng-click="disposeComment(detailResponse.discuss.id)">CANCEL
                         </button>
                         <div class="clearfix margin-bottom-20"></div>
                     </div>
@@ -161,109 +137,71 @@
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
-
-
         <!--discuss like user valisation start-->
         <div ng-show="detailResponse.discuss.pendingUserCredential"
-             class="col-md-12 margin-bottom-20 by_discussDeatil_cardComment" style="margin-top:0px;">
+            class="col-md-12 margin-bottom-20 by_discussDeatil_cardComment" style="margin-top:0px;">
             <div class="clearfix margin-top-20"></div>
             <div class="col-md-12  register-page">
                 <input type="email" class="by_registerEmailId" ng-model="likeActionCredential.email"
-                       placeholder="Enter your email Id"/>
+                    placeholder="Enter your email Id"/>
             </div>
             <div class="clearfix"></div>
             <div class="col-md-12 margin-bottom-10">
                 <span ng-show="likeErrMsg">
-                    <span class='redColor'>{{likeErrMsg}}</span>
+                <span class='redColor'>{{likeErrMsg}}</span>
                 </span>
                 <button class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " type="submit"
-                        ng-click="setUserCredentialForLike()">
-                    SUBMIT
+                    ng-click="setUserCredentialForLike()">
+                SUBMIT
                 </button>
                 <button class="btn btn-sm btn-success comment-submit by_btn_cancel"
-                        ng-click="cancelSetCredentialForLike()">
-                    CANCEL
+                    ng-click="cancelSetCredentialForLike()">
+                CANCEL
                 </button>
             </div>
             <div class="clearfix"></div>
         </div>
         <!--discuss like user valisation end-->
-
-
         <!--discuss detail replies start-->
         <!--<div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"-->
         <!--ng-init="initCommentEditor(detailResponse.discuss.id)"></div>-->
-
         <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:20px;">
             <div class="clearfix margin-top-20"></div>
             <div ng-repeat="reply in detailResponse.replies" id="comment"
-                 data-link="articles.html" ng-controller="DiscussReplyController"
-                 ng-include="'app/shared/common/template/replyCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+                data-link="articles.html" ng-controller="DiscussReplyController"
+                ng-include="'app/shared/common/template/replyCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
         </div>
         <div style="clear: both; height:0px; background:#fff !important"></div>
         <!--discuss detail replies start-->
-
         <!--discuss detail share by email start-->
         <div id="shareModal" class="modal fade" role="dialog">
             <div ng-include="'app/components/discussDetail/discussModal.html'"></div>
         </div>
-
         <div id="shareEmailModal" class="modal fade" role="dialog">
             <div ng-include="'app/components/discussDetail/shareEmailModal.html'"></div>
         </div>
         <!--discuss detail share by email end-->
     </div>
-
 </div>
-
 <!-- mobile bottom -->
 <div ng-if="$root.windowWidth < 720">
     <div class="by_discussDeatil_card" style="padding:0px 15px;">
         <div ng-if="articlesByUser.length > 0 " class="by_discDetail_alsoWrap left-container-img-wrapper">
-            <div class="by_discDetail_alsoHead col-md-12">
-                <b>{{header1}}</b>
-                <a ng-if="authorName" validate-user-name="{{discuss.username}}"
-                   ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">
-                    <b>{{discuss.username}}</b>
+            <div class="by_commFeaturedHead" >
+                {{header1}} 
+                <a ng-href="{{getHrefProfile(discuss, {'profileId':discuss.userId})}}">
+                {{authorName}}
                 </a>
-
             </div>
             <div style="clear:both;"></div>
-            <div class="by_discDetail_alsoContent" ng-repeat="article in articlesByUser"
-                 ng-if="article.id!==discuss.id && !article.linkInfo">
-                <div style="line-height:20px; padding-bottom:5px; " ng-if="article.title && article.title.length > 0"><a
-                        style="font-size:15px; font-weight:bold; text-transform:capitalize;"
-                        ng-href="{{getHref(article, {'id':article.id})}}">
-                    {{article.title.toLowerCase()}}
-                </a></div>
-                <a ng-href="{{getHref(article, {'id':article.id})}}">
-                    <div ng-if="article.title==='' && article.discussType == 'Q'"
-                         ng-bind-html="trustForcefully(article.text.substring(0, 70))"></div>
-                </a>
-                <a ng-href="{{getHref(article, {'id':article.id})}}">
-                    <div ng-if="article.title==='' && article.discussType == 'P' && article.linkInfo && article.linkInfo.title.trim().length > 0">
-                        {{article.linkInfo.title.substring(0, 70)}}
-                    </div>
-                </a>
-                <!--<ul style="line-height:20px; margin-left:0px; " class="list-inline posted-info" ng-init="getLeafCategories(article)">-->
-                    <!--<li ng-if="article.leafCategories.length > 0">-->
-                        <!--In-->
-                    <!--</li>-->
-
-                    <!--<li ng-repeat="topicId in article.leafCategories">-->
-                        <!--<span class="first-letter-uc by-systemTags">-->
-                            <!--<a di-href="#!/communities/{{removeSpecialChars($root.menuCategoryMap[topicId].displayMenuName)}}/{{$root.menuCategoryMap[topicId].id}}/all">-->
-                                <!--{{$root.menuCategoryMap[topicId].displayMenuName}}-->
-                            <!--</a>-->
-                            <!--<span ng-if="$index < article.leafCategories.length-1">,</span>-->
-                        <!--</span>-->
-                    <!--</li>-->
-                    <!--<div style="clear:both;"></div>-->
-                <!--</ul>-->
-            </div>
+            <div  ng-repeat="article in articlesByUserFormat"
+            ng-if="article.id!==discuss.id && !article.linkInfo" class="by_commFeaturedItem">
+            <a ng-href="{{getHref(article, {'id':article.id})}}" >
+                <span>
+                {{article.title}}
+                </span>
+            </a>
         </div>
-
+        </div>
     </div>
-
-
 </div>

@@ -136,7 +136,7 @@
 {
     width: 100%;
     height: auto;
-    font-size: 14px;
+    font-size: 15px;
     color: #08522A;
     padding: 10px 0px;
     line-height: 17px;
@@ -161,6 +161,7 @@
     margin-top: 5px;
     margin-bottom: 15px;
     line-height: 18px;
+    font-size: 15px;
 }
 .curatedProfileOne
 {
@@ -186,6 +187,10 @@
 .curatedProfile a
 {
     color: #000;
+}
+.by_featuredTextWidth
+{
+    width: calc(100% - 60px);
 }
 @media ( max-width : 720px){
     .curatedProfile

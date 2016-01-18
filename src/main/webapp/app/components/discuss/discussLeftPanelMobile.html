@@ -16,14 +16,15 @@
       <div class="by_commFeaturedHead" ng-if="discussFeatured.length > 0">
             Featured
       </div>
-      <div ng-repeat="featured in discussFeatured" class="by_commFeaturedItem">
-            <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();">
-            <span ng-if="featured.discussType == 'Q'" >
-            {{getShortTitle(featured.text)}}
+      <div ng-repeat="featured in formattedData" class="by_commFeaturedItem">
+            <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();"> 
+            <span ng-if="featured.image">
+            <img src="{{featured.image}}" width="50" alt="{{featured.title}}" class="divLeft" />
+            <span class="divRight by_featuredTextWidth">{{featured.title}}</span>
             </span>
-            <span ng-if="featured.discussType == 'P' && featured.title && featured.title.trim().length > 0">{{getShortTitle(featured.title)}}</span>
-            <span ng-if="featured.discussType == 'P' &&  featured.title.trim().length == 0 && linkInfo.title && linkInfo.title.trim().length > 0">{{getShortTitle(linkInfo.title)}}</span>
-            <span ng-if="featured.discussType == 'P' &&  featured.title.trim().length == 0 && linkInfo == null && featured.shortSynopsis">{{getShortTitle(featured.shortSynopsis)}}</span>
+            <span ng-if="!featured.image">
+            {{featured.title}}
+            </span>
             </a>
             <div class="clearfix"></div>
       </div>

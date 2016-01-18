@@ -2,8 +2,8 @@
  * Created by sanjukta on 25-06-2015.
  */
 
-define(['byApp', 'byUtil'], function(byApp, byUtil) {
-	function discussDetailLeftController($scope, $rootScope, $window, $routeParams, broadCastData, DiscussPage, $sce){
+define(['byApp', 'byUtil', 'discussService'], function(byApp, byUtil, discussService) {
+	function discussDetailLeftController($scope, $rootScope, $window, $routeParams, broadCastData, DiscussPage, $sce, discussServiceFilter){
 		var discussId = $routeParams.id;
 		$scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 		$scope.authorName = null;
@@ -16,6 +16,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 					function(value){
 						var userArticles = value.data.content;
 						$scope.articlesByUser = userArticles;
+						$scope.articlesByUserFormat = discussServiceFilter.formatData($scope.articlesByUser);
 						if($scope.articlesByUser.length<=0){
 							$scope.getTagBasedArticle();
 						} else {
@@ -115,7 +116,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
 	}
 
-	discussDetailLeftController.$inject = ['$scope', '$rootScope', '$window', '$routeParams','broadCastData','DiscussPage','$sce'];
+	discussDetailLeftController.$inject = ['$scope', '$rootScope', '$window', '$routeParams','broadCastData','DiscussPage','$sce', 'DisServiceFilter'];
 	byApp.registerController('discussDetailLeftController', discussDetailLeftController);
 	return discussDetailLeftController;
 });

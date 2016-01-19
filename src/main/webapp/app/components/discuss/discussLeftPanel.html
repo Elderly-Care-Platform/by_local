@@ -23,7 +23,7 @@
         <div ng-repeat="featured in formattedData" class="by_commFeaturedItem">
             <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();"> 
             <span ng-if="featured.image">
-                <img ng-src="{{featured.image.thumbnailImage || ''}}" width="50" alt="{{featured.title}}" class="divLeft"
+                <img ng-src="{{featured.image.thumbnailImage || ''}}" width="50" alt="{{featured.title}}" class="divLeft by_featuredImgWidth"
                      fallback-src='["{{featured.image.original || ""}}"]'/>
                 <span class="by_featuredTextWidth divLeft">{{featured.title}}</span>
             </span>

@@ -188,6 +188,11 @@
 {
     color: #000;
 }
+.by_featuredImgWidth
+{
+    margin-right: 5px;
+    margin-top: 5px;
+}
 .by_featuredTextWidth
 {
     width: calc(100% - 60px);

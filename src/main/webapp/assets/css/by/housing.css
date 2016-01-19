@@ -138,7 +138,7 @@
 		width: 30%;
 	}
 	.by_housingCard_content {
-		width: 68%;
+		width: 70%;
 	}
 	.by_housingCard_contentHead {
 		font-size:20px;
@@ -148,6 +148,14 @@
 	}
 }
 @media screen and (max-width: 600px){
+
+	.by_housingCard_profileImage {
+		width: 100%;
+		text-align: center;
+	}
+	.by_housingCard_content {
+		width: 100%;
+	}
 	.by_housingCard_contentLeft {
 		width: 98%;
 		margin-right: 2%;
@@ -162,12 +170,6 @@
 		position: relative;
 		bottom: 0px;
 		margin-bottom: 10px;
-	}
-	.by_housingCard_profileImage {
-		width: 40%;
-	}
-	.by_housingCard_content {
-		width: 58%;
 	}
 	.by_housingCard_readmore {
 		margin-right: 15px;

@@ -1,4 +1,8 @@
 <div class="clearfix"></div>
+ <div class="col-md-12 by_productBreadCrumb text-right no-padding">
+        <a ng-href="#!/shop/{{removeSpecialChars(productParentCategory.displayMenuName)}}/{{productParentCategory.id}}">{{productParentCategory.displayMenuName}}</a>&nbsp; / &nbsp;<a ng-href="#!/shop/{{removeSpecialChars(uiData.categoryName)}}/{{uiData.categoryId}}">{{uiData.categoryName}}</a> &nbsp; / &nbsp; {{uiData.name}}
+    </div>
+    <div class="clearfix"></div>
 <div class="col-md-12 product-main margin-bottom-15 by_pruductDetailed_bgWhite" style="border:0px;">
 
     <div class="col-md-5" style="padding:0px;">
@@ -55,8 +59,8 @@
         </div>
     </div>
     <div class="col-md-7 by_productDetail_contentNoPadding">
-        <h1 class="by_productDetail_contentHead by_productDetail_mobileSpace" ng-if="uiData.name">
-            {{uiData.name}}
+        <h1 class="by_productDetail_contentHead by_productDetail_mobileSpace text-capitalize" ng-if="uiData.name">
+            {{uiData.name.toLowerCase()}}
         </h1>
 
         <div class="by_productDetail_contentAuthor">
@@ -299,6 +303,11 @@
     Item Details
 </div>
 <div class="by_productDetail_contentBg">
+
+    <div ng-if="uiData.productDescription">
+        <div class="by_productDetail_contentDescHead">Product Description</div>
+        <div class="by_productDetail_contentDescText" ng-bind-html="uiData.productDescription"></div>
+    </div>
     <div ng-if="uiData.longDescription">
         <div class="by_productDetail_contentDescHead">Usage</div>
         <div class="by_productDetail_contentDescText" ng-bind-html="uiData.longDescription"></div>
@@ -306,10 +315,6 @@
     <div ng-if="uiData.productDetails">
         <div class="by_productDetail_contentDescHead">Specifications</div>
         <div class="by_productDetail_contentDescText" ng-bind-html="uiData.productDetails"></div>
-    </div>
-    <div ng-if="uiData.productDescription">
-        <div class="by_productDetail_contentDescHead">Product Description</div>
-        <div class="by_productDetail_contentDescText" ng-bind-html="uiData.productDescription"></div>
     </div>
 </div>
 
@@ -327,8 +332,8 @@
                         <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
                     </div>
                     <div class="by_productDetail_leftSimilarThumbContent">
-                        <div class="by_productDetail_leftSimilarThumbContentName">
-                            {{product.name.substring(0, 25)}}<span ng-if="product.name.length > 25">...</span>
+                        <div class="by_productDetail_leftSimilarThumbContentName text-capitalize">
+                            {{product.name.substring(0, 25).toLowerCase()}}<span ng-if="product.name.length > 25">...</span>
                         </div>
                         <div class="by_productDetail_leftSimilarThumbContentPrice">
                             <strong ng-if="product.salePrice && product.salePrice.amount">Rs.

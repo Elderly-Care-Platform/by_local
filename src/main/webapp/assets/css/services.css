@@ -152,6 +152,10 @@
 		width: 100%;
 		text-align: center;
 	}
+	.by_serviceCard_profileImage img
+	{
+		max-width: 100%;
+	}
 	.by_serviceCard_content 
 	{
 		width: 100%;

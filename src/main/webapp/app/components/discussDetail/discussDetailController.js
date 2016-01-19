@@ -5,6 +5,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
             var isComment = $routeParams.comment;
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
             $scope.pageNotFound = false;
+            $scope.getShortTitle = BY.byUtil.getShortTitle;
 
             $scope.discussDetailViews = {};
             $scope.discussDetailViews.leftPanel = "app/components/discussDetail/discussDetailLeftPanel.html?versionTimeStamp=%PROJECT_VERSION%";

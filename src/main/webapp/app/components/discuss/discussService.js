@@ -2,7 +2,8 @@ define(['byApp'], function (byApp) {
 
     function DisService($location) {
         return {
-            getDiscussDetailUrl: getDiscussDetailUrl
+            getDiscussDetailUrl: getDiscussDetailUrl,
+            formatData : formatData
         };
 
         function getDiscussDetailUrl(discuss, urlQueryParams, isAngularLocation){
@@ -44,6 +45,44 @@ define(['byApp'], function (byApp) {
 
             return newHref;
         };
+
+        function formatData(discussObj) {
+                var formattedData = [];
+                if(discussObj && discussObj.length > 0){
+                for (var i = 0; i < discussObj.length; i++) {
+                    var title, id, image = null;
+                    title = getShortTitle(discussObj[i]);
+                    id = discussObj[i].id;
+                    if (discussObj[i].articlePhotoFilename != null) {
+                        image = discussObj[i].articlePhotoFilename;
+                    }
+                    formattedData.push({
+                        title: title,
+                        image: image,
+                        id: id
+                    });
+                };
+                }
+                return formattedData;
+            }
+
+            function getShortTitle(discuss) {
+                var disTitle = "";
+                if (discuss.discussType == 'Q') {
+                    disTitle = discuss.text;
+                } else if (discuss.discussType == 'P' && discuss.title && discuss.title.trim().length > 0) {
+                    disTitle = discuss.title;
+                } else if (discuss.discussType == 'P' && discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0) {
+                    disTitle = discuss.linkInfo.title;
+                } else if(discuss.discussType == 'P' && discuss.shortSynopsis){
+                    disTitle = discuss.shortSynopsis;
+                } else{
+                    disTitle = "";
+                }
+
+                disTitle = BY.byUtil.getShortTitle(disTitle);
+                return disTitle;
+            };
     }
 
     byApp.registerService('DisService', DisService);

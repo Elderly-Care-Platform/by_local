@@ -22,7 +22,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
 
             var city                        = $routeParams.city,
                 tags                        = [],
-                queryParams                 = {p: 0, s: 10};
+                queryParams                 = {page: 0, size: 20};
 
             var init                        = initialize();
 

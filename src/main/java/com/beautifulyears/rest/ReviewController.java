@@ -87,7 +87,7 @@ public class ReviewController {
 			q.addCriteria(Criteria.where("replyType")
 					.is(DiscussConstants.REPLY_TYPE_REVIEW).and("contentType")
 					.is(contentType).and("discussId").is(associatedId));
-			if(null != verified){
+			if (null != verified) {
 				q.addCriteria(Criteria.where("verified").is(verified));
 			}
 			if (null != userId) {
@@ -117,15 +117,18 @@ public class ReviewController {
 			User user = Util.getSessionUser(req);
 
 			DiscussReply newReview = reviewRate;
-			if (null != user && SessionController
-					.checkCurrentSessionFor(req, "RATE_REVIEW")) {
+			if (null != user
+					&& SessionController.checkCurrentSessionFor(req,
+							"RATE_REVIEW")) {
 				if (null != contentType && null != associatedId
 						&& null != newReview) {
 					if (isSelfAccessment(associatedId, contentType, user)) {
 						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 					}
-					if (BYConstants.USER_ROLE_EDITOR.equals(user.getUserRoleId())
-							|| BYConstants.USER_ROLE_SUPER_USER.equals(user.getUserRoleId())) {
+					if (BYConstants.USER_ROLE_EDITOR.equals(user
+							.getUserRoleId())
+							|| BYConstants.USER_ROLE_SUPER_USER.equals(user
+									.getUserRoleId())) {
 						newReview.setVerified(true);
 					}
 					submitRating(contentType, associatedId, newReview, user);
@@ -231,10 +234,13 @@ public class ReviewController {
 		switch (contentType) {
 		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
-			updateInstitutionRating(rating,user);
+			updateInstitutionRating(rating, user);
 			break;
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
 			updateHousingRating(rating, user);
+			break;
+		case DiscussConstants.CONTENT_TYPE_PRODUCT:
+			updateProductRating(rating, user);
 			break;
 		default:
 			throw new BYException(BYErrorCodes.REVIEW_TYPE_INVALID);
@@ -246,14 +252,25 @@ public class ReviewController {
 		switch (contentType) {
 		case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
-			updateInstitutionReviews(review,user);
+			updateInstitutionReviews(review, user);
 			break;
 		case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
 			updateHousingReviews(review, user);
 			break;
+		case DiscussConstants.CONTENT_TYPE_PRODUCT:
+			updateProductReviews(review, user);
+			break;
 		default:
 			throw new BYException(BYErrorCodes.REVIEW_TYPE_INVALID);
 		}
+	}
+
+	private void updateProductRating(UserRating rating, User currentUser) {
+
+	}
+
+	private void updateProductReviews(DiscussReply review, User currentUser) {
+
 	}
 
 	private void updateHousingRating(UserRating rating, User currentUser) {
@@ -283,8 +300,10 @@ public class ReviewController {
 				housing.setAggrRatingPercentage(ratingAggregated.get(0)
 						.getRatingPercentage());
 			}
-			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
-					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+			if (currentUser.getUserRoleId()
+					.equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(
+							BYConstants.USER_ROLE_SUPER_USER)) {
 				housing.setVerified(true);
 			}
 			this.housingRepository.save(housing);
@@ -319,8 +338,10 @@ public class ReviewController {
 				profile.setAggrRatingPercentage(ratingAggregated.get(0)
 						.getRatingPercentage());
 			}
-			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
-					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+			if (currentUser.getUserRoleId()
+					.equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(
+							BYConstants.USER_ROLE_SUPER_USER)) {
 				profile.setVerified(true);
 			}
 			this.userProfileRepository.save(profile);
@@ -336,8 +357,10 @@ public class ReviewController {
 			} else if (!housing.getReviewedBy().contains(review.getUserId())) {
 				housing.getReviewedBy().add(review.getUserId());
 			}
-			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
-					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+			if (currentUser.getUserRoleId()
+					.equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(
+							BYConstants.USER_ROLE_SUPER_USER)) {
 				housing.setVerified(true);
 			}
 			this.housingRepository.save(housing);
@@ -354,8 +377,10 @@ public class ReviewController {
 			} else if (!profile.getReviewedBy().contains(review.getUserId())) {
 				profile.getReviewedBy().add(review.getUserId());
 			}
-			if (currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_EDITOR)
-					|| currentUser.getUserRoleId().equals(BYConstants.USER_ROLE_SUPER_USER)) {
+			if (currentUser.getUserRoleId()
+					.equals(BYConstants.USER_ROLE_EDITOR)
+					|| currentUser.getUserRoleId().equals(
+							BYConstants.USER_ROLE_SUPER_USER)) {
 				profile.setVerified(true);
 			}
 			this.userProfileRepository.save(profile);
@@ -387,24 +412,34 @@ public class ReviewController {
 
 	void sendMailForReview(DiscussReply review, User user) {
 		try {
-			UserProfile reviewedEntity = this.userProfileRepository
-					.findOne(review.getDiscussId());
-			if (!reviewedEntity.getUserId().equals(user.getId())) {
-				ResourceUtil resourceUtil = new ResourceUtil(
-						"mailTemplate.properties");
-				User profileUser = UserController.getUser(reviewedEntity
-						.getUserId());
-				String userName = !Util.isEmpty(profileUser.getUserName()) ? profileUser
-						.getUserName() : "Anonymous User";
-				String replyTypeString = "profile";
-				String path = review.getUrl();
-				String body = MessageFormat.format(
-						resourceUtil.getResource("reviewOnProfile"), userName,
-						path);
-				MailHandler.sendMailToUserId(reviewedEntity.getUserId(),
-						"Your " + replyTypeString
-								+ " was reviewed on beautifulYears.com", body);
+			switch (review.getContentType()) {
+			case DiscussConstants.CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL:
+			case DiscussConstants.CONTENT_TYPE_INSTITUTION_SERVICES:
+			case DiscussConstants.CONTENT_TYPE_INSTITUTION_HOUSING:
+				UserProfile reviewedEntity = this.userProfileRepository
+						.findOne(review.getDiscussId());
+				if (!reviewedEntity.getUserId().equals(user.getId())) {
+					ResourceUtil resourceUtil = new ResourceUtil(
+							"mailTemplate.properties");
+					User profileUser = UserController.getUser(reviewedEntity
+							.getUserId());
+					String userName = !Util.isEmpty(profileUser.getUserName()) ? profileUser
+							.getUserName() : "Anonymous User";
+					String replyTypeString = "profile";
+					String path = review.getUrl();
+					String body = MessageFormat.format(
+							resourceUtil.getResource("reviewOnProfile"),
+							userName, path);
+					MailHandler.sendMailToUserId(reviewedEntity.getUserId(),
+							"Your " + replyTypeString
+									+ " was reviewed on beautifulYears.com",
+							body);
+				}
+				break;
+			default:
+
 			}
+
 		} catch (Exception e) {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 		}

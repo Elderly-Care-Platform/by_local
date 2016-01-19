@@ -7,6 +7,8 @@ package com.beautifulyears.constants;
 
 public class DiscussConstants {
 
+	
+	//used for reviews, ratings,
 	public static final int CONTENT_TYPE_DISCUSS = 0;
 	public static final int CONTENT_TYPE_QUESTION = 1;
 	public static final int CONTENT_TYPE_POST = 2;
@@ -14,6 +16,7 @@ public class DiscussConstants {
 	public static final int CONTENT_TYPE_INSTITUTION_SERVICES = 4;
 	public static final int CONTENT_TYPE_INDIVIDUAL_PROFESSIONAL = 5;
 	public static final int CONTENT_TYPE_INSTITUTION_HOUSING = 6;
+	public static final int CONTENT_TYPE_PRODUCT = 7;
 
 	// -----------------------------------------------------------------//
 	public static final int DISCUSS_POST_TYPE_IMAGE = 0;

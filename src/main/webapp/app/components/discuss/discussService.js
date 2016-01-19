@@ -53,8 +53,9 @@ define(['byApp'], function (byApp) {
                     var title, id, image = null;
                     title = getShortTitle(discussObj[i]);
                     id = discussObj[i].id;
-                    if (discussObj[i].articlePhotoFilename != null) {
-                        image = discussObj[i].articlePhotoFilename;
+                    if (discussObj[i].userProfile != null) {
+                        if(discussObj[i].userProfile.basicProfileInfo.profileImage != null)
+                        image = discussObj[i].userProfile.basicProfileInfo.profileImage;
                     }
                     formattedData.push({
                         title: title,

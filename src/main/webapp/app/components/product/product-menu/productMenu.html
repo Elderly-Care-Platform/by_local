@@ -36,7 +36,7 @@
                 <li ng-repeat="submenu1 in menu.children" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
                     <a class="by_treeSubMenu"
                        ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(submenu1.displayMenuName)}}/{{submenu1.id}}">{{submenu1.displayMenuName}}</a>
+                       ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(submenu1.displayMenuName)}}/{{submenu1.id}}">{{submenu1.name}}</a>
                 </li>
             </ul>
         </li>
@@ -123,7 +123,7 @@
                             ng-init="expandParent(submenu1.id)">
                             <a class="by_treeSubMenu"
                                ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}"
-                               ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(submenu1.displayMenuName)}}/{{submenu1.id}}">{{submenu1.displayMenuName}}</a>
+                               ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(submenu1.displayMenuName)}}/{{submenu1.id}}">{{submenu1.name}}</a>
                         </li>
                     </ul>
                 </li>

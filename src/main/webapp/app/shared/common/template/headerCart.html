@@ -15,8 +15,8 @@
                         <li ng-repeat="item in uiData.cartItems">
                             <img ng-src="{{item.primaryMedia.url}}" alt="" class="mCS_img_loaded">
                             <button type="button" class="close" ng-click="removeItemFromCart(item.id)">×</button>
-                            <div class="overflow-h">
-                                <span>{{item.name}}</span>
+                            <div class="overflow-h text-capitalize">
+                                <span>{{item.name.toLowerCase()}}</span>
                                 <small>{{item.quantity}} x Rs. {{item.salePrice.amount}}</small>
                             </div>
                         </li>

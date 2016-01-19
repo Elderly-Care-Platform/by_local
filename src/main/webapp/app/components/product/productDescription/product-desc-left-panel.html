@@ -12,8 +12,8 @@
                         <img ng-src="{{product.primaryMedia.url}}" alt="{{product.name}}">
                     </div>
                     <div class="by_productDetail_leftSimilarThumbContent">
-                        <div class="by_productDetail_leftSimilarThumbContentName">
-                            {{product.name.substring(0, 25)}}<span ng-if="product.name.length > 25">...</span>
+                        <div class="by_productDetail_leftSimilarThumbContentName text-capitalize">
+                            {{product.name.substring(0, 25).toLowerCase()}}<span ng-if="product.name.length > 25">...</span>
                         </div>
                         <div class="by_productDetail_leftSimilarThumbContentPrice">
                             <strong ng-if="product.salePrice && product.salePrice.amount">Rs. {{product.salePrice.amount}}</strong><br/>

@@ -13,7 +13,7 @@
                          fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
                 </div>
                 <!--<div class="by_productCard_divider"></div>-->
-                <div class="by_productCard_title ellipsisHead margin-top-10">{{product.name}}</div>
+                <div class="by_productCard_title ellipsisHead margin-top-10 text-capitalize">{{product.name.toLowerCase()}}</div>
                 <div class="by_productCard_price" ng-init="getDiscountPercentage(product)">
                     <div ng-if="product.discountPercentage" class="productDiscount">
                         <del class="greyColor">Rs {{product.retailPrice.amount}}</del>&nbsp;&nbsp;

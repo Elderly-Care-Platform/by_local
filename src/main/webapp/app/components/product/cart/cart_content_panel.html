@@ -10,9 +10,9 @@
         <div class="clearfix"></div>
     </div>
     <div class="by_cart_desc" ng-repeat="cartItem in uiData.cartItems">
-        <div class="by_cart_head_product">
+        <div class="by_cart_head_product text-capitalize">
             <img ng-src="{{cartItem.primaryMedia.url}}">
-            <span>{{cartItem.name}}</span>
+            <span>{{cartItem.name.toLowerCase()}}</span>
 
             <div class="clearfix"></div>
         </div>

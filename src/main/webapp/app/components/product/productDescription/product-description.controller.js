@@ -145,6 +145,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                 $scope.promise = ProductDescriptionService.getProductSku(params)
                     .then(getProductSkuSuccess, failure);
                 $scope.uiData = data;
+                var productCategory = $rootScope.menuCategoryMap[$scope.uiData.categoryId];
+                $scope.productParentCategory = $rootScope.menuCategoryMap[productCategory.ancestorIds[1]];
                 $scope.uiData.name = data.name;
                 Utility.checkImages($scope.uiData);
                 if (data.mediaItems) {
@@ -465,6 +467,10 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             }
 
         };
+
+
+        $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
+
 
     }
 

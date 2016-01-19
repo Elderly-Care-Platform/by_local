@@ -100,6 +100,7 @@ define(['byApp', 'byUtil', 'discussService'], function(byApp, byUtil, discussSer
 				DiscussPage.get(params,
 					function(response){
 						$scope.articlesByUser = response.data.content;
+						$scope.articlesByUserFormat = discussServiceFilter.formatData($scope.articlesByUser);
 						$scope.header1 = "Related Post";
 						$scope.authorName = null;
 					},

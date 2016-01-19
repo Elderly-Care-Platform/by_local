@@ -25,7 +25,7 @@
             <span ng-if="featured.image">
                 <img ng-src="{{featured.image.thumbnailImage || ''}}" width="50" alt="{{featured.title}}" class="divLeft"
                      fallback-src='["{{featured.image.original || ""}}"]'/>
-                <span class="by_featuredTextWidth">{{featured.title}}</span>
+                <span class="by_featuredTextWidth divLeft">{{featured.title}}</span>
             </span>
             <span ng-if="!featured.image">
                 {{featured.title}}

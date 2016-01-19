@@ -47,8 +47,10 @@ define(['byApp'], function (byApp) {
         };
 
         function formatData(discussObj) {
-                var formattedData = [], title, id, image = null;
+                var formattedData = [];
+                if(discussObj && discussObj.length > 0){
                 for (var i = 0; i < discussObj.length; i++) {
+                    var title, id, image = null;
                     title = getShortTitle(discussObj[i]);
                     id = discussObj[i].id;
                     if (discussObj[i].articlePhotoFilename != null) {
@@ -60,6 +62,7 @@ define(['byApp'], function (byApp) {
                         id: id
                     });
                 };
+                }
                 return formattedData;
             }
 

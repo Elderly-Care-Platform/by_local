@@ -363,7 +363,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	font-weight:bold;
 	text-decoration:underline;
 	color:#005326 ;
-	background:#fff;
 	word-wrap:break-word;
 	text-transform: capitalize;
 }

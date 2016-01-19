@@ -36,7 +36,7 @@
 						<a style="    position: absolute !important; right: 11px; top: 10px; z-index: 5;    width: 1px;" ng-if="value.length > 1" class="triangle-down" data-toggle="collapse" data-parent="#userTypeaccord"
 							href={{"#collapse"+key}}></a>
 					</div>
-					<div id={{"collapse"+key}} class="panel-collapse collapse"
+					<div id={{"collapse"+key}} style="background:#eee;" class="panel-collapse collapse"
 						ng-class="{'in':value.length > 1 && facilityData.primaryAddress.city===key && userName!=='corp'}"
 						ng-if="value.length > 1">
 						<div class="panel-body" ng-repeat="branch in value">
@@ -101,7 +101,7 @@
 						<a style="    position: absolute !important; right: 11px; top: 10px; z-index: 5;    width: 1px;" ng-if="value.length > 1" class="triangle-down" data-toggle="collapse" data-parent="#userTypeaccord"
 							href={{"#collapse"+key}}></a>
 					</div>
-					<div id={{"collapse"+key}} class="panel-collapse collapse"
+					<div id={{"collapse"+key}} style="background:#eee;" class="panel-collapse collapse"
 						ng-class="{'in':value.length > 1 && facilityData.primaryAddress.city===key && userName!=='corp'}"
 						ng-if="value.length > 1">
 						<div class="panel-body" ng-repeat="branch in value">

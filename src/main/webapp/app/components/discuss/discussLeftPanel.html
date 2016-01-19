@@ -22,13 +22,18 @@
         </div>
         <div ng-repeat="featured in formattedData" class="by_commFeaturedItem">
             <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();"> 
-            <span ng-if="featured.image">
-                <img ng-src="{{featured.image.thumbnailImage || ''}}" width="50" alt="{{featured.title}}" class="divLeft by_featuredImgWidth"
-                     fallback-src='["{{featured.image.original || ""}}"]'/>
-                <span class="by_featuredTextWidth divLeft">{{featured.title}}</span>
-            </span>
-            <span ng-if="!featured.image">
-                {{featured.title}}
+            <span>
+                 <table border="0" cellpadding="0" cellspacing="0" align="left" width="100%">
+                  <tr colspan="3">
+                     <td align="left" class="by_featuredImgWidth">
+                        <img ng-if="featured.image" ng-src="{{featured.image.thumbnailImage || ''}}" width="100%" alt="{{featured.title}}" 
+                     fallback-src='["{{featured.image.titleImage || ""}}"]'/>
+                     <img ng-if="!featured.image" src="assets/img/byTransparent.png?versionTimeStamp=%PROJECT_VERSION%" alt="{{featured.title}}" width="100%"/>
+                     </td>
+                     <td align="left" width="5"></td>
+                     <td align="left" class="by_featuredTextWidth">{{featured.title}}</td>
+                  </tr>
+               </table>
             </span>
             </a>
 

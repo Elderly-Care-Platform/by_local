@@ -204,7 +204,7 @@ BY.byUtil.getShortTitle = function (name) {
         var title, titleDiv = document.createElement('div'), nextSpaceIndex;
         titleDiv.innerHTML = name;
         title = titleDiv.textContent;
-        nextSpaceIndex = title.indexOf(" ", 60);
+        nextSpaceIndex = title.indexOf(" ", 40);
         if (nextSpaceIndex > 1) {
             title = title.substr(0, nextSpaceIndex);
         }        

@@ -1,0 +1,136 @@
+<div ng-controller="ProductReviewRateController" style="margin-top:-5px;">
+	<form name="reviewRateForm" class="third-register-page grayRegisterBgLight by_editor_wrap" novalidate style="background:transparent;">
+		<div class="row  register-page ">
+			<div class="col-md-12 margin-bottom-20 register-page reviewRateForm">
+				<img src="assets/img/by.png" alt="image" style="width:43px  !important; margin-left:5px !important; float:left;">
+				<div style="width: calc(100% - 56px); float: right;">
+					<div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+						<div class="col-md-12 margin-bottom-10 margin-top-10">Please rate this product:
+						</div>
+						<div class="col-md-12 margin-bottom-10">
+							<div class="divLeft by_rating_left" ng-click="selectRating(1, $event)">
+								<div class="profileRateValues profileRateValuesProduct profileRate1">1</div>
+								<div class="clearfix"></div>
+								<div class="profileRatetext">Terrible</div>
+							</div>
+							<div class="divLeft by_rating_left" ng-click="selectRating(2, $event)">
+								<div class="profileRateValues profileRateValuesProduct profileRate2">2</div>
+								<div class="clearfix"></div>
+								<div class="profileRatetext">Poor</div>
+							</div>
+							<div class="divLeft by_rating_left" ng-click="selectRating(3, $event)">
+								<div class="profileRateValues profileRateValuesProduct profileRate3">3</div>
+								<div class="clearfix"></div>
+								<div class="profileRatetext">Average</div>
+							</div>
+							<div class="divLeft by_rating_left" ng-click="selectRating(4, $event)">
+								<div class="profileRateValues profileRateValuesProduct profileRate4">4</div>
+								<div class="clearfix"></div>
+								<div class="profileRatetext">Good</div>
+							</div>
+							<div class="divLeft by_rating_left" ng-click="selectRating(5, $event)">
+								<div class="profileRateValues profileRateValuesProduct profileRate5">5</div>
+								<div class="clearfix"></div>
+								<div class="profileRatetext">Excellent</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="col-md-12 margin-bottom-10">
+							<div style="height:1px; background:#ccc; margin-top:10px;"></div>
+						</div>
+						<div class="col-md-12 margin-bottom-10">Please write a review:</div>
+						<div class="col-md-12 margin-bottom-1">
+							<div class="0 home-address byEditor" style="border: 1px solid #ccc;">
+								<textarea class="textbox" rows="3" style="height: 100px;" id="reviewTextArea" ng-model="reviewText"></textarea>
+							</div>
+						</div>
+						<div>
+
+
+						</div>
+
+						<div class="clearfix" style="height:10px;"></div>
+
+						<div class="by_rateRegisterWrap">
+							<div class="col-md-6 ">
+								Please register to complete the rating
+								<div class="margin-top-10">
+									<input type="text" class="by_registerEmailId" placeholder="Username (optional)" ng-model="newUserCredential.userName" />
+								</div>
+								<div class="margin-top-10">
+									<input type="text" class="by_registerEmailId" placeholder="Enter your email Id" ng-model="newUserCredential.uniqueRegId" />
+								</div>
+								<div class="margin-top-10">
+									<input type="password" class="by_registerEmailId" placeholder="Enter your Password" ng-model="newUserCredential.pwd" />
+								</div>
+								<xyz ng-if="!userCredential.email && userCredential.email.trim().length === 0">
+									<div class="margin-top-10">
+										Or
+										<br/> Use your social network account to register
+										<br/>
+										<div class="dp-inline-block" ng-click="fbLogin()">
+											<img src="assets/img/icons/fb-login.png" width="97" height="23" class="post-text">
+										</div>
+										<div class="dp-inline-block padding-left-5" ng-click="ggLogin()">
+											<img src="assets/img/icons/googleplus-login.png" width="82" height="23" class="post-text">
+										</div>
+									</div>
+								</xyz>
+							</div>
+							<div class="col-md-6 margin-top-40">
+								Already a BeautifulYears member?
+								<div class="by_rateChangePanel" ng-click="toggleRegForm(1);">Login</div>
+							</div>
+						</div>
+						<div class="by_rateLoginWrap">
+							<div class="col-md-6 ">
+								Please login to complete the rating
+								<div class="margin-top-10">
+									<input type="text" class="by_registerEmailId" placeholder="Enter your email Id" ng-model="userCredential.email" />
+								</div>
+								<div class="margin-top-10">
+									<input type="password" class="by_registerEmailId" placeholder="Enter your Password" ng-model="userCredential.pwd" />
+								</div>
+								<xyz ng-if="!userCredential.email || userCredential.email.trim().length === 0">
+									<div class="margin-top-10">
+										Or
+										<br/> Use your social network account to login
+										<br/>
+										<div class="dp-inline-block" ng-click="fbLogin()">
+											<img src="assets/img/icons/fb-login.png" width="97" height="23" class="post-text">
+										</div>
+										<div class="dp-inline-block padding-left-5" ng-click="ggLogin()">
+											<img src="assets/img/icons/googleplus-login.png" width="82" height="23" class="post-text">
+										</div>
+									</div>
+								</xyz>
+							</div>
+							<div class="col-md-6 margin-top-40">
+								New user?
+								<div class="by_rateChangePanel" ng-click="toggleRegForm(0);">Register Now </div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+
+						<div class="col-md-12  margin-bottom-10 margin-top-10">
+
+							<span ng-show="blankReviewRateError" class="errorRed">
+								Please rate/review
+								<span ng-if="gender">{{gender}}</span>
+							<span ng-if="userProfile.basicProfileInfo.firstName">{{userProfile.basicProfileInfo.firstName}}</span>
+							<span ng-if="userProfile.individualInfo.lastName">
+									{{userProfile.individualInfo.lastName}}</span>
+							</span>
+							<span ng-show="unauthorizeUserError" class="errorRed">
+								You are not authorized to review/rate this profile </span>
+							<span ng-show="otherError" class="errorRed ">
+								{{otherError}} </span>
+							<input style="font-size: 15px;" type="submit" value="Submit" id="reviewSubmit" class="btn btn-sm btn-success comment-submit by_btn_submit by-editor-submit-btn " ng-click="postReview(productForm)" />
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

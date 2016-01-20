@@ -1,0 +1,33 @@
+<div class="blog-author margin-bottom-35 main-article replyCard by_blog_author  by-commment-bg-gray" style="box-shadow:none !important;; margin-left:23px !important; background:#fff; border:0px solid #ccc border-top-width:0px !important; margin-bottom: 20px !important; border-radius:0px !important; margin-right:21px !important; ">
+    <img src="{{review.userProfile.basicProfileInfo.profileImage.thumbnailImage || ''}}" fallback-src='["assets/img/by.png"]' alt="image" class="replyCardImg">
+
+    <div class="article-info dp-inline-block">
+        <ul class="list-inline posted-info">
+            <li ng-if="review"> By <a validate-user-name="{{review.userName}}" ng-href="{{getHrefProfileReview(review, {'profileId':review.userId})}}" ng-click="$event.stopPropagation();"> {{username}} </a> &nbsp; | </li>
+            <li time-since="{{review.createdAt}}"></li>
+            <li class="reviewCardRating list-inline" ng-if="review.userRatingPercentage && review.userRatingPercentage!=='0'">
+                &nbsp; | <i class="rounded-x profileStar " rate-calculator="{{review.userRatingPercentage}}"></i>
+            </li>
+        </ul>
+    </div>
+
+    <div class="articles-story" ng-bind-html="trustForcefully(review.text)" style="padding-left:21px;"></div>
+
+    <div style="clear: both"></div>
+    <div class="inner-enter-comment-wrap padding20SM borderShadow by_editor_wrap" style="margin-bottom: 20px;" id="commentEditor" ng-show="showEditor">
+
+        <textarea rows="3" id="{{review.id}}"></textarea>
+
+        <button class="inner-comment-submit btn btn-sm btn-success by_btn_submit by-editor-submit-btn" type="submit" disabled ng-click="postComment(review.discussId, review.id)">SUBMIT
+        </button>
+        <span/>
+        <button class="inner-comment-submit btn btn-sm btn-success by_btn_cancel" ng-click="disposeComment(review.id)">CANCEL
+        </button>
+        <div style="clear: both"></div>
+    </div>
+
+    <div ng-if="review.replies && review.replies.length > 0" class="noTopBorder">
+        <hr/>
+        <div ng-repeat="review in review.replies" ng-include="'app/components/profile/shared/profileReviewCard.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+    </div>
+</div>

@@ -515,6 +515,15 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl', 'urlFactory'
             newHref = "#!" + newHref;
             return newHref;
         };
+
+        $scope.gotoHref = function (id) {
+                if (id) {
+                    var tag = $("#" + id + ":visible");
+                    if (tag.length > 0) {
+                        $('html,body').animate({scrollTop: tag.offset().top - 57}, 'slow');
+                    }
+                }
+            };
         // ********** rate & review for products
 
 

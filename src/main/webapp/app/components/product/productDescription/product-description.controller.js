@@ -16,7 +16,7 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl'], function(by
         MEDIATYPE,
         STATIC_IMAGE,
         TEMPLATE_URL,
-        Utility, LogisticService, ReviewRateProfile, UserValidationFilter, $sce) {
+        Utility, LogisticService, ReviewRateProfile, UserValidationFilter, $sce, META_TAGS) {
 
 
         // Variables
@@ -102,19 +102,24 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl'], function(by
          */
         function updateMetaTags() {
             // to eliminate html tags from product description
-            var descDiv1 = document.createElement('div');
-            if ($scope.uiData.productDescription) {
+            var descDiv1 = document.createElement('div'),  prodKeywords = META_TAGS.keywords.split(','),
+                descText, metaTagParams;
+            if($scope.uiData.productDescription){
                 descDiv1.innerHTML = $scope.uiData.productDescription;
-            } else {
+            }else{
                 descDiv1.innerHTML = $scope.uiData.longDescription;
             }
 
-            var descText = $.parseHTML(descDiv1.innerText);
-            var metaTagParams = {
-                title: $scope.uiData.name,
-                imageUrl: BY.config.constants.productImageHost + $scope.uiData.media[0].url,
-                description: descText,
-                keywords: ['Elder care products', 'senior care products']
+            descText = $.parseHTML(descDiv1.innerText);
+
+            if($scope.uiData.productType && $scope.uiData.productType.trim().length > 0){
+                prodKeywords = prodKeywords.concat($scope.uiData.productType.split(','));
+            }
+            metaTagParams = {
+                title:  $scope.uiData.name + ' in ' + META_TAGS.title,
+                imageUrl:      BY.config.constants.productImageHost + $scope.uiData.media[0].url,
+                description:   descText,
+                keywords:      prodKeywords
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }
@@ -568,7 +573,7 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl'], function(by
         'MEDIATYPE',
         'STATIC_IMAGE',
         'TEMPLATE_URL',
-        'Utility', 'LogisticService', 'ReviewRateProfile', 'UserValidationFilter', '$sce'
+        'Utility', 'LogisticService', 'ReviewRateProfile', 'UserValidationFilter', '$sce', 'META_TAGS'
     ];
 
     byProductApp.registerController('ProductDescriptionController', ProductDescriptionController);

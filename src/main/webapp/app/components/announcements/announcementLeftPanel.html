@@ -1,0 +1,27 @@
+<div class="by_subMenuPlus col-md-12" ng-init="smartScroll();" ng-if="$root.windowWidth > 720">
+    <div class="by_profileDetailed_menu" ng-click="gotoHref('AnnouncementCard')">
+        Announcement 
+    </div>
+    <div class="by_profileDetailed_menu" ng-click="gotoHref('AnnouncementEditor')">
+        Share your story 
+    </div>
+    <div class="by_profileDetailed_menu" ng-click="gotoHref('AnnouncementSubmission')">
+        Read other stories
+    </div>
+</div>
+
+<div class="by_mobile_leftPanel_hide" ng-if="$root.windowWidth < 720">
+    <div class="by_mobile_leftPanel" style="padding:0px 15px;">
+        <div class="by_profileDetailed_menu" ng-click="gotoHref('AnnouncementCard')">
+            Announcement 
+        </div>
+        <div class="by_profileDetailed_menu" ng-click="gotoHref('AnnouncementEditor')">
+            Share your story 
+        </div>
+        <div class="by_profileDetailed_menu" ng-click="gotoHref('AnnouncementSubmission')">
+            Read other stories
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="by_mobile_leftPanel_image" ng-init="subMenuTabMobileShow();"></div>
+</div>

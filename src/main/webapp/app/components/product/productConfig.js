@@ -111,6 +111,11 @@ define([], function () {
             })
             .constant('CONSTANT', {
                 products: 'products'
+            })
+            .constant('META_TAGS', {
+                title: "elder care products",
+                keywords: "Elder care products, senior care products, products for elders, products for elders in bangalore, products for elders in India, " +
+                "elderly care products, products for seniors, products for senior citizens"
             });
     }
 

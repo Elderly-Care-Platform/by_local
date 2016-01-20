@@ -1,24 +1,24 @@
-define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoImageDirective) {
+define(['byProductApp', 'videoImageDirective', 'productReviewCtrl', 'urlFactory'], function(byProductApp, videoImageDirective, productReviewCtrl, urlFactory) {
 
     function ProductDescriptionController($scope,
-                                          $rootScope,
-                                          $log,
-                                          $q,
-                                          $window,
-                                          $routeParams,
-                                          $modal,
-                                          $location,
-                                          ProductDescriptionService,
-                                          CartService,
-                                          PAGE_URL,
-                                          INVENTORY,
-                                          SERVERURL_IMAGE,
-                                          MEDIATYPE,
-                                          STATIC_IMAGE,
-                                          TEMPLATE_URL,
-                                          Utility, LogisticService) {
+        $rootScope,
+        $log,
+        $q,
+        $window,
+        $routeParams,
+        $modal,
+        $location,
+        ProductDescriptionService,
+        CartService,
+        PAGE_URL,
+        INVENTORY,
+        SERVERURL_IMAGE,
+        MEDIATYPE,
+        STATIC_IMAGE,
+        TEMPLATE_URL,
+        Utility, LogisticService, ReviewRateProfile, UserValidationFilter, $sce, META_TAGS, urlFactoryFilter) {
 
-        
+
         // Variables
         var customerId = null;
         if (localStorage.getItem("by_cust_id")) {
@@ -40,6 +40,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.telNo = BY.config.constants.byContactNumber;
         var productOptions = {};
 
+
         // uiData mapping
         $scope.uiData = {};
         $scope.logisticInfo = {};
@@ -52,14 +53,14 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         $scope.closeModelInstance = closeModelInstance;
         $scope.playVideo = playVideo;
         $scope.productOptionSelected = productOptionSelected;
-	    $scope.checkLogisticAvailability = checkLogisticAvailability;
-        $scope.slideIndex       = 1;
+        $scope.checkLogisticAvailability = checkLogisticAvailability;
+        $scope.slideIndex = 1;
         $scope.pincode = localStorage.getItem("LOCATION-PINCODE") ? parseInt(localStorage.getItem("LOCATION-PINCODE")) : null;
         $scope.promise = getProductDescription();
 
-        $scope.leftPanelHeight = function(){
-            var clientHeight = $( window ).height() - 57;
-            $(".by_menuDetailed").css('height', clientHeight+"px");
+        $scope.leftPanelHeight = function() {
+            var clientHeight = $(window).height() - 57;
+            $(".by_menuDetailed").css('height', clientHeight + "px");
         }
 
         /**
@@ -82,7 +83,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             var flag = true;
             var productId = parseInt($scope.productId, 10);
             if (result.orderItems) {
-                angular.forEach(result.orderItems, function (orderItem) {
+                angular.forEach(result.orderItems, function(orderItem) {
                     if (flag) {
                         if (productId === orderItem.productId) {
                             $scope.addToCartDisable = true;
@@ -99,21 +100,26 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
          * update social media meta tags
          *
          */
-        function updateMetaTags(){
+        function updateMetaTags() {
             // to eliminate html tags from product description
-            var descDiv1 = document.createElement('div');
+            var descDiv1 = document.createElement('div'),  prodKeywords = META_TAGS.keywords.split(','),
+                descText, metaTagParams;
             if($scope.uiData.productDescription){
                 descDiv1.innerHTML = $scope.uiData.productDescription;
             }else{
                 descDiv1.innerHTML = $scope.uiData.longDescription;
             }
 
-            var descText = $.parseHTML(descDiv1.innerText);
-            var metaTagParams = {
-                title:  $scope.uiData.name,
-                imageUrl:   BY.config.constants.productImageHost + $scope.uiData.media[0].url,
-                description:    descText,
-                keywords:['Elder care products', 'senior care products']
+            descText = $.parseHTML(descDiv1.innerText);
+
+            if($scope.uiData.productType && $scope.uiData.productType.trim().length > 0){
+                prodKeywords = prodKeywords.concat($scope.uiData.productType.split(','));
+            }
+            metaTagParams = {
+                title:  $scope.uiData.name + ' in ' + META_TAGS.title,
+                imageUrl:      BY.config.constants.productImageHost + $scope.uiData.media[0].url,
+                description:   descText,
+                keywords:      prodKeywords
             }
             BY.byUtil.updateMetaTags(metaTagParams);
         }
@@ -125,11 +131,13 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         function getProductDescription() {
             var params = {};
             params.id = $scope.productId;
-            if($scope.pincode){
+            if ($scope.pincode) {
                 checkLogisticAvailability($scope.pincode);
             }
             var productDescriptionPromise = ProductDescriptionService.getProductDescription(params),
-                loadPromise = $q.all({productDescription: productDescriptionPromise});
+                loadPromise = $q.all({
+                    productDescription: productDescriptionPromise
+                });
             return loadPromise.then(productDescriptionSuccess, failure);
 
             /**
@@ -146,15 +154,17 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                     .then(getProductSkuSuccess, failure);
                 $scope.uiData = data;
                 var productCategory = $rootScope.menuCategoryMap[$scope.uiData.categoryId];
-                $scope.productParentCategory = $rootScope.menuCategoryMap[productCategory.ancestorIds[1]];
+                if (productCategory) {
+                    $scope.productParentCategory = $rootScope.menuCategoryMap[productCategory.ancestorIds[1]];
+                }
                 $scope.uiData.name = data.name;
                 Utility.checkImages($scope.uiData);
                 if (data.mediaItems) {
-                    angular.forEach(data.mediaItems, function (mediaItem) {
+                    angular.forEach(data.mediaItems, function(mediaItem) {
                         var params = {};
                         params.image = mediaItem.url;
                         mediaItem.url = SERVERURL_IMAGE.hostUrl + mediaItem.url;
-//                        CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
+                        //                        CartService.loadImage(params).then(loadImageSuccess, loadImageFailure);
                         function loadImageSuccess() {
                             //$log.debug('success in getting image');
                             mediaItem.url = SERVERURL_IMAGE.hostUrl + mediaItem.url;
@@ -169,7 +179,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                     });
                 }
                 $scope.uiData.media = data.mediaItems;
-                angular.forEach(data.mediaItems, function (mediaItem) {
+                angular.forEach(data.mediaItems, function(mediaItem) {
                     var url = mediaItem.url;
                     if (Utility.getImageExt().test(url)) {
                         mediaItem.type = MEDIATYPE.mediaTypeImage;
@@ -199,8 +209,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             function getProductSkuSuccess(result) {
                 var params = {};
                 params.id = result[0].id;
-                var getProductSkuInventoryPromise = ProductDescriptionService.getProductSkuInventory
-                (params).then(getProductSkuInventorySuccess, failure);
+                var getProductSkuInventoryPromise = ProductDescriptionService.getProductSkuInventory(params).then(getProductSkuInventorySuccess, failure);
                 $scope.promise = getProductSkuInventoryPromise;
             }
 
@@ -241,7 +250,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                     products = Utility.grabProducts(result, products);
                 }
 
-                angular.forEach(products, function (product) {
+                angular.forEach(products, function(product) {
                     if (product.id !== parseInt(($scope.productId), 10) && similarProductList.length < 3) {
                         similarProductList.push(product);
                     }
@@ -261,7 +270,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
         function productOptionSelected(prodOption, selectedVal) {
             $scope.addToCartFailedMsg = "";
-            if(prodOption.attributeName.toLowerCase() === "productoption.size"){
+            if (prodOption.attributeName.toLowerCase() === "productoption.size") {
                 $scope.adjustedPrice = parseFloat($scope.uiData.salePrice.amount) + parseFloat(selectedVal.priceAdjustment.amount);
             }
         }
@@ -273,7 +282,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         function checkProductCashOnDeliveryPincode(pincode) {
             var flag = true;
             pincode = parseInt(pincode, 10);
-            angular.forEach($scope.uiData.productCashOnDeliveryPincode, function (cashOnDeliveryPincode) {
+            angular.forEach($scope.uiData.productCashOnDeliveryPincode, function(cashOnDeliveryPincode) {
                 if (flag) {
                     if (pincode === cashOnDeliveryPincode.productCashOnDeliveryPincode) {
                         $scope.pincodeAvailablity = 1;
@@ -291,8 +300,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
          * Add product to cart
          * @param {integer} productId
          */
-        $scope.activeProductColor = function () {
-            $(".by_productDetail_optionColor_size").click(function () {
+        $scope.activeProductColor = function() {
+            $(".by_productDetail_optionColor_size").click(function() {
                 $(".by_productDetail_optionColor_size").css('border-color', 'transparent');
                 $(".by_productDetail_optionColor_size").css('opacity', '1');
                 $(this).css('border-color', 'green');
@@ -302,40 +311,40 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             });
         };
 
-        $scope.activeProductSize = function () {
-            $(".by_productDetail_optionSize_size").click(function () {
+        $scope.activeProductSize = function() {
+            $(".by_productDetail_optionSize_size").click(function() {
                 $(".by_productDetail_optionSize_size").css('border-color', '#ccc');
                 $(this).css('border-color', 'green');
                 $scope.selectedSize = $(this).attr("data-size");
             });
         }
 
-        $scope.updateRequiredQuantity = function(val){
+        $scope.updateRequiredQuantity = function(val) {
             $scope.userRequiredQuantity = val;
         }
 
 
-        function checkLogisticAvailability(pincode){
+        function checkLogisticAvailability(pincode) {
             localStorage.setItem("LOCATION-PINCODE", pincode);
             $scope.logisticInfo.deliveryDetail = "";
             var checkLogistic = LogisticService.checkLogisticAvailability(pincode);
-            if(checkLogistic){
+            if (checkLogistic) {
                 checkLogistic.then(logisticSuccessRes, logisticErrorRes);
             }
 
-            function logisticSuccessRes(data){
+            function logisticSuccessRes(data) {
                 console.log("Logistic Available");
-                if(data.data === "" || data.status === 240){
+                if (data.data === "" || data.status === 240) {
                     $scope.logisticInfo.cashOnDelivery = "NA";
                     $scope.logisticInfo.deliveryDetail = "NA";
-                }else{
+                } else {
                     $scope.logisticInfo.cashOnDelivery = "eligible";
                     $scope.logisticInfo.deliveryDetail = "standard";
                 }
 
             }
 
-            function logisticErrorRes(data){
+            function logisticErrorRes(data) {
                 console.log("Logistic Unavailable");
                 $scope.logisticInfo.cashOnDelivery = "NA";
                 $scope.logisticInfo.deliveryDetail = "NA";
@@ -343,14 +352,13 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         }
 
         function addProductToCart(productId, nextLocation) {
-            if($scope.logisticInfo && $scope.logisticInfo.deliveryDetail && $scope.logisticInfo.deliveryDetail==="standard"){
+            if ($scope.logisticInfo && $scope.logisticInfo.deliveryDetail && $scope.logisticInfo.deliveryDetail === "standard") {
                 $log.debug('Add product to cart');
                 if ($scope.uiData.productOptions && $scope.uiData.productOptions.length > 0) {
                     for (var i = 0; i < $scope.uiData.productOptions.length; i++) {
                         if ($scope.selectedColor && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.color") {
                             productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedColor;
-                        }
-                        else if ($scope.selectedSize && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.size") {
+                        } else if ($scope.selectedSize && $scope.uiData.productOptions[i].attributeName.toLowerCase() === "productoption.size") {
                             productOptions[$scope.uiData.productOptions[i].attributeName] = $scope.selectedSize;
                         }
                     };
@@ -365,8 +373,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                         Utility.checkCartAvailability(customerId, productId, $scope.userRequiredQuantity, productOptions, nextLocation);
                     }
                 }
-            } else{
-                if($scope.logisticInfo && !$scope.logisticInfo.deliveryDetail){
+            } else {
+                if ($scope.logisticInfo && !$scope.logisticInfo.deliveryDetail) {
                     $scope.checkLogisticDetail = true;
                 }
             }
@@ -386,7 +394,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
                 templateUrl: TEMPLATE_URL.playVideo,
                 controller: 'VideoModalController',
                 resolve: {
-                    videoSource: function () {
+                    videoSource: function() {
                         return $scope.videoSource;
                     }
                 },
@@ -403,13 +411,13 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
             $rootScope.modalInstance.dismiss();
         }
 
-        $scope.$on('addToCartFailed', function (event, args) {
+        $scope.$on('addToCartFailed', function(event, args) {
             $scope.addToCartFailedMsg = "Please select size/color";
         });
 
-        $scope.$on('newItemAddedToCart', function (event, args) {
+        $scope.$on('newItemAddedToCart', function(event, args) {
             $scope.productAddSuccess = true;
-            $window.setTimeout(function(){
+            $window.setTimeout(function() {
                 $scope.productAddSuccess = false;
                 $scope.$apply();
             }, 2000);
@@ -428,19 +436,19 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         function openProductDescription(productId, productName) {
             var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
                 prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
-                path = '/' + prodName + PAGE_URL.productDescription + "/"+ productId;
+                path = '/' + prodName + PAGE_URL.productDescription + "/" + productId;
             $location.path(path);
         }
 
-        $scope.productUrl = function(productId, productName){
+        $scope.productUrl = function(productId, productName) {
             var prodName = productName.replace(/[^a-zA-Z0-9 ]/g, ""),
                 prodName = prodName.replace(/\s+/g, '-').toLowerCase(),
                 newHref = '#!/' + prodName + PAGE_URL.productDescription + "/" + productId;
-                return  newHref;
+            return newHref;
         }
 
-        $scope.galleryClickHover = function () {
-            $(".small-width").click(function () {
+        $scope.galleryClickHover = function() {
+            $(".small-width").click(function() {
                 var urlPopup = $(this).attr('src');
                 $(".by_productMainImage").attr('src', urlPopup);
             });
@@ -449,7 +457,7 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
 
 
-        $scope.slideGallery = function (dir) {
+        $scope.slideGallery = function(dir) {
             if ($scope.slideIndex < 1) {
                 $scope.slideIndex = 1;
             }
@@ -471,6 +479,54 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
 
         $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
 
+        // ********** rate & review for products
+
+        var reviewDetails = new ReviewRateProfile();
+        $scope.showReviews = showReviews;
+        var init = initialize();
+
+        function initialize() {
+            showReviews();
+        }
+
+        function showReviews() {
+            //Get reviews by all user for this professional
+            $scope.reviews = reviewDetails.$get({
+                associatedId: $scope.productId,
+                reviewContentType: 7
+            }, function(response) {
+                $scope.reviews = response.data.replies;
+                if ($scope.reviews.length > 0) {
+                    require(['discussLikeController', 'shareController'], function(discussLikeCtrl, shareCtrl) {
+                        $scope.$apply();
+                    });
+                }
+            }, function(error) {
+                console.log(error)
+            })
+        };
+
+        $scope.trustForcefully = function(html) {
+            return $sce.trustAsHtml(html);
+        };
+
+        $scope.getHrefProfileReview = function(profile, urlQueryParams) {
+            var newHref = urlFactoryFilter.getProfileDetailUrlReview(profile, urlQueryParams, false);
+            newHref = "#!" + newHref;
+            return newHref;
+        };
+
+        $scope.gotoHref = function (id) {
+                if (id) {
+                    var tag = $("#" + id + ":visible");
+                    if (tag.length > 0) {
+                        $('html,body').animate({scrollTop: tag.offset().top - 57}, 'slow');
+                    }
+                }
+            };
+        // ********** rate & review for products
+
+
 
     }
 
@@ -490,7 +546,8 @@ define(['byProductApp', 'videoImageDirective'], function (byProductApp, videoIma
         'MEDIATYPE',
         'STATIC_IMAGE',
         'TEMPLATE_URL',
-        'Utility', 'LogisticService'];
+        'Utility', 'LogisticService', 'ReviewRateProfile', 'UserValidationFilter', '$sce', 'META_TAGS', 'UrlFactoryFilter'
+    ];
 
     byProductApp.registerController('ProductDescriptionController', ProductDescriptionController);
     return ProductDescriptionController;

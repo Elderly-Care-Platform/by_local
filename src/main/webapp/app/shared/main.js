@@ -109,6 +109,7 @@ require.config({
 		productController : '../components/product/product-listing/productController',
 		productMenuCtrl :  '../components/product/product-menu/productMenuCtrl',
 		productDescCtrl : '../components/product/productDescription/product-description.controller',
+		productReviewCtrl : '../components/product/product-rate-review/reviewRateController',
 		videoImageDirective : '../components/product/productDescription/video-image.directive',
 		videoModalController : '../components/product/productDescription/videoModal.controller',
 

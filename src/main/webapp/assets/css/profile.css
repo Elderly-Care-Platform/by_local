@@ -82,6 +82,10 @@
 	cursor: pointer;
 	opacity: 1;
 }
+.profileRateValuesProduct
+{
+	background-image: url('../img/profile/blankStar_product.png?versionTimeStamp=%PROJECT_VERSION%');
+}
 .profileRating i.profileStar, .reviewCardRating i.profileStar
 {
 	width: 29px !important;

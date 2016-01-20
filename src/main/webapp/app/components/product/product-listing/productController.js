@@ -15,7 +15,7 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
                                 SERVERURL_IMAGE,
                                 STATIC_IMAGE,
                                 Utility,
-                                PAGINATION) {
+                                PAGINATION, META_TAGS) {
         $log.debug('Inside Product Controller');
 
         //Variables
@@ -55,14 +55,15 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
 
 
         function updateMetaTags(){
-            var seoKeywords = [$scope.selectedMenu.displayMenuName, 'senior care products', 'elder care products'];
+            var seoKeywords = META_TAGS.keywords.split(','), metaTagParams;
+            seoKeywords.push($scope.selectedMenu.displayMenuName);
             for(var i=0; i<=$scope.selectedMenu.ancestorIds.length-1;i++){
                 var categoryName = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[i]].displayMenuName;
                 seoKeywords.push(categoryName);
             }
 
-            var metaTagParams = {
-                title: $scope.selectedMenu.displayMenuName,
+            metaTagParams = {
+                title: $scope.selectedMenu.displayMenuName + " " + META_TAGS.title,
                 imageUrl: "",
                 description: "<p>"+ "Products that improve lives of seniors - select from our catalogue" +"</p>",
                 keywords: seoKeywords
@@ -394,7 +395,8 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         'SERVERURL_IMAGE',
         'STATIC_IMAGE',
         'Utility',
-        'PAGINATION'];
+        'PAGINATION',
+        'META_TAGS'];
 
     byProductApp.registerController('ProductsController', ProductsController);
     return ProductsController;

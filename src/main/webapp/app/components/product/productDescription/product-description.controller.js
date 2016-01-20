@@ -1,4 +1,4 @@
-define(['byProductApp', 'videoImageDirective', 'productReviewCtrl'], function(byProductApp, videoImageDirective, productReviewCtrl) {
+define(['byProductApp', 'videoImageDirective', 'productReviewCtrl', 'urlFactory'], function(byProductApp, videoImageDirective, productReviewCtrl, urlFactory) {
 
     function ProductDescriptionController($scope,
         $rootScope,
@@ -16,7 +16,7 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl'], function(by
         MEDIATYPE,
         STATIC_IMAGE,
         TEMPLATE_URL,
-        Utility, LogisticService, ReviewRateProfile, UserValidationFilter, $sce, META_TAGS) {
+        Utility, LogisticService, ReviewRateProfile, UserValidationFilter, $sce, META_TAGS, urlFactoryFilter) {
 
 
         // Variables
@@ -511,44 +511,8 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl'], function(by
         };
 
         $scope.getHrefProfileReview = function(profile, urlQueryParams) {
-            var newHref = getProfileDetailUrlReview(profile, urlQueryParams, false);
+            var newHref = urlFactoryFilter.getProfileDetailUrlReview(profile, urlQueryParams, false);
             newHref = "#!" + newHref;
-            return newHref;
-        };
-
-        function getProfileDetailUrlReview(profile, urlQueryParams, isAngularLocation) {
-            var proTitle = "others";
-            if (profile && profile.userName && profile.userName.length > 0) {
-                proTitle = BY.byUtil.validateUserName(profile.username);
-            } else {
-                proTitle = "others";
-            }
-
-            proTitle = BY.byUtil.getSlug(proTitle);
-            var newHref = "/users/" + proTitle;
-
-
-            if (urlQueryParams && Object.keys(urlQueryParams).length > 0) {
-                //Set query params through angular location search method
-                if (isAngularLocation) {
-                    angular.forEach($location.search(), function(value, key) {
-                        $location.search(key, null);
-                    });
-                    angular.forEach(urlQueryParams, function(value, key) {
-                        $location.search(key, value);
-                    });
-                } else { //Set query params manually
-                    newHref = newHref + "?"
-
-                    angular.forEach(urlQueryParams, function(value, key) {
-                        newHref = newHref + key + "=" + value + "&";
-                    });
-
-                    //remove the last  '&' symbol from the url, otherwise browser back does not work
-                    newHref = newHref.substr(0, newHref.length - 1);
-                }
-            }
-
             return newHref;
         };
         // ********** rate & review for products
@@ -573,7 +537,7 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl'], function(by
         'MEDIATYPE',
         'STATIC_IMAGE',
         'TEMPLATE_URL',
-        'Utility', 'LogisticService', 'ReviewRateProfile', 'UserValidationFilter', '$sce', 'META_TAGS'
+        'Utility', 'LogisticService', 'ReviewRateProfile', 'UserValidationFilter', '$sce', 'META_TAGS', 'UrlFactoryFilter'
     ];
 
     byProductApp.registerController('ProductDescriptionController', ProductDescriptionController);

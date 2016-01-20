@@ -403,9 +403,9 @@
 	margin-bottom: 10px;
 	cursor: pointer;
 }
-.by_profileDetailed_menu:hover
+.by_profileDetailed_menu:hover, .by_profileDetailed_menuIcon span:hover
 {	
-	
+	font-weight: bold;
 }
 .by_profileDetailed_menuActive a
 {

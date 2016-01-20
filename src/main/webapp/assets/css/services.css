@@ -155,7 +155,7 @@
 	{
 		width: 100%;
 		text-align: center;
-		line-height: auto;
+		line-height: 100% !important;
 		min-height: auto;
 		height: auto;
 	}

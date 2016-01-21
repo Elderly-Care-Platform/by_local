@@ -90,7 +90,7 @@ define(['byApp'], function (byApp) {
 
         function getDiscussAbsUrl(discuss){
             var discussId = discuss.id, title = BY.byUtil.removeSpecialChars(getShortTitle(discuss)), url = "";
-            url = window.location.origin + "/#!/community/" + title + "?id=" + discussId
+            url = window.location.origin + "/#!/communities/" + title + "?id=" + discussId
             return url;
         }
     }

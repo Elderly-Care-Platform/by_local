@@ -1,13 +1,13 @@
 define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConfig, userValidation) {
     'use strict';
-    function DiscussLikeController ($scope, $rootScope, $q, DiscussLike, DiscussReplyLike, $location, ValidateUserCredential, UserValidationFilter) {
+    function DiscussLikeController ($scope, DiscussLike, DiscussReplyLike, UserValidationFilter, DisServiceFilter) {
         $scope.beforePost        = true;
 
         $scope.likeDiscuss = function (discuss) {
             var discussId = discuss.id;
             $scope.discussLike = new DiscussLike();
             $scope.discussLike.discussId = discussId;
-            $scope.discussLike.url = window.location.origin + "/#!/community/"+discussId;
+            $scope.discussLike.url = DisServiceFilter.getDiscussAbsUrl(discuss);
             $scope.userSessionType   = UserValidationFilter.getUserSessionType();
 
             if($scope.userSessionType === null){
@@ -72,7 +72,7 @@ define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConf
                         function (errorResponse) {
                             console.log(errorResponse);
                             if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
-                                ValidateUserCredential.login();
+                                //ValidateUserCredential.login();
                             }
                         }
                     );
@@ -85,7 +85,7 @@ define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConf
                         function (errorResponse) {
                             console.log(errorResponse);
                             if(errorResponse.data && errorResponse.data.error && errorResponse.data.error.errorCode === 3002){
-                                ValidateUserCredential.login();
+                                //ValidateUserCredential.login();
                             }
                         });
                 }
@@ -95,7 +95,7 @@ define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConf
 
     }
     
-    DiscussLikeController.$inject=['$scope', '$rootScope', '$q', 'DiscussLike','DiscussReplyLike', '$location','ValidateUserCredential', 'UserValidationFilter'];
+    DiscussLikeController.$inject=['$scope', 'DiscussLike', 'DiscussReplyLike', 'UserValidationFilter', 'DisServiceFilter'];
     byApp.registerController('DiscussLikeController', DiscussLikeController);
     return DiscussLikeController;
 

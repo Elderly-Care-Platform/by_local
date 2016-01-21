@@ -3,35 +3,37 @@ define(['byApp'], function (byApp) {
     function DisService($location) {
         return {
             getDiscussDetailUrl: getDiscussDetailUrl,
-            formatData : formatData
+            formatData: formatData,
+            getDiscussAbsUrl:getDiscussAbsUrl,
+            getShortTitle:getShortTitle
         };
 
-        function getDiscussDetailUrl(discuss, urlQueryParams, isAngularLocation){
+        function getDiscussDetailUrl(discuss, urlQueryParams, isAngularLocation) {
             var disTitle = "others";
-            if(discuss.title && discuss.title.trim().length > 0){
+            if (discuss.title && discuss.title.trim().length > 0) {
                 disTitle = discuss.title;
-            } else if(discuss.text && discuss.text.trim().length > 0){
+            } else if (discuss.text && discuss.text.trim().length > 0) {
                 disTitle = discuss.text;
-            } else if(discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0){
+            } else if (discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0) {
                 disTitle = discuss.linkInfo.title;
-            } else{
+            } else {
                 disTitle = "others";
             }
 
             disTitle = BY.byUtil.getSlug(disTitle);
-            var newHref = "/communities/"+disTitle ;
+            var newHref = "/communities/" + disTitle;
 
 
-            if(urlQueryParams && Object.keys(urlQueryParams).length > 0){
+            if (urlQueryParams && Object.keys(urlQueryParams).length > 0) {
                 //Set query params through angular location search method
-                if(isAngularLocation){
+                if (isAngularLocation) {
                     angular.forEach($location.search(), function (value, key) {
                         $location.search(key, null);
                     });
                     angular.forEach(urlQueryParams, function (value, key) {
                         $location.search(key, value);
                     });
-                } else{ //Set query params manually
+                } else { //Set query params manually
                     newHref = newHref + "?"
 
                     angular.forEach(urlQueryParams, function (value, key) {
@@ -47,43 +49,49 @@ define(['byApp'], function (byApp) {
         };
 
         function formatData(discussObj) {
-                var formattedData = [];
-                if(discussObj && discussObj.length > 0){
+            var formattedData = [];
+            if (discussObj && discussObj.length > 0) {
                 for (var i = 0; i < discussObj.length; i++) {
                     var title, id, image = null;
                     title = getShortTitle(discussObj[i]);
                     id = discussObj[i].id;
                     if (discussObj[i].userProfile != null) {
-                        if(discussObj[i].userProfile.basicProfileInfo.profileImage != null)
-                        image = discussObj[i].userProfile.basicProfileInfo.profileImage;
+                        if (discussObj[i].userProfile.basicProfileInfo.profileImage != null)
+                            image = discussObj[i].userProfile.basicProfileInfo.profileImage;
                     }
                     formattedData.push({
                         title: title,
                         image: image,
                         id: id
                     });
-                };
                 }
-                return formattedData;
+                ;
+            }
+            return formattedData;
+        }
+
+        function getShortTitle(discuss) {
+            var disTitle = "";
+            if (discuss.discussType == 'Q') {
+                disTitle = discuss.text;
+            } else if (discuss.discussType == 'P' && discuss.title && discuss.title.trim().length > 0) {
+                disTitle = discuss.title;
+            } else if (discuss.discussType == 'P' && discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0) {
+                disTitle = discuss.linkInfo.title;
+            } else if (discuss.discussType == 'P' && discuss.shortSynopsis) {
+                disTitle = discuss.shortSynopsis;
+            } else {
+                disTitle = "";
             }
 
-            function getShortTitle(discuss) {
-                var disTitle = "";
-                if (discuss.discussType == 'Q') {
-                    disTitle = discuss.text;
-                } else if (discuss.discussType == 'P' && discuss.title && discuss.title.trim().length > 0) {
-                    disTitle = discuss.title;
-                } else if (discuss.discussType == 'P' && discuss.linkInfo && discuss.linkInfo.title && discuss.linkInfo.title.trim().length > 0) {
-                    disTitle = discuss.linkInfo.title;
-                } else if(discuss.discussType == 'P' && discuss.shortSynopsis){
-                    disTitle = discuss.shortSynopsis;
-                } else{
-                    disTitle = "";
-                }
+            disTitle = BY.byUtil.getShortTitle(disTitle);
+            return disTitle;
+        };
 
-                disTitle = BY.byUtil.getShortTitle(disTitle);
-                return disTitle;
-            };
+        function getDiscussAbsUrl(discuss){
+            var discussId = discuss.id, title = getShortTitle(discuss), url;
+            url = window.location.origin + "/#!/community/" + title + "?id=" + discussId
+        }
     }
 
     byApp.registerService('DisService', DisService);

@@ -1,5 +1,5 @@
 <div class="by_address_wrap">
-    <div class="by_address col-md-6" ng-repeat="address in pickupPoints track by $index" format-address="address.address">
+    <div class="col-md-12" ng-repeat="address in pickupPoints track by $index" format-address="address.address">
         <div class="by_address_user">
             {{address.firstName}}
             <span ng-if="address.lastName">{{' '+ address.lastName}}</span>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="col-md-12 form-header-content margin-bottom-25 margin-top-20">
-                <input type="button" value="Save" class="btn btn-success pull-right register-btn by_btn_submit" ng-click="pickupFromAddress($index, pickupAddressForm)" style="padding:5px 40px;"/>
+                <input type="button" value="Select &amp; Continue" class="btn btn-success pull-right register-btn by_btn_submit" ng-click="pickupFromAddress($index, pickupAddressForm)" style="padding:5px 40px;"/>
                 <!--<button class="btn btn-success pull-right by_address_btn" style="margin-left:5px;"-->
                         <!--ng-click="pickupFromAddress(address)">-->
                     <!--Select this address-->

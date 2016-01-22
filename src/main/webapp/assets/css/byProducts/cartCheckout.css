@@ -164,3 +164,46 @@
 		margin-left: -15px;
 	}
 }
+.by_selectAddressAccordian
+{
+
+}
+.by_selectAddressAccordian .panel-body:hover
+{
+	background: transparent !important;
+}
+.by_selectAddressAccordian .panel-heading
+{
+	border:1px solid #4d4d4d;
+    background:#7c7c7c;
+    color: #fff;
+    padding: 0px;
+}
+.by_selectAddressAccordian .panel-title a{
+	display: block;
+    padding:5px 10px;
+}
+.by_selectAddressAccordian .panel-title a, .by_selectAddressAccordian .panel-title a:hover
+{
+	color: #fff !important;
+	text-decoration: none !important;
+}
+.triangle-downWhite {
+    margin-top: 8px;
+    margin-right: 30px;
+    display: inline-block !important;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #fff;
+    float: right;
+    padding: 0px !important;
+    background: none !important;
+}
+.by_selectAddressAccordian .panel-title .divLeft
+{
+	width: calc(100% - 50px);
+	color: #fff;
+	margin-right: 10px;
+}

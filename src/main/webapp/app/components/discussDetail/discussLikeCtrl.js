@@ -1,4 +1,4 @@
-define(['byApp', 'discussConfig', 'userValidation'], function(byApp, discussConfig, userValidation) {
+define(['byApp', 'discussConfig', 'userValidation', 'discussService'], function(byApp, discussConfig, userValidation, discussService) {
     'use strict';
     function DiscussLikeController ($scope, DiscussLike, DiscussReplyLike, UserValidationFilter, DisServiceFilter) {
         $scope.beforePost        = true;

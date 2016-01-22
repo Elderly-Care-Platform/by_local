@@ -200,6 +200,12 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'discussLikeController', 'shareCont
                 var url = getDiscussDetailUrl(discuss, queryParams, true);
                 $location.path(url);
             };
+
+            $scope.openModal = function ($event, data) {
+                $event.stopPropagation();
+                $scope.shareDiscussObject = data;
+                $('#shareModal').modal('show');
+            }
             
             $scope.getHref = function(discuss, queryParams){
             	var newHref = getDiscussDetailUrl(discuss, queryParams, false);

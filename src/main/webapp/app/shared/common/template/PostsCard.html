@@ -111,10 +111,11 @@
                 </a>
             </li>
 
-            <li class="add-comment" ng-controller="ShareController">
+            <li class="add-comment" ng-controller="ShareController" >
                 <a ng-click="openModal($event, discuss)" data-toggle="modal" data-target="#shareModal">
                     <i class="rounded-x icon-share"></i>
                     <span ng-if="discuss.shareCount > 0"  class="by_shareSpan">{{discuss.shareCount}}</span>
+                    <div class="clearfix"></div>
                 </a>
             </li>
             <div class="clearfix"></div>

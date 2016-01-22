@@ -6,7 +6,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
                                      SelectAddressService,
                                      CartService,
                                      BreadcrumbService,
-                                     PAGE_URL, SessionIdService, LogisticService, SharedContext) {
+                                     PAGE_URL, SessionIdService, LogisticService, SharedContextService) {
 
         $log.debug('Inside SelectAddress Controller');
 
@@ -19,6 +19,8 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
         $scope.shipToAddress = shipToAddress;
         $scope.shipToNewAddress = shipToNewAddress;
         $scope.pickupFromAddress = pickupFromAddress;
+        $scope.pickupDetails = {'id' : 1000};
+
 
         if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
             $scope.customerId = localStorage.getItem("by_cust_id");
@@ -43,6 +45,10 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
              */
             function successCallBack(result) {
                 $scope.customerAddress = result.data.data;
+                var pickupDetails = SharedContextService.getPickupAddress();
+                if(pickupDetails){
+                    $scope.pickupDetails = pickupDetails;
+                }
                 $scope.pickupPoints = BY.config.product.pickupPoints;
                 $("#preloader").hide();
             }
@@ -109,18 +115,18 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             $location.path(PAGE_URL.addAddress);
         }
 
-        function pickupFromAddress(addressIdx, otherDetails, pickupAddressForm){
+        function pickupFromAddress(addressIdx, pickupAddressForm){
             $scope.submitted = true;
             if(pickupAddressForm.$valid){
-                $scope.selectedAddress = {};
-                $scope.selectedAddress.address = BY.config.product.pickupPoints[addressIdx].address;
-                $scope.selectedAddress.firstName = otherDetails.firstName;
-                $scope.selectedAddress.lastName = otherDetails.lastName;
-                $scope.selectedAddress.email = otherDetails.email;
-                $scope.selectedAddress.phoneNumber = otherDetails.phoneNumber;
+                //$scope.selectedAddress = {};
+                $scope.pickupDetails.address = BY.config.product.pickupPoints[addressIdx].address;
+                //$scope.selectedAddress.firstName = otherDetails.firstName;
+                //$scope.selectedAddress.lastName = otherDetails.lastName;
+                //$scope.selectedAddress.email = otherDetails.email;
+                //$scope.selectedAddress.phoneNumber = otherDetails.phoneNumber;
 
-                SharedContext.setPickupAddress($scope.selectedAddress);
-                $location.path(PAGE_URL.paymentGateway + $scope.selectedAddress.id);
+                SharedContextService.setPickupAddress($scope.pickupDetails);
+                $location.path(PAGE_URL.paymentGateway + $scope.pickupDetails.id);
             }
 
         }
@@ -154,7 +160,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
         'SelectAddressService',
         'CartService',
         'BreadcrumbService',
-        'PAGE_URL', 'SessionIdService', 'LogisticService', 'SharedContext'];
+        'PAGE_URL', 'SessionIdService', 'LogisticService', 'SharedContextService'];
 
 
     byProductApp.registerController('SelectAddressController', SelectAddressController);

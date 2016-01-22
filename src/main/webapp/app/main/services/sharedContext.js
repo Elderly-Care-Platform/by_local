@@ -1,6 +1,14 @@
 define(['byProdEcomConfig'], function (byProdEcomConfig) {
     function SharedContext() {
-        var pickupAddress, productDeliveryMode = BY.config.product.deliveryMode.DELIVER;
+        var pickupAddress = null, productDeliveryMode = BY.config.product.deliveryMode.DELIVER;
+
+        function setDeliverMode(mode){
+            productDeliveryMode = mode;
+        }
+
+        function getDeliveryMode(){
+            return productDeliveryMode;
+        }
 
         function setPickupAddress(address){
             pickupAddress = address;
@@ -11,14 +19,13 @@ define(['byProdEcomConfig'], function (byProdEcomConfig) {
             return pickupAddress;
         }
 
-        function getDeliveryMode(){
-            return productDeliveryMode;
-        }
+
 
         return {
             setPickupAddress : setPickupAddress,
             getPickupAddress : getPickupAddress,
-            getDeliveryMode : getDeliveryMode
+            getDeliveryMode : getDeliveryMode,
+            setDeliverMode : setDeliverMode
         }
 
     }

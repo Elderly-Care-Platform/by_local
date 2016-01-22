@@ -31,7 +31,7 @@ define([
 	byApp.controller('MainMenuController', mainMenuController);
 	byApp.controller('LoginController', LoginController);
 	byApp.controller('BYHeaderCtrl', headerCtrl);
-	byApp.service('SharedContext', sharedContextService);
+	byApp.service('SharedContextService', sharedContextService);
 
 	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http) {
 		// register listener to watch route changes

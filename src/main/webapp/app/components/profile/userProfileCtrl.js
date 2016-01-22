@@ -443,6 +443,15 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                 }
             }
 
+            // share by email and facebook
+
+            $scope.openModal = function ($event, data) {
+                $event.stopPropagation();
+                $scope.shareDiscussObject = data;
+                $('#shareModal').modal('show');
+            }
+
+
 
         }
 

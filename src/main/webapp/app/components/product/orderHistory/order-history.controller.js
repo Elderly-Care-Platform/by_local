@@ -53,6 +53,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
          * @type {object}
          */
         $scope.filterType = $scope.orderHistoryType.pastThirtyDays;
+        $scope.printInvoice = printInvoice;
 
         function resetValues(timeInterval) {
             $scope.page = 0;
@@ -215,6 +216,18 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
         function cancelOrderFailure(result) {
             console.log('cancelOrderFailure' + result);
             $scope.cancelOrderStatus = 'cancelOrderFailure';
+        }
+
+        function printInvoice(id){
+            OrderHistoryService.getOrderSummary(id);
+
+            function getOrderSummarySucess(res){
+                console.log(res);
+            }
+
+            function getOrderSummaryFailed(err){
+
+            }
         }
 
 

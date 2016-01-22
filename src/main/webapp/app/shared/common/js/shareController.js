@@ -1,4 +1,4 @@
-define(["byApp"], function (byApp) {
+define(["byApp", "discussService"], function (byApp, discussService) {
     'use strict';
 
     function ShareController($scope, $http, $sce, ShareDiscuss, DisServiceFilter) {

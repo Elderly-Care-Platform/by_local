@@ -7,10 +7,10 @@ define([
 	'byEditor',
 	'angularResource',  'angularInfiniteScroll',
 	'angularGoogleLocation',
-	"byMenuCtrl", 'LoginController', 'headerCtrl'
+	"byMenuCtrl", 'LoginController', 'headerCtrl', 'sharedContextService'
 ], function(angular, angularRoute, byProductApp, byAppRoute, byResource, byEditor,
 			angularResource, angularInfiniteScroll, angularGoogleLocation,
-			mainMenuController, LoginController, headerCtrl) {
+			mainMenuController, LoginController, headerCtrl, sharedContextService) {
 
 	var byApp = angular.module('byApp', ["ngRoute", "ngResource", "byServices", "byProductApp", "infinite-scroll", "ngGoogleLocation"]);
 
@@ -31,7 +31,8 @@ define([
 	byApp.controller('MainMenuController', mainMenuController);
 	byApp.controller('LoginController', LoginController);
 	byApp.controller('BYHeaderCtrl', headerCtrl);
-	
+	byApp.service('SharedContextService', sharedContextService);
+
 	byApp.run(function($rootScope, $location, $window, SessionIdService, discussCategoryList, $http) {
 		// register listener to watch route changes
 		$rootScope.$on("$routeChangeStart", function(event, next, current) {

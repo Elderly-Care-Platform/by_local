@@ -25,3 +25,21 @@ BY.config.product.ecomTrackOrderConfig = {
     "rts_shipment" : 19,
     "system_delivery_update" : 20
 }
+
+BY.config.product.pickupPoints = [
+    {"address" : {
+        city: "Bangalore",
+        country: "India",
+        locality: "koramangala 1 block",
+        streetAddress: "No 48 2nd main koramangala 1 block near Raheja Residency",
+        zip: "560034"
+        },
+    "id" : 1000
+    }
+]
+
+BY.config.product.deliveryMode = {
+    DELIVER : 0,
+    PICKUP : 1
+}
+

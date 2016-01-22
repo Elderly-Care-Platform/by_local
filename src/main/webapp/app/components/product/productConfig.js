@@ -42,7 +42,8 @@ define([], function () {
                 fedexRateWebService: '/fedex/rate',
                 orderFeedback: '/orders/feedback',
                 mergeCart: '/cart/merge',
-                getCustomerProfile: '/userProfile/'
+                getCustomerProfile: '/userProfile/',
+                orderSummary: '/cart/checkout/getOrderSummary/'
             })
             .constant('PAGE_URL', {
                 root: '/products',

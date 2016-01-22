@@ -1,4 +1,4 @@
-define(['byProductApp'], function (byProductApp) {
+define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomConfig) {
     function SelectAddressController($scope,
                                      $log,
                                      $location,
@@ -6,7 +6,7 @@ define(['byProductApp'], function (byProductApp) {
                                      SelectAddressService,
                                      CartService,
                                      BreadcrumbService,
-                                     PAGE_URL, SessionIdService, LogisticService) {
+                                     PAGE_URL, SessionIdService, LogisticService, SharedContextService) {
 
         $log.debug('Inside SelectAddress Controller');
 
@@ -18,6 +18,9 @@ define(['byProductApp'], function (byProductApp) {
         $scope.editAddress = editAddress;
         $scope.shipToAddress = shipToAddress;
         $scope.shipToNewAddress = shipToNewAddress;
+        $scope.pickupFromAddress = pickupFromAddress;
+        $scope.pickupDetails = {'id' : 1000};
+
 
         if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
             $scope.customerId = localStorage.getItem("by_cust_id");
@@ -42,6 +45,11 @@ define(['byProductApp'], function (byProductApp) {
              */
             function successCallBack(result) {
                 $scope.customerAddress = result.data.data;
+                var pickupDetails = SharedContextService.getPickupAddress();
+                if(pickupDetails){
+                    $scope.pickupDetails = pickupDetails;
+                }
+                $scope.pickupPoints = BY.config.product.pickupPoints;
                 $("#preloader").hide();
             }
 
@@ -107,6 +115,22 @@ define(['byProductApp'], function (byProductApp) {
             $location.path(PAGE_URL.addAddress);
         }
 
+        function pickupFromAddress(addressIdx, pickupAddressForm){
+            $scope.submitted = true;
+            if(pickupAddressForm.$valid){
+                //$scope.selectedAddress = {};
+                $scope.pickupDetails.address = BY.config.product.pickupPoints[addressIdx].address;
+                //$scope.selectedAddress.firstName = otherDetails.firstName;
+                //$scope.selectedAddress.lastName = otherDetails.lastName;
+                //$scope.selectedAddress.email = otherDetails.email;
+                //$scope.selectedAddress.phoneNumber = otherDetails.phoneNumber;
+
+                SharedContextService.setPickupAddress($scope.pickupDetails);
+                $location.path(PAGE_URL.paymentGateway + $scope.pickupDetails.id);
+            }
+
+        }
+
         $scope.$on('getCartItemCount', function (event, args) {
             $scope.cartItemCount = args;
         });
@@ -136,7 +160,7 @@ define(['byProductApp'], function (byProductApp) {
         'SelectAddressService',
         'CartService',
         'BreadcrumbService',
-        'PAGE_URL', 'SessionIdService', 'LogisticService'];
+        'PAGE_URL', 'SessionIdService', 'LogisticService', 'SharedContextService'];
 
 
     byProductApp.registerController('SelectAddressController', SelectAddressController);

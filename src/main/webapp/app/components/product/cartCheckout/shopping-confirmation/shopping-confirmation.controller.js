@@ -9,7 +9,7 @@ define(['byProductApp'], function (byProductApp) {
                                             PAGE_URL,
                                             CartService,
                                             SelectAddressService,
-                                            ShoppingConfirmationService, SessionIdService) {
+                                            ShoppingConfirmationService, SessionIdService, SharedContextService) {
 
         $log.debug('Inside ShoppingConfirmation Controller');
 
@@ -166,6 +166,7 @@ define(['byProductApp'], function (byProductApp) {
                 params = {};
             params.customerId = $scope.customerId;
             postData.order = angular.copy(order);
+            postData.order.deliveryMode = SharedContextService.getDeliveryMode();
             $scope.promise = ShoppingConfirmationService.checkout(params, postData)
                 .then(checkoutSuccess, failure);
         }
@@ -244,7 +245,7 @@ define(['byProductApp'], function (byProductApp) {
         'PAGE_URL',
         'CartService',
         'SelectAddressService',
-        'ShoppingConfirmationService', 'SessionIdService'];
+        'ShoppingConfirmationService', 'SessionIdService', 'SharedContextService'];
     byProductApp.registerController('ShoppingConfirmationCtrl', ShoppingConfirmationCtrl);
     return ShoppingConfirmationCtrl;
 });

@@ -1,6 +1,6 @@
 define([], function () {
 
-    function SelectAddressFactory($rootScope, $location, $http, UserProfile, UserValidationFilter) {
+    function SelectAddressFactory($rootScope, $location, $http, UserProfile, UserValidationFilter, SharedContext, $q) {
         var addressFormat = {
             "firstName": "",
             "lastName": "",
@@ -37,19 +37,38 @@ define([], function () {
         }
 
         function getAddress(addressIdx) {
-            var userSessionType = UserValidationFilter.getUserSessionType();
-            var userId = localStorage.getItem("USER_ID");
-            if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
-                if (addressIdx) {
-                    return $http.get('api/v1/userAddress/' + userId + '?addressId=' + addressIdx);
-                } else {
-                    return $http.get('api/v1/userAddress/' + userId);
+            var userSessionType = UserValidationFilter.getUserSessionType(),
+                userId = localStorage.getItem("USER_ID"),
+                deliveryMode = SharedContext.getDeliveryMode(), deferred = $q.defer();;
+
+            if(userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL){
+                if(deliveryMode === 0){
+                    if (addressIdx) {
+                        return $http.get('api/v1/userAddress/' + userId + '?addressId=' + addressIdx).success(function (userAddress) {
+                            deferred.resolve(userAddress);
+                        }).error(function (error) {
+                            var errorMsg = "address not found";
+                            deferred.reject(errorMsg);
+                        });
+                    } else {
+                        return $http.get('api/v1/userAddress/' + userId).success(function (userAddress) {
+                            deferred.resolve(userAddress);
+                        }).error(function (error) {
+                            var errorMsg = "address not found";
+                            deferred.reject(errorMsg);
+                        });
+                    }
+                }else{
+                    var pickupAddress = {data:{data:[SharedContext.getPickupAddress()]}};
+                    deferred.resolve(pickupAddress);
                 }
-            } else {
+                return deferred.promise;
+            }else{
                 $("#preloader").hide();
                 $rootScope.nextLocation = "/selectAddress"
                 $location.path('/users/login');
             }
+
         }
 
         function updateAddress(params) {

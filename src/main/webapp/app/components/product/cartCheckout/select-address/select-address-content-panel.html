@@ -1,10 +1,10 @@
-<div class="clearfix" ></div>
+<div class="clearfix"></div>
 <div class="col-md-12 margin-bottom-0 darkBgwithText" style="font-size:15px; margin-left:0px;">
     Please select an address for the goods to be shipped, or
     enter a new address below:
 
     <div class="darkBgwithTextArrow">
-        <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=20151015-1111" alt="">
+        <img src="assets/img/icons/login/arrow-icon.png?versionTimeStamp=%PROJECT_VERSION%" alt="">
     </div>
 </div>
 <div class="clearfix" style="height:10px;"></div>
@@ -20,10 +20,6 @@
             <span ng-if="address.address.fullAddress">
                 <strong>Address:&nbsp;</strong>
                 <span>{{address.address.fullAddress}}</span>
-                <!--<span ng-if="address.streetAddress">{{address.streetAddress}}</span><br/>-->
-                <!--<span ng-if="address.locality">{{address.locality}}</span><br/>-->
-                <!--<span ng-if="address.city">{{address.city}},</span><span ng-if="address.country">{{address.country}} -</span>-->
-                <!--<span ng-if="address.zip"> {{address.zip}}</span>-->
             </span><br/>
             <span ng-if="!address.email || !address.address.zip || !address.phoneNumber || !address.firstName"
                   ng-init="address.shipToAddressDisabled=true"></span>
@@ -62,7 +58,4 @@
     </button>
 </div>
 <div class="clearfix"></div>
-
-<div class="clearfix"></div>
-
 <div class="by_cart_call"></div>

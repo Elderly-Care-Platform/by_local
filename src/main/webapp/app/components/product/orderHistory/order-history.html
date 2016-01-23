@@ -30,9 +30,10 @@
 
         <div ng-repeat="orders in orderHistory">
             <div class="by_orderHistory_dataDivider"></div>
-            <div ng-click="printInvoice(orders.id)">
+            <div ng-click="printInvoice(orders.id)" class="by_orderHistory_printInvoice">
                 Print invoice
             </div>
+            <div class="clearfix"></div>
             <div class="by_orderHistory_dataWrap">
                 <div ng-repeat="orderItem in orders.orderItems track by $index">
                     <div class="by_orderHistory_dataImage by_orderHistory_dataSpace">

@@ -105,7 +105,16 @@
   float: right;
 
 }
-
+.by_orderHistory_printInvoice
+{
+  width:120px; margin-right:15px;
+  background: #004f24;
+  padding: 2px 7px;
+  float: right;
+  color: #fff;
+  margin-bottom: 10px;
+  text-align: center;
+}
 .by_orderHistory_dataOrderTrack
 {
   width:100%;
@@ -134,7 +143,7 @@
 @media screen and (max-width: 660px) {
   .by_orderHistory_dataImage
   {  
-    width:102px;
+    width:90px;
   }
   .by_orderHistory_dataDesc
   {

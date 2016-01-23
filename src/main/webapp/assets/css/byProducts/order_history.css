@@ -49,6 +49,14 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.by_orderHistory_dataDivider2
+{
+  width:100%;
+  height:1px;
+  background-color: #EFEFEF;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .by_orderHistory_dataWrap
 {
   width:100%;

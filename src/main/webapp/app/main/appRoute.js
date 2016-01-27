@@ -358,6 +358,21 @@ define([], function () {
                 }
             })
 
+            // error page
+            .when('/error404', {
+                templateUrl: 'app/components/error/error.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'errorController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/error/errorController.js'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
 
         //To be removed later
         //.when('/users/home', {

@@ -77,6 +77,9 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
                     $scope.pageNotFound = true;
                     $("#preloader").hide();
                     console.log("error");
+                    if($scope.pageNotFound){
+                        $location.path('/error404');
+                    }
                 });
 
 

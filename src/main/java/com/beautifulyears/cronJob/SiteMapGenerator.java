@@ -236,11 +236,11 @@ public class SiteMapGenerator {
 				selfUrl, targetDirectory)).defaultLastMod(new Date())
 				.autoValidate(true).build();
 
-		sitemap.addUrl(selfUrl + "sitemaps/community_sitemap.xml");
-		sitemap.addUrl(selfUrl + "sitemaps/housing_sitemap.xml");
-		sitemap.addUrl(selfUrl + "sitemaps/listings_sitemap.xml");
-		sitemap.addUrl(selfUrl + "sitemaps/products_sitemap.xml");
-		sitemap.addUrl(selfUrl + "sitemaps/services_sitemap.xml");
+		sitemap.addUrl(selfUrl + "/sitemaps/community_sitemap.xml");
+		sitemap.addUrl(selfUrl + "/sitemaps/housing_sitemap.xml");
+		sitemap.addUrl(selfUrl + "/sitemaps/listings_sitemap.xml");
+		sitemap.addUrl(selfUrl + "/sitemaps/products_sitemap.xml");
+		sitemap.addUrl(selfUrl + "/sitemaps/services_sitemap.xml");
 		sitemap.write();
 	}
 

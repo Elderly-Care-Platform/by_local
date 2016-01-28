@@ -20,7 +20,7 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
             $scope.showContact              = {};
             $scope.showContact.showContactNumber = false;
 
-            var city                        = $routeParams.city,
+            var city                        = $routeParams.city ? $routeParams.city : 'all',
                 tags                        = [],
                 queryParams                 = {page: 0, size: 20};
 

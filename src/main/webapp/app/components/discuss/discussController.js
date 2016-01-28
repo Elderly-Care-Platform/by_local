@@ -18,7 +18,6 @@ define(['byApp',
 
 
             $rootScope.byTopMenuId = $rootScope.mainMenu[0].id;
-            $scope.discussType = $routeParams.discussType;  //Needed for left side Q/A/P filters
             $scope.selectedMenu = $scope.$parent.menuLevel2;
             $scope.isGridInitialized = false;
             $scope.initDiscussListing = initDiscussListing;
@@ -117,20 +116,29 @@ define(['byApp',
 
             }
 
+            function getDiscussType(){
+                var discussType = $routeParams.discussType ? $routeParams.discussType : 'all';  //Needed for left side Q/A/P filters
+                discussType = discussType.toLowerCase().trim();
+                if(discussType != 'p' && discussType != 'f' && discussType != 'q'){
+                    discussType = 'all';
+                }
+                return discussType;
+            }
+
             function initDiscussListing() {
                 if ($scope.selectedMenu) {
                     updateMetaTags();
-                    //Set page title and FB og tags
+                    $scope.discussType = getDiscussType();
+
+                    if ($scope.discussType !== "all") {
+                        queryParams.discussType = $routeParams.discussType;
+                    }
+
                     tags = $.map($scope.selectedMenu.tags, function (value, key) {
                         return value.id;
                     })
 
                     queryParams.tags = tags.toString();  //to create comma separated tags list
-                    if ($scope.discussType && $scope.discussType.toLowerCase().trim() !== "all") {
-                        queryParams.discussType = $routeParams.discussType;
-                    }
-
-
                     DiscussCount.get({tags: tags, contentTypes: "f,total,p,q"}, function (counts) {
                             $scope.discuss_counts = counts.data;
                         },

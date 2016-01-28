@@ -38,6 +38,7 @@ require.config({
 		userValidation : '../main/services/userValidation',
 		urlFactory : '../main/services/urlFactory',
 		sharedContextService : '../main/services/sharedContext',
+		errorService : '../main/services/errorService',
 
 
 		//factory

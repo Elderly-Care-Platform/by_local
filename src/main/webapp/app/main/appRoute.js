@@ -23,6 +23,15 @@ define([], function () {
                             defered.resolve();
                         });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -34,6 +43,15 @@ define([], function () {
                         require(['app/components/discuss/discussMenuCtrl.js', 'editorController'], function (discussMenuCtrl, editorController) {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
                         return defered.promise;
                     }]
                 }
@@ -82,6 +100,15 @@ define([], function () {
                                 defered.resolve();
                             });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -97,6 +124,15 @@ define([], function () {
                                 defered.resolve();
                             });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -111,6 +147,15 @@ define([], function () {
                             function (servicesController, findMenuCtrl) {
                                 defered.resolve();
                             });
+                        return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
                         return defered.promise;
                     }]
                 }
@@ -130,6 +175,15 @@ define([], function () {
                             defered.resolve();
                         });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -144,6 +198,15 @@ define([], function () {
                             defered.resolve();
                         });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -157,6 +220,15 @@ define([], function () {
                         require(['app/components/housing/housingController.js', 'housingMenuCtrl'], function () {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
                         return defered.promise;
                     }]
                 }
@@ -217,6 +289,15 @@ define([], function () {
                         require(['app/components/signup/login/loginController.js'], function () {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }],
+                    byResetPasswordCode: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($route.current.params.resetPasswordCode){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
                         return defered.promise;
                     }]
                 }
@@ -357,6 +438,25 @@ define([], function () {
                     }]
                 }
             })
+
+            // error page
+            .when('/pageNotFound', {
+                templateUrl: 'app/components/error/error.html?versionTimeStamp=%PROJECT_VERSION%',
+                controller: 'errorController',
+                resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['app/components/error/errorController.js'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
+            .otherwise({
+                redirectTo: '/pageNotFound'
+            });
 
 
         //To be removed later

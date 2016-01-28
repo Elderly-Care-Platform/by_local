@@ -198,6 +198,10 @@
 {
     width: calc(100% - 55px);
 }
+.by_discussFilters a.selected
+{
+    border-bottom: 1px solid #000;
+}
 @media ( max-width : 720px){
     .curatedProfile
     {

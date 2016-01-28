@@ -48,7 +48,7 @@ import com.redfin.sitemapgenerator.WebSitemapUrl;
 @EnableScheduling
 public class SiteMapGenerator {
 
-	private final String filePath = "/opt/tomcat7/webapps/";
+	private final String filePath = "/opt/tomcat7/webapps/byadmin/";
 	private final String communityMenuId = "564071623e60f5b66f62df27";
 	private final String selfUrl = "http://dev.beautifulyears.com";
 	private final String communityMenuUrl = selfUrl + "/#!/communities/564071623e60f5b66f62df27/all";

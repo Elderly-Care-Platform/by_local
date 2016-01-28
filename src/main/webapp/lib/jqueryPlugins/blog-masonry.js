@@ -43,7 +43,7 @@ var masonaryGridInit = function(){
                 gutterWidth: gutter,
                 isAnimated: false,
                 columnWidth: function( containerWidth ) {
-                    var box_width = (((containerWidth - 2*gutter)/3) | 0) ;
+                    var box_width = (((containerWidth - 2*gutter)/2) | 0) ;
                     var box_width_two = containerWidth ;
 
                     if (box_width < min_width) {

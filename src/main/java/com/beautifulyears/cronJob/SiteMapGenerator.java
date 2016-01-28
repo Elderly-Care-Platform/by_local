@@ -36,6 +36,8 @@ import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.HousingResponse;
 import com.beautifulyears.rest.response.UserProfileResponse;
 import com.beautifulyears.util.Util;
+import com.redfin.sitemapgenerator.SitemapIndexGenerator;
+import com.redfin.sitemapgenerator.SitemapValidator;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import com.redfin.sitemapgenerator.WebSitemapUrl;
 
@@ -48,29 +50,31 @@ import com.redfin.sitemapgenerator.WebSitemapUrl;
 @EnableScheduling
 public class SiteMapGenerator {
 
-	private final String filePath = "/opt/tomcat7/webapps/byadmin/";
+	private final String filePath = "/opt/tomcat7/webapps/ROOT";
 	private final String communityMenuId = "564071623e60f5b66f62df27";
 	private final String selfUrl = "http://dev.beautifulyears.com";
-	private final String communityMenuUrl = selfUrl + "/#!/communities/564071623e60f5b66f62df27/all";
+	private final String communityMenuUrl = selfUrl
+			+ "/#!/communities/564071623e60f5b66f62df27/all";
 	private final int MODULE_ID_DISCUSS = 0;
 	private final String communityUrlPrefix = "communities";
-	
 
 	private final int MODULE_ID_SERVICES = 1;
 	private final String servicesUrlPrefix = "directory";
-	private final String servicesMenuUrl = selfUrl+"/#!/directory/56406cd03e60f5b66f62df26/all";
+	private final String servicesMenuUrl = selfUrl
+			+ "/#!/directory/56406cd03e60f5b66f62df26/all";
 	private final String serviceMenuId = "56406cd03e60f5b66f62df26";
-	private final List<String> servicesTags = Arrays.asList("55bc9da5e4b0ac8d31666b48",
-			"55bc9de3e4b0ac8d31666b49");
+	private final List<String> servicesTags = Arrays.asList(
+			"55bc9da5e4b0ac8d31666b48", "55bc9de3e4b0ac8d31666b49");
 
-	private final String housingUrlPrefix = "";
-	private final String housingMenuUrl = selfUrl+"/#!/senior-living/55bcadaee4b08970a736784c/all";
+	private final String housingMenuUrl = selfUrl
+			+ "/#!/senior-living/55bcadaee4b08970a736784c/all";
 	private final List<String> housingTags = Arrays.asList(
 			"55bc9de3e4b0ac8d31666b49", "55f06f64e4b04c28cae2927d",
 			"55f06f74e4b04c28cae2927e", "55f06f85e4b04c28cae2927f",
 			"55f06f93e4b04c28cae29280", "55f06fa1e4b04c28cae29281");
 
-	private final String shopMenuUrl = selfUrl+"/#!/shop/55bcad7be4b08970a736784b";
+	private final String shopMenuUrl = selfUrl
+			+ "/#!/shop/55bcad7be4b08970a736784b";
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"HH:mm:ss");
 	private final String productServerHost = "qa.beautifulyears.com";
@@ -99,15 +103,32 @@ public class SiteMapGenerator {
 		}
 		System.out.println("The time is now " + dateFormat.format(new Date()));
 		count++;
-		File targetDirectory = new File(filePath);
-		WebSitemapGenerator wsg = WebSitemapGenerator
-				.builder(selfUrl, targetDirectory)
-				.fileNamePrefix("sitemap_" + (new Date()).getTime()).build();
+
+		
+
+//		SitemapValidator.validateSitemapIndex(targetDirectory);
+
+		File targetDirectory1 = new File(filePath + "/sitemaps/");
+		WebSitemapGenerator community_sitemap = WebSitemapGenerator
+				.builder(selfUrl, targetDirectory1)
+				.fileNamePrefix("community_sitemap").build();
+		WebSitemapGenerator housing_sitemap = WebSitemapGenerator
+				.builder(selfUrl, targetDirectory1)
+				.fileNamePrefix("housing_sitemap").build();
+		WebSitemapGenerator listings_sitemap = WebSitemapGenerator
+				.builder(selfUrl, targetDirectory1)
+				.fileNamePrefix("listings_sitemap").build();
+		WebSitemapGenerator products_sitemap = WebSitemapGenerator
+				.builder(selfUrl, targetDirectory1)
+				.fileNamePrefix("products_sitemap").build();
+		WebSitemapGenerator services_sitemap = WebSitemapGenerator
+				.builder(selfUrl, targetDirectory1)
+				.fileNamePrefix("services_sitemap").build();
 
 		// --------------------for adding all the community detail pages
 		List<Discuss> discussList = mongoTemplate.findAll(Discuss.class);
 		for (Discuss discuss : discussList) {
-			wsg = addDiscussUrl(wsg, discuss);
+			community_sitemap = addDiscussUrl(community_sitemap, discuss);
 		}
 
 		// -------------------for adding main community listing page
@@ -117,12 +138,13 @@ public class SiteMapGenerator {
 				null, communityMenuId);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(communityMenuUrl)
 				.lastMod(new Date()).build();
-		wsg.addUrl(wsmUrl);
+		listings_sitemap.addUrl(wsmUrl);
 
 		// ----------------------for adding all the community listing pages
 
 		for (Menu menu : communityMenuList) {
-			wsg = addMenuUrl(wsg, menu, communityUrlPrefix, MODULE_ID_DISCUSS);
+			listings_sitemap = addMenuUrl(listings_sitemap, menu,
+					communityUrlPrefix, MODULE_ID_DISCUSS);
 		}
 
 		// ----------------------for adding directory listing url
@@ -132,16 +154,17 @@ public class SiteMapGenerator {
 				null, serviceMenuId);
 		wsmUrl = new WebSitemapUrl.Options(servicesMenuUrl).lastMod(new Date())
 				.build();
-		wsg.addUrl(wsmUrl);
+		listings_sitemap.addUrl(wsmUrl);
 
 		// ----------------------for adding all the directory menus
 		for (Menu menu : directoryMenuList) {
-			wsg = addMenuUrl(wsg, menu, servicesUrlPrefix, MODULE_ID_SERVICES);
+			listings_sitemap = addMenuUrl(listings_sitemap, menu,
+					servicesUrlPrefix, MODULE_ID_SERVICES);
 		}
 
 		// --------------------- for adding listing page of housing wsmUrl =
 		new WebSitemapUrl.Options(housingMenuUrl).lastMod(new Date()).build();
-		wsg.addUrl(wsmUrl);
+		listings_sitemap.addUrl(wsmUrl);
 
 		// ------------------------for all professional and institution profiles
 		UserProfileController profileCtrl = new UserProfileController(
@@ -154,7 +177,7 @@ public class SiteMapGenerator {
 
 		for (UserProfileResponse.UserProfileEntity profile : ((UserProfileResponse.UserProfilePage) profileResponse
 				.getBody().getData()).getContent()) {
-			addDirectoryUrl(wsg, profile);
+			addDirectoryUrl(services_sitemap, profile);
 		}
 
 		// ----------------------for housing profile pages
@@ -167,12 +190,12 @@ public class SiteMapGenerator {
 						housingTags, null);
 		for (HousingResponse.HousingEntity housing : ((HousingResponse.HousingPage) housingResponse
 				.getBody().getData()).getContent()) {
-			addHousingUrl(wsg, housing);
+			addHousingUrl(housing_sitemap, housing);
 		}
 
 		// -------------------for adding main product listing page wsmUrl =
 		new WebSitemapUrl.Options(shopMenuUrl).lastMod(new Date()).build();
-		wsg.addUrl(wsmUrl);
+		listings_sitemap.addUrl(wsmUrl);
 
 		// for adding all the listing pages
 		RestTemplate restTemplate = new RestTemplate();
@@ -186,7 +209,7 @@ public class SiteMapGenerator {
 				HttpMethod.GET, entity, String.class);
 		JSONObject json = new JSONObject(responseEntity.getBody());
 		JSONArray categories = json.getJSONArray("category");
-		addProductCategory(wsg, categories);
+		addProductCategory(listings_sitemap, categories);
 
 		uri = new URI("http", null, productServerHost, productServerPost,
 				"/beautifulyears/api/v1/catalog/products",
@@ -195,19 +218,39 @@ public class SiteMapGenerator {
 				String.class);
 		JSONArray products = new JSONArray(responseEntity.getBody());
 		for (int i = 0, size = products.length(); i < size; i++) {
-			addProductPage(wsg, products.getJSONObject(i));
+			addProductPage(products_sitemap, products.getJSONObject(i));
 		}
 
-		wsg.write();
+		listings_sitemap.write();
+		community_sitemap.write();
+		services_sitemap.write();
+		housing_sitemap.write();
+		products_sitemap.write();
+		
+		
+		
+		File targetDirectory = new File(filePath + "/sitemap.xml");
+//		SitemapIndexGenerator sig = new SitemapIndexGenerator(selfUrl,
+//				targetDirectory);
+		SitemapIndexGenerator sitemap = (new SitemapIndexGenerator.Options(
+				selfUrl, targetDirectory)).defaultLastMod(new Date())
+				.autoValidate(true).build();
+
+		sitemap.addUrl(selfUrl + "sitemaps/community_sitemap.xml");
+		sitemap.addUrl(selfUrl + "sitemaps/housing_sitemap.xml");
+		sitemap.addUrl(selfUrl + "sitemaps/listings_sitemap.xml");
+		sitemap.addUrl(selfUrl + "sitemaps/products_sitemap.xml");
+		sitemap.addUrl(selfUrl + "sitemaps/services_sitemap.xml");
+		sitemap.write();
 	}
 
 	private WebSitemapGenerator addProductPage(WebSitemapGenerator wsg,
 			JSONObject product) throws MalformedURLException {
 		String productName = product.getString("name");
 		int productId = product.getInt("id");
-		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(
-				selfUrl + "/#!/" + getSlug(productName)
-						+ "/pd/" + productId).lastMod(new Date()).build();
+		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/"
+				+ getSlug(productName) + "/pd/" + productId)
+				.lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
 		return wsg;
 	}
@@ -219,9 +262,8 @@ public class SiteMapGenerator {
 			System.out.println(category);
 			String categoryName = category.getString("name");
 			int categoryId = category.getInt("id");
-			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(
-					selfUrl + "/#!/shop/"
-							+ getSlug(categoryName) + "/" + categoryId)
+			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
+					+ "/#!/shop/" + getSlug(categoryName) + "/" + categoryId)
 					.lastMod(new Date()).build();
 			wsg.addUrl(wsmUrl);
 
@@ -237,11 +279,9 @@ public class SiteMapGenerator {
 	private WebSitemapGenerator addMenuUrl(WebSitemapGenerator wsg, Menu menu,
 			String parentMenuName, int moduleId) throws MalformedURLException {
 		if (!menu.isHidden() && menu.getModule() == moduleId) {
-			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(
-					selfUrl+"/#!/" + parentMenuName + "/"
-							+ getSlug(menu.getDisplayMenuName()) + "/"
-							+ menu.getId() + "/all").lastMod(new Date())
-					.build();
+			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/"
+					+ parentMenuName + "/" + getSlug(menu.getDisplayMenuName())
+					+ "/" + menu.getId() + "/all").lastMod(new Date()).build();
 			wsg.addUrl(wsmUrl);
 		}
 		if (menu.getChildren().size() > 0) {
@@ -254,10 +294,9 @@ public class SiteMapGenerator {
 
 	private WebSitemapGenerator addDiscussUrl(WebSitemapGenerator wsg,
 			Discuss discuss) throws MalformedURLException {
-		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(
-				selfUrl+"/#!/communities/"
-						+ getDiscussSlug(discuss) + "/?id=" + discuss.getId())
-				.lastMod(new Date()).build();
+		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
+				+ "/#!/communities/" + getDiscussSlug(discuss) + "/?id="
+				+ discuss.getId()).lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
 		return wsg;
 	}
@@ -265,20 +304,18 @@ public class SiteMapGenerator {
 	private WebSitemapGenerator addDirectoryUrl(WebSitemapGenerator wsg,
 			UserProfileResponse.UserProfileEntity profile)
 			throws MalformedURLException {
-		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(
-				selfUrl+"/#!/users/"
-						+ getUserSlug(profile) + "/?profileId="
-						+ profile.getUserId()).lastMod(new Date()).build();
+		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/users/"
+				+ getUserSlug(profile) + "/?profileId=" + profile.getUserId())
+				.lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
 		return wsg;
 	}
 
 	private WebSitemapGenerator addHousingUrl(WebSitemapGenerator wsg,
 			HousingResponse.HousingEntity housing) throws MalformedURLException {
-		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(
-				selfUrl+"/#!/users/"
-						+ getHousingSlug(housing) + "/?profileId="
-						+ housing.getUserId()).lastMod(new Date()).build();
+		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/users/"
+				+ getHousingSlug(housing) + "/?profileId="
+				+ housing.getUserId()).lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
 		return wsg;
 	}

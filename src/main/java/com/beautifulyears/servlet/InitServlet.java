@@ -13,6 +13,7 @@ public class InitServlet extends HttpServlet {
 	private String productServerPort = "8080";
 	private String mailSupported = "";
 	private String imageUploadPath = "c:/uploads";
+	private String sitemapPath = "";
 
 	public void init() {
 		System.out.println("initializing servlet ==================");
@@ -23,10 +24,16 @@ public class InitServlet extends HttpServlet {
 		}
 
 		if (!Util.isEmpty(ByWebAppInitializer.servletContext
+				.getInitParameter("sitemapPath"))) {
+			sitemapPath = ByWebAppInitializer.servletContext
+					.getInitParameter("sitemapPath");
+		}
+
+		if (!Util.isEmpty(ByWebAppInitializer.servletContext
 				.getInitParameter("contextPath"))) {
 			contextPath = ByWebAppInitializer.servletContext
 					.getInitParameter("contextPath");
-			if("/".equals(contextPath)){
+			if ("/".equals(contextPath)) {
 				contextPath = "";
 			}
 		}
@@ -60,11 +67,13 @@ public class InitServlet extends HttpServlet {
 		System.setProperty("productServerPort", productServerPort);
 		System.setProperty("mailSupported", mailSupported);
 		System.setProperty("imageUploadPath", imageUploadPath);
+		System.setProperty("sitemapPath", sitemapPath);
 
 		System.out.println(System.getProperty("path") + ","
 				+ System.getProperty("productServerHost") + ","
 				+ System.getProperty("productServerPort") + ","
 				+ System.getProperty("mailSupported") + ","
+				+ System.getProperty("sitemapPath") + ","
 				+ System.getProperty("imageUploadPath"));
 
 	}

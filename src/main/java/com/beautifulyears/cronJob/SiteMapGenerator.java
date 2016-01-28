@@ -37,7 +37,6 @@ import com.beautifulyears.rest.response.HousingResponse;
 import com.beautifulyears.rest.response.UserProfileResponse;
 import com.beautifulyears.util.Util;
 import com.redfin.sitemapgenerator.SitemapIndexGenerator;
-import com.redfin.sitemapgenerator.SitemapValidator;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import com.redfin.sitemapgenerator.WebSitemapUrl;
 
@@ -50,31 +49,28 @@ import com.redfin.sitemapgenerator.WebSitemapUrl;
 @EnableScheduling
 public class SiteMapGenerator {
 
-	private final String filePath = "/opt/tomcat7/webapps/ROOT";
+	private String sitemapPath = "";
+	private String selfUrl = "http://localhost:8080/ROOT";
+
 	private final String communityMenuId = "564071623e60f5b66f62df27";
-	private final String selfUrl = "http://dev.beautifulyears.com";
-	private final String communityMenuUrl = selfUrl
-			+ "/#!/communities/564071623e60f5b66f62df27/all";
+	private String communityMenuUrl = "/#!/communities/564071623e60f5b66f62df27/all";
 	private final int MODULE_ID_DISCUSS = 0;
 	private final String communityUrlPrefix = "communities";
 
 	private final int MODULE_ID_SERVICES = 1;
 	private final String servicesUrlPrefix = "directory";
-	private final String servicesMenuUrl = selfUrl
-			+ "/#!/directory/56406cd03e60f5b66f62df26/all";
+	private String servicesMenuUrl = "/#!/directory/56406cd03e60f5b66f62df26/all";
 	private final String serviceMenuId = "56406cd03e60f5b66f62df26";
 	private final List<String> servicesTags = Arrays.asList(
 			"55bc9da5e4b0ac8d31666b48", "55bc9de3e4b0ac8d31666b49");
 
-	private final String housingMenuUrl = selfUrl
-			+ "/#!/senior-living/55bcadaee4b08970a736784c/all";
+	private String housingMenuUrl = "/#!/senior-living/55bcadaee4b08970a736784c/all";
 	private final List<String> housingTags = Arrays.asList(
 			"55bc9de3e4b0ac8d31666b49", "55f06f64e4b04c28cae2927d",
 			"55f06f74e4b04c28cae2927e", "55f06f85e4b04c28cae2927f",
 			"55f06f93e4b04c28cae29280", "55f06fa1e4b04c28cae29281");
 
-	private final String shopMenuUrl = selfUrl
-			+ "/#!/shop/55bcad7be4b08970a736784b";
+	private String shopMenuUrl = "/#!/shop/55bcad7be4b08970a736784b";
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"HH:mm:ss");
 	private final String productServerHost = "qa.beautifulyears.com";
@@ -98,17 +94,27 @@ public class SiteMapGenerator {
 
 	@Scheduled(fixedRate = 5000)
 	public void reportCurrentTime() throws Exception {
+		if (!Util.isEmpty(System.getProperty("path"))) {
+			selfUrl = System.getProperty("path");
+		}
+		if (!Util.isEmpty(System.getProperty("sitemapPath"))) {
+			sitemapPath = System.getProperty("sitemapPath");
+		}
+
+		communityMenuUrl = selfUrl + communityMenuUrl;
+		servicesMenuUrl = selfUrl + servicesMenuUrl;
+		shopMenuUrl = selfUrl + shopMenuUrl;
+		housingMenuUrl = selfUrl + housingMenuUrl;
+
 		if (count > 0) {
 			return;
 		}
-		System.out.println("The time is now " + dateFormat.format(new Date()));
 		count++;
+		System.out.println("---------------------------updating sitemap started-------------");
 
-		
+		// SitemapValidator.validateSitemapIndex(targetDirectory);
 
-//		SitemapValidator.validateSitemapIndex(targetDirectory);
-
-		File targetDirectory1 = new File(filePath + "/sitemaps/");
+		File targetDirectory1 = new File(sitemapPath + "/sitemaps/");
 		WebSitemapGenerator community_sitemap = WebSitemapGenerator
 				.builder(selfUrl, targetDirectory1)
 				.fileNamePrefix("community_sitemap").build();
@@ -227,11 +233,11 @@ public class SiteMapGenerator {
 		housing_sitemap.write();
 		products_sitemap.write();
 		
-		
-		
-		File targetDirectory = new File(filePath + "/sitemap.xml");
-//		SitemapIndexGenerator sig = new SitemapIndexGenerator(selfUrl,
-//				targetDirectory);
+		System.out.println("---------------------------updating sitemap ind files done-------------");
+
+		File targetDirectory = new File(sitemapPath + "/sitemap.xml");
+		// SitemapIndexGenerator sig = new SitemapIndexGenerator(selfUrl,
+		// targetDirectory);
 		SitemapIndexGenerator sitemap = (new SitemapIndexGenerator.Options(
 				selfUrl, targetDirectory)).defaultLastMod(new Date())
 				.autoValidate(true).build();
@@ -242,6 +248,8 @@ public class SiteMapGenerator {
 		sitemap.addUrl(selfUrl + "/sitemaps/products_sitemap.xml");
 		sitemap.addUrl(selfUrl + "/sitemaps/services_sitemap.xml");
 		sitemap.write();
+		
+		System.out.println("---------------------------updating sitemap index file done-------------");
 	}
 
 	private WebSitemapGenerator addProductPage(WebSitemapGenerator wsg,
@@ -259,7 +267,6 @@ public class SiteMapGenerator {
 			JSONArray categories) throws MalformedURLException {
 		for (int i = 0, size = categories.length(); i < size; i++) {
 			JSONObject category = categories.getJSONObject(i);
-			System.out.println(category);
 			String categoryName = category.getString("name");
 			int categoryId = category.getInt("id");
 			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl

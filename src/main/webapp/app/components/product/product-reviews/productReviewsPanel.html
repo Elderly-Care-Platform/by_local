@@ -4,6 +4,7 @@
 <div ng-if="!discussList || discussList.length==0">
     No reviews found
 </div>
+<div class="by_discussFilters">
 <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
    href="#!/shop/review/{{selectedMenu.id}}/">All
     ({{discuss_counts.z}})</a>
@@ -19,7 +20,7 @@
 <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
    href="#!/shop/review/{{selectedMenu.id}}/?discussType=P">Posts
     ({{discuss_counts.p}})</a>
-
+</div>
 
 <div class="clearfix" style="height:15px;"></div>
 

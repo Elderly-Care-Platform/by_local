@@ -31,6 +31,8 @@
 
             <div class="clearfix margin-top-20">&nbsp;</div>
 
+            <div class="by_discussFilters">
+
             <!--Show discuss filters start-->
             <a class="discussRightCategory {{discussType == 'all' && 'selected active'}}" ng-if="discuss_counts.z > 0"
                href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/all">All
@@ -40,13 +42,14 @@
                href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/f">Featured
                 ({{discuss_counts.featured}})</a>
 
-            <a class="discussRightCategory {{discussType == 'Q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
+            <a class="discussRightCategory {{discussType == 'q' && 'selected active'}}" ng-if="discuss_counts.q > 0"
                href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/Q">Q&amp;A ({{discuss_counts.q}})</a>
 
-            <a class="discussRightCategory {{discussType == 'P' && 'selected active'}}" ng-if="discuss_counts.p > 0"
+            <a class="discussRightCategory {{discussType == 'p' && 'selected active'}}" ng-if="discuss_counts.p > 0"
                href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/P">Posts
                 ({{discuss_counts.p}})</a>
             <!--Show discuss filters end-->
+            </div>
 
             <div class="clearfix" style="height:15px;"></div>
 

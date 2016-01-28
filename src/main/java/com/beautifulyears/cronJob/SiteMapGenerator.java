@@ -106,8 +106,9 @@ public class SiteMapGenerator {
 		shopMenuUrl = selfUrl + shopMenuUrl;
 		housingMenuUrl = selfUrl + housingMenuUrl;
 
-		if (count > 0 || Util.isEmpty(System.getProperty("path"))) {
+		if (count > 0 || Util.isEmpty(System.getProperty("path")) || Util.isEmpty(System.getProperty("sitemapPath"))) {
 			System.out.println("----returning without updating sitemap--------");
+			System.out.println(count+" "+System.getProperty("path")+" "+System.getProperty("sitemapPath"));
 			return;
 		}
 		count++;

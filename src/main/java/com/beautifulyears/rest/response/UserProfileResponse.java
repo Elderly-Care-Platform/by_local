@@ -28,8 +28,7 @@ public class UserProfileResponse implements IResponse {
 		return userProfileArray;
 	}
 
-	@SuppressWarnings("unused")
-	private static class UserProfileEntity {
+	public static class UserProfileEntity {
 		private String id;
 		private String userId;
 		private List<Integer> userTypes = new ArrayList<Integer>();

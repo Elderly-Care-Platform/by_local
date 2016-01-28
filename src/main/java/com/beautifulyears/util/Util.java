@@ -3,6 +3,7 @@ package com.beautifulyears.util;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.beautifulyears.constants.DiscussConstants;
@@ -101,5 +102,29 @@ public class Util {
 			throw new BYException(BYErrorCodes.USER_LOGIN_FAILED);
 		}
 		return ret;
+	}
+	
+	public static String getSlug(String name) {
+		if (null != name) {
+			org.jsoup.nodes.Document doc = Jsoup.parse(name);
+			String slug = doc.text();
+			int nextSpaceIndex = slug.indexOf(" ", 100);
+			if (nextSpaceIndex > 1) {
+				slug = slug.substring(0, nextSpaceIndex);
+			}
+
+			slug = Util.removeSpecialChars(slug);
+			return slug;
+		}
+		return name;
+	}
+	
+	public static String removeSpecialChars(String name) {
+		String modifiedName = name;
+		if (null != name) {
+			modifiedName = name.replaceAll("[^a-zA-Z0-9 ]", "");
+			modifiedName = modifiedName.replaceAll("\\s+", "-").toLowerCase();
+		}
+		return modifiedName;
 	}
 }

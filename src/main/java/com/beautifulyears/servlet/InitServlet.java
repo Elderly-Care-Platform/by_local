@@ -9,11 +9,11 @@ public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String host = "localhost:8080";
 	private String contextPath = "/ROOT";
-	private String productServerHost = "localhost";
-	private String productServerPort = "8080";
+	private String productServerHost = "qa.beautifulyears.com";
+	private String productServerPort = "8083";
 	private String mailSupported = "";
 	private String imageUploadPath = "c:/uploads";
-	private String sitemapPath = "";
+	private String sitemapPath = "c:/sitemap";
 
 	public void init() {
 		System.out.println("initializing servlet ==================");

@@ -5,11 +5,15 @@ package com.beautifulyears.cronJob;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.util.Util;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
@@ -39,8 +43,17 @@ public class CommunitiesSiteMapGenerator implements Runnable {
 			WebSitemapGenerator community_sitemap = WebSitemapGenerator
 					.builder(selfUrl, targetDirectory)
 					.fileNamePrefix("community_sitemap").build();
+			
+			Query q = new Query();
+			List<String> discussTypeArray = new ArrayList<String>();
+			discussTypeArray.add("Q");
+			discussTypeArray.add("P");
+			q.addCriteria(Criteria.where((String) "discussType").in(
+					discussTypeArray));
+			q.addCriteria(Criteria.where("status").is(
+					DiscussConstants.DISCUSS_STATUS_ACTIVE));
 
-			List<Discuss> discussList = mongoTemplate.findAll(Discuss.class);
+			List<Discuss> discussList = mongoTemplate.find(q,Discuss.class);
 			for (Discuss discuss : discussList) {
 				community_sitemap = addDiscussUrl(community_sitemap, discuss);
 			}

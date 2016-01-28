@@ -78,7 +78,7 @@ public class HousingSiteMapGenerator implements Runnable {
 			HousingResponse.HousingEntity housing) throws MalformedURLException {
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/users/"
 				+ getHousingSlug(housing) + "/?profileId="
-				+ housing.getUserId() + "&branchId=" + housing.getId())
+				+ housing.getUserId() + "&amp;branchId=" + housing.getId())
 				.lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
 		return wsg;

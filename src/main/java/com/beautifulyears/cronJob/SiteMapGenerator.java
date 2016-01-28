@@ -81,7 +81,7 @@ public class SiteMapGenerator{
 
 	private static int count = 0;
 
-	@Scheduled(initialDelay=10,fixedDelay=3500000)
+	@Scheduled(initialDelay=20000,fixedDelay=3500000)
 	public void generate() throws Exception {
 		if (!SiteMapGenerator.isInitialized) {
 			initializeSMG();

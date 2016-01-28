@@ -7,7 +7,7 @@ import com.beautifulyears.util.Util;
 
 public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String host = "localhost:8080";
+	private String host = "www.beautifulyears.com";
 	private String contextPath = "/ROOT";
 	private String productServerHost = "qa.beautifulyears.com";
 	private String productServerPort = "8083";

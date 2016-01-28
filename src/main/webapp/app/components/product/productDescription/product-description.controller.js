@@ -16,7 +16,7 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl', 'urlFactory'
         MEDIATYPE,
         STATIC_IMAGE,
         TEMPLATE_URL,
-        Utility, LogisticService, ReviewRateProfile, UserValidationFilter, $sce, META_TAGS, urlFactoryFilter) {
+        Utility, LogisticService, ReviewRateProfile, $sce, META_TAGS, urlFactoryFilter, ErrorService) {
 
 
         // Variables
@@ -138,7 +138,7 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl', 'urlFactory'
                 loadPromise = $q.all({
                     productDescription: productDescriptionPromise
                 });
-            return loadPromise.then(productDescriptionSuccess, failure);
+            return loadPromise.then(productDescriptionSuccess, productDescriptionFailure);
 
             /**
              * Identify image and video from response,set type of it in response
@@ -265,6 +265,11 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl', 'urlFactory'
         // Failure
         function failure() {
             $log.debug('Failure');
+        }
+
+        function productDescriptionFailure(error){
+            $log.debug('Fetching product detailed failed');
+            ErrorService.showError(error);
         }
 
 
@@ -546,7 +551,7 @@ define(['byProductApp', 'videoImageDirective', 'productReviewCtrl', 'urlFactory'
         'MEDIATYPE',
         'STATIC_IMAGE',
         'TEMPLATE_URL',
-        'Utility', 'LogisticService', 'ReviewRateProfile', 'UserValidationFilter', '$sce', 'META_TAGS', 'UrlFactoryFilter'
+        'Utility', 'LogisticService', 'ReviewRateProfile', '$sce', 'META_TAGS', 'UrlFactoryFilter', 'ErrorService'
     ];
 
     byProductApp.registerController('ProductDescriptionController', ProductDescriptionController);

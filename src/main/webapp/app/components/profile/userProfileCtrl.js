@@ -1,6 +1,7 @@
 define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
     function(byApp, byUtil, userTypeConfig, reviewRateController) {
-        function ProfileController($scope, $rootScope, $window, $location, $routeParams, ReviewRateProfile, UserProfile, $sce, DiscussPage, $q, UserValidationFilter) {
+        function ProfileController($scope, $rootScope, $location, $routeParams, ReviewRateProfile, UserProfile, $sce,
+                                   DiscussPage, $q, UserValidationFilter, ErrorService) {
             $scope.profileViews = {};
             $scope.profileType = $routeParams.profileType;
             $scope.profileId = $routeParams.profileId;
@@ -21,17 +22,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
             var pageSize = 10;
             var reviewDetails = new ReviewRateProfile();
 
-            $scope.pageNotFound = false;
-
-            /*var updateMetaTags = function(){
-             var metaTagParams = {
-             title: "Beautiful Years | Profile",
-             imageUrl: "",
-             description: "",
-             keywords:[]
-             }
-             BY.byUtil.updateMetaTags(metaTagParams);
-             };*/
 
             $scope.tooltipText = function() {
                 $('[data-toggle="tooltip"]').tooltip();
@@ -44,12 +34,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                     }, function(profile) {
                         $scope.profileData = profile.data;
 
-                        if ($scope.profileData.userId == null) {
-                            $scope.pageNotFound = true;
-                            $location.path('/error404');
-                        }
-
-                        $scope.pageNotFound = false;
                         if ($scope.profileData.userTypes.length > 0) {
                             $scope.profileType = $scope.profileData.userTypes[0];
                         } else {
@@ -84,13 +68,9 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
                         $("#preloader").hide();
                     },
                     function(error) {
-                        $scope.pageNotFound = true;
-                        console.log("institution profile error");
+                        ErrorService.showError(error);
                         $("#preloader").hide();
-                        if ($scope.pageNotFound) {
-                            $location.path('/error404');
-                        }
-
+                        console.log("institution profile error");
                     });
             };
 
@@ -117,11 +97,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
 
                     }
 
-
-                    //$scope.postsPagination.loadMoreFunc = $scope.postsByUser;
-                    //if ($scope.postsUser.length === 0) {
-                    //    $scope.isShowPosts = false;
-                    //}
                 }, function(error) {
                     console.log(error);
                 });
@@ -510,7 +485,8 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'reviewRateController'],
 
         }
 
-        ProfileController.$inject = ['$scope', '$rootScope', '$window', '$location', '$routeParams', 'ReviewRateProfile', 'UserProfile', '$sce', 'DiscussPage', '$q', 'UserValidationFilter'];
+        ProfileController.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'ReviewRateProfile',
+            'UserProfile', '$sce', 'DiscussPage', '$q', 'UserValidationFilter', 'ErrorService'];
         byApp.registerController('ProfileController', ProfileController);
         return ProfileController;
     });

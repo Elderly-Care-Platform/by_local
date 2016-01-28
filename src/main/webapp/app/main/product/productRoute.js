@@ -11,6 +11,15 @@ define([], function () {
                             defered.resolve();
                         });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -24,6 +33,15 @@ define([], function () {
                         require(['productController', 'productMenuCtrl'], function (productController, productMenuCtrl) {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
                         return defered.promise;
                     }]
                 }
@@ -39,6 +57,15 @@ define([], function () {
                             defered.resolve();
                         });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -52,6 +79,15 @@ define([], function () {
                         require(['productController', 'productMenuCtrl'], function (productController, productMenuCtrl) {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
                         return defered.promise;
                     }]
                 }
@@ -79,6 +115,15 @@ define([], function () {
                             defered.resolve();
                         });
                         return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
+                        return defered.promise;
                     }]
                 }
             })
@@ -92,6 +137,15 @@ define([], function () {
                         require(['productController', 'productMenuCtrl', 'editorController'], function (productController, productMenuCtrl, editorController) {
                             defered.resolve();
                         });
+                        return defered.promise;
+                    }],
+                    byMenu: ['$route', '$rootScope', '$q', function ($route, $rootScope, $q) {
+                        var defered = $q.defer();
+                        if($rootScope.menuCategoryMap[$route.current.params.menuId]){
+                            defered.resolve();
+                        }else{
+                            defered.reject();
+                        }
                         return defered.promise;
                     }]
                 }
@@ -202,7 +256,9 @@ define([], function () {
                 }
             })
 
-
+            .otherwise({
+                redirectTo: '/pageNotFound'
+            });
 
             //.when('/orderFeedback', {templateUrl: 'app/components/product/cartCheckout/select-address/select-address.html?versionTimeStamp=%PROJECT_VERSION%',
             //    controller: 'AddAddressController',

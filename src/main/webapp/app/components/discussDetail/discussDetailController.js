@@ -1,10 +1,9 @@
 define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController', 'discussReplyController', 'shareController'],
     function (byApp, byUtil, discussLikeController, discussDetailLeftController, discussReplyController, shareController) {
-        function DiscussDetailController($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, $timeout) {
+        function DiscussDetailController($scope, $rootScope, $routeParams, $location, DiscussDetail, $sce, broadCastData, $timeout, ErrorService) {
             var discussId = $routeParams.id;	//discuss Id from url
             var isComment = $routeParams.comment;
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
-            $scope.pageNotFound = false;
             $scope.getShortTitle = BY.byUtil.getShortTitle;
 
             $scope.discussDetailViews = {};
@@ -62,7 +61,6 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
 
             DiscussDetail.get({discussId: discussId}, function (discussDetail, header) {
                     //broadcast data to left panel, to avoid another query from left panel of detail page
-                    $scope.pageNotFound = false;
                     $scope.detailResponse = discussDetail.data;
                     $rootScope.$broadcast('discussDetailReceived', discussDetail.data.discuss);
                     //broadCastData.update(discussDetail.data.discuss);
@@ -74,12 +72,9 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
                     scrollToEditor();
                 },
                 function (error) {
-                    $scope.pageNotFound = true;
                     $("#preloader").hide();
                     console.log("error");
-                    if($scope.pageNotFound){
-                        $location.path('/error404');
-                    }
+                    ErrorService.showError(error);
                 });
 
 
@@ -269,7 +264,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussDetailLeftController
             }
         }
 
-        DiscussDetailController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData', '$timeout'];
+        DiscussDetailController.$inject = ['$scope', '$rootScope', '$routeParams', '$location', 'DiscussDetail', '$sce', 'broadCastData', '$timeout', 'ErrorService'];
         byApp.registerController('DiscussDetailController', DiscussDetailController);
         return DiscussDetailController;
     });

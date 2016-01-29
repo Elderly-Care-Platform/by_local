@@ -63,7 +63,7 @@ public class Util {
 	public static String truncateText(String text) {
 		if (text != null
 				&& text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
-			truncateText(text, DiscussConstants.DISCUSS_TRUNCATION_LENGTH);
+			text = truncateText(text, DiscussConstants.DISCUSS_TRUNCATION_LENGTH);
 		}
 		return text;
 	}

@@ -13,6 +13,10 @@
 }
 .main-image img
 {
+	max-height: 100%;
+}
+.product-main .main-image img
+{
 	max-height: 300px;
 }
 .profileMainContent .list-inline>li

@@ -1,7 +1,10 @@
 .byEditor {
 	margin-bottom: 45px;
 }
-
+.by_uploading_imagePreload
+{
+	display: none;
+}
 .by_editor_ParentCategories {
 	display: inline !important;
 	background-color: #f5f5f5 !important;

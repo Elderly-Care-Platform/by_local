@@ -41,7 +41,7 @@ define([
 		$rootScope.$on("$routeChangeStart", function(event, next, current) {
 			$window.ga('send', 'pageview', { page: $location.url() });
 			$("meta[name='robots']").attr("content", "index, follow");
-			$("meta[name='by-status-code']").attr("200");
+			$("meta[name='by-status-code']").attr("content","200");
 
 			//window.scrollTo(0, 0);
 			BY.byEditor.removeEditor();

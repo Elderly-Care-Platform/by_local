@@ -21,7 +21,7 @@ define(['byApp', 'housingReviewsCtrl', 'editorController'], function (byApp, hou
         };
 
         $scope.setContentHeight = function(cH, cW){
-            $(".contentPanel").css('min-height', cH);  
+            $(".contentPanel").css('min-height', cH + 57);  
         }
 
         $scope.smartScroll = function () {

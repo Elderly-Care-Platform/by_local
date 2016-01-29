@@ -22,7 +22,7 @@
                 {{menu.displayMenuName}}
             </a>
 
-            <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
+            <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(menu.displayMenuName)}}/{{menu.id}}"
                ng-click="toggleMenu($event)" style="display: inline-block; width:calc(100% - 40px);"
                ng-class="{'by_treeMenuTextActive': (menu.id == selectedParent.id) || (menu.id == selectedMenuId)}">
                 {{menu.displayMenuName}}
@@ -107,7 +107,7 @@
                         {{menu.displayMenuName}}
                     </a>
 
-                    <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header"
+                    <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{getSlug(menu.displayMenuName)}}/{{menu.id}}"
                        ng-click="toggleMenu($event)"
                        style="display: inline-block; width:calc(100% - 40px);"
                        ng-class="{'by_treeMenuTextActive': (menu.id == selectedParent.id) || (menu.id == selectedMenuId)}">

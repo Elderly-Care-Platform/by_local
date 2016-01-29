@@ -4,7 +4,8 @@ define(['byApp'],
         'use strict';
 
         function errorController($scope, $rootScope, $location, $route, $routeParams) {
-            $("meta[name='robots']").attr("content", "noindex, nofollow");
+            $("meta[name='robots']").attr("content", "noindex");
+            $("meta[name='by-status-code']").attr("404");
         }
         errorController.$inject = ['$scope', '$rootScope', '$location', '$route', '$routeParams'];
 

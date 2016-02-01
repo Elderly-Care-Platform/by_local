@@ -191,16 +191,17 @@ public class SiteMapGenerator {
 	private boolean createMasterSiteMapPage() throws IOException {
 
 		File newHtmlFile = new File(sitemapPath + "/siteMap_all_master_by.html");
-		String htmlStringStart = "<html><head><meta name='robots' content='noindex, follow'></head><body><table>";
+		String htmlStringStart = "<html><head><meta name='robots' content='noindex, follow'></head><body><table "
+				+ "style='text-align: center;width: 100%;border: 1px solid;'>";
 		Iterator<Entry<String, String>> it = allUrls.entrySet().iterator();
 		while (it.hasNext()) {
 			htmlStringStart += "<tr>";
 			Map.Entry<String, String> pair = (Map.Entry<String, String>) it
 					.next();
 			if (null == pair.getValue()) {
-				htmlStringStart += "<td><h1>" + pair.getKey() + "</h1></td>";
+				htmlStringStart += "<td style='border: 1px solid #748494;'><h1>" + pair.getKey() + "</h1></td>";
 			} else {
-				htmlStringStart += "<td><a href='" + pair.getValue() + "'>"
+				htmlStringStart += "<td style='border-bottom: 1px dotted silver;'><a href='" + pair.getValue() + "'>"
 						+ pair.getKey() + "</a></td>";
 			}
 			htmlStringStart += "</tr>";
@@ -212,5 +213,4 @@ public class SiteMapGenerator {
 		System.out.println("SMG:updating master sitemap.html finished");
 		return false;
 	}
-
 }

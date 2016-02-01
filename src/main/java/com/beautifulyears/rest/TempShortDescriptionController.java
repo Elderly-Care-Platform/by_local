@@ -40,9 +40,10 @@ public class TempShortDescriptionController {
 			String domText = doc.text();
 			if (domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
 				discuss.setShortSynopsis(Util.truncateText(domText));
-			}else{
+			}else if(!Util.isEmpty(domText)){
 				discuss.setShortSynopsis(domText);
 			}
+			System.out.println(discuss.getId());
 			mongoTemplate.save(discuss);
 		}
 		

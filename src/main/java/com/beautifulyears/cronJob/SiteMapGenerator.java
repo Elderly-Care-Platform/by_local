@@ -191,22 +191,23 @@ public class SiteMapGenerator {
 	private boolean createMasterSiteMapPage() throws IOException {
 
 		File newHtmlFile = new File(sitemapPath + "/siteMap_all_master_by.html");
-		String htmlStringStart = "<html><head><meta name='robots' content='noindex, follow'></head><body>";
+		String htmlStringStart = "<html><head><meta name='robots' content='noindex, follow'></head><body><table>";
 		Iterator<Entry<String, String>> it = allUrls.entrySet().iterator();
 		while (it.hasNext()) {
+			htmlStringStart += "<tr>";
 			Map.Entry<String, String> pair = (Map.Entry<String, String>) it
 					.next();
 			if (null == pair.getValue()) {
-				htmlStringStart += "<h1>" + pair.getKey() + "</h1></br>";
+				htmlStringStart += "<td><h1>" + pair.getKey() + "</h1></td>";
 			} else {
-				htmlStringStart += "<a href='" + pair.getValue() + "'>"
-						+ pair.getKey() + "</a></br>";
+				htmlStringStart += "<td><a href='" + pair.getValue() + "'>"
+						+ pair.getKey() + "</a></td>";
 			}
+			htmlStringStart += "</tr>";
 
-			System.out.println(pair.getKey() + " = " + pair.getValue());
 			it.remove(); // avoids a ConcurrentModificationException
 		}
-		htmlStringStart += "</body></html>";
+		htmlStringStart += "</table></body></html>";
 		FileUtils.writeStringToFile(newHtmlFile, htmlStringStart);
 		System.out.println("SMG:updating master sitemap.html finished");
 		return false;

@@ -160,7 +160,7 @@ public class SiteMapGenerator {
 		// targetDirectory);
 		SitemapIndexGenerator sitemap = (new SitemapIndexGenerator.Options(
 				selfUrl, targetDirectory)).defaultLastMod(new Date())
-				.autoValidate(true).build();
+				.autoValidate(false).build();
 
 		sitemap.addUrl(selfUrl + "/sitemaps/community_sitemap.xml");
 		sitemap.addUrl(selfUrl + "/sitemaps/housing_sitemap.xml");

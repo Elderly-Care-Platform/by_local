@@ -86,7 +86,7 @@ public class SiteMapGenerator {
 
 	private static int count = 0;
 
-	@Scheduled(initialDelay=20000,fixedDelay=3500000)
+	@Scheduled(initialDelay = 20000, fixedDelay = 3500000)
 	public void generate() throws Exception {
 		if (!SiteMapGenerator.isInitialized) {
 			initializeSMG();
@@ -101,13 +101,18 @@ public class SiteMapGenerator {
 			return;
 		}
 		count++;
+		try {
+			communitySMG.run();
+			listingsSMG.run();
+			productsSMG.run();
+			servicesSMG.run();
+			housingsSMG.run();
+			createIndexSiteMap();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+		}
 
-		communitySMG.run();
-		listingsSMG.run();
-		productsSMG.run();
-		servicesSMG.run();
-		housingsSMG.run();
-		createIndexSiteMap();
 		createMasterSiteMapPage();
 
 	}
@@ -184,7 +189,7 @@ public class SiteMapGenerator {
 	}
 
 	private boolean createMasterSiteMapPage() throws IOException {
-		
+
 		File newHtmlFile = new File(sitemapPath + "/siteMap_all_master_by.html");
 		String htmlStringStart = "<html><head><meta name='robots' content='noindex, follow'></head><body>";
 		Iterator<Entry<String, String>> it = allUrls.entrySet().iterator();

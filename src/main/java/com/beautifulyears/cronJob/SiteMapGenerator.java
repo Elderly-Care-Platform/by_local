@@ -4,12 +4,17 @@
 package com.beautifulyears.cronJob;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -30,8 +35,8 @@ import com.redfin.sitemapgenerator.SitemapIndexGenerator;
 @Component
 @EnableAsync
 @EnableScheduling
-public class SiteMapGenerator{
-
+public class SiteMapGenerator {
+	public static Map<String, String> allUrls = new LinkedHashMap<String, String>();
 	private static boolean isInitialized = false;
 
 	private String sitemapPath = "c:/sitemap";
@@ -87,12 +92,12 @@ public class SiteMapGenerator{
 			initializeSMG();
 		}
 
-		if (( Util.isEmpty(System.getProperty("path"))
-				|| Util.isEmpty(System.getProperty("sitemapPath")))) {
+		if ((Util.isEmpty(System.getProperty("path")) || Util.isEmpty(System
+				.getProperty("sitemapPath")))) {
 			return;
 		}
-		
-		if((count > 0 && !isMidnight())){
+
+		if ((count > 0 && !isMidnight())) {
 			return;
 		}
 		count++;
@@ -103,6 +108,7 @@ public class SiteMapGenerator{
 		servicesSMG.run();
 		housingsSMG.run();
 		createIndexSiteMap();
+		createMasterSiteMapPage();
 
 	}
 
@@ -143,7 +149,7 @@ public class SiteMapGenerator{
 
 	}
 
-	private void createIndexSiteMap() throws MalformedURLException {
+	private void createIndexSiteMap() throws IOException {
 		File targetDirectory = new File(sitemapPath + "/sitemap.xml");
 		// SitemapIndexGenerator sig = new SitemapIndexGenerator(selfUrl,
 		// targetDirectory);
@@ -157,22 +163,48 @@ public class SiteMapGenerator{
 		sitemap.addUrl(selfUrl + "/sitemaps/products_sitemap.xml");
 		sitemap.addUrl(selfUrl + "/sitemaps/services_sitemap.xml");
 		sitemap.write();
+
 		System.out.println("SMG: finished with inndex file");
 
 	}
-	
-	private boolean isMidnight(){
+
+	private boolean isMidnight() {
 		boolean isMidnight = false;
-		
+
 		int from = 2300;
-	    int to = 2400;
-	    Date date = new Date();
-	    Calendar c = Calendar.getInstance();
-	    c.setTime(date);
-	    int t = c.get(Calendar.HOUR_OF_DAY) * 100 + c.get(Calendar.MINUTE);
-	    isMidnight = to > from && t >= from && t <= to || to < from && (t >= from || t <= to);
-		
+		int to = 2400;
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		int t = c.get(Calendar.HOUR_OF_DAY) * 100 + c.get(Calendar.MINUTE);
+		isMidnight = to > from && t >= from && t <= to || to < from
+				&& (t >= from || t <= to);
+
 		return isMidnight;
+	}
+
+	private boolean createMasterSiteMapPage() throws IOException {
+		
+		File newHtmlFile = new File(sitemapPath + "/siteMap_all_master_by.html");
+		String htmlStringStart = "<html><head><meta name='robots' content='noindex, follow'></head><body>";
+		Iterator<Entry<String, String>> it = allUrls.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<String, String> pair = (Map.Entry<String, String>) it
+					.next();
+			if (null == pair.getValue()) {
+				htmlStringStart += "<h1>" + pair.getKey() + "</h1></br>";
+			} else {
+				htmlStringStart += "<a href='" + pair.getValue() + "'>"
+						+ pair.getKey() + "</a></br>";
+			}
+
+			System.out.println(pair.getKey() + " = " + pair.getValue());
+			it.remove(); // avoids a ConcurrentModificationException
+		}
+		htmlStringStart += "</body></html>";
+		FileUtils.writeStringToFile(newHtmlFile, htmlStringStart);
+		System.out.println("SMG:updating master sitemap.html finished");
+		return false;
 	}
 
 }

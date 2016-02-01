@@ -53,6 +53,7 @@ public class HousingSiteMapGenerator implements Runnable {
 			HousingController housingCtrl = new HousingController(
 					housingRepository, mongoTemplate);
 
+			SiteMapGenerator.allUrls.put("HOUSING LINKS", null);
 			@SuppressWarnings("unchecked")
 			ResponseEntity<BYGenericResponseHandler.ByGenericResponse> housingResponse = (ResponseEntity<BYGenericResponseHandler.ByGenericResponse>) housingCtrl
 					.getPage(null, null, null, "lastModifiedAt", 0, 0, 3000,
@@ -61,7 +62,7 @@ public class HousingSiteMapGenerator implements Runnable {
 					.getBody().getData()).getContent()) {
 				addHousingUrl(housing_sitemap, housing);
 			}
-			
+
 			housing_sitemap.write();
 			System.out.println("SMG: finished with housings sitemap file");
 
@@ -76,11 +77,13 @@ public class HousingSiteMapGenerator implements Runnable {
 
 	private WebSitemapGenerator addHousingUrl(WebSitemapGenerator wsg,
 			HousingResponse.HousingEntity housing) throws MalformedURLException {
+		String slug = getHousingSlug(housing);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/users/"
-				+ getHousingSlug(housing) + "/?profileId="
-				+ housing.getUserId() + "&amp;branchId=" + housing.getId())
-				.lastMod(new Date()).build();
+				+ slug + "/?profileId=" + housing.getUserId()
+				+ "&amp;branchId=" + housing.getId()).lastMod(new Date())
+				.build();
 		wsg.addUrl(wsmUrl);
+		SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());
 		return wsg;
 	}
 

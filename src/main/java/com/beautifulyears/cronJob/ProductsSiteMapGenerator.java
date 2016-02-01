@@ -49,6 +49,8 @@ public class ProductsSiteMapGenerator implements Runnable {
 			WebSitemapGenerator products_sitemap = WebSitemapGenerator
 					.builder(selfUrl, targetDirectory)
 					.fileNamePrefix("products_sitemap").build();
+			
+			SiteMapGenerator.allUrls.put("PRODUCTS LINKS", null);
 
 			// for adding all the listing pages
 			RestTemplate restTemplate = new RestTemplate();
@@ -83,10 +85,11 @@ public class ProductsSiteMapGenerator implements Runnable {
 			JSONObject product) throws MalformedURLException {
 		String productName = product.getString("name");
 		int productId = product.getInt("id");
+		String slug = Util.getSlug(productName);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/"
-				+ Util.getSlug(productName) + "/pd/" + productId).lastMod(
-				new Date()).build();
+				+ slug + "/pd/" + productId).lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
+		SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());
 		return wsg;
 	}
 

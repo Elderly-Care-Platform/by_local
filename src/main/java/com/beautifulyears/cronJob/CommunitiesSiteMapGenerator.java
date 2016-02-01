@@ -54,6 +54,7 @@ public class CommunitiesSiteMapGenerator implements Runnable {
 					DiscussConstants.DISCUSS_STATUS_ACTIVE));
 
 			List<Discuss> discussList = mongoTemplate.find(q,Discuss.class);
+			SiteMapGenerator.allUrls.put("DISCUSS LINKS", null);
 			for (Discuss discuss : discussList) {
 				community_sitemap = addDiscussUrl(community_sitemap, discuss);
 			}
@@ -69,10 +70,12 @@ public class CommunitiesSiteMapGenerator implements Runnable {
 
 	private WebSitemapGenerator addDiscussUrl(WebSitemapGenerator wsg,
 			Discuss discuss) throws MalformedURLException {
+		String slug = getDiscussSlug(discuss);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
-				+ "/#!/communities/" + getDiscussSlug(discuss) + "/?id="
+				+ "/#!/communities/" + slug + "/?id="
 				+ discuss.getId()).lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
+		SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());
 		return wsg;
 	}
 

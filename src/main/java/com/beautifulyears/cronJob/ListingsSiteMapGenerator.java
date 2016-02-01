@@ -78,6 +78,8 @@ public class ListingsSiteMapGenerator implements Runnable {
 			WebSitemapGenerator listings_sitemap = WebSitemapGenerator
 					.builder(selfUrl, targetDirectory)
 					.fileNamePrefix("listings_sitemap").build();
+			
+			SiteMapGenerator.allUrls.put("MENU LINKS", null);
 
 			// -------------------for adding main community listing page
 			MenuController menuController = new MenuController(mongoTemplate);
@@ -149,11 +151,12 @@ public class ListingsSiteMapGenerator implements Runnable {
 	private WebSitemapGenerator addMenuUrl(WebSitemapGenerator wsg, Menu menu,
 			String parentMenuName, int moduleId) throws MalformedURLException {
 		if (!menu.isHidden() && menu.getModule() == moduleId) {
+			String slug = Util.getSlug(menu.getDisplayMenuName());
 			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/"
-					+ parentMenuName + "/"
-					+ Util.getSlug(menu.getDisplayMenuName()) + "/"
-					+ menu.getId() + "/all").lastMod(new Date()).build();
+					+ parentMenuName + "/" + slug + "/" + menu.getId() + "/all")
+					.lastMod(new Date()).build();
 			wsg.addUrl(wsmUrl);
+			SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());
 		}
 		if (menu.getChildren().size() > 0) {
 			for (Menu childMenu : menu.getChildren()) {

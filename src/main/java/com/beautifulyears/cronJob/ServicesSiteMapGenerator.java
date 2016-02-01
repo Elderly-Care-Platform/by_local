@@ -48,6 +48,8 @@ public class ServicesSiteMapGenerator implements Runnable {
 			WebSitemapGenerator services_sitemap = WebSitemapGenerator
 					.builder(selfUrl, targetDirectory)
 					.fileNamePrefix("services_sitemap").build();
+			
+			SiteMapGenerator.allUrls.put("DIRECTORY LINKS", null);
 
 			// ------------------------for all professional and institution
 			// profiles
@@ -79,10 +81,12 @@ public class ServicesSiteMapGenerator implements Runnable {
 	private WebSitemapGenerator addDirectoryUrl(WebSitemapGenerator wsg,
 			UserProfileResponse.UserProfileEntity profile)
 			throws MalformedURLException {
+		String slug = getUserSlug(profile);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/users/"
-				+ getUserSlug(profile) + "/?profileId=" + profile.getUserId())
-				.lastMod(new Date()).build();
+				+ slug + "/?profileId=" + profile.getUserId()).lastMod(
+				new Date()).build();
 		wsg.addUrl(wsmUrl);
+		SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());
 		return wsg;
 	}
 

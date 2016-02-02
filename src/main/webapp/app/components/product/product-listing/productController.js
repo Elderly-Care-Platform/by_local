@@ -39,6 +39,7 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         $scope.showContact = {};
         $scope.showContact.showContactNumber = false;
         $scope.slug = $routeParams.productSlug;
+        $scope.pageIdx = $routeParams.pageIdx ? $routeParams.pageIdx : 0;
 
         //Functions
         $scope.openProductDescription = openProductDescription;
@@ -128,9 +129,10 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
          */
         function getProductPromise(category) {
             var params = {};
-            $scope.page = $scope.page + 1;
+            $scope.page = parseInt($scope.pageIdx) + 1;
             params.page = $scope.page;
             params.pageSize = $scope.pageSize;
+            $scope.pageIdx = $scope.page;
             if (category) {
                 if (category === 'featured') {
                     return ProductService.getFeaturedProducts(params);
@@ -207,6 +209,19 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         }
 
         function extractProducts(result) {
+            /* adding seo pagination url */
+            var urlQueryParams = $location.search(),
+                currentPageIdx = parseInt($scope.pageIdx) - 1, lastPage;
+                if(result.product && result.product.totalResults){
+                    lastPageIdx = Math.ceil(result.product.totalResults / result.product.pageSize) - 1;
+                }                
+                if(result.product && result.product.productByCategory && result.product.productByCategory.totalResults){
+                    lastPageIdx = Math.ceil(result.product.productByCategory.totalResults / result.product.productByCategory.pageSize) - 1;
+                }
+                BY.byUtil.paginationSeoUrl(urlQueryParams, currentPageIdx, lastPageIdx);
+            /* end seo pagination url */
+
+
             if (result.product) {
                 if (result.product.products || result.product.productByCategory) {
                     result = result.product.products || result.product.productByCategory;
@@ -221,7 +236,8 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
                 $log.debug('Root category tree structure');
                 products = Utility.grabProducts(result, products);
             }
-            Utility.checkImages(products);
+            Utility.checkImages(products);                             
+
             return products;
 
         }

@@ -212,6 +212,44 @@ BY.byUtil.getShortTitle = function (name) {
     }
 }
 
+/* adding seo related urls*/
+BY.byUtil.paginationSeoUrl = function(queryParams, currentP, lastP) {
+    var currentPage = currentP,
+        lastPage = lastP,
+        currentUrl = window.location.href.split('?')[0],
+        previousUrl, nextUrl;
+    if (queryParams && Object.keys(queryParams).length > 0) {
+        previousUrl = currentUrl + "?"
+        $.each(queryParams, function(value, key) {
+            if (value == "pageIdx") {
+                key = parseInt(key) - 1;
+            }
+            previousUrl = previousUrl + value + "=" + key + "&";
+        });
+    }
+    if (queryParams && Object.keys(queryParams).length > 0) {
+        nextUrl = currentUrl + "?"
+        $.each(queryParams, function(value, key) {
+            if (value == "pageIdx") {
+                key = parseInt(key) + 1;
+            }
+            nextUrl = nextUrl + value + "=" + key + "&";
+        });
+    }
+    if (queryParams && Object.keys(queryParams).length == 0) {
+        nextUrl = currentUrl + "?pageIdx=" + (currentP + 1)
+    }
+    if (currentPage == 0) {
+        $("link[rel='next']").attr("href", nextUrl);
+        $("link[rel='prev']").attr("href", "");
+    } else if (currentPage < lastPage) {
+        $("link[rel='next']").attr("href", nextUrl);
+        $("link[rel='prev']").attr("href", previousUrl);
+    } else {
+        $("link[rel='next']").attr("href", "");
+        $("link[rel='prev']").attr("href", previousUrl);
+    }
+}
 
 
 

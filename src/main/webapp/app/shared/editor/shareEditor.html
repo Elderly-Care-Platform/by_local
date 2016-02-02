@@ -36,12 +36,14 @@
             success: function (data, textStatus, jqXHR) {
                 $("#articleTitleImage").val(JSON.stringify(data));
                 $("#articleTitleImage").trigger('input');
-                $(".by_uploading_image").show();
+                $(".by_uploading_image").show();                
+                $(".by_uploading_imagePreload").hide();
                 $(".by-editor-view-buttons").hide();
                 $(".by_btn_submit").prop("disabled", false);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
+                console.log(textStatus);          
+                $(".by_uploading_imagePreload").hide();
                 alert("Image upload failed");
             }
         });
@@ -58,6 +60,7 @@
 
             reader.readAsDataURL(input.files[0]);
             $('#UploadImage12').submit();
+            $(".by_uploading_imagePreload").show();
 
             //input.form.submit();
         }
@@ -174,6 +177,9 @@
             <div class="clearfix" style="height: 20px;"></div>
         </div>
         <div class="clearfix" ng-init="initEditor()"></div>
+        <div class="by-editor-shareInfo by_uploading_imagePreload" >
+            <div class="by-editor-loadingImage"></div>
+        </div>
         <div class="by_uploading_image">
             <div class="col-md-6 by_uploading_image_add">
                 <div class="myLabel" style="padding: 0px; width: 100%;">

@@ -12,9 +12,11 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil
         $scope.menuConfig                   = BY.config.menu;
         $scope.getData                      = $scope.getData;
 
+        $scope.pageIdx                       = $routeParams.pageIdx ? $routeParams.pageIdx : 0;
+
         var city                            = $routeParams.city;
         var tags                            = [];
-        var queryParams                     = {p:0,s:20,sort:"lastModifiedAt"};
+        var queryParams                     = {p:$scope.pageIdx,s:20,sort:"lastModifiedAt"};
         var init                            = initialize();
         $scope.showContact                  = {};
         $scope.showContact.showContactNumber = false;
@@ -27,6 +29,12 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil
                         $scope.pageInfo = BY.byUtil.getPageInfo(housing.data);
                         $scope.pageInfo.isQueryInProgress = false;
                         $("#preloader").hide();
+                        /* adding seo pagination url */
+                        var urlQueryParams = $location.search(),
+                            currentPageIdx = housing.data.number,
+                            lastPageIdx = Math.ceil(housing.data.total / housing.data.size) - 1;
+                        BY.byUtil.paginationSeoUrl(urlQueryParams, currentPageIdx, lastPageIdx);
+                        /* end seo pagination url */
                     }
                 },
                 function (error) {

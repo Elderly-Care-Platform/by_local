@@ -19,10 +19,11 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
             $scope.userTypeConfig           = BY.config.profile.userTypeMap;
             $scope.showContact              = {};
             $scope.showContact.showContactNumber = false;
+            $scope.pageIdx                  = $routeParams.pageIdx ? $routeParams.pageIdx : 0;
 
             var city                        = $routeParams.city ? $routeParams.city : 'all',
                 tags                        = [],
-                queryParams                 = {page: 0, size: 20};
+                queryParams                 = {page: $scope.pageIdx, size: 20};
 
             var init                        = initialize();
 
@@ -42,8 +43,15 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
                         $scope.pageInfo = BY.byUtil.getPageInfo(services.data);
                         $scope.pageInfo.isQueryInProgress = false;
                         $("#preloader").hide();
-                    },
-                    function (error) {
+
+                        /* adding seo pagination url */
+                        var urlQueryParams = $location.search(),
+                            currentPageIdx = services.data.number,
+                            lastPageIdx = Math.ceil(services.data.total / services.data.size) - 1;
+                        BY.byUtil.paginationSeoUrl(urlQueryParams, currentPageIdx, lastPageIdx);
+                        /* end seo pagination url */
+                        },
+                        function(error) {
                         $("#preloader").hide();
                         console.log(error);
                     });

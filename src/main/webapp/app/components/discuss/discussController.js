@@ -26,11 +26,12 @@ define(['byApp',
             $scope.shareDiscussObject = {};
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
             $scope.userCredential = {'email': '', 'pwd': ''};
+            $scope.seoUrls = BY.byUtil.updateSeoUrl;
 
             var tags = [],
                 pageSize = 20,
-                discussPageIdx = $routeParams.discussPageIdx ? $routeParams.discussPageIdx : 0,
-                queryParams = {p: discussPageIdx, s: pageSize, sort: "lastModifiedAt"},
+                pageIdx = $routeParams.pageIdx ? $routeParams.pageIdx : 0,
+                queryParams = {p: pageIdx, s: pageSize, sort: "lastModifiedAt"},
                 showEditor = $routeParams.showEditor ? $routeParams.showEditor : null,
                 editorType = $routeParams.editorType ? $routeParams.editorType : null,
                 init = initialize();
@@ -159,7 +160,7 @@ define(['byApp',
                                 $scope.discussList = value.data.content;
                                 $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
                                 $scope.pageInfo.isQueryInProgress = false;
-                                $scope.discussPagination = {'pageIndexName': 'discussPageIdx'};
+                                $scope.discussPagination = {'pageIndexName': 'pageIdx'};
                                 $scope.discussPagination.totalPosts = value.data.total;
                                 $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                                 $scope.discussPagination.currentPage = value.data.number;
@@ -170,6 +171,13 @@ define(['byApp',
                                  }*/
                                 $("#preloader").hide();
                                 initScroll();
+
+                                /* adding seo pagination url */
+                                var seoParam = $location.search(),
+                                    currentPage = value.data.number,
+                                    lastPage = Math.ceil(value.data.total / value.data.size) - 1;
+                                $scope.seoUrls(seoParam, currentPage, lastPage);
+                                /* end seo pagination url */
                             },
                             function (error) {
                                 $("#preloader").hide();
@@ -177,7 +185,7 @@ define(['byApp',
                             });
                     }
 
-                    $scope.getDiscussData(discussPageIdx, pageSize);
+                    $scope.getDiscussData(pageIdx, pageSize);
 
                 }
             }

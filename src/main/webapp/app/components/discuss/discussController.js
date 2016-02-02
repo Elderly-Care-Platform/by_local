@@ -26,7 +26,6 @@ define(['byApp',
             $scope.shareDiscussObject = {};
             $scope.removeSpecialChars = BY.byUtil.removeSpecialChars;
             $scope.userCredential = {'email': '', 'pwd': ''};
-            $scope.seoUrls = BY.byUtil.updateSeoUrl;
 
             var tags = [],
                 pageSize = 20,
@@ -173,10 +172,10 @@ define(['byApp',
                                 initScroll();
 
                                 /* adding seo pagination url */
-                                var seoParam = $location.search(),
-                                    currentPage = value.data.number,
-                                    lastPage = Math.ceil(value.data.total / value.data.size) - 1;
-                                $scope.seoUrls(seoParam, currentPage, lastPage);
+                                var urlQueryParams = $location.search(),
+                                    currentPageIdx = value.data.number,
+                                    lastPageIdx = Math.ceil(value.data.total / value.data.size) - 1;
+                                BY.byUtil.paginationSeoUrl(urlQueryParams, currentPageIdx, lastPageIdx);
                                 /* end seo pagination url */
                             },
                             function (error) {

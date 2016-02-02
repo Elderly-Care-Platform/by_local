@@ -20,7 +20,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil
         var init                            = initialize();
         $scope.showContact                  = {};
         $scope.showContact.showContactNumber = false;
-        $scope.seoUrls                      = BY.byUtil.updateSeoUrl;
 
         function getData() {
             $("#preloader").show();
@@ -31,10 +30,10 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'], function(byApp, byUtil
                         $scope.pageInfo.isQueryInProgress = false;
                         $("#preloader").hide();
                         /* adding seo pagination url */
-                        var seoParam = $location.search(),
-                            currentPage = housing.data.number,
-                            lastPage = Math.ceil(housing.data.total / housing.data.size) - 1;
-                        $scope.seoUrls(seoParam, currentPage, lastPage);
+                        var urlQueryParams = $location.search(),
+                            currentPageIdx = housing.data.number,
+                            lastPageIdx = Math.ceil(housing.data.total / housing.data.size) - 1;
+                        BY.byUtil.paginationSeoUrl(urlQueryParams, currentPageIdx, lastPageIdx);
                         /* end seo pagination url */
                     }
                 },

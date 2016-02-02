@@ -213,7 +213,7 @@ BY.byUtil.getShortTitle = function (name) {
 }
 
 /* adding seo related urls*/
-BY.byUtil.updateSeoUrl = function(queryParams, currentP, lastP) {
+BY.byUtil.paginationSeoUrl = function(queryParams, currentP, lastP) {
     var currentPage = currentP,
         lastPage = lastP,
         currentUrl = window.location.href.split('?')[0],
@@ -237,7 +237,7 @@ BY.byUtil.updateSeoUrl = function(queryParams, currentP, lastP) {
         });
     }
     if (queryParams && Object.keys(queryParams).length == 0) {
-        nextUrl = currentUrl + "?pageIdx=1"
+        nextUrl = currentUrl + "?pageIdx=" + (currentP + 1)
     }
     if (currentPage == 0) {
         $("link[rel='next']").attr("href", nextUrl);

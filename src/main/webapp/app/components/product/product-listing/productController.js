@@ -40,7 +40,6 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         $scope.showContact.showContactNumber = false;
         $scope.slug = $routeParams.productSlug;
         $scope.pageIdx = $routeParams.pageIdx ? $routeParams.pageIdx : 0;
-        $scope.seoUrls = BY.byUtil.updateSeoUrl;
 
         //Functions
         $scope.openProductDescription = openProductDescription;
@@ -211,15 +210,15 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
 
         function extractProducts(result) {
             /* adding seo pagination url */
-            var seoParam = $location.search(),
-                currentPage = parseInt($scope.pageIdx) - 1, lastPage;
+            var urlQueryParams = $location.search(),
+                currentPageIdx = parseInt($scope.pageIdx) - 1, lastPage;
                 if(result.product && result.product.totalResults){
-                    lastPage = Math.ceil(result.product.totalResults / result.product.pageSize) - 1;
+                    lastPageIdx = Math.ceil(result.product.totalResults / result.product.pageSize) - 1;
                 }                
                 if(result.product && result.product.productByCategory && result.product.productByCategory.totalResults){
-                    lastPage = Math.ceil(result.product.productByCategory.totalResults / result.product.productByCategory.pageSize) - 1;
+                    lastPageIdx = Math.ceil(result.product.productByCategory.totalResults / result.product.productByCategory.pageSize) - 1;
                 }
-                $scope.seoUrls(seoParam, currentPage, lastPage);
+                BY.byUtil.paginationSeoUrl(urlQueryParams, currentPageIdx, lastPageIdx);
             /* end seo pagination url */
 
 

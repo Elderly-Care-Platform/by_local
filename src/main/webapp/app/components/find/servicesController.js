@@ -20,7 +20,6 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
             $scope.showContact              = {};
             $scope.showContact.showContactNumber = false;
             $scope.pageIdx                  = $routeParams.pageIdx ? $routeParams.pageIdx : 0;
-            $scope.seoUrls                   = BY.byUtil.updateSeoUrl;
 
             var city                        = $routeParams.city ? $routeParams.city : 'all',
                 tags                        = [],
@@ -46,10 +45,10 @@ define(['byApp', 'byUtil', 'userTypeConfig', 'byEditor'],
                         $("#preloader").hide();
 
                         /* adding seo pagination url */
-                        var seoParam = $location.search(),
-                            currentPage = services.data.number,
-                            lastPage = Math.ceil(services.data.total / services.data.size) - 1;
-                        $scope.seoUrls(seoParam, currentPage, lastPage);
+                        var urlQueryParams = $location.search(),
+                            currentPageIdx = services.data.number,
+                            lastPageIdx = Math.ceil(services.data.total / services.data.size) - 1;
+                        BY.byUtil.paginationSeoUrl(urlQueryParams, currentPageIdx, lastPageIdx);
                         /* end seo pagination url */
                         },
                         function(error) {

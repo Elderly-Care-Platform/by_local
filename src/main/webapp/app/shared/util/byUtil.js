@@ -237,7 +237,8 @@ BY.byUtil.paginationSeoUrl = function(queryParams, currentP, lastP) {
         });
     }
     if (queryParams && Object.keys(queryParams).length == 0) {
-        nextUrl = currentUrl + "?pageIdx=" + (currentP + 1)
+        nextUrl = currentUrl + "?pageIdx=" + (currentP + 1);
+        previousUrl = currentUrl + "?pageIdx=" + (currentP - 1);
     }
     if (currentPage == 0) {
         $("link[rel='next']").attr("href", nextUrl);

@@ -78,7 +78,7 @@ public class ListingsSiteMapGenerator implements Runnable {
 			WebSitemapGenerator listings_sitemap = WebSitemapGenerator
 					.builder(selfUrl, targetDirectory)
 					.fileNamePrefix("listings_sitemap").build();
-			
+
 			SiteMapGenerator.allUrls.put("MENU LINKS", null);
 
 			// -------------------for adding main community listing page
@@ -89,6 +89,7 @@ public class ListingsSiteMapGenerator implements Runnable {
 			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(communityMenuUrl)
 					.lastMod(new Date()).build();
 			listings_sitemap.addUrl(wsmUrl);
+			SiteMapGenerator.allUrls.put("COMMUNITY_URL", communityMenuUrl);
 
 			// ----------------------for adding all the community listing pages
 
@@ -105,6 +106,7 @@ public class ListingsSiteMapGenerator implements Runnable {
 			wsmUrl = new WebSitemapUrl.Options(servicesMenuUrl).lastMod(
 					new Date()).build();
 			listings_sitemap.addUrl(wsmUrl);
+			SiteMapGenerator.allUrls.put("SERVICE_URL", servicesMenuUrl);
 
 			// ----------------------for adding all the directory menus
 			for (Menu menu : directoryMenuList) {
@@ -112,13 +114,15 @@ public class ListingsSiteMapGenerator implements Runnable {
 						servicesUrlPrefix, MODULE_ID_SERVICES);
 			}
 
-			// --------------------- for adding listing page of housing wsmUrl =
-			new WebSitemapUrl.Options(housingMenuUrl).lastMod(new Date())
-					.build();
+			// --------------------- for adding listing page of housing
+			wsmUrl = new WebSitemapUrl.Options(housingMenuUrl).lastMod(
+					new Date()).build();
 			listings_sitemap.addUrl(wsmUrl);
+			SiteMapGenerator.allUrls.put("HOUSING_URL", housingMenuUrl);
 
-			// -------------------for adding main product listing page wsmUrl =
-			new WebSitemapUrl.Options(shopMenuUrl).lastMod(new Date()).build();
+			// -------------------for adding main product listing page
+			wsmUrl = new WebSitemapUrl.Options(shopMenuUrl).lastMod(new Date())
+					.build();
 			listings_sitemap.addUrl(wsmUrl);
 
 			// for adding all the listing pages
@@ -169,13 +173,16 @@ public class ListingsSiteMapGenerator implements Runnable {
 	private WebSitemapGenerator addProductCategory(WebSitemapGenerator wsg,
 			JSONArray categories) throws MalformedURLException {
 		for (int i = 0, size = categories.length(); i < size; i++) {
+			
 			JSONObject category = categories.getJSONObject(i);
 			String categoryName = category.getString("name");
+			String slug = Util.getSlug(categoryName);
 			int categoryId = category.getInt("id");
 			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
-					+ "/#!/shop/" + Util.getSlug(categoryName) + "/"
+					+ "/#!/shop/" + slug + "/"
 					+ categoryId).lastMod(new Date()).build();
 			wsg.addUrl(wsmUrl);
+			SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());
 
 			if (category.has("subcategories")) {
 				JSONArray subcategories = category

@@ -44,7 +44,7 @@ define([], function () {
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 if (addressIdx) {
                     if (deliveryMode === 0) {
-                        return $http.get('api/v1/userAddress/' + userId + '?addressId=' + addressIdx).success(function (userAddress) {
+                        return $http.get(apiPrefix + 'api/v1/userAddress/' + userId + '?addressId=' + addressIdx).success(function (userAddress) {
                             deferred.resolve(userAddress);
                         }).error(function (error) {
                             var errorMsg = "address not found";
@@ -56,7 +56,7 @@ define([], function () {
                     }
 
                 } else {
-                    return $http.get('api/v1/userAddress/' + userId).success(function (userAddress) {
+                    return $http.get(apiPrefix + 'api/v1/userAddress/' + userId).success(function (userAddress) {
                         deferred.resolve(userAddress);
                     }).error(function (error) {
                         var errorMsg = "address not found";
@@ -77,7 +77,7 @@ define([], function () {
         var userSessionType = UserValidationFilter.getUserSessionType();
         var userId = localStorage.getItem("USER_ID");
         if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
-            return $http.put('api/v1/userAddress/' + userId, params.address);
+            return $http.put(apiPrefix + 'api/v1/userAddress/' + userId, params.address);
         } else {
             $("#preloader").hide();
             $rootScope.nextLocation = "/selectAddress"
@@ -89,7 +89,7 @@ define([], function () {
         var userSessionType = UserValidationFilter.getUserSessionType();
         var userId = localStorage.getItem("USER_ID");
         if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
-            return $http.post('api/v1/userAddress/' + userId, params.address);
+            return $http.post(apiPrefix + 'api/v1/userAddress/' + userId, params.address);
         } else {
             $("#preloader").hide();
             $rootScope.nextLocation = "/selectAddress"

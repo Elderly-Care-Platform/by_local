@@ -90,7 +90,7 @@ define(["byApp", "discussService"], function (byApp, discussService) {
 
             if ($scope.emailError == "") {
 
-                $http.post('api/v1/share/email/' + discussId, emailParams
+                $http.post(apiPrefix + 'api/v1/share/email/' + discussId, emailParams
                 ).success(function (response, status, headers, config) {
                         $("#shareEmailModal").modal("hide");
                         $scope.resetErrorOnModalDismiss();

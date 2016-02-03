@@ -275,7 +275,7 @@ define(['byApp', 'byUtil', 'byEditor', 'userValidation'], function(byApp, byUtil
                 //$(".by_share_btn_submit").prop("disabled", true);
                 $scope.showLinkView = true;
                 $scope.linkInfoLoading = true;
-                $http.get('api/v1/discuss/getLinkInfo?url='+encodeURIComponent($scope.sharedLinkUrl)).
+                $http.get(apiPrefix + 'api/v1/discuss/getLinkInfo?url='+encodeURIComponent($scope.sharedLinkUrl)).
                     then(function(response) {
                     	$scope.linkImages = [];
                     	$scope.linkImagesIdx = 0;

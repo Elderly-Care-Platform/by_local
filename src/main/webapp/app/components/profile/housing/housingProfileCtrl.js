@@ -16,7 +16,7 @@ define(['byApp', 'byUtil', 'reviewRateController'], function(byApp, byUtil, revi
 
 
         if ($scope.housingFacilityId) {
-            $http.get('api/v1/housing?id=' + $scope.housingFacilityId).success(function (response) {
+            $http.get(apiPrefix + 'api/v1/housing?id=' + $scope.housingFacilityId).success(function (response) {
                 $scope.facility = response.data;
                 $scope.profileData = $scope.facility;
                 broadCastData.update(response.data);

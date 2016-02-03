@@ -33,7 +33,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         
 
         function getProductCount(){
-            $http.get(BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
+            $http.get(apiPrefix + BY.config.constants.productHost+"/catalog/productCount").success(function (response) {
                 $rootScope.totalProductCount = response;
                 $rootScope.$broadcast('productCountAvailable');
             }).error(function (err) {
@@ -42,7 +42,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
         }
 
         function getServicesCount(){
-            $http.get("api/v1/userProfile/getCount").success(function (response) {
+            $http.get(apiPrefix + "api/v1/userProfile/getCount").success(function (response) {
 
                 $rootScope.totalServiceCount = parseInt(response.data[BY.config.profile.userTypeMap['INSTITUTION_BRANCH']])
                     + parseInt(response.data[BY.config.profile.userTypeMap['INDIVIDUAL_PROFESSIONAL']]);
@@ -113,10 +113,10 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             }
 
             $scope.loginDetails.text = "Logout";
-            $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + sessionId;
+            $scope.loginDetails.link = "#!/users/logout/" + sessionId;
 
             $scope.profileDetails.text = BY.byUtil.validateUserName(userName);
-            $scope.profileDetails.link = apiPrefix + "#!/users/registrationProfile/";
+            $scope.profileDetails.link = "#!/users/registrationProfile/";
         }
 
         function inValidateSession() {
@@ -124,7 +124,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
             $scope.profileDetails.link = "";
 
             $scope.loginDetails.text = "Join us";
-            $scope.loginDetails.link = apiPrefix + "#!/users/login";
+            $scope.loginDetails.link = "#!/users/login";
         }
 
         $scope.$on('byUserLogout', function (event, args) {

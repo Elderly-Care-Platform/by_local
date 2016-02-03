@@ -8,7 +8,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil) {
 
         $scope.$on('handleBroadcast', function() {
             $scope.facilityData = broadCastData.newData;
-            $http.get('api/v1/housing/getRelated?id=' + $scope.facilityData.id).success(function(response){
+            $http.get(apiPrefix + 'api/v1/housing/getRelated?id=' + $scope.facilityData.id).success(function(response){
                 if(Object.keys(response.data).length > 0){
                     $scope.relatedFacilities = response.data;
                     $scope.otherBranches = $scope.relatedFacilities[$scope.facilityData.primaryAddress.city];

@@ -46,10 +46,10 @@ define(['byApp', 'byUtil', 'homePromoController',
 
                 if(isLoggedinUser){
                     $scope.loginDetails.text = "Logout";
-                    $scope.loginDetails.link = apiPrefix + "#!/users/logout/" + SessionIdService.getSessionId();
+                    $scope.loginDetails.link = "#!/users/logout/" + SessionIdService.getSessionId();
                 }else{
                     $scope.loginDetails.text = "Join us";
-                    $scope.loginDetails.link = apiPrefix + "#!/users/login";
+                    $scope.loginDetails.link = "#!/users/login";
                 }
                 updateMetaTags();
             }

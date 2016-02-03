@@ -165,7 +165,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
         function validateSession(){
             var deferred = $q.defer();
             $http.defaults.headers.common.sess = localStorage.getItem("SessionId");
-            $http.get("api/v1/users/validateSession").success(function (response) {
+            $http.get(apiPrefix + "api/v1/users/validateSession").success(function (response) {
                 setUserCredential(response.data);
                 deferred.resolve(response);
             }).error(function (error) {
@@ -184,7 +184,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
 
 
          function googleLogin(){
-            $http.get("api/v1/users/getGgURL").success(function(res){
+            $http.get(apiPrefix + "api/v1/users/getGgURL").success(function(res){
                 window.addEventListener("message", socialCallback);
                 var child = window.open(res.data, 'Google Login','width=500,height=500');
                 var timer = setInterval(checkChild, 500);
@@ -198,7 +198,7 @@ define(['byApp', 'registrationConfig'], function (byApp, registrationConfig) {
         };
 
          function fbLogin(){
-            $http.get("api/v1/users/getFbURL").success(function(res){
+            $http.get(apiPrefix + "api/v1/users/getFbURL").success(function(res){
                 window.addEventListener("message", socialCallback);
                 var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
                 var timer = setInterval(checkChild, 500);

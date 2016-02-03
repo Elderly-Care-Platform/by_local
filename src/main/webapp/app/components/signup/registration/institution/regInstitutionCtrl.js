@@ -176,7 +176,7 @@ define(['byApp', 'bootstrapToggle'], function (byApp, bootstrapToggle) {
             addressObj.city = "";
             addressObj.locality = "";
             addressObj.country = "";
-            $http.get("api/v1/location/getLocationByPincode?pincode=" + addressObj.zip)
+            $http.get(apiPrefix + "api/v1/location/getLocationByPincode?pincode=" + addressObj.zip)
                 .success(function (response) {
                     if (response) {
                         addressObj.city = response.districtname;

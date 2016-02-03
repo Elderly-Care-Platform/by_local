@@ -139,7 +139,7 @@ define(['byProductApp'], function (byProductApp) {
             $scope.address.address.country = "";
             $scope.address.address.streetAddress = "";
             
-            $http.get("api/v1/location/getLocationByPincode?pincode=" + $scope.address.address.zip)
+            $http.get(apiPrefix + "api/v1/location/getLocationByPincode?pincode=" + $scope.address.address.zip)
                 .success(function (response) {
                     if (response) {
                         $scope.address.address.city = response.districtname;

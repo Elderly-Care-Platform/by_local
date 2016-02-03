@@ -158,7 +158,7 @@ define(['byApp', 'bootstrapToggle', 'byUtil'], function(byApp, bootstrapToggle, 
             $scope.address.city = "";
             $scope.address.locality = "";
             $scope.address.country = "";
-            $http.get("api/v1/location/getLocationByPincode?pincode=" + $scope.address.zip)
+            $http.get(apiPrefix + "api/v1/location/getLocationByPincode?pincode=" + $scope.address.zip)
                 .success(function (response) {
                     if (response) {
                         $scope.address.city = response.districtname;

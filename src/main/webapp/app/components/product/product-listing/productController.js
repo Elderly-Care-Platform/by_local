@@ -211,7 +211,7 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
         function extractProducts(result) {
             /* adding seo pagination url */
             var urlQueryParams = $location.search(),
-                currentPageIdx = parseInt($scope.pageIdx) - 1, lastPage;
+                currentPageIdx = parseInt($scope.pageIdx) - 1, lastPageIdx = 1;
                 if(result.product && result.product.totalResults){
                     lastPageIdx = Math.ceil(result.product.totalResults / result.product.pageSize) - 1;
                 }                

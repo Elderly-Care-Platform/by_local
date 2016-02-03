@@ -34,9 +34,9 @@
                 </a>
                 <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header" ng-click="toggleMenu($event)" style="display: inline-block; width:30px;"></a>
 
-                <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper" ng-init="expandParent(menu.id)">
-                    <li ng-repeat="submenu1 in categoryLists track by $index" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
-                        <a class="by_treeSubMenu" ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{removeSpecialChars(submenu1.displayMenuName)}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}} </a>
+                <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper" ng-init="getLeafCategories(menu)">
+                    <li ng-repeat="submenu in menu.leafCategories track by $index" id="{{submenu.id}}">
+                        <a class="by_treeSubMenu" ng-class="{'by_treeSubMenu_active': submenu.id == selectedMenuId}" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{removeSpecialChars(submenu.displayMenuName)}}/{{submenu.id}}/all">{{submenu.displayMenuName}} </a>
                     </li>
                 </ul>
             </li>

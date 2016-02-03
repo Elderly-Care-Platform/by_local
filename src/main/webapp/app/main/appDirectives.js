@@ -186,7 +186,7 @@ define(["byApp", "angular"], function (byApp, angular) {
                             formData.append('image', files[val], files[val].name);
 
 
-                            $http.post('UploadFile?transcoding=true', formData, {
+                            $http.post(apiPrefix + 'UploadFile?transcoding=true', formData, {
                                 transformRequest: angular.identity,
                                 headers: {'Content-Type': undefined}
                             }).success(function (result) {

@@ -25,7 +25,7 @@
     $("#UploadImage12").bind('submit', function (e) {
         var postData = new FormData(jQuery('#UploadImage12')[0]);
         $.ajax({
-            url: 'UploadFile?transcoding=true',
+            url: apiPrefix + 'UploadFile?transcoding=true',
             type: "POST",
             enctype: "multipart/form-data",
             data: postData,

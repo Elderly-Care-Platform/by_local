@@ -16,8 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 public class BYGenericResponseHandler {
-	@SuppressWarnings("unused")
-	private static class ByGenericResponse{
+	public static class ByGenericResponse{
 		private int statusCode;
 		private Object data;
 		private RuntimeException error;

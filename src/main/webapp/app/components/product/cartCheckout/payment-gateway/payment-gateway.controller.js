@@ -98,7 +98,7 @@ define(['byProductApp'], function (byProductApp) {
         function validateCODzip(userAddress) {
             var selectedPincode = userAddress.address.zip, str1 = "bangalore", str2 = "bengaluru";
             if (selectedPincode) {
-                $http.get("api/v1/location/getLocationByPincode?pincode=" + selectedPincode)
+                $http.get(apiPrefix + "api/v1/location/getLocationByPincode?pincode=" + selectedPincode)
                     .success(function (response) {
                         if (response) {
                             if (response.districtname.toLowerCase().indexOf(str1) > -1 || response.districtname.toLowerCase().indexOf(str2) > -1)

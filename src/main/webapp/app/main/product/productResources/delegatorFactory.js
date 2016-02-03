@@ -144,7 +144,7 @@ define([], function () {
             var params = {};
 
             if (urlNeedsExpansion) {
-                config.url = APPLICATION.host + url;
+                config.url = apiPrefix + APPLICATION.host + url;
             }
 
             if (angular.isObject(config.params)) {

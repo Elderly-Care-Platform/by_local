@@ -79,7 +79,7 @@ define(['byApp', 'byUtil'], function(byApp, byUtil){
             $scope.facility.primaryAddress.city = "";
             $scope.facility.primaryAddress.locality = "";
             $scope.facility.primaryAddress.country = "";
-            $http.get("api/v1/location/getLocationByPincode?pincode=" + $scope.facility.primaryAddress.zip)
+            $http.get(apiPrefix + "api/v1/location/getLocationByPincode?pincode=" + $scope.facility.primaryAddress.zip)
                 .success(function (response) {
                     if (response) {
                         $scope.facility.primaryAddress.city = response.districtname;

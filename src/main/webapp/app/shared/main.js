@@ -187,7 +187,7 @@ require(['angular', "byApp", "byUtil", "byDirectives", "lodash", "byApplicationC
 		url : apiPrefix + 'api/v1/menu/getMenu?parentId=root',
 		success : function(response) {
 			window.by_menu = response;
-			$.ajax({url : BY.config.constants.productHost+'/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
+			$.ajax({url : apiPrefix + BY.config.constants.productHost+'/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
 		}
 	});
 });

@@ -109,6 +109,21 @@ define(['byApp', 'menuConfig', 'discussCtrl', 'discussLeftCtrl'], function (byAp
             }
         };
 
+        $scope.getLeafCategories = function(menu){
+            var leafCategories = [],
+            iterateMenu = function(selMenu){
+                for(var i=0; i<selMenu.children.length; i++){
+                    if(selMenu.children[i].children.length === 0){
+                        leafCategories.push(selMenu.children[i]);
+                    }else{
+                        iterateMenu(selMenu.children[i]);
+                    }
+                }
+            }
+            iterateMenu(menu);
+            menu.leafCategories = leafCategories;
+        };
+
         $scope.toggleMenu = function ($event) {
             //console.log($($event.target).parent().children('ul.tree'));
             var target = $($event.target).parent().children('ul.tree');

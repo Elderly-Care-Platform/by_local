@@ -5,7 +5,7 @@ define([], function () {
             getAddress: getAddress
         };
         function getAddress() {
-            return $http.get('assets/dummy/dummyjson.json');
+            return $http.get(apiPrefix + 'assets/dummy/dummyjson.json');
         }
 
         // var addressService, urls;

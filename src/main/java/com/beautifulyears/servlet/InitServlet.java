@@ -7,12 +7,13 @@ import com.beautifulyears.util.Util;
 
 public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String host = "localhost:8080";
+	private String host = "www.beautifulyears.com";
 	private String contextPath = "/ROOT";
-	private String productServerHost = "localhost";
-	private String productServerPort = "8080";
+	private String productServerHost = "qa.beautifulyears.com";
+	private String productServerPort = "8083";
 	private String mailSupported = "";
 	private String imageUploadPath = "c:/uploads";
+	private String sitemapPath = "c:/sitemap";
 
 	public void init() {
 		System.out.println("initializing servlet ==================");
@@ -23,10 +24,16 @@ public class InitServlet extends HttpServlet {
 		}
 
 		if (!Util.isEmpty(ByWebAppInitializer.servletContext
+				.getInitParameter("sitemapPath"))) {
+			sitemapPath = ByWebAppInitializer.servletContext
+					.getInitParameter("sitemapPath");
+		}
+
+		if (!Util.isEmpty(ByWebAppInitializer.servletContext
 				.getInitParameter("contextPath"))) {
 			contextPath = ByWebAppInitializer.servletContext
 					.getInitParameter("contextPath");
-			if("/".equals(contextPath)){
+			if ("/".equals(contextPath)) {
 				contextPath = "";
 			}
 		}
@@ -60,11 +67,13 @@ public class InitServlet extends HttpServlet {
 		System.setProperty("productServerPort", productServerPort);
 		System.setProperty("mailSupported", mailSupported);
 		System.setProperty("imageUploadPath", imageUploadPath);
+		System.setProperty("sitemapPath", sitemapPath);
 
 		System.out.println(System.getProperty("path") + ","
 				+ System.getProperty("productServerHost") + ","
 				+ System.getProperty("productServerPort") + ","
 				+ System.getProperty("mailSupported") + ","
+				+ System.getProperty("sitemapPath") + ","
 				+ System.getProperty("imageUploadPath"));
 
 	}

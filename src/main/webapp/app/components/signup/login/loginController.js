@@ -58,7 +58,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 
         function verifyPasswordCode(passCode){
             $(".by_resetPwd_btn").prop("disabled", true);
-            $http.get("api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
+            $http.get(apiPrefix + "api/v1/users/verifyPwdCode?verificationCode="+$routeParams.resetPasswordCode).success(function(res){
                 $scope.resetPasswordCode = $routeParams.resetPasswordCode;
                 $(".by_resetPwd_btn").prop("disabled", false);
             }).error(function(errorRes){
@@ -88,7 +88,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
         };
 
         $scope.fbLogin = function(){
-            $http.get("api/v1/users/getFbURL").success(function(res){
+            $http.get(apiPrefix + "api/v1/users/getFbURL").success(function(res){
                 window.addEventListener("message", socialCallback);
                 var child = window.open(res.data, 'Facebook Login','width=1000,height=650');
                 var timer = setInterval(checkChild, 500);
@@ -151,7 +151,7 @@ define(['byUtil', 'registrationConfig'], function(byUtil, registrationConfig){
 
 
         $scope.ggLogin = function(){
-            $http.get("api/v1/users/getGgURL").success(function(res){
+            $http.get(apiPrefix + "api/v1/users/getGgURL").success(function(res){
                 window.addEventListener("message", socialCallback);
                 var child = window.open(res.data, 'Google Login','width=500,height=500');
                 var timer = setInterval(checkChild, 500);

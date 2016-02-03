@@ -127,10 +127,10 @@
 {
     width: 100%;
     height: auto;
-    font-size: 20px;
+    font-size: 18px;
     color: #000;
     border-bottom: 1px solid #e4e4e4;
-    padding: 5px 0px;
+    padding: 2px 0px;
 }
 .by_commFeaturedItem
 {
@@ -159,8 +159,8 @@
     height: auto;
     float: left;
     text-align: center;
-    margin-top: 5px;
-    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-bottom: 5px;
     line-height: 18px;
     font-size: 15px;
 }
@@ -198,13 +198,34 @@
 {
     width: calc(100% - 55px);
 }
+.by_discussFilters a{
+    font-size: 18px;
+    color: #4A7B1E !important;
+}
+.by_discussFilters a:hover
+{
+    text-decoration: none !important;
+    border-bottom: 1px solid #4A7B1E;
+}
 .by_discussFilters a.selected
 {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #4A7B1E;
+}
+.communityGridWidth
+{
+    width: calc(100% + 10px);
+}
+.grid-boxes-in-two
+{
+    width: calc(100% - 10px) !important;
 }
 @media ( max-width : 720px){
     .curatedProfile
     {
         width: 25%;
+    }
+    .communityGridWidth, .grid-boxes-in-two
+    {
+        width: 100% !important;
     }
 }

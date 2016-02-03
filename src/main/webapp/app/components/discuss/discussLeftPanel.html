@@ -1,28 +1,57 @@
 <div ng-controller="DiscussLeftController">
-    <div class="by_subMenuPlus col-md-12" ng-init="smartScroll();">
-        <div ng-if="menuConfig.community[selectedMenu.id].curator">
-            <div class="by_commFeaturedHead">
+    <div class="by_subMenuPlus col-md-12 no-padding" ng-init="smartScroll();">
+        <div class="col-md-12" ng-if="menuConfig.community[selectedMenu.id].curator">
+            <!-- <div class="by_commFeaturedHead">
                 Curated by
-            </div>
+            </div>-->
             <div class="clearfix margin-top-10"></div>
-            <div class="curatedProfile"
-                 ng-class="{'curatedProfileOne': menuConfig.community[selectedMenu.id].curator.length < 2}"
-                 ng-repeat="curator in menuConfig.community[selectedMenu.id].curator">
+            <div class="divLeft">Curated by</div>
+            <div class="clearfix"/>
+            <div class="curatedProfile" ng-class="{'curatedProfileOne': menuConfig.community[selectedMenu.id].curator.length < 2}" ng-repeat="curator in menuConfig.community[selectedMenu.id].curator">
                 <a href="{{curator.url}}">
-                    <img src="{{curator.image}}" alt="{{curator.name}}"/>
+                    <img src="{{curator.image}}" alt="{{curator.name}}" />
                     <b>{{curator.name}}</b>
-                    <br/>
-                    {{curator.desg}}
+                    <br/> {{curator.desg}}
                 </a>
             </div>
             <div class="by_commFeaturedHead clearfix margin-top-40"></div>
         </div>
-        <div class="by_commFeaturedHead" ng-if="discussFeatured.length > 0">
-            Featured
+        <div class="clearfix"></div>
+        <div class="by_menuHeadFind  margin-top-10">
+            Choose a Topic
         </div>
-        <div ng-repeat="featured in formattedData" class="by_commFeaturedItem">
-            <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();"> 
-            <span>
+        <div class="by_menuHeadFindArrow"></div>
+        <div class="clearfix"></div>
+        <!--=== Header v7 Left ===-->
+        <ul class="nav nav-list">
+            <li ng-repeat="menu in $root.menuCategoryMapByName['Communities'].children" id="{{menu.id}}" class="byTreeMenu-wrapper">
+                <a ng-if="menu.children.length === 0" class="by_treeMenuText" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{removeSpecialChars(menu.displayMenuName)}}/{{menu.id}}/all" style="display: inline-block; width:100%;" ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                {{menu.displayMenuName}}
+                </a>
+
+                <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{removeSpecialChars(menu.displayMenuName)}}/{{menu.id}}/all" ng-click="toggleMenu($event)" style="display: inline-block; width:calc(100% - 40px);" ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
+                {{menu.displayMenuName}}
+                </a>
+                <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header" ng-click="toggleMenu($event)" style="display: inline-block; width:30px;"></a>
+
+                <ul ng-if="menu.children.length > 0" class="nav nav-list tree by_treeSubMenu_Wrapper" ng-init="expandParent(menu.id)">
+                    <li ng-repeat="submenu1 in categoryLists track by $index" id="{{submenu1.id}}" ng-init="expandParent(submenu1.id)">
+                        <a class="by_treeSubMenu" ng-class="{'by_treeSubMenu_active': submenu1.id == selectedMenuId}" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{removeSpecialChars(submenu1.displayMenuName)}}/{{submenu1.id}}/all">{{submenu1.displayMenuName}} </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="by_menuHousingBorderTop" style="margin-top:10px;"></div>
+        <div class="margin-top-20" ng-if="discussFeatured.length > 0">
+            <div class="col-md-12 by_editorButtonViews">
+            <a ng-href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/f">
+               Featured
+            </a>
+            </div>
+        </div>
+        <div ng-repeat="featured in formattedData" class="by_commFeaturedItem col-md-12">
+            <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();">
+                <span>
                  <table border="0" cellpadding="0" cellspacing="0" align="left" width="100%">
                   <tr colspan="3">
                      <td align="left" class="by_featuredImgWidth">

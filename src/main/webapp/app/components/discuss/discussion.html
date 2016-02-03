@@ -1,5 +1,5 @@
-<!--<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>-->
-<div ng-include="'app/components/discuss/discussMenu.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+<div class="headerHeightNoBreadCrumb margin-bottom-0"></div>
+<div ng-include="'app/components/discuss/discussMenu.html?versionTimeStamp=%PROJECT_VERSION%'" ng-if="$root.windowWidth < 720"></div>
 <!--<div class="by_mobile_call_wrap" ng-if="$root.windowWidth < 720">
     <div class="by_container" style="color: #fff ; text-align:center;">
         Need help? <a ng-href="{{'tel:'+telNo}}">
@@ -54,7 +54,7 @@
             <div class="clearfix" style="height:15px;"></div>
 
             <!--Show discuss content-->
-            <div ng-include="'app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'"></div>
+            <div ng-include="'app/components/discuss/discussContentPanel.html?versionTimeStamp=%PROJECT_VERSION%'" class="communityGridWidth"></div>
             <!--Show discuss content end-->
              <div   ng-if="$root.windowWidth < 721"  ng-include="'app/components/discuss/discussLeftPanelMobile.html?versionTimeStamp=%PROJECT_VERSION%'">
         </div>

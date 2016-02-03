@@ -34,7 +34,7 @@
 var masonaryGridInit = function(){
 	var $container = $('.grid-boxes');
 
-    var gutter = 15;
+    var gutter = 10;
     var min_width = 300;
     if($container.length > 0){
         $container.imagesLoaded( function(){

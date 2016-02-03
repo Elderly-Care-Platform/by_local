@@ -13,8 +13,12 @@
             </div>
             <div class="by_commFeaturedHead clearfix margin-top-40"></div>
       </div>
-      <div class="by_commFeaturedHead" ng-if="discussFeatured.length > 0">
-            Featured
+      <div class="margin-top-20" ng-if="discussFeatured.length > 0">
+            <div class="col-md-12 by_editorButtonViews">
+            <a ng-href="#!/communities/{{removeSpecialChars(selectedMenu.displayMenuName)}}/{{selectedMenu.id}}/f">
+               Featured
+            </a>
+            </div>
       </div>
       <div ng-repeat="featured in formattedData" class="by_commFeaturedItem">
             <a ng-href="{{getHref(featured, {'id':featured.id})}}" ng-click="$event.stopPropagation();"> 

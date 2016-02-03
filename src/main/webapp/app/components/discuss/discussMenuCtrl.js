@@ -92,6 +92,35 @@ define(['byApp', 'menuConfig', 'discussCtrl', 'discussLeftCtrl'], function (byAp
             } 
         };
 
+        $scope.selectedMenu         = $rootScope.menuCategoryMap[$scope.selectedMenuId];
+        $scope.selectedParent       = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[$scope.selectedMenu.ancestorIds.length - 1]];
+        
+        $scope.expandParent = function (menuId) {
+            if (menuId && menuId.toString() == $scope.selectedMenuId) {
+                $scope.selectedParent = $rootScope.menuCategoryMap[$scope.selectedMenu.ancestorIds[$scope.selectedMenu.ancestorIds.length - 1]];
+                var target = $("#" + $scope.selectedParent.id).children('ul.tree');
+                target.toggle(200, function () {
+                    if (target.is(':visible')) {
+                        $("#" + $scope.selectedParent.id).children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
+                    } else {
+                        $("#" + $scope.selectedParent.id).children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
+                    }
+                });
+            }
+        };
+
+        $scope.toggleMenu = function ($event) {
+            //console.log($($event.target).parent().children('ul.tree'));
+            var target = $($event.target).parent().children('ul.tree');
+            target.toggle(200, function () {
+                if (target.is(':visible')) {
+                    $($event.target).parent().children('.by_treeMenuIcon').addClass('by_treeMenuIconMinus');
+                } else {
+                    $($event.target).parent().children('.by_treeMenuIcon').removeClass('by_treeMenuIconMinus');
+                }
+            });
+        }
+
         
         $scope.showAllMenu = function ($event, menu) {               
             $scope.showMoreMenu = ($scope.showMoreMenu === false) ? true : false;

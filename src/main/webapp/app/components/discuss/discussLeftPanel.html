@@ -30,7 +30,7 @@
                 </a>
 
                 <a ng-if="menu.children.length > 0" class="by_treeMenuText tree-toggler nav-header" ng-href="{{menuConfig.moduleConfig[menu.module].baseUrl}}/{{removeSpecialChars(menu.displayMenuName)}}/{{menu.id}}/all" ng-click="toggleMenu($event)" style="display: inline-block; width:calc(100% - 40px);" ng-class="{'by_treeMenuTextActive': menu.id == selectedParent.id, 'by_treeMenuTextActive': menu.id == selectedMenuId}">
-                {{menu.displayMenuName}}
+                {{menu.displayMenuName}} 
                 </a>
                 <a ng-if="menu.children.length > 0" class="by_treeMenuIcon tree-toggler nav-header" ng-click="toggleMenu($event)" style="display: inline-block; width:30px;"></a>
 

@@ -68,7 +68,8 @@ public class ProductsSiteMapGenerator implements Runnable {
 			System.out.println("product uri - "+uri);
 			ResponseEntity<String> responseEntity = restTemplate.exchange(uri,
 					HttpMethod.GET, entity, String.class);
-			JSONArray products = new JSONArray(responseEntity.getBody());
+			JSONObject res = new JSONObject(responseEntity.getBody());
+			JSONArray products = res.getJSONArray("products");
 			for (int i = 0, size = products.length(); i < size; i++) {
 				addProductPage(products_sitemap, products.getJSONObject(i));
 			}

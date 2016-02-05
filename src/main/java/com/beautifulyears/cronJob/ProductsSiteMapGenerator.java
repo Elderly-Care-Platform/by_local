@@ -39,6 +39,9 @@ public class ProductsSiteMapGenerator implements Runnable {
 		this.sitemapPath = sitemapPath;
 		this.productServerHost = productServerHost;
 		this.productServerPort = productServerPort;
+		System.out.println(selfUrl + " - " + sitemapPath + " - "
+				+ servicesMenuUrl + " - " + productServerHost + " - "
+				+ productServerPort);
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class ProductsSiteMapGenerator implements Runnable {
 			WebSitemapGenerator products_sitemap = WebSitemapGenerator
 					.builder(selfUrl, targetDirectory)
 					.fileNamePrefix("products_sitemap").build();
-			
+
 			SiteMapGenerator.allUrls.put("PRODUCTS LINKS", null);
 
 			// for adding all the listing pages
@@ -62,6 +65,7 @@ public class ProductsSiteMapGenerator implements Runnable {
 					Integer.parseInt(productServerPort),
 					"/beautifulyears/api/v1/catalog/products",
 					"page=1&pageSize=180000", null);
+			System.out.println("product uri - "+uri);
 			ResponseEntity<String> responseEntity = restTemplate.exchange(uri,
 					HttpMethod.GET, entity, String.class);
 			JSONArray products = new JSONArray(responseEntity.getBody());

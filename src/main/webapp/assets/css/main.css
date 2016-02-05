@@ -55,6 +55,20 @@ body#tinymce{
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'kimberly_geswein';
+    src: url("../font/kimberly_geswein.ttf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'kimberly_geswein';
+    src: url("../font/kimberly_geswein_bold.ttf") format("opentype");
+    font-weight: bold;
+    font-style: normal;
+}
+
 
 
 body p, body span, body div

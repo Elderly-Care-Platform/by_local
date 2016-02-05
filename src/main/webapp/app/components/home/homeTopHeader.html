@@ -1,13 +1,16 @@
 <div class="by_home_bg">
     <!--          Home title            -->
     <div class="by_home_title divLeft">
-        Senior care &amp; Aging in India
+        <div class="by_home_titleOne">Everything about</div>
+        <div class="by_home_titleTwo">Senior care &amp; Aging </div>
+        <div class="by_home_titleThree">In India</div><div class="clearfix"></div>
     </div>
     <div class="divRight by_home_agingImage mobileSite">
         <img src="assets/img/home/ageing_people.png?versionTimeStamp=%PROJECT_VERSION%" alt="BeautifulYears Header" width="100%"/>
     </div>
     <div class="clearfix"></div>
-    <!--            Home Top Menu           -->
+    <div ng-if="$root.windowWidth < 720">
+          <!--            Home Top Menu           -->
     <div class="by_home_topMenu">
         <div class="by_home_topMenu_item">
             <a href="#!/communities/564071623e60f5b66f62df27/all">
@@ -18,30 +21,6 @@
                 <div class="by_home_topMenuDesc">
                     Information, support <br/>
                     tips &amp; advice
-                </div>
-            </a>
-        </div>
-        <div class="by_home_topMenu_item desktopSite">
-            <a href="#!/directory/56406cd03e60f5b66f62df26/all">
-                <div class="by_home_topMenuText">
-                    <img src="assets/img/home/directory_btn.png?versionTimeStamp=%PROJECT_VERSION%" alt="Directory">
-                    Directory
-                </div>
-                <div class="by_home_topMenuDesc">
-                    Services for seniors<br/>
-                    Senior living facilities
-                </div>
-            </a>
-        </div>
-        <div class="by_home_topMenu_item desktopSite">
-            <a href="#!/shop/55bcad7be4b08970a736784b">
-                <div class="by_home_topMenuText">
-                    <img src="assets/img/home/shop_btn.png?versionTimeStamp=%PROJECT_VERSION%" alt="Shop">
-                    Shop
-                </div>
-                <div class="by_home_topMenuDesc">
-                    Buy or rent<br/>
-                    senior care products
                 </div>
             </a>
         </div>
@@ -72,6 +51,57 @@
     </div>
     <div class="clearfix"></div>
     <div class="clearfix mobileSite margin-top-20"></div>
+    </div><div class="clearfix"></div>
+</div>
+
+<div ng-if="$root.windowWidth > 720">
+      <!--            Home Top Menu           -->
+    <div class="by_home_topMenu by_home_topMenuLatest">
+        <div class="by_home_topMenu_item">
+            <a href="#!/communities/564071623e60f5b66f62df27/all">
+                <img src="assets/img/home/community_desktop.png?versionTimeStamp=%PROJECT_VERSION%" alt="Communities">
+                <div class="by_home_topMenuText">                    
+                    Communities &rsaquo;
+                </div>
+                <div class="by_home_topMenuDesc">
+                    Information, support <br/>
+                    tips &amp; advice
+                </div>
+            </a>
+        </div>
+        <div class="by_home_topMenu_item">
+            <a href="#!/directory/56406cd03e60f5b66f62df26/all">
+                <img src="assets/img/home/directory_desktop.png?versionTimeStamp=%PROJECT_VERSION%" alt="Directory">
+                <div class="by_home_topMenuText">
+                    Directory &rsaquo;
+                </div> 
+                <div class="by_home_topMenuDesc">
+                    Services for seniors<br/>
+                    Senior living facilities
+                </div>
+            </a>
+        </div>
+        <div class="by_home_topMenu_item marginRight0">
+            <a href="#!/shop/55bcad7be4b08970a736784b">
+                <img src="assets/img/home/shop_desktop.png?versionTimeStamp=%PROJECT_VERSION%" alt="Shop">
+                <div class="by_home_topMenuText">
+                    Shop &rsaquo;
+                </div>
+                <div class="by_home_topMenuDesc">
+                    Buy or rent<br/>
+                    senior care products
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="clearfix margin-top-20" ng-if="$root.windowWidth > 720"></div>
+<div class="clearfix" ng-if="$root.windowWidth < 720"></div>
+<div class="by_home_topMenu by_home_topMenuLatest margin-top-20 margin-bottom-20">
+    <a href="#!/expereince-center">
+         <img src="assets/img/home/solution_banner.jpg?versionTimeStamp=%PROJECT_VERSION%" alt="Expereince Center" width="100%" />
+    </a>
 </div>
 <!--              Home Mobile section                      -->
 <div class="by_homeCallWrap mobileSite">

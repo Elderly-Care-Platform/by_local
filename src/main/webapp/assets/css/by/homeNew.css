@@ -1,15 +1,15 @@
 .by_home_bg {
     width: 100%;
-    height: 480px;
-    background: url('../../img/home/HomePage.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
+    height: 316px;
+    background: url('../../img/home/Home_banner.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
     background-size: cover;
 }
 .by_home_title {
-    width: 60%;
+    width: 70%;
     height: auto;
     text-align: center;
     color: #fff;
-    font-size: 52px;
+    font-size: 50px;
     padding-top: 110px;
     margin-bottom: 40px;
     margin-left: auto;
@@ -17,6 +17,27 @@
     float: none;
     line-height: 52px;
     font-weight: bold;
+}
+.by_home_titleOne
+{
+    font-family: kimberly_geswein !important;
+    font-size: 18px;
+    color: #fff;
+    line-height: 20px;
+    text-align: left;
+}
+.by_home_titleTwo
+{
+    color: #fff;
+    text-align: left;
+}
+.by_home_titleThree
+{    
+    text-align: left;
+    color: #fff;
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 30px;
 }
 .by_home_topMenu {
     width: 70%;
@@ -347,6 +368,11 @@
 @media ( max-width: 720px) {
     .mobileSite {
         display: block;
+    }
+    .by_home_titleThree
+    {
+        font-size: 19px;
+        line-height: 20px;
     }
     .desktopSite {
         display: none;
@@ -1236,4 +1262,44 @@
         margin-right: 15px;
         margin-top: -24px;
     }
+}
+
+.by_home_topMenuLatest
+{
+    margin-top: 20px;
+}
+.by_home_topMenuLatest .by_home_topMenu_item
+{
+    background: rgba(230, 229, 229, 0.64);
+    width: 32%;
+    margin-right: 2%;
+    margin-left: 0%;
+    padding: 0px !important;
+    border: 1px solid #ccc;
+}
+.by_home_topMenuLatest .by_home_topMenu_item a
+{
+    display: block;
+    padding: 16px 0px 10px 0px;
+}
+.marginRight0
+{
+    margin-right: 0% !important;
+}
+.by_home_topMenuLatest .by_home_topMenuText
+{
+    width: 90%; 
+    margin-left: auto;
+    margin-right: auto;
+    background: rgb(5, 48, 14);
+    border-radius: 3px !important;
+    height: 49px;
+    line-height: 38px;
+    font-size: 22px;
+    font-weight: bold;
+}
+.by_home_topMenuLatest .by_home_topMenuDesc
+{
+    color: #000;
+    font-size: 18px;
 }

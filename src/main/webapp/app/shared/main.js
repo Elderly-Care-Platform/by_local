@@ -183,11 +183,22 @@ require(['angular', "byApp", "byUtil", "byDirectives", "lodash", "byApplicationC
 		angular.bootstrap(document, [ "byApp" ]);
 	};
 
+	var getProdCategoriesFailed = function(){
+		angular.bootstrap(document, [ "byApp" ]);
+	}
+
 	$.ajax({
 		url : apiPrefix + 'api/v1/menu/getMenu?parentId=root',
 		success : function(response) {
 			window.by_menu = response;
-			$.ajax({url : apiPrefix + BY.config.constants.productHost+'/catalog/categories?limit=100000', success :getProdCategoriesSuccess});
+			$.ajax({url : apiPrefix + BY.config.constants.productHost+'/catalog/categories?limit=100000', success :getProdCategoriesSuccess, error:function(err){
+				console.log(err.st);
+				if(err.status===200){
+					getProdCategoriesSuccess();
+				}else{
+					getProdCategoriesFailed()
+				}
+			}});
 		}
 	});
 });

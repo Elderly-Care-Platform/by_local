@@ -91,10 +91,12 @@ define(['bySeoConfig'], function(bySeoConfig) {
         function init(){
             removeHiddenMenu($scope.mainMenu);
             createMenuCategoryMap($scope.mainMenu);
-            mergeProdCategories(window.by_prodCategories);
+            if(window.by_prodCategories){
+                mergeProdCategories(window.by_prodCategories);
+                delete window.by_prodCategories;
+            }
             window.by_menu = null;
             delete window.by_menu;
-            delete window.by_prodCategories;
         }
 
 

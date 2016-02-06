@@ -134,9 +134,11 @@ public class ListingsSiteMapGenerator implements Runnable {
 					Integer.parseInt(productServerPort),
 					"/beautifulyears/api/v1/catalog/categories",
 					"limit=100000", null);
+			System.out.println("product listing uri = "+uri);
 			ResponseEntity<String> responseEntity = restTemplate.exchange(uri,
 					HttpMethod.GET, entity, String.class);
 			JSONObject json = new JSONObject(responseEntity.getBody());
+			System.out.println("product categories = "+responseEntity.getBody());
 			JSONArray categories = json.getJSONArray("category");
 			addProductCategory(listings_sitemap, categories);
 

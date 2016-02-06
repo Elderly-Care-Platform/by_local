@@ -130,7 +130,8 @@ require.config({
 
 		serviceOverviewCtrl: '../components/find/serviceOverviewsCtrl',
 		housingReviewsCtrl: '../components/housing/housingReviewsCtrl',
-		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl'
+		productReviewsCtrl: '../components/product/product-reviews/productReviewsCtrl',
+		expStoreCtrl: '../components/experienceStore/expStoreController'
 
 	},
 

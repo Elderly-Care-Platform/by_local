@@ -1,0 +1,591 @@
+.by_expSt_home
+{
+    background: url('../../img/experience_store/solution_living.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
+    background-size: cover;
+    width: 100%;
+    height: 1106px;
+}
+.by_expSt_solutions
+{
+    background: url('../../img/experience_store/solution_product.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
+    background-size: cover;
+    width: 100%;
+    height: 871px;
+}
+.by_expSt_soluHead
+{
+    width: calc(100% - 30px);
+    margin-right:15px;
+    margin-left: 15px;
+    height: auto;
+    padding-top: 40px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #000;
+    line-height: 44px;
+    padding-bottom: 10px;
+    text-align: center; 
+}
+.by_expSt_soluText
+{
+    width: calc(100% - 30px);
+    margin-right:15px;
+    margin-left: 15px;
+    height: auto;
+    font-size: 18px;
+    color: #000;
+    line-height: 22px;
+    padding-bottom: 10px;
+    text-align: center; 
+}
+.by_expSt_soluProducts
+{
+    width: 685px;
+    height: auto;
+    margin-top: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.by_expSt_soluProdThumb
+{
+    width: 215px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ADABAB;
+    background: #E8E8E8;
+    border-radius: 3px !important;
+    height: 120px;
+}
+.by_expSt_soluProdThumb a
+{
+    display: block;    
+    padding: 20px 10px 0px 0px;
+}
+.by_expSt_soluProdThumb .divLeft
+{
+    width: 110px;
+    vertical-align: middle;
+}
+.by_expSt_soluProdThumb .divRight
+{
+    width: 85px;
+    vertical-align: middle;
+    padding-top: 12px;    
+    font-size: 16px;
+}
+.by_expPaddTop
+{
+    padding-top: 24px !important;
+}
+.by_expSt_Wrap
+{
+    width: 70%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 700px;
+}
+.by_expSt_homeSolutions
+{
+    font-size: 15px;
+    color: #000;
+    line-height: 22px;
+    margin-top: 60px;
+}
+.by_expSt_homeSoluThumb
+{
+    float: left;
+    width: calc(20% - 8px);
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px !important;
+    height: 119px;
+    margin-top: 5px;
+    padding: 20px 10px;
+    text-align: center;
+}
+.by_expSt_homeSoluThumbRight
+{
+    margin-right: 0px !important;
+}
+.by_expSt_homeSoluThumb1
+{
+    background: url('../../img/experience_store/bedroom.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat;
+    background-size: cover;
+}
+.by_expSt_homeSoluThumb2
+{
+    background: url('../../img/experience_store/livingroom.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat;
+    background-size: cover;
+}
+.by_expSt_homeSoluThumb3
+{
+    background: url('../../img/experience_store/bathroom.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat;
+    background-size: cover;
+}
+.by_expSt_homeSoluThumb4
+{
+    background: url('../../img/experience_store/staircases.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat;
+    background-size: cover;
+}
+.by_expSt_homeSoluThumb5
+{
+    background: url('../../img/experience_store/automation.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat;
+    background-size: cover;
+}
+.by_expSt_homeTop
+{
+    width: 270px;
+    height: auto;
+    margin-left: 15%;
+    padding-top: 90px;
+}
+.by_expSt_homeTopHead
+{
+    width: 100%;
+    height: auto;
+    font-size: 40px;
+    font-weight: bold;
+    color: #000;
+    line-height: 55px;
+    padding-bottom: 10px;
+}
+.by_expSt_homeTopParent
+{
+    width: 100%;
+    height: auto;
+    font-family: kimberly_geswein !important;
+    font-size: 20px;
+    line-height: 40px;
+    border-bottom:1px solid #084C08;
+    color: #084C08;
+}
+.by_expSt_homeTopDesc
+{
+    font-size: 14px;
+    color: #000;
+    line-height: 20px;
+    padding-top: 5px;
+}
+.by_expSt_homeTopDescBelow
+{
+    font-weight: bold;
+    color: #000;
+    padding-top: 10px;
+    font-size: 18px;
+}
+.by_expSt_homeTopButton
+{
+    padding-top: 40px;
+}
+.by_expSt_homeTopButtonGreen
+{
+    width: 50%;
+    height: 35px;
+    line-height: 35px;
+    background: #084C08;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    float: left;
+}
+.by_expSt_homeTopButtonGreen a, .by_expSt_homeTopButtonGreen a:hover
+{
+    color: #fff;
+}
+.by_expSt_homeTopButtonGray
+{
+    width: 50%;
+    height: 35px;
+    line-height: 35px;
+    background: #ccc;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    font-size: 15px;
+    float: left;
+}
+.by_expSt_homeTopButtonGray a, .by_expSt_homeTopButtonGray a:hover
+{
+    color: #000;
+}
+.by_expSt_rent
+{
+    width: 100%;
+    height: auto;
+    padding: 30px 0px;
+    background: #01B49F;
+}
+.by_expSt_rentImage
+{
+    width: 313px;
+    height: 313px;
+    background: url('../../img/experience_store/rent_buy.jpg?versionTimeStamp=%PROJECT_VERSION%');
+    float: left;
+}
+.by_expSt_rentText
+{
+    width: 363px;
+    height: auto;
+    float: left;
+    margin-left: 20px;
+    padding-top: 40px;
+}
+.by_expSt_rentHead
+{
+    font-size: 31px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 45px;
+    border-bottom: 1px solid #000;
+}
+.by_expSt_rentHead span
+{
+    font-family: kimberly_geswein !important;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 10px;
+    color: #fff;
+    display: block;
+    width: 100%;
+}
+.by_expSt_rentDesc
+{
+    color: #fff;
+    font-size: 22px;
+    line-height: 29px;
+    padding-top: 9px;
+    padding-bottom: 20px;
+}
+.by_expSt_rentHelp
+{
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 25px;
+    color: #0A440A;
+}
+.by_expSt_rentButton
+{
+    padding-top: 30px;
+}
+.by_expSt_rentButtonGreen
+{
+    width: 29%;
+    height: 35px;
+    line-height: 35px;
+    background: #084C08;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    float: left;
+}
+.by_expSt_rentButtonGreen a, .by_expSt_rentButtonGreen a:hover
+{
+    color: #fff;
+}
+.by_expSt_rentButtonGray
+{
+    width: 42%;
+    height: 35px;
+    line-height: 35px;
+    background: #ccc;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    font-size: 15px;
+    float: left;
+}
+.by_expSt_rentButtonGray a, .by_expSt_rentButtonGray a:hover
+{
+    color: #000;
+}
+.by_expSt_header
+{
+    width: 100%;
+    height: 270px;
+    background: rgba(12, 62, 12, 0.71);
+    border-top: 1px solid #196119;
+}
+.by_expLocBig
+{
+    width: 31px;
+    height: 40px;
+    background-image: url("../../img/experience_store/sprite_solution.png?versionTimeStamp=%PROJECT_VERSION%");
+    background-position: 64px 0px;
+}
+.fa-map-markerExp {
+    width: 24px;
+    height: 30px;
+     background-image:
+        url("../../img/experience_store/sprite_solution.png?versionTimeStamp=%PROJECT_VERSION%");
+    background-position: 4px 6px;
+}
+.by_expSt_headerLeft
+{
+    width: auto;
+    height: auto;
+    float: left;
+    padding-top: 65px;
+}
+.by_expSt_headerRight
+{
+    width: auto;
+    height: auto;
+    float: right;
+    padding-top: 122px;
+}
+.by_expSt_headerLeftHead
+{
+    width: 100%;
+    height: auto;
+    font-size: 55px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 60px;
+}
+.by_expSt_headerLeftHead span
+{
+    font-family: kimberly_geswein !important;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 30px;
+    color: #fff;
+    display: block;
+    width: 100%;
+}
+.by_expSt_headerLeftDesc
+{
+    font-size: 15px;
+    line-height: 20px;
+    color: #fff;
+    padding-top: 15px;
+}
+.by_expSt_headerRightHead
+{
+    width: 130px;
+    height: auto;
+    color: #fff;
+    font-size: 15px;
+}
+.by_expSt_headerRightHead a
+{
+    display: block;
+    color: #fff;
+}
+.by_expSt_headerRightHead a .divLeft
+{
+    text-decoration: underline;
+    margin-top: 15px;
+    font-style: italic;
+    color: #fff;
+}
+.by_expSt_headerRightDesc
+{
+    font-size: 15px;
+    color: #fff;
+    line-height: 20px;
+    padding-top: 10px;
+}
+@media ( max-width: 1280px){
+    .by_expSt_headerLeft
+    {
+        width: 50%;
+        padding-top: 50px;
+    }
+}
+@media ( max-width: 1280px){
+    .by_expSt_headerLeft
+    {
+        width: 48%;
+    }
+}
+@media ( max-width: 720px){
+    .by_expSt_home
+    {
+        background:#FAF6F3 url('../../img/experience_store/solution_living_mobile.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
+        width: 100%;
+        min-height: 1410px;
+        height: auto;
+    }
+    .by_expSt_solutions
+    {
+        background:#eee url('../../img/experience_store/solution_product_mobile.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
+        width: 100%;
+        min-height: 579px;
+        height: auto;
+        padding-bottom: 50px;
+    }
+    .by_expSt_Wrap
+    {
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 200px;
+    }
+    .by_expSt_header
+    {
+        height: auto;
+    }
+    .by_expSt_headerLeft, .by_expSt_headerRight
+    {
+        width: 100%;
+        float: none;
+        text-align: center;
+    }
+    .by_expSt_headerRight
+    {
+        padding-top: 56px;
+        padding-bottom: 50px;
+    }
+    .by_expSt_headerRightHead
+    {
+        width: 100%;
+    }
+    .by_expSt_headerRightHead .divLeft 
+    {
+        float: none;
+        display: block;
+        text-align: center;
+        width: 100px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: -3px;
+    }
+    .by_expSt_headerRightHead .divRight{
+        float: none;
+        display: block;
+        text-align: center;
+        width: 30px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .by_expSt_homeTop
+    {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .by_expSt_homeSolutions
+    {
+        width: 460px;
+        height: auto;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .by_expSt_homeSoluThumb
+    {
+        width: 210px;
+    }
+    .by_expSt_homeSoluThumb
+    {
+        margin-bottom: 6px;
+    }
+    .by_expSt_homeSoluThumb5
+    {
+        background: url('../../img/experience_store/automation_mobile.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat;
+        background-size: cover;
+        width: 430px;
+    }
+    .by_expSt_homeSoluThumbRight
+    {
+        margin-right: 0px !important;
+    }
+    .by_expSt_soluProducts
+    {
+        width: 460px;
+        height: auto;
+        margin-top: 310px;
+    }
+    .by_expSt_soluProdThumb
+    {
+        width: 210px;
+    }
+    .by_expSt_rentImage
+    {
+        width: 313px;
+        height: 194px;
+        background: url('../../img/experience_store/rent_buy_mobile.jpg?versionTimeStamp=%PROJECT_VERSION%');
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .by_expSt_rentText 
+    {
+        width: 363px;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+    }
+    .by_expSt_rentDesc, .by_expSt_rentHelp
+    {
+        text-align: center;
+    }
+    .by_expSt_homeTop
+    {
+        width: 100%;
+    }
+    .by_expSt_homeTopHead, .by_expSt_homeTopParent, .by_expSt_homeTopButton
+    {
+        width: 270px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .by_expSt_homeTopDesc
+    {
+        text-align: center;
+        font-size: 16px;
+    }
+    .by_expSt_homeTopDescBelow
+    {
+        text-align: center;
+        padding-top: 22px;
+        font-size: 22px;
+    }
+    .by_expSt_homeTopParent
+    {
+        margin-bottom: 20px;
+    }
+    .by_expSt_homeTopButton
+    {
+        padding-top: 30px;
+    }
+}
+@media ( max-width: 480px){
+    .by_expSt_homeSolutions
+    {
+        width: 230px;
+        height: auto;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .by_expSt_homeSoluThumb
+    {
+        width: 210px;
+    }
+    .by_expSt_homeSoluThumb5
+    {
+        background: url('../../img/experience_store/automation_mobile.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat;
+        background-size: cover;
+        width: 210px;
+    }
+    .by_expSt_soluProducts
+    {
+        width: 230px;
+        height: auto;
+        margin-top: 310px;
+    }
+    .by_expSt_soluProdThumb
+    {
+        width: 210px;
+    }
+    .by_expSt_home
+    {
+        padding-bottom: 50px;
+    }
+}

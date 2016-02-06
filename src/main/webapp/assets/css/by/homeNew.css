@@ -346,6 +346,10 @@
      .by_home_title {
         font-size: 33px;
     }
+    .by_home_bg
+    {
+        background: url('../../img/home/Home_banner_tablet.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top right;
+    }
 }
 @media ( max-width: 920px) {
     .by_home_topMenuText {

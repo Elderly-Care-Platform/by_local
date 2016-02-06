@@ -13,6 +13,20 @@ define([], function () {
                 }
             })
 
+            /* expereince stroe */
+
+            .when('/expereince-center', {
+                templateUrl: 'app/components/experienceStore/experienceStore.html', controller: 'expStoreCtrl', resolve: {
+                    load: ['$q', function ($q) {
+                        var defered = $q.defer();
+                        require(['../components/experienceStore/expStoreController'], function () {
+                            defered.resolve();
+                        });
+                        return defered.promise;
+                    }]
+                }
+            })
+
 
             //**************Communities routes start******************************************************************
             .when('/communities/:slug/:menuId/:discussType', {

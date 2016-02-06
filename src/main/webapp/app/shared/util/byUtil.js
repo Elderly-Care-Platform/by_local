@@ -59,7 +59,7 @@ $(document).ready(function () {
 
 BY.byUtil.updateMetaTags = function (param) {
     var title = param.title.trim(),
-        imageUrl = param.imageUrl || "http://www.beautifulyears.com/assets/img/logo-fb.jpg",
+        imageUrl = param.imageUrl || "https://www.beautifulyears.com/assets/img/logo-fb.jpg",
         description = $(param.description).text().trim(),
         keywords = param.keywords, url = location.origin + "/" + location.hash, nextSpaceIndex;
 

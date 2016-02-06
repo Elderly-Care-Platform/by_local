@@ -9,8 +9,13 @@
         <div class="by_productCard col-md-6">
             <a href="{{productUrl(product.id, product.name)}}" ng-click="$event.stopPropagation();">
                 <div class="by_productCard_Image">
-                    <img ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"
-                         fallback-src='["assets/img/by.png"]' alt="{{product.name}}">
+                    <!--<img class="lazy" ng-if="product.primaryMedia != null" ng-src="{{product.primaryMedia.url || ''}}"-->
+                         <!--data-original = "product.primaryMedia.url"-->
+                         <!--fallback-src='["assets/img/by.png"]' alt="{{product.name}}">-->
+
+                    <img class="lazy" ng-if="product.primaryMedia != null"
+                         data-original = "{{product.primaryMedia.url}}"
+                         fallback-src='["assets/img/by.png"]' alt="{{product.name}}" ng-init="byLazyLoad()">
                 </div>
                 <!--<div class="by_productCard_divider"></div>-->
                 <div class="by_productCard_title ellipsisHead margin-top-10 text-capitalize">{{product.name.toLowerCase()}}</div>

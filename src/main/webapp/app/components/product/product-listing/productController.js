@@ -392,6 +392,10 @@ define(['byProductApp', 'byUtil'], function (byProductApp, byUtil) {
                 discount = discount.toFixed(1);
                 product.discountPercentage = discount;
             }
+        };
+
+        $scope.byLazyLoad = function(){
+            $("img.lazy").lazyload({placeholder:"assets/img/by.png"});
         }
     }
 

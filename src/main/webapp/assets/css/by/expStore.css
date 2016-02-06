@@ -589,4 +589,17 @@
     {
         padding-bottom: 50px;
     }
+    .by_expSt_rentText 
+    {
+        width: 273px;
+    }
+    .by_expSt_rentHead{
+        font-size: 23px;
+    }
+    .by_expSt_rentButtonGreen, .by_expSt_rentButtonGray
+    {
+        width: 100%;
+        float: none;
+    }
+
 }

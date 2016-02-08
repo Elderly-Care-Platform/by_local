@@ -165,7 +165,10 @@
         <!--discuss detail replies start-->
         <!--<div ng-if="(detailResponse.replies && detailResponse.replies.length <= 0)"-->
         <!--ng-init="initCommentEditor(detailResponse.discuss.id)"></div>-->
-        <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" style="margin-right:20px;">
+       
+    </div>
+
+     <div ng-if="detailResponse.replies && detailResponse.replies.length > 0" >
             <div class="clearfix margin-top-20"></div>
             <div ng-repeat="reply in detailResponse.replies" id="comment"
                 data-link="articles.html" ng-controller="DiscussReplyController"
@@ -181,7 +184,6 @@
             <div ng-include="'app/components/discussDetail/shareEmailModal.html'"></div>
         </div>
         <!--discuss detail share by email end-->
-    </div>
 </div>
 <!-- mobile bottom -->
 <div ng-if="$root.windowWidth < 720">

@@ -7,10 +7,11 @@
 }
 .by_expSt_solutions
 {
-    background: url('../../img/experience_store/solution_product.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
-    background-size: cover;
+    background: #ddd url('../../img/experience_store/solution_product.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
     width: 100%;
-    height: 871px;
+    min-height: 871px;
+    height: auto;
+    padding-bottom: 50px;
 }
 .by_expSt_soluHead
 {
@@ -64,15 +65,15 @@
 }
 .by_expSt_soluProdThumb .divLeft
 {
-    width: 110px;
+    width: 95px;
     vertical-align: middle;
 }
 .by_expSt_soluProdThumb .divRight
 {
-    width: 85px;
+    width: 80px;
     vertical-align: middle;
     padding-top: 12px;    
-    font-size: 16px;
+    font-size: 15px;
 }
 .by_expPaddTop
 {
@@ -309,9 +310,8 @@
 }
 .by_expLocBig
 {
-    width: 50px;
-    height: 77px;
-    background-image: url("../../img/experience_store/location.png?versionTimeStamp=%PROJECT_VERSION%");
+    width: 30px;
+    height: 48px;
     /*background-position: 64px 0px;*/
 }
 .fa-map-markerExp {
@@ -333,7 +333,7 @@
     width: auto;
     height: auto;
     float: right;
-    padding-top: 85px;
+    padding-top: 111px;
 }
 .by_expSt_headerLeftHead
 {
@@ -363,7 +363,7 @@
 }
 .by_expSt_headerRightHead
 {
-    width: 152px;
+    width: 132px;
     height: auto;
     color: #fff;
     font-size: 15px;
@@ -376,7 +376,7 @@
 .by_expSt_headerRightHead a .divLeft
 {
     text-decoration: underline;
-    margin-top: 53px;
+    margin-top: 26px;
     font-style: italic;
     color: #fff;
 }
@@ -386,6 +386,46 @@
     color: #fff;
     line-height: 20px;
     padding-top: 10px;
+}
+.by_expArrow
+{
+    width: 12px !important;
+    padding-top: 24px !important;
+}
+.by_expVideo
+{
+    width: 100%;
+    max-width: 670px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+.by_expVideoShow
+{
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+}
+.by_expVideoGrad
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1px;
+    background: rgba(7, 90, 7, 0.68);;
+    left: 0px;
+    top: 0px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    padding-top: 20%;
+}
+#by_expVideoFrame
+{
+    display: none;
 }
 @media ( max-width: 1280px){
     .by_expSt_headerLeft
@@ -401,6 +441,14 @@
     }
 }
 @media ( max-width: 720px){
+    .by_expVideo
+    {
+        width: calc(100% - 30px);
+        max-width: 100% !important;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+    }
     .by_expSt_home
     {
         background:#FAF6F3 url('../../img/experience_store/solution_living_mobile.jpg?versionTimeStamp=%PROJECT_VERSION%') no-repeat top center;
@@ -450,7 +498,7 @@
         width: 100px;
         margin-right: auto;
         margin-left: auto;
-        margin-top: 8px;
+        margin-top: 0px !important;
     }
     .by_expSt_headerRightHead .divRight{
         float: none;
@@ -553,8 +601,21 @@
     {
         padding-top: 30px;
     }
+    .by_expVideoGrad
+    {
+        padding-top: 16%;
+    }
 }
 @media ( max-width: 480px){
+
+    .by_expSt_homeSolutions
+    {
+        display: none;
+    }
+    .by_expVideoGrad
+    {
+        padding-top: 14%;
+    }
     .by_expSt_homeSolutions
     {
         width: 230px;
@@ -588,6 +649,11 @@
     .by_expSt_home
     {
         padding-bottom: 50px;
+        min-height: 500px;
+    }
+    .by_expSt_homeTop
+    {
+        padding-top: 50px;
     }
     .by_expSt_rentText 
     {

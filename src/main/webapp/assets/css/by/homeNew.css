@@ -927,14 +927,14 @@
 }
 .by_homeShopLeft
 {
-    width: 50%;
+    width: 45%;
     float: left;
     margin-bottom: -66px;
-    margin-top: -76px;
+    margin-top: -21px;
 }
 .by_homeShopRight
 {
-    width: 50%;
+    width: 55%;
     float: right;
     font-size: 24px;
 }
@@ -978,7 +978,7 @@
 }
 .by_homeDirectoryLeft
 {
-    width: 70%;
+    width: 60%;
     float: left;
     font-size: 24px;
 }
@@ -986,8 +986,8 @@
 {
     float: right;
     height: auto;
-    width: 30%;
-    margin-bottom: -66px;
+    width: 40%;
+    margin-bottom: -100px;
     margin-top: 6px;
 }
 
@@ -1060,28 +1060,35 @@
 }
 .by_homeFeedbackImage
 {
-    width: 199px;
-    height: 155px;
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border-radius: 50% !important;
+    overflow: hidden;
+}
+.by_homeFeedbackImage img
+{
+    border-radius: 50% !important;
+    padding-top: 15%;
 }
 .by_homeFeedbackName
 {
-    width: calc( 100% - 199px);
+    width: calc( 100% - 120px);
     height: auto;
     padding-top:60px;
     font-size: 15px;
     font-weight: bold;
+    margin-left: 20px;
 }
 .by_homeFeedbackInside
 {
     width: 100%;
-    height: 135px;
-    background: #fff;
-    border: 1px solid #B9B8B8;
-    margin-top: -24px;
+    height: auto;
     font-family: Segoe_Print !important;
-    font-size: 22px;
-    text-align: center;
-    padding: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-top: 10px;
 }
 .by_homeFeedbackInside a
 {
@@ -1100,12 +1107,6 @@
 .by_homeContactNumberM
 {
     display: none;
-}
-@media ( max-width: 1285px){
-    .by_homeFeedbackInside
-    {
-        height: 158px;
-    }
 }
 @media ( max-width: 910px) {
     .by_homeSectionFooter .by_homeCommLeft, .by_homeSectionFooter .by_homeDirectoryLeft, .by_homeSectionFooter .by_homeShopRight, .by_homeSectionFooter .by_homeCommLeft a, .by_homeSectionFooter .by_homeDirectoryLeft a, .by_homeSectionFooter .by_homeShopRight a, .by_homeSectionFooter .by_homeShopRight a, .by_homeSectionFooter .by_homeShopRight a:hover, .by_homeSectionFooter .by_homeDirectoryLeft a, .by_homeSectionFooter .by_homeDirectoryLeft a:hover
@@ -1132,10 +1133,6 @@
     {
         padding-top: 5px;
         line-height: 29px;
-    }
-    .by_homeFeedbackInside
-    {
-        height: 198px;
     }
 }
 @media ( max-width: 720px) {

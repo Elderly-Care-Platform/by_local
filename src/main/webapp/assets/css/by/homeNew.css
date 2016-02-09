@@ -23,13 +23,18 @@
     font-family: kimberly_geswein !important;
     font-size: 18px;
     color: #fff;
-    line-height: 20px;
+    line-height: 25px;
     text-align: left;
+    display: block;
 }
 .by_home_titleTwo
 {
     color: #fff;
     text-align: left;
+    display: block;
+    font-size: 50px;
+    line-height: 52px;
+    font-weight: bold;
 }
 .by_home_titleThree
 {    
@@ -37,7 +42,8 @@
     color: #fff;
     font-size: 28px;
     font-weight: normal;
-    line-height: 30px;
+    line-height: 35px;
+    display: block;
 }
 .by_home_topMenu {
     width: 70%;
@@ -72,6 +78,13 @@
     color: #fff;
     border-radius: 2px !important;
     background: rgba(5, 48, 14, 0.5);
+}
+.by_home_topMenuText h2
+{
+    font-size: 25px;
+    display: inline;
+    font-family: century_gothic !important;      
+    color: #fff;
 }
 .by_home_topMenu_item:hover .by_home_topMenuText {
     background-color: #FF850F;
@@ -318,6 +331,12 @@
 .by_homeSection_shopMore_find {
     display: block;
 }
+.by_homeSectionInside h3
+{
+    display: inline;
+    color: #fff;
+    font-size: 24px;
+}
 @media (max-width: 1280px) {
     .by_homeSection_shopMore_find {
         display: none;
@@ -343,8 +362,9 @@
     .by_homeSection {
         max-width: 92%;
     }
-     .by_home_title {
+     .by_home_titleTwo {
         font-size: 33px;
+        line-height: 34px;
     }
     .by_home_bg
     {
@@ -352,7 +372,7 @@
     }
 }
 @media ( max-width: 920px) {
-    .by_home_topMenuText {
+    .by_home_topMenuText, .by_home_topMenuText h2 {
         font-size: 19px;
         font-weight: bold;
     }
@@ -364,7 +384,7 @@
     }
 }
 @media (max-width: 820px) {
-    .by_home_title {
+    .by_home_titleTwo {
         text-align: left;
         font-size: 30px;
     }
@@ -376,7 +396,7 @@
     .by_home_titleThree
     {
         font-size: 19px;
-        line-height: 20px;
+        line-height: 28px;
     }
     .desktopSite {
         display: none;

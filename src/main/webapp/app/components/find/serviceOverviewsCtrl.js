@@ -18,8 +18,8 @@ define(['byApp',
 
         var tags = [],
             pageSize = 20,
-            discussPageIdx = $routeParams.discussPageIdx ? $routeParams.discussPageIdx : 0,
-            queryParams = {p: discussPageIdx, s: pageSize, sort: "lastModifiedAt"};
+            pageIdx = $routeParams.pageIdx ? $routeParams.pageIdx : 0,
+            queryParams = {p: pageIdx, s: pageSize, sort: "lastModifiedAt"};
 
         $scope.initGrid = function (index) {
             if ($rootScope.windowWidth > 800) {
@@ -79,7 +79,7 @@ define(['byApp',
                             $scope.discussList = value.data.content;
                             $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
                             $scope.pageInfo.isQueryInProgress = false;
-                            $scope.discussPagination = {'pageIndexName': 'discussPageIdx'};
+                            $scope.discussPagination = {'pageIndexName': 'pageIdx'};
                             $scope.discussPagination.totalPosts = value.data.total;
                             $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);
                             $scope.discussPagination.currentPage = value.data.number;
@@ -96,7 +96,7 @@ define(['byApp',
                         });
                 }
 
-                $scope.getDiscussData(discussPageIdx, pageSize);
+                $scope.getDiscussData(pageIdx, pageSize);
 
             };
         }

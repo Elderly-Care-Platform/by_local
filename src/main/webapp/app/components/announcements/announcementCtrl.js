@@ -5,9 +5,9 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussReplyController', 's
             var discussId = $routeParams.id, //discuss Id from url
                 isComment = $routeParams.comment,
                 pageSize = 20,
-                discussPageIdx = $routeParams.discussPageIdx ? $routeParams.discussPageIdx : 0,
+                pageIdx = $routeParams.pageIdx ? $routeParams.pageIdx : 0,
                 queryParams = {
-                    p: discussPageIdx,
+                    p: pageIdx,
                     s: pageSize,
                     sort: "lastModifiedAt"
                 },
@@ -114,7 +114,7 @@ define(['byApp', 'byUtil', 'discussLikeController', 'discussReplyController', 's
                         $scope.pageInfo = BY.byUtil.getPageInfo(value.data);
                         $scope.pageInfo.isQueryInProgress = false;
                         $scope.discussPagination = {
-                            'pageIndexName': 'discussPageIdx'
+                            'pageIndexName': 'pageIdx'
                         };
                         $scope.discussPagination.totalPosts = value.data.total;
                         $scope.discussPagination.noOfPages = Math.ceil(value.data.total / value.data.size);

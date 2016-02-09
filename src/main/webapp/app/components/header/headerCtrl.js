@@ -69,7 +69,7 @@ define(['menuConfig', 'userTypeConfig'], function (menuConfig, userTypeConfig) {
                     } else {
                         $(".by_header").removeClass("by_header_image");
                     }
-                    if ((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= 300) {
+                    if ((document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset) >= 1) {
                         $("#homeMenuScroll").show();
                     } else {                        
                          $("#homeMenuScroll").hide();

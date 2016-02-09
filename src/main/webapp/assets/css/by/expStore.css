@@ -27,6 +27,14 @@
     padding-bottom: 10px;
     text-align: center; 
 }
+.by_expSt_soluHead h2
+{
+    font-size: 40px;
+    font-weight: bold;
+    color: #000;
+    line-height: 44px;
+    font-family: century_gothic !important; 
+}
 .by_expSt_soluText
 {
     width: calc(100% - 30px);
@@ -57,6 +65,13 @@
     background: #E8E8E8;
     border-radius: 3px !important;
     height: 120px;
+}
+.by_expSt_soluProdThumb h3
+{
+    display: inline;
+    color: #000;
+    font-size: 15px;
+    font-family: century_gothic !important; 
 }
 .by_expSt_soluProdThumb a
 {
@@ -107,6 +122,13 @@
     margin-top: 5px;
     padding: 20px 10px;
     text-align: center;
+}
+.by_expSt_homeSoluThumb h3
+{
+    font-size: 16px;
+    color: #000;
+    display: inline;
+    font-family: century_gothic !important; 
 }
 .by_expSt_homeSoluThumbRight
 {
@@ -243,6 +265,13 @@
     line-height: 45px;
     border-bottom: 1px solid #000;
 }
+.by_expSt_rentHead h2
+{
+     font-size: 31px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 45px;
+}
 .by_expSt_rentHead span
 {
     font-family: kimberly_geswein !important;
@@ -346,6 +375,14 @@
     color: #fff;
     line-height: 60px;
 }
+.by_expSt_headerLeftHead h1
+{
+     font-size: 55px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 60px;
+    font-family: century_gothic !important; 
+}
 .by_expSt_headerLeftHead span
 {
     font-family: kimberly_geswein !important;
@@ -361,7 +398,7 @@
     font-size: 15px;
     line-height: 20px;
     color: #fff;
-    padding-top: 15px;
+    padding-top: 6px;
 }
 .by_expSt_headerRightHead
 {
@@ -429,6 +466,7 @@
 {
     display: none;
 }
+
 @media ( max-width: 1280px){
     .by_expSt_headerLeft
     {
@@ -661,7 +699,7 @@
     {
         width: 273px;
     }
-    .by_expSt_rentHead{
+    .by_expSt_rentHead h2{
         font-size: 23px;
     }
     .by_expSt_rentButtonGreen, .by_expSt_rentButtonGray

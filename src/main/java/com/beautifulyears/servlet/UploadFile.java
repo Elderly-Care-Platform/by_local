@@ -235,7 +235,7 @@ public class UploadFile extends HttpServlet {
 			File f = File.createTempFile(fname, ".jpg");
 			ImageIO.write(thumbnail, extension, f);
 			path = (new S3FileUploader(s3MediaBucketName, fname + "_" + width + "_"
-					+ height + "." + extension, newFile)).uploadFile();
+					+ height + "." + extension, f)).uploadFile();
 
 			// Thumbnails
 			// .of(newFile)
@@ -252,7 +252,7 @@ public class UploadFile extends HttpServlet {
 			File f = File.createTempFile(fname, ".jpg");
 			ImageIO.write(thumbnail, extension, f);
 			path = (new S3FileUploader(s3MediaBucketName, fname + "_" + width + "_"
-					+ height + "." + extension, newFile)).uploadFile();
+					+ height + "." + extension, f)).uploadFile();
 		}
 		return path;
 

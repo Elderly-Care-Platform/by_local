@@ -646,6 +646,12 @@
         padding-top: 16%;
     }
 }
+@media ( max-width: 600px){
+    .by_expSt_soluProducts
+    {
+        margin-top: 260px;
+    }
+}
 @media ( max-width: 480px){
 
     .by_expSt_homeSolutions
@@ -680,7 +686,7 @@
     {
         width: 230px;
         height: auto;
-        margin-top: 310px;
+        margin-top: 250px;
     }
     .by_expSt_soluProdThumb
     {
@@ -708,4 +714,10 @@
         float: none;
     }
 
+}
+@media ( max-width: 410px){
+    .by_expSt_soluProducts
+    {
+        margin-top: 195px;
+    }
 }

@@ -23,12 +23,14 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.imgscalr.Scalr;
 
-import com.beautifulyears.config.ByWebAppInitializer;
 import com.beautifulyears.constants.BYConstants;
+import com.beautifulyears.constants.CDNConstants;
+import com.beautifulyears.util.S3FileUploader;
 
 public class UploadFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String uploadDir = BYConstants.IMAGE_CDN_PATH;
+	private String s3MediaBucketName;
 
 	private static final int TITLE_IMG_WIDTH = 640;
 	private static final int TITLE_IMG_HEIGHT = 650;
@@ -39,9 +41,13 @@ public class UploadFile extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(UploadFile.class);
 
 	public void init() {
-		if (null != System.getProperty("imageUploadPath")) {
-			uploadDir = System.getProperty("imageUploadPath");
-			System.out.println("uploadDir === "+uploadDir);
+//		if (null != System.getProperty("imageUploadPath")) {
+//			uploadDir = System.getProperty("imageUploadPath");
+//			System.out.println("uploadDir === " + uploadDir);
+//		}
+		if (null != System.getProperty("s3MediaBucketName")) {
+			s3MediaBucketName = System.getProperty("s3MediaBucketName");
+			System.out.println("s3MediaBucketName === " + s3MediaBucketName);
 		}
 	}
 
@@ -51,6 +57,9 @@ public class UploadFile extends HttpServlet {
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
 		response.setContentType("application/json");
+		String origPath = null;
+		String thumbnailPath = null;
+		String titlePath = null;
 
 		if (isMultipart) {
 			logger.debug("request to upload the file arrived ---- multipart is true");
@@ -68,32 +77,61 @@ public class UploadFile extends HttpServlet {
 						String name = new File(item.getName()).getName();
 						String extension = name
 								.substring(name.lastIndexOf(".") + 1);
-						File newFile = new File(uploadDir + File.separator
-								+ fname + "." + extension);
+						// File newFile = new File(uploadDir + File.separator
+						// + fname + "." + extension);
+						File newFile = File.createTempFile("orig", ".jpg");
 
 						item.write(newFile);
+						origPath = (new S3FileUploader(s3MediaBucketName,
+								CDNConstants.IMAGE_CDN_ORIG_FOLDER + "/"
+										+ fname + "." + extension, newFile))
+								.uploadFile();
 
 						if (null != request.getParameter("transcoding")
 								&& true == Boolean.valueOf(request
 										.getParameter("transcoding"))) {
 							if (isAnimatedGif(newFile)) {
-								File titleImage = new File(uploadDir + File.separator + fname + "_" + TITLE_IMG_WIDTH
-										+ "_" + TITLE_IMG_HEIGHT + "." + extension);
-								Files.copy(newFile.toPath(), titleImage.toPath());
-								
-								File thumbnail = new File(uploadDir + File.separator + fname + "_" + THUMBNAIL_IMG_WIDTH
-										+ "_" + THUMBNAIL_IMG_HEIGHT + "." + extension);
-								Files.copy(newFile.toPath(), thumbnail.toPath());
-							}else {
-								resizeImage(newFile, TITLE_IMG_WIDTH,
-										TITLE_IMG_HEIGHT, uploadDir, fname,
-										extension);
+								// File titleImage = new File(uploadDir
+								// + File.separator + fname + "_"
+								// + TITLE_IMG_WIDTH + "_"
+								// + TITLE_IMG_HEIGHT + "." + extension);
+								File titleImage = File.createTempFile("title",
+										".jpg");
+								titlePath = (new S3FileUploader(s3MediaBucketName,
+										CDNConstants.IMAGE_CDN_THUMB_FOLDER
+												+ "/" + fname + "_"
+												+ TITLE_IMG_WIDTH + "_"
+												+ TITLE_IMG_HEIGHT + "."
+												+ extension, newFile))
+										.uploadFile();
+								Files.copy(newFile.toPath(),
+										titleImage.toPath());
 
-								resizeImage(newFile, THUMBNAIL_IMG_WIDTH,
-										THUMBNAIL_IMG_HEIGHT, uploadDir, fname,
-										extension);
+								// File thumbnail = new File(uploadDir
+								// + File.separator + fname + "_"
+								// + THUMBNAIL_IMG_WIDTH + "_"
+								// + THUMBNAIL_IMG_HEIGHT + "."
+								// + extension);
+								File thumbnail = File.createTempFile("thumb",
+										".jpg");
+								thumbnailPath = (new S3FileUploader(s3MediaBucketName,
+										"thumb/" + fname + "_"
+												+ THUMBNAIL_IMG_WIDTH + "_"
+												+ THUMBNAIL_IMG_HEIGHT + "."
+												+ extension, newFile))
+										.uploadFile();
+								Files.copy(newFile.toPath(), thumbnail.toPath());
+							} else {
+								titlePath = resizeImage(newFile,
+										TITLE_IMG_WIDTH, TITLE_IMG_HEIGHT,
+										uploadDir, "title/" + fname, extension);
+
+								thumbnailPath = resizeImage(newFile,
+										THUMBNAIL_IMG_WIDTH,
+										THUMBNAIL_IMG_HEIGHT, uploadDir,
+										"thumb/" + fname, extension);
 							}
-							
+
 						}
 
 						if (null != request.getParameter("type")
@@ -106,20 +144,15 @@ public class UploadFile extends HttpServlet {
 								&& true == Boolean.valueOf(request
 										.getParameter("transcoding"))) {
 							resImage.append("{");
-							resImage.append("\"original\":");
-							resImage.append("\"/uploaded_files/" + fname + "."
-									+ extension);
+							resImage.append("\"original\":\"");
+							resImage.append(origPath);
 							resImage.append("\",");
-							resImage.append("\"titleImage\":");
-							resImage.append("\"/uploaded_files/" + fname + "_"
-									+ TITLE_IMG_WIDTH + "_" + TITLE_IMG_HEIGHT
-									+ "." + extension + "\",");
-							resImage.append("\"thumbnailImage\":");
-							resImage.append("\"/uploaded_files/" + fname + "_"
-									+ THUMBNAIL_IMG_WIDTH + "_"
-									+ THUMBNAIL_IMG_HEIGHT + "." + extension
-									+ "\"");
-							resImage.append("}");
+							resImage.append("\"titleImage\":\"");
+							resImage.append(titlePath);
+							resImage.append("\",");
+							resImage.append("\"thumbnailImage\":\"");
+							resImage.append(thumbnailPath);
+							resImage.append("\"}");
 						}
 					}
 					resImageArray.add(resImage.toString());
@@ -157,8 +190,11 @@ public class UploadFile extends HttpServlet {
 		return isAnimatedGif;
 	}
 
-	private void resizeImage(File newFile, int width, int height,
-			String uploadDir, UUID fname, String extension) throws IOException {
+	private String resizeImage(File newFile, int width, int height,
+			String uploadDir, String fname, String extension)
+			throws IOException {
+
+		String path = null;
 
 		BufferedImage image = ImageIO.read(newFile);
 		int imageWidth = image.getWidth(null);
@@ -193,9 +229,13 @@ public class UploadFile extends HttpServlet {
 			BufferedImage thumbnail = Scalr.resize(image,
 					Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH,
 					newWidth, newHeight, Scalr.OP_ANTIALIAS);
-			File f = new File(uploadDir + File.separator + fname + "_" + width
-					+ "_" + height + "." + extension);
+			// File f = new File(uploadDir + File.separator + fname + "_" +
+			// width
+			// + "_" + height + "." + extension);
+			File f = File.createTempFile(fname, ".jpg");
 			ImageIO.write(thumbnail, extension, f);
+			path = (new S3FileUploader(s3MediaBucketName, fname + "_" + width + "_"
+					+ height + "." + extension, newFile)).uploadFile();
 
 			// Thumbnails
 			// .of(newFile)
@@ -206,10 +246,15 @@ public class UploadFile extends HttpServlet {
 			BufferedImage thumbnail = Scalr.resize(image,
 					Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH, width,
 					height, Scalr.OP_ANTIALIAS);
-			File f = new File(uploadDir + File.separator + fname + "_" + width
-					+ "_" + height + "." + extension);
+			// File f = new File(uploadDir + File.separator + fname + "_" +
+			// width
+			// + "_" + height + "." + extension);
+			File f = File.createTempFile(fname, ".jpg");
 			ImageIO.write(thumbnail, extension, f);
+			path = (new S3FileUploader(s3MediaBucketName, fname + "_" + width + "_"
+					+ height + "." + extension, newFile)).uploadFile();
 		}
+		return path;
 
 	}
 

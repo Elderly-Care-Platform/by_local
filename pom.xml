@@ -34,7 +34,18 @@
 			<artifactId>json</artifactId>
 			<version>20140107</version>
 		</dependency>
+		<!--dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.10.50</version>
+		</dependency-->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.9.6</version>
+        </dependency>
 
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
@@ -132,7 +143,7 @@
 
 
 	<build>
-		<finalName>ROOT</finalName>
+		<finalName>BY</finalName>
 		<plugins>
 
 			<plugin>
@@ -173,7 +184,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<basedir>${basedir}/target/ROOT</basedir>
+					<basedir>${basedir}/target/BY</basedir>
 					<includes>
 						<include>**/*.html</include>
 						<include>**/*.js</include>

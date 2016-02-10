@@ -40,7 +40,7 @@ public class SiteMapGenerator {
 	private static boolean isInitialized = false;
 
 	private String sitemapPath = "c:/sitemap";
-	private String selfUrl = "http://www.beautifulyears.com";
+	private String selfUrl = "https://www.beautifulyears.com";
 
 	private final String communityMenuId = "564071623e60f5b66f62df27";
 	private String communityMenuUrl = "/#!/communities/564071623e60f5b66f62df27/all";

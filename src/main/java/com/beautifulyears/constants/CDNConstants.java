@@ -4,8 +4,8 @@ public final class CDNConstants {
 	// public static final String IMAGE_CDN_PATH = "/home/ubuntu/uploads"; //for
 	// remote
 	public static final String IMAGE_CDN_ORIG_FOLDER = "orig";
-	public static final String IMAGE_CDN_TITLE_FOLDER = "thumb";
-	public static final String IMAGE_CDN_THUMB_FOLDER = "title";
+	public static final String IMAGE_CDN_TITLE_FOLDER = "title";
+	public static final String IMAGE_CDN_THUMB_FOLDER = "thumb";
 	public static final String S3_HOST = "https://s3-ap-southeast-1.amazonaws.com/";
 	
 	public static final String IMAGE_CDN_ACCESS_KEY = "AKIAJPCQ3MZOJZVPFJJQ";

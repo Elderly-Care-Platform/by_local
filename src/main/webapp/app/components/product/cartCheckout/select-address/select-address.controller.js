@@ -19,7 +19,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
         $scope.shipToAddress = shipToAddress;
         $scope.shipToNewAddress = shipToNewAddress;
         $scope.pickupFromAddress = pickupFromAddress;
-
+        $scope.pickupDetails = {};
 
         if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
             $scope.customerId = localStorage.getItem("by_cust_id");

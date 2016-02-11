@@ -19,7 +19,6 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
         $scope.shipToAddress = shipToAddress;
         $scope.shipToNewAddress = shipToNewAddress;
         $scope.pickupFromAddress = pickupFromAddress;
-        $scope.pickupDetails = {'id' : 1000};
 
 
         if (localStorage.getItem("by_cust_id") && !localStorage.getItem("USER_ID") && !SessionIdService.getSessionId()) {
@@ -119,6 +118,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             $scope.submitted = true;
             if(pickupAddressForm.$valid){
                 //$scope.selectedAddress = {};
+                $scope.pickupDetails.id = BY.config.product.pickupPoints[addressIdx].id;
                 $scope.pickupDetails.address = BY.config.product.pickupPoints[addressIdx].address;
                 //$scope.selectedAddress.firstName = otherDetails.firstName;
                 //$scope.selectedAddress.lastName = otherDetails.lastName;

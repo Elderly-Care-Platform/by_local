@@ -7,16 +7,25 @@ define(['byProdEcomConfig'], function (byProdEcomConfig) {
         }
 
         function getDeliveryMode(){
-            return productDeliveryMode;
+            var deliveryMode = localStorage.getItem("USER_PRODUCT_DELIVERYMODE");
+            return deliveryMode;
         }
 
         function setPickupAddress(address){
             pickupAddress = address;
             productDeliveryMode = BY.config.product.deliveryMode.PICKUP;
+            localStorage.setItem("USER_PRODUCT_PICKUP_DETAILS", JSON.stringify(pickupAddress));
+            localStorage.setItem("USER_PRODUCT_DELIVERYMODE", productDeliveryMode);
         }
 
-        function getPickupAddress(){
-            return pickupAddress;
+        function getPickupAddress(id){
+            if(id){
+                var pickupDetails = JSON.parse(localStorage.getItem("USER_PRODUCT_PICKUP_DETAILS"));
+                return pickupDetails;
+            }else{
+                return pickupAddress;
+            }
+
         }
 
 

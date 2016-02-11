@@ -189,6 +189,8 @@ define(['byProductApp'], function (byProductApp) {
                 $rootScope.$broadcast('uiDataChanged', $scope.uiData);
                 $rootScope.$broadcast('getCartItemCount', $scope.uiData.totalCartItem);
             }
+            localStorage.removeItem("USER_PRODUCT_DELIVERYMODE");
+            localStorage.removeItem("USER_PRODUCT_PICKUP_DETAILS");
         }
 
         /**

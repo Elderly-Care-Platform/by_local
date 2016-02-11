@@ -55,6 +55,11 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
             function errorCallBack() {
                 $("#preloader").hide();
                 console.log('can\'t get the data');
+                var pickupDetails = SharedContextService.getPickupAddress();
+                if(pickupDetails){
+                    $scope.pickupDetails = pickupDetails;
+                }
+                $scope.pickupPoints = BY.config.product.pickupPoints;
             }
         }
 

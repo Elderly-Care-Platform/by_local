@@ -79,12 +79,15 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
          */
         function shipToAddress(addressIndex) {
             $scope.selectedAddress = $scope.customerAddress[addressIndex];
+            SharedContextService.setDeliverMode(BY.config.product.deliveryMode.PICKUP);
+
             var pinCode = $scope.selectedAddress.address.zip;
             if (pinCode) {
                 checkLogisticAvailability(pinCode);
             } else {
                 $scope.selectedAddress.shipToAddressDisabled = true;
             }
+
         }
 
         function checkLogisticAvailability(pincode) {
@@ -125,10 +128,6 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
                 //$scope.selectedAddress = {};
                 $scope.pickupDetails.id = BY.config.product.pickupPoints[addressIdx].id;
                 $scope.pickupDetails.address = BY.config.product.pickupPoints[addressIdx].address;
-                //$scope.selectedAddress.firstName = otherDetails.firstName;
-                //$scope.selectedAddress.lastName = otherDetails.lastName;
-                //$scope.selectedAddress.email = otherDetails.email;
-                //$scope.selectedAddress.phoneNumber = otherDetails.phoneNumber;
 
                 SharedContextService.setPickupAddress($scope.pickupDetails);
                 $location.path(PAGE_URL.paymentGateway + $scope.pickupDetails.id);

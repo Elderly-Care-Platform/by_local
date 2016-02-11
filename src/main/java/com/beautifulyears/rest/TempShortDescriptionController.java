@@ -63,7 +63,7 @@ public class TempShortDescriptionController {
 
 				for (int i = 0; i < photos.size(); i++) {
 					Map<String, String> array_element = photos.get(i);
-					photos.set(i,checkImageMap(array_element));
+					photos.set(i, checkImageMap(array_element));
 				}
 
 			}
@@ -71,19 +71,37 @@ public class TempShortDescriptionController {
 			if (null != userProfile
 					&& null != userProfile.getBasicProfileInfo()
 					&& null != userProfile.getBasicProfileInfo()
-							.getProfileImage()) {
-				userProfile.getBasicProfileInfo().setProfileImage(checkImageMap(userProfile.getBasicProfileInfo()
-						.getProfileImage()));
+							.getDescription()) {
+				userProfile.getBasicProfileInfo().setDescription(
+						changeText(userProfile.getBasicProfileInfo()
+								.getDescription()));
 			}
-mongoTemplate.save(userProfile);
+
+			if (null != userProfile
+					&& null != userProfile.getBasicProfileInfo()
+					&& null != userProfile.getBasicProfileInfo()
+							.getProfileImage()) {
+				userProfile.getBasicProfileInfo().setProfileImage(
+						checkImageMap(userProfile.getBasicProfileInfo()
+								.getProfileImage()));
+			}
+			mongoTemplate.save(userProfile);
 		}
 
 		for (Iterator iterator = discuss.iterator(); iterator.hasNext();) {
 			Discuss singleDiscuss = (Discuss) iterator.next();
 			if (null != singleDiscuss
 					&& null != singleDiscuss.getArticlePhotoFilename()) {
-				singleDiscuss.setArticlePhotoFilename(checkImageMap(singleDiscuss.getArticlePhotoFilename()));
+				singleDiscuss
+						.setArticlePhotoFilename(checkImageMap(singleDiscuss
+								.getArticlePhotoFilename()));
 			}
+			if ("Cancer is no more a deadly disease.".equals(singleDiscuss
+					.getTitle())) {
+				System.out.println("found");
+			}
+
+			singleDiscuss.setText(changeText(singleDiscuss.getText()));
 			mongoTemplate.save(singleDiscuss);
 		}
 
@@ -91,21 +109,28 @@ mongoTemplate.save(userProfile);
 			HousingFacility singleHousing = (HousingFacility) iterator.next();
 			if (null != singleHousing
 					&& null != singleHousing.getPhotoGalleryURLs()) {
-				
+
 				List<Map<String, String>> photos = singleHousing
 						.getPhotoGalleryURLs();
 
 				for (int i = 0; i < photos.size(); i++) {
 					Map<String, String> array_element = photos.get(i);
-					photos.set(i,checkImageMap(array_element));
+					photos.set(i, checkImageMap(array_element));
 				}
 
 			}
 
 			if (null != singleHousing
 					&& null != singleHousing.getProfileImage()) {
-				singleHousing.setProfileImage(checkImageMap(singleHousing.getProfileImage()));
+				singleHousing.setProfileImage(checkImageMap(singleHousing
+						.getProfileImage()));
 			}
+
+			if (null != singleHousing && null != singleHousing.getDescription()) {
+				singleHousing.setDescription(changeText(singleHousing
+						.getDescription()));
+			}
+
 			mongoTemplate.save(singleHousing);
 		}
 
@@ -113,31 +138,58 @@ mongoTemplate.save(userProfile);
 	}
 
 	private Map<String, String> checkImageMap(Map<String, String> imageMap) {
-		if(!Util.isEmpty(imageMap.get("original")) && imageMap.get("original").contains("/uploaded_files/")){
+		if (!Util.isEmpty(imageMap.get("original"))
+				&& imageMap.get("original").contains("/uploaded_files/")) {
 			String str = imageMap.get("original");
-			str = str.replace("/uploaded_files/",CDNConstants.S3_HOST+bucketName+"/"+CDNConstants.IMAGE_CDN_ORIG_FOLDER+"/");
-			System.out.println(imageMap.get("original"));
-			System.out.println(str);
+			str = str.replace("/uploaded_files/", CDNConstants.S3_HOST
+					+ bucketName + "/" + CDNConstants.IMAGE_CDN_ORIG_FOLDER
+					+ "/");
+			// System.out.println(imageMap.get("original"));
+			// System.out.println(str);
 			imageMap.put("original", str);
 		}
-		if(!Util.isEmpty(imageMap.get("titleImage")) && imageMap.get("titleImage").contains("/uploaded_files/")){
+		if (!Util.isEmpty(imageMap.get("titleImage"))
+				&& imageMap.get("titleImage").contains("/uploaded_files/")) {
 			String str = imageMap.get("titleImage");
-			str = str.replace("/uploaded_files/",CDNConstants.S3_HOST+bucketName+"/"+CDNConstants.IMAGE_CDN_TITLE_FOLDER+"/");
-//			str = str.replace("_640_650","");
-			System.out.println(imageMap.get("titleImage"));
-			System.out.println(str);
+			str = str.replace("/uploaded_files/", CDNConstants.S3_HOST
+					+ bucketName + "/" + CDNConstants.IMAGE_CDN_TITLE_FOLDER
+					+ "/");
+			// str = str.replace("_640_650","");
+			// System.out.println(imageMap.get("titleImage"));
+			// System.out.println(str);
 			imageMap.put("titleImage", str);
 		}
-		if(!Util.isEmpty(imageMap.get("thumbnailImage")) && imageMap.get("thumbnailImage").contains("/uploaded_files/")){
+		if (!Util.isEmpty(imageMap.get("thumbnailImage"))
+				&& imageMap.get("thumbnailImage").contains("/uploaded_files/")) {
 			String str = imageMap.get("thumbnailImage");
-			str = str.replace("/uploaded_files/",CDNConstants.S3_HOST+bucketName+"/"+CDNConstants.IMAGE_CDN_THUMB_FOLDER+"/");
-//			str = str.replace("_135_168","");
-			System.out.println(imageMap.get("thumbnailImage"));
-			System.out.println(str);
+			str = str.replace("/uploaded_files/", CDNConstants.S3_HOST
+					+ bucketName + "/" + CDNConstants.IMAGE_CDN_THUMB_FOLDER
+					+ "/");
+			// str = str.replace("_135_168","");
+			// System.out.println(imageMap.get("thumbnailImage"));
+			// System.out.println(str);
 			imageMap.put("thumbnailImage", str);
 		}
 		return imageMap;
-		
-		
+
+	}
+
+	private String changeText(String text) {
+
+		if (!Util.isEmpty(text)) {
+			if (text.matches("(?is).*/uploaded_files/.*")) {
+				text = text.replaceAll("/uploaded_files/", CDNConstants.S3_HOST
+						+ bucketName + "/" + CDNConstants.IMAGE_CDN_ORIG_FOLDER
+						+ "/");
+				System.out.println(text);
+			}
+			if (text.matches("(?is).*uploaded_files/.*")) {
+				text = text.replaceAll("uploaded_files/", CDNConstants.S3_HOST
+						+ bucketName + "/" + CDNConstants.IMAGE_CDN_ORIG_FOLDER
+						+ "/");
+				System.out.println(text);
+			}
+		}
+		return text;
 	}
 }

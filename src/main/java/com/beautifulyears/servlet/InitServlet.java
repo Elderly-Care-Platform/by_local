@@ -65,7 +65,7 @@ public class InitServlet extends HttpServlet {
 		
 		if (!Util.isEmpty(ByWebAppInitializer.servletContext
 				.getInitParameter("s3MediaBucketName"))) {
-			imageUploadPath = ByWebAppInitializer.servletContext
+			s3MediaBucketName = ByWebAppInitializer.servletContext
 					.getInitParameter("s3MediaBucketName");
 		}
 

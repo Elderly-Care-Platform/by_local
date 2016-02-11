@@ -138,8 +138,7 @@ public class UploadFile extends HttpServlet {
 								&& "editor"
 										.equals(request.getParameter("type"))) {
 							// res.append("\"original\":");
-							resImage.append("/uploaded_files/" + fname + "."
-									+ extension);
+							resImage.append(origPath);
 						} else if (null != request.getParameter("transcoding")
 								&& true == Boolean.valueOf(request
 										.getParameter("transcoding"))) {

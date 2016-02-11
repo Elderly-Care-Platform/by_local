@@ -72,6 +72,8 @@ public class GenerateBarCode extends HttpServlet {
 		} catch (OutputException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("barcodePath = "+barcodePath);
 		response.getWriter().write(barcodePath);
 	}
 

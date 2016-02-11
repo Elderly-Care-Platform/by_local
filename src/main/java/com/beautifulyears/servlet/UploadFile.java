@@ -85,7 +85,7 @@ public class UploadFile extends HttpServlet {
 						origPath = (new S3FileUploader(s3MediaBucketName,
 								CDNConstants.IMAGE_CDN_ORIG_FOLDER + "/"
 										+ fname + "." + extension, newFile))
-								.uploadFile();
+								.uploadFile(false);
 
 						if (null != request.getParameter("transcoding")
 								&& true == Boolean.valueOf(request
@@ -99,9 +99,9 @@ public class UploadFile extends HttpServlet {
 										".jpg");
 								titlePath = (new S3FileUploader(
 										s3MediaBucketName,
-										CDNConstants.IMAGE_CDN_THUMB_FOLDER
+										CDNConstants.IMAGE_CDN_TITLE_FOLDER
 												+ "/" + fname + "." + extension,
-										newFile)).uploadFile();
+										newFile)).uploadFile(false);
 								Files.copy(newFile.toPath(),
 										titleImage.toPath());
 
@@ -116,20 +116,20 @@ public class UploadFile extends HttpServlet {
 										s3MediaBucketName,
 										CDNConstants.IMAGE_CDN_THUMB_FOLDER
 												+ "/" + fname + "." + extension,
-										newFile)).uploadFile();
+										newFile)).uploadFile(true);
 								Files.copy(newFile.toPath(), thumbnail.toPath());
 							} else {
 								titlePath = resizeImage(newFile,
 										TITLE_IMG_WIDTH, TITLE_IMG_HEIGHT,
 										uploadDir,
 										CDNConstants.IMAGE_CDN_TITLE_FOLDER
-												+ "/" + fname, extension);
+												+ "/" + fname, extension, false);
 
 								thumbnailPath = resizeImage(newFile,
 										THUMBNAIL_IMG_WIDTH,
 										THUMBNAIL_IMG_HEIGHT, uploadDir,
 										CDNConstants.IMAGE_CDN_THUMB_FOLDER
-												+ "/" + fname, extension);
+												+ "/" + fname, extension, true);
 							}
 
 						}
@@ -190,7 +190,7 @@ public class UploadFile extends HttpServlet {
 	}
 
 	private String resizeImage(File newFile, int width, int height,
-			String uploadDir, String fname, String extension)
+			String uploadDir, String fname, String extension,boolean async)
 			throws IOException {
 
 		String path = null;
@@ -234,7 +234,7 @@ public class UploadFile extends HttpServlet {
 			File f = File.createTempFile(fname, ".jpg");
 			ImageIO.write(thumbnail, extension, f);
 			path = (new S3FileUploader(s3MediaBucketName, fname + "_" + width
-					+ "_" + height + "." + extension, f)).uploadFile();
+					+ "_" + height + "." + extension, f)).uploadFile(async);
 
 			// Thumbnails
 			// .of(newFile)
@@ -251,7 +251,7 @@ public class UploadFile extends HttpServlet {
 			File f = File.createTempFile(fname, ".jpg");
 			ImageIO.write(thumbnail, extension, f);
 			path = (new S3FileUploader(s3MediaBucketName, fname + "_" + width
-					+ "_" + height + "." + extension, f)).uploadFile();
+					+ "_" + height + "." + extension, f)).uploadFile(async);
 		}
 		return path;
 

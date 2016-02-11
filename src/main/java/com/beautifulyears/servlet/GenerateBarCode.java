@@ -65,7 +65,7 @@ public class GenerateBarCode extends HttpServlet {
 			ImageIO.write(barImage, "jpeg", f);
 			barcodePath = (new S3FileUploader(s3MediaBucketName,
 					CDNConstants.IMAGE_CDN_BARCODE_FOLDER + "/" + path, f))
-					.uploadFile();
+					.uploadFile(true);
 
 		} catch (BarcodeException e) {
 			e.printStackTrace();

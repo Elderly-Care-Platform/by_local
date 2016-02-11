@@ -34,7 +34,7 @@ public class S3FileUploader implements Runnable {
 		this.file = file;
 	}
 
-	public String uploadFile() throws AmazonServiceException,
+	public String uploadFile(boolean async) throws AmazonServiceException,
 			AmazonClientException, IOException {
 
 		String path = null;
@@ -42,7 +42,12 @@ public class S3FileUploader implements Runnable {
 			System.out
 					.println("Uploading a new object to S3 from a file with name "
 							+ keyName);
-			new Thread(this).start();
+			if(async){
+				new Thread(this).start();
+			}else{
+				this.run();
+			}
+			
 			path = CDNConstants.S3_HOST + bucketName + "/" + keyName;
 		} catch (AmazonServiceException ase) {
 			System.out.println("Caught an AmazonServiceException, which "

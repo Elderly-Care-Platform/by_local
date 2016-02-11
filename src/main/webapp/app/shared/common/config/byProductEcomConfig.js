@@ -34,7 +34,7 @@ BY.config.product.pickupPoints = [
         streetAddress: "No 48 2nd main koramangala 1 block near Raheja Residency",
         zip: "560034"
         },
-    "id" : 1000
+    "id" : 'by10'
     }
 ]
 

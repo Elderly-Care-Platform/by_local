@@ -71,9 +71,10 @@ public class UserProfileResponse implements IResponse {
 			this.isFeatured = profile.isFeatured();
 			this.verified = profile.isVerified();
 			this.facilities = profile.getFacilities();
-			if (null != profile && profile.getUserId().equals(user.getId())) {
+			if (null != profile && null != profile.getUserId()
+					&& profile.getUserId().equals(user.getId())) {
 				this.setUserTags(user.getUserTags());
-			}else{
+			} else {
 				this.setUserTags(profile.getUserTags());
 			}
 

@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ROOT</groupId>
-	<artifactId>ROOT</artifactId>
+	<groupId>BY</groupId>
+	<artifactId>BY</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>ROOT</name>
+	<name>BY</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
@@ -143,7 +143,7 @@
 
 
 	<build>
-		<finalName>ROOT</finalName>
+		<finalName>BY</finalName>
 		<plugins>
 
 			<plugin>
@@ -160,82 +160,14 @@
 				</executions>
 				<configuration>
 					<useCache>true</useCache>
-					<webResources>
-			            <resource>
-			                <directory>${project.build.directory}/minify</directory>
-			            </resource>
-			        </webResources>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<outputDirectory>target</outputDirectory>
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>com.google.code.maven-replacer-plugin</groupId>
-				<artifactId>replacer</artifactId>
-				<version>1.5.2</version>
-				<executions>
-					<execution>
-						<id>replaceDynPartInResourcePath</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>replace</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<basedir>${basedir}/target/ROOT</basedir>
-					<includes>
-						<include>**/*.html</include>
-						<include>**/*.js</include>
-						<include>**/*.css</include>
-					</includes>
-					<replacements>
-						<replacement>
-							<token>%PROJECT_VERSION%</token>
-							<value>${maven.build.timestamp}</value>
-						</replacement>
-					</replacements>
-				</configuration>
-
-			</plugin>
 			
-			<plugin>
-				    <groupId>com.samaxes.maven</groupId>
-				    <artifactId>minify-maven-plugin</artifactId>
-				    <version>1.7.2</version>
-				    <executions>
-				        <execution>
-				            <phase>compile</phase>
-				            <goals>
-				                <goal>minify</goal>
-				            </goals>
-				        </execution>
-				    </executions>
-				    <configuration>
-				        <charset>UTF-8</charset>
-				        <skipMerge>true</skipMerge>
-				        <cssSourceDir>/</cssSourceDir>
-				        <jsSourceDir>app</jsSourceDir>
-				        <jsEngine>CLOSURE</jsEngine>
-				        <nosuffix>true</nosuffix>
-				        <webappTargetDir>${project.build.directory}/minify</webappTargetDir>
-				        <cssSourceIncludes>
-				            <cssSourceInclude>assets/css/**/*.css</cssSourceInclude>
-				            <cssSourceInclude>lib/**/*.css</cssSourceInclude>
-				        </cssSourceIncludes>
-				        <!--cssSourceExcludes>
-				            <cssSourceExclude>**/*.min.css</cssSourceExclude>
-				        </cssSourceExcludes-->
-				        <jsSourceIncludes>
-				            <jsSourceInclude>**/*.js</jsSourceInclude>
-				        </jsSourceIncludes>
-				        <jsSourceExcludes>
-				            <jsSourceExclude>**/*.min.js</jsSourceExclude>
-				            <jsSourceExclude>**/*.js</jsSourceExclude>
-				        </jsSourceExcludes>
-				    </configuration>
-				</plugin>
+			
+			
 
 		</plugins>
 	</build>

@@ -101,6 +101,7 @@ public class UserProfileController {
 								userInfo.getEmail());
 						userProfile.getBasicProfileInfo().setPrimaryPhoneNo(
 								userInfo.getPhoneNumber());
+						userProfile.setUserTags(userInfo.getUserTags());
 					}
 				} else {
 					logger.debug(userProfile.toString());

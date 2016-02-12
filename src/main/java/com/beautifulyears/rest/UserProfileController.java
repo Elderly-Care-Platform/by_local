@@ -356,6 +356,7 @@ public class UserProfileController {
 
 							profile.setBasicProfileInfo(userProfile
 									.getBasicProfileInfo());
+							profile.setUserTypes(userProfile.getUserTypes());
 							if (!Collections.disjoint(
 									profile.getUserTypes(),
 									new ArrayList<>(Arrays.asList(

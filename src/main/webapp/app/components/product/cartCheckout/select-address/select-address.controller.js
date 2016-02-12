@@ -79,7 +79,7 @@ define(['byProductApp', 'byProdEcomConfig'], function (byProductApp, byProdEcomC
          */
         function shipToAddress(addressIndex) {
             $scope.selectedAddress = $scope.customerAddress[addressIndex];
-            SharedContextService.setDeliverMode(BY.config.product.deliveryMode.PICKUP);
+            SharedContextService.setDeliverMode(BY.config.product.deliveryMode.DELIVER);
 
             var pinCode = $scope.selectedAddress.address.zip;
             if (pinCode) {

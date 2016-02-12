@@ -16,7 +16,7 @@ define(['byProdEcomConfig'], function (byProdEcomConfig) {
             pickupAddress = address;
             productDeliveryMode = BY.config.product.deliveryMode.PICKUP;
             localStorage.setItem("USER_PRODUCT_PICKUP_DETAILS", JSON.stringify(pickupAddress));
-            setDeliverMode(BY.config.product.deliveryMode.DELIVER);
+            setDeliverMode(BY.config.product.deliveryMode.PICKUP);
         }
 
         function getPickupAddress(id){

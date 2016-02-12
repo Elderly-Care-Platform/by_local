@@ -43,7 +43,7 @@ define([], function () {
 
             if (userSessionType && userSessionType === BY.config.sessionType.SESSION_TYPE_FULL) {
                 if (addressIdx) {
-                    if (deliveryMode === 0) {
+                    if (deliveryMode  == BY.config.product.deliveryMode.DELIVER) {
                         return $http.get(apiPrefix + 'api/v1/userAddress/' + userId + '?addressId=' + addressIdx).success(function (userAddress) {
                             deferred.resolve(userAddress);
                         }).error(function (error) {

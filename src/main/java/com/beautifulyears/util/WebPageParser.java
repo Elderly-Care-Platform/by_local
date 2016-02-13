@@ -152,9 +152,9 @@ public class WebPageParser {
 			Matcher m = pattern.matcher(url);
 			if (m.matches()) {
 				String videoId = m.group(2);
-				$media.add("http://i2.ytimg.com/vi/" + videoId
+				$media.add("https://i2.ytimg.com/vi/" + videoId
 						+ "/hqdefault.jpg");
-				$media.add("http://www.youtube.com/embed/" + videoId);
+				$media.add("https://www.youtube.com/embed/" + videoId);
 			} else {
 				$media.add("");
 				$media.add("");
@@ -162,14 +162,14 @@ public class WebPageParser {
 		} else if (url.indexOf("youtu.be") != -1) {
 			String videoId = url.substring(url.lastIndexOf("/") + 1,
 					url.length());
-			$media.add("http://i2.ytimg.com/vi/$vid/hqdefault.jpg");
-			$media.add("http://www.youtube.com/embed/" + videoId);
+			$media.add("https://i2.ytimg.com/vi/$vid/hqdefault.jpg");
+			$media.add("https://www.youtube.com/embed/" + videoId);
 		} else if (url.indexOf("vimeo.com") != -1) {
 			String videoId = url.substring(url.lastIndexOf("/") + 1,
 					url.length());
 			if (!("").equals(videoId)) {
 				$media.add("https://f.vimeocdn.com/images_v6/logo.png");
-				$media.add("http://player.vimeo.com/video/" + videoId);
+				$media.add("https://player.vimeo.com/video/" + videoId);
 			} else {
 				$media.add("");
 				$media.add("");
@@ -193,9 +193,9 @@ public class WebPageParser {
 			url = url.substring(url.lastIndexOf("/") + 1, url.length());
 			String videoId = url.substring(0, url.indexOf('_'));
 			if (!"".equals(videoId)) {
-				$media.add("http://www.dailymotion.com/thumbnail/160x120/video/"
+				$media.add("https://www.dailymotion.com/thumbnail/160x120/video/"
 						+ videoId);
-				$media.add("http://www.dailymotion.com/embed/video/" + videoId);
+				$media.add("https://www.dailymotion.com/embed/video/" + videoId);
 			} else {
 				$media.add("");
 				$media.add("");

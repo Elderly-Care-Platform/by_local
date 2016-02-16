@@ -9,6 +9,7 @@ public class InitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String host = "http://localhost";
 	private String contextPath = "/ROOT";
+	private String apiContextPath = "/BY";
 	private String productServerHost = "localhost";
 	private String productServerPort = "8080";
 	private String mailSupported = "";
@@ -36,6 +37,15 @@ public class InitServlet extends HttpServlet {
 					.getInitParameter("contextPath");
 			if ("/".equals(contextPath)) {
 				contextPath = "";
+			}
+		}
+		
+		if (!Util.isEmpty(ByWebAppInitializer.servletContext
+				.getInitParameter("apiContextPath"))) {
+			apiContextPath = ByWebAppInitializer.servletContext
+					.getInitParameter("apiContextPath");
+			if ("/".equals(apiContextPath)) {
+				apiContextPath = "";
 			}
 		}
 
@@ -69,7 +79,8 @@ public class InitServlet extends HttpServlet {
 					.getInitParameter("s3MediaBucketName");
 		}
 
-		
+		System.setProperty("host", host);
+		System.setProperty("apiContextPath", apiContextPath);
 		System.setProperty("path", host + contextPath);
 		System.setProperty("s3MediaBucketName", s3MediaBucketName);
 		System.setProperty("productServerHost", productServerHost);
@@ -79,6 +90,7 @@ public class InitServlet extends HttpServlet {
 		System.setProperty("sitemapPath", sitemapPath);
 
 		System.out.println(System.getProperty("path") + ","
+				+ System.getProperty("apiContextPath") + ","
 				+ System.getProperty("productServerHost") + ","
 				+ System.getProperty("productServerPort") + ","
 				+ System.getProperty("mailSupported") + ","

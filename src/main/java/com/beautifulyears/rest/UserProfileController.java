@@ -301,7 +301,9 @@ public class UserProfileController {
 										.setPrimaryPhoneNo(
 												currentUser.getPhoneNumber());
 							}
-							userProfileRepository.save(profile);
+							profile = mergeProfile(profile, userProfile,
+									currentUser, req);
+							profile = userProfileRepository.save(profile);
 							UpdateUserProfileHandler userProfileHandler = new UpdateUserProfileHandler(
 									mongoTemplate);
 							userProfileHandler.setProfile(profile);
@@ -347,59 +349,8 @@ public class UserProfileController {
 					if (userProfile.getUserId().equals(currentUser.getId())) {
 						profile = userProfileRepository.findByUserId(userId);
 
-						if (profile != null) {
-							userProfile.getBasicProfileInfo()
-									.setShortDescription(
-											getShortDescription(userProfile));
-							profile.setLastModifiedAt(new Date());
-							profile.setSystemTags(userProfile.getSystemTags());
-
-							profile.setBasicProfileInfo(userProfile
-									.getBasicProfileInfo());
-							profile.setUserTypes(userProfile.getUserTypes());
-							if (!Collections.disjoint(
-									profile.getUserTypes(),
-									new ArrayList<>(Arrays.asList(
-											UserTypes.INDIVIDUAL_CAREGIVER,
-											UserTypes.INDIVIDUAL_ELDER,
-											UserTypes.INDIVIDUAL_PROFESSIONAL,
-											UserTypes.INDIVIDUAL_VOLUNTEER)))) {
-								profile.setIndividualInfo(userProfile
-										.getIndividualInfo());
-							} 
-
-							if (profile.getUserTypes().contains(
-									UserTypes.INSTITUTION_SERVICES)
-									|| profile.getUserTypes().contains(
-											UserTypes.INSTITUTION_BRANCH)) {
-								profile.setServiceProviderInfo(userProfile
-										.getServiceProviderInfo());
-								List<UserProfile> branchInfo = saveBranches(
-										userProfile.getServiceBranches(),
-										userId);
-								profile.setServiceBranches(branchInfo);
-
-							} else if (profile.getUserTypes().contains(
-									UserTypes.INDIVIDUAL_PROFESSIONAL)) {
-								profile.setServiceProviderInfo(userProfile
-										.getServiceProviderInfo());
-							} else if (profile.getUserTypes().contains(
-									UserTypes.INSTITUTION_HOUSING)) {
-								profile.setFacilities(HousingController
-										.addFacilities(
-												userProfile.getFacilities(),
-												currentUser));
-							}
-
-							userProfileRepository.save(profile);
-							logHandler.addLog(profile,
-									ActivityLogConstants.CRUD_TYPE_UPDATE, req);
-							logger.info("User Profile update with details: "
-									+ profile.toString());
-						} else {
-							throw new BYException(
-									BYErrorCodes.USER_PROFILE_DOES_NOT_EXIST);
-						}
+						profile = mergeProfile(profile, userProfile,
+								currentUser, req);
 
 					} else {
 						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
@@ -480,10 +431,10 @@ public class UserProfileController {
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
 				} else {
-					if(!userProfile.getUserId().equals(currentUser.getId())){
+					if (!userProfile.getUserId().equals(currentUser.getId())) {
 						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 					}
-					
+
 					if (addressIndex == 0
 							&& null != userProfile.getBasicProfileInfo()) {
 						userProfile.getBasicProfileInfo()
@@ -523,14 +474,15 @@ public class UserProfileController {
 		UserProfile userProfile = null;
 		User currentUser = Util.getSessionUser(req);
 		try {
-			if (userId != null && SessionController.checkCurrentSessionFor(req,
-					"NEW_ADDRESS")) {
+			if (userId != null
+					&& SessionController.checkCurrentSessionFor(req,
+							"NEW_ADDRESS")) {
 				userProfile = this.userProfileRepository.findByUserId(userId);
 				if (userProfile == null) {
 					logger.error("did not find any profile matching ID");
-				}else if (!userProfile.getUserId().equals(currentUser.getId())) {
+				} else if (!userProfile.getUserId().equals(currentUser.getId())) {
 					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
-				}else {
+				} else {
 					userProfile.getBasicProfileInfo().getOtherAddresses()
 							.add(userAddress);
 					mongoTemplate.save(userProfile);
@@ -618,6 +570,58 @@ public class UserProfileController {
 		countMap.put("" + UserTypes.INSTITUTION_HOUSING,
 				(Integer) housing.intValue());
 		return BYGenericResponseHandler.getResponse(countMap);
+	}
+
+	private UserProfile mergeProfile(UserProfile oldProfile,
+			UserProfile newProfile, User currentUser, HttpServletRequest req) {
+		if (oldProfile != null) {
+			newProfile.getBasicProfileInfo().setShortDescription(
+					getShortDescription(newProfile));
+			oldProfile.setLastModifiedAt(new Date());
+			oldProfile.setSystemTags(newProfile.getSystemTags());
+
+			oldProfile.setBasicProfileInfo(newProfile.getBasicProfileInfo());
+			oldProfile.setUserTypes(newProfile.getUserTypes());
+			if (!Collections.disjoint(
+					oldProfile.getUserTypes(),
+					new ArrayList<>(Arrays.asList(
+							UserTypes.INDIVIDUAL_CAREGIVER,
+							UserTypes.INDIVIDUAL_ELDER,
+							UserTypes.INDIVIDUAL_PROFESSIONAL,
+							UserTypes.INDIVIDUAL_VOLUNTEER)))) {
+				oldProfile.setIndividualInfo(newProfile.getIndividualInfo());
+			}
+
+			if (oldProfile.getUserTypes().contains(
+					UserTypes.INSTITUTION_SERVICES)
+					|| oldProfile.getUserTypes().contains(
+							UserTypes.INSTITUTION_BRANCH)) {
+				oldProfile.setServiceProviderInfo(newProfile
+						.getServiceProviderInfo());
+				List<UserProfile> branchInfo = saveBranches(
+						newProfile.getServiceBranches(), currentUser.getId());
+				oldProfile.setServiceBranches(branchInfo);
+
+			} else if (oldProfile.getUserTypes().contains(
+					UserTypes.INDIVIDUAL_PROFESSIONAL)) {
+				oldProfile.setServiceProviderInfo(newProfile
+						.getServiceProviderInfo());
+			} else if (oldProfile.getUserTypes().contains(
+					UserTypes.INSTITUTION_HOUSING)) {
+				oldProfile.setFacilities(HousingController.addFacilities(
+						newProfile.getFacilities(), currentUser));
+			}
+
+			userProfileRepository.save(oldProfile);
+			logHandler.addLog(oldProfile,
+					ActivityLogConstants.CRUD_TYPE_UPDATE, req);
+			logger.info("User Profile update with details: "
+					+ oldProfile.toString());
+		} else {
+			throw new BYException(BYErrorCodes.USER_PROFILE_DOES_NOT_EXIST);
+		}
+
+		return oldProfile;
 	}
 
 	class ProfileCount {

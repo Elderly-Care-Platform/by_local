@@ -23,15 +23,14 @@ public class FBConnection {
 	static String accessToken = "";
 
 	public String getFBAuthUrl(HttpServletRequest req) {
-		FBConnection.redirectURI = System.getProperty("path")
+		FBConnection.redirectURI = System.getProperty("host")
+				+ System.getProperty("apiContextPath")
 				+ FBConnection.REDIRECT_URI;
 		String fbLoginUrl = "";
 		try {
 			accessToken = "";
-			fbLoginUrl = "http://www.facebook.com/dialog/oauth?"
-					+ "client_id="
-					+ FBConnection.FB_APP_ID
-					+ "&redirect_uri="
+			fbLoginUrl = "http://www.facebook.com/dialog/oauth?" + "client_id="
+					+ FBConnection.FB_APP_ID + "&redirect_uri="
 					+ URLEncoder.encode(FBConnection.redirectURI, "UTF-8")
 					+ "&scope=public_profile,email";
 		} catch (UnsupportedEncodingException e) {

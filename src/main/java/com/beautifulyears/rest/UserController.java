@@ -584,6 +584,7 @@ public class UserController {
 		String socialSignOnPlatform = user.getSocialSignOnPlatform();
 		String passwordCode = user.getPassword();
 		Date passwordCodeExpiry = user.getPasswordCodeExpiry();
+		List<String> userTags = user.getUserTags();
 
 		// Users registered through the BY site will always have ROLE = USER
 		String userRoleId = "USER";
@@ -595,12 +596,12 @@ public class UserController {
 			return new User(userName, userIdType, userRegType, password, email,
 					phoneNumber, verificationCode, verificationCodeExpiry,
 					socialSignOnId, socialSignOnPlatform, passwordCode,
-					passwordCodeExpiry, userRoleId, "In-Active");
+					passwordCodeExpiry, userRoleId, "In-Active",userTags);
 		} else {
 			return new User(userName, userIdType, userRegType, password, email,
 					phoneNumber, verificationCode, verificationCodeExpiry,
 					socialSignOnId, socialSignOnPlatform, passwordCode,
-					passwordCodeExpiry, userRoleId, "In-Active");
+					passwordCodeExpiry, userRoleId, "In-Active",userTags);
 		}
 	}
 

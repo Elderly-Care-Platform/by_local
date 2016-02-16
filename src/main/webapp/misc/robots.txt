@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:*/privacyPolicy$
-Disallow:*/termsCondition$
-Sitemap: http://www.beautifulyears.com/sitemap.xml

@@ -42,6 +42,7 @@ public class UserProfileResponse implements IResponse {
 		private boolean isRatedByUser = false;
 		private Date createdAt = new Date();
 		private List<Tag> systemTags = new ArrayList<Tag>();
+		private List<String> userTags = new ArrayList<String>();
 		private Date lastModifiedAt = new Date();
 		private boolean isFeatured;
 		private boolean verified;
@@ -70,24 +71,36 @@ public class UserProfileResponse implements IResponse {
 			this.isFeatured = profile.isFeatured();
 			this.verified = profile.isVerified();
 			this.facilities = profile.getFacilities();
+			if (null != profile && null != user && null != profile.getUserId()
+					&& profile.getUserId().equals(user.getId())) {
+				this.setUserTags(user.getUserTags());
+			} else {
+				this.setUserTags(profile.getUserTags());
+			}
 
-			for(UserProfile profileBranches: profile.getServiceBranches()){
+			for (UserProfile profileBranches : profile.getServiceBranches()) {
 				this.serviceBranches.add(UserProfileResponse
 						.getUserProfileEntity(profileBranches, user));
 			}
-			
+
 		}
-		
-		
+
+		public List<String> getUserTags() {
+			return userTags;
+		}
+
+		public void setUserTags(List<String> userTags) {
+			this.userTags = userTags;
+		}
+
 		public List<UserProfileResponse.UserProfileEntity> getServiceBranches() {
 			return serviceBranches;
 		}
 
-
-		public void setServiceBranches(List<UserProfileResponse.UserProfileEntity> serviceBranches) {
+		public void setServiceBranches(
+				List<UserProfileResponse.UserProfileEntity> serviceBranches) {
 			this.serviceBranches = serviceBranches;
 		}
-
 
 		public List<HousingFacility> getFacilities() {
 			return facilities;

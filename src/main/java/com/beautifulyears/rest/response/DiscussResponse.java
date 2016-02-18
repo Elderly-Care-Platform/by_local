@@ -112,7 +112,7 @@ public class DiscussResponse implements IResponse {
 		private boolean isPromotion;
 		private UserProfile userProfile;
 		private List<Tag> systemTags = new ArrayList<Tag>();
-		private boolean isEditable = false;
+		private boolean isEditableByUser = false;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -151,7 +151,7 @@ public class DiscussResponse implements IResponse {
 							|| BYConstants.USER_ROLE_SUPER_USER.equals(user
 									.getUserRoleId()) || discuss.getUserId()
 							.equals(user.getId()))) {
-				this.setEditable(true);
+				this.setEditableByUser(true);
 			}
 
 			if (discuss.getUserProfile() != null) {
@@ -164,12 +164,12 @@ public class DiscussResponse implements IResponse {
 			}
 		}
 
-		public boolean isEditable() {
-			return isEditable;
+		public boolean isEditableByUser() {
+			return isEditableByUser;
 		}
 
-		public void setEditable(boolean isEditable) {
-			this.isEditable = isEditable;
+		public void setEditableByUser(boolean isEditable) {
+			this.isEditableByUser = isEditable;
 		}
 
 		public List<Tag> getSystemTags() {

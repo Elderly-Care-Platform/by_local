@@ -115,7 +115,7 @@ public class DiscussController {
 		return BYGenericResponseHandler.getResponse(linkInfo);
 	}
 
-	@RequestMapping(consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.POST },consumes = { "application/json" })
 	@ResponseBody
 	public Object submitDiscuss(@RequestBody Discuss discuss,
 			HttpServletRequest request, HttpServletResponse res)
@@ -139,6 +139,50 @@ public class DiscussController {
 
 			} else {
 				throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+			}
+		} else {
+			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+		}
+		return BYGenericResponseHandler.getResponse(discuss);
+
+	}
+	
+	@RequestMapping(method = { RequestMethod.PUT },consumes = { "application/json" })
+	@ResponseBody
+	public Object editDiscuss(@RequestBody Discuss discuss,
+			HttpServletRequest request, HttpServletResponse res)
+			throws Exception {
+		LoggerUtil.logEntry();
+		User currentUser = Util.getSessionUser(request);
+		if (null != currentUser
+				&& SessionController.checkCurrentSessionFor(request, "POST")) {
+			if (discuss != null && (!Util.isEmpty(discuss.getId()))) {
+				Discuss oldDiscuss = mongoTemplate.findById(new ObjectId(discuss.getId()), Discuss.class);
+				oldDiscuss.setText(discuss.getText());
+				oldDiscuss.setTitle(discuss.getTitle());
+				oldDiscuss.setTopicId(discuss.getTopicId());
+				oldDiscuss.setArticlePhotoFilename(discuss.getArticlePhotoFilename());
+				oldDiscuss.setLinkInfo(discuss.getLinkInfo());
+				List<Tag> systemTags = new ArrayList<Tag>();
+				for (Tag tag : discuss.getSystemTags()) {
+					Tag newTag = mongoTemplate.findById(tag.getId(), Tag.class);
+					systemTags.add(newTag);
+				}
+				Query query = new Query();
+				query.addCriteria(Criteria.where("userId").is(discuss.getUserId()));
+				UserProfile profile = mongoTemplate.findOne(query,
+						UserProfile.class);
+				oldDiscuss.setSystemTags(systemTags);
+				oldDiscuss.setUserProfile(profile);
+				discuss = discussRepository
+						.save(oldDiscuss);
+				logHandler.addLog(discuss,
+						ActivityLogConstants.CRUD_TYPE_UPDATE, request);
+				logger.info("new discuss entity created with ID: "
+						+ discuss.getId() + " by User " + discuss.getUserId());
+
+			} else {
+				throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 			}
 		} else {
 			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);

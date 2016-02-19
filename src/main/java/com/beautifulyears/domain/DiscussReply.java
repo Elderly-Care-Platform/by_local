@@ -47,8 +47,19 @@ public class DiscussReply {
 	private Date lastModifiedAt;
 
 	private int status;
-	
+
 	private boolean verified;
+
+	@Transient
+	private boolean isEditableByUser = false;
+
+	public boolean isEditableByUser() {
+		return isEditableByUser;
+	}
+
+	public void setEditableByUser(boolean isEditableByUser) {
+		this.isEditableByUser = isEditableByUser;
+	}
 
 	public boolean isVerified() {
 		return verified;

@@ -25,6 +25,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -89,7 +91,9 @@ public class UserProfileController {
 
 		try {
 			if (userId != null) {
-				userProfile = userProfileRepository.findByUserId(userId);
+				Query q = new Query();
+				q.addCriteria(Criteria.where("userId").is(userId));
+				userProfile = mongoTemplate.findOne(q,UserProfile.class);
 				// if(userProfiles.size() > 0){
 				// userProfile = userProfiles.get(0);
 				// }

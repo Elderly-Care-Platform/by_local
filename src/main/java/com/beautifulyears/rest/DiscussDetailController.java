@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.ActivityLogConstants;
+import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.DiscussReply;
@@ -111,8 +113,9 @@ public class DiscussDetailController {
 						.getDiscussType()));
 				comment.setReplyType(DiscussConstants.REPLY_TYPE_COMMENT);
 				User user = Util.getSessionUser(req);
-				if (null != user && SessionController
-						.checkCurrentSessionFor(req, "COMMENT")) {
+				if (null != user
+						&& SessionController.checkCurrentSessionFor(req,
+								"COMMENT")) {
 					comment.setUserId(user.getId());
 					comment.setUserName(user.getUserName());
 					Query query = new Query();
@@ -156,8 +159,9 @@ public class DiscussDetailController {
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(comment);
-				logHandler.addLog(comment, ActivityLogConstants.CRUD_TYPE_CREATE, req);
-				
+				logHandler.addLog(comment,
+						ActivityLogConstants.CRUD_TYPE_CREATE, req);
+
 				logger.debug("new answer posted successfully with replyId = "
 						+ comment.getId());
 			} else {
@@ -169,6 +173,51 @@ public class DiscussDetailController {
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
 				discussId, req));
 
+	}
+
+	@RequestMapping(method = { RequestMethod.PUT },value = { "/editReply" },  consumes = { "application/json" })
+	@ResponseBody
+	public Object editReply(@RequestBody DiscussReply comment,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		LoggerUtil.logEntry();
+		User user = Util.getSessionUser(req);
+		DiscussReply oldComment = mongoTemplate.findById(new ObjectId(
+				comment.getId()), DiscussReply.class);
+		if(null == oldComment){
+			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
+		}
+		if (null == user
+				|| (!BYConstants.USER_ROLE_EDITOR.equals(user
+						.getUserRoleId())
+						&& !BYConstants.USER_ROLE_SUPER_USER.equals(user
+								.getUserRoleId()) && !oldComment.getUserId()
+						.equals(user.getId()))) {
+			throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
+		}
+		try {
+				if (SessionController.checkCurrentSessionFor(req,
+								"COMMENT")) {
+					Query query = new Query();
+					query.addCriteria(Criteria.where("userId").is(user.getId()));
+					UserProfile profile = mongoTemplate.findOne(query,
+							UserProfile.class);
+					oldComment.setUserProfile(profile);
+					oldComment.setText(comment.getText());
+				} else {
+					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+				}
+
+				mongoTemplate.save(oldComment);
+				logHandler.addLog(oldComment,
+						ActivityLogConstants.CRUD_TYPE_UPDATE, req);
+
+				logger.debug("new answer posted successfully with replyId = "
+						+ comment.getId());
+		} catch (Exception e) {
+			Util.handleException(e);
+		}
+		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
+				oldComment.getDiscussId(), req));
 	}
 
 	/**
@@ -195,8 +244,9 @@ public class DiscussDetailController {
 						.getDiscussType()));
 				answer.setParentReplyId(null);
 				User user = Util.getSessionUser(req);
-				if (null != user && SessionController
-						.checkCurrentSessionFor(req, "ANSWER")) {
+				if (null != user
+						&& SessionController.checkCurrentSessionFor(req,
+								"ANSWER")) {
 					answer.setUserId(user.getId());
 					answer.setUserName(user.getUserName());
 					Query query = new Query();
@@ -211,7 +261,8 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
-				logHandler.addLog(answer, ActivityLogConstants.CRUD_TYPE_CREATE, req);
+				logHandler.addLog(answer,
+						ActivityLogConstants.CRUD_TYPE_CREATE, req);
 				sendMailForReplyOnDiscuss(discuss, user, answer);
 				logger.debug("new answer posted successfully with replyId = "
 						+ answer.getId());
@@ -224,6 +275,8 @@ public class DiscussDetailController {
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
 				discussId, req));
 	}
+	
+	
 
 	private DiscussDetailResponse getDiscussDetailById(String discussId,
 			HttpServletRequest req) throws Exception {
@@ -268,7 +321,7 @@ public class DiscussDetailController {
 					title = !Util.isEmpty(title) ? title : discuss
 							.getLinkInfo().getUrl();
 				}
-				if(Util.isEmpty(title)){
+				if (Util.isEmpty(title)) {
 					title = "<<Your post>>";
 				}
 				String userName = !Util.isEmpty(discuss.getUsername()) ? discuss
@@ -305,7 +358,8 @@ public class DiscussDetailController {
 						.getUserName() : "Anonymous User";
 				String replyString = "previous comment";
 				String path = reply.getUrl();
-				String replyText = Util.isEmpty(reply.getText()) ? "<<Your reply>>" : reply.getText();
+				String replyText = Util.isEmpty(reply.getText()) ? "<<Your reply>>"
+						: reply.getText();
 				String body = MessageFormat.format(
 						resourceUtil.getResource("replyCommentedBy"), userName,
 						commentedBy, replyString, replyText, path, path);

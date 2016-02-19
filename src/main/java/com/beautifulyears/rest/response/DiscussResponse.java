@@ -8,6 +8,7 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.LinkInfo;
@@ -111,6 +112,7 @@ public class DiscussResponse implements IResponse {
 		private boolean isPromotion;
 		private UserProfile userProfile;
 		private List<Tag> systemTags = new ArrayList<Tag>();
+		private boolean isEditableByUser = false;
 
 		public DiscussEntity(Discuss discuss, User user) {
 			this.setId(discuss.getId());
@@ -143,13 +145,31 @@ public class DiscussResponse implements IResponse {
 			this.setFeatured(discuss.isFeatured());
 			this.setPromotion(discuss.isPromotion());
 
+			if (null != user
+					&& (BYConstants.USER_ROLE_EDITOR.equals(user
+							.getUserRoleId())
+							|| BYConstants.USER_ROLE_SUPER_USER.equals(user
+									.getUserRoleId()) || discuss.getUserId()
+							.equals(user.getId()))) {
+				this.setEditableByUser(true);
+			}
+
 			if (discuss.getUserProfile() != null) {
 				UserProfile userProfile = new UserProfile();
-				userProfile.setBasicProfileInfo(
-						discuss.getUserProfile().getBasicProfileInfo());
-				userProfile.setIndividualInfo(discuss.getUserProfile().getIndividualInfo());
+				userProfile.setBasicProfileInfo(discuss.getUserProfile()
+						.getBasicProfileInfo());
+				userProfile.setIndividualInfo(discuss.getUserProfile()
+						.getIndividualInfo());
 				this.setUserProfile(userProfile);
 			}
+		}
+
+		public boolean isEditableByUser() {
+			return isEditableByUser;
+		}
+
+		public void setEditableByUser(boolean isEditable) {
+			this.isEditableByUser = isEditable;
 		}
 
 		public List<Tag> getSystemTags() {

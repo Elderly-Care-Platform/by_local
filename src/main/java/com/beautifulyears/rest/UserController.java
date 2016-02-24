@@ -68,6 +68,15 @@ public class UserController {
 	private static void setUserRepository(UserRepository userRepository) {
 		UserController.userRepository = userRepository;
 	}
+	
+	@RequestMapping(value = "/addGuestUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Object addGuestUser(@RequestBody User user, HttpServletRequest req,
+				HttpServletResponse res) throws Exception {
+		LoginRequest loginRequest = new LoginRequest(user.getEmail(),null);
+		createGuestUser(loginRequest, false,  req, res);
+		
+		return null;
+		}
 
 	@RequestMapping(value = "/getUserInfoByIdForProducts", method = RequestMethod.GET)
 	public @ResponseBody Object getUserInfoByIdForProducts(
@@ -121,7 +130,7 @@ public class UserController {
 					user = mongoTemplate.findOne(q, User.class);
 					if (null == user
 							&& Util.isEmpty(loginRequest.getPassword())) {
-						user = createGuestUser(loginRequest, req, res);
+						user = createGuestUser(loginRequest,true, req, res);
 					} else if(!Util.isEmpty(loginRequest.getPassword())){
 						Util.isPasswordMatching(loginRequest.getPassword(),
 								user.getPassword());
@@ -172,7 +181,7 @@ public class UserController {
 
 	}
 
-	private User createGuestUser(LoginRequest loginRequest,
+	private User createGuestUser(LoginRequest loginRequest, boolean isSessionRequired,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		logger.info("creating guest user with emailId = "
 				+ loginRequest.getEmail());
@@ -180,7 +189,7 @@ public class UserController {
 		user.setEmail(loginRequest.getEmail());
 		user.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
 		user.setUserIdType(BYConstants.USER_ID_TYPE_EMAIL);
-		submitUser(user, req, res);
+		submitUser(user,isSessionRequired, req, res);
 		user = (User) req.getSession().getAttribute("user");
 		return user;
 	}
@@ -202,7 +211,9 @@ public class UserController {
 	// create user - registration
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Object submitUser(@RequestBody User user, HttpServletRequest req,
+	public Object submitUser(@RequestBody User user, 
+			@RequestParam(value = "session", required = false, defaultValue  = "true") boolean isSession,
+			HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Session session = (Session) req.getSession().getAttribute("session");
@@ -255,14 +266,17 @@ public class UserController {
 				sendWelcomeMail(userWithExtractedInformation);
 				logHandler.addLog(userWithExtractedInformation,
 						ActivityLogConstants.CRUD_TYPE_CREATE, req);
-				req.getSession().setAttribute("user",
-						userWithExtractedInformation);
+				
 
 				if (Util.isEmpty(user.getPassword())) {
 					isPasswordEntered = false;
 				}
-				session = createSession(req, res, userWithExtractedInformation,
-						isPasswordEntered);
+				if(isSession){
+					req.getSession().setAttribute("user",
+							userWithExtractedInformation);
+					session = createSession(req, res, userWithExtractedInformation,
+							isPasswordEntered);
+				}
 
 			} catch (Exception e) {
 				logger.error("error occured while creating the user");

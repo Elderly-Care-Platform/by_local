@@ -75,7 +75,7 @@ public class DiscussDetailResponse implements IResponse {
 					&& (BYConstants.USER_ROLE_EDITOR.equals(user
 							.getUserRoleId())
 							|| BYConstants.USER_ROLE_SUPER_USER.equals(user
-									.getUserRoleId()) || discuss.getUserId()
+									.getUserRoleId()) || discussReply.getUserId()
 							.equals(user.getId()))) {
 				discussReply.setEditableByUser(true);
 			}

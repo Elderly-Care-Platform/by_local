@@ -1,16 +1,12 @@
 package com.beautifulyears.rest.temp;
 
-import java.io.File;
-import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
@@ -19,16 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.amazonaws.services.datapipeline.model.Query;
 import com.beautifulyears.constants.CDNConstants;
-import com.beautifulyears.constants.DiscussConstants;
-import com.beautifulyears.domain.BasicProfileInfo;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.util.Util;
 //import com.beautifulyears.domain.UserProfile;
-import com.mongodb.DBCollection;
 
 @Controller
 @RequestMapping("/addShortDesc")
@@ -47,7 +39,7 @@ public class TempShortDescriptionController {
 			HttpServletResponse res) throws Exception {
 		bucketName = System.getProperty("s3MediaBucketName");
 
-		List<UserProfile> userProfiles = mongoTemplate
+		List<UserProfile> userProfiles = mongoTemplate 	
 				.findAll(UserProfile.class);
 		List<Discuss> discuss = mongoTemplate.findAll(Discuss.class);
 		List<HousingFacility> housingFacility = mongoTemplate
@@ -139,32 +131,29 @@ public class TempShortDescriptionController {
 
 	private Map<String, String> checkImageMap(Map<String, String> imageMap) {
 		if (!Util.isEmpty(imageMap.get("original"))
-				&& imageMap.get("original").contains("/uploaded_files/")) {
+				&& imageMap.get("original").contains(CDNConstants.S3_HOST+"by-dev-media")) {
 			String str = imageMap.get("original");
-			str = str.replace("/uploaded_files/", CDNConstants.S3_HOST
-					+ bucketName + "/" + CDNConstants.IMAGE_CDN_ORIG_FOLDER
-					+ "/");
+			str = str.replace(CDNConstants.S3_HOST+"by-dev-media", 
+					"https://"+bucketName);
 			// System.out.println(imageMap.get("original"));
 			// System.out.println(str);
 			imageMap.put("original", str);
 		}
 		if (!Util.isEmpty(imageMap.get("titleImage"))
-				&& imageMap.get("titleImage").contains("/uploaded_files/")) {
+				&& imageMap.get("titleImage").contains(CDNConstants.S3_HOST+"by-dev-media")) {
 			String str = imageMap.get("titleImage");
-			str = str.replace("/uploaded_files/", CDNConstants.S3_HOST
-					+ bucketName + "/" + CDNConstants.IMAGE_CDN_TITLE_FOLDER
-					+ "/");
+			str = str.replace(CDNConstants.S3_HOST+"by-dev-media", 
+					"https://"+bucketName);
 			// str = str.replace("_640_650","");
 			// System.out.println(imageMap.get("titleImage"));
 			// System.out.println(str);
 			imageMap.put("titleImage", str);
 		}
 		if (!Util.isEmpty(imageMap.get("thumbnailImage"))
-				&& imageMap.get("thumbnailImage").contains("/uploaded_files/")) {
+				&& imageMap.get("thumbnailImage").contains(CDNConstants.S3_HOST+"by-dev-media")) {
 			String str = imageMap.get("thumbnailImage");
-			str = str.replace("/uploaded_files/", CDNConstants.S3_HOST
-					+ bucketName + "/" + CDNConstants.IMAGE_CDN_THUMB_FOLDER
-					+ "/");
+			str = str.replace(CDNConstants.S3_HOST+"by-dev-media", 
+					"https://"+bucketName);
 			// str = str.replace("_135_168","");
 			// System.out.println(imageMap.get("thumbnailImage"));
 			// System.out.println(str);
@@ -177,16 +166,9 @@ public class TempShortDescriptionController {
 	private String changeText(String text) {
 
 		if (!Util.isEmpty(text)) {
-			if (text.matches("(?is).*/uploaded_files/.*")) {
-				text = text.replaceAll("/uploaded_files/", CDNConstants.S3_HOST
-						+ bucketName + "/" + CDNConstants.IMAGE_CDN_ORIG_FOLDER
-						+ "/");
-				System.out.println(text);
-			}
-			if (text.matches("(?is).*uploaded_files/.*")) {
-				text = text.replaceAll("uploaded_files/", CDNConstants.S3_HOST
-						+ bucketName + "/" + CDNConstants.IMAGE_CDN_ORIG_FOLDER
-						+ "/");
+			if (text.matches("(?is).*"+CDNConstants.S3_HOST+".*")) {
+				text = text.replaceAll(CDNConstants.S3_HOST, "https://"
+						+ bucketName);
 				System.out.println(text);
 			}
 		}

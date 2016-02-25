@@ -10,12 +10,12 @@ public class InitServlet extends HttpServlet {
 	private String host = "http://localhost";
 	private String contextPath = "/ROOT";
 	private String apiContextPath = "/BY";
-	private String productServerHost = "localhost";
-	private String productServerPort = "8080";
+	private String productServerHost = "qa.beautifulyears.com";
+	private String productServerPort = "8083";
 	private String mailSupported = "";
 	private String imageUploadPath = "c:/uploads";
 	private String sitemapPath = "c:/sitemap";
-	private String s3MediaBucketName = "by-dev-media";
+	private String s3MediaBucketName = "dev-media.beautifulyears.com";
 
 	public void init() {
 		System.out.println("initializing servlet ==================");

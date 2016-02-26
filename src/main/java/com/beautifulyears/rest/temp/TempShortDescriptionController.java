@@ -166,8 +166,8 @@ public class TempShortDescriptionController {
 	private String changeText(String text) {
 
 		if (!Util.isEmpty(text)) {
-			if (text.matches("(?is).*"+CDNConstants.S3_HOST+".*")) {
-				text = text.replaceAll(CDNConstants.S3_HOST, "https://"
+			if (text.matches("(?is).*"+CDNConstants.S3_HOST+"by-dev-media"+".*")) {
+				text = text.replaceAll(CDNConstants.S3_HOST+"by-dev-media", "https://"
 						+ bucketName);
 				System.out.println(text);
 			}

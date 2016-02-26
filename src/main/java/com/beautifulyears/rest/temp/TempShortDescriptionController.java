@@ -137,6 +137,7 @@ public class TempShortDescriptionController {
 					"https://"+bucketName);
 			// System.out.println(imageMap.get("original"));
 			// System.out.println(str);
+			System.out.println("original = "+str);
 			imageMap.put("original", str);
 		}
 		if (!Util.isEmpty(imageMap.get("titleImage"))
@@ -147,6 +148,7 @@ public class TempShortDescriptionController {
 			// str = str.replace("_640_650","");
 			// System.out.println(imageMap.get("titleImage"));
 			// System.out.println(str);
+			System.out.println("titleImage = "+str);
 			imageMap.put("titleImage", str);
 		}
 		if (!Util.isEmpty(imageMap.get("thumbnailImage"))
@@ -154,6 +156,7 @@ public class TempShortDescriptionController {
 			String str = imageMap.get("thumbnailImage");
 			str = str.replace(CDNConstants.S3_HOST+"by-dev-media", 
 					"https://"+bucketName);
+			System.out.println("thumbnail = "+str);
 			// str = str.replace("_135_168","");
 			// System.out.println(imageMap.get("thumbnailImage"));
 			// System.out.println(str);

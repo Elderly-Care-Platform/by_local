@@ -131,9 +131,9 @@ public class TempShortDescriptionController {
 
 	private Map<String, String> checkImageMap(Map<String, String> imageMap) {
 		if (!Util.isEmpty(imageMap.get("original"))
-				&& imageMap.get("original").contains(CDNConstants.S3_HOST+"by-dev-media")) {
+				&& imageMap.get("original").contains(CDNConstants.S3_HOST+"bymedia")) {
 			String str = imageMap.get("original");
-			str = str.replace(CDNConstants.S3_HOST+"by-dev-media", 
+			str = str.replace(CDNConstants.S3_HOST+"bymedia", 
 					"https://"+bucketName);
 			// System.out.println(imageMap.get("original"));
 			// System.out.println(str);
@@ -141,9 +141,9 @@ public class TempShortDescriptionController {
 			imageMap.put("original", str);
 		}
 		if (!Util.isEmpty(imageMap.get("titleImage"))
-				&& imageMap.get("titleImage").contains(CDNConstants.S3_HOST+"by-dev-media")) {
+				&& imageMap.get("titleImage").contains(CDNConstants.S3_HOST+"bymedia")) {
 			String str = imageMap.get("titleImage");
-			str = str.replace(CDNConstants.S3_HOST+"by-dev-media", 
+			str = str.replace(CDNConstants.S3_HOST+"bymedia", 
 					"https://"+bucketName);
 			// str = str.replace("_640_650","");
 			// System.out.println(imageMap.get("titleImage"));
@@ -152,9 +152,9 @@ public class TempShortDescriptionController {
 			imageMap.put("titleImage", str);
 		}
 		if (!Util.isEmpty(imageMap.get("thumbnailImage"))
-				&& imageMap.get("thumbnailImage").contains(CDNConstants.S3_HOST+"by-dev-media")) {
+				&& imageMap.get("thumbnailImage").contains(CDNConstants.S3_HOST+"bymedia")) {
 			String str = imageMap.get("thumbnailImage");
-			str = str.replace(CDNConstants.S3_HOST+"by-dev-media", 
+			str = str.replace(CDNConstants.S3_HOST+"bymedia", 
 					"https://"+bucketName);
 			System.out.println("thumbnail = "+str);
 			// str = str.replace("_135_168","");
@@ -169,8 +169,8 @@ public class TempShortDescriptionController {
 	private String changeText(String text) {
 
 		if (!Util.isEmpty(text)) {
-			if (text.matches("(?is).*"+CDNConstants.S3_HOST+"by-dev-media"+".*")) {
-				text = text.replaceAll(CDNConstants.S3_HOST+"by-dev-media", "https://"
+			if (text.matches("(?is).*"+CDNConstants.S3_HOST+"bymedia"+".*")) {
+				text = text.replaceAll(CDNConstants.S3_HOST+"bymedia", "https://"
 						+ bucketName);
 				System.out.println(text);
 			}

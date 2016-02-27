@@ -20,6 +20,7 @@ import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.HousingFacility;
 import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.util.Util;
+
 //import com.beautifulyears.domain.UserProfile;
 
 @Controller
@@ -27,7 +28,7 @@ import com.beautifulyears.util.Util;
 public class TempShortDescriptionController {
 
 	private MongoTemplate mongoTemplate;
-	private String bucketName;
+	private String cdnPath;
 
 	@Autowired
 	public TempShortDescriptionController(MongoTemplate mongoTemplate) {
@@ -37,9 +38,9 @@ public class TempShortDescriptionController {
 	@RequestMapping(method = RequestMethod.GET, value = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Object changePassword(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
-		bucketName = System.getProperty("s3MediaBucketName");
+		cdnPath = System.getProperty("cdnPath");
 
-		List<UserProfile> userProfiles = mongoTemplate 	
+		List<UserProfile> userProfiles = mongoTemplate
 				.findAll(UserProfile.class);
 		List<Discuss> discuss = mongoTemplate.findAll(Discuss.class);
 		List<HousingFacility> housingFacility = mongoTemplate
@@ -130,37 +131,74 @@ public class TempShortDescriptionController {
 	}
 
 	private Map<String, String> checkImageMap(Map<String, String> imageMap) {
-		if (!Util.isEmpty(imageMap.get("original"))
-				&& imageMap.get("original").contains(CDNConstants.S3_HOST+"bymedia")) {
-			String str = imageMap.get("original");
-			str = str.replace(CDNConstants.S3_HOST+"bymedia", 
-					"https://"+bucketName);
-			// System.out.println(imageMap.get("original"));
-			// System.out.println(str);
-			System.out.println("original = "+str);
-			imageMap.put("original", str);
+		if (!Util.isEmpty(imageMap.get("original"))) {
+			if (imageMap.get("original").contains(
+					CDNConstants.S3_HOST + "bymedia")) {
+				String str = imageMap.get("original");
+				str = str.replace(CDNConstants.S3_HOST + "bymedia", cdnPath);
+				System.out.println("original = " + str);
+				imageMap.put("original", str);
+			}else if (imageMap.get("original").contains(
+					CDNConstants.S3_HOST + "by-dev-media")) {
+				String str = imageMap.get("original");
+				str = str.replace(CDNConstants.S3_HOST + "by-dev-media",
+						cdnPath);
+				System.out.println("original = " + str);
+				imageMap.put("original", str);
+			}else if (imageMap.get("original").contains(
+					CDNConstants.S3_HOST + "media.beautifulyears.com")) {
+				String str = imageMap.get("original");
+				str = str.replace(CDNConstants.S3_HOST + "media.beautifulyears.com",
+						cdnPath);
+				System.out.println("original = " + str);
+				imageMap.put("original", str);
+			}
 		}
-		if (!Util.isEmpty(imageMap.get("titleImage"))
-				&& imageMap.get("titleImage").contains(CDNConstants.S3_HOST+"bymedia")) {
-			String str = imageMap.get("titleImage");
-			str = str.replace(CDNConstants.S3_HOST+"bymedia", 
-					"https://"+bucketName);
-			// str = str.replace("_640_650","");
-			// System.out.println(imageMap.get("titleImage"));
-			// System.out.println(str);
-			System.out.println("titleImage = "+str);
-			imageMap.put("titleImage", str);
+		if (!Util.isEmpty(imageMap.get("titleImage"))) {
+			if (imageMap.get("titleImage").contains(
+					CDNConstants.S3_HOST + "bymedia")) {
+				String str = imageMap.get("titleImage");
+				str = str.replace(CDNConstants.S3_HOST + "bymedia", cdnPath);
+				System.out.println("titleImage = " + str);
+				imageMap.put("titleImage", str);
+			}else if (imageMap.get("titleImage").contains(
+					CDNConstants.S3_HOST + "by-dev-media")) {
+				String str = imageMap.get("titleImage");
+				str = str.replace(CDNConstants.S3_HOST + "by-dev-media",
+						cdnPath);
+				System.out.println("titleImage = " + str);
+				imageMap.put("titleImage", str);
+			}else if (imageMap.get("titleImage").contains(
+					CDNConstants.S3_HOST + "media.beautifulyears.com")) {
+				String str = imageMap.get("titleImage");
+				str = str.replace(CDNConstants.S3_HOST + "media.beautifulyears.com",
+						cdnPath);
+				System.out.println("titleImage = " + str);
+				imageMap.put("titleImage", str);
+			}
 		}
-		if (!Util.isEmpty(imageMap.get("thumbnailImage"))
-				&& imageMap.get("thumbnailImage").contains(CDNConstants.S3_HOST+"bymedia")) {
-			String str = imageMap.get("thumbnailImage");
-			str = str.replace(CDNConstants.S3_HOST+"bymedia", 
-					"https://"+bucketName);
-			System.out.println("thumbnail = "+str);
-			// str = str.replace("_135_168","");
-			// System.out.println(imageMap.get("thumbnailImage"));
-			// System.out.println(str);
-			imageMap.put("thumbnailImage", str);
+		if (!Util.isEmpty(imageMap.get("thumbnailImage"))) {
+			if (imageMap.get("thumbnailImage").contains(
+					CDNConstants.S3_HOST + "bymedia")) {
+				String str = imageMap.get("thumbnailImage");
+				str = str.replace(CDNConstants.S3_HOST + "bymedia", cdnPath);
+				System.out.println("thumbnail = " + str);
+				imageMap.put("thumbnailImage", str);
+			}else if (imageMap.get("thumbnailImage").contains(
+					CDNConstants.S3_HOST + "by-dev-media")) {
+				String str = imageMap.get("thumbnailImage");
+				str = str.replace(CDNConstants.S3_HOST + "by-dev-media",
+						cdnPath);
+				System.out.println("thumbnail = " + str);
+				imageMap.put("thumbnailImage", str);
+			}else if (imageMap.get("thumbnailImage").contains(
+					CDNConstants.S3_HOST + "media.beautifulyears.com")) {
+				String str = imageMap.get("thumbnailImage");
+				str = str.replace(CDNConstants.S3_HOST + "media.beautifulyears.com",
+						cdnPath);
+				System.out.println("thumbnail = " + str);
+				imageMap.put("thumbnailImage", str);
+			}
 		}
 		return imageMap;
 
@@ -169,9 +207,22 @@ public class TempShortDescriptionController {
 	private String changeText(String text) {
 
 		if (!Util.isEmpty(text)) {
-			if (text.matches("(?is).*"+CDNConstants.S3_HOST+"bymedia"+".*")) {
-				text = text.replaceAll(CDNConstants.S3_HOST+"bymedia", "https://"
-						+ bucketName);
+			if (text.matches("(?is).*" + CDNConstants.S3_HOST + "bymedia"
+					+ ".*")) {
+				text = text.replaceAll(CDNConstants.S3_HOST + "bymedia",
+						cdnPath);
+				System.out.println(text);
+			}
+			if (text.matches("(?is).*" + CDNConstants.S3_HOST + "by-dev-media"
+					+ ".*")) {
+				text = text.replaceAll(CDNConstants.S3_HOST + "by-dev-media",
+						cdnPath);
+				System.out.println(text);
+			}
+			if (text.matches("(?is).*" + CDNConstants.S3_HOST + "media.beautifulyears.com"
+					+ ".*")) {
+				text = text.replaceAll(CDNConstants.S3_HOST + "media.beautifulyears.com",
+						cdnPath);
 				System.out.println(text);
 			}
 		}

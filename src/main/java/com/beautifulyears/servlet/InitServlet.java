@@ -16,6 +16,7 @@ public class InitServlet extends HttpServlet {
 	private String imageUploadPath = "c:/uploads";
 	private String sitemapPath = "c:/sitemap";
 	private String s3MediaBucketName = "dev-media.beautifulyears.com";
+	private String cdnPath = "https://d33mlq9vmeqlx3.cloudfront.net";
 
 	public void init() {
 		System.out.println("initializing servlet ==================");
@@ -78,6 +79,12 @@ public class InitServlet extends HttpServlet {
 			s3MediaBucketName = ByWebAppInitializer.servletContext
 					.getInitParameter("s3MediaBucketName");
 		}
+		
+		if (!Util.isEmpty(ByWebAppInitializer.servletContext
+				.getInitParameter("cdnPath"))) {
+			cdnPath = ByWebAppInitializer.servletContext
+					.getInitParameter("cdnPath");
+		}
 
 		System.setProperty("host", host);
 		System.setProperty("apiContextPath", apiContextPath);
@@ -88,6 +95,7 @@ public class InitServlet extends HttpServlet {
 		System.setProperty("mailSupported", mailSupported);
 		System.setProperty("imageUploadPath", imageUploadPath);
 		System.setProperty("sitemapPath", sitemapPath);
+		System.setProperty("cdnPath", cdnPath);
 
 		System.out.println(System.getProperty("path") + ","
 				+ System.getProperty("apiContextPath") + ","
@@ -96,6 +104,7 @@ public class InitServlet extends HttpServlet {
 				+ System.getProperty("mailSupported") + ","
 				+ System.getProperty("sitemapPath") + ","
 				+ System.getProperty("s3MediaBucketName") + ","
+				+ System.getProperty("cdnPath") + ","
 				+ System.getProperty("imageUploadPath"));
 
 	}

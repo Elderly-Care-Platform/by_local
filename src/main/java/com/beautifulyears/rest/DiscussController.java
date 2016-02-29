@@ -34,6 +34,7 @@ import com.beautifulyears.domain.UserProfile;
 import com.beautifulyears.domain.menu.Tag;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
+import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussRepository;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
@@ -92,6 +93,8 @@ public class DiscussController {
 		discuss = discussRepository.save(discuss);
 		logHandler.addLog(discuss, ActivityLogConstants.CRUD_TYPE_CREATE,
 				request);
+		MailHandler.sendMultipleMail(BYConstants.ADMIN_EMAILS,
+				"New Feedback: "+discuss.getTitle(), discuss.getText());
 		logger.info("new feedback entity created with ID: " + discuss.getId());
 		return BYGenericResponseHandler.getResponse(discuss);
 	}

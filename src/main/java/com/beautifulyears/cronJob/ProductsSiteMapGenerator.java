@@ -132,10 +132,10 @@ public class ProductsSiteMapGenerator implements Runnable {
 		String myCodeText = url;
         
         // change path as per your laptop/desktop location
-        String filePath = this.sitemapPath + "/qrCode/"+fileName+".png";
+        String filePath = "/qrCode/"+fileName+".png";
         int size = 125;
         String fileType = "png";
-        File myFile = new File(filePath);
+        File myFile = new File(this.sitemapPath + filePath);
         try {
             Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);

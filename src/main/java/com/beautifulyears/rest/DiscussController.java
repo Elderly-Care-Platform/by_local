@@ -93,8 +93,13 @@ public class DiscussController {
 		discuss = discussRepository.save(discuss);
 		logHandler.addLog(discuss, ActivityLogConstants.CRUD_TYPE_CREATE,
 				request);
-		MailHandler.sendMultipleMail(BYConstants.ADMIN_EMAILS,
-				"New Feedback: "+discuss.getTitle(), discuss.getText());
+		try{
+			MailHandler.sendMultipleMail(BYConstants.ADMIN_EMAILS,
+					"New Feedback: "+discuss.getTitle(), discuss.getText());
+		}catch(Exception e){
+			logger.error("error sending the mail for this feedback");
+		}
+		
 		logger.info("new feedback entity created with ID: " + discuss.getId());
 		return BYGenericResponseHandler.getResponse(discuss);
 	}
@@ -180,13 +185,13 @@ public class DiscussController {
 								Tag.class);
 						systemTags.add(newTag);
 					}
-					Query query = new Query();
-					query.addCriteria(Criteria.where("userId").is(
-							discuss.getUserId()));
-					UserProfile profile = mongoTemplate.findOne(query,
-							UserProfile.class);
+//					Query query = new Query();
+//					query.addCriteria(Criteria.where("userId").is(
+//							discuss.getUserId()));
+//					UserProfile profile = mongoTemplate.findOne(query,
+//							UserProfile.class);
 					oldDiscuss.setSystemTags(systemTags);
-					oldDiscuss.setUserProfile(profile);
+//					oldDiscuss.setUserProfile(profile);
 					discuss = discussRepository.save(oldDiscuss);
 					logHandler.addLog(discuss,
 							ActivityLogConstants.CRUD_TYPE_UPDATE, request);

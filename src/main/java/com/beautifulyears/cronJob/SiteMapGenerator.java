@@ -3,16 +3,22 @@
  */
 package com.beautifulyears.cronJob;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +31,12 @@ import org.springframework.stereotype.Component;
 import com.beautifulyears.repository.HousingRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.util.Util;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.redfin.sitemapgenerator.SitemapIndexGenerator;
 
 /**
@@ -102,11 +114,11 @@ public class SiteMapGenerator {
 		}
 		count++;
 		try {
-			communitySMG.run();
-			listingsSMG.run();
+//			communitySMG.run();
+//			listingsSMG.run();
 			productsSMG.run();
-			servicesSMG.run();
-			housingsSMG.run();
+//			servicesSMG.run();
+//			housingsSMG.run();
 			createIndexSiteMap();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -194,15 +206,59 @@ public class SiteMapGenerator {
 		String htmlStringStart = "<html><head><meta name='robots' content='noindex, follow'></head><body><table "
 				+ "style='text-align: center;width: 100%;border: 1px solid;'>";
 		Iterator<Entry<String, String>> it = allUrls.entrySet().iterator();
+		boolean isProduct = false;
 		while (it.hasNext()) {
 			htmlStringStart += "<tr>";
 			Map.Entry<String, String> pair = (Map.Entry<String, String>) it
 					.next();
 			if (null == pair.getValue()) {
 				htmlStringStart += "<td style='border: 1px solid #748494;'><h1>" + pair.getKey() + "</h1></td>";
+				if("PRODUCTS LINKS".equals(pair.getKey())){
+					isProduct = true;
+				}else{
+					isProduct = false;
+				}
 			} else {
 				htmlStringStart += "<td style='border-bottom: 1px dotted silver;'><a href='" + pair.getValue() + "'>"
 						+ pair.getKey() + "</a></td>";
+//				if(isProduct){
+//					String myCodeText = pair.getValue();
+//			        
+//			        // change path as per your laptop/desktop location
+//			        String filePath = "c:/uploads/qrCode/"+pair.getKey()+".png";
+//			        int size = 125;
+//			        String fileType = "png";
+//			        File myFile = new File(filePath);
+//			        try {
+//			            Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
+//			            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+//			            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+//			            BitMatrix byteMatrix = qrCodeWriter.encode(myCodeText,BarcodeFormat.QR_CODE, size, size, hintMap);
+//			            int CrunchifyWidth = byteMatrix.getWidth();
+//			            BufferedImage image = new BufferedImage(CrunchifyWidth, CrunchifyWidth,
+//			                    BufferedImage.TYPE_INT_RGB);
+//			            image.createGraphics();
+//			 
+//			            Graphics2D graphics = (Graphics2D) image.getGraphics();
+//			            graphics.setColor(Color.WHITE);
+//			            graphics.fillRect(0, 0, CrunchifyWidth, CrunchifyWidth);
+//			            graphics.setColor(Color.BLACK);
+//			 
+//			            for (int i = 0; i < CrunchifyWidth; i++) {
+//			                for (int j = 0; j < CrunchifyWidth; j++) {
+//			                    if (byteMatrix.get(i, j)) {
+//			                        graphics.fillRect(i, j, 1, 1);
+//			                    }
+//			                }
+//			            }
+//			            ImageIO.write(image, fileType, myFile);
+//			        } catch (WriterException e) {
+//			            e.printStackTrace();
+//			        } catch (IOException e) {
+//			            e.printStackTrace();
+//			        }
+//			        System.out.println("\n\nYou have successfully created QR Code.");
+//				}
 			}
 			htmlStringStart += "</tr>";
 

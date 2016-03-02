@@ -185,13 +185,13 @@ public class DiscussController {
 								Tag.class);
 						systemTags.add(newTag);
 					}
-					Query query = new Query();
-					query.addCriteria(Criteria.where("userId").is(
-							discuss.getUserId()));
-					UserProfile profile = mongoTemplate.findOne(query,
-							UserProfile.class);
+//					Query query = new Query();
+//					query.addCriteria(Criteria.where("userId").is(
+//							discuss.getUserId()));
+//					UserProfile profile = mongoTemplate.findOne(query,
+//							UserProfile.class);
 					oldDiscuss.setSystemTags(systemTags);
-					oldDiscuss.setUserProfile(profile);
+//					oldDiscuss.setUserProfile(profile);
 					discuss = discussRepository.save(oldDiscuss);
 					logHandler.addLog(discuss,
 							ActivityLogConstants.CRUD_TYPE_UPDATE, request);

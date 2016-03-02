@@ -3,8 +3,14 @@
  */
 package com.beautifulyears.util;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Hashtable;
+
+import javax.imageio.ImageIO;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -14,6 +20,12 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.beautifulyears.constants.CDNConstants;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 /**
  * @author Nitin
@@ -32,10 +44,22 @@ public class S3FileUploader implements Runnable {
 		this.bucketName = bucketName;
 		this.keyName = keyName;
 		this.file = file;
+		
+//		AWSCredentials awsCredentials = new BasicAWSCredentials(CDNConstants.IMAGE_CDN_ACCESS_KEY,
+//				CDNConstants.IMAGE_CDN_SECRET_KEY);
+//		AmazonCloudFrontClient client = new AmazonCloudFrontClient(awsCredentials);
+//		Paths invalidation_paths = new Paths().withItems("/index.html").withQuantity(1);
+//		InvalidationBatch invalidation_batch = new InvalidationBatch(invalidation_paths, (new Date()).toString());
+//		CreateInvalidationRequest invalidation = new CreateInvalidationRequest("E1QMATPJJBBC7S", invalidation_batch);
+//		CreateInvalidationResult ret = client.createInvalidation(invalidation);
+//		System.out.println(ret);
+		
+
 	}
 
 	public String uploadFile(boolean async) throws AmazonServiceException,
 			AmazonClientException, IOException {
+		
 
 		String path = null;
 		try {

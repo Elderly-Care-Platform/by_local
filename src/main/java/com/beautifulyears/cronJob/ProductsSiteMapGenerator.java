@@ -91,7 +91,8 @@ public class ProductsSiteMapGenerator implements Runnable {
 			for (int i = 0, size = products.length(); i < size; i++) {
 				qrCodeHTML += "<tr>";
 				qrCodeHTML += "<td  style='border: 1px solid black;'>";
-				qrCodeHTML += products.getJSONObject(i).getString("name");
+				qrCodeHTML += "<p style='margin: 0;'>"+products.getJSONObject(i).getLong("id")+"</p>";
+				qrCodeHTML += "<p style='margin: 0;'>"+products.getJSONObject(i).getString("name")+"</p>";
 				qrCodeHTML += "</td>";
 				qrCodeHTML += "<td  style='border: 1px solid black;'><img src='";
 				addProductPage(products_sitemap, products.getJSONObject(i));

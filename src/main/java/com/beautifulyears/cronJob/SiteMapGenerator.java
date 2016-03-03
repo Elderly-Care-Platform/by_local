@@ -27,6 +27,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.repository.HousingRepository;
 import com.beautifulyears.repository.UserProfileRepository;
@@ -45,6 +49,8 @@ import com.redfin.sitemapgenerator.SitemapIndexGenerator;
  */
 
 @Component
+@Controller
+@RequestMapping(value = { "/generateSiteMap" })
 @EnableAsync
 @EnableScheduling
 public class SiteMapGenerator {
@@ -98,6 +104,26 @@ public class SiteMapGenerator {
 
 	private static int count = 0;
 
+	@RequestMapping(method = { RequestMethod.POST }, consumes = { "application/json" })
+	@ResponseBody
+	public void reGenerate() throws Exception{
+		try {
+			communitySMG.run();
+			listingsSMG.run();
+			productsSMG.run();
+			servicesSMG.run();
+			housingsSMG.run();
+			createIndexSiteMap();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+		}
+
+		createMasterSiteMapPage();
+	}
+	
+	
+	
 	@Scheduled(initialDelay = 20000, fixedDelay = 3500000)
 	public void generate() throws Exception {
 		if (!SiteMapGenerator.isInitialized) {
@@ -114,11 +140,11 @@ public class SiteMapGenerator {
 		}
 		count++;
 		try {
-//			communitySMG.run();
-//			listingsSMG.run();
+			communitySMG.run();
+			listingsSMG.run();
 			productsSMG.run();
-//			servicesSMG.run();
-//			housingsSMG.run();
+			servicesSMG.run();
+			housingsSMG.run();
 			createIndexSiteMap();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

@@ -201,7 +201,7 @@ public class DiscussDetailController {
 					query.addCriteria(Criteria.where("userId").is(user.getId()));
 					UserProfile profile = mongoTemplate.findOne(query,
 							UserProfile.class);
-					oldComment.setUserProfile(profile);
+//					oldComment.setUserProfile(profile);
 					oldComment.setText(comment.getText());
 				} else {
 					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);

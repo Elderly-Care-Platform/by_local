@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.constants.ActivityLogConstants;
 import com.beautifulyears.constants.BYConstants;
+import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.Discuss;
 import com.beautifulyears.domain.LinkInfo;
 import com.beautifulyears.domain.User;
@@ -174,6 +176,11 @@ public class DiscussController {
 					Discuss oldDiscuss = mongoTemplate.findById(new ObjectId(
 							discuss.getId()), Discuss.class);
 					oldDiscuss.setText(discuss.getText());
+					org.jsoup.nodes.Document doc = Jsoup.parse(oldDiscuss.getText());
+					String domText = doc.text();
+					if (domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
+						oldDiscuss.setShortSynopsis(Util.truncateText(domText));
+					}
 					oldDiscuss.setTitle(discuss.getTitle());
 					oldDiscuss.setTopicId(discuss.getTopicId());
 					oldDiscuss.setArticlePhotoFilename(discuss

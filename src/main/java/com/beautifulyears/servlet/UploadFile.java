@@ -6,11 +6,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +29,17 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.imgscalr.Scalr;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.simpleemail.AWSJavaMailTransport;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
+import com.amazonaws.services.simpleemail.model.Body;
+import com.amazonaws.services.simpleemail.model.Content;
+import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.Message;
+import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 import com.beautifulyears.constants.BYConstants;
 import com.beautifulyears.constants.CDNConstants;
 import com.beautifulyears.util.S3FileUploader;
@@ -45,6 +62,87 @@ public class UploadFile extends HttpServlet {
 			s3MediaBucketName = System.getProperty("s3MediaBucketName");
 			System.out.println("s3MediaBucketName === " + s3MediaBucketName);
 		}
+
+//		AWSCredentials credentials = new BasicAWSCredentials(
+//				"AKIAJGOEKIENWMH5NXBQ",
+//				"LcHQh962s+0jyfv/agtrc0yZo0pX2lIINJ5Vgg4y");
+//
+//		Properties props = new Properties();
+//		props.setProperty("mail.transport.protocol", "aws");
+//		props.setProperty("mail.aws.user", credentials.getAWSAccessKeyId());
+//		props.setProperty("mail.aws.password", credentials.getAWSSecretKey());
+//
+//		Session session = Session.getInstance(props);
+//
+//		// Create a new Message
+//		Message msg = new MimeMessage(session);
+//		try {
+//			msg.setFrom(new InternetAddress("writetous@beautifulyears.com"));
+//
+//			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+//					"jainnitin.in@gmail.com"));
+//			msg.setSubject("Hello AWS JavaMail World");
+//			msg.setText("Sending email with the AWS JavaMail provider is easy!");
+//			msg.saveChanges();
+//
+//			// Reuse one Transport object for sending all your messages
+//			// for better performance
+//			Transport t = new AWSJavaMailTransport(session, null);
+//			t.connect();
+//			t.sendMessage(msg, null);
+//
+//			// Close your transport when you're completely done sending
+//			// all your messages.
+//			t.close();
+//		} catch (MessagingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//Destination destination = new Destination().withToAddresses(new String[]{"21784127542187ndsbvsd@beautifulyears.com"});
+//        
+//        // Create the subject and body of the message.
+//        Content subject = new Content().withData("test java mail for AWS ses");
+//        Content textBody = new Content().withData("test java mail for AWS ses"); 
+//        Body body = new Body().withText(textBody);
+//        
+//        // Create a message with the specified subject and body.
+//        Message message = new Message().withSubject(subject).withBody(body);
+//        
+//        // Assemble the email.
+//        SendEmailRequest request = new SendEmailRequest().withSource("writetous@beautifulyears.com").withDestination(destination).withMessage(message);
+//        
+//        try
+//        {        
+//            System.out.println("Attempting to send an email through Amazon SES by using the AWS SDK for Java...");
+//        
+//    		AWSCredentials credentials = new BasicAWSCredentials(
+//			"AKIAJGOEKIENWMH5NXBQ",
+//			"LcHQh962s+0jyfv/agtrc0yZo0pX2lIINJ5Vgg4y");
+//            // Instantiate an Amazon SES client, which will make the service call. The service call requires your AWS credentials. 
+//            // Because we're not providing an argument when instantiating the client, the SDK will attempt to find your AWS credentials 
+//            // using the default credential provider chain. The first place the chain looks for the credentials is in environment variables 
+//            // AWS_ACCESS_KEY_ID and AWS_SECRET_KEY. 
+//            // For more information, see http://docs.aws.amazon.com/AWSSdkDocsJava/latest/DeveloperGuide/credentials.html
+//            AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(credentials);
+//               
+//            // Choose the AWS region of the Amazon SES endpoint you want to connect to. Note that your sandbox 
+//            // status, sending limits, and Amazon SES identity-related settings are specific to a given AWS 
+//            // region, so be sure to select an AWS region in which you set up Amazon SES. Here, we are using 
+//            // the US West (Oregon) region. Examples of other regions that Amazon SES supports are US_EAST_1 
+//            // and EU_WEST_1. For a complete list, see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/regions.html 
+//            Region REGION = Region.getRegion(Regions.EU_WEST_1);
+//            client.setRegion(REGION);
+//       
+//            // Send the email.
+//            client.sendEmail(request);  
+//            System.out.println("Email sent!");
+//        }
+//        catch (Exception ex) 
+//        {
+//            System.out.println("The email was not sent.");
+//            System.out.println("Error message: " + ex.getMessage());
+//        }
 	}
 
 	protected void doPost(HttpServletRequest request,
@@ -175,7 +273,7 @@ public class UploadFile extends HttpServlet {
 	}
 
 	private String resizeImage(File newFile, int width, int height,
-			String uploadDir, String fname, String extension,boolean async)
+			String uploadDir, String fname, String extension, boolean async)
 			throws IOException {
 
 		String path = null;
@@ -220,8 +318,8 @@ public class UploadFile extends HttpServlet {
 
 		} else {
 			BufferedImage thumbnail = Scalr.resize(image,
-					Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH, imageWidth,
-					imageHeight, Scalr.OP_ANTIALIAS);
+					Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH,
+					imageWidth, imageHeight, Scalr.OP_ANTIALIAS);
 			File f = File.createTempFile(fname, ".jpg");
 			ImageIO.write(thumbnail, extension, f);
 			path = (new S3FileUploader(s3MediaBucketName, fname + "_" + width

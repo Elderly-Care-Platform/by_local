@@ -3,22 +3,16 @@
  */
 package com.beautifulyears.cronJob;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.beautifulyears.repository.HousingRepository;
 import com.beautifulyears.repository.UserProfileRepository;
 import com.beautifulyears.util.Util;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.redfin.sitemapgenerator.SitemapIndexGenerator;
 
 /**
@@ -87,6 +75,7 @@ public class SiteMapGenerator {
 	private ServicesSiteMapGenerator servicesSMG;
 	private HousingSiteMapGenerator housingsSMG;
 	private ListingsSiteMapGenerator listingsSMG;
+	private SearchSiteMapGenerator searchSMG;
 
 	private MongoTemplate mongoTemplate;
 	private UserProfileRepository userProfileRepository;
@@ -113,6 +102,7 @@ public class SiteMapGenerator {
 			productsSMG.run();
 			servicesSMG.run();
 			housingsSMG.run();
+			searchSMG.run();
 			createIndexSiteMap();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -145,6 +135,7 @@ public class SiteMapGenerator {
 			productsSMG.run();
 			servicesSMG.run();
 			housingsSMG.run();
+			searchSMG.run();
 			createIndexSiteMap();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -205,6 +196,7 @@ public class SiteMapGenerator {
 		sitemap.addUrl(selfUrl + "/sitemaps/listings_sitemap.xml");
 		sitemap.addUrl(selfUrl + "/sitemaps/products_sitemap.xml");
 		sitemap.addUrl(selfUrl + "/sitemaps/services_sitemap.xml");
+		sitemap.addUrl(selfUrl + "/sitemaps/search_sitemap.xml");
 		sitemap.write();
 
 		System.out.println("SMG: finished with inndex file");

@@ -95,7 +95,7 @@ public class SiteMapGenerator {
 
 	@RequestMapping(method = { RequestMethod.POST }, consumes = { "application/json" })
 	@ResponseBody
-	public void reGenerate() throws Exception{
+	public void reGenerate() throws Exception {
 		try {
 			communitySMG.run();
 			listingsSMG.run();
@@ -111,9 +111,7 @@ public class SiteMapGenerator {
 
 		createMasterSiteMapPage();
 	}
-	
-	
-	
+
 	@Scheduled(initialDelay = 20000, fixedDelay = 3500000)
 	public void generate() throws Exception {
 		if (!SiteMapGenerator.isInitialized) {
@@ -179,6 +177,7 @@ public class SiteMapGenerator {
 				mongoTemplate, housingTags, housingRepository);
 		productsSMG = new ProductsSiteMapGenerator(selfUrl, sitemapPath,
 				servicesMenuUrl, productServerHost, productServerPort);
+		searchSMG = new SearchSiteMapGenerator(selfUrl, sitemapPath);
 		SiteMapGenerator.isInitialized = true;
 
 	}
@@ -230,15 +229,16 @@ public class SiteMapGenerator {
 			Map.Entry<String, String> pair = (Map.Entry<String, String>) it
 					.next();
 			if (null == pair.getValue()) {
-				htmlStringStart += "<td style='border: 1px solid #748494;'><h1>" + pair.getKey() + "</h1></td>";
-				if("PRODUCTS LINKS".equals(pair.getKey())){
+				htmlStringStart += "<td style='border: 1px solid #748494;'><h1>"
+						+ pair.getKey() + "</h1></td>";
+				if ("PRODUCTS LINKS".equals(pair.getKey())) {
 					isProduct = true;
-				}else{
+				} else {
 					isProduct = false;
 				}
 			} else {
-				htmlStringStart += "<td style='border-bottom: 1px dotted silver;'><a href='" + pair.getValue() + "'>"
-						+ pair.getKey() + "</a></td>";
+				htmlStringStart += "<td style='border-bottom: 1px dotted silver;'><a href='"
+						+ pair.getValue() + "'>" + pair.getKey() + "</a></td>";
 			}
 			htmlStringStart += "</tr>";
 

@@ -117,7 +117,7 @@ public class ProductsSiteMapGenerator implements Runnable {
 	}
 
 	private WebSitemapGenerator addProductPage(WebSitemapGenerator wsg,
-			JSONObject product) throws MalformedURLException {
+			JSONObject product) throws IOException {
 		String productName = product.getString("name");
 		int productId = product.getInt("id");
 		String slug = Util.getSlug(productName);
@@ -129,7 +129,7 @@ public class ProductsSiteMapGenerator implements Runnable {
 		return wsg;
 	}
 	
-	private String createQrCode(String url,String fileName){
+	private String createQrCode(String url,String fileName) throws IOException{
 		String myCodeText = url;
         
         // change path as per your laptop/desktop location
@@ -137,6 +137,12 @@ public class ProductsSiteMapGenerator implements Runnable {
         int size = 125;
         String fileType = "png";
         File myFile = new File(this.sitemapPath + filePath);
+        File parentDir = myFile.getParentFile();
+        if(parentDir !=null && ! parentDir.exists() ){
+           if(!parentDir.mkdirs()){
+               throw new IOException("error creating directories");
+           }
+        }
         try {
             Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);

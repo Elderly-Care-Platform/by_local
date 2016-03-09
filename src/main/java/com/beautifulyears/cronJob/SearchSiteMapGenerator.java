@@ -623,12 +623,17 @@ public class SearchSiteMapGenerator implements Runnable {
 
 	private WebSitemapGenerator addSearchPage(WebSitemapGenerator wsg,
 			String searchTerm) throws IOException {
+		searchTerm = escapeXml(searchTerm);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
 				+ "/#!/search/" + searchTerm + "/All").lastMod(new Date())
 				.build();
 		wsg.addUrl(wsmUrl);
 		SiteMapGenerator.allUrls.put(searchTerm, wsmUrl.getUrl().toString());
 		return wsg;
+	}
+	
+	private String escapeXml(String s) {
+	    return s.replaceAll("&", "&amp;").replaceAll(">", "&gt;").replaceAll("<", "&lt;").replaceAll("\"", "&quot;").replaceAll("'", "&apos;");
 	}
 
 }

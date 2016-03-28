@@ -110,7 +110,7 @@ public class MailHandler {
 				client.sendEmail(request);
 				System.out.println("Email sent to " + this.recepients);
 			} catch (Exception ex) {
-				System.out.println("The email was not sent.");
+				System.out.println("The email was not sent to ."+this.recepients);
 				System.out.println("Error message: " + ex.getMessage());
 			}
 		}

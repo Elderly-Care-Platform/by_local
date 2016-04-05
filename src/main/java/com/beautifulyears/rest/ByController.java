@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beautifulyears.domain.Language;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
+import com.beautifulyears.util.Util;
 
 /**
  * The REST based service for managing "discuss"
@@ -22,8 +23,7 @@ import com.beautifulyears.rest.response.BYGenericResponseHandler;
 @Controller
 @RequestMapping(value = { "/by" })
 public class ByController {
-	private static final Logger logger = Logger
-			.getLogger(ByController.class);
+	private static final Logger logger = Logger.getLogger(ByController.class);
 	private MongoTemplate mongoTemplate;
 
 	@Autowired
@@ -32,14 +32,14 @@ public class ByController {
 		// this.topicRepository = topicRepository;
 	}
 
-
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/getLanguages" }, produces = { "application/json" })
 	@ResponseBody
-	public Object getLanguages()
-			throws Exception {
+	public Object getLanguages() throws Exception {
 		logger.debug("getting languages");
 		List<Language> languages = null;
 		languages = mongoTemplate.findAll(Language.class);
+		Util.logStats(mongoTemplate, "get all languages", null, null, null,
+				null, null, null, "calling /getLanguages api", "GENERAL");
 		return BYGenericResponseHandler.getResponse(languages);
 	}
 }

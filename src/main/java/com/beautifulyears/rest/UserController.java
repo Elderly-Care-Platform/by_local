@@ -68,15 +68,17 @@ public class UserController {
 	private static void setUserRepository(UserRepository userRepository) {
 		UserController.userRepository = userRepository;
 	}
-	
+
 	@RequestMapping(value = "/addGuestUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Object addGuestUser(@RequestBody User user, HttpServletRequest req,
-				HttpServletResponse res) throws Exception {
-		LoginRequest loginRequest = new LoginRequest(user.getEmail(),null);
-		createGuestUser(loginRequest, false,  req, res);
-		
+	public @ResponseBody Object addGuestUser(@RequestBody User user,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		LoginRequest loginRequest = new LoginRequest(user.getEmail(), null);
+		User newUser = createGuestUser(loginRequest, false, req, res);
+		Util.logStats(mongoTemplate, "New Guest User", newUser.getId(),
+				newUser.getEmail(), newUser.getId(), null, null, null,
+				"new guest user", "USER");
 		return null;
-		}
+	}
 
 	@RequestMapping(value = "/getUserInfoByIdForProducts", method = RequestMethod.GET)
 	public @ResponseBody Object getUserInfoByIdForProducts(
@@ -130,8 +132,8 @@ public class UserController {
 					user = mongoTemplate.findOne(q, User.class);
 					if (null == user
 							&& Util.isEmpty(loginRequest.getPassword())) {
-						user = createGuestUser(loginRequest,true, req, res);
-					} else if(!Util.isEmpty(loginRequest.getPassword())){
+						user = createGuestUser(loginRequest, true, req, res);
+					} else if (!Util.isEmpty(loginRequest.getPassword())) {
 						Util.isPasswordMatching(loginRequest.getPassword(),
 								user.getPassword());
 					}
@@ -177,19 +179,23 @@ public class UserController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "New Login session", session.getUserId(),
+				session.getUserEmail(), session.getSessionId(), null, null,
+				null, "New Login session", "USER");
 		return BYGenericResponseHandler.getResponse(session);
 
 	}
 
-	private User createGuestUser(LoginRequest loginRequest, boolean isSessionRequired,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	private User createGuestUser(LoginRequest loginRequest,
+			boolean isSessionRequired, HttpServletRequest req,
+			HttpServletResponse res) throws Exception {
 		logger.info("creating guest user with emailId = "
 				+ loginRequest.getEmail());
 		User user = new User();
 		user.setEmail(loginRequest.getEmail());
 		user.setUserRegType(BYConstants.USER_REG_TYPE_GUEST);
 		user.setUserIdType(BYConstants.USER_ID_TYPE_EMAIL);
-		submitUser(user,isSessionRequired, req, res);
+		submitUser(user, isSessionRequired, req, res);
 		user = (User) req.getSession().getAttribute("user");
 		return user;
 	}
@@ -205,16 +211,19 @@ public class UserController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "Logout", null,
+				null, null, null, null,
+				null, "Logout", "USER");
 		return BYGenericResponseHandler.getResponse(session);
 	}
 
 	// create user - registration
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Object submitUser(@RequestBody User user, 
-			@RequestParam(value = "session", required = false, defaultValue  = "true") boolean isSession,
-			HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+	public Object submitUser(
+			@RequestBody User user,
+			@RequestParam(value = "session", required = false, defaultValue = "true") boolean isSession,
+			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		Session session = (Session) req.getSession().getAttribute("session");
 		boolean isPasswordEntered = true;
@@ -266,22 +275,25 @@ public class UserController {
 				sendWelcomeMail(userWithExtractedInformation);
 				logHandler.addLog(userWithExtractedInformation,
 						ActivityLogConstants.CRUD_TYPE_CREATE, req);
-				
 
 				if (Util.isEmpty(user.getPassword())) {
 					isPasswordEntered = false;
 				}
-				if(isSession){
+				if (isSession) {
 					req.getSession().setAttribute("user",
 							userWithExtractedInformation);
-					session = createSession(req, res, userWithExtractedInformation,
-							isPasswordEntered);
+					session = createSession(req, res,
+							userWithExtractedInformation, isPasswordEntered);
 				}
 
 			} catch (Exception e) {
 				logger.error("error occured while creating the user");
 				Util.handleException(e);
 			}
+			Util.logStats(mongoTemplate, "Register new User",
+					session.getUserId(), session.getUserEmail(),
+					session.getSessionId(), null, null, null,
+					"Register new User", "USER");
 
 		} else {
 			logger.debug("EDIT USER");
@@ -330,6 +342,9 @@ public class UserController {
 				}
 				session = createSession(req, res, editedUser, isPasswordEntered);
 			}
+			Util.logStats(mongoTemplate, "Edit User Info", session.getUserId(),
+					session.getUserEmail(), session.getSessionId(), null, null,
+					null, "Edit User Info", "USER");
 		}
 		return BYGenericResponseHandler.getResponse(session);
 	}
@@ -377,6 +392,12 @@ public class UserController {
 						ActivityLogConstants.CRUD_TYPE_CREATE,
 						"new user with facebook social sign on", req);
 				sendWelcomeMail(newFbUser);
+				Util.logStats(mongoTemplate,
+						"New Social facebook user registration",
+						newFbUser.getId(), newFbUser.getEmail(),
+						newFbUser.getId(), null, null, null,
+						"New Social facebook user registration", "USER");
+
 			}
 			Session session = createSession(req, res, newFbUser, true);
 
@@ -386,6 +407,10 @@ public class UserController {
 							.getResponse(session)) + ",'*');</script>");
 			out.println("<script>window.close();</script>");
 			logger.debug("returning response for fbRes");
+			Util.logStats(mongoTemplate, "New Social facebook Login session",
+					session.getUserId(), session.getUserEmail(),
+					session.getSessionId(), null, null, null,
+					"New Social facebook Login session", "USER");
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
@@ -436,9 +461,17 @@ public class UserController {
 						ActivityLogConstants.CRUD_TYPE_CREATE,
 						"new user with facebook social sign on", req);
 				sendWelcomeMail(newGoogleUser);
+				Util.logStats(mongoTemplate,
+						"New Social google user registration",
+						newGoogleUser.getId(), newGoogleUser.getEmail(),
+						newGoogleUser.getId(), null, null, null,
+						"New Social google user registration", "USER");
 			}
 			Session session = createSession(req, res, newGoogleUser, true);
-
+			Util.logStats(mongoTemplate, "New Social google Login session",
+					session.getUserId(), session.getUserEmail(),
+					session.getSessionId(), null, null, null,
+					"New Social google Login session", "USER");
 			ServletOutputStream out = res.getOutputStream();
 			out.println("<script>parent.window.opener.postMessage("
 					+ mapper.writeValueAsString(BYGenericResponseHandler
@@ -470,6 +503,9 @@ public class UserController {
 					throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 				}
 				mongoTemplate.save(user);
+				Util.logStats(mongoTemplate, "New reset password get request",
+						user.getId(), user.getEmail(), user.getId(), null,
+						null, null, "New reset password get request", "USER");
 			} else {
 				throw new BYException(BYErrorCodes.USER_EMAIL_DOES_NOT_EXIST);
 			}
@@ -511,6 +547,9 @@ public class UserController {
 		}
 		inValidateAllSessions(user.getId());
 		user1.setPassword(user.getPassword());
+		Util.logStats(mongoTemplate, "New reset password request",
+				user.getId(), user.getEmail(), user.getId(), null, null, null,
+				"New reset password request", "USER");
 		return login(new LoginRequest(user1), req, res);
 	}
 
@@ -531,7 +570,7 @@ public class UserController {
 					throw new BYException(BYErrorCodes.USER_CODE_EXPIRED);
 				}
 			} else {
-				throw new BYException(BYErrorCodes.USER_CODE_DOES_NOT_EXIST);	
+				throw new BYException(BYErrorCodes.USER_CODE_DOES_NOT_EXIST);
 			}
 		} else {
 			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
@@ -610,12 +649,12 @@ public class UserController {
 			return new User(userName, userIdType, userRegType, password, email,
 					phoneNumber, verificationCode, verificationCodeExpiry,
 					socialSignOnId, socialSignOnPlatform, passwordCode,
-					passwordCodeExpiry, userRoleId, "In-Active",userTags);
+					passwordCodeExpiry, userRoleId, "In-Active", userTags);
 		} else {
 			return new User(userName, userIdType, userRegType, password, email,
 					phoneNumber, verificationCode, verificationCodeExpiry,
 					socialSignOnId, socialSignOnPlatform, passwordCode,
-					passwordCodeExpiry, userRoleId, "In-Active",userTags);
+					passwordCodeExpiry, userRoleId, "In-Active", userTags);
 		}
 	}
 

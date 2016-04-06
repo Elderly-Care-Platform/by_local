@@ -49,7 +49,7 @@ import com.beautifulyears.util.activityLogHandler.HousingLogHandler;
 @RequestMapping("/housing")
 public class HousingController {
 	private static HousingRepository staticHousingRepository;
-	private static MongoTemplate staticMongoTemplate;
+	public static MongoTemplate staticMongoTemplate;
 	private static ActivityLogHandler<HousingFacility> logHandler;
 
 	// private static final Logger logger =

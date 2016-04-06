@@ -93,7 +93,7 @@ public class UserProfileController {
 			if (userId != null) {
 				Query q = new Query();
 				q.addCriteria(Criteria.where("userId").is(userId));
-				userProfile = mongoTemplate.findOne(q,UserProfile.class);
+				userProfile = mongoTemplate.findOne(q, UserProfile.class);
 				// if(userProfiles.size() > 0){
 				// userProfile = userProfiles.get(0);
 				// }
@@ -135,7 +135,11 @@ public class UserProfileController {
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
-
+		List<String> filterCriteria = new ArrayList<String>();
+		filterCriteria.add("page = " + page);
+		filterCriteria.add("size = " + size);
+		filterCriteria.add("sort = " + sort);
+		filterCriteria.add("dir = " + dir);
 		LoggerUtil.logEntry();
 		User user = Util.getSessionUser(req);
 		UserProfileResponse.UserProfilePage profilePage = null;
@@ -162,6 +166,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "get page of user profiles", null, null,
+				null, null, null, filterCriteria, "get page of user profiles",
+				"SERVICE");
 		return BYGenericResponseHandler.getResponse(profilePage);
 
 	}
@@ -182,6 +189,14 @@ public class UserProfileController {
 			@RequestParam(value = "sort", required = false, defaultValue = "lastModifiedAt") String sort,
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
+		List<String> filterCriteria = new ArrayList<String>();
+		filterCriteria.add("page = " + page);
+		filterCriteria.add("size = " + size);
+		filterCriteria.add("sort = " + sort);
+		filterCriteria.add("dir = " + dir);
+		filterCriteria.add("tags = " + tags);
+		filterCriteria.add("isFeatured = " + isFeatured);
+		filterCriteria.add("city = " + city);
 
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
 				UserTypes.INSTITUTION_BRANCH, UserTypes.INSTITUTION_PRODUCTS,
@@ -224,6 +239,8 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "get service providers", null, null, null,
+				null, null, filterCriteria, "get service providers", "SERVICE");
 		return BYGenericResponseHandler.getResponse(profilePage);
 	}
 
@@ -242,6 +259,11 @@ public class UserProfileController {
 			@RequestParam(value = "dir", required = false, defaultValue = "0") int dir,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		UserProfilePage userProfilePage = null;
+		List<String> filterCriteria = new ArrayList<String>();
+		filterCriteria.add("page = " + page);
+		filterCriteria.add("size = " + size);
+		filterCriteria.add("sort = " + sort);
+		filterCriteria.add("dir = " + dir);
 		Integer[] userTypes = { UserTypes.INSTITUTION_HOUSING,
 				UserTypes.INSTITUTION_SERVICES, UserTypes.INSTITUTION_PRODUCTS,
 				UserTypes.INSTITUTION_NGO, UserTypes.INDIVIDUAL_PROFESSIONAL };
@@ -269,6 +291,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "get all service providers", null, null,
+				null, null, null, filterCriteria, "get all service providers",
+				"SERVICE");
 		return BYGenericResponseHandler.getResponse(userProfilePage);
 	}
 
@@ -314,6 +339,11 @@ public class UserProfileController {
 							new Thread(userProfileHandler).start();
 							logHandler.addLog(profile,
 									ActivityLogConstants.CRUD_TYPE_CREATE, req);
+							Util.logStats(mongoTemplate,
+									"Create new user profile",
+									userProfile.getUserId(), null,
+									userProfile.getId(), null, null, null,
+									"Create new user profile", "SERVICE");
 						} else {
 							throw new BYException(
 									BYErrorCodes.USER_ALREADY_EXIST);
@@ -370,7 +400,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-
+		Util.logStats(mongoTemplate, "Edit new user profile",
+				userProfile.getUserId(), null, userProfile.getId(), null, null,
+				null, "Edit new user profile", "SERVICE");
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
 				.getUserProfileEntity(profile, currentUser));
 	}
@@ -413,6 +445,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "get user profile's address", userId,
+				null, null, null, null, null, "get user profile's address",
+				"USER");
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 
@@ -465,6 +500,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "update user profile's address", userId,
+				null, null, null, null, null, "update user profile's address",
+				"USER");
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 
@@ -499,6 +537,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "add user profile's address", userId,
+				null, null, null, null, null, "add user profile's address",
+				"USER");
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 

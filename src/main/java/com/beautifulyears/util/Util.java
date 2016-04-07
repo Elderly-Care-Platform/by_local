@@ -139,9 +139,9 @@ public class Util {
 			String userEmail, String mainEntityId, String subEntityId,
 			String queryString, List<String> filterCriteria, String detail,
 			String segment) {
-		if (null != request && !Util.isEmpty(request.getHeader("User-Agent"))) {
-			System.out.println("--------------"
-					+ request.getHeader("User-Agent") + "------------");
+		if (null != request && !Util.isEmpty(request.getHeader("User-Agent"))
+				&& request.getHeader("User-Agent").contains("PhantomJS")) {
+			return;
 		}
 		Util.stasHandler = new UserStatsHandler(mongoTemplate);
 		UserActivityStats stats = new UserActivityStats(activityType, userId,

@@ -6,6 +6,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,6 +83,12 @@ public class ReviewController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<DiscussReply> reviewsList = new ArrayList<DiscussReply>();
 		DiscussDetailResponse responseHandler = new DiscussDetailResponse();
+		List<String> filterCriteria = new ArrayList<String>();
+		filterCriteria.add("reviewContentType = " + contentType);
+		filterCriteria.add("associatedId = " + associatedId);
+		filterCriteria.add("userId = " + userId);
+		filterCriteria.add("verified = " + verified);
+
 		if (null != contentType && null != associatedId) {
 			Query q = new Query();
 			q.addCriteria(Criteria.where("replyType")
@@ -94,6 +101,9 @@ public class ReviewController {
 				q.addCriteria(Criteria.where("userId").is(userId));
 			}
 			reviewsList = mongoTemplate.find(q, DiscussReply.class);
+			Util.logStats(mongoTemplate, "get rate review", null, null, null,
+					null, null, filterCriteria, "get rate and reviews ",
+					"COMMUNITY");
 		} else {
 			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 		}
@@ -122,6 +132,9 @@ public class ReviewController {
 							"RATE_REVIEW")) {
 				if (null != contentType && null != associatedId
 						&& null != newReview) {
+					List<String> filterCriteria = new ArrayList<String>();
+					filterCriteria.add("reviewContentType = " + contentType);
+					filterCriteria.add("associatedId = " + associatedId);
 					if (isSelfAccessment(associatedId, contentType, user)) {
 						throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 					}
@@ -133,6 +146,10 @@ public class ReviewController {
 					}
 					submitRating(contentType, associatedId, newReview, user);
 					submitReview(contentType, associatedId, newReview, user);
+					Util.logStats(mongoTemplate, "Submit Rating & review",
+							user.getId(), user.getEmail(), associatedId, null,
+							null, filterCriteria, "Submit new Rating & review",
+							"COMMUNITY");
 				} else {
 					throw new BYException(BYErrorCodes.MISSING_PARAMETER);
 				}

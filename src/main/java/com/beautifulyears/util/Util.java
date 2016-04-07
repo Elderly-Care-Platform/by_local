@@ -1,13 +1,17 @@
 package com.beautifulyears.util;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.beautifulyears.constants.DiscussConstants;
 import com.beautifulyears.domain.User;
+import com.beautifulyears.domain.UserActivityStats;
 import com.beautifulyears.exceptions.BYErrorCodes;
 import com.beautifulyears.exceptions.BYException;
 
@@ -15,6 +19,7 @@ public class Util {
 
 	private static final Logger logger = Logger.getLogger(Util.class);
 	private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	private static UserStatsHandler stasHandler;
 
 	public static boolean isEmpty(String value) {
 		return value == null || value.trim().length() == 0;
@@ -63,7 +68,8 @@ public class Util {
 	public static String truncateText(String text) {
 		if (text != null
 				&& text.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
-			text = truncateText(text, DiscussConstants.DISCUSS_TRUNCATION_LENGTH);
+			text = truncateText(text,
+					DiscussConstants.DISCUSS_TRUNCATION_LENGTH);
 		}
 		return text;
 	}
@@ -103,7 +109,7 @@ public class Util {
 		}
 		return ret;
 	}
-	
+
 	public static String getSlug(String name) {
 		if (null != name) {
 			org.jsoup.nodes.Document doc = Jsoup.parse(name);
@@ -118,7 +124,7 @@ public class Util {
 		}
 		return name;
 	}
-	
+
 	public static String removeSpecialChars(String name) {
 		String modifiedName = name;
 		if (null != name) {
@@ -126,5 +132,18 @@ public class Util {
 			modifiedName = modifiedName.replaceAll("\\s+", "-").toLowerCase();
 		}
 		return modifiedName;
+	}
+
+	public static void logStats(MongoTemplate mongoTemplate,
+			String activityType, String userId, String userEmail,
+			String mainEntityId, String subEntityId, String queryString,
+			List<String> filterCriteria, String detail, String segment) {
+		Util.stasHandler = new UserStatsHandler(mongoTemplate);
+		UserActivityStats stats = new UserActivityStats(activityType,userId,userEmail,
+				mainEntityId, subEntityId,queryString,
+				filterCriteria, detail, segment);
+		
+		Util.stasHandler.setStats(stats);
+		Util.stasHandler.run();
 	}
 }

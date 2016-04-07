@@ -4,6 +4,7 @@
 package com.beautifulyears.rest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +49,7 @@ import com.beautifulyears.util.activityLogHandler.HousingLogHandler;
 @RequestMapping("/housing")
 public class HousingController {
 	private static HousingRepository staticHousingRepository;
-	private static MongoTemplate staticMongoTemplate;
+	public static MongoTemplate staticMongoTemplate;
 	private static ActivityLogHandler<HousingFacility> logHandler;
 
 	// private static final Logger logger =
@@ -80,27 +81,38 @@ public class HousingController {
 		PageImpl<HousingFacility> page = null;
 		HousingResponse.HousingPage housingPage = null;
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
+		List<String> filterCriteria = new ArrayList<String>();
 		try {
 
 			if (null != tags) {
 				for (String tagId : tags) {
 					tagIds.add(new ObjectId(tagId));
 				}
+				filterCriteria.add("tags = " + tags);
 			}
 
 			Direction sortDirection = Direction.DESC;
+			filterCriteria.add("direction = " + sortDirection);
 			if (dir != 0) {
 				sortDirection = Direction.ASC;
 			}
 
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
+			filterCriteria.add("city = " + city);
+			filterCriteria.add("isFeatured = " + isFeatured);
+			filterCriteria.add("isPromotion = " + isPromotion);
+			filterCriteria.add("pageIndex = " + pageIndex);
+			filterCriteria.add("pageSize = " + pageSize);
 			page = staticHousingRepository.getPage(city, tagIds, userId,
 					isFeatured, isPromotion, pageable);
 			housingPage = HousingResponse.getPage(page, currentUser);
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(staticMongoTemplate, "query for housing listing", null,
+				null, null, null, null, filterCriteria,
+				"getting housings based on filters applied", "SERVICES");
 		return BYGenericResponseHandler.getResponse(housingPage);
 	}
 
@@ -148,6 +160,11 @@ public class HousingController {
 		if (null == housingFacility) {
 			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 		}
+		Util.logStats(staticMongoTemplate, "Detail for housing",
+				currentUser != null ? currentUser.getId() : null,
+				currentUser != null ? currentUser.getEmail() : null, housingId,
+				null, null, Arrays.asList("housingId = " + housingId),
+				"query for housing", "SERVICE");
 		return BYGenericResponseHandler.getResponse(HousingResponse
 				.getHousingEntity(housingFacility, currentUser));
 	}
@@ -209,8 +226,8 @@ public class HousingController {
 			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 		}
 	}
-	
-	public static Long getHousingCount(){
+
+	public static Long getHousingCount() {
 		return staticHousingRepository.getCount();
 	}
 

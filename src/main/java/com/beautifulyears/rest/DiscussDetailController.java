@@ -1,6 +1,7 @@
 package com.beautifulyears.rest;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +85,10 @@ public class DiscussDetailController {
 			@RequestParam(value = "discussId", required = true) String discussId)
 			throws Exception {
 		LoggerUtil.logEntry();
+		Util.logStats(mongoTemplate, "get detail of discuss item", null, null,
+				discussId, null, null,
+				Arrays.asList("discussId = " + discussId),
+				"get detail page for discussId " + discussId, "COMMUNITY");
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
 				discussId, req));
 
@@ -104,6 +109,8 @@ public class DiscussDetailController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		String discussId = comment.getDiscussId();
+		User user = null;
+		DiscussReply parentComment = null;
 		try {
 			Discuss discuss = discussRepository.findOne(discussId);
 			List<DiscussReply> ancestors = null;
@@ -112,7 +119,7 @@ public class DiscussDetailController {
 				comment.setContentType(Util.getDiscussContentType(discuss
 						.getDiscussType()));
 				comment.setReplyType(DiscussConstants.REPLY_TYPE_COMMENT);
-				User user = Util.getSessionUser(req);
+				user = Util.getSessionUser(req);
 				if (null != user
 						&& SessionController.checkCurrentSessionFor(req,
 								"COMMENT")) {
@@ -128,8 +135,8 @@ public class DiscussDetailController {
 				}
 				if (!Util.isEmpty(comment.getParentReplyId())) {
 					// if nested comment
-					DiscussReply parentComment = discussReplyRepository
-							.findOne(comment.getParentReplyId());
+					parentComment = discussReplyRepository.findOne(comment
+							.getParentReplyId());
 					if (null != parentComment) {
 						parentComment.setUrl(comment.getUrl());
 						parentComment.setDirectChildrenCount(parentComment
@@ -159,6 +166,10 @@ public class DiscussDetailController {
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(comment);
+				Util.logStats(mongoTemplate, "new Comment", user.getId(), user
+						.getEmail(), discuss.getId(),
+						parentComment != null ? parentComment.getId() : null,
+						null, null, "new comment added", "COMMUNITY");
 				logHandler.addLog(comment,
 						ActivityLogConstants.CRUD_TYPE_CREATE, req);
 
@@ -175,44 +186,45 @@ public class DiscussDetailController {
 
 	}
 
-	@RequestMapping(method = { RequestMethod.PUT },value = { "/editReply" },  consumes = { "application/json" })
+	@RequestMapping(method = { RequestMethod.PUT }, value = { "/editReply" }, consumes = { "application/json" })
 	@ResponseBody
 	public Object editReply(@RequestBody DiscussReply comment,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoggerUtil.logEntry();
 		User user = Util.getSessionUser(req);
-		DiscussReply oldComment = mongoTemplate.findById(new ObjectId(
-				comment.getId()), DiscussReply.class);
-		if(null == oldComment){
+		DiscussReply oldComment = mongoTemplate.findById(
+				new ObjectId(comment.getId()), DiscussReply.class);
+		if (null == oldComment) {
 			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 		}
 		if (null == user
-				|| (!BYConstants.USER_ROLE_EDITOR.equals(user
-						.getUserRoleId())
+				|| (!BYConstants.USER_ROLE_EDITOR.equals(user.getUserRoleId())
 						&& !BYConstants.USER_ROLE_SUPER_USER.equals(user
 								.getUserRoleId()) && !oldComment.getUserId()
 						.equals(user.getId()))) {
 			throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 		}
 		try {
-				if (SessionController.checkCurrentSessionFor(req,
-								"COMMENT")) {
-					Query query = new Query();
-					query.addCriteria(Criteria.where("userId").is(user.getId()));
-					UserProfile profile = mongoTemplate.findOne(query,
-							UserProfile.class);
-//					oldComment.setUserProfile(profile);
-					oldComment.setText(comment.getText());
-				} else {
-					throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
-				}
+			if (SessionController.checkCurrentSessionFor(req, "COMMENT")) {
+				Query query = new Query();
+				query.addCriteria(Criteria.where("userId").is(user.getId()));
+				UserProfile profile = mongoTemplate.findOne(query,
+						UserProfile.class);
+				// oldComment.setUserProfile(profile);
+				oldComment.setText(comment.getText());
+			} else {
+				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
+			}
 
-				mongoTemplate.save(oldComment);
-				logHandler.addLog(oldComment,
-						ActivityLogConstants.CRUD_TYPE_UPDATE, req);
+			Util.logStats(mongoTemplate, "Edit comment", oldComment.getId(),
+					user.getEmail(), comment.getDiscussId(), null, null, null,
+					"editing the comment", "COMMUNITY");
+			mongoTemplate.save(oldComment);
+			logHandler.addLog(oldComment,
+					ActivityLogConstants.CRUD_TYPE_UPDATE, req);
 
-				logger.debug("new answer posted successfully with replyId = "
-						+ comment.getId());
+			logger.debug("new answer posted successfully with replyId = "
+					+ comment.getId());
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
@@ -261,6 +273,9 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
+				Util.logStats(mongoTemplate, "Add new answer", user.getId(),
+						user.getEmail(), discuss.getId(), null, null, null,
+						"adding new answer", "COMMUNITY");
 				logHandler.addLog(answer,
 						ActivityLogConstants.CRUD_TYPE_CREATE, req);
 				sendMailForReplyOnDiscuss(discuss, user, answer);
@@ -275,8 +290,6 @@ public class DiscussDetailController {
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
 				discussId, req));
 	}
-	
-	
 
 	private DiscussDetailResponse getDiscussDetailById(String discussId,
 			HttpServletRequest req) throws Exception {

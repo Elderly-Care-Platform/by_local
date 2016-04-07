@@ -65,6 +65,12 @@ public class SearchController {
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
 		DiscussPage discussPage = null;
+		List<String> filterCriteria = new ArrayList<String>();
+		filterCriteria.add("term = " + term);
+		filterCriteria.add("sort = " + sort);
+		filterCriteria.add("dir = " + dir);
+		filterCriteria.add("pageIndex = " + Integer.toString(pageIndex));
+		filterCriteria.add("pageSize = " + Integer.toString(pageSize));
 		try {
 			Direction sortDirection = Direction.DESC;
 			if (dir != 0) {
@@ -78,8 +84,8 @@ public class SearchController {
 			Pageable pageable = new PageRequest(pageIndex, pageSize,
 					sortDirection, sort);
 
-			TextCriteria criteria = TextCriteria.forDefaultLanguage().matching(term)
-					.matchingAny(term);
+			TextCriteria criteria = TextCriteria.forDefaultLanguage()
+					.matching(term).matchingAny(term);
 
 			Query query = TextQuery.queryText(criteria).sortByScore();
 			query.addCriteria(Criteria.where("status").is(
@@ -101,6 +107,9 @@ public class SearchController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "search discuss", null, null, null, null,
+				term, filterCriteria, "search discuss for term = " + term,
+				"SEARCH");
 		return BYGenericResponseHandler.getResponse(discussPage);
 	}
 
@@ -117,6 +126,12 @@ public class SearchController {
 		serviceTypes.add(UserTypes.INDIVIDUAL_PROFESSIONAL);
 		serviceTypes.add(UserTypes.INSTITUTION_NGO);
 		serviceTypes.add(UserTypes.INSTITUTION_BRANCH);
+		List<String> filterCriteria = new ArrayList<String>();
+		filterCriteria.add("term = " + term);
+		filterCriteria.add("sort = " + sort);
+		filterCriteria.add("dir = " + dir);
+		filterCriteria.add("pageIndex = " + Integer.toString(pageIndex));
+		filterCriteria.add("pageSize = " + Integer.toString(pageSize));
 
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
@@ -152,6 +167,9 @@ public class SearchController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "search services", null, null, null, null,
+				term, filterCriteria, "search services for term = " + term,
+				"SEARCH");
 		return BYGenericResponseHandler.getResponse(profilePage);
 	}
 
@@ -168,6 +186,12 @@ public class SearchController {
 		LoggerUtil.logEntry();
 		User currentUser = Util.getSessionUser(request);
 		HousingPage housingPage = null;
+		List<String> filterCriteria = new ArrayList<String>();
+		filterCriteria.add("term = " + term);
+		filterCriteria.add("sort = " + sort);
+		filterCriteria.add("dir = " + dir);
+		filterCriteria.add("pageIndex = " + Integer.toString(pageIndex));
+		filterCriteria.add("pageSize = " + Integer.toString(pageSize));
 		try {
 			Direction sortDirection = Direction.DESC;
 			if (dir != 0) {
@@ -197,6 +221,9 @@ public class SearchController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "search housing", null, null, null, null,
+				term, filterCriteria, "search housing for term = " + term,
+				"SEARCH");
 		return BYGenericResponseHandler.getResponse(housingPage);
 	}
 

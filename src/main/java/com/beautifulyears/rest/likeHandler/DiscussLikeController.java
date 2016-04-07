@@ -26,6 +26,7 @@ import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussRepository;
+import com.beautifulyears.rest.HousingController;
 import com.beautifulyears.rest.SessionController;
 import com.beautifulyears.rest.response.BYGenericResponseHandler;
 import com.beautifulyears.rest.response.DiscussResponse;
@@ -47,7 +48,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 	@Autowired
 	public DiscussLikeController(DiscussLikeRepository discussLikeRepository,
 			DiscussRepository discussRepository, MongoTemplate mongoTemplate) {
-		super(discussLikeRepository,mongoTemplate);
+		super(discussLikeRepository, mongoTemplate);
 		this.discussRepository = discussRepository;
 	}
 
@@ -81,7 +82,12 @@ public class DiscussLikeController extends LikeController<Discuss> {
 						discuss.getLikedBy().add(user.getId());
 						sendMailForLike(discuss, user, url);
 						discussRepository.save(discuss);
-						logHandler.addLog(discuss, ActivityLogConstants.CRUD_TYPE_CREATE, req);
+						logHandler.addLog(discuss,
+								ActivityLogConstants.CRUD_TYPE_CREATE, req);
+						Util.logStats(HousingController.staticMongoTemplate,
+								"Like on content", user.getId(),
+								user.getEmail(), discuss.getId(), null, null,
+								null, "Like on content", "COMMUNITY");
 						logger.debug("discuss content liked successfully");
 
 						response = BYGenericResponseHandler
@@ -122,8 +128,8 @@ public class DiscussLikeController extends LikeController<Discuss> {
 				}
 				String userName = !Util.isEmpty(LikedEntity.getUsername()) ? LikedEntity
 						.getUsername() : "Anonymous User";
-						String likingUser = !Util.isEmpty(user.getUserName()) ? user
-								.getUserName() : "Anonymous User";		
+				String likingUser = !Util.isEmpty(user.getUserName()) ? user
+						.getUserName() : "Anonymous User";
 				String body = MessageFormat.format(
 						resourceUtil.getResource("likedBy"), userName,
 						"content", title, likingUser, url, url);

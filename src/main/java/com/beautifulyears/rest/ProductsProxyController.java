@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,9 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
+			Util.logStats(HousingController.staticMongoTemplate,
+					"product post operation", null, null, null, null, null,
+					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(body, headers);
 
@@ -88,6 +92,9 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
+			Util.logStats(HousingController.staticMongoTemplate,
+					"product delete operation", null, null, null, null, null,
+					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
@@ -120,6 +127,9 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
+			Util.logStats(HousingController.staticMongoTemplate,
+					"product update operation", null, null, null, null, null,
+					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(body, headers);
 
@@ -153,6 +163,9 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
+			Util.logStats(HousingController.staticMongoTemplate,
+					"product product get operation", null, null, null, null, null,
+					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
@@ -224,7 +237,8 @@ public class ProductsProxyController {
 			header.set("email", currentUser.getEmail());
 			header.set("userName", currentUser.getUserName());
 			if (null != currentSession) {
-				header.set("sessionType", String.valueOf(currentSession.getSessionType()));
+				header.set("sessionType",
+						String.valueOf(currentSession.getSessionType()));
 			}
 
 		}

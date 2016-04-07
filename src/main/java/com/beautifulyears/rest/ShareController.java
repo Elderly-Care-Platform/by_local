@@ -99,10 +99,14 @@ public class ShareController {
 			logger.error(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 			Util.handleException(e);
 		}
-		
-		shareLogHandler.addLog(discuss,
-				ActivityLogConstants.CRUD_TYPE_CREATE, request);
 
+		shareLogHandler.addLog(discuss, ActivityLogConstants.CRUD_TYPE_CREATE,
+				request);
+
+		Util.logStats(HousingController.staticMongoTemplate,
+				"sharing discuss content on email", currentUser.getId(),
+				currentUser.getEmail(), discussId, null, null, null,
+				"sharing discuss content on email = " + discussId, "COMMUNITY");
 		return discuss;
 	}
 

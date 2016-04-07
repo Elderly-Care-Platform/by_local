@@ -95,14 +95,17 @@ public class DiscussController {
 		discuss = discussRepository.save(discuss);
 		logHandler.addLog(discuss, ActivityLogConstants.CRUD_TYPE_CREATE,
 				request);
-		try{
+		try {
 			MailHandler.sendMultipleMail(BYConstants.ADMIN_EMAILS,
-					"New Feedback: "+discuss.getTitle(), discuss.getText());
-		}catch(Exception e){
+					"New Feedback: " + discuss.getTitle(), discuss.getText());
+		} catch (Exception e) {
 			logger.error("error sending the mail for this feedback");
 		}
-		
+
 		logger.info("new feedback entity created with ID: " + discuss.getId());
+		Util.logStats(mongoTemplate, "New Feedback", discuss.getUserId(), null,
+				discuss.getId(), null, null, null, "new feedback added",
+				"COMMUNITY");
 		return BYGenericResponseHandler.getResponse(discuss);
 	}
 
@@ -122,7 +125,9 @@ public class DiscussController {
 				linkInfo = parser.getUrlDetails();
 			}
 		}
-
+		Util.logStats(mongoTemplate, "Get link Info", null, null, url, null,
+				url, null, "submitting url to get the link preview",
+				"COMMUNITY");
 		return BYGenericResponseHandler.getResponse(linkInfo);
 	}
 
@@ -154,6 +159,10 @@ public class DiscussController {
 		} else {
 			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 		}
+		Util.logStats(mongoTemplate, "NEW " + discuss.getDiscussType()
+				+ " added.", discuss.getUserId(), currentUser.getEmail(),
+				discuss.getId(), null, null, null,
+				"new discuss entity is added", "COMMUNITY");
 		return BYGenericResponseHandler.getResponse(discuss);
 
 	}
@@ -176,7 +185,8 @@ public class DiscussController {
 					Discuss oldDiscuss = mongoTemplate.findById(new ObjectId(
 							discuss.getId()), Discuss.class);
 					oldDiscuss.setText(discuss.getText());
-					org.jsoup.nodes.Document doc = Jsoup.parse(oldDiscuss.getText());
+					org.jsoup.nodes.Document doc = Jsoup.parse(oldDiscuss
+							.getText());
 					String domText = doc.text();
 					if (domText.length() > DiscussConstants.DISCUSS_TRUNCATION_LENGTH) {
 						oldDiscuss.setShortSynopsis(Util.truncateText(domText));
@@ -192,19 +202,27 @@ public class DiscussController {
 								Tag.class);
 						systemTags.add(newTag);
 					}
-//					Query query = new Query();
-//					query.addCriteria(Criteria.where("userId").is(
-//							discuss.getUserId()));
-//					UserProfile profile = mongoTemplate.findOne(query,
-//							UserProfile.class);
+					// Query query = new Query();
+					// query.addCriteria(Criteria.where("userId").is(
+					// discuss.getUserId()));
+					// UserProfile profile = mongoTemplate.findOne(query,
+					// UserProfile.class);
 					oldDiscuss.setSystemTags(systemTags);
-//					oldDiscuss.setUserProfile(profile);
+					// oldDiscuss.setUserProfile(profile);
 					discuss = discussRepository.save(oldDiscuss);
 					logHandler.addLog(discuss,
 							ActivityLogConstants.CRUD_TYPE_UPDATE, request);
 					logger.info("new discuss entity created with ID: "
 							+ discuss.getId() + " by User "
 							+ discuss.getUserId());
+
+					Util.logStats(mongoTemplate,
+							"EDIT " + discuss.getDiscussType()
+									+ " discuss content.", discuss.getUserId(),
+							currentUser.getEmail(), discuss.getId(), null,
+							null, null, "new discuss entity is added",
+							"COMMUNITY");
+
 				} else {
 					throw new BYException(BYErrorCodes.USER_NOT_AUTHORIZED);
 				}
@@ -285,6 +303,9 @@ public class DiscussController {
 			this.discussRepository.save(sharedDiscuss);
 			shareLogHandler.addLog(sharedDiscuss,
 					ActivityLogConstants.CRUD_TYPE_CREATE, request);
+			Util.logStats(mongoTemplate, "Share a discuss", null, null,
+					sharedDiscuss.getId(), null, null, null,
+					"sharing a discuss content", "COMMUNITY");
 
 		}
 		return BYGenericResponseHandler.getResponse(sharedDiscuss);
@@ -306,12 +327,14 @@ public class DiscussController {
 		LoggerUtil.logEntry();
 		Map<String, Long> obj = new HashMap<String, Long>();
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
+		List<String> filterCriteria = new ArrayList<String>();
 		try {
 
 			if (null != tags) {
 				for (String tagId : tags) {
 					tagIds.add(new ObjectId(tagId));
 				}
+				filterCriteria.add("tags = " + tags.toString());
 			}
 			Long questionsCount = null;
 			Long postsCount = null;
@@ -320,20 +343,24 @@ public class DiscussController {
 				questionsCount = discussRepository.getCount(
 						(new ArrayList<String>(Arrays.asList("Q"))), tagIds,
 						userId, isFeatured, isPromotion);
+				filterCriteria.add(" contentType = q");
 				obj.put("q", new Long(questionsCount));
 			}
 			if (contentTypes.contains("p")) {
 				postsCount = discussRepository.getCount((new ArrayList<String>(
 						Arrays.asList("P"))), tagIds, userId, isFeatured,
 						isPromotion);
+				filterCriteria.add(" contentType = p");
 				obj.put("p", new Long(postsCount));
 			}
 			if (contentTypes.contains("f")) {
 				featuredCount = discussRepository.getCount(null, tagIds,
 						userId, true, isPromotion);
+				filterCriteria.add(" contentType = featured");
 				obj.put("featured", new Long(featuredCount));
 			}
 			if (contentTypes.contains("total")) {
+				filterCriteria.add(" contentType = total");
 				if (null == questionsCount) {
 					questionsCount = discussRepository.getCount(
 							(new ArrayList<String>(Arrays.asList("Q"))),
@@ -350,6 +377,9 @@ public class DiscussController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
+		Util.logStats(mongoTemplate, "count query for discuss", null, null,
+				null, null, null, filterCriteria, "querying count for discuss",
+				"COMMUNITY");
 		return BYGenericResponseHandler.getResponse(obj);
 	}
 

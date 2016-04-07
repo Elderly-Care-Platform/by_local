@@ -23,6 +23,7 @@ import com.beautifulyears.exceptions.BYException;
 import com.beautifulyears.mail.MailHandler;
 import com.beautifulyears.repository.DiscussLikeRepository;
 import com.beautifulyears.repository.DiscussReplyRepository;
+import com.beautifulyears.rest.HousingController;
 import com.beautifulyears.rest.SessionController;
 import com.beautifulyears.util.LoggerUtil;
 import com.beautifulyears.util.ResourceUtil;
@@ -86,6 +87,9 @@ public class UserProfileReviewLikeController extends
 				if (null != user && reply.getLikedBy().contains(user.getId())) {
 					reply.setLikedByUser(true);
 				}
+				Util.logStats(HousingController.staticMongoTemplate,
+						"like on review ", user.getId(), user.getEmail(), null,
+						null, null, null, "like on review ", "COMMUNITY");
 			} catch (Exception e) {
 				Util.handleException(e);
 			}

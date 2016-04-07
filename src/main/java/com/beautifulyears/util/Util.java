@@ -135,14 +135,19 @@ public class Util {
 	}
 
 	public static void logStats(MongoTemplate mongoTemplate,
-			String activityType, String userId, String userEmail,
-			String mainEntityId, String subEntityId, String queryString,
-			List<String> filterCriteria, String detail, String segment) {
+			HttpServletRequest request, String activityType, String userId,
+			String userEmail, String mainEntityId, String subEntityId,
+			String queryString, List<String> filterCriteria, String detail,
+			String segment) {
+		if (null != request && !Util.isEmpty(request.getHeader("User-Agent"))) {
+			System.out.println("--------------"
+					+ request.getHeader("User-Agent") + "------------");
+		}
 		Util.stasHandler = new UserStatsHandler(mongoTemplate);
-		UserActivityStats stats = new UserActivityStats(activityType,userId,userEmail,
-				mainEntityId, subEntityId,queryString,
+		UserActivityStats stats = new UserActivityStats(activityType, userId,
+				userEmail, mainEntityId, subEntityId, queryString,
 				filterCriteria, detail, segment);
-		
+
 		Util.stasHandler.setStats(stats);
 		Util.stasHandler.run();
 	}

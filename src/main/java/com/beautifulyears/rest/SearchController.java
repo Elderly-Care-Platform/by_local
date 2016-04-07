@@ -107,9 +107,9 @@ public class SearchController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "search discuss", null, null, null, null,
-				term, filterCriteria, "search discuss for term = " + term,
-				"SEARCH");
+		Util.logStats(mongoTemplate, request, "search discuss", null, null,
+				null, null, term, filterCriteria, "search discuss for term = "
+						+ term, "SEARCH");
 		return BYGenericResponseHandler.getResponse(discussPage);
 	}
 
@@ -167,9 +167,9 @@ public class SearchController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "search services", null, null, null, null,
-				term, filterCriteria, "search services for term = " + term,
-				"SEARCH");
+		Util.logStats(mongoTemplate, request, "search services", null, null,
+				null, null, term, filterCriteria, "search services for term = "
+						+ term, "SEARCH");
 		return BYGenericResponseHandler.getResponse(profilePage);
 	}
 
@@ -221,9 +221,9 @@ public class SearchController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "search housing", null, null, null, null,
-				term, filterCriteria, "search housing for term = " + term,
-				"SEARCH");
+		Util.logStats(mongoTemplate, request, "search housing", null, null,
+				null, null, term, filterCriteria, "search housing for term = "
+						+ term, "SEARCH");
 		return BYGenericResponseHandler.getResponse(housingPage);
 	}
 

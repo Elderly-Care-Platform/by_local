@@ -103,17 +103,17 @@ public class DiscussController {
 		}
 
 		logger.info("new feedback entity created with ID: " + discuss.getId());
-		Util.logStats(mongoTemplate, "New Feedback", discuss.getUserId(), null,
-				discuss.getId(), null, null, null, "new feedback added",
-				"COMMUNITY");
+		Util.logStats(mongoTemplate, request, "New Feedback",
+				discuss.getUserId(), null, discuss.getId(), null, null, null,
+				"new feedback added", "COMMUNITY");
 		return BYGenericResponseHandler.getResponse(discuss);
 	}
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/getLinkInfo" }, produces = { "application/json" })
 	@ResponseBody
 	public Object getLinkInfo(
-			@RequestParam(value = "url", required = true) String url)
-			throws Exception {
+			@RequestParam(value = "url", required = true) String url,
+			HttpServletRequest req) throws Exception {
 		LinkInfo linkInfo = null;
 		WebPageParser parser = null;
 		try {
@@ -125,8 +125,8 @@ public class DiscussController {
 				linkInfo = parser.getUrlDetails();
 			}
 		}
-		Util.logStats(mongoTemplate, "Get link Info", null, null, url, null,
-				url, null, "submitting url to get the link preview",
+		Util.logStats(mongoTemplate, req, "Get link Info", null, null, url,
+				null, url, null, "submitting url to get the link preview",
 				"COMMUNITY");
 		return BYGenericResponseHandler.getResponse(linkInfo);
 	}
@@ -159,7 +159,7 @@ public class DiscussController {
 		} else {
 			throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 		}
-		Util.logStats(mongoTemplate, "NEW " + discuss.getDiscussType()
+		Util.logStats(mongoTemplate, request, "NEW " + discuss.getDiscussType()
 				+ " added.", discuss.getUserId(), currentUser.getEmail(),
 				discuss.getId(), null, null, null,
 				"new discuss entity is added", "COMMUNITY");
@@ -216,7 +216,7 @@ public class DiscussController {
 							+ discuss.getId() + " by User "
 							+ discuss.getUserId());
 
-					Util.logStats(mongoTemplate,
+					Util.logStats(mongoTemplate, request,
 							"EDIT " + discuss.getDiscussType()
 									+ " discuss content.", discuss.getUserId(),
 							currentUser.getEmail(), discuss.getId(), null,
@@ -303,8 +303,8 @@ public class DiscussController {
 			this.discussRepository.save(sharedDiscuss);
 			shareLogHandler.addLog(sharedDiscuss,
 					ActivityLogConstants.CRUD_TYPE_CREATE, request);
-			Util.logStats(mongoTemplate, "Share a discuss", null, null,
-					sharedDiscuss.getId(), null, null, null,
+			Util.logStats(mongoTemplate, request, "Share a discuss", null,
+					null, sharedDiscuss.getId(), null, null, null,
 					"sharing a discuss content", "COMMUNITY");
 
 		}
@@ -322,8 +322,8 @@ public class DiscussController {
 			@RequestParam(value = "userId", required = false) String userId,
 			@RequestParam(value = "isFeatured", required = false) Boolean isFeatured,
 			@RequestParam(value = "isPromotion", required = false) Boolean isPromotion,
-			@RequestParam(value = "contentTypes", required = true) List<String> contentTypes)
-			throws Exception {
+			@RequestParam(value = "contentTypes", required = true) List<String> contentTypes,
+			HttpServletRequest request) throws Exception {
 		LoggerUtil.logEntry();
 		Map<String, Long> obj = new HashMap<String, Long>();
 		List<ObjectId> tagIds = new ArrayList<ObjectId>();
@@ -377,9 +377,9 @@ public class DiscussController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "count query for discuss", null, null,
-				null, null, null, filterCriteria, "querying count for discuss",
-				"COMMUNITY");
+		Util.logStats(mongoTemplate, request, "count query for discuss", null,
+				null, null, null, null, filterCriteria,
+				"querying count for discuss", "COMMUNITY");
 		return BYGenericResponseHandler.getResponse(obj);
 	}
 

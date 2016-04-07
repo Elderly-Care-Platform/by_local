@@ -87,7 +87,7 @@ public class UserProfileReviewLikeController extends
 				if (null != user && reply.getLikedBy().contains(user.getId())) {
 					reply.setLikedByUser(true);
 				}
-				Util.logStats(HousingController.staticMongoTemplate,
+				Util.logStats(HousingController.staticMongoTemplate, req,
 						"like on review ", user.getId(), user.getEmail(), null,
 						null, null, null, "like on review ", "COMMUNITY");
 			} catch (Exception e) {

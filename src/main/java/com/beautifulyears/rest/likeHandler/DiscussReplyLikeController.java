@@ -116,7 +116,7 @@ public class DiscussReplyLikeController extends LikeController<DiscussReply> {
 			} else {
 				throw new BYException(BYErrorCodes.DISCUSS_NOT_FOUND);
 			}
-			Util.logStats(HousingController.staticMongoTemplate,
+			Util.logStats(HousingController.staticMongoTemplate, req,
 					"Like on comment", user.getId(), user.getEmail(),
 					reply.getId(), null, null, null,
 					"Like on content with type " + reply.getContentType(),

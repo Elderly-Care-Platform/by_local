@@ -74,7 +74,7 @@ public class UserController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		LoginRequest loginRequest = new LoginRequest(user.getEmail(), null);
 		User newUser = createGuestUser(loginRequest, false, req, res);
-		Util.logStats(mongoTemplate, "New Guest User", newUser.getId(),
+		Util.logStats(mongoTemplate, req, "New Guest User", newUser.getId(),
 				newUser.getEmail(), newUser.getId(), null, null, null,
 				"new guest user", "USER");
 		return null;
@@ -179,9 +179,10 @@ public class UserController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "New Login session", session.getUserId(),
-				session.getUserEmail(), session.getSessionId(), null, null,
-				null, "New Login session", "USER");
+		Util.logStats(mongoTemplate, req, "New Login session",
+				session.getUserId(), session.getUserEmail(),
+				session.getSessionId(), null, null, null, "New Login session",
+				"USER");
 		return BYGenericResponseHandler.getResponse(session);
 
 	}
@@ -211,9 +212,8 @@ public class UserController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "Logout", null,
-				null, null, null, null,
-				null, "Logout", "USER");
+		Util.logStats(mongoTemplate, req, "Logout", null, null, null, null,
+				null, null, "Logout", "USER");
 		return BYGenericResponseHandler.getResponse(session);
 	}
 
@@ -290,7 +290,7 @@ public class UserController {
 				logger.error("error occured while creating the user");
 				Util.handleException(e);
 			}
-			Util.logStats(mongoTemplate, "Register new User",
+			Util.logStats(mongoTemplate, req, "Register new User",
 					session.getUserId(), session.getUserEmail(),
 					session.getSessionId(), null, null, null,
 					"Register new User", "USER");
@@ -342,9 +342,10 @@ public class UserController {
 				}
 				session = createSession(req, res, editedUser, isPasswordEntered);
 			}
-			Util.logStats(mongoTemplate, "Edit User Info", session.getUserId(),
-					session.getUserEmail(), session.getSessionId(), null, null,
-					null, "Edit User Info", "USER");
+			Util.logStats(mongoTemplate, req, "Edit User Info",
+					session.getUserId(), session.getUserEmail(),
+					session.getSessionId(), null, null, null, "Edit User Info",
+					"USER");
 		}
 		return BYGenericResponseHandler.getResponse(session);
 	}
@@ -392,7 +393,7 @@ public class UserController {
 						ActivityLogConstants.CRUD_TYPE_CREATE,
 						"new user with facebook social sign on", req);
 				sendWelcomeMail(newFbUser);
-				Util.logStats(mongoTemplate,
+				Util.logStats(mongoTemplate, req,
 						"New Social facebook user registration",
 						newFbUser.getId(), newFbUser.getEmail(),
 						newFbUser.getId(), null, null, null,
@@ -407,10 +408,10 @@ public class UserController {
 							.getResponse(session)) + ",'*');</script>");
 			out.println("<script>window.close();</script>");
 			logger.debug("returning response for fbRes");
-			Util.logStats(mongoTemplate, "New Social facebook Login session",
-					session.getUserId(), session.getUserEmail(),
-					session.getSessionId(), null, null, null,
-					"New Social facebook Login session", "USER");
+			Util.logStats(mongoTemplate, req,
+					"New Social facebook Login session", session.getUserId(),
+					session.getUserEmail(), session.getSessionId(), null, null,
+					null, "New Social facebook Login session", "USER");
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
@@ -461,17 +462,17 @@ public class UserController {
 						ActivityLogConstants.CRUD_TYPE_CREATE,
 						"new user with facebook social sign on", req);
 				sendWelcomeMail(newGoogleUser);
-				Util.logStats(mongoTemplate,
+				Util.logStats(mongoTemplate, req,
 						"New Social google user registration",
 						newGoogleUser.getId(), newGoogleUser.getEmail(),
 						newGoogleUser.getId(), null, null, null,
 						"New Social google user registration", "USER");
 			}
 			Session session = createSession(req, res, newGoogleUser, true);
-			Util.logStats(mongoTemplate, "New Social google Login session",
-					session.getUserId(), session.getUserEmail(),
-					session.getSessionId(), null, null, null,
-					"New Social google Login session", "USER");
+			Util.logStats(mongoTemplate, req,
+					"New Social google Login session", session.getUserId(),
+					session.getUserEmail(), session.getSessionId(), null, null,
+					null, "New Social google Login session", "USER");
 			ServletOutputStream out = res.getOutputStream();
 			out.println("<script>parent.window.opener.postMessage("
 					+ mapper.writeValueAsString(BYGenericResponseHandler
@@ -503,9 +504,10 @@ public class UserController {
 					throw new BYException(BYErrorCodes.ERROR_IN_SENDING_MAIL);
 				}
 				mongoTemplate.save(user);
-				Util.logStats(mongoTemplate, "New reset password get request",
-						user.getId(), user.getEmail(), user.getId(), null,
-						null, null, "New reset password get request", "USER");
+				Util.logStats(mongoTemplate, req,
+						"New reset password get request", user.getId(),
+						user.getEmail(), user.getId(), null, null, null,
+						"New reset password get request", "USER");
 			} else {
 				throw new BYException(BYErrorCodes.USER_EMAIL_DOES_NOT_EXIST);
 			}
@@ -547,7 +549,7 @@ public class UserController {
 		}
 		inValidateAllSessions(user.getId());
 		user1.setPassword(user.getPassword());
-		Util.logStats(mongoTemplate, "New reset password request",
+		Util.logStats(mongoTemplate, req, "New reset password request",
 				user.getId(), user.getEmail(), user.getId(), null, null, null,
 				"New reset password request", "USER");
 		return login(new LoginRequest(user1), req, res);

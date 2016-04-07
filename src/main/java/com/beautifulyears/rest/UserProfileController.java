@@ -166,9 +166,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "get page of user profiles", null, null,
-				null, null, null, filterCriteria, "get page of user profiles",
-				"SERVICE");
+		Util.logStats(mongoTemplate, req, "get page of user profiles", null,
+				null, null, null, null, filterCriteria,
+				"get page of user profiles", "SERVICE");
 		return BYGenericResponseHandler.getResponse(profilePage);
 
 	}
@@ -239,8 +239,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "get service providers", null, null, null,
-				null, null, filterCriteria, "get service providers", "SERVICE");
+		Util.logStats(mongoTemplate, req, "get service providers", null, null,
+				null, null, null, filterCriteria, "get service providers",
+				"SERVICE");
 		return BYGenericResponseHandler.getResponse(profilePage);
 	}
 
@@ -291,9 +292,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "get all service providers", null, null,
-				null, null, null, filterCriteria, "get all service providers",
-				"SERVICE");
+		Util.logStats(mongoTemplate, req, "get all service providers", null,
+				null, null, null, null, filterCriteria,
+				"get all service providers", "SERVICE");
 		return BYGenericResponseHandler.getResponse(userProfilePage);
 	}
 
@@ -339,7 +340,7 @@ public class UserProfileController {
 							new Thread(userProfileHandler).start();
 							logHandler.addLog(profile,
 									ActivityLogConstants.CRUD_TYPE_CREATE, req);
-							Util.logStats(mongoTemplate,
+							Util.logStats(mongoTemplate, req,
 									"Create new user profile",
 									userProfile.getUserId(), null,
 									userProfile.getId(), null, null, null,
@@ -400,7 +401,7 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "Edit new user profile",
+		Util.logStats(mongoTemplate, req, "Edit new user profile",
 				userProfile.getUserId(), null, userProfile.getId(), null, null,
 				null, "Edit new user profile", "SERVICE");
 		return BYGenericResponseHandler.getResponse(UserProfileResponse
@@ -445,7 +446,7 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "get user profile's address", userId,
+		Util.logStats(mongoTemplate, req, "get user profile's address", userId,
 				null, null, null, null, null, "get user profile's address",
 				"USER");
 		return BYGenericResponseHandler.getResponse(userAddress);
@@ -500,9 +501,9 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "update user profile's address", userId,
-				null, null, null, null, null, "update user profile's address",
-				"USER");
+		Util.logStats(mongoTemplate, req, "update user profile's address",
+				userId, null, null, null, null, null,
+				"update user profile's address", "USER");
 		return BYGenericResponseHandler.getResponse(userAddress);
 	}
 
@@ -537,7 +538,7 @@ public class UserProfileController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(mongoTemplate, "add user profile's address", userId,
+		Util.logStats(mongoTemplate, req, "add user profile's address", userId,
 				null, null, null, null, null, "add user profile's address",
 				"USER");
 		return BYGenericResponseHandler.getResponse(userAddress);

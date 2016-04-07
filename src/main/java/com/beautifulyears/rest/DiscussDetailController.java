@@ -85,8 +85,8 @@ public class DiscussDetailController {
 			@RequestParam(value = "discussId", required = true) String discussId)
 			throws Exception {
 		LoggerUtil.logEntry();
-		Util.logStats(mongoTemplate, "get detail of discuss item", null, null,
-				discussId, null, null,
+		Util.logStats(mongoTemplate, req, "get detail of discuss item", null,
+				null, discussId, null, null,
 				Arrays.asList("discussId = " + discussId),
 				"get detail page for discussId " + discussId, "COMMUNITY");
 		return BYGenericResponseHandler.getResponse(getDiscussDetailById(
@@ -166,8 +166,8 @@ public class DiscussDetailController {
 				discuss.setAggrReplyCount(discuss.getAggrReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(comment);
-				Util.logStats(mongoTemplate, "new Comment", user.getId(), user
-						.getEmail(), discuss.getId(),
+				Util.logStats(mongoTemplate, req, "new Comment", user.getId(),
+						user.getEmail(), discuss.getId(),
 						parentComment != null ? parentComment.getId() : null,
 						null, null, "new comment added", "COMMUNITY");
 				logHandler.addLog(comment,
@@ -216,8 +216,9 @@ public class DiscussDetailController {
 				throw new BYException(BYErrorCodes.USER_LOGIN_REQUIRED);
 			}
 
-			Util.logStats(mongoTemplate, "Edit comment", oldComment.getId(),
-					user.getEmail(), comment.getDiscussId(), null, null, null,
+			Util.logStats(mongoTemplate, req, "Edit comment",
+					oldComment.getId(), user.getEmail(),
+					comment.getDiscussId(), null, null, null,
 					"editing the comment", "COMMUNITY");
 			mongoTemplate.save(oldComment);
 			logHandler.addLog(oldComment,
@@ -273,9 +274,9 @@ public class DiscussDetailController {
 				discuss.setDirectReplyCount(discuss.getDirectReplyCount() + 1);
 				mongoTemplate.save(discuss);
 				mongoTemplate.save(answer);
-				Util.logStats(mongoTemplate, "Add new answer", user.getId(),
-						user.getEmail(), discuss.getId(), null, null, null,
-						"adding new answer", "COMMUNITY");
+				Util.logStats(mongoTemplate, req, "Add new answer",
+						user.getId(), user.getEmail(), discuss.getId(), null,
+						null, null, "adding new answer", "COMMUNITY");
 				logHandler.addLog(answer,
 						ActivityLogConstants.CRUD_TYPE_CREATE, req);
 				sendMailForReplyOnDiscuss(discuss, user, answer);

@@ -62,7 +62,7 @@ public class UserAddressController {
 			q.addCriteria(Criteria.where("id").is(addressId));
 		}
 		addressList = mongoTemplate.find(q, UserShippingAddress.class);
-		Util.logStats(mongoTemplate, "get user shipping address", userId,
+		Util.logStats(mongoTemplate, req, "get user shipping address", userId,
 				user.getEmail(), null, null, null, null,
 				"getting shipping address ", "PRODUCT");
 		return BYGenericResponseHandler.getResponse(addressList);
@@ -84,7 +84,7 @@ public class UserAddressController {
 			address.setId(null);
 			mongoTemplate.save(address);
 		}
-		Util.logStats(mongoTemplate, "New shipping address", userId, null,
+		Util.logStats(mongoTemplate, req, "New shipping address", userId, null,
 				address.getId(), null, null, null,
 				"Adding new shipping address", "PRODUCT");
 		return BYGenericResponseHandler.getResponse(address);
@@ -114,8 +114,8 @@ public class UserAddressController {
 			updateWithNewAddress(oldAddress, address);
 
 			mongoTemplate.save(oldAddress);
-			Util.logStats(mongoTemplate, "Editing shipping address", userId,
-					null, address.getId(), null, null, null,
+			Util.logStats(mongoTemplate, req, "Editing shipping address",
+					userId, null, address.getId(), null, null, null,
 					"Editing new shipping address", "PRODUCT");
 			ret = BYGenericResponseHandler.getResponse(oldAddress);
 		}

@@ -101,8 +101,8 @@ public class ReviewController {
 				q.addCriteria(Criteria.where("userId").is(userId));
 			}
 			reviewsList = mongoTemplate.find(q, DiscussReply.class);
-			Util.logStats(mongoTemplate, "get rate review", null, null, null,
-					null, null, filterCriteria, "get rate and reviews ",
+			Util.logStats(mongoTemplate, req, "get rate review", null, null,
+					null, null, null, filterCriteria, "get rate and reviews ",
 					"COMMUNITY");
 		} else {
 			throw new BYException(BYErrorCodes.MISSING_PARAMETER);
@@ -146,7 +146,7 @@ public class ReviewController {
 					}
 					submitRating(contentType, associatedId, newReview, user);
 					submitReview(contentType, associatedId, newReview, user);
-					Util.logStats(mongoTemplate, "Submit Rating & review",
+					Util.logStats(mongoTemplate, req, "Submit Rating & review",
 							user.getId(), user.getEmail(), associatedId, null,
 							null, filterCriteria, "Submit new Rating & review",
 							"COMMUNITY");

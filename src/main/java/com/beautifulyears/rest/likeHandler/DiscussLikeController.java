@@ -85,7 +85,7 @@ public class DiscussLikeController extends LikeController<Discuss> {
 						logHandler.addLog(discuss,
 								ActivityLogConstants.CRUD_TYPE_CREATE, req);
 						Util.logStats(HousingController.staticMongoTemplate,
-								"Like on content", user.getId(),
+								req, "Like on content", user.getId(),
 								user.getEmail(), discuss.getId(), null, null,
 								null, "Like on content", "COMMUNITY");
 						logger.debug("discuss content liked successfully");

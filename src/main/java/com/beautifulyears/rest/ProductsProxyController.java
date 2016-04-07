@@ -57,7 +57,7 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
-			Util.logStats(HousingController.staticMongoTemplate,
+			Util.logStats(HousingController.staticMongoTemplate, request,
 					"product post operation", null, null, null, null, null,
 					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
@@ -92,7 +92,7 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
-			Util.logStats(HousingController.staticMongoTemplate,
+			Util.logStats(HousingController.staticMongoTemplate, request,
 					"product delete operation", null, null, null, null, null,
 					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
@@ -127,7 +127,7 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
-			Util.logStats(HousingController.staticMongoTemplate,
+			Util.logStats(HousingController.staticMongoTemplate, request,
 					"product update operation", null, null, null, null, null,
 					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
@@ -163,9 +163,9 @@ public class ProductsProxyController {
 			URI uri = new URI("http", null, server, port, path[1],
 					request.getQueryString(), null);
 			System.out.println(uri.toString());
-			Util.logStats(HousingController.staticMongoTemplate,
-					"product product get operation", null, null, null, null, null,
-					Arrays.asList(path[1]), uri.toString(), "PRODUCT");
+			Util.logStats(HousingController.staticMongoTemplate, request,
+					"product product get operation", null, null, null, null,
+					null, Arrays.asList(path[1]), uri.toString(), "PRODUCT");
 			HttpHeaders headers = copyHeader(request, new HttpHeaders());
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 

@@ -110,9 +110,10 @@ public class HousingController {
 		} catch (Exception e) {
 			Util.handleException(e);
 		}
-		Util.logStats(staticMongoTemplate, "query for housing listing", null,
-				null, null, null, null, filterCriteria,
-				"getting housings based on filters applied", "SERVICES");
+		Util.logStats(staticMongoTemplate, request,
+				"query for housing listing", null, null, null, null, null,
+				filterCriteria, "getting housings based on filters applied",
+				"SERVICES");
 		return BYGenericResponseHandler.getResponse(housingPage);
 	}
 
@@ -160,7 +161,7 @@ public class HousingController {
 		if (null == housingFacility) {
 			throw new BYException(BYErrorCodes.NO_CONTENT_FOUND);
 		}
-		Util.logStats(staticMongoTemplate, "Detail for housing",
+		Util.logStats(staticMongoTemplate, request, "Detail for housing",
 				currentUser != null ? currentUser.getId() : null,
 				currentUser != null ? currentUser.getEmail() : null, housingId,
 				null, null, Arrays.asList("housingId = " + housingId),

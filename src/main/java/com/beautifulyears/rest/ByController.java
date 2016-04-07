@@ -2,6 +2,8 @@ package com.beautifulyears.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -34,12 +36,12 @@ public class ByController {
 
 	@RequestMapping(method = { RequestMethod.GET }, value = { "/getLanguages" }, produces = { "application/json" })
 	@ResponseBody
-	public Object getLanguages() throws Exception {
+	public Object getLanguages(HttpServletRequest req) throws Exception {
 		logger.debug("getting languages");
 		List<Language> languages = null;
 		languages = mongoTemplate.findAll(Language.class);
-		Util.logStats(mongoTemplate, "get all languages", null, null, null,
-				null, null, null, "calling /getLanguages api", "GENERAL");
+		Util.logStats(mongoTemplate, req, "get all languages", null, null,
+				null, null, null, null, "calling /getLanguages api", "GENERAL");
 		return BYGenericResponseHandler.getResponse(languages);
 	}
 }

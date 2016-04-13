@@ -242,7 +242,7 @@ public class UserController {
 				}
 
 				User existingUser = mongoTemplate.findOne(q, User.class);
-
+				User userWithExtractedInformation = decorateWithInformation(user);
 				if (null != existingUser) {
 					if (existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
 						user.setId(existingUser.getId());
@@ -255,7 +255,7 @@ public class UserController {
 					}
 				}
 
-				User userWithExtractedInformation = decorateWithInformation(user);
+				
 
 				if (isGuestUser(user)) {
 					userWithExtractedInformation

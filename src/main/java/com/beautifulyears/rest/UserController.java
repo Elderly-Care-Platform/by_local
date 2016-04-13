@@ -227,6 +227,7 @@ public class UserController {
 		LoggerUtil.logEntry();
 		Session session = (Session) req.getSession().getAttribute("session");
 		boolean isPasswordEntered = true;
+		boolean isUserExists = false;
 		if (null != user && (Util.isEmpty(user.getId()))) {
 			try {
 				Query q = new Query();
@@ -244,8 +245,10 @@ public class UserController {
 				User existingUser = mongoTemplate.findOne(q, User.class);
 				User userWithExtractedInformation = decorateWithInformation(user);
 				if (null != existingUser) {
+					isUserExists = true;
 					if (existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
 						userWithExtractedInformation.setId(existingUser.getId());
+						user.setId(existingUser.getId());
 					} else {
 						logger.debug("user with the same credential already exist = "
 								+ user.getEmail()
@@ -272,9 +275,11 @@ public class UserController {
 						.save(userWithExtractedInformation);
 				changeUserName(userWithExtractedInformation.getId(),
 						userWithExtractedInformation.getUserName());
-				sendWelcomeMail(userWithExtractedInformation);
-				logHandler.addLog(userWithExtractedInformation,
-						ActivityLogConstants.CRUD_TYPE_CREATE, req);
+				if(!isUserExists){
+					sendWelcomeMail(userWithExtractedInformation);
+					logHandler.addLog(userWithExtractedInformation,
+							ActivityLogConstants.CRUD_TYPE_CREATE, req);
+				}
 
 				if (Util.isEmpty(user.getPassword())) {
 					isPasswordEntered = false;

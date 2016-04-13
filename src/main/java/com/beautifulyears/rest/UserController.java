@@ -247,8 +247,12 @@ public class UserController {
 				if (null != existingUser) {
 					isUserExists = true;
 					if (existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
-						userWithExtractedInformation.setId(existingUser.getId());
+						userWithExtractedInformation
+								.setId(existingUser.getId());
 						user.setId(existingUser.getId());
+						user.setCreatedAt(existingUser.getCreatedAt());
+						userWithExtractedInformation.setCreatedAt(existingUser
+								.getCreatedAt());
 					} else {
 						logger.debug("user with the same credential already exist = "
 								+ user.getEmail()
@@ -257,8 +261,6 @@ public class UserController {
 						throw new BYException(BYErrorCodes.USER_ALREADY_EXIST);
 					}
 				}
-
-				
 
 				if (isGuestUser(user)) {
 					userWithExtractedInformation
@@ -275,7 +277,7 @@ public class UserController {
 						.save(userWithExtractedInformation);
 				changeUserName(userWithExtractedInformation.getId(),
 						userWithExtractedInformation.getUserName());
-				if(!isUserExists){
+				if (!isUserExists) {
 					sendWelcomeMail(userWithExtractedInformation);
 					logHandler.addLog(userWithExtractedInformation,
 							ActivityLogConstants.CRUD_TYPE_CREATE, req);

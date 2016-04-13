@@ -12,6 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.beautifulyears.constants.UserRolePermissions;
 
+/**
+ * @author Nitin
+ *
+ */
 @Document(collection = "users")
 public class User implements Serializable {
 
@@ -30,7 +34,7 @@ public class User implements Serializable {
 
 	// Unique
 	String email;
-	private final Date createdAt = new Date();
+	private Date createdAt = new Date();
 	private String verificationCode = UUID.randomUUID().toString();
 	private Date verificationCodeExpiry = this
 			.setCodeExpiryDate(new Date(), 15);
@@ -44,10 +48,12 @@ public class User implements Serializable {
 	private Integer userRegType;
 	private String phoneNumber;
 	private List<String> userTags = new ArrayList<String>();
-	
+
 	private List<Integer> permissions = new ArrayList<Integer>();
-	
-	
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
 	public List<String> getUserTags() {
 		return userTags;
@@ -114,11 +120,12 @@ public class User implements Serializable {
 
 	}
 
-	public User(String userName, Integer userIdType,Integer userRegType, String password, String email,
-			String phoneNumber, String verificationCode,
-			Date verificationCodeExpiry, String socialSignOnId,
-			String socialSignOnPlatform, String passwordCode,
-			Date passwordCodeExpiry, String userRoleId, String isActive,List<String> userTags) {
+	public User(String userName, Integer userIdType, Integer userRegType,
+			String password, String email, String phoneNumber,
+			String verificationCode, Date verificationCodeExpiry,
+			String socialSignOnId, String socialSignOnPlatform,
+			String passwordCode, Date passwordCodeExpiry, String userRoleId,
+			String isActive, List<String> userTags) {
 		super();
 		this.userName = userName;
 		this.password = password;

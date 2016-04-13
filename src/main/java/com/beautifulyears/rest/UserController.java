@@ -245,7 +245,7 @@ public class UserController {
 				User userWithExtractedInformation = decorateWithInformation(user);
 				if (null != existingUser) {
 					if (existingUser.getUserRegType() == BYConstants.USER_REG_TYPE_GUEST) {
-						user.setId(existingUser.getId());
+						userWithExtractedInformation.setId(existingUser.getId());
 					} else {
 						logger.debug("user with the same credential already exist = "
 								+ user.getEmail()

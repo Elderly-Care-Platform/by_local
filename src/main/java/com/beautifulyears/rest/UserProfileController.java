@@ -610,7 +610,9 @@ public class UserProfileController {
 		Map<String, Integer> countMap = new HashMap<String, Integer>();
 		for (UserProfileController.ProfileCount profileCount : groupResults
 				.getMappedResults()) {
-			countMap.put(profileCount.getUserTypes(), profileCount.getTotal());
+			if(null != profileCount.getUserTypes()){
+				countMap.put(profileCount.getUserTypes(), profileCount.getTotal());
+			}
 		}
 		Long housing = HousingController.getHousingCount();
 		countMap.put("" + UserTypes.INSTITUTION_HOUSING,

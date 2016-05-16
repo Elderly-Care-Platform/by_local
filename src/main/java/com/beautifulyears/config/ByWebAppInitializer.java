@@ -10,6 +10,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.beautifulyears.servlet.GenerateBarCode;
 import com.beautifulyears.servlet.InitServlet;
+import com.beautifulyears.servlet.Surl;
 import com.beautifulyears.servlet.UploadFile;
 
 public class ByWebAppInitializer implements
@@ -48,6 +49,12 @@ public class ByWebAppInitializer implements
 		dynamc3.addMapping("/generateBarCode");
 		dynamc3.setLoadOnStartup(4);
 		dynamc3.setAsyncSupported(true);
+		
+		Dynamic dynamc4 = servletContext.addServlet("surl",
+				new Surl());
+		dynamc4.addMapping("/surl");
+		dynamc4.setLoadOnStartup(5);
+		dynamc4.setAsyncSupported(true);
 
 	}
 

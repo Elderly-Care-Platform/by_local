@@ -37,8 +37,10 @@ public class ShortUrlController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public @ResponseBody Object getShortUrl(@RequestParam String url, HttpServletRequest req,
 			HttpServletResponse res) {
+		
+		System.out.println("making short Url for - "+url);
 		String urlId = getHashCode();
-		String sUrl = "https://blyrs.co/BY/surl?q=" + urlId;
+		String sUrl = "http://blyrs.co/BY/surl?q=" + urlId;
 		ShortUrl su = new ShortUrl();
 		su.setUrlId(urlId);
 		su.setActualUrl(url);

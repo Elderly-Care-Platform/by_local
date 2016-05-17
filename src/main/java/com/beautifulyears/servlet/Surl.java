@@ -24,7 +24,9 @@ public class Surl extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String urlId = req.getParameter("q");
+		System.out.println("request came as short utl for urlId = "+urlId);
 		String url = ShortUrlController.getUrl(urlId);
+		System.out.println("redirecting to Url = "+url);
 		resp.sendRedirect(resp.encodeRedirectURL(url));
 		
 	}

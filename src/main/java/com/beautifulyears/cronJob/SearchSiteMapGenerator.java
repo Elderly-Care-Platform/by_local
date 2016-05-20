@@ -625,7 +625,7 @@ public class SearchSiteMapGenerator implements Runnable {
 			String searchTerm) throws IOException {
 		searchTerm = escapeXml(searchTerm);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
-				+ "/#!/search/" + searchTerm + "/All").lastMod(new Date())
+				+ "/search/" + searchTerm + "/All").lastMod(new Date())
 				.build();
 		wsg.addUrl(wsmUrl);
 		SiteMapGenerator.allUrls.put(searchTerm, wsmUrl.getUrl().toString());

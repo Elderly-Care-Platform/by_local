@@ -158,7 +158,7 @@ public class ListingsSiteMapGenerator implements Runnable {
 			String parentMenuName, int moduleId) throws MalformedURLException {
 		if (!menu.isHidden() && menu.getModule() == moduleId) {
 			String slug = Util.getSlug(menu.getDisplayMenuName());
-			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/"
+			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/"
 					+ parentMenuName + "/" + slug + "/" + menu.getId() + "/all")
 					.lastMod(new Date()).build();
 			wsg.addUrl(wsmUrl);
@@ -181,7 +181,7 @@ public class ListingsSiteMapGenerator implements Runnable {
 			String slug = Util.getSlug(categoryName);
 			int categoryId = category.getInt("id");
 			WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
-					+ "/#!/shop/" + slug + "/"
+					+ "/elder-care-products/" + slug + "/"
 					+ categoryId).lastMod(new Date()).build();
 			wsg.addUrl(wsmUrl);
 			SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());

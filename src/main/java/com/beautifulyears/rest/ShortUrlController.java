@@ -39,15 +39,19 @@ public class ShortUrlController {
 			HttpServletResponse res) {
 		
 		System.out.println("making short Url for - "+url);
-		String urlId = getHashCode();
-		String sUrl = "http://blyrs.co/BY/surl?q=" + urlId;
-		ShortUrl su = new ShortUrl();
-		su.setUrlId(urlId);
-		su.setActualUrl(url);
-		su.setShortUrl(sUrl);
-		su.setCreateAt(new Date());
-		mongoTemlate.save(su);
-		return sUrl;
+		ShortUrl su = findUrl(url);
+		if(null == su){
+			String urlId = getHashCode();
+			String sUrl = "http://blyrs.co/BY/surl?q=" + urlId;
+			su = new ShortUrl();
+			su.setUrlId(urlId);
+			su.setActualUrl(url);
+			su.setShortUrl(sUrl);
+			su.setCreateAt(new Date());
+			mongoTemlate.save(su);
+		}
+		
+		return su.getShortUrl();
 	}
 	
 
@@ -92,6 +96,13 @@ public class ShortUrlController {
 		}
 		
 		return url;
+	}
+	
+	public static ShortUrl findUrl(String url){
+		Query q = new Query();
+		q.addCriteria(Criteria.where("actualUrl").is(url));
+		ShortUrl su = mongoTemlate.findOne(q, ShortUrl.class);
+		return su;
 	}
 
 }

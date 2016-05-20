@@ -49,24 +49,24 @@ public class SiteMapGenerator {
 	private String selfUrl = "https://www.beautifulyears.com";
 
 	private final String communityMenuId = "564071623e60f5b66f62df27";
-	private String communityMenuUrl = "/#!/communities/564071623e60f5b66f62df27/all";
+	private String communityMenuUrl = "/elder-care-forums/564071623e60f5b66f62df27/all";
 	private final int MODULE_ID_DISCUSS = 0;
 	private final String communityUrlPrefix = "communities";
 
 	private final int MODULE_ID_SERVICES = 1;
 	private final String servicesUrlPrefix = "directory";
-	private String servicesMenuUrl = "/#!/directory/56406cd03e60f5b66f62df26/all";
+	private String servicesMenuUrl = "/elder-care-services/56406cd03e60f5b66f62df26/all";
 	private final String serviceMenuId = "56406cd03e60f5b66f62df26";
 	private final List<String> servicesTags = Arrays.asList(
 			"55bc9da5e4b0ac8d31666b48", "55bc9de3e4b0ac8d31666b49");
 
-	private String housingMenuUrl = "/#!/senior-living/55bcadaee4b08970a736784c/all";
+	private String housingMenuUrl = "/senior-living/55bcadaee4b08970a736784c/all";
 	private final List<String> housingTags = Arrays.asList(
 			"55bc9de3e4b0ac8d31666b49", "55f06f64e4b04c28cae2927d",
 			"55f06f74e4b04c28cae2927e", "55f06f85e4b04c28cae2927f",
 			"55f06f93e4b04c28cae29280", "55f06fa1e4b04c28cae29281");
 
-	private String shopMenuUrl = "/#!/shop/55bcad7be4b08970a736784b";
+	private String shopMenuUrl = "/elder-care-products/55bcad7be4b08970a736784b";
 	private String productServerHost = "qa.beautifulyears.com";
 	private String productServerPort = "8083";
 

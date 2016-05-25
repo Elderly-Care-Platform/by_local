@@ -82,7 +82,7 @@ public class ServicesSiteMapGenerator implements Runnable {
 			UserProfileResponse.UserProfileEntity profile)
 			throws MalformedURLException {
 		String slug = getUserSlug(profile);
-		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/users/"
+		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/elder-care-services/"
 				+ slug + "/?profileId=" + profile.getUserId()).lastMod(
 				new Date()).build();
 		wsg.addUrl(wsmUrl);

@@ -593,7 +593,7 @@ public class UserController {
 		try {
 			ResourceUtil resourceUtil = new ResourceUtil(
 					"mailTemplate.properties");
-			String url = System.getProperty("path") + "#!/users/resetPassword/"
+			String url = System.getProperty("path") + "users/resetPassword/"
 					+ user.getVerificationCode();
 			String userName = !Util.isEmpty(user.getUserName()) ? user
 					.getUserName() : "Anonymous User";

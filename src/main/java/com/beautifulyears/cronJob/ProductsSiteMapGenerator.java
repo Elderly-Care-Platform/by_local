@@ -121,8 +121,8 @@ public class ProductsSiteMapGenerator implements Runnable {
 		String productName = product.getString("name");
 		int productId = product.getInt("id");
 		String slug = Util.getSlug(productName);
-		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/"
-				+ slug + "/pd/" + productId).lastMod(new Date()).build();
+		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/"
+				+ slug + "/pd/elder_care_products/" + productId).lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
 		SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());
 		qrCodeHTML += createQrCode(wsmUrl.getUrl().toString(),slug);

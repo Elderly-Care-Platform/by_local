@@ -72,7 +72,7 @@ public class CommunitiesSiteMapGenerator implements Runnable {
 			Discuss discuss) throws MalformedURLException {
 		String slug = getDiscussSlug(discuss);
 		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl
-				+ "/#!/communities/" + slug + "/?id="
+				+ "/elder-care-forums/" + slug + "/?id="
 				+ discuss.getId()).lastMod(new Date()).build();
 		wsg.addUrl(wsmUrl);
 		SiteMapGenerator.allUrls.put(slug, wsmUrl.getUrl().toString());

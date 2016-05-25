@@ -78,7 +78,7 @@ public class HousingSiteMapGenerator implements Runnable {
 	private WebSitemapGenerator addHousingUrl(WebSitemapGenerator wsg,
 			HousingResponse.HousingEntity housing) throws MalformedURLException {
 		String slug = getHousingSlug(housing);
-		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/#!/users/"
+		WebSitemapUrl wsmUrl = new WebSitemapUrl.Options(selfUrl + "/elder-care-services/"
 				+ slug + "/?profileId=" + housing.getUserId()
 				+ "&amp;branchId=" + housing.getId()).lastMod(new Date())
 				.build();

@@ -27,7 +27,7 @@ public class ShareEmailHelper {
 			if (!Util.isEmpty(currentUser.getUserName())) {
 				userName = currentUser.getUserName();
 			}
-			senderLink = System.getProperty("path") + "/#!/users/" + userName
+			senderLink = System.getProperty("path") + "/users/" + userName
 					+ "?profileId=" + currentUser.getId();
 		}else if(!Util.isEmpty(details.get("senderName"))){
 			userName = details.get("senderName");
@@ -50,10 +50,10 @@ public class ShareEmailHelper {
 			authorUserName = discuss.getUsername();
 		}
 
-		String discussLink = System.getProperty("path") + "/#!/communities/"
+		String discussLink = System.getProperty("path") + "/elder-care-forums/"
 				+ details.get("title") + "?id=" + discuss.getId();
 
-		String authorLink = System.getProperty("path") + "/#!/users/"
+		String authorLink = System.getProperty("path") + "/users/"
 				+ discuss.getUsername() + "?profileId=" + discuss.getUserId();
 
 		Date discussDate = discuss.getCreatedAt();

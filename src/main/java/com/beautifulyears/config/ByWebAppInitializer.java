@@ -1,6 +1,5 @@
 package com.beautifulyears.config;
 
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
